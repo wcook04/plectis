@@ -538,7 +538,7 @@
     "subject": "Erdős #249",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 15,
+    "pages": 16,
     "question": "What explicit basis and integral relations does the totient k-kernel have at every integer base, and why does that not decide Erdős #249?",
     "precis": "For integers k≥2 and e≥1, the totient sections n↦φ(k^j n+r) with 0≤j≤e and 0≤r<k^j have an explicit rational basis of dimension k^e+1. Every section is an explicit integer multiple of a retained one, and these reductions generate all integral relations, with unique coefficients. The proof combines the local formula for Euler's totient with a nonsingular evaluation matrix obtained from the Chinese remainder theorem and Dirichlet's theorem. The basis theorem does not decide the irrationality of S=∑ φ(n)2^{-n}.",
     "owns": "the exact finite-level totient-kernel basis, independence proof and integral relations; the long paper develops denominator exclusions and other approaches to the binary series",
@@ -562,17 +562,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
       "renderer_fingerprint": "065862ae86e3b045",
-      "source_sha256": "1082fde7b9cd2a3788d00ea6c7acee2422a7ee3100be6015f93fe0d307204680",
+      "source_sha256": "cb6ddb9287d6e5471a76a36a2b177acb9dd21f03f3a58cbeb4bef68698cd02a6",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 481,
+      "mathml_node_count": 496,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "420356dc3d5b561167aaa9898daf8a1a2b96c759b1abe98218d5070ac935c302",
-      "html_exact_tex_sha256": "243c0179b4ea39afbd37c792643a0df4afc25cdf6e080a8061f17f78d2b4d27e"
+      "html_mathml_sha256": "a42ce0aa0ee3c9013cc000050fc8ce9af04c65446060f29329b55036eb6bb19e",
+      "html_exact_tex_sha256": "87d2e2c0c8098b2a82ad8a9b7a1bede0e2b0b1557a6f8cdfd4a7996c2a007486"
     },
     "sections": [
       {
@@ -687,7 +687,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 15,
+      "pages": 16,
       "question": "What explicit basis and integral relations does the totient k-kernel have at every integer base, and why does that not decide Erdős #249?",
       "precis": "For integers k≥2 and e≥1, the totient sections n↦φ(k^j n+r) with 0≤j≤e and 0≤r<k^j have an explicit rational basis of dimension k^e+1. Every section is an explicit integer multiple of a retained one, and these reductions generate all integral relations, with unique coefficients. The proof combines the local formula for Euler's totient with a nonsingular evaluation matrix obtained from the Chinese remainder theorem and Dirichlet's theorem. The basis theorem does not decide the irrationality of S=∑ φ(n)2^{-n}.",
       "owns": "the exact finite-level totient-kernel basis, independence proof and integral relations; the long paper develops denominator exclusions and other approaches to the binary series",
@@ -711,17 +711,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "065862ae86e3b045",
-        "source_sha256": "1082fde7b9cd2a3788d00ea6c7acee2422a7ee3100be6015f93fe0d307204680",
+        "source_sha256": "cb6ddb9287d6e5471a76a36a2b177acb9dd21f03f3a58cbeb4bef68698cd02a6",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 481,
+        "mathml_node_count": 496,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "420356dc3d5b561167aaa9898daf8a1a2b96c759b1abe98218d5070ac935c302",
-        "html_exact_tex_sha256": "243c0179b4ea39afbd37c792643a0df4afc25cdf6e080a8061f17f78d2b4d27e"
+        "html_mathml_sha256": "a42ce0aa0ee3c9013cc000050fc8ce9af04c65446060f29329b55036eb6bb19e",
+        "html_exact_tex_sha256": "87d2e2c0c8098b2a82ad8a9b7a1bede0e2b0b1557a6f8cdfd4a7996c2a007486"
       },
       "sections": [
         {
@@ -836,7 +836,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 160,
+      "pages": 163,
       "question": "What can the totient-kernel basis and residue tests say about Erdős #249, and which hypotheses still block irrationality?",
       "precis": "The dyadic totient sections through level e≥1 have an explicit rational basis of size 2^e+1. Truncating a scaled tail difference produces an integer whose residue certifies nonintegrality when its distances from both endpoints of the residue interval exceed an explicit error bound. The record develops the resulting finite denominator exclusions, equivalent residue criteria, and sufficient exponential-sum estimates. Rational comparison sequences identify the limitations of particular size, parity, rank, and finite-prefix arguments. The short paper supplies the all-base basis theorem; here each conditional result carries the arithmetic hypothesis still needed to apply it. Those hypotheses are not established in the form required to prove irrationality of S=∑ φ(n)2^{-n}.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
@@ -860,10 +860,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "065862ae86e3b045",
-        "source_sha256": "f92a0159d48f2e2478b37982c88b6e4b7aa7e6767c482b0a39896516c1ff7ff9",
+        "source_sha256": "e9e5032bdc4824ed696914d222ebf808bd7171e3209cbcbae335bae3f1ecae15",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 5262,
+        "mathml_node_count": 5321,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -888,8 +888,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "1681cb780e7f2388aa795dd382055d88f3b2b1d2c0e4cf07c2a490188dec453f",
-        "html_exact_tex_sha256": "efbccac23ff5a86d720bc382cdc5b2aa82dd5c7444959d31a369db92522283de"
+        "html_mathml_sha256": "caab19b9061797ee4b532da9b974252e494915663c4a9d886fa38d69173160e1",
+        "html_exact_tex_sha256": "15ddbc6f48e9fa96d29c2d602092fe794707f09ab00026130c21da44df6f77d3"
       },
       "sections": [
         {
@@ -981,16 +981,6 @@
           "level": 2,
           "anchor": "guide-to-the-detailed-statements",
           "label": "Guide to the detailed statements"
-        },
-        {
-          "level": 5,
-          "anchor": "quantifiers-and-hypotheses.",
-          "label": "Quantifiers and hypotheses."
-        },
-        {
-          "level": 5,
-          "anchor": "dependencies.",
-          "label": "Dependencies."
         },
         {
           "level": 2,

@@ -3,30 +3,35 @@
 \section{Keeping a useful practice small}\label{sec:practice}
 \papersectiontarget{exposition-practice}
 
-Use the two-page \emph{Writing a Good Mathematical Paper}~\cite{compact} as a
-working guide; use this companion when a particular instruction needs an
-example or a limit. The repository's writing skill~\cite{skill} incorporates
-the literature-reading pass, while its records retain the detailed cases and
-exceptions. A writer need not read every past return before explaining a proof.
-The next revision should resolve a specific difficulty, not demonstrate that
-every rule has been mentioned.
+Revise with the two-page \emph{Writing a Good Mathematical Paper}~\cite{compact};
+use this companion for examples and limits. The writing skill~\cite{skill}
+and its records retain the detailed cases. Locate the present difficulty,
+use the relevant advice and leave successful passages alone. Rereading every
+past return is not a prerequisite.
 
 \subsection{Revise in an order that preserves the argument}\label{sec:revision-order}
 
-Begin with the full statement, proof and closest prior results. Write a brief
-account of the contribution, the decisive inference and the exact boundary.
-Check this account against the abstract and introduction. When a condition is
-only sufficient, a witness is shared, or a parameter is fixed, preserve that
-qualification in every compressed occurrence. Agreement among several summaries
-is not enough if all have inherited the same overstatement.
+Start with the full statement, proof and closest prior results. State the
+contribution, decisive inference and boundary in a few sentences, then compare
+them with the abstract and introduction. Trace each advertised gain to the
+precise statement that supplies it. Preserve sufficient-only conditions, shared
+witnesses and fixed parameters under compression. Agreement between summaries
+does not help when all inherit the same overclaim.
 
-Next choose the passage where the intended reader must supply the most
-consequential missing explanation. Ask a concrete question: why this parameter,
-why this normalisation, why this error threshold, or why does this limit give
-the asserted object? Read a relevant local argument in an original source,
-then find the mathematical answer in the manuscript. Write the sentence that
-connects that answer to the next step. If the answer is absent, record the
-mathematical issue rather than concealing it with a connective.
+Next mark the point where a reader must supply a consequential step. Write
+down what the preceding passage establishes and what the next passage needs.
+In the certificate case, the first supplies an error bound and the second
+needs containment in an open interval. The missing explanation is the comparison
+with both endpoint gaps, not more description of the computation. A nearby
+proof can suggest how to present that comparison.
+
+Find the answer in the manuscript's own argument. If it is established elsewhere,
+bring the relevant fact or a precise reference to this point. If it is not
+established, record a mathematical issue rather than insert ``therefore''.
+When it is established, write the connecting sentence with its conditions.
+Then check whether it makes the inference or merely renames it: ``the estimate
+is sufficient'' still leaves the certificate's two endpoint comparisons unexplained.
+The source models the explanation; the local proof supplies its warrant.
 
 Review the revised paragraph with its predecessor and successor. Definitions
 must arrive before they are used, and the paragraph's conclusion must supply
@@ -37,27 +42,29 @@ make ordinary-looking prose say the wrong thing~\cite[\S\S1--2]{conrad}.
 A sentence-level pass is valuable after the dependency structure is sound;
 it cannot substitute for that earlier work.
 
-Finally, remove explanation that repeats an already intelligible operation.
-Keep a second account when it serves a different purpose, such as showing how
-to apply a formula after deriving it. Stop when another sentence would resolve
-no specific ambiguity, justify no missing transition and improve no useful
-route through the paper. This gives brevity a reader-facing purpose without
-imposing a page target.
+Finally, remove repetition that performs no further work. Deriving a formula
+and showing how to apply it are different tasks. Test a cut by reading the
+remaining transition: would the reader now have to rediscover a parameter
+choice, hypothesis or inference? Keep that explanation; cut its duplicate. Stop when another change resolves no identifiable
+difficulty, improves no useful reading route and corrects no inaccuracy.
+This is a reason to preserve an effective passage, not a ban on substantial
+revision when the difficulty requires it.
 
 \subsection{Keep the short paper and long record useful separately}\label{sec:short-long}
 
-Before moving a passage, identify what a reader of each document must still be
-able to do. The short paper should support its principal result through an
-intelligible proof or a clearly identified proof sketch with a precise full-proof
-destination. A long record should preserve the omitted derivation, its assumptions
-and its relation to the main argument. A link labelled ``details'' is insufficient
-when its destination proves a different statement or omits the difficult step.
+Before moving a passage, decide what each document must let its reader do.
+The short paper needs an intelligible proof of its principal result or a clearly
+labelled sketch with a precise full-proof destination. The long record must
+preserve the omitted derivation, assumptions and role in the argument. A
+``details'' link is insufficient when its destination proves a different
+statement or skips the difficult step.
 
 Compare the shared assertions in both directions. A repaired endpoint in the
 short paper must reach the long proof; an assumption exposed in the long proof
 must reach the short statement. After a move, follow the link to the actual
-passage and check that its notation can be translated. Retain substantial
-alternatives and counterexamples where they explain the scope or a failed
+passage. Match its hypotheses to the claim, and its notation to the short
+paper's quantities; a correct proof of a nearby statement is not the missing
+proof. Retain alternatives and counterexamples that explain scope or a failed
 method. Material that serves only the revision history can remain in the
 editorial record rather than interrupting the mathematical argument.
 
@@ -81,65 +88,54 @@ alone does not tell a reader which argument to inspect.
 
 \subsection{How the practice developed}
 
-The recorded process began with reviewers proposing changes to particular
-papers: move the result forward, explain a construction, shorten a repetitive
-section or repair an unsupported implication. Successive returns did not form
-a single consistent programme. In the earlier \#243 reviews, a cubic result
-and a bounded negative result were each proposed as the lead at different
-stages. Comparing these requests with the manuscripts yielded a narrower
-instruction: choose the result that gives the current paper its most coherent
-argument. The historical request remains evidence about that draft, not a
-permanent ranking of result types.
+The practice developed by comparing proposed revisions with the arguments
+they were meant to explain. The proposals were not a consistent programme.
+Earlier \#243 reviews recommended a cubic result and a bounded negative
+result as the lead at different stages. The useful lesson was to choose the
+contribution that gives the current paper a coherent argument, not to preserve
+a permanent ranking of result types.
 
-Each returned manuscript then met a separate integration decision. In the
-later second round, only one of nine candidates was accepted, although the
-returns had passed transport checks. In the third round, integration included
-restoring seventeen named-input remarks removed during compression. These
-events exposed different questions: did the proposed files arrive intact,
-did the revision preserve the mathematics and credit, and did it explain the
-argument? A pass on the first question could not answer the others. Comparing
-short papers with their longer records also recovered useful material, as the
-\#251 buffer-coordinate case illustrates.
+Integration also distinguished delivery from acceptance. In the later second
+round, only one of nine candidates was accepted although the returns had
+passed transport checks. Third-round integration restored seventeen named-input
+remarks removed during compression. Intact files did not ensure that a
+revision preserved the mathematics or credit. Comparing short and long versions
+also recovered omitted detail, as in the \#251 buffer-coordinate case.
 
-Later rounds supplied more explicit source models and before-and-after
-passages. The finite-remainder explanation survived review; a Knuth locator
-needed correction; a broad author--reader analogy did not justify a specific
-rule about estimates. The records retain these different outcomes.
+Later returns made source models and before-and-after passages more explicit.
+The finite-remainder explanation survived review; a Knuth locator required
+correction; a broad author--reader analogy did not justify a particular rule
+about estimates. The records retain those different outcomes rather than
+counting every proposal as progress.
 
-The nine R11 paper returns subsequently received editorial acceptance. Their
-recorded replacement passages occur in the manuscripts supplied for this
-revision. That correspondence supports using selected examples here; it does
-not establish reader benefit or justify nine new instructions. The new
-finite-difference, scope and systems cases refine existing guidance. The
-systems paper~\cite{systems} describes the mechanisms that retain these
-records; this guide concerns the editorial judgments they make inspectable.
+The nine R11 paper returns received editorial acceptance. The accepted R12
+revisions supply local clarifications, not nine new instructions.
+The \#269 revision distinguishes a short interval from one that excludes an
+integer; the systems revision distinguishes a recorded rationale from a
+judgement of its adequacy. These refine existing examples. The
+supplied dispositions record editorial acceptance, not reader benefit. The
+systems paper~\cite{systems-r12} describes the mechanisms retaining these records;
+this guide concerns the judgments they make inspectable.
 
 \subsection{From one case to a bounded amendment}
 
-Most accepted changes should become examples of existing guidance. Add a rule
-only when the case exposes a reusable distinction that the present instruction
-misses. State the circumstance in which it applies, the action to take, the
-evidence motivating it and a case in which it would fail. A page-one request
+Most accepted changes should become examples of existing guidance. Before
+adding a rule, try the existing instruction on the case: what decision does
+it fail to settle? Add only that missing distinction, with its circumstance,
+action, evidence and limit. A page-one request
 can become a reminder to remove unnecessary delay without becoming a page-one
 quota. A failed proof can become an explanation of a missing hypothesis without
 becoming a claim that every alternative approach is impossible.
 
-The public records separate recent proposals, historical requests, source
-identities and the manuscript decisions used to assess them. They retain
-unmatched and pending cases explicitly. A return may describe an edit in
-summary rather than supply the exact accepted words; this should be recorded
-as a correspondence still requiring inspection, not counted as either a
-rejected edit or a verbatim acceptance. Source passages are reviewed for their
-stated writing use. Inclusion in the source list does not assert a complete
-mathematical review of every cited paper.
+An edit summary without the accepted words establishes neither verbatim
+acceptance nor rejection. Keep the proposal, source and decision for later
+inspection; do not resolve the correspondence by assumption. Nor does including
+a source claim a review of all its mathematics.
 
-The record of a failure should be equally specific. Preserve the attempted
-implication, its assumptions, the witness to failure and the information
-missing from the argument. Failure of one estimate does not refute the
-theorem. Failure to run a check says that the check is unrun. An unavailable
-source says something about the review's evidence, not about the truth of the
-source's claim. These distinctions prevent a later writer from giving a
-historical obstacle more force than it had.
+For a failure, record the attempted implication, assumptions, witness and
+missing information. A failed estimate does not refute the theorem; an unrun
+check is not a failed one. An unavailable source limits review, not the truth
+of its claim. Preserve what the failed route actually ruled out.
 
 \subsection{Keep a revision recoverable}
 
@@ -147,8 +143,9 @@ Keep the manuscript, the guidance used and the source passages needed for
 review at identified versions. A manifest of paths and byte digests identifies
 the supplied files; it does not establish which passages anyone read. Retain
 the proposed words, their reason and limit, and the decision reached against
-the current argument. Later reviewers should be able to recover both the
-proposal and the accepted wording.
+the current argument. In a cumulative revision, check each earlier improvement
+against the new wording: an intact archive preserves history, not necessarily
+the improvement in the manuscript.
 
 A later correction to a citation or proof does not become an achievement of
 the earlier return. Preserve both versions rather than silently replacing
@@ -170,21 +167,21 @@ Read the result along three routes. First, scan the title, abstract,
 introduction and main statements: recover the contribution and its boundary
 without importing private knowledge. Second, reconstruct the proof: identify
 where each hypothesis is used and explain the difficult inference in your own
-words. Third, try to use a result: check its assumptions on an example, locate
-an excluded case and find the cited input needed for an application.
+words. Third, try to use a result: check its assumptions on an example, identify
+an excluded case where known, and find the cited input needed for an application.
 
-For the examples here, these tasks have specific answers. In
-Section~\ref{sec:certificate}, the certificate places a value in $(1/2,1)$;
-its two inequalities come from the two endpoint gaps; the value $D=3/4$ with
-the loose enclosure $[1/2,1]$ shows why a failed test is inconclusive. A reader
-who can repeat ``compare both endpoints'' but cannot explain that failure has
-not yet recovered how to use the certificate. This identifies a passage to
-revisit, not a numerical score for understanding.
+Ask a question that requires using the explanation. In
+Section~\ref{sec:certificate}, why are there two inequalities, and can a failed
+test become successful without changing $D$? The target is $(1/2,1)$; each
+inequality protects an endpoint. For $D=3/4$, replacing the enclosure $[1/2,1]$
+by a sharper one can change the verdict without changing the value. The reader
+must distinguish value from enclosure, not merely repeat ``compare both endpoints''.
+A difficulty with that task identifies a passage to revisit, not a numerical
+score for understanding.
 
-When an independent reader is available, ask for the exact place where their
-reconstruction stopped and what they believed had been established there.
-An author's own cold-start pass is still useful, but should be reported as
-self-review. No independent reader is implied by the procedure described here.
+Ask an independent reader where reconstruction stopped and what seemed
+established. An author's cold-start pass is useful self-review; describing
+this procedure does not imply that an independent reader took part.
 
 The checks answer limited questions. A successful build establishes that the
 source rendered under the recorded toolchain. A passage comparison helps
@@ -196,24 +193,20 @@ alongside gains. A claim of improved comprehension would require evidence
 from readers performing a specified task on identified versions, with the
 comparison and its limitations recorded.
 
-The method leaves that empirical question open. It makes a particular editorial
-decision inspectable: a source suggests an explanatory choice, the local
-mathematics warrants the new sentence, and the review records its fate. The
-practical standard remains the reader's ability to recover the argument. A
-different proof may warrant a different choice.
+The immediate editorial test is whether the revision exposes a warranted
+relation and the record identifies what changed and was accepted. That test
+can favour a longer explanation in one proof and a shorter one in another;
+measured reader benefit remains a separate question.
 
 
 \section{Transfer the method across research genres}\label{sec:genre-transfer}
 
-The common task is to make the relation between a claim and its warrant
-legible. What counts as a warrant depends on the field and the sentence.
-For a mathematical theorem, state the domain and hypotheses, then explain
-the proof's hard implication. A systems paper may describe a design, report an
-implemented mechanism or compare performance under a workload. Identify which
-of these is being claimed. An empirical comparison needs the tested
-implementation, conditions, comparator and observed result; a proposed design
-must not be presented as an implemented one. A build or artifact check concerns
-the tested objects, not unrestricted performance or usability.
+A theorem, an implemented mechanism and a performance comparison require
+different kinds of support. For a theorem, explain the implication under its
+stated hypotheses. For a system, distinguish a design proposal from what is
+implemented, then identify what was tested. A performance claim needs the
+implementation, workload, comparator and observed result. An artifact build
+cannot establish unrestricted performance or usability.
 
 Levin and Redell distinguish papers about implemented systems, proposed
 systems and theoretical work, and caution that evaluation criteria vary across
@@ -221,26 +214,28 @@ those classes~\cite{levin-redell}. The SIGPLAN empirical-evaluation guidance
 asks authors to state claims and limitations clearly, and treats its checklist
 as an aid to judgment rather than a universal score~\cite{sigplan-evaluation}.
 These are genre-specific primary sources, not proof authority for any
-particular system. A nearby systems paper's opening and evaluation should also
-be read at their actual passages before transferring a sentence pattern.
+particular system. Trace a task through the system's components: what each receives,
+changes and passes on, and who reviews the result. A component list alone
+leaves those relations unexplained. Read a nearby system's opening and
+evaluation before transferring its presentation.
 
-A fair comparison names the mechanisms already present in the closest work.
-Prove2Me separates immutable theorem statements from submitted proofs; its
-missions have a human-audited core, and its milestones link source statements
-to attested formalisations~\cite[\S\S3--4]{prove2me}. The R11 systems revision
-credits those features before describing its own focus: a paper assertion at
-a specified revision, its full registered support set and a separate record
-binding explanatory prose to sources~\cite[related work]{systems}. This is a
-comparison of recorded objects and responsibilities. It does not establish
-that the designs are exclusive, that one has priority, or that repository
-hosting is an advantage over a service.
+A fair comparison names the closest corresponding object, not just a common
+aim. Prove2Me separates immutable theorem statements from submitted proofs and
+fixes a human-audited mission core. Its milestones link source statements to
+attested formalisations~\cite[\S\S3--4]{prove2me}. The R12 systems revision
+compares a milestone with its coverage record, which follows a particular
+paper occurrence and lists the registered formal supports. Listing supports
+does not compose their proofs. A separate record binds explanatory prose to
+sources~\cite[related work]{systems-r12}. This difference of focus establishes
+neither exclusivity, priority nor an advantage of repository hosting over a
+service.
 
-Verbs need equally precise subjects. In that revision, builders regenerate
-derived views; release checks test their consistency. Saying that the checks
-``update the records'' would assign them a different operation. Naming who
-or what acts, on which input, and with which output is often enough to make
-an infrastructure description intelligible without inventing a private
-vocabulary~\cite[stored artifacts and executable tools]{systems}.
+Verbs need equally precise subjects. Builders regenerate derived views;
+release checks test consistency. Calling both operations ``updating the
+records'' would obscure who changes what. The same discipline applies to a
+check's guarantee: the passage checker requires matching text and source
+digests and a nonempty rationale; it does not judge whether that rationale
+supports the passage~\cite[operations on the records; proof and publication checks]{systems-r12}.
 
 
 The repository's systems manuscript gives a concrete example. It reports nine
@@ -251,23 +246,22 @@ that escaped edit against a repair; the other nine edits were not rerun
 trials, not a general $90\%$ reliability rate. The second describes the tested
 repair, not a post-repair ten-out-of-ten result. The manuscript also records
 missing original logs and the absence of an independent comparison. Those
-qualifications determine which conclusion the observations can support; they
-are not incidental implementation details.
+qualifications determine the conclusion. A repair that catches one escaped
+edit has passed that regression check; its effects on unrerun cases remain
+unmeasured.
 
-In an expository scientific paper, similarly identify the underlying study or
-derivation, the population or model, the observed or cited result, and the
-author's synthesis. If the paper contributes no new experiment, say so.
-Compare each inference with the cited primary study and with nearby expositions
-in that field; do not turn a reported association into causation or a model's
-prediction into an observation.
+In a scientific exposition, identify the study or derivation, the population
+or model, the reported result and the author's synthesis. State when there
+is no new experiment. Check each inference against the primary study: an
+association is not automatically causation, and a model prediction is not
+an observation.
 
-Sentence structure should expose these dependencies. Put the condition before
-its consequence when the condition controls the claim; name the measured
-quantity and comparator in the same sentence as the reported change; keep
-parallel outcomes in parallel clauses. The value of this practice is local:
-it lets a reader test exactly which evidence licenses each statement. It is
-not a single prose template for mathematics, systems research and every
-science.
+Keep the controlling condition beside the claim. In an empirical comparison,
+name the measured quantity and comparator with the reported change; in parallel
+outcomes, use parallel clauses. The earlier examples show why this helps:
+``rejected nine of ten selected edits'' and ``rejected the escaped edit after
+repair'' describe different trials. Their difference must remain visible in
+the sentence, not be left for a distant limitation to undo.
 
 \section*{Acknowledgement}
 Wouter van Doorn's feedback on first-reader legibility, recorded in the project's

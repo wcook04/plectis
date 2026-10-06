@@ -13,14 +13,14 @@
       "artifacts": [
         {
           "excerpt_sha256": "sha256:4fccb25970fe4d947353fbb0ac94e7491bdd3e9ff10f3d53ddab5ffa734e53e8",
-          "line_end": 607,
-          "line_start": 607,
+          "line_end": 608,
+          "line_start": 608,
           "path": "paper/243/erdos-243-reciprocal-tail-rigidity.tex"
         },
         {
-          "excerpt_sha256": "sha256:bfb4918e3aead559a22c89f378d6a1e6371158599e673680944f0bdc187f9e4b",
-          "line_end": 737,
-          "line_start": 715,
+          "excerpt_sha256": "sha256:66aefd687af9eeb0fd368920f79b4a003fe1b1cfb714d090e0bc71e7608e8010",
+          "line_end": 741,
+          "line_start": 719,
           "path": "paper/243/erdos-243-reciprocal-tail-rigidity.tex"
         },
         {
@@ -73,8 +73,8 @@
       "artifacts": [
         {
           "excerpt_sha256": "sha256:1ab1c0d45ed163c3d6109bb69e7ef350daad697816ad030e33bac851a4b79ca4",
-          "line_end": 75,
-          "line_start": 70,
+          "line_end": 73,
+          "line_start": 68,
           "path": "paper/251/erdos-251-prime-gap-dyadic-series.tex"
         },
         {
@@ -130,14 +130,14 @@
         },
         {
           "excerpt_sha256": "sha256:b6ce0fb599e9bf02898ae89ea89e3bf47a7a31efcaab7ffbe2a9e2aaaae8ab8c",
-          "line_end": 78,
-          "line_start": 78,
+          "line_end": 79,
+          "line_start": 79,
           "path": "paper/249/erdos-249-binary-totient-series.tex"
         },
         {
           "excerpt_sha256": "sha256:c1960cd50c0146b008839691c83ef53220ec6bdf251ce3c02d30ff006670e01a",
-          "line_end": 77,
-          "line_start": 77,
+          "line_end": 78,
+          "line_start": 78,
           "path": "paper/249/erdos-249-binary-totient-series.tex"
         },
         {
@@ -248,8 +248,8 @@
         },
         {
           "excerpt_sha256": "sha256:5e2e6c2c874886e16da148e50ad853ae95b8bd51917063f56898eede0c49e406",
-          "line_end": 869,
-          "line_start": 869,
+          "line_end": 878,
+          "line_start": 878,
           "path": "paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex"
         },
         {
@@ -294,5 +294,5 @@
   "naming_policy": "Every entry starts with the name withheld. A name appears only after that person confirms the public name they want, and an entry stays anonymous if they ask. Private messages stay outside this repository.",
   "schema": "plectis-credit-ledger/1",
   "source_registry": "docs/research-commons/source-attributions.json",
-  "source_registry_sha256": "sha256:9f4ad23ecff6d7ccd55a05d9a574e396e9c53c29bb6372ab5f1875ffa26f2726"
+  "source_registry_sha256": "sha256:f320ed94a7082241d3caced259cce7d047abd8ee5dbe2eadd7116e792d9a965f"
 }

@@ -46,51 +46,37 @@ zeros satisfies <span class="math inline" data-term-auto="off">\(\mathcal
 H^1(K)&gt;2\)</span>.</em></p>
 </div>
 <p>Here <span class="math inline" data-term-auto="off">\(\mathcal H^1\)</span> is
-one-dimensional Hausdorff measure. Applied to a path image, the theorem
-also rules out a rectifiable path of total variation less than <span
-class="math inline" data-term-auto="off">\(2\)</span>.</p>
+one-dimensional Hausdorff measure. A rectifiable path image has measure
+at most its total variation, so the theorem excludes short paths as well
+as more general connected sets.</p>
 <p>Five components of <span class="math inline" data-term-auto="off">\(\Omega_f\)</span>
-contain one zero each, and the sixth contains two. Thus only the last
-component can contain a connected set joining two zeros. On this
-component, <span class="math inline" data-term-auto="off">\(f\)</span> is a double cover of
-the value disc, and the sum of the distances from its critical point to
-its two zeros is slightly greater than <span
-class="math inline" data-term-auto="off">\(2\)</span>. Distance estimates alone do not show
-that the roots nearest to that critical point lie in a common component;
-Section <a class="math-ref" href="#sec:critical-proximity">6.1</a> supplies no
-such component-selection argument.</p>
-<p>We cut the value disc from the critical value to the unit circle and
-confine the <em>whole</em> preimage of the slit to a small disc about
-the critical point. A connected set joining the zeros must approach this
-disc on both inverse sheets. Radial projection then gives a lower bound
-for its measure on each sheet. Adding these bounds subtracts twice the
-radius of the small disc from the sum of the two root distances; the
-remaining quantity is greater than <span
+contain one zero each; the sixth contains two and is the only possible
+place to join a pair. On this component, <span
+class="math inline" data-term-auto="off">\(f\)</span> has degree two. Cut the value disc from
+its critical value to the unit circle. Inside the two-root component,
+the <em>whole</em> slit preimage lies in a small disc about the critical
+point. Connectedness forces a root-joining set to approach this disc on
+both inverse sheets. The two radial projections then give a lower bound:
+the sum of the root distances from the critical point, minus twice the
+small disc’s radius. For the chosen pair this bound exceeds <span
 class="math inline" data-term-auto="off">\(2\)</span>.</p>
-<p>We begin with a quadratic example in which the slit preimage is small
-but the two zeros can still be joined by a segment of length less than
-<span class="math inline" data-term-auto="off">\(2\)</span>. The double-cover estimate
-identifies the additional inequality needed for the degree-seven
-example. In Section <a class="math-ref" href="#sec:trinomial">3</a>, the root equation
-for <span class="math inline" data-term-auto="off">\(z^n+az^m+b\)</span> bounds the
-polynomial on every segment from the origin to a zero. A polynomial with
-four nonzero terms shows that this conclusion need not persist.
-Sections <a class="math-ref" href="#sec:constant-factor">4</a>
-and <a class="math-ref" href="#sec:separation">5</a> concern
-small or isolated critical values. These analytic arguments are
-independent of the counterexample and the trinomial theorem, and remain
-unformalised. Full proofs are given in the companion.</p>
-<p>For the analytic arguments we use the component-wise Riemann–Hurwitz
-calculation of Ebenfelt, Khavinson and Shapiro <span class="citation"
-data-cites="eks2010"><a href="#ref-8">[8]</a></span> together with Pólya’s area inequality in
-the forms given by Crane <span class="citation"
-data-cites="crane"><a href="#ref-7">[7]</a></span>. Inverse branches, slit domains and capacity
-also occur in Crane’s work on Smale’s mean-value conjecture <span
-class="citation" data-cites="crane2007smale"><a href="#ref-17">[17]</a></span>, whose derivative
-normalisation differs from the monic normalisation here. The <a
+<p>Section <a class="math-ref" href="#sec:counterexample">2</a>
+first tests this mechanism on a quadratic, where a narrow slit preimage
+does <em>not</em> obstruct a short path, and then gives the degree-seven
+construction. The roots that matter are those in the same component, not
+necessarily those nearest to the critical point; Section <a class="math-ref" href="#sec:critical-proximity">6.1</a> makes this
+distinction explicit. Section <a class="math-ref" href="#sec:trinomial">3</a> proves the positive
+trinomial result and shows why a fourth term can spoil a prescribed
+radial connection.</p>
+<p>The remaining results address two different ways to construct short
+paths: allowing a component to grow from a small critical level
+(Section <a class="math-ref" href="#sec:constant-factor">4</a>), or continuing
+two inverse branches around an isolated critical value (Section <a class="math-ref" href="#sec:separation">5</a>). These analytic
+arguments are independent of the counterexample and the trinomial
+theorem, and remain unformalised. The <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf">companion paper</a>
-gives the rational tests for the degree-seven polynomial and the full
-arguments underlying Sections <a class="math-ref" href="#sec:other-results">6</a>–<a class="math-ref" href="#sec:open">7</a>.</p>
+contains their full proofs, the rational data for the counterexample,
+and the arguments underlying the later estimates and questions.</p>
 </section>
 <section id="sec:counterexample" class="level2">
 <h2>A component with a narrow bottleneck</h2>
@@ -118,19 +104,22 @@ than <span class="math inline" data-term-auto="off">\(2\)</span>.</p>
 </section>
 <section id="a-length-estimate-for-a-double-cover" class="level3">
 <h3>A length estimate for a double cover</h3>
-<p>Near a simple critical point <span class="math inline" data-term-auto="off">\(c\)</span>,
-write <span class="math inline" data-term-auto="off">\(p(c+z)-p(c)=z^2A(z)\)</span>. The
-quadratic model suggests the spatial scale <span
-class="math inline" data-term-auto="off">\(\sqrt{\delta/M}\)</span>, where <span
-class="math inline" data-term-auto="off">\(\delta=1-|p(c)|\)</span> is the length of the
-remaining value slit and <span
-class="math inline" data-term-auto="off">\(M=|A(0)|=|p&#39;&#39;(c)|/2\)</span>. The next
-lemma makes that comparison uniform on a disc of radius <span
-class="math inline" data-term-auto="off">\(h\)</span>. Its degree-two hypothesis has a
-separate role: the two local inverse images found near <span
-class="math inline" data-term-auto="off">\(c\)</span> must account for <em>every</em> inverse
-image in the chosen component. Otherwise a local estimate would leave a
-possible connection elsewhere in the component.</p>
+<p>The degree on a component counts preimages <em>in that
+component</em>, with multiplicity; it equals the number of zeros there,
+not necessarily the degree of the polynomial <span class="citation"
+data-cites="eks2010"><a href="#ref-8">[8]</a></span>. Near a simple critical point <span
+class="math inline" data-term-auto="off">\(c\)</span>, write <span
+class="math inline" data-term-auto="off">\(p(c+z)-p(c)=z^2A(z)\)</span>. The quadratic model
+suggests a spatial scale <span
+class="math inline" data-term-auto="off">\(\sqrt{\delta/M}\)</span>: the value slit has
+length <span class="math inline" data-term-auto="off">\(\delta=1-|p(c)|\)</span>, while <span
+class="math inline" data-term-auto="off">\(M=|A(0)|=|p&#39;&#39;(c)|/2\)</span> converts
+squared distance into value distance. The next lemma controls this
+comparison on a disc of radius <span class="math inline" data-term-auto="off">\(h\)</span>.
+Degree two serves a different purpose. It ensures that the two local
+preimages near <span class="math inline" data-term-auto="off">\(c\)</span> exhaust every
+fibre in the chosen component, so a connection cannot pass through an
+unexamined part of the slit preimage.</p>
 <div class="lemma" id="lem:two-sheet-bottleneck">
 <p><strong>Lemma 2.1</strong>. <em> Let <span
 class="math inline" data-term-auto="off">\(p\)</span> be a polynomial and <span
@@ -161,21 +150,24 @@ value of <span class="math inline" data-term-auto="off">\(p|_U\)</span>. Over it
 connected complement, the double cover splits into two inverse sheets
 <span class="math inline" data-term-auto="off">\(U_1,U_2\)</span>, containing <span
 class="math inline" data-term-auto="off">\(a,b\)</span> respectively.</p>
-<p>We next confine their common boundary inside <span
-class="math inline" data-term-auto="off">\(U\)</span>. Put <span
-class="math inline" data-term-auto="off">\(r_0=(4/3)\sqrt{\delta/M}&lt;2h/3\)</span>. On
-<span class="math inline" data-term-auto="off">\(|z|=r_0\)</span>, the quadratic estimate
-gives</p>
+<p>The sheet boundaries inside <span class="math inline" data-term-auto="off">\(U\)</span>
+lie over the slit. To confine them, put <span
+class="math inline" data-term-auto="off">\(r_0=(4/3)\sqrt{\delta/M}&lt;2h/3\)</span>. The
+relative-error hypothesis makes <span class="math inline" data-term-auto="off">\(A\)</span>
+nonvanishing on this disc, and on <span
+class="math inline" data-term-auto="off">\(|z|=r_0\)</span> gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[|p(c+z)-v|\ge\tfrac34Mr_0^2=\tfrac43\delta&gt;\delta.\]</span></div>
 <p>Every value on <span class="math inline" data-term-auto="off">\(J\)</span> is less than <span
 class="math inline" data-term-auto="off">\(\delta\)</span> from <span
-class="math inline" data-term-auto="off">\(v\)</span>. Rouché’s theorem therefore gives
-exactly two preimages in <span class="math inline" data-term-auto="off">\(B(c,r_0)\)</span>,
-counted with multiplicity. Continue them from the double zero at <span
-class="math inline" data-term-auto="off">\(c\)</span> as the value moves outward along <span
-class="math inline" data-term-auto="off">\(J\)</span>. They cannot cross the circle just
-estimated; their values remain in the unit disc, so they stay in <span
+class="math inline" data-term-auto="off">\(v\)</span>. Rouché’s theorem compares its
+preimages with the double zero of <span
+class="math inline" data-term-auto="off">\(p-v\)</span> and gives exactly two in <span
+class="math inline" data-term-auto="off">\(B(c,r_0)\)</span>, counted with multiplicity. As
+the value moves from <span class="math inline" data-term-auto="off">\(v\)</span> along <span
+class="math inline" data-term-auto="off">\(J\)</span>, these preimages continue from <span
+class="math inline" data-term-auto="off">\(c\)</span> without crossing the circle. Their
+values stay in the unit disc, so they remain in <span
 class="math inline" data-term-auto="off">\(U\)</span>. The degree-two hypothesis now
 identifies these local preimages with the entire fibre in <span
 class="math inline" data-term-auto="off">\(U\)</span>. Thus</p>
@@ -200,7 +192,8 @@ is nonempty. The map <span class="math inline" data-term-auto="off">\(z\mapsto|z
 is <span class="math inline" data-term-auto="off">\(1\)</span>-Lipschitz, and therefore</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathcal H^1(K\cap U_1)\ge(|a-c|-r_0)_+.\]</span></div>
-<p>The same argument on <span class="math inline" data-term-auto="off">\(U_2\)</span> gives the
+<p>Here <span class="math inline" data-term-auto="off">\(x_+=\max(x,0)\)</span>. The same
+argument on <span class="math inline" data-term-auto="off">\(U_2\)</span> gives the
 contribution from <span class="math inline" data-term-auto="off">\(b\)</span>. The radial
 intervals may overlap on the real line; it is the disjointness of the
 <em>sheets in the plane</em> that permits addition. Hausdorff outer
@@ -231,19 +224,18 @@ class="math inline" data-term-auto="off">\(U\)</span>.</figcaption>
 </section>
 <section id="the-polynomial" class="level3">
 <h3>The polynomial</h3>
-<p>The construction must satisfy three requirements: all roots lie in
-the unit disc, the only component containing more than one root has
-degree two, and the lower bound in Lemma <a class="math-ref" href="#lem:two-sheet-bottleneck">2.1</a> exceeds
-<span class="math inline" data-term-auto="off">\(2\)</span> for its two roots. We start near
-<span class="math inline" data-term-auto="off">\(z^7-1\)</span>, whose roots lie on the unit
-circle, and perturb its multiple critical point at the origin. The
-powers of <span class="math inline" data-term-auto="off">\(\varepsilon\)</span> below are
-chosen so that the linear, quadratic and cubic perturbations all have
-order <span class="math inline" data-term-auto="off">\(\varepsilon^7\)</span> at <span
-class="math inline" data-term-auto="off">\(z=\varepsilon w\)</span>. Thus coefficients that
-are small at the root circle can change the geometry at the
-critical-point scale. The following fixed coefficients are those of
-<code>ani</code>’s construction. Put <span
+<p>We must put the roots inside the unit disc, identify the only
+component that can join a pair, and make its distance excess larger than
+the loss in Lemma <a class="math-ref" href="#lem:two-sheet-bottleneck">2.1</a>. The
+construction starts from <span class="math inline" data-term-auto="off">\(z^7-1\)</span> and
+separates the two relevant scales. The roots move slightly inward from
+the unit circle, while the multiple critical point at the origin splits
+at scale <span class="math inline" data-term-auto="off">\(\varepsilon\)</span>. The linear,
+quadratic and cubic perturbations below all have order <span
+class="math inline" data-term-auto="off">\(\varepsilon^7\)</span> when <span
+class="math inline" data-term-auto="off">\(z=\varepsilon w\)</span>; they can therefore alter
+the critical geometry without comparably moving the roots. The fixed
+coefficients are those of <code>ani</code>’s construction. Put <span
 class="math inline" data-term-auto="off">\(s=10^{-6}\)</span>, <span
 class="math inline" data-term-auto="off">\(\varepsilon=s^2=10^{-12}\)</span> and <span
 class="math inline" data-term-auto="off">\(\rho=1-s^{16}\)</span>, and let</p>
@@ -260,23 +252,29 @@ F(z)&amp;=z^7-1+\varepsilon^4(az^3-\bar a z^4)
       +\varepsilon^6(c_0z-\bar c_0z^6),\label{eq:ani-F}\\
 f(z)&amp;=\rho^7F(z/\rho).\label{eq:ani-f}
 \end{align}\]</span></div>
-<p>The identity <span
-class="math inline" data-term-auto="off">\(F(z)=-z^7\overline{F(1/\bar z)}\)</span> reduces
-the Cayley substitution <span
-class="math inline" data-term-auto="off">\(z=(1+ix)/(1-ix)\)</span> to a real polynomial. It
-does not by itself put the roots on the circle: we check signs at
-fourteen rational endpoints. The seven resulting intervals account for
-all zeros <span class="math inline" data-term-auto="off">\(\zeta_j\)</span> of <span
-class="math inline" data-term-auto="off">\(F\)</span>, which are therefore distinct and have
-modulus one. Thus <span class="math inline" data-term-auto="off">\(b_j=\rho\zeta_j\)</span>
-lies strictly inside the disc, as required. At the chosen parameter,
-<span class="math inline" data-term-auto="off">\(1-\rho=\varepsilon^8\)</span>; the finite
+<section id="putting-the-roots-on-a-circle." class="level5">
+<h5>Putting the roots on a circle.</h5>
+<p>The identity <span class="math inline" data-term-auto="off">\(F(z)=-z^7\overline{F(1/\bar
+z)}\)</span> reduces the Cayley substitution <span
+class="math inline" data-term-auto="off">\(z=(1+ix)/(1-ix)\)</span> to a real polynomial
+after clearing the denominator and removing a constant phase. The
+substitution parametrises the unit circle except <span
+class="math inline" data-term-auto="off">\(-1\)</span>; seven sign changes at rational
+endpoint pairs locate all seven zeros and exclude a zero at the omitted
+point. The resulting zeros <span class="math inline" data-term-auto="off">\(\zeta_j\)</span>
+are distinct and have modulus one. Thus <span
+class="math inline" data-term-auto="off">\(b_j=\rho\zeta_j\)</span> lies strictly inside the
+disc. At the chosen parameter, <span
+class="math inline" data-term-auto="off">\(1-\rho=\varepsilon^8\)</span>; the finite
 estimates below show that this contraction does not erase the excess in
 the selected root distances.</p>
-<p>To resolve the critical points near the origin, we pass to the scale
-<span class="math inline" data-term-auto="off">\(z=\rho\varepsilon w\)</span>. Write</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[F(\varepsilon w)=-1+\varepsilon^7Q(w),\qquad
+</section>
+<section id="resolving-the-critical-points." class="level5">
+<h5>Resolving the critical points.</h5>
+<p>At the smaller scale <span class="math inline" data-term-auto="off">\(z=\rho\varepsilon
+w\)</span>, write</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[F(\varepsilon
+w)=-1+\varepsilon^7Q(w),\qquad
 Q(w)=c_0w+bw^2+aw^3-\varepsilon\bar a w^4
                   -\varepsilon^3\bar b w^5-\varepsilon^5\bar
 c_0w^6+w^7.\]</span></div>
@@ -314,22 +312,27 @@ M:=|A_s(0)|&amp;&gt;180\rho^5\varepsilon^5,&amp;
 <p>The subscripts <span
 class="math inline" data-term-auto="off">\(3,6\)</span> refer to Cayley roots in the
 intervals <span class="math inline" data-term-auto="off">\((43812,43813)/10^4\)</span> and
-<span class="math inline" data-term-auto="off">\((-4816,-4815)/10^4\)</span>. The Taylor
-estimate gives the uniform quadratic control required by Lemma <a class="math-ref" href="#lem:two-sheet-bottleneck">2.1</a>. The first
-two inequalities give <span
+<span class="math inline" data-term-auto="off">\((-4816,-4815)/10^4\)</span>. These estimates
+have separate jobs. The Taylor bound supplies the lemma’s quadratic
+control; the bounds for <span class="math inline" data-term-auto="off">\(M\)</span> and <span
+class="math inline" data-term-auto="off">\(\delta\)</span> give <span
 class="math inline" data-term-auto="off">\(\sqrt{\delta/M}&lt;\rho\varepsilon/5000\)</span>,
-which bounds the term subtracted there. The last inequality supplies the
-sum of root distances from <span class="math inline" data-term-auto="off">\(c_s\)</span>; the
-final comparison below shows that its excess over <span
-class="math inline" data-term-auto="off">\(2\)</span> survives this subtraction.</p>
-<p>We must also place these two roots in the same component; distance
-estimates alone do not identify that pair. We join a small disc about
-<span class="math inline" data-term-auto="off">\(w_s\)</span> to points close to <span
-class="math inline" data-term-auto="off">\(8\zeta_3\)</span> and <span
-class="math inline" data-term-auto="off">\(8\zeta_6\)</span> by polygonal arcs in the <span
-class="math inline" data-term-auto="off">\(w\)</span>-plane. For the four inner segments we
-use</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[1-|f(\rho\varepsilon w)|^2\ge
+controlling the loss at the slit. The last bound supplies a positive
+distance excess of order <span
+class="math inline" data-term-auto="off">\(\varepsilon\)</span>. It remains to check that the
+two selected roots really belong to this component.</p>
+</section>
+<section id="identifying-the-two-roots-in-the-component."
+class="level5">
+<h5>Identifying the two roots in the component.</h5>
+<p>In the <span class="math inline" data-term-auto="off">\(w\)</span>-plane, polygonal arcs
+connect a small disc about <span class="math inline" data-term-auto="off">\(w_s\)</span> to
+points near <span class="math inline" data-term-auto="off">\(8\zeta_3\)</span> and <span
+class="math inline" data-term-auto="off">\(8\zeta_6\)</span>. Short joining segments then
+reach those exact root directions, and radial segments continue to the
+roots. For the four inner polygonal segments we use</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[1-|f(\rho\varepsilon w)|^2\ge
 2\rho^{14}\varepsilon^7
 \left(7\varepsilon+\operatorname{Re}Q(w)
                        -\tfrac12\varepsilon^7|Q(w)|^2\right).\]</span></div>
@@ -340,8 +343,9 @@ at most fourteen in the segment parameter. All fifteen coefficients in
 its degree-fourteen Bernstein basis are positive. The basis polynomials
 are nonnegative and sum to one, so the expression is positive along the
 whole segment, which therefore stays inside <span
-class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> after scaling. For the
-remaining radial portions we use the root identity</p>
+class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> after scaling. The companion
+bounds <span class="math inline" data-term-auto="off">\(Q\)</span> directly on the short
+joining segments. For the radial portions we use the root identity</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[F(t\zeta)=t^7-1+
        \sum_{k=1}^6\varepsilon^{7-k}q_k\zeta^k(t^k-t^7),
@@ -352,11 +356,14 @@ class="math inline" data-term-auto="off">\(8\varepsilon\le t\le1\)</span>. All r
 intervals, vertices and coefficient tests are specified in <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#counterexample-certificate">the
 companion’s finite verification</a>. At the regular level <span
-class="math inline" data-term-auto="off">\(|f|=1\)</span>, Riemann–Hurwitz gives <span
-class="math inline" data-term-auto="off">\(k-1\)</span> critical points in a component with
-<span class="math inline" data-term-auto="off">\(k\)</span> zeros, counted with multiplicity.
-Thus the component containing <span class="math inline" data-term-auto="off">\(c_s\)</span>
-has exactly two roots, while every other component contains one.</p>
+class="math inline" data-term-auto="off">\(|f|=1\)</span>, the component-wise Riemann–Hurwitz
+calculation <span class="citation" data-cites="eks2010"><a href="#ref-8">[8]</a></span> gives
+<span class="math inline" data-term-auto="off">\(k-1\)</span> critical points in a component
+with <span class="math inline" data-term-auto="off">\(k\)</span> zeros, counted with
+multiplicity. Since <span class="math inline" data-term-auto="off">\(c_s\)</span> is the only
+critical point in <span class="math inline" data-term-auto="off">\(\Omega_f\)</span>, its
+component contains exactly the two roots just reached; every other
+component contains one.</p>
 <div class="proof">
 <p><em>Proof of Theorem <a class="math-ref" href="#res:ani-degree-seven-counterexample">1.2</a>.</em>
 Apply Lemma <a class="math-ref" href="#lem:two-sheet-bottleneck">2.1</a> to the
@@ -381,6 +388,7 @@ estimates the measure of the connected set itself; a bound for the total
 variation of a chosen parametrisation would not suffice.</p>
 </section>
 </section>
+</section>
 <section id="sec:trinomial" class="level2">
 <h2>Trinomials and radial segments</h2>
 <p>If <span class="math inline" data-term-auto="off">\(f(z)=z^n+b\)</span> has a zero <span
@@ -388,13 +396,13 @@ class="math inline" data-term-auto="off">\(\zeta\)</span> in the open unit disc,
 class="math inline" data-term-auto="off">\(|b|=|\zeta|^n&lt;1\)</span>. The identity <span
 class="math inline" data-term-auto="off">\(f(t\zeta)=b(1-t^n)\)</span>, <span
 class="math inline" data-term-auto="off">\(0\le t\le1\)</span>, keeps the whole segment <span
-class="math inline" data-term-auto="off">\([0,\zeta]\)</span> in the lemniscate. A middle
-monomial does not destroy this argument: the equation <span
-class="math inline" data-term-auto="off">\(f(\zeta)=0\)</span> lets us eliminate its
-contribution before taking absolute values. Only <span
-class="math inline" data-term-auto="off">\(b\)</span> and <span
-class="math inline" data-term-auto="off">\(-\zeta^n\)</span> remain, both of modulus less
-than one.</p>
+class="math inline" data-term-auto="off">\([0,\zeta]\)</span> in the lemniscate. The same
+cancellation survives a middle monomial. Its coefficient may be large,
+so we use <span class="math inline" data-term-auto="off">\(f(\zeta)=0\)</span> to eliminate
+that term <em>before</em> taking absolute values. The remaining
+quantities are <span class="math inline" data-term-auto="off">\(b\)</span> and <span
+class="math inline" data-term-auto="off">\(-\zeta^n\)</span>, both of modulus less than
+one.</p>
 <div class="theorem" id="res:trinomial-all-degree">
 <p><strong>Theorem 3.1</strong> (all-degree monic trinomials). <em> Let
 <span class="math inline" data-term-auto="off">\(1\le m&lt;n\)</span> and </em></p>
@@ -417,9 +425,9 @@ class="math inline" data-term-auto="off">\(a\zeta^m\)</span> with the root equat
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[f(t\zeta)=b(1-t^m)+\zeta^n(t^n-t^m).\]</span></div>
 <p>Vieta’s formula gives <span class="math inline" data-term-auto="off">\(|b|&lt;1\)</span>. For
-<span class="math inline" data-term-auto="off">\(0\le t&lt;1\)</span>, both <span
-class="math inline" data-term-auto="off">\(1-t^m\)</span> and <span
-class="math inline" data-term-auto="off">\(t^m-t^n\)</span> are nonnegative, and hence</p>
+<span class="math inline" data-term-auto="off">\(0\le t&lt;1\)</span>, the first weight <span
+class="math inline" data-term-auto="off">\(1-t^m\)</span> is positive and the second, <span
+class="math inline" data-term-auto="off">\(t^m-t^n\)</span>, is nonnegative. Hence</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[|f(t\zeta)|\le
 |b|(1-t^m)+|\zeta|^n(t^m-t^n)&lt;1-t^n\le1.\]</span></div>
@@ -427,24 +435,23 @@ class="math display" data-term-auto="off">\[|f(t\zeta)|\le
 class="math inline" data-term-auto="off">\(t=1\)</span> the value is zero. We join any two
 distinct zeros by concatenating their segments through the origin. ◻</p>
 </div>
-<p>The same calculation has a useful partial-sum form. Write <span
-class="math inline" data-term-auto="off">\(f(z)=\sum_{k=0}^n a_kz^k\)</span>, take a zero
-<span class="math inline" data-term-auto="off">\(\zeta\)</span>, and put <span
-class="math inline" data-term-auto="off">\(S_j=\sum_{k=0}^j a_k\zeta^k\)</span>. Abel
-summation gives</p>
+<p>Abel summation identifies exactly what this argument needs. For <span
+class="math inline" data-term-auto="off">\(f(z)=\sum_{k=0}^n a_kz^k\)</span> and a zero <span
+class="math inline" data-term-auto="off">\(\zeta\)</span>, put <span
+class="math inline" data-term-auto="off">\(S_j=\sum_{k=0}^j a_k\zeta^k\)</span>. Since <span
+class="math inline" data-term-auto="off">\(S_n=0\)</span>, summation by parts gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[f(t\zeta)=\sum_{j=0}^{n-1}(t^j-t^{j+1})S_j.\]</span></div>
 <p>For <span class="math inline" data-term-auto="off">\(0\le t&lt;1\)</span>, the weights are
 nonnegative and sum to <span class="math inline" data-term-auto="off">\(1-t^n\)</span>. Thus
 <span class="math inline" data-term-auto="off">\(f(t\zeta)/(1-t^n)\)</span> is a convex
-combination of the <span class="math inline" data-term-auto="off">\(S_j\)</span>. In the
-trinomial case these are <span class="math inline" data-term-auto="off">\(b\)</span> and
-<span class="math inline" data-term-auto="off">\(-\zeta^n\)</span>. Additional coefficients
-introduce further partial sums, whose moduli need not be controlled by
-the root locations. The theorem controls segments ending at zeros; it
-makes no assertion that the whole lemniscate is star-shaped. The next
-polynomial shows where the partial-sum argument can fail after a further
-term is added.</p>
+combination of the <span class="math inline" data-term-auto="off">\(S_j\)</span>. For a
+trinomial, <span class="math inline" data-term-auto="off">\(S_j=b\)</span> before the middle
+term and <span class="math inline" data-term-auto="off">\(S_j=-\zeta^n\)</span> after it.
+Thus every partial sum lies in the unit disc. A fourth term introduces
+another partial sum for which root locations alone need not give that
+bound, as the next example shows. The conclusion concerns segments
+ending at zeros, not star-shapedness of the whole lemniscate.</p>
 <div class="proposition" id="res:sextic-spoke">
 <p><strong>Proposition 3.2</strong> (failure of a prescribed radial
 segment). <em> There exist <span
@@ -459,9 +466,10 @@ the origin to the zero <span class="math inline" data-term-auto="off">\(r\)</spa
 <div class="proof">
 <p><em>Proof.</em> We substitute <span
 class="math inline" data-term-auto="off">\(z=rw\)</span> and factor the polynomial as <span
-class="math inline" data-term-auto="off">\(r^6(w^2-1)(w^4+\tfrac65w^2+1)\)</span>, whose six
-zeros have modulus <span class="math inline" data-term-auto="off">\(r\)</span>. At the
-midpoint of that segment, <span
+class="math inline" data-term-auto="off">\(r^6(w^2-1)(w^4+\tfrac65w^2+1)\)</span>. The
+quadratic in <span class="math inline" data-term-auto="off">\(w^2\)</span> has conjugate
+roots of product one, so all six original zeros have modulus <span
+class="math inline" data-term-auto="off">\(r\)</span>. At the midpoint of that segment, <span
 class="math inline" data-term-auto="off">\(f_r(r/2)=-(327/320)r^6\)</span>; choosing <span
 class="math inline" data-term-auto="off">\(320/327&lt;r^6&lt;1\)</span> proves the
 assertion. ◻</p>
@@ -473,22 +481,21 @@ of segments.</p>
 </section>
 <section id="sec:constant-factor" class="level2">
 <h2>A small least critical value</h2>
-<p>For a squarefree polynomial, put <span
-class="math inline" data-term-auto="off">\(\mu=\min_{f&#39;(c)=0}|f(c)|&gt;0\)</span>. We
+<p>A small critical value leaves a long interval of levels before the
+unit lemniscate is reached. For a squarefree polynomial, put <span
+class="math inline" data-term-auto="off">\(\mu=\min_{f&#39;(c)=0}|f(c)|&gt;0\)</span> and
 follow a component from its first merger at level <span
-class="math inline" data-term-auto="off">\(\mu\)</span> up to level <span
-class="math inline" data-term-auto="off">\(1\)</span>. Suppose that no two distinct zeros can
-be joined by a curve of length less than <span
-class="math inline" data-term-auto="off">\(2\)</span>. Conformal length estimates then give a
-lower bound for the hyperbolic distances between the zeros. A packing
-inequality bounds their number from below, and a boundary-length
-estimate converts this bound into a lower bound for the growth of the
-component’s area. When the interval of logarithmic levels, of length
-<span class="math inline" data-term-auto="off">\(\log(1/\mu)\)</span>, is sufficiently large,
-this contradicts Pólya’s area bound.</p>
-<p>The companion gives the ordinary analytic argument and its rational
-comparison. They yield the following unformalised criterion, with no
-restriction on the locations of the zeros.</p>
+class="math inline" data-term-auto="off">\(\mu\)</span> to level <span
+class="math inline" data-term-auto="off">\(1\)</span>. If no two roots admit a connection
+shorter than <span class="math inline" data-term-auto="off">\(2\)</span>, conformal length
+estimates force them far apart in the component’s hyperbolic metric.
+Packing then bounds the root count from below; inverse-ray averaging
+turns that count into a lower bound for area growth. When <span
+class="math inline" data-term-auto="off">\(\log(1/\mu)\)</span> is large enough, this growth
+contradicts Pólya’s area bound.</p>
+<p>The companion proves the analytic reduction and gives the rational
+comparison. The resulting criterion needs no restriction on root
+locations, but its analytic proof has not been formalised.</p>
 <div class="remark" id="res:low-critical-thirteen-twentyfifths">
 <p><strong>Remark 4.1</strong> (unformalised small-critical-value
 assertion). <em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be
@@ -529,34 +536,49 @@ contained in <span class="math inline" data-term-auto="off">\(K_\mu(f)\)</span>.
 </div>
 <section id="the-analytic-argument" class="level3">
 <h3>The analytic argument</h3>
-<p>Suppose that no pair can be connected with length less than <span
+<p>Assume that no pair has a connection of length less than <span
 class="math inline" data-term-auto="off">\(2\)</span> in <span
 class="math inline" data-term-auto="off">\(\Omega_f\)</span>. At a regular level <span
-class="math inline" data-term-auto="off">\(t\in(\mu,1)\)</span> we take the component <span
-class="math inline" data-term-auto="off">\(C_t\)</span> containing a chosen first merger. Let
-<span class="math inline" data-term-auto="off">\(k\ge2\)</span> be its number of roots, and
-put <span
-class="math inline" data-term-auto="off">\(a=\operatorname{Area}(C_t)/\pi\le1\)</span> and
-<span class="math inline" data-term-auto="off">\(x=\log(t/\mu)\)</span>. In the disc
-uniformisation, hyperbolic distance is normalised by <span
+class="math inline" data-term-auto="off">\(t\in(\mu,1)\)</span>, let <span
+class="math inline" data-term-auto="off">\(C_t\)</span> contain a chosen first merger and let
+<span class="math inline" data-term-auto="off">\(k\ge2\)</span> be its root count. Put <span
+class="math inline" data-term-auto="off">\(a=\operatorname{Area}(C_t)/\pi\)</span> and <span
+class="math inline" data-term-auto="off">\(x=\log(t/\mu)\)</span>; Pólya’s inequality gives
+<span class="math inline" data-term-auto="off">\(a\le1\)</span> <span class="citation"
+data-cites="crane"><a href="#ref-7">[7]</a></span>. Uniformise <span
+class="math inline" data-term-auto="off">\(C_t\)</span> by the disc, with hyperbolic distance
+normalised by <span
 class="math inline" data-term-auto="off">\(d(0,s)=2\operatorname{artanh}s\)</span> for <span
 class="math inline" data-term-auto="off">\(0\le s&lt;1\)</span>. The Bergman segment estimate
-bounds the length between roots at hyperbolic distance <span
-class="math inline" data-term-auto="off">\(d\)</span> by <span
-class="math inline" data-term-auto="off">\(\sqrt{2a\log\cosh(d/2)}\)</span>. The assumption
-on connecting curves therefore forces pairwise distance at least <span
+constructs a curve of length at most <span
+class="math inline" data-term-auto="off">\(\sqrt{2a\log\cosh(d/2)}\)</span> between roots at
+hyperbolic distance <span class="math inline" data-term-auto="off">\(d\)</span>. Our
+assumption therefore forces pairwise distance at least <span
 class="math inline" data-term-auto="off">\(D\)</span>, where <span
 class="math inline" data-term-auto="off">\(\cosh(D/2)=e^{2/a}\)</span>.</p>
-<p>Intrinsic distance in <span class="math inline" data-term-auto="off">\(C_t\)</span> means
-the infimum of Euclidean lengths of curves in <span
-class="math inline" data-term-auto="off">\(C_t\)</span>. Choose the centre <span
-class="math inline" data-term-auto="off">\(h\)</span> of the uniformisation on a connected
-set through the first pair in <span
-class="math inline" data-term-auto="off">\(K_\mu(f)\)</span>, outside every intrinsic open
-unit ball centred at a root. Such a point exists: those balls are
-pairwise disjoint under that assumption and cannot cover a connected set
-containing two roots. If <span class="math inline" data-term-auto="off">\(d_j\)</span> are
-the hyperbolic distances of the roots from this centre, we obtain</p>
+<p>The length estimate uses the area identity <span
+class="math inline" data-term-auto="off">\(\int_{\mathbb D}|\varphi&#39;|^2\,dA=\pi
+a\)</span> for a conformal map <span
+class="math inline" data-term-auto="off">\(\varphi:\mathbb D\to C_t\)</span>. Cauchy–Schwarz
+bounds the image length of a real interval by this integral and the disc
+Bergman kernel. Moving the two preimages to opposite points of a
+diameter makes the remaining factor depend only on their hyperbolic
+distance.</p>
+<p>To control the distances from the centre as well, choose a point
+<span class="math inline" data-term-auto="off">\(h\)</span> on a connected set through the
+first pair in <span class="math inline" data-term-auto="off">\(K_\mu(f)\)</span> whose
+intrinsic distance from every root is at least <span
+class="math inline" data-term-auto="off">\(1\)</span>. Here intrinsic distance means the
+infimum of Euclidean curve lengths in <span
+class="math inline" data-term-auto="off">\(C_t\)</span>. Such an <span
+class="math inline" data-term-auto="off">\(h\)</span> exists: the intrinsic open unit balls
+about distinct roots are disjoint, since an intersection would give a
+path shorter than <span class="math inline" data-term-auto="off">\(2\)</span>, and disjoint
+open sets cannot cover a connected set containing two roots. Choose the
+uniformisation to send <span class="math inline" data-term-auto="off">\(0\)</span> to <span
+class="math inline" data-term-auto="off">\(h\)</span>. If <span
+class="math inline" data-term-auto="off">\(d_j\)</span> are the resulting hyperbolic root
+distances from <span class="math inline" data-term-auto="off">\(0\)</span>, then</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\lambda(d_j)\le\tfrac12\delta(a),\qquad
 \sum_j\lambda(d_j)\ge x,\qquad
@@ -565,39 +587,46 @@ class="math display" data-term-auto="off">\[\lambda(d_j)\le\tfrac12\delta(a),\qq
 <p>The one-root Bergman estimate
 gives the first bound because every root has intrinsic distance at least
 <span class="math inline" data-term-auto="off">\(1\)</span> from <span
-class="math inline" data-term-auto="off">\(h\)</span>. For the second, <span
+class="math inline" data-term-auto="off">\(h\)</span>. For the second, the component-wise
+Blaschke representation <span class="citation"
+data-cites="eks2010"><a href="#ref-8">[8]</a></span> expresses <span
+class="math inline" data-term-auto="off">\(f/t\)</span> in disc coordinates. Since <span
 class="math inline" data-term-auto="off">\(h\)</span> is not a root and lies in <span
-class="math inline" data-term-auto="off">\(K_\mu(f)\)</span>, so evaluating the finite
-Blaschke product for <span class="math inline" data-term-auto="off">\(f/t\)</span> at the
-centre gives <span
+class="math inline" data-term-auto="off">\(K_\mu(f)\)</span>, evaluation at <span
+class="math inline" data-term-auto="off">\(0\)</span> gives <span
 class="math inline" data-term-auto="off">\(\sum_j\lambda(d_j)=\log(t/|f(h)|)\ge x\)</span>.
-Thus the total contribution is at least <span
-class="math inline" data-term-auto="off">\(x\)</span>, while each root contributes at most
-<span class="math inline" data-term-auto="off">\(\delta(a)/2\)</span>, giving <span
-class="math inline" data-term-auto="off">\(k\ge2x/\delta(a)\)</span>. The pairwise separation
-gives additional information, which the following packing estimate uses
-to improve this lower bound. The passage through a first merger,
-including simultaneous mergers, is part of the analytic input still to
-be formalised.</p>
+Dividing the required sum <span class="math inline" data-term-auto="off">\(x\)</span> by the
+maximum contribution <span class="math inline" data-term-auto="off">\(\delta(a)/2\)</span>
+gives <span class="math inline" data-term-auto="off">\(k\ge2x/\delta(a)\)</span>. This uses
+only distances from the centre. To exploit the pairwise separation too,
+we intersect the disjoint hyperbolic balls about the roots with a common
+circle. The passage through a first merger, including simultaneous
+mergers, is part of the analytic input still to be formalised.</p>
 <div id="circle-packing-inputs">
 
 </div>
-<p>We intersect the disjoint hyperbolic balls of radius <span
-class="math inline" data-term-auto="off">\(D/2\)</span> with a single circle of radius <span
-class="math inline" data-term-auto="off">\(r\)</span>. Their angular half-widths satisfy</p>
+<p>On a fixed hyperbolic circle of radius <span
+class="math inline" data-term-auto="off">\(r&gt;0\)</span> centred at <span
+class="math inline" data-term-auto="off">\(0\)</span>, the balls of radius <span
+class="math inline" data-term-auto="off">\(D/2\)</span> cut out disjoint arcs. Their angular
+half-widths satisfy</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[w(d,r)=\arccos\!\left(\operatorname{clamp}_{[-1,1]}
 \frac{\cosh d\cosh r-\cosh(D/2)}{\sinh d\sinh r}\right),
 \qquad \sum_jw(d_j,r)\le\pi.\]</span></div>
-<p>This circle-slice inequality is
-formalised separately. If nonnegative weights <span
-class="math inline" data-term-auto="off">\(\sigma_i\)</span> at radii <span
-class="math inline" data-term-auto="off">\(r_i&gt;0\)</span> give <span
+<p>Here <span
+class="math inline" data-term-auto="off">\(\operatorname{clamp}_{[-1,1]}\)</span> truncates
+to <span class="math inline" data-term-auto="off">\([-1,1]\)</span>. This circle-slice
+inequality is formalised separately. To turn it into a root count,
+majorise the contribution of one root by weighted slice widths: choose
+<span class="math inline" data-term-auto="off">\(\sigma_i\ge0\)</span>, <span
+class="math inline" data-term-auto="off">\(r_i&gt;0\)</span> and <span
+class="math inline" data-term-auto="off">\(U&gt;0\)</span> such that <span
 class="math inline" data-term-auto="off">\(\lambda(d)\le U+\sum_i\sigma_iw(d,r_i)\)</span>
-for every <span class="math inline" data-term-auto="off">\(d&gt;0\)</span> satisfying <span
-class="math inline" data-term-auto="off">\(\lambda(d)\le\delta(a)/2\)</span>, where <span
-class="math inline" data-term-auto="off">\(U&gt;0\)</span>, summing at the <span
-class="math inline" data-term-auto="off">\(k\)</span> roots gives</p>
+whenever <span class="math inline" data-term-auto="off">\(d&gt;0\)</span> and <span
+class="math inline" data-term-auto="off">\(\lambda(d)\le\delta(a)/2\)</span>. Summing at the
+roots and using the angular bound at each <span
+class="math inline" data-term-auto="off">\(r_i\)</span> gives</p>
 <div class="math-display" id="eq:short-packing" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:short-packing}
@@ -606,16 +635,18 @@ k\ge\frac{x-\pi\sum_i\sigma_i}{U}.
 <p>The circle must be fixed before taking these
 intersections: angular projections of disjoint balls at different
 distances can overlap.</p>
-<p>To obtain area growth, lift one common value radius from all <span
-class="math inline" data-term-auto="off">\(k\)</span> roots to <span
-class="math inline" data-term-auto="off">\(\partial C_t\)</span>, and join successive
-endpoints by boundary arcs. These arcs remain in <span
+<p>We now convert the root count into area growth. Lift one common value
+radius from all <span class="math inline" data-term-auto="off">\(k\)</span> roots to <span
+class="math inline" data-term-auto="off">\(\partial C_t\)</span> and join successive
+endpoints by boundary arcs. All pieces stay in <span
 class="math inline" data-term-auto="off">\(\Omega_f\)</span> because <span
 class="math inline" data-term-auto="off">\(t&lt;1\)</span>. Splitting the lift integral at
-level <span class="math inline" data-term-auto="off">\(\mu\)</span> gives mean total length
-at most <span class="math inline" data-term-auto="off">\(\sqrt{ka(x+2)/2}\)</span>. The sum
-of the <span class="math inline" data-term-auto="off">\(k\)</span> adjacent-root connections
-counts each lift twice and the boundary once, so <span
+level <span class="math inline" data-term-auto="off">\(\mu\)</span> bounds the mean total
+lift length by <span class="math inline" data-term-auto="off">\(\sqrt{ka(x+2)/2}\)</span>.
+Each of the <span class="math inline" data-term-auto="off">\(k\)</span> resulting
+root-to-root connections has length at least <span
+class="math inline" data-term-auto="off">\(2\)</span>; their sum counts each lift twice and
+the boundary once. Hence <span
 class="math inline" data-term-auto="off">\(2k\le\sqrt{2ka(x+2)}+\mathcal H^1(\partial
 C_t)\)</span>. Combining this with <span class="math inline" data-term-auto="off">\(\mathcal
 H^1(\partial C_t)^2\le2\pi k t\,(d/dt)\operatorname{Area}(C_t)\)</span>
@@ -626,34 +657,49 @@ class="math display" data-term-auto="off">\[\begin{equation}
 a&#39;(x)\ge\frac1{2\pi^2}
        \bigl[2\sqrt k-\sqrt{2a(x)(x+2)}\bigr]_+^2.
 \end{equation}\]</span></div>
-<p>The companion proves the lift estimate and
-accounts for the nonnegative area jumps at merger levels.</p>
+<p>Here the derivative is with respect to <span
+class="math inline" data-term-auto="off">\(x\)</span>, between merger levels. The companion
+proves the lift estimate and accounts for the nonnegative area jumps at
+mergers; those jumps do not weaken the lower bound.</p>
 </section>
 <section id="the-recorded-rational-comparison" class="level3">
 <h3>The recorded rational comparison</h3>
 <div id="certificate-stopping-time">
 
 </div>
-<p>Equation <a class="math-ref" data-equation-ref="true" href="#eq:short-packing">eq:short-packing</a>, the bound <span
-class="math inline" data-term-auto="off">\(k\ge2x/\delta(a)\)</span> and the companion’s two
-further packing estimates give an integer lower bound for <span
-class="math inline" data-term-auto="off">\(k\)</span>. Starting from <span
-class="math inline" data-term-auto="off">\(a(3/10^5)&gt;10^{-6}\)</span>, the recorded
-rational calculation reaches <span class="math inline" data-term-auto="off">\(a&gt;1\)</span>
-by</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[X=\frac{635762889599}{10^{12}}.\]</span></div>
-<p>It used <span class="math inline" data-term-auto="off">\(18\)</span> area levels, <span
+<p>At each level use the largest integer lower bound for the current
+root count <span class="math inline" data-term-auto="off">\(k\)</span>: <a class="math-ref" data-equation-ref="true" href="#eq:short-packing">eq:short-packing</a>, <span
+class="math inline" data-term-auto="off">\(k\ge2x/\delta(a)\)</span>, or the companion’s two
+further packing estimates. The starting bound <span
+class="math inline" data-term-auto="off">\(a(3/10^5)&gt;10^{-6}\)</span> follows by
+integrating <a class="math-ref" data-equation-ref="true" href="#eq:short-area-growth">eq:short-area-growth</a> with <span
+class="math inline" data-term-auto="off">\(k\ge2\)</span> and <span
+class="math inline" data-term-auto="off">\(a\le1\)</span>; it is not an extra assumption on
+the polynomial. The recorded rational calculation then reaches <span
+class="math inline" data-term-auto="off">\(a&gt;1\)</span> by</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[X=\frac{635762889599}{10^{12}}.\]</span></div>
+<p>It used
+<span class="math inline" data-term-auto="off">\(18\)</span> area levels, <span
 class="math inline" data-term-auto="off">\(126\)</span> certified weighted inequalities and a
-maximum step <span class="math inline" data-term-auto="off">\(1/400\)</span>. To certify
-<span class="math inline" data-term-auto="off">\(U\)</span> on an interval <span
-class="math inline" data-term-auto="off">\([u,v]\)</span>, it bounds the expression by <span
+maximum step <span class="math inline" data-term-auto="off">\(1/400\)</span>. On each
+interval <span class="math inline" data-term-auto="off">\([u,v]\)</span> of possible root
+distances, the calculation bounds <span
+class="math inline" data-term-auto="off">\(\lambda(d)-\sum_i\sigma_iw(d,r_i)\)</span> by
+<span
 class="math inline" data-term-auto="off">\(\lambda(u)-\sum_i\sigma_i\min(w(u,r_i),w(v,r_i))\)</span>;
-the tail is bounded directly by <span
-class="math inline" data-term-auto="off">\(\lambda\)</span>. Numerical optimisation proposes
-the weights, while rational inequalities bound the whole half-line.
-Since <span class="math inline" data-term-auto="off">\(t=\mu e^x\)</span>, the contradiction
-<span class="math inline" data-term-auto="off">\(a&gt;1\)</span> occurs before level <span
-class="math inline" data-term-auto="off">\(1\)</span> provided that <span
+on the tail, <span class="math inline" data-term-auto="off">\(\lambda\)</span> itself
+suffices. Thus numerical optimisation only proposes the weights.
+Rational inequalities certify a valid <span
+class="math inline" data-term-auto="off">\(U\)</span> on the whole admissible half-line, as
+required by <a class="math-ref" data-equation-ref="true" href="#eq:short-packing">eq:short-packing</a>. The endpoint
+minimum is valid because each slice width, as a function of <span
+class="math inline" data-term-auto="off">\(d\)</span>, increases and then decreases, or is
+monotone; it has no interior dip. This is an interval bound, not
+sampling between grid points.</p>
+<p>Since <span class="math inline" data-term-auto="off">\(t=\mu e^x\)</span>, the
+contradiction <span class="math inline" data-term-auto="off">\(a&gt;1\)</span> occurs before
+level <span class="math inline" data-term-auto="off">\(1\)</span> provided that <span
 class="math inline" data-term-auto="off">\(\mu e^X&lt;1\)</span>. The recorded comparison
 gives <span
 class="math inline" data-term-auto="off">\((13/25)e^X&lt;0.982000386&lt;1\)</span>. It also
@@ -679,22 +725,20 @@ averaging argument</a>.</p>
 </section>
 <section id="sec:separation" class="level2">
 <h2>An isolated simple critical value</h2>
-<p>The next ordinary construction continues the two branches meeting at
-a simple critical point over a disc free of other critical values. It
-leads to a different sufficient condition from small <span
-class="math inline" data-term-auto="off">\(\mu\)</span>. Its square-root map, Bergman
-estimate and component-area bound are combined in the unformalised input
-<code>DiscSepBergmanArea</code>; the formal algebraic consequences are
-conditional on that construction.</p>
-<p>After dividing values by <span class="math inline" data-term-auto="off">\(v\)</span>, the
-chosen critical value is <span class="math inline" data-term-auto="off">\(1\)</span> and the
-roots still lie over <span class="math inline" data-term-auto="off">\(0\)</span>. We need a
-disc containing both <span class="math inline" data-term-auto="off">\(0\)</span> and <span
-class="math inline" data-term-auto="off">\(1\)</span> but no other critical value. Its centre
-<span class="math inline" data-term-auto="off">\(w_0\in[0,1]\)</span> and radius <span
-class="math inline" data-term-auto="off">\(S\)</span> therefore satisfy <span
-class="math inline" data-term-auto="off">\(S&gt;\max(w_0,1-w_0)\)</span>. These are the
-parameters in the following statement.</p>
+<p>Smallness of the least critical value is not the only useful
+condition. An isolated simple critical value lets us continue the two
+branches meeting there without encountering further branching. After
+dividing values by <span class="math inline" data-term-auto="off">\(v=f(c)\ne0\)</span>, the
+critical value is <span class="math inline" data-term-auto="off">\(1\)</span> and the roots
+lie over <span class="math inline" data-term-auto="off">\(0\)</span>. We seek a disc
+containing both points but no other critical value. Its centre <span
+class="math inline" data-term-auto="off">\(w_0\in[0,1]\)</span> and radius <span
+class="math inline" data-term-auto="off">\(S\)</span> must therefore satisfy <span
+class="math inline" data-term-auto="off">\(S&gt;\max(w_0,1-w_0)\)</span>.</p>
+<p>The ordinary construction combines a square-root coordinate, a
+Bergman length estimate and a component-area bound. These are the
+contents of the unformalised input <code>DiscSepBergmanArea</code>; the
+formal consequences below remain conditional on it.</p>
 <div class="remark" id="res:critical-value-separation">
 <p><strong>Remark 5.1</strong> (unformalised isolated-value assertion).
 <em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
@@ -748,27 +792,34 @@ already works with <span class="math inline" data-term-auto="off">\(4/3\)</span>
 </div>
 <section id="square-roots-and-component-area" class="level3">
 <h3>Square roots and component area</h3>
-<p>Here is the ordinary argument behind the two remarks. Choose <span
-class="math inline" data-term-auto="off">\(\alpha^n=v\)</span> and normalise to <span
-class="math inline" data-term-auto="off">\(P(z)=v^{-1}f(c+\alpha z)\)</span>. The component
-<span class="math inline" data-term-auto="off">\(U\)</span> above <span
-class="math inline" data-term-auto="off">\(D(w_0,S)\)</span> containing <span
-class="math inline" data-term-auto="off">\(0\)</span> has degree two, as follows by
-exhausting with regular discs and applying Riemann–Hurwitz. The
-exhaustion is needed because other critical values may lie on the outer
-boundary. Since <span class="math inline" data-term-auto="off">\(U\)</span> is simply
-connected and <span class="math inline" data-term-auto="off">\(1-P\)</span> has only a double
-zero at <span class="math inline" data-term-auto="off">\(0\)</span> there, it has a
-single-valued analytic square root <span
-class="math inline" data-term-auto="off">\(\xi\)</span>. The resulting map is a proper local
-biholomorphism onto <span
-class="math inline" data-term-auto="off">\(V=\{\xi:|\xi^2-(1-w_0)|&lt;S\}\)</span>, which is
-star-shaped and hence simply connected. It is therefore biholomorphic,
-and its inverse maps <span class="math inline" data-term-auto="off">\([-1,1]\)</span> to the
-proposed connection. Along this interval <span
-class="math inline" data-term-auto="off">\(P=1-\xi^2\in[0,1]\)</span>, which gives the
-required containment. Let <span class="math inline" data-term-auto="off">\(L\)</span> be the
-Euclidean length of this normalised curve.</p>
+<p>The ordinary argument first removes the scale of <span
+class="math inline" data-term-auto="off">\(v\)</span>, then constructs a curve, and finally
+bounds its length. Choose <span
+class="math inline" data-term-auto="off">\(\alpha^n=v\)</span> and set <span
+class="math inline" data-term-auto="off">\(P(z)=v^{-1}f(c+\alpha z)\)</span>. This polynomial
+is monic, with its chosen critical point at <span
+class="math inline" data-term-auto="off">\(0\)</span> and critical value <span
+class="math inline" data-term-auto="off">\(1\)</span>; Euclidean lengths are multiplied by
+<span class="math inline" data-term-auto="off">\(|\alpha|=|v|^{1/n}\)</span> on returning to
+the original plane. The component <span class="math inline" data-term-auto="off">\(U\)</span>
+of <span class="math inline" data-term-auto="off">\(P^{-1}(D(w_0,S))\)</span> containing
+<span class="math inline" data-term-auto="off">\(0\)</span> has degree two. To apply
+Riemann–Hurwitz, exhaust it by components above regular inner discs: the
+outer boundary itself may contain other critical values. Since <span
+class="math inline" data-term-auto="off">\(U\)</span> is simply connected and <span
+class="math inline" data-term-auto="off">\(1-P\)</span> has only a double zero at <span
+class="math inline" data-term-auto="off">\(0\)</span> there, it has a single-valued analytic
+square root <span class="math inline" data-term-auto="off">\(\xi\)</span>. This square root
+removes the simple branching. It is a proper local biholomorphism onto
+<span class="math inline" data-term-auto="off">\(V=\{\xi:|\xi^2-(1-w_0)|&lt;S\}\)</span>, a
+star-shaped and hence simply connected domain. Thus it is biholomorphic.
+Its inverse maps <span class="math inline" data-term-auto="off">\(-1\)</span> and <span
+class="math inline" data-term-auto="off">\(1\)</span> to the two roots and <span
+class="math inline" data-term-auto="off">\([-1,1]\)</span> to their connection. Along this
+interval <span class="math inline" data-term-auto="off">\(P=1-\xi^2\in[0,1]\)</span>, which
+gives the required containment. Let <span
+class="math inline" data-term-auto="off">\(L\)</span> be the Euclidean length of this
+normalised curve.</p>
 <p>Put <span class="math inline" data-term-auto="off">\(a=1-w_0\)</span> and <span
 class="math inline" data-term-auto="off">\(p=w_0(1-w_0)\)</span>. Squaring maps <span
 class="math inline" data-term-auto="off">\(V\)</span> onto <span
@@ -785,14 +836,17 @@ class="math inline" data-term-auto="off">\(q^2=S/(S^2+p)\)</span>. The hypothesi
 class="math inline" data-term-auto="off">\(S\)</span> gives <span
 class="math inline" data-term-auto="off">\(S^2-S+p=(S-w_0)(S-(1-w_0))&gt;0\)</span>, so <span
 class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span>. The Bergman segment estimate
-therefore applies and gives</p>
+used in Section <a class="math-ref" href="#sec:constant-factor">4</a> now applies to
+<span class="math inline" data-term-auto="off">\([-q,q]\)</span> and gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[L^2\le\frac2\pi\log\frac{S^2+S+p}{S^2-S+p}\,
                     \operatorname{Area}(U).\]</span></div>
-<p>The remaining
-estimate uses the degree-two count; an area bound for the whole
-lemniscate would lose this information. The companion first treats a
-monic polynomial <span class="math inline" data-term-auto="off">\(F\)</span> of degree <span
+<p>It remains to bound
+the area of <span class="math inline" data-term-auto="off">\(U\)</span>. The factor <span
+class="math inline" data-term-auto="off">\(n-1\)</span> in the desired bound comes from the
+roots outside this degree-two component, not from Pólya’s inequality
+alone. The companion first treats a monic polynomial <span
+class="math inline" data-term-auto="off">\(F\)</span> of degree <span
 class="math inline" data-term-auto="off">\(n\)</span>, a regular level <span
 class="math inline" data-term-auto="off">\(t&gt;0\)</span> of <span
 class="math inline" data-term-auto="off">\(|F|\)</span>, and a component <span
@@ -804,8 +858,10 @@ the <span class="math inline" data-term-auto="off">\(n-k\)</span> exterior-root 
 the disc gives a Blaschke product <span class="math inline" data-term-auto="off">\(B\)</span>
 with <span class="math inline" data-term-auto="off">\(|B(0)|=\operatorname{cap}(\overline
 W)^n/t\)</span> and <span class="math inline" data-term-auto="off">\(|B&#39;|&lt;n\)</span>
-on the boundary. Summing reciprocal derivatives over the fibre opposite
-<span class="math inline" data-term-auto="off">\(B(0)\)</span> gives <span
+on the boundary. The boundary-fibre identity expresses the sum of
+reciprocal derivatives as a Poisson kernel. This kernel is smallest at
+the boundary point opposite <span class="math inline" data-term-auto="off">\(B(0)\)</span>;
+evaluating there gives <span
 class="math inline" data-term-auto="off">\((n-k)/n&lt;(1-|B(0)|)/(1+|B(0)|)\)</span>, or
 equivalently <span class="math inline" data-term-auto="off">\(\operatorname{cap}(\overline
 W)^n/t&lt;k/(2n-k)\)</span>.</p>
@@ -813,7 +869,11 @@ W)^n/t&lt;k/(2n-k)\)</span>.</p>
 regular inner components exhausting <span
 class="math inline" data-term-auto="off">\(U\)</span>. Their degree is two, so <span
 class="math inline" data-term-auto="off">\(k=2\)</span> and <span
-class="math inline" data-term-auto="off">\(k/(2n-k)=1/(n-1)\)</span>. Pólya’s area–capacity
+class="math inline" data-term-auto="off">\(k/(2n-k)=1/(n-1)\)</span>. Here <span
+class="math inline" data-term-auto="off">\(k\)</span> counts preimages of <span
+class="math inline" data-term-auto="off">\(w_0\)</span> under <span
+class="math inline" data-term-auto="off">\(P\)</span>. These need not be the roots joined by
+the curve; the component degree gives both counts. Pólya’s area–capacity
 inequality <span class="citation" data-cites="polya1928"><a href="#ref-15">[15]</a></span>, <span
 class="citation" data-cites="crane"><a href="#ref-7">[7]</a></span>, followed by exhaustion, now
 gives <span
@@ -844,26 +904,27 @@ locations by themselves do not isolate it from the others. </p>
 
 </div>
 <section id="sec:critical-proximity" class="level3">
-<h3>Root distances and component geometry</h3>
-<p> At a non-root critical point, the balance <span
-class="math inline" data-term-auto="off">\(\sum_j(c-z_j)^{-1}=0\)</span> bounds the ratio of
-the two smallest root distances by <span
+<h3>Root distances do not ensure containment</h3>
+<p> At a non-root critical point <span class="math inline" data-term-auto="off">\(c\)</span>,
+the balance <span class="math inline" data-term-auto="off">\(\sum_j(c-z_j)^{-1}=0\)</span>
+bounds the ratio of the two smallest root distances by <span
 class="math inline" data-term-auto="off">\(n-1\)</span>. Comparing their sum with the
 geometric mean of all <span class="math inline" data-term-auto="off">\(n\)</span> distances
-then gives a bound of <span class="math inline" data-term-auto="off">\(2r\)</span>, where
-<span class="math inline" data-term-auto="off">\(r^n=\prod_j|c-z_j|\)</span>.</p>
+gives a bound of <span class="math inline" data-term-auto="off">\(2r\)</span>, where <span
+class="math inline" data-term-auto="off">\(r=|f(c)|^{1/n}\)</span> since <span
+class="math inline" data-term-auto="off">\(r^n=\prod_j|c-z_j|\)</span>. This is a distance
+estimate, with no containment conclusion.</p>
 <p> When all zeros lie in the open unit disc, a different estimate
 holds: at every non-root critical point the sum of the distances to the
 two nearest zeros is strictly less than <span
-class="math inline" data-term-auto="off">\(2\)</span>. Both arguments and their precise
-statements are in the companion’s <a
+class="math inline" data-term-auto="off">\(2\)</span>. The companion gives both <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#root-distance-proofs">root-distance
 estimates</a>. The nearest pair is chosen among all roots of <span
 class="math inline" data-term-auto="off">\(f\)</span>. It need not be the pair in the
 two-root component of the degree-seven example, where containment
 restricts which pair can be joined.</p>
-<p>These distance estimates alone do not imply containment. For the
-quintic</p>
+<p>Even a short segment from a critical point can leave the lemniscate.
+For the quintic</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(z-a)(z^2+p^2)\left(z^2+\frac{902}{901}pz+p^2\right),
 \qquad p=\frac{999}{1000},\quad a=\frac{901}{902}p,\]</span></div>
@@ -876,16 +937,18 @@ cubic still admits the two-segment connections of Theorem <a class="math-ref" h
 straight chords that fail. The <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#straight-path-counterexamples">exact
 counterexamples</a> include the escape calculations.</p>
-<p> The cubic <span class="math inline" data-term-auto="off">\(z^3+3z/100-3/4\)</span>
-illustrates the restrictions in our sufficient conditions: its least
-critical-value modulus exceeds <span
-class="math inline" data-term-auto="off">\(13/25\)</span>, while its two normalised critical
-values are too close for the isolation criterion.</p>
+<p> Nor do the two critical-value criteria cover every polynomial in the
+root-disc class. For <span
+class="math inline" data-term-auto="off">\(z^3+3z/100-3/4\)</span>, the least critical-value
+modulus exceeds <span class="math inline" data-term-auto="off">\(13/25\)</span>, and the two
+normalised critical values are too close for the isolation
+criterion.</p>
 <p> A further cubic has two roots at its first merger but normalised
 component capacity one at level <span
-class="math inline" data-term-auto="off">\(2\mu\)</span>. By that level, all three roots lie
-in one component. Its capacity is therefore that of the whole filled
-lemniscate, whose normalisation uses the standard identity <span
+class="math inline" data-term-auto="off">\(2\mu\)</span>. By that level all three roots have
+merged, so the initial two-root count cannot be used at the later level.
+The component is now the whole filled lemniscate, whose capacity is
+given by <span
 class="math inline" data-term-auto="off">\(\operatorname{cap}(K_t(f))=t^{1/n}\)</span> <span
 class="citation" data-cites="ransford1995"><a href="#ref-23">[23]</a></span>.</p>
 <p> Finally, <span class="math inline" data-term-auto="off">\(z^8-(3/2)z\)</span> has a
@@ -903,13 +966,14 @@ use it.</p>
 </section>
 <section id="sec:solved-families" class="level3">
 <h3>Sparse families and binomial chords</h3>
-<p> Suppose that all zeros lie in the open unit disc. The radial
-argument extends to <span class="math inline" data-term-auto="off">\(P((z-h)^q)\)</span> when
-<span class="math inline" data-term-auto="off">\(q\ge2\)</span> and <span
-class="math inline" data-term-auto="off">\(P\)</span> is a monic cubic: if there are two
-distinct zeros, some such pair can be joined by a path consisting of two
-segments. The companion selects a nonzero root <span
-class="math inline" data-term-auto="off">\(r\)</span> of <span
+<p> Suppose that all zeros lie in the open unit disc. For <span
+class="math inline" data-term-auto="off">\(P((z-h)^q)\)</span>, where <span
+class="math inline" data-term-auto="off">\(q\ge2\)</span> and <span
+class="math inline" data-term-auto="off">\(P\)</span> is a monic cubic, one suitable segment
+for <span class="math inline" data-term-auto="off">\(P\)</span> produces an entire fibre of
+segments for the composition. If there are two distinct zeros, some pair
+can be joined by two such segments. The companion selects a nonzero root
+<span class="math inline" data-term-auto="off">\(r\)</span> of <span
 class="math inline" data-term-auto="off">\(P\)</span> for which <span
 class="math inline" data-term-auto="off">\([0,r]\subset\{|P|&lt;1\}\)</span>. Writing <span
 class="math inline" data-term-auto="off">\(f(z)=P((z-h)^q)\)</span> and <span
@@ -919,15 +983,28 @@ class="math inline" data-term-auto="off">\(0\le t\le1\)</span> and every <span
 class="math inline" data-term-auto="off">\(q\)</span>th root of unity <span
 class="math inline" data-term-auto="off">\(\zeta\)</span>. Thus one quotient segment gives
 <span class="math inline" data-term-auto="off">\(q\)</span> contained segments through <span
-class="math inline" data-term-auto="off">\(h\)</span>. Averaging <span
-class="math inline" data-term-auto="off">\(|h+y\zeta|^2\)</span> over the full fibre gives
-<span class="math inline" data-term-auto="off">\(|h|^2+|y|^2&lt;1\)</span>, so two distinct
-fibre points are joined with length <span
+class="math inline" data-term-auto="off">\(h\)</span>. The <span
+class="math inline" data-term-auto="off">\(q\)</span>th roots of unity sum to zero, so
+averaging <span class="math inline" data-term-auto="off">\(|h+y\zeta|^2\)</span> over the
+full fibre cancels the cross term and gives <span
+class="math inline" data-term-auto="off">\(|h|^2+|y|^2&lt;1\)</span>. Any two distinct points
+in this fibre are therefore joined through <span
+class="math inline" data-term-auto="off">\(h\)</span> with length <span
 class="math inline" data-term-auto="off">\(2|y|&lt;2\)</span>.</p>
-<p> For <span class="math inline" data-term-auto="off">\(z^5+az^4+bz+c\)</span>, a
-harmonic-moment identity selects two root indices with <span
+<p> For <span class="math inline" data-term-auto="off">\(z^5+az^4+bz+c\)</span>, the
+remaining selection problem is to control the partial sum <span
+class="math inline" data-term-auto="off">\(bz_j+c\)</span>. A harmonic-moment identity
+supplies two root indices with <span
 class="math inline" data-term-auto="off">\(|bz_j+c|&lt;1\)</span>, after which Abel summation
-controls the whole segments. The companion gives the <a
+controls the whole segments. The missing coefficients determine the
+first three power sums of the roots. For <span
+class="math inline" data-term-auto="off">\(a\ne0\)</span>, the resulting harmonic identity
+rules out four indices with <span
+class="math inline" data-term-auto="off">\(|bz_j+c|\ge1\)</span>; when <span
+class="math inline" data-term-auto="off">\(a=0\)</span>, the root equation gives <span
+class="math inline" data-term-auto="off">\(|bz_j+c|=|z_j|^5&lt;1\)</span> directly. The two
+selected indices may represent the same root value, in which case the
+connecting path is constant. The companion gives the <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#cubic-fibre-proof">cubic-fibre
 proof</a> and the <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#quintic-proof">quintic
@@ -954,39 +1031,59 @@ two adjacent root occurrences whose segment satisfies</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[|f|\le\frac{(D/2)^n}{2^{n-1}\cos^n(\pi/(2n))}.\]</span></div>
 <p>The constant is sharp, with equality for the appropriately scaled zeros
-of <span class="math inline" data-term-auto="off">\(T_n\)</span>. Qualitative existence of a
-contained root segment was already proved in <span class="citation"
-data-cites="ehp1958"><a href="#ref-2">[2]</a></span>. We compare with the monic minimax
-polynomial (see Eremenko and Yuditskii <span class="citation"
-data-cites="eremenko-yuditskii"><a href="#ref-10">[10]</a></span> for the critical-sequence
-viewpoint). The companion contains the <a
+of the Chebyshev polynomial <span class="math inline" data-term-auto="off">\(T_n\)</span>.
+Qualitative existence of a contained root segment was already proved in
+<span class="citation" data-cites="ehp1958"><a href="#ref-2">[2]</a></span>. We compare with the
+monic minimax polynomial (see Eremenko and Yuditskii <span
+class="citation" data-cites="eremenko-yuditskii"><a href="#ref-10">[10]</a></span> for the
+critical-sequence viewpoint). The companion contains the <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#collinear-proof">alternation
 proof and equality case</a>.</p>
 </section>
 <section id="sec:freepoint" class="level3">
 <h3>Critical-value means</h3>
-<p>For <span class="math inline" data-term-auto="off">\(c_j\in\overline{\mathbb D}\)</span>
+<p> For <span class="math inline" data-term-auto="off">\(c_j\in\overline{\mathbb D}\)</span>
 and positive weights of sum one, set <span
 class="math inline" data-term-auto="off">\(G(z)=\prod_j|1-\bar c_jz|^{w_j}\)</span>. Then
 <span class="math inline" data-term-auto="off">\(\sum_jw_jG(c_j)^2\le1\)</span>, with
-equality only when all <span class="math inline" data-term-auto="off">\(c_j=0\)</span>. For
-interior points, we form the analytic product <span
-class="math inline" data-term-auto="off">\(g(z)=1+\sum_{\nu\ge1}a_\nu z^\nu\)</span> with
-<span class="math inline" data-term-auto="off">\(|g|=G\)</span>. The weighted Poisson kernel
-is <span class="math inline" data-term-auto="off">\(P=1-2\operatorname{Re}(\zeta
-g&#39;/g)\)</span>, and</p>
+equality only when all <span class="math inline" data-term-auto="off">\(c_j=0\)</span>.</p>
+<p>The weighted Poisson kernel is <span
+class="math inline" data-term-auto="off">\(P(\zeta)=\sum_jw_j(1-|c_j|^2)/|\zeta-c_j|^2\)</span>
+for <span class="math inline" data-term-auto="off">\(|\zeta|=1\)</span> and interior centres.
+For interior points the factors are nonvanishing in the disc, so choose
+an analytic <span class="math inline" data-term-auto="off">\(g(z)=1+\sum_{\nu\ge1}a_\nu
+z^\nu\)</span> with <span class="math inline" data-term-auto="off">\(|g|=G\)</span>. On <span
+class="math inline" data-term-auto="off">\(\zeta=e^{i\theta}\)</span>, with normalised
+arclength <span class="math inline" data-term-auto="off">\(dm=d\theta/(2\pi)\)</span>, write
+the weighted Poisson kernel as <span
+class="math inline" data-term-auto="off">\(P=1-2\operatorname{Re}(\zeta g&#39;/g)\)</span>.
+Subharmonicity of <span class="math inline" data-term-auto="off">\(|g|^2\)</span> gives the
+inequality below; integrating the power series gives the identity:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_jw_jG(c_j)^2\le\int |g|^2P\,dm
           =1-\sum_{\nu\ge1}(2\nu-1)|a_\nu|^2.\]</span></div>
-<p>Radial
-contraction gives the boundary case.</p>
+<p>Orthogonality on
+the circle leaves <span class="math inline" data-term-auto="off">\(1+\sum|a_\nu|^2\)</span>
+from <span class="math inline" data-term-auto="off">\(|g|^2\)</span> and <span
+class="math inline" data-term-auto="off">\(\sum\nu|a_\nu|^2\)</span> from <span
+class="math inline" data-term-auto="off">\(\zeta g&#39;\overline g\)</span>, explaining the
+coefficients <span class="math inline" data-term-auto="off">\(2\nu-1\)</span>. For boundary
+centres, replace <span class="math inline" data-term-auto="off">\(c_j\)</span> by <span
+class="math inline" data-term-auto="off">\(rc_j\)</span> and let <span
+class="math inline" data-term-auto="off">\(r\uparrow1\)</span> with a finite coefficient sum
+first; no boundary logarithm is needed. Equality forces every <span
+class="math inline" data-term-auto="off">\(a_\nu\)</span> to vanish. Logarithmic
+differentiation of <span class="math inline" data-term-auto="off">\(g=1\)</span>, grouping
+repeated centres, then forces all the positive-weight centres to be
+zero.</p>
 <p>To apply this inequality to a monic polynomial <span
 class="math inline" data-term-auto="off">\(f\)</span> of degree <span
 class="math inline" data-term-auto="off">\(n\ge2\)</span> with zeros in the closed unit disc,
 take its <span class="math inline" data-term-auto="off">\(m=n-1\)</span> critical points,
 counted with multiplicity, and give them equal weights <span
-class="math inline" data-term-auto="off">\(1/m\)</span>. The reflected-derivative comparison
-gives the pointwise bound</p>
+class="math inline" data-term-auto="off">\(1/m\)</span>. Gauss–Lucas puts these points in the
+closed unit disc. The reflected-derivative comparison then gives the
+pointwise bound</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[|f(c_j)|^{2/m}\le
 \left(\prod_{k=1}^m|1-\bar c_kc_j|\right)^{2/m}=G(c_j)^2.\]</span></div>
 <p>Summing and using the weighted inequality gives <span
@@ -1010,13 +1107,14 @@ class="math inline" data-term-auto="off">\(|\lambda|=R^n\)</span>. The companion
 <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#weighted-poisson-proof">weighted
 identity, reflected-derivative comparison and equality analysis</a>.</p>
-<p>Applying AM–GM to the quadratic specialisation gives Dubinin’s sharp
-critical-value product bound <span class="citation"
-data-cites="dubinin2006critical"><a href="#ref-16">[16]</a></span>. With a zero prescribed at the
-disc centre, his Theorem 3 gives a different, sharper product estimate
-and credits earlier work of Tischler <span class="citation"
-data-cites="tischler1989"><a href="#ref-20">[20]</a></span>. The corresponding marked-zero
-positive-moment question in <span class="citation"
+<p>Applying AM–GM to <span
+class="math inline" data-term-auto="off">\(\sum_j|f(c_j)|^{2/(n-1)}\le n-1\)</span> in the
+unit disc gives Dubinin’s sharp critical-value product bound <span
+class="citation" data-cites="dubinin2006critical"><a href="#ref-16">[16]</a></span>. With a zero
+prescribed at the disc centre, his Theorem 3 gives a different, sharper
+product estimate and credits earlier work of Tischler <span
+class="citation" data-cites="tischler1989"><a href="#ref-20">[20]</a></span>. The corresponding
+marked-zero positive-moment question in <span class="citation"
 data-cites="revision2026"><a href="#ref-21">[21]</a></span> remains unresolved here. To turn any
 of these mean bounds into a short-path theorem, one would still have to
 select a pair of roots and control a curve joining them inside the
@@ -1024,23 +1122,27 @@ lemniscate.</p>
 </section>
 <section id="sec:orlicz" class="level3">
 <h3>Successive merger scales</h3>
-<p>For a component with <span class="math inline" data-term-auto="off">\(k\)</span> roots
-and a ratio <span class="math inline" data-term-auto="off">\(r\)</span> of successive merger
-levels, an integral arising in length estimates is</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[I_k(r)=\int_r^1
+<p>For a component with <span class="math inline" data-term-auto="off">\(k\ge1\)</span>
+roots, let <span class="math inline" data-term-auto="off">\(r\in(0,1]\)</span> be the earlier
+merger level divided by the later one. An integral arising in length
+estimates is</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[I_k(r)=\int_r^1
 \frac{dq}{q\log((1+q^{2/k})/(1-q^{2/k}))}
        =k\Phi\left(\frac1k\log\frac1r\right),
 \qquad \Phi(x)=\int_0^x\frac{dt}{\log\coth t}.\]</span></div>
 <p>Substituting
-<span class="math inline" data-term-auto="off">\(q=e^{-kt}\)</span> gives the identity. Since
-the integrand increases from zero, <span
-class="math inline" data-term-auto="off">\(\Phi\)</span> is strictly convex and <span
-class="math inline" data-term-auto="off">\(\Phi(x)/x\to0\)</span> at zero. Even for fixed
-<span class="math inline" data-term-auto="off">\(k\)</span>, no positive multiple of <span
-class="math inline" data-term-auto="off">\(k^{-1}\log(1/r)\)</span> is a uniform lower bound
-for <span class="math inline" data-term-auto="off">\(I_k(r)\)</span>. The precise endpoint
-statement and its proof are retained in the companion’s <a
+<span class="math inline" data-term-auto="off">\(q=e^{-kt}\)</span> gives the identity; the
+integrand defining <span class="math inline" data-term-auto="off">\(\Phi\)</span> has
+limiting value zero at <span class="math inline" data-term-auto="off">\(t=0\)</span>. It is
+increasing, so <span class="math inline" data-term-auto="off">\(\Phi\)</span> is strictly
+convex and <span class="math inline" data-term-auto="off">\(\Phi(x)/x\to0\)</span> as <span
+class="math inline" data-term-auto="off">\(x\downarrow0\)</span>. Thus, when the two merger
+levels approach one another (<span
+class="math inline" data-term-auto="off">\(r\uparrow1\)</span>), <span
+class="math inline" data-term-auto="off">\(I_k(r)\)</span> becomes arbitrarily small relative
+to <span class="math inline" data-term-auto="off">\(k^{-1}\log(1/r)\)</span>, even for fixed
+<span class="math inline" data-term-auto="off">\(k\)</span>. No positive uniform lower factor
+exists. See the <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#merger-integral-proof">merger-scale
 calculation</a>.</p>
 </section>
@@ -1055,11 +1157,14 @@ class="math inline" data-term-auto="off">\(f&#39;(z(t))\ne0\)</span>, the chain 
 <span class="math inline" data-term-auto="off">\((f\circ z)&#39;=-f\circ z\)</span>.
 Integrating this scalar equation yields <span
 class="math inline" data-term-auto="off">\(f(z(t))=e^{-(t-t_0)}f(z(t_0))\)</span> for times
-in that interval. Thus the image in the value plane follows a fixed ray.
-This identity and the Newtonian graph of Shub, Tischler and Williams are
-used in the form given by Kozen and Stefánsson <span class="citation"
-data-cites="kozen-stefansson1997"><a href="#ref-6">[6]</a></span>. The companion also records
-local complex-parameter identities for <span
+in that interval. Thus the trajectory maps to a fixed value ray. This is
+the classical Newton-flow identity in Kozen and Stefánsson <span
+class="citation" data-cites="kozen-stefansson1997"><a href="#ref-6">[6]</a></span>, who develop
+the Newtonian graph of Shub, Tischler and Williams. It describes the
+value along an existing trajectory; it does not itself bound the
+trajectory’s Euclidean length. A length bound requires control of <span
+class="math inline" data-term-auto="off">\(\int |f(z(t))/f&#39;(z(t))|\,dt\)</span>. The
+companion also records local complex-parameter identities for <span
 class="math inline" data-term-auto="off">\((f\circ z)&#39;\)</span> and <span
 class="math inline" data-term-auto="off">\((e^t f(z(t)))&#39;\)</span>. These are pointwise
 derivative statements; the integration above concerns an existing
@@ -1076,22 +1181,27 @@ evaluating <span class="math inline" data-term-auto="off">\(f/f&#39;\)</span> at
 Nonzero endpoint values therefore lie on the same positive ray. Critical
 values with distinct arguments exclude such a connection; distinct
 moduli are insufficient.</p>
-<p> A generic constant perturbation separates rays when the original
-critical values are distinct, but cannot split equal values. The formal
-sources give the <a
+<p> Adding a constant leaves <span class="math inline" data-term-auto="off">\(f&#39;\)</span>
+unchanged and translates every critical value by the same amount. A
+generic translation separates the rays of distinct values, but equal
+values stay equal. The formal sources give the <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">one-parameter
 collision locus</a> and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L162">finite
 affine-line avoidance argument</a>. The companion records an
 unformalised argument that a linear perturbation can do so generically.
-Neither qualitative assertion supplies a numerical perturbation bound
-that preserves a near-extremal path inequality. The <a
+Neither qualitative assertion bounds a perturbation that preserves a
+near-extremal path inequality. The <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#argument-perturbation-proof">forbidden-ray
-locus calculation</a> and the local logarithmic expansion, with
-remainder <span class="math inline" data-term-auto="off">\(nq^{N+1}/((N+1)(1-q))\)</span> for
-<span class="math inline" data-term-auto="off">\(q&lt;1\)</span>, specify the available
-control. The expansion is inapplicable at the distance to the nearest
-zero.</p>
+locus calculation</a> identifies the translations to avoid. Separately,
+expand <span class="math inline" data-term-auto="off">\(\log|f|\)</span> about a non-root
+point and let <span class="math inline" data-term-auto="off">\(q\)</span> be the displacement
+divided by the distance to the nearest zero. For <span
+class="math inline" data-term-auto="off">\(q&lt;1\)</span>, the remainder after order <span
+class="math inline" data-term-auto="off">\(N\)</span> is at most <span
+class="math inline" data-term-auto="off">\(nq^{N+1}/((N+1)(1-q))\)</span>. This local
+expansion cannot be used through a zero and does not itself give a
+coefficient-perturbation bound.</p>
 <section id="res:component-local-covering" class="level5">
 <h5>Inverse-branch prerequisites.</h5>
 <p>For a nonconstant complex polynomial, each component of <span
@@ -1104,10 +1214,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/e98130bfe66aa33606e116791080
 fibres</a>. Over values avoiding the critical values attained in that
 component, it is a <a
 href="https://github.com/wcook04/plectis-erdos/blob/e98130bfe66aa33606e116791080b3ed13e1d68a/evidence/source-prerequisites/8bf96bdcae6b9201c670fff3037c49c70ec6de8d/lean/ErdosProblems/Erdos1041/OutwardSlitDomain.lean#L250">covering
-map</a>. Choose finitely many nonzero slit starts that include every
-critical value attained in the component, and remove the outward rays
-beginning at those starts from the value disc. On the remaining domain,
-each root in the component determines a <a
+map</a>. When <span class="math inline" data-term-auto="off">\(0\)</span> is not a critical
+value on the component, choose finitely many nonzero slit starts
+including its critical values, and remove their outward rays from the
+value disc. On the remaining domain, each root in the component
+determines a <a
 href="https://github.com/wcook04/plectis-erdos/blob/e98130bfe66aa33606e116791080b3ed13e1d68a/evidence/source-prerequisites/8bf96bdcae6b9201c670fff3037c49c70ec6de8d/lean/ErdosProblems/Erdos1041/OutwardSlitDomain.lean#L359">unique
 continuous inverse branch</a>, taking <span
 class="math inline" data-term-auto="off">\(0\)</span> to that root. The archived Lean source
@@ -1120,17 +1231,18 @@ length estimate.</p>
 </section>
 <section id="sec:gap" class="level3">
 <h3>The failed tree estimate</h3>
-<p> For the Cassini polynomial <span
-class="math inline" data-term-auto="off">\(z^2-(9/10)^2\)</span>, any connected set
-containing both roots has length at least <span
-class="math inline" data-term-auto="off">\(9/5\)</span>. The right side of Proposition 12 in
-the March manuscript <span class="citation"
-data-cites="march2026"><a href="#ref-3">[3]</a></span>, even with its proposed arbitrarily small
-error, is smaller than <span class="math inline" data-term-auto="off">\(41/25\)</span> before
-that error. Thus the proposed spanning-tree estimate is false. At a
-simple saddle the local level set has four sectors, consistently with
-the lemniscate graph description in <span class="citation"
-data-cites="bishop-eremenko-lazebnik"><a href="#ref-13">[13]</a></span>. The <a
+<p> For <span class="math inline" data-term-auto="off">\(z^2-(9/10)^2\)</span>, the distance
+between the roots already forces any connected set containing them to
+have length at least <span class="math inline" data-term-auto="off">\(9/5\)</span>.
+Proposition 12 of the March manuscript <span class="citation"
+data-cites="march2026"><a href="#ref-3">[3]</a></span> instead proposes a bound below <span
+class="math inline" data-term-auto="off">\(41/25\)</span> plus an arbitrarily small error.
+Since <span class="math inline" data-term-auto="off">\(41/25&lt;9/5\)</span>, choosing the
+error smaller than this gap contradicts the lower bound. The
+spanning-tree estimate is false. At a simple saddle the local level set
+has four sectors, consistently with the lemniscate graph description in
+<span class="citation" data-cites="bishop-eremenko-lazebnik"><a href="#ref-13">[13]</a></span>.
+The <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#cassini-counterexample">Cassini
 calculation and corrected topological statement</a> separate the metric
 failure from the valid sheet decomposition.</p>
@@ -1140,12 +1252,11 @@ inverse-sheet adjacency is classical; see <span class="citation"
 data-cites="dubinin2006critical"><a href="#ref-16">[16]</a></span> and <span class="citation"
 data-cites="dubinin2006capacity"><a href="#ref-22">[22]</a></span>. Length control requires
 additional estimates on the actual pieces and their attachment. An uncut
-Newton orbit space can even fail to be Hausdorff; it cannot
-automatically be identified with a finite Reeb graph. The earlier
-numerical searches in degrees <span
-class="math inline" data-term-auto="off">\(5,6,8,10\)</span> found no counterexample on their
-tested grids. Such searches neither certify containment along unexamined
-edges nor prove a quantified statement about all polynomials.</p>
+Newton orbit space can even fail to be Hausdorff, so it cannot be
+identified with a finite Reeb graph without further argument. Earlier
+grid searches in degrees <span class="math inline" data-term-auto="off">\(5,6,8,10\)</span>
+found no counterexample, but neither certified containment along
+unexamined edges nor established a statement for all polynomials.</p>
 </section>
 <section id="restricted-extremal-problems" class="level3">
 <h3>Restricted extremal problems</h3>
@@ -1157,12 +1268,13 @@ root-disc class and lower semicontinuity of this infimum allow uniform
 upper bounds to pass to coefficient limits. These are statements about
 the closed lemniscate, as proved in the companion’s <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#closed-class-limits">compactness
-argument</a>. The binomial family approaches length <span
-class="math inline" data-term-auto="off">\(2\)</span>. The assertion that the universal
-extremum is at most <span class="math inline" data-term-auto="off">\(2\)</span> is refuted by
-the degree-seven example; its earlier formulation is not a remaining
-open problem. Quantitative bounds for restricted classes and for varying
-degree still require further work.</p>
+argument</a>. Closed containment survives such limits; strict
+containment need not. The binomial family approaches length <span
+class="math inline" data-term-auto="off">\(2\)</span>, but the degree-seven example rules out
+<span class="math inline" data-term-auto="off">\(2\)</span> as a universal upper bound. That
+refuted assertion is not a remaining open problem. What remains is to
+determine quantitative bounds for restricted classes and as the degree
+varies.</p>
 <p>The precise unresolved questions about cut-open flow strips,
 attachment lengths and quantitative perturbation are stated in the
 companion’s <a
@@ -1177,25 +1289,30 @@ proof does not establish the whole small-parameter family.</p>
 </section>
 <section id="sec:1041-sources" class="level2">
 <h2>Related results and verification</h2>
-<p>Eremenko and Hayman’s bound <span class="math inline" data-term-auto="off">\(\mathcal
-H^1\{|p|=1\}&lt;9.173\deg p\)</span> <span class="citation"
-data-cites="eremenko-hayman"><a href="#ref-9">[9]</a></span> concerns the total boundary length.
-Their connectedness result, the derivative estimate of Eremenko and
-Lempert <span class="citation" data-cites="eremenko-lempert"><a href="#ref-11">[11]</a></span>,
-and its equality analysis <span class="citation"
-data-cites="eremenko-markov"><a href="#ref-12">[12]</a></span> optimise different quantities from
-an internal root-to-root path. Kuznetsova and Tkachev <span
-class="citation" data-cites="kuznetsova2003"><a href="#ref-19">[19]</a></span> study length
-functions on regular levels; their log-convexity does not imply a
-uniform one-root perimeter bound at a critical endpoint. Dubinin’s
-four-point distortion theorem <span class="citation"
+<p>Several nearby results concern different geometric quantities.
+Inverse branches, slit domains and capacity also occur in Crane’s work
+on Smale’s mean-value conjecture <span class="citation"
+data-cites="crane2007smale"><a href="#ref-17">[17]</a></span>, but its derivative normalisation
+differs from the monic normalisation used here. Eremenko and Hayman’s
+bound <span class="math inline" data-term-auto="off">\(\mathcal H^1\{|p|=1\}&lt;9.173\deg
+p\)</span> <span class="citation" data-cites="eremenko-hayman"><a href="#ref-9">[9]</a></span>
+concerns total boundary length, not an internal root-to-root path. Their
+connectedness result, the derivative estimate of Eremenko and Lempert
+<span class="citation" data-cites="eremenko-lempert"><a href="#ref-11">[11]</a></span>, and its
+equality analysis <span class="citation"
+data-cites="eremenko-markov"><a href="#ref-12">[12]</a></span> likewise concern different extremal
+quantities. Kuznetsova and Tkachev <span class="citation"
+data-cites="kuznetsova2003"><a href="#ref-19">[19]</a></span> study length functions on regular
+levels; log-convexity there does not give a uniform one-root perimeter
+bound at a critical endpoint.</p>
+<p>The hypotheses and endpoints also matter. Dubinin’s four-point
+distortion theorem <span class="citation"
 data-cites="dubinin2013fourpoint"><a href="#ref-18">[18]</a></span> assumes a bound on all
-critical values and has a different normalisation. Pendyala’s work on
-Problem 1120 <span class="citation"
-data-cites="pendyala2026shortest"><a href="#ref-5">[5]</a></span> asks for a path from <span
-class="math inline" data-term-auto="off">\(0\)</span> to the unit circle in the intersection
-of a lemniscate with the closed disc. Those endpoints and that
-additional region restriction differ from the present question.</p>
+critical values, with a different normalisation. Pendyala’s Problem 1120
+result <span class="citation" data-cites="pendyala2026shortest"><a href="#ref-5">[5]</a></span>
+joins <span class="math inline" data-term-auto="off">\(0\)</span> to the unit circle inside a
+lemniscate intersected with the closed disc. Neither the endpoints nor
+that region restriction are those of Problem 1041.</p>
 <section id="verification-and-reproducibility." class="level5">
 <h5>Verification and reproducibility.</h5>
 <p>The supplied Lean sources prove the fixed counterexample for

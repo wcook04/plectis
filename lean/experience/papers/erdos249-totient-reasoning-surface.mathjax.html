@@ -7,43 +7,44 @@
   <div class="lean-paper__body" data-source="../../../paper/249/erdos249-totient-reasoning-surface.tex">
 <section id="organisation" class="level2 unnumbered">
 <h2 class="unnumbered">Organisation</h2>
-<p>The starting point is the decomposition <span
-class="math inline" data-term-auto="off">\(2^NS=\Phi_N+R_N\)</span>, where <span
-class="math inline" data-term-auto="off">\(\Phi_N\)</span> is an integer and <span
-class="math inline" data-term-auto="off">\(R_N\)</span> is the remaining scaled tail. A
-rational value of <span class="math inline" data-term-auto="off">\(S\)</span> forces a fixed
-positive shift <span class="math inline" data-term-auto="off">\(h\)</span> for which <span
-class="math inline" data-term-auto="off">\(R_{N+h}-R_N\)</span> is an integer whenever <span
-class="math inline" data-term-auto="off">\(N\)</span> is sufficiently large. Truncating the
-tails gives a finite residue test for a failure of this integrality. The
-main questions are how to find such failures and which proposed ways of
-finding them require information not yet known.</p>
-<p>Exact identities between coefficient sequences answer a different
-question. The <a
+<p>The argument starts from <span
+class="math inline" data-term-auto="off">\(2^NS=\Phi_N+R_N\)</span>, with <span
+class="math inline" data-term-auto="off">\(\Phi_N\in\mathbb{Z}\)</span>. A rational <span
+class="math inline" data-term-auto="off">\(S\)</span> gives a shift <span
+class="math inline" data-term-auto="off">\(h&gt;0\)</span> for which <span
+class="math inline" data-term-auto="off">\(R_{N+h}-R_N\in\mathbb{Z}\)</span> for every
+sufficiently large <span class="math inline" data-term-auto="off">\(N\)</span>. Three
+questions organise the record.</p>
+<p><em>What finite calculation can refute that integrality?</em> The
+residue test in Definition <a class="math-ref" href="#defn:sep">1.2</a> encloses the tail
+difference in an explicit error interval. Section <a class="math-ref" href="#sec:series">5</a> gives the identities and
+the independent Farey-window exclusion. Appendix <a class="math-ref" href="#app:r3-complements">A</a> supplies the
+complete propagation, Mersenne-residue and rank-one arguments cited in
+the short paper.</p>
+<p><em>Which information is insufficient to supply such
+calculations?</em> The <a
 href="../../../papers/erdos-249-binary-totient-series.pdf#short249-basis">short
-paper</a> gives a basis of <span class="math inline" data-term-auto="off">\(k^e+1\)</span>
-totient sections through level <span
-class="math inline" data-term-auto="off">\(e\ge1\)</span> in every base <span
+paper</a> determines all finite-level totient relations, with a basis of
+<span class="math inline" data-term-auto="off">\(k^e+1\)</span> sections in every base <span
 class="math inline" data-term-auto="off">\(k\ge2\)</span>. Its <a
-href="../../../papers/erdos-249-binary-totient-series.pdf#short249-base-six">base-six
-example and integral relation proof</a> turn an identity among the
-original indexed sections into an explicit test on their coefficients.
-Its prime-isolation proof also yields irrationality for bounded residue
-series. The present record explains the additional difficulty posed by
-the unbounded coefficients of <span class="math inline" data-term-auto="off">\(S\)</span> and
-keeps the rational comparisons alongside the deductions they test.</p>
-<p>For the residue criteria, see Definition <a class="math-ref" href="#defn:sep">1.2</a> and Sections <a class="math-ref" href="#sec:survivors">3</a> and <a class="math-ref" href="#sec:series">5</a>. Section <a class="math-ref" href="#sec:mahler-defect">10.8</a> gives the dyadic
-integral relations; Section <a class="math-ref" href="#sub:generic-carry-rank">12.6</a> constructs
-the rational <span class="math inline" data-term-auto="off">\(5/4\)</span> series with
-unbounded carry rank. Other rational comparisons are in Section <a class="math-ref" href="#sec:wall">2</a>. Section <a class="math-ref" href="#sub:pivot">12.3</a> gives the unresolved
-weighted exponential sums and their common parameter requirements,
-corresponding to the <a
+href="../../../papers/erdos-249-binary-totient-series.pdf#short249-base-six">integral
+relation proof</a> recovers the coefficients of every relation. Those
+are statements about sequences, not their weighted infinite sums.
+Section <a class="math-ref" href="#sec:mahler-defect">10.8</a>
+explains the distinction through carry rank; Section <a class="math-ref" href="#sub:generic-carry-rank">12.6</a> constructs a
+rational <span class="math inline" data-term-auto="off">\(5/4\)</span> series retaining the
+odd totients. Section <a class="math-ref" href="#sec:wall">2</a> gives other comparisons,
+each limited to its stated preserved properties.</p>
+<p><em>What additional estimate would suffice?</em> Section <a class="math-ref" href="#sec:survivors">3</a> gives the quantified
+conditions. Section <a class="math-ref" href="#sub:pivot">12.3</a>
+separates the weighted exponential-sum estimate from the counting and
+group-mean bounds, corresponding to the <a
 href="../../../papers/erdos-249-binary-totient-series.pdf#short249-first-harmonic">four-estimate
-problem</a> in the short paper’s final appendix.</p>
-<p>Appendix <a class="math-ref" href="#app:r3-complements">A</a> contains the
-complete propagation, Mersenne-residue and sharp rank-one arguments
-cited there. Appendix <a class="math-ref" href="#app:r3-declarations">B</a> collects the
-formal declarations.</p>
+problem</a> in the short paper. A second sufficient condition estimates
+only the average over good indices and needs no group-mean input.
+Appendix <a class="math-ref" href="#app:r3-declarations">B</a>
+records the formal declarations; an implication proved there does not
+establish its remaining hypothesis.</p>
 </section>
 <section id="totient-sections-and-tail-differences" class="level2">
 <h2>Totient sections and tail differences</h2>
@@ -64,8 +65,9 @@ paper gives rank <span class="math inline" data-term-auto="off">\(k^e+1\)</span>
 coordinates. Its retained positive residues satisfy <span
 class="math inline" data-term-auto="off">\(k\nmid r\)</span>; coprimality with <span
 class="math inline" data-term-auto="off">\(k\)</span> is unnecessary.</p>
-<p>The question about the series concerns more than these coefficient
-relations. Put</p>
+<p>The coefficient relations are finite linear identities. The series
+question asks whether a particular <em>infinite</em> weighted sum can be
+rational. Put</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[S \;:=\; \sum_{n \ge 1}
 \frac{\varphi(n)}{2^{n}}
   \;=\; \tfrac12 + \tfrac14 + \tfrac{2}{8} + \tfrac{2}{16} +
@@ -75,12 +77,11 @@ relations. Put</p>
 absolutely because <span class="math inline" data-term-auto="off">\(\varphi(n) \le
 n\)</span>. Erdős Problem #249 asks whether <span
 class="math inline" data-term-auto="off">\(S\)</span> is irrational, which remains open. The
-exact rank theorem controls linear relations among coefficient sections.
-Irrationality requires information about their weighted infinite sum.
-The countermodels below explain several ways that a passage from
-coefficient structure to the sum can fail. Each excludes its stated
-assumptions; they do not establish a single obstruction theorem covering
-all possible methods.</p>
+comparisons below test proposed passages from coefficient structure to
+the value of this sum. Each retains specified properties while making
+the corresponding sum rational. It therefore defeats an argument using
+only those properties, not every argument that might also use the
+arithmetic of the totient.</p>
 <p>Throughout, a cofinal condition means that a witness exists beyond
 each threshold. It need not hold at every sufficiently large index. Each
 comparison sequence is used only for the properties it preserves;
@@ -163,19 +164,22 @@ class="math display" data-term-auto="off">\[\mathcal{C}(h,N,L)
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L66"><code>Erdos249257.TotientTailPeriodKiller.windowDiscrepancy</code></a>,
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L72"><code>Erdos249257.TotientTailPeriodKiller.certifiedKill</code></a>).</p>
-<p>The truncation error is at most <span
-class="math inline" data-term-auto="off">\(N{+}h{+}L{+}2\)</span>, by <span
-class="math inline" data-term-auto="off">\(\varphi(m)\le m\)</span>. The two strict
-inequalities defining <span class="math inline" data-term-auto="off">\(\mathcal
-C(h,N,L)\)</span> keep the entire error interval between consecutive
-multiples of <span class="math inline" data-term-auto="off">\(2^L\)</span>. The true value
-<span class="math inline" data-term-auto="off">\(2^L(R_{N+h}-R_N)\)</span> therefore cannot
-be such a multiple, so <span
+<p>The omitted tails satisfy the exact identity</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[2^L(R_{N+h}-R_N)-D(h,N,L)=R_{N+h+L}-R_{N+L}.\]</span></div>
+<p>Both tails are nonnegative, so their difference is bounded in absolute
+value by the larger bound <span
+class="math inline" data-term-auto="off">\(B=N+h+L+2\)</span>, not the sum of their bounds.
+The two strict inequalities in <span class="math inline" data-term-auto="off">\(\mathcal
+C(h,N,L)\)</span> keep the resulting error interval away from every
+multiple of <span class="math inline" data-term-auto="off">\(2^L\)</span>; hence <span
 class="math inline" data-term-auto="off">\(R_{N+h}-R_N\notin\mathbb{Z}\)</span>. Conversely,
-any noninteger difference has positive distance from <span
-class="math inline" data-term-auto="off">\(\mathbb{Z}\)</span>, and a sufficiently deep
-truncation detects it. Thus the finite tests detect exactly the
-noninteger differences (<a
+a fixed noninteger difference has a fixed positive distance <span
+class="math inline" data-term-auto="off">\(\delta\)</span> from <span
+class="math inline" data-term-auto="off">\(\mathbb{Z}\)</span>. Since <span
+class="math inline" data-term-auto="off">\(2^L\delta&gt;2B\)</span> eventually, some depth
+detects it. Completeness concerns detection of an existing difference,
+not existence of the differences required below (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmConeFlatness.lean#L316"><code>Erdos249257.TotientTailPeriodKiller.exists_certifiedKill_iff_tail_diff_notMem_int</code></a>).
 The resulting quantified condition is the following.</p>
 <div class="defn" id="defn:sep">
@@ -190,19 +194,18 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 The equivalence identifies the missing quantified input; it supplies no
 certificate by itself.</p>
 </div>
-<p>The order of the quantifiers matters. A certificate at one <span
-class="math inline" data-term-auto="off">\((h,N,L)\)</span> excludes those hypothetical
-rational values whose denominator divides <span
-class="math inline" data-term-auto="off">\(2^N(2^h-1)\)</span>; it does not exclude all
-denominators. The condition above asks for certificates beyond every
-threshold for each positive <span class="math inline" data-term-auto="off">\(h\)</span>, and
-is therefore exactly as strong as the original irrationality assertion.
-Its depth must grow: the two strict residue inequalities imply <span
-class="math inline" data-term-auto="off">\(2(N+h+L+2)&lt;2^L\)</span>. Keeping <span
-class="math inline" data-term-auto="off">\(L\)</span> fixed cannot provide certificates as
-<span class="math inline" data-term-auto="off">\(N\)</span> grows. Neither this necessary
-size condition nor a finite list of successful tests supplies the
-required residues. <a
+<p>One successful <span class="math inline" data-term-auto="off">\((h,N,L)\)</span> excludes
+reduced denominators dividing <span
+class="math inline" data-term-auto="off">\(2^N(2^h-1)\)</span>. To exclude an arbitrary
+rational value, its odd denominator first determines a shift and its
+power of two determines a threshold; only then may we choose the witness
+<span class="math inline" data-term-auto="off">\(N,L\)</span>. This is the order in <span
+class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span>. The depth must grow with
+<span class="math inline" data-term-auto="off">\(N\)</span>, since success requires <span
+class="math inline" data-term-auto="off">\(2(N+h+L+2)&lt;2^L\)</span>. A large enough depth
+makes the interval test possible, but does not make the actual residue
+lie inside it. A failed test at one depth likewise does not prove
+integrality. <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L79"><code>Erdos249257.TotientTailPeriodKiller.certifiedKill_depth_floor</code></a></p>
 <section id="unconditional-results" class="level3">
 <h3>Unconditional results</h3>
@@ -391,23 +394,17 @@ class="math inline" data-term-auto="off">\(\varphi\)</span>.</p>
 </section>
 <section id="sub:reduced-coefficients" class="level3">
 <h3>Reduced coefficients</h3>
-<p>Reduction modulo <span class="math inline" data-term-auto="off">\(m\)</span> supplies the
-bound missing for the unreduced coefficients. For <span
-class="math inline" data-term-auto="off">\(m\ge3\)</span> the binary series of <span
-class="math inline" data-term-auto="off">\(\varphi(n)\bmod m\)</span> is irrational. For a
-rational-valued function of <span
-class="math inline" data-term-auto="off">\(\varphi(n)\bmod2^k\)</span>, its binary series is
-rational precisely when that function is constant on the even residues.
-Both assertions follow by isolating a prime <span
-class="math inline" data-term-auto="off">\(p\)</span> with prescribed <span
-class="math inline" data-term-auto="off">\(\varphi(p)\bmod m\)</span>: CRT makes each
-neighbour <span class="math inline" data-term-auto="off">\(p+j\)</span>, <span
-class="math inline" data-term-auto="off">\(0&lt;|j|\le L\)</span>, divisible by its own prime
-congruent to <span class="math inline" data-term-auto="off">\(1\pmod m\)</span>, so all
-neighbouring residues vanish. A bound on the remaining tail then proves
-irrationality. The same tail estimate works in any integer base. For
-several dilations, the extra step is to prevent cancellation at the
-isolated coefficient.</p>
+<p>Reduction modulo <span class="math inline" data-term-auto="off">\(m\)</span> restores the
+boundedness missing from <span class="math inline" data-term-auto="off">\(\varphi\)</span>.
+The short paper isolates a prescribed nonzero coefficient between two
+long zero blocks: a hypothetical rational denominator forces the right
+tail to vanish, after which the left block makes the nonzero centre too
+small. CRT creates the blocks by imposing a separate prime divisor
+congruent to <span class="math inline" data-term-auto="off">\(1\pmod m\)</span> at each
+neighbour. We extend that proof in two directions. Changing the integer
+base changes only the geometric tail bound. Combining dilations is
+subtler: one must first ensure that their contributions cannot cancel at
+the chosen centre.</p>
 <div class="prop" id="prop:radixresidue">
 <p><strong>Proposition 1.10</strong> (Residue series in every integer
 base). <em> Let <span class="math inline" data-term-auto="off">\(t\ge2\)</span> be an
@@ -431,15 +428,37 @@ href="https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad
 </ol>
 </div>
 <div class="proof">
-<p><em>Proof.</em> The short paper’s proof applies verbatim in base
-<span class="math inline" data-term-auto="off">\(t\)</span>: its lemma on an isolated nonzero
-coefficient uses only <span
-class="math inline" data-term-auto="off">\(Ct^{-L}&lt;1/q\)</span> in place of <span
-class="math inline" data-term-auto="off">\(C2^{-L}&lt;1/q\)</span>. For the value in (b),
-<span class="math inline" data-term-auto="off">\(\varphi(1)=\varphi(2)=1\)</span> and <span
-class="math inline" data-term-auto="off">\(\varphi(n)\)</span> is even for <span
-class="math inline" data-term-auto="off">\(n\ge3\)</span>. ◻</p>
+<p><em>Proof.</em> For coefficients bounded by <span
+class="math inline" data-term-auto="off">\(C\)</span>, the right-block tail is at most <span
+class="math inline" data-term-auto="off">\(Ct^{-L}/(t-1)\le Ct^{-L}\)</span>. Choose <span
+class="math inline" data-term-auto="off">\(L\)</span> with <span
+class="math inline" data-term-auto="off">\(Ct^{-L}&lt;1/q\)</span>; the rational-tail lattice
+forces that tail to be zero. The left-block tail is then the isolated
+coefficient times <span class="math inline" data-term-auto="off">\(t^{-L-1}\)</span>, giving
+the same contradiction as in the short paper. In (b), the two
+exceptional terms contribute <span
+class="math inline" data-term-auto="off">\((t+1)f(1)/t^2\)</span> and the constant tail
+contributes <span class="math inline" data-term-auto="off">\(f(0)/(t^2(t-1))\)</span>, since
+all totients after <span class="math inline" data-term-auto="off">\(n=2\)</span> are
+even. ◻</p>
 </div>
+<p>For example, in base <span class="math inline" data-term-auto="off">\(2\)</span> the
+function modulo <span class="math inline" data-term-auto="off">\(4\)</span> with <span
+class="math inline" data-term-auto="off">\(f(0)=f(2)=5\)</span>, <span
+class="math inline" data-term-auto="off">\(f(1)=7\)</span> and <span
+class="math inline" data-term-auto="off">\(f(3)=-2\)</span> gives the rational value <span
+class="math inline" data-term-auto="off">\(3\cdot7/4+5/4=13/2\)</span>: the class <span
+class="math inline" data-term-auto="off">\(3\)</span> never occurs. In contrast, the
+indicator of the class <span class="math inline" data-term-auto="off">\(2\pmod4\)</span>
+gives an irrational value. This classification uses the fact that the
+prime centres <span class="math inline" data-term-auto="off">\(s-1\)</span>, with <span
+class="math inline" data-term-auto="off">\(s\)</span> a unit, cover every even class modulo
+<span class="math inline" data-term-auto="off">\(2^k\)</span>. Modulo <span
+class="math inline" data-term-auto="off">\(6\)</span> they cover only <span
+class="math inline" data-term-auto="off">\(0\)</span> and <span
+class="math inline" data-term-auto="off">\(4\)</span>. The least-residue assertion needs one
+nonzero accessible centre, but the same argument does not classify all
+rational-valued functions for a general modulus.</p>
 <div class="prop" id="prop:dilations">
 <p><strong>Proposition 1.11</strong> (Finitely many dilations). <em> Let
 <span class="math inline" data-term-auto="off">\(t\ge2\)</span> be an integer.</em></p>
@@ -476,16 +495,18 @@ class="math inline" data-term-auto="off">\(b_N=\sum_{d\in D,\,d\mid
 N}c_d\bigl(\varphi(N/d)\bmod m\bigr)\)</span> is bounded. Discard the
 <span class="math inline" data-term-auto="off">\(d\)</span> with <span
 class="math inline" data-term-auto="off">\(c_d=0\)</span> and let <span
-class="math inline" data-term-auto="off">\(\delta\)</span> be the least remaining one. We
-will isolate the coefficient at <span class="math inline" data-term-auto="off">\(N=\delta
-p\)</span>. If <span class="math inline" data-term-auto="off">\(p&gt;\max D\)</span> is prime
-and <span class="math inline" data-term-auto="off">\(d\in D\)</span> divides <span
-class="math inline" data-term-auto="off">\(\delta p\)</span>, then <span
-class="math inline" data-term-auto="off">\(p\nmid d\)</span>, so <span
-class="math inline" data-term-auto="off">\(d\mid\delta\)</span>. Minimality of <span
-class="math inline" data-term-auto="off">\(\delta\)</span> forces <span
-class="math inline" data-term-auto="off">\(d=\delta\)</span>. Thus choosing the least active
-dilation prevents cancellation at the centre.</p>
+class="math inline" data-term-auto="off">\(\delta\)</span> be the least remaining one.
+Different dilations can contribute to the same exponent <span
+class="math inline" data-term-auto="off">\(N\)</span>, so isolating a prime in one summand is
+not enough. Choose instead <span class="math inline" data-term-auto="off">\(N=\delta
+p\)</span> with <span class="math inline" data-term-auto="off">\(p&gt;\max D\)</span> prime.
+A contributing <span class="math inline" data-term-auto="off">\(d\)</span> divides <span
+class="math inline" data-term-auto="off">\(\delta p\)</span>; since <span
+class="math inline" data-term-auto="off">\(p\nmid d\)</span>, it divides <span
+class="math inline" data-term-auto="off">\(\delta\)</span>. Minimality then forces <span
+class="math inline" data-term-auto="off">\(d=\delta\)</span>. The centre now receives exactly
+one active contribution, while CRT will remove all contributions at its
+neighbours.</p>
 <p>Given <span class="math inline" data-term-auto="off">\(L\)</span>, choose distinct primes
 <span class="math inline" data-term-auto="off">\(q_j\equiv1\pmod m\)</span>, <span
 class="math inline" data-term-auto="off">\(0&lt;|j|\le L\)</span>, each larger than <span
@@ -653,7 +674,43 @@ class="math inline" data-term-auto="off">\(t=m\)</span> of Proposition <a class
 on parity at every index, or on specified linear data. The following
 constructions keep these requirements separate. Each gives a rational
 comparison satisfying the data named in its statement, and thus
-identifies what those data alone leave undetermined.</p>
+identifies what those data alone leave undetermined. The properties in
+different rows below belong to different constructions; they must not be
+combined into one comparison theorem.</p>
+<div class="center">
+<table>
+<tbody>
+<tr>
+<td class="ta-l"><strong>Construction</strong></td>
+<td class="ta-l"><strong>Data kept while the value is
+rational</strong></td>
+</tr>
+<tr>
+<td class="ta-l">Prescribed prefix (Theorem <a class="math-ref" href="#thm:gamma">2.4</a>)</td>
+<td class="ta-l">Any fixed totient prefix and the bound
+<span class="math inline" data-term-auto="off">\(0\le c(n)\le n\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">Parity (Proposition <a class="math-ref" href="#prop:parity">1.9</a>)</td>
+<td class="ta-l">Parity at every index, aperiodicity and
+the stated size bound.</td>
+</tr>
+<tr>
+<td class="ta-l">Value <span
+class="math inline" data-term-auto="off">\(5/4\)</span> (Section <a class="math-ref" href="#sub:generic-carry-rank">12.6</a>)</td>
+<td class="ta-l">Every odd totient, changes of at most
+<span class="math inline" data-term-auto="off">\(2\)</span> at even indices, and unbounded
+carry rank.</td>
+</tr>
+<tr>
+<td class="ta-l">Signed interpolation (Section <a class="math-ref" href="#long249:sec:signed-interpolation">10.10</a>)</td>
+<td class="ta-l">A prefix, all odd totients, and the
+specified moment and analytic data; not the full radial germ or all
+arithmetic identities.</td>
+</tr>
+</tbody>
+</table>
+</div>
 <section id="finite-data-and-rational-continuations" class="level3">
 <h3>Finite data and rational continuations</h3>
 <p>We begin with a rational continuation of an arbitrary finite prefix
@@ -1269,13 +1326,14 @@ the estimate at arbitrarily large scales.</p>
 </section>
 <section id="sub:four-sums" class="level3">
 <h3>A four-term bound for the real part</h3>
-<p>For a selected term <span class="math inline" data-term-auto="off">\(\varphi(mp)\)</span>
-with <span class="math inline" data-term-auto="off">\(p&gt;m\)</span> prime, multiplicativity
-gives the phase associated with <span
-class="math inline" data-term-auto="off">\(\varphi(m)(p-1)\)</span>. We factor that phase out
-of the full window and average it within each cofactor group. Adding and
-subtracting the group mean leaves four sums, two requiring cancellation
-and two estimated by counting the excluded indices.</p>
+<p>We isolate the phase of one term <span
+class="math inline" data-term-auto="off">\(\varphi(mp)\)</span> with <span
+class="math inline" data-term-auto="off">\(p&gt;m\)</span> prime, then group indices with the
+same cofactor <span class="math inline" data-term-auto="off">\(m\)</span>. The resulting
+identity separates three tasks: count the excluded indices, bound the
+group means, and estimate the remaining weighted, mean-subtracted sum.
+Only the last of these remains open after the stated group-mean input.
+The identity itself supplies none of the estimates.</p>
 <p>Fix <span class="math inline" data-term-auto="off">\(h,s\ge1\)</span>, <span
 class="math inline" data-term-auto="off">\(L\ge s+h\)</span>, <span
 class="math inline" data-term-auto="off">\(X\ge1\)</span> and <span
@@ -1295,11 +1353,12 @@ class="math inline" data-term-auto="off">\(\mathcal A\)</span> for the assigned 
 A:\varphi(m_N)\ge\eta m_N\}\)</span>. The two inequalities ensure <span
 class="math inline" data-term-auto="off">\(p_N&gt;m_N\ge1\)</span>, so <span
 class="math inline" data-term-auto="off">\(\varphi(N+t)=\varphi(m_N)(p_N-1)\)</span>.</p>
-<p>The offset <span class="math inline" data-term-auto="off">\(t\)</span> lies in the overlap
-of the two truncated tails. Their net coefficient at <span
-class="math inline" data-term-auto="off">\(\varphi(N+t)\)</span> is <span
-class="math inline" data-term-auto="off">\((2^h-1)2^{-t}\)</span>. On the assigned indices,
-set</p>
+<p>Since <span class="math inline" data-term-auto="off">\(h&lt;t\le L\)</span>, the selected
+term occurs in both truncated tails: it has coefficient <span
+class="math inline" data-term-auto="off">\(2^{-(t-h)}\)</span> in the shifted tail and <span
+class="math inline" data-term-auto="off">\(-2^{-t}\)</span> in the unshifted one. Their sum
+is <span class="math inline" data-term-auto="off">\((2^h-1)2^{-t}\)</span>. On the assigned
+indices, set</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[z_N=e\!\left(\frac{(2^h-1)\varphi(m_N)(p_N-1)}{2^t}\right),
 \qquad w_N=\frac{E(h,N,L)}{z_N}.\]</span></div>
@@ -1365,34 +1424,41 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L577"><code>Erdos249257.TotientTailPeriodKiller.irrational_totient_series_of_pivotResidualDecorrelation</code></a></p>
 </div>
-<p>The four bounds must hold for the same <span
-class="math inline" data-term-auto="off">\(X,L,s,\eta\)</span>, not along four unrelated
+<p>First fix <span class="math inline" data-term-auto="off">\(h\)</span>, then choose <span
+class="math inline" data-term-auto="off">\(s,\eta\)</span>; these must remain fixed as the
+threshold <span class="math inline" data-term-auto="off">\(X_0\)</span> increases. At each
+threshold all four bounds must hold for one common <span
+class="math inline" data-term-auto="off">\(X,L\)</span>, rather than along unrelated
 sequences of blocks. Their constants add to <span
-class="math inline" data-term-auto="off">\(14/25+1/100+1/100+8/25=9/10\)</span>, so they
-imply the real-part criterion. They do not establish the stronger <span
-class="math inline" data-term-auto="off">\(21/25\)</span> norm criterion. The exact partition
-proves an identity, not any one of these estimates; in particular,
-grouping by a prime factor does not justify statistical independence
-between the mean-subtracted phase and its weight.</p>
-<p>Like the block criterion, this condition concerns actual totient
-values at arbitrarily large indices and at a common truncation depth.
-The four bounds are a sufficient way to prove the needed real-part
-estimate, not an equivalent restatement of the norm estimate.</p>
+class="math inline" data-term-auto="off">\(14/25+1/100+1/100+8/25=9/10\)</span>, yielding the
+real-part criterion. This is sufficient for a certificate and does not
+assert the stronger <span class="math inline" data-term-auto="off">\(21/25\)</span> norm
+criterion. In particular, no independence of the two phase factors
+follows from the grouping.</p>
 <p>The decomposition is an exact identity, proved in Lean (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L514"><code>Erdos249257.TotientTailPeriodKiller.windowFirstExp_sum_eq_pivot_decomposition</code></a>),
 as is the implication from the four bounds to the real-part bound (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L549"><code>Erdos249257.TotientTailPeriodKiller.first_harmonic_gap_of_pivotBudgetAt</code></a>).
-The mean being subtracted is the mean of <span
-class="math inline" data-term-auto="off">\(z_N\)</span>, not of the residual weight <span
-class="math inline" data-term-auto="off">\(w_N\)</span>. On each cofactor group, <span
-class="math inline" data-term-auto="off">\(\sum_N(z_N-\bar z_m)=0\)</span>, but <span
-class="math inline" data-term-auto="off">\(\sum_Nw_N(z_N-\bar z_m)\)</span> need not vanish
-because <span class="math inline" data-term-auto="off">\(w_N\)</span> varies with <span
-class="math inline" data-term-auto="off">\(N\)</span>. Thus centring the phase does not
-estimate the weighted correlation. Only its real part is required: <span
-class="math inline" data-term-auto="off">\(14X/25\)</span> suffices in place of the earlier
-proposed norm bound <span class="math inline" data-term-auto="off">\(X/2\)</span>. For <span
-class="math inline" data-term-auto="off">\(X\ge4\)</span> and <span
+The reason a new estimate is needed is visible within one group: <span
+class="math inline" data-term-auto="off">\(\sum_N(z_N-\bar z_m)=0\)</span>, whereas <span
+class="math inline" data-term-auto="off">\(\sum_Nw_N(z_N-\bar z_m)\)</span> need not vanish.
+The residual weight varies with the same prime that determines <span
+class="math inline" data-term-auto="off">\(z_N\)</span>. By contrast, a uniform bound for
+<span class="math inline" data-term-auto="off">\(|\bar z_m|\)</span> immediately controls the
+mean contribution because <span class="math inline" data-term-auto="off">\(|w_N|=1\)</span>.
+Thus small means and weighted cancellation are different statements. A
+two-point group makes this explicit:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[(z_1,z_2)=(1,-1),\quad (w_1,w_2)=(1,-1),\quad
+\bar z=0,
+\qquad \sum_{j=1}^2w_j(z_j-\bar z)=2.\]</span></div>
+<p>The unweighted mean
+vanishes while the weighted terms agree exactly. This example explains
+why an implication is missing; it is not a counterexample to the
+estimate for the actual totient windows. For the latter, only the
+real-part bound <span class="math inline" data-term-auto="off">\(14X/25\)</span> is required,
+not the earlier norm bound <span class="math inline" data-term-auto="off">\(X/2\)</span>. For
+<span class="math inline" data-term-auto="off">\(X\ge4\)</span> and <span
 class="math inline" data-term-auto="off">\(s=L-h\)</span>, the assigned indices <em>with
 cofactor <span class="math inline" data-term-auto="off">\(m_N=1\)</span></em> are exactly
 those for which <span class="math inline" data-term-auto="off">\(N+h+1\)</span> is prime.
@@ -1406,16 +1472,19 @@ class="math inline" data-term-auto="off">\(L\)</span>; it illustrates the arithm
 groups but does not establish the condition with <span
 class="math inline" data-term-auto="off">\(s\)</span> fixed before <span
 class="math inline" data-term-auto="off">\(X_0\)</span>.</p>
-<p>The four inequalities are not proved with their required common
-parameters. Propositions <a class="math-ref" href="#prop:dickman">12.6</a> and <a class="math-ref" href="#prop:badcof">12.7</a> below do establish the
-unassigned and excluded-cofactor bounds at minimal admissible depth,
-with one sufficiently small fixed <span
-class="math inline" data-term-auto="off">\(\eta\)</span>. The mean and mean-subtracted
-estimates remain to be established at that same depth and for that same
-<span class="math inline" data-term-auto="off">\(\eta\)</span>. Only the real part of the
-mean-subtracted contribution is required, and Theorem <a class="math-ref" href="#thm:goodbasegap">3.5</a> below replaces the
-two estimates by a single bound on the indices in <span
-class="math inline" data-term-auto="off">\(\mathcal G\)</span>.</p>
+<p>The four inequalities have not been established together.
+Propositions <a class="math-ref" href="#prop:dickman">12.6</a>
+and <a class="math-ref" href="#prop:badcof">12.7</a> give the
+unassigned and excluded-cofactor bounds at minimal admissible depth. At
+<span class="math inline" data-term-auto="off">\(s=26\)</span>, <span
+class="math inline" data-term-auto="off">\(\eta=1/1000\)</span>, the prime-number-theorem
+argument discussed in Section <a class="math-ref" href="#sub:goodbasegap">3.3</a> also bounds the
+mean contribution for all large <span class="math inline" data-term-auto="off">\(X\)</span>.
+With that input, the missing estimate is the real-part bound for the
+mean-subtracted contribution, at the same parameters and depth, on
+arbitrarily large blocks. Theorem <a class="math-ref" href="#thm:goodbasegap">3.5</a> instead asks for
+one bound on <span class="math inline" data-term-auto="off">\(\mathcal G\)</span>, without a
+group-mean input.</p>
 <p>A nonzero determinant alone does not prove the needed correlation
 estimate. The comparison in the linked source (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/ResidualGaugeObstruction.lean#L94"><code>Erdos249257.ResidualGaugeObstruction.locked_reconstruction_preserves_nonzero_minor</code></a>)
@@ -1533,24 +1602,56 @@ class="math inline" data-term-auto="off">\(\eta=1/1000\)</span> and <span
 class="math inline" data-term-auto="off">\(L=L(X)\)</span>, they add to <span
 class="math inline" data-term-auto="off">\(\operatorname{Re}\sum_{N\in\mathcal
 G}E(h,N,L(X))\le\tfrac{57}{100}X\)</span>, so the four-term condition at
-these parameters implies the hypothesis of (b). An earlier route used
-the prime number theorem, which bounds every group mean <span
-class="math inline" data-term-auto="off">\(|\bar z_m|\)</span> on <span
-class="math inline" data-term-auto="off">\(\mathcal G\)</span> by <span
-class="math inline" data-term-auto="off">\(1/100\)</span> for all large <span
-class="math inline" data-term-auto="off">\(X\)</span> (<a
+these parameters implies the hypothesis of (b). At these same
+parameters, the recorded argument takes the prime number theorem as an
+input and bounds every group mean <span class="math inline" data-term-auto="off">\(|\bar
+z_m|\)</span> on <span class="math inline" data-term-auto="off">\(\mathcal G\)</span> by
+<span class="math inline" data-term-auto="off">\(1/100\)</span> for all sufficiently large
+<span class="math inline" data-term-auto="off">\(X\)</span>, for each fixed <span
+class="math inline" data-term-auto="off">\(h\)</span> (<a
 href="https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad0b9dd0d69675/lean/ErdosProblems/Erdos249/PaperCompleteR21/FiberMeanOfPrimeNumberTheorem.lean#L935"><code>fiberMean_le_of_primeNumberTheorem</code></a>).
-Given that bound, the bound <span
-class="math inline" data-term-auto="off">\(\tfrac{11}{20}X\)</span> on the good indices
-yields the mean-subtracted inequality, and irrationality follows (<a
+Since <span class="math inline" data-term-auto="off">\(|w_N|=1\)</span>, this gives <span
+class="math inline" data-term-auto="off">\(|\sum_{N\in\mathcal G}w_N\bar
+z_{m_N}|\le\#\mathcal G/100\le X/100\)</span>, regardless of the
+dependence of <span class="math inline" data-term-auto="off">\(w_N\)</span> on the prime. It
+supplies the mean bound, not the mean-subtracted cancellation. Given
+this mean bound, a bound <span
+class="math inline" data-term-auto="off">\(\tfrac{11}{20}X\)</span> on the good-index sum, on
+arbitrarily large blocks for each <span
+class="math inline" data-term-auto="off">\(h\)</span>, yields the mean-subtracted inequality
+and hence irrationality (<a
 href="https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad0b9dd0d69675/lean/ErdosProblems/ArgumentGraph/Results/Erdos249.lean#L45"><code>dtw_of_fiberMean_and_centered</code></a>,
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad0b9dd0d69675/lean/ErdosProblems/ArgumentGraph/Results/Erdos249Route.lean#L118"><code>irrational_totient_series_of_primeNumberTheorem_and_goodBase_gap</code></a>).
 Theorem <a class="math-ref" href="#thm:goodbasegap">3.5</a>(b)
 supersedes that route. It assumes neither the prime number theorem nor a
-bound on the group means, and the bound it asks for, <span
-class="math inline" data-term-auto="off">\(603X/1000\)</span>, is weaker than <span
-class="math inline" data-term-auto="off">\(11X/20\)</span>.</p>
+bound on the group means, and asks only for <span
+class="math inline" data-term-auto="off">\(603X/1000\)</span>, rather than <span
+class="math inline" data-term-auto="off">\(11X/20\)</span>. The saving is measured against
+<span class="math inline" data-term-auto="off">\(\#\mathcal G\)</span>, not against the full
+block size: since <span class="math inline" data-term-auto="off">\(\#\mathcal
+G&gt;67X/100\)</span>, the good-index average is below <span
+class="math inline" data-term-auto="off">\(9/10\)</span>. There is no need to add the
+discarded indices back into the sum.</p>
+<p>For clarity, the two sufficient estimates have different uses. The
+centred route controls all four pieces and so bounds the sum on the
+whole block. The <span class="math inline" data-term-auto="off">\(603X/1000\)</span> route
+uses only the good indices and their cardinality. Bounding the discarded
+part trivially would give only <span
+class="math inline" data-term-auto="off">\((603/1000+33/100)X=933X/1000\)</span>, not <span
+class="math inline" data-term-auto="off">\(9X/10\)</span>; adding it back would lose the
+conclusion one was trying to prove.</p>
+<p>There is also a useful distinction between eventual and cofinal
+hypotheses. At <span class="math inline" data-term-auto="off">\(s=26\)</span>, <span
+class="math inline" data-term-auto="off">\(\eta=1/1000\)</span> and the prescribed <span
+class="math inline" data-term-auto="off">\(L(X)\)</span>, fix <span
+class="math inline" data-term-auto="off">\(h\)</span> and take the maximum of the thresholds
+for the two counting bounds and the PNT-input mean bound. Any
+arbitrarily large sequence of blocks on which the centred bound holds
+eventually passes this maximum. Thus it supplies common blocks for all
+four estimates. Merely knowing that several different estimates each
+hold on some arbitrarily large blocks would not justify that
+intersection.</p>
 </section>
 <section id="a-fixed-separation-at-prime-positions" class="level3">
 <h3>A fixed separation at prime positions</h3>
@@ -1666,39 +1767,73 @@ not provide the additional rank bound.</p>
 </section>
 <section id="guide-to-the-detailed-statements" class="level2">
 <h2>Guide to the detailed statements</h2>
-<p>We next collect the identities behind the residue, tail and
-approximation formulations. The repeated statements make their
-hypotheses comparable without changing notation in the middle of an
-argument. In particular, the proof of an implication leaves its
-additional arithmetic assumption to be established.</p>
-<section id="quantifiers-and-hypotheses." class="level5">
-<h5>Quantifiers and hypotheses.</h5>
-<p>The direct certificate computations cover individual parameters or a
-finite range. Other results hold uniformly or at arbitrarily large
-scales, but their conclusions are different: positivity, for example, is
-not nonintegrality. The finite-prefix example, rank bounds, and residue
-estimates must each be used only under their stated hypotheses.</p>
-</section>
-<section id="dependencies." class="level5">
-<h5>Dependencies.</h5>
-<p>Sections <a class="math-ref" href="#sec:wall">2</a>
-and <a class="math-ref" href="#sec:survivors">3</a> explain the
-principal counterexamples and sufficient conditions. The following
-catalogue supplies the associated formulas and source references. The
-later tables compare logical implications and the limits of particular
-estimates; their source labels are not extra mathematical
-hypotheses.</p>
-</section>
+<p>The remainder records the formulas and proofs behind the preceding
+arguments. To use a statement, distinguish its conclusion from its
+input. A finite certificate excludes a family of denominators; a cofinal
+supply excludes every rational value. Positivity of a tail difference is
+not nonintegrality, and a conditional implication still needs its
+arithmetic premise.</p>
+<p>The following entry points answer different questions; they are not
+successive steps of one proof of irrationality.</p>
+<div class="center">
+<table>
+<tbody>
+<tr>
+<td class="ta-l"><strong>Question</strong></td>
+<td class="ta-l"><strong>Where to read</strong></td>
+</tr>
+<tr>
+<td class="ta-l">Which section identities hold?</td>
+<td class="ta-l">Section <a class="math-ref" href="#sec:mahler-defect">10.8</a>: independent
+sections and integral relations.</td>
+</tr>
+<tr>
+<td class="ta-l">What does a finite computation
+exclude?</td>
+<td class="ta-l">Section <a class="math-ref" href="#sec:series">5</a>: tail residues;
+Section <a class="math-ref" href="#ssec:farey">5.3</a>: the
+denominator cutoff.</td>
+</tr>
+<tr>
+<td class="ta-l">Can one nonintegral difference yield more
+certificates?</td>
+<td class="ta-l">Appendix <a class="math-ref" href="#long249:r3-ray">A.1</a>: propagation with
+growing shift and depth.</td>
+</tr>
+<tr>
+<td class="ta-l">Which data still allow a rational
+value?</td>
+<td class="ta-l">Section <a class="math-ref" href="#sec:wall">2</a>: comparison sequences,
+with their hypotheses kept separate.</td>
+</tr>
+<tr>
+<td class="ta-l">Which estimate would suffice?</td>
+<td class="ta-l">Section <a class="math-ref" href="#sub:pivot">12.3</a>: the four-term
+decomposition; Theorem <a class="math-ref" href="#thm:goodbasegap">3.5</a>: the weaker
+good-index condition.</td>
+</tr>
+<tr>
+<td class="ta-l">What was formally checked?</td>
+<td class="ta-l">Appendix <a class="math-ref" href="#app:r3-declarations">B</a>: the
+declaration and source-version guide.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The detailed statements retain their source references so that a
+proof can be recovered without treating a source label as another
+hypothesis.</p>
 </section>
 <section id="sec:series" class="level2">
 <h2>Series identities and finite exclusions</h2>
-<p>The finite prefix separates <span class="math inline" data-term-auto="off">\(S\)</span>
-into an integer and a scaled tail. We use that identity both for residue
-certificates and, independently, for the Farey-interval denominator
-bound in Section <a class="math-ref" href="#ssec:farey">5.3</a>.
-Möbius inversion supplies further expressions for <span
-class="math inline" data-term-auto="off">\(S\)</span>. These identities concern the same
-value; none of them by itself excludes all rational denominators.</p>
+<p>The prefix-tail identity supports two different finite exclusions.
+Residue certificates test a tail difference modulo <span
+class="math inline" data-term-auto="off">\(\mathbb{Z}\)</span>; the Farey calculation in
+Section <a class="math-ref" href="#ssec:farey">5.3</a> encloses
+<span class="math inline" data-term-auto="off">\(S\)</span> itself in an interval. Möbius
+inversion then gives other expressions for the same value, useful only
+to the extent that they permit new estimates. An identity alone does not
+provide a denominator exclusion.</p>
 <section id="the-series" class="level3">
 <h3>The series</h3>
 <p>We begin with the value and the prefix-tail decomposition used by all
@@ -1733,7 +1868,9 @@ its finite, checked instances are catalogued here, §<a class="math-ref" href="#
 <section id="the-tail-shift-identity" class="level3">
 <h3>The tail-shift identity</h3>
 <p>Multiplying by a power of two makes the finite prefix integral and
-leaves a scaled tail.</p>
+leaves a scaled tail. The tail values themselves may grow; it is their
+classes modulo <span class="math inline" data-term-auto="off">\(\mathbb{Z}\)</span>, rather
+than their absolute sizes, that encode a possible rational period.</p>
 <div class="prop" id="prop:shift">
 <p><strong>Proposition 5.3</strong> (Digit-shift identity). <em> For
 every <span class="math inline" data-term-auto="off">\(N : \mathbb{N}\)</span>, </em></p>
@@ -1825,6 +1962,11 @@ class="math display" data-term-auto="off">\[0 &lt; q \;\le\; Q_0 :=
 the exact first failing denominator, obtained as the denominator of the
 mediant of two explicit unimodular Farey neighbours.</em></p>
 </div>
+<p>Here “failing” means that this particular enclosure can no longer
+exclude the denominator. It does not mean that the mediant equals <span
+class="math inline" data-term-auto="off">\(S\)</span>, or that another argument could not
+exclude that denominator too. Sharpness concerns the finite interval
+test, not a smallest possible denominator for the unknown value.</p>
 <div class="thm" id="thm:denom-record">
 <p><strong>Theorem 5.6</strong> (Denominator exclusion). <em> For every
 <span class="math inline" data-term-auto="off">\(p\in\mathbb{Q}\)</span> whose reduced
@@ -5591,7 +5733,15 @@ class="level4">
 <h4>Rational approximation with a squared-Mersenne remainder</h4>
 <p>The first-order Lambert term in the diagonal tail difference can be
 summed exactly. The approximation below leaves only a squared-Mersenne
-tail to estimate.</p>
+tail to estimate. Small error is only half of a denominator-clearing
+argument. If a target <span class="math inline" data-term-auto="off">\(\alpha=a/b\)</span> is
+rational, then every unequal rational <span
+class="math inline" data-term-auto="off">\(p/q\)</span> satisfies <span
+class="math inline" data-term-auto="off">\(q|\alpha-p/q|=|aq-bp|/b\ge1/b\)</span>. Thus
+nonzero errors tending to zero after multiplication by the reduced
+denominators would prove irrationality. The identity and geometric bound
+below give explicit errors, but not that comparison with the
+denominators.</p>
 <div class="prop" id="prop:exact-rational-approximation-formula">
 <p><strong>Proposition 6.128</strong> (An exact rational approximation
 formula). <em> For integers <span
@@ -9660,18 +9810,22 @@ certificate.</p>
 </section>
 <section id="sec:mahler-defect" class="level3">
 <h3>Exact dyadic rank and the limits of a rank argument</h3>
-<p>The dyadic case gives an explicit basis for each finite level and for
-the union of all levels. Coons proved nonregularity in every base <span
+<p>At each level the scalar totient identities supply spanning, while
+affine independence excludes any further relations. This computes the
+rank, rather than merely proving its unboundedness. The latter already
+follows from Coons’s nonregularity theorem in every base <span
 class="math inline" data-term-auto="off">\(k\ge2\)</span> <span class="citation"
-data-cites="coons"><a href="#ref-2">[2]</a></span>; here the rank is computed at each finite
-level and the basis is given explicitly. Martin’s Theorem 1 supplies
-independence for the positive-residue affine forms <span
-class="citation" data-cites="martin-phi-inequalities"><a href="#ref-4">[4]</a></span>, leaving
-the two zero-residue sections to be treated separately. The <a
+data-cites="coons"><a href="#ref-2">[2]</a></span>. Martin’s stronger theorem supplies the
+affine independence<span class="citation"
+data-cites="martin-phi-inequalities"><a href="#ref-4">[4]</a></span>; the proportional arguments
+<span class="math inline" data-term-auto="off">\(n\)</span> and <span
+class="math inline" data-term-auto="off">\(2n\)</span> require a separate two-evaluation
+argument. The <a
 href="../../../papers/erdos-249-binary-totient-series.pdf#short249-proof">all-base
-independence proof</a> and the <a
+proof</a> and <a
 href="../../../papers/erdos-249-binary-totient-series.pdf#short249-base-six">integral
-relation proof</a> are given separately in the short paper.</p>
+relation calculation</a> appear in the short paper. We give the dyadic
+form needed for carry rank here.</p>
 <p><strong>Construction.</strong></p>
 <div class="thm" id="thm:exact-dyadic-rank-infinite-dimensionality">
 <p><strong>Theorem 10.7</strong> (Exact dyadic rank and
@@ -9729,10 +9883,13 @@ actual truncation through level zero, which consists only of <span
 class="math inline" data-term-auto="off">\(\varphi(n)\)</span> and has dimension one.</p>
 <section id="integral-relations." class="level5">
 <h5>Integral relations.</h5>
-<p>The independence statement also determines the arithmetic of the
-section lattice. Fix <span class="math inline" data-term-auto="off">\(e\ge1\)</span>, write
-<span class="math inline" data-term-auto="off">\(F_{j,r}(n)=\varphi(2^j n+r)\)</span>, and
-let <span class="math inline" data-term-auto="off">\(I_e=\{(j,r):0\le j\le e,\ 0\le
+<p>Rational independence becomes an integral normal form because every
+omitted section is an <em>integer</em> multiple of a retained one. Keep
+the formal coefficient vectors separate from the sequences: a relation
+is nonzero in the former group and evaluates to zero in the latter. Fix
+<span class="math inline" data-term-auto="off">\(e\ge1\)</span>, write <span
+class="math inline" data-term-auto="off">\(F_{j,r}(n)=\varphi(2^j n+r)\)</span>, and let
+<span class="math inline" data-term-auto="off">\(I_e=\{(j,r):0\le j\le e,\ 0\le
 r&lt;2^j\}\)</span>. Retain <span
 class="math inline" data-term-auto="off">\(F_{0,0}\)</span>, <span
 class="math inline" data-term-auto="off">\(F_{1,0}\)</span>, and the odd-residue sections at
@@ -9765,20 +9922,20 @@ class="math display" data-term-auto="off">\[\adjustbox{max width=\linewidth}{$\d
 \qquad
 \operatorname{rank}_{\mathbb Z}\ker(\operatorname{ev}_e)=2^e-2.
 $}\]</span></div>
-<p>Indeed, subtracting <span
-class="math inline" data-term-auto="off">\(\sum_{i\notin J_e}c_iR_i\)</span> removes all
-omitted coordinates. At a retained index <span
-class="math inline" data-term-auto="off">\(j\)</span>, the remaining coefficient is <span
-class="math inline" data-term-auto="off">\(c_j+\sum_{i\notin J_e,\,j(i)=j}a_i c_i\)</span>.
-These are the integral coordinates of the original combination. If it is
-a relation, independence makes every one of them zero. Conversely, the
-coefficient of <span class="math inline" data-term-auto="off">\(E_i\)</span> in <span
-class="math inline" data-term-auto="off">\(\sum_{h\notin J_e}b_hR_h\)</span> is exactly <span
-class="math inline" data-term-auto="off">\(b_i\)</span>, proving uniqueness. Each relation
-row has coefficient <span class="math inline" data-term-auto="off">\(1\)</span> in its own
-omitted coordinate and <span class="math inline" data-term-auto="off">\(0\)</span> in every
-other omitted coordinate. No division is needed, so the conclusion holds
-over <span class="math inline" data-term-auto="off">\(\mathbb{Z}\)</span>. The <a
+<p>For a vector <span class="math inline" data-term-auto="off">\(c\)</span>,
+subtract <span class="math inline" data-term-auto="off">\(\sum_{i\notin J_e}c_iR_i\)</span>.
+All omitted coordinates disappear, and the retained coordinate at <span
+class="math inline" data-term-auto="off">\(j\)</span> is <span
+class="math inline" data-term-auto="off">\(c_j+\sum_{i\notin J_e,\,j(i)=j}a_ic_i\)</span>.
+The vector is a relation exactly when every retained coordinate is zero.
+In that case its relation coefficients are already known: they are the
+original omitted coordinates <span class="math inline" data-term-auto="off">\(c_i\)</span>.
+Uniqueness follows because <span class="math inline" data-term-auto="off">\(R_i\)</span> has
+coefficient <span class="math inline" data-term-auto="off">\(1\)</span> at its own omitted
+index and <span class="math inline" data-term-auto="off">\(0\)</span> at every other one.
+These unit coefficients explain why no division, and no passage from
+<span class="math inline" data-term-auto="off">\(\mathbb{Q}\)</span> back to <span
+class="math inline" data-term-auto="off">\(\mathbb{Z}\)</span>, is required. The <a
 href="../../../papers/erdos-249-binary-totient-series.pdf#short249-base-six">depth-two
 base-six example</a> in the short paper illustrates these two-term rows.
 The distinction between the retained basis and the redundant spanning
@@ -9847,14 +10004,14 @@ class="math inline" data-term-auto="off">\(v\ne0\)</span>. The rank bound follow
 boundary condition <span class="math inline" data-term-auto="off">\(u_N/2^N\to0\)</span>
 identifies the canonical carry, but is not used in this rank-transfer
 argument.</p>
-<p>To contradict rationality by rank, one would also need an
-incompatible upper bound. The comparison series with value <span
-class="math inline" data-term-auto="off">\(5/4\)</span> in Section <a class="math-ref" href="#sub:generic-carry-rank">12.6</a> shows why
-rationality, a binary carry recurrence and linear coefficient growth
-alone do not supply such a bound. Its coefficients agree with <span
-class="math inline" data-term-auto="off">\(\varphi\)</span> at odd indices but differ at even
-indices; they are not the totient sequence. Thus this comparison does
-not exclude an argument using additional totient identities.</p>
+<p>A contradiction would require an upper bound on the same carry rank.
+Rationality and the recurrence supply no such bound: Section <a class="math-ref" href="#sub:generic-carry-rank">12.6</a> constructs a
+rational <span class="math inline" data-term-auto="off">\(5/4\)</span> series whose unchanged
+odd totients force exactly this rank transfer. The changed even
+coefficients break other totient identities. Hence the comparison rules
+out a rank argument based only on rationality, linear growth and the
+recurrence, while leaving arguments using those additional identities
+untouched.</p>
 <p>A separate finite-dimensional calculation concerns the matrix <span
 class="math inline" data-term-auto="off">\(U_N(i,j)=\mu((i+1)/(j+1))\)</span> when <span
 class="math inline" data-term-auto="off">\((j+1)\mid(i+1)\)</span> and zero otherwise, for
@@ -10173,15 +10330,28 @@ family.</p></td>
 </section>
 <section id="long249:sec:signed-interpolation" class="level3">
 <h3>Signed interpolation with entire Dirichlet defects</h3>
-<p>To vary a series value while preserving every fixed moment condition,
-we use disjoint finite differences of increasing order. Their orders
-make the later differences invisible to each fixed moment, while
-overlapping integer ranges for their amplitudes fill an interval of
-values at a reciprocal integer base. The construction below leaves every
-odd totient coefficient fixed and preserves Dirichlet singularities on
-every fixed arithmetic progression. The three numbered remarks in this
-subsection have ordinary proofs; their formalisation in Lean remains
-outstanding.</p>
+<p>The small block</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[z^2-2z^4+z^6=z^2(1-z^2)^2\]</span></div>
+<p class="display-continue">has
+coefficient sum <span class="math inline" data-term-auto="off">\(1-2+1=0\)</span> and first
+moment <span class="math inline" data-term-auto="off">\(2-8+6=0\)</span>, but its value at
+<span class="math inline" data-term-auto="off">\(z=\beta^{-1}\)</span> is positive for <span
+class="math inline" data-term-auto="off">\(\beta\ge2\)</span>. It can therefore alter an
+interior value while preserving these two moments. This is a model for
+one block, not a construction satisfying all the conditions below;
+translation, spacing and increasing the difference order supply the
+additional requirements.</p>
+<p>This construction assigns different jobs to the shape and amplitude
+of a correction. High-order finite differences annihilate low-order
+moments; their integer amplitudes adjust the series value. As the orders
+increase, later completed blocks contribute zero to each fixed moment,
+so its defect stabilises between blocks. The prescribed initial
+collection of moment defects is zero, not merely constant. Spacing the
+blocks controls their density and analytic convergence. All corrections
+occur at even indices, leaving every odd totient fixed. The three
+numbered remarks below have ordinary proofs; none has yet been
+formalised in Lean.</p>
 <p>For a sequence <span class="math inline" data-term-auto="off">\(a\)</span>, write <span
 class="math inline" data-term-auto="off">\(F_a(z)=\sum_{n\ge1}a(n)z^n\)</span>. For integers
 <span class="math inline" data-term-auto="off">\(q\ge1\)</span>, <span
@@ -10285,13 +10455,21 @@ growing moduli, zeros and regular parts of Dirichlet functions are not
 preserved. The correction has both signs, so the earlier one-sided
 perturbation constraint is not retained. The construction makes no
 rationality assertion about <span
-class="math inline" data-term-auto="off">\(F_\varphi(1/2)\)</span>.</p>
+class="math inline" data-term-auto="off">\(F_\varphi(1/2)\)</span>. The two exceptional sets
+also have different roles. The support <span
+class="math inline" data-term-auto="off">\(S\)</span> contains the individual altered
+indices. The larger set <span class="math inline" data-term-auto="off">\(H\)</span> contains
+the intervals spanned by correction blocks, where a prefix may have
+included only part of a cancelling block. Its upper Banach density is
+one because it contains arbitrarily long intervals, even though its
+ordinary density is zero. Thus the moment conclusion outside <span
+class="math inline" data-term-auto="off">\(H\)</span> does not assert exact cancellation at
+every sufficiently large cutoff.</p>
 <div class="proof">
-<p><em>Proof.</em> We use signed finite-difference blocks. Their order
-will increase to preserve each fixed moment and each prescribed boundary
-derivative; their positions and amplitudes will leave room to choose the
-value of the series. All blocks are chosen beyond the prescribed
-prefix.</p>
+<p><em>Proof.</em> We construct the blocks first, independently of the
+target value. Their increasing order enforces the moment and boundary
+conditions; only their amplitudes will be chosen afterwards to obtain
+that value. All blocks lie beyond the prescribed prefix.</p>
 <p>The tail infimum in <span class="math inline" data-term-auto="off">\(g\)</span> is
 positive, nondecreasing and tends to infinity. The cap gives <span
 class="math inline" data-term-auto="off">\(g(n)\le(n/2)^{1/4}\)</span>, while <span
@@ -11332,33 +11510,33 @@ G}E(h,N,L)\right\rVert
 A}}E(h,N,L)\right\rVert
    &amp;\le\tfrac{8}{25}X.
 \end{aligned}\]</span></div>
-<p>These inequalities are unproved; together they
-imply irrationality (<a
+<p>Their simultaneous validity remains unproved;
+together they imply irrationality (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L569"><code>Erdos249257.TotientTailPeriodKiller.DTWPivotResidualDecorrelation</code></a>,
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L577"><code>Erdos249257.irrational_totient_series_of_pivotResidualDecorrelation</code></a>).
 The decomposition is an exact identity (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L514"><code>Erdos249257.TotientTailPeriodKiller.windowFirstExp_sum_eq_pivot_decomposition</code></a>).
-It separates two different tasks. The last two sums can be bounded by
-counting their indices, since every phase has modulus one. The first two
-retain the weight <span class="math inline" data-term-auto="off">\(w_N\)</span>: subtracting
-the group mean does not remove its correlation with the selected prime
-phase. The parameters <span class="math inline" data-term-auto="off">\(s,\eta\)</span> must
-be fixed before <span class="math inline" data-term-auto="off">\(X_0\)</span>, and the
-estimates must hold for the same <span
-class="math inline" data-term-auto="off">\(X,L\)</span>; separate successful blocks do not
-suffice. For <span class="math inline" data-term-auto="off">\(X\ge4\)</span> and <span
-class="math inline" data-term-auto="off">\(s=L-h\)</span>, the single cofactor group <span
-class="math inline" data-term-auto="off">\(m_N=1\)</span>, not the full assigned set,
-consists of the indices for which <span
+The last two sums are bounded by counting indices, since every phase has
+modulus one. The mean contribution is bounded by the triangle inequality
+once a uniform group-mean estimate is available. The remaining sum
+retains a varying weight after centring, and requires a separate
+real-part estimate. The parameters <span
+class="math inline" data-term-auto="off">\(s,\eta\)</span> must be fixed before <span
+class="math inline" data-term-auto="off">\(X_0\)</span>, with the estimates valid for the
+same <span class="math inline" data-term-auto="off">\(X,L\)</span>; separate successful
+blocks do not suffice. For <span class="math inline" data-term-auto="off">\(X\ge4\)</span>
+and <span class="math inline" data-term-auto="off">\(s=L-h\)</span>, the single cofactor
+group <span class="math inline" data-term-auto="off">\(m_N=1\)</span>, not the full assigned
+set, consists of the indices for which <span
 class="math inline" data-term-auto="off">\(N+h+1\)</span> is prime (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L423"><code>Erdos249257.TotientTailPeriodKiller.mem_pivotFiber_one_overlap_iff</code></a>).</p>
 </section>
 <section id="an-upper-bound-for-the-unassigned-terms." class="level5">
 <h5>An upper bound for the unassigned terms.</h5>
-<p>An unassigned index has a smooth shifted argument, but the converse
-is not asserted. The factorisation gives the containment needed for an
-upper bound on the number of unassigned indices.</p>
+<p>Only an upper bound is needed here. We enclose the unassigned
+arguments in a set of smooth numbers and count that larger set. There is
+no claim that every smooth argument is unassigned.</p>
 <div class="prop" id="prop:dickman">
 <p><strong>Proposition 12.6</strong> (A one-sided bound for the
 unassigned terms). <em> Fix <span class="math inline" data-term-auto="off">\(h,s\)</span> and
@@ -11438,8 +11616,8 @@ class="math inline" data-term-auto="off">\(\rho(u)=1-\log u\)</span> on <span
 class="math inline" data-term-auto="off">\([1,2]\)</span> <span class="citation"
 data-cites="granville-smooth"><a href="#ref-20">[20]</a></span>. No effective crossover scale or
 exact density for the unassigned indices is asserted. The estimate uses
-the minimal admissible depth; it does not supply either of the two
-remaining correlation bounds at that depth.</p>
+the minimal admissible depth; it does not supply either weighted phase
+bound at that depth.</p>
 <div class="prop" id="prop:badcof">
 <p><strong>Proposition 12.7</strong> (The excluded-cofactor estimate).
 <em> Fix <span class="math inline" data-term-auto="off">\(h,s\)</span> and use the minimal
@@ -11589,9 +11767,11 @@ class="math inline" data-term-auto="off">\(1\)</span> when <span
 class="math inline" data-term-auto="off">\(v_2(\varphi(m))\ge t\)</span> cannot provide such
 groups at large <span class="math inline" data-term-auto="off">\(X\)</span> under these size
 bounds. The proposed small-modulus prime-distribution argument therefore
-does not establish the mean estimate. This does not disprove the
-four-term condition or exclude other estimates for the same prime
-sums.</p>
+does not establish the mean estimate. The prime-number-theorem argument
+in Section <a class="math-ref" href="#sub:goodbasegap">3.3</a>
+instead uses prime counts in proportional intervals, not
+equidistribution in these residue classes. Failure of the small-modulus
+argument does not disprove the four-term condition.</p>
 </section>
 <section id="the-remaining-prime-weighted-correlation." class="level5">
 <h5>The remaining prime-weighted correlation.</h5>
@@ -11977,7 +12157,15 @@ class="math display" data-term-auto="off">\[v\sum_{n=1}^{N}c(n)2^{-n}=u_0-2^{-N}
 as <span class="math inline" data-term-auto="off">\(u_0/v\)</span>; it imposes no
 finite-dimensional description of the carry sections. In the
 construction below <span class="math inline" data-term-auto="off">\(u_0=5\)</span> and <span
-class="math inline" data-term-auto="off">\(v=4\)</span>.</p>
+class="math inline" data-term-auto="off">\(v=4\)</span>. For fixed <span
+class="math inline" data-term-auto="off">\(c\)</span> and <span
+class="math inline" data-term-auto="off">\(v\)</span> this boundary condition also makes the
+carry unique: two solutions of the recurrence differ by <span
+class="math inline" data-term-auto="off">\(C2^N\)</span>, whose quotient by <span
+class="math inline" data-term-auto="off">\(2^N\)</span> tends to <span
+class="math inline" data-term-auto="off">\(C\)</span>. Uniqueness therefore leaves no freedom
+to choose a simpler carry. The comparison shows that this unique carry
+can nevertheless have unbounded section rank.</p>
 <section id="the-comparison-with-value-54." class="level5">
 <h5>The comparison with value <span
 class="math inline" data-term-auto="off">\(5/4\)</span>.</h5>
@@ -12024,9 +12212,9 @@ class="math display" data-term-auto="off">\[\sum_{n\ge1}c(n)2^{-n}=S+\sum_{m\ge1
 <p>This is the centred base-four construction in the Lean <a
 href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos249/ParityPerturbedRationalControl.lean#L379">comparison-series
 theorem</a>.</p>
-<p>The even coefficients have set the value of the sum. The unchanged
-odd coefficients now give the rank lower bound. Take <span
-class="math inline" data-term-auto="off">\(v=4\)</span> and <span
+<p>The construction has separated value from rank: the even coefficients
+set the value, while the unchanged odd coefficients force large rank.
+For the latter, take <span class="math inline" data-term-auto="off">\(v=4\)</span> and <span
 class="math inline" data-term-auto="off">\(u_N=4\sum_{j\ge1}c(N+j)2^{-j}\)</span>. The
 rational sum makes <span class="math inline" data-term-auto="off">\(u_N\)</span> integral;
 the coefficient bound gives <span class="math inline" data-term-auto="off">\(0\le
@@ -13178,14 +13366,14 @@ Requiring this for every <span
 class="math inline" data-term-auto="off">\(d\ge1,N\ge0\)</span> is equivalent to <span
 class="math inline" data-term-auto="off">\(S\notin\mathbb{Q}\)</span>.</em></p>
 </div>
-<p>For a fixed <span class="math inline" data-term-auto="off">\(d,N\)</span>, the hypothesis
-is just one nonintegral tail difference; it does not assert
-irrationality of <span class="math inline" data-term-auto="off">\(S\)</span>. Requiring it
-for <em>every</em> <span class="math inline" data-term-auto="off">\(d,N\)</span> is as strong
-as the original problem. The conclusion sets the truncation depth equal
-to the shift, <span class="math inline" data-term-auto="off">\(L=md\)</span>, and loses at
-most one member of each sufficiently late pair of successive
-multipliers.</p>
+<p>Unrestricted completeness cannot simply set <span
+class="math inline" data-term-auto="off">\(L\)</span> equal to the shift: it supplies a depth
+only after the shift is fixed. The theorem couples them by varying both
+along multiples of <span class="math inline" data-term-auto="off">\(d\)</span>. The
+recurrence below prevents two adjacent failures. Its starting hypothesis
+is still just one nonintegral difference; only the requirement for
+<em>every</em> <span class="math inline" data-term-auto="off">\(d,N\)</span> is equivalent to
+irrationality.</p>
 <div class="proof">
 <p><em>Proof.</em> Set <span
 class="math inline" data-term-auto="off">\(F_t=\Delta_{td}(N)\)</span>. Equation <a class="math-ref" data-equation-ref="true" href="#long249:r3-tail-phase">long249:r3-tail-phase</a> yields
@@ -13207,12 +13395,16 @@ class="math display" data-term-auto="off">\[\|F_1\|_{\mathbb{R}/\mathbb{Z}}
 \le
 \|F_{t+1}\|_{\mathbb{R}/\mathbb{Z}}+2^d\|F_t\|_{\mathbb{R}/\mathbb{Z}}
 \le\epsilon_{t+1}+2^d\epsilon_t.\]</span></div>
-<p>The left side is fixed and
-positive; the right side tends to zero. Thus two adjacent failures are
-impossible once <span class="math inline" data-term-auto="off">\(t\)</span> is large enough.
-Conversely, if <span class="math inline" data-term-auto="off">\(F_1\)</span> is integral,
-every <span class="math inline" data-term-auto="off">\(F_t\)</span> is integral by the same
-recurrence, so no certificate exists.</p>
+<p>The recurrence has transferred
+two shrinking errors to the same fixed number <span
+class="math inline" data-term-auto="off">\(F_1\)</span>. Its distance from <span
+class="math inline" data-term-auto="off">\(\mathbb{Z}\)</span> is positive, whereas <span
+class="math inline" data-term-auto="off">\(\epsilon_{t+1}+2^d\epsilon_t\to0\)</span>; hence
+adjacent failures are impossible for large <span
+class="math inline" data-term-auto="off">\(t\)</span>. Conversely, integral <span
+class="math inline" data-term-auto="off">\(F_1\)</span> makes every <span
+class="math inline" data-term-auto="off">\(F_t\)</span> integral by the recurrence, so
+soundness excludes every certificate.</p>
 <p>Finally, <a class="math-ref" data-equation-ref="true" href="#long249:r3-tail-phase">long249:r3-tail-phase</a> is
 nonintegral for every <span class="math inline" data-term-auto="off">\(d,N\)</span> when
 <span class="math inline" data-term-auto="off">\(S\)</span> is irrational. If <span
@@ -13226,9 +13418,15 @@ class="math inline" data-term-auto="off">\(D_{1,12,16}=-143140\)</span>, with re
 class="math inline" data-term-auto="off">\(53468\)</span> modulo <span
 class="math inline" data-term-auto="off">\(2^{16}\)</span> and <span
 class="math inline" data-term-auto="off">\(B=31\)</span>, verifies the hypothesis at <span
-class="math inline" data-term-auto="off">\(d=1,N=12\)</span>. The theorem gives infinitely
-many certificates with depth equal to the shift for this pair, not for
-every <span class="math inline" data-term-auto="off">\(d,N\)</span>.</p>
+class="math inline" data-term-auto="off">\(d=1,N=12\)</span>. More explicitly,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\Delta_1(12)\in
+\left[\frac{-143171}{65536},\frac{-143109}{65536}\right]
+\subset(-3,-2).\]</span></div>
+<p>This enclosure proves nonintegrality without
+evaluating the infinite tails. The theorem gives infinitely many
+certificates with depth equal to the shift for this pair, not for every
+<span class="math inline" data-term-auto="off">\(d,N\)</span>.</p>
 </section>
 </section>
 <section id="long249:r3-mersenne" class="level3">
@@ -13277,16 +13475,19 @@ class="math inline" data-term-auto="off">\(\Delta_H(c)\in\mathbb{Z}\)</span>. Th
 distance less than <span class="math inline" data-term-auto="off">\(c+H+1\)</span> of <span
 class="math inline" data-term-auto="off">\(0\pmod M\)</span>, so <a class="math-ref" data-equation-ref="true" href="#eq:canonical-gap">eq:canonical-gap</a> fails.</p>
 <p>If <span class="math inline" data-term-auto="off">\(S\)</span> is irrational, fix <span
-class="math inline" data-term-auto="off">\(c,v\)</span>. Then <span
-class="math inline" data-term-auto="off">\(vR_c\)</span> is nonintegral. As <span
-class="math inline" data-term-auto="off">\(H\)</span> tends to infinity through positive
-multiples of <span class="math inline" data-term-auto="off">\(\varphi(v)\)</span>, <span
-class="math inline" data-term-auto="off">\(\Delta_H(c)/M\to0\)</span> and <span
-class="math inline" data-term-auto="off">\((c+H+1)/M\to0\)</span>. Hence the fractional part
-of <span class="math inline" data-term-auto="off">\(-B_{H,c}/M=-vR_c+\Delta_H(c)/M\)</span>
-stays away from both endpoints of <span
-class="math inline" data-term-auto="off">\([0,1]\)</span>, which gives <a class="math-ref" data-equation-ref="true" href="#eq:canonical-gap">eq:canonical-gap</a> for all
-sufficiently large such <span class="math inline" data-term-auto="off">\(H\)</span>. ◻</p>
+class="math inline" data-term-auto="off">\(c,v\)</span> and put <span
+class="math inline" data-term-auto="off">\(\delta=\operatorname{dist}(vR_c,\mathbb{Z})&gt;0\)</span>.
+As <span class="math inline" data-term-auto="off">\(H\)</span> grows through positive
+multiples of <span class="math inline" data-term-auto="off">\(\varphi(v)\)</span>, choose it
+large enough that <span
+class="math inline" data-term-auto="off">\(|\Delta_H(c)|/M&lt;\delta/3\)</span> and <span
+class="math inline" data-term-auto="off">\((c+H+1)/M&lt;\delta/3\)</span>. Since <span
+class="math inline" data-term-auto="off">\(-B_{H,c}/M=-vR_c+\Delta_H(c)/M\)</span>, its
+distance from <span class="math inline" data-term-auto="off">\(\mathbb{Z}\)</span> is then
+greater than <span class="math inline" data-term-auto="off">\(2\delta/3\)</span>, while the
+forbidden endpoint width is below <span
+class="math inline" data-term-auto="off">\(\delta/3\)</span>. This proves <a class="math-ref" data-equation-ref="true" href="#eq:canonical-gap">eq:canonical-gap</a> for all
+sufficiently large allowed <span class="math inline" data-term-auto="off">\(H\)</span>. ◻</p>
 </div>
 <p>For fixed <span class="math inline" data-term-auto="off">\(c,v\)</span>, one successful
 test excludes every value <span
@@ -13972,10 +14173,19 @@ data-cites="bgs2016"><a href="#ref-19">[19]</a></span>. Their partial-summation 
 differentiable weights with bounded derivative on the summation
 interval <span class="citation" data-cites="bgs2016"><a href="#ref-19">[19]</a></span>. Applying
 that observation here would require control of the weighted error for
-the present phases; no such estimate is established in this record. The
-cited results are not themselves the dyadic residue separation required
-by <span class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span>. The remaining
-sources are cited where their hypotheses are used.</p>
+the present phases; no such estimate is established in this record. In
+the totient specialisation the divisor-convolution kernel is <span
+class="math inline" data-term-auto="off">\(\mu(d)/d\)</span> and both decay exponents in
+their theorem are <span class="math inline" data-term-auto="off">\(1\)</span>, giving an
+<span class="math inline" data-term-auto="off">\(O(\log^2x)\)</span> error for the two-point
+product. The present quantity is instead an exponential of a window of
+overlapping totient values, with a denominator growing with <span
+class="math inline" data-term-auto="off">\(L\)</span>. Partial summation would carry the
+variation of its weight into the error term; it does not remove the need
+to bound that variation and the resulting weighted error. The cited
+results are not themselves the dyadic residue separation required by
+<span class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span>. The remaining sources
+are cited where their hypotheses are used.</p>
 <p>At the generating-function level, the published height criterion of
 Adamczewski, Bell and Smertnig gives <span
 class="math inline" data-term-auto="off">\(k\)</span>-regularity for a <span

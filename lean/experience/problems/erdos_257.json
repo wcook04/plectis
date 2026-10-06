@@ -420,7 +420,7 @@
     "subject": "Erdős #257",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 26,
+    "pages": 27,
     "question": "Which supports are proved to give irrational Lambert subseries, and what still blocks the arbitrary infinite support that Erdős #257 asks about?",
     "precis": "The series ∑_{a∈A}(b^a−1)^{-1} is irrational for every integer b≥2 and infinite A contained in E∪V when E satisfies a finite-prime weighted summability condition and V has a summable positive divisor cover. The two classes are incomparable, and their union reaches supports in neither class. A common average over dyadic lengths produces one index with both displacements small. Arbitrary infinite supports at base two remain unresolved.",
     "owns": "the weighted, divisor-cover and mixed support criteria with complete proofs and method limits; the long paper treats finite denominators, the achievement set and rational membership",
@@ -444,10 +444,10 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
       "renderer_fingerprint": "065862ae86e3b045",
-      "source_sha256": "d261bce1baa7dbabb89517cdc47fc0215165b03132bc0f3e86736c9fa61f555f",
+      "source_sha256": "c0d63a763bd2f2c944d079c4e5bdbbe356268d138fd83bdb068464eeb3f2452b",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 1045,
+      "mathml_node_count": 1064,
       "raw_math_fallback_count": 1,
       "warnings": {
         "mathml": [
@@ -459,8 +459,8 @@
         ],
         "mathjax": []
       },
-      "html_mathml_sha256": "bc777f2271a89d00b68f2f1020863bfd57b8142c5acac5006f7ab59255a5c26a",
-      "html_exact_tex_sha256": "ed08b909b39f0d837ad945bb7139d172facc4f9be8d0dc19512691c4642c5b8e"
+      "html_mathml_sha256": "f343d14350adf0a93c5c2bd02e58524b2ced7b24cb1aa547b8019489acdf690f",
+      "html_exact_tex_sha256": "3a98f28d935bf6338420140ab06493820e9607ca486f7deb858112f7c6735a24"
     },
     "sections": [
       {
@@ -665,7 +665,7 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 26,
+      "pages": 27,
       "question": "Which supports are proved to give irrational Lambert subseries, and what still blocks the arbitrary infinite support that Erdős #257 asks about?",
       "precis": "The series ∑_{a∈A}(b^a−1)^{-1} is irrational for every integer b≥2 and infinite A contained in E∪V when E satisfies a finite-prime weighted summability condition and V has a summable positive divisor cover. The two classes are incomparable, and their union reaches supports in neither class. A common average over dyadic lengths produces one index with both displacements small. Arbitrary infinite supports at base two remain unresolved.",
       "owns": "the weighted, divisor-cover and mixed support criteria with complete proofs and method limits; the long paper treats finite denominators, the achievement set and rational membership",
@@ -689,10 +689,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "065862ae86e3b045",
-        "source_sha256": "d261bce1baa7dbabb89517cdc47fc0215165b03132bc0f3e86736c9fa61f555f",
+        "source_sha256": "c0d63a763bd2f2c944d079c4e5bdbbe356268d138fd83bdb068464eeb3f2452b",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1045,
+        "mathml_node_count": 1064,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -704,8 +704,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "bc777f2271a89d00b68f2f1020863bfd57b8142c5acac5006f7ab59255a5c26a",
-        "html_exact_tex_sha256": "ed08b909b39f0d837ad945bb7139d172facc4f9be8d0dc19512691c4642c5b8e"
+        "html_mathml_sha256": "f343d14350adf0a93c5c2bd02e58524b2ced7b24cb1aa547b8019489acdf690f",
+        "html_exact_tex_sha256": "3a98f28d935bf6338420140ab06493820e9607ca486f7deb858112f7c6735a24"
       },
       "sections": [
         {

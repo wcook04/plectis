@@ -1,15 +1,14 @@
 % SPDX-FileCopyrightText: 2026 Will Cook
 % SPDX-License-Identifier: CC-BY-4.0
-\section{Two revisions and the mathematics that permits them}\label{sec:revisions}
+\section{Explain the choices in a proof}\label{sec:revisions}
 \papersectiontarget{exposition-revisions}
 
-The following passages come from the short-paper revision round dated
-30 September 2026 and labelled R6. This label is local to that series of
-packets; an earlier September series also used round numbers. The public
-lesson records retain the series, problem and source document so that the
-two histories cannot be confused. The accepted manuscript passages below
-are recoverable at repository commit \texttt{18cedaddedd1}, whose full identity
-and source digests appear in those records~\cite{ledger}.
+The next cases explain why a construction reaches its target and how a
+later inference determines the accuracy of an estimate. They were accepted
+in the short-paper revision round of 30 September 2026, labelled R6. An earlier
+September series used the same round numbers; the source records distinguish
+the series and retain the accepted passages at commit
+\texttt{18cedaddedd1}, with its full identity and source digests~\cite{ledger}.
 
 \subsection{From repeated choice to an attained infinite sum}\label{sec:remainder}
 
@@ -20,30 +19,30 @@ between $0$ and a bound $F_j$. The old passage began:
 Given $x\in[0,F_0]$, we choose $d_0$ so that
 $x-d_0w_0\in[0,F_1]$ and repeat this choice for each successive remainder.
 \end{quote}
-This describes the repeated choice. It leaves the reason for attainment less
-prominent than the construction. The reviewed addition states:
+This leaves two questions: why is the next digit available, and why does
+continuing the choices represent the whole target? The reviewed addition
+answers them separately:
 \begin{quote}
 The covering just proved makes this possible at every stage. The invariant
 $0\le\rho_j\le F_j$ and $F_j\to0$ then give
 \end{quote}
-and continues with the limiting identity. The two sentences distinguish the
-finite covering argument from the passage to the infinite sum. The record is
-\caseid{r6-251-style\_rules-04}; the full identifier carries the series date.
+and continues with the limiting identity. The first sentence says why the
+construction can continue. The second says why its partial sums reach the
+chosen target: the part still missing is forced to zero. The record is
+\caseid{r6-251-style\_rules-04}; its full identifier includes the series date.
 
 Crmari\'c and Kova\v{c}'s proof of Lemma~4(a), in the first version of their
 paper on sums of reciprocals, provides a close model~\cite[pp.~4--5]{crmaric}.
-They control a finite remainder in an interval, then use convergence to obtain
-the represented value. This is more specific than an instruction to add
-intuition. It identifies two jobs in the proof and gives each a sentence.
+They keep a finite remainder in an interval and use convergence to obtain
+the represented value. What transfers is the separation of two questions:
+can the next choice be made, and does the resulting sequence attain the target?
 
-The analogy has a definite boundary. For the \#251 manuscript, the covering
-property, the invariant and $F_j\to0$ must all hold for its own construction.
-A finite digit example proves none of them. Nor does attainment alone prove
-the sparsity or arithmetic constraints imposed elsewhere in the paper. The
-integrating decision preserved those separate obligations and the unresolved
-status of the original prime-gap problem. The transferable lesson concerns
-the exposition of an already justified limit, not permission to supply a
-missing convergence argument by analogy.
+For the \#251 construction, the covering property, the invariant and $F_j\to0$
+must each be justified. Attainment also leaves the sparsity and arithmetic
+constraints to their own arguments; a finite digit example settles none of
+these obligations. The integration preserved them and the unresolved status
+of the original prime-gap problem. The literary comparison identifies what
+needs explaining, not a substitute for any of those proofs.
 
 \subsection{State how accurate the estimate must be}\label{sec:estimate}
 
@@ -55,8 +54,9 @@ $Y_a$ in the finite set
 Here $K\ge1$ is the integer denominator in the rationality assumption.
 An accepted sentence then says that equality of two tails still has to
 propagate. This matters: finiteness provides repetition, but a repeated value
-need not determine the subsequent choices. A separate recovery argument is
-needed before one concludes that blocks repeat.
+need not determine the subsequent choices. Recovery must make the next block
+and tail depend on the present tail before equality can propagate. Repetition
+alone supplies no such rule.
 
 Han\v{c}l and Tijdeman's proof of Theorem~2.1 begins by turning a rationality
 assumption into an integral scaled remainder~\cite[p.~373]{hancl}. That
@@ -66,10 +66,11 @@ recovery problem. The cited proof does not establish that extra step.
 
 The next difficulty is quantitative. The maps
 $G_{53}(t)=(9+t)/30$ and $G_5(t)=(3+t)/10$ encode two possible blocks of
-prime-power jumps. Their images overlap on the initial tail range $[0,1]$.
-The earlier paragraph observed the overlap and announced that the range
-would be narrowed. With the lower bound $3/10$ already established, the
-revised passage specifies the required accuracy first:
+prime-power jumps. Their images overlap on the initial tail range $[0,1]$, so a value in the
+overlap does not identify its block. Both maps are increasing: to separate
+their images, compare the upper end of one with the lower end of the other.
+With the lower bound $3/10$ already established, the revision states the
+required accuracy first:
 \begin{quote}
 With that lower endpoint, separating these two images requires an upper
 endpoint $U$ satisfying
@@ -79,19 +80,17 @@ endpoint $U$ satisfying
 \]
 This specifies the improvement needed from the arithmetic sequence.
 \end{quote}
-The case is \caseid{r6-269-style\_rules-03}. The inequality now explains what
-the following estimate is trying to achieve. It also makes a checkable
-distinction: this is the sufficient threshold used by the argument, not a
-claim that no other method could work with a different bound.
+The case is \caseid{r6-269-style\_rules-03}. Reading the desired separation
+backwards has turned ``improve the bound'' into a precise target for the next
+estimate. The displayed threshold is sufficient for this argument; it does
+not rule out another method using a different bound.
 
-The return associated this choice with an item in Knuth's notes about the
-author's dialogue with the reader. That is a broad compositional analogy,
-not a source for the displayed threshold. The algebraic separation condition
-is the precise local reason for the new sentence. Keeping the two explanations
-separate prevents the general writing reference from appearing to support
-mathematics it does not discuss.
+The return associated this choice with Knuth's author--reader dialogue.
+That offers a broad compositional analogy. The separation inequality itself
+explains the threshold, so the writing reference must not appear to supply
+its mathematics.
 
-\subsection{An example must reveal the relevant difference}
+\subsection{An example must reveal the relevant difference}\label{sec:multiplicity}
 
 The same manuscript distinguishes summing over smooth integers from summing
 over the distinct values of their running least common multiple. Here the
@@ -118,29 +117,30 @@ $27,30$ & $10800$ & $2/10800$\\
 \bottomrule
 \end{tabular}
 \end{center}
-The multiplicities $4$ and $2$ are the information lost by replacing repeated
-heights with distinct ones. This table explains a choice of counting
-convention; its purpose is not to decorate the definition. The associated
-record, \caseid{r6-269-style\_rules-04}, also preserves an endpoint warning:
-the distinct-height argument uses $(16,32]$, whereas this table uses
-$[16,32)$. The writer must explain that change rather than identify the two
-intervals silently.
+The map from a smooth integer to its height is not one-to-one. Summing over
+smooth integers counts every visit to a height; summing over distinct heights
+counts it once. The multiplicities $4$ and $2$ are the sizes of the corresponding
+fibres. They explain why the sums cannot be identified merely because the
+same heights occur in both.
+The record \caseid{r6-269-style\_rules-04} also retains an endpoint warning:
+the distinct-height argument uses $(16,32]$, whereas the table uses
+$[16,32)$. Matching the endpoint conventions is a separate task from
+preserving multiplicity.
 
-Halmos's discussion of concrete cases and Gowers's discussion of examples
-suggest asking whether an instance can reveal the unfamiliar operation before
-its notation accumulates~\cite[\S4]{halmos}\cite{gowers}. The usefulness of this
-particular instance is more narrowly demonstrated: one can see the lost
-multiplicity in the table. It does not establish the infinite-series theorem
-or show that every reader would prefer this placement.
+Halmos's concrete cases and Gowers's examples-first discussion suggest asking
+which small instance reveals an unfamiliar operation~\cite[\S4]{halmos}\cite{gowers}.
+Here the repeated heights provide the reason to use this instance. The table
+explains the counting convention; the infinite-series theorem still needs
+its proof. No claim about every reader's preferred order follows.
 
 
 \section{From a formula to the sentence that explains it}\label{sec:worked-explanations}
 
-Eight additional editorial returns supplied these cases (the \#1049 return
-is labelled R9). They were proposals when supplied. The explanations below
-were checked against the current manuscript sources; that check does not by
-itself establish a new theorem, formal coverage or release status. We group them by the reader's
-question rather than by the order of the returns.
+The following cases begin with a reader's question and use the existing
+formula to answer it. They originated in eight additional editorial returns
+(the \#1049 return is labelled R9) and were checked against the current
+manuscript sources. Their explanations are not new theorems or declarations
+of formal coverage or release status.
 
 \subsection{How does the target determine the finite test?}\label{sec:certificate}
 
@@ -164,16 +164,17 @@ closed enclosure lies in $(1/2,1)$ exactly when
 \[
              2sA-Q>2B,\qquad Q-sA>B.
 \]
-Each inequality now has a visible job. The factor $2$ in the first one comes
-from the lower endpoint $1/2$; it is not an unexplained safety factor. Strictness
-also has a purpose: the boundary values give $sD'=-1$ or $0$.
+The two inequalities express the two endpoint gaps. The factor $2$ in the
+first comes from the lower endpoint $1/2$, not an arbitrary safety margin.
+Strictness matters because the boundary values give $sD'=-1$ or $0$.
 
-The explanation also tells us what failure means. Take $D=3/4$, $s=1$,
-$Q=4$, $A=3$ and $B=1$. The error bound is valid, but its enclosure
-$[1/2,1]$ fails both strict endpoint tests, even though $D$ lies in the target
-interval. Passing certifies membership; failure of this enclosure to fit does
-not certify nonmembership. This example interprets the existing certificate
-without changing it.
+Now separate a failed enclosure from a failed claim. Take $D=3/4$, $s=1$,
+$Q=4$, $A=3$ and $B=1$. The error bound is valid, but the enclosure
+$[1/2,1]$ touches both forbidden endpoints. Neither strict test passes,
+although $D$ lies in the target interval. With these same $D,Q,A$, the sharper
+bound $B=0$ would pass both tests. The failed enclosure therefore need not
+mean a failed claim. The enclosure even has width less than one and still
+contains an integer: its position, not just its width, matters.
 
 The \#68 remainder has a related, one-sided geometry. It is
 $A_N+M(S-H_N)$, where $S$ is the series sum, $H_N$ its $N$th partial sum,
@@ -184,8 +185,8 @@ between consecutive integers, it suffices to prove
 \]
 The left inequality puts the remainder above $\lfloor A_N\rfloor$; the right
 puts it below $\lfloor A_N\rfloor+1$~\cite[section on nonintegrality]{paper68}.
-An upper bound for the tail becomes a test only after this gap is identified.
-At an integral $A_N$ the gap is $1$. Replacing the strict successor by
+A tail smaller than one could still cross the next integer; it must be
+smaller than this particular gap. At an integral $A_N$ the gap is $1$. Replacing the strict successor by
 $\lceil A_N\rceil$ would make it zero. The endpoint distinguishes two
 superficially interchangeable conventions.
 
@@ -216,18 +217,18 @@ Consequently
  =\frac{B^{N\bmod d}}{B^d-1}.
 \]
 This is the weight of the future positions at which $d$ divides the index.
-It explains the kernel before the averaging machinery is introduced
-\cite[finite means for shifted divisor tails]{paper257}. When $d\mid N$, the
-first positive offset is $d$, so the same formula applies without adding an
-unwanted offset zero. In that paper $B=2^\alpha$, with $0<\alpha\le1$; estimates
+It explains the kernel before averaging is introduced
+\cite[finite means for shifted divisor tails]{paper257}. Divisibility applies
+to $N+r$, not to $r$ alone. When $d\mid N$, the first positive offset is $d$,
+so the same formula applies without adding an unwanted offset zero. In that paper $B=2^\alpha$, with $0<\alpha\le1$; estimates
 must retain their dependence on $B-1$ as $\alpha$ becomes small.
 
-The two examples make a formula intelligible by deriving it from the operation
-already being performed. Tao's discussion of notation recommends making
-important parameters visible and translating borrowed notation at its use
-\cite{tao-notation}. Here the support restriction and the divisibility condition
-provide the local reasons. The exposition should give those reasons before
-asking the reader to remember another named quantity.
+In both examples the operation determines the notation. Even-indexed
+binary weights become base-four weights; offsets to future indices divisible
+by a fixed divisor form the progression giving the kernel. State that
+reason before naming the formula. Tao's notation advice supports making
+important dependencies visible and translating borrowed conventions~\cite{tao-notation};
+the support and divisibility conditions supply the mathematical reasons here.
 
 \subsection{What remains to justify after an index is fixed?}\label{sec:fixed-partition}
 
@@ -251,23 +252,25 @@ The original product has $N-\ell$ factors; each endpoint product has the
 fixed length $\mu_j$. Thus every factor in the numerator tends to $1$,
 while the denominator is fixed and positive.
 The remaining factors have $j,k\le\ell$ and are independent of $N$.
-This establishes convergence of the whole quotient for a fixed partition,
-including its growing part. The formula is the telescoping explanation
-proposed in the later return; its algebra does not invoke a new asymptotic
-theorem.
+This establishes convergence of the whole quotient for a fixed partition.
+Cancellation has removed the difficulty: only a fixed number of numerator
+factors still varies, and their limit is known. Convergence of individual
+factors in the original growing product would not suffice. The telescoping
+formula was proposed in the later return.
 
 There is still a second question: can the limit be passed through the sum over
 all partitions? Extend the summand by zero when $\ell>N$, so that the index set
-is fixed. The source proof supplies a bound, independent of $N$, whose total
-over partitions of length $\ell$ is at most
+is fixed. The source proof bounds the absolute value of each summand by a quantity
+independent of $N$. The total of these majorants over partitions of length
+$\ell$ is at most
 \[
                          K^\ell q^{\ell^2},
 \]
 where $K>0$ may depend on the fixed base and the fixed weight-bound constants.
 The ratio of successive terms is $Kq^{2\ell+1}\to0$, so this bound is summable
 over $\ell$. It controls both large parts and large lengths, and hence permits
-dominated convergence. A bound for each individual partition would not do
-that work.
+dominated convergence. Separate bounds for individual partitions are insufficient
+unless they provide a summable majorant.
 
 The improved explanation therefore has two conclusions, in this order:
 the whole summand converges for a fixed partition, and a summable bound controls
@@ -301,14 +304,15 @@ constant. The source proves that detection follows once
 Exponential growth of $2^L$ exceeds the linear growth of $B_L$, so such a
 depth exists. This converse is stronger than a merely sufficient test.
 
-Completeness of positive detection does not give a stopping certificate for
-integrality: when $D$ is integral, this search never succeeds. Failure at the
-depths tried is therefore not, by itself, a proof of integrality. A second
-distinction concerns the irrationality argument. For every positive shift and
-every cutoff it still needs an index beyond that cutoff with a nonintegral
-difference. The test recognises a suitable fixed value; it has not produced
-this family. Its exact converse and the remaining quantifiers both belong in
-the explanation.
+There are two different limits to this conclusion. First, an integral value
+never triggers the test: the search has no stopping certificate for integrality.
+Failure at all depths tried is not a proof of integrality. Second, the
+irrationality argument requires a family of inputs: for every positive shift
+and every cutoff, some index beyond that cutoff must have a nonintegral
+difference. The converse detects a fixed nonintegral value; it does not establish that
+such values occur at the required indices. That is an existence question about
+the inputs, not an accuracy question about the test. Keep both the exact
+converse and the unproved quantifiers visible.
 
 Whenever a proof offers arbitrarily accurate certificates, state which object
 stays fixed as the accuracy improves. If the object changes too, its distance

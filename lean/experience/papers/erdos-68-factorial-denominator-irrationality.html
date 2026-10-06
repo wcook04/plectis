@@ -22,56 +22,54 @@ irrational?</em></p>
 </div>
 <p>The elementary proof that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
-is irrational uses two properties of factorials: they clear every
-earlier denominator, and they leave a small positive tail. The first
-property fails here. If
+is irrational clears the partial sum by a factorial and bounds the
+remaining positive tail. Here the first step fails: for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>m</mi></msub><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><mi>m</mi></msubsup><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">H_m=\sum_{n=2}^m(n!-1)^{-1}</annotation></semantics></math>,
-then already
+already
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>!</mi><msub><mi>H</mi><mn>3</mn></msub><mo>=</mo><mn>36</mn><mi>/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">3!H_3=36/5</annotation></semantics></math>.
-We shall instead construct linear forms
+We instead construct forms
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>S</mi><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">MS+k</annotation></semantics></math>,
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>,</mo><mi>k</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">M,k\in\mathbb Z</annotation></semantics></math>,
-in which several initial summands cancel. A nonintegral form excludes
-every rational value
+by cancelling initial weighted sums. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>
-for which
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">q\mid M</annotation></semantics></math>.</p>
-<p>We classify the integer coefficient vectors that cancel the first
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">D-1</annotation></semantics></math>
-weighted sums. Starting with adjacent factorial differences, we correct
-each vector using those already constructed at its proper divisors. The
-resulting basis isolates each weighted sum (Theorem 2.1). The triangular
-change of basis is invertible over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb Z</annotation></semantics></math>,
-so it gives coordinates for every integer solution, not just a way to
-construct some solutions.</p>
-<p>The desired vectors are supported on indices at least two.
-Temporarily allowing index one makes the basis construction possible;
-removing it then amounts to one linear Diophantine equation. Its
-solvability determines the possible values of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.
-The gcd that occurs in this equation is defined by an infinite sequence,
-but Theorem 3.1 computes it on a specified finite interval.</p>
-<p>When cancellation is imposed through
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">D=4</annotation></semantics></math>,
-the least positive value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1380</mn><annotation encoding="application/x-tex">1380</annotation></semantics></math>.
-We derive a vector attaining this value and bound its remainder between
-consecutive integers. The classification itself does not assume that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
-is rational. An irrationality proof would require, for each
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>,
-a nonintegral form whose coefficient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-is divisible by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>.
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">q\mid M</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>S</mi><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">MS+k</annotation></semantics></math>
+is integral; proving it nonintegral excludes that denominator.</p>
+<p>Even these cancellation equations impose more than the expected
+common-denominator condition. Cancelling the weighted sums indexed by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">2,3,4</annotation></semantics></math>
+forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>115</mn><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">115\mid M</annotation></semantics></math>,
+but a vector supported on indices
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>
+requires
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1380</mn><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">1380\mid M</annotation></semantics></math>.
+We determine the exact additional factor at every depth
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>,
+and construct a vector attaining the least positive value of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.</p>
+<p>The proof has two steps. Adjacent factorial differences, corrected at
+proper divisors, give an integral basis that isolates each weighted sum
+(Theorem 2.1). Temporarily allowing index one makes this basis
+triangular; removing that coordinate leaves one Diophantine equation.
+Its gcd initially involves infinitely many coefficients. Theorem 3.1
+reduces it to a specified finite interval, not an observed
+stabilization.</p>
+<p>The classification is independent of rationality. The attaining
+example
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mn>1380</mn></mrow><annotation encoding="application/x-tex">M=1380</annotation></semantics></math>
+also passes a separate nonintegrality test. For an irrationality proof,
+however, the divisibility
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">q\mid M</annotation></semantics></math>
+and nonintegrality must hold for the same vector, for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>.
 The companion’s <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-progression">progression
-construction</a> gives primitive vectors with this divisibility
-property; nonintegrality of their remainders remains unproved.</p>
+construction</a> provides the divisibility; its nonintegrality remains
+unproved.</p>
 <p>Hančl and Tijdeman’s tail-integrality lemma treats factorial series
 with integer coefficients <span class="citation"
 data-cites="hancl-tijdeman"><a href="#ref-4">[4]</a></span>. Their factorial-scaled partial sums
@@ -91,30 +89,26 @@ digit argument</a> to give an equivalent eventual-pattern condition for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>−</mo><mi>e</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">S-e+2</annotation></semantics></math>.
 Failure of that pattern at arbitrarily large indices also remains
 unproved.</p>
-<p>Sections 2 and 3 give the coordinate construction and finite gcd.
-Section 4 uses them to construct and test a vector attaining the least
-positive value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.
-Section 5 states the remaining nonintegrality question, with the
-secondary arithmetic criteria developed in the companion.</p>
+<p>Sections 2–3 prove the classification; Section 4 constructs and tests
+the
+least-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+example. Section 5 separates the remaining nonintegrality question from
+the freedoms in that construction.</p>
 </section>
 <section id="sec:channels" class="level2">
 <h2>An integral basis</h2>
-<p>Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>!</mi><mo>≡</mo><mn>1</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">d!\equiv1\pmod{d!-1}</annotation></semantics></math>,
-dividing
+<p>At the denominator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d!-1</annotation></semantics></math>,
+we replace
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">n!</annotation></semantics></math>
-by an integer power of
+by an integer with the same residue. Dividing by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">d!</annotation></semantics></math>
-preserves its residue whenever the quotient is integral. We choose the
-exponent so that the quotient changes predictably at successive indices.
-For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d\ge2</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>,
-put
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub><mo>=</mo><mfrac><mrow><mi>n</mi><mi>!</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>n</mi><mi>/</mi><mi>d</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">W_{d,n}=\frac{n!}{(d!)^{\lfloor n/d\rfloor}}.</annotation></semantics></math>
-Writing
+preserves that residue; the exponent below is chosen to make adjacent
+differences vanish except at multiples of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>.
+Put
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub><mo>=</mo><mfrac><mrow><mi>n</mi><mi>!</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>n</mi><mi>/</mi><mi>d</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup></mrow></mfrac><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>≥</mo><mn>2</mn><mo>,</mo><mspace width="0.222em"></mspace><mi>n</mi><mo>≥</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">W_{d,n}=\frac{n!}{(d!)^{\lfloor n/d\rfloor}}
+ \qquad(d\ge2,\ n\ge1).</annotation></semantics></math> Writing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mi>k</mi><mi>d</mi><mo>+</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">n=kd+r</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>r</mi><mo>&lt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">0\le r&lt;d</annotation></semantics></math>,
 shows that
@@ -123,19 +117,14 @@ is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">r!</annotation></semantics></math>
 times the multinomial coefficient
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msup><mi>r</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n!/((d!)^k r!)</annotation></semantics></math>.
-In particular it is an integer, and
+Thus it is an integer, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msup><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">n!=(d!)^kW_{d,n}</annotation></semantics></math>
 gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub><mo>≡</mo><mi>n</mi><mi>!</mi><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">W_{d,n}\equiv n!\pmod{d!-1}</annotation></semantics></math>.
 For example,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mn>3</mn><mo>,</mo><mn>4</mn></mrow></msub><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">W_{3,4}=4</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mi>!</mi><mo>−</mo><msub><mi>W</mi><mrow><mn>3</mn><mo>,</mo><mn>4</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">(4!-W_{3,4})/(3!-1)=4</annotation></semantics></math>.
-The exponent
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>n</mi><mi>/</mi><mi>d</mi><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lfloor n/d\rfloor</annotation></semantics></math>
-increases precisely at multiples of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
-which will determine the nonzero weighted differences.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mi>!</mi><mo>−</mo><msub><mi>W</mi><mrow><mn>3</mn><mo>,</mo><mn>4</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">(4!-W_{3,4})/(3!-1)=4</annotation></semantics></math>.</p>
 <p>For a finitely supported integer vector
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>λ</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\lambda=(\lambda_n)_{n\ge1}</annotation></semantics></math>,
 define the integer linear forms
@@ -145,42 +134,37 @@ and let
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow></munder><mfrac><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal R(\lambda)=\sum_{d\ge2}\frac{V_d(\lambda)}{d!-1}.</annotation></semantics></math>
 Here
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-indexes the chosen coefficients, whereas
+indexes coefficients and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
-indexes the summands of the remainder. If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>
-is supported on
+indexes remainder summands. If the support lies in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">n\le N</annotation></semantics></math>,
-with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N\ge2</annotation></semantics></math>,
 then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&gt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">d&gt;N</annotation></semantics></math>
-makes every floor exponent zero. Hence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo>=</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">V_d=M</annotation></semantics></math>
-throughout this tail, and the series converges absolutely. Only the
-first
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N-1</annotation></semantics></math>
-terms can differ from those of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">MS</annotation></semantics></math>;
-the weight congruence gives
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&gt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">d&gt;N</annotation></semantics></math>.
+Thus the infinite tail agrees with that of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">MS</annotation></semantics></math>.
+The remainder converges absolutely, and each of the finitely many
+termwise differences is an integer:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mi>S</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>d</mi><mo>=</mo><mn>2</mn></mrow><mi>N</mi></munderover><mfrac><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
  \mathcal R(\lambda)-M(\lambda)S
  =\sum_{d=2}^N\frac{V_d(\lambda)-M(\lambda)}{d!-1}\in\mathbb Z.
  \label{eq:integer-linear-form}
-\end{equation}</annotation></semantics></math> We now solve
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub><mo>=</mo><mi>⋯</mi><mo>=</mo><msub><mi>V</mi><mi>D</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_2=\cdots=V_D=0</annotation></semantics></math>
-in integer vectors, allowing either sign of
+\end{equation}</annotation></semantics></math> We solve
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub><mo>=</mo><mi>⋯</mi><mo>=</mo><msub><mi>V</mi><mi>D</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_2=\cdots=V_D=0</annotation></semantics></math>,
+allowing either sign of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.
 Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>e</mi><mi>n</mi></msub><annotation encoding="application/x-tex">e_n</annotation></semantics></math>
 for the unit vector at index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
-The auxiliary coordinate at index one will make the basis triangular. It
-occurs only in the coefficient vector: the series still starts at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d=2</annotation></semantics></math>,
-so no term
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(1!-1)</annotation></semantics></math>
-is introduced. We impose
+Index one is auxiliary: it makes the basis triangular but introduces no
+term
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(1!-1)</annotation></semantics></math>,
+since the remainder still starts at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d=2</annotation></semantics></math>.
+We impose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>λ</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\lambda_1=0</annotation></semantics></math>
 in Section 3.</p>
 <p>The identity
@@ -339,8 +323,7 @@ summands in <code>[eq:integer-linear-form]</code>. Their sum is
 therefore
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
 in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo>=</mo><mi>M</mi><mi>S</mi><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">\mathcal R=MS+k</annotation></semantics></math>.
-The same coordinates describe both the vector and its linear form.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo>=</mo><mi>M</mi><mi>S</mi><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">\mathcal R=MS+k</annotation></semantics></math>.</p>
 <p>For a prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">p\ge3</annotation></semantics></math>
 the divisor sum is empty, and
@@ -403,11 +386,15 @@ Uniqueness of the coordinates now gives the complete solution
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">t\in\mathbb Z</annotation></semantics></math>
 and finitely many nonzero integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>z</mi><mi>n</mi></msub><annotation encoding="application/x-tex">z_n</annotation></semantics></math>.
-The parameter
+Here
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
-fixes the lower coordinates; the higher
+fixes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+and the coefficients of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>U</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">U_2,\ldots,U_D</annotation></semantics></math>.
+The remaining basis coefficients
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>z</mi><mi>n</mi></msub><annotation encoding="application/x-tex">z_n</annotation></semantics></math>
-remain arbitrary until we impose
+are free until we impose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>λ</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\lambda_1=0</annotation></semantics></math>.</p>
 <p>It remains to remove index one. Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>D</mi></msub><annotation encoding="application/x-tex">a_D</annotation></semantics></math>
@@ -470,36 +457,30 @@ give a smaller positive value of
  u_n=-\sum_{\substack{d\mid n\\2\le d&lt;n}}W_{d,n}u_d\quad(n&gt;2).</annotation></semantics></math>
 Induction gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u_n=0</annotation></semantics></math>
-at odd indices. At twice a prime it gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mrow><mn>2</mn><mi>p</mi></mrow></msub><mo>=</mo><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mi>/</mi><msup><mn>2</mn><mrow><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u_{2p}=-(2p)!/2^{p-1}\ne0</annotation></semantics></math>,
-including
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">p=2</annotation></semantics></math>,
-so
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>D</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">g_D&gt;0</annotation></semantics></math>.
-This nonzero coefficient also tells us how to make the calculation
-finite. Choose a prime
+at odd indices and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mrow><mn>2</mn><mi>p</mi></mrow></msub><mo>=</mo><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mi>/</mi><msup><mn>2</mn><mrow><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u_{2p}=-(2p)!/2^{p-1}\ne0</annotation></semantics></math>
+at twice a prime, including
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">p=2</annotation></semantics></math>.
+Choose a prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mn>2</mn><mo>&lt;</mo><mi>ℓ</mi><mo>≤</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">D/2&lt;\ell\le D</annotation></semantics></math>.
-Any gcd computed on an initial interval of the tail containing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>ℓ</mi></mrow><annotation encoding="application/x-tex">2\ell</annotation></semantics></math>
-must divide
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">(2\ell)!</annotation></semantics></math>.
-We use that factorial to control the later terms of the recurrence.</p>
-<p>For a proper divisor
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&gt;</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">d&gt;D</annotation></semantics></math>,
-divisibility by the finite gcd comes from the earlier coefficient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mi>d</mi></msub><annotation encoding="application/x-tex">u_d</annotation></semantics></math>.
-For
+A finite gcd that includes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mrow><mn>2</mn><mi>ℓ</mi></mrow></msub><annotation encoding="application/x-tex">u_{2\ell}</annotation></semantics></math>
+is positive and divides
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">(2\ell)!</annotation></semantics></math>.</p>
+<p>The issue is to prove that this gcd divides every later coefficient.
+In the recurrence, a proper divisor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&gt;</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">d&gt;D</annotation></semantics></math>
+passes divisibility through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mi>d</mi></msub><annotation encoding="application/x-tex">u_d</annotation></semantics></math>
+by induction. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≤</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">d\le D</annotation></semantics></math>,
-we instead make the weight
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub><annotation encoding="application/x-tex">W_{d,n}</annotation></semantics></math>
-divisible by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">(2\ell)!</annotation></semantics></math>.
-The proof obtains this from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>/</mi><mi>d</mi><mo>≥</mo><mn>2</mn><mi>ℓ</mi></mrow><annotation encoding="application/x-tex">n/d\ge2\ell</annotation></semantics></math>;
-the cutoff below is chosen to ensure that inequality for every small
-divisor.</p>
+divisibility must instead come from the weight: once
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>/</mi><mi>d</mi><mo>≥</mo><mn>2</mn><mi>ℓ</mi></mrow><annotation encoding="application/x-tex">n/d\ge2\ell</annotation></semantics></math>,
+the block-counting formula below makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>∣</mo><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">(2\ell)!\mid W_{d,n}</annotation></semantics></math>.
+The cutoff ensures this for every small divisor.</p>
 <div class="theorem" id="res:finite-channel-moment-certificate">
 <p><strong>Theorem 3.1</strong> (a finite formula for the gcd). <em>
 Choose a prime
@@ -584,7 +565,7 @@ is not enough: the cutoff must also control every later small-divisor
 weight. A truncation at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>D</mi></mrow><annotation encoding="application/x-tex">2D</annotation></semantics></math>
 is not justified by this argument.</p>
-<p>The finite gcd also gives a construction. Compute integers
+<p>To attain the least positive multiplier, compute integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mi>n</mi></msub><annotation encoding="application/x-tex">b_n</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mi>D</mi><mo>+</mo><mn>1</mn></mrow><mi>H</mi></msubsup><msub><mi>b</mi><mi>n</mi></msub><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><msub><mi>g</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{n=D+1}^H b_nu_n=g_D</annotation></semantics></math>
@@ -597,16 +578,19 @@ makes
 Substitution in <code>[eq:low-channel-classification]</code> therefore
 produces a vector with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><msub><mi>μ</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">M=\mu_D</annotation></semantics></math>.
-This gives an attaining vector as well as the minimum. Minimising its
-support or its coefficient norm is a separate problem.</p>
+Minimising its support or its coefficient norm is a separate
+problem.</p>
 </section>
 <section id="sec:coordinate-remainder" class="level3">
 <h3>The associated remainder</h3>
-<p>For a fixed admissible value
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mi>t</mi><msub><mi>L</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">M=tL_D</annotation></semantics></math>,
-the higher coordinates must still satisfy
-<code>[eq:support-equation]</code>. Among those choices, the remainder
-changes only by an integer:
+<p>Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∈</mo><msub><mi>μ</mi><mi>D</mi></msub><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">M\in\mu_D\mathbb Z</annotation></semantics></math>
+and put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>M</mi><mi>/</mi><msub><mi>L</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">t=M/L_D</annotation></semantics></math>.
+The choices of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>z</mi><mi>n</mi></msub><annotation encoding="application/x-tex">z_n</annotation></semantics></math>
+satisfying <code>[eq:support-equation]</code> change the remainder only
+by an integer:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>e</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\mathcal R(e_1)=S</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\mathcal R(U_n)=1</annotation></semantics></math>
@@ -624,7 +608,7 @@ the integer in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo>=</mo><mi>M</mi><mi>S</mi><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">\mathcal R=MS+k</annotation></semantics></math>
 is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>−</mi><mi>M</mi><msub><mi>H</mi><mi>D</mi></msub><mo>+</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>&gt;</mo><mi>D</mi></mrow></msub><msub><mi>z</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">k=-MH_D+\sum_{n&gt;D}z_n</annotation></semantics></math>.
-Thus the sum of the higher coordinates is the offset from
+Thus the sum of the higher basis coefficients is the offset from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>D</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M(S-H_D)</annotation></semantics></math>,
 not from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">MS</annotation></semantics></math>.</p>
@@ -767,9 +751,7 @@ before summing.</caption>
 </tbody>
 </table>
 </div>
-<p>The coordinates give
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mn>1380</mn></mrow><annotation encoding="application/x-tex">M=1380</annotation></semantics></math>,
-the three cancellations, and the offset
+<p>The basis coordinates give the offset
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>26</mn><mo>−</mo><mn>27</mn><mo>+</mo><mn>8</mn><mo>+</mo><mn>1</mn><mo>=</mo><mi>−</mi><mn>44</mn></mrow><annotation encoding="application/x-tex">-26-27+8+1=-44</annotation></semantics></math>
 in <code>[eq:residual-transparency]</code>. Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>4</mn></msub><mo>=</mo><mn>143</mn><mi>/</mi><mn>115</mn></mrow><annotation encoding="application/x-tex">H_4=143/115</annotation></semantics></math>,
@@ -791,8 +773,10 @@ and has ratio
  &lt;1380\sum_{d=5}^{8}\frac1{d!-1}-44
  &lt;-31+\frac56,
  \qquad \frac{2\cdot1380}{9!-1}&lt;\frac1{100}.</annotation></semantics></math>
-The positive remaining tail is less than
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>9</mn><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2/(9!-1)</annotation></semantics></math>,
+The omitted contribution to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℛ</mi><annotation encoding="application/x-tex">\mathcal R</annotation></semantics></math>
+is positive and less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>100</mn></mrow><annotation encoding="application/x-tex">1/100</annotation></semantics></math>,
 so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>31</mn><mo>&lt;</mo><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>−</mi><mn>30</mn></mrow><annotation encoding="application/x-tex">-31&lt;\mathcal R(\lambda)&lt;-30</annotation></semantics></math>.
 If
@@ -803,13 +787,14 @@ with
 integer. Every divisor of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1380</mn><annotation encoding="application/x-tex">1380</annotation></semantics></math>
 is therefore excluded.</p>
-<p>The companion gives the <a
+<p>The companion gives an <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-depth-refinements">alternative
-dual congruence, support and coefficient-norm refinements</a>. These
-minimise different quantities. The minimum of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-follows from <code>[eq:attainable-moment-ideal]</code> and does not
-require minimal support.</p>
+dual congruence and support and coefficient-norm refinements</a>.
+Minimising
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>,
+the number of supported indices, and the coefficient norm are distinct
+problems; only the first is settled by
+<code>[eq:attainable-moment-ideal]</code>.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>Nonintegrality of the remainder</h2>
@@ -817,34 +802,29 @@ require minimal support.</p>
 <p>Fix a vector with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub><mo>=</mo><mi>⋯</mi><mo>=</mo><msub><mi>V</mi><mi>D</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_2=\cdots=V_D=0</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M&gt;0</annotation></semantics></math>.
-We may choose the cutoff
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M&gt;0</annotation></semantics></math>,
+and choose any cutoff
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">N\ge D</annotation></semantics></math>
-anywhere at or beyond its support. Separate the finite signed sum from
-the positive tail:
+at or beyond its support. Separate the signed finite sum from the
+positive tail:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>N</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>d</mi><mo>=</mo><mi>D</mi><mo>+</mo><mn>1</mn></mrow><mi>N</mi></munderover><mfrac><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>A</mi><mi>N</mi></msub><mo>+</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">A_N=\sum_{d=D+1}^N\frac{V_d(\lambda)}{d!-1},\qquad
  \mathcal R(\lambda)=A_N+M(S-H_N).</annotation></semantics></math> The
-remainder lies above
+remainder exceeds
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>N</mi></msub><annotation encoding="application/x-tex">A_N</annotation></semantics></math>.
-To place it below the next integer, it is enough that the omitted tail
-be shorter than the gap
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mi>A</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn><mo>−</mo><msub><mi>A</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\lfloor A_N\rfloor+1-A_N</annotation></semantics></math>.
-By <code>[eq:series-tail-bound]</code>, a sufficient condition is
+By <code>[eq:series-tail-bound]</code>, it lies below the least integer
+strictly above
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>N</mi></msub><annotation encoding="application/x-tex">A_N</annotation></semantics></math>
+whenever
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>2</mn><mi>M</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>&lt;</mo><mo stretchy="false" form="prefix">⌊</mo><msub><mi>A</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn><mo>−</mo><msub><mi>A</mi><mi>N</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
  \frac{2M}{(N+1)!-1}&lt;\lfloor A_N\rfloor+1-A_N.
  \label{eq:signed-block-gap}
-\end{equation}</annotation></semantics></math> Indeed, the positive tail
-and this comparison give
+\end{equation}</annotation></semantics></math> Then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mi>A</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">⌋</mo><mo>&lt;</mo><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mo stretchy="false" form="prefix">⌊</mo><msub><mi>A</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lfloor A_N\rfloor&lt;\mathcal R(\lambda)&lt;\lfloor A_N\rfloor+1</annotation></semantics></math>,
 excluding every denominator dividing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.
-Failure of this sufficient comparison is inconclusive. Either sign of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>N</mi></msub><annotation encoding="application/x-tex">A_N</annotation></semantics></math>
-is allowed: its strict gap is one when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>N</mi></msub><annotation encoding="application/x-tex">A_N</annotation></semantics></math>
-is integral and can be arbitrarily small when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>N</mi></msub><annotation encoding="application/x-tex">A_N</annotation></semantics></math>
-approaches an integer from below.</p>
+The strict successor is essential: the gap is one at an integer, but can
+be arbitrarily small just below one. Failure of the comparison is
+inconclusive.</p>
 <p>First keep the vector fixed and increase only the cutoff. The vector
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>6</mn><msub><mi>e</mi><mn>2</mn></msub><mo>+</mo><msub><mi>e</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">-6e_2+e_4</annotation></semantics></math>
 has
@@ -871,51 +851,48 @@ and the gap
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13376</mn><mi>/</mi><mn>13685</mn></mrow><annotation encoding="application/x-tex">13376/13685</annotation></semantics></math>
 exceeds
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>24</mn><mi>/</mi><mn>719</mn></mrow><annotation encoding="application/x-tex">24/719</annotation></semantics></math>.
-More generally, for a fixed vector with
+For any fixed vector with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M&gt;0</annotation></semantics></math>,
-the quantities
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>N</mi></msub><annotation encoding="application/x-tex">A_N</annotation></semantics></math>
-increase to
+increases to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℛ</mi><annotation encoding="application/x-tex">\mathcal R</annotation></semantics></math>.
-If this limit is nonintegral, their gaps to the next integer tend to a
-positive number, so the test eventually succeeds. If the limit is
-integral, the eventual gap equals the omitted tail and the test fails.
-Extending the cutoff therefore eventually detects a nonintegral
-remainder, but leaves both that remainder and the set of divisors of
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℛ</mi><annotation encoding="application/x-tex">\mathcal R</annotation></semantics></math>
+is nonintegral, the gap tends to a positive number and the test
+eventually succeeds. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℛ</mi><annotation encoding="application/x-tex">\mathcal R</annotation></semantics></math>
+is integral, the eventual gap equals the omitted tail, so the strict
+upper-bound test fails. Thus moving the cutoff detects nonintegrality;
+it does not create it or change the divisors of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-unchanged.</p>
-<p>Changing coefficients while preserving
+that are excluded.</p>
+<p>Nor can a change of coefficients at fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-also leaves integrality unchanged. By
-<code>[eq:integer-linear-form]</code>, the remainders of two such
-vectors differ by an integer. Adding multiples of the
+create nonintegrality: by <code>[eq:integer-linear-form]</code>, it
+changes the remainder only by an integer. The
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mi>n</mi></msub><annotation encoding="application/x-tex">U_n</annotation></semantics></math>
-can simplify the support and weighted sums, as in the example; it cannot
-turn an integral remainder into a nonintegral one.</p>
-<p>To exclude every possible denominator, we must instead choose vectors
-whose values of
+corrections simplify support and weighted sums, not the fractional
+part.</p>
+<p>To exclude every denominator,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-have the required divisibility. There are primitive solutions with
+must vary. The <a
+href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-progression">companion’s
+progression construction</a> turns cancellation into polynomial root
+conditions. It gives primitive vectors (their coefficients have gcd one)
+with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>M</mi><mo>&lt;</mo><mi>N</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">0&lt;M&lt;N!</annotation></semantics></math>
-for which
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-is eventually divisible by any prescribed
+and multipliers eventually divisible by every fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>.
-The <a
-href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-progression">progression
-construction in the companion</a> gives such a family by turning
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_d=0</annotation></semantics></math>
-into roots of a polynomial. At its support endpoint the omitted tail is
-less than
+At the support endpoint the tail is less than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mi>N</mi></mrow><annotation encoding="application/x-tex">2/N</annotation></semantics></math>,
-but the gap on the right of <code>[eq:signed-block-gap]</code> may
-shrink too. To prove irrationality by this test, for each
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>
-we need one vector with
+but the next-integer gap may shrink too. The missing step is therefore
+one comparison for the same vector: for each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>,
+find
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">q\mid M</annotation></semantics></math>
-and a cutoff for which <code>[eq:signed-block-gap]</code> holds.
-Divisibility and a small tail do not by themselves establish that
-comparison. No minimal-support assertion is made for this family.</p>
+and a cutoff satisfying <code>[eq:signed-block-gap]</code>. Neither
+divisibility nor a vanishing tail bound supplies that comparison. No
+minimal-support assertion is made for this family.</p>
 <p>The companion treats the <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-carry">equivalent carry
 condition</a> and the <a

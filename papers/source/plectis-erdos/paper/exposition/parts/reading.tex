@@ -3,35 +3,31 @@
 \section{Learning to explain a particular argument}\label{sec:reading}
 \papersectiontarget{exposition-reading}
 
-Suppose a proof constructs a sequence by repeatedly choosing a digit. At every
-stage another choice is possible, but the intended conclusion concerns the sum
-of the infinite sequence. The reader needs to know what has happened to the
-unattained part of the target. Writing
+Suppose a proof chooses digits one at a time to represent a target. Showing
+that another choice is always possible does not yet identify the infinite
+sum. The missing information is what remains of the target:
 \[
  r_n=x-S_n,\qquad 0\le r_n\le\varepsilon_n,\qquad
  \varepsilon_n\longrightarrow0
 \]
-answers that question: the partial sums $S_n$ converge to $x$. The useful
-addition is the relation connecting finite choices to the conclusion. Changing
-``we repeat'' to ``we continue inductively'' would leave the same question
-unanswered.
+so the partial sums $S_n$ converge to $x$. Replacing ``we repeat'' by
+``we continue inductively'' would explain no more. The remainder bound connects
+the finite choices to the infinite sum; the name of the iteration does not.
 
-This example, developed in Section~\ref{sec:remainder}, suggests where to look
-for a useful model. Another paper that constructs an infinite sum through
-controlled finite remainders can show how to separate the choice from the
-limiting argument. It need not study the same sequence. Its relevance lies in
-an identifiable part of the proof, and the comparison ends where the arguments
-differ. The model contributes an expository choice; the new paper must supply
-its own mathematics.
+To find such an explanation, locate the last fact already established and
+the first conclusion the reader is asked to accept. Ask what connects them.
+Here the connection is a remainder bound tending to zero, not merely a
+remainder that stays bounded. A source facing the same task can suggest how
+to expose this distinction. Section~\ref{sec:remainder} develops the comparison;
+the new manuscript must still justify its own covering and remainder bounds.
 
-General advice remains useful. Halmos discusses audience, organization and the
-selection of examples~\cite[\S\S3--4]{halmos}. Knuth, Larrabee and Roberts discuss
-the introduction of symbols, the connection between sentences and the reader's
-need to know why a step is being taken~\cite[\S1]{knuth}. Gowers examines the
-placement of examples relative to unfamiliar abstractions~\cite{gowers}, while
-Tao cautions against sacrificing usefulness to excessive optimization of a
-paper~\cite{tao}. Such advice identifies questions to ask. A nearby mathematical
-argument shows how an author has answered them in a particular setting.
+Halmos discusses audience, organisation and examples~\cite[\S\S3--4]{halmos}.
+Knuth, Larrabee and Roberts discuss introducing symbols, connecting sentences
+and explaining why a step is taken~\cite[\S1]{knuth}. Gowers considers where
+examples should precede unfamiliar abstractions~\cite{gowers}; Tao cautions
+against sacrificing usefulness to excessive optimisation~\cite{tao}.
+This advice identifies questions. A nearby argument shows how an author
+answered them in a particular setting.
 
 The cases come from revisions of papers on Erd\H{o}s problems. Read them by
 the difficulty at hand: construction and attainment in
@@ -43,45 +39,46 @@ revision and keep its useful lesson without making every case a new rule.
 
 \subsection{Choose sources by the work the prose must do}
 
-Before collecting stylistic examples, identify the manuscript's subject, genre
-and reader. An irrationality note may need a compact route from an assumed
-rational sum to a positive integer smaller than one. A geometric paper may need
-to explain which component is being measured and why a map preserves the
-quantity under discussion. A survey has to distinguish several viewpoints; a
-short theorem paper may need to develop just one. These differences affect
-terminology, notation and the amount of preparation a proof needs.
+Choose the reader before choosing the amount of explanation. An expert may
+know a lemma but not why it is used here; a neighbouring specialist may need
+its statement. Tao's advice distinguishes the author's familiarity from the
+reader's knowledge~\cite{tao-detail}. State the assumed background, then explain
+what it does not supply.
 
-Specify the reader's existing knowledge as carefully as the intended result.
-An expert in the subject may know a standard lemma and still need an explanation
-of an unfamiliar way of using it. A reader in a neighbouring subject may need
-the lemma stated and its relevance explained. Allocate detail accordingly:
-Tao's advice on detail distinguishes the author's familiarity with a step from
-what the intended audience can reasonably supply~\cite{tao-detail}.
+Subject and genre matter too. An irrationality note may turn an assumed
+rational sum into a positive integer smaller than one. A geometric paper
+may first need to identify the component being measured and the map preserving
+its size. A survey compares viewpoints; a short theorem paper may develop
+one argument. A useful source should illuminate the particular task, not
+merely have an admired style.
 
-The introduction must also distinguish two questions. What does this paper add
-to the subject? How does its proof reach the result? The first calls for a
-comparison with relevant prior work. The second calls for a short account of
-the decisive inference and the obstacles it overcomes. A list of section titles
-answers neither. For a conditional theorem, explain the hypothesis's
-restrictiveness: give an established example satisfying it, or say that finding
-such examples is the remaining problem. Do not let a useful reduction read as
-though its premise had already been proved.
+The introduction must answer both ``what changes with this result?'' and
+``why does the proof work?'' Compare assumptions and conclusions with the
+closest prior result: a stronger conclusion under stronger assumptions need
+not be a stronger theorem. Then identify the obstacle and the step that
+overcomes it. A list of section titles does neither. Nor does calling a hypothesis ``natural'' explain its
+force. For a conditional theorem, say which familiar cases satisfy or fail
+the hypothesis, where known, and where the proof uses it. One example shows
+applicability, not the breadth of the admissible class. Identify any unresolved
+premise so that a reduction does not read as though that premise were proved.
 
-Choose a small group of human-authored papers that addresses these needs.
-Include a paper close in subject for vocabulary and attribution, and, when
-useful, one close in proof structure for the explanation of a construction or
-estimate. A famous paper from a remote field can offer a comparison, but it
-cannot settle the conventions of the target field. Nor does frequent usage
-make a term appropriate when its definition differs from the object at hand.
+Read a close subject paper for vocabulary and attribution, and, when useful,
+a structurally similar proof for the explanation of a construction or estimate.
+A remote paper cannot settle the target field's conventions, and frequent usage
+does not excuse a mismatched definition.
 
-Read the original passage in a named version. An abstract can establish the
-name used for an object; it seldom reveals the pacing of the proof. For that,
-read the argument around the sentence, including the statement it proves and
-the hypotheses it invokes. Record the section, theorem or equation label and
-page. Preprint versions can have different numbering from a published article,
-and a source archive may differ from the accompanying PDF. The file's digest
-identifies the supplied bytes; a public link tells the reader where to seek
-the work. Neither should silently stand in for the other.
+Use the same comparison at the scale of the proof. A roadmap should explain
+how its stages fit, not just name them~\cite[\S4]{halmos}. In
+Section~\ref{sec:estimate}, finitely many tail values give repetition; recovery
+is needed to make repeated values force repeated blocks. ``We estimate the
+tails and finish the proof'' hides that dependency.
+
+Read the original passage in an identified version, including the statement,
+hypotheses and argument around the sentence. An abstract may establish a term,
+but seldom shows how the proof is explained. Record a section, theorem or
+equation locator and a page; numbering can change between versions. Keep
+source digests in the reading record. They identify the supplied bytes,
+whereas a public link gives the reader a route to the work.
 
 For a difficult passage, reconstruct the local argument before borrowing its
 presentation. Knuth, Larrabee and Roberts give a useful worked
@@ -95,8 +92,10 @@ inequality gives
 The left side is fixed. If $b_j-b_i$ were positive, the right side would grow
 without bound; hence $b_j\le b_i$. The source compares a proof choosing a
 particular $k$ for a contradiction with a direct proof using this dependence.
-Reading the two shows why the phrase ``for arbitrarily large $k$'' matters.
-It is not a reason to ban proof by contradiction elsewhere.
+The improvement exposes what stays fixed while $k$ grows. The words ``for
+arbitrarily large $k$'' make the displayed inequality decisive; they do not
+merely describe a limiting procedure. This is a reason for this proof's order,
+not a reason to ban contradiction arguments.
 
 Now ask which fact in the target proof could make its own conclusion equally
 unavoidable. In the opening construction, that fact is a remainder bound tending
@@ -104,20 +103,19 @@ to zero. When the target proof contains no such fact, the comparison has exposed
 a mathematical obligation; it has not supplied an explanation that can safely
 be inserted.
 
-The record should distinguish three acts. A packet may contain a source. Its
-recipient may declare that particular pages were read. An integrating reviewer
-may later inspect the quoted passage. These are different facts. Later
-inspection can verify a locator or expose a poor analogy; it cannot establish
-what the earlier recipient actually read.
+Source availability, a recipient's reading declaration and a later reviewer's
+passage inspection are separate facts. Later inspection can verify a locator
+or expose a poor analogy; it cannot establish what the earlier recipient read.
 
 \subsection{Read sentences as mathematical relations}
 
-A useful reading pass asks what each choice allows the reader to infer.
-Consider the placement of a hypothesis. A theorem statement should quantify
-the objects and state the assumptions needed for its conclusion. Inside the
-proof, recalling one of those assumptions can explain a step that would
-otherwise look automatic. A phrase such as ``by positivity'' helps only if
-the reader can identify the positive quantity and the inference that uses it.
+Read each explanatory phrase as part of the argument. A theorem must state
+the objects and assumptions needed for its conclusion; inside the proof,
+recall an assumption when it explains a step. ``By positivity'' leaves work
+for the reader unless the positive quantity and its use are clear. In the
+tail estimate of Section~\ref{sec:certificate}, positivity of the omitted
+tail gives the lower inequality, whereas its upper bound gives the other.
+Naming those two jobs is more useful than adding ``clearly'' to the conclusion.
 
 Connective words deserve the same attention. ``Since'' introduces a reason;
 ``hence'' asserts that the conclusion follows; ``provided that'' makes a
@@ -126,31 +124,28 @@ words are not interchangeable devices for varying a paragraph. A revision
 that changes ``provided that'' to ``hence'' can change the logical force of
 the sentence while leaving every displayed formula intact.
 
-Parallel syntax helps compare parallel claims. A subordinate clause can keep
-a dependency beside the assertion that uses it. There is no preferred ratio
-of short to long sentences: a short sentence may hide its antecedent, while
-a longer one can keep a condition attached to its consequence. The point of
-studying an author's construction is to understand that relation, then write
-original prose appropriate to the new argument.
+Parallel syntax helps compare claims; a subordinate clause keeps a condition
+beside its consequence. Sentence length alone settles neither choice: a short
+sentence may hide its antecedent, while a longer one makes the dependency clear.
+Study that relation, then write original prose for the new argument.
 
 Notation should receive this close reading as well. Ask when a symbol first
 becomes necessary, what repeated work it saves and which nearby quantities
 the reader might confuse with it. A new name for a standard object creates an
-additional translation. Conversely, removing an established term such as
-``Stieltjes moment sequence'' can make a manuscript less connected to its
-literature~\cite{wangzhu}. A vocabulary pass should compare definitions and
-uses, rather than delete unfamiliar words merely because they are technical.
+additional translation. Removing an established term such as ``Stieltjes moment
+sequence'' can instead sever a useful connection to the literature~\cite{wangzhu}.
+Check both the name and its referent: in Section~\ref{sec:formula-choice}, the
+divisibility condition concerns a future index, not its offset from the present
+one. Familiar words can misidentify an object as easily as private terminology.
 
-Proof pacing is the allocation of explanation to mathematical difficulty.
-The reader may need to see the accuracy required of an estimate before its
-derivation, or the obstruction that motivates a parameter choice. Several
-lines of routine substitution can be shorter than one indispensable sentence
-about why a limit exists. The manuscript should give the latter its space.
-These choices can be examined in actual passages, without imitating an
-author's voice or turning a preferred cadence into a rule.
+Give space to the reason hardest to recover, not the longest calculation.
+State the required accuracy before the estimate and the selecting constraint
+before the parameter; routine substitutions can then be brief. A one-line
+limit may nevertheless need a paragraph when the number of factors grows
+(Section~\ref{sec:fixed-partition}). Expose the dependency, not an author's cadence.
 
 A repeated technique may serve a different purpose later in the proof. In the
-R11 paper-revision round, \#243 paper makes two uses of finite differences explicit. A fourth
+R11 revision, the \#243 paper uses finite differences for two distinct purposes. A fourth
 difference tends to zero and is integer-valued, so it eventually vanishes;
 this gives eventual polynomial behaviour. Later, a positive constant third
 difference bounds a divisibility chain of positive greatest common divisors,
@@ -163,12 +158,13 @@ not a requirement to explain every routine calculation again.
 
 \subsection{Use examples without delaying the result}
 
-An example earns its place when it prepares a particular inference. In the
-opening construction, a finite choice can illustrate how the remainder stays
-admissible; convergence still needs its own argument. In a classification,
-an example may reveal the coordinates, while the proof must still show that
-every admissible object has those coordinates. State which task the example
-performs so that its success is not mistaken for a proof of the whole result.
+An example earns its place when it prepares a particular inference. Choose
+its size for that job: a table in which every height occurs once would conceal
+the multiplicity issue in Section~\ref{sec:multiplicity}. In the opening
+construction, one choice can show how the remainder stays admissible, but not
+that it tends to zero. An example may reveal a classification's coordinates;
+the proof must still show that every admissible object has them. State which
+task the example performs.
 
 Placement depends on what is unfamiliar. Gowers's follow-up to ``examples
 first'' qualifies the recommendation by audience and genre, and considers
@@ -177,9 +173,9 @@ can precede a locally unfamiliar definition while the headline theorem remains
 early and easy to find. An example of a familiar definition may instead belong
 after the statement, at the point where it explains a new use.
 
-This distinction also governs repetition. A second description can add meaning
-by connecting a formula to the operation it represents. Repeating the same
-conclusion in different adjectives adds little. Knuth, Larrabee and Roberts
-recommend complementary descriptions of important objects~\cite[\S1, item~11]{knuth};
-complementarity is the test. After either description, the reader should be able
-to do something that the other alone made difficult.
+This distinction also governs repetition. Knuth, Larrabee and Roberts recommend
+complementary descriptions of important objects~\cite[\S1, item~11]{knuth}.
+In Section~\ref{sec:certificate}, the inequalities tell the reader what to
+check; the enclosure explains why those checks suffice. Removing either
+would lose a different use. Repeating the conclusion in new adjectives would
+add neither. Judge repetition by the work the second account makes possible.

@@ -23,16 +23,20 @@ class="citation" data-cites="erdos1988"><a href="#ref-2">[2]</a></span> and in B
 <span class="citation" data-cites="erdosproblems"><a href="#ref-26">[26]</a></span>. Erdős proved
 the integer case in 1948 <span class="citation"
 data-cites="erdos1948"><a href="#ref-1">[1]</a></span>.</p>
-<p>We study two constructions of Zudilin. The 2016 approximation <span
-class="citation" data-cites="zudilin2016"><a href="#ref-9">[9]</a></span> gives moments of a
-positive measure, whose Hankel determinants we evaluate asymptotically.
-His 2004 forms <span class="citation" data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>
-give an irrationality region after their coefficients are cleared at a
-rational base. The shorter companion, <em>Hankel Determinants of
-Geometric Moments and Rational Lambert Values</em>, begins with the
-determinant result. Here we develop the polynomial forms first, so that
-their denominator calculation is available for the later arithmetic
-comparisons.</p>
+<p>Two constructions of Zudilin enter, for different reasons. The 2016
+approximation <span class="citation" data-cites="zudilin2016"><a href="#ref-9">[9]</a></span>
+supplies positive moments, whose Hankel determinants we evaluate
+asymptotically. The 2004 forms <span class="citation"
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span> supply polynomial coefficients whose
+cancellation and rational evaluation give an irrationality region. A
+denominator estimate for the second construction is not an estimate for
+the first; each coefficient family needs its own arithmetic analysis.
+The shorter paper, <em>Hankel Determinants of Geometric Moments and
+Rational Lambert Values</em>, begins with the determinant result. Here
+the polynomial forms come first, making their exact arithmetic available
+for the later comparisons. Readers following only the determinant
+argument may start with Section <a class="math-ref" href="#long1049:sec:sharp">3</a>: its moment
+calculation does not use the rational-base transfer.</p>
 <p>For positive weights with fixed-shift ratios tending to <span
 class="math inline" data-term-auto="off">\(1\)</span> and a uniform polynomial bound on those
 ratios, we prove</p>
@@ -55,17 +59,17 @@ class="math inline" data-term-auto="off">\(N^{-8F(1/q)}\)</span> and its constan
 determine the first formal term <span
 class="math inline" data-term-auto="off">\(C_Nq^{B_N}\)</span>, where <span
 class="math inline" data-term-auto="off">\(C_N=(N!)^2(N+1)!/2^N\)</span>.</p>
-<p>The formal first term and the fixed-base limit describe different
-aspects of the determinant. Neither bounds the coefficient denominators
-needed for an irrationality argument at <span
-class="math inline" data-term-auto="off">\(3/2\)</span>. The ordinary arguments in the <a
-href="#long1049:thm:geometric-ratio">ratio-limit remark</a> and
+<p>The formal first term fixes the rank and expands at <span
+class="math inline" data-term-auto="off">\(q=0\)</span>; the analytic asymptotic fixes <span
+class="math inline" data-term-auto="off">\(q\)</span> and lets the rank grow. Neither
+controls the coefficient denominators of an irrationality form. The <a
+href="#long1049:thm:geometric-ratio">ratio-limit remark</a> extends the
+moment calculation to limiting adjacent-weight ratios, while
 Section <a class="math-ref" href="#long1049:sec:calibrated-countermodel">3.3</a>
-extend the moment calculation to limiting adjacent-weight ratios and
-construct a rational-value model with the same Hankel features. These
-arguments have no Lean proofs in the supplied record and are presented
-as unformalised remarks. They are not needed for the checked determinant
-asymptotic.</p>
+constructs a rational-value model with the same Hankel features. The
+latter shows why those features alone cannot imply irrationality. Both
+arguments are ordinary proofs without Lean proofs in the supplied
+record, and neither is used for the checked determinant asymptotic.</p>
 <p>For the 2004 forms, we calculate the degree after cancelling the
 common polynomial factors. At a reduced rational base <span
 class="math inline" data-term-auto="off">\(a/b&gt;1\)</span>, the resulting polynomials <span
@@ -135,8 +139,11 @@ estimates below justify this balance, including its lower-order factors.
 With <span class="math inline" data-term-auto="off">\(K_n/n^2\to C_1\)</span> and <span
 class="math inline" data-term-auto="off">\((K_n-W_n)/n^2\to C_0\)</span>, the cleared
 remainder tends to zero when <span class="math inline" data-term-auto="off">\(C_1\log
-b&lt;C_0\log a\)</span>. This is why the degree after cancellation must
-be known before rational evaluation.</p>
+b&lt;C_0\log a\)</span>. The degree drop has two effects: it improves
+the real remainder and changes the denominator needed to make its
+coefficients integral. Both effects concern the same cancelled form.
+This is why one must calculate the degree before rational evaluation,
+rather than borrow a denominator bound from the uncancelled family.</p>
 <p>We evaluate Zudilin’s 2004 forms at <span
 class="math inline" data-term-auto="off">\(a/b\)</span> after cancelling their common
 polynomial factors. His direction <span
@@ -1143,17 +1150,19 @@ needed for this specialisation. The existing formal proofs establish
 irrationality and measure bounds for the constructed forms; they do not
 supply a different family whose divided remainder is small and nonzero
 at <span class="math inline" data-term-auto="off">\(3/2\)</span>.</p>
-<p>The following condition is stronger than having estimates at <span
-class="math inline" data-term-auto="off">\(3/2\)</span>: one polynomial family must work at
-every fixed <span class="math inline" data-term-auto="off">\(x&gt;1\)</span> with the same
-leading constants. The error terms may depend on <span
-class="math inline" data-term-auto="off">\(x\)</span>. The 2004 family above satisfies these
-hypotheses. Estimates for that family at only one base, or for a
-different family at each base, do not verify them. The conclusion
-concerns these two-coordinate linear forms, not simultaneous forms in
-several independent target values. Here height means the largest
-absolute coefficient. To compare it with the sum of the absolute
-coefficients, note that for a polynomial of degree at most <span
+<p>The next restriction concerns one polynomial family whose estimates
+hold at every fixed <span class="math inline" data-term-auto="off">\(x&gt;1\)</span>, with
+the same leading constants but possibly base-dependent error terms. This
+quantifier is essential: the proof chooses a large integer base at which
+remainder decay would outpace coefficient growth. Estimates only at
+<span class="math inline" data-term-auto="off">\(3/2\)</span>, or for a different family at
+each base, do not permit that choice. The 2004 family satisfies the
+hypotheses. The conclusion concerns forms in <span
+class="math inline" data-term-auto="off">\(F(x)\)</span> and <span
+class="math inline" data-term-auto="off">\(1\)</span>, not simultaneous forms in several
+independent target values. Here height means the largest absolute
+coefficient. To compare it with the sum of the absolute coefficients,
+note that for a polynomial of degree at most <span
 class="math inline" data-term-auto="off">\(d\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\max_j|p_j|\le\sum_j|p_j|\le(d+1)\max_j|p_j|.\]</span></div>
@@ -1328,22 +1337,13 @@ same strict region. Equality <span class="math inline" data-term-auto="off">\(a=
 remains unclassified. The corollary concerns the undivided forms; it
 does not exclude base-dependent content division or other irrationality
 methods outside its hypotheses.</p>
-<p>The coefficient-height hypothesis (3) supplies the evaluation bound
-used in this proof. A degree bound alone gives no such estimate:
-polynomials of degree zero can have arbitrarily large integer
-coefficients. The constant <span class="math inline" data-term-auto="off">\(h\)</span> is
-independent of the base, which lets us choose one large integer <span
-class="math inline" data-term-auto="off">\(p\)</span> with <span
-class="math inline" data-term-auto="off">\((\sigma-\delta)\log p&gt;h\)</span> under the
-contradiction hypothesis <span
-class="math inline" data-term-auto="off">\(\sigma&gt;\delta\)</span>. This explains the use
-of (3); it does not prove that the hypothesis cannot be weakened or
-omitted from the theorem. At the boundary <span
-class="math inline" data-term-auto="off">\(\log b/\log a=\sigma/(\sigma+d)\)</span> the
-normalised logarithm is zero and these hypotheses decide neither
-behaviour. Theorem <a class="math-ref" href="#long1049:res:archcap">2.5</a> constrains
-families satisfying its hypotheses and does not exclude every possible
-Padé construction.</p>
+<p>A degree bound alone would not supply the evaluation estimate: even
+degree-zero polynomials can have arbitrarily large integer coefficients.
+This explains the height hypothesis (3), without establishing that it
+cannot be weakened or omitted. At <span class="math inline" data-term-auto="off">\(\log
+b/\log a=\sigma/(\sigma+d)\)</span>, the normalised logarithm is zero
+and the hypotheses decide neither behaviour. Theorem <a class="math-ref" href="#long1049:res:archcap">2.5</a> is a
+restriction on the stated families, not on all Padé constructions.</p>
 <p>There is also a distinction between the degree cutoff and an
 irrationality-exponent estimate at a fixed integer base <span
 class="math inline" data-term-auto="off">\(p\ge2\)</span>. The hypotheses above give</p>
@@ -2323,8 +2323,9 @@ class="math inline" data-term-auto="off">\(q\)</span> fixed; the constants are n
 calculation instead fixes <span class="math inline" data-term-auto="off">\(N\)</span> and
 expands at <span class="math inline" data-term-auto="off">\(q=0\)</span>. No joint uniform
 limit is asserted. The measure depends on <span
-class="math inline" data-term-auto="off">\(q\)</span>, not on the moment index or rank, and
-supplies no denominator factor for the 2004 polynomial forms.
+class="math inline" data-term-auto="off">\(q\)</span>, not on the moment index or rank: one
+measure represents the whole sequence at that base. This is an analytic
+representation, not a denominator factor for the 2004 polynomial forms.
 Section <a class="math-ref" href="#long1049:sec:sharp-fixed-base">3.2</a>
 replaces the band <span class="math inline" data-term-auto="off">\(O_q(N)\)</span> by an
 exact asymptotic with an explicit positive constant, using the same
@@ -2366,12 +2367,16 @@ arithmetic nature of <span class="math inline" data-term-auto="off">\(F(3/2)\)</
 <section id="long1049:sec:sharp-fixed-base" class="level3">
 <h3>The size of <span class="math inline" data-term-auto="off">\(V_N^*\)</span> at a fixed
 base</h3>
-<p>We now determine the exponential factor within the bounds just
-proved, together with the power of <span
-class="math inline" data-term-auto="off">\(N\)</span> and its leading constant. The argument
-applies first to general positive weights on geometric nodes. Throughout
-this subsection <span class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span> is
-fixed, and we write</p>
+<p>The preceding bounds leave an error of order <span
+class="math inline" data-term-auto="off">\(N\)</span> in the logarithm. We now determine its
+linear, logarithmic and constant terms. There are two calculations:
+compare every node configuration with the first <span
+class="math inline" data-term-auto="off">\(N\)</span> nodes, then multiply the resulting
+moment weights. The first is independent of the particular weights under
+the hypotheses below; the second produces the Lambert-value correction
+for <span class="math inline" data-term-auto="off">\(V_N^*\)</span>. Throughout this
+subsection <span class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span> is fixed,
+and we write</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[P=(q;q)_\infty,\qquad
 \mathcal M(q)=\prod_{d\ge1}(1-q^d)^{-d},\qquad
 L=F(1/q)=\sum_{r\ge1}\frac{q^r}{1-q^r},\]</span></div>
@@ -2444,10 +2449,12 @@ We may increase <span class="math inline" data-term-auto="off">\(C\)</span> to a
 class="math inline" data-term-auto="off">\(1\)</span> and <span
 class="math inline" data-term-auto="off">\(\kappa\)</span> to at least <span
 class="math inline" data-term-auto="off">\(0\)</span>. The bound <span
-class="math inline" data-term-auto="off">\(a_h\le Ca_0(1+h)^\kappa\)</span> ensures
-convergence of every moment. Apply Cauchy–Binet to a finite set of nodes
-and let its size tend to infinity. The matrix entries converge, while
-positivity permits passage to the limit in the sum, giving</p>
+class="math inline" data-term-auto="off">\(a_h\le Ca_0(1+h)^\kappa\)</span> makes <span
+class="math inline" data-term-auto="off">\(\sum_{k\ge0}a_kq^k\delta_{q^k}\)</span> a finite
+positive measure with moments <span class="math inline" data-term-auto="off">\(M_m\)</span>.
+Apply Cauchy–Binet to finite truncations. Entrywise convergence gives
+convergence of their determinants, and monotone convergence applies to
+the nonnegative tuple sums. Hence</p>
 <div class="math-display" id="long1049:eq:polynomial-heine" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long1049:eq:polynomial-heine}
@@ -2499,12 +2506,13 @@ W_N(\mu)={}&amp;q^{\sum_{j\le N}(2j-1)\mu_j}
 \left(\frac{1-q^{k-j+\mu_j-\mu_k}}{1-q^{k-j}}\right)^2.
 \end{split}
 \end{equation}\]</span></div>
-<p>The <span class="math inline" data-term-auto="off">\(j\)</span>th
-index from the right contributes once through <span
-class="math inline" data-term-auto="off">\(q^{k_i}\)</span> and twice through each of its
-<span class="math inline" data-term-auto="off">\(j-1\)</span> pairs with later indices in the
-squared Vandermonde. Its displacement therefore has exponent <span
-class="math inline" data-term-auto="off">\(1+2(j-1)=2j-1\)</span>.</p>
+<p>We order the indices increasingly, so their
+geometric nodes decrease towards zero. The <span
+class="math inline" data-term-auto="off">\(j\)</span>th index from the right contributes once
+through <span class="math inline" data-term-auto="off">\(q^{k_i}\)</span> and twice through
+each of its <span class="math inline" data-term-auto="off">\(j-1\)</span> pairs with later
+indices in the squared Vandermonde. Its displacement therefore has
+exponent <span class="math inline" data-term-auto="off">\(1+2(j-1)=2j-1\)</span>.</p>
 <p>Set <span class="math inline" data-term-auto="off">\(W_N(\mu)=0\)</span> when <span
 class="math inline" data-term-auto="off">\(\mu\)</span> has more than <span
 class="math inline" data-term-auto="off">\(N\)</span> positive parts, so that every sum has
@@ -2563,12 +2571,13 @@ class="math inline" data-term-auto="off">\(q&lt;1\)</span>, the bound <span
 class="math inline" data-term-auto="off">\((CP^{-2}A)^\ell q^{\ell^2}\)</span> is summable
 over <span class="math inline" data-term-auto="off">\(\ell\)</span>, independently of <span
 class="math inline" data-term-auto="off">\(N\)</span>.</p>
-<p>Dominated convergence now shows that <span
-class="math inline" data-term-auto="off">\(\sum_\mu W_N(\mu)\)</span> has the same limit as
-for <span class="math inline" data-term-auto="off">\(a_k=1\)</span>. This common limit is
-positive, since the empty partition contributes <span
-class="math inline" data-term-auto="off">\(1\)</span>. Restoring the contribution of <span
-class="math inline" data-term-auto="off">\((0,1,\ldots,N-1)\)</span> gives</p>
+<p>Dominated convergence gives the same limiting partition sum as for
+<span class="math inline" data-term-auto="off">\(a_k=1\)</span>. By <a class="math-ref" data-equation-ref="true" href="#long1049:eq:cauchy-model">long1049:eq:cauchy-model</a>, this
+sum tends to <span class="math inline" data-term-auto="off">\(\mathcal M(q)\)</span>, the
+reciprocal of the limiting Cauchy denominator. Together with <span
+class="math inline" data-term-auto="off">\(\Delta_N/P^{2N}\to\mathcal M(q)^2\)</span>, it
+accounts for all three copies of <span class="math inline" data-term-auto="off">\(\mathcal
+M(q)\)</span>. Restoring the principal tuple gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{D_N}{D_N^{(0)}\prod_{k&lt;N}a_k}\longrightarrow1.\]</span></div>
 <p>The model asymptotic <a class="math-ref" data-equation-ref="true" href="#long1049:eq:cauchy-model-limit">long1049:eq:cauchy-model-limit</a>
@@ -2576,12 +2585,13 @@ now proves the theorem. The comparison explains why the normalised limit
 retains the geometric spacing of the nodes but loses the individual
 weights. ◻</p>
 </div>
-<p>We return to the actual weights <span
-class="math inline" data-term-auto="off">\(a_k=P^4\gamma_k\)</span>. A product formula in
-finite Gaussian multinomial sums improves the preceding estimates to
-explicit powers of <span class="math inline" data-term-auto="off">\(P\)</span>. The
-coefficient asymptotic that follows will establish <span
-class="math inline" data-term-auto="off">\(a_{k+1}/a_k\to1\)</span>.</p>
+<p>We now return to <span
+class="math inline" data-term-auto="off">\(a_k=P^4\gamma_k\)</span>. A factorisation into two
+finite Gaussian multinomial sums supplies both the shift hypotheses and
+the first correction to <span class="math inline" data-term-auto="off">\(a_k/c_k\)</span>.
+The shift hypotheses allow application of the determinant theorem; the
+correction determines the product <span
+class="math inline" data-term-auto="off">\(\prod_{k&lt;N}a_k\)</span>.</p>
 <div class="proposition" id="long1049:prop:rogers-factorisation">
 <p><strong>Proposition 3.7</strong> (the moment weights as a product of
 two finite sums). <em> For <span class="math inline" data-term-auto="off">\(r\ge1\)</span>
@@ -2627,17 +2637,19 @@ hold with <span class="math inline" data-term-auto="off">\(\kappa=3\)</span>.</e
 <p><em>Proof.</em> Write <span class="math inline" data-term-auto="off">\(\mathcal
 E(z)=(z;q)_\infty^{-1}\)</span>. Euler’s expansion gives <span
 class="math inline" data-term-auto="off">\(\mathcal
-E(z)^r=\sum_{n\ge0}R_n^{(r)}z^n/(q;q)_n\)</span>. The product of
-coefficient sums can be obtained by shifting the coefficients of <span
-class="math inline" data-term-auto="off">\(\mathcal E^3\)</span> and then collecting equal
-total indices in two variables. For the shift, use <span
-class="math inline" data-term-auto="off">\(\partial_qf(z)=(f(z)-f(qz))/z\)</span>: the factor
-<span class="math inline" data-term-auto="off">\(1-q^j\)</span> in <span
+E(z)^r=\sum_{n\ge0}R_n^{(r)}z^n/(q;q)_n\)</span>. We seek the product
+<span class="math inline" data-term-auto="off">\(R_k^{(2)}R_k^{(3)}\)</span> at a common
+index <span class="math inline" data-term-auto="off">\(k\)</span>. Splitting <span
+class="math inline" data-term-auto="off">\(k=n+j\)</span> keeps <span
+class="math inline" data-term-auto="off">\(R_k^{(3)}\)</span> fixed while the sum over <span
+class="math inline" data-term-auto="off">\(((q;q)_n(q;q)_j)^{-1}\)</span> supplies <span
+class="math inline" data-term-auto="off">\(R_k^{(2)}/(q;q)_k\)</span>. The operator <span
+class="math inline" data-term-auto="off">\(\partial_qf(z)=(f(z)-f(qz))/z\)</span> produces
+the needed index shift: <span
 class="math inline" data-term-auto="off">\(\partial_qz^j=(1-q^j)z^{j-1}\)</span> cancels the
-last factor of <span class="math inline" data-term-auto="off">\((q;q)_j\)</span>.
-Consequently</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\partial_q\mathcal E=\mathcal
-E,\qquad
+last factor of <span class="math inline" data-term-auto="off">\((q;q)_j\)</span>. Thus</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\partial_q\mathcal E=\mathcal E,\qquad
 \partial_q^n\mathcal E(z)^3
 =\sum_{j\ge0}\frac{R_{n+j}^{(3)}}{(q;q)_j}z^j.\]</span></div>
 <p>The <span
@@ -2737,7 +2749,9 @@ bound follows from <span
 class="math inline" data-term-auto="off">\(c_{k+h}/c_k\le(1+h)^3\)</span>.</p>
 <p>It remains to show that <span
 class="math inline" data-term-auto="off">\(a_{k+h}/a_k\to1\)</span> for each fixed <span
-class="math inline" data-term-auto="off">\(h\)</span>. Put <span
+class="math inline" data-term-auto="off">\(h\)</span>. The two convolutions grow at least
+linearly and quadratically; it suffices to bound their increments by a
+constant and a linear function, respectively. Put <span
 class="math inline" data-term-auto="off">\(e_n=1/(q;q)_n\)</span>. Since <span
 class="math inline" data-term-auto="off">\((q;q)_{n+1}=(1-q^{n+1})(q;q)_n\)</span>, these
 terms satisfy <span class="math inline" data-term-auto="off">\(1=e_0\le e_1\le\cdots\le
@@ -2779,11 +2793,21 @@ product of these three ratios. The Lean proof obtains the <a
 href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1097">fixed-shift
 limit</a> by the same steps. ◻</p>
 </div>
-<p>The leading cubic growth of <span class="math inline" data-term-auto="off">\(a_k\)</span>
-does not determine the power of <span class="math inline" data-term-auto="off">\(N\)</span>
-in the determinant. We need the first correction to <span
-class="math inline" data-term-auto="off">\(a_k/c_k\)</span>, which the two finite
-convolutions make explicit.</p>
+<p>The factorisation proves positivity at each fixed real <span
+class="math inline" data-term-auto="off">\(q\)</span>, not coefficientwise positivity in
+<span class="math inline" data-term-auto="off">\(q\)</span>: for example, <span
+class="math inline" data-term-auto="off">\(a_0=P^4\)</span> has <span
+class="math inline" data-term-auto="off">\(q\)</span>-coefficient <span
+class="math inline" data-term-auto="off">\(-4\)</span>. The cubic factors <span
+class="math inline" data-term-auto="off">\(c_k\)</span> multiply to <span
+class="math inline" data-term-auto="off">\(C_N\)</span>, but <span
+class="math inline" data-term-auto="off">\(a_k/c_k\to1\)</span> alone would not determine the
+product of <span class="math inline" data-term-auto="off">\(N\)</span> weights. The first
+relative correction has order <span class="math inline" data-term-auto="off">\(1/k\)</span>
+and accumulates as a harmonic sum; the remaining <span
+class="math inline" data-term-auto="off">\(O_q(k^{-2})\)</span> terms determine a finite
+constant. The two convolutions supply this first correction
+explicitly.</p>
 <div class="theorem" id="long1049:thm:sharp-fixed-base">
 <p><strong>Theorem 3.8</strong> (the size of <span
 class="math inline" data-term-auto="off">\(V_N^*\)</span> at a fixed base). <em> Let <span
@@ -2810,18 +2834,18 @@ class="math inline" data-term-auto="off">\(E=P^{-1}\)</span>. Replacing every <s
 class="math inline" data-term-auto="off">\(e_k\)</span> by <span
 class="math inline" data-term-auto="off">\(E\)</span> in the two convolution sums gives <span
 class="math inline" data-term-auto="off">\(E^2(k+1)\)</span> and <span
-class="math inline" data-term-auto="off">\(E^3\binom{k+2}{2}\)</span>. These count,
-respectively, the nonnegative pairs and triples with sum <span
-class="math inline" data-term-auto="off">\(k\)</span>. They explain the leading cubic term of
-<span class="math inline" data-term-auto="off">\(a_k\)</span>, but we also need its first
-correction. For a fixed index <span class="math inline" data-term-auto="off">\(i\)</span>,
+class="math inline" data-term-auto="off">\(E^3\binom{k+2}{2}\)</span>. The factors <span
+class="math inline" data-term-auto="off">\(k+1\)</span> and <span
+class="math inline" data-term-auto="off">\(\binom{k+2}{2}\)</span> count the nonnegative
+pairs and triples with sum <span class="math inline" data-term-auto="off">\(k\)</span>,
+respectively. For a fixed index <span class="math inline" data-term-auto="off">\(i\)</span>,
 there is one pair <span class="math inline" data-term-auto="off">\((i,k-i)\)</span> and there
 are <span class="math inline" data-term-auto="off">\(k-i+1\)</span> triples whose first
 coordinate is <span class="math inline" data-term-auto="off">\(i\)</span>. Thus a summable
 deficit in the sequence <span class="math inline" data-term-auto="off">\(e_i\)</span>
 produces a constant correction in the two-fold sum and a linear
 correction in the three-fold sum. We calculate that deficit and bound
-the terms containing it twice.</p>
+terms with two or more deficits.</p>
 <p>Writing <span class="math inline" data-term-auto="off">\(d_k=E-e_k\)</span>, the identity
 <span class="math inline" data-term-auto="off">\(e_{k+1}-e_k=q^{k+1}e_{k+1}\)</span> gives</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[d_k=\sum_{j&gt;k}q^je_j,\qquad
@@ -2838,7 +2862,10 @@ give</p>
 =\sum_{j\ge1}j q^je_j
 =q\mathcal E&#39;(q)
 =E\sum_{r\ge1}\frac{q^r}{1-q^r}=EL.\]</span></div>
-<p>The differentiation is
+<p>In the double sum, <span
+class="math inline" data-term-auto="off">\(q^je_j\)</span> occurs once for each <span
+class="math inline" data-term-auto="off">\(k=0,\ldots,j-1\)</span>, which explains the factor
+<span class="math inline" data-term-auto="off">\(j\)</span>. Logarithmic differentiation is
 justified by locally uniform convergence on <span
 class="math inline" data-term-auto="off">\(|z|&lt;1\)</span>.</p>
 <p>Let <span class="math inline" data-term-auto="off">\(b_k^{(r)}=[z^k]\mathcal
@@ -2870,10 +2897,15 @@ contributes <span class="math inline" data-term-auto="off">\(-2L/(k+1)\)</span> 
 way. Since <span class="math inline" data-term-auto="off">\((q;q)_k=P(1+O_q(q^k))\)</span>,
 the leading constants in <span class="math inline" data-term-auto="off">\(a_k=P^4(q;q)_k
 b_k^{(2)}b_k^{(3)}\)</span> multiply to <span
-class="math inline" data-term-auto="off">\(P^5E^5=1\)</span>. With <span
-class="math inline" data-term-auto="off">\(c_k=(k+1)^2(k+2)/2\)</span>, the two relative
-corrections therefore give</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{align*}
+class="math inline" data-term-auto="off">\(P^5E^5=1\)</span>. Replacing <span
+class="math inline" data-term-auto="off">\((k+2)^{-1}\)</span> by <span
+class="math inline" data-term-auto="off">\((k+1)^{-1}\)</span> changes only the <span
+class="math inline" data-term-auto="off">\(O_q((k+1)^{-2})\)</span> error. Thus the
+coefficients <span class="math inline" data-term-auto="off">\(2L\)</span> and <span
+class="math inline" data-term-auto="off">\(6L\)</span> add, and with <span
+class="math inline" data-term-auto="off">\(c_k=(k+1)^2(k+2)/2\)</span> we obtain</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{align*}
 \frac{a_k}{c_k}
 &amp;=\left(1-\frac{2L}{k+1}+O_q(q^k)\right)
    \left(1-\frac{6L}{k+2}+O_q((k+1)^{-2})\right)
@@ -2888,13 +2920,14 @@ class="math inline" data-term-auto="off">\(h\)</span>. The uniform shift bound f
 Proposition <a class="math-ref" href="#long1049:prop:rogers-factorisation">3.7</a>,
 so Theorem <a class="math-ref" href="#long1049:thm:geometric-universality">3.6</a>
 applies.</p>
-<p>Positivity of <span class="math inline" data-term-auto="off">\(a_k\)</span> and
-summability of <span
-class="math inline" data-term-auto="off">\(\log(a_k/c_k)+8L/(k+1)=O_q((k+1)^{-2})\)</span>
-show that <span class="math inline" data-term-auto="off">\(\mathcal A(q)\)</span> converges
-to a positive number. Since <span
-class="math inline" data-term-auto="off">\(\prod_{k&lt;N}c_k=C_N\)</span>, we can separate
-these contributions exactly:</p>
+<p>For large <span class="math inline" data-term-auto="off">\(k\)</span>, taking logarithms
+preserves the first-order term and leaves the summable error <span
+class="math inline" data-term-auto="off">\(\log(a_k/c_k)+8L/(k+1)=O_q((k+1)^{-2})\)</span>.
+The finitely many earlier factors are positive, so the regularised
+product also has a positive finite limit: <span
+class="math inline" data-term-auto="off">\(0&lt;\mathcal A(q)&lt;\infty\)</span>. Since <span
+class="math inline" data-term-auto="off">\(\prod_{k&lt;N}c_k=C_N\)</span>, the harmonic
+contribution separates as</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\log\frac{\prod_{k&lt;N}a_k}{C_N}
 =-8L\sum_{k&lt;N}\frac1{k+1}
@@ -2910,11 +2943,15 @@ now gives the stated determinant asymptotic. Taking logarithms yields</p>
              -8L\log N+\log K(q)+o(1).\]</span></div>
 <p>◻</p>
 </div>
-<p>The coefficient <span class="math inline" data-term-auto="off">\(8L\)</span> is the sum of
-the corrections <span class="math inline" data-term-auto="off">\(2L\)</span> and <span
-class="math inline" data-term-auto="off">\(6L\)</span> from the two convolutions. For
-comparison, the same coefficient can be recovered from the generating
-function at its dominant pole.</p>
+<p>The convolution proof explains <span
+class="math inline" data-term-auto="off">\(8L\)</span> as <span
+class="math inline" data-term-auto="off">\(2L+6L\)</span>, one contribution from each finite
+sum. An alternative reads the same correction from the generating
+function near <span class="math inline" data-term-auto="off">\(w=1\)</span>. Its pole of
+order four accounts for the cubic growth of <span
+class="math inline" data-term-auto="off">\(a_k\)</span>; the next principal-part coefficient
+accounts for the relative term of order <span
+class="math inline" data-term-auto="off">\(1/k\)</span>.</p>
 <div class="proof">
 <p><em>An alternative coefficient calculation.</em> Write <span
 class="math inline" data-term-auto="off">\(\Pi(w)=(qw;q)_\infty\)</span>, so that <span
@@ -2964,9 +3001,15 @@ class="math inline" data-term-auto="off">\(3L\)</span>, gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathcal D(1)=3,\qquad
 \mathcal D&#39;(1)=3\left(3L+\frac{2-L}3\right)=2+8L.\]</span></div>
-<p>Subtracting the principal part of <span class="math inline" data-term-auto="off">\(\mathcal
-D(w)(1-w)^{-4}\)</span> at <span class="math inline" data-term-auto="off">\(w=1\)</span>
-leaves a function analytic on a larger disc, so</p>
+<p>The first
+two principal-part terms are determined by <span
+class="math inline" data-term-auto="off">\(\mathcal D(1)\)</span> and <span
+class="math inline" data-term-auto="off">\(\mathcal D&#39;(1)\)</span>. The terms from its
+second and third derivatives have coefficients of order at most <span
+class="math inline" data-term-auto="off">\(k\)</span>; after the full principal part is
+subtracted, the remainder is analytic on a larger disc and has
+exponentially decreasing coefficients. Keeping only the first two terms
+therefore gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[a_k=3\binom{k+3}3-(2+8L)\binom{k+2}2+O_q(k),
 \qquad
@@ -2975,10 +3018,9 @@ class="math display" data-term-auto="off">\[a_k=3\binom{k+3}3-(2+8L)\binom{k+2}2
 second line because <span
 class="math inline" data-term-auto="off">\(3\binom{k+3}3=c_k(k+3)/(k+1)\)</span> and <span
 class="math inline" data-term-auto="off">\(\binom{k+2}2=c_k/(k+1)\)</span>.</p>
-<p>Consequently <span
-class="math inline" data-term-auto="off">\(\log(a_k/c_k)+8L/(k+1)=O_q((k+1)^{-2})\)</span>,
-which is summable, so <span class="math inline" data-term-auto="off">\(\mathcal A(q)\)</span>
-converges; it is positive because every factor is. Since <span
+<p>The logarithmic error is again summable. The product argument in the
+first proof therefore gives <span class="math inline" data-term-auto="off">\(0&lt;\mathcal
+A(q)&lt;\infty\)</span> and, using <span
 class="math inline" data-term-auto="off">\(\sum_{k&lt;N}(k+1)^{-1}=\log
 N+\gamma_{\!E}+o(1)\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
@@ -3007,11 +3049,11 @@ class="math display" data-term-auto="off">\[\frac{39}{41}\bigl(4N^3-3N^2\bigr)-\
 <p class="display-continue">the positivity
 being immediate from <span
 class="math inline" data-term-auto="off">\(74N^2-117N+41=74(N-2)^2+179(N-2)+103\)</span>. Its
-leading size is <span class="math inline" data-term-auto="off">\((74/41)N^3\)</span>, so no
-estimate that leaves the cubic coefficient alone can close it. The
-finite factorisation concerns the moment weights. An irrationality form
-still requires a separate denominator estimate for its own rational
-coefficients.</p>
+leading size is <span class="math inline" data-term-auto="off">\((74/41)N^3\)</span>. A
+logarithmic correction cannot offset this cubic gap in the stated
+denominator model. The factorisation refines the moment weights, not the
+denominator of an irrationality form; any such form still needs an
+estimate for its own rational coefficients.</p>
 </section>
 <section id="an-extension-with-limiting-weight-ratio"
 class="level4 unnumbered">
@@ -3020,10 +3062,15 @@ class="level4 unnumbered">
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal M(\rho;q)=\prod_{d\ge1}(1-\rho
 q^d)^{-d},
 \qquad \mathcal M(1;q)=\mathcal M(q).\]</span></div>
-<p>The following extension
-has an ordinary proof, reproduced below, but no Lean proof in the
-supplied record. We retain it as an unformalised remark; it is not used
-in the checked fixed-base argument.</p>
+<p>A limiting
+adjacent-weight ratio supplies an exponential shift bound, replacing the
+polynomial bound above. The condition <span class="math inline" data-term-auto="off">\(\rho
+q&lt;1\)</span> makes that bound summable and changes one copy of the
+product constant from <span class="math inline" data-term-auto="off">\(\mathcal
+M(1;q)\)</span> to <span class="math inline" data-term-auto="off">\(\mathcal
+M(\rho;q)\)</span>. The ordinary proof below has no Lean proof in the
+supplied record; this unformalised remark is not used in the checked
+fixed-base argument.</p>
 <div class="remark" id="long1049:thm:geometric-ratio">
 <p><strong>Remark</strong> (limiting weight ratios; unformalised).
 <em> Let <span class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span> and <span
@@ -3211,11 +3258,17 @@ c_k-12q d_k,&amp;k\ge32,
 \end{cases}
 \qquad a_0(q)=1-\sum_{k\ge1}a_k(q)q^k.
 \end{equation}\]</span></div>
-<p>The generating function is rational. Indeed, if</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[T_q(w)=R(w)-\frac{12q}{(1-w)^3}
+<p>The weight generating function <span
+class="math inline" data-term-auto="off">\(A_q(w)=\sum_{k\ge0}a_k(q)w^k\)</span> is rational
+in <span class="math inline" data-term-auto="off">\(w\)</span>. The value <span
+class="math inline" data-term-auto="off">\(G_q(q)\)</span> concerns a different generating
+function, formed from the moments below. To obtain <span
+class="math inline" data-term-auto="off">\(A_q\)</span>, put</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[T_q(w)=R(w)-\frac{12q}{(1-w)^3}
             -\sum_{k=0}^{31}(c_k-12qd_k)w^k,\]</span></div>
-<p class="display-continue">then <span
-class="math inline" data-term-auto="off">\(A_q(w)=\sum_{k\ge0}a_k(q)w^k\)</span> equals</p>
+<p class="display-continue">so that <span
+class="math inline" data-term-auto="off">\(A_q(w)\)</span> equals</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[a_0(q)+(1-q)^{32}\sum_{k=1}^{31}c_kw^k+T_q(w),\quad
 a_0(q)=1-(1-q)^{32}\sum_{k=1}^{31}c_kq^k-T_q(q).\]</span></div>
@@ -3306,11 +3359,15 @@ gives</p>
 class="math inline" data-term-auto="off">\(\Z[[q]]\)</span> and has constant term <span
 class="math inline" data-term-auto="off">\(c_k\)</span>, including <span
 class="math inline" data-term-auto="off">\(a_0\)</span>, for which the defining sum is
-coefficientwise finite. The same is true of <span
-class="math inline" data-term-auto="off">\(\mu_m,\nu_m\)</span>. Their rational expressions
-have no poles for <span class="math inline" data-term-auto="off">\(|q|&lt;1\)</span>, so
-these formal series converge at <span
-class="math inline" data-term-auto="off">\(q_0\)</span>. For <span
+coefficientwise finite. The moments <span
+class="math inline" data-term-auto="off">\(\mu_m\)</span> and <span
+class="math inline" data-term-auto="off">\(\nu_m\)</span> also lie in <span
+class="math inline" data-term-auto="off">\(\Z[[q]]\)</span>, but their constant terms are
+<span class="math inline" data-term-auto="off">\(1\)</span>: only <span
+class="math inline" data-term-auto="off">\(a_0\)</span> contributes at <span
+class="math inline" data-term-auto="off">\(q=0\)</span>. Their rational expressions have no
+poles for <span class="math inline" data-term-auto="off">\(|q|&lt;1\)</span>, so these formal
+series converge at <span class="math inline" data-term-auto="off">\(q_0\)</span>. For <span
 class="math inline" data-term-auto="off">\(H_N(q)=\det(\mu_{i+j}(q))_{i,j&lt;N}\)</span>, the
 Gram determinant expansion is</p>
 <div class="math-display" data-term-auto="off"><span
@@ -3511,11 +3568,14 @@ explicit combination and its arithmetic obstruction.</p>
 </section>
 <section id="long1049:sec:coefficient-questions" class="level3">
 <h3>Coefficient moments and cyclotomic content</h3>
-<p>We turn from the remainders <span
-class="math inline" data-term-auto="off">\(v_m^*\)</span> to the coefficients of <span
-class="math inline" data-term-auto="off">\(F(p)\)</span> in the corresponding forms. A
-positive measure for the remainders does not establish positivity of
-these coefficients, so a separate calculation is needed. Fix <span
+<p>We now study the coefficient sequence, not the remainder sequence.
+The identity <span
+class="math inline" data-term-auto="off">\(v_m^*=\alpha_mF(p)-\beta_m\)</span> does not
+transfer a representing measure from <span
+class="math inline" data-term-auto="off">\((v_m^*)\)</span> to <span
+class="math inline" data-term-auto="off">\((\alpha_m)\)</span>: subtraction mixes two
+coefficient sequences. Their positivity, spectral properties and
+cyclotomic factors therefore require separate calculations. Fix <span
 class="math inline" data-term-auto="off">\(p&gt;1\)</span> and define, using Gaussian
 binomial polynomials,</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{aligned}
@@ -3827,11 +3887,12 @@ class="math inline" data-term-auto="off">\(s_m(p)^{1/m}\to\infty\)</span>. This 
 moment power series; it does not decide convergence of the continued
 fraction at an individual nonzero value of <span
 class="math inline" data-term-auto="off">\(z\)</span>.</p>
-<p>For each fixed <span class="math inline" data-term-auto="off">\(p\ge1\)</span>, the two
-positive <span class="math inline" data-term-auto="off">\(8\times8\)</span> moment matrices
-give a positive measure with eight atoms representing <span
-class="math inline" data-term-auto="off">\(s_0,\ldots,s_{15}\)</span>. This can be proved
-without assuming an infinite representing measure. Set</p>
+<p>The same certificates also give a finite representing measure: for
+each fixed <span class="math inline" data-term-auto="off">\(p\ge1\)</span>, eight positive
+atoms reproduce exactly <span
+class="math inline" data-term-auto="off">\(s_0,\ldots,s_{15}\)</span>. The construction uses
+only the two certified <span class="math inline" data-term-auto="off">\(8\times8\)</span>
+matrices, not positivity at higher ranks. Set</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[H_0=(s_{i+j})_{i,j&lt;8},\qquad
 H_1=(s_{i+j+1})_{i,j&lt;8},\qquad
@@ -3927,11 +3988,15 @@ class="math inline" data-term-auto="off">\((\Q[p]/(\Phi_d))[Y]\)</span>. Then <s
 class="math inline" data-term-auto="off">\(v_{\Phi_d}\mathcal H_N=e_{N,d}\)</span> exactly
 when <span class="math inline" data-term-auto="off">\(\Gamma_{N,d}\ne0\)</span>. This
 isolates the cancellation that a genuine additional factor would
-require. This test also has a determinant form. The integer costs are
-finite, since every <span class="math inline" data-term-auto="off">\(\alpha_m\)</span> is
-nonzero. Minimum-cost assignment duality gives integer row and column
-potentials with</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[u_i+v_j\le t_{i+j,d},\qquad
+require. The assignment bound records the smallest valuation available
+among the determinant terms. Excess divisibility is possible only if
+their leading residues cancel. To test that cancellation by one
+determinant, we distribute the minimum valuation between rows and
+columns. The integer costs are finite, since every <span
+class="math inline" data-term-auto="off">\(\alpha_m\)</span> is nonzero. Minimum-cost
+assignment duality gives integer row and column potentials with</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[u_i+v_j\le t_{i+j,d},\qquad
 \sum_i u_i+\sum_jv_j=e_{N,d}.\]</span></div>
 <p>Here is a direct construction, so
 their existence is not an additional hypothesis. Choose a minimum-cost
@@ -4001,12 +4066,14 @@ H_N(Y_0;p)\)</span> at <span
 class="math inline" data-term-auto="off">\(Y_0=0,\ldots,N\)</span> by fraction-free
 elimination, checking every polynomial division. Their monic gcd in
 <span class="math inline" data-term-auto="off">\(\Q[p]\)</span> is <span
-class="math inline" data-term-auto="off">\(\operatorname{cont}_Y\mathcal H_N\)</span>:
-evaluation gives one divisibility direction, and interpolation of the
-degree-at-most-<span class="math inline" data-term-auto="off">\(N\)</span> polynomial in
-<span class="math inline" data-term-auto="off">\(Y\)</span> gives the other. The calculation
-includes every factor, not just a prescribed list of cyclotomic
-candidates.</p>
+class="math inline" data-term-auto="off">\(\operatorname{cont}_Y\mathcal H_N\)</span>. A
+divisor of all coefficients divides every evaluated polynomial;
+conversely, the <span class="math inline" data-term-auto="off">\(N+1\)</span> values recover
+those coefficients by rational interpolation in <span
+class="math inline" data-term-auto="off">\(Y\)</span>. This proves the reverse divisibility
+over <span class="math inline" data-term-auto="off">\(\Q[p]\)</span>, where the interpolation
+denominators are units. The calculation includes every factor, not just
+a prescribed list of cyclotomic candidates.</p>
 <p>The same program produces a nonzero residue witness for every pair</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[1\le N\le8,\qquad 1\le
 d\le\max(8,2N-2).\]</span></div>
@@ -4057,26 +4124,27 @@ separate questions. The remainder measure answers neither.</p>
 </section>
 <section id="long1049:sec:primitive" class="level2">
 <h2>Rescaling integer rows</h2>
-<p>An irrationality form needs integral coefficients and a nonzero
-remainder tending to zero. We may divide a row <span
-class="math inline" data-term-auto="off">\((U,V)\)</span> by <span
-class="math inline" data-term-auto="off">\(\gcd(|U|,|V|)\)</span> to reduce its remainder
-while preserving integrality; a row with gcd <span
-class="math inline" data-term-auto="off">\(1\)</span> is called primitive. This one-form
-criterion requires no decay of height times error, although an
-irrationality measure does require height estimates. At a fixed rational
-base <span class="math inline" data-term-auto="off">\(a/b&gt;1\)</span>, the following
-elementary identities describe the effect of integer rescaling. For a
-real target <span class="math inline" data-term-auto="off">\(S\)</span>, put</p>
+<p>For a single irrationality form, the essential conditions are
+integral coefficients and a nonzero remainder tending to zero. Dividing
+a nonzero integer row <span class="math inline" data-term-auto="off">\((U,V)\)</span> by
+<span class="math inline" data-term-auto="off">\(\gcd(|U|,|V|)\)</span> preserves integrality
+and divides its remainder by the same amount; the resulting row is
+primitive. A useful content division removes a factor already shared by
+the two entries. Multiplying a row first merely introduces a factor that
+also multiplies its remainder. For two rows, the same factors multiply
+their determinant. The identities below separate this rescaling from
+genuine cancellation. A height estimate is needed for an irrationality
+measure, not for the elementary single-form criterion. For a real target
+<span class="math inline" data-term-auto="off">\(S\)</span>, put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[L_S(U,V)=US-V,
 \qquad
 \Delta\bigl((U_n,V_n),(U_m,V_m)\bigr)=U_nV_m-U_mV_n.\]</span></div>
-<p>We call
-<span class="math inline" data-term-auto="off">\(L_S(U,V)\)</span> the <em>error</em> of the
-row at <span class="math inline" data-term-auto="off">\(S\)</span>; a good approximation is
-one that makes it small. The second expression is their <span
-class="math inline" data-term-auto="off">\(2\times2\)</span> determinant. It eliminates <span
+<p>Here <span
+class="math inline" data-term-auto="off">\(L_S(U,V)\)</span> is the <em>error</em> of the
+integer linear form, not the rational approximation error <span
+class="math inline" data-term-auto="off">\(|S-V/U|\)</span> when <span
+class="math inline" data-term-auto="off">\(U\ne0\)</span>. The determinant eliminates <span
 class="math inline" data-term-auto="off">\(S\)</span> exactly:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Delta=U_mL_S(U_n,V_n)-U_nL_S(U_m,V_m).\]</span></div>
@@ -4158,8 +4226,9 @@ class="math inline" data-term-auto="off">\(2\)</span> and <span
 class="math inline" data-term-auto="off">\(3\)</span> to find combinations of evaluated
 polynomials with prescribed divisibility. The argument applies to
 arbitrary integral polynomials, including the forms of <span
-class="citation" data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>. To preserve
-additivity during evaluation, fix a common truncation index <span
+class="citation" data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>. The
+denominator-clearing map must be the same for every row that will be
+added. We therefore fix a common truncation index <span
 class="math inline" data-term-auto="off">\(W\ge0\)</span> and, for <span
 class="math inline" data-term-auto="off">\(P(X)=\sum_i p_iX^i\in\Z[X]\)</span>, put</p>
 <div class="math-display" data-term-auto="off"><span
@@ -4438,7 +4507,14 @@ class="math inline" data-term-auto="off">\(J_{2,S}(P)\)</span> be the residues o
 class="math inline" data-term-auto="off">\(H_W(P)\)</span> modulo <span
 class="math inline" data-term-auto="off">\(3^R\)</span> and <span
 class="math inline" data-term-auto="off">\(2^S\)</span>, respectively. Theorem <a class="math-ref" href="#long1049:res:endpoints">5.1</a> computes the
-depth-one residues.</p>
+depth-one residues. At depth <span class="math inline" data-term-auto="off">\(R\)</span>,
+terms with <span class="math inline" data-term-auto="off">\(i\ge R\)</span> are invisible
+modulo <span class="math inline" data-term-auto="off">\(3^R\)</span>; at depth <span
+class="math inline" data-term-auto="off">\(S\)</span>, terms with <span
+class="math inline" data-term-auto="off">\(W-i\ge S\)</span> are invisible modulo <span
+class="math inline" data-term-auto="off">\(2^S\)</span>. Thus deeper congruences inspect
+longer segments of the two ends of the coefficient list, always at the
+same fixed <span class="math inline" data-term-auto="off">\(W\)</span>.</p>
 <div class="lemma" id="res:bottomjet">
 <p><strong>Lemma 5.7</strong> (a residue and divisibility by <span
 class="math inline" data-term-auto="off">\(3^R\)</span>). <em> Vanishing of the <a
@@ -4568,9 +4644,11 @@ comparison. Here <span class="math inline" data-term-auto="off">\(41\)</span> is
 of <span class="math inline" data-term-auto="off">\(3\)</span> in the modulus, not the number
 of input rows; at that depth the counting bound is <span
 class="math inline" data-term-auto="off">\(130+2S\)</span> rows.</p>
-<p>Equal residues do not ensure different analytic remainders. Bounding
-the number of subsets with any specified remainder gives the following
-sufficient condition.</p>
+<p>The count produces two distinct subsets, not necessarily two distinct
+row sums or remainder values. Repeated rows already illustrate the first
+failure. To prevent the second, we bound how many subsets can have any
+specified remainder. The following finite-set statement isolates that
+requirement.</p>
 <div class="theorem" id="long1049:res:boundedfibre">
 <p><strong>Theorem 5.10</strong> (equal residues with different values).
 <em> Let <span class="math inline" data-term-auto="off">\(A\)</span> and <span
@@ -4613,9 +4691,11 @@ class="math inline" data-term-auto="off">\(g\)</span>, not merely on the fibres 
 class="math inline" data-term-auto="off">\((f,g)\)</span>. It gives a nonzero difference but
 no upper bound on its real size. To bound the size as well, we partition
 the range of <span class="math inline" data-term-auto="off">\(g\)</span> into small
-intervals. This gives the following quantitative version, whose fibre
-condition concerns the joint map <span
-class="math inline" data-term-auto="off">\((f,g)\)</span>.</p>
+intervals. The count now uses residue class, interval and multiplicity.
+Only repetitions within one residue class matter, so the quantitative
+version assumes a bound for fibres of <span
+class="math inline" data-term-auto="off">\((f,g)\)</span> rather than for all fibres of <span
+class="math inline" data-term-auto="off">\(g\)</span>.</p>
 <div class="theorem" id="res:boundedfibre">
 <p><strong>Theorem 5.11</strong> (equal residues with close, distinct
 values). <em> Let <span class="math inline" data-term-auto="off">\(A,B,J\)</span> be finite
@@ -4688,9 +4768,10 @@ modulus. Unit multiples of one unimodular row satisfy it. Arbitrary
 primitive rows do not; for example, <span
 class="math inline" data-term-auto="off">\((1,0)\)</span> and <span
 class="math inline" data-term-auto="off">\((0,1)\)</span> have determinant <span
-class="math inline" data-term-auto="off">\(1\)</span>. Under this hypothesis the possible
-sums lie on a single line, so only one residue coordinate must be
-counted.</p>
+class="math inline" data-term-auto="off">\(1\)</span>. Under this hypothesis the rows lie in
+the free rank-one submodule generated by a unimodular row. A change of
+coordinates makes their second coordinates zero, so only one residue
+coordinate must be counted.</p>
 <div class="theorem" id="long1049:res:plucker-collapse">
 <p><strong>Theorem 5.12</strong> (vanishing minors and a residue count).
 <em> Let <span class="math inline" data-term-auto="off">\(R_0\)</span> be a commutative ring
@@ -4887,13 +4968,14 @@ when <span class="math inline" data-term-auto="off">\(s=1\)</span> and grows geo
 when <span class="math inline" data-term-auto="off">\(s\ge2\)</span>. At <span
 class="math inline" data-term-auto="off">\(3/2\)</span> it is <span
 class="math inline" data-term-auto="off">\(2^{n}\)</span>.</p>
-<p>We return to the attempt to clear successive terms of the series. The
-multiplier must satisfy a divisibility condition and must also be small
-enough to leave a remainder less than <span
-class="math inline" data-term-auto="off">\(1\)</span>. These demands give incompatible
-inequalities at <span class="math inline" data-term-auto="off">\(3/2\)</span>. The argument
-below uses only six natural-number parameters; it is not an exclusion of
-other ways to approximate <span
+<p>We return to the attempt to clear successive terms of the series. We
+retain just two necessary demands: the last coordinate in the window
+must clear, and the coefficient-free lower bound from the first omitted
+positive term must be smaller than <span
+class="math inline" data-term-auto="off">\(1\)</span>. Even these weaker tests are
+incompatible at <span class="math inline" data-term-auto="off">\(3/2\)</span>. The argument
+below uses six natural-number parameters; it excludes the stated
+clearing scheme, not other approximations to <span
 class="math inline" data-term-auto="off">\(F(3/2)\)</span>.</p>
 <div class="definition" id="long1049:def:corridor">
 <p><strong>Definition 6.1</strong> (clearing conditions). <em> For
@@ -5146,11 +5228,12 @@ already guarantees at least <span
 class="math inline" data-term-auto="off">\(2^{10}=1024\)</span> without knowing the
 coefficient at all.</em></p>
 </div>
-<p>The recurrence gives an adjacent-pair lower bound. For a natural
-index <span class="math inline" data-term-auto="off">\(N\)</span>, with <span
-class="math inline" data-term-auto="off">\(B,s\)</span> positive integers, <span
+<p>A large forcing term cannot be balanced by two small consecutive
+remainders. For a natural index <span class="math inline" data-term-auto="off">\(N\)</span>,
+with <span class="math inline" data-term-auto="off">\(B,s\)</span> positive integers, <span
 class="math inline" data-term-auto="off">\(s\ge2\)</span> and <span
-class="math inline" data-term-auto="off">\(c(N+1)\ge1\)</span>, the triangle inequality gives</p>
+class="math inline" data-term-auto="off">\(c(N+1)\ge1\)</span>, the recurrence and triangle
+inequality give</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[2^{N+1}\le Bc(N+1)s^{N+1}
 =|rU_N-U_{N+1}|
 \le(1+|r|)\max\{|U_N|,|U_{N+1}|\}.\]</span></div>
@@ -5383,12 +5466,13 @@ measure.</p>
 </section>
 <section id="long1049:sec:open" class="level2">
 <h2>Complements and further questions</h2>
-<p>Prescribing small divided remainders is useful only after the
-polynomial family has been fixed. Without that restriction, the
-following problem is equivalent to irrationality at <span
-class="math inline" data-term-auto="off">\(3/2\)</span>, even with its quadratic degree and
-height bounds. We prove the equivalence and then discuss more specific
-congruence and approximation questions.</p>
+<p>An unrestricted construction of small nonzero integer forms is
+another formulation of irrationality, not yet a method of proving it.
+The next problem remains equivalent to irrationality at <span
+class="math inline" data-term-auto="off">\(3/2\)</span> even with its quadratic degree
+bounds, and even after imposing the exponential coefficient-height bound
+discussed below. We prove the equivalence before asking what a specified
+approximation family can supply.</p>
 <div class="problem" id="long1049:prob:kernel">
 <p><strong>Problem 10.1</strong> (a divided linear form with small nonzero
 remainder). <em> Exhibit an integer constant <span
@@ -5445,9 +5529,13 @@ input rows, a nonzero combined polynomial pair, or the nonvanishing and
 decay of <span class="math inline" data-term-auto="off">\(\rho_n\)</span>.</p>
 <section id="why-the-choice-of-family-matters." class="level5">
 <h5>Why the choice of family matters.</h5>
-<p>The converse uses only the pigeonhole principle and Bézout’s
-identity. Let <span class="math inline" data-term-auto="off">\(\xi\)</span> be any irrational
-real number. Comparing the fractional parts of <span
+<p>The converse can start from an arbitrary small integer form and build
+the polynomial rows afterwards. Pigeonhole approximation supplies the
+small form; Bézout’s identity lifts its coordinates to polynomial
+evaluations. Thus the degree and residue conditions do not constrain how
+the approximation was obtained. Let <span
+class="math inline" data-term-auto="off">\(\xi\)</span> be any irrational real number.
+Comparing the fractional parts of <span
 class="math inline" data-term-auto="off">\(0,\xi,\ldots,(n+1)\xi\)</span> in <span
 class="math inline" data-term-auto="off">\(n+1\)</span> equal half-open intervals gives
 integers <span class="math inline" data-term-auto="off">\(A\ge1\)</span> and <span
@@ -5498,10 +5586,11 @@ assertion for <span class="math inline" data-term-auto="off">\(F(3/2)\)</span>.<
 with irrationality. To pose a more specific question, one must replace
 the free choice of polynomial pairs by an actual set given by
 coefficient formulas, admissible parameters and permitted
-normalisations. A family name or an unspecified exponential height bound
-is not such a restriction; the lifts just constructed also have explicit
-formulas and a fixed height bound. For a fixed indexed family, the
-distinction between all sufficiently large indices and a sparse
+normalisations. The restriction must exclude the freedom to choose the
+rows from an already good approximation. Merely giving the resulting
+family a name, an explicit formula or an exponential height bound does
+not do so: the lifts above have all three. For a fixed indexed family,
+the distinction between all sufficiently large indices and a sparse
 subsequence can matter. Arbitrary padding and reindexing remove it in
 the unrestricted problem.</p>
 <p>Corollary <a class="math-ref" href="#long1049:res:nomult">5.5</a> gives no
@@ -5511,17 +5600,21 @@ class="math inline" data-term-auto="off">\(3\)</span> in the unscaled evaluation
 no general assertion about polynomial cancellation before
 specialisation, combinations of rows, determinant-specific divisibility
 or other approximation families.</p>
-<p>There are two separate tasks: find equal residues without obtaining a
-zero polynomial pair or a zero remainder, then prove that the divided
-remainder tends to zero. A coefficient-height estimate is needed when
-the particular approximation argument calls for it; it is not an extra
-hypothesis of the elementary irrationality criterion above.</p>
+<p>A prescribed family must supply nonvanishing and decay for the same
+signed combinations. A residue collision alone supplies neither;
+separate examples of the two properties would not suffice either. A
+coefficient-height estimate is needed when the approximation argument
+calls for it, not as an extra hypothesis of the elementary irrationality
+criterion above.</p>
 </section>
 <section id="a-congruence-relation-with-nonzero-remainder"
 class="level3">
 <h3>A congruence relation with nonzero remainder</h3>
-<p>We make the congruence condition explicit for a fixed family. For
-each <span class="math inline" data-term-auto="off">\(n\)</span>, let <span
+<p>Fixing the approximation family is not enough: the residue map must
+also use a fixed normalisation. Polynomial coefficient content, content
+of an evaluated row, and content of a combined row are three different
+quantities. We keep them separate as follows. For each <span
+class="math inline" data-term-auto="off">\(n\)</span>, let <span
 class="math inline" data-term-auto="off">\(W_n\)</span> be a common degree bound and let</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[(U_{n,j},V_{n,j},\mathcal
 R_{n,j})_{j&lt;M_n}\]</span></div>
@@ -5572,8 +5665,11 @@ class="math inline" data-term-auto="off">\((5,5)\)</span>. Their sum is zero mod
 class="math inline" data-term-auto="off">\(6\)</span>, whereas the sum of their primitive
 normalisations is <span class="math inline" data-term-auto="off">\((2,2)\)</span>, not zero
 modulo <span class="math inline" data-term-auto="off">\(6\)</span>. Both pairs satisfy the
-two unit conditions just stated. The residue map must therefore be
-formed again after row-by-row normalisation.</p>
+two unit conditions just stated. Each division is invertible modulo
+<span class="math inline" data-term-auto="off">\(6\)</span>, but different rows are
+multiplied by different units, so their sum need not stay zero. The
+residue map must therefore be formed again after row-by-row
+normalisation.</p>
 <p>Dividing a specialised row by its content need not preserve the
 chosen polynomial family, and lifting the divided row back is a
 constrained problem. For fixed <span class="math inline" data-term-auto="off">\(W\)</span>,
@@ -5691,8 +5787,12 @@ same prescribed approximation family, not merely to exhibit some family
 with a nonzero congruence relation.</p>
 <section id="the-range-of-subset-sums." class="level5">
 <h5>The range of subset sums.</h5>
-<p>We may apply the interval partition separately in each residue class.
-Fix a positive integer <span class="math inline" data-term-auto="off">\(n\)</span>. For <span
+<p>The residue condition and the real-error condition can be counted
+together. Within each residue class, subdivide the range of subset
+remainders into intervals of width <span
+class="math inline" data-term-auto="off">\(D/n\)</span>; a bound on repeated remainder values
+then forces a nonzero small difference. Fix a positive integer <span
+class="math inline" data-term-auto="off">\(n\)</span>. For <span
 class="math inline" data-term-auto="off">\(M\)</span> integer rows <span
 class="math inline" data-term-auto="off">\((A_j,B_j)\)</span> and a modulus <span
 class="math inline" data-term-auto="off">\(D\ge1\)</span>, set <span
@@ -5741,8 +5841,12 @@ lattice, the vectors whose two coordinates are even form <span
 class="math inline" data-term-auto="off">\(2\Z\oplus6\Z\)</span>; dividing them by <span
 class="math inline" data-term-auto="off">\(2\)</span> gives <span
 class="math inline" data-term-auto="off">\(\Z\oplus3\Z\)</span>, of index <span
-class="math inline" data-term-auto="off">\(3\)</span>. Smith normal form separates the
-residue count from this remaining index for any rank-two lattice.</p>
+class="math inline" data-term-auto="off">\(3\)</span>. These are two different counts: the
+number of attainable residues before division, and the index of the
+lattice left after division. Smith normal form computes both for any
+rank-two lattice. The first count describes congruences available before
+division; the second describes the integrality restriction that survives
+it. Neither count estimates the real remainders of the rows.</p>
 <p>Let primitive integer rows <span
 class="math inline" data-term-auto="off">\(u_j\in\Z^2\)</span> span a rank-two lattice <span
 class="math inline" data-term-auto="off">\(L\)</span>, and let <span
@@ -5853,36 +5957,48 @@ class="math inline" data-term-auto="off">\((1,2)\)</span> and <span
 class="math inline" data-term-auto="off">\((5,14)\)</span>. Their span is already <span
 class="math inline" data-term-auto="off">\(\Z\times2\Z\)</span>. There is no three-adic
 collapse, and the only local saving is the single factor of two that the
-image formula displays. For a window beginning at <span
-class="math inline" data-term-auto="off">\(m=s\)</span> the corresponding statement is that
-every pairwise minor is divisible by <span
-class="math inline" data-term-auto="off">\(b^{s+1}\)</span>, with the valuation of the gcd
-equal to <span class="math inline" data-term-auto="off">\((s+1)v_p(b)\)</span> at each prime
-<span class="math inline" data-term-auto="off">\(p\mid b\)</span> and equal to zero at each
-prime <span class="math inline" data-term-auto="off">\(p\mid a\)</span>. The adjacent-row
-identity</p>
+image formula displays. For a consecutive window containing <span
+class="math inline" data-term-auto="off">\(m=s\)</span> and <span
+class="math inline" data-term-auto="off">\(m=s+1\)</span> and no earlier row, every pairwise
+minor is divisible by <span class="math inline" data-term-auto="off">\(b^{s+1}\)</span>. The
+gcd has valuation <span class="math inline" data-term-auto="off">\((s+1)v_p(b)\)</span> at
+each prime <span class="math inline" data-term-auto="off">\(p\mid b\)</span> and valuation
+zero at each prime <span class="math inline" data-term-auto="off">\(p\mid a\)</span>. The
+adjacent-row identity</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[Q_sP_{s+1}-P_sQ_{s+1}
 =\frac{Q_sQ_{s+1}b^{s+1}}{a^{s+1}-b^{s+1}}\]</span></div>
 <p class="display-continue">attains both, since
 its denominator is a unit at every prime dividing <span
 class="math inline" data-term-auto="off">\(ab\)</span>.</p>
-<p>The consequence for the construction problem is a restriction on one
-operation, and only on that one. Rescaling the individual tails and then
-taking integer combinations stays inside <span
-class="math inline" data-term-auto="off">\(\Z\times b\Z\)</span>, so it leaves the minor gcd
-and the endpoint valuations exactly as above. Rational combinations are
-a different matter and do leave that lattice: at <span
-class="math inline" data-term-auto="off">\(3/2\)</span> the half-sum of the rows <span
-class="math inline" data-term-auto="off">\((1,0)\)</span> and <span
-class="math inline" data-term-auto="off">\((1,2)\)</span> is the primitive row <span
-class="math inline" data-term-auto="off">\((1,1)\)</span>, whose minor against <span
-class="math inline" data-term-auto="off">\((1,0)\)</span> is <span
-class="math inline" data-term-auto="off">\(1\)</span>. Such combinations introduce
-coefficient denominators, which the proposition does not bound. Leaving
-the lattice in this way therefore gives no divisibility improvement by
-itself. An improvement of this kind would require another family of
-primitive rows whose minors have larger valuations and whose divided
-remainders are still nonzero and small.</p>
+<p>Rescaling an individual tail and then making its row primitive
+returns the same row up to sign. Thus it preserves the lattice spanned
+by the full family. Integer combinations remain in that lattice, but a
+selected family of combinations need not span all of it and can have a
+larger minor gcd. At <span class="math inline" data-term-auto="off">\(3/2\)</span>, write
+<span class="math inline" data-term-auto="off">\(u_0=(1,0)\)</span> and <span
+class="math inline" data-term-auto="off">\(u_1=(1,2)\)</span>. The primitive rows <span
+class="math inline" data-term-auto="off">\(u_0\)</span> and <span
+class="math inline" data-term-auto="off">\(3u_1-2u_0=(1,6)\)</span> span <span
+class="math inline" data-term-auto="off">\(\Z\times6\Z\)</span>, with minor gcd <span
+class="math inline" data-term-auto="off">\(6\)</span>, although <span
+class="math inline" data-term-auto="off">\(u_0,u_1\)</span> span <span
+class="math inline" data-term-auto="off">\(\Z\times2\Z\)</span>. The selection replaces the
+original lattice by an index-three sublattice, accounting for the change
+from <span class="math inline" data-term-auto="off">\(2\)</span> to <span
+class="math inline" data-term-auto="off">\(6\)</span>. Containment therefore preserves
+divisibility by the original gcd, not equality of gcds or endpoint
+valuations. The prefix and window equalities above concern the full
+indicated families.</p>
+<p>Rational combinations can also leave the original lattice: the
+half-sum of <span class="math inline" data-term-auto="off">\(u_0,u_1\)</span> is the
+primitive row <span class="math inline" data-term-auto="off">\((1,1)\)</span>, whose minor
+against <span class="math inline" data-term-auto="off">\(u_0\)</span> is <span
+class="math inline" data-term-auto="off">\(1\)</span>. Coefficient denominators must then be
+accounted for; likewise, primitive normalisation after taking
+combinations requires a new lattice calculation. These operations may
+change the minor gcd in either direction. None by itself controls the
+real error: a useful selected family must still have nonzero remainders
+small enough after the proposed division.</p>
 </section>
 </section>
 <section id="estimating-the-divided-remainder" class="level3">
@@ -5991,10 +6107,15 @@ clearing denominators gives polynomials <span
 class="math inline" data-term-auto="off">\(P_0,\dots,P_d\)</span>, not all zero, with <span
 class="math inline" data-term-auto="off">\(\sum_{i=0}^{d}P_i(z)\mathcal
 L(z^{2^i})=0\)</span>.</p>
-<p>A Mahler equation requires a nonzero coefficient of the unshifted
-function. To obtain one here, let <span class="math inline" data-term-auto="off">\(j\)</span>
-be the least index with <span class="math inline" data-term-auto="off">\(P_j\ne0\)</span>.
-Write each polynomial uniquely as <span
+<p>Linear dependence need not give a nonzero coefficient of the
+unshifted function, as a Mahler equation requires. One cannot simply
+replace <span class="math inline" data-term-auto="off">\(z\)</span> by <span
+class="math inline" data-term-auto="off">\(z^{1/2^j}\)</span>, since the polynomial
+coefficients need not have exponents divisible by <span
+class="math inline" data-term-auto="off">\(2^j\)</span>. Instead, separate their exponent
+classes. Let <span class="math inline" data-term-auto="off">\(j\)</span> be the least index
+with <span class="math inline" data-term-auto="off">\(P_j\ne0\)</span>. Write each polynomial
+uniquely as <span
 class="math inline" data-term-auto="off">\(P_i(z)=\sum_{r=0}^{2^j-1}z^rQ_{i,r}(z^{2^j})\)</span>.
 Every series <span class="math inline" data-term-auto="off">\(\mathcal L(z^{2^i})\)</span>
 with <span class="math inline" data-term-auto="off">\(i\ge j\)</span> has exponents divisible
@@ -6217,10 +6338,12 @@ any one of these problems.</p>
 <section id="related-work-and-comparison-of-constructions"
 class="level2 unnumbered">
 <h2 class="unnumbered">Related work and comparison of constructions</h2>
-<p>We close with comparisons that depend on the normalisation or the
-choice of target. A functional equation concerns the whole Lambert
-function, whereas a value theorem may depend on whether the base is an
-integer or a noninteger rational.</p>
+<p>The relevant comparisons require agreement of both target and
+construction. A theorem about the Lambert function need not decide a
+special value; a theorem at integer bases need not survive rational
+specialisation; and a shared orthogonal-polynomial kernel need not give
+the same recurrence on different diagonals. The following examples
+distinguish these three questions.</p>
 <section id="functional-nonrationality-is-not-value-irrationality."
 class="level5">
 <h5>Functional nonrationality is not value irrationality.</h5>

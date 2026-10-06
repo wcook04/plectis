@@ -20,45 +20,42 @@ class="math display" data-term-auto="off">\[S=\sum_{n\ge2}\frac1{n!-1}\]</span><
 irrational?</em></p>
 </div>
 <p>The elementary proof that <span class="math inline" data-term-auto="off">\(e\)</span> is
-irrational uses two properties of factorials: they clear every earlier
-denominator, and they leave a small positive tail. The first property
-fails here. If <span
-class="math inline" data-term-auto="off">\(H_m=\sum_{n=2}^m(n!-1)^{-1}\)</span>, then already
-<span class="math inline" data-term-auto="off">\(3!H_3=36/5\)</span>. We shall instead
-construct linear forms <span class="math inline" data-term-auto="off">\(MS+k\)</span>, with
-<span class="math inline" data-term-auto="off">\(M,k\in\mathbb Z\)</span>, in which several
-initial summands cancel. A nonintegral form excludes every rational
-value <span class="math inline" data-term-auto="off">\(S=a/q\)</span> for which <span
-class="math inline" data-term-auto="off">\(q\mid M\)</span>.</p>
-<p>We classify the integer coefficient vectors that cancel the first
-<span class="math inline" data-term-auto="off">\(D-1\)</span> weighted sums. Starting with
-adjacent factorial differences, we correct each vector using those
-already constructed at its proper divisors. The resulting basis isolates
-each weighted sum (Theorem <a class="math-ref" href="#res:divisor-channel-coordinates">2.1</a>).
-The triangular change of basis is invertible over <span
-class="math inline" data-term-auto="off">\(\mathbb Z\)</span>, so it gives coordinates for
-every integer solution, not just a way to construct some solutions.</p>
-<p>The desired vectors are supported on indices at least two.
-Temporarily allowing index one makes the basis construction possible;
-removing it then amounts to one linear Diophantine equation. Its
-solvability determines the possible values of <span
-class="math inline" data-term-auto="off">\(M\)</span>. The gcd that occurs in this equation
-is defined by an infinite sequence, but Theorem <a class="math-ref" href="#res:finite-channel-moment-certificate">3.1</a>
-computes it on a specified finite interval.</p>
-<p>When cancellation is imposed through <span
-class="math inline" data-term-auto="off">\(D=4\)</span>, the least positive value of <span
-class="math inline" data-term-auto="off">\(M\)</span> is <span
-class="math inline" data-term-auto="off">\(1380\)</span>. We derive a vector attaining this
-value and bound its remainder between consecutive integers. The
-classification itself does not assume that <span
-class="math inline" data-term-auto="off">\(S\)</span> is rational. An irrationality proof
-would require, for each <span class="math inline" data-term-auto="off">\(q&gt;0\)</span>, a
-nonintegral form whose coefficient <span
-class="math inline" data-term-auto="off">\(M\)</span> is divisible by <span
-class="math inline" data-term-auto="off">\(q\)</span>. The companion’s <a
+irrational clears the partial sum by a factorial and bounds the
+remaining positive tail. Here the first step fails: for <span
+class="math inline" data-term-auto="off">\(H_m=\sum_{n=2}^m(n!-1)^{-1}\)</span>, already
+<span class="math inline" data-term-auto="off">\(3!H_3=36/5\)</span>. We instead construct
+forms <span class="math inline" data-term-auto="off">\(MS+k\)</span>, with <span
+class="math inline" data-term-auto="off">\(M,k\in\mathbb Z\)</span>, by cancelling initial
+weighted sums. If <span class="math inline" data-term-auto="off">\(S=a/q\)</span> and <span
+class="math inline" data-term-auto="off">\(q\mid M\)</span>, then <span
+class="math inline" data-term-auto="off">\(MS+k\)</span> is integral; proving it nonintegral
+excludes that denominator.</p>
+<p>Even these cancellation equations impose more than the expected
+common-denominator condition. Cancelling the weighted sums indexed by
+<span class="math inline" data-term-auto="off">\(2,3,4\)</span> forces <span
+class="math inline" data-term-auto="off">\(115\mid M\)</span>, but a vector supported on
+indices <span class="math inline" data-term-auto="off">\(n\ge2\)</span> requires <span
+class="math inline" data-term-auto="off">\(1380\mid M\)</span>. We determine the exact
+additional factor at every depth <span class="math inline" data-term-auto="off">\(D\)</span>,
+and construct a vector attaining the least positive value of <span
+class="math inline" data-term-auto="off">\(M\)</span>.</p>
+<p>The proof has two steps. Adjacent factorial differences, corrected at
+proper divisors, give an integral basis that isolates each weighted sum
+(Theorem <a class="math-ref" href="#res:divisor-channel-coordinates">2.1</a>).
+Temporarily allowing index one makes this basis triangular; removing
+that coordinate leaves one Diophantine equation. Its gcd initially
+involves infinitely many coefficients. Theorem <a class="math-ref" href="#res:finite-channel-moment-certificate">3.1</a>
+reduces it to a specified finite interval, not an observed
+stabilization.</p>
+<p>The classification is independent of rationality. The attaining
+example <span class="math inline" data-term-auto="off">\(M=1380\)</span> also passes a
+separate nonintegrality test. For an irrationality proof, however, the
+divisibility <span class="math inline" data-term-auto="off">\(q\mid M\)</span> and
+nonintegrality must hold for the same vector, for every <span
+class="math inline" data-term-auto="off">\(q&gt;0\)</span>. The companion’s <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-progression">progression
-construction</a> gives primitive vectors with this divisibility
-property; nonintegrality of their remainders remains unproved.</p>
+construction</a> provides the divisibility; its nonintegrality remains
+unproved.</p>
 <p>Hančl and Tijdeman’s tail-integrality lemma treats factorial series
 with integer coefficients <span class="citation"
 data-cites="hancl-tijdeman"><a href="#ref-4">[4]</a></span>. Their factorial-scaled partial sums
@@ -74,39 +71,31 @@ href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-digits">compani
 digit argument</a> to give an equivalent eventual-pattern condition for
 <span class="math inline" data-term-auto="off">\(S-e+2\)</span>. Failure of that pattern at
 arbitrarily large indices also remains unproved.</p>
-<p>Sections <a class="math-ref" href="#sec:channels">2</a> and
-<a class="math-ref" href="#sec:moments">3</a> give the
-coordinate construction and finite gcd. Section <a class="math-ref" href="#sec:depth-four">4</a> uses them to
-construct and test a vector attaining the least positive value of <span
-class="math inline" data-term-auto="off">\(M\)</span>. Section <a class="math-ref" href="#sec:open">5</a> states the remaining
-nonintegrality question, with the secondary arithmetic criteria
-developed in the companion.</p>
+<p>Sections <a class="math-ref" href="#sec:channels">2</a>–<a class="math-ref" href="#sec:moments">3</a> prove the
+classification; Section <a class="math-ref" href="#sec:depth-four">4</a> constructs and tests
+the least-<span class="math inline" data-term-auto="off">\(M\)</span> example. Section <a class="math-ref" href="#sec:open">5</a> separates the remaining
+nonintegrality question from the freedoms in that construction.</p>
 </section>
 <section id="sec:channels" class="level2">
 <h2>An integral basis</h2>
-<p>Since <span class="math inline" data-term-auto="off">\(d!\equiv1\pmod{d!-1}\)</span>,
-dividing <span class="math inline" data-term-auto="off">\(n!\)</span> by an integer power of
-<span class="math inline" data-term-auto="off">\(d!\)</span> preserves its residue whenever
-the quotient is integral. We choose the exponent so that the quotient
-changes predictably at successive indices. For <span
-class="math inline" data-term-auto="off">\(d\ge2\)</span> and <span
-class="math inline" data-term-auto="off">\(n\ge1\)</span>, put</p>
+<p>At the denominator <span class="math inline" data-term-auto="off">\(d!-1\)</span>, we
+replace <span class="math inline" data-term-auto="off">\(n!\)</span> by an integer with the
+same residue. Dividing by <span class="math inline" data-term-auto="off">\(d!\)</span>
+preserves that residue; the exponent below is chosen to make adjacent
+differences vanish except at multiples of <span
+class="math inline" data-term-auto="off">\(d\)</span>. Put</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[W_{d,n}=\frac{n!}{(d!)^{\lfloor
-n/d\rfloor}}.\]</span></div>
+class="math display" data-term-auto="off">\[W_{d,n}=\frac{n!}{(d!)^{\lfloor n/d\rfloor}}
+\qquad(d\ge2,\ n\ge1).\]</span></div>
 <p>Writing <span
 class="math inline" data-term-auto="off">\(n=kd+r\)</span>, <span class="math inline" data-term-auto="off">\(0\le
 r&lt;d\)</span>, shows that <span class="math inline" data-term-auto="off">\(W_{d,n}\)</span>
 is <span class="math inline" data-term-auto="off">\(r!\)</span> times the multinomial
-coefficient <span class="math inline" data-term-auto="off">\(n!/((d!)^k r!)\)</span>. In
-particular it is an integer, and <span
-class="math inline" data-term-auto="off">\(n!=(d!)^kW_{d,n}\)</span> gives <span
-class="math inline" data-term-auto="off">\(W_{d,n}\equiv n!\pmod{d!-1}\)</span>. For example,
-<span class="math inline" data-term-auto="off">\(W_{3,4}=4\)</span> and <span
-class="math inline" data-term-auto="off">\((4!-W_{3,4})/(3!-1)=4\)</span>. The exponent <span
-class="math inline" data-term-auto="off">\(\lfloor n/d\rfloor\)</span> increases precisely at
-multiples of <span class="math inline" data-term-auto="off">\(d\)</span>, which will
-determine the nonzero weighted differences.</p>
+coefficient <span class="math inline" data-term-auto="off">\(n!/((d!)^k r!)\)</span>. Thus it
+is an integer, and <span class="math inline" data-term-auto="off">\(n!=(d!)^kW_{d,n}\)</span>
+gives <span class="math inline" data-term-auto="off">\(W_{d,n}\equiv n!\pmod{d!-1}\)</span>.
+For example, <span class="math inline" data-term-auto="off">\(W_{3,4}=4\)</span> and <span
+class="math inline" data-term-auto="off">\((4!-W_{3,4})/(3!-1)=4\)</span>.</p>
 <p>For a finitely supported integer vector <span
 class="math inline" data-term-auto="off">\(\lambda=(\lambda_n)_{n\ge1}\)</span>, define the
 integer linear forms</p>
@@ -118,31 +107,28 @@ V_d(\lambda)=\sum_n\lambda_nW_{d,n},\]</span></div>
 class="math display" data-term-auto="off">\[\mathcal
 R(\lambda)=\sum_{d\ge2}\frac{V_d(\lambda)}{d!-1}.\]</span></div>
 <p>Here <span
-class="math inline" data-term-auto="off">\(n\)</span> indexes the chosen coefficients,
-whereas <span class="math inline" data-term-auto="off">\(d\)</span> indexes the summands of
-the remainder. If <span class="math inline" data-term-auto="off">\(\lambda\)</span> is
-supported on <span class="math inline" data-term-auto="off">\(n\le N\)</span>, with <span
+class="math inline" data-term-auto="off">\(n\)</span> indexes coefficients and <span
+class="math inline" data-term-auto="off">\(d\)</span> indexes remainder summands. If the
+support lies in <span class="math inline" data-term-auto="off">\(n\le N\)</span>, <span
 class="math inline" data-term-auto="off">\(N\ge2\)</span>, then <span
-class="math inline" data-term-auto="off">\(d&gt;N\)</span> makes every floor exponent zero.
-Hence <span class="math inline" data-term-auto="off">\(V_d=M\)</span> throughout this tail,
-and the series converges absolutely. Only the first <span
-class="math inline" data-term-auto="off">\(N-1\)</span> terms can differ from those of <span
-class="math inline" data-term-auto="off">\(MS\)</span>; the weight congruence gives</p>
-<div class="math-display" id="eq:integer-linear-form" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+class="math inline" data-term-auto="off">\(V_d=M\)</span> for <span
+class="math inline" data-term-auto="off">\(d&gt;N\)</span>. Thus the infinite tail agrees
+with that of <span class="math inline" data-term-auto="off">\(MS\)</span>. The remainder
+converges absolutely, and each of the finitely many termwise differences
+is an integer:</p>
+<div class="math-display" id="eq:integer-linear-form" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \mathcal R(\lambda)-M(\lambda)S
 =\sum_{d=2}^N\frac{V_d(\lambda)-M(\lambda)}{d!-1}\in\mathbb Z.
 \label{eq:integer-linear-form}
 \end{equation}\]</span></div>
-<p>We now solve <span
-class="math inline" data-term-auto="off">\(V_2=\cdots=V_D=0\)</span> in integer vectors,
-allowing either sign of <span class="math inline" data-term-auto="off">\(M\)</span>. Write
-<span class="math inline" data-term-auto="off">\(e_n\)</span> for the unit vector at index
-<span class="math inline" data-term-auto="off">\(n\)</span>. The auxiliary coordinate at
-index one will make the basis triangular. It occurs only in the
-coefficient vector: the series still starts at <span
-class="math inline" data-term-auto="off">\(d=2\)</span>, so no term <span
-class="math inline" data-term-auto="off">\(1/(1!-1)\)</span> is introduced. We impose <span
+<p>We solve <span
+class="math inline" data-term-auto="off">\(V_2=\cdots=V_D=0\)</span>, allowing either sign of
+<span class="math inline" data-term-auto="off">\(M\)</span>. Write <span
+class="math inline" data-term-auto="off">\(e_n\)</span> for the unit vector at index <span
+class="math inline" data-term-auto="off">\(n\)</span>. Index one is auxiliary: it makes the
+basis triangular but introduces no term <span
+class="math inline" data-term-auto="off">\(1/(1!-1)\)</span>, since the remainder still
+starts at <span class="math inline" data-term-auto="off">\(d=2\)</span>. We impose <span
 class="math inline" data-term-auto="off">\(\lambda_1=0\)</span> in Section <a class="math-ref" href="#sec:moments">3</a>.</p>
 <p>The identity <span class="math inline" data-term-auto="off">\(n(n-1)!-n!=0\)</span>
 suggests starting with <span
@@ -280,8 +266,7 @@ because <span class="math inline" data-term-auto="off">\(V_d=M\)</span>. ◻</p
 <p>The <span class="math inline" data-term-auto="off">\(U_d\)</span>-coordinates in <a class="math-ref" data-equation-ref="true" href="#eq:channel-basis-expansion">eq:channel-basis-expansion</a> are
 exactly the integer summands in <a class="math-ref" data-equation-ref="true" href="#eq:integer-linear-form">eq:integer-linear-form</a>. Their sum
 is therefore <span class="math inline" data-term-auto="off">\(k\)</span> in <span
-class="math inline" data-term-auto="off">\(\mathcal R=MS+k\)</span>. The same coordinates
-describe both the vector and its linear form.</p>
+class="math inline" data-term-auto="off">\(\mathcal R=MS+k\)</span>.</p>
 <p>For a prime <span class="math inline" data-term-auto="off">\(p\ge3\)</span> the divisor
 sum is empty, and <span class="math inline" data-term-auto="off">\(U_p=pe_{p-1}-e_p\)</span>.
 At a composite index the correction terms remove the extra weighted
@@ -333,9 +318,11 @@ V_2=\cdots=V_D=0
 \end{equation}\]</span></div>
 <p class="display-continue">with <span class="math inline" data-term-auto="off">\(t\in\mathbb
 Z\)</span> and finitely many nonzero integers <span
-class="math inline" data-term-auto="off">\(z_n\)</span>. The parameter <span
-class="math inline" data-term-auto="off">\(t\)</span> fixes the lower coordinates; the higher
-<span class="math inline" data-term-auto="off">\(z_n\)</span> remain arbitrary until we
+class="math inline" data-term-auto="off">\(z_n\)</span>. Here <span
+class="math inline" data-term-auto="off">\(t\)</span> fixes <span
+class="math inline" data-term-auto="off">\(M\)</span> and the coefficients of <span
+class="math inline" data-term-auto="off">\(U_2,\ldots,U_D\)</span>. The remaining basis
+coefficients <span class="math inline" data-term-auto="off">\(z_n\)</span> are free until we
 impose <span class="math inline" data-term-auto="off">\(\lambda_1=0\)</span>.</p>
 <p>It remains to remove index one. Write <span
 class="math inline" data-term-auto="off">\(a_D\)</span> for its coefficient in <span
@@ -386,25 +373,22 @@ class="math display" data-term-auto="off">\[u_2=2,\qquad
 u_n=-\sum_{\substack{d\mid n\\2\le
 d&lt;n}}W_{d,n}u_d\quad(n&gt;2).\]</span></div>
 <p>Induction gives <span
-class="math inline" data-term-auto="off">\(u_n=0\)</span> at odd indices. At twice a prime it
-gives <span class="math inline" data-term-auto="off">\(u_{2p}=-(2p)!/2^{p-1}\ne0\)</span>,
-including <span class="math inline" data-term-auto="off">\(p=2\)</span>, so <span
-class="math inline" data-term-auto="off">\(g_D&gt;0\)</span>. This nonzero coefficient also
-tells us how to make the calculation finite. Choose a prime <span
-class="math inline" data-term-auto="off">\(\ell\)</span> with <span
-class="math inline" data-term-auto="off">\(D/2&lt;\ell\le D\)</span>. Any gcd computed on an
-initial interval of the tail containing <span
-class="math inline" data-term-auto="off">\(2\ell\)</span> must divide <span
-class="math inline" data-term-auto="off">\((2\ell)!\)</span>. We use that factorial to
-control the later terms of the recurrence.</p>
-<p>For a proper divisor <span class="math inline" data-term-auto="off">\(d&gt;D\)</span>,
-divisibility by the finite gcd comes from the earlier coefficient <span
-class="math inline" data-term-auto="off">\(u_d\)</span>. For <span class="math inline" data-term-auto="off">\(d\le
-D\)</span>, we instead make the weight <span
-class="math inline" data-term-auto="off">\(W_{d,n}\)</span> divisible by <span
-class="math inline" data-term-auto="off">\((2\ell)!\)</span>. The proof obtains this from
-<span class="math inline" data-term-auto="off">\(n/d\ge2\ell\)</span>; the cutoff below is
-chosen to ensure that inequality for every small divisor.</p>
+class="math inline" data-term-auto="off">\(u_n=0\)</span> at odd indices and <span
+class="math inline" data-term-auto="off">\(u_{2p}=-(2p)!/2^{p-1}\ne0\)</span> at twice a
+prime, including <span class="math inline" data-term-auto="off">\(p=2\)</span>. Choose a
+prime <span class="math inline" data-term-auto="off">\(\ell\)</span> with <span
+class="math inline" data-term-auto="off">\(D/2&lt;\ell\le D\)</span>. A finite gcd that
+includes <span class="math inline" data-term-auto="off">\(u_{2\ell}\)</span> is positive and
+divides <span class="math inline" data-term-auto="off">\((2\ell)!\)</span>.</p>
+<p>The issue is to prove that this gcd divides every later coefficient.
+In the recurrence, a proper divisor <span
+class="math inline" data-term-auto="off">\(d&gt;D\)</span> passes divisibility through <span
+class="math inline" data-term-auto="off">\(u_d\)</span> by induction. For <span
+class="math inline" data-term-auto="off">\(d\le D\)</span>, divisibility must instead come
+from the weight: once <span class="math inline" data-term-auto="off">\(n/d\ge2\ell\)</span>,
+the block-counting formula below makes <span
+class="math inline" data-term-auto="off">\((2\ell)!\mid W_{d,n}\)</span>. The cutoff ensures
+this for every small divisor.</p>
 <div class="theorem" id="res:finite-channel-moment-certificate">
 <p><strong>Theorem 3.1</strong> (a finite formula for the gcd). <em>
 Choose a prime <span class="math inline" data-term-auto="off">\(\ell\)</span> with <span
@@ -460,7 +444,7 @@ coefficient at <span class="math inline" data-term-auto="off">\(2\ell\)</span> i
 the cutoff must also control every later small-divisor weight. A
 truncation at <span class="math inline" data-term-auto="off">\(2D\)</span> is not justified
 by this argument.</p>
-<p>The finite gcd also gives a construction. Compute integers <span
+<p>To attain the least positive multiplier, compute integers <span
 class="math inline" data-term-auto="off">\(b_n\)</span> with <span
 class="math inline" data-term-auto="off">\(\sum_{n=D+1}^H b_nu_n=g_D\)</span> by the extended
 Euclidean algorithm, and put <span
@@ -471,20 +455,18 @@ H)\]</span></div>
 <p class="display-continue">makes <span class="math inline" data-term-auto="off">\(ta_D+\sum
 z_nu_n=0\)</span>. Substitution in <a class="math-ref" data-equation-ref="true" href="#eq:low-channel-classification">eq:low-channel-classification</a>
 therefore produces a vector with <span
-class="math inline" data-term-auto="off">\(M=\mu_D\)</span>. This gives an attaining vector
-as well as the minimum. Minimising its support or its coefficient norm
-is a separate problem.</p>
+class="math inline" data-term-auto="off">\(M=\mu_D\)</span>. Minimising its support or its
+coefficient norm is a separate problem.</p>
 </section>
 <section id="sec:coordinate-remainder" class="level3">
 <h3>The associated remainder</h3>
-<p>For a fixed admissible value <span
-class="math inline" data-term-auto="off">\(M=tL_D\)</span>, the higher coordinates must still
-satisfy <a class="math-ref" data-equation-ref="true" href="#eq:support-equation">eq:support-equation</a>. Among those
-choices, the remainder changes only by an integer: <span
-class="math inline" data-term-auto="off">\(\mathcal R(e_1)=S\)</span> and <span
-class="math inline" data-term-auto="off">\(\mathcal R(U_n)=1\)</span> give</p>
-<div class="math-display" id="eq:residual-transparency" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+<p>Fix <span class="math inline" data-term-auto="off">\(M\in\mu_D\mathbb Z\)</span> and put
+<span class="math inline" data-term-auto="off">\(t=M/L_D\)</span>. The choices of <span
+class="math inline" data-term-auto="off">\(z_n\)</span> satisfying <a class="math-ref" data-equation-ref="true" href="#eq:support-equation">eq:support-equation</a> change the
+remainder only by an integer: <span class="math inline" data-term-auto="off">\(\mathcal
+R(e_1)=S\)</span> and <span class="math inline" data-term-auto="off">\(\mathcal
+R(U_n)=1\)</span> give</p>
+<div class="math-display" id="eq:residual-transparency" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \mathcal R\left(tK_D+\sum_{n&gt;D}z_nU_n\right)
 =tL_D(S-H_D)+\sum_{n&gt;D}z_n,
 \qquad H_D=\sum_{d=2}^D\frac1{d!-1}.
@@ -495,7 +477,7 @@ class="math inline" data-term-auto="off">\(M=tL_D\)</span> clears the denominato
 class="math inline" data-term-auto="off">\(H_D\)</span>, the integer in <span
 class="math inline" data-term-auto="off">\(\mathcal R=MS+k\)</span> is <span
 class="math inline" data-term-auto="off">\(k=-MH_D+\sum_{n&gt;D}z_n\)</span>. Thus the sum of
-the higher coordinates is the offset from <span
+the higher basis coefficients is the offset from <span
 class="math inline" data-term-auto="off">\(M(S-H_D)\)</span>, not from <span
 class="math inline" data-term-auto="off">\(MS\)</span>.</p>
 </section>
@@ -641,8 +623,7 @@ class="math inline" data-term-auto="off">\(0\)</span></td>
 </tbody>
 </table>
 </div>
-<p>The coordinates give <span class="math inline" data-term-auto="off">\(M=1380\)</span>, the
-three cancellations, and the offset <span
+<p>The basis coordinates give the offset <span
 class="math inline" data-term-auto="off">\(-26-27+8+1=-44\)</span> in <a class="math-ref" data-equation-ref="true" href="#eq:residual-transparency">eq:residual-transparency</a>. Since
 <span class="math inline" data-term-auto="off">\(H_4=143/115\)</span>, the original linear
 form is</p>
@@ -666,50 +647,47 @@ class="math display" data-term-auto="off">\[-31+\frac45
 &lt;1380\sum_{d=5}^{8}\frac1{d!-1}-44
 &lt;-31+\frac56,
 \qquad \frac{2\cdot1380}{9!-1}&lt;\frac1{100}.\]</span></div>
-<p>The positive
-remaining tail is less than <span
-class="math inline" data-term-auto="off">\(2/(9!-1)\)</span>, so <span
-class="math inline" data-term-auto="off">\(-31&lt;\mathcal R(\lambda)&lt;-30\)</span>. If
-<span class="math inline" data-term-auto="off">\(S=a/q\)</span> with <span
+<p>The omitted
+contribution to <span class="math inline" data-term-auto="off">\(\mathcal R\)</span> is
+positive and less than <span class="math inline" data-term-auto="off">\(1/100\)</span>, so
+<span class="math inline" data-term-auto="off">\(-31&lt;\mathcal R(\lambda)&lt;-30\)</span>.
+If <span class="math inline" data-term-auto="off">\(S=a/q\)</span> with <span
 class="math inline" data-term-auto="off">\(q\mid1380\)</span>, <a class="math-ref" data-equation-ref="true" href="#eq:integer-linear-form">eq:integer-linear-form</a> would make
 this remainder an integer. Every divisor of <span
 class="math inline" data-term-auto="off">\(1380\)</span> is therefore excluded.</p>
-<p>The companion gives the <a
+<p>The companion gives an <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-depth-refinements">alternative
-dual congruence, support and coefficient-norm refinements</a>. These
-minimise different quantities. The minimum of <span
-class="math inline" data-term-auto="off">\(M\)</span> follows from <a class="math-ref" data-equation-ref="true" href="#eq:attainable-moment-ideal">eq:attainable-moment-ideal</a> and
-does not require minimal support.</p>
+dual congruence and support and coefficient-norm refinements</a>.
+Minimising <span class="math inline" data-term-auto="off">\(M\)</span>, the number of
+supported indices, and the coefficient norm are distinct problems; only
+the first is settled by <a class="math-ref" data-equation-ref="true" href="#eq:attainable-moment-ideal">eq:attainable-moment-ideal</a>.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>Nonintegrality of the remainder</h2>
 <p> </p>
 <p>Fix a vector with <span
 class="math inline" data-term-auto="off">\(V_2=\cdots=V_D=0\)</span> and <span
-class="math inline" data-term-auto="off">\(M&gt;0\)</span>. We may choose the cutoff <span
-class="math inline" data-term-auto="off">\(N\ge D\)</span> anywhere at or beyond its support.
-Separate the finite signed sum from the positive tail:</p>
+class="math inline" data-term-auto="off">\(M&gt;0\)</span>, and choose any cutoff <span
+class="math inline" data-term-auto="off">\(N\ge D\)</span> at or beyond its support. Separate
+the signed finite sum from the positive tail:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[A_N=\sum_{d=D+1}^N\frac{V_d(\lambda)}{d!-1},\qquad
 \mathcal R(\lambda)=A_N+M(S-H_N).\]</span></div>
-<p>The remainder lies above
-<span class="math inline" data-term-auto="off">\(A_N\)</span>. To place it below the next
-integer, it is enough that the omitted tail be shorter than the gap
-<span class="math inline" data-term-auto="off">\(\lfloor A_N\rfloor+1-A_N\)</span>. By <a class="math-ref" data-equation-ref="true" href="#eq:series-tail-bound">eq:series-tail-bound</a>, a
-sufficient condition is</p>
-<div class="math-display" id="eq:signed-block-gap" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<p>The remainder exceeds <span
+class="math inline" data-term-auto="off">\(A_N\)</span>. By <a class="math-ref" data-equation-ref="true" href="#eq:series-tail-bound">eq:series-tail-bound</a>, it lies
+below the least integer strictly above <span
+class="math inline" data-term-auto="off">\(A_N\)</span> whenever</p>
+<div class="math-display" id="eq:signed-block-gap" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
 \frac{2M}{(N+1)!-1}&lt;\lfloor A_N\rfloor+1-A_N.
 \label{eq:signed-block-gap}
 \end{equation}\]</span></div>
-<p>Indeed, the positive tail and this comparison
-give <span class="math inline" data-term-auto="off">\(\lfloor A_N\rfloor&lt;\mathcal
-R(\lambda)&lt;\lfloor A_N\rfloor+1\)</span>, excluding every denominator
-dividing <span class="math inline" data-term-auto="off">\(M\)</span>. Failure of this
-sufficient comparison is inconclusive. Either sign of <span
-class="math inline" data-term-auto="off">\(A_N\)</span> is allowed: its strict gap is one
-when <span class="math inline" data-term-auto="off">\(A_N\)</span> is integral and can be
-arbitrarily small when <span class="math inline" data-term-auto="off">\(A_N\)</span>
-approaches an integer from below.</p>
+<p>Then <span class="math inline" data-term-auto="off">\(\lfloor
+A_N\rfloor&lt;\mathcal R(\lambda)&lt;\lfloor A_N\rfloor+1\)</span>,
+excluding every denominator dividing <span
+class="math inline" data-term-auto="off">\(M\)</span>. The strict successor is essential: the
+gap is one at an integer, but can be arbitrarily small just below one.
+Failure of the comparison is inconclusive.</p>
 <p>First keep the vector fixed and increase only the cutoff. The vector
 <span class="math inline" data-term-auto="off">\(-6e_2+e_4\)</span> has <span
 class="math inline" data-term-auto="off">\(M=12\)</span>. At <span
@@ -723,38 +701,36 @@ class="math inline" data-term-auto="off">\(A_5=-27061/13685\)</span> has crossed
 class="math inline" data-term-auto="off">\(-2\)</span>: the next integer is now <span
 class="math inline" data-term-auto="off">\(-1\)</span>, and the gap <span
 class="math inline" data-term-auto="off">\(13376/13685\)</span> exceeds <span
-class="math inline" data-term-auto="off">\(24/719\)</span>. More generally, for a fixed
-vector with <span class="math inline" data-term-auto="off">\(M&gt;0\)</span>, the quantities
-<span class="math inline" data-term-auto="off">\(A_N\)</span> increase to <span
-class="math inline" data-term-auto="off">\(\mathcal R\)</span>. If this limit is nonintegral,
-their gaps to the next integer tend to a positive number, so the test
-eventually succeeds. If the limit is integral, the eventual gap equals
-the omitted tail and the test fails. Extending the cutoff therefore
-eventually detects a nonintegral remainder, but leaves both that
-remainder and the set of divisors of <span
-class="math inline" data-term-auto="off">\(M\)</span> unchanged.</p>
-<p>Changing coefficients while preserving <span
-class="math inline" data-term-auto="off">\(M\)</span> also leaves integrality unchanged. By
-<a class="math-ref" data-equation-ref="true" href="#eq:integer-linear-form">eq:integer-linear-form</a>, the
-remainders of two such vectors differ by an integer. Adding multiples of
-the <span class="math inline" data-term-auto="off">\(U_n\)</span> can simplify the support
-and weighted sums, as in the example; it cannot turn an integral
-remainder into a nonintegral one.</p>
-<p>To exclude every possible denominator, we must instead choose vectors
-whose values of <span class="math inline" data-term-auto="off">\(M\)</span> have the required
-divisibility. There are primitive solutions with <span
-class="math inline" data-term-auto="off">\(0&lt;M&lt;N!\)</span> for which <span
-class="math inline" data-term-auto="off">\(M\)</span> is eventually divisible by any
-prescribed <span class="math inline" data-term-auto="off">\(q\)</span>. The <a
-href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-progression">progression
-construction in the companion</a> gives such a family by turning <span
-class="math inline" data-term-auto="off">\(V_d=0\)</span> into roots of a polynomial. At its
-support endpoint the omitted tail is less than <span
-class="math inline" data-term-auto="off">\(2/N\)</span>, but the gap on the right of <a class="math-ref" data-equation-ref="true" href="#eq:signed-block-gap">eq:signed-block-gap</a> may shrink
-too. To prove irrationality by this test, for each <span
-class="math inline" data-term-auto="off">\(q&gt;0\)</span> we need one vector with <span
-class="math inline" data-term-auto="off">\(q\mid M\)</span> and a cutoff for which <a class="math-ref" data-equation-ref="true" href="#eq:signed-block-gap">eq:signed-block-gap</a> holds.
-Divisibility and a small tail do not by themselves establish that
+class="math inline" data-term-auto="off">\(24/719\)</span>. For any fixed vector with <span
+class="math inline" data-term-auto="off">\(M&gt;0\)</span>, <span
+class="math inline" data-term-auto="off">\(A_N\)</span> increases to <span
+class="math inline" data-term-auto="off">\(\mathcal R\)</span>. If <span
+class="math inline" data-term-auto="off">\(\mathcal R\)</span> is nonintegral, the gap tends
+to a positive number and the test eventually succeeds. If <span
+class="math inline" data-term-auto="off">\(\mathcal R\)</span> is integral, the eventual gap
+equals the omitted tail, so the strict upper-bound test fails. Thus
+moving the cutoff detects nonintegrality; it does not create it or
+change the divisors of <span class="math inline" data-term-auto="off">\(M\)</span> that are
+excluded.</p>
+<p>Nor can a change of coefficients at fixed <span
+class="math inline" data-term-auto="off">\(M\)</span> create nonintegrality: by <a class="math-ref" data-equation-ref="true" href="#eq:integer-linear-form">eq:integer-linear-form</a>, it
+changes the remainder only by an integer. The <span
+class="math inline" data-term-auto="off">\(U_n\)</span> corrections simplify support and
+weighted sums, not the fractional part.</p>
+<p>To exclude every denominator, <span class="math inline" data-term-auto="off">\(M\)</span>
+must vary. The <a
+href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-progression">companion’s
+progression construction</a> turns cancellation into polynomial root
+conditions. It gives primitive vectors (their coefficients have gcd one)
+with <span class="math inline" data-term-auto="off">\(0&lt;M&lt;N!\)</span> and multipliers
+eventually divisible by every fixed <span
+class="math inline" data-term-auto="off">\(q\)</span>. At the support endpoint the tail is
+less than <span class="math inline" data-term-auto="off">\(2/N\)</span>, but the next-integer
+gap may shrink too. The missing step is therefore one comparison for the
+same vector: for each <span class="math inline" data-term-auto="off">\(q&gt;0\)</span>, find
+<span class="math inline" data-term-auto="off">\(q\mid M\)</span> and a cutoff satisfying
+<a class="math-ref" data-equation-ref="true" href="#eq:signed-block-gap">eq:signed-block-gap</a>.
+Neither divisibility nor a vanishing tail bound supplies that
 comparison. No minimal-support assertion is made for this family.</p>
 <p>The companion treats the <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-carry">equivalent carry

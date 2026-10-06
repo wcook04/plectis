@@ -5,7 +5,7 @@
   "subject": "Erdős #1041",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 18,
+  "pages": 19,
   "question": "How does the degree-seven counterexample obstruct short lemniscate connections, and why do trinomials admit them?",
   "precis": "The degree-seven polynomial constructed by ani has all its zeros in the open unit disc, but every connected subset of {|f|<1} containing two zeros has Hausdorff measure greater than two. The proof confines a slit preimage near a critical point and applies radial projection on its two inverse sheets. For monic trinomials with zeros in the open unit disc, the root equation instead keeps every root-to-origin segment inside the lemniscate.",
   "owns": "the degree-seven counterexample and the trinomial connection theorem; the long paper develops critical-value estimates, other subclasses and subsidiary formal checks",
@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "065862ae86e3b045",
-    "source_sha256": "2b8bf3e39333bb39ce0341077aad2a1c7a29f9f728369fa5239412f071115dbc",
+    "source_sha256": "ec43ef8adb90a4e6212002930d785830392a8be23bf2076074c9677245219037",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 501,
+    "mathml_node_count": 570,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "7c21aa5c03db790d3a6e7f423552eee1725b3320bb14153ff7f37dd739664275",
-    "html_exact_tex_sha256": "b82bbeda7ca00e831a3c9c5c374c638cc90c7812daa5fafbd8bd0af4a9d2e5fb"
+    "html_mathml_sha256": "3100e014e32821c4105f77116ac7270b60765fcb134f24e3aaea8e5f1230593e",
+    "html_exact_tex_sha256": "d7d07e5744972a4622cbf6ac5dbf01cc217b36a6f5c7e9bf93444a0ee6427885"
   },
   "sections": [
     {
@@ -66,6 +66,21 @@
       "level": 3,
       "anchor": "the-polynomial",
       "label": "The polynomial"
+    },
+    {
+      "level": 5,
+      "anchor": "putting-the-roots-on-a-circle.",
+      "label": "Putting the roots on a circle."
+    },
+    {
+      "level": 5,
+      "anchor": "resolving-the-critical-points.",
+      "label": "Resolving the critical points."
+    },
+    {
+      "level": 5,
+      "anchor": "identifying-the-two-roots-in-the-component.",
+      "label": "Identifying the two roots in the component."
     },
     {
       "level": 2,
@@ -105,7 +120,7 @@
     {
       "level": 3,
       "anchor": "sec:critical-proximity",
-      "label": "Root distances and component geometry"
+      "label": "Root distances do not ensure containment"
     },
     {
       "level": 3,

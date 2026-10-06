@@ -9,22 +9,25 @@
 <section id="sec:intro" class="level2">
 <h2>Introduction</h2>
 <p>Research continues across sessions, contributors and drafts. The next
-researcher needs to recover which question is open, what has been tried,
-and what supports the claims already published. A formal proof may
-remain correct while an edited explanation drops a hypothesis, or an
-unresolved step is later described as complete. Keeping the proof is
-therefore only part of keeping a usable research record.</p>
-<p>Plectis is the public repository prototype studied here. It stores
-questions, prior sources, computations, proofs and unresolved steps
-alongside proposed contributions and their review. The implemented
-workflow is local to this repository; broader autonomous discovery and
-services for other scientific fields are proposals (Section 9).</p>
-<p>The architecture separates authored research and publication records
-from the tools that inspect them and the indexes and summaries generated
-from them. Researchers and maintainers decide what to investigate and
-what a proposed change justifies. Figure <code>[fig:lifecycle]</code>
-follows the resulting path from research artifacts to publication and
-back through contributions.</p>
+researcher needs more than the latest result: which question remains
+open, why an approach failed, and what justifies the claims already
+published. Even a preserved formal proof leaves room for a later
+explanation to drop a hypothesis or describe an unresolved step as
+complete. A usable research record must retain these distinctions as the
+work changes.</p>
+<p>Plectis supports this work in a public repository. Questions, prior
+sources, computations, proofs and unresolved steps remain available
+alongside proposed contributions and their review. The prototype is a
+local research environment: a researcher or agent chooses what to
+investigate and which tools to invoke. Broader autonomous discovery and
+services for other scientific fields remain proposals (Section 9).</p>
+<p>The architecture separates authored records from derived views and
+separates a tool’s output from a decision to adopt it. A successful
+proof probe can remain a session result; a revised explanation can
+remain a proposal. Acceptance updates the relevant source records, after
+which builders regenerate their indexes and summaries.
+Figure <code>[fig:lifecycle]</code> places these operations within the
+continuing research cycle.</p>
 <p>Erdős Problems supplies the questions and their public discussion,
 while Lean and mathlib supply the formal language and library <span
 class="citation" data-cites="erdosproblems lean4 mathlib"><a href="#ref-1">[1]</a><a href="#ref-11">[11]</a><a href="#ref-76">[76]</a></span>.
@@ -36,68 +39,59 @@ data-cites="etp"><a href="#ref-75">[75]</a></span>. Prove2Me combines human-audi
 source-linked milestones and separately submitted proofs, with
 intermediate results available for other agents to reuse <span
 class="citation" data-cites="prove2me"><a href="#ref-31">[31]</a></span>.</p>
-<p>Publication review follows a paper assertion at a specified revision.
-Its coverage record identifies the printed statement, registered Lean
-supports and their stated relationship. A separate passage record binds
-the explanation to sources and rationale; contribution records retain
-entered review decisions. Together these links make the basis of a
-proposed revision inspectable. Agreement between the records does not
-establish that the prose is true.</p>
-<p>We first describe the stored records, inspection tools and
-contributor responsibilities. A proposed change to a theorem's
-explanation then illustrates the publication checks. The revision and
-contribution workflows show how accepted work returns to the repository.
-Recorded observations and limits distinguish these implemented
-procedures from their unmeasured effects; Appendix B retains the
-mathematical calculation.</p>
+<p>The question is how to keep a publication aligned with its changing
+research record. Assertions, formal supports, explanations and
+acceptance decisions need separate identities and links. Checks detect
+specified disagreements; preserving the mathematics remains a review
+task.</p>
+<p>Section 2 describes the architecture; Sections 3–5 follow an
+explanation change through checking and review. Contributions,
+observations and related systems follow. Appendices A–D cover
+inspection, the worked proof, scope and attribution examples, and
+references grouped by purpose.</p>
 <figure id="fig:lifecycle" data-latex-placement="H">
 
-<figcaption>From accumulated work to a paper and subsequent revision.
-Labels name what passes between the stages; the arrows imply neither
-logical deduction nor automatic approval. The source and evidence
-records support review; they do not establish the intended meaning of
-the prose.</figcaption>
+<figcaption>The research and publication cycle. Arrows label work
+performed on artifacts, not logical implications or automatic approval.
+A reviewed source revision precedes rebuilding and inspection. The
+journal retains explicitly entered returns and decisions; source checks
+do not decide whether an explanation preserves the
+mathematics.</figcaption>
 </figure>
 </section>
 <section id="sec:world" class="level2">
 <h2>A repository organised around problems</h2>
 <section id="stored-records-and-derived-views" class="level3">
 <h3>Stored records and derived views</h3>
-<p>Lean and manuscript files contain the arguments. Claim records state
-selected assertions and what remains open; evidence records identify
-their registered supports; the journal retains entered returns and
-decisions. Builders read these authored files to produce indexes, source
-coordinates and status summaries. The <a
+<p>Files store the research state: Lean and manuscript arguments,
+selected claims and obligations, evidence, entered returns and
+decisions. Indexes, coordinates and status summaries derive from them.
+Freshness checks detect disagreement; builders regenerate views. Neither
+adopts a claim. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/ARCHITECTURE.md"><code>architecture guide</code></a>
-identifies the source of each derived view. A changed summary can
-therefore be investigated at its input record rather than treated as a
-new research result.</p>
-<p>For publication, the coverage ledger identifies a <em>paper
-occurrence</em>: a labelled assertion in a particular manuscript,
-together with its source location and a digest of its statement. The row
-lists its registered Lean supports and their evidence status. Where the
-formal result is stronger than the printed statement, an authored
-relation note explains the correspondence and is bound to both
-statements. The passage ledger used for this systems paper has a
-different purpose: it records explanatory text, cited source spans, an
-evidence class and a rationale. Neither ledger derives the prose from a
-Lean proof.</p>
+identifies each view’s source, where repairs belong.</p>
+<p>The coverage ledger follows a labelled <em>paper occurrence</em>,
+identified by location and statement digest, and lists its registered
+Lean supports and evidence status. A stronger formal result needs an
+authored relation note bound to both statements. The passage ledger
+records explanatory text, cited spans, evidence class and rationale. The
+first asks what supports the statement; the second exposes the
+explanation’s sources for review. Neither generates prose from a
+proof.</p>
 </section>
 <section id="finding-the-relevant-work" class="level3">
 <h3>Finding the relevant work</h3>
-<p>Within each problem collection, a reader may want a proof, a
-counterexample to a proposed extension, or the argument behind a failed
-approach. Exact experiments and corrected references remain beside the
-original question as contributions in their own right. The reader can
-locate these records without first compiling the whole repository. Four
-views answer different parts of that search
+<p>A problem collection retains proofs, counterexamples, exact
+experiments, corrected references and failed approaches, so later work
+can inspect them before choosing another route. Four views provide entry
+points without requiring a full Lean build
 (Figure <code>[fig:world]</code>).</p>
-<p>A declaration is a named Lean definition, theorem or lemma. The
-declaration index locates its source; the dependency index records which
-earlier declarations the selected results use. A separate graph records
-authored interpretations of those declarations and their connections,
-while a claim registry records selected mathematical assertions, their
-status and the obligations still open.</p>
+<p>A <em>declaration</em> is a named Lean definition, theorem or lemma.
+The declaration index locates it; the dependency index follows the
+declarations used by selected results. The interpretation graph adds
+authored accounts of declarations and their connections. The claim
+registry selects assertions for public reporting and records their
+status and remaining obligations.</p>
 <figure id="fig:world" data-latex-placement="htbp">
 <div class="minipage">
 <p><strong>For each problem:</strong> the question and literature, Lean
@@ -108,30 +102,30 @@ record.</p>
 <thead>
 <tr>
 <th class="ta-l">View available without a Lean build</th>
-<th class="ta-l"> What it records</th>
+<th class="ta-l"> Question it answers</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="ta-l">Declaration index</td>
-<td class="ta-l"> Source locations, exhaustive within its
-inventory.</td>
+<td class="ta-l"> Where is the declaration? Source
+locations are exhaustive within the inventory.</td>
 </tr>
 <tr>
 <td class="ta-l">Dependency index</td>
-<td class="ta-l"> Exact dependency edges for the selected
-starting declarations.</td>
+<td class="ta-l"> Which declarations does this result use?
+Exact edges are available for selected starting declarations.</td>
 </tr>
 <tr>
 <td class="ta-l">Interpretation graph</td>
-<td class="ta-l"> Selective, largely contextual accounts of
-declarations and their connections; not an individual reading of every
-proof.</td>
+<td class="ta-l"> How has the work been interpreted?
+Authored accounts are selective and largely contextual, not individual
+proof reviews.</td>
 </tr>
 <tr>
 <td class="ta-l">Claim registry</td>
-<td class="ta-l"> Selected assertions, their status and
-remaining obligations.</td>
+<td class="ta-l"> What is being claimed, with which status
+and open obligations? Only selected assertions have claim records.</td>
 </tr>
 </tbody>
 </table>
@@ -144,19 +138,19 @@ inspect the recorded work. The counts refer to the whole corpus. Source
 locations, dependency edges, interpretations and claim statuses answer
 different questions.</figcaption>
 </figure>
-<p>Starting from a recorded assertion, a reader can therefore locate its
-declarations, follow the recorded dependencies and request the specified
-lines of source needed for a particular question. The declaration index
-is exhaustive within its inventory, and the dependency edges are exact
-for the selected starting declarations. The recorded interpretations are
-selective and largely contextual; they do not document an individual
-reading of every proof. A source link by itself records no successful
-execution. When a question requires a Lean check, the reader can request
-a focused build and inspect its recorded result. </p>
+<p>A reader can start from a claim, locate its declarations, follow the
+recorded dependencies and request the source lines relevant to a
+question. Declaration locations cover the inventory; dependency edges
+are exact for selected starts. Interpretations are selective and largely
+contextual, not records of individual proof review. Lookup locates
+source without recording execution. A Lean check requires a focused
+build and inspection of its result. </p>
 </section>
 <section id="operations-on-the-records" class="level3">
 <h3>Operations on the records</h3>
-<p>The tools provide the following operations:</p>
+<p>The entry points below act on the same repository records. They
+support a research iteration; their order of use is chosen by the
+researcher or agent.</p>
 <div class="center">
 <table>
 <thead>
@@ -170,8 +164,8 @@ a focused build and inspect its recorded result. </p>
 <td class="ta-l">Task routing</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/agent_entry.py"><code>agent_entry.py</code></a>
-maps a stated task to instructions, relevant files and commands; the
-researcher chooses the question and approach.</td>
+maps a stated task to instructions, relevant files and commands. It
+routes a request rather than choosing the research question.</td>
 </tr>
 <tr>
 <td class="ta-l">Evidence retrieval</td>
@@ -184,8 +178,8 @@ indexes.</td>
 <td class="ta-l">Proof sessions</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/proof_workbench.py"><code>proof_workbench.py</code></a>
-records notes and submitted Lean probes, derives verdicts from the Lean
-process, and binds a session claim to an accepted probe.</td>
+stores notes and submitted Lean probes, obtains verdicts from Lean, and
+binds a session claim to an accepted probe.</td>
 </tr>
 <tr>
 <td class="ta-l">Statement evidence</td>
@@ -194,7 +188,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c41
 locates each registered support at the recorded revision and checks its
 source and verification bindings; <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_claim_evidence.py"><code>paper_claim_evidence.py</code></a>
-projects their evidence status and reported gaps.</td>
+derives status and gap reports from those records.</td>
 </tr>
 <tr>
 <td class="ta-l">Editorial exchange</td>
@@ -224,90 +218,86 @@ checks release contracts and freshness.</td>
 <p>A separate self-audit, <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/systems_paper_evidence.py"><code>systems_paper_evidence.py</code></a>,
 checks this systems manuscript’s text and cited source bindings. These
-commands provide the operations; the researcher or agent chooses which
-to invoke. Their presence is not evidence of a successful run or of
-research quality.</p>
-<p>Control remains with the researcher or agent; persistent state
-remains in files. An optional proof session stores notes, exact Lean
-inputs, process-derived probe receipts and a closing outcome. Its claim
-command requires an accepted probe, then appends a session record; it
-does not update the reviewed public claim registry. The research journal
-separately records entered returns and review dispositions, checking
-their sequence and hash chain. These records allow later work to inspect
-earlier inputs and decisions without relying on the original
-conversation.</p>
+are implemented interfaces, not reports that every operation has been
+executed successfully.</p>
+<p>An optional proof session illustrates the boundary between producing
+evidence and adopting a result. It stores notes, exact Lean inputs,
+process-derived receipts and a closing outcome. Its claim command
+requires an accepted probe and appends a session claim; it does not
+alter the reviewed public claim registry. The journal separately checks
+the sequence and hash chain of entered returns and dispositions. Later
+work can therefore inspect recorded inputs and decisions without the
+original conversation.</p>
 </section>
-<section id="researcher-agent-and-maintainer-responsibilities"
-class="level3">
-<h3>Researcher, agent and maintainer responsibilities</h3>
-<p>A researcher chooses the task and the evidence needed to answer it. A
-coding agent can inspect files, invoke tools and prepare a proposed
-change using the public instructions; ordinary written arguments and
-explanations can also be contributed without a clone or an agent. A
-maintainer reviews the claim, attribution and remaining uncertainty
-before adoption. The contributor and reviewer may be the same agent, so
-this division of responsibilities does not establish independent review.
-Public setup and review instructions are in the <a
+<section id="responsibilities-and-adoption" class="level3">
+<h3>Responsibilities and adoption</h3>
+<p>A researcher chooses the question and the evidence needed to answer
+it. An agent can inspect files, run tools and prepare a change under the
+public instructions; a contributor can also send an ordinary argument or
+explanation without a clone or an agent. The maintainer reviews scope,
+attribution and unresolved obligations before adoption. These are
+responsibilities, not necessarily different people or agents:
+contributor and reviewer may coincide. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/agents/README.md"><code>agent quickstart</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CONTRIBUTING.md"><code>contribution guide</code></a>.</p>
-<p>A typical iteration starts by retrieving the work relevant to a
-question. The researcher investigates and submits an argument,
-experiment, correction or manuscript change with its evidence and
-limitations. Review may adopt it, request revision, defer it or reject
-it. Accepted work updates the affected authored records; builders
-regenerate their dependent views, and release checks test those views
-for consistency. The journal preserves dispositions for structured
-returns explicitly entered into it. Ordinary issues, pull requests and
-ideas can enter review without a journal session. Sections 5 and 6
-describe these two contribution routes.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CONTRIBUTING.md"><code>contribution guide</code></a>
+describe setup and review.</p>
+<p>An iteration retrieves relevant work, investigates a question and
+returns an argument, experiment, correction or manuscript change with
+its evidence and limits. Review can adopt, revise, defer or reject the
+proposal. Accepted changes update the authored records; builders
+regenerate dependent views and release checks test consistency.
+Structured returns explicitly entered into the journal retain their
+dispositions. Ordinary issues and pull requests can reach review without
+a journal session (Section 6).</p>
 </section>
 </section>
 <section id="sec:example" class="level2">
 <h2>Worked case: reviewing an explanation</h2>
 <p></p>
-<p>The worked case concerns a theorem about infinite sums of reciprocals
-over a restricted set of positive integer exponents. A base-two weighted
-convergence condition restricts the allowable sets; under it, every
-infinite subset gives an irrational sum at every integer base at least
-two. Removing the condition would assert a solution of a more general
-problem that remains open. Appendix B gives the exact statement and
-calculation.</p>
-<p>Suppose a contributor rewrites this theorem's explanation. Its
-coverage row, <code>res:weighted-support</code> in <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/paper_lean_coverage.json"><code>paper_lean_coverage.json</code></a>,
-identifies the statement in the mathematical paper and two registered
-Lean supports. An explanatory passage in this systems paper is instead
-recorded in the <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/systems_paper_sentences.json"><code>passage ledger</code></a>,
-with sources and a rationale. For the appendix's hereditary conclusion,
-these sources are the ordinary proof and a formal declaration. If the
-contributor drops the weighted hypothesis from that explanation, both
-Lean proofs and both source links can remain unchanged. The reviewer
-must compare the new wording with the cited statements. Section 4
-explains which part of this comparison the tools check.</p>
+<p>The worked case comes from Erdős Problem 257, which asks whether
+every infinite subseries of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mi>/</mi><mn>3</mn><mo>+</mo><mn>1</mn><mi>/</mi><mn>7</mn><mo>+</mo><mn>1</mn><mi>/</mi><mn>15</mn><mo>+</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">1+1/3+1/7+1/15+\cdots</annotation></semantics></math>
+is irrational. The theorem used here proves irrationality under a
+weighted summability condition on the retained exponents, with the same
+conclusion for every infinite subset and every integer base at least
+two. Dropping that condition would claim the unresolved general case.
+Appendix B introduces the series, its antecedents and the proof.</p>
+<p>Consider a contributor revising that explanation. The coverage row
+<code>res:weighted-support</code> in <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/paper_lean_coverage.json"><code>paper_lean_coverage.json</code></a>
+fixes the printed statement and lists two Lean supports. The explanation
+here has a separate <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/systems_paper_sentences.json"><code>passage record</code></a>,
+citing the ordinary proof and a formal declaration. The claim-evidence
+builder derives status or gap reports; the passage checker tests text
+and source bindings.</p>
+<p>Dropping the weighted hypothesis need not change either Lean proof.
+Editing the prose alone makes its passage binding stale; updating the
+binding as well can remove that warning without repairing the claim. The
+reviewer must therefore compare the proposed wording with the cited
+statements. Only after acceptance are the explanation and its record
+integrated and the publication views regenerated. This proposed edit
+illustrates the division of work; it is not a new test run.</p>
 </section>
 <section id="sec:checks" class="level2">
 <h2>Proof and publication checks</h2>
-<p> The example has two registered formal supports
+<p> The two formal supports in the example overlap
 (Figure <code>[fig:theorem]</code>). One gives fixed-base irrationality
-and the all-base conclusion for every infinite subset; the other makes
-the fixed-base hereditary conclusion explicit. Their roles overlap. Here
-the <em>registered support set</em> means the declarations listed for
-this paper occurrence, not every declaration on which their proofs
-depend. The publication check accounts for that full list even when one
-declaration suffices for the clause under discussion. This is a
-record-consistency requirement, not an additional hypothesis of the
-theorem. The resolver also follows any registered named inputs and
-checks the identified source revisions. A result dependent on an
-additional named input retains that dependency; the weighted theorem
-above illustrates a different issue, a restriction within the proved
-statement. A changed statement or source must be checked against its
-records again. Evidence attached to one revision cannot silently support
-another.</p>
-<p>These checks make omissions and changes inspectable.
-Figure <code>[fig:checks]</code> separates them from proof checking and
-from the judgements needed to publish a faithful account.</p>
+and the all-base conclusion for every infinite subset; the other states
+the fixed-base hereditary conclusion explicitly. The <em>registered
+support set</em> is the list attached to this paper occurrence, not the
+dependency closure of those proofs. The publication audit checks the
+full registered list even when one declaration suffices for a particular
+clause. That checks the record; it adds no mathematical hypothesis. The
+resolver follows registered named inputs and checks source revisions. A
+named input is an additional assumed result and must remain visible. By
+contrast, the weighted condition in the example is a hypothesis inside
+the proved statement. Revising either the statement or its source
+requires checking the corresponding records again; evidence for one
+revision cannot silently support another.</p>
+<p>Figure <code>[fig:checks]</code> separates the objects checked
+mechanically from the questions that remain for review.</p>
 <figure id="fig:checks" data-latex-placement="htbp">
 <table>
 <thead>
@@ -333,12 +323,12 @@ set</td>
 declarations and their recorded revisions.</td>
 </tr>
 <tr>
-<td class="ta-l">Sentence and declared source bytes</td>
-<td class="ta-l"> Sentence audit: text and source digests,
+<td class="ta-l">Passage and declared source bytes</td>
+<td class="ta-l"> Passage audit: text and source digests,
 with a recorded rationale.</td>
 </tr>
 <tr>
-<td class="ta-l"><p>Sentence and mathematical
+<td class="ta-l"><p>Passage and mathematical
 meaning</p></td>
 <td class="ta-l"> Author and reviewer judgement about what
 the sources establish.</td>
@@ -367,99 +357,79 @@ intended mathematics or whether the paper describes it well. Comparator
 adds a separately stated challenge and a check of its selected Lean
 implementation under the permitted axioms <span class="citation"
 data-cites="leanfrocomparator nanodalib"><a href="#ref-19">[19]</a><a href="#ref-20">[20]</a></span>.</p>
-<p>Each marked passage in this systems paper has a recorded text,
-specified source lines, an evidence class and a rationale for citing
-those sources. The record groups prose for checking; it need not
-correspond to one grammatical sentence.</p>
-<p>For the appendix's hereditary conclusion, the sources explain why
-restriction to an infinite subset preserves the weighted condition. The
-passage checker compares cryptographic hashes of the marked text and
-declared sources and requires a nonempty rationale. It also rejects
-missing records or unbound passages. It does not assess whether that
-rationale justifies the text.</p>
-<p>Changing the passage alone makes its recorded digest stale. Updating
-its record as well can restore byte agreement while leaving the new
-assertion unsupported. For example, a paraphrase could drop the support
-hypothesis while retaining both correct Lean links in
-Figure <code>[fig:theorem]</code>. A reviewer must compare its
-hypothesis and quantifiers with the source statement. This is an
-illustrative editing failure, distinct from historical edit 8, which
-replaced a limitation by a false completion claim
+<p>Each marked passage in this systems paper has a text record,
+specified source lines, an evidence class and a rationale. A passage may
+contain several sentences or a figure; it is a unit of source checking,
+not a grammatical category.</p>
+<p>For the appendix's conclusion about infinite subsets, the sources
+explain why restriction preserves the weighted condition. The passage
+checker compares cryptographic hashes of the marked text and declared
+sources, rejects missing records or unbound passages, and requires a
+nonempty rationale. It does not assess whether the rationale justifies
+the text.</p>
+<p>A matching digest establishes agreement with recorded bytes. It does
+not establish that the source entails the passage. In the worked
+revision, review must check the hypothesis and quantifiers even if both
+Lean links still resolve. Historical edit 8 tested a different failure:
+an unresolved step was described as complete
 (Table <code>[tab:mutations]</code>).</p>
-<p>An entry in the declaration index with a matching type and a
-reachable source link identifies the recorded source; it does not
-establish that any particular continuous-integration run compiled the
-module. In the recorded design, the checking interface obtains each
-verdict from the specified Lean process, so callers cannot supply
-verdicts through that interface. This interface rule does not prevent an
-actor with filesystem access from changing the implementation or stored
-record. The protocol distinguishes contributor and reviewer roles but
-does not technically force a second independent mathematician. No
-independent human mathematical review of the corpus is recorded.</p>
+<p>Execution is a separate question. A matching declaration type and
+reachable source link do not identify a successful
+continuous-integration run for that module. The probe interface takes
+verdicts from the specified Lean process; callers cannot submit their
+own verdict through it. An actor with filesystem access can still alter
+the implementation or stored record. The protocol distinguishes
+contributor and reviewer roles but does not technically force a second
+independent mathematician. No independent human mathematical review of
+the corpus is recorded.</p>
 </section>
 <section id="sec:paper" class="level2">
 <h2>Publication and revision</h2>
-<p> Publication turns a result into an account a reader can use. The
-short paper states its conditions, explains the decisive step and points
-to the full argument, so the reader can recover both why the conclusion
-holds and where it applies. A dependency graph locates the ingredients.
-Choosing their order and explaining their role require reading the
-argument; the manuscript audit supplies no such judgement. The companion
-paper retains the complete proof and subsidiary cases. A correspondence
-link names the passage supporting each linked short-paper claim, taking
-the reader from explanation to calculation. The assembler inlines the
-companion's authored sections into a flat manuscript, retaining their
-cross-references. It supplies no missing mathematical step. Readers may
-need a hint, a worked example or the full argument. The reading guide
-invites them to reconstruct a decisive step or change a hypothesis, and
-the explanation instructions require an agent to respect the requested
-depth. These are authoring rules; they do not establish that a reader
-has understood the proof.</p>
-<section id="work-assignments-and-review" class="level3">
-<h3>Work assignments and review</h3>
-<p>An integrating agent can alter the live checkout; an advisory agent
-returns proposed changes against supplied sources. The local names Type
-A and Type B denote those two permissions.</p>
-<p>Repository authority and the assigned task are separate choices. The
-task may be mathematical research, proof or claim audit, literature and
-attribution review, or exposition.</p>
-<p>Research returns candidate arguments, an audit returns source-located
-findings, a literature review returns attribution proposals, and
-exposition returns a clearer manuscript; each product has its own review
-and acceptance criteria.</p>
-<p>An exposition assignment preserves the established hypotheses,
-conclusions and evidence status; a suspected mathematical defect is
-returned for a separate audit or research assignment.</p>
-<p>The reviewer compares hypotheses and implication directions with the
-whole statement and all its registered declarations. An ordinary
-argument retains its actual evidence class where formalisation is
-incomplete.</p>
-<p>After acceptance, the integrating reviewer applies changes to the
-owning manuscript sources and updates the affected evidence bindings.
-For an assembled companion, edits belong in its authored sections before
-rebuilding the flat paper. Integration also requires regenerating
-evidence and navigation, then inspecting the compiled pages, figures and
-proof links.</p>
-<p>A writing rule learned from the revision travels with its example and
-limits as a candidate. Its adoption requires a reviewed change to the
-owning writing contract.</p>
+<p> Publication selects from the research record and explains the
+selected result. The short paper states its conditions, makes the
+decisive step intelligible and directs the reader to the full argument.
+A dependency graph can locate the ingredients; it cannot choose their
+explanatory order. That choice requires reading the argument. The
+companion retains the complete proof and subsidiary cases.
+Correspondence links take a short-paper claim to the passage that
+supports it. The assembler inlines authored companion sections into a
+flat manuscript with their cross-references; it supplies no missing
+proof step. The reading guide invites readers to try an example,
+reconstruct a step or vary a hypothesis. The reader chooses the amount
+of help; an explaining agent is instructed to respect the requested
+depth. These authoring choices are not measurements of
+understanding.</p>
+<section id="permissions-and-tasks" class="level3">
+<h3>Permissions and tasks</h3>
+<p>An integrating agent may change the live checkout; an advisory agent
+returns a proposal against supplied sources. The repository calls these
+permissions Type A and Type B.</p>
+<p>Permission to edit does not determine the task. Either assignment can
+concern research, proof or claim audit, literature and attribution, or
+exposition.</p>
+<p>The expected product differs: a candidate argument, a source-located
+finding, an attribution proposal or a revised manuscript. Each needs the
+corresponding review.</p>
+<p>Exposition preserves established hypotheses, conclusions and evidence
+status. A suspected mathematical defect is returned for a separate audit
+or research assignment.</p>
 </section>
-<section id="proposing-and-reviewing-a-revision" class="level3">
-<h3>Proposing and reviewing a revision</h3>
-<p>A revision begins by collecting candidate results, antecedents,
-difficult proof transitions and unresolved questions with their source
-locations. The author decides which argument deserves the short paper;
-the checker audits source consistency and the specified manuscript
-rules. The exchange freezes selected manuscripts, required inputs, the
-coverage ledger and audit rules under a manifest of their exact bytes.
-Writer and integrating reviewer can therefore identify the same starting
-sources.</p>
-<p>An advisory model can return a proposal against those sources; a
-tool-enabled agent can prepare it in a checkout. In either case the
-integrating reviewer decides whether the mathematics and its description
-remain faithful. The public writer’s packet declares which manuscript
-paths may change and supplies its evidence records and checking tools as
-read-only inputs.</p>
+<section id="from-frozen-inputs-to-an-accepted-revision" class="level3">
+<h3>From frozen inputs to an accepted revision</h3>
+<p>The writer first identifies the result, its antecedents, the
+difficult explanatory step and the unresolved questions, with source
+locations.</p>
+<p>Selection remains an authorial decision; the manuscript checker tests
+source consistency and declared rules.</p>
+<p>The exchange freezes selected manuscripts, required inputs, coverage
+records and audit rules under a manifest of their file digests. Writer
+and integrating reviewer then work from identifiable starting bytes,
+including any selected uncommitted changes.</p>
+<p>An advisory model may work from that packet; a tool-enabled agent may
+prepare a proposal in a checkout. The packet identifies editable
+manuscript paths and read-only evidence and tools. Both routes return
+proposed changes for the same review of mathematical scope, wording and
+credit.</p>
 <figure id="fig:refinement" data-latex-placement="H">
 
 <figcaption>The exposition workflow, read in numerical order, with the
@@ -468,36 +438,50 @@ step 3; only accepted changes proceed to integration. The steps name
 responsibilities, which may be performed by the same agent. Rendering
 and inspection remain separate from source checks.</figcaption>
 </figure>
-<p>Before that decision, the return checker tests packet identity,
-permitted paths, declared statement changes and retained labels,
-citation keys and bibliography entries. It audits the proposed
-manuscript in a temporary copy of the frozen sources, leaving the live
-repository unchanged. It neither applies the proposal nor executes
-returned programs. Declaring a statement change makes the review
-obligation explicit; it does not discharge it.</p>
+<p>The return checker verifies packet identity and permitted paths,
+accounts for statement changes, and checks retained labels, citation
+keys and bibliography entries. It audits the proposed manuscript in a
+temporary copy of the frozen sources, leaving the live repository
+unchanged.</p>
+<p>It neither applies changes nor executes returned programs. A declared
+statement change remains an explicit review obligation.</p>
+<p>The reviewer then checks the whole statement, its hypotheses and
+implication directions against all registered supports. An ordinary
+argument keeps its actual evidence class wherever formalisation is
+incomplete.</p>
+<p>After acceptance, the integrating reviewer edits the owning sources
+and updates affected evidence bindings. For an assembled companion, the
+authored sections are edited before rebuilding the flat paper.
+Integration then regenerates evidence and navigation and includes
+inspection of the compiled pages, figures and proof links.</p>
+</section>
+<section id="retaining-improvements" class="level3">
+<h3>Retaining improvements</h3>
+<p>A reusable writing lesson is a separate proposal, with an example and
+limits. Adopting it requires a reviewed change to the writing
+contract.</p>
 <p>The packet and audit stages in Figure <code>[fig:refinement]</code>
 are implemented by <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/short_paper_writer.py"><code>short_paper_writer.py</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_refinement.py"><code>paper_refinement.py</code></a>.</p>
-<p>A return has two possible lasting effects: accepted text changes the
-paper; an accepted general lesson changes the guidance supplied to later
-writers. The latter needs its own review, so a local improvement can be
-retained without becoming a new rule. This process revises documents and
-instructions, not model weights. The procedure supplies no measurement
-of reader benefit or autonomous discovery.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_refinement.py"><code>paper_refinement.py</code></a>.
+A return can change the paper without changing the rules for later
+writers. Accepted lessons revise documents and instructions, not model
+weights; the procedure itself measures neither reader benefit nor
+autonomous discovery.</p>
 </section>
 </section>
 <section id="sec:contribute" class="level2">
 <h2>An open route for contributions</h2>
-<p> A contributor may send a mathematical idea or reference without a
-clone, or return a patch from a recorded public commit. For executable
-work the return identifies the changed files, commands, results,
-resource use and surviving limitations, with the people and tools
-responsible. Figure <code>[fig:contribute]</code> separates the proposed
-change from replay, review and adoption. The return protocol calls for
-reproduction at the submitted base before reconciliation with current
-main, with separate credit for a substantive integration repair.</p>
+<p> The same review boundary applies to contributions beyond exposition.
+An idea or reference needs no clone; a patch identifies the public
+commit on which it was prepared. An executable return includes changed
+files, commands and results, resource use, surviving limitations, and
+credit for the people and tools involved.
+Figure <code>[fig:contribute]</code> follows both entry routes through
+triage and adoption. The protocol asks reviewers to reproduce executable
+evidence at the submitted base before reconciling it with current main,
+and to credit a substantive integration repair separately.</p>
 <figure id="fig:contribute" data-latex-placement="H">
 
 <figcaption>Two entry routes and three possible review outcomes.
@@ -505,43 +489,48 @@ Repository adoption applies to mathematical and methodological
 contributions; it establishes neither independent review nor acceptance
 by the wider mathematical community.</figcaption>
 </figure>
-<p>The research journal records explicitly entered returns and
-dispositions in an append-only, hash-linked history, while a correction
-may withdraw something previously endorsed. Ordinary issues and pull
-requests need not become journal events. Discovery investigates a
-question, while stewardship compares the return with prior work, groups
-related results, reconciles affected papers and selects the next
-question. A changed result or appraisal can prompt another task. The
-public workbench leaves that choice to the researcher or agent; the
-journal records entered decisions and does not schedule further
-research. The journal preserves the entered return and its recorded
-disposition. Judging what was learned requires comparison with earlier
-work and inspection of the returned evidence.</p>
-<p>Generalising a local result requires a separate literature and
-library comparison, a proof of the proposed extension, and a second
-useful instance before an expert takes it to an upstream project <span
-class="citation" data-cites="mathlibcontrib"><a href="#ref-100">[100]</a></span>. That route is not
-automated and has produced no reported Mathlib contribution in the
-supplied record. We distinguish credit for an idea from credit for its
-implementation, formalisation or exposition, using CRediT as a role
-vocabulary rather than an authorship decision <span class="citation"
-data-cites="credit"><a href="#ref-104">[104]</a></span>. Later use adds an attributed dependency or
-correction, with neither a scalar impact score nor a financial contract
-inferred from that entry. A new problem collection likewise needs a
-sourced question, explicit status, inspection routes and a review owner,
-which must still be assembled in several steps.</p>
+<p>For explicitly entered returns, the journal preserves an append-only,
+hash-linked sequence of dispositions. A later correction can withdraw an
+earlier endorsement without erasing that history. Ordinary issues and
+pull requests need not become journal events. Research investigates the
+question; stewardship compares a return with prior work, groups related
+results, reconciles affected papers and identifies what to investigate
+next. The researcher or agent chooses that next task. The public journal
+records entered decisions and does not schedule research. To decide what
+was learned, a later reviewer must compare the return with earlier work
+and inspect its evidence; a recorded disposition alone cannot supply
+that assessment.</p>
+<p>The repository’s proposed route from a local result to an upstream
+library includes a literature and library comparison, a proof of the
+extension and a second useful instance before expert submission <span
+class="citation" data-cites="mathlibcontrib"><a href="#ref-100">[100]</a></span>. This route is not
+automated, and the supplied record reports no Mathlib contribution from
+it. Credit distinguishes an idea from its implementation, formalisation
+and exposition. CRediT supplies a vocabulary for roles, not an
+authorship decision <span class="citation" data-cites="credit"><a href="#ref-104">[104]</a></span>.
+An attributed dependency or correction can record later use; it implies
+neither a scalar impact score nor a financial contract. Opening another
+problem collection still requires assembling a sourced question,
+explicit status, inspection routes and a review owner.</p>
 </section>
 <section id="sec:instance" class="level2">
 <h2>Recorded observations</h2>
-<p> The frozen inventory contains 689 paper occurrences, of which 640
+<p></p>
+<section id="inventory-and-formal-support-status" class="level3">
+<h3>Inventory and formal-support status</h3>
+<p>The frozen inventory contains 689 paper occurrences, of which 640
 have exact or specialising Lean support; 23 depend on a named input and
 26 have no recorded Lean support. Of the 640 exact-or-specialising
-occurrences, 616 are recorded as compared and 24 as queued. These counts
-classify statement occurrences. Exact and specialising support match a
-paper statement directly or establish it by specialization. Named-input
-entries retain an additional assumed result; an entry without Lean
-support may still have an ordinary mathematical proof. Neither group is
-counted among the fully covered entries.</p>
+occurrences, 616 are recorded as compared and 24 as queued. These are
+occurrence counts, not counts of distinct theorems or independently
+reviewed proofs. Exact support matches the printed statement;
+specialising support yields it by specialization. Named-input entries
+retain an additional assumed result. An entry without Lean support may
+have an ordinary proof; neither of these last two groups is counted as
+fully covered.</p>
+</section>
+<section id="historical-false-edit-trial" class="level3">
+<h3>Historical false-edit trial</h3>
 <p>The historical publication-evidence record reports that nine of the
 ten deliberately false edits were rejected and one escaped. The edits
 were authored by the checker’s author, the original run logs were not
@@ -638,29 +627,34 @@ The false completion clause passed all recorded checks.</p>
 Baseline accepted, edit 8 rejected; the other nine edits were not
 rerun.</p>
 </div>
-<p>After the escape, the follow-up checked the intact baseline and that
-particular edit against an added check, leaving the other edits untested
-under the repair and supplying no post-repair ten-of-ten result. In that
-recorded follow-up, the post-repair witness accepts the current README
-and rejects a test copy containing the false clause. The sample comes
-from one corpus and one author's selection of errors, with neither a
-manual-review control nor an ordinary continuous-integration comparator.
-The study locates a coverage boundary. Its nine rejections do not
-estimate how reliable the checker is.</p>
+<p>The follow-up tested the intact baseline and only the escaped edit
+against an added check. It supplies no post-repair ten-of-ten result. In
+that recorded follow-up, the post-repair witness accepts the current
+README and rejects a test copy containing the false clause. The trial
+uses one corpus and the checker’s own selection of errors, with no
+manual-review control or ordinary continuous-integration comparator. The
+study locates a coverage boundary. Its nine rejections do not estimate
+how reliable the checker is.</p>
+</section>
+<section id="local-integration-and-unperformed-reader-evaluation"
+class="level3">
+<h3>Local integration and unperformed reader evaluation</h3>
 <p>On 23 September 2026, a maintainer-operated agent accepted one
 architecture handoff into a local integration history after focused
 checks of return routing and architecture packaging. The contributor and
 reviewer were the same agent. The receipt records no public pull
 request, human review or independent outside clone replay.</p>
-<p>For readers, the proposed comparison holds the mathematical task
-fixed and contrasts an ordinary repository, an information-equivalent
-static briefing and the navigation tools. It would record understanding,
-severe errors and the costs of preparation, use, review and repair,
-including missing returns, timeouts and disagreements. No independent
+<p>A proposed reader study would hold the mathematical task fixed and
+compare an ordinary repository, an information-equivalent static
+briefing and the navigation tools. It would measure understanding and
+severe errors alongside preparation, use, review and repair costs,
+retaining missing returns, timeouts and disagreements. No independent
 writing comparison, blind grading run or cold-reader experiment is
-reported here, and no comparative reader result is reported. General
+reported, so there is no comparative reader result. The records above
+document inventory, a checker failure and one local integration; general
 reliability, reader understanding and mathematical transfer remain
 unmeasured.</p>
+</section>
 </section>
 <section id="sec:related" class="level2">
 <h2>Related work</h2>
@@ -669,7 +663,7 @@ work it lets contributors perform. Lean and mathlib provide formal
 statements, proofs and a maintained library; blueprints connect
 declarations to exposition <span class="citation"
 data-cites="lean4 mathlib leanblueprint"><a href="#ref-11">[11]</a><a href="#ref-76">[76]</a><a href="#ref-35">[35]</a></span>. Prove2Me provides a
-more direct comparison for agent-assisted collaboration. Appendix C
+more direct comparison for agent-assisted collaboration. Appendix D
 retains the wider source map.</p>
 <section id="prove2me." class="level5">
 <h5>Prove2Me.</h5>
@@ -714,39 +708,38 @@ contributions and donated compute <span class="citation"
 data-cites="polymath boinc gimps"><a href="#ref-99">[99]</a><a href="#ref-97">[97]</a><a href="#ref-98">[98]</a></span>, while the Carleson blueprint
 shows formalisation organised into publicly claimable tasks <span
 class="citation" data-cites="carleson"><a href="#ref-87">[87]</a></span>.</p>
-<p>Our fixed-order regeneration and freshness checks address the
-build-system problem of keeping derived views consistent with their
-inputs <span class="citation" data-cites="buildsystems"><a href="#ref-48">[48]</a></span>. The
-implementation runs an explicit ordered list of builders, then checks
-the resulting views; it is not a general incremental scheduler. Source
-bindings and the journal record artifact provenance, including the
-inputs and revision to which a claim or entered return refers. These
-records serve inspection and reproducibility, with research efficiency
-and semantic correctness left to separate evaluation.</p>
+<p>The regeneration tools address the familiar build-system problem of
+keeping derived outputs consistent with their inputs <span
+class="citation" data-cites="buildsystems"><a href="#ref-48">[48]</a></span>. They run an explicit
+ordered list of builders and then check the resulting views; this is not
+a general incremental scheduler. Source bindings and the journal add
+provenance for assertions and entered returns at particular revisions.
+Together these mechanisms make dependencies and changes available for
+inspection. Their effect on research efficiency and semantic correctness
+needs separate evaluation.</p>
 </section>
 </section>
 <section id="sec:limits" class="level2">
 <h2>Limits</h2>
-<p> This paper reports no comparative formalisation result or
-autonomous-optimisation experiment. Transfer to unseen mathematics and
-understanding by independent human readers are unresolved. The record
-supplies no controlled evidence that the contribution machinery improves
-the conversion from compute to mathematics or increases discovery rate.
-It also supplies no evidence that a new project can adopt the
-architecture cheaply or that an agent using it outperforms one using a
-good README. Full environment scans and initial builds still have costs,
-and an open corpus cannot establish that a model has never encountered
-its material.</p>
-<p>The project remains maintainer-centred, with scarce review capacity
-and contestable credit; openness alone does not equalise resources or
-resolve conflicts and appeals. Broad mathematical acceptance is
-exogenous to this repository and cannot be granted by its maintainer.
-Returned code is untrusted, and expensive or privileged
-continuous-integration jobs must not execute fork code with repository
-secrets <span class="citation" data-cites="githubsecurity"><a href="#ref-105">[105]</a></span>. A
-volunteer-compute service and extensions to physical science remain
-proposals requiring their own validation, resource and safety
-governance.</p>
+<p> The prototype establishes a set of implemented record and review
+operations, with the limited observations in Section 7. It reports no
+comparative formalisation result or autonomous-optimisation experiment.
+Transfer to unseen mathematics and understanding by independent readers
+require direct evaluation. In particular, no controlled comparison shows
+that the contribution process converts compute into useful mathematics
+more effectively or increases discovery rate. There is also no evidence
+of inexpensive adoption by a new project or an advantage over an agent
+using a good README. Full scans and initial builds still have costs, and
+an open corpus cannot rule out prior model exposure to its contents.</p>
+<p>Governance remains maintainer-centred. Review capacity is scarce and
+credit is contestable; openness alone does not equalise resources or
+resolve appeals. Repository adoption cannot confer acceptance by the
+wider mathematical community. Returned code is untrusted, and expensive
+or privileged continuous-integration jobs must not execute fork code
+with repository secrets <span class="citation"
+data-cites="githubsecurity"><a href="#ref-105">[105]</a></span>. A volunteer-compute service and
+extensions to physical science remain proposals requiring their own
+validation, resource and safety governance.</p>
 <p>The Advisory Group on Mathematics and Artificial Intelligence at IAS
 recommends distinguishing papers fully understood by a responsible
 mathematician from AI output that its human prompters do not understand,
@@ -759,158 +752,251 @@ process.</p>
 records described here <span class="citation"
 data-cites="agmai2026"><a href="#ref-10">[10]</a></span>: the short paper and companion paper
 explain and attribute the argument, the paper-to-Lean ledger records
-formal correspondence and its limits, and the challenge files and
-generated <code>formalization.yaml</code> expose the comparison inputs.
-Those records make the result inspectable; they do not certify a
-mathematician’s understanding. The architecture alone does not establish
-complete per-result model, prompt, time and cost disclosure, an account
-of campaign-wide selection and unsuccessful attempts, or an independent
-scholarly deposit. The further recommendations on funding community-led
-understanding and equitable model access address AI laboratories; this
-prototype does not demonstrate those institutional outcomes.</p>
-<p>The present contribution is an inspectable route through the records:
-a reader can recover the hypothesis, argument and support of a stated
-result, and identify where a source check ends and mathematical review
-begins.</p>
+formal correspondence and its limits, and the files prepared for formal
+comparison identify its inputs. Those records make the result
+inspectable; they do not certify a mathematician’s understanding. The
+architecture alone does not establish complete per-result model, prompt,
+time and cost disclosure, an account of campaign-wide selection and
+unsuccessful attempts, or an independent scholarly deposit. The further
+recommendations on funding community-led understanding and equitable
+model access address AI laboratories; this prototype does not
+demonstrate those institutional outcomes.</p>
+<p>The contribution is an inspectable record from which to recover a
+claim’s conditions, argument and limits, then submit a correction or
+extension against identified sources. Checks preserve specified links;
+review decides what the work justifies. Revision requires both.</p>
 </section>
 <section id="app:repro" class="level2">
-<h2>Inspection and reproduction</h2>
-<p>The initial unified manuscript was prepared from the frozen packet at
-<code>ced96e58b337</code>, a local integration commit rather than public
-main. A 29 September state report lists this manuscript as
-<em>Problem-Sized Lean Worlds</em>. Repository links in this revision
-use commit <code>992cf60a27ef</code>; the Comparator links below
-identify their separate recorded runs. No new Lean or Comparator run was
-performed for this revision. This paper supersedes <em>From a Cold Clone
-to a Proof Receipt</em> and <em>From Spare Compute to Cumulative
-Mathematics</em>. Their manuscripts remain available as historical
-accounts of navigation, proof-check records, contribution protocol and
-governance.</p>
-<section id="earlier-design-accounts-and-current-status" class="level3">
-<h3>Earlier design accounts and current status</h3>
+<h2>Reading the materials and reproducing checks</h2>
+<p>The materials support reading a result, inspecting its records and
+rerunning checks. Reading requires no Lean installation; proof replay
+requires the recorded sources and matching Lean environment. The routes
+below separate document checks from reproduced proofs.</p>
+<section id="read-a-result-and-follow-its-sources" class="level3">
+<h3>Read a result and follow its sources</h3>
+<p>The <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/READING_GUIDE.md">reading
+guide</a> routes readers through one problem or across the papers,
+including <em>Reading Eight Erdős Problems Together</em> <span
+class="citation" data-cites="synthesis"><a href="#ref-17">[17]</a></span>. Read a result’s short
+paper, then follow its argument, attribution and formal-support
+references. Agents can use <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/AGENTS.md">agent
+instructions</a> and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/agents/AGENT_WORKBENCH.md">workbench’s</a>
+optional proof sessions. Corrections follow the <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CONTRIBUTING.md">contribution
+guide</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/research-commons/CREDIT_POLICY.md">credit
+policy</a>.</p>
+</section>
+<section id="inspect-the-records-and-rerun-document-checks"
+class="level3">
+<h3>Inspect the records and rerun document checks</h3>
+<p>The <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/publication_evidence.json">experiment
+record</a> contains the ten-edit matrix and limited follow-up in
+Section 4. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/publication_contract.json">publication-check
+specification</a> identifies required checks. These structured files
+trace evidence; they do not replace the paper’s explanation.</p>
+<p>From a complete public checkout, run:</p>
+<blockquote>
+<p><code>python3 scripts/systems_paper_evidence.py</code><br />
+<code>python3 scripts/build_systems_paper_counts.py</code></p>
+</blockquote>
+<p>The first checks passage-to-source links and content hashes; the
+second compares the generated inventory with its records. Success
+establishes agreement, not the correctness of an explanation.</p>
+<p>For proof replay, the <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/lean/Erdos249257.lean">Lean
+entry file</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/.github/workflows/lean.yml">CI
+workflow</a> identify build entry points. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/claims.json">claim
+register</a> lists curated assertions; <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/check_release.py">release
+checks</a> cover wider publication requirements. Use the result’s
+recorded revisions and environment.</p>
+<p>A writing packet contains manuscripts, selected records and
+inspection tools, but no Lean tree. It supports document checks, not a
+full Lean, Comparator or release rerun.</p>
+</section>
+<section id="locate-the-formal-supports-of-the-worked-example"
+class="level3">
+<h3>Locate the formal supports of the worked example</h3>
+<p>For the weighted criterion in Appendix B, the <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/paper_lean_coverage.json">paper-to-Lean
+coverage record</a> identifies two formal supports: a weighted criterion
+and a version whose conclusion explicitly covers every infinite subset.
+Figure <code>[fig:theorem]</code> shows the recorded links. The exact
+declaration names are provided for readers locating them in Lean.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> These entries support the stated
+conclusion; they do not assert line-by-line agreement between the
+ordinary proof and the Lean proofs.</p>
+<p>The recorded Comparator runs are the <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144">first
+comparison run</a> and the <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171">second
+comparison run</a>. Comparator checks a formal result against a
+separately stated challenge. These records concern the specified formal
+statements, not the historical attribution or the correctness of this
+paper’s explanation.</p>
+<p>The reciprocal-summability criterion attributed to Erdős in
+Appendix B has its own <a
+href="https://github.com/wcook04/plectis-erdos/blob/7308896010e6b527d283dfdd0687a717a6183fb6/lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean">formal
+proof</a>, also recorded in the second comparison run.<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Both runs are recorded as compared. Palomar entries are prepared, not
+submitted; comparison does not establish registry acceptance.</p>
+<figure id="fig:theorem" data-latex-placement="htbp">
+
+<figcaption>The arrows show recorded support links, not proof
+dependencies. The audit checks both listed supports even where their
+mathematical roles overlap. The support hypothesis still needs
+explanation. The false paraphrase is illustrative, distinct from
+historical edit 8 in Table <code>[tab:mutations]</code>.</figcaption>
+</figure>
+</section>
+<section id="interpret-the-recorded-inventory" class="level3">
+<h3>Interpret the recorded inventory</h3>
+<p>The recorded inventory counts occurrences of paper statements, rather
+than distinct new theorems. Its 689 entries comprise 498 with
+exact-or-stronger formal support, 142 obtained by specialising a formal
+result, 23 linked to a named formal ingredient only, and 26 with no
+registered Lean support. The last two categories do not certify the
+whole paper statement.</p>
+<p>The contribution journal records 7 rounds and 25 returned
+contributions at the recorded journal revision.<a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Of
+the rounds, 2 are sealed, meaning no further arrivals are expected. Of
+the returns, 18 have been admitted for integration and 7 remain
+unreviewed; admission does not itself record integration. Earlier
+private-history rounds do not constitute a complete public journal.</p>
+<p>Explanatory text is recorded for 139,818 of the 152,386 authored
+theorem-like declarations (91.8%). Most of these descriptions provide
+surrounding context. This inventory measures the presence of recorded
+interpretations, not individual proof review or demonstrated reader
+understanding.</p>
+</section>
+<section id="identify-the-version-and-the-earlier-design-accounts"
+class="level3">
+<h3>Identify the version and the earlier design accounts</h3>
+<p>Repository links in this paper identify fixed file versions, so that
+a reader can inspect the material cited even if the working repository
+later changes. Unless a link states otherwise, its revision is
+<code>992cf60a27ef</code>; the Comparator runs identify their own
+inputs. No new Lean or Comparator run was performed for this
+revision.</p>
+<p>For archival identification, the initial unified manuscript was
+prepared from the frozen packet at <code>ced96e58b337</code>, a local
+integration commit rather than public main. The 29 September state
+report lists it under the earlier title <em>Problem-Sized Lean
+Worlds</em>.</p>
+<p>This paper supersedes the two earlier design accounts described
+below. Cite a mathematical result by the paper and version actually
+used; cite repository software using its <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CITATION.cff">software
+citation record</a> at the chosen commit or release tag.</p>
 <p><em><a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/systems/cold-clone-to-proof-receipt.tex"><code>From a Cold Clone to a Proof Receipt</code></a></em>
-(August 2026) explains the declaration, dependency, interpretation and
-claim views and the optional recorded proof session. The current task
-entry and the inspected implementation are described in Section 2; the
-earlier paper’s inventory and audit figures belong to its dated
-snapshot.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/systems/cold-clone-to-proof-receipt.tex">From
+a Cold Clone to a Proof Receipt</a></em> (August 2026) describes the
+declaration, dependency, interpretation and claim views and the optional
+recorded proof session. Its counts and audit figures belong to that
+snapshot; Section 2 describes the current task entry and inspected
+implementation.</p>
 <p><em><a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/systems/open-source-mathematics-strategy.tex"><code>From Spare Compute to Cumulative Mathematics</code></a></em>
-(September 2026) explains contribution roles, original-base
-reproduction, later integration and role credit. Section 6 describes the
-current public return procedure and distinguishes ordinary submissions
-from explicitly entered journal events. Volunteer-compute services,
-inexpensive adoption by new laboratories and improvements in discovery
-rate remain proposals or unmeasured outcomes. These two manuscripts are
-historical design sources, not additional current system
-specifications.</p>
-<p>The weighted row in <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/paper_lean_coverage.json"><code>docs/paper_lean_coverage.json</code></a>
-names <code>divisibilityWeightedClaim</code> and
-<code>finitePrimeWeighted_fixedBase_hereditary</code>, in namespace
-<code>ErdosProblems.Erdos257.PaperCompleteR8</code>. Appendix B follows
-the ordinary proof in <span class="citation"
-data-cites="paper257"><a href="#ref-2">[2]</a></span>; these entries record formal support for
-the conclusion, not a line-by-line comparison of that argument with the
-Lean proofs. Its Comparator records are <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144">run
-35544127144</a> and <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171">run
-35624228171</a>; the latter also records
-<code>PalomarCorpus/E257av</code> for the reciprocal antecedent. Both
-runs are recorded as compared; Palomar is prepared and not
-submitted.</p>
-<p>For Erdős’s reciprocal-summability criterion, the formal declaration
-is <a
-href="https://github.com/wcook04/plectis-erdos/blob/7308896010e6b527d283dfdd0687a717a6183fb6/lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean"><code>Erdos249257.irrational_erdosSupportSeries_of_summable_reciprocal</code></a>,
-with Comparator entry <code>PalomarCorpus/E257av</code> recorded as
-compared.</p>
-<p>The four declarations supporting the reported 1041 refutation have
-namespace <code>Erdos1041.Counterexample</code>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/lean/ErdosProblems/Erdos1041/Counterexample/Assembly.lean"><code>erdos1041_counterexample</code></a>,
-and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean"><code>HausdorffLength.lean</code></a>
-declarations <code>erdos1041_counterexample_hausdorff</code>,
-<code>erdos1041_hausdorff_negation</code> and
-<code>erdos1041_hausdorff_answer_false</code>. The coverage row gives
-exact-or-stronger Lean support, with Comparator pending.</p>
-<p>In a complete checkout,
-<code>python3 scripts/systems_paper_evidence.py</code> checks this
-paper's source bindings, and
-<code>python3 scripts/build_systems_paper_counts.py</code> checks the
-generated inventory. The record at <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/publication_evidence.json"><code>docs/publication_evidence.json</code></a>
-holds the historical matrix and the limited follow-up, while <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/publication_contract.json"><code>docs/publication_contract.json</code></a>
-declares the publication checks. Formal entry points include <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/lean/Erdos249257.lean"><code>Erdos249257.lean</code></a>
-and <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/.github/workflows/lean.yml"><code>.github/workflows/lean.yml</code></a>;
-the curated assertions are in <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/claims.json"><code>docs/claims.json</code></a>,
-and <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/check_release.py"><code>scripts/check_release.py</code></a>
-runs the release gate. The public writer’s native packet freezes
-manuscript inputs, selected records and the tools used to inspect them;
-its input list does not include a Lean source tree. Source-binding
-validation does not replay Lean, Comparator or the full repository
-release checks.</p>
-<p>The protected snapshot partitions 689 occurrences into 498 exact, 142
-specialising, 23 named-input and 26 unsupported-by-Lean entries. The
-journal summary at head <code>d3ad85269386</code> records 7 rounds (2
-sealed), 25 returns (18 admitted and 7 unreviewed); earlier
-private-history rounds are not a complete public journal. The
-interpretation inventory covers 139,818 of 152,386 authored theorem-like
-declarations (91.8%). These are selective, largely contextual
-interpretations, not individually reviewed proofs. Public reading starts
-at the <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/READING_GUIDE.md"><code>reading guide</code></a>.
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/AGENTS.md"><code>Agent instructions</code></a>
-route source inspection, explanation and reproduction; the <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/agents/AGENT_WORKBENCH.md"><code>workbench guide</code></a>
-describes optional recorded sessions. <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CONTRIBUTING.md"><code>Contributing</code></a>
-and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/research-commons/CREDIT_POLICY.md"><code>credit policy</code></a>
-govern returns. Cite repository software using <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CITATION.cff"><code>CITATION.cff</code></a>
-at the chosen commit or release tag; cite mathematical results by the
-paper and version actually used.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/systems/open-source-mathematics-strategy.tex">From
+Spare Compute to Cumulative Mathematics</a></em> (September 2026)
+describes contribution roles, reproduction against the original inputs,
+subsequent integration and role credit. Section 6 gives the current
+procedure. The earlier paper’s volunteer-compute services, inexpensive
+adoption by new laboratories and increased discovery rate remain
+proposals or unmeasured outcomes. These manuscripts explain the design’s
+history; they are not additional current specifications.</p>
 </section>
 </section>
 <section id="app:worked-proof" class="level2">
-<h2>Calculation for the worked theorem</h2>
-<p>For an infinite set
+<h2>The mathematical example: a criterion for irrationality</h2>
+<p>Section 3 used a theorem whose explanation could become false by
+losing a hypothesis. Following the Problem 257 paper <span
+class="citation" data-cites="paper257"><a href="#ref-2">[2]</a></span>, this appendix introduces
+the series and earlier work, states the weighted criterion, gives an
+example of its reach, and explains the averaging proof. Each part
+identifies information that a faithful summary must retain. The
+formal-support records are in Appendix A; the calculation is optional
+for readers interested only in the system.</p>
+<section id="the-question-and-its-antecedents" class="level3">
+<h3>The question and its antecedents</h3>
+<p>Begin with the series
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><mn>7</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><mn>15</mn></mfrac><mo>+</mo><mi>⋯</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>a</mi><mo>=</mo><mn>1</mn></mrow><mo accent="false">∞</mo></munderover><mfrac><mn>1</mn><mrow><msup><mn>2</mn><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">1+\frac13+\frac17+\frac1{15}+\cdots
+ =\sum_{a=1}^{\infty}\frac1{2^a-1}.</annotation></semantics></math> An
+infinite subseries retains the terms whose exponents belong to an
+infinite set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-of positive integers and an integer
+of positive integers. We call
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+the <em>support</em>: it specifies which terms are present. To allow
+other integer bases
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>,
 write
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mn>1</mn><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">X_A(b)=\sum_{a\in A}\frac1{b^a-1}.</annotation></semantics></math>
-The question is when a condition on the exponents forces this number,
-and the corresponding sum over every infinite subset
-of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
-to be irrational.</p>
-<p>The condition below rewards exponents divisible by large powers of a
-fixed collection of primes. For the prime
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
-alone, the relevant part of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><msup><mn>2</mn><mi>k</mi></msup><mi>m</mi></mrow><annotation encoding="application/x-tex">a=2^km</annotation></semantics></math>,
+These series converge by comparison with a geometric series. The
+question concerns their arithmetic value: can an infinite choice of
+retained terms have a rational sum?</p>
+<p>Problem 257 asks whether
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_A(2)</annotation></semantics></math>
+is irrational for every infinite
+support <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>.
+The weighted theorem below gives a sufficient condition
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>;
+it does not settle that unrestricted question <span class="citation"
+data-cites="paper257 erdosproblems"><a href="#ref-2">[2]</a><a href="#ref-1">[1]</a></span>.</p>
+<p>Erdős proved the all-base irrationality conclusion for pairwise
+coprime exponents satisfying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}1/a&lt;\infty</annotation></semantics></math>.
+He also stated that coprimality could be removed, without supplying the
+details <span class="citation" data-cites="erdos1968"><a href="#ref-3">[3]</a></span>. The
+Problem 257 paper gives a direct proof of that stated extension, as well
+as the weighted criterion used here <span class="citation"
+data-cites="paper257"><a href="#ref-2">[2]</a></span>.</p>
+<p>Duverney and Tachiya provide a methodological antecedent: they choose
+an arithmetic progression by congruences and use averaging to control
+the remaining contribution <span class="citation"
+data-cites="duverneytachiya"><a href="#ref-4">[4]</a></span>. The Problem 257 paper credits that
+selection method. Its weighted proof uses an additional average over
+progression lengths, which recovers a factor needed to sum the error
+bounds. The sources thus supply a classical criterion, an averaging
+method and the weighted extension, respectively.</p>
+</section>
+<section id="a-weighted-condition-on-the-retained-exponents"
+class="level3">
+<h3>A weighted condition on the retained exponents</h3>
+<p>The weighted condition gives a smaller contribution to exponents
+divisible by large powers of a fixed set of primes. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><msup><mn>2</mn><mi>k</mi></msup><mi>m</mi></mrow><annotation encoding="application/x-tex">a=2^km</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-odd, is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>k</mi></msup><annotation encoding="application/x-tex">2^k</annotation></semantics></math>.
-For a finite nonempty set
+odd, it replaces the reciprocal weight
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>k</mi></msup><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2^km)</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">[</mo><mi>m</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">1/[m(2^{2^k}-1)]</annotation></semantics></math>.
+More generally, for a finite nonempty set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
-of primes, this becomes
+of primes, the
+<em><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>-part</em>
+of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>P</mi></mrow></msub><msup><mi>p</mi><mrow><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">h_P(a)=\prod_{p\in P}p^{v_p(a)}</annotation></semantics></math>,
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">v_p(a)</annotation></semantics></math>
-is the exponent of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+is the exponent
+of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
 in the prime factorisation
-of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.</p>
+of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>k</mi></msup><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mn>2</mn><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">h_{\{2\}}(2^km)=2^k</annotation></semantics></math>.</p>
 <p>The weighted-support theorem of the Problem 257 paper states that, if
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mn>2</mn><mo>,</mo><mi>P</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>:=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>a</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>&lt;</mo><mi>∞</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:worked-condition}
@@ -922,8 +1008,11 @@ is irrational for every integer
 and every infinite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>⊆</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">B\subseteq A</annotation></semantics></math> <span
 class="citation" data-cites="paper257"><a href="#ref-2">[2]</a></span>.</p>
-<p>For a fixed base
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>,
+<p>The conclusion is <em>hereditary</em>: it applies to every infinite
+subset
+of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>.
+For a fixed
+base <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>,
 write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>b</mi><mo>,</mo><mi>P</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">W_{b,P}(A)</annotation></semantics></math>
 for the sum in <code>[eq:worked-condition]</code> with
@@ -932,43 +1021,38 @@ replaced
 by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>.
 The fixed-base version assumes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>b</mi><mo>,</mo><mi>P</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">W_{b,P}(A)&lt;\infty</annotation></semantics></math>
-and gives the same hereditary conclusion at that base. The calculation
-below gives the ordinary argument; Figure <code>[fig:theorem]</code>
-identifies its two registered Lean supports.</p>
-<p>This is a sufficient condition on the support; the question for an
-arbitrary infinite set of exponents in base two remains open.</p>
-<p>Erdős had already stated that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}1/a&lt;\infty</annotation></semantics></math>
-suffices for this all-base irrationality conclusion <span
-class="citation" data-cites="erdos1968"><a href="#ref-3">[3]</a></span>.</p>
-<p>The source paper credits Duverney and Tachiya for an
-arithmetic-progression averaging argument of the kind used to select a
-small positive displacement <span class="citation"
-data-cites="duverneytachiya"><a href="#ref-4">[4]</a></span>.</p>
-<figure id="fig:theorem" data-latex-placement="htbp">
-
-<figcaption>The arrows associate a paper statement with its coverage row
-and the two registered supports; they do not represent deductions
-between these records. The support hypothesis still needs mathematical
-explanation. The false paraphrase is illustrative, distinct from
-historical edit 8 in Table <code>[tab:mutations]</code>.</figcaption>
-</figure>
-<p>This appendix retains the ordinary calculation from the Problem 257
-paper used by the worked case in Section 3.</p>
-<p>The distinction from the reciprocal-summability criterion is visible
-in the source paper’s example
+and gives the same hereditary conclusion at that base. We prove this
+version below and recover all integer bases from the base-two
+hypothesis.</p>
+</section>
+<section id="why-the-weighted-condition-reaches-further" class="level3">
+<h3>Why the weighted condition reaches further</h3>
+<p>To see why the weight matters, compare it with the older condition
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}1/a&lt;\infty</annotation></semantics></math>.
+Both are tests on the exponents; neither is needed merely for
+convergence
+of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_A(b)</annotation></semantics></math>.
+The source paper gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mo>⋆</mo></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msup><mn>2</mn><mi>k</mi></msup><mi>m</mi><mo>:</mo><mi>k</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mi>m</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> odd</mtext></mrow><mo>,</mo><mspace width="0.222em"></mspace><mn>1</mn><mo>≤</mo><mi>m</mi><mo>≤</mo><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">A_\star=\{2^km:k\ge1,\ m\text{ odd},\ 1\le m\le2^{2^k}\},\qquad P=\{2\}.</annotation></semantics></math>
-Within the layer
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">v_2(a)=k</annotation></semantics></math>,
+This set is arranged in disjoint layers according to the power
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>k</mi></msup><annotation encoding="application/x-tex">2^k</annotation></semantics></math>
+dividing an exponent. Within
+layer <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
 reciprocal summation discounts each odd
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
 by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>−</mi><mi>k</mi></mrow></msup><annotation encoding="application/x-tex">2^{-k}</annotation></semantics></math>;
 weighted summation discounts it by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(2^{2^k}-1)^{-1}</annotation></semantics></math>.</p>
-<p>To compare the layers, put
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>r</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mn>1</mn><mo>≤</mo><mi>m</mi><mo>≤</mo><msup><mn>2</mn><mi>r</mi></msup><mo>,</mo><mspace width="0.222em"></mspace><mi>m</mi><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">d</mi></mrow></mrow></msub><mn>1</mn><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">S_r=\sum_{1\le m\le2^r,\ m\ \mathrm{odd}}1/m</annotation></semantics></math>.
-Grouping the odd integers into intervals
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(2^{2^k}-1)^{-1}</annotation></semantics></math>.
+The second discount is much smaller.</p>
+<p>Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>r</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mn>1</mn><mo>≤</mo><mi>m</mi><mo>≤</mo><msup><mn>2</mn><mi>r</mi></msup><mo>,</mo><mspace width="0.222em"></mspace><mi>m</mi><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">d</mi></mrow></mrow></msub><mn>1</mn><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">S_r=\sum_{1\le m\le2^r,\ m\ \mathrm{odd}}1/m</annotation></semantics></math>
+for the sum of odd reciprocals up to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>r</mi></msup><annotation encoding="application/x-tex">2^r</annotation></semantics></math>;
+layer <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+uses
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><msup><mn>2</mn><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">r=2^k</annotation></semantics></math>.
+Grouping these integers into intervals
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msup><mn>2</mn><mi>j</mi></msup><mo>,</mo><msup><mn>2</mn><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[2^j,2^{j+1})</annotation></semantics></math>
 gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>/</mi><mn>4</mn><mo>≤</mo><msub><mi>S</mi><mi>r</mi></msub><mo>≤</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">r/4\le S_r\le r</annotation></semantics></math>
@@ -981,13 +1065,33 @@ Its weighted contribution satisfies
 so the layer contributions have a convergent geometric majorant in the
 weighted sum.</p>
 <p>Thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">A_\star</annotation></semantics></math>
-lies beyond the reciprocal-summability criterion but
-satisfies <code>[eq:worked-condition]</code>. This is the source paper’s
-ordinary calculation, with no separate entry in the paper-to-Lean
-ledger <span class="citation" data-cites="paper257"><a href="#ref-2">[2]</a></span>.</p>
-<section id="a-positive-displacement." class="level5">
-<h5>A positive displacement.</h5>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><msub><mi>A</mi><mo>⋆</mo></msub></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A_\star}1/a</annotation></semantics></math>
+diverges, whereas
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mn>2</mn><mo>,</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mo>⋆</mo></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">W_{2,\{2\}}(A_\star)</annotation></semantics></math>
+converges. The weighted criterion therefore applies to some supports
+excluded by the reciprocal-summability condition. This is the source
+paper’s ordinary calculation, with no separate entry in the
+paper-to-Lean ledger <span class="citation"
+data-cites="paper257"><a href="#ref-2">[2]</a></span>.</p>
+</section>
+<section id="the-proof-by-two-averages" class="level3">
+<h3>The proof by two averages</h3>
+<p>Fix an integer base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>,
+an infinite
+support <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and a finite nonempty
+set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>b</mi><mo>,</mo><mi>P</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">W_{b,P}(A)&lt;\infty</annotation></semantics></math>.
+The proof has two parts. Rationality would force a certain positive
+remainder to be at least the reciprocal of a fixed denominator.
+Averaging will make that remainder smaller. The main difficulty is that
+one average leaves an error bound that cannot be summed using the
+hypothesis; a second average over powers of two supplies the missing
+factor.</p>
+<section id="the-lower-bound-under-rationality." class="level5">
+<h5>The lower bound under rationality.</h5>
 <p>Suppose that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>p</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">X_A(b)=p/q</annotation></semantics></math>
 with integers
@@ -998,14 +1102,23 @@ For a positive integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
 multiplication by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mi>N</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b^N-1</annotation></semantics></math>
-removes the complete geometric blocks from each summand, leaving
+separates an integer contribution from each summand, leaving
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mrow><msup><mi>b</mi><mrow><mi>N</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow></msup><mo>−</mo><mn>1</mn></mrow><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>N</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>J</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>N</mi><mo>≥</mo><mn>1</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:worked-displacement}
  \Delta_{b,A}(N)=\sum_{a\in A}\frac{b^{N\operatorname{mod} a}-1}{b^a-1}
  =(b^N-1)X_A(b)-J_{b,A}(N),\qquad N\ge1,
 \end{equation}</annotation></semantics></math> where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>a</mi><mo>≤</mo><mi>N</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>N</mi><mi>/</mi><mi>a</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msubsup><msup><mi>b</mi><mrow><mi>N</mi><mo>−</mo><mi>j</mi><mi>a</mi></mrow></msup></mrow><annotation encoding="application/x-tex">J_{b,A}(N)=\sum_{a\in A,\,a\le N}\sum_{j=1}^{\lfloor N/a\rfloor}b^{N-ja}</annotation></semantics></math>
-is an integer.</p>
+is an integer. Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">N\operatorname{mod} a</annotation></semantics></math>
+is the remainder on dividing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.
+The symbol
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Δ</mi><annotation encoding="application/x-tex">\Delta</annotation></semantics></math>
+denotes the positive remainder after this particular integer is
+subtracted, not necessarily a fractional part in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,1)</annotation></semantics></math>.</p>
 <p>Every summand is nonnegative, and one is positive because the
 infinite
 set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
@@ -1017,8 +1130,8 @@ is a positive integer, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>1</mn><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">\Delta_{b,A}(N)\ge1/q</annotation></semantics></math>.</p>
 <p>We obtain a contradiction by finding a multiple
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mi>t</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">N=tQ</annotation></semantics></math>
-with smaller displacement. Divisibility helps because the summand
-indexed by
+with smaller remainder. Divisibility helps because the summand indexed
+by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
 vanishes whenever
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∣</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">a\mid Q</annotation></semantics></math>.</p>
@@ -1034,8 +1147,8 @@ Those terms then disappear for
 every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>;
 we must control the remaining terms on average.</p>
 </section>
-<section id="a-finite-orbit-and-its-unfinished-end." class="level5">
-<h5>A finite orbit and its unfinished end.</h5>
+<section id="averaging-over-a-residue-period." class="level5">
+<h5>Averaging over a residue period.</h5>
 <p>With
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b=2</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">Q=4</annotation></semantics></math>
@@ -1045,7 +1158,9 @@ the residues
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>Q</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">tQ\operatorname{mod} a</annotation></semantics></math>
 are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">4,2,0</annotation></semantics></math>,
-and their mean displacement is
+and the corresponding mean contribution to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Δ</mi><annotation encoding="application/x-tex">\Delta</annotation></semantics></math>
+is
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>3</mn></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>15</mn><mn>63</mn></mfrac><mo>+</mo><mfrac><mn>3</mn><mn>63</mn></mfrac><mo>+</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>2</mn><mn>21</mn></mfrac><mo>≤</mo><mfrac><mn>1</mn><mn>9</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac13\left(\frac{15}{63}+\frac3{63}+0\right)=\frac2{21}\le\frac19.</annotation></semantics></math>
 For a general exponent
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>,
@@ -1079,19 +1194,18 @@ prime powers have been put
 into <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.
 The second has lost the factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">1/a</annotation></semantics></math>.
-Summability of the first therefore gives no licence to sum the
+Summability of the first therefore does not justify summing the
 unfinished-cycle bounds over all exponents. This is the difficulty that
 a single progression average leaves unresolved.</p>
 </section>
-<section id="a-second-average-restores-the-missing-factor."
-class="level5">
-<h5>A second average restores the missing factor.</h5>
+<section id="averaging-over-dyadic-lengths." class="level5">
+<h5>Averaging over dyadic lengths.</h5>
 <p>The source proof averages over the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 lengths
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msup><mn>2</mn><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">T=2^j</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≤</mo><mi>j</mi><mo>&lt;</mo><mn>2</mn><mi>M</mi></mrow><annotation encoding="application/x-tex">M\le j&lt;2M</annotation></semantics></math>.
-Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≤</mo><mi>j</mi><mo>&lt;</mo><mn>2</mn><mi>M</mi></mrow><annotation encoding="application/x-tex">M\le j&lt;2M</annotation></semantics></math>;
+these powers-of-two lengths are called dyadic. Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 counts the lengths being averaged, whereas
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
@@ -1121,8 +1235,9 @@ of lengths then reduces the cost from
 to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>Q</mi><mi>/</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">2Q/M</annotation></semantics></math>.</p>
 </section>
-<section id="balancing-the-two-costs." class="level5">
-<h5>Balancing the two costs.</h5>
+<section id="choosing-the-modulus-and-the-averaging-lengths."
+class="level5">
+<h5>Choosing the modulus and the averaging lengths.</h5>
 <p>The modulus must cancel
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
 while making the remaining exponents amenable to one of two estimates.
@@ -1247,47 +1362,133 @@ only decreases the weighted sum, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo>≥</mo><msup><mn>2</mn><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b^{h_P(a)}-1\ge2^{h_P(a)}-1</annotation></semantics></math>
 gives the all-base conclusion from the binary hypothesis <span
 class="citation" data-cites="paper257"><a href="#ref-2">[2]</a></span>.</p>
+<p>This is the information the worked explanation must preserve: the
+restriction on the support, the distinction from earlier criteria, and
+the reason for the second average. The formal-support links identify
+proofs of the stated conclusion. They do not by themselves explain these
+choices or prevent a summary from dropping the hypothesis.</p>
 </section>
-<section id="other-mathematical-attribution-and-scope-examples"
+</section>
+</section>
+<section id="app:attribution" class="level2">
+<h2>Attribution and scope in three further examples</h2>
+<p>The following cases distinguish a result’s exact scope, its
+dependence on earlier work and its formal verification. They illustrate
+further information a faithful account must preserve, rather than steps
+in the preceding proof or additional systems experiments.</p>
+<section id="counting-repeated-terms-changes-the-question"
 class="level3">
-<h3>Other mathematical attribution and scope examples</h3>
-<p>The relation to the motivating problem must also survive compression:
-the Problem 269 record distinguishes distinct running-LCM heights from
-the heights counted with multiplicity in the original question <span
-class="citation" data-cites="paper269"><a href="#ref-28">[28]</a></span>.</p>
-<p>A result about the former is not automatically a result about the
-latter.</p>
-<p>When a statement is sharpened, merged or moved, its complete support
-set and any named input must move with it, and the statement relation
-needs renewed review.</p>
-<p>A new arrangement of a proof does not make its ingredients new.</p>
-<p>The totient record refines Coons's
+<h3>Counting repeated terms changes the question</h3>
+<p>A running least common multiple is the least common multiple of the
+terms seen so far in an increasing sequence. Its value can repeat. For
+integers with prime factors only
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>5</mn><annotation encoding="application/x-tex">5</annotation></semantics></math>,
+the source paper’s example begins
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>6</mn><mo>,</mo><mn>12</mn><mo>,</mo><mn>60</mn><mo>,</mo><mn>60</mn><mo>,</mo><mn>120</mn><mo>,</mo><mn>360</mn><mo>,</mo><mn>360</mn><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">1,2,6,12,60,60,120,360,360,\ldots</annotation></semantics></math> <span
+class="citation" data-cites="paper269"><a href="#ref-28">[28]</a></span>. A reciprocal sum
+counting every occurrence contains
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>60</mn></mrow><annotation encoding="application/x-tex">1/60</annotation></semantics></math>
+twice; one counting distinct values contains it once.</p>
+<p>The Problem 269 record proves a result for distinct running least
+common multiples. The original question counts them with multiplicity,
+so the result does not automatically answer it <span class="citation"
+data-cites="paper269"><a href="#ref-28">[28]</a></span>.</p>
+<p>The same record credits Fan’s earlier public two-prime result despite
+an independently reported derivation, and separately identifies the
+relevant Hecke–Mahler series literature <span class="citation"
+data-cites="paper269 fan269 loxtonvdp1977 bugeaudlaurent2023"><a href="#ref-28">[28]</a><a href="#ref-29">[29]</a><a href="#ref-26">[26]</a><a href="#ref-27">[27]</a></span>.
+Independent derivation does not remove the obligation to cite prior
+work.</p>
+</section>
+<section id="an-explicit-description-and-a-stronger-antecedent"
+class="level3">
+<h3>An explicit description and a stronger antecedent</h3>
+<p>The Euler totient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(n)</annotation></semantics></math>
+counts the integers from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+coprime
+to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
+The Problem 249 paper studies its subsequences
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>k</mi><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(k^j n+r)</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>
+is fixed,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">j\ge0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>r</mi><mo>&lt;</mo><msup><mi>k</mi><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">0\le r&lt;k^j</annotation></semantics></math>.
+For each
+level <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>,
+it describes the integer linear relations and gives an explicit
+basis <span class="citation" data-cites="paper249"><a href="#ref-13">[13]</a></span>. Coons’s
 non-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regularity
-antecedent and distinguishes Martin's separation theorem from its own
-Chinese-remainder and Dirichlet argument traced to Yazdani <span
-class="citation" data-cites="paper249 coons martin yazdani"><a href="#ref-13">[13]</a><a href="#ref-14">[14]</a><a href="#ref-15">[15]</a><a href="#ref-16">[16]</a></span>.</p>
-<p>The running-LCM record retains Fan's public priority for the
-two-prime case despite an independently reported derivation, and credits
-its Hecke–Mahler antecedents separately <span class="citation"
-data-cites="paper269 fan269 loxtonvdp1977 bugeaudlaurent2023"><a href="#ref-28">[28]</a><a href="#ref-29">[29]</a><a href="#ref-26">[26]</a><a href="#ref-27">[27]</a></span>.</p>
-<p>For Problem 1041, the public degree-seven construction is ani's; the
-recorded Lean result refutes the exact Formal Conjectures statement,
-while correspondence with the 1958 curve-length wording remains
-unreviewed <span class="citation"
-data-cites="aniforum formalconjectures fcpr ehp1958 erdos1041"><a href="#ref-23">[23]</a><a href="#ref-77">[77]</a><a href="#ref-24">[24]</a><a href="#ref-22">[22]</a><a href="#ref-21">[21]</a></span>.</p>
-<p>Appendix A names its four recorded Lean declarations; Comparator is
-pending.</p>
-<p>The other seven targets remain unresolved here.</p>
+theorem says that no finite set generates these subsequences over all
+levels. Martin’s stronger separation theorem already implies the
+independence needed for the basis; the explicit reductions and integral
+relations are a different contribution. The direct proof uses the
+Chinese remainder theorem and Dirichlet’s theorem on primes in
+arithmetic progressions, following an argument in Yazdani that Yazdani
+credits to Shallit <span class="citation"
+data-cites="coons martin yazdani"><a href="#ref-14">[14]</a><a href="#ref-15">[15]</a><a href="#ref-16">[16]</a></span>.</p>
+<p>Reorganising a proof, making its consequences explicit and
+formalising it are distinguishable contributions. None makes an
+inherited ingredient new.</p>
+</section>
+<section
+id="a-construction-its-formalisation-and-the-historical-question"
+class="level3">
+<h3>A construction, its formalisation and the historical question</h3>
+<p>Problem 1041 concerns connecting roots of a polynomial by short
+curves in a strict lemniscate: for a complex polynomial
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>,
+this is the region
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|f(z)|&lt;1</annotation></semantics></math>.
+The degree-seven counterexample construction is due to the forum
+contributor ani <span class="citation"
+data-cites="aniforum erdos1041"><a href="#ref-23">[23]</a><a href="#ref-21">[21]</a></span>. The recorded Lean result
+refutes the exact statement in the Formal Conjectures repository;
+independent human review of its correspondence with the curve-length
+wording in the 1958 paper has not been recorded <span class="citation"
+data-cites="formalconjectures fcpr ehp1958"><a href="#ref-77">[77]</a><a href="#ref-24">[24]</a><a href="#ref-22">[22]</a></span>. The construction,
+its formalisation and that historical correspondence are separate
+claims.</p>
+<p>Readers inspecting the formal result can follow the <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/lean/ErdosProblems/Erdos1041/Counterexample/Assembly.lean">counterexample
+assembly</a> and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean">Hausdorff-length
+proofs</a>.<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a></p>
+<p>The coverage row records exact-or-stronger Lean support for these
+statements.</p>
+<p>Comparator remains pending for this result, so its recorded Lean
+support should not be described as a completed formal comparison.</p>
+<p>The other seven motivating targets remain unresolved in this
+work.</p>
+<p>A revised statement must retain its scope, attribution and registered
+supports. Sharpening, merging or moving it requires renewed review of
+its relation to every support and named input.</p>
 </section>
 </section>
 <section id="app:source-map" class="level2">
-<h2>Sources by role</h2>
+<h2>A reading map for the wider literature</h2>
+<p>Section 8 compares the closest systems; Appendices B and C explain
+the mathematical antecedents used in the examples.
+Figure <code>[fig:credit]</code> is a guide to the remaining references
+and to sources cited by the two historical design accounts in
+Appendix A. Its groups indicate why a source is cited, not that every
+listed method is implemented here or that every work has been evaluated
+against this system.</p>
 <figure id="fig:credit" data-latex-placement="H">
 <table>
 <thead>
 <tr>
-<th class="ta-l">Source family</th>
-<th class="ta-l"> Role in the three source accounts</th>
+<th class="ta-l">Area</th>
+<th class="ta-l"> Reason for citation</th>
 </tr>
 </thead>
 <tbody>
@@ -1376,8 +1577,8 @@ data-cites="halmos knuth buildsystems dekleer workflowprovenance"><a href="#ref-
 </tr>
 <tr>
 <td class="ta-l">Understanding and reuse</td>
-<td class="ta-l"> Explanatory generality, digestion and
-research possibilities <span class="citation"
+<td class="ta-l"> Explanation, mathematical understanding,
+reuse and research possibilities <span class="citation"
 data-cites="kra cohn sanderson essays taomining litt tao2026"><a href="#ref-5">[5]</a><a href="#ref-6">[6]</a><a href="#ref-9">[9]</a><a href="#ref-86">[86]</a><a href="#ref-7">[7]</a><a href="#ref-63">[63]</a><a href="#ref-96">[96]</a></span></td>
 </tr>
 <tr>
@@ -1400,10 +1601,11 @@ data-cites="paper269 fan269 loxtonvdp1977 bugeaudlaurent2023 erdosgraham akiyama
 </tr>
 </tbody>
 </table>
-<figcaption>Sources grouped by the roles for which the original accounts
-cite them, rather than by a performance ranking; the accompanying
-mathematical attribution distinguishes original results, refinements and
-independent rediscovery.</figcaption>
+<figcaption>Reading map for this paper and its two historical
+predecessors. The groups record uses of sources, not a performance
+ranking or a list of implemented components. Appendices B and C
+distinguish mathematical antecedents, refinements and independent
+rediscovery.</figcaption>
 </figure>
 </section>
 <section id="references" class="level2 unnumbered">
@@ -1805,6 +2007,33 @@ accessed August 2026.</p></li>
 <li id="ref-106"><p>M. Yuan et al., <em>End-to-End Testing of Open-Source Hardware
 Documentation Developed in Large Collaborations</em>, 2023, <a
 href="https://arxiv.org/abs/2309.05942">arXiv:2309.05942</a>.</p></li>
+</ol>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Both are in namespace
+<code>ErdosProblems.Erdos257.PaperCompleteR8</code>:
+<code>divisibilityWeightedClaim</code> and
+<code>finitePrimeWeighted_fixedBase_hereditary</code>. The coverage row
+is <code>res:weighted-support</code>; the weighted comparison entries
+are <code>PalomarCorpus/E257</code> and <code>E257bc</code>.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The declaration is
+<code>Erdos249257.irrational_erdosSupportSeries_of_summable_reciprocal</code>;
+its comparison entry is <code>PalomarCorpus/E257av</code>, recorded as
+compared.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Journal revision: <code>d3ad85269386</code>.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The four declarations, all in namespace
+<code>Erdos1041.Counterexample</code>, are
+<code>erdos1041_counterexample</code>,
+<code>erdos1041_counterexample_hausdorff</code>,
+<code>erdos1041_hausdorff_negation</code> and
+<code>erdos1041_hausdorff_answer_false</code>.<a href="#fnref4"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </div>

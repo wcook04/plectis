@@ -17,14 +17,12 @@ class="math display" data-term-auto="off">\[\varphi(n);\qquad
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\varphi(4n)=2\varphi(2n),\qquad
 \varphi(4n+2)=\varphi(2n+1)\]</span></div>
-<p class="display-continue">reduce this list to five sequences,
-which are linearly independent over <span
-class="math inline" data-term-auto="off">\(\Q\)</span>. Every rational linear identity among
-the seven therefore follows from these two substitutions. The
-substitutions also preserve integral coefficients, so they describe the
-integral relations as well.</p>
-<p>The same description holds at every finite depth and in every base.
-For an integer <span class="math inline" data-term-auto="off">\(k\ge2\)</span>, the
+<p class="display-continue">leave five independent sequences.
+Thus every identity among the seven comes from these two substitutions.
+More precisely, an integral relation is a unique integral combination of
+the two displayed relations. We will prove the same statement at every
+depth and in every integer base.</p>
+<p>For an integer <span class="math inline" data-term-auto="off">\(k\ge2\)</span>, the
 <em>totient sections</em> are the sequences <span
 class="math inline" data-term-auto="off">\(n\mapsto\varphi(k^jn+r)\)</span>, where <span
 class="math inline" data-term-auto="off">\(j\ge0\)</span> and <span
@@ -47,11 +45,10 @@ class="citation" data-cites="allouche-shallit"><a href="#ref-1">[1]</a></span>. 
 that the totient sequence is not <span
 class="math inline" data-term-auto="off">\(k\)</span>-regular for any <span
 class="math inline" data-term-auto="off">\(k\ge2\)</span> <span class="citation"
-data-cites="coons"><a href="#ref-2">[2]</a></span>. We describe the finitely generated modules
-obtained by stopping at a fixed level. The theorem below specifies a
-basis and expresses each remaining section as a scalar multiple of a
-basis element; these expressions give a test for every linear identity
-at that level. The level-zero family contains only <span
+data-cites="coons"><a href="#ref-2">[2]</a></span>. Here we determine those modules at each
+finite level, including their integral relations. The theorem gives the
+basis and the substitutions; Corollary <a class="math-ref" href="#cor:integral-normal-form">3.1</a> explains
+how to recover every relation from them. Level zero contains only <span
 class="math inline" data-term-auto="off">\(\varphi(n)\)</span> and has dimension one.</p>
 <div class="theorem" id="thm:kkernelrank">
 <p><strong>Theorem 1.1</strong> (A basis through each finite level). <em>
@@ -89,12 +86,14 @@ the reductions involving them are</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\varphi(36n+6)=2\varphi(6n+1),\qquad
 \varphi(36n+12)=4\varphi(6n+2).\]</span></div>
-<p>The multipliers differ because
-<span class="math inline" data-term-auto="off">\(2\)</span> divides <span
-class="math inline" data-term-auto="off">\(6n+2\)</span> but not <span
-class="math inline" data-term-auto="off">\(6n+1\)</span>. The product formula also allows
-repeated prime factors of <span class="math inline" data-term-auto="off">\(k\)</span>, so
-there is no squarefreeness assumption on the base.</p>
+<p>The factor <span
+class="math inline" data-term-auto="off">\(2\)</span> is already present in <span
+class="math inline" data-term-auto="off">\(6n+2\)</span> but not in <span
+class="math inline" data-term-auto="off">\(6n+1\)</span>; only newly introduced prime
+divisors contribute factors <span class="math inline" data-term-auto="off">\(1-1/p\)</span>.
+Thus one removes whole factors of <span class="math inline" data-term-auto="off">\(k\)</span>
+from the residue, not every common prime factor. Repeated prime factors
+of <span class="math inline" data-term-auto="off">\(k\)</span> cause no exception.</p>
 <p>Martin’s 2006 theorem on simultaneous totient inequalities already
 implies independence for every finite family of pairwise nonproportional
 affine forms with positive integral slopes <span class="citation"
@@ -108,12 +107,10 @@ Theorem 2, credited there to Shallit <span class="citation"
 data-cites="yazdani2001"><a href="#ref-12">[12]</a></span>. The step that needs care is to keep
 the progression for the selected affine form reduced while imposing
 prime divisors on all the others.</p>
-<p>Section <a class="math-ref" href="#sec:rank">2</a> proves
-the basis theorem. Section <a class="math-ref" href="#sec:base-six-test">3</a> starts with the
-six reductions in base six and derives the integral relation basis. In
-Section <a class="math-ref" href="#sec:family">4</a> we use
-prime isolation again, for bounded functions of totient residues. The
-series</p>
+<p>The proof in Section <a class="math-ref" href="#sec:rank">2</a> separates scalar reduction
+from independence. Section <a class="math-ref" href="#sec:base-six-test">3</a> recovers the
+integral relations, starting in base six. Section <a class="math-ref" href="#sec:family">4</a> uses prime isolation for
+bounded functions of totient residues. The series</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[S=\sum_{n\ge1}\frac{\varphi(n)}{2^n}\]</span></div>
 <p class="display-continue">has
@@ -133,12 +130,13 @@ Binary Totient Series</em></a>.</p>
 <h2>Proof of the basis theorem</h2>
 <section id="scalar-reductions" class="level3 unnumbered">
 <h3 class="unnumbered">Scalar reductions</h3>
-<p>There are two parts to the proof. The product formula reduces every
-omitted section to a retained one; independence then shows that no
-further reductions are possible. In the first part, the multiplier
-depends only on which prime divisors of <span
-class="math inline" data-term-auto="off">\(k\)</span> divide the argument. For a zero
-residue, <span class="math inline" data-term-auto="off">\(kn\)</span> and <span
+<p>The product formula proves spanning. For independence we first
+separate nonproportional affine arguments, then handle the two
+proportional arguments <span class="math inline" data-term-auto="off">\(n\)</span> and <span
+class="math inline" data-term-auto="off">\(kn\)</span> separately. The reductions depend only
+on which prime divisors of <span class="math inline" data-term-auto="off">\(k\)</span> are
+already present. For a zero residue, <span
+class="math inline" data-term-auto="off">\(kn\)</span> and <span
 class="math inline" data-term-auto="off">\(k^jn\)</span> have the same prime divisors when
 <span class="math inline" data-term-auto="off">\(n&gt;0\)</span>. Hence <span
 class="math inline" data-term-auto="off">\(\varphi(k^jn)=k^{j-1}\varphi(kn)\)</span>; both
@@ -177,23 +175,24 @@ The first term then dominates the sum of all remaining terms in absolute
 value, a contradiction <span class="citation"
 data-cites="martin-phi-inequalities"><a href="#ref-4">[4]</a></span>. This also proves
 independence after any finite prefix is deleted.</p>
-<p>We give a direct proof by constructing a square matrix of evaluations
-with nonzero determinant. Let <span class="math inline" data-term-auto="off">\(L_i(n)=a_i
-n+b_i\)</span> for <span class="math inline" data-term-auto="off">\(1\le i\le s\)</span>,
-where <span class="math inline" data-term-auto="off">\(a_i&gt;0\)</span> and <span
+<p>The direct proof separates one column at a time: all its competitors
+will vanish modulo a prime, while its own entry will not. Let <span
+class="math inline" data-term-auto="off">\(L_i(n)=a_i n+b_i\)</span> for <span
+class="math inline" data-term-auto="off">\(1\le i\le s\)</span>, where <span
+class="math inline" data-term-auto="off">\(a_i&gt;0\)</span> and <span
 class="math inline" data-term-auto="off">\(a_i b_j-a_j b_i\ne0\)</span> for <span
 class="math inline" data-term-auto="off">\(i\ne j\)</span>. A shift of <span
 class="math inline" data-term-auto="off">\(n\)</span> makes all the <span
 class="math inline" data-term-auto="off">\(b_i\)</span> positive and leaves these cross
 determinants unchanged. Write <span
 class="math inline" data-term-auto="off">\(g_i=\gcd(a_i,b_i)\)</span> and <span
-class="math inline" data-term-auto="off">\(A_i=L_i/g_i\)</span>. If <span
-class="math inline" data-term-auto="off">\(g_i&gt;1\)</span>, the values of <span
-class="math inline" data-term-auto="off">\(L_i\)</span> have a fixed divisor, so it is the
-primitive form <span class="math inline" data-term-auto="off">\(A_i\)</span>, not <span
-class="math inline" data-term-auto="off">\(L_i\)</span>, that we will make prime. We will
-choose a prime <span class="math inline" data-term-auto="off">\(\ell\)</span> and points
-<span class="math inline" data-term-auto="off">\(n_1,\ldots,n_s\)</span> for which</p>
+class="math inline" data-term-auto="off">\(A_i=L_i/g_i\)</span>. We must make <span
+class="math inline" data-term-auto="off">\(A_i\)</span> prime, not <span
+class="math inline" data-term-auto="off">\(L_i\)</span>: the fixed divisor <span
+class="math inline" data-term-auto="off">\(g_i\)</span> may prevent <span
+class="math inline" data-term-auto="off">\(L_i\)</span> from taking large prime values. We
+seek a prime <span class="math inline" data-term-auto="off">\(\ell\)</span> and points <span
+class="math inline" data-term-auto="off">\(n_1,\ldots,n_s\)</span> for which</p>
 <div class="math-display" id="eq:diagonal-evaluation" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:diagonal-evaluation}
@@ -207,10 +206,13 @@ E=\bigl(\varphi(L_j(n_i))\bigr)_{1\le i,j\le s}
 \end{pmatrix}\pmod\ell,
 \qquad \ell\nmid\prod_i\varphi(g_i).
 \end{equation}\]</span></div>
-<p>A rational relation among the sequences would
-give a vector in the kernel of <span class="math inline" data-term-auto="off">\(E\)</span>.
-The displayed congruence makes its determinant nonzero, so no such
-relation can exist.</p>
+<p>Evaluating a rational relation at these points
+gives <span class="math inline" data-term-auto="off">\(Ec=0\)</span>. But <span
+class="math inline" data-term-auto="off">\(\det E\not\equiv0\pmod\ell\)</span>, hence <span
+class="math inline" data-term-auto="off">\(E\)</span> is invertible over <span
+class="math inline" data-term-auto="off">\(\Q\)</span> and <span
+class="math inline" data-term-auto="off">\(c=0\)</span>. It remains to construct its
+rows.</p>
 <p>For row <span class="math inline" data-term-auto="off">\(i\)</span>, we require <span
 class="math inline" data-term-auto="off">\(L_j(n_i)\)</span> to have a prime divisor <span
 class="math inline" data-term-auto="off">\(q_{ij}\equiv1\pmod\ell\)</span> whenever <span
@@ -236,23 +238,26 @@ L_j(n)\equiv0\pmod{q_{ij}}\quad(j\ne i).\]</span></div>
 soluble because its slope is coprime to its modulus. CRT combines them
 into <span class="math inline" data-term-auto="off">\(n=n_0+Ru\)</span>, where <span
 class="math inline" data-term-auto="off">\(R=\ell\prod_{j\ne i}q_{ij}\)</span>.</p>
-<p>Dirichlet’s theorem must now be applied to the values of <span
-class="math inline" data-term-auto="off">\(A_i\)</span>, rather than to <span
-class="math inline" data-term-auto="off">\(n\)</span>. These values form the progression</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[A_i(n_0+Ru)=A_i(n_0)+(a_i/g_i)Ru.\]</span></div>
-<p>It remains to check that its initial value and step are coprime.
-Primitivity excludes the prime factors of <span
-class="math inline" data-term-auto="off">\(a_i/g_i\)</span>, and the residue <span
-class="math inline" data-term-auto="off">\(2\)</span> excludes the odd prime <span
-class="math inline" data-term-auto="off">\(\ell\)</span>. A prime <span
+<p>CRT supplies the congruences, but not yet a prime value. Dirichlet
+applies to the progression of values of <span
+class="math inline" data-term-auto="off">\(A_i\)</span>, namely</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[A_i(n_0+Ru)=A_i(n_0)+(a_i/g_i)Ru.\]</span></div>
+<p>Its
+initial value must be coprime to its step. The step has only three kinds
+of prime factors: those of <span class="math inline" data-term-auto="off">\(a_i/g_i\)</span>,
+excluded by primitivity; <span class="math inline" data-term-auto="off">\(\ell\)</span>,
+excluded by the residue <span class="math inline" data-term-auto="off">\(2\)</span>; and the
+imposed <span class="math inline" data-term-auto="off">\(q_{ij}\)</span>. Such a <span
 class="math inline" data-term-auto="off">\(q_{ij}\)</span> cannot divide <span
 class="math inline" data-term-auto="off">\(A_i(n_0)\)</span>: it would then divide both <span
 class="math inline" data-term-auto="off">\(L_i(n_0)\)</span> and <span
 class="math inline" data-term-auto="off">\(L_j(n_0)\)</span>, hence</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[a_iL_j(n_0)-a_jL_i(n_0)=a_i b_j-a_j b_i,\]</span></div>
-<p class="display-continue">contrary to its choice. This accounts for every prime factor of the
-step. We may therefore choose <span
+<p class="display-continue">contrary to its choice. This is where nonproportionality is used: the
+nonzero cross determinant lets us keep each imposed divisor away from
+the selected form. We may now choose <span
 class="math inline" data-term-auto="off">\(p=A_i(n_i)\)</span> prime, as large as needed, and
 in particular with <span class="math inline" data-term-auto="off">\(p\nmid g_i\)</span>. Then</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\varphi(L_i(n_i))=\varphi(g_i)(p-1)
@@ -268,14 +273,13 @@ threshold.</p>
 </section>
 <section id="the-two-zero-residue-sections" class="level3 unnumbered">
 <h3 class="unnumbered">The two zero-residue sections</h3>
-<p>The affine-independence argument does not separate <span
-class="math inline" data-term-auto="off">\(\varphi(n)\)</span> and <span
-class="math inline" data-term-auto="off">\(\varphi(kn)\)</span>, because their arguments are
-proportional. We use two different values of their ratio. On <span
-class="math inline" data-term-auto="off">\(n=km+1\)</span> the ratio is <span
-class="math inline" data-term-auto="off">\(\varphi(k)\)</span>, so a proposed relation
-contains only one zero-residue term after this restriction. The
-positive-residue sections become the forms</p>
+<p>The arguments <span class="math inline" data-term-auto="off">\(n\)</span> and <span
+class="math inline" data-term-auto="off">\(kn\)</span> are proportional, so they escape the
+preceding argument. On <span class="math inline" data-term-auto="off">\(n=km+1\)</span> we
+have <span
+class="math inline" data-term-auto="off">\(\varphi(kn)=\varphi(k)\varphi(n)\)</span>: this
+merges their coefficients and lets affine independence remove all the
+other sections. The positive-residue sections become the forms</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[k^{j+1}m+k^j+r\quad(k\nmid r),\]</span></div>
 <p class="display-continue">together
@@ -284,15 +288,17 @@ nonproportional: equality of two intercept-to-slope ratios would give
 <span class="math inline" data-term-auto="off">\(r/k^j=r&#39;/k^{j&#39;}\)</span>, which for
 <span class="math inline" data-term-auto="off">\(j&#39;&gt;j\)</span> forces <span
 class="math inline" data-term-auto="off">\(k\mid r&#39;\)</span>. No positive-residue form is
-proportional to <span class="math inline" data-term-auto="off">\(km+1\)</span>. Affine
-independence eliminates every positive-residue coefficient and leaves
-<span class="math inline" data-term-auto="off">\(A+B\varphi(k)=0\)</span>, where <span
+proportional to <span class="math inline" data-term-auto="off">\(km+1\)</span>. If <span
 class="math inline" data-term-auto="off">\(A,B\)</span> multiply <span
-class="math inline" data-term-auto="off">\(\varphi(n),\varphi(kn)\)</span>. We now evaluate
-the remaining relation at <span class="math inline" data-term-auto="off">\(n=k\)</span> to
-obtain <span class="math inline" data-term-auto="off">\(A+Bk=0\)</span>. Since <span
-class="math inline" data-term-auto="off">\(\varphi(k)&lt;k\)</span>, the two equations force
-<span class="math inline" data-term-auto="off">\(A=B=0\)</span>. Finally,</p>
+class="math inline" data-term-auto="off">\(\varphi(n),\varphi(kn)\)</span>, affine
+independence therefore leaves <span
+class="math inline" data-term-auto="off">\(A+B\varphi(k)=0\)</span> and eliminates every
+other coefficient. At <span class="math inline" data-term-auto="off">\(n=k\)</span>, however,
+the ratio is <span class="math inline" data-term-auto="off">\(k\)</span>, giving <span
+class="math inline" data-term-auto="off">\(A+Bk=0\)</span>. Since <span
+class="math inline" data-term-auto="off">\(\varphi(k)&lt;k\)</span>, these two equations
+separate the remaining coefficients: <span
+class="math inline" data-term-auto="off">\(A=B=0\)</span>. Finally,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\lvert\mathcal B_{k,e}\rvert
    =2+\sum_{j=1}^e(k^j-k^{j-1})=k^e+1,\]</span></div>
@@ -321,28 +327,28 @@ F_{2,12}&amp;=4F_{1,2},\\
 F_{2,18}&amp;=3F_{1,3}, &amp; F_{2,24}&amp;=4F_{1,4}, &amp;
 F_{2,30}&amp;=2F_{1,5}.
 \end{aligned}\]</span></div>
-<p>Thus an integral combination of the <span
-class="math inline" data-term-auto="off">\(43\)</span> sections vanishes precisely when these
-six substitutions leave all <span class="math inline" data-term-auto="off">\(37\)</span>
-retained coefficients zero. To recover the relation itself, keep track
-of what each substitution removes. Let <span
-class="math inline" data-term-auto="off">\(E_{j,r}\)</span> denote the generator at index
-<span class="math inline" data-term-auto="off">\((j,r)\)</span> in the free abelian group on
-all section indices. The substitution <span
+<p>The substitutions test an identity by leaving
+<span class="math inline" data-term-auto="off">\(37\)</span> retained coefficients to compare
+with zero. To recover the identity itself, we must distinguish the
+formal symbols <span class="math inline" data-term-auto="off">\(E_{j,r}\)</span> from the
+sequences <span class="math inline" data-term-auto="off">\(F_{j,r}\)</span> they represent:
+the symbols are independent even when the sequences coincide. For
+example, the substitution <span
 class="math inline" data-term-auto="off">\(F_{2,12}=4F_{1,2}\)</span> corresponds to the
 decomposition</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[x_{1,2}E_{1,2}+x_{2,12}E_{2,12}
 = (x_{1,2}+4x_{2,12})E_{1,2}
    +x_{2,12}(E_{2,12}-4E_{1,2}).\]</span></div>
-<p>The first coefficient tests
-whether the retained component vanishes; the second records the multiple
-of the relation removed. Doing this at all six omitted indices gives
-every integral relation, since the retained sections are independent. At
-base two and level two the relations are <span
-class="math inline" data-term-auto="off">\(E_{2,0}-2E_{1,0}\)</span> and <span
-class="math inline" data-term-auto="off">\(E_{2,2}-E_{1,1}\)</span>. The following corollary
-expresses the same calculation at arbitrary base and level.</p>
+<p>The retained coefficient
+becomes <span class="math inline" data-term-auto="off">\(x_{1,2}+4x_{2,12}\)</span>, while
+the coefficient of the removed relation is the original <span
+class="math inline" data-term-auto="off">\(x_{2,12}\)</span>. Repeating at the six omitted
+indices both tests the identity and recovers its unique relation
+coefficients. In the opening binary example the relation vectors are
+<span class="math inline" data-term-auto="off">\(E_{2,0}-2E_{1,0}\)</span> and <span
+class="math inline" data-term-auto="off">\(E_{2,2}-E_{1,1}\)</span>. The same calculation
+gives the general result.</p>
 <div class="corollary" id="cor:integral-normal-form">
 <p><strong>Corollary 3.1</strong> (Integral coordinates and all integral
 relations). <em> Let <span class="math inline" data-term-auto="off">\(k\ge2\)</span> and
@@ -381,26 +387,30 @@ class="math display" data-term-auto="off">\[x=\sum_{j\text{ retained}}
        \left(x_j+\sum_{\substack{i\text{ omitted}\\j(i)=j}}a_i
 x_i\right)E_j
        +\sum_{i\text{ omitted}}x_iR_i.\]</span></div>
-<p>Evaluation kills the
-second sum. Independence of the retained sections therefore says that
-<span class="math inline" data-term-auto="off">\(x\)</span> is a relation exactly when every
-coefficient in the first sum is zero. In that case the second sum is its
-expression in the <span class="math inline" data-term-auto="off">\(R_i\)</span>. This
-expression is unique: the coefficient at omitted index <span
-class="math inline" data-term-auto="off">\(i\)</span> in <span class="math inline" data-term-auto="off">\(\sum_h
-c_hR_h\)</span> is <span class="math inline" data-term-auto="off">\(c_i\)</span> itself. The
-unit coefficient at that index is also why no division is needed.
+<p>The first sum gives the
+retained coordinates of the evaluated sequence; the second evaluates to
+zero. Thus <span class="math inline" data-term-auto="off">\(x\)</span> is a relation exactly
+when the first sum vanishes, in which case <span
+class="math inline" data-term-auto="off">\(x=\sum_{i\text{ omitted}}x_iR_i\)</span>. This
+expression is unique: at omitted index <span
+class="math inline" data-term-auto="off">\(i\)</span>, the coefficient of <span
+class="math inline" data-term-auto="off">\(\sum_h c_hR_h\)</span> is <span
+class="math inline" data-term-auto="off">\(c_i\)</span> itself. Each substitution has a unit
+coefficient at its own omitted index, so the entire calculation takes
+place over <span class="math inline" data-term-auto="off">\(\Z\)</span>, without division.
 Counting omitted indices gives <span
 class="math inline" data-term-auto="off">\((1+k+\cdots+k^e)-(k^e+1)=\sum_{j=1}^{e-1}k^j\)</span>. ◻</p>
 </div>
-<p>The assertion concerns the module generated by the sections. It need
-not contain every integer-valued sequence in its rational span: for
-<span class="math inline" data-term-auto="off">\(k=2\)</span> and <span
+<p>This is an integral basis of the <em>section-generated</em> module,
+not of every integer-valued sequence in its rational span. For <span
+class="math inline" data-term-auto="off">\(k=2\)</span>, <span
 class="math inline" data-term-auto="off">\(e\ge2\)</span>, the sequence <span
-class="math inline" data-term-auto="off">\(\varphi(4n+3)/2\)</span> is integer-valued and has
-coefficient <span class="math inline" data-term-auto="off">\(1/2\)</span> in the retained
-basis. Thus this module is not saturated in the group of integer-valued
-sequences.</p>
+class="math inline" data-term-auto="off">\(\varphi(4n+3)/2\)</span> is integer-valued but has
+retained coordinate <span class="math inline" data-term-auto="off">\(1/2\)</span>. Thus the
+section module is not saturated in the ambient group of integer-valued
+sequences. There is no conflict with the integral relation basis: that
+basis concerns relations among the given generators, not divisibility of
+the sequences they generate.</p>
 <p>An alternative is to test equality at finitely many inputs. Return to
 base six and level two. Order the retained columns as above, with
 residues increasing within each level, and evaluate at <span
@@ -423,14 +433,13 @@ arithmetic.</p>
 </section>
 <section id="sec:family" class="level2">
 <h2>Bounded functions of totient residues</h2>
-<p>In the evaluation proof, congruences make one totient value nonzero
-modulo the auxiliary prime in each row. Here they isolate one nonzero
-residue between two arbitrarily long zero blocks. Rationality confines
-every scaled tail to a fixed discrete set. Boundedness and the zero
-blocks then force a nonzero tail whose absolute value is smaller than
-the spacing of that set. In the first sum below, residues are
-represented by their least nonnegative values. These coefficients need
-not be binary digits.</p>
+<p>The matrix argument separates one value from finitely many others.
+Now we separate one coefficient from all its neighbours in a long
+window. Boundedness turns that local separation into an irrationality
+proof: the right zero block forces a rational tail to vanish exactly;
+the left makes the isolated nonzero term too small to be rational with
+the same denominator. Residues in the first sum below are least
+nonnegative representatives, not necessarily binary digits.</p>
 <div class="theorem" id="res:residueseries">
 <p><strong>Theorem 4.1</strong> (Series of totient residues). <em> For
 every <span class="math inline" data-term-auto="off">\(m\ge3\)</span>, </em></p>
@@ -445,19 +454,19 @@ constant on the even residue classes. If that constant is <span
 class="math inline" data-term-auto="off">\(c\)</span>, its value is <span
 class="math inline" data-term-auto="off">\(3f(1)/4+c/4\)</span>.</em></p>
 </div>
-<p>Modulo two the sum is <span class="math inline" data-term-auto="off">\(3/4\)</span>, since
-<span class="math inline" data-term-auto="off">\(\varphi(n)\)</span> is even for <span
-class="math inline" data-term-auto="off">\(n\ge3\)</span>. More generally only <span
-class="math inline" data-term-auto="off">\(f(1)\)</span> and the even residue classes occur
-in the second assertion. The following coefficient pattern is the basis
-of the proof:</p>
+<p>Only <span class="math inline" data-term-auto="off">\(f(1)\)</span> and the even classes
+are visible to the series: <span
+class="math inline" data-term-auto="off">\(\varphi(1)=\varphi(2)=1\)</span> and all later
+totients are even. This explains the rational case, including the value
+<span class="math inline" data-term-auto="off">\(3/4\)</span> modulo two. The irrational case
+rests on the pattern</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\underbrace{0,\ldots,0}_{L\text{ terms}},\quad
 a_N\ne0,\quad
 \underbrace{0,\ldots,0}_{L\text{ terms}}.\]</span></div>
 <p>The coefficients
-outside these blocks may have either sign. Their uniform bound is what
-makes the following argument possible.</p>
+outside the window may have either sign; only their uniform bound
+matters.</p>
 <div class="lemma" id="lem:bounded-pulse">
 <p><strong>Lemma 4.2</strong> (An isolated nonzero coefficient between
 long zero blocks). <em> Let <span
@@ -484,12 +493,11 @@ right gives</p>
 C\sum_{t&gt;L}2^{-t}=C2^{-L}&lt;1/q.\]</span></div>
 <p>The only element of <span
 class="math inline" data-term-auto="off">\(q^{-1}\Z\)</span> in this interval is zero, so
-<span class="math inline" data-term-auto="off">\(T_N=0\)</span>. Now start before the left
-block. The next <span class="math inline" data-term-auto="off">\(L\)</span> coefficients
-vanish, and the entire contribution after <span
-class="math inline" data-term-auto="off">\(a_N\)</span> has just been shown to be zero.
-Consequently</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[T_{N-L-1}=a_N2^{-L-1},\qquad
+<span class="math inline" data-term-auto="off">\(T_N=0\)</span>. The right block has removed
+the unknown tail exactly. Starting before the left block now leaves only
+the nonzero centre, rescaled:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[T_{N-L-1}=a_N2^{-L-1},\qquad
 0&lt;|T_{N-L-1}|\le C2^{-L-1}&lt;1/q,\]</span></div>
 <p class="display-continue">contradicting <span
 class="math inline" data-term-auto="off">\(T_{N-L-1}\in q^{-1}\Z\)</span>. ◻</p>
@@ -500,11 +508,12 @@ have isolated coefficients at arbitrarily large distances. The uniform
 bound <span class="math inline" data-term-auto="off">\(C\)</span> is essential to this
 argument.</p>
 <div class="proof">
-<p><em>Proof of Theorem <a class="math-ref" href="#res:residueseries">4.1</a>.</em> Fix a unit
-<span class="math inline" data-term-auto="off">\(s\pmod m\)</span> and a positive integer
-<span class="math inline" data-term-auto="off">\(L\)</span>. Choose distinct primes <span
-class="math inline" data-term-auto="off">\(q_t\equiv1\pmod m\)</span>, all exceeding <span
-class="math inline" data-term-auto="off">\(L\)</span>, for <span
+<p><em>Proof of Theorem <a class="math-ref" href="#res:residueseries">4.1</a>.</em> We
+prescribe a prime at the centre and a different divisor at each
+neighbour. Fix a unit <span class="math inline" data-term-auto="off">\(s\pmod m\)</span> and
+an integer <span class="math inline" data-term-auto="off">\(L\ge1\)</span>, and choose
+distinct primes <span class="math inline" data-term-auto="off">\(q_t\equiv1\pmod m\)</span>,
+all exceeding <span class="math inline" data-term-auto="off">\(L\)</span>, for <span
 class="math inline" data-term-auto="off">\(0&lt;|t|\le L\)</span>. The congruences</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[p\equiv s\pmod m,\qquad
@@ -527,19 +536,24 @@ preserve whether the sum is rational. If <span
 class="math inline" data-term-auto="off">\(f(s-1)\ne f(0)\)</span>, the resulting bounded
 integer sequence has an isolated nonzero coefficient for every <span
 class="math inline" data-term-auto="off">\(L\)</span>, so the lemma applies. For the
-least-residue map we take <span class="math inline" data-term-auto="off">\(s=-1\)</span> and
-obtain the nonzero residue <span class="math inline" data-term-auto="off">\(m-2\)</span> when
-<span class="math inline" data-term-auto="off">\(m\ge3\)</span>. When <span
-class="math inline" data-term-auto="off">\(m=2^k\)</span>, each even residue <span
-class="math inline" data-term-auto="off">\(r\)</span> is of the form <span
-class="math inline" data-term-auto="off">\(s-1\)</span> with <span
-class="math inline" data-term-auto="off">\(s\)</span> a unit, so nonconstancy on the even
-classes gives an irrational sum by the same argument. Conversely, if
-<span class="math inline" data-term-auto="off">\(f\)</span> is constant there, all terms
-after <span class="math inline" data-term-auto="off">\(n=2\)</span> equal <span
-class="math inline" data-term-auto="off">\(c\)</span> and we obtain <span
+least-residue map, <span class="math inline" data-term-auto="off">\(s=-1\)</span> gives the
+nonzero centre <span class="math inline" data-term-auto="off">\(m-2\)</span> when <span
+class="math inline" data-term-auto="off">\(m\ge3\)</span>. For <span
+class="math inline" data-term-auto="off">\(m=2^k\)</span>, the possible centres <span
+class="math inline" data-term-auto="off">\(s-1\)</span> run through <em>every</em> even
+class. Thus any failure of constancy on those classes supplies a centre
+with <span class="math inline" data-term-auto="off">\(f(s-1)\ne f(0)\)</span>. Conversely,
+constancy makes every term after <span
+class="math inline" data-term-auto="off">\(n=2\)</span> equal <span
+class="math inline" data-term-auto="off">\(c\)</span>, giving <span
 class="math inline" data-term-auto="off">\(3f(1)/4+c/4\)</span>. ◻</p>
 </div>
+<p>The dyadic modulus matters to the classification. Modulo <span
+class="math inline" data-term-auto="off">\(6\)</span>, for example, prime centres of this
+form see only <span class="math inline" data-term-auto="off">\(s-1\in\{0,4\}\)</span>, not
+the even class <span class="math inline" data-term-auto="off">\(2\)</span>. The least-residue
+assertion needs just one nonzero centre; classification of an arbitrary
+function needs all relevant classes.</p>
 <p>The first assertion is also an application of Erdős’s sparse-series
 criterion <span class="citation" data-cites="erdos1957"><a href="#ref-6">[6]</a></span>, and of
 Kaneko, Suzuki and Tachiya <span class="citation"
@@ -561,8 +575,10 @@ class="math inline" data-term-auto="off">\(d\ge1\)</span>.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Further consequences for the sections</h2>
-<p>The finite-level theorem also describes the full dyadic kernel. The
-notation below specialises the base to two.</p>
+<p>Every finite set of dyadic sections lies in a single finite level.
+Theorem <a class="math-ref" href="#thm:kkernelrank">1.1</a>
+therefore also determines the full kernel; “span” and “relation” here
+still mean finite linear combinations.</p>
 <div class="corollary" id="res:basis">
 <p><strong>Corollary A.1</strong> (Dyadic basis). <em> The family </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -614,61 +630,51 @@ class="math inline" data-term-auto="off">\(\varphi(4n+2)=\varphi(2n+1)\)</span> 
 otherwise contradict the conclusion. Martin’s theorem gives the same
 corollary on each progression <span class="citation"
 data-cites="martin-phi-inequalities"><a href="#ref-4">[4]</a></span>.</p>
-<p>Coons’s proof of nonregularity counts the poles of <span
+<p>Coons proves nonregularity using the poles of <span
 class="math inline" data-term-auto="off">\(\zeta(s-1)/\zeta(s)\)</span> <span
-class="citation" data-cites="coons"><a href="#ref-2">[2]</a></span>. For an integer-valued
-sequence, finite dimension of the rational kernel span is equivalent to
-finite generation of its integral kernel module: choose finitely many
-evaluations that embed the span in <span
-class="math inline" data-term-auto="off">\(\Q^d\)</span>; the module embeds in <span
-class="math inline" data-term-auto="off">\(\Z^d\)</span>, whose subgroups are finitely
-generated (compare <span class="citation"
-data-cites="coons-jsr"><a href="#ref-3">[3]</a></span>). Theorem <a class="math-ref" href="#thm:kkernelrank">1.1</a> recovers this
-nonregularity and gives the ranks of its finite truncations. For an
-account of the earlier separation method, see Allouche, Shallit and
-Yassawi <span class="citation"
+class="citation" data-cites="coons"><a href="#ref-2">[2]</a></span>. The ranks above recover it:
+finite rational kernel dimension would embed the integral kernel module
+by evaluations in <span class="math inline" data-term-auto="off">\(\Z^d\)</span>, making it
+finitely generated; the converse is immediate (compare <span
+class="citation" data-cites="coons-jsr"><a href="#ref-3">[3]</a></span>). Allouche, Shallit and
+Yassawi survey the earlier separation method <span class="citation"
 data-cites="allouche-shallit-yassawi"><a href="#ref-13">[13]</a></span>.</p>
-<p>These facts have a functional consequence. A <span
-class="math inline" data-term-auto="off">\(k\)</span>-Mahler equation has the form <span
-class="math inline" data-term-auto="off">\(\sum_{i=0}^d P_i(z)F(z^{k^i})=0\)</span>, with
-<span class="math inline" data-term-auto="off">\(P_i\in\Q[z]\)</span> and <span
-class="math inline" data-term-auto="off">\(P_0\ne0\)</span>. The height theorem of
-Adamczewski, Bell and Smertnig implies that a <span
-class="math inline" data-term-auto="off">\(k\)</span>-Mahler series with integer coefficients
-of polynomial growth is <span
-class="math inline" data-term-auto="off">\(k\)</span>-regular <span class="citation"
-data-cites="adamczewski-bell-smertnig2023"><a href="#ref-16">[16]</a></span>. Since <span
-class="math inline" data-term-auto="off">\(\varphi(n)\le n\)</span>, its logarithmic height
-is at most <span class="math inline" data-term-auto="off">\(\log n\)</span>, so <span
+<p>The generating function <span
 class="math inline" data-term-auto="off">\(F_\varphi(z)=\sum_{n\ge1}\varphi(n)z^n\)</span>
-has no such equation. Bell and Smertnig’s multiplicative classification
-gives the same conclusion <span class="citation"
-data-cites="bell-smertnig2026"><a href="#ref-14">[14]</a></span>. Bell, Bruin and Coons treat
-related algebraic and <span class="math inline" data-term-auto="off">\(D\)</span>-finite
-series, the latter satisfying a linear differential equation with
-polynomial coefficients <span class="citation"
-data-cites="bell-bruin-coons"><a href="#ref-15">[15]</a></span>. These statements concern the
-function, and do not determine <span
-class="math inline" data-term-auto="off">\(F_\varphi(1/2)\)</span>.</p>
+therefore satisfies no <span class="math inline" data-term-auto="off">\(k\)</span>-Mahler
+equation <span
+class="math inline" data-term-auto="off">\(\sum_{i=0}^dP_i(z)F_\varphi(z^{k^i})=0\)</span>
+with <span class="math inline" data-term-auto="off">\(P_i\in\Q[z]\)</span>, <span
+class="math inline" data-term-auto="off">\(P_0\ne0\)</span>. Indeed, <span
+class="math inline" data-term-auto="off">\(\varphi(n)\le n\)</span> gives logarithmic height
+at most <span class="math inline" data-term-auto="off">\(\log n\)</span>, and the height
+theorem of Adamczewski, Bell and Smertnig would make such a series <span
+class="math inline" data-term-auto="off">\(k\)</span>-regular <span class="citation"
+data-cites="adamczewski-bell-smertnig2023"><a href="#ref-16">[16]</a></span>. Bell and Smertnig’s
+multiplicative classification gives the same conclusion <span
+class="citation" data-cites="bell-smertnig2026"><a href="#ref-14">[14]</a></span>. Bell, Bruin and
+Coons treat related algebraic and <span
+class="math inline" data-term-auto="off">\(D\)</span>-finite series (those satisfying
+polynomial-coefficient linear differential equations) <span
+class="citation" data-cites="bell-bruin-coons"><a href="#ref-15">[15]</a></span>. These are
+statements about the function, not its value at <span
+class="math inline" data-term-auto="off">\(1/2\)</span>.</p>
 <p>The section operators <span class="math inline" data-term-auto="off">\(T_i
 g(n)=g(kn+i)\)</span> satisfy</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T_iF_{j,r}=F_{j+1,k^ji+r},\qquad
 V_{k,e+1}=V_{k,e}+\sum_{i=0}^{k-1}T_iV_{k,e}.\]</span></div>
-<p>To obtain the
-second identity, write every residue at level <span
-class="math inline" data-term-auto="off">\(j+1\)</span> as <span
-class="math inline" data-term-auto="off">\(k^ji+r\)</span>. For a positive retained residue,
-the resulting section is again retained. For the two zero-residue
-generators, use <span class="math inline" data-term-auto="off">\(T_iF_{0,0}=F_{1,i}\)</span>
-and <span class="math inline" data-term-auto="off">\(T_iF_{1,0}=F_{2,ki}\)</span> followed by
-the zero-residue or scalar reduction. We thus obtain a positive integer
-multiple of a basis element in every case, although the increasing
-dimensions prevent any finite truncation from being invariant. The
-growth formula using the joint spectral radius for finite-dimensional
-regular sequences <span class="citation" data-cites="coons-jsr"><a href="#ref-3">[3]</a></span>
-therefore does not apply to <span
-class="math inline" data-term-auto="off">\(\varphi\)</span>.</p>
+<p>Every residue at
+level <span class="math inline" data-term-auto="off">\(j+1\)</span> has the form <span
+class="math inline" data-term-auto="off">\(k^ji+r\)</span>, giving the second identity. A
+positive retained residue stays retained. For the zero-residue
+generators, reduce <span
+class="math inline" data-term-auto="off">\(T_iF_{0,0}=F_{1,i}\)</span> and <span
+class="math inline" data-term-auto="off">\(T_iF_{1,0}=F_{2,ki}\)</span> as before. Each image
+is a positive integer multiple of a basis element, but rank growth
+prevents a finite invariant truncation. Consequently the growth formula
+using the joint spectral radius for regular sequences <span
+class="citation" data-cites="coons-jsr"><a href="#ref-3">[3]</a></span> does not apply.</p>
 </section>
 <section id="sec:carry-rank" class="level2">
 <h2>The binary totient series</h2>
@@ -681,9 +687,9 @@ with <span class="math inline" data-term-auto="off">\(N+L&gt;1\)</span> already 
 <span class="math inline" data-term-auto="off">\(2^L\le N+L-1\)</span>. The tail bound <span
 class="math inline" data-term-auto="off">\((N+L+2)2^{-L}\)</span> then exceeds <span
 class="math inline" data-term-auto="off">\(1\)</span>. This is a failure of the estimate, not
-a lower bound on the tail. Thus this divisibility construction does not
-supply the small nonzero tail needed to exclude a rational value. We
-consider instead a finite test for differences of scaled tails.</p>
+a lower bound on the tail. The same divisibility that creates the gap
+can therefore move it too far out for this bound to be useful. We turn
+instead to a finite test for differences of scaled tails.</p>
 <p>Put <span
 class="math inline" data-term-auto="off">\(R_N=\sum_{j\ge1}\varphi(N+j)2^{-j}\)</span> and
 <span class="math inline" data-term-auto="off">\(\Delta_h(N)=R_{N+h}-R_N\)</span>.
@@ -700,7 +706,8 @@ class="math inline" data-term-auto="off">\(S=a/(2^cv)\)</span>, with <span
 class="math inline" data-term-auto="off">\(v\)</span> odd, then <span
 class="math inline" data-term-auto="off">\(\Delta_h(N)\)</span> is integral for <span
 class="math inline" data-term-auto="off">\(N\ge c\)</span> and <span
-class="math inline" data-term-auto="off">\(h=\varphi(v)\)</span>. To disprove rationality it
+class="math inline" data-term-auto="off">\(h=\varphi(v)\)</span>. The tails are then periodic
+modulo integers, not necessarily equal. To disprove rationality it
 therefore suffices to find a nonintegral difference beyond every
 threshold for each positive <span class="math inline" data-term-auto="off">\(h\)</span>.</p>
 <p>For <span class="math inline" data-term-auto="off">\(h,N,L\in\N\)</span>, define the
@@ -715,41 +722,40 @@ M+2\)</span>, we have</p>
 2^L\Delta_h(N)-D_{h,N,L}=R_{N+h+L}-R_{N+L},\qquad
 |2^L\Delta_h(N)-D_{h,N,L}|\le B.
 \end{equation}\]</span></div>
-<p>The two tails are nonnegative, so their
-difference is bounded in absolute value by the larger tail bound, not
-the sum of the bounds. Thus <span
-class="math inline" data-term-auto="off">\(D_{h,N,L}/2^L\)</span> approximates <span
-class="math inline" data-term-auto="off">\(\Delta_h(N)\)</span> with error at most <span
-class="math inline" data-term-auto="off">\(B/2^L\)</span>. To exclude an integer value, the
-approximation must lie farther than this error from every integer.
-Equivalently, the residue of <span
-class="math inline" data-term-auto="off">\(D_{h,N,L}\)</span> must avoid both ends of the
-interval <span class="math inline" data-term-auto="off">\([0,2^L)\)</span>. Thus the finite
-inequality</p>
-<div class="math-display" id="eq:r3-certificate" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<p>Nonnegativity gives the larger tail bound, not
+the sum. Thus <span class="math inline" data-term-auto="off">\(D_{h,N,L}/2^L\)</span> locates
+<span class="math inline" data-term-auto="off">\(\Delta_h(N)\)</span> within <span
+class="math inline" data-term-auto="off">\(B/2^L\)</span>. The error interval contains no
+integer precisely when the residue stays more than <span
+class="math inline" data-term-auto="off">\(B\)</span> from both endpoints:</p>
+<div class="math-display" id="eq:r3-certificate" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:r3-certificate}
-B&lt;D_{h,N,L}\bmod2^L&lt;2^L-B
+B&lt;D_{h,N,L}\bmod2^L&lt;2^L-B.
 \end{equation}\]</span></div>
-<p class="display-continue">forces <span
-class="math inline" data-term-auto="off">\(\Delta_h(N)\notin\Z\)</span>. Conversely, hold
-<span class="math inline" data-term-auto="off">\(h,N\)</span> fixed and suppose that <span
-class="math inline" data-term-auto="off">\(\|\Delta_h(N)\|_{\R/\Z}&gt;0\)</span>. Choose
-<span class="math inline" data-term-auto="off">\(L\)</span> so that <span
-class="math inline" data-term-auto="off">\(2^L\|\Delta_h(N)\|_{\R/\Z}&gt;2B\)</span>: the
-left side grows exponentially, whereas <span
-class="math inline" data-term-auto="off">\(B=N+h+L+2\)</span> grows linearly. The same error
-estimate gives <a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>. This detects
-every nonintegral difference at some depth. A failed test at one depth
-proves no integrality: the error interval may simply be too wide to
-separate the value from <span class="math inline" data-term-auto="off">\(\Z\)</span>.
-Increasing the depth eventually detects each fixed nonintegral
-difference, but does not produce such a difference for each <span
-class="math inline" data-term-auto="off">\(h\)</span>. For example, <span
+<p>This proves <span
+class="math inline" data-term-auto="off">\(\Delta_h(N)\notin\Z\)</span> and, by <a class="math-ref" data-equation-ref="true" href="#eq:tail-phase">eq:tail-phase</a>, excludes every
+reduced denominator dividing <span
+class="math inline" data-term-auto="off">\(2^N(2^h-1)\)</span>. For example, <span
 class="math inline" data-term-auto="off">\(D_{1,12,16}=-143140\)</span> has residue <span
 class="math inline" data-term-auto="off">\(53468\)</span> modulo <span
 class="math inline" data-term-auto="off">\(2^{16}\)</span>, and <span
 class="math inline" data-term-auto="off">\(B=31\)</span>, so it excludes denominators
-dividing <span class="math inline" data-term-auto="off">\(2^{12}\)</span>.</p>
+dividing <span class="math inline" data-term-auto="off">\(2^{12}\)</span>. In ordinary
+coordinates the same certificate reads</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\Delta_1(12)\in
+\left[\frac{-143171}{65536},\frac{-143109}{65536}\right]
+\subset(-3,-2).\]</span></div>
+<p>The test is complete for a <em>fixed</em> difference: if <span
+class="math inline" data-term-auto="off">\(\delta=\operatorname{dist}(\Delta_h(N),\Z)&gt;0\)</span>,
+eventually <span class="math inline" data-term-auto="off">\(2^L\delta&gt;2B\)</span>, since
+<span class="math inline" data-term-auto="off">\(B=N+h+L+2\)</span> grows linearly. The same
+error estimate gives <a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>. Failure at one
+depth proves no integrality; the interval may be too wide. Increasing
+<span class="math inline" data-term-auto="off">\(L\)</span> detects an existing nonintegral
+difference, but does not supply one for each <span
+class="math inline" data-term-auto="off">\(h\)</span> beyond every threshold.</p>
 <section id="sec:frontier" class="level3">
 <h3>Equivalent residue conditions</h3>
 <p>We write <span class="math inline" data-term-auto="off">\(K(h,N,L)\)</span> for <a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>.</p>
@@ -768,13 +774,12 @@ class="math display" data-term-auto="off">\[\exists t\ge1:\ K(td,N,td)
 this for every <span class="math inline" data-term-auto="off">\(d\ge1,N\ge0\)</span> is
 equivalent to <span class="math inline" data-term-auto="off">\(S\notin\Q\)</span>.</em></p>
 </div>
-<p>Here the depth is no longer free: it must equal the shift. The
-recurrence <span
+<p>Completeness alone lets the depth grow while the shift stays fixed.
+Here the two must grow together. The recurrence <span
 class="math inline" data-term-auto="off">\(\Delta_{(t+1)d}(N)\equiv2^d\Delta_{td}(N)+\Delta_d(N)\pmod\Z\)</span>
-prevents two consecutive large shifts from both failing the test. Two
-failures would force the fixed nonintegral <span
-class="math inline" data-term-auto="off">\(\Delta_d(N)\)</span> arbitrarily close to an
-integer. The estimates are in <a
+provides the extra step: two consecutive failures would make the fixed
+nonintegral <span class="math inline" data-term-auto="off">\(\Delta_d(N)\)</span> arbitrarily
+close to an integer. The estimates are in <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-ray">Appendix A
 of the companion paper</a>. A single pair <span
 class="math inline" data-term-auto="off">\(d,N\)</span> need not imply irrationality; the
@@ -801,19 +806,20 @@ class="math display" data-term-auto="off">\[\begin{equation}
 c+H+1&lt;(-B_{H,c})\bmod M&lt;M-(c+H+1).
 \end{equation}\]</span></div>
 </div>
-<p>The choice of modulus makes <span
-class="math inline" data-term-auto="off">\(B_{H,c}=M(vR_c)-\Delta_H(c)\)</span>. Under the
-hypothetical rationality assumption, <span
-class="math inline" data-term-auto="off">\(vR_c\)</span> is an integer, so the first term is
-a multiple of <span class="math inline" data-term-auto="off">\(M\)</span> and only the small
-tail difference remains modulo <span class="math inline" data-term-auto="off">\(M\)</span>.
-The <a
+<p>The identity <span
+class="math inline" data-term-auto="off">\(B_{H,c}=M(vR_c)-\Delta_H(c)\)</span> explains the
+modulus. Under rationality, <span
+class="math inline" data-term-auto="off">\(vR_c\in\Z\)</span>, so only the small tail
+difference remains modulo <span class="math inline" data-term-auto="off">\(M\)</span>.
+Conversely, for irrational <span class="math inline" data-term-auto="off">\(S\)</span>, the
+distance of the fixed number <span class="math inline" data-term-auto="off">\(vR_c\)</span>
+from <span class="math inline" data-term-auto="off">\(\Z\)</span> is positive; multiplication
+by the exponentially growing <span class="math inline" data-term-auto="off">\(M\)</span>
+eventually dominates the linear error. The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-mersenne">proof
-and residue recurrence</a> also give the converse by keeping <span
-class="math inline" data-term-auto="off">\(c,v\)</span> fixed and letting <span
-class="math inline" data-term-auto="off">\(H\)</span> grow. The required residues have not
-been shown to exist for every choice of the parameters in either test. A
-separate <a
+and residue recurrence</a> make this comparison explicit. The required
+residues have not been shown to exist for every choice of the parameters
+in either test. A separate <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-farey">Farey-interval
 calculation</a> at depth <span class="math inline" data-term-auto="off">\(240\)</span>
 excludes <span class="math inline" data-term-auto="off">\(S=a/q\)</span> for <span
@@ -822,7 +828,9 @@ Q_0\approx7.96\times10^{34}\)</span>.</p>
 </section>
 <section id="sec:nogo" class="level3">
 <h3>Comparison sequences</h3>
-<p>Large ranks alone cannot settle the series question. There is an
+<p>To turn section rank into irrationality, one would need an upper
+bound on carry rank under rationality. The following comparison shows
+why rationality and linear growth alone cannot give it. There is an
 integer sequence <span class="math inline" data-term-auto="off">\(c\)</span> with <span
 class="math inline" data-term-auto="off">\(0\le c(n)\le n\)</span>, unchanged odd totients
 and <span class="math inline" data-term-auto="off">\(|c(n)-\varphi(n)|\le2\)</span> at even
@@ -831,9 +839,11 @@ c(n)2^{-n}=5/4\)</span>. Its carry is the integer sequence</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[u_N=4\sum_{j\ge1}c(N+j)2^{-j}
      =5\cdot2^N-4\sum_{n=1}^{N}c(n)2^{N-n}.\]</span></div>
-<p>For <span
+<p>Its recurrence is
+<span class="math inline" data-term-auto="off">\(2u_{N-1}-u_N=4c(N)\)</span> for <span
+class="math inline" data-term-auto="off">\(N\ge1\)</span>. For <span
 class="math inline" data-term-auto="off">\(j\ge1\)</span> and odd <span
-class="math inline" data-term-auto="off">\(0&lt;r&lt;2^j\)</span>, the recurrence gives</p>
+class="math inline" data-term-auto="off">\(0&lt;r&lt;2^j\)</span>, this gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[4\varphi(2^jn+r)=2u_{2^jn+r-1}-u_{2^jn+r}.\]</span></div>
 <p>Thus the <span class="math inline" data-term-auto="off">\(2^e-1\)</span> independent
@@ -847,23 +857,21 @@ retains the cofinal LCM-diagonal criterion, its endpoint sign conditions
 and the limits of finite integer combinations of shifts.</p>
 <p>The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-interpolation">signed
-interpolation argument</a> gives a different family of comparison
-sequences. For each integer <span
-class="math inline" data-term-auto="off">\(\beta\ge2\)</span>, their sums can take any value
-in an interval about <span
-class="math inline" data-term-auto="off">\(\sum\varphi(n)\beta^{-n}\)</span>, while a
-prescribed prefix and every odd coefficient stay fixed. The errors may
-be bounded by any positive <span
-class="math inline" data-term-auto="off">\(f(n)\to\infty\)</span>, and the changed even
-indices have upper Banach density zero. On each fixed arithmetic
-progression, the difference of the associated Dirichlet series is
-entire. At roots of unity, the difference of the generating functions
-extends smoothly in the radial direction, with any prescribed finite
-collection of radial derivatives vanishing. Thus the Dirichlet
-singularities are preserved, although regular parts and zeros may
-change; finitely many radial derivatives do not determine the full
-radial germ. This ordinary proof has not been formalised in Lean and
-gives no cancellation estimate for the unchanged totient sequence.</p>
+interpolation argument</a> tests whether preserving specified analytic
+data fixes the value. For each integer <span
+class="math inline" data-term-auto="off">\(\beta\ge2\)</span>, sparse even-index corrections
+realise every value in an interval about <span
+class="math inline" data-term-auto="off">\(\sum\varphi(n)\beta^{-n}\)</span>, with a
+prescribed prefix and all odd coefficients fixed. Errors are bounded by
+any prescribed positive <span
+class="math inline" data-term-auto="off">\(f(n)\to\infty\)</span>; their support has upper
+Banach density zero. On each fixed arithmetic progression the
+Dirichlet-series difference is entire. At roots of unity the
+generating-function difference extends smoothly radially, with any
+prescribed finite collection of radial derivatives zero. This preserves
+Dirichlet singularities, not regular parts or zeros; a finite jet is not
+the full radial germ. The proof is not formalised in Lean and estimates
+no cancellation for the unchanged totient sequence.</p>
 <p>Rational approximation imposes a different requirement. The identity</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Theta_2:=\sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^2}=S-\frac12\]</span></div>
@@ -898,10 +906,14 @@ class="math inline" data-term-auto="off">\(e=1\)</span>, seven-term prefixes lea
 class="math inline" data-term-auto="off">\(Y=4,5,6\)</span> to compare directly. The
 averaging assertion concerns averages of the quotients themselves. It
 leaves open signed combinations, quotients formed after combining the
-sums, and higher-rank kernels. A proposed family <span
-class="math inline" data-term-auto="off">\(p_j/q_j\)</span> in lowest terms would need <span
-class="math inline" data-term-auto="off">\(0&lt;q_j|\Theta_2-p_j/q_j|\to0\)</span>, which
-convergence alone does not imply.</p>
+sums, and higher-rank kernels. For a denominator-clearing irrationality
+argument, a sufficient target is <span
+class="math inline" data-term-auto="off">\(0&lt;q_j|\Theta_2-p_j/q_j|\to0\)</span>, with
+<span class="math inline" data-term-auto="off">\(p_j/q_j\)</span> in lowest terms. Indeed, if
+<span class="math inline" data-term-auto="off">\(\Theta_2=a/b\)</span>, any nonzero
+difference satisfies <span class="math inline" data-term-auto="off">\(q_j|a/b-p_j/q_j|=|a
+q_j-bp_j|/b\ge1/b\)</span>. Convergence alone gives no such
+contradiction.</p>
 </section>
 </section>
 <section id="sec:open" class="level2">
@@ -917,8 +929,9 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \operatorname{Re}\sum_{N=X}^{2X-1}
        \exp(2\pi iD_{h,N,L}/2^L)\le\frac9{10}X.
 \end{equation}\]</span></div>
-<p>These inequalities would prove irrationality.
-Indeed, if every residue failed <a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>, each <span
+<p>Only a saving in the real part is needed: one
+must show that the phases cannot all cluster near <span
+class="math inline" data-term-auto="off">\(1\)</span>. If every residue failed <a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>, each <span
 class="math inline" data-term-auto="off">\(D_{h,N,L}/2^L\)</span> would be within <span
 class="math inline" data-term-auto="off">\(1/16\)</span> of an integer. Each exponential
 would then have real part at least <span
@@ -945,13 +958,13 @@ class="math display" data-term-auto="off">\[\begin{aligned}
 \mathcal G&amp;=\{N\in\mathcal A:\varphi(m_N)\ge\eta m_N\}.
 \end{aligned}\]</span></div>
 <p>All indices are integers. On <span
-class="math inline" data-term-auto="off">\(\mathcal A\)</span> we have <span
-class="math inline" data-term-auto="off">\(p_N&gt;m_N\)</span>, so <span
-class="math inline" data-term-auto="off">\(\varphi(N+t)=\varphi(m_N)(p_N-1)\)</span>. Its
-coefficient in the phase is <span
-class="math inline" data-term-auto="off">\((2^h-1)/2^t\)</span>. Write</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[z_N=\exp\!\left(\frac{2\pi
+class="math inline" data-term-auto="off">\(\mathcal A\)</span>, <span
+class="math inline" data-term-auto="off">\(p_N&gt;m_N\)</span>, hence <span
+class="math inline" data-term-auto="off">\(\varphi(N+t)=\varphi(m_N)(p_N-1)\)</span>. Since
+<span class="math inline" data-term-auto="off">\(h&lt;t\le L\)</span>, this term occurs in
+both tails, with net coefficient <span
+class="math inline" data-term-auto="off">\(2^{-(t-h)}-2^{-t}=(2^h-1)/2^t\)</span>. Write</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[z_N=\exp\!\left(\frac{2\pi
 i(2^h-1)\varphi(m_N)(p_N-1)}{2^t}\right),
 \qquad w_N=E_N/z_N,\]</span></div>
 <p class="display-continue">and let <span class="math inline" data-term-auto="off">\(\bar
@@ -973,24 +986,24 @@ class="math display" data-term-auto="off">\[\begin{equation}
        &amp;\le\tfrac8{25}X.
 \end{aligned}
 \end{equation}\]</span></div>
-<p>The last two sums cover the indices outside
-<span class="math inline" data-term-auto="off">\(\mathcal G\)</span>. On <span
-class="math inline" data-term-auto="off">\(\mathcal G\)</span>, the identity <span
+<p>These are an exact partition: outside <span
+class="math inline" data-term-auto="off">\(\mathcal G\)</span> use the last two sums; on
+<span class="math inline" data-term-auto="off">\(\mathcal G\)</span> write <span
 class="math inline" data-term-auto="off">\(w_Nz_N=w_N(z_N-\bar z_{m_N})+w_N\bar
-z_{m_N}\)</span> gives the first two. The four sums therefore add to
-<span class="math inline" data-term-auto="off">\(\sum E_N\)</span> before any estimates are
-taken, and their bounds give <span
-class="math inline" data-term-auto="off">\((14/25+1/100+1/100+8/25)X=9X/10\)</span>.
-Subtracting <span class="math inline" data-term-auto="off">\(\bar z_m\)</span> cancels the
-unweighted sum over the whole cofactor group, but <span
-class="math inline" data-term-auto="off">\(w_N\)</span> varies with the same index <span
-class="math inline" data-term-auto="off">\(N\)</span>. That cancellation does not persist
-automatically after multiplication by <span
-class="math inline" data-term-auto="off">\(w_N\)</span>. Both of the first two sums still
-require weighted estimates; no independence has been assumed. The
-conclusion concerns the real part; it does not give a <span
-class="math inline" data-term-auto="off">\(21X/25\)</span> bound for the absolute value of
-the full sum.</p>
+z_{m_N}\)</span>. The bounds add to <span
+class="math inline" data-term-auto="off">\((14/25+1/100+1/100+8/25)X=9X/10\)</span>. There
+are two distinct issues. Small group means control the second sum by the
+triangle inequality because <span
+class="math inline" data-term-auto="off">\(|w_N|=1\)</span>. They do not control the first:
+subtracting <span class="math inline" data-term-auto="off">\(\bar z_m\)</span> cancels an
+<em>unweighted</em> group sum, not one with varying <span
+class="math inline" data-term-auto="off">\(w_N\)</span>. No independence is assumed. For
+example, <span class="math inline" data-term-auto="off">\(z=(1,-1)\)</span> has mean zero,
+but the weights <span class="math inline" data-term-auto="off">\(w=(1,-1)\)</span> make <span
+class="math inline" data-term-auto="off">\(\sum w_N(z_N-\bar z)=2\)</span>. This illustrates
+the distinction, not the behaviour of the totient phases. The resulting
+real-part bound is not a <span class="math inline" data-term-auto="off">\(21X/25\)</span>
+norm bound.</p>
 <div class="problem" id="prob:firstharmonic">
 <p><strong>Problem C.1</strong> (Four estimates for the first-harmonic
 sum). <em> For each <span class="math inline" data-term-auto="off">\(h\ge1\)</span>, do there
@@ -1003,31 +1016,41 @@ class="math display" data-term-auto="off">\[\max(X_0,1)\le X,\qquad h\le L-s,\qq
 16(2X+h+L+2)\le2^L,\]</span></div>
 <p class="display-continue"><em> for which those four bounds hold?</em></p>
 </div>
-<p>The parameters <span class="math inline" data-term-auto="off">\(s\)</span> and <span
-class="math inline" data-term-auto="off">\(\eta\)</span> may depend on <span
-class="math inline" data-term-auto="off">\(h\)</span>, but must be fixed before the threshold
-<span class="math inline" data-term-auto="off">\(X_0\)</span> is given. All four estimates
-must then hold for one common choice of <span
-class="math inline" data-term-auto="off">\(X,L\)</span>. For each fixed <span
-class="math inline" data-term-auto="off">\(h,s\)</span>, take the least admissible <span
-class="math inline" data-term-auto="off">\(L\)</span> satisfying the size inequality in <a class="math-ref" data-equation-ref="true" href="#eq:r3-harmonic">eq:r3-harmonic</a> and <span
-class="math inline" data-term-auto="off">\(L\ge s+h\)</span>. The <a
+<p>Fix <span class="math inline" data-term-auto="off">\(s,\eta\)</span> after <span
+class="math inline" data-term-auto="off">\(h\)</span> but before <span
+class="math inline" data-term-auto="off">\(X_0\)</span>; all four estimates must hold on the
+same block. Take the least <span class="math inline" data-term-auto="off">\(L\ge s+h\)</span>
+satisfying <a class="math-ref" data-equation-ref="true" href="#eq:r3-harmonic">eq:r3-harmonic</a>’s
+size inequality. The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-counts">smooth-number
 and small-cofactor estimates</a> give the last two bounds for all
 sufficiently large <span class="math inline" data-term-auto="off">\(X\)</span> when <span
 class="math inline" data-term-auto="off">\(0&lt;\eta&lt;1/(300\log4)\)</span>. The elementary
 excluded-cofactor estimate is <span
 class="math inline" data-term-auto="off">\((3\eta\log4+o(1))X\)</span>; it needs no prime
-number theorem. The first two bounds in <a class="math-ref" data-equation-ref="true" href="#eq:r3-four-bounds">eq:r3-four-bounds</a> remain open. No
-optimality is asserted for the sufficient margins in <a class="math-ref" data-equation-ref="true" href="#eq:r3-four-bounds">eq:r3-four-bounds</a>.</p>
-<p>Alternatively, at <span class="math inline" data-term-auto="off">\(s=26\)</span>, <span
-class="math inline" data-term-auto="off">\(\eta=1/1000\)</span> and minimal depth one has
-<span class="math inline" data-term-auto="off">\(|\mathcal G|&gt;67X/100\)</span> for large
-<span class="math inline" data-term-auto="off">\(X\)</span>. The single open estimate <span
+number theorem. With the prime number theorem as input, the <a
+href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-group-mean">group-mean
+estimate</a> gives the second bound for <span
+class="math inline" data-term-auto="off">\(s=26\)</span>, <span
+class="math inline" data-term-auto="off">\(\eta=1/1000\)</span> at this depth and all large
+<span class="math inline" data-term-auto="off">\(X\)</span>; the mean-subtracted bound
+remains open. At these fixed parameters it would suffice to prove that
+bound for arbitrarily large <span class="math inline" data-term-auto="off">\(X\)</span>: the
+other three already hold beyond fixed thresholds and hence on those same
+sufficiently late blocks.</p>
+<p>There is also a weaker sufficient condition, without a group-mean
+input. Since <span class="math inline" data-term-auto="off">\(|\mathcal
+G|&gt;67X/100\)</span> for large <span class="math inline" data-term-auto="off">\(X\)</span>,
+the open bound <span
 class="math inline" data-term-auto="off">\(\operatorname{Re}\sum_{N\in\mathcal
-G}E_N\le603X/1000\)</span>, for each <span
-class="math inline" data-term-auto="off">\(h\)</span> on arbitrarily large blocks, would
-suffice by the same argument. The <a
+G}E_N\le603X/1000\)</span> would put the average on <span
+class="math inline" data-term-auto="off">\(\mathcal G\)</span> below <span
+class="math inline" data-term-auto="off">\(9/10\)</span>: <span
+class="math inline" data-term-auto="off">\(603/1000=(9/10)(67/100)\)</span>. Some good index
+would then pass the test. This uses an average on <span
+class="math inline" data-term-auto="off">\(\mathcal G\)</span>, not a bound on the full
+block, and is required for each <span class="math inline" data-term-auto="off">\(h\)</span>
+on arbitrarily large blocks. The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-interpolation">ordinary
 comparison argument</a> gives larger first harmonics at all sufficiently
 large admissible scales, distinguishing its rational sequences from the
@@ -1036,11 +1059,13 @@ Its proof is included with the interpolation construction.</p>
 <p>Balasubramanian, Giri and Srivastav give correlation estimates
 applicable to <span class="math inline" data-term-auto="off">\(\varphi(n)/n\)</span>,
 uniformly for <span class="math inline" data-term-auto="off">\(|h|\le x/2\)</span> <span
-class="citation" data-cites="bgs2016"><a href="#ref-11">[11]</a></span>. Here the modulus grows
-with <span class="math inline" data-term-auto="off">\(L\)</span>, and the residual weight
-depends on other totient values in the window. That correlation theorem
-supplies neither of the two remaining estimates. Establishing them for
-the actual totient is the unresolved arithmetic step.</p>
+class="citation" data-cites="bgs2016"><a href="#ref-11">[11]</a></span>. Their correlation is a
+product of two normalised totient values. Here the modulus grows with
+<span class="math inline" data-term-auto="off">\(L\)</span>, and <span
+class="math inline" data-term-auto="off">\(w_N\)</span> is an exponential of the other,
+overlapping totient contributions. Uniformity in the shift of that
+two-point product does not supply the required weighted exponential
+estimate.</p>
 </section>
 <section id="verification-and-reproducibility"
 class="level2 unnumbered">

@@ -26,7 +26,7 @@
 \title{Factorial Linear Forms and Denominators\\Detailed Proofs and Rationality Criteria}
 \subtitle{Erd\H{o}s Problem~\#68}
 \author{Will Cook}
-\date{1 September 2026; revised 4 October 2026}
+\date{1 September 2026; revised 5 October 2026}
 
 \setlength{\emergencystretch}{3em}
 % Permit breaks inside long declaration names in the generated catalogue.
@@ -38,14 +38,16 @@
 \noteprovenance
 
 \begin{abstract}
-We give the integer-coordinate classification and finite-gcd calculation
-for factorial-weighted cancellation, together with support and coefficient
-norm refinements. For $S=\sum_{n\ge2}(n!-1)^{-1}$, we derive lower bounds
-on common denominators and describe prime-power cancellation in reduced
-partial sums. Carry and factorial-digit criteria give equivalent formulations of
-irrationality. Recorded exact computations exclude
-$q\mid299999!$ and $q<2^{39990}$ when $S=a/q$; these computations are
-outside Lean and do not settle irrationality.
+We determine the possible multipliers in factorial-weighted
+cancellation forms $MS+k$, where $S=\sum_{n\ge2}(n!-1)^{-1}$.
+An integral basis and a finite gcd give the complete coefficient
+classification; finite-support examples distinguish the least multiplier,
+least support size, and least coefficient norm. We also prove a lower
+bound for common-denominator growth, analyse prime-power cancellation
+on reduction, and derive equivalent carry and factorial-digit criteria.
+Recorded computations exclude $q\mid299999!$ and $q<2^{39990}$ under
+$S=a/q$. These computations are outside Lean; the required nonintegrality
+at arbitrarily large indices remains unproved.
 \end{abstract}
 
 \begin{problem}[Erd\H{o}s \#68]\label{long68:res:problem}
@@ -60,27 +62,31 @@ Any further change of starting index adds a rational number. The
 expectation for all integer shifts remains unproved here.
 The problem number follows Bloom's catalogue \cite{bloom}.
 
-We first construct integer linear forms $MS+k$ in $\Ser$. The
-coefficient $M$ is a factorial-weighted sum of the entries of a finite
-integer vector. Its possible values, when specified initial weighted
-sums vanish, form an explicitly computable ideal of $\mathbb Z$.
-The proof starts with adjacent factorial differences. Eliminating the
-proper divisors of each index gives an integral basis, in which the
-cancellation equations prescribe the lower coordinates. Restricting
-the support to indices at least two then leaves one linear Diophantine
-equation. The accompanying short paper gives the basis construction,
-the finite-gcd proof, and an example attaining the least positive value
-$M=1380$ when the sums indexed by $2,3,4$ vanish.
+We separate construction from nonintegrality. The first question is
+algebraic: which integers $M$ occur when a finite integer vector
+cancels prescribed initial weighted sums in a form $MS+k$? The answer is an explicitly computable ideal of $\mathbb Z$.
+Adjacent factorial differences give an integral basis after correction
+at proper divisors. Cancellation fixes its lower coordinates;
+excluding index one leaves a single Diophantine equation. A finite-gcd
+formula then gives the least positive multiplier and a vector attaining
+it. For cancellation through four, that multiplier is $1380$, not merely
+the common denominator $115$ forced by the congruences.
 
-For the depth-four calculation, we also minimise support sizes and
-coefficient norms among vectors supported on $\{2,\ldots,8\}$.
-A separate construction gives primitive vectors supported on arithmetic
-progressions. The carry, digit and
-reduced-denominator arguments address nonintegrality of the resulting
-linear form. Changing a vector while preserving $M$ changes the remainder
-by an integer. It may simplify the calculation, but it cannot change
-whether the remainder is integral. That condition requires
-a separate argument.
+The accompanying short paper proves this classification and bounds one
+resulting remainder between consecutive integers. Here we develop the
+support and coefficient-norm refinements and a primitive construction
+on arithmetic progressions. These solve different problems: at fixed
+$M$, changing the vector changes $MS+k$ only by an integer, so it cannot
+alter nonintegrality. The progression construction makes $M$ divisible
+by every fixed denominator eventually, but still needs a gap estimate
+for those same forms.
+
+The later sections study that arithmetic difficulty from two directions.
+Common-denominator growth measures the cost of clearing terms;
+prime-power calculations determine what survives reduction. Carries
+and factorial digits instead characterize rationality itself. The
+resulting equivalences identify what an irrationality proof must show,
+without proving that the required departures occur arbitrarily far out.
 
 Throughout, write
 \[
@@ -95,31 +101,28 @@ must produce a nonintegral form with $q\mid M$. Both properties must
 hold for the same vector; cancellation and growth of $M$ alone do not
 establish this.
 
-The table below separates the short paper's main argument from the
-additional material retained here.
-After the coefficient theory, \S\ref{long68:sec:prime-powers} treats
-reduction of finite sums and \S\ref{long68:sec:lcm} proves
-$\liminf\log\Lc_N/(N^{3/2}\log N)\ge2\sqrt2/3$.
-Sections~\ref{long68:sec:carry} and \ref{long68:sec:residue} give the
-carry and residue criteria. We then describe the finite computations
-and the estimates still needed for irrationality. The appendices contain
-additional examples, the precise limits of unsuccessful arguments, and
-the concordance with the formal sources.
+The proof of the classification is in \S\ref{long68:sec:basis}; the
+following table locates the additional arguments. In particular, the
+lower bound for $\Lc_N$ concerns the unreduced common denominator,
+not automatically $\den(H_N)$. The appendices retain the supplementary
+identities, limits of the attempted arguments, and formal-source concordance.
 
 \begin{center}\small
-\begin{tabular}{p{.46\linewidth}p{.43\linewidth}}
+\begin{tabular}{p{.55\linewidth}p{.34\linewidth}}
 \toprule
 \papertablehead
-Argument or supplementary topic & Full account here\\
+Question & Where it is treated\\
 \midrule
-Integral basis and finite gcd & \S\ref{long68:sec:basis}\\
-The example $M=1380$ and its remainder &
-\S\ref{long68:sec:basis-examples}, \S\ref{long68:sec:ext-certificates}\\
-Common-denominator growth & \S\ref{long68:sec:lcm}\\
-Carries and factorial digits & \S\ref{long68:sec:carry}\\
-Exact finite denominator exclusions & \S\ref{long68:sec:finite}\\
-Declaration links formerly in the short appendix &
-Appendix~\ref{long68:sec:short-concordance}\\
+Which $M$ and coefficient vectors are possible? & \S\ref{long68:sec:basis}\\
+What do support and norm minimisation change? &
+\S\ref{long68:sec:basis-examples}\\
+Which prime powers survive reduction? & \S\ref{long68:sec:prime-powers}\\
+How fast does the common denominator grow? & \S\ref{long68:sec:lcm}\\
+How does growth constrain the support parameter? &
+\S\ref{long68:sec:quantitative-support}\\
+Which eventual patterns characterize rationality? & \S\ref{long68:sec:carry}\\
+Which denominators are excluded by finite computations? & \S\ref{long68:sec:finite}\\
+Where are the formal declarations? & Appendix~\ref{long68:sec:short-concordance}\\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -183,31 +186,6 @@ index $1$ is temporarily allowed in the basis calculation below.
 In particular, $M=0$ gives an integral remainder, and fixing
 $M(c)$ fixes its fractional part. These conclusions hold for every
 finite vector, before imposing cancellation.
-
-There is also an immediate support restriction. If the integer indices
-lie where one floor exponent is constant, the corresponding weighted
-sum is proportional to $M$.
-
-\begin{theorem}[constant values of the floor in the weights]\label{long68:res:bandbreakpoint}
-Let $d\ge2$ and $k\ge0$, and suppose every supported index $i$ satisfies
-$kd\le i<(k+1)d$.  Then $M(c)=(d!)^k\chn dc$.  In particular, cancellation
-on the interval $d\le i<2d$ forces $M(c)=0$; and if every supported index
-is at least $d$ while $M(c)\ne0$ and $\chn dc=0$, then some supported index
-is at least $2d$.
-\end{theorem}
-
-\begin{proof}
-On this interval the quotient $\lfloor i/d\rfloor$ is the constant $k$, so
-$i!=(d!)^kW_{d,i}$ for every supported index and the factor $(d!)^k$ comes
-out of the sum.  The two consequences follow by taking $k=1$ and by
-contraposition.
-\end{proof}
-
-\noindent A single supported index lies in one such interval, while
-indices straddling a multiple of $d$ may not. The theorem restricts
-where a solution with $V_d(c)=0$ and $M(c)\ne0$ can be supported.
-It supplies neither a construction of that solution nor an estimate
-for its infinite remainder.
 
 By \eqref{long68:eq:channel-congruence}, a vanishing $d$-th weighted sum forces $(d!-1)\mid M(c)$,
 and annihilating every weighted sum $2\le d\le D$ forces $\Lc_D\mid M(c)$, where
@@ -287,7 +265,7 @@ is equivalent to
 \begin{equation}\label{long68:eq:low-channel-support}
  ta_D+\sum_{n>D}z_nu_n=0.
 \end{equation}
-The free higher coordinates can change the first coefficient by every
+The free higher basis coefficients can change the first coefficient by every
 multiple of $\gcd\{u_n:n>D\}$, and only by such a multiple. Thus the
 gcd gives the exact solvability condition. We next show how to compute
 it using a bounded list of coefficients.
@@ -360,11 +338,11 @@ values of $M$ is intrinsic to the cancellation equations, so its positive
 generator is independent of the eligible prime $p$.
 \end{proof}
 
-The support equation determines which basis coefficients are admissible.
-For a fixed admissible value of $M$, those choices give remainders
-differing by integers. The following formula records the integer
-offset and shows why changing the vector at that value of $M$ cannot
-alter nonintegrality.
+Fix $M\in\mu_D\Z$ and put $t=M/L_D$. The support equation
+\eqref{long68:eq:low-channel-support} determines which basis coefficients
+are admissible. The following formula records their integer contribution
+and shows why changing the vector at that value of $M$ cannot alter
+nonintegrality.
 
 \begin{theorem}[how the coefficient choices change the remainder]\label{long68:res:residual-transparency}
 For the vector in \eqref{long68:eq:low-channel-basis},
@@ -468,10 +446,10 @@ $V_2=V_3=V_4=0$. Thus imposing the additional equation $V_3=0$ does not change t
 possible values of $M$, although $3e_2-e_3$ shows that it changes the set of
 admissible vectors.
 
-Among vectors supported in $\{2,\ldots,8\}$ with $M=1380$ and
-$V_2=V_3=V_4=0$, this vector has the smallest support. More precisely, every integer vector supported on
-$\{2,\ldots,8\}$ with $M=1380$ and $V_2=V_3=V_4=0$ has, for some
-$t,x,y\in\Z$, the coefficients
+Among integer vectors supported in $\{2,\ldots,8\}$ with $M=1380$ and
+$V_2=V_3=V_4=0$, this vector has the smallest support. Every such vector
+has the following coefficients for some $t,x,y\in\Z$. The coefficient
+of $K_4$ remains $M/L_4=12$; here $t$ is a new free parameter.
 \begin{equation}
 \begin{aligned}
 \lambda_2&=1482-4200t,&\lambda_3&=-784+2240t,\\
@@ -542,8 +520,21 @@ At $t=0$, the four groups have unique norm minima $290$, $136$,
 $13$ and $1$, respectively. Thus the unique norm minimizer under
 only $V_2=V_4=0$ is
 $-290e_3-136e_5-e_6+12e_7-e_8$, with norm $440$.
-These optima concern the depth-four problem on the stated finite
-support. They give no irrationality conclusion for the infinite series.
+For comparison, with $M=1380$ and support contained in
+$\{2,\ldots,8\}$, the two optimization problems give:
+\begin{center}
+\begin{tabular}{lrr}
+\papertablehead
+Cancellation & Minimum support size & Minimum $\ell^1$ norm\\
+\hline
+$V_2=V_4=0$ & $4$ & $440$\\
+$V_2=V_3=V_4=0$ & $5$ & $2416$\\
+\end{tabular}
+\end{center}
+In both rows the norm minimizer has one more nonzero coefficient than
+a support minimizer. Thus even with $M$ and the allowed indices fixed,
+least support and least norm need not coincide. These are finite
+optimization statements, not irrationality conclusions.
 
 There is a uniform restriction $12L_D\mid M$ on support $n\ge2$.
 For $n=2,3$ one has $n!=2W_{2,n}$. For $n\ge4$, both $n!$ and
@@ -570,19 +561,19 @@ which the uniform divisibility by $12L_D$ misses.
 
 \subsection{Support bounds and nonintegrality}\label{long68:sec:support-and-remainder}
 
-The basis formula \eqref{long68:eq:low-channel-basis} describes all solutions
-of the weighted-sum equations, and \eqref{long68:eq:low-channel-support}
-imposes the support restriction. The remainder identity then determines
-their residues modulo $\Z$. In particular, $\mathcal R(c)$ is an integer
-linear form in $1$ and $S$, and its distance from the nearest integer equals
-that of $M(c)S$. Integer translation can choose a representative near zero,
-but cannot change this distance. To exclude every rational denominator this way, each positive integer $q$
-must divide the coefficient $M$ of some nonintegral form in the family.
-It would suffice to find a family of nonintegral forms whose values
-of $M$ are eventually divisible by every fixed $q$; growth alone does
-not give this divisibility. For example, the compulsory factor $12L_D$ has
-$3$-adic valuation exactly $1$ for every $D$, so this necessary divisor
-alone does not guarantee $9\mid M$.
+There are three separate choices: the vector, its multiplier $M$,
+and the cutoff used to estimate its remainder. The basis and support
+equations classify the first two. Once $M$ is fixed,
+$\mathcal R(c)\equiv M(c)S\pmod{\Z}$ fixes the fractional part:
+integer translation may put a representative near zero but cannot
+change its distance from an integer.
+
+To exclude every rational denominator, each $q>0$ must divide the
+multiplier of some nonintegral form. Growth of the compulsory divisor
+$12L_D$ alone is insufficient: its $3$-adic valuation is exactly one
+for every $D$, so it does not even force $9\mid M$. By contrast,
+extending the cutoff changes neither $M$ nor the remainder, only the
+finite enclosure used to test it.
 
 For $c=-6e_2+e_4$, we have $M(c)=12$ and $\mathcal R(c)=12S-17$. At cutoff $4$, its finite part is $-239/115$:
 the gap $9/115$ is smaller than the tail bound $24/119$. At cutoff $5$,
@@ -595,131 +586,41 @@ excludes denominators dividing the unchanged value $M=12$, already
 covered by the finite exclusions.
 
 For fixed $c$ with $M(c)>0$, the finite part increases to
-$\mathcal R(c)$, with omitted tail $M(c)(S-H_N)$. The upper bound
-$2M(c)/((N+1)!-1)$ is smaller than the finite part's gap to the next
-integer at every sufficiently large cutoff if and only if
-$\mathcal R(c)\notin\Z$. Indeed, for a nonintegral remainder the gap is
-eventually at least
-$\lfloor\mathcal R(c)\rfloor+1-\mathcal R(c)>0$, whereas the upper bound
-tends to zero. For an integral remainder, the eventual gap equals the
-omitted tail itself and is smaller than that upper bound. At any one
-cutoff, success places the remainder strictly above the finite part and
-below the least integer strictly exceeding it, so it implies nonintegrality.
-The \href{erdos-68-factorial-denominator-irrationality.pdf\#r12-short-gap}{remainder comparison in the short paper}
-writes out the inequality. Its eventual success for a fixed vector is
-therefore equivalent to that vector's nonintegral remainder, not a
-separate reason for nonintegrality. To exclude every denominator, for
-each $q>0$ we still need a vector with $q\mid M(c)$ for which the test
-succeeds. Choosing its coefficients and choosing a truncation cutoff
-are separate steps; the cutoff need not be the largest supported index.
+$\mathcal R(c)$ with omitted tail $M(c)(S-H_N)$. If
+$\mathcal R(c)\notin\Z$, its gap to the next integer is positive,
+whereas $2M(c)/((N+1)!-1)$ tends to zero; the test therefore succeeds
+at every sufficiently large cutoff. If $\mathcal R(c)\in\Z$, the
+eventual gap equals the omitted tail and is smaller than this upper
+bound. Eventual success is consequently equivalent to nonintegrality
+of this fixed form, not an independent reason for it. The
+\href{erdos-68-factorial-denominator-irrationality.pdf\#r12-short-gap}{short paper's remainder comparison}
+gives the inequality explicitly. For each $q>0$ we still need a vector
+with $q\mid M(c)$ for which it succeeds; the successful cutoff need
+not be the largest supported index.
 
-To impose this small-tail comparison at the largest supported index, one
-needs more than $L_D\mid M$: the positive coefficient $M$ must also be smaller than a
-factorial at that index. The next theorem combines those two demands at
-$D=2t^2$. Its variable $R$ is a support parameter, not the remainder or
-the modulus $R_p$ of \S\ref{long68:sec:residue}. If a larger truncation cutoff
-is used instead, the same numerical bound applies to that cutoff, not
-to the vector's actual support. The extra size assumption on $M$ is not
-a consequence of cancelling the weighted sums.
+The support itself has a separate geometric restriction. Cancellation
+with $M\ne0$ must cross a change in the relevant floor exponent;
+otherwise the weighted sum is proportional to $M$.
 
-\newpage
-\label{long68:res:lead-channel-radius}\phantomsection
-\begin{theorem}[a lower bound for the support parameter]\label{long68:res:channel-radius}
-Let $t,M,R\in\N$ satisfy
-\[
- t\ge2^{32},\qquad M>0,\qquad \Lc_{2t^2}\mid M,\qquad M<(R+1)!-1 .
-\]
-Then $3t^3<2(R+1)$.  Consequently no family satisfying these hypotheses for
-all sufficiently large $t$ has $(R(t)+1)/t^3\le3/2$ eventually, and none has
-$R(t)=o(t^3)$.
-
+\begin{theorem}[constant values of the floor in the weights]\label{long68:res:bandbreakpoint}
+Let $d\ge2$ and $k\ge0$, and suppose every supported index $i$ satisfies
+$kd\le i<(k+1)d$.  Then $M(c)=(d!)^k\chn dc$.  In particular, cancellation
+on the interval $d\le i<2d$ forces $M(c)=0$; and if every supported index
+is at least $d$ while $M(c)\ne0$ and $\chn dc=0$, then some supported index
+is at least $2d$.
 \end{theorem}
 
 \begin{proof}
-Put $D=2t^2$, $k=2t$ and $u=D-k+1=2t^2-2t+1$.  Lemma~\ref{long68:res:segment} at
-$N=D$, with $n!-1\ge n!/2$ and $\log n!\ge n\log n-n$, and with
-$\Lc_D\le M<(R+1)!$, gives
-\begin{equation}\label{long68:eq:radius-log}
- 2t\bigl(u\log u-u-\log2\bigr)
- <(R+1)\log(R+1)+\binom{2t+1}{3}\log(2t^2).
-\end{equation}
-
-
-Suppose $R+1\le\tfrac32t^3$.  Since $t\ge16$ one has
-$\tfrac{15}{8}t^2\le u\le2t^2$ and $\log u\ge2\log t$, so the left side of
-\eqref{long68:eq:radius-log} is at least
-$\tfrac{15}{2}t^3\log t-4t^3-2t\log2$.  Using
-$\binom{2t+1}{3}<\tfrac43t^3$ and $\log\tfrac32<\log2$, the right side is at
-most
-\[
- \tfrac32t^3\bigl(\log2+3\log t\bigr)+\tfrac43t^3\bigl(\log2+2\log t\bigr).
-\]
-Dividing by $t^3$ and rearranging, \eqref{long68:eq:radius-log} would require
-\[
- \tfrac13\log t<4+\frac{2\log2}{t^2}+\tfrac{17}6\log2 .
-\]
-But $\log t\ge32\log2$ and $\tfrac23<\log2<1$ give
-$\tfrac13\log t-\tfrac{17}6\log2\ge\tfrac{47}6\log2>5$, while
-$4+2\log2/t^2<5$.  This contradiction proves the finite inequality, and the
-two sequence conclusions follow.
+On this interval the quotient $\lfloor i/d\rfloor$ is the constant $k$, so
+$i!=(d!)^kW_{d,i}$ for every supported index and the factor $(d!)^k$ comes
+out of the sum.  The two consequences follow by taking $k=1$ and by
+contraposition.
 \end{proof}
 
-These hypotheses are compatible: for a fixed $t$, one may take
-$M=\Lc_{2t^2}$ and then choose $R$ large enough. The restriction is on how
-small $R$ can be. Vanishing of $V_2,\ldots,V_{2t^2}$ forces the divisibility
-condition, but not the upper bound $M<(R+1)!-1$. An application to a remainder
-estimate must establish that additional size bound and $M>0$. The theorem
-then rules out a parameter growing more slowly than cubically. It is a
-bound on the actual support only when $R$ denotes its largest index and
-the stated size condition holds there; it does not prove irrationality.
-
-Theorem~\ref{long68:res:lcm-growth} raises the asymptotic constant in the same
-estimate.
-
-\begin{corollary}[the asymptotic lower bound]\label{long68:res:radius-constant}
-Let $M(t),R(t)$ satisfy $M(t)>0$, $\Lc_{2t^2}\mid M(t)$ and
-$M(t)<(R(t)+1)!-1$ for all sufficiently large $t$.  Then
-\[
- \liminf_{t\to\infty}\frac{R(t)+1}{t^3}\ \ge\ \frac{16}{9}.
-\]
-\end{corollary}
-
-\begin{proof}
-Put $r=R(t)+1$, so $\Lc_{2t^2}\le M(t)<r!$ and $\log \Lc_{2t^2}<r\log r$.
-Since
-\[
-\frac{(2t^2)^{3/2}\log(2t^2)}{t^3\log t}\longrightarrow4\sqrt2,
-\]
-Theorem~\ref{long68:res:lcm-growth} gives, for every $\varepsilon>0$ and
-all sufficiently large $t$,
-\[
- \log \Lc_{2t^2}\ge
- \Bigl(\tfrac{16}{3}-\varepsilon\Bigr)t^3\log t.
-\]
-Suppose $r\le ct^3$ for arbitrarily large $t$, with $0<c<16/9$ fixed.  On that
-subsequence $r\log r\le ct^3(3\log t+\log c)=\bigl(3c+o(1)\bigr)t^3\log t$.
-Choosing $0<\varepsilon<16/3-3c$ contradicts the lower bound for
-sufficiently large $t$.
-\end{proof}
-
-This corollary does not assert the strict inequality
-$R+1>\tfrac{16}9t^3$ eventually. Indeed, the finite logarithmic constraint
-\eqref{long68:eq:radius-log} allows equality at that constant. To check
-this directly, set $R+1=16t^3/9$ with $t\ge4$. Since
-$u=2t^2-2t+1\le2t^2$ and $x\log x-x$ is increasing for $x\ge1$, the
-left side of \eqref{long68:eq:radius-log} is at most
-$4t^3(\log(2t^2)-1)-2t\log2$. Subtracting this bound from the right side gives
-\[
- t^3\left(4+\frac{16}{9}\log\frac{16}{9}-\frac83\log2\right)
- +t\left(\frac53\log2-\frac23\log t\right)
- >\frac43t^3-\frac23t^2>0,
-\]
-where $\log2<1$ and $\log t\le t$ suffice for the last comparison.
-Integer pairs with $9(R+1)=16t^3$ exist for every multiple $t\ge6$ of $3$.
-This verifies the numerical constraint, not the existence of a coefficient
-vector with that support. The asymptotic assertion in
-Corollary~\ref{long68:res:radius-constant} instead follows from
-Theorem~\ref{long68:res:lcm-growth}.
+The constant-floor condition is local. A quantitative bound also needs
+control of the multiplier: cancellation alone does not give
+$0<M<(R+1)!-1$. After proving the common-denominator estimates,
+\S\ref{long68:sec:quantitative-support} derives the resulting bounds on $R$.
 
 At a prime index, the two-term vector $T_p$ already changes only one
 weighted sum; there are no proper divisors to eliminate.
@@ -759,24 +660,22 @@ $\mathcal R(c)-\lfloor\mathcal R(c)+1/2\rfloor\in[-1/2,1/2)$.
 The progression construction below supplies such an initial vector:
 choose its first index $r>B$.
 
-This rounding proves a size bound, not nonvanishing: an integral remainder
-becomes zero. In fact, a rounded remainder is nonzero exactly when the
-original remainder is nonintegral. Choosing larger adjustment primes
-cannot exclude any further denominators, since $M$ stays fixed.
-The chosen integer
-$\lfloor\mathcal R(c)+1/2\rfloor$ depends on the remainder itself. The
-formula establishes the existence of a representative in the stated
-interval; it does not independently certify that this representative is
-nonzero.
+An integral remainder rounds to zero; a nonintegral one rounds to a
+nonzero value. Thus rounding controls size but does not prove
+nonintegrality or exclude further denominators at fixed $M$.
+Moreover, $\lfloor\mathcal R(c)+1/2\rfloor$ depends on the unknown
+remainder: this is an existence formula for a representative, not an
+independent certificate of its nonvanishing.
 
 \subsection{A primitive solution on an arithmetic progression}\label{long68:sec:progression}
 \papersectiontarget{r5-progression}
-To extend the example $-6e_2+e_4$ to cancellation at larger $D$, place
-the support on an arithmetic progression with its first index prescribed.
-Let $D,r\ge2$ and let $\ell$ be a positive multiple of $2,\ldots,D$. Equal
-spacing makes $V_d=0$ a root condition at $(d!)^{-\ell/d}$. We choose
-the degree-$D-1$ polynomial with exactly these roots and scale its
-coefficients so that the last supported coefficient is $1$. Put
+We now separate two tasks that the basis classification alone does
+not combine: prescribe where support begins and make $M$ absorb every
+fixed denominator as the support grows. Equal spacing turns each
+cancellation equation into a polynomial root condition. Scaling then
+makes the coefficients integral and the last coefficient equal to one.
+Let $D,r\ge2$ and let $\ell$ be a positive multiple of $2,\ldots,D$.
+The roots will be $(d!)^{-\ell/d}$. Put
 \[
 i_j=r+j\ell\ (0\le j<D),\quad N=r+(D-1)\ell,\quad
 \alpha_d=(d!)^{\ell/d},
@@ -837,21 +736,108 @@ $q\le\lfloor\sqrt N/2\rfloor+1$ therefore divides $M$, as does every
 divisor of that factorial. In particular, $N\ge4(q-1)^2$ suffices for
 $q\mid M$. This includes denominators growing with $N$.
 
-The construction also supplies the required absolute smallness of the
-omitted tail at its own support endpoint. Every factor $1-1/\alpha_d$
-lies strictly between $0$ and $1$, so $0<M<N!$ and
+The same vector also supplies the size estimate needed for a tail test.
+Every factor $1-1/\alpha_d$ lies strictly between $0$ and $1$, so
+$0<M<N!$ and
 \[
  0<M(S-H_N)<\frac{2M}{(N+1)!-1}<\frac2N,
 \]
-where the last inequality follows from $(N+1)!-1>NN!$ for $N\ge2$.
-In particular, $M<(N+1)!-1$ holds without an additional
-hypothesis for this family. What is not established is that the displayed
-upper bound is smaller than the finite part's gap to the next integer.
-That gap depends on the same vector and may shrink with $N$; an upper
-bound tending to zero does not supply the required comparison. Neither
-this size estimate nor the divisibility proves nonintegrality of the
-remainders.
+where $(N+1)!-1>NN!$ for $N\ge2$. Thus the family supplies both
+eventual divisibility by each fixed $q$ and the size condition
+$M<(N+1)!-1$, without an extra hypothesis. It does not yet compare
+this tail with the finite part's gap to the next integer. Both may
+shrink together. Before studying that arithmetic question, we show why
+the cofactor formula gives the same primitive vectors.
 
+\subsection{Cofactors give the same primitive vector}\label{long68:sec:cofactor-progression}
+A determinant formula may appear to offer a different family. For
+positive starting index, however, its primitive normalization gives
+exactly the preceding progression vector, up to sign. We first verify
+the determinant construction, then identify the two formulas. For
+integers $n,t\ge0$, put
+$s_n=((n+2)!)^2$ and $i_j=(t+j)s_n$ for $0\le j\le n+1$.
+This step size matches the recorded construction; the determinant argument
+only needs a positive step divisible by every $d=2,\ldots,n+2$.
+Here the factorial-weight formula is also allowed at index $0$; the case
+$t=0$ will show why a lower support condition is necessary. Form the
+integer matrix $A$ with first row $(i_j!)_j$ and weighted-sum rows
+$(W_{d,i_j})_j$ for $2\le d\le n+2$.
+
+To see that $\det A\ne0$, divide column $j$ by $i_j!$.
+Since $d\mid s_n$, the $d$th weighted-sum row becomes
+$((d!)^{-(t+j)s_n/d})_j$. Removing the nonzero factor
+$(d!)^{-t s_n/d}$ from that row leaves a Vandermonde matrix with nodes
+\[
+1,\ (2!)^{-s_n/2},\ \ldots,\ ((n+2)!)^{-s_n/(n+2)}.
+\]
+These nodes are distinct: $(d!)^{1/d}$ is strictly increasing, since
+$d!<(d+1)^d$. The Vandermonde determinant is the product of their
+pairwise differences \cite[(1.3.13)]{nist-vandermonde}, and is therefore nonzero. None of the row or
+column factors removed is zero, so the original determinant is nonzero
+too.
+
+Let $c$ be the cofactor vector of the first row, and let $N_d$ be the
+determinant obtained by replacing that row with $(W_{d,i_j})_j$.
+Cofactor expansion gives $M(c)=\det A\ne0$ and $\chn dc=N_d$.
+For $2\le d\le n+2$ the replacement duplicates a row, so $\chn dc=0$.  By
+\eqref{long68:eq:channel-congruence} each $(\chn dc-M(c))/(d!-1)$ is an integer and
+vanishes for $d>\max_ji_j$, so
+\[
+ \mathcal R_{n,t}:=\sum_{d>n+2}\frac{N_d}{d!-1},\qquad
+ \mathcal R_{n,t}-\det(A)\,\Ser\in\Z .
+\]
+A family with $\min_ji_j=t\,s_n\to\infty$ and
+$\mathcal R_{n,t}\notin\Z$ would prove irrationality. Indeed, for a fixed
+denominator $q$, every entry of the first row is divisible by $q$ once
+the least support index is at least $q$, so $q\mid\det A$. If $S=a/q$,
+the integer-difference identity would then force $\mathcal R_{n,t}\in\Z$.
+Conversely, if $S$ is irrational, that same identity and $\det A\ne0$
+make every $\mathcal R_{n,t}$ irrational. Taking, for example, $n=0$
+and $t\to\infty$ gives the required family. Thus nonintegrality along
+such a family is equivalent to the original irrationality question,
+not a weaker conjecture obtained from the construction.
+
+The condition $t s_n\to\infty$ cannot be replaced by unboundedness of
+$(n,t)$: at $t=0$, the least supported index stays zero. The coefficient
+at $i_0$ really is nonzero: its cofactor uses columns $1,\ldots,n+1$, and
+after nonzero row and column scalings it is a Vandermonde determinant
+on the weighted-sum nodes. The eventual
+identity $N_d=\det A$ determines the tail, but not the finite intermediate
+sum, whose terms may have either sign. Thus the determinant proves
+cancellation, but its nonzero value does not prove nonintegrality of
+the remainder.
+
+For $t\ge1$, primitive normalisation identifies this vector exactly.
+Take $D=n+2$, $\ell=s_n$ and $r=t s_n$ in the progression construction
+of \S\ref{long68:sec:progression}, and put $N=r+(D-1)\ell$.
+For any coefficient vector supported on these $D$ indices, the equations
+$V_2=\cdots=V_D=0$ say that the polynomial
+\[
+ \sum_{j=0}^{D-1}c_{i_j}i_j!X^j
+\]
+vanishes at the $D-1$ distinct points
+$\alpha_d^{-1}=(d!)^{-\ell/d}$, $2\le d\le D$.
+Its degree is at most $D-1$, so it is a scalar multiple of
+$\prod_{d=2}^D(\alpha_dX-1)$. Thus the rational solution space is
+one-dimensional. The progression vector has coefficient $1$ at $N$,
+so every integer solution is its integer multiple, with multiplier $c_N$.
+In particular, the cofactor gcd is $|c_N|$, and the primitive cofactor
+vector is the progression vector up to sign. Choosing the sign so that $M>0$ gives
+\[
+ N!\prod_{d=2}^D\bigl(1-(d!)^{-\ell/d}\bigr).
+\]
+For example, $n=0,t=1$ gives support $\{4,8\}$, cofactor vector
+$2520e_4-6e_8$, and primitive vector $-420e_4+e_8$ with $M>0$.
+
+The factorial divisibility proved for the progression coefficient $M$ therefore
+also applies to this primitive vector. Normalisation still leaves the
+nonintegrality condition equivalent to irrationality along families
+whose least support index tends to infinity: $M$ is nonzero,
+every factorial below that index divides it, and
+\eqref{long68:eq:channel-congruence} gives the integer-difference identity.
+This identification does not estimate the distance from an integer.
+The case $t=0$ is excluded from the identification with the stated
+progression construction, whose indices are at least $2$.
 
 \section{Prime powers in reduced denominators}\label{long68:sec:prime-powers}
 
@@ -865,13 +851,15 @@ integers $x_i$. Their lemma evaluates the numerator's valuation; subtracting
 the product's valuation gives the reciprocal-sum form. The proof below
 uses the least common multiple instead of the product.
 
-The need to check cancellation is already visible in $1/3+1/15=2/5$:
+The distinction is already visible in $1/3+1/15=2/5$:
 the common denominator contains $3$, but the reduced denominator does not.
 By contrast, $1/9+1/45=2/15$ only lowers the exponent of $3$ from $2$ to $1$.
 The theorem below tests whether the largest exponent is preserved; a
 failure of that test need not remove the prime completely. The formula
-is standard, whereas the two factorial partial-sum examples below and the later
-tail comparison concern this particular series.
+is standard. Its mechanism is simple: after clearing by the lcm and
+reducing modulo $p$, only denominators carrying the largest power of
+$p$ contribute. The factorial examples and later tail comparison
+concern this particular series.
 
 \label{long68:res:lead-prime-pole}\phantomsection
 \begin{theorem}[maximal prime-power survival]\label{long68:res:prime-pole}
@@ -1000,12 +988,16 @@ returns index $1$, where $1!-1=0$ is not a denominator of this series.  The refl
 \section{Growth of the common denominator}\label{long68:sec:lcm}
 \papersectiontarget{r12-lcm}
 
-We obtain a lower bound for $\Lc_N$ from a terminal block of factorial
-denominators. The block product is large, while subtraction bounds each
-pairwise gcd by a product over the gap between its indices. Comparing
-these quantities and choosing a block of length about $\sqrt{2N}$
-gives the constant $2\sqrt2/3$. Throughout this section, $\Lc_N$ is
-the common denominator before reduction of the partial sum.
+A large product of denominators gives a large least common multiple
+only if their overlap is controlled. We use the last $k$ denominators:
+their logarithmic product contributes about $kN\log N$, while the
+pairwise-gcd estimate costs about $(k^3/6)\log N$. With
+$k\sim\alpha\sqrt N$, the leading coefficient is
+$\alpha-\alpha^3/6$, maximized at $\alpha=\sqrt2$.
+The lemmas below make this balance rigorous and yield
+$\liminf\log\Lc_N/(N^{3/2}\log N)\ge2\sqrt2/3$.
+Here $\Lc_N$ is the common denominator before reduction, not
+$\den(H_N)$.
 
 \begin{lemma}[product, least common multiple, pairwise gcd]
 \label{long68:res:product-lcm}
@@ -1176,16 +1168,17 @@ $(N-1)!-1$ is coprime to $N-1$. Thus those denominators are coprime, and
 \]
 This argument does not use the stronger asymptotic growth theorem.
 
-The direction of denominator control matters.  Write $H_N=\widehat A_N/Q_N$ in lowest
-terms, reserving $A_N$ above for the numerator over the full common denominator.  Under the hypothetical identity $\Ser=a/q$, with $a\in\Z$ and
-$q\ge1$, positivity of the tail gives
+Reduction could still help, but only in the opposite direction: a
+clearing argument needs a sufficiently small reduced denominator.
+Write $H_N=\widehat A_N/Q_N$ in lowest terms, reserving $A_N$ for the
+numerator over the full lcm. Under $\Ser=a/q$, with $a\in\Z$ and
+$q\ge1$, positivity gives
 \[
  qQ_N(\Ser-H_N)=aQ_N-q\widehat A_N\in\Z_{>0}.
 \]
-A direct clearing contradiction therefore requires an upper estimate that
-makes $qQ_N(\Ser-H_N)<1$ for some $N$; equivalently, it needs $Q_N$ to be
-small relative to the reciprocal tail.  A lower bound on $Q_N$ points in the
-opposite direction.  Indeed, the rational limit $1$ and the approximants
+A contradiction requires $qQ_N(\Ser-H_N)<1$ at some $N$. A lower
+bound on $Q_N$ cannot supply this upper estimate. For comparison, the
+rational limit $1$ and the approximants
 $1-1/Q_N$ have arbitrarily large reduced denominators without any
 irrationality.  The inequality $d_N(\Ser-H_N)<1$ alone would not repair the
 argument, because $d_N$ generally does not clear the earlier summands of
@@ -1217,13 +1210,120 @@ whether $p$ divides this ratio; no asymptotic lower bound for the ratio is
 established here.  This paragraph compares the two methods; no $p$-adic
 theorem is applied to $\Ser$.
 
+\subsection{Consequences for the support parameter}\label{long68:sec:quantitative-support}
+
+The lcm estimates also constrain the size of a cancellation vector
+when its multiplier is bounded by a factorial. At depth $D=2t^2$,
+cancellation gives $\Lc_D\mid M$; the next theorem additionally assumes
+$0<M<(R+1)!-1$. Its $R$ is an index, not the remainder or the modulus
+$R_p$ of \S\ref{long68:sec:residue}. The conclusion bounds the largest
+supported index only when $R$ denotes that index. Taking $R$ to be a
+later cutoff gives a bound on the cutoff instead.
+
+\begin{samepage}
+\label{long68:res:lead-channel-radius}\phantomsection
+\begin{theorem}[a lower bound for the support parameter]\label{long68:res:channel-radius}
+Let $t,M,R\in\N$ satisfy
+\[
+ t\ge2^{32},\qquad M>0,\qquad \Lc_{2t^2}\mid M,\qquad M<(R+1)!-1 .
+\]
+Then $3t^3<2(R+1)$.  Consequently no family satisfying these hypotheses for
+all sufficiently large $t$ has $(R(t)+1)/t^3\le3/2$ eventually, and none has
+$R(t)=o(t^3)$.
+
+\end{theorem}
+\end{samepage}
+
+\begin{proof}
+Put $D=2t^2$, $k=2t$ and $u=D-k+1=2t^2-2t+1$.  Lemma~\ref{long68:res:segment} at
+$N=D$, with $n!-1\ge n!/2$ and $\log n!\ge n\log n-n$, and with
+$\Lc_D\le M<(R+1)!$, gives
+\begin{equation}\label{long68:eq:radius-log}
+ 2t\bigl(u\log u-u-\log2\bigr)
+ <(R+1)\log(R+1)+\binom{2t+1}{3}\log(2t^2).
+\end{equation}
+
+
+Suppose $R+1\le\tfrac32t^3$.  Since $t\ge16$ one has
+$\tfrac{15}{8}t^2\le u\le2t^2$ and $\log u\ge2\log t$, so the left side of
+\eqref{long68:eq:radius-log} is at least
+$\tfrac{15}{2}t^3\log t-4t^3-2t\log2$.  Using
+$\binom{2t+1}{3}<\tfrac43t^3$ and $\log\tfrac32<\log2$, the right side is at
+most
+\[
+ \tfrac32t^3\bigl(\log2+3\log t\bigr)+\tfrac43t^3\bigl(\log2+2\log t\bigr).
+\]
+Dividing by $t^3$ and rearranging, \eqref{long68:eq:radius-log} would require
+\[
+ \tfrac13\log t<4+\frac{2\log2}{t^2}+\tfrac{17}6\log2 .
+\]
+But $\log t\ge32\log2$ and $\tfrac23<\log2<1$ give
+$\tfrac13\log t-\tfrac{17}6\log2\ge\tfrac{47}6\log2>5$, while
+$4+2\log2/t^2<5$.  This contradiction proves the finite inequality, and the
+two sequence conclusions follow.
+\end{proof}
+
+The hypotheses are compatible: take $M=\Lc_{2t^2}$ and then choose
+$R$ large enough. The conclusion rules out subcubic $R$ under the
+stated size condition; it neither constructs a coefficient vector nor
+proves irrationality.
+
+Theorem~\ref{long68:res:lcm-growth} raises the asymptotic constant in the same
+estimate.
+
+\begin{corollary}[the asymptotic lower bound]\label{long68:res:radius-constant}
+Let $M(t),R(t)$ satisfy $M(t)>0$, $\Lc_{2t^2}\mid M(t)$ and
+$M(t)<(R(t)+1)!-1$ for all sufficiently large $t$.  Then
+\[
+ \liminf_{t\to\infty}\frac{R(t)+1}{t^3}\ \ge\ \frac{16}{9}.
+\]
+\end{corollary}
+
+\begin{proof}
+Put $r=R(t)+1$, so $\Lc_{2t^2}\le M(t)<r!$ and $\log \Lc_{2t^2}<r\log r$.
+Since
+\[
+\frac{(2t^2)^{3/2}\log(2t^2)}{t^3\log t}\longrightarrow4\sqrt2,
+\]
+Theorem~\ref{long68:res:lcm-growth} gives, for every $\varepsilon>0$ and
+all sufficiently large $t$,
+\[
+ \log \Lc_{2t^2}\ge
+ \Bigl(\tfrac{16}{3}-\varepsilon\Bigr)t^3\log t.
+\]
+Suppose $r\le ct^3$ for arbitrarily large $t$, with $0<c<16/9$ fixed.  On that
+subsequence $r\log r\le ct^3(3\log t+\log c)=\bigl(3c+o(1)\bigr)t^3\log t$.
+Choosing $0<\varepsilon<16/3-3c$ contradicts the lower bound for
+sufficiently large $t$.
+\end{proof}
+
+This corollary does not assert the strict inequality
+$R+1>\tfrac{16}9t^3$ eventually. Indeed, the finite logarithmic constraint
+\eqref{long68:eq:radius-log} allows equality at that constant. To check
+this directly, set $R+1=16t^3/9$ with $t\ge4$. Since
+$u=2t^2-2t+1\le2t^2$ and $x\log x-x$ is increasing for $x\ge1$, the
+left side of \eqref{long68:eq:radius-log} is at most
+$4t^3(\log(2t^2)-1)-2t\log2$. Subtracting this bound from the right side gives
+\[
+ t^3\left(4+\frac{16}{9}\log\frac{16}{9}-\frac83\log2\right)
+ +t\left(\frac53\log2-\frac23\log t\right)
+ >\frac43t^3-\frac23t^2>0,
+\]
+where $\log2<1$ and $\log t\le t$ suffice for the last comparison.
+Integer pairs with $9(R+1)=16t^3$ exist for every multiple $t\ge6$ of $3$.
+This verifies the numerical constraint, not the existence of a coefficient
+vector with that support. The asymptotic assertion in
+Corollary~\ref{long68:res:radius-constant} instead follows from
+Theorem~\ref{long68:res:lcm-growth}.
+
 \section{Carries and factorial digits}\label{long68:sec:carry}
 \papersectiontarget{r5-carry}
 
-Suppose first that $S$ is rational. For all sufficiently large $m$,
-the number $m!S$ is an integer, and $0<m!(S-H_m)<1$ identifies it
-as the next integer above $m!H_m$. We use this observation to define
-the carries, then prove the converse implication. Put
+Instead of clearing the partial sum, we now track the only integer
+that could equal $m!S$. Under rationality, $m!S$ is integral for all
+large $m$; since the positive tail is less than one, it must be the
+strict successor of $m!H_m$. The recurrence for these successors
+therefore tests rationality without assuming that $m!$ clears $H_m$. Put
 \[
  Z_m=\lfloor m!H_m\rfloor+1,\qquad
  \Delta_m=Z_{m-1}-(m-1)!H_{m-1}\quad(m\ge3).
@@ -1340,9 +1440,10 @@ the preceding gap $\Delta_m$.
 \subsection{Factorial digits of \texorpdfstring{$S-e+2$}{S-e+2}}\label{long68:sec:companion-digits}
 \papersectiontarget{r5-digits}
 
-Subtracting $\sum_{n\ge2}1/n!=e-2$ leaves the absolutely convergent
-series $C=\sum_{n\ge2}\bigl(n!(n!-1)\bigr)^{-1}$. The termwise
-identity $1/(n!-1)=1/n!+1/(n!(n!-1))$ gives
+The small perturbation from the reciprocal-factorial series can also
+be isolated term by term. Subtracting $e-2$ leaves the absolutely
+convergent correction $C=\sum_{n\ge2}\bigl(n!(n!-1)\bigr)^{-1}$.
+The identity $1/(n!-1)=1/n!+1/(n!(n!-1))$ gives
 \begin{equation}\label{long68:eq:companion-decomposition}
  \Ser=C+e-2 .
 \end{equation}
@@ -1394,11 +1495,11 @@ and the telescope $\sum_{m>N}(m-1)/m!=1/N!$ turns this into
 which is rational.
 \end{proof}
 
-The condition is eventual equality, not equality at many computed
-indices. The proof works for any real $C$: it holds exactly when
-$C+e-2$ is rational. For example, $C=2-e$ gives a rational sum, whereas
-$C=0$ gives the irrational number $e-2$. The issue here is to decide the
-condition for the particular positive series defining $C$.
+The proof applies to every real $C$, not just this series: eventual
+digits $a_m(C)=m-2$ characterize rationality of $C+e-2$. Thus $C=2-e$
+satisfies the eventual pattern, whereas $C=0$ does not. For our
+particular positive $C$, neither possibility is decided by a finite
+digit list.
 
 Negating the eventual congruence gives the equivalent formulation
 \begin{equation}
@@ -1435,10 +1536,12 @@ to be omitted.
 
 \subsection{Escape from a smaller interval}
 
-Write $\theta_m=\{m!\,\Ser\}$. We now express the irrationality
-condition as departure from a short interval: $\theta_{m-1}$ must lie
-outside $[0,E_m/m)$ at arbitrarily large indices. This interval has
-width less than $2/m^2$.
+Write $\theta_m=\{m!\,\Ser\}$. The next criterion compares a
+fractional part with the actual tail: $\theta_{m-1}$ must leave
+$[0,E_m/m)$ at arbitrarily large indices. The interval has width
+less than $2/m^2$. Since $E_m$ contains $S$, this equivalence is not
+yet a finite test; the second assertion supplies a sufficient test
+using the finite quantities $\Delta_m$ and $\varepsilon_m$.
 
 \begin{proposition}[lower-interval criterion]\label{long68:res:lower-escape}
 \begin{equation}\label{long68:eq:lower-escape}
@@ -1476,8 +1579,8 @@ $\Delta_m=E_{m-1}-\theta_{m-1}$.  Hence
 which contradicts \eqref{long68:eq:finite-escape}.
 \end{proof}
 
-Escape at a single index does not give a non-unit carry there.
-
+There are two comparisons to keep separate: a finite sufficient test
+for escape at one index, and an equivalence when indices are unbounded.
 The finite test excludes only the open interval
 $1+\varepsilon_m<m\Delta_m<1+\varepsilon_m+2/m$; it accepts either endpoint
 and all values outside. The width $2/m$ refers to $m\Delta_m$; the interval
@@ -1496,9 +1599,9 @@ large indices. By \eqref{long68:eq:unit-window}, each such index satisfies
 $m\Delta_m\le1+\varepsilon_m$ or $m\Delta_m>2+\varepsilon_m$.
 Since $2/m<1$ for $m\ge3$, either alternative implies
 \eqref{long68:eq:finite-escape}. The converse is Proposition~\ref{long68:res:lower-escape}.
-This is an ordinary consequence of the two proved criteria, not a proof
-that either occurs infinitely often for $S$. The equivalence is over all
-integer indices; restricting to primes is only a sufficient condition here.
+This combines the two criteria; it does not prove either unbounded
+occurrence for $S$. The equivalence is over all integer indices. A
+restriction to primes gives only a sufficient condition here.
 
 For comparison at a single index, the exact classification is
 \begin{equation}\label{long68:eq:escape-classification}
@@ -1581,12 +1684,15 @@ that every other member has the same current literature status.
 \section{A complementary-denominator criterion}\label{long68:sec:residue}
 \papersectiontarget{r5-complement}
 
-We choose a multiplier that removes all prime-power levels shared
-by two denominators. Each remaining maximal level belongs to a unique
-summand, so it survives reduction. This gives the reduced denominator
-of the scaled sum and hence its gap to the next integer. The multiplier
-is sufficient; cancellation in the original sum may allow a smaller
-one. For an integer $p\ge3$, not necessarily prime, put
+We seek a multiplier with two properties: it absorbs each fixed
+rational denominator eventually, and the scaled partial sum has a
+computable gap to the next integer. Include a factorial to ensure the
+first property. For the second, the multiplier also absorbs every prime-power
+level shared by two summand denominators. Any exponent left in the
+denominator then comes from a unique maximal occurrence, so it
+cannot cancel on reduction. This multiplier
+is sufficient, not necessarily minimal. For an integer $p\ge3$, not
+necessarily prime, put
 $I_p=\{2,\ldots,2p-1\}$ and $F_p=(p-1)!$, and define
 \begin{align*}
  D_p&=\lcm_{\substack{i,j\in I_p\\ i<j}}\gcd(d_i,d_j),
@@ -1594,9 +1700,9 @@ $I_p=\{2,\ldots,2p-1\}$ and $F_p=(p-1)!$, and define
  \Lc^{\mathrm{blk}}_p&=\lcm(F_p,d_2,\ldots,d_{2p-1}),
  &R_p&=\Lc^{\mathrm{blk}}_p/C_p .
 \end{align*}
-The integer $D_p$ contains the prime powers shared by at least two
-of the denominators. The integer $C_p$ also contains the factorial base
-$F_p$, and $R_p$ is the quotient left in the full common denominator.
+Prime by prime, $D_p$ records the second-largest exponent, $C_p$
+raises it to at least the exponent in $F_p$, and $R_p$ records what
+remains below the largest exponent.
 The factors $C_p$ and $R_p$ need not be coprime: a prime absent from $F_p$
 with largest exponent $5$ and second-largest exponent $2$ occurs to powers
 $2$ and $3$ in the two factors. This is an illustration of the valuation
@@ -1742,10 +1848,11 @@ the continued-fraction enclosure concerns size:
 \begin{equation}\label{long68:eq:finite-bounds}
  q\nmid299999!,\qquad q\ge2^{39990}>10^{12038}
 \end{equation}
-Both restrictions hold whenever $S=a/q$, with $a\in\Z$ and $q>0$.
-The size bound holds even for an unreduced representation, whose
-denominator is a multiple of the reduced denominator. The computations
-were performed outside Lean. The
+These restrictions hold simultaneously whenever $S=a/q$, with
+$a\in\Z$ and $q>0$; they are not two bounds to compare by taking a
+maximum. They also hold for an unreduced representation. The size
+bound passes to multiples of the reduced denominator, as does failure
+to divide a fixed factorial. The computations were performed outside Lean. The
 \href{https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos68/PaperCompleteFiniteSizeCertificate.lean#L58}{candidate finite-size certificate}
 records that its computation has not been kernel checked, and the full
 carry certificate has the same outstanding formal obligation.
@@ -1854,11 +1961,11 @@ It remains to prove $m\nmid Z_m$ at arbitrarily large indices.
 Section~\ref{long68:sec:carry} gives equivalent formulations through the
 actual remainders in \eqref{long68:eq:lower-escape} and the finite
 condition \eqref{long68:eq:finite-escape}, when all integer indices are
-allowed. The estimates below identify what the proposed arguments still
-need; none establishes the required unbounded set. Restricting indices
-to primes introduces an additional condition. Likewise, selected
-congruences do not identify the sequence defined by $S$ without its
-floor relations.
+allowed. The estimates below concern the remaining arithmetic, not further
+ways to solve the coefficient equations. None establishes the required
+unbounded set. Restricting indices to primes is an extra condition;
+selected congruences likewise do not identify the sequence defined by
+$S$ without its floor relations.
 
 \paragraph{Value sets do not determine the weighted residue sum.}
 Garaev, Luca and Shparlinski's harmonic-sum estimate
@@ -2078,94 +2185,6 @@ $p\nmid Z_{2p-1}$ at arbitrarily large odd primes would already contradict
 rationality. The first is a special case of
 Theorem~\ref{long68:res:carry-equivalence}; the second uses the same
 factorial-clearing argument. Neither unbounded occurrence is proved here.
-
-\paragraph{The cofactor form of the progression construction.}
-For a positive starting parameter, a Vandermonde matrix gives another
-formula for the progression vectors of \S\ref{long68:sec:channels}; it
-does not resolve the remaining nonintegrality problem. For integers $n,t\ge0$, put
-$s_n=((n+2)!)^2$ and $i_j=(t+j)s_n$ for $0\le j\le n+1$.
-This step size matches the recorded construction; the determinant argument
-only needs a positive step divisible by every $d=2,\ldots,n+2$.
-Here the factorial-weight formula is also allowed at index $0$; the case
-$t=0$ will show why a lower support condition is necessary. Form the
-integer matrix $A$ with first row $(i_j!)_j$ and weighted-sum rows
-$(W_{d,i_j})_j$ for $2\le d\le n+2$.
-
-To see that $\det A\ne0$, divide column $j$ by $i_j!$.
-Since $d\mid s_n$, the $d$th weighted-sum row becomes
-$((d!)^{-(t+j)s_n/d})_j$. Removing the nonzero factor
-$(d!)^{-t s_n/d}$ from that row leaves a Vandermonde matrix with nodes
-\[
-1,\ (2!)^{-s_n/2},\ \ldots,\ ((n+2)!)^{-s_n/(n+2)}.
-\]
-These nodes are distinct: $(d!)^{1/d}$ is strictly increasing, since
-$d!<(d+1)^d$. The Vandermonde determinant is the product of their
-pairwise differences \cite[(1.3.13)]{nist-vandermonde}, and is therefore nonzero. None of the row or
-column factors removed is zero, so the original determinant is nonzero
-too.
-
-Let $c$ be the cofactor vector of the first row, and let $N_d$ be the
-determinant obtained by replacing that row with $(W_{d,i_j})_j$.
-Cofactor expansion gives $M(c)=\det A\ne0$ and $\chn dc=N_d$.
-For $2\le d\le n+2$ the replacement duplicates a row, so $\chn dc=0$.  By
-\eqref{long68:eq:channel-congruence} each $(\chn dc-M(c))/(d!-1)$ is an integer and
-vanishes for $d>\max_ji_j$, so
-\[
- \mathcal R_{n,t}:=\sum_{d>n+2}\frac{N_d}{d!-1},\qquad
- \mathcal R_{n,t}-\det(A)\,\Ser\in\Z .
-\]
-A family with $\min_ji_j=t\,s_n\to\infty$ and
-$\mathcal R_{n,t}\notin\Z$ would prove irrationality. Indeed, for a fixed
-denominator $q$, every entry of the first row is divisible by $q$ once
-the least support index is at least $q$, so $q\mid\det A$. If $S=a/q$,
-the integer-difference identity would then force $\mathcal R_{n,t}\in\Z$.
-Conversely, if $S$ is irrational, that same identity and $\det A\ne0$
-make every $\mathcal R_{n,t}$ irrational. Taking, for example, $n=0$
-and $t\to\infty$ gives the required family. Thus nonintegrality along
-such a family is equivalent to the original irrationality question,
-not a weaker conjecture obtained from the construction.
-
-Merely making $(n,t)$ unbounded does not ensure that the support tends to
-infinity: when $t=0$, the least support index is always zero. The coefficient
-at $i_0$ really is nonzero: its cofactor uses columns $1,\ldots,n+1$, and
-after nonzero row and column scalings it is a Vandermonde determinant
-on the weighted-sum nodes. The eventual
-identity $N_d=\det A$ determines the tail, but not the finite intermediate
-sum, whose terms may have either sign. The construction solves the linear equations. What is still needed here
-is a proof that the particular sum is nonintegral, whether by a gap
-estimate or another arithmetic argument.
-
-For $t\ge1$, primitive normalisation identifies this vector exactly.
-Take $D=n+2$, $\ell=s_n$ and $r=t s_n$ in the progression construction
-of \S\ref{long68:sec:channels}, and put $N=r+(D-1)\ell$.
-For any coefficient vector supported on these $D$ indices, the equations
-$V_2=\cdots=V_D=0$ say that the polynomial
-\[
- \sum_{j=0}^{D-1}c_{i_j}i_j!X^j
-\]
-vanishes at the $D-1$ distinct points
-$\alpha_d^{-1}=(d!)^{-\ell/d}$, $2\le d\le D$.
-Its degree is at most $D-1$, so it is a scalar multiple of
-$\prod_{d=2}^D(\alpha_dX-1)$. Thus the rational solution space is
-one-dimensional. The progression vector has coefficient $1$ at $N$,
-so every integer solution is its integer multiple, with multiplier $c_N$.
-In particular, the cofactor gcd is $|c_N|$, and the primitive cofactor
-vector is the progression vector up to sign. Choosing the sign so that $M>0$ gives
-\[
- N!\prod_{d=2}^D\bigl(1-(d!)^{-\ell/d}\bigr).
-\]
-For example, $n=0,t=1$ gives support $\{4,8\}$, cofactor vector
-$2520e_4-6e_8$, and primitive vector $-420e_4+e_8$ with $M>0$.
-
-The factorial divisibility proved for the progression coefficient $M$ therefore
-also applies to this primitive vector. Normalisation still leaves the
-nonintegrality condition equivalent to irrationality along families
-whose least support index tends to infinity: $M$ is nonzero,
-every factorial below that index divides it, and
-\eqref{long68:eq:channel-congruence} gives the integer-difference identity.
-This identification does not estimate the distance from an integer.
-The case $t=0$ is excluded from the identification with the stated
-progression construction, whose indices are at least $2$.
 
 \paragraph{Criteria from the literature that do not apply.}
 Duverney's Theorem~3.1 assumes, among other conditions, quadratic growth
@@ -2689,9 +2708,9 @@ multiplicity bound enters the record.
 
 Dividing all coefficients by their gcd does not evade the lcm restriction:
 the resulting integer vector still has $V_2=\cdots=V_D=0$, so its value of $M$
-is still divisible by $L_D$. For the nonzero cofactor vector in
-\S\ref{long68:sec:open}, normalisation is justified by the elementary
-argument given there. It supplies no proof that the remainder is
+is still divisible by $L_D$. For the nonzero cofactor vector,
+\S\ref{long68:sec:cofactor-progression} justifies normalisation by
+identifying the primitive progression vector. It supplies no proof that the remainder is
 nonintegral. No formalised primitive cofactor construction is claimed here.
 
 \subsection{Rational grid points and first crossings}
@@ -3100,21 +3119,24 @@ examples explain the two assumptions without imposing any
 equidistribution hypothesis.
 % , - part family_catalogue , -
 \section{Relations among the criteria}\label{sec:erdos-68-complete-family-map}
-The carry test gives a factorial-divisibility restriction, and the
-rational enclosure gives the denominator-size restriction in
-\S\ref{long68:sec:finite}. The coefficient construction gives forms
-$\mathcal R(c)=M(c)S+k$, $k\in\Z$. At a fixed value of $M$, varying the
-coefficients changes only the integer $k$. The primitive cofactor
-construction on the stated progression gives the same vector up to
-sign, so it does not supply an additional family.
+The classification determines all cancellation vectors and attainable
+multipliers. The progression construction adds eventual divisibility
+by each fixed $q$ and a vanishing tail bound for the same vector.
+Its primitive cofactor construction gives that vector up to sign, not
+another family. At fixed $M$, coefficient changes still alter only the
+integer in $\mathcal R(c)=M(c)S+k$.
 
-For a rational value $S=a/q$, such a form is integral whenever $q\mid M(c)$.
-To exclude all rational values by this method, we need, for each
-positive integer $q$, a nonintegral remainder with $q\mid M(c)$. The common-denominator lower bound and prime-power survival
-test do not establish the required comparison with the next integer.
-The equivalent carry, digit and interval conditions also remain to be
-proved at arbitrarily large indices. The finite exclusions establish
-none of these unbounded assertions.
+Common-denominator growth measures the cost of clearing, while
+prime-power survival describes reduction. Neither supplies the missing
+gap comparison. The carry, digit and interval criteria characterize
+irrationality but leave their required unbounded departures unproved.
+The finite exclusions restrict divisibility and size, respectively;
+they establish no unbounded assertion.
+
+The remaining target for this method is therefore precise: for every
+$q>0$, find a nonintegral remainder whose own multiplier satisfies
+$q\mid M$. The algebraic classification supplies choices, not this
+arithmetic conclusion.
 
 % , - part back , -
 \section*{Acknowledgements}

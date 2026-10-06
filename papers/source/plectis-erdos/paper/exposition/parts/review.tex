@@ -3,22 +3,22 @@
 \section{Review changes without changing their meaning}\label{sec:review}
 \papersectiontarget{exposition-review}
 
-Begin with the current statement and proof. Compare the old passage with the
-proposal, then record whether it was accepted as written, revised, rejected or
-left pending a named check. A proposal requiring mathematical repair belongs
-in a separate mathematical review. Retain the exact passages and the decision's
-source; a text match helps locate an accepted edit but does not prove that two
-statements are equivalent.
+A smoother sentence can make a different claim. Compare the proposal with
+the current statement and proof before judging its style: what may vary,
+which objects must be shared, and which direction of implication is justified?
+The following cases show how a changed noun, verb or omitted condition can
+alter those answers.
 
-Acceptance of a paragraph does not adopt a general writing rule. Nor does an
-intact returned archive establish the mathematics inside it. The cases below
-show why these decisions must remain separate.
+Record whether the proposal was accepted, revised, rejected or left pending
+a named check, retaining the exact passages and the decision's source. A
+text match locates a change; it does not establish equivalence. A missing
+argument requires mathematical review, and acceptance of a local revision
+does not adopt a universal writing rule.
 
 \subsection{Replace a local term without losing its definition}
 
-The next short-paper round, R7, provides a direct example of terminology
-review. In the \#249 record, a local growth adjective was replaced by the
-condition it denoted:
+In the R7 \#249 revision, a private growth adjective was replaced by its
+defining condition:
 \begin{quote}
 \emph{Before:} tempered integer carry orbit.\par
 \emph{Selected revision:} integer carry sequence $u$ with
@@ -29,7 +29,8 @@ to know the required rate. It would be incorrect to replace this condition by
 the more familiar phrase ``subexponential growth'', which says something
 stronger. Other revisions retained standard terms such as upper Banach
 density because those terms denote the properties the paper actually uses.
-The rule is to compare meanings, not to replace every unusual expression.
+The test is definitional: substitute the proposed term's meaning back into
+the claim, then check that the same sequences qualify.
 
 Removing a shorthand can also remove the visible source of its assumptions.
 In \#243, ``positive exact state'' bundled recurrence and positivity
@@ -40,11 +41,9 @@ domains and $a_n>1$, $C_n>0$ for the eventual consequence. In a second passage,
 the reviewer removed ``earlier'' from ``earlier decreases'': the original
 qualification did not restrict the time at which decreases could occur.
 
-The R7 lesson records distinguish these reviewed selections from the donor's
-proposal and from later rendering or formal correspondence checks. These
-cases show why terminology, grammar and quantification belong in the same
-review. A plainer noun is useful only if the sentence still makes the same
-claim.
+These R7 selections are not the original proposals or later formal-correspondence
+and rendering checks. The replacement must carry the same assumptions and
+quantifiers, not merely read more easily.
 
 \subsection{Check the ordinary words that carry scope}
 
@@ -61,9 +60,10 @@ The same revision replaces the claim that corrections can ``grow arbitrarily
 slowly'' by an eventual upper bound chosen in advance. Given any prescribed
 function tending to infinity, the corrections can eventually be bounded by
 it. This does not say that the corrections themselves tend to infinity.
-These repairs spell out the dependency that the short phrases obscured.
-They do not call for expanding every familiar expression: expand the one
-whose ordinary reading changes the theorem's scope.
+Read the choice order as an instruction: prescribe the bound first, then
+construct corrections subject to it. This exposes what the short phrases
+obscured. Expand the expression whose ordinary reading changes that order
+or turns permission into a requirement.
 
 \subsection{Rejecting an attractive universal rule}
 
@@ -92,26 +92,21 @@ either one.
 
 \subsection{Distinguish clarification from a proof repair}
 
-An earlier \#251 review identified a defect in the manuscript's condensed
-account of a sparse construction: a buffer quantity was used without being
-assigned a sequence coordinate and included in the value, size and capacity
-accounting. The original returned memorandum did include those coordinates
-and their contribution to the weighted sum. The accepted ordinary
-repair assigned the relevant coordinates and performed the accounting across
-all indices. Calling the original paragraph unclear would have understated
-the issue. The condensed proof needed repair before the account of it could be trusted.
-Here the recoverable original prevented a loss during shortening or integration
-from being attributed to the original construction. This is a historical
-mathematical repair, undertaken in its own review. A current exposition-only
-assignment should locate such a defect and refer it for a separately authorised
-proof review. It should not silently add the missing mathematics.
+An earlier \#251 review found more than an unclear sentence. A condensed
+sparse-construction proof used a buffer quantity without assigning it a
+sequence coordinate or including it in the value, size and capacity accounting.
+The original returned memorandum did include those coordinates and their
+contribution to the weighted sum. The accepted ordinary repair restored the
+assignments and the accounting across all indices.
 
-That decision must be distinguished from a later sharp companion construction
-which remained unreviewed at its recorded disposition. The presence of both
-in a returned bundle does not give them the same status. A usable history
-names the particular construction, the defect and the accepted replacement;
-it does not summarize the whole problem's sequence of returns as progress
-through increasingly strong theorems.
+The distinction matters for both mathematics and attribution. The condensed
+proof needed repair; the recoverable original showed that the loss had occurred
+during shortening or integration, not in that construction. This repair was
+undertaken in its own mathematical review. An exposition-only pass should
+identify such a defect and refer it, not silently supply the missing proof.
+A later sharp companion construction was still unreviewed at its recorded
+disposition. Sharing a bundle with the repaired proof did not give it the
+same status.
 
 Other cases expose similar changes of meaning in small amounts of prose.
 In \#1049, language suggesting that a degree bound was inevitable was repaired
@@ -119,25 +114,21 @@ to state a sufficient inequality and preserve the qualification contributed
 by a remaining factor. In \#1041, the revision retained the fixed-polynomial
 scope instead of turning it into a freely varying family. For mixed
 irrationality criteria in \#257, independently chosen witnesses cannot replace
-the common witness required by the argument. These are local mathematical
-checks, even when the proposed edit was presented as compression or style.
+the required common witness: two unbounded sets of candidate indices may be
+disjoint. The proof must make all conditions hold at one index. These are
+mathematical checks even when the edit is presented as compression or style.
 
-An ordinary proof and its formal support also require separate decisions.
-An accepted ordinary argument need not already have a complete Lean
-formalization. Conversely, a checked lemma nearby does not check every
-sentence in a new proof. Review should identify the exact statement supported
-by each kind of evidence, leaving named inputs and pending comparisons visible.
-The publication system's broader evidence responsibilities are described
-separately~\cite{systems}; the writing method uses those distinctions rather
-than creating another proof registry.
+Ordinary proof and formal support answer different questions. An accepted
+ordinary argument may lack a complete Lean formalization; a checked nearby
+lemma may fail to cover the new proof. Identify the exact supported statement,
+including its named inputs and pending comparisons. The systems paper describes
+the records that retain these distinctions~\cite{systems}; the guide does
+not confer proof status by describing them.
 
-A late-September integration supplies a concrete limit on deleting operational
-language. A prose pass had removed remarks that identified named mathematical
-inputs beside the results depending on them. The integrating agent restored
-those remarks. Routine details about running a check could recede, but the
-reader still needed to know which assertion depended on an input. Calling
-both kinds of sentence workflow commentary had erased a substantive
-qualification.
+A late-September prose pass removed remarks naming mathematical inputs beside
+the dependent results; the integrating agent restored them. Details of running
+a check could recede, but the dependencies could not. Calling both kinds of
+sentence workflow commentary had erased a mathematical qualification.
 
 \subsection{Read explanatory words as mathematical claims}\label{sec:words-as-claims}
 
@@ -181,9 +172,9 @@ that one whole period occurs. For $L=3,d=5,T=2$, it holds while the period
 has length five. Splitting the sample into complete periods, possibly none,
 and one remainder is sufficient for the displayed bound
 \cite[finite means for shifted divisor tails]{paper257}.
-Adding the two words ``possibly none'' corrects a gloss while leaving the
-estimate unchanged. This is different from a proof whose estimate itself
-fails. That distinction belongs in the review decision.
+Adding ``possibly none'' makes the prose agree with the estimate's complete-period
+and remainder decomposition. The small example refutes the gloss, not the bound:
+record which assertion fails before deciding that the proof needs repair.
 
 \subsection{Correct the source without rewriting its history}
 
@@ -192,12 +183,10 @@ to \S1, item~18. Inspection of the original places the passage in item~12,
 on printed page~3 (PDF page~5). Item~18 concerns a different matter. The
 public lesson record retains both the reported locator and the correction.
 
-This small example explains why a plausible quotation and a plausible page
-number are insufficient. A phrase search can find the table of contents,
-another occurrence of a common sentence, or text from an adjacent PDF column.
-The reviewer must inspect the intended passage in context. A corrected locator
-does not invalidate an otherwise useful revision, but the revision's success
-does not excuse a false citation.
+A search hit may be a table of contents, another occurrence or an adjacent
+column. Inspect the original passage, then correct the locator without crediting
+the earlier return with that correction. Useful prose can survive a citation
+repair; its usefulness does not excuse the error.
 
 The same care applies to the role of the source. A paper may supply a theorem,
 historical attribution, established terminology or an example of composition.

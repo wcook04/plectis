@@ -15,14 +15,12 @@ then splitting once more, gives seven sequences:
  \varphi(4n),\ \varphi(4n+1),\ \varphi(4n+2),\ \varphi(4n+3).</annotation></semantics></math>
 The identities
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mi>n</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(4n)=2\varphi(2n),\qquad
- \varphi(4n+2)=\varphi(2n+1)</annotation></semantics></math> reduce this
-list to five sequences, which are linearly independent over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℚ</mi><annotation encoding="application/x-tex">\mathbb{Q}</annotation></semantics></math>.
-Every rational linear identity among the seven therefore follows from
-these two substitutions. The substitutions also preserve integral
-coefficients, so they describe the integral relations as well.</p>
-<p>The same description holds at every finite depth and in every base.
-For an integer
+ \varphi(4n+2)=\varphi(2n+1)</annotation></semantics></math> leave five
+independent sequences. Thus every identity among the seven comes from
+these two substitutions. More precisely, an integral relation is a
+unique integral combination of the two displayed relations. We will
+prove the same statement at every depth and in every integer base.</p>
+<p>For an integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>,
 the <em>totient sections</em> are the sequences
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>↦</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>k</mi><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n\mapsto\varphi(k^jn+r)</annotation></semantics></math>,
@@ -58,11 +56,10 @@ sequence is not
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regular
 for any
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math> <span
-class="citation" data-cites="coons"><a href="#ref-2">[2]</a></span>. We describe the finitely
-generated modules obtained by stopping at a fixed level. The theorem
-below specifies a basis and expresses each remaining section as a scalar
-multiple of a basis element; these expressions give a test for every
-linear identity at that level. The level-zero family contains only
+class="citation" data-cites="coons"><a href="#ref-2">[2]</a></span>. Here we determine those
+modules at each finite level, including their integral relations. The
+theorem gives the basis and the substitutions; Corollary 3.1 explains
+how to recover every relation from them. Level zero contains only
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(n)</annotation></semantics></math>
 and has dimension one.</p>
 <div class="theorem" id="thm:kkernelrank">
@@ -109,15 +106,20 @@ and
 are both retained in base six, and the reductions involving them are
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>36</mn><mi>n</mi><mo>+</mo><mn>6</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>6</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>36</mn><mi>n</mi><mo>+</mo><mn>12</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>6</mn><mi>n</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\varphi(36n+6)=2\varphi(6n+1),\qquad
  \varphi(36n+12)=4\varphi(6n+2).</annotation></semantics></math> The
-multipliers differ because
+factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
-divides
+is already present in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mi>n</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">6n+2</annotation></semantics></math>
-but not
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">6n+1</annotation></semantics></math>.
-The product formula also allows repeated prime factors of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
-so there is no squarefreeness assumption on the base.</p>
+but not in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">6n+1</annotation></semantics></math>;
+only newly introduced prime divisors contribute factors
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mn>1</mn><mi>/</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">1-1/p</annotation></semantics></math>.
+Thus one removes whole factors of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+from the residue, not every common prime factor. Repeated prime factors
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+cause no exception.</p>
 <p>Martin’s 2006 theorem on simultaneous totient inequalities already
 implies independence for every finite family of pairwise nonproportional
 affine forms with positive integral slopes <span class="citation"
@@ -130,9 +132,9 @@ argument in Yazdani’s proof of Theorem 2, credited there to Shallit
 <span class="citation" data-cites="yazdani2001"><a href="#ref-12">[12]</a></span>. The step that
 needs care is to keep the progression for the selected affine form
 reduced while imposing prime divisors on all the others.</p>
-<p>Section 2 proves the basis theorem. Section 3 starts with the six
-reductions in base six and derives the integral relation basis. In
-Section 4 we use prime isolation again, for bounded functions of totient
+<p>The proof in Section 2 separates scalar reduction from independence.
+Section 3 recovers the integral relations, starting in base six.
+Section 4 uses prime isolation for bounded functions of totient
 residues. The series
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><msup><mn>2</mn><mi>n</mi></msup></mfrac></mrow><annotation encoding="application/x-tex">S=\sum_{n\ge1}\frac{\varphi(n)}{2^n}</annotation></semantics></math>
 has unbounded coefficients. Its irrationality, asked in Erdős
@@ -151,12 +153,15 @@ Binary Totient Series</em></a>.</p>
 <h2>Proof of the basis theorem</h2>
 <section id="scalar-reductions" class="level3 unnumbered">
 <h3 class="unnumbered">Scalar reductions</h3>
-<p>There are two parts to the proof. The product formula reduces every
-omitted section to a retained one; independence then shows that no
-further reductions are possible. In the first part, the multiplier
-depends only on which prime divisors of
+<p>The product formula proves spanning. For independence we first
+separate nonproportional affine arguments, then handle the two
+proportional arguments
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">kn</annotation></semantics></math>
+separately. The reductions depend only on which prime divisors of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-divide the argument. For a zero residue,
+are already present. For a zero residue,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">kn</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mi>j</mi></msup><mi>n</mi></mrow><annotation encoding="application/x-tex">k^jn</annotation></semantics></math>
@@ -220,8 +225,8 @@ The first term then dominates the sum of all remaining terms in absolute
 value, a contradiction <span class="citation"
 data-cites="martin-phi-inequalities"><a href="#ref-4">[4]</a></span>. This also proves
 independence after any finite prefix is deleted.</p>
-<p>We give a direct proof by constructing a square matrix of evaluations
-with nonzero determinant. Let
+<p>The direct proof separates one column at a time: all its competitors
+will vanish modulo a prime, while its own entry will not. Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>a</mi><mi>i</mi></msub><mi>n</mi><mo>+</mo><msub><mi>b</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">L_i(n)=a_i n+b_i</annotation></semantics></math>
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>i</mi><mo>≤</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">1\le i\le s</annotation></semantics></math>,
@@ -239,15 +244,15 @@ positive and leaves these cross determinants unchanged. Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>i</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>i</mi></msub><mo>,</mo><msub><mi>b</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g_i=\gcd(a_i,b_i)</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>i</mi></msub><mo>=</mo><msub><mi>L</mi><mi>i</mi></msub><mi>/</mi><msub><mi>g</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">A_i=L_i/g_i</annotation></semantics></math>.
-If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>i</mi></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">g_i&gt;1</annotation></semantics></math>,
-the values of
+We must make
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>i</mi></msub><annotation encoding="application/x-tex">A_i</annotation></semantics></math>
+prime, not
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>i</mi></msub><annotation encoding="application/x-tex">L_i</annotation></semantics></math>:
+the fixed divisor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>g</mi><mi>i</mi></msub><annotation encoding="application/x-tex">g_i</annotation></semantics></math>
+may prevent
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>i</mi></msub><annotation encoding="application/x-tex">L_i</annotation></semantics></math>
-have a fixed divisor, so it is the primitive form
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>i</mi></msub><annotation encoding="application/x-tex">A_i</annotation></semantics></math>,
-not
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>i</mi></msub><annotation encoding="application/x-tex">L_i</annotation></semantics></math>,
-that we will make prime. We will choose a prime
+from taking large prime values. We seek a prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>
 and points
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>n</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">n_1,\ldots,n_s</annotation></semantics></math>
@@ -263,11 +268,18 @@ for which
  0&amp;0&amp;\cdots&amp;\varphi(g_s)
  \end{pmatrix}\pmod\ell,
  \qquad \ell\nmid\prod_i\varphi(g_i).
-\end{equation}</annotation></semantics></math> A rational relation among
-the sequences would give a vector in the kernel of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>.
-The displayed congruence makes its determinant nonzero, so no such
-relation can exist.</p>
+\end{equation}</annotation></semantics></math> Evaluating a rational
+relation at these points gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi>c</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Ec=0</annotation></semantics></math>.
+But
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mi>E</mi><mo>≢</mo><mn>0</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\det E\not\equiv0\pmod\ell</annotation></semantics></math>,
+hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+is invertible over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℚ</mi><annotation encoding="application/x-tex">\mathbb{Q}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c=0</annotation></semantics></math>.
+It remains to construct its rows.</p>
 <p>For row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
 we require
@@ -306,20 +318,21 @@ CRT combines them into
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msub><mi>n</mi><mn>0</mn></msub><mo>+</mo><mi>R</mi><mi>u</mi></mrow><annotation encoding="application/x-tex">n=n_0+Ru</annotation></semantics></math>,
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mi>ℓ</mi><msub><mo>∏</mo><mrow><mi>j</mi><mo>≠</mo><mi>i</mi></mrow></msub><msub><mi>q</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">R=\ell\prod_{j\ne i}q_{ij}</annotation></semantics></math>.</p>
-<p>Dirichlet’s theorem must now be applied to the values of
+<p>CRT supplies the congruences, but not yet a prime value. Dirichlet
+applies to the progression of values of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>i</mi></msub><annotation encoding="application/x-tex">A_i</annotation></semantics></math>,
-rather than to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
-These values form the progression
+namely
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mn>0</mn></msub><mo>+</mo><mi>R</mi><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>A</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>i</mi></msub><mi>/</mi><msub><mi>g</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>R</mi><mi>u</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">A_i(n_0+Ru)=A_i(n_0)+(a_i/g_i)Ru.</annotation></semantics></math>
-It remains to check that its initial value and step are coprime.
-Primitivity excludes the prime factors of
+Its initial value must be coprime to its step. The step has only three
+kinds of prime factors: those of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mi>/</mi><msub><mi>g</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i/g_i</annotation></semantics></math>,
-and the residue
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
-excludes the odd prime
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>.
-A prime
+excluded by primitivity;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>,
+excluded by the residue
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>;
+and the imposed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">q_{ij}</annotation></semantics></math>.
+Such a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">q_{ij}</annotation></semantics></math>
 cannot divide
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A_i(n_0)</annotation></semantics></math>:
@@ -329,8 +342,9 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L_j(n_0)</annotation></semantics></math>,
 hence
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><msub><mi>L</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>a</mi><mi>j</mi></msub><msub><mi>L</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>a</mi><mi>i</mi></msub><msub><mi>b</mi><mi>j</mi></msub><mo>−</mo><msub><mi>a</mi><mi>j</mi></msub><msub><mi>b</mi><mi>i</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">a_iL_j(n_0)-a_jL_i(n_0)=a_i b_j-a_j b_i,</annotation></semantics></math>
-contrary to its choice. This accounts for every prime factor of the
-step. We may therefore choose
+contrary to its choice. This is where nonproportionality is used: the
+nonzero cross determinant lets us keep each imposed divisor away from
+the selected form. We may now choose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><msub><mi>A</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p=A_i(n_i)</annotation></semantics></math>
 prime, as large as needed, and in particular with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∤</mo><msub><mi>g</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">p\nmid g_i</annotation></semantics></math>.
@@ -351,17 +365,16 @@ beyond any prescribed threshold.</p>
 </section>
 <section id="the-two-zero-residue-sections" class="level3 unnumbered">
 <h3 class="unnumbered">The two zero-residue sections</h3>
-<p>The affine-independence argument does not separate
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(n)</annotation></semantics></math>
+<p>The arguments
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(kn)</annotation></semantics></math>,
-because their arguments are proportional. We use two different values of
-their ratio. On
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">kn</annotation></semantics></math>
+are proportional, so they escape the preceding argument. On
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mi>k</mi><mi>m</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n=km+1</annotation></semantics></math>
-the ratio is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(k)</annotation></semantics></math>,
-so a proposed relation contains only one zero-residue term after this
-restriction. The positive-residue sections become the forms
+we have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(kn)=\varphi(k)\varphi(n)</annotation></semantics></math>:
+this merges their coefficients and lets affine independence remove all
+the other sections. The positive-residue sections become the forms
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msup><mi>m</mi><mo>+</mo><msup><mi>k</mi><mi>j</mi></msup><mo>+</mo><mi>r</mi><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>∤</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">k^{j+1}m+k^j+r\quad(k\nmid r),</annotation></semantics></math>
 together with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>m</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">km+1</annotation></semantics></math>.
@@ -374,20 +387,21 @@ forces
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>∣</mo><msup><mi>r</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">k\mid r&#39;</annotation></semantics></math>.
 No positive-residue form is proportional to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>m</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">km+1</annotation></semantics></math>.
-Affine independence eliminates every positive-residue coefficient and
-leaves
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>+</mo><mi>B</mi><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">A+B\varphi(k)=0</annotation></semantics></math>,
-where
+If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A,B</annotation></semantics></math>
 multiply
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(n),\varphi(kn)</annotation></semantics></math>.
-We now evaluate the remaining relation at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">n=k</annotation></semantics></math>
-to obtain
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(n),\varphi(kn)</annotation></semantics></math>,
+affine independence therefore leaves
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>+</mo><mi>B</mi><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">A+B\varphi(k)=0</annotation></semantics></math>
+and eliminates every other coefficient. At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">n=k</annotation></semantics></math>,
+however, the ratio is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
+giving
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>+</mo><mi>B</mi><mi>k</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">A+Bk=0</annotation></semantics></math>.
 Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">\varphi(k)&lt;k</annotation></semantics></math>,
-the two equations force
+these two equations separate the remaining coefficients:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mi>B</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">A=B=0</annotation></semantics></math>.
 Finally,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi mathvariant="script">ℬ</mi><mrow><mi>k</mi><mo>,</mo><mi>e</mi></mrow></msub><mo stretchy="false" form="postfix">|</mo><mo>=</mo><mn>2</mn><mo>+</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>e</mi></munderover><mo stretchy="false" form="prefix">(</mo><msup><mi>k</mi><mi>j</mi></msup><mo>−</mo><msup><mi>k</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>k</mi><mi>e</mi></msup><mo>+</mo><mn>1</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">\lvert\mathcal B_{k,e}\rvert
@@ -423,31 +437,32 @@ The omitted sections satisfy
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>F</mi><mrow><mn>2</mn><mo>,</mo><mn>0</mn></mrow></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mn>6</mn><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow></msub><mo>,</mo></mtd><mtd columnalign="right" class="ta-r pr0"><msub><mi>F</mi><mrow><mn>2</mn><mo>,</mo><mn>6</mn></mrow></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mn>2</mn><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>1</mn></mrow></msub><mo>,</mo></mtd><mtd columnalign="right" class="ta-r pr0"><msub><mi>F</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mn>4</mn><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>F</mi><mrow><mn>2</mn><mo>,</mo><mn>18</mn></mrow></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mn>3</mn><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>3</mn></mrow></msub><mo>,</mo></mtd><mtd columnalign="right" class="ta-r pr0"><msub><mi>F</mi><mrow><mn>2</mn><mo>,</mo><mn>24</mn></mrow></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mn>4</mn><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>4</mn></mrow></msub><mo>,</mo></mtd><mtd columnalign="right" class="ta-r pr0"><msub><mi>F</mi><mrow><mn>2</mn><mo>,</mo><mn>30</mn></mrow></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mn>2</mn><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>5</mn></mrow></msub><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
  F_{2,0}&amp;=6F_{1,0}, &amp; F_{2,6}&amp;=2F_{1,1}, &amp; F_{2,12}&amp;=4F_{1,2},\\
  F_{2,18}&amp;=3F_{1,3}, &amp; F_{2,24}&amp;=4F_{1,4}, &amp; F_{2,30}&amp;=2F_{1,5}.
-\end{aligned}</annotation></semantics></math> Thus an integral
-combination of the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>43</mn><annotation encoding="application/x-tex">43</annotation></semantics></math>
-sections vanishes precisely when these six substitutions leave all
+\end{aligned}</annotation></semantics></math> The substitutions test an
+identity by leaving
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>37</mn><annotation encoding="application/x-tex">37</annotation></semantics></math>
-retained coefficients zero. To recover the relation itself, keep track
-of what each substitution removes. Let
+retained coefficients to compare with zero. To recover the identity
+itself, we must distinguish the formal symbols
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><annotation encoding="application/x-tex">E_{j,r}</annotation></semantics></math>
-denote the generator at index
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>,</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(j,r)</annotation></semantics></math>
-in the free abelian group on all section indices. The substitution
+from the sequences
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><annotation encoding="application/x-tex">F_{j,r}</annotation></semantics></math>
+they represent: the symbols are independent even when the sequences
+coincide. For example, the substitution
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><mo>=</mo><mn>4</mn><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex">F_{2,12}=4F_{1,2}</annotation></semantics></math>
 corresponds to the decomposition
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><msub><mi>E</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>x</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><msub><mi>E</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><mo>+</mo><mn>4</mn><msub><mi>x</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><msub><mi>E</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>x</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>E</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><mo>−</mo><mn>4</mn><msub><mi>E</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">x_{1,2}E_{1,2}+x_{2,12}E_{2,12}
  = (x_{1,2}+4x_{2,12})E_{1,2}
    +x_{2,12}(E_{2,12}-4E_{1,2}).</annotation></semantics></math> The
-first coefficient tests whether the retained component vanishes; the
-second records the multiple of the relation removed. Doing this at all
-six omitted indices gives every integral relation, since the retained
-sections are independent. At base two and level two the relations are
+retained coefficient becomes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><mo>+</mo><mn>4</mn><msub><mi>x</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub></mrow><annotation encoding="application/x-tex">x_{1,2}+4x_{2,12}</annotation></semantics></math>,
+while the coefficient of the removed relation is the original
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><annotation encoding="application/x-tex">x_{2,12}</annotation></semantics></math>.
+Repeating at the six omitted indices both tests the identity and
+recovers its unique relation coefficients. In the opening binary example
+the relation vectors are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mrow><mn>2</mn><mo>,</mo><mn>0</mn></mrow></msub><mo>−</mo><mn>2</mn><msub><mi>E</mi><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">E_{2,0}-2E_{1,0}</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mrow><mn>2</mn><mo>,</mo><mn>2</mn></mrow></msub><mo>−</mo><msub><mi>E</mi><mrow><mn>1</mn><mo>,</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">E_{2,2}-E_{1,1}</annotation></semantics></math>.
-The following corollary expresses the same calculation at arbitrary base
-and level.</p>
+The same calculation gives the general result.</p>
 <div class="corollary" id="cor:integral-normal-form">
 <p><strong>Corollary 3.1</strong> (Integral coordinates and all integral
 relations). <em> Let
@@ -499,33 +514,35 @@ at each omitted index and collect terms:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><munder><mo>∑</mo><mrow><mi>j</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> retained</mtext></mrow></mrow></munder><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>j</mi></msub><mo>+</mo><munder><mo>∑</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>i</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> omitted</mtext></mrow></mrow></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>j</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>j</mi></mrow></mtd></mtr></mtable></munder><msub><mi>a</mi><mi>i</mi></msub><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>E</mi><mi>j</mi></msub><mo>+</mo><munder><mo>∑</mo><mrow><mi>i</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> omitted</mtext></mrow></mrow></munder><msub><mi>x</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">x=\sum_{j\text{ retained}}
        \left(x_j+\sum_{\substack{i\text{ omitted}\\j(i)=j}}a_i x_i\right)E_j
        +\sum_{i\text{ omitted}}x_iR_i.</annotation></semantics></math>
-Evaluation kills the second sum. Independence of the retained sections
-therefore says that
+The first sum gives the retained coordinates of the evaluated sequence;
+the second evaluates to zero. Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
-is a relation exactly when every coefficient in the first sum is zero.
-In that case the second sum is its expression in the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>i</mi></msub><annotation encoding="application/x-tex">R_i</annotation></semantics></math>.
-This expression is unique: the coefficient at omitted index
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-in
+is a relation exactly when the first sum vanishes, in which case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>i</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> omitted</mtext></mrow></mrow></msub><msub><mi>x</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x=\sum_{i\text{ omitted}}x_iR_i</annotation></semantics></math>.
+This expression is unique: at omitted index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+the coefficient of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>h</mi></msub><msub><mi>c</mi><mi>h</mi></msub><msub><mi>R</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">\sum_h c_hR_h</annotation></semantics></math>
 is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>i</mi></msub><annotation encoding="application/x-tex">c_i</annotation></semantics></math>
-itself. The unit coefficient at that index is also why no division is
-needed. Counting omitted indices gives
+itself. Each substitution has a unit coefficient at its own omitted
+index, so the entire calculation takes place over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>,
+without division. Counting omitted indices gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>k</mi><mo>+</mo><mi>⋯</mi><mo>+</mo><msup><mi>k</mi><mi>e</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>k</mi><mi>e</mi></msup><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>e</mi><mo>−</mo><mn>1</mn></mrow></msubsup><msup><mi>k</mi><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">(1+k+\cdots+k^e)-(k^e+1)=\sum_{j=1}^{e-1}k^j</annotation></semantics></math>. ◻</p>
 </div>
-<p>The assertion concerns the module generated by the sections. It need
-not contain every integer-valued sequence in its rational span: for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math>
-and
+<p>This is an integral basis of the <em>section-generated</em> module,
+not of every integer-valued sequence in its rational span. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">e\ge2</annotation></semantics></math>,
 the sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mi>n</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\varphi(4n+3)/2</annotation></semantics></math>
-is integer-valued and has coefficient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
-in the retained basis. Thus this module is not saturated in the group of
-integer-valued sequences.</p>
+is integer-valued but has retained coordinate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.
+Thus the section module is not saturated in the ambient group of
+integer-valued sequences. There is no conflict with the integral
+relation basis: that basis concerns relations among the given
+generators, not divisibility of the sequences they generate.</p>
 <p>An alternative is to test equality at finitely many inputs. Return to
 base six and level two. Order the retained columns as above, with
 residues increasing within each level, and evaluate at
@@ -556,14 +573,13 @@ arithmetic.</p>
 </section>
 <section id="sec:family" class="level2">
 <h2>Bounded functions of totient residues</h2>
-<p>In the evaluation proof, congruences make one totient value nonzero
-modulo the auxiliary prime in each row. Here they isolate one nonzero
-residue between two arbitrarily long zero blocks. Rationality confines
-every scaled tail to a fixed discrete set. Boundedness and the zero
-blocks then force a nonzero tail whose absolute value is smaller than
-the spacing of that set. In the first sum below, residues are
-represented by their least nonnegative values. These coefficients need
-not be binary digits.</p>
+<p>The matrix argument separates one value from finitely many others.
+Now we separate one coefficient from all its neighbours in a long
+window. Boundedness turns that local separation into an irrationality
+proof: the right zero block forces a rational tail to vanish exactly;
+the left makes the isolated nonzero term too small to be rational with
+the same denominator. Residues in the first sum below are least
+nonnegative representatives, not necessarily binary digits.</p>
 <div class="theorem" id="res:residueseries">
 <p><strong>Theorem 4.1</strong> (Series of totient residues). <em> For
 every
@@ -582,21 +598,19 @@ is constant on the even residue classes. If that constant is
 its value is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>4</mn><mo>+</mo><mi>c</mi><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">3f(1)/4+c/4</annotation></semantics></math>.</em></p>
 </div>
-<p>Modulo two the sum is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">3/4</annotation></semantics></math>,
-since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(n)</annotation></semantics></math>
-is even for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge3</annotation></semantics></math>.
-More generally only
+<p>Only
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(1)</annotation></semantics></math>
-and the even residue classes occur in the second assertion. The
-following coefficient pattern is the basis of the proof:
+and the even classes are visible to the series:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\varphi(1)=\varphi(2)=1</annotation></semantics></math>
+and all later totients are even. This explains the rational case,
+including the value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">3/4</annotation></semantics></math>
+modulo two. The irrational case rests on the pattern
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><munder><mrow><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>0</mn></mrow><mo accent="true">⏟</mo></munder><mrow><mi>L</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> terms</mtext></mrow></mrow></munder><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>a</mi><mi>N</mi></msub><mo>≠</mo><mn>0</mn><mo>,</mo><mspace width="1.0em"></mspace><munder><munder><mrow><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>0</mn></mrow><mo accent="true">⏟</mo></munder><mrow><mi>L</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> terms</mtext></mrow></mrow></munder><mi>.</mi></mrow><annotation encoding="application/x-tex">\underbrace{0,\ldots,0}_{L\text{ terms}},\quad
  a_N\ne0,\quad
  \underbrace{0,\ldots,0}_{L\text{ terms}}.</annotation></semantics></math>
-The coefficients outside these blocks may have either sign. Their
-uniform bound is what makes the following argument possible.</p>
+The coefficients outside the window may have either sign; only their
+uniform bound matters.</p>
 <div class="lemma" id="lem:bounded-pulse">
 <p><strong>Lemma 4.2</strong> (An isolated nonzero coefficient between
 long zero blocks). <em> Let
@@ -634,11 +648,8 @@ The only element of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">q^{-1}\mathbb{Z}</annotation></semantics></math>
 in this interval is zero, so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>N</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">T_N=0</annotation></semantics></math>.
-Now start before the left block. The next
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
-coefficients vanish, and the entire contribution after
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>N</mi></msub><annotation encoding="application/x-tex">a_N</annotation></semantics></math>
-has just been shown to be zero. Consequently
+The right block has removed the unknown tail exactly. Starting before
+the left block now leaves only the nonzero centre, rescaled:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>N</mi><mo>−</mo><mi>L</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>a</mi><mi>N</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><mi>L</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mn>0</mn><mo>&lt;</mo><mo stretchy="false" form="prefix">|</mo><msub><mi>T</mi><mrow><mi>N</mi><mo>−</mo><mi>L</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>C</mi><msup><mn>2</mn><mrow><mi>−</mi><mi>L</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>q</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">T_{N-L-1}=a_N2^{-L-1},\qquad
  0&lt;|T_{N-L-1}|\le C2^{-L-1}&lt;1/q,</annotation></semantics></math>
 contradicting
@@ -651,11 +662,12 @@ bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
 is essential to this argument.</p>
 <div class="proof">
-<p><em>Proof of Theorem 4.1.</em> Fix a unit
+<p><em>Proof of Theorem 4.1.</em> We prescribe a prime at the centre and
+a different divisor at each neighbour. Fix a unit
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">s\pmod m</annotation></semantics></math>
-and a positive integer
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>.
-Choose distinct primes
+and an integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">L\ge1</annotation></semantics></math>,
+and choose distinct primes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>t</mi></msub><mo>≡</mo><mn>1</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">q_t\equiv1\pmod m</annotation></semantics></math>,
 all exceeding
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>,
@@ -688,30 +700,34 @@ these operations preserve whether the sum is rational. If
 the resulting bounded integer sequence has an isolated nonzero
 coefficient for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>,
-so the lemma applies. For the least-residue map we take
+so the lemma applies. For the least-residue map,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">s=-1</annotation></semantics></math>
-and obtain the nonzero residue
+gives the nonzero centre
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">m-2</annotation></semantics></math>
 when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>.
-When
+For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><msup><mn>2</mn><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">m=2^k</annotation></semantics></math>,
-each even residue
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
-is of the form
+the possible centres
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s-1</annotation></semantics></math>
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
-a unit, so nonconstancy on the even classes gives an irrational sum by
-the same argument. Conversely, if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
-is constant there, all terms after
+run through <em>every</em> even class. Thus any failure of constancy on
+those classes supplies a centre with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(s-1)\ne f(0)</annotation></semantics></math>.
+Conversely, constancy makes every term after
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n=2</annotation></semantics></math>
 equal
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
-and we obtain
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>,
+giving
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>4</mn><mo>+</mo><mi>c</mi><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">3f(1)/4+c/4</annotation></semantics></math>. ◻</p>
 </div>
+<p>The dyadic modulus matters to the classification. Modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6</mn><annotation encoding="application/x-tex">6</annotation></semantics></math>,
+for example, prime centres of this form see only
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>−</mo><mn>1</mn><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>4</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">s-1\in\{0,4\}</annotation></semantics></math>,
+not the even class
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
+The least-residue assertion needs just one nonzero centre;
+classification of an arbitrary function needs all relevant classes.</p>
 <p>The first assertion is also an application of Erdős’s sparse-series
 criterion <span class="citation" data-cites="erdos1957"><a href="#ref-6">[6]</a></span>, and of
 Kaneko, Suzuki and Tachiya <span class="citation"
@@ -737,8 +753,9 @@ and
 </section>
 <section id="app:sources" class="level2">
 <h2>Further consequences for the sections</h2>
-<p>The finite-level theorem also describes the full dyadic kernel. The
-notation below specialises the base to two.</p>
+<p>Every finite set of dyadic sections lies in a single finite level.
+Theorem 1.1 therefore also determines the full kernel; “span” and
+“relation” here still mean finite linear combinations.</p>
 <div class="corollary" id="res:basis">
 <p><strong>Corollary A.1</strong> (Dyadic basis). <em> The family
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>φ</mi><mrow><mn>0</mn><mo>,</mo><mn>0</mn></mrow></msub><mo>,</mo><msub><mi>φ</mi><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow></msub><mo stretchy="false" form="postfix">}</mo><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>φ</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>:</mo><mi>j</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>0</mn><mo>&lt;</mo><mi>r</mi><mo>&lt;</mo><msup><mn>2</mn><mi>j</mi></msup><mo>,</mo><mspace width="0.222em"></mspace><mi>r</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> odd</mtext></mrow><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>φ</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\{\varphi_{0,0},\varphi_{1,0}\}
@@ -795,70 +812,61 @@ threshold. ◻</p>
 would otherwise contradict the conclusion. Martin’s theorem gives the
 same corollary on each progression <span class="citation"
 data-cites="martin-phi-inequalities"><a href="#ref-4">[4]</a></span>.</p>
-<p>Coons’s proof of nonregularity counts the poles of
+<p>Coons proves nonregularity using the poles of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>ζ</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\zeta(s-1)/\zeta(s)</annotation></semantics></math> <span
-class="citation" data-cites="coons"><a href="#ref-2">[2]</a></span>. For an integer-valued
-sequence, finite dimension of the rational kernel span is equivalent to
-finite generation of its integral kernel module: choose finitely many
-evaluations that embed the span in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℚ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb{Q}^d</annotation></semantics></math>;
-the module embeds in
+class="citation" data-cites="coons"><a href="#ref-2">[2]</a></span>. The ranks above recover it:
+finite rational kernel dimension would embed the integral kernel module
+by evaluations in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℤ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb{Z}^d</annotation></semantics></math>,
-whose subgroups are finitely generated (compare <span class="citation"
-data-cites="coons-jsr"><a href="#ref-3">[3]</a></span>). Theorem 1.1 recovers this nonregularity
-and gives the ranks of its finite truncations. For an account of the
-earlier separation method, see Allouche, Shallit and Yassawi <span
-class="citation" data-cites="allouche-shallit-yassawi"><a href="#ref-13">[13]</a></span>.</p>
-<p>These facts have a functional consequence. A
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-Mahler
-equation has the form
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>d</mi></msubsup><msub><mi>P</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mi>F</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>z</mi><msup><mi>k</mi><mi>i</mi></msup></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sum_{i=0}^d P_i(z)F(z^{k^i})=0</annotation></semantics></math>,
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℚ</mi><mo stretchy="false" form="prefix">[</mo><mi>z</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">P_i\in\mathbb{Q}[z]</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>0</mn></msub><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P_0\ne0</annotation></semantics></math>.
-The height theorem of Adamczewski, Bell and Smertnig implies that a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-Mahler
-series with integer coefficients of polynomial growth is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regular <span
-class="citation" data-cites="adamczewski-bell-smertnig2023"><a href="#ref-16">[16]</a></span>.
-Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">\varphi(n)\le n</annotation></semantics></math>,
-its logarithmic height is at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">\log n</annotation></semantics></math>,
-so
+making it finitely generated; the converse is immediate (compare <span
+class="citation" data-cites="coons-jsr"><a href="#ref-3">[3]</a></span>). Allouche, Shallit and
+Yassawi survey the earlier separation method <span class="citation"
+data-cites="allouche-shallit-yassawi"><a href="#ref-13">[13]</a></span>.</p>
+<p>The generating function
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>φ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><msup><mi>z</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">F_\varphi(z)=\sum_{n\ge1}\varphi(n)z^n</annotation></semantics></math>
-has no such equation. Bell and Smertnig’s multiplicative classification
-gives the same conclusion <span class="citation"
-data-cites="bell-smertnig2026"><a href="#ref-14">[14]</a></span>. Bell, Bruin and Coons treat
-related algebraic and
+therefore satisfies no
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-Mahler
+equation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>d</mi></msubsup><msub><mi>P</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>F</mi><mi>φ</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>z</mi><msup><mi>k</mi><mi>i</mi></msup></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sum_{i=0}^dP_i(z)F_\varphi(z^{k^i})=0</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℚ</mi><mo stretchy="false" form="prefix">[</mo><mi>z</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">P_i\in\mathbb{Q}[z]</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>0</mn></msub><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P_0\ne0</annotation></semantics></math>.
+Indeed,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">\varphi(n)\le n</annotation></semantics></math>
+gives logarithmic height at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">\log n</annotation></semantics></math>,
+and the height theorem of Adamczewski, Bell and Smertnig would make such
+a series
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regular
+<span class="citation"
+data-cites="adamczewski-bell-smertnig2023"><a href="#ref-16">[16]</a></span>. Bell and Smertnig’s
+multiplicative classification gives the same conclusion <span
+class="citation" data-cites="bell-smertnig2026"><a href="#ref-14">[14]</a></span>. Bell, Bruin and
+Coons treat related algebraic and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>-finite
-series, the latter satisfying a linear differential equation with
-polynomial coefficients <span class="citation"
-data-cites="bell-bruin-coons"><a href="#ref-15">[15]</a></span>. These statements concern the
-function, and do not determine
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>φ</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F_\varphi(1/2)</annotation></semantics></math>.</p>
+series (those satisfying polynomial-coefficient linear differential
+equations) <span class="citation" data-cites="bell-bruin-coons"><a href="#ref-15">[15]</a></span>.
+These are statements about the function, not its value at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.</p>
 <p>The section operators
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>i</mi></msub><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mi>n</mi><mo>+</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T_i g(n)=g(kn+i)</annotation></semantics></math>
 satisfy
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>i</mi></msub><msub><mi>F</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>=</mo><msub><mi>F</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn><mo>,</mo><msup><mi>k</mi><mi>j</mi></msup><mi>i</mi><mo>+</mo><mi>r</mi></mrow></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>V</mi><mrow><mi>k</mi><mo>,</mo><mi>e</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>V</mi><mrow><mi>k</mi><mo>,</mo><mi>e</mi></mrow></msub><mo>+</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>T</mi><mi>i</mi></msub><msub><mi>V</mi><mrow><mi>k</mi><mo>,</mo><mi>e</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">T_iF_{j,r}=F_{j+1,k^ji+r},\qquad
  V_{k,e+1}=V_{k,e}+\sum_{i=0}^{k-1}T_iV_{k,e}.</annotation></semantics></math>
-To obtain the second identity, write every residue at level
+Every residue at level
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j+1</annotation></semantics></math>
-as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mi>j</mi></msup><mi>i</mi><mo>+</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">k^ji+r</annotation></semantics></math>.
-For a positive retained residue, the resulting section is again
-retained. For the two zero-residue generators, use
+has the form
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mi>j</mi></msup><mi>i</mi><mo>+</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">k^ji+r</annotation></semantics></math>,
+giving the second identity. A positive retained residue stays retained.
+For the zero-residue generators, reduce
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>i</mi></msub><msub><mi>F</mi><mrow><mn>0</mn><mo>,</mo><mn>0</mn></mrow></msub><mo>=</mo><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">T_iF_{0,0}=F_{1,i}</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>i</mi></msub><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow></msub><mo>=</mo><msub><mi>F</mi><mrow><mn>2</mn><mo>,</mo><mi>k</mi><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">T_iF_{1,0}=F_{2,ki}</annotation></semantics></math>
-followed by the zero-residue or scalar reduction. We thus obtain a
-positive integer multiple of a basis element in every case, although the
-increasing dimensions prevent any finite truncation from being
-invariant. The growth formula using the joint spectral radius for
-finite-dimensional regular sequences <span class="citation"
-data-cites="coons-jsr"><a href="#ref-3">[3]</a></span> therefore does not apply to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>.</p>
+as before. Each image is a positive integer multiple of a basis element,
+but rank growth prevents a finite invariant truncation. Consequently the
+growth formula using the joint spectral radius for regular sequences
+<span class="citation" data-cites="coons-jsr"><a href="#ref-3">[3]</a></span> does not
+apply.</p>
 </section>
 <section id="sec:carry-rank" class="level2">
 <h2>The binary totient series</h2>
@@ -877,10 +885,10 @@ The tail bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>L</mi></mrow></msup></mrow><annotation encoding="application/x-tex">(N+L+2)2^{-L}</annotation></semantics></math>
 then exceeds
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
-This is a failure of the estimate, not a lower bound on the tail. Thus
-this divisibility construction does not supply the small nonzero tail
-needed to exclude a rational value. We consider instead a finite test
-for differences of scaled tails.</p>
+This is a failure of the estimate, not a lower bound on the tail. The
+same divisibility that creates the gap can therefore move it too far out
+for this bound to be useful. We turn instead to a finite test for
+differences of scaled tails.</p>
 <p>Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>N</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></msub><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup></mrow><annotation encoding="application/x-tex">R_N=\sum_{j\ge1}\varphi(N+j)2^{-j}</annotation></semantics></math>
 and
@@ -903,7 +911,8 @@ is integral for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">N\ge c</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h=\varphi(v)</annotation></semantics></math>.
-To disprove rationality it therefore suffices to find a nonintegral
+The tails are then periodic modulo integers, not necessarily equal. To
+disprove rationality it therefore suffices to find a nonintegral
 difference beyond every threshold for each positive
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.</p>
 <p>For
@@ -918,44 +927,25 @@ we have
 \label{eq:tail-error}
  2^L\Delta_h(N)-D_{h,N,L}=R_{N+h+L}-R_{N+L},\qquad
  |2^L\Delta_h(N)-D_{h,N,L}|\le B.
-\end{equation}</annotation></semantics></math> The two tails are
-nonnegative, so their difference is bounded in absolute value by the
-larger tail bound, not the sum of the bounds. Thus
+\end{equation}</annotation></semantics></math> Nonnegativity gives the
+larger tail bound, not the sum. Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mi>/</mi><msup><mn>2</mn><mi>L</mi></msup></mrow><annotation encoding="application/x-tex">D_{h,N,L}/2^L</annotation></semantics></math>
-approximates
+locates
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta_h(N)</annotation></semantics></math>
-with error at most
+within
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mi>/</mi><msup><mn>2</mn><mi>L</mi></msup></mrow><annotation encoding="application/x-tex">B/2^L</annotation></semantics></math>.
-To exclude an integer value, the approximation must lie farther than
-this error from every integer. Equivalently, the residue of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><annotation encoding="application/x-tex">D_{h,N,L}</annotation></semantics></math>
-must avoid both ends of the interval
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><msup><mn>2</mn><mi>L</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,2^L)</annotation></semantics></math>.
-Thus the finite inequality
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>&lt;</mo><msub><mi>D</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><msup><mn>2</mn><mi>L</mi></msup><mo>&lt;</mo><msup><mn>2</mn><mi>L</mi></msup><mo>−</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+The error interval contains no integer precisely when the residue stays
+more than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+from both endpoints:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>&lt;</mo><msub><mi>D</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><msup><mn>2</mn><mi>L</mi></msup><mo>&lt;</mo><msup><mn>2</mn><mi>L</mi></msup><mo>−</mo><mi>B</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:r3-certificate}
- B&lt;D_{h,N,L}\operatorname{mod}2^L&lt;2^L-B
-\end{equation}</annotation></semantics></math> forces
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">\Delta_h(N)\notin\mathbb{Z}</annotation></semantics></math>.
-Conversely, hold
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>,</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">h,N</annotation></semantics></math>
-fixed and suppose that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="postfix">∥</mo><msub><mi mathvariant="normal">Δ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><msub><mo stretchy="false" form="postfix">∥</mo><mrow><mi mathvariant="double-struck">ℝ</mi><mi>/</mi><mi mathvariant="double-struck">ℤ</mi></mrow></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\|\Delta_h(N)\|_{\mathbb{R}/\mathbb{Z}}&gt;0</annotation></semantics></math>.
-Choose
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
-so that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>L</mi></msup><mo stretchy="false" form="postfix">∥</mo><msub><mi mathvariant="normal">Δ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><msub><mo stretchy="false" form="postfix">∥</mo><mrow><mi mathvariant="double-struck">ℝ</mi><mi>/</mi><mi mathvariant="double-struck">ℤ</mi></mrow></msub><mo>&gt;</mo><mn>2</mn><mi>B</mi></mrow><annotation encoding="application/x-tex">2^L\|\Delta_h(N)\|_{\mathbb{R}/\mathbb{Z}}&gt;2B</annotation></semantics></math>:
-the left side grows exponentially, whereas
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">B=N+h+L+2</annotation></semantics></math>
-grows linearly. The same error estimate gives
-<code>[eq:r3-certificate]</code>. This detects every nonintegral
-difference at some depth. A failed test at one depth proves no
-integrality: the error interval may simply be too wide to separate the
-value from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>.
-Increasing the depth eventually detects each fixed nonintegral
-difference, but does not produce such a difference for each
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.
+ B&lt;D_{h,N,L}\operatorname{mod}2^L&lt;2^L-B.
+\end{equation}</annotation></semantics></math> This proves
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">\Delta_h(N)\notin\mathbb{Z}</annotation></semantics></math>
+and, by <code>[eq:tail-phase]</code>, excludes every reduced denominator
+dividing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2^N(2^h-1)</annotation></semantics></math>.
 For example,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mn>1</mn><mo>,</mo><mn>12</mn><mo>,</mo><mn>16</mn></mrow></msub><mo>=</mo><mi>−</mi><mn>143140</mn></mrow><annotation encoding="application/x-tex">D_{1,12,16}=-143140</annotation></semantics></math>
 has residue
@@ -965,7 +955,25 @@ modulo
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mn>31</mn></mrow><annotation encoding="application/x-tex">B=31</annotation></semantics></math>,
 so it excludes denominators dividing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mn>12</mn></msup><annotation encoding="application/x-tex">2^{12}</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mn>12</mn></msup><annotation encoding="application/x-tex">2^{12}</annotation></semantics></math>.
+In ordinary coordinates the same certificate reads
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>12</mn><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mrow><mo stretchy="true" form="prefix">[</mo><mfrac><mrow><mi>−</mi><mn>143171</mn></mrow><mn>65536</mn></mfrac><mo>,</mo><mfrac><mrow><mi>−</mi><mn>143109</mn></mrow><mn>65536</mn></mfrac><mo stretchy="true" form="postfix">]</mo></mrow><mo>⊂</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>3</mn><mo>,</mo><mi>−</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\Delta_1(12)\in
+ \left[\frac{-143171}{65536},\frac{-143109}{65536}\right]
+ \subset(-3,-2).</annotation></semantics></math></p>
+<p>The test is complete for a <em>fixed</em> difference: if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>=</mo><mrow><mi mathvariant="normal">dist</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="normal">Δ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\delta=\operatorname{dist}(\Delta_h(N),\mathbb{Z})&gt;0</annotation></semantics></math>,
+eventually
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>L</mi></msup><mi>δ</mi><mo>&gt;</mo><mn>2</mn><mi>B</mi></mrow><annotation encoding="application/x-tex">2^L\delta&gt;2B</annotation></semantics></math>,
+since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">B=N+h+L+2</annotation></semantics></math>
+grows linearly. The same error estimate gives
+<code>[eq:r3-certificate]</code>. Failure at one depth proves no
+integrality; the interval may be too wide. Increasing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+detects an existing nonintegral difference, but does not supply one for
+each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+beyond every threshold.</p>
 <section id="sec:frontier" class="level3">
 <h3>Equivalent residue conditions</h3>
 <p>We write
@@ -993,11 +1001,11 @@ Requiring this for every
 is equivalent to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">S\notin\mathbb{Q}</annotation></semantics></math>.</em></p>
 </div>
-<p>Here the depth is no longer free: it must equal the shift. The
-recurrence
+<p>Completeness alone lets the depth grow while the shift stays fixed.
+Here the two must grow together. The recurrence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>d</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>≡</mo><msup><mn>2</mn><mi>d</mi></msup><msub><mi mathvariant="normal">Δ</mi><mrow><mi>t</mi><mi>d</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi mathvariant="normal">Δ</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Delta_{(t+1)d}(N)\equiv2^d\Delta_{td}(N)+\Delta_d(N)\pmod\mathbb{Z}</annotation></semantics></math>
-prevents two consecutive large shifts from both failing the test. Two
-failures would force the fixed nonintegral
+provides the extra step: two consecutive failures would make the fixed
+nonintegral
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta_d(N)</annotation></semantics></math>
 arbitrarily close to an integer. The estimates are in <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-ray">Appendix A
@@ -1038,22 +1046,25 @@ satisfies
  c+H+1&lt;(-B_{H,c})\operatorname{mod} M&lt;M-(c+H+1).
 \end{equation}</annotation></semantics></math></em></p>
 </div>
-<p>The choice of modulus makes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>H</mi><mo>,</mo><mi>c</mi></mrow></msub><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><msub><mi>R</mi><mi>c</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi mathvariant="normal">Δ</mi><mi>H</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B_{H,c}=M(vR_c)-\Delta_H(c)</annotation></semantics></math>.
-Under the hypothetical rationality assumption,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><msub><mi>R</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">vR_c</annotation></semantics></math>
-is an integer, so the first term is a multiple of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-and only the small tail difference remains modulo
+<p>The identity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>H</mi><mo>,</mo><mi>c</mi></mrow></msub><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><msub><mi>R</mi><mi>c</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi mathvariant="normal">Δ</mi><mi>H</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B_{H,c}=M(vR_c)-\Delta_H(c)</annotation></semantics></math>
+explains the modulus. Under rationality,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><msub><mi>R</mi><mi>c</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">vR_c\in\mathbb{Z}</annotation></semantics></math>,
+so only the small tail difference remains modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.
-The <a
+Conversely, for irrational
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
+the distance of the fixed number
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><msub><mi>R</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">vR_c</annotation></semantics></math>
+from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>
+is positive; multiplication by the exponentially growing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+eventually dominates the linear error. The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-mersenne">proof
-and residue recurrence</a> also give the converse by keeping
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>,</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">c,v</annotation></semantics></math>
-fixed and letting
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
-grow. The required residues have not been shown to exist for every
-choice of the parameters in either test. A separate <a
+and residue recurrence</a> make this comparison explicit. The required
+residues have not been shown to exist for every choice of the parameters
+in either test. A separate <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-farey">Farey-interval
 calculation</a> at depth
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>240</mn><annotation encoding="application/x-tex">240</annotation></semantics></math>
@@ -1064,7 +1075,9 @@ for
 </section>
 <section id="sec:nogo" class="level3">
 <h3>Comparison sequences</h3>
-<p> Large ranks alone cannot settle the series question. There is an
+<p> To turn section rank into irrationality, one would need an upper
+bound on carry rank under rationality. The following comparison shows
+why rationality and linear growth alone cannot give it. There is an
 integer sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
 with
@@ -1076,11 +1089,15 @@ at even indices, for which
 Its carry is the integer sequence
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>N</mi></msub><mo>=</mo><mn>4</mn><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></munder><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup><mo>=</mo><mn>5</mn><mo>⋅</mo><msup><mn>2</mn><mi>N</mi></msup><mo>−</mo><mn>4</mn><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>N</mi><mo>−</mo><mi>n</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">u_N=4\sum_{j\ge1}c(N+j)2^{-j}
      =5\cdot2^N-4\sum_{n=1}^{N}c(n)2^{N-n}.</annotation></semantics></math>
+Its recurrence is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mi>u</mi><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>u</mi><mi>N</mi></msub><mo>=</mo><mn>4</mn><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2u_{N-1}-u_N=4c(N)</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\ge1</annotation></semantics></math>.
 For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>
 and odd
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>r</mi><mo>&lt;</mo><msup><mn>2</mn><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">0&lt;r&lt;2^j</annotation></semantics></math>,
-the recurrence gives
+this gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><msub><mi>u</mi><mrow><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>u</mi><mrow><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">4\varphi(2^jn+r)=2u_{2^jn+r-1}-u_{2^jn+r}.</annotation></semantics></math>
 Thus the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>e</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^e-1</annotation></semantics></math>
@@ -1098,23 +1115,21 @@ endpoint sign conditions and the limits of finite integer combinations
 of shifts.</p>
 <p>The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-interpolation">signed
-interpolation argument</a> gives a different family of comparison
-sequences. For each integer
+interpolation argument</a> tests whether preserving specified analytic
+data fixes the value. For each integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\beta\ge2</annotation></semantics></math>,
-their sums can take any value in an interval about
+sparse even-index corrections realise every value in an interval about
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><msup><mi>β</mi><mrow><mi>−</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\sum\varphi(n)\beta^{-n}</annotation></semantics></math>,
-while a prescribed prefix and every odd coefficient stay fixed. The
-errors may be bounded by any positive
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">f(n)\to\infty</annotation></semantics></math>,
-and the changed even indices have upper Banach density zero. On each
-fixed arithmetic progression, the difference of the associated Dirichlet
-series is entire. At roots of unity, the difference of the generating
-functions extends smoothly in the radial direction, with any prescribed
-finite collection of radial derivatives vanishing. Thus the Dirichlet
-singularities are preserved, although regular parts and zeros may
-change; finitely many radial derivatives do not determine the full
-radial germ. This ordinary proof has not been formalised in Lean and
-gives no cancellation estimate for the unchanged totient sequence.</p>
+with a prescribed prefix and all odd coefficients fixed. Errors are
+bounded by any prescribed positive
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">f(n)\to\infty</annotation></semantics></math>;
+their support has upper Banach density zero. On each fixed arithmetic
+progression the Dirichlet-series difference is entire. At roots of unity
+the generating-function difference extends smoothly radially, with any
+prescribed finite collection of radial derivatives zero. This preserves
+Dirichlet singularities, not regular parts or zeros; a finite jet is not
+the full radial germ. The proof is not formalised in Lean and estimates
+no cancellation for the unchanged totient sequence.</p>
 <p>Rational approximation imposes a different requirement. The identity
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Θ</mi><mn>2</mn></msub><mo>:=</mo><munder><mo>∑</mo><mrow><mi>d</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>d</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></mfrac><mo>=</mo><mi>S</mi><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\Theta_2:=\sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^2}=S-\frac12</annotation></semantics></math>
 was posted by Amiram Eldar, together with its coprimality
@@ -1153,12 +1168,16 @@ seven-term prefixes leave only
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mn>4</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">Y=4,5,6</annotation></semantics></math>
 to compare directly. The averaging assertion concerns averages of the
 quotients themselves. It leaves open signed combinations, quotients
-formed after combining the sums, and higher-rank kernels. A proposed
-family
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>j</mi></msub><mi>/</mi><msub><mi>q</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">p_j/q_j</annotation></semantics></math>
-in lowest terms would need
+formed after combining the sums, and higher-rank kernels. For a
+denominator-clearing irrationality argument, a sufficient target is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>q</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi mathvariant="normal">Θ</mi><mn>2</mn></msub><mo>−</mo><msub><mi>p</mi><mi>j</mi></msub><mi>/</mi><msub><mi>q</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">0&lt;q_j|\Theta_2-p_j/q_j|\to0</annotation></semantics></math>,
-which convergence alone does not imply.</p>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>j</mi></msub><mi>/</mi><msub><mi>q</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">p_j/q_j</annotation></semantics></math>
+in lowest terms. Indeed, if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Θ</mi><mn>2</mn></msub><mo>=</mo><mi>a</mi><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">\Theta_2=a/b</annotation></semantics></math>,
+any nonzero difference satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>a</mi><mi>/</mi><mi>b</mi><mo>−</mo><msub><mi>p</mi><mi>j</mi></msub><mi>/</mi><msub><mi>q</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>a</mi><msub><mi>q</mi><mi>j</mi></msub><mo>−</mo><mi>b</mi><msub><mi>p</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mi>b</mi><mo>≥</mo><mn>1</mn><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">q_j|a/b-p_j/q_j|=|a q_j-bp_j|/b\ge1/b</annotation></semantics></math>.
+Convergence alone gives no such contradiction.</p>
 </section>
 </section>
 <section id="sec:open" class="level2">
@@ -1177,9 +1196,10 @@ satisfy
  16(2X+h+L+2)\le2^L,\qquad
  \operatorname{Re}\sum_{N=X}^{2X-1}
        \exp(2\pi iD_{h,N,L}/2^L)\le\frac9{10}X.
-\end{equation}</annotation></semantics></math> These inequalities would
-prove irrationality. Indeed, if every residue failed
-<code>[eq:r3-certificate]</code>, each
+\end{equation}</annotation></semantics></math> Only a saving in the real
+part is needed: one must show that the phases cannot all cluster near
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
+If every residue failed <code>[eq:r3-certificate]</code>, each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mi>/</mi><msup><mn>2</mn><mi>L</mi></msup></mrow><annotation encoding="application/x-tex">D_{h,N,L}/2^L</annotation></semantics></math>
 would be within
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>16</mn></mrow><annotation encoding="application/x-tex">1/16</annotation></semantics></math>
@@ -1216,13 +1236,14 @@ Define
  \mathcal G&amp;=\{N\in\mathcal A:\varphi(m_N)\ge\eta m_N\}.
 \end{aligned}</annotation></semantics></math> All indices are integers.
 On
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal A</annotation></semantics></math>
-we have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal A</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>N</mi></msub><mo>&gt;</mo><msub><mi>m</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">p_N&gt;m_N</annotation></semantics></math>,
-so
+hence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mi>N</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(N+t)=\varphi(m_N)(p_N-1)</annotation></semantics></math>.
-Its coefficient in the phase is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>t</mi></msup></mrow><annotation encoding="application/x-tex">(2^h-1)/2^t</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>&lt;</mo><mi>t</mi><mo>≤</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">h&lt;t\le L</annotation></semantics></math>,
+this term occurs in both tails, with net coefficient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>t</mi></mrow></msup><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>t</mi></msup></mrow><annotation encoding="application/x-tex">2^{-(t-h)}-2^{-t}=(2^h-1)/2^t</annotation></semantics></math>.
 Write
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>N</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">exp</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mn>2</mn><mi>π</mi><mi>i</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mi>N</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><msup><mn>2</mn><mi>t</mi></msup></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>w</mi><mi>N</mi></msub><mo>=</mo><msub><mi>E</mi><mi>N</mi></msub><mi>/</mi><msub><mi>z</mi><mi>N</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">z_N=\exp\!\left(\frac{2\pi i(2^h-1)\varphi(m_N)(p_N-1)}{2^t}\right),
  \qquad w_N=E_N/z_N,</annotation></semantics></math> and let
@@ -1244,30 +1265,32 @@ taking the average to be zero for an empty set. We seek the four bounds
  \left|\sum_{\substack{X\le N&lt;2X\\mathbb{N}\notin\mathcal A}}E_N\right|
        &amp;\le\tfrac8{25}X.
 \end{aligned}
-\end{equation}</annotation></semantics></math> The last two sums cover
-the indices outside
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒢</mi><annotation encoding="application/x-tex">\mathcal G</annotation></semantics></math>.
-On
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒢</mi><annotation encoding="application/x-tex">\mathcal G</annotation></semantics></math>,
-the identity
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>N</mi></msub><msub><mi>z</mi><mi>N</mi></msub><mo>=</mo><msub><mi>w</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>z</mi><mi>N</mi></msub><mo>−</mo><msub><mover><mi>z</mi><mo accent="true">‾</mo></mover><msub><mi>m</mi><mi>N</mi></msub></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>w</mi><mi>N</mi></msub><msub><mover><mi>z</mi><mo accent="true">‾</mo></mover><msub><mi>m</mi><mi>N</mi></msub></msub></mrow><annotation encoding="application/x-tex">w_Nz_N=w_N(z_N-\bar z_{m_N})+w_N\bar z_{m_N}</annotation></semantics></math>
-gives the first two. The four sums therefore add to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msub><mi>E</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\sum E_N</annotation></semantics></math>
-before any estimates are taken, and their bounds give
+\end{equation}</annotation></semantics></math> These are an exact
+partition: outside
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒢</mi><annotation encoding="application/x-tex">\mathcal G</annotation></semantics></math>
+use the last two sums; on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒢</mi><annotation encoding="application/x-tex">\mathcal G</annotation></semantics></math>
+write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>N</mi></msub><msub><mi>z</mi><mi>N</mi></msub><mo>=</mo><msub><mi>w</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>z</mi><mi>N</mi></msub><mo>−</mo><msub><mover><mi>z</mi><mo accent="true">‾</mo></mover><msub><mi>m</mi><mi>N</mi></msub></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>w</mi><mi>N</mi></msub><msub><mover><mi>z</mi><mo accent="true">‾</mo></mover><msub><mi>m</mi><mi>N</mi></msub></msub></mrow><annotation encoding="application/x-tex">w_Nz_N=w_N(z_N-\bar z_{m_N})+w_N\bar z_{m_N}</annotation></semantics></math>.
+The bounds add to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>14</mn><mi>/</mi><mn>25</mn><mo>+</mo><mn>1</mn><mi>/</mi><mn>100</mn><mo>+</mo><mn>1</mn><mi>/</mi><mn>100</mn><mo>+</mo><mn>8</mn><mi>/</mi><mn>25</mn><mo stretchy="false" form="postfix">)</mo><mi>X</mi><mo>=</mo><mn>9</mn><mi>X</mi><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">(14/25+1/100+1/100+8/25)X=9X/10</annotation></semantics></math>.
-Subtracting
+There are two distinct issues. Small group means control the second sum
+by the triangle inequality because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>w</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|w_N|=1</annotation></semantics></math>.
+They do not control the first: subtracting
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>z</mi><mo accent="true">‾</mo></mover><mi>m</mi></msub><annotation encoding="application/x-tex">\bar z_m</annotation></semantics></math>
-cancels the unweighted sum over the whole cofactor group, but
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>N</mi></msub><annotation encoding="application/x-tex">w_N</annotation></semantics></math>
-varies with the same index
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
-That cancellation does not persist automatically after multiplication by
+cancels an <em>unweighted</em> group sum, not one with varying
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>N</mi></msub><annotation encoding="application/x-tex">w_N</annotation></semantics></math>.
-Both of the first two sums still require weighted estimates; no
-independence has been assumed. The conclusion concerns the real part; it
-does not give a
+No independence is assumed. For example,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z=(1,-1)</annotation></semantics></math>
+has mean zero, but the weights
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w=(1,-1)</annotation></semantics></math>
+make
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msub><mi>w</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>z</mi><mi>N</mi></msub><mo>−</mo><mover><mi>z</mi><mo accent="true">‾</mo></mover><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\sum w_N(z_N-\bar z)=2</annotation></semantics></math>.
+This illustrates the distinction, not the behaviour of the totient
+phases. The resulting real-part bound is not a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>21</mn><mi>X</mi><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">21X/25</annotation></semantics></math>
-bound for the absolute value of the full sum.</p>
+norm bound.</p>
 <div class="problem" id="prob:firstharmonic">
 <p><strong>Problem C.1</strong> (Four estimates for the first-harmonic
 sum). <em> For each
@@ -1285,23 +1308,15 @@ with
  16(2X+h+L+2)\le2^L,</annotation></semantics></math> for which those
 four bounds hold?</em></p>
 </div>
-<p>The parameters
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>
-may depend on
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>,
-but must be fixed before the threshold
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>0</mn></msub><annotation encoding="application/x-tex">X_0</annotation></semantics></math>
-is given. All four estimates must then hold for one common choice of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>,</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">X,L</annotation></semantics></math>.
-For each fixed
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>,</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">h,s</annotation></semantics></math>,
-take the least admissible
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
-satisfying the size inequality in <code>[eq:r3-harmonic]</code> and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>≥</mo><mi>s</mi><mo>+</mo><mi>h</mi></mrow><annotation encoding="application/x-tex">L\ge s+h</annotation></semantics></math>.
-The <a
+<p>Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>,</mo><mi>η</mi></mrow><annotation encoding="application/x-tex">s,\eta</annotation></semantics></math>
+after
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+but before
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>0</mn></msub><annotation encoding="application/x-tex">X_0</annotation></semantics></math>;
+all four estimates must hold on the same block. Take the least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>≥</mo><mi>s</mi><mo>+</mo><mi>h</mi></mrow><annotation encoding="application/x-tex">L\ge s+h</annotation></semantics></math>
+satisfying <code>[eq:r3-harmonic]</code>’s size inequality. The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-counts">smooth-number
 and small-cofactor estimates</a> give the last two bounds for all
 sufficiently large
@@ -1310,21 +1325,36 @@ when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>η</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>300</mn><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0&lt;\eta&lt;1/(300\log4)</annotation></semantics></math>.
 The elementary excluded-cofactor estimate is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>η</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>4</mn><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">(3\eta\log4+o(1))X</annotation></semantics></math>;
-it needs no prime number theorem. The first two bounds in
-<code>[eq:r3-four-bounds]</code> remain open. No optimality is asserted
-for the sufficient margins in <code>[eq:r3-four-bounds]</code>.</p>
-<p>Alternatively, at
+it needs no prime number theorem. With the prime number theorem as
+input, the <a
+href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-group-mean">group-mean
+estimate</a> gives the second bound for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mn>26</mn></mrow><annotation encoding="application/x-tex">s=26</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>1000</mn></mrow><annotation encoding="application/x-tex">\eta=1/1000</annotation></semantics></math>
-and minimal depth one has
+at this depth and all large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>;
+the mean-subtracted bound remains open. At these fixed parameters it
+would suffice to prove that bound for arbitrarily large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>:
+the other three already hold beyond fixed thresholds and hence on those
+same sufficiently late blocks.</p>
+<p>There is also a weaker sufficient condition, without a group-mean
+input. Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi mathvariant="script">𝒢</mi><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>67</mn><mi>X</mi><mi>/</mi><mn>100</mn></mrow><annotation encoding="application/x-tex">|\mathcal G|&gt;67X/100</annotation></semantics></math>
 for large
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>.
-The single open estimate
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Re</mi><mo>&#8289;</mo></mrow><msub><mo>∑</mo><mrow><mi>N</mi><mo>∈</mo><mi mathvariant="script">𝒢</mi></mrow></msub><msub><mi>E</mi><mi>N</mi></msub><mo>≤</mo><mn>603</mn><mi>X</mi><mi>/</mi><mn>1000</mn></mrow><annotation encoding="application/x-tex">\operatorname{Re}\sum_{N\in\mathcal G}E_N\le603X/1000</annotation></semantics></math>,
-for each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>,
+the open bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Re</mi><mo>&#8289;</mo></mrow><msub><mo>∑</mo><mrow><mi>N</mi><mo>∈</mo><mi mathvariant="script">𝒢</mi></mrow></msub><msub><mi>E</mi><mi>N</mi></msub><mo>≤</mo><mn>603</mn><mi>X</mi><mi>/</mi><mn>1000</mn></mrow><annotation encoding="application/x-tex">\operatorname{Re}\sum_{N\in\mathcal G}E_N\le603X/1000</annotation></semantics></math>
+would put the average on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒢</mi><annotation encoding="application/x-tex">\mathcal G</annotation></semantics></math>
+below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">9/10</annotation></semantics></math>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>603</mn><mi>/</mi><mn>1000</mn><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>9</mn><mi>/</mi><mn>10</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>67</mn><mi>/</mi><mn>100</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">603/1000=(9/10)(67/100)</annotation></semantics></math>.
+Some good index would then pass the test. This uses an average on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒢</mi><annotation encoding="application/x-tex">\mathcal G</annotation></semantics></math>,
+not a bound on the full block, and is required for each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
-on arbitrarily large blocks, would suffice by the same argument. The <a
+on arbitrarily large blocks. The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-interpolation">ordinary
 comparison argument</a> gives larger first harmonics at all sufficiently
 large admissible scales, distinguishing its rational sequences from the
@@ -1336,13 +1366,14 @@ applicable to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">\varphi(n)/n</annotation></semantics></math>,
 uniformly for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>h</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>x</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">|h|\le x/2</annotation></semantics></math> <span
-class="citation" data-cites="bgs2016"><a href="#ref-11">[11]</a></span>. Here the modulus grows
-with
+class="citation" data-cites="bgs2016"><a href="#ref-11">[11]</a></span>. Their correlation is a
+product of two normalised totient values. Here the modulus grows with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>,
-and the residual weight depends on other totient values in the window.
-That correlation theorem supplies neither of the two remaining
-estimates. Establishing them for the actual totient is the unresolved
-arithmetic step.</p>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>N</mi></msub><annotation encoding="application/x-tex">w_N</annotation></semantics></math>
+is an exponential of the other, overlapping totient contributions.
+Uniformity in the shift of that two-point product does not supply the
+required weighted exponential estimate.</p>
 </section>
 <section id="verification-and-reproducibility"
 class="level2 unnumbered">

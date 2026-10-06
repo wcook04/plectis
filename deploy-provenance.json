@@ -10,8 +10,1920 @@
       "transform": "isolated-css-comments-v1"
     }
   },
-  "generator_commit": "1686e353fe7a54d9f3b3af00356018e93a0293a7",
-  "note": "Public source commits this deploy was generated from. The next deploy reads this file and refuses to publish a build whose sources do not contain these commits, unless it is run with --allow-older-than-live.",
+  "generator_commit": "1f1e018d9d2b599b2e13a01ad65efb17df3d4e58",
+  "last_scoped_release": {
+    "changed_paths": {
+      "lean/claims.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "8ed843c5ec178853dd59259d29dad7191ab92d290f0f2a421f66987eec705577"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "a9585ba52513078c062569fa95acc7291a990e08daab3b70ac315f6282106751"
+        }
+      },
+      "lean/credit-ledger.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "c1743a18866c020d9a99906edde42e238f426f0965726b341c1a28aec9fdd69c"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "bb065e5611b1d562463dae153005ee0614c5cd5e335a294e58d40bd6c53b3fe7"
+        }
+      },
+      "lean/experience/graph.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "7adc1c238478b8ec7c24e6d9d7aa4581e954a6e7156f543425c5a20cc5fed00a"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "60cdc38da601e1bad86498fdf9a1c445ec5ab2276d7dbd884c6858b39896d192"
+        }
+      },
+      "lean/experience/graph/index.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "f13151bc511f983a246e2645ea2509f35e3ae147213bf4d7348c195e210a517b"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "778f03cfa9bfd58cc9decea09a057e5278cf8be7a49f3cf8131c6d70727918b9"
+        }
+      },
+      "lean/experience/manifest.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "356d54342ec5af49a9a32a2b605a46a623d42e515b8a1ab2146b410dda1fd0c3"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "223a1ca147ac484b66ae042080a51895f166e476cc626c02dd4f6b373097fe3b"
+        }
+      },
+      "lean/experience/papers/claim-faithful-publication-systems.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "3cddbf9629cf424d4887b2f84497e77bcedb655f9da99ff0bb4846857cd42073"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "0425f9d54ca473cfa27d5f923410c79f061594235dace4d10bb468da4741cf25"
+        }
+      },
+      "lean/experience/papers/claim-faithful-publication-systems.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "c0ddfea9797eac664c884ab540db84b90a6a1705f39cf94fc10fe6c7265d19a4"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "d08ba944b8749ae6683c334e2a5cc619ebbc3ffa775d04f060e9197f9af06184"
+        }
+      },
+      "lean/experience/papers/claim-faithful-publication-systems.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "bfd4ed727735e0831956ac84241ca8685f252c2b8074a46231006e71a330561d"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "470dbb56b4ae940698fde54f606af98a6b2a1218e16f1a54409e461a9c175b38"
+        }
+      },
+      "lean/experience/papers/erdos-1041-lemniscate-newton-flow.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "3100e014e32821c4105f77116ac7270b60765fcb134f24e3aaea8e5f1230593e"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "7c21aa5c03db790d3a6e7f423552eee1725b3320bb14153ff7f37dd739664275"
+        }
+      },
+      "lean/experience/papers/erdos-1041-lemniscate-newton-flow.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "b2ffffa79e7d85c6bbf543759c04ccabbc750f89da6d90cc1d14814139416d09"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "4f4eb6ab22a32328f5942dd703d5b50ef3f171396d02441e5bdfeff98cb6b3d9"
+        }
+      },
+      "lean/experience/papers/erdos-1041-lemniscate-newton-flow.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "d7d07e5744972a4622cbf6ac5dbf01cc217b36a6f5c7e9bf93444a0ee6427885"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "b82bbeda7ca00e831a3c9c5c374c638cc90c7812daa5fafbd8bd0af4a9d2e5fb"
+        }
+      },
+      "lean/experience/papers/erdos-1049-rational-base-lambert.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "419af197d39b63154b28c13bb519450fe67b20ee9c10a0bb42ee9c6db4621a85"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "c110a984f2adfb073692ce47e7207f6c48918874a48a8cb9740aeb759b3199fe"
+        }
+      },
+      "lean/experience/papers/erdos-1049-rational-base-lambert.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "b2aca3a0515eb7316d5747270bcda4f1eedefbe797c7498a0063a09276191e7a"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "3c6b566c4a115a08a99c92831a3704830b007ef18c028b040bb7f703cf1d7463"
+        }
+      },
+      "lean/experience/papers/erdos-1049-rational-base-lambert.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "10a3d490157505c6269522d848381906f666a7e150b5d5ddb418926dea294701"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "4092d52af5571ac69117375b22b40a8118c2648011c182969be1377a700ca166"
+        }
+      },
+      "lean/experience/papers/erdos-243-reciprocal-tail-rigidity.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "624ebff0e12c693d224c3ab24ca7f796aa12b977892255b0cef3f7c2eba6df94"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "0118e692adf81ff63b6cb37273f2b56184adbae71bdbf372751415c3304eef00"
+        }
+      },
+      "lean/experience/papers/erdos-243-reciprocal-tail-rigidity.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "41bd0261704c6743ca1759f8d659ba76d8329532644b5689fc43c0e03ab5d154"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "d7a22fc15c2dfd44aaaad94fe3a007513a551070b12fbd426b538505fab2eb64"
+        }
+      },
+      "lean/experience/papers/erdos-243-reciprocal-tail-rigidity.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "e33beab7414a9f9945804622e8f99e9941c5ed585af5166543117bfeb02587c2"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "d3c26b9d939455436d4b967846beefe9389f9ad04fa79e13fedea0bd1827c61a"
+        }
+      },
+      "lean/experience/papers/erdos-249-binary-totient-series.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "a42ce0aa0ee3c9013cc000050fc8ce9af04c65446060f29329b55036eb6bb19e"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "420356dc3d5b561167aaa9898daf8a1a2b96c759b1abe98218d5070ac935c302"
+        }
+      },
+      "lean/experience/papers/erdos-249-binary-totient-series.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "53ccc72b88999c18a5f47b87854d2b37912c61cbc93837ea64f0f2f384fba09e"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "66dee169c58c3789cd0a1ff12e24f4d287dcdcdd4ec2589233528c1ff36af5ff"
+        }
+      },
+      "lean/experience/papers/erdos-249-binary-totient-series.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "87d2e2c0c8098b2a82ad8a9b7a1bede0e2b0b1557a6f8cdfd4a7996c2a007486"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "243c0179b4ea39afbd37c792643a0df4afc25cdf6e080a8061f17f78d2b4d27e"
+        }
+      },
+      "lean/experience/papers/erdos-251-prime-gap-dyadic-series.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "ba98156f06ffbfdcf2c209752df289d4cb4ccc02b19c03e3f70c228a7c89f2db"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "8527143cf4bc09a74b82b63abb187d5b46884ce82f6c4b00b579b7a15e4c9a07"
+        }
+      },
+      "lean/experience/papers/erdos-251-prime-gap-dyadic-series.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "7b0495f6d82a78a6c98d564bdb739aa54e314c167c5da7b081f8377775fb9c87"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "a7545a01350bd8b444c15c8e93b734e690e9e6351daeff3eca6a516087a16c58"
+        }
+      },
+      "lean/experience/papers/erdos-251-prime-gap-dyadic-series.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "2f8c728fe544a33f17229ea2cb49bfa2d730add335b779178deccee0235d10b2"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "91465f6209e5eb78b9e1445a82a3bfc85ee4d8e9c8ecaa85f31b7fcd2de8479e"
+        }
+      },
+      "lean/experience/papers/erdos-257-mersenne-support-subseries.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "f343d14350adf0a93c5c2bd02e58524b2ced7b24cb1aa547b8019489acdf690f"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "bc777f2271a89d00b68f2f1020863bfd57b8142c5acac5006f7ab59255a5c26a"
+        }
+      },
+      "lean/experience/papers/erdos-257-mersenne-support-subseries.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "93beac4f42aab05961beccfa340cc63812e1e2f35301083cba884bb1f99d8047"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "f3248d251b9d056ec5b8ef730249da7eb2944b2b40c361c4d95ef6e713a6f85b"
+        }
+      },
+      "lean/experience/papers/erdos-257-mersenne-support-subseries.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "3a98f28d935bf6338420140ab06493820e9607ca486f7deb858112f7c6735a24"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "ed08b909b39f0d837ad945bb7139d172facc4f9be8d0dc19512691c4642c5b8e"
+        }
+      },
+      "lean/experience/papers/erdos-269-three-prime-running-lcm.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "279be3493aae3234af7117ed785735ad3b795ace40bed92df804e6283fc1a9f8"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "e80061780594e42cf5ca75d9d2174d053a7aacd8057d2cc41d410c8c5b65d14a"
+        }
+      },
+      "lean/experience/papers/erdos-269-three-prime-running-lcm.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "15a8bd2a2b425f47e9ca49b981db6cd47344759fa576e29ef18a0d64ec82d530"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "fff5ec849308581c19ba8057b13e3db27da5f7a681dd4aeefa181cd5d2e8be56"
+        }
+      },
+      "lean/experience/papers/erdos-269-three-prime-running-lcm.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "607ecaba21bf0b84ed77677d3dc0fca2fcb7acd4a2c71866494f9a80502ed543"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "6a4c851af43412fe572fd70b2ebdfa174e5464227c07ca582951506b76b7c6c0"
+        }
+      },
+      "lean/experience/papers/erdos-68-factorial-denominator-irrationality.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "a10a1ce2e640c8a6b6da4a0cb6a4848c93806a099d140888de339221e315bc06"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "8dc89788143f4ccc1aa10f17a7f829e49bc8f71ef7bac524586462cbb77c546f"
+        }
+      },
+      "lean/experience/papers/erdos-68-factorial-denominator-irrationality.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "575e11827bc2d63817d175690594ae09f1d9b82bf3ea8896192275947ea2be41"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "791ecac24b0014da7c5666d7dd5427ddafb041376304cc25aab9913048363f12"
+        }
+      },
+      "lean/experience/papers/erdos-68-factorial-denominator-irrationality.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "cad21d5c5896cc5b641c2d9aa1d98264af61b33b00023ef17db86f986fa99fb2"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "9d5235ce72e97667b36001cb5fcf2d6bd91ea86d184642e437035bb16b1ef713"
+        }
+      },
+      "lean/experience/papers/erdos1049-rational-base-lambert-reasoning-surface.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "3b5dab99c4514b98a97de1436c5f10679935755914ee0cbbe30118da1fb774e2"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "41c6a4b4ef09f3c80eeb176a6627d7d264bc890fa9421e416f89c9e23e292b7c"
+        }
+      },
+      "lean/experience/papers/erdos1049-rational-base-lambert-reasoning-surface.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "b4e18332d19ea7d21a9228c129e07186a384295637b1eaf3d4250b1399167f53"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "ea0ca7c1859acc66fcd6973f09b13b578a74bf02ea2fb8d8c0b0bf12ccfbd159"
+        }
+      },
+      "lean/experience/papers/erdos1049-rational-base-lambert-reasoning-surface.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "78c244319e581a2a7a99702778e0f77e9fdcf6cff4681f1505214fe0d45fe3fb"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "6d9f94c6ab220cdb3e43562cb32a1d9fd2d3b4283fb9c5f9e55ca1f715a81a95"
+        }
+      },
+      "lean/experience/papers/erdos243-reciprocal-tail-reasoning-surface.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "d72c9f65004e26ad3ecf28c242fee6f694d29742aef29608bb8fd1eb8f7e64b5"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "6f10478dfc126066337b82163c633dcb7869b157a6239c294b4b7dd859001206"
+        }
+      },
+      "lean/experience/papers/erdos243-reciprocal-tail-reasoning-surface.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "3fb276a026a1eef1cf2431374dc8b80f8829e4cdd519ae35d440d0d6f2d5aa98"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "7199beda19fe43bf1c971ec348f885f7e1ba88d8b3820b74c2394896dc8732fe"
+        }
+      },
+      "lean/experience/papers/erdos243-reciprocal-tail-reasoning-surface.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "d4f18729a28646f60080567ee3ba415dc66830fb0a7e48e4c13380b1dd8c9421"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "c6597c2661196cdc54ff4772f18b1c9892584a7d690d4159c8dc5ce59034426f"
+        }
+      },
+      "lean/experience/papers/erdos249-totient-reasoning-surface.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "caab19b9061797ee4b532da9b974252e494915663c4a9d886fa38d69173160e1"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "1681cb780e7f2388aa795dd382055d88f3b2b1d2c0e4cf07c2a490188dec453f"
+        }
+      },
+      "lean/experience/papers/erdos249-totient-reasoning-surface.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "e13b72d277966315e3c8ef22339d4a0886956e1c5a9f37a7067912abd940bcf7"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "5c41bc518f273c97a354856071cfaef9cb97d0202267866d985dfe52469ead11"
+        }
+      },
+      "lean/experience/papers/erdos249-totient-reasoning-surface.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "15ddbc6f48e9fa96d29c2d602092fe794707f09ab00026130c21da44df6f77d3"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "efbccac23ff5a86d720bc382cdc5b2aa82dd5c7444959d31a369db92522283de"
+        }
+      },
+      "lean/experience/papers/erdos251-prime-gap-reasoning-surface.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "733242d7f81f17ce3a38853878453e08226834adea3643cb8919e03be076cca0"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "6d89be18f9d83b0d14b5b30ce8e33fae623f37208e81d954bfcb8ec84e04be40"
+        }
+      },
+      "lean/experience/papers/erdos251-prime-gap-reasoning-surface.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "dce6f4a5f933e7ae3632ec2ae42f18afb467bf25e7cf75dcecc7127d49061de2"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "6459263a8f37646d11738d659ef435d34a99896e82a0d6973b32102474869750"
+        }
+      },
+      "lean/experience/papers/erdos251-prime-gap-reasoning-surface.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "795d32a90bf3f66e4c53b2aecda16c2dd58b8ef41c7870880ecfd8736fd83644"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "e0daac8a834ae4ad5f9cf6b66c6089845916264913dc89583c938793a3335f21"
+        }
+      },
+      "lean/experience/papers/erdos269-running-lcm-reasoning-surface.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "4f3f7703d5ecda1657d71c1dd8a76f6ffa86e75c31baef5fcab4f07bc9cfae14"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "050189c6b4d47bb287431dfd6ae55cd8c6dc0e36f423e8a66bd5364aceb3e597"
+        }
+      },
+      "lean/experience/papers/erdos269-running-lcm-reasoning-surface.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "6ce94e549a7c21964b18a1508fc9b568dbbce0c0e1e97bc7e675a90ae556f3ed"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "31c1f573cbca8b3d74d106e24eaa0fa57ea793c6f74317233fbca1df1a13e6c4"
+        }
+      },
+      "lean/experience/papers/erdos269-running-lcm-reasoning-surface.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "63c9d8e1c1e38248bcaae86e31f42ff90b4f73975823526cdc99e5ad31ba2ff5"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "3d9b696c351bc7b296bbada6d982fa44f673191f75074d04ec345a3760370c11"
+        }
+      },
+      "lean/experience/papers/erdos68-factorial-reasoning-surface.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "d81a646d472fe53ba56ea9683bf62a51377fd45c00f951730b57104c3dd1e879"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "95c1455242a875247ac0a4375f71c496f2e271ad28933b0234af670b55fb2a00"
+        }
+      },
+      "lean/experience/papers/erdos68-factorial-reasoning-surface.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "e955c60ca779f469e07eda9f496a528980467dc279d7b74791ba8133e4479433"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "adf1c547cac6a4f70155e073edc0b395713756b426819c4bf508bd2385b73845"
+        }
+      },
+      "lean/experience/papers/erdos68-factorial-reasoning-surface.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "0ff5857d31b7ffac14fd47bf005ddc191295b8ed0c13693acb6fbdde9e9fecdf"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "eab1b8a804ecbecaef697f559a920c46fa7689eaf04ba9f16a4ed60867573803"
+        }
+      },
+      "lean/experience/papers/index.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "0302256e51701a903e7f7e2597e912bf638078e8e36f238f97f3739ccf450ab1"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "9635db40418a4bf5dc8d34315fd7fc2490886effc55b7cd4c93bb129ecb8b609"
+        }
+      },
+      "lean/experience/papers/writing-a-good-mathematical-paper.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "cbffbddca20bf61bae38939686278cb9c83f36471ec5ead424e3668413692fa9"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "cd4bfd8767a51b26fcb2711836f88ffb6a0b6437ffaead29c375bf7d8156dfd4"
+        }
+      },
+      "lean/experience/papers/writing-a-good-mathematical-paper.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "7b4c1ce91091765b56566148d77ad7cd791d0f39642b5575f6403c3536b7fec5"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "d3a86d27b59018babe3b8c00432794412ce111bf3f63e12109b3d137e753e2eb"
+        }
+      },
+      "lean/experience/papers/writing-a-good-mathematical-paper.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "9385ca6c2fb8b7e4baf10cdcd43535f373f3d643802c579cdc7040fd51743f06"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "e2a6ca12ab732812db2663c4e2a9f289f16956cbdd1ac69aaae9468a18aba93c"
+        }
+      },
+      "lean/experience/papers/writing-mathematics-from-reviewed-revisions.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "70e263adf0adc45f6b60117e0596edc25cb3c729360ef8693b1e06759fded14a"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "66218fa856a926e632d0878026bb03d6b710356cdfea3fe637e6386ce4bfa36d"
+        }
+      },
+      "lean/experience/papers/writing-mathematics-from-reviewed-revisions.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "a259459509dd351516caa5ab0da7c7e82b1da4ba3736a47a0a68fd1f1a9b977e"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "b9cfca34c69d877958e16fa53c3c48a21d3f1b4e8331cfc136c65e7b4c4c22d4"
+        }
+      },
+      "lean/experience/papers/writing-mathematics-from-reviewed-revisions.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "d7cdd86b3015228a8bc05c1e2c6225ef68d6a0b43cd0ecff99854019b1b0b2b0"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "78bd744e8b427474d498031b2a26906f574f3ff40da288d2bb0566135f6b1a49"
+        }
+      },
+      "lean/experience/problems/erdos_1041.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "d7987319ca5cbc164417721b5a32ab12d91c8ff51b2851ae63a4354fb71780d7"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "527d3e2c8d76725585171d81eaa68a689aa0ebd4c73c188d44b38cc0785532da"
+        }
+      },
+      "lean/experience/problems/erdos_1049.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "91058c02c518c77d317bf3624aef36e6a9e064a7f7b72b56e15b4e18b6616dd6"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "450b877ec638dda5a100a46f5a4a6d805c5e179a26c41f1c6f47d41aae89f906"
+        }
+      },
+      "lean/experience/problems/erdos_243.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "58cc3f35e6ac82b5a11c615baadd1262e63cde912e0ddcfb80d725eaf1b512d8"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "8bf5fc33d3d22dd80f7040ff181b8729ea03905d6e82297e0cc16a94f3fd88f6"
+        }
+      },
+      "lean/experience/problems/erdos_249.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "1549f98bdfd19cc03d9bf26863d48cd2a28ba6950400942c7896ffe2ecbd0666"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "8f94fd0bc21979018e5e0a765848f2ab2a834f2afb16d10ab7e1fcb8914c92ff"
+        }
+      },
+      "lean/experience/problems/erdos_251.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "bdab017122ac25ac05f5acca433fd5415cfc6975463cdb9681d9ae429044e1c2"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "0f7ee0f90da671552d1ccb4528b0d47ec37687d8165b5b9152bb111a72e11c89"
+        }
+      },
+      "lean/experience/problems/erdos_257.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "d18115abbfacb1e1104b4b4cd344893e2db8454d974be262fce68d93ce0de781"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "fdbdb390745fcc5b2b787b0d676937a83ca46f7b1459c1f1b8bf3721d9f3e9f2"
+        }
+      },
+      "lean/experience/problems/erdos_269.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "35724e6c2d67f1ec95e51339d455354c22cf4b5cbd181802586d01c03bdc1637"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "d920fd5dd187cdd4f0c150df3d572aa78564d51832ac104d4c4ff8f9148dade5"
+        }
+      },
+      "lean/experience/problems/erdos_68.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "aa9df55465c1d7957d251a14ad8a63d8ec2ea5488adc384ccb762556b310b67c"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "357533d24c47ec70abbebdae4eadabeead12c8bbe797d6a1f19775cd2eb5a79e"
+        }
+      },
+      "lean/lean-source-manifest.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "b38b5d57ce6b51dd0c4032d2f11b7b6210847ab0e67fb5da35d9a9c029694645"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "f68c25c7a5a1ff0978b736d64d6ee715f83651c85a53a15c81b6963af957e4c0"
+        }
+      },
+      "lean/paper-lean-coverage.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "8d422a56fdd3c1527e2bf276cf0de63bbeaefba8c7b231b96eb5e2f6e1f1c49d"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "fe656ab45f924d5c3f883ec1e54325cc359beaeca3eaa9ff1d1bab6f00933b49"
+        }
+      },
+      "lean/problem-library.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "d90c883aeb2f87ddbfe3acbebefb5f8cb12ffacb99db1db63a1ac6737bc3e693"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "18cd7fd8d6ced94942c562778bebb9c7848f416275172166050596b6601533bb"
+        }
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-0e44df06f74d.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "0e44df06f74d1f166b5301c7ec6c5cc87fc4dbe87aaf44da04813b2fc4225a47"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-129d2cdad792.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "129d2cdad792e430196a1395f09b91af9f06fee3c67dc9c3a5a5745cd22337c4"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-1ad824ee9b65.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "1ad824ee9b6555f9db32b83cc622600a979eebe7d35f1f1e1783a26d6df5c913"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-463972e6045e.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "463972e6045ef70f8d1ca5d1357214b4fe3f69c347658fc50a8fa81a2d991f23"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-46737426b1a0.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "46737426b1a06ed129242aa632434b494e8a3af53bdfcd27c2d16e31c1cdf59e"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-60e5a0b2deb7.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "60e5a0b2deb7bb7157e5d6f231e10db0d072c01e60b6f8c5484d32810da71f9e"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-86d4092bcbcc.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "86d4092bcbccd3a279b7d25f86fd570a0e89785184bf4b90180f2ae6be8bb9c8"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-9fa19663da13.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "9fa19663da138f8870898783599842c716afa7f155ab0ec814657932b976a8cd"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-b1aa4a9eda83.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "b1aa4a9eda835f4cd1eaf44db3feb7a69d3d968448f2436c7ee87d03c21f0386"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-b21bee725573.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "b21bee7255735c445ee07c5c4997645baa51e7ec6495f11bb468a73b9a52610d"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-d8b6c0e83c34.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "d8b6c0e83c34f4240198c77ce10bcb5705b7f0e5c4ed6369ceaadb447b0cce03"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-dbfed959172d.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "dbfed959172dcd091daa7a173ff3725a1a5b6cb589133a5506e96276d46cdcbd"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos249-totient-reasoning-surface--batch-e6f5c19b1e0d.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "e6f5c19b1e0dd8ccac6806683b41f1769d1f423547c184472cdd47a150c9fcd7"
+        },
+        "before": null
+      },
+      "maths/assets/excerpts/erdos68-factorial-reasoning-surface.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "ae21417200e1ac7dff4af556a78e42c537b853381e75cc01e97cf39ff6e19b2b"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "e37eb04d8a760e9d7f69ee2fbac596a49966c2ddd3048a77df93674f944df458"
+        }
+      },
+      "maths/assets/math/0423935bff591774.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "0423935bff59177415cc9690eefe7bf66486754fdbfed1428d4c4951c4924c31"
+        },
+        "before": null
+      },
+      "maths/assets/math/0dc4c79edc361589.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "0dc4c79edc361589df247f8ef5ea541bf9c014fada71b94f752f3e838df2d43c"
+        }
+      },
+      "maths/assets/math/131fc59006491928.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "131fc59006491928ef5c4c4b72d6bec54069ed30b5e89c4b4010b61bcdc84374"
+        },
+        "before": null
+      },
+      "maths/assets/math/18230108f0ad6bc7.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "18230108f0ad6bc7dad5a1940b9bdd4b885bc9ee3ef688454d4eb3de201e7aab"
+        },
+        "before": null
+      },
+      "maths/assets/math/1a78311a417724e1.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "1a78311a417724e133cbda8842c20d0835fb96f692e7d2b11b136c9a5c9a8708"
+        }
+      },
+      "maths/assets/math/1ce4464702506aa3.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "1ce4464702506aa315e31a342264d3740eb5c79d458aa1642c3acc6124d5cc70"
+        },
+        "before": null
+      },
+      "maths/assets/math/256980844c1a7dcc.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "256980844c1a7dccb8495b88e7b96ec025b966a57f5ee968e4a9c13915e36a84"
+        }
+      },
+      "maths/assets/math/26eed3945c1a5f31.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "26eed3945c1a5f31266785f563caae9a549593f25697f4f8a8dde6f10760b5cc"
+        },
+        "before": null
+      },
+      "maths/assets/math/2739733ce8e43d3e.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "2739733ce8e43d3e6f52fcd789a176a93cbf3b501be91a0904e8b652ec8d81ec"
+        }
+      },
+      "maths/assets/math/2a205ec2b8672b7d.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "2a205ec2b8672b7dedac439d7508af0e35814f46090913eda8085ebb7873d6a3"
+        },
+        "before": null
+      },
+      "maths/assets/math/36494714d2f01ca1.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "36494714d2f01ca1570b1aba6f10eb643f22ebaa7d66c598ef1d9f9d9f1ac362"
+        }
+      },
+      "maths/assets/math/36b1f6f6323e6c68.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "36b1f6f6323e6c689af30d49f28819f0fc4a4f411322c4e6aabc2c2ebe904ac4"
+        },
+        "before": null
+      },
+      "maths/assets/math/398c97ef722ce15f.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "398c97ef722ce15f9c762c4f26ef22bd6367e06225233d8b8c2750735cf107c5"
+        },
+        "before": null
+      },
+      "maths/assets/math/43ae9a3566525d48.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "43ae9a3566525d4828348d8ccfbaad9ac20f2dc29e60fce14f0bd6a063a0c1d1"
+        }
+      },
+      "maths/assets/math/472c577a57b3d3f2.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "472c577a57b3d3f261786ef6ce51315bf631d3d024310228f9de37e8e4656a76"
+        },
+        "before": null
+      },
+      "maths/assets/math/4d22eff21635ff9c.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "4d22eff21635ff9c7064a6195c6e3dc215712b0c8242fd785c367a1897bc4637"
+        }
+      },
+      "maths/assets/math/4dd66235a017a991.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "4dd66235a017a99195652c5448bca498981520337b02b8b39a76e3082593e576"
+        }
+      },
+      "maths/assets/math/4ff38f44b1fe7c39.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "4ff38f44b1fe7c394f8e2d028b6b564ac35b69d52226689e2a67b9b0c51c7f7e"
+        },
+        "before": null
+      },
+      "maths/assets/math/64ac6191a8e5deae.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "64ac6191a8e5deae15d89a7c3e653a5e40da083b8172992b2ca455e73f6b9a9f"
+        }
+      },
+      "maths/assets/math/a9a3b1ca111fa089.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "a9a3b1ca111fa08993fb66ac030def53862885520601a2a8a260f162f2cafe91"
+        },
+        "before": null
+      },
+      "maths/assets/math/aff4cd3f65d96d6c.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "aff4cd3f65d96d6cc1d55ad721fee43937d4fb461e78a2b8f79216567573f49b"
+        },
+        "before": null
+      },
+      "maths/assets/math/b2b114b9edcc96e1.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "b2b114b9edcc96e13dcad623e858953893ffd7d8fad3a8101bd8108acb6ea0fe"
+        },
+        "before": null
+      },
+      "maths/assets/math/b6d6bba161d49cc3.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "b6d6bba161d49cc3bafb6a51627bddcf2f76698d250a1f888875adf167dc2a69"
+        }
+      },
+      "maths/assets/math/c0b232440e5dd8e0.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "c0b232440e5dd8e0f8e254f7646a3891ce3d801f68c8aed1ae57b49b714fe5b6"
+        }
+      },
+      "maths/assets/math/c778ee7c3c0e8945.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "c778ee7c3c0e89455cebf73a34391b5ae05be17fcb083c11aab89f9be384bd97"
+        },
+        "before": null
+      },
+      "maths/assets/math/d3a90076e831a472.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "d3a90076e831a4723039c54cdc79d1022e1e32f4e51d808d079b4a93f7ef031b"
+        },
+        "before": null
+      },
+      "maths/assets/math/d81eb030057477d3.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "d81eb030057477d3c4ec3aff1e0b1823f42b2531e8264e093e327d56efba79e6"
+        },
+        "before": null
+      },
+      "maths/assets/math/dd73376d9c37725f.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "dd73376d9c37725f15551577e33896e06de3677e9b2e806221925d2ef822ab1d"
+        }
+      },
+      "maths/assets/math/de3a488e28c3a025.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "de3a488e28c3a0254be42d8aed783464a9366445179d946e84a7d6f109d837c8"
+        },
+        "before": null
+      },
+      "maths/assets/math/df2ee7818d9eedad.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "df2ee7818d9eedad4d49d8dd802cfee71fd3985783b97a3983c700ac5a7a89e3"
+        },
+        "before": null
+      },
+      "maths/assets/math/e519e52581e3eceb.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "e519e52581e3eceb755cd6cf03af692b561a99ade2af45d376ebea2bdf5c47a7"
+        },
+        "before": null
+      },
+      "maths/assets/math/ec1e2702ade483eb.css": {
+        "after": null,
+        "before": {
+          "mode": 420,
+          "sha256": "ec1e2702ade483ebc3abd695081f8e19d21d9c9ae45f22d938d5663ac3cdf5d0"
+        }
+      },
+      "maths/assets/math/ef74edc800b23f2e.css": {
+        "after": {
+          "mode": 420,
+          "sha256": "ef74edc800b23f2e1a0eb7b7c9f6fb02eb3f8d0ec2d95cfec5925c1bd54f6fe8"
+        },
+        "before": null
+      },
+      "maths/assets/universe-companion.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "9783cfcdc002f0e0d7f5de8eb18094cbff1ec1414a90c194d4271294144cea41"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "8d66fde5b41e56d116106f2ca927f55abd35b4a09d16cd853117bcee6bec8c60"
+        }
+      },
+      "maths/assets/universe-data.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "81a6e864f5f07afe942a686b4bcf1807908f0385179d5fd8d0d6d87606024a91"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "edcc3542de2d3df1acc3b505d043b2d088e6ea84c4e67f793dc6044cf75b550d"
+        }
+      },
+      "maths/assets/universe-layout-full.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "78faf535f180bf3a1f2008fadb3d714279455ed69a234d186c69a5599c16b520"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "2384e7dd3a739fabb17e40331d92d320340e371b381ccc157375810031d06004"
+        }
+      },
+      "maths/index.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "2f1eceee93e1e3c8426e50f6e2b26ade7ad70eb88065ae41f43d42e292e44dd5"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "260f96c4d6ec9602608e6d4b07129092db5ad6d47c110b8b44446a0de2e2a49b"
+        }
+      },
+      "maths/papers/claim-faithful-publication-systems.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "4040b9f948781f3d38148d97d30b93db0cbf51dc16e33c513f1e91f80b3f40bb"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "9e20880dfc9840b7b1616519350fbc59fa5984a4ecc811c8155d8ae59fdb8eda"
+        }
+      },
+      "maths/papers/claim-faithful-publication-systems.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "910d0e8f7a69097c1bf99ec03aee47d14d4f808dda40c749bfc51f0b37b5ec16"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "38521d1b5a4c24277bcaa6a239a6b2549eb31bf9bda3fe61b497afad92b64a1a"
+        }
+      },
+      "maths/papers/erdos-1041-lemniscate-newton-flow.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "044a28fc42625c81625d0c504e93c88e2f9cb025c8586c88dd684bff357356a0"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "ab6d277878d0a36bade1c61cb608ebb4bfde7efab31454eda9249853938adc5e"
+        }
+      },
+      "maths/papers/erdos-1041-lemniscate-newton-flow.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "a3ebf684dc1c0911c14ac35c37fbe3a7ff7b238822acc8e09291034e1850c9a2"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "3213d5c0fcb8cd24fc96115d0ab790d30b67d2b7fcb107658c46d08cb131ad92"
+        }
+      },
+      "maths/papers/erdos-1049-rational-base-lambert.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "35557670bb225b079ff187c2fdaf17c7d48d7c31d7a1624cf97c706e88a9a6a8"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "44a1066e8e3151bde4bbae87e63f89f92b7048990083258d2f584bdc4a6156c4"
+        }
+      },
+      "maths/papers/erdos-1049-rational-base-lambert.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "81c32c1cb729dc665cb33a2369726476225956901cba331a1d4167afd6c124a4"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "dcaff6e41c44fab0175c74c059cce23397db03ee91de4eacd22926a081e4b18b"
+        }
+      },
+      "maths/papers/erdos-243-reciprocal-tail-rigidity.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "75c1bbccd352110d0bb804ce81137b31fb28b304c4f48b3f89975e93c205c63f"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "11b46dab0ce6fa245af95f7363a01520357b3c3d0d4e5826986f715dd066f0e1"
+        }
+      },
+      "maths/papers/erdos-243-reciprocal-tail-rigidity.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "564f90160fb2f4f4dba092218c5f26612f2f8fed0c7b5a900f2597d9145eea80"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "e77eb29d8c48cf0b5b40222bcfd3e178ddc18742c71aa3aa1b690ce4afb0e382"
+        }
+      },
+      "maths/papers/erdos-249-binary-totient-series.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "28869cac9fb2880d6b673e66660920a62c4dcc17423235a608d67840a26519e3"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "31af2fc4f2938967d3a5732fc0720c142ab13185d102ccc8332ecf9f5869ea49"
+        }
+      },
+      "maths/papers/erdos-249-binary-totient-series.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "354969a20125449d2507b9e4170e4a40e34c8bf7d798a4dd2a8050e6aa2940f1"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "472530e9de56c4610f9b13c8d6e4a4ac2f61329731b99851a6f615607dddc9f1"
+        }
+      },
+      "maths/papers/erdos-251-prime-gap-dyadic-series.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "241a252c748ae0ba0dd5e87989c22c07cf7712d9f78c37f532894ea22d07b1b6"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "9e225617c2e24251098c6134dea41a14d230a6239a6997fd3f34ab9ae49a5d95"
+        }
+      },
+      "maths/papers/erdos-251-prime-gap-dyadic-series.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "a37c5e393d8ddde37f4e1768a8bb6d803713e9394beced1411eb209f93165df7"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "b9be3a1ee862dac83b3e9c8aee236abd87d42ccf45584622090146c808e39b93"
+        }
+      },
+      "maths/papers/erdos-257-mersenne-support-subseries.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "3126eec18330d1ce5bdc7d9f2421a0fb9672b78819f05c2d0d84864787ccd94f"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "e7aee2dfbf55581ffeefd92253003ce5768873b718b07d3e1cce72906800cdfc"
+        }
+      },
+      "maths/papers/erdos-257-mersenne-support-subseries.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "a1fe287c3c892447bea898b7ee50b3b949445fe64179f80edff93fff1304f55b"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "408f82956379fca0c385dc0d9ed591c543a1919d04bce9336527cad10d5d675d"
+        }
+      },
+      "maths/papers/erdos-269-three-prime-running-lcm.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "6a693dd44a1a01e6596a5fe1c75b7d6831046d903610383472139b1176b6b5b6"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "d595ff99928dd2e53cc49fd627ac53b91553a4b57aa48d7cceb7bbfe30af14c7"
+        }
+      },
+      "maths/papers/erdos-269-three-prime-running-lcm.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "eeb0bea5dc57317cb81c23ba5ad557ea9b010456dc3bc7c7e5a28d250383f6db"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "da37379c0c30b665152118c0e107e10e3a8d366f4356cd324e7ea82606cf4a6b"
+        }
+      },
+      "maths/papers/erdos-68-factorial-denominator-irrationality.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "98da3d880cd427c2f43caafe6b83fb2e772fdda94f37ea90d2ff4e7915a6d343"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "b1d4b077c5c64722095157fb0986f414f8e22b2844ee7a3fee429068f386967e"
+        }
+      },
+      "maths/papers/erdos-68-factorial-denominator-irrationality.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "2b1792d8f7bb44b853463f9fce12f804534c3358aed33b2840db1730501dab5c"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "612584971f05e8e2eb5bc1590e68d45047b4e80fc74d5a3ecc8bdda9a9b4ec40"
+        }
+      },
+      "maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "2c6d183d50ef20f9289cadd4aedc5a28fb1a0f1d68d40786b412dac0ee44d9d7"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "f91893344f3bdb7203791855e61a0e5e1c078b075c6ed69ae422b689fa83d7b8"
+        }
+      },
+      "maths/papers/erdos1049-rational-base-lambert-reasoning-surface.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "c7d49fea2c7eaa2d55089a66af9d52953eb7cd2e1ca89f76fdf94661e78571bd"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "fd59cc8f50509149af6caac553d5cde061f44093081e85d2cccece432432cbf8"
+        }
+      },
+      "maths/papers/erdos243-reciprocal-tail-reasoning-surface.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "c2b1dbbc3c81272f67b0934cadd12050209ef70cd4817f1c440ea98662eee33a"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "77e69944610c22e407e170536b41cdd75a91815c2e9706efadd5278753ccd3e6"
+        }
+      },
+      "maths/papers/erdos243-reciprocal-tail-reasoning-surface.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "e3630d86307a3ec312935eac9a703f13ef915b27838ed7eeeceb9b8e5f7929a8"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "0fae31df152d4ae0aa9cfc152fbabfb3117551791d78a4e2dcbb453ed07a2084"
+        }
+      },
+      "maths/papers/erdos249-totient-reasoning-surface.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "668fed02e762a78328d81f7efd5a5523d5b5ccd87ddcd0442c30fb926dcd3edc"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "52b23f5c73ca96f98e2731f474e06877475842853dcdc023f79002b8a5f870ad"
+        }
+      },
+      "maths/papers/erdos249-totient-reasoning-surface.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "5f0d971b740774697e8a7d68fb4309807743e3840ca347da8a36aa88b3683c36"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "7adb903cc1b8b59337564c0a2f725985e058d845a59e8eaefaf6cbb68285dfad"
+        }
+      },
+      "maths/papers/erdos251-prime-gap-reasoning-surface.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "087e8c2c1c65a40de2831db917f90b6243cfd98319e5bb988419517adfbc4d0b"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "f412f7fe882fa18fdfb6fcce6fb4d785c73a51cf7d1052093c5a8b0da0415ed4"
+        }
+      },
+      "maths/papers/erdos251-prime-gap-reasoning-surface.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "b8417e034615671f7b293debfdc03ff7ddf8b6729da25868dcc3c29af8f9de0a"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "0591c71d461cb8b0e2c2ccc83ecda5810d5266f0d225b599c82a03afbde053cd"
+        }
+      },
+      "maths/papers/erdos269-running-lcm-reasoning-surface.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "a5702c8bf3a820b06d84b807e4748c96e0f74f1a683fbe045838d1d43195505d"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "227011319ab82467a3e471a1458fcb9406d8bc9cdc4463e616ad2d19da0c3ce8"
+        }
+      },
+      "maths/papers/erdos269-running-lcm-reasoning-surface.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "e99f6c3e27aca0dcc9fdf8113de9c512b8b6686729801ac81aaffa653f9c3c01"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "27f7f3ba45796e3ba8f1fbcf7ac4ca53de7ea122ec4c037a8c7d2e6575bf6e9c"
+        }
+      },
+      "maths/papers/erdos68-factorial-reasoning-surface.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "db8a2c1d3f637c0c97bd34f85a60bb9f0c4916a675572ccd8469b0ab770f0cf0"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "de28377b0bb3fb6ed763294f7e340987a96c4bea5469d9ee1cfe4d3e37db6e5a"
+        }
+      },
+      "maths/papers/erdos68-factorial-reasoning-surface.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "e9b45a1a73132591e622c09f9a4497616f6bfc1da81cc71e238ec30541a582c6"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "8fa138966da2d60e069291b2b8091570a767a9cde7558cbc08a1071ab33c494e"
+        }
+      },
+      "maths/papers/writing-a-good-mathematical-paper.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "192817c755b9d842e68bf2f1c95c2015923979f312a2022d0407e026e8fcd99c"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "7407e61d60a0ef1663498a9139c05e6a4f21228559b8e430c0e1bde46d240398"
+        }
+      },
+      "maths/papers/writing-a-good-mathematical-paper.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "caad8b968c94acb953a47922125a904ac1f17a3904347112cde9bb99eed04c1d"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "c111145c70abaeddcf1af4050f4d7fb823d75ec4d745fa65f50cb68eea1e286c"
+        }
+      },
+      "maths/papers/writing-mathematics-from-reviewed-revisions.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "c000cf6c743a3be96fbe4ab2e0ecf2578c33ce777142713acc015c0a769a6bf6"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "284f69793b6c8f6498ac9de29b9f781ce0582e870710d8c4a5aa0a61d87e9d94"
+        }
+      },
+      "maths/papers/writing-mathematics-from-reviewed-revisions.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "79e1ac5b925b420e519f00154a794177c8af2c184272abaf573804eef9fa2e1b"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "21800ba85b39d0ad194c0585d7c2fa8c80e97d8df8f0ec7f14c4fe1b8070032a"
+        }
+      },
+      "maths/problems/erdos_1041.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "d2b6fca30192497567535329fdd7d27fba44e164453bcd1d57d0d5a164068421"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "26d0b1a4bc07086283961495e883463966362ba82d9011603c348b1553daf849"
+        }
+      },
+      "maths/problems/erdos_1049.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "4fc3ec8b4a85f324ed6120e2870dc2eabf64fe2f372572d69f9fa025d0893ffc"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "269f7e4f52f7c20383d84d338844cf4da00434acc3ee0ebe542da04fe8586c15"
+        }
+      },
+      "maths/problems/erdos_243.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "026d70402f065f5f4f5faeeda9b4d62c06a06e72cb474658939621805724a894"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "6a8d474c05b7918e396322ed7f363403defdf17e785b02a2e84aa336f6064a45"
+        }
+      },
+      "maths/problems/erdos_249.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "dfa0c59afbe3a749ae85dc527ed3ff885d7a8f1e8e5463df0cd70e9666f5eef4"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "762558e8a5b3e18d3d892c0ddab098f18287129cc84f974b19d89a789ca06769"
+        }
+      },
+      "maths/problems/erdos_251.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "491b7d0cc0d57c4630ae7c2352e536650211279ea8f8c96aff5c3d674316dd91"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "1e3f86cd8b4b60ebcb9b9973b947061ca1409a1731f6ebaecaf7f3c002df2ea9"
+        }
+      },
+      "maths/problems/erdos_257.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "0b5a4579431c317994e683250d3d7fa28929c0d77f1d1692e37557586444dbe2"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "12f07683510a53338c758bbe325b8fa383f2bc95aa450aaa31bf9071fb00efcd"
+        }
+      },
+      "maths/problems/erdos_269.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "94b92655de1adf17a1cb92f04f462538e30ec1d255c72ed218927de678953218"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "f730631dfbbc6613b2541c8f435700d445fa12837e8f188c4393983d81431955"
+        }
+      },
+      "maths/problems/erdos_68.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "ccabbd7aeb8d1be37de7386442b8f87db469300e03e86d7a07f820b5de7e582c"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "6596209355774761aa75aeeaf00077d922933de9d1afb4fc414b205450c67718"
+        }
+      },
+      "maths/universe.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "9e3ca4802f77a19104471b1a0f4d12084b7fc39643c892dd3523322620428f5b"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "4eb9083325437ee18f0c1fd80ff4e94a0ceab2def3cf87f90102115f14ac89c1"
+        }
+      },
+      "papers/claim-faithful-publication-systems-paper.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "910d0e8f7a69097c1bf99ec03aee47d14d4f808dda40c749bfc51f0b37b5ec16"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "38521d1b5a4c24277bcaa6a239a6b2549eb31bf9bda3fe61b497afad92b64a1a"
+        }
+      },
+      "papers/erdos-1041-lemniscate-newton-flow.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "a3ebf684dc1c0911c14ac35c37fbe3a7ff7b238822acc8e09291034e1850c9a2"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "3213d5c0fcb8cd24fc96115d0ab790d30b67d2b7fcb107658c46d08cb131ad92"
+        }
+      },
+      "papers/erdos-1049-rational-base-lambert.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "81c32c1cb729dc665cb33a2369726476225956901cba331a1d4167afd6c124a4"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "dcaff6e41c44fab0175c74c059cce23397db03ee91de4eacd22926a081e4b18b"
+        }
+      },
+      "papers/erdos-243-reciprocal-tail-rigidity.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "564f90160fb2f4f4dba092218c5f26612f2f8fed0c7b5a900f2597d9145eea80"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "e77eb29d8c48cf0b5b40222bcfd3e178ddc18742c71aa3aa1b690ce4afb0e382"
+        }
+      },
+      "papers/erdos-249-binary-totient-series.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "354969a20125449d2507b9e4170e4a40e34c8bf7d798a4dd2a8050e6aa2940f1"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "472530e9de56c4610f9b13c8d6e4a4ac2f61329731b99851a6f615607dddc9f1"
+        }
+      },
+      "papers/erdos-251-prime-gap-dyadic-series.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "a37c5e393d8ddde37f4e1768a8bb6d803713e9394beced1411eb209f93165df7"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "b9be3a1ee862dac83b3e9c8aee236abd87d42ccf45584622090146c808e39b93"
+        }
+      },
+      "papers/erdos-257-mersenne-support-subseries.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "a1fe287c3c892447bea898b7ee50b3b949445fe64179f80edff93fff1304f55b"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "408f82956379fca0c385dc0d9ed591c543a1919d04bce9336527cad10d5d675d"
+        }
+      },
+      "papers/erdos-269-three-prime-running-lcm.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "eeb0bea5dc57317cb81c23ba5ad557ea9b010456dc3bc7c7e5a28d250383f6db"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "da37379c0c30b665152118c0e107e10e3a8d366f4356cd324e7ea82606cf4a6b"
+        }
+      },
+      "papers/erdos-68-factorial-denominator-irrationality.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "2b1792d8f7bb44b853463f9fce12f804534c3358aed33b2840db1730501dab5c"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "612584971f05e8e2eb5bc1590e68d45047b4e80fc74d5a3ecc8bdda9a9b4ec40"
+        }
+      },
+      "papers/erdos1049-rational-base-lambert-reasoning-surface.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "c7d49fea2c7eaa2d55089a66af9d52953eb7cd2e1ca89f76fdf94661e78571bd"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "fd59cc8f50509149af6caac553d5cde061f44093081e85d2cccece432432cbf8"
+        }
+      },
+      "papers/erdos243-reciprocal-tail-reasoning-surface.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "e3630d86307a3ec312935eac9a703f13ef915b27838ed7eeeceb9b8e5f7929a8"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "0fae31df152d4ae0aa9cfc152fbabfb3117551791d78a4e2dcbb453ed07a2084"
+        }
+      },
+      "papers/erdos249-totient-reasoning-surface.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "5f0d971b740774697e8a7d68fb4309807743e3840ca347da8a36aa88b3683c36"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "7adb903cc1b8b59337564c0a2f725985e058d845a59e8eaefaf6cbb68285dfad"
+        }
+      },
+      "papers/erdos251-prime-gap-reasoning-surface.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "b8417e034615671f7b293debfdc03ff7ddf8b6729da25868dcc3c29af8f9de0a"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "0591c71d461cb8b0e2c2ccc83ecda5810d5266f0d225b599c82a03afbde053cd"
+        }
+      },
+      "papers/erdos269-running-lcm-reasoning-surface.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "e99f6c3e27aca0dcc9fdf8113de9c512b8b6686729801ac81aaffa653f9c3c01"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "27f7f3ba45796e3ba8f1fbcf7ac4ca53de7ea122ec4c037a8c7d2e6575bf6e9c"
+        }
+      },
+      "papers/erdos68-factorial-reasoning-surface.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "e9b45a1a73132591e622c09f9a4497616f6bfc1da81cc71e238ec30541a582c6"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "8fa138966da2d60e069291b2b8091570a767a9cde7558cbc08a1071ab33c494e"
+        }
+      },
+      "papers/papers-source-manifest.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "d25cc66589e2b991215eba7b15decf73f6a22502fc99537a8bf7c25595d6aa9c"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "f320745e77dcf1e08d6ee0d44fc5082f33aaf6099de4e1b4ec4a11b5cd9b5c37"
+        }
+      },
+      "papers/source/plectis-erdos/paper/1041/erdos-1041-lemniscate-newton-flow.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "ec43ef8adb90a4e6212002930d785830392a8be23bf2076074c9677245219037"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "2b8bf3e39333bb39ce0341077aad2a1c7a29f9f728369fa5239412f071115dbc"
+        }
+      },
+      "papers/source/plectis-erdos/paper/1049/erdos-1049-rational-base-lambert.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "5371d552354f3d035fe5ad41874d109bc7f84e8287601e74aaf329ed2a6fcb46"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "b3af4159e690e4ddf0769bdf9354e12ed6f24d1d025355ffae0886a9fc0732df"
+        }
+      },
+      "papers/source/plectis-erdos/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "b3e81fd9513b713a2be7b59524dad08e5615b9abe6854f9d895164ce85483ae9"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "72d8a70b0fa558fde03ab31c4a6ab46f127739e368c4efa2f4a034f505f49920"
+        }
+      },
+      "papers/source/plectis-erdos/paper/243/erdos-243-reciprocal-tail-rigidity.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "529122fd3d00113504b29fc8ed4f999b68b4e2470a537c0f3d39f84958a4af90"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "1b72a902ba3ea499472142cb0631e714040c69e9d9b1e56048d06e94e632c0d6"
+        }
+      },
+      "papers/source/plectis-erdos/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "3620f60f31463a8399822e2626556524215a94f6f93e410b183b522764fc7a37"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "c238bce9133efd42f2f30341b84a4d76b2f4ddfc23f8e8df12bf86b6fe71c98f"
+        }
+      },
+      "papers/source/plectis-erdos/paper/249/erdos-249-binary-totient-series.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "cb6ddb9287d6e5471a76a36a2b177acb9dd21f03f3a58cbeb4bef68698cd02a6"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "1082fde7b9cd2a3788d00ea6c7acee2422a7ee3100be6015f93fe0d307204680"
+        }
+      },
+      "papers/source/plectis-erdos/paper/249/erdos249-totient-reasoning-surface.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "e9e5032bdc4824ed696914d222ebf808bd7171e3209cbcbae335bae3f1ecae15"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "f92a0159d48f2e2478b37982c88b6e4b7aa7e6767c482b0a39896516c1ff7ff9"
+        }
+      },
+      "papers/source/plectis-erdos/paper/251/erdos-251-prime-gap-dyadic-series.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "bd5caeea5b3cc3995b121feb467f53cba1e803010c675c9cabf19fce5f2c8339"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "2f0b93403565ac78b1a26a188e5fb6e7b633b6537904e2c23aed338f9d7772d2"
+        }
+      },
+      "papers/source/plectis-erdos/paper/251/erdos251-prime-gap-reasoning-surface.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "be02057958b51a7008be5d6dfaf833d1bdf71f874c59a3897d365b6463c62827"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "5ce843e2c0c751a3c762851e098f797a6f79119c8f752f2c57099b1c5aad58cd"
+        }
+      },
+      "papers/source/plectis-erdos/paper/257/erdos-257-mersenne-support-subseries.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "c0d63a763bd2f2c944d079c4e5bdbbe356268d138fd83bdb068464eeb3f2452b"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "d261bce1baa7dbabb89517cdc47fc0215165b03132bc0f3e86736c9fa61f555f"
+        }
+      },
+      "papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "0c1f2ec03faab7787c5843c454bfff6a6ab9027051e191b44d56670e92e4bddc"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "ea4fb775bf4c8fffcdcf90e4c33e47a58e3b28e6bbfdcef20bd01d871b7673c4"
+        }
+      },
+      "papers/source/plectis-erdos/paper/269/erdos269-running-lcm-reasoning-surface.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "4643ae2207eb93d262efa25a1a4d0ba0e536155e44c894cbf0f4f0dd58ad6909"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "b32cb2eacce593aee2013e1f621060f85d1b999c135dc5a1776e40d923034b59"
+        }
+      },
+      "papers/source/plectis-erdos/paper/68/erdos-68-factorial-denominator-irrationality.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "512245ba2b6ba9550b28e23a6a76b2542d50d1ba8cd2ddc0bb3c74e7da2a6062"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "4a9e5c6e60ab8c679dac1936dd5bd544d64e1665e4516bcec9523e69dbd00047"
+        }
+      },
+      "papers/source/plectis-erdos/paper/68/erdos68-factorial-reasoning-surface.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "a8f5836a5143e345b7eb81b327b9d30e18514ec11620c7319a3e7fdd4389b4f0"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "4cdd8600b86eb2f1a56471e9603bd1ef69b718d73fd20102e638850933fa69ee"
+        }
+      },
+      "papers/source/plectis-erdos/paper/exposition/parts/practice.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "e016fa1578b45ca549dd444a4f37575c9cd90c5fb8643fb733ee00a025048f47"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "5d43ef03630299b3ee7ffcea77830e28caa98636de441c65383e5b414fa09c61"
+        }
+      },
+      "papers/source/plectis-erdos/paper/exposition/parts/reading.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "4e80a17ad9d57281ad2acbf11fe63bf004c81fff8900885b7b152d27cfbaf352"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "8675f4cbb7003a35a81890813b278a7e4b6ebcf02eaeb3da391feabb30fbfa65"
+        }
+      },
+      "papers/source/plectis-erdos/paper/exposition/parts/references.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "b55141df1839a03296bc77dca3db3bc2a4b8ffae4e7a17f5ddb79efa33cf0aac"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "61f75d6d2cfb2110b31a28ec892387393e04ca9016bcdb390630f8c6c66427e1"
+        }
+      },
+      "papers/source/plectis-erdos/paper/exposition/parts/review.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "b48b53c9617e9a911eb3851c3a0d427ca2d27a811477ae84426720e6d94fd8ac"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "56c0ac6bb469bb0f4ea68437b0652aaaaeb7186465ecc82500e8bcea8dc301f7"
+        }
+      },
+      "papers/source/plectis-erdos/paper/exposition/parts/revisions.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "e1082e00ce627f2b78348cad7b257125cd41ac0a33394d3d582fe316d850f83a"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "3da45d656c8f7f6919475b256fa08cf80de6b97e53b3a46a214b23de0bae4d13"
+        }
+      },
+      "papers/source/plectis-erdos/paper/exposition/writing-a-good-mathematical-paper.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "ab1c9e2bd207bd7638ff3fb2b3b31c94344e2fed0b76a772a5184b74e4a798b6"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "3ea8de2c71651873d24a72885392e4d0d8c65cc0e143bd884c6d94cbc43dc0ae"
+        }
+      },
+      "papers/source/plectis-erdos/paper/exposition/writing-mathematics-from-reviewed-revisions.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "ff172560fbca4a1417d27b28b9124e900fcec8be928921f970c0b6cc3b486e47"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "6321a07eb19adea4439282c2a9d52d3016ccf8615b9d2d267990a286729ae238"
+        }
+      },
+      "papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex": {
+        "after": {
+          "mode": 420,
+          "sha256": "86ee08187521ffb6454c7c40b226753ecafa13d2071a7d7f653f81ca0dab6a08"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "9c7392d5e686da61bd5f3f761ffad93865c350201ca4c3e6628c2af7d35ff6a7"
+        }
+      },
+      "papers/writing-a-good-mathematical-paper.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "caad8b968c94acb953a47922125a904ac1f17a3904347112cde9bb99eed04c1d"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "c111145c70abaeddcf1af4050f4d7fb823d75ec4d745fa65f50cb68eea1e286c"
+        }
+      },
+      "papers/writing-mathematics-from-reviewed-revisions.pdf": {
+        "after": {
+          "mode": 420,
+          "sha256": "79e1ac5b925b420e519f00154a794177c8af2c184272abaf573804eef9fa2e1b"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "21800ba85b39d0ad194c0585d7c2fa8c80e97d8df8f0ec7f14c4fe1b8070032a"
+        }
+      }
+    },
+    "current_universe_paths": [
+      "maths/assets/maths.css",
+      "maths/assets/maths.js",
+      "maths/assets/universe-companion.css",
+      "maths/assets/universe-companion.js",
+      "maths/assets/universe-companion.json",
+      "maths/assets/universe-data.json",
+      "maths/assets/universe-layout-full.json",
+      "maths/assets/universe.js",
+      "maths/universe.html"
+    ],
+    "generator_commit": "1f1e018d9d2b599b2e13a01ad65efb17df3d4e58",
+    "pages_base_commit": "ee0dba5d691d65efa81f5977b97279779c99bc40",
+    "private_root_released": false,
+    "protected_file_count": 780,
+    "protected_products": "preserved Pages baseline bytes/modes; historical generation, not relabeled current",
+    "protected_sha256": "1f5a63e2e9e293c6a6e6579a2fe0bc45e3eb95f04533a493a6c7626203f70904",
+    "retained_dependency_recovery": [],
+    "scope": "lean_math_reading_room",
+    "universe_parity": {
+      "full_edges": 9142,
+      "full_nodes": 2904,
+      "index_edges": 2242,
+      "index_nodes": 897,
+      "toolkit_fragment_preserved": true
+    }
+  },
+  "note": "Source frontiers that later releases must contain. Last scoped release updates only its declared paths; protected historical products were not regenerated or relabeled current.",
   "schema": "plectis_site_deploy_provenance_v1",
   "sources": {
     "plectis": {
@@ -20,7 +1932,7 @@
       "repository": "wcook04/plectis"
     },
     "plectis-erdos": {
-      "commit": "f9ad7e269da32d27ab71ddb3ae576a2844ac7b57",
+      "commit": "95cc5efc727974c05dc6842c349771627752c237",
       "ref": "main",
       "repository": "wcook04/plectis-erdos"
     }

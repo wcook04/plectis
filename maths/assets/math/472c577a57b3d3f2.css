@@ -1322,22 +1322,6 @@ mjx-c.mjx-c3E {
   padding: 0.547em 0.72em 0.025em 0;
 }
 
-mjx-c.mjx-c2B {
-  padding: 0.558em 0.72em 0.04em 0;
-}
-
-mjx-c.mjx-c1D44E {
-  padding: 0.479em 0.555em 0.012em 0;
-}
-
-mjx-c.mjx-c1D45A {
-  padding: 0.479em 0.83em 0.01em 0;
-}
-
-mjx-c.mjx-c1D44F {
-  padding: 0.705em 0.518em 0.012em 0;
-}
-
 mjx-c.mjx-c1D45D {
   padding: 0.479em 0.598em 0.22em 0;
 }
@@ -1368,6 +1352,10 @@ mjx-c.mjx-c2191 {
 
 mjx-c.mjx-c5B {
   padding: 0.736em 0.349em 0.196em 0;
+}
+
+mjx-c.mjx-c2B {
+  padding: 0.558em 0.72em 0.04em 0;
 }
 
 mjx-c.mjx-c1D434 {
@@ -1402,6 +1390,14 @@ mjx-c.mjx-c2260 {
   padding: 0.678em 0.72em 0.16em 0;
 }
 
+mjx-c.mjx-c1D44E {
+  padding: 0.479em 0.555em 0.012em 0;
+}
+
+mjx-c.mjx-c1D44F {
+  padding: 0.705em 0.518em 0.012em 0;
+}
+
 mjx-c.mjx-c38 {
   padding: 0.647em 0.495em 0.012em 0;
 }
@@ -1416,6 +1412,18 @@ mjx-c.mjx-c2229 {
 
 mjx-c.mjx-c21A6 {
   padding: 0.461em 0.948em 0 0;
+}
+
+mjx-c.mjx-c1D465 {
+  padding: 0.479em 0.559em 0.01em 0;
+}
+
+mjx-c.mjx-c61 {
+  padding: 0.485em 0.48em 0.007em 0;
+}
+
+mjx-c.mjx-c78 {
+  padding: 0.473em 0.482em 0 0;
 }
 
 mjx-c.mjx-c37 {
@@ -1452,10 +1460,6 @@ mjx-c.mjx-c1D439 {
 
 mjx-c.mjx-cAF {
   padding: 0.61em 0.35em 0 0;
-}
-
-mjx-c.mjx-c1D465 {
-  padding: 0.479em 0.559em 0.01em 0;
 }
 
 mjx-c.mjx-c1D701 {
@@ -1526,6 +1530,10 @@ mjx-c.mjx-c1D45E {
   padding: 0.479em 0.517em 0.22em 0;
 }
 
+mjx-c.mjx-c1D45A {
+  padding: 0.479em 0.83em 0.01em 0;
+}
+
 mjx-c.mjx-c2192 {
   padding: 0.459em 0.948em 0 0;
 }
@@ -1574,10 +1582,6 @@ mjx-c.mjx-c72 {
   padding: 0.488em 0.38em 0 0;
 }
 
-mjx-c.mjx-c61 {
-  padding: 0.485em 0.48em 0.007em 0;
-}
-
 mjx-c.mjx-c74 {
   padding: 0.61em 0.315em 0.01em 0;
 }
@@ -1596,6 +1600,18 @@ mjx-c.mjx-c1D437 {
 
 mjx-c.mjx-c1D452 {
   padding: 0.479em 0.424em 0.012em 0;
+}
+
+mjx-c.mjx-c222B {
+  padding: 0.727em 0.684em 0.226em 0;
+}
+
+mjx-c.mjx-c1D53B.STX-DS {
+  padding: 0.657em 0.722em 0 0;
+}
+
+mjx-c.mjx-c1D711 {
+  padding: 0.49em 0.607em 0.217em 0;
 }
 
 mjx-c.mjx-c1D706 {
@@ -1628,10 +1644,6 @@ mjx-c.mjx-c1D44B {
 
 mjx-c.mjx-c1D462 {
   padding: 0.477em 0.565em 0.01em 0;
-}
-
-mjx-c.mjx-c78 {
-  padding: 0.473em 0.482em 0 0;
 }
 
 mjx-c.mjx-c393 {
@@ -1686,16 +1698,16 @@ mjx-c.mjx-c1D447 {
   padding: 0.657em 0.658em 0 0;
 }
 
-mjx-c.mjx-c1D53B.STX-DS {
-  padding: 0.657em 0.722em 0 0;
-}
-
 mjx-c.mjx-c1D43A {
   padding: 0.67em 0.697em 0.011em 0;
 }
 
 mjx-c.mjx-c1D708 {
   padding: 0.479em 0.496em 0.007em 0;
+}
+
+mjx-c.mjx-c1D703 {
+  padding: 0.717em 0.514em 0.014em 0;
 }
 
 mjx-c.mjx-c222B.STX-LO {
@@ -1724,6 +1736,10 @@ mjx-c.mjx-c1D43C {
 
 mjx-c.mjx-c3A6 {
   padding: 0.657em 0.718em 0 0;
+}
+
+mjx-c.mjx-c2193 {
+  padding: 0.678em 0.523em 0.16em 0;
 }
 
 mjx-c.mjx-c2D9 {
@@ -1792,6 +1808,7 @@ mjx-c.mjx-c64 {
 .math[data-math-rendered] .mjx-s-56693994276f970e {vertical-align: -0.319em; margin-left: 0;}
 .math[data-math-rendered] .mjx-s-57dc63e3ddd2657c {height: 2.022em;}
 .math[data-math-rendered] .mjx-s-59346988eaa34290 {vertical-align: -0.3em;}
+.math[data-math-rendered] .mjx-s-598b3f7820d68674 {width: 0.503em;}
 .math[data-math-rendered] .mjx-s-5c5ed0d20c74828d {height: 2.479em; vertical-align: -0.952em;}
 .math[data-math-rendered] .mjx-s-5dd09fd7359d593b {margin-top: 1.77em;}
 .math[data-math-rendered] .mjx-s-5fbb40cf0f4ca2ad {margin-top: 0.294em;}
@@ -1804,6 +1821,7 @@ mjx-c.mjx-c64 {
 .math[data-math-rendered] .mjx-s-6adddec651ba23ef {min-width: 28.938em; position: relative;}
 .math[data-math-rendered] .mjx-s-6c576990d7b4b5f4 {width: 0.167em;}
 .math[data-math-rendered] .mjx-s-6d49f81678d9ec43 {vertical-align: -0.15em; margin-left: -0.018em;}
+.math[data-math-rendered] .mjx-s-715b8322ff150309 {vertical-align: 0.363em; margin-left: 0.051em;}
 .math[data-math-rendered] .mjx-s-7187337daeb89f0c {width: 9.662em;}
 .math[data-math-rendered] .mjx-s-71bd598510ef5d81 {text-align: left; padding-left: 0; padding-right: 1em; padding-top: 0.15em;}
 .math[data-math-rendered] .mjx-s-723b61fac7b77789 {height: NaNem;}
@@ -1878,6 +1896,7 @@ mjx-c.mjx-c64 {
 .math[data-math-rendered] .mjx-s-dc1d0d82c6393e57 {min-width: 28.938em;}
 .math[data-math-rendered] .mjx-s-e04259e686b28a46 {vertical-align: 0.369em;}
 .math[data-math-rendered] .mjx-s-e055ed05a20fe75c {padding-bottom: 0.204em; margin-bottom: -0.222em;}
+.math[data-math-rendered] .mjx-s-e0a6098e53ee4ef7 {vertical-align: -0.262em; margin-left: -0.125em;}
 .math[data-math-rendered] .mjx-s-e62e15dfbbd4126f {width: 18.576em;}
 .math[data-math-rendered] .mjx-s-e7bfdce9188dd7ec {height: 2.056em;}
 .math[data-math-rendered] .mjx-s-e9324a9e0c62d1e3 {height: 2.144em; vertical-align: -0.822em;}

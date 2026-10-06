@@ -195,50 +195,51 @@
 \paperprovenance
 
 \begin{abstract}
-If $S=\sum_{n\ge1}\varphi(n)2^{-n}$ is rational, some positive shift
-makes every sufficiently late difference of scaled tails an integer.
-We give finite residue tests for detecting a noninteger difference,
-with the complete proofs of their equivalences and propagation laws.
-Rational comparison sequences distinguish these conditions from
-coefficient complexity and finite data. The irrationality of $S$
-remains open. In one sufficient criterion, two weighted exponential-sum
-estimates remain unproved; the comparisons preserve only the properties
-stated in their constructions.
+Rationality of $S=\sum_{n\ge1}\varphi(n)2^{-n}$ forces a positive
+shift for which every sufficiently late difference of scaled tails
+is an integer. We develop finite residue tests for a failure of this
+integrality and prove their completeness and propagation laws.
+The tests yield a finite denominator exclusion, but their required
+supply at arbitrarily large indices remains unproved. Rational
+comparison sequences explain why coefficient rank, finite data and
+specified analytic properties do not supply it. A first-harmonic
+route isolates the remaining weighted cancellation estimate; its
+group-mean bound is recorded with a prime-number-theorem input.
+The irrationality of $S$ remains open.
 \end{abstract}
 
 \section*{Organisation}
-The starting point is the decomposition $2^NS=\Phi_N+R_N$, where
-$\Phi_N$ is an integer and $R_N$ is the remaining scaled tail.
-A rational value of $S$ forces a fixed positive shift $h$ for which
-$R_{N+h}-R_N$ is an integer whenever $N$ is sufficiently large.
-Truncating the tails gives a finite residue test for a failure of this
-integrality. The main questions are how to find such failures and
-which proposed ways of finding them require information not yet known.
+The argument starts from $2^NS=\Phi_N+R_N$, with $\Phi_N\in\Z$.
+A rational $S$ gives a shift $h>0$ for which $R_{N+h}-R_N\in\Z$
+for every sufficiently large $N$. Three questions organise the record.
 
-Exact identities between coefficient sequences answer a different
-question. The \shortpaper{short249-basis}{short paper} gives a basis
-of $k^e+1$ totient sections through level $e\ge1$ in every base
-$k\ge2$. Its
-\shortpaper{short249-base-six}{base-six example and integral relation proof}
-turn an identity among the original indexed sections into an explicit
-test on their coefficients. Its prime-isolation proof also yields
-irrationality for bounded residue series. The present record explains
-the additional difficulty posed by the unbounded coefficients of $S$
-and keeps the rational comparisons alongside the deductions they test.
+\emph{What finite calculation can refute that integrality?}
+The residue test in Definition~\ref{defn:sep} encloses the tail
+difference in an explicit error interval. Section~\ref{sec:series}
+gives the identities and the independent Farey-window exclusion.
+Appendix~\ref{app:r3-complements} supplies the complete propagation,
+Mersenne-residue and rank-one arguments cited in the short paper.
 
-For the residue criteria, see Definition~\ref{defn:sep} and
-Sections~\ref{sec:survivors} and~\ref{sec:series}.
-Section~\ref{sec:mahler-defect} gives the dyadic integral relations;
-Section~\ref{sub:generic-carry-rank} constructs the rational $5/4$
-series with unbounded carry rank. Other rational comparisons are in
-Section~\ref{sec:wall}. Section~\ref{sub:pivot} gives the unresolved
-weighted exponential sums and their common parameter requirements,
-corresponding to the \shortpaper{short249-first-harmonic}{four-estimate problem}
-in the short paper's final appendix.
+\emph{Which information is insufficient to supply such calculations?}
+The \shortpaper{short249-basis}{short paper} determines all finite-level
+totient relations, with a basis of $k^e+1$ sections in every base
+$k\ge2$. Its \shortpaper{short249-base-six}{integral relation proof}
+recovers the coefficients of every relation. Those are statements
+about sequences, not their weighted infinite sums.
+Section~\ref{sec:mahler-defect} explains the distinction through
+carry rank; Section~\ref{sub:generic-carry-rank} constructs a rational
+$5/4$ series retaining the odd totients. Section~\ref{sec:wall}
+gives other comparisons, each limited to its stated preserved properties.
 
-Appendix~\ref{app:r3-complements} contains the complete propagation,
-Mersenne-residue and sharp rank-one arguments cited there.
-Appendix~\ref{app:r3-declarations} collects the formal declarations.
+\emph{What additional estimate would suffice?}
+Section~\ref{sec:survivors} gives the quantified conditions.
+Section~\ref{sub:pivot} separates the weighted exponential-sum estimate
+from the counting and group-mean bounds, corresponding to the
+\shortpaper{short249-first-harmonic}{four-estimate problem} in the
+short paper. A second sufficient condition estimates only the average
+over good indices and needs no group-mean input.
+Appendix~\ref{app:r3-declarations} records the formal declarations;
+an implication proved there does not establish its remaining hypothesis.
 
 \setcounter{tocdepth}{1}
 \clearpage
@@ -257,20 +258,20 @@ The all-base theorem in the short paper gives rank $k^e+1$ and integral
 coordinates. Its retained positive residues satisfy $k\nmid r$;
 coprimality with $k$ is unnecessary.
 
-The question about the series concerns more than these coefficient
-relations. Put
+The coefficient relations are finite linear identities. The series
+question asks whether a particular \emph{infinite} weighted sum can
+be rational. Put
 \[
   S \;:=\; \sum_{n \ge 1} \frac{\varphi(n)}{2^{n}}
   \;=\; \tfrac12 + \tfrac14 + \tfrac{2}{8} + \tfrac{2}{16} + \tfrac{4}{32} + \cdots
   \;=\; 1.3676308019850223\ldots
 \]
 The series converges absolutely because $\varphi(n) \le n$. Erd\H{o}s Problem
-\#249 asks whether $S$ is irrational, which remains open. The exact rank
-theorem controls linear relations among coefficient sections. Irrationality
-requires information about their weighted infinite sum. The countermodels
-below explain several ways that a passage from coefficient structure to the
-sum can fail. Each excludes its stated assumptions; they do not establish a
-single obstruction theorem covering all possible methods.
+\#249 asks whether $S$ is irrational, which remains open. The comparisons below test proposed passages from coefficient structure
+to the value of this sum. Each retains specified properties while making
+the corresponding sum rational. It therefore defeats an argument using
+only those properties, not every argument that might also use the
+arithmetic of the totient.
 
 Throughout, a cofinal condition means that a witness exists beyond each
 threshold. It need not hold at every sufficiently large index. Each
@@ -336,14 +337,19 @@ a decidable condition
 (\lean{Erdos249257.TotientTailPeriodKiller.windowDiscrepancy}{TotientTailPeriodKiller.lean:66},
 \lean{Erdos249257.TotientTailPeriodKiller.certifiedKill}{TotientTailPeriodKiller.lean:72}).
 
-The truncation error is at most $N{+}h{+}L{+}2$, by
-$\varphi(m)\le m$. The two strict inequalities defining
-$\mathcal C(h,N,L)$ keep the entire error interval between consecutive
-multiples of $2^L$. The true value $2^L(R_{N+h}-R_N)$ therefore cannot
-be such a multiple, so $R_{N+h}-R_N\notin\Z$.
-Conversely, any noninteger difference has positive distance from
-$\Z$, and a sufficiently deep truncation detects it. Thus the finite
-tests detect exactly the noninteger differences
+The omitted tails satisfy the exact identity
+\[
+ 2^L(R_{N+h}-R_N)-D(h,N,L)=R_{N+h+L}-R_{N+L}.
+\]
+Both tails are nonnegative, so their difference is bounded in absolute
+value by the larger bound $B=N+h+L+2$, not the sum of their bounds.
+The two strict inequalities in $\mathcal C(h,N,L)$ keep the resulting
+error interval away from every multiple of $2^L$; hence
+$R_{N+h}-R_N\notin\Z$.
+Conversely, a fixed noninteger difference has a fixed positive distance
+$\delta$ from $\Z$. Since $2^L\delta>2B$ eventually, some depth
+detects it. Completeness concerns detection of an existing difference,
+not existence of the differences required below
 (\lean{Erdos249257.TotientTailPeriodKiller.exists_certifiedKill_iff_tail_diff_notMem_int}{LcmConeFlatness.lean:316}).
 The resulting quantified condition is the following.
 
@@ -361,15 +367,14 @@ The equivalence identifies the missing quantified input; it supplies no
 certificate by itself.
 \end{defn}
 
-The order of the quantifiers matters. A certificate at one $(h,N,L)$
-excludes those hypothetical rational values whose denominator divides
-$2^N(2^h-1)$; it does not exclude all denominators. The condition above asks
-for certificates beyond every threshold for each positive $h$, and is
-therefore exactly as strong as the original irrationality assertion.
-Its depth must grow: the two strict residue inequalities imply
-$2(N+h+L+2)<2^L$. Keeping $L$ fixed cannot provide certificates as $N$ grows.
-Neither this necessary size condition nor a finite list of successful tests
-supplies the required residues.
+One successful $(h,N,L)$ excludes reduced denominators dividing
+$2^N(2^h-1)$. To exclude an arbitrary rational value, its odd denominator
+first determines a shift and its power of two determines a threshold;
+only then may we choose the witness $N,L$. This is the order in
+$\mathrm{Sep}$. The depth must grow with $N$, since success requires
+$2(N+h+L+2)<2^L$. A large enough depth makes the interval test possible,
+but does not make the actual residue lie inside it. A failed test
+at one depth likewise does not prove integrality.
 \lean{Erdos249257.TotientTailPeriodKiller.certifiedKill_depth_floor}{TotientTailPeriodKiller.lean:79}
 
 
@@ -524,17 +529,16 @@ information about $\varphi$.
 \subsection{Reduced coefficients}\label{sub:reduced-coefficients}
 \papersectiontarget{long249-r3-residue-extension}
 
-Reduction modulo $m$ supplies the bound missing for the unreduced
-coefficients. For $m\ge3$ the binary series of $\varphi(n)\bmod m$ is
-irrational. For a rational-valued function of $\varphi(n)\bmod2^k$, its
-binary series is rational precisely when that function is constant on
-the even residues. Both assertions follow by isolating a prime $p$
-with prescribed $\varphi(p)\bmod m$: CRT makes each neighbour $p+j$,
-$0<|j|\le L$, divisible by its own prime congruent to $1\pmod m$,
-so all neighbouring residues vanish. A bound on the remaining tail
-then proves irrationality. The same tail estimate works in any integer
-base. For several dilations, the extra step is to prevent cancellation
-at the isolated coefficient.
+Reduction modulo $m$ restores the boundedness missing from $\varphi$.
+The short paper isolates a prescribed nonzero coefficient between two
+long zero blocks: a hypothetical rational denominator forces the
+right tail to vanish, after which the left block makes the nonzero
+centre too small. CRT creates the blocks by imposing a separate
+prime divisor congruent to $1\pmod m$ at each neighbour.
+We extend that proof in two directions. Changing the integer base
+changes only the geometric tail bound. Combining dilations is subtler:
+one must first ensure that their contributions cannot cancel at the
+chosen centre.
 
 \begin{prop}[Residue series in every integer base]
 \label{prop:radixresidue}
@@ -553,11 +557,23 @@ Let $t\ge2$ be an integer.
 \end{prop}
 
 \begin{proof}
-The short paper's proof applies verbatim in base $t$: its lemma on an
-isolated nonzero coefficient uses only $Ct^{-L}<1/q$ in place of
-$C2^{-L}<1/q$. For the value in (b), $\varphi(1)=\varphi(2)=1$ and
-$\varphi(n)$ is even for $n\ge3$.
+For coefficients bounded by $C$, the right-block tail is at most
+$Ct^{-L}/(t-1)\le Ct^{-L}$. Choose $L$ with $Ct^{-L}<1/q$;
+the rational-tail lattice forces that tail to be zero. The left-block
+tail is then the isolated coefficient times $t^{-L-1}$, giving the
+same contradiction as in the short paper. In (b), the two exceptional
+terms contribute $(t+1)f(1)/t^2$ and the constant tail contributes
+$f(0)/(t^2(t-1))$, since all totients after $n=2$ are even.
 \end{proof}
+For example, in base $2$ the function modulo $4$ with
+$f(0)=f(2)=5$, $f(1)=7$ and $f(3)=-2$ gives the rational value
+$3\cdot7/4+5/4=13/2$: the class $3$ never occurs. In contrast,
+the indicator of the class $2\pmod4$ gives an irrational value.
+This classification uses the fact that the prime centres $s-1$,
+with $s$ a unit, cover every even class modulo $2^k$. Modulo $6$
+they cover only $0$ and $4$. The least-residue assertion needs one
+nonzero accessible centre, but the same argument does not classify
+all rational-valued functions for a general modulus.
 
 \begin{prop}[Finitely many dilations]
 \label{prop:dilations}
@@ -584,10 +600,12 @@ positive integers, with some $c_d\ne0$ and
 $c_0+\sum_{N\ge1}b_Nt^{-N}=0$, where
 $b_N=\sum_{d\in D,\,d\mid N}c_d\bigl(\varphi(N/d)\bmod m\bigr)$ is bounded.
 Discard the $d$ with $c_d=0$ and let $\delta$ be the least remaining one.
-We will isolate the coefficient at $N=\delta p$. If $p>\max D$ is
-prime and $d\in D$ divides $\delta p$, then $p\nmid d$, so $d\mid\delta$.
-Minimality of $\delta$ forces $d=\delta$. Thus choosing the least
-active dilation prevents cancellation at the centre.
+Different dilations can contribute to the same exponent $N$, so
+isolating a prime in one summand is not enough. Choose instead
+$N=\delta p$ with $p>\max D$ prime. A contributing $d$ divides
+$\delta p$; since $p\nmid d$, it divides $\delta$. Minimality then
+forces $d=\delta$. The centre now receives exactly one active
+contribution, while CRT will remove all contributions at its neighbours.
 
 Given $L$, choose distinct primes $q_j\equiv1\pmod m$, $0<|j|\le L$,
 each larger than $L$ and than every element of $D$. Impose
@@ -693,6 +711,22 @@ on parity at every index, or on specified linear data. The following
 constructions keep these requirements separate. Each gives a rational
 comparison satisfying the data named in its statement, and thus
 identifies what those data alone leave undetermined.
+The properties in different rows below belong to different constructions;
+they must not be combined into one comparison theorem.
+\begin{center}
+\begin{tabular}{@{}p{.29\linewidth}p{.65\linewidth}@{}}
+\textbf{Construction} & \textbf{Data kept while the value is rational}\\[3pt]
+Prescribed prefix (Theorem~\ref{thm:gamma}) &
+Any fixed totient prefix and the bound $0\le c(n)\le n$.\\[3pt]
+Parity (Proposition~\ref{prop:parity}) &
+Parity at every index, aperiodicity and the stated size bound.\\[3pt]
+Value $5/4$ (Section~\ref{sub:generic-carry-rank}) &
+Every odd totient, changes of at most $2$ at even indices, and unbounded carry rank.\\[3pt]
+Signed interpolation (Section~\ref{long249:sec:signed-interpolation}) &
+A prefix, all odd totients, and the specified moment and analytic data;
+not the full radial germ or all arithmetic identities.
+\end{tabular}
+\end{center}
 
 \subsection{Finite data and rational continuations}
 
@@ -1182,12 +1216,12 @@ equidistribution or the estimate at arbitrarily large scales.
 
 \subsection{A four-term bound for the real part}\label{sub:four-sums}
 
-For a selected term $\varphi(mp)$ with $p>m$ prime, multiplicativity
-gives the phase associated with $\varphi(m)(p-1)$. We factor that
-phase out of the full window and average it within each cofactor
-group. Adding and subtracting the group mean leaves four sums, two
-requiring cancellation and two estimated by counting the excluded
-indices.
+We isolate the phase of one term $\varphi(mp)$ with $p>m$ prime,
+then group indices with the same cofactor $m$. The resulting identity
+separates three tasks: count the excluded indices, bound the group
+means, and estimate the remaining weighted, mean-subtracted sum.
+Only the last of these remains open after the stated group-mean input.
+The identity itself supplies none of the estimates.
 
 Fix $h,s\ge1$, $L\ge s+h$, $X\ge1$ and $0<\eta<1$, and put
 $t=L-s+1$. For $X\le N<2X$, let $p_N$ be the largest prime factor of
@@ -1202,8 +1236,9 @@ $\mathcal G=\{N\in\mathcal A:\varphi(m_N)\ge\eta m_N\}$.
 The two inequalities ensure $p_N>m_N\ge1$, so
 $\varphi(N+t)=\varphi(m_N)(p_N-1)$.
 
-The offset $t$ lies in the overlap of the two truncated tails. Their net
-coefficient at $\varphi(N+t)$ is $(2^h-1)2^{-t}$. On the assigned indices,
+Since $h<t\le L$, the selected term occurs in both truncated tails:
+it has coefficient $2^{-(t-h)}$ in the shifted tail and $-2^{-t}$ in
+the unshifted one. Their sum is $(2^h-1)2^{-t}$. On the assigned indices,
 set
 \[
  z_N=e\!\left(\frac{(2^h-1)\varphi(m_N)(p_N-1)}{2^t}\right),
@@ -1257,29 +1292,35 @@ It implies $S\notin\mathbb Q$.
 \lean{Erdos249257.TotientTailPeriodKiller.irrational_totient_series_of_pivotResidualDecorrelation}{FirstHarmonicPivot.lean:577}
 \end{defn}
 
-The four bounds must hold for the same $X,L,s,\eta$, not along four
-unrelated sequences of blocks. Their constants add to
-$14/25+1/100+1/100+8/25=9/10$, so they imply the real-part criterion.
-They do not establish the stronger $21/25$ norm criterion.
-The exact partition proves an identity, not any one of these estimates;
-in particular, grouping by a prime factor does not justify statistical
-independence between the mean-subtracted phase and its weight.
-
-Like the block criterion, this condition concerns actual totient values
-at arbitrarily large indices and at a common truncation depth. The four
-bounds are a sufficient way to prove the needed real-part estimate, not
-an equivalent restatement of the norm estimate.
+First fix $h$, then choose $s,\eta$; these must remain fixed as the
+threshold $X_0$ increases. At each threshold all four bounds must hold
+for one common $X,L$, rather than along unrelated sequences of blocks.
+Their constants add to $14/25+1/100+1/100+8/25=9/10$, yielding the
+real-part criterion. This is sufficient for a certificate and does not
+assert the stronger $21/25$ norm criterion. In particular, no
+independence of the two phase factors follows from the grouping.
 
 
 The decomposition is an exact identity, proved in Lean
 (\lean{Erdos249257.TotientTailPeriodKiller.windowFirstExp_sum_eq_pivot_decomposition}{FirstHarmonicPivot.lean:514}),
 as is the implication from the four bounds to the real-part bound
 (\lean{Erdos249257.TotientTailPeriodKiller.first_harmonic_gap_of_pivotBudgetAt}{FirstHarmonicPivot.lean:549}).
-The mean being subtracted is the mean of $z_N$, not of the residual
-weight $w_N$. On each cofactor group, $\sum_N(z_N-\bar z_m)=0$, but
-$\sum_Nw_N(z_N-\bar z_m)$ need not vanish because $w_N$ varies with $N$.
-Thus centring the phase does not estimate the weighted correlation. Only its real part is required:
-$14X/25$ suffices in place of the earlier proposed norm bound $X/2$.
+The reason a new estimate is needed is visible within one group:
+$\sum_N(z_N-\bar z_m)=0$, whereas
+$\sum_Nw_N(z_N-\bar z_m)$ need not vanish. The residual weight varies
+with the same prime that determines $z_N$. By contrast, a uniform
+bound for $|\bar z_m|$ immediately controls the mean contribution
+because $|w_N|=1$. Thus small means and weighted cancellation are
+different statements.
+A two-point group makes this explicit:
+\[
+ (z_1,z_2)=(1,-1),\quad (w_1,w_2)=(1,-1),\quad \bar z=0,
+ \qquad \sum_{j=1}^2w_j(z_j-\bar z)=2.
+\]
+The unweighted mean vanishes while the weighted terms agree exactly.
+This example explains why an implication is missing; it is not a
+counterexample to the estimate for the actual totient windows. For the latter, only the real-part bound
+$14X/25$ is required, not the earlier norm bound $X/2$.
 For $X\ge4$ and $s=L-h$, the assigned indices \emph{with cofactor
 $m_N=1$} are exactly those for which $N+h+1$ is prime. This describes
 one cofactor group, not all assigned indices. The source proves this
@@ -1290,14 +1331,15 @@ This special choice has $s=L-h$ varying with $L$; it illustrates the
 arithmetic of the groups but does not establish the condition with $s$
 fixed before $X_0$.
 
-The four inequalities are not proved with their required common parameters.
-Propositions~\ref{prop:dickman} and~\ref{prop:badcof} below do establish the
-unassigned and excluded-cofactor bounds at minimal admissible depth, with
-one sufficiently small fixed $\eta$. The mean and mean-subtracted estimates
-remain to be established at that same depth and for that same $\eta$.
-Only the real part of the mean-subtracted contribution is required, and
-Theorem~\ref{thm:goodbasegap} below replaces the two estimates by a single
-bound on the indices in $\mathcal G$.
+The four inequalities have not been established together.
+Propositions~\ref{prop:dickman} and~\ref{prop:badcof} give the unassigned
+and excluded-cofactor bounds at minimal admissible depth. At $s=26$,
+$\eta=1/1000$, the prime-number-theorem argument discussed in
+Section~\ref{sub:goodbasegap} also bounds the mean contribution for all
+large $X$. With that input, the missing estimate is the real-part bound
+for the mean-subtracted contribution, at the same parameters and depth,
+on arbitrarily large blocks. Theorem~\ref{thm:goodbasegap} instead asks
+for one bound on $\mathcal G$, without a group-mean input.
 
 
 A nonzero determinant alone does not prove the needed correlation
@@ -1376,20 +1418,45 @@ irrationality one obtains nonintegral tail differences, and no argument
 turns them into a fixed saving on $\mathcal G$. It is open. No computation in this record bears
 on it, and the count $\#\mathcal G>67X/100$ holds only for large $X$.
 
+\papersectiontarget{long249-group-mean}
 When the first two inequalities of Definition~\ref{defn:pivot} hold with
 $s=26$, $\eta=1/1000$ and $L=L(X)$, they add to
 $\operatorname{Re}\sum_{N\in\mathcal G}E(h,N,L(X))\le\tfrac{57}{100}X$, so
-the four-term condition at these parameters implies the hypothesis of (b). An earlier route used
-the prime number theorem, which bounds every group mean $|\bar z_m|$ on
-$\mathcal G$ by $1/100$ for all large $X$
+the four-term condition at these parameters implies the hypothesis of (b).
+At these same parameters, the recorded argument takes the prime number
+theorem as an input and bounds every group mean $|\bar z_m|$ on
+$\mathcal G$ by $1/100$ for all sufficiently large $X$, for each fixed $h$
 (\href{https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad0b9dd0d69675/lean/ErdosProblems/Erdos249/PaperCompleteR21/FiberMeanOfPrimeNumberTheorem.lean\#L935}{\texttt{fiberMean\_le\_of\_primeNumberTheorem}}).
-Given that bound, the bound $\tfrac{11}{20}X$ on the good indices yields
-the mean-subtracted inequality, and irrationality follows
+Since $|w_N|=1$, this gives
+$|\sum_{N\in\mathcal G}w_N\bar z_{m_N}|\le\#\mathcal G/100\le X/100$,
+regardless of the dependence of $w_N$ on the prime. It supplies the mean
+bound, not the mean-subtracted cancellation. Given this mean bound,
+a bound $\tfrac{11}{20}X$ on the good-index sum, on arbitrarily large
+blocks for each $h$, yields the mean-subtracted inequality and hence irrationality
 (\href{https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad0b9dd0d69675/lean/ErdosProblems/ArgumentGraph/Results/Erdos249.lean\#L45}{\texttt{dtw\_of\_fiberMean\_and\_centered}},
 \href{https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad0b9dd0d69675/lean/ErdosProblems/ArgumentGraph/Results/Erdos249Route.lean\#L118}{\texttt{irrational\_totient\_series\_of\_primeNumberTheorem\_and\_goodBase\_gap}}).
 Theorem~\ref{thm:goodbasegap}(b) supersedes that route. It assumes
-neither the prime number theorem nor a bound on the group means, and the
-bound it asks for, $603X/1000$, is weaker than $11X/20$.
+neither the prime number theorem nor a bound on the group means, and
+asks only for $603X/1000$, rather than $11X/20$. The saving is measured
+against $\#\mathcal G$, not against the full block size: since
+$\#\mathcal G>67X/100$, the good-index average is below $9/10$.
+There is no need to add the discarded indices back into the sum.
+
+For clarity, the two sufficient estimates have different uses. The
+centred route controls all four pieces and so bounds the sum on the
+whole block. The $603X/1000$ route uses only the good indices and their
+cardinality. Bounding the discarded part trivially would give only
+$(603/1000+33/100)X=933X/1000$, not $9X/10$; adding it back would
+lose the conclusion one was trying to prove.
+
+There is also a useful distinction between eventual and cofinal
+hypotheses. At $s=26$, $\eta=1/1000$ and the prescribed $L(X)$, fix
+$h$ and take the maximum of the thresholds for the two counting bounds
+and the PNT-input mean bound. Any arbitrarily large sequence of blocks
+on which the centred bound holds eventually passes this maximum.
+Thus it supplies common blocks for all four estimates. Merely knowing
+that several different estimates each hold on some arbitrarily large
+blocks would not justify that intersection.
 
 
 \subsection{A fixed separation at prime positions}
@@ -1493,31 +1560,43 @@ Periodicity modulo $v$ alone does not provide the additional rank bound.
 
 \section{Guide to the detailed statements}
 
-We next collect the identities behind the residue, tail and
-approximation formulations. The repeated statements make their
-hypotheses comparable without changing notation in the middle of an
-argument. In particular, the proof of an implication leaves its
-additional arithmetic assumption to be established.
+The remainder records the formulas and proofs behind the preceding
+arguments. To use a statement, distinguish its conclusion from its
+input. A finite certificate excludes a family of denominators; a
+cofinal supply excludes every rational value. Positivity of a tail
+difference is not nonintegrality, and a conditional implication still
+needs its arithmetic premise.
 
-\paragraph{Quantifiers and hypotheses.} The direct certificate computations cover individual parameters or a
-finite range. Other results hold uniformly or at arbitrarily large scales,
-but their conclusions are different: positivity, for example, is not
-nonintegrality. The finite-prefix example, rank bounds, and residue estimates
-must each be used only under their stated hypotheses.
-
-\paragraph{Dependencies.} Sections~\ref{sec:wall} and~\ref{sec:survivors} explain the principal
-counterexamples and sufficient conditions. The following catalogue supplies
-the associated formulas and source references. The later tables compare
-logical implications and the limits of particular estimates; their source
-labels are not extra mathematical hypotheses.
+The following entry points answer different questions; they are not
+successive steps of one proof of irrationality.
+\begin{center}
+\begin{tabular}{@{}p{.39\linewidth}p{.55\linewidth}@{}}
+\textbf{Question} & \textbf{Where to read}\\[3pt]
+Which section identities hold? &
+Section~\ref{sec:mahler-defect}: independent sections and integral relations.\\[3pt]
+What does a finite computation exclude? &
+Section~\ref{sec:series}: tail residues; Section~\ref{ssec:farey}: the denominator cutoff.\\[3pt]
+Can one nonintegral difference yield more certificates? &
+Appendix~\ref{long249:r3-ray}: propagation with growing shift and depth.\\[3pt]
+Which data still allow a rational value? &
+Section~\ref{sec:wall}: comparison sequences, with their hypotheses kept separate.\\[3pt]
+Which estimate would suffice? &
+Section~\ref{sub:pivot}: the four-term decomposition;
+Theorem~\ref{thm:goodbasegap}: the weaker good-index condition.\\[3pt]
+What was formally checked? &
+Appendix~\ref{app:r3-declarations}: the declaration and source-version guide.
+\end{tabular}
+\end{center}
+The detailed statements retain their source references so that a proof
+can be recovered without treating a source label as another hypothesis.
 \section{Series identities and finite exclusions}\label{sec:series}
 
-The finite prefix separates $S$ into an integer and a scaled tail.
-We use that identity both for residue certificates and, independently,
-for the Farey-interval denominator bound in Section~\ref{ssec:farey}.
-M\"obius inversion supplies further expressions for $S$. These
-identities concern the same value; none of them by itself excludes
-all rational denominators.
+The prefix-tail identity supports two different finite exclusions.
+Residue certificates test a tail difference modulo $\Z$; the Farey
+calculation in Section~\ref{ssec:farey} encloses $S$ itself in an
+interval. M\"obius inversion then gives other expressions for the
+same value, useful only to the extent that they permit new estimates.
+An identity alone does not provide a denominator exclusion.
 
 \subsection{The series}
 
@@ -1550,7 +1629,9 @@ are catalogued here, \S\ref{ssec:certtable}).
 \subsection{The tail-shift identity}
 
 Multiplying by a power of two makes the finite prefix integral and
-leaves a scaled tail.
+leaves a scaled tail. The tail values themselves may grow; it is their
+classes modulo $\Z$, rather than their absolute sizes, that encode a
+possible rational period.
 
 \begin{prop}[Digit-shift identity]
 \label{prop:shift}
@@ -1625,6 +1706,11 @@ This bound is \emph{sharp}: $q = Q_0+1 = 79\,639\,646\,646\,701\,375\,323\,355\,
 is the exact first failing denominator, obtained as the denominator of
 the mediant of two explicit unimodular Farey neighbours.
 \end{prop}
+Here ``failing'' means that this particular enclosure can no longer
+exclude the denominator. It does not mean that the mediant equals
+$S$, or that another argument could not exclude that denominator too.
+Sharpness concerns the finite interval test, not a smallest possible
+denominator for the unknown value.
 
 \begin{thm}[Denominator exclusion]
 \label{thm:denom-record}
@@ -4521,6 +4607,12 @@ multiplier-one recurrence $u(N)=N+2$
 The first-order Lambert term in the diagonal tail difference can be
 summed exactly. The approximation below leaves only a squared-Mersenne
 tail to estimate.
+Small error is only half of a denominator-clearing argument. If a
+target $\alpha=a/b$ is rational, then every unequal rational $p/q$
+satisfies $q|\alpha-p/q|=|aq-bp|/b\ge1/b$. Thus nonzero errors
+tending to zero after multiplication by the reduced denominators
+would prove irrationality. The identity and geometric bound below
+give explicit errors, but not that comparison with the denominators.
 
 
 \begin{prop}[An exact rational approximation formula]\label{prop:exact-rational-approximation-formula}
@@ -6906,15 +6998,16 @@ it does not show that they can never improve a certificate.
 \subsection{Exact dyadic rank and the limits of a rank argument}
 \label{sec:mahler-defect}
 
-The dyadic case gives an explicit basis for each finite level and
-for the union of all levels. Coons proved nonregularity in every base
-$k\ge2$~\cite[Theorem~3.2]{coons}; here the rank is computed at each
-finite level and the basis is given explicitly. Martin's Theorem~1
-supplies independence for the positive-residue affine forms
-\cite[Theorem~1]{martin-phi-inequalities}, leaving the two zero-residue
-sections to be treated separately. The \shortpaper{short249-proof}{all-base independence proof} and the
-\shortpaper{short249-base-six}{integral relation proof} are given separately
-in the short paper.
+At each level the scalar totient identities supply spanning, while
+affine independence excludes any further relations. This computes
+the rank, rather than merely proving its unboundedness. The latter
+already follows from Coons's nonregularity theorem in every base
+$k\ge2$~\cite[Theorem~3.2]{coons}. Martin's stronger theorem supplies
+the affine independence\cite[Theorem~1]{martin-phi-inequalities}; the
+proportional arguments $n$ and $2n$ require a separate two-evaluation
+argument. The \shortpaper{short249-proof}{all-base proof} and
+\shortpaper{short249-base-six}{integral relation calculation} appear
+in the short paper. We give the dyadic form needed for carry rank here.
 
 \textbf{Construction.}
 \begin{thm}[Exact dyadic rank and infinite-dimensionality]\label{thm:exact-dyadic-rank-infinite-dimensionality}
@@ -6957,8 +7050,11 @@ canonical index then still contains the two zero-residue sections
 through level zero, which consists only of \(\varphi(n)\) and has dimension one.
 
 \paragraph{Integral relations.}
-The independence statement also determines the arithmetic of the section
-lattice.  Fix $e\ge1$, write $F_{j,r}(n)=\varphi(2^j n+r)$, and let
+Rational independence becomes an integral normal form because every
+omitted section is an \emph{integer} multiple of a retained one.
+Keep the formal coefficient vectors separate from the sequences:
+a relation is nonzero in the former group and evaluates to zero
+in the latter.  Fix $e\ge1$, write $F_{j,r}(n)=\varphi(2^j n+r)$, and let
 $I_e=\{(j,r):0\le j\le e,\ 0\le r<2^j\}$.  Retain $F_{0,0}$,
 $F_{1,0}$, and the odd-residue sections at levels $1,\ldots,e$; call
 this retained index set $J_e$.  The totient identities reduce every omitted
@@ -6981,15 +7077,15 @@ For each omitted index put $R_i=E_i-a_iE_{j(i)}$.  Then
  \qquad
  \operatorname{rank}_{\mathbb Z}\ker(\operatorname{ev}_e)=2^e-2.
 $}\]
-Indeed, subtracting $\sum_{i\notin J_e}c_iR_i$ removes all omitted
-coordinates. At a retained index $j$, the remaining coefficient is
-$c_j+\sum_{i\notin J_e,\,j(i)=j}a_i c_i$. These are the integral
-coordinates of the original combination. If it is a relation,
-independence makes every one of them zero. Conversely, the coefficient
-of $E_i$ in $\sum_{h\notin J_e}b_hR_h$ is exactly $b_i$, proving
-uniqueness. Each relation row has coefficient $1$ in its own omitted
-coordinate and $0$ in every other omitted coordinate. No division is
-needed, so the conclusion holds over $\Z$.  The \shortpaper{short249-base-six}{depth-two base-six example}
+For a vector $c$, subtract $\sum_{i\notin J_e}c_iR_i$. All omitted
+coordinates disappear, and the retained coordinate at $j$ is
+$c_j+\sum_{i\notin J_e,\,j(i)=j}a_ic_i$. The vector is a relation
+exactly when every retained coordinate is zero. In that case its
+relation coefficients are already known: they are the original
+omitted coordinates $c_i$. Uniqueness follows because $R_i$ has
+coefficient $1$ at its own omitted index and $0$ at every other one.
+These unit coefficients explain why no division, and no passage
+from $\Q$ back to $\Z$, is required.  The \shortpaper{short249-base-six}{depth-two base-six example}
 in the short paper illustrates these two-term rows.  The distinction between the retained basis and the redundant
 spanning family of all sections already matters for $k$-regular sequences
 that are not eventually zero: their growth exponent is the base-$k$
@@ -7043,14 +7139,14 @@ of the displayed carry sections after multiplication by $v\ne0$.
 The rank bound follows. The boundary condition $u_N/2^N\to0$ identifies
 the canonical carry, but is not used in this rank-transfer argument.
 
-To contradict rationality by rank, one would also need an incompatible
-upper bound. The comparison series with value $5/4$ in
-Section~\ref{sub:generic-carry-rank} shows why
-rationality, a binary carry recurrence and linear coefficient growth
-alone do not supply such a bound. Its coefficients agree with $\ph$
-at odd indices but differ at even indices; they are not the totient
-sequence. Thus this comparison does not exclude an argument using
-additional totient identities.
+A contradiction would require an upper bound on the same carry
+rank. Rationality and the recurrence supply no such bound:
+Section~\ref{sub:generic-carry-rank} constructs a rational $5/4$
+series whose unchanged odd totients force exactly this rank transfer.
+The changed even coefficients break other totient identities. Hence
+the comparison rules out a rank argument based only on rationality,
+linear growth and the recurrence, while leaving arguments using
+those additional identities untouched.
 
 A separate finite-dimensional calculation concerns the matrix
 $U_N(i,j)=\mu((i+1)/(j+1))$ when $(j+1)\mid(i+1)$ and zero otherwise,
@@ -7256,15 +7352,27 @@ valuation of their totient combination on every restricted family. \\
 \label{long249:sec:signed-interpolation}
 \papersectiontarget{long249-r3-interpolation}
 
-To vary a series value while preserving every fixed moment condition,
-we use disjoint finite differences of increasing order. Their orders
-make the later differences invisible to each fixed moment, while
-overlapping integer ranges for their amplitudes fill an interval of
-values at a reciprocal integer base. The construction below leaves
-every odd totient coefficient fixed and preserves Dirichlet
-singularities on every fixed arithmetic progression. The three
-numbered remarks in this subsection have ordinary proofs; their
-formalisation in Lean remains outstanding.
+The small block
+\[
+ z^2-2z^4+z^6=z^2(1-z^2)^2
+\]
+has coefficient sum $1-2+1=0$ and first moment $2-8+6=0$,
+but its value at $z=\beta^{-1}$ is positive for $\beta\ge2$.
+It can therefore alter an interior value while preserving these two
+moments. This is a model for one block, not a construction satisfying
+all the conditions below; translation, spacing and increasing the
+difference order supply the additional requirements.
+
+This construction assigns different jobs to the shape and amplitude
+of a correction. High-order finite differences annihilate low-order
+moments; their integer amplitudes adjust the series value. As the
+orders increase, later completed blocks contribute zero to each fixed
+moment, so its defect stabilises between blocks. The prescribed initial
+collection of moment defects is zero, not merely constant.
+Spacing the blocks controls their density and analytic convergence.
+All corrections occur at even indices, leaving every odd totient fixed.
+The three numbered remarks below have ordinary proofs; none has yet
+been formalised in Lean.
 
 For a sequence $a$, write $F_a(z)=\sum_{n\ge1}a(n)z^n$. For integers
 $q\ge1$, $0\le c<q$ and $d\ge0$, put
@@ -7331,12 +7439,19 @@ $o(\log X)$. The exact Taylor series, growing moduli, zeros and regular
 parts of Dirichlet functions are not preserved. The correction has both signs, so the earlier one-sided perturbation
 constraint is not retained. The construction makes no rationality
 assertion about $F_\varphi(1/2)$.
+The two exceptional sets also have different roles. The support $S$
+contains the individual altered indices. The larger set $H$ contains
+the intervals spanned by correction blocks, where a prefix may have
+included only part of a cancelling block. Its upper Banach density is
+one because it contains arbitrarily long intervals, even though its
+ordinary density is zero. Thus the moment conclusion outside $H$
+does not assert exact cancellation at every sufficiently large cutoff.
 
 \begin{proof}
-We use signed finite-difference blocks. Their order will increase to
-preserve each fixed moment and each prescribed boundary derivative;
-their positions and amplitudes will leave room to choose the value of
-the series. All blocks are chosen beyond the prescribed prefix.
+We construct the blocks first, independently of the target value.
+Their increasing order enforces the moment and boundary conditions;
+only their amplitudes will be chosen afterwards to obtain that value.
+All blocks lie beyond the prescribed prefix.
 
 The tail infimum in $g$ is positive, nondecreasing and tends to infinity.
 The cap gives $g(n)\le(n/2)^{1/4}$, while $g(n)\le f(k)$ for every
@@ -8078,26 +8193,27 @@ $16(2X+h+L+2)\le 2^{L}$, and all four of
    &\le\tfrac{8}{25}X.
 \end{aligned}
 \]
-These inequalities are unproved; together they imply irrationality
+Their simultaneous validity remains unproved; together they imply irrationality
 (\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak DTWPivotResidualDecorrelation}{FirstHarmonicPivot.lean:569},
 \lean{Erdos249257.\allowbreak irrational_totient_\allowbreak series_of_pivotResidualDecorrelation}{FirstHarmonicPivot.lean:577}).
 The decomposition is an exact identity
 (\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak windowFirstExp_sum_\allowbreak eq_pivot_decomposition}{FirstHarmonicPivot.lean:514}).
-It separates two different tasks. The last two sums can be bounded by
-counting their indices, since every phase has modulus one. The first
-two retain the weight $w_N$: subtracting the group mean does not remove
-its correlation with the selected prime phase. The parameters $s,\eta$
-must be fixed before $X_0$, and the estimates must hold for the same
-$X,L$; separate successful blocks do not suffice.
+The last two sums are bounded by counting indices, since every
+phase has modulus one. The mean contribution is bounded by the
+triangle inequality once a uniform group-mean estimate is available.
+The remaining sum retains a varying weight after centring, and
+requires a separate real-part estimate. The parameters $s,\eta$ must
+be fixed before $X_0$, with the estimates valid for the same $X,L$;
+separate successful blocks do not suffice.
 For $X\ge4$ and $s=L-h$, the single cofactor group
 $m_N=1$, not the full assigned set, consists of the indices for which
 $N+h+1$ is prime
 (\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak mem_pivotFiber_\allowbreak one_overlap_iff}{FirstHarmonicPivot.lean:423}).
 
 \paragraph{An upper bound for the unassigned terms.}
-An unassigned index has a smooth shifted argument, but the converse is
-not asserted. The factorisation gives the containment needed for an upper
-bound on the number of unassigned indices.
+Only an upper bound is needed here. We enclose the unassigned
+arguments in a set of smooth numbers and count that larger set.
+There is no claim that every smooth argument is unassigned.
 
 \begin{prop}[A one-sided bound for the unassigned terms]\label{prop:dickman}
 Fix $h,s$ and choose the admissible depth $L$ minimally for each large $X$.
@@ -8158,7 +8274,7 @@ asymptotic~\cite[(1.1), p.~268]{granville-smooth} and the value
 $\rho(u)=1-\log u$ on $[1,2]$~\cite[(1.3), p.~268]{granville-smooth}.
 No effective crossover scale or exact density for the unassigned indices
 is asserted. The estimate uses the minimal admissible depth; it does not
-supply either of the two remaining correlation bounds at that depth.
+supply either weighted phase bound at that depth.
 
 \begin{prop}[The excluded-cofactor estimate]\label{prop:badcof}
 Fix $h,s$ and use the minimal admissible depth $L$, as in
@@ -8271,9 +8387,11 @@ Choosing $t=O(\log\log X)$ would require $s$ to grow with $X$, contrary
 to the stated quantifiers. Likewise, the formal observation that the phase
 is $1$ when $v_2(\varphi(m))\ge t$ cannot provide such groups at large $X$
 under these size bounds. The proposed small-modulus prime-distribution
-argument therefore does not establish the mean estimate. This does not
-disprove the four-term condition or exclude other estimates for the same
-prime sums.
+argument therefore does not establish the mean estimate. The
+prime-number-theorem argument in Section~\ref{sub:goodbasegap} instead
+uses prime counts in proportional intervals, not equidistribution in
+these residue classes. Failure of the small-modulus argument does not
+disprove the four-term condition.
 
 \paragraph{The remaining prime-weighted correlation.}
 Propositions~\ref{prop:dickman} and \ref{prop:badcof} give the unassigned
@@ -8554,6 +8672,11 @@ recurrence by $2^{n+1}$ and summing gives
 Thus $u_N/2^N\to0$ identifies the sum as $u_0/v$; it imposes no
 finite-dimensional description of the carry sections. In the
 construction below $u_0=5$ and $v=4$.
+For fixed $c$ and $v$ this boundary condition also makes the carry
+unique: two solutions of the recurrence differ by $C2^N$, whose
+quotient by $2^N$ tends to $C$. Uniqueness therefore leaves no freedom
+to choose a simpler carry. The comparison shows that this unique
+carry can nevertheless have unbounded section rank.
 
 \paragraph{The comparison with value $5/4$.}
 We alter only even coefficients, whose weights are
@@ -8589,8 +8712,9 @@ Thus $|c(n)-\ph(n)|\le2$ and
 This is the centred base-four construction in the Lean
 \href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos249/ParityPerturbedRationalControl.lean#L379}{comparison-series theorem}.
 
-The even coefficients have set the value of the sum. The unchanged
-odd coefficients now give the rank lower bound. Take $v=4$ and
+The construction has separated value from rank: the even coefficients
+set the value, while the unchanged odd coefficients force large rank.
+For the latter, take $v=4$ and
 $u_N=4\sum_{j\ge1}c(N+j)2^{-j}$. The rational sum makes $u_N$ integral;
 the coefficient bound gives $0\le u_N\le4(N+2)$. For odd $r$, the
 carry recurrence and $c(2^jn+r)=\ph(2^jn+r)$ give
@@ -9532,11 +9656,12 @@ Consequently
 \]
 Requiring this for every $d\ge1,N\ge0$ is equivalent to $S\notin\Q$.
 \end{theorem}
-For a fixed $d,N$, the hypothesis is just one nonintegral tail difference;
-it does not assert irrationality of $S$. Requiring it for \emph{every}
-$d,N$ is as strong as the original problem. The conclusion sets the
-truncation depth equal to the shift, $L=md$, and loses at most one member
-of each sufficiently late pair of successive multipliers.
+Unrestricted completeness cannot simply set $L$ equal to the shift:
+it supplies a depth only after the shift is fixed. The theorem couples
+them by varying both along multiples of $d$. The recurrence below
+prevents two adjacent failures. Its starting hypothesis is still just
+one nonintegral difference; only the requirement for \emph{every}
+$d,N$ is equivalent to irrationality.
 
 \begin{proof}
 Set $F_t=\Delta_{td}(N)$. Equation~\eqref{long249:r3-tail-phase} yields
@@ -9555,19 +9680,26 @@ and the recurrence give
  \le \|F_{t+1}\|_{\R/\Z}+2^d\|F_t\|_{\R/\Z}
  \le\epsilon_{t+1}+2^d\epsilon_t.
 \]
-The left side is fixed and positive; the right side tends to zero.
-Thus two adjacent failures are impossible once $t$ is large enough.
-Conversely, if $F_1$ is integral, every $F_t$ is integral by the same
-recurrence, so no certificate exists.
+The recurrence has transferred two shrinking errors to the same
+fixed number $F_1$. Its distance from $\Z$ is positive, whereas
+$\epsilon_{t+1}+2^d\epsilon_t\to0$; hence adjacent failures are
+impossible for large $t$. Conversely, integral $F_1$ makes every
+$F_t$ integral by the recurrence, so soundness excludes every certificate.
 
 Finally, \eqref{long249:r3-tail-phase} is
 nonintegral for every $d,N$ when $S$ is irrational. If
 $S=a/(2^cv)$ with $v$ odd, take $N=c$ and $d=\ph(v)$ to make it integral.
 \end{proof}
 For instance $D_{1,12,16}=-143140$, with residue $53468$ modulo $2^{16}$
-and $B=31$, verifies the hypothesis at $d=1,N=12$. The theorem gives
-infinitely many certificates with depth equal to the shift for this pair,
-not for every $d,N$.
+and $B=31$, verifies the hypothesis at $d=1,N=12$. More explicitly,
+\[
+ \Delta_1(12)\in
+ \left[\frac{-143171}{65536},\frac{-143109}{65536}\right]
+ \subset(-3,-2).
+\]
+This enclosure proves nonintegrality without evaluating the infinite
+tails. The theorem gives infinitely many certificates with depth equal
+to the shift for this pair, not for every $d,N$.
 
 \subsection{Residues modulo divisors of Mersenne numbers}\label{long249:r3-mersenne}
 \papersectiontarget{long249-r3-mersenne}
@@ -9599,11 +9731,14 @@ a positive tail. If $S=a/(2^cv)$, then $vR_c\in\Z$ and
 $\Delta_H(c)\in\Z$. The residue of $-B_{H,c}$ is therefore within distance
 less than $c+H+1$ of $0\pmod M$, so \eqref{eq:canonical-gap} fails.
 
-If $S$ is irrational, fix $c,v$. Then $vR_c$ is nonintegral. As $H$ tends
-to infinity through positive multiples of $\ph(v)$,
-$\Delta_H(c)/M\to0$ and $(c+H+1)/M\to0$. Hence the fractional part of
-$-B_{H,c}/M=-vR_c+\Delta_H(c)/M$ stays away from both endpoints of $[0,1]$,
-which gives \eqref{eq:canonical-gap} for all sufficiently large such $H$.
+If $S$ is irrational, fix $c,v$ and put
+$\delta=\operatorname{dist}(vR_c,\Z)>0$. As $H$ grows through positive
+multiples of $\ph(v)$, choose it large enough that
+$|\Delta_H(c)|/M<\delta/3$ and $(c+H+1)/M<\delta/3$.
+Since $-B_{H,c}/M=-vR_c+\Delta_H(c)/M$, its distance from $\Z$
+is then greater than $2\delta/3$, while the forbidden endpoint
+width is below $\delta/3$. This proves \eqref{eq:canonical-gap}
+for all sufficiently large allowed $H$.
 \end{proof}
 For fixed $c,v$, one successful test excludes every value
 $S=a/(2^cv)$, regardless of the numerator $a$. Conversely,
@@ -10055,7 +10190,14 @@ uses differentiable weights with bounded derivative on the summation
 interval~\cite[Rem.~2.9]{bgs2016}.
 Applying that observation here would require control of the weighted
 error for the present phases; no such estimate is established in this
-record. The cited results are not themselves the dyadic residue
+record.
+In the totient specialisation the divisor-convolution kernel is
+$\mu(d)/d$ and both decay exponents in their theorem are $1$, giving
+an $O(\log^2x)$ error for the two-point product. The present quantity
+is instead an exponential of a window of overlapping totient values,
+with a denominator growing with $L$. Partial summation would carry
+the variation of its weight into the error term; it does not remove
+the need to bound that variation and the resulting weighted error. The cited results are not themselves the dyadic residue
 separation required by $\mathrm{Sep}$.  The remaining sources are cited where their hypotheses are
 used.
 
