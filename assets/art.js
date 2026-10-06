@@ -78,7 +78,10 @@
 
   /* Palettes. Night: a brick red that warms to coral at its front threads
      and a steel blue that lifts to a pale sky, both held at a mature chroma
-     (Will, 4 October: "a bit of glow, prudent, not flamboyant"). Day: the
+     (Will, 4 October: "a bit of glow, prudent, not flamboyant"). The
+     engraved pass (6 October) brightens the drawing's structure, not its
+     surface: contour lines and a firmer core, the twist hushed a little, and
+     half the night halo, which had softened the whole band. Day: the
      same two inks printed on paper. The cores are the eyes: each cable's
      core is drawn in the other cable's ink. */
   function palette(dark) {
@@ -87,8 +90,9 @@
         warmBack: [160, 63, 60], warmFront: [230, 123, 109],
         coolBack: [53, 96, 143], coolFront: [147, 197, 230],
         warmCore: [225, 115, 102], coolCore: [123, 178, 217],
-        alpha: 0.62, glow: 0.5, width: 1.0, blend: 'lighter',
-        coreWidth: 1.25, coreAlpha: 0.92, channel: 0.8
+        alpha: 0.62, glow: 0.26, width: 1.0, blend: 'lighter',
+        coreWidth: 1.35, coreAlpha: 0.95, channel: 0.8,
+        hush: 0.82, edgeAlpha: 0.78, edgeWidth: 0.95
       };
     }
     return {
@@ -96,7 +100,8 @@
       coolBack: [124, 156, 185], coolFront: [37, 83, 124],
       warmCore: [154, 50, 44], coolCore: [42, 89, 130],
       alpha: 0.64, glow: 0, width: 0.95, blend: 'source-over',
-      coreWidth: 1.15, coreAlpha: 0.86, channel: 0.85
+      coreWidth: 1.25, coreAlpha: 0.9, channel: 0.85,
+      hush: 0.8, edgeAlpha: 0.82, edgeWidth: 0.9
     };
   }
 
@@ -175,20 +180,37 @@
      does. Fewer, longer interlacings either side, so the eye travels to the
      knot and on down into the map. Every crossing is still a true over and
      under. The glossary's contained band keeps the even plait. */
+  /* 6 October 2026, evening: the engraved plait (Type B art direction). The
+     knot is one continuous tightening and release, not a row of equal small
+     lobes: a broad gathering carries the eye in from the left, a narrower
+     pull sits inside it, and both lean so the cables close more slowly than
+     they open. The separation follows the same tightness, so each lobe's
+     proportions change smoothly into the knot. The open spans are about a
+     quarter taller than before (same band, same rope), and a slow swing of
+     the separation makes the two long openings unequal: one longer and
+     shallower, one shorter and fuller. */
   var KNOT = 0.585;
   function geometry(W, H, composed) {
     var narrow = W < 760;
     var swell = function (u) { return Math.sin(Math.PI * Math.max(0, Math.min(1, u))); };
     var base = Math.max(300, Math.min(540, W * 0.3));
-    var knotW = narrow ? 0.12 : 0.072;
+    var lean = function (u, w, left, right) {
+      var d = (u - KNOT) / (w * (u < KNOT ? left : right));
+      return Math.exp(-d * d);
+    };
     var knot = composed
-      ? function (u) { var d = (u - KNOT) / knotW; return Math.exp(-d * d); }
+      ? function (u) { return lean(u, narrow ? 0.12 : 0.075, 1.25, 0.9); }
       : function () { return 0; };
+    var gather = composed
+      ? function (u) { return lean(u, narrow ? 0.26 : 0.2, 1.3, 0.8); }
+      : function () { return 0; };
+    var tight = function (u) { return Math.min(1, (0.5 * gather(u) + 1.85 * knot(u)) / 2.1); };
+    var unequal = function (u) { return 1 + 0.11 * Math.sin(Math.PI * 2 * (1.05 * u + 0.12)); };
     /* Crossings per pixel: under half the even plait's rate at the margins,
        nearly three times it in the knot. The phase is its
        running integral, tabled at 2px and read back by interpolation. */
     var freq = composed
-      ? function (u) { return (0.46 + 2.3 * knot(u)) / base; }
+      ? function (u) { return (0.42 + 0.5 * gather(u) + 1.85 * knot(u)) / base; }
       : function () { return 1 / base; };
     var lo = -Math.round(base), hi = Math.round(W + base), dx = 2;
     var table = [0], acc = 0, x;
@@ -205,7 +227,11 @@
       H: H,
       period: base,
       ropeTwist: Math.max(58, Math.min(92, W * 0.056)),
-      strands: narrow ? 9 : 11,
+      /* About a quarter fewer threads than the 5 October rope: the contour
+         and the core now carry the cable, so the twist only has to describe
+         the material. */
+      strands: narrow ? 7 : 8,
+      tight: composed ? tight : function () { return 0; },
       lo: lo,
       hi: hi,
       phase: function (xx) {
@@ -214,16 +240,16 @@
         return table[i] + (table[i + 1] - table[i]) * f - zero;
       },
       centre: function (u) {
-        return H * (0.5 + 0.055 * Math.sin(Math.PI * 2 * (0.7 * u + 0.08)));
+        return H * (0.5 + (composed ? 0.04 : 0.055) * Math.sin(Math.PI * 2 * (0.7 * u + 0.08)));
       },
       sep: function (u) {
         return composed
-          ? H * (0.24 - 0.155 * knot(u)) * (0.7 + 0.3 * swell(u))
+          ? H * (0.3 - 0.198 * Math.pow(tight(u), 0.85)) * (0.72 + 0.28 * swell(u)) * unequal(u)
           : H * (0.145 + 0.075 * swell(u));
       },
       rope: function (u) {
         return composed
-          ? H * (0.044 + 0.018 * swell(u) + 0.028 * knot(u))
+          ? H * (0.044 + 0.018 * swell(u) + 0.026 * tight(u))
           : H * (0.058 + 0.032 * swell(u));
       }
     };
@@ -253,16 +279,65 @@
     return out;
   }
 
+  /* The cable's local frame: its axis point and the unit normal. The rope is
+     laid out along the normal, so it keeps its true width where the cable
+     climbs steeply instead of thinning, as a vertical offset made it. */
+  function cableFrame(g, x, k) {
+    var y = cableY(g, x, k);
+    var dy = (cableY(g, x + 1, k) - cableY(g, x - 1, k)) / 2;
+    var l = Math.sqrt(1 + dy * dy);
+    return { y: y, nx: -dy / l, ny: 1 / l };
+  }
+
+  /* Distance along each cable's axis, tabled at 2px. The twist is wound by
+     this distance rather than by x, so the hatching keeps one pitch along the
+     curve and does not pack up on the steep runs through the knot. */
+  function arcAt(g, k, x) {
+    if (!g.arcs) g.arcs = [];
+    var tab = g.arcs[k];
+    if (!tab) {
+      tab = [0];
+      var acc = 0, py = cableY(g, g.lo, k), xx, yy;
+      for (xx = g.lo + 2; xx <= g.hi + 2; xx += 2) {
+        yy = cableY(g, xx, k);
+        acc += Math.sqrt(4 + (yy - py) * (yy - py));
+        tab.push(acc);
+        py = yy;
+      }
+      g.arcs[k] = tab;
+    }
+    var t = (Math.max(g.lo, Math.min(g.hi, x)) - g.lo) / 2;
+    var i = Math.min(tab.length - 2, Math.floor(t)), f = t - i;
+    return tab[i] + (tab[i + 1] - tab[i]) * f;
+  }
+
+  function strokeBuckets(c, paths, styleOf) {
+    for (var b = 0; b < paths.length; b += 1) {
+      var segs = paths[b];
+      if (!segs.length) continue;
+      styleOf(c, (b + 0.5) / paths.length);
+      c.beginPath();
+      for (var s = 0; s < segs.length; s += 4) {
+        c.moveTo(segs[s], segs[s + 1]);
+        c.lineTo(segs[s + 2], segs[s + 3]);
+      }
+      c.stroke();
+    }
+  }
+
   /* Draw one cable's threads between x0 and x1. Opacity follows depth twice:
      a thread at the front of its rope is brighter, and the whole cable dims
      while it passes behind the other. Segments are grouped into opacity
-     buckets so a thread is a handful of strokes, not hundreds. */
+     buckets so a thread is a handful of strokes, not hundreds. The twist is
+     the quiet layer: it is held a little lower on the long open spans and
+     comes up as the cables pull into the knot. */
   function drawCable(c, g, pal, k, x0, x1, scale) {
     var n = g.strands;
     var step = 2;
     var back = k === 0 ? pal.warmBack : pal.coolBack;
     var front = k === 0 ? pal.warmFront : pal.coolFront;
     var buckets = 7;
+    var hush = pal.hush * (0.8 + 0.2 * g.tight(((x0 + x1) / 2) / g.W));
     var j, x, b;
     for (j = 0; j < n; j += 1) {
       var theta = (Math.PI * 2 * j) / n;
@@ -273,33 +348,62 @@
          continuation in the next chunk with no gap at the join. */
       for (x = x0; ; x = Math.min(x + step, x1)) {
         var u = x / g.W;
-        var psi = (Math.PI * 2 * x) / g.ropeTwist + theta;
-        var y = cableY(g, x, k) + g.rope(u) * Math.cos(psi);
+        var f = cableFrame(g, x, k);
+        var psi = (Math.PI * 2 * arcAt(g, k, x)) / g.ropeTwist + theta;
+        var r = g.rope(u) * Math.cos(psi);
+        var px = x + f.nx * r;
+        var py = f.y + f.ny * r;
         if (prev) {
           var d = (Math.sin(psi) + 1) / 2;
           var z = (cableDepth(g, x, k) + 1) / 2;
           var level = Math.pow(d, 1.6) * (0.5 + 0.5 * z);
           var bucket = Math.min(buckets - 1, Math.floor(level * buckets));
-          paths[bucket].push(prev[0], prev[1], x, y);
+          paths[bucket].push(prev[0], prev[1], px, py);
         }
-        prev = [x, y];
+        prev = [px, py];
         if (x >= x1) break;
       }
-      for (b = 0; b < buckets; b += 1) {
-        var segs = paths[b];
-        if (!segs.length) continue;
-        var t = (b + 0.5) / buckets;
+      strokeBuckets(c, paths, function (cc, t) {
         var col = mix(back, front, t);
-        var a = pal.alpha * (0.14 + 0.86 * t);
-        c.strokeStyle = 'rgba(' + col[0] + ',' + col[1] + ',' + col[2] + ',' + a.toFixed(3) + ')';
-        c.lineWidth = scale * pal.width * (0.55 + 0.75 * t);
-        c.beginPath();
-        for (var s = 0; s < segs.length; s += 4) {
-          c.moveTo(segs[s], segs[s + 1]);
-          c.lineTo(segs[s + 2], segs[s + 3]);
+        var a = pal.alpha * hush * (0.14 + 0.86 * t);
+        cc.strokeStyle = 'rgba(' + col[0] + ',' + col[1] + ',' + col[2] + ',' + a.toFixed(3) + ')';
+        cc.lineWidth = scale * pal.width * (0.55 + 0.75 * t);
+      });
+    }
+  }
+
+  /* The engraver's lines. Each cable is bounded by two continuous contour
+     lines, the long strokes that carry the eye across the page; with the
+     core between them they are the cable's drawing, and the twist inside is
+     its material. They dim with the cable as it passes behind, so the one in
+     front reads as nearer at every crossing without a shadow. */
+  function drawContour(c, g, pal, k, x0, x1, scale) {
+    var back = k === 0 ? pal.warmBack : pal.coolBack;
+    var front = k === 0 ? pal.warmFront : pal.coolFront;
+    var buckets = 5;
+    var side, x, b;
+    for (side = -1; side <= 1; side += 2) {
+      var paths = [];
+      for (b = 0; b < buckets; b += 1) paths.push([]);
+      var prev = null;
+      for (x = x0; ; x = Math.min(x + 2, x1)) {
+        var f = cableFrame(g, x, k);
+        var r = side * (g.rope(x / g.W) + 0.35);
+        var px = x + f.nx * r;
+        var py = f.y + f.ny * r;
+        if (prev) {
+          var z = (cableDepth(g, x, k) + 1) / 2;
+          paths[Math.min(buckets - 1, Math.floor(z * buckets))].push(prev[0], prev[1], px, py);
         }
-        c.stroke();
+        prev = [px, py];
+        if (x >= x1) break;
       }
+      strokeBuckets(c, paths, function (cc, t) {
+        var col = mix(back, front, 0.45 + 0.4 * t);
+        var a = pal.edgeAlpha * (0.4 + 0.6 * t);
+        cc.strokeStyle = 'rgba(' + col[0] + ',' + col[1] + ',' + col[2] + ',' + a.toFixed(3) + ')';
+        cc.lineWidth = scale * pal.edgeWidth;
+      });
     }
   }
 
@@ -351,20 +455,34 @@
      round cap bit a half-disc out of the rope already drawn at every crest,
      which read as scales down the cable, and an erase reaching the join
      column left a hairline there. */
+  /* 6 October 2026, evening: the cut is filled as the front cable's own
+     outline, widened by a fixed margin along the normal, so it follows the
+     rope's local width through the knot (a stroke of one width cut too much
+     where the rope thins and too little where it swells). Its margin tapers
+     to nothing towards the joins, where the cables stand furthest apart: in
+     the knot they nearly touch there, and a full margin clipped the other
+     cable along its whole length, leaving a 2px stub of thread at each join. */
   function eraseUnder(c, g, k, x0, x1, scale) {
     var a = x0 + 2;
     var b = x1 - 2;
+    var upper = [], lower = [], x, i;
+    for (x = a; ; x = Math.min(x + 2, b)) {
+      var f = cableFrame(g, x, k);
+      var t = (x - a) / Math.max(1, b - a);
+      var r = g.rope(x / g.W) + 3.2 * scale * Math.min(1, 1.8 * Math.sin(Math.PI * t));
+      upper.push(x + f.nx * r, f.y + f.ny * r);
+      lower.push(x - f.nx * r, f.y - f.ny * r);
+      if (x >= b) break;
+    }
     c.save();
     c.globalCompositeOperation = 'destination-out';
-    c.strokeStyle = 'rgba(0,0,0,0.9)';
-    c.lineCap = 'butt';
-    c.lineJoin = 'round';
+    c.fillStyle = 'rgba(0,0,0,0.92)';
     c.beginPath();
-    c.moveTo(a, cableY(g, a, k));
-    for (var x = a + 3; x < b; x += 3) c.lineTo(x, cableY(g, x, k));
-    c.lineTo(b, cableY(g, b, k));
-    c.lineWidth = 2 * g.rope(((x0 + x1) / 2) / g.W) + 7 * scale;
-    c.stroke();
+    c.moveTo(upper[0], upper[1]);
+    for (i = 2; i < upper.length; i += 2) c.lineTo(upper[i], upper[i + 1]);
+    for (i = lower.length - 2; i >= 0; i -= 2) c.lineTo(lower[i], lower[i + 1]);
+    c.closePath();
+    c.fill();
     c.restore();
   }
 
@@ -422,10 +540,12 @@
       var x1 = Math.min(W + 20, cuts[chunk + 1]);
       if (x1 > x0) {
         drawCable(c, g, pal, backK, x0, x1, 1);
+        drawContour(c, g, pal, backK, x0, x1, 1);
         drawCore(c, g, pal, backK, x0, x1);
         eraseUnder(c, g, frontK, x0, x1, 1);
         c.globalCompositeOperation = pal.blend;
         drawCable(c, g, pal, frontK, x0, x1, 1);
+        drawContour(c, g, pal, frontK, x0, x1, 1);
         drawCore(c, g, pal, frontK, x0, x1);
       }
     }
@@ -442,7 +562,7 @@
         c.setTransform(1, 0, 0, 1, 0, 0);
         c.globalCompositeOperation = 'lighter';
         c.globalAlpha = pal.glow;
-        c.filter = 'blur(' + Math.round(7 * dpr) + 'px)';
+        c.filter = 'blur(' + Math.round(5 * dpr) + 'px)';
         c.drawImage(copy, 0, 0);
         c.restore();
       } catch (e) {}

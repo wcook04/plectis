@@ -1590,6 +1590,12 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-gauge__seg--lean { background: var(--u-statement); }
 .universe-gauge__seg--modulo { background: color-mix(in srgb, var(--u-statement) 45%, transparent); }
 .universe-gauge__seg--none { background: color-mix(in srgb, var(--faint) 45%, transparent); }
+/* The static page draws the strip as SVG (no inline styles); same colours as fills. */
+svg.universe-gauge { display: block; width: 100%; }
+rect.universe-gauge__seg--replayed { fill: var(--u-integration); }
+rect.universe-gauge__seg--lean { fill: var(--u-statement); }
+rect.universe-gauge__seg--modulo { fill: color-mix(in srgb, var(--u-statement) 45%, transparent); }
+rect.universe-gauge__seg--none { fill: color-mix(in srgb, var(--faint) 45%, transparent); }
 .universe-overview__gauge { margin: 0 0 var(--space-2); }
 .universe-overview__gauge .universe-gauge { height: 9px; border-radius: 4px; }
 .universe-problems { list-style: none; margin: 0 0 var(--space-3); padding: 0; }
@@ -2606,15 +2612,13 @@ html:not(.scripting) .maths-layout a.narrative-ref--term {
   border-color: var(--rule-control);
 }
 .universe-explorer .universe-results { z-index: 30; max-height: min(60vh, 28rem); }
-/* While a card is read the head keeps its way back, its title and the
-   search; the lede returns with the overview. */
-.universe-explorer.is-reading .explorer__lede { display: none; }
-.universe-explorer.is-reading .universe-rest { display: none; }
-
 /* The preview layer spans the whole panel, so nothing of the card under it
-   shows at its edge; its words keep the panel's measure. */
-.universe-explorer .universe-inspector,
-.universe-preview > * { max-width: 62ch; }
+   shows at its edge. Rows, rules and summaries use the panel's whole width
+   (6 October 2026); only prose keeps a reading measure. */
+.universe-explorer :is(.universe-inspector, [data-universe-pane]) :is(p, .universe-quote),
+.universe-preview > p, .universe-preview .universe-quote { max-width: 64ch; }
+.universe-explorer :is(.universe-inspector, [data-universe-pane]) :is(.universe-folio, .universe-context, .universe-list__from, .universe-step),
+.universe-preview :is(.universe-folio, .universe-context) { max-width: none; }
 .universe-summary {
   margin: 0.15rem 0 0.8rem; max-width: 52ch;
   font-size: 1rem; line-height: 1.6; color: var(--ink-soft); text-wrap: pretty;
@@ -2627,27 +2631,50 @@ html:not(.scripting) .maths-layout a.narrative-ref--term {
 .universe-explorer .universe-overview__gauge { margin: 0 0 0.4rem; }
 .universe-explorer .universe-overview__gauge .universe-gauge { height: 8px; border-radius: 4px; max-width: 30rem; }
 
-/* The problems, as landmarks: number, title, its count in words, its bar. */
-.universe-explorer .universe-problems { margin: 0 0 0.7rem; border-top: 1px solid var(--home-line-strong); }
+/* The problems, as landmarks (6 October 2026): a number column, the
+   title as the row's largest words, the replay count in figures that line
+   up, and a slim strip of the same counts across the title's width. Rows
+   rest flat on hairlines; hover lifts a row a little, the problem last
+   read stands as a quiet raised region with a clear edge, and keyboard
+   focus is the steel ring, apart from both. Ember and teal stay with the
+   evidence they mean. */
+.universe-explorer .universe-problems { margin: 0 0 0.4rem; border-top: 1px solid var(--home-line-strong); }
 .universe-explorer .universe-problem {
-  grid-template-columns: 3.7rem minmax(0, 1fr);
+  grid-template-columns: 3.6rem minmax(0, 1fr);
   grid-template-areas: "num name" "num count" "num gauge";
-  gap: 0.12rem 0.4rem; align-items: baseline;
-  min-height: 44px; padding: 0.62rem 0.5rem 0.68rem 0.3rem;
-  border-top: 1px solid var(--home-line);
+  gap: 0.14rem 0.35rem; align-items: baseline;
+  min-height: 64px; padding: 0.72rem 0.6rem 0.8rem 0.35rem;
+  border-top: 1px solid var(--home-line); border-radius: 0;
+  transition: background-color var(--motion-fast, 120ms) var(--ease-out, ease-out);
 }
+.universe-explorer .universe-problems li:first-child .universe-problem { border-top: 0; }
 .universe-explorer .universe-problem__num {
   grid-area: num; font-family: var(--font-serif); font-size: 1.04rem; line-height: 1.3;
   color: var(--home-ember); font-variant-numeric: lining-nums tabular-nums;
 }
 .universe-explorer .universe-problem__name {
   grid-area: name; white-space: normal; overflow: visible;
-  font-family: var(--font-serif); font-size: 1.06rem; line-height: 1.3; color: var(--ink); text-wrap: pretty;
+  font-family: var(--font-serif); font-size: 1.0625rem; line-height: 1.3; color: var(--ink); text-wrap: pretty;
 }
-.universe-explorer .universe-problem__count { grid-area: count; font-size: var(--fs-small); color: var(--muted); }
-.universe-explorer .universe-problem .universe-gauge { grid-area: gauge; align-self: center; height: 4px; margin-top: 0.3rem; max-width: 15rem; }
-.universe-explorer .universe-problem:hover { background: color-mix(in srgb, var(--home-ember) 7%, transparent); }
+.universe-explorer .universe-problem__count {
+  grid-area: count; margin-top: 0.1rem; font-size: var(--fs-meta); line-height: 1.35; color: var(--muted);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.universe-explorer .universe-problem__count b { font-weight: 600; color: var(--ink-soft); }
+.universe-explorer .universe-problem .universe-gauge {
+  grid-area: gauge; align-self: center; width: 100%; max-width: none; height: 3px; margin-top: 0.42rem; border-radius: 2px;
+}
+.universe-explorer .universe-problem:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); }
 .universe-explorer .universe-problem:hover .universe-problem__name { color: var(--ink); }
+.universe-explorer .universe-problem.is-current {
+  border-radius: var(--r-sm, 6px); border-top-color: transparent;
+  background: color-mix(in srgb, var(--ink) 7%, var(--page));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 24%, transparent);
+}
+.universe-explorer .universe-problems li:has(.is-current) + li .universe-problem { border-top-color: transparent; }
+.universe-explorer .universe-problem:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--r-sm, 6px);
+}
 
 /* The panel's prose reads at body size; its asides a step smaller. */
 .universe-explorer .universe-inspector__body,
@@ -2768,8 +2795,9 @@ html:not(.scripting) .maths-layout a.narrative-ref--term {
 .universe-preview[hidden] { display: none; }
 .universe-preview .universe-inspector__hint { color: var(--muted); font-size: var(--fs-meta); }
 
-/* Under the overview: the controls, how the map is drawn, every object as
-   a list. */
+/* Without scripts the views stand in order under the problems, each
+   parted by a rule; with them one view stands at a time (the panel views,
+   below). */
 .universe-rest > section {
   max-width: 62ch; margin: 0; padding: 1.5rem 0 0.5rem;
   border-top: 1px solid var(--home-line-strong);
@@ -2897,8 +2925,9 @@ html:not(.scripting) .universe-explorer .universe-show { display: none; }
 }
 
 /* ---- The universe reader as a page (7 October 2026) ------------------------
-   Once something is kept, the map's own title gives way (the crumbs above
-   it still say where the reader is) and the kept object's title leads. A
+   Once something is kept, the map's own title steps down to a running
+   head naming the place (the panel views, below) and the kept object's
+   title leads. A
    kept result reads down the panel as a page of an edition: its problem as
    a running head; one folio line with the way through its paper and the
    way back, quiet and always in the same place, so stepping through a
@@ -2906,11 +2935,6 @@ html:not(.scripting) .universe-explorer .universe-show { display: none; }
    far it is checked, in one line; then the statement on the panel's own
    ground behind one fine ember rule, the largest uninterrupted thing in
    the panel. Status keeps its glyph and words, never its colour alone. */
-.universe-explorer.is-reading .explorer__title {
-  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
-  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
-}
-.universe-explorer.is-reading .universe-find { margin-top: 0; }
 .universe-explorer .universe-context { margin: 0 0 0.35rem; padding: 0; border-bottom: 0; }
 .universe-explorer .universe-folio {
   display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
@@ -3265,3 +3289,278 @@ body.maths-folio.has-viewback:has(.maths-layout) .viewback:not(:hover):not(:focu
 }
 /* The resting arrow sits above the opening's first line, never on it. */
 body.maths-folio.has-viewback .reading-index.folio .folio-cover { padding-top: 4rem; }
+
+/* ---- The universe panel as a guide (6 October 2026) -------------------------
+   Type B review of the map's reading panel: it reads to the reader's current
+   question, one view at a time, rather than as one long document. The head
+   keeps the way back, the switch to the system map, the title, the search
+   and the panel's two destinations (Problems, Index) with its two tools
+   (Map filters, How to read); at depth the title steps down and the head
+   names the place being read. The body shows the view universe.js sets on
+   the explorer as data-universe-view; without scripts the attribute is
+   absent and every view stands in order, the index being the map's text
+   alternative. One grid: the search, rows, rules and summaries share the
+   panel's left and right edges (--u-gutter is the body's scrollbar, so
+   the head's right edge meets the body's); only prose keeps a measure. */
+.universe-explorer .explorer__head { padding-right: calc(var(--explorer-pad) + var(--u-gutter, 0px)); }
+
+/* The title, and at depth the place being read as a short trail that
+   runs on from the title, as a running head does, and wraps under it. */
+.universe-heading { display: block; }
+.universe-explorer.is-deep .explorer__title { display: inline; }
+.universe-where { display: inline; margin: 0; }
+.universe-where[hidden] { display: none; }
+.universe-where__seg, .universe-where__sep, .universe-where::before {
+  font-family: var(--font-serif); font-size: 1.12rem; line-height: 1.4;
+}
+.universe-where__seg { color: var(--ink-soft); overflow-wrap: anywhere; }
+.universe-where__seg:last-child { color: var(--ink); }
+.universe-where__sep, .universe-where::before { color: var(--faint); padding: 0 0.4em; }
+.universe-where:not([hidden])::before { content: "/"; }
+.universe-explorer.is-deep .explorer__title {
+  font-size: 1.12rem; line-height: 1.4; letter-spacing: 0; color: var(--muted);
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .universe-explorer .explorer__title { transition: font-size 160ms var(--ease-out, ease-out), color 160ms var(--ease-out, ease-out); }
+}
+.universe-explorer .universe-find { margin-top: 0.8rem; }
+.universe-explorer.is-deep .universe-find { margin-top: 0.65rem; }
+.universe-find__none {
+  margin: 0.55rem 0 0; font-size: var(--fs-meta); line-height: 1.5; color: var(--ink-soft); text-wrap: pretty;
+}
+.universe-find__none[hidden] { display: none; }
+
+/* Problems and Index are peers: two plain tabs, the open one underlined in
+   ink. The tools are quiet outlined buttons at the row's other end. */
+.universe-nav {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 0.4rem 0.75rem; margin: 0.7rem 0 -0.2rem;
+}
+.universe-explorer:not([data-universe-view]) .universe-nav { display: none; }
+.universe-tabs { display: flex; gap: 1.1rem; }
+.universe-tab {
+  min-height: 36px; padding: 0.35rem 0 0.25rem; border: 0; border-bottom: 2px solid transparent; border-radius: 0;
+  background: none; cursor: pointer; font: inherit; font-size: 0.9375rem; font-weight: 600; line-height: 1.2;
+  color: var(--muted);
+}
+.universe-tab:hover { color: var(--ink-soft); }
+.universe-tab[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.universe-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.universe-utils { display: flex; flex-wrap: wrap; gap: 6px; }
+.universe-util {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  min-height: 32px; padding: 0 0.7rem; border: 0; border-radius: var(--r-pill); cursor: pointer;
+  background: none; box-shadow: 0 0 0 1px var(--home-line-strong);
+  font: inherit; font-size: 0.8125rem; font-weight: 600; line-height: 1; color: var(--ink-soft);
+}
+.universe-util svg { width: 14px; height: 14px; flex: none; }
+.universe-util:hover { color: var(--ink); box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 38%, transparent); }
+.universe-util[aria-pressed="true"] {
+  color: var(--ink); background: color-mix(in srgb, var(--ink) 8%, var(--page));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 45%, transparent);
+}
+.universe-util:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.universe-util__badge {
+  display: inline-grid; place-items: center; min-width: 1.15rem; height: 1.15rem; padding: 0 0.3rem;
+  border-radius: var(--r-pill); background: var(--ink); color: var(--page);
+  font-size: 0.6875rem; font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.universe-util__badge[hidden] { display: none; }
+
+/* An active filter stays said under the head, with its reset, whatever
+   view is open. */
+.universe-filtered {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.2rem 0.8rem;
+  margin: 0.8rem 0 0; padding: 0.45rem 0.7rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent); border-radius: var(--r-sm, 6px);
+  background: color-mix(in srgb, var(--accent) 8%, var(--page));
+}
+.universe-filtered[hidden] { display: none; }
+.universe-filtered__text { flex: 1 1 14rem; margin: 0; font-size: var(--fs-meta); line-height: 1.45; color: var(--ink); text-wrap: pretty; }
+.universe-filtered__acts { display: inline-flex; gap: 0.9rem; }
+.universe-filtered__btn, .universe-inline-btn {
+  min-height: 24px; padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: inherit; font-weight: 600; color: var(--accent-strong);
+  text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-underline-offset: 0.18em;
+}
+.universe-filtered__btn { font-size: var(--fs-meta); }
+.universe-inline-btn { min-height: 0; font-weight: 500; }
+.universe-filtered__btn:hover, .universe-inline-btn:hover { text-decoration-color: currentColor; }
+.universe-filtered__btn:focus-visible, .universe-inline-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.universe-filtered__btn:disabled, .universe-inline-btn[hidden] { display: none; }
+
+/* One view at a time, once the engine has set one. */
+.universe-explorer[data-universe-view] [data-universe-pane] { display: none; }
+.universe-explorer[data-universe-view="index"] [data-universe-pane="index"],
+.universe-explorer[data-universe-view="filters"] [data-universe-pane="filters"],
+.universe-explorer[data-universe-view="about"] [data-universe-pane="about"] { display: block; }
+.universe-explorer:is([data-universe-view="index"], [data-universe-view="filters"], [data-universe-view="about"]) .universe-inspector { display: none; }
+.universe-explorer[data-universe-view] .universe-rest { margin: 0; }
+.universe-explorer[data-universe-view] .universe-rest > section { max-width: none; margin: 0; padding: 0; border-top: 0; }
+.universe-explorer [data-universe-pane] > .universe-section__title:first-of-type,
+.universe-explorer .universe-index__head .universe-section__title { margin-top: 0.15rem; }
+.universe-pane__lede { margin: 0 0 1rem; font-size: var(--fs-body); line-height: 1.55; color: var(--ink-soft); text-wrap: pretty; }
+.universe-explorer :is([data-universe-pane], .universe-inspector) :is(h2, h3)[tabindex="-1"]:focus { outline: none; }
+.universe-explorer :is([data-universe-pane], .universe-inspector) :is(h2, h3)[tabindex="-1"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+/* A view's way back: a labelled text button at its top. */
+.universe-paneback {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  min-height: 32px; margin: 0 0 0.55rem -0.5rem; padding: 0 0.6rem 0 0.5rem;
+  border: 0; border-radius: var(--r-pill); background: none; cursor: pointer;
+  font: inherit; font-size: var(--fs-meta); font-weight: 600; color: var(--ink-soft);
+}
+.universe-paneback:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.universe-paneback:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
+.universe-paneback[hidden] { display: none; }
+
+/* The Problems view: the lede, the scope in two lines, the problems. */
+.universe-lede { margin: 0 0 0.85rem; font-size: var(--fs-body); line-height: 1.55; color: var(--ink-soft); text-wrap: pretty; }
+.universe-scope-line {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1rem 0.9rem;
+  margin: 0 0 0.2rem; font-variant-numeric: lining-nums tabular-nums;
+}
+.universe-scope-line__lead { flex: 0 0 100%; font-size: 0.9375rem; font-weight: 600; line-height: 1.4; color: var(--ink); }
+.universe-scope-line__totals { font-size: var(--fs-meta); line-height: 1.5; color: var(--ink-soft); }
+.universe-scope-line__go {
+  min-height: 24px; padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: var(--fs-meta); font-weight: 600; color: var(--accent-strong);
+  text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); text-underline-offset: 0.18em;
+}
+.universe-scope-line__go:hover { text-decoration-color: currentColor; }
+.universe-scope-line__go:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.universe-explorer .universe-problems__title { margin-top: 1.5rem; }
+.universe-card__index { margin: 1.1rem 0 0; }
+
+/* The index: categories first, each a row that says what it holds. */
+.universe-cats { list-style: none; margin: 0.2rem 0 0; padding: 0; border-top: 1px solid var(--home-line-strong); }
+.universe-cats__go {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name count" "desc desc";
+  gap: 0.15rem 1rem; align-items: baseline;
+  padding: 0.75rem 0.6rem 0.8rem 0; border-bottom: 1px solid var(--home-line);
+  color: var(--ink); text-decoration: none;
+}
+.universe-cats__go:hover { text-decoration: none; background: color-mix(in srgb, var(--ink) 4%, transparent); }
+.universe-cats__go:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--r-sm, 6px); }
+.universe-cats__name { grid-area: name; font-family: var(--font-serif); font-size: 1.0625rem; line-height: 1.3; color: var(--ink); }
+.universe-cats__count { grid-area: count; font-size: var(--fs-meta); color: var(--muted); font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
+.universe-cats__desc { grid-area: desc; font-size: var(--fs-meta); line-height: 1.45; color: var(--muted); text-wrap: pretty; }
+.universe-cat { margin: 1.5rem 0 0; }
+.universe-cat__title {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.7rem;
+  margin: 0 0 0.45rem; font-family: var(--font-serif); font-size: 1.22rem; font-weight: 500; line-height: 1.2; color: var(--ink);
+}
+.universe-cat__count { font-family: var(--font-sans); font-size: var(--fs-meta); font-weight: 400; color: var(--muted); font-variant-numeric: lining-nums tabular-nums; }
+.universe-cat__note { margin: 0 0 0.6rem; font-size: var(--fs-meta); line-height: 1.5; color: var(--muted); text-wrap: pretty; }
+.universe-index__scope {
+  margin: 0 0 0.8rem; padding: 0.45rem 0.7rem 0.5rem; border-radius: var(--r-sm, 6px);
+  border: 1px solid var(--home-line-strong); background: color-mix(in srgb, var(--ink) 4%, var(--page));
+  font-size: var(--fs-meta); line-height: 1.5; color: var(--ink-soft);
+}
+.universe-index__scope b { font-weight: 600; color: var(--ink); }
+.universe-index__scope[hidden] { display: none; }
+.universe-index__status { margin: 0 0 0.6rem; font-size: var(--fs-meta); line-height: 1.5; color: var(--ink-soft); }
+.universe-index__status[hidden], .universe-index__status:empty { display: none; }
+.universe-explorer[data-universe-index="cats"] .universe-cat { display: none; }
+.universe-explorer:is([data-universe-index="cat"], [data-universe-index="all"]) :is(.universe-cats, .universe-index__head) { display: none; }
+.universe-explorer:is([data-universe-index="cat"], [data-universe-index="all"]) .universe-cat:not(.is-open),
+.universe-explorer[data-universe-index="all"] .universe-cat.is-empty { display: none; }
+.universe-explorer[data-universe-index="cat"] .universe-cat.is-open { margin-top: 0.1rem; }
+.universe-explorer[data-universe-index="cat"] .universe-cat__title { font-size: 1.42rem; }
+.uidx-list li[hidden] { display: none; }
+
+/* The index's rows: each category its own treatment, on one edge. */
+.universe-explorer .universe-index ul.uidx-list,
+.uidx-list { list-style: none; columns: 1; margin: 0 0 0.4rem; padding: 0; border-top: 1px solid var(--home-line); }
+.universe-explorer .universe-index .uidx-list li { padding: 0; font-size: inherit; line-height: inherit; }
+.uidx-row {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.12rem; align-items: baseline;
+  min-height: 44px; padding: 0.55rem 0.6rem 0.6rem 0; border-bottom: 1px solid var(--home-line);
+  color: var(--ink); text-decoration: none;
+}
+a.uidx-row:hover { text-decoration: none; background: color-mix(in srgb, var(--ink) 4%, transparent); }
+a.uidx-row:hover .uidx-title { color: var(--ink); }
+.uidx-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--r-sm, 6px); }
+.universe-explorer .universe-index a.uidx-row { color: var(--ink); }
+.uidx-title { min-width: 0; font-size: 0.9375rem; line-height: 1.4; color: var(--ink); overflow-wrap: break-word; text-wrap: pretty; }
+.uidx-meta { font-size: var(--fs-meta); line-height: 1.4; color: var(--muted); }
+.uidx-tally { font-size: var(--fs-meta); line-height: 1.45; color: var(--ink-soft); font-variant-numeric: lining-nums tabular-nums; text-wrap: pretty; }
+.uidx-row .universe-gauge { display: flex; width: 100%; height: 3px; margin-top: 0.35rem; border-radius: 2px; }
+.uidx-row--problem { grid-template-columns: 3.6rem minmax(0, 1fr); padding-left: 0.35rem; }
+.uidx-num { font-family: var(--font-serif); font-size: 1rem; color: var(--home-ember); font-variant-numeric: lining-nums tabular-nums; }
+.uidx-row--problem .uidx-title { font-family: var(--font-serif); font-size: 1.0625rem; line-height: 1.3; }
+.uidx-row--claim { grid-template-columns: 0.85rem minmax(0, 1fr); column-gap: 0.6rem; }
+.uidx-row--claim .glyph { grid-row: 1 / span 2; align-self: start; margin: 0.32em 0 0; }
+.uidx-row--claim .uidx-title, .uidx-row--claim .uidx-meta { grid-column: 2; }
+.uidx-ident {
+  font-size: 0.75rem; line-height: 1.45; color: var(--muted); background: none; padding: 0;
+  overflow-wrap: anywhere; word-break: normal;
+}
+.uidx-row--module .uidx-title { overflow-wrap: anywhere; }
+
+/* The map filters: grouped, each group named. */
+.universe-fgroup { margin: 0 0 1.15rem; }
+.universe-explorer .universe-fgroup__title {
+  flex: 0 0 100%; margin: 0 0 0.45rem; font-family: var(--font-sans); font-size: 0.875rem; font-weight: 600;
+  line-height: 1.3; color: var(--ink);
+}
+.universe-show .universe-filters { display: block; }
+.universe-show .universe-keys { margin: 0; gap: 0; }
+.universe-show .universe-key { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; }
+.universe-show .universe-count { margin: 0 0 1.15rem; }
+.universe-show .universe-full .universe-full__note { margin: 0 0 0.6rem; }
+.universe-reset { margin: 0.4rem 0 0; padding-top: 1rem; border-top: 1px solid var(--home-line); }
+.universe-reset__btn:disabled { opacity: 0.5; cursor: default; }
+
+/* How to read the map: the key, the evidence in full, the sources. */
+.universe-explorer .universe-about__sub {
+  margin: 1.6rem 0 0.5rem; font-family: var(--font-sans); font-size: 0.9375rem; font-weight: 600; line-height: 1.3; color: var(--ink);
+}
+.universe-explorer .universe-about h2 + .universe-about__sub { margin-top: 0.6rem; }
+.universe-explorer .universe-about .universe-rings li { font-size: var(--fs-meta); }
+.universe-marklist { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; gap: 0.3rem; }
+.universe-marklist li { display: flex; align-items: center; gap: 0.6rem; font-size: var(--fs-meta); color: var(--ink-soft); }
+.universe-marklist .glyph { flex: none; width: 11px; height: 11px; margin: 0; }
+.universe-explorer .universe-about p { font-size: var(--fs-body); }
+.universe-explorer .universe-about p[data-universe-captions] { font-size: var(--fs-meta); color: var(--muted); }
+.universe-explorer .universe-about p[data-universe-captions]:empty { display: none; }
+.universe-explorer .universe-about .universe-summary { margin: 0 0 0.4rem; font-size: var(--fs-body); }
+.universe-evidence h4.universe-inspector__sub { margin: 1rem 0 0.4rem; font-size: var(--fs-meta); font-weight: 600; color: var(--ink); }
+.universe-evidence .universe-inspector__census li { font-size: var(--fs-meta); }
+.universe-evidence .universe-inspector__note { font-size: var(--fs-meta); color: var(--muted); }
+
+/* The way back to the page before (docs.js's back pill) keeps its words
+   on the map: folded to an arrow it said nothing of what it does. */
+html.is-explorer body:has(.universe-explorer) .viewback.is-folded:not(:hover):not(:focus-visible) {
+  width: auto; height: auto; gap: 0.45rem; padding: 0.55rem 1rem 0.55rem 0.82rem; justify-content: flex-start;
+}
+html.is-explorer body:has(.universe-explorer) .viewback.is-folded:not(:hover):not(:focus-visible) .viewback__label { display: inline; }
+
+@media (max-width: 899px) {
+  .universe-explorer .explorer__head { padding-right: 16px; }
+  .universe-nav { margin-top: 0.55rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .universe-explorer .universe-problem { transition: none; }
+}
+/* An index row that leaves the site keeps its outward mark, at the row's
+   right; a row the panel opens as a card (with scripts) has no such mark. */
+.uidx-row { position: relative; }
+a.uidx-row[data-link-kind="exogenous"] { padding-right: 1.6rem; }
+a.uidx-row[data-link-kind="exogenous"]::after { position: absolute; right: 0.5rem; top: 0.62rem; }
+.universe-explorer[data-universe-view] a.uidx-row--claim::after,
+.universe-explorer.is-full[data-universe-view] a.uidx-row--module::after { content: none; }
+.universe-explorer[data-universe-view] a.uidx-row--claim,
+.universe-explorer.is-full[data-universe-view] a.uidx-row--module { padding-right: 0.6rem; }
+/* On a phone the two destinations and the two tools share one row: the
+   tools keep their words and drop their marks. */
+@media (max-width: 480px) {
+  .universe-tabs { gap: 0.9rem; }
+  .universe-util { padding: 0 0.6rem; }
+  .universe-util svg { display: none; }
+}
+/* The way back and the map switch wrap rather than run off a narrow panel,
+   and the way back is a full target. */
+.universe-explorer .explorer__crumbs { flex-wrap: wrap; row-gap: 0.5rem; }
+.universe-explorer .explorer__back { display: inline-flex; align-items: center; gap: 0.3rem; min-height: 28px; }

@@ -1,29 +1,142 @@
 <svg class="plate" viewBox="0 0 600 500" role="img" aria-labelledby="erdos-68-growth-title" focusable="false" data-plate="erdos-68-growth">
-  <title id="erdos-68-growth-title">The region between the line y = alpha and the cubic y = alpha cubed over 6, for alpha from 0 to root 6. Its widest vertical chord, red, at alpha = root 2, has length 2 root 2 over 3, the constant in the lower bound for the common denominator; the dashed line is the cubic&#x27;s tangent there, parallel to the line. A circle shows the same estimate computed at N = 128, one step for each block length k; the widest step, red, is at k = 13.</title>
-  <path class="pl-hatch" d="M401.1 76.9L407.8 73.3M391 87L405.8 79.1M380.8 97.2L403.8 85M370.6 107.4L401.8 90.8M360.5 117.5L399.8 96.6M350.3 127.7L397.7 102.5M340.2 137.8L395.6 108.4M330 148L393.5 114.2M319.8 158.2L391.4 120.1M309.7 168.3L389.1 126.1M299.5 178.5L386.9 132M289.4 188.6L384.6 138M279.2 198.8L382.3 144M269.1 208.9L380 150M258.9 219.1L377.5 156M248.7 229.3L375.1 162.1M238.6 239.4L372.7 168.1M228.4 249.6L370.1 174.2M218.3 259.7L367.5 180.4M208.1 269.9L364.9 186.5M198 280L362.2 192.7M187.8 290.2L359.4 198.9M177.6 300.4L356.6 205.2M167.5 310.5L353.8 211.5M157.3 320.7L350.8 217.8M147.2 330.8L347.7 224.2M137 341L344.7 230.6M126.8 351.2L341.4 237.1M116.7 361.3L338.1 243.6M106.5 371.5L334.7 250.1M96.4 381.6L331.1 256.8M86.2 391.8L327.6 263.5M76.1 401.9L323.8 270.2M65.9 412.1L319.8 277.1M55.7 422.3L315.8 284M45.6 432.4L311.4 291.1M47.8 436L307 298.2M56.9 435.9L302.2 305.5M65.9 435.9L297.2 312.9M75.2 435.7L291.7 320.6M84.7 435.4L286 328.4M94.6 434.9L279.7 336.5M105.1 434.1L272.8 344.9M116.1 433L265.1 353.8M128.4 431.2L256.1 363.3M142.5 428.5L245.2 373.9M160.4 423.7L230.3 386.5"/>
-  <path class="pl-axis" d="M33 436L421.42 436"/>
-  <path class="pl-axis" d="M42 436L42 441"/>
-  <path class="pl-axis" d="M254.13 436L254.13 441"/>
-  <path class="pl-axis" d="M409.42 436L409.42 441"/>
-  <path class="pl-ref pl-ref--faint" d="M189 430.42L330 289.42"/>
-  <path class="pl-edge" d="M42 436L409.42 68.58"/>
-  <path class="pl-edge" d="M42 436L66.5 435.9L83.3 435.5L98.6 434.7L112.4 433.4L120.1 432.5L126.2 431.6L133.9 430.3L140 429L146.1 427.6L152.2 426.1L158.4 424.3L164.5 422.4L170.6 420.2L176.7 417.9L182.8 415.3L189 412.5L195.1 409.4L201.2 406.1L207.3 402.5L211.9 399.7L218.1 395.6L222.6 392.3L228.8 387.7L233.4 384.1L239.5 378.9L244.1 374.9L250.2 369.1L254.8 364.6L260.9 358.3L265.5 353.3L271.6 346.3L276.2 340.8L282.4 333.1L286.9 327.1L296.1 314.4L302.3 305.4L306.9 298.4L316 283.6L322.2 273.1L326.8 265L335.9 247.9L345.1 229.7L354.3 210.4L363.5 189.9L372.7 168.1L381.9 145.2L391.1 121L400.2 95.5L409.4 68.6"/>
-  <path class="pl-line pl-line--key" d="M254.13 223.87L254.13 365.29"/>
-  <circle class="pl-dot pl-dot--key" cx="254.13" cy="223.87" r="3"/>
-  <circle class="pl-dot pl-dot--key" cx="254.13" cy="365.29" r="3"/>
-  <text class="pl-text pl-text--key pl-text--large" x="244.1" y="310.6" text-anchor="end">2√2/3</text>
-  <text class="pl-text pl-text--ice" x="161" y="299" text-anchor="end"><tspan class="pl-var">α</tspan></text>
-  <text class="pl-text pl-text--ice" x="353" y="253.9"><tspan class="pl-var">α</tspan><tspan class="pl-sup" dy="-0.42em">3</tspan><tspan dy="0.42em">/6</tspan></text>
-  <text class="pl-text" x="42" y="460" text-anchor="middle">0</text>
-  <text class="pl-text" x="254.1" y="460" text-anchor="middle">√2</text>
-  <text class="pl-text" x="409.4" y="460" text-anchor="middle">√6</text>
-  <text class="pl-text" x="148.1" y="460" text-anchor="middle"><tspan class="pl-var">α</tspan> = <tspan class="pl-var">k</tspan>/√<tspan class="pl-var">N</tspan></text>
-  <circle class="pl-ground" cx="503" cy="286" r="95"/>
-  <path class="pl-axis" d="M427.05 336.1L577.47 336.1"/>
-  <path class="pl-hatch" d="M548.7 248.2L550 247.6M554.8 245L557.4 243.6M560.9 241.8L564.7 239.7M567 238.5L572 235.9M524.3 264.8L526.3 263.8M530.4 261.6L534.1 259.7M536.5 258.3L541.7 255.6M542.6 255.1L567 242.1M571.7 239.7L573.1 238.9M500 281.4L501.3 280.7M506 278.2L509.4 276.4M512.1 274.9L517.4 272.2M518.2 271.7L567 245.8M481.7 294.8L483.2 293.9M487.8 291.5L491.6 289.5M493.9 288.3L499.9 285.1M500 285.1L560.9 252.6M562.6 251.7L567 249.4M463.4 308.1L464.4 307.6M469.5 304.9L473.1 303M475.6 301.6L481.6 298.4M481.7 298.4L560.9 256.2M451.2 318.2L453.7 316.9M457.3 315L462.5 312.2M463.4 311.8L554.8 263.1M555.6 262.7L560.9 259.9M432.9 331.6L433.6 331.2M439 328.4L442.6 326.4M445.1 325.1L554.8 266.7M432.9 335.2L548.7 273.6M550.4 272.7L554.8 270.4M438 336.1L548.7 277.2M445.2 335.9L542.6 284.1M547 281.8L548.7 280.9M452.6 335.6L536.5 291M538.5 289.9L542.6 287.7M460.3 335.1L530.4 297.8M531.6 297.2L536.5 294.6M468.4 334.4L469.5 333.9M470.3 333.4L524.3 304.7M526.2 303.7L530.4 301.5M479.6 332.1L481.7 331M482.9 330.4L512.1 314.8M512.9 314.4L518.2 311.6M522.3 309.4L524.3 308.3M498.6 325.6L500 324.9M504.5 322.5L506 321.7M511.5 318.8L512.1 318.4"/>
-  <path class="pl-edge pl-thin" d="M432.9 331.2L439 331.2L439 326.4L445.1 326.4L445.1 321.6L451.2 321.6L451.2 316.9L457.3 316.9L457.3 312.2L463.4 312.2L463.4 307.6L469.5 307.6L469.5 303L475.6 303L475.6 298.4L481.7 298.4L481.7 293.9L487.8 293.9L487.8 289.5L493.9 289.5L493.9 285.1L500 285.1L500 280.7L506 280.7L506 276.4L512.1 276.4L512.1 272.2L518.2 272.2L518.2 267.9L524.3 267.9L524.3 263.8L530.4 263.8L530.4 259.7L536.5 259.7L536.5 255.6L542.6 255.6L542.6 251.6L548.7 251.6L548.7 247.6L554.8 247.6L554.8 243.6L560.9 243.6L560.9 239.7L567 239.7L567 235.9L573.1 235.9L573.1 239.7L567 239.7L567 251.7L560.9 251.7L560.9 262.7L554.8 262.7L554.8 272.7L548.7 272.7L548.7 281.8L542.6 281.8L542.6 289.9L536.5 289.9L536.5 297.2L530.4 297.2L530.4 303.7L524.3 303.7L524.3 309.4L518.2 309.4L518.2 314.4L512.1 314.4L512.1 318.8L506 318.8L506 322.5L500 322.5L500 325.6L493.9 325.6L493.9 328.2L487.8 328.2L487.8 330.4L481.7 330.4L481.7 332.1L475.6 332.1L475.6 333.4L469.5 333.4L469.5 334.4L463.4 334.4L463.4 335.1L457.3 335.1L457.3 335.6L451.2 335.6L451.2 335.9L445.1 335.9L445.1 336.1L439 336.1L439 336.1L432.9 336.1Z"/>
-  <path class="pl-edge pl-edge--key" d="M509.1 318.76L509.1 276.43"/>
-  <circle class="pl-ring" cx="503" cy="286" r="95"/>
-  <text class="pl-text pl-text--small" x="505.1" y="267.4" text-anchor="end"><tspan class="pl-var">k</tspan> = 13</text>
-  <text class="pl-text" x="503" y="405" text-anchor="middle"><tspan class="pl-var">N</tspan> = 128</text>
+  <title id="erdos-68-growth-title">The region between the line y = alpha and the cubic y = alpha cubed over 6, for alpha from 0 to root 6, on axes where alpha is the block length k over root N and heights are logarithms divided by N to the 3 halves times log N. The region is filled with vertical chords, each a lower bound for the growth of the common denominator; the longest, red, at alpha = root 2, has length 2 root 2 over 3, and the dashed line is the cubic&#x27;s tangent there, parallel to the line. A separate circle shows the same estimate computed exactly at N = 128, one bar for each block length k; the longest, red, is at k = 13.</title>
+  <g class="pl-stage" data-stage="1">
+  <path class="pl-axis" d="M37 440L425.42 440"/>
+  <path class="pl-axis" d="M46 440L46 62.58"/>
+  <path class="pl-axis" d="M46 440L46 445"/>
+  <path class="pl-axis" d="M258.13 440L258.13 445"/>
+  <path class="pl-axis" d="M413.42 440L413.42 445"/>
+  <text class="pl-text" x="46" y="464" text-anchor="middle">0</text>
+  <text class="pl-text" x="258.1" y="464" text-anchor="middle">√2</text>
+  <text class="pl-text" x="413.4" y="464" text-anchor="middle">√6</text>
+  <text class="pl-text" x="152.1" y="464" text-anchor="middle"><tspan class="pl-var">α</tspan> = <tspan class="pl-var">k</tspan>/√<tspan class="pl-var">N</tspan></text>
+  <text class="pl-text" x="40" y="52.6">log ÷ <tspan class="pl-var">N</tspan><tspan class="pl-sup" dy="-0.42em">3/2</tspan><tspan dy="0.42em"> log <tspan class="pl-var">N</tspan></tspan></text>
+  <path class="pl-edge" d="M46 440L413.42 72.58"/>
+  <text class="pl-text pl-text--ice" x="165" y="303" text-anchor="end"><tspan class="pl-var">α</tspan></text>
+  </g>
+  <g class="pl-stage" data-stage="2">
+  <path class="pl-edge" d="M46 440L70.5 439.9L87.3 439.5L102.6 438.7L116.4 437.4L124.1 436.5L130.2 435.6L137.9 434.3L144 433L150.1 431.6L156.2 430.1L162.4 428.3L168.5 426.4L174.6 424.2L180.7 421.9L186.8 419.3L193 416.5L199.1 413.4L205.2 410.1L211.3 406.5L215.9 403.7L222.1 399.6L226.6 396.3L232.8 391.7L237.4 388.1L243.5 382.9L248.1 378.9L254.2 373.1L258.8 368.6L264.9 362.3L269.5 357.3L275.6 350.3L280.2 344.8L286.4 337.1L290.9 331.1L300.1 318.4L306.3 309.4L310.9 302.4L320 287.6L326.2 277.1L330.8 269L339.9 251.9L349.1 233.7L358.3 214.4L367.5 193.9L376.7 172.1L385.9 149.2L395.1 125L404.2 99.5L413.4 72.6"/>
+  <text class="pl-text pl-text--ice" x="357" y="257.9"><tspan class="pl-var">α</tspan><tspan class="pl-sup" dy="-0.42em">3</tspan><tspan dy="0.42em">/6</tspan></text>
+  </g>
+  <g class="pl-stage" data-stage="3">
+  <path class="pl-hatch" d="M48.13 440L48.13 437.87"/>
+  <path class="pl-hatch" d="M53.13 440L53.13 432.87"/>
+  <path class="pl-hatch" d="M408.13 88.22L408.13 77.87"/>
+  <path class="pl-hatch" d="M58.13 439.99L58.13 427.87"/>
+  <path class="pl-hatch" d="M63.13 439.96L63.13 422.87"/>
+  <path class="pl-hatch" d="M403.13 102.59L403.13 82.87"/>
+  <path class="pl-hatch" d="M68.13 439.92L68.13 417.87"/>
+  <path class="pl-hatch" d="M73.13 439.85L73.13 412.87"/>
+  <path class="pl-hatch" d="M398.13 116.57L398.13 87.87"/>
+  <path class="pl-hatch" d="M78.13 439.75L78.13 407.87"/>
+  <path class="pl-hatch" d="M83.13 439.62L83.13 402.87"/>
+  <path class="pl-hatch" d="M393.13 130.15L393.13 92.87"/>
+  <path class="pl-hatch" d="M88.13 439.45L88.13 397.87"/>
+  <path class="pl-hatch" d="M388.13 143.35L388.13 97.87"/>
+  <path class="pl-hatch" d="M93.13 439.22L93.13 392.87"/>
+  <path class="pl-hatch" d="M98.13 438.95L98.13 387.87"/>
+  <path class="pl-hatch" d="M383.13 156.16L383.13 102.87"/>
+  <path class="pl-hatch" d="M103.13 438.62L103.13 382.87"/>
+  <path class="pl-hatch" d="M108.13 438.22L108.13 377.87"/>
+  <path class="pl-hatch" d="M378.13 168.61L378.13 107.87"/>
+  <path class="pl-hatch" d="M113.13 437.76L113.13 372.87"/>
+  <path class="pl-hatch" d="M373.13 180.68L373.13 112.87"/>
+  <path class="pl-hatch" d="M118.13 437.22L118.13 367.87"/>
+  <path class="pl-hatch" d="M123.13 436.6L123.13 362.87"/>
+  <path class="pl-hatch" d="M368.13 192.39L368.13 117.87"/>
+  <path class="pl-hatch" d="M128.13 435.9L128.13 357.87"/>
+  <path class="pl-hatch" d="M363.13 203.74L363.13 122.87"/>
+  <path class="pl-hatch" d="M133.13 435.1L133.13 352.87"/>
+  <path class="pl-hatch" d="M138.13 434.21L138.13 347.87"/>
+  <path class="pl-hatch" d="M358.13 214.74L358.13 127.87"/>
+  <path class="pl-hatch" d="M143.13 433.21L143.13 342.87"/>
+  <path class="pl-hatch" d="M353.13 225.39L353.13 132.87"/>
+  <path class="pl-hatch" d="M148.13 432.11L148.13 337.87"/>
+  <path class="pl-hatch" d="M348.13 235.71L348.13 137.87"/>
+  <path class="pl-hatch" d="M153.13 430.89L153.13 332.87"/>
+  <path class="pl-hatch" d="M158.13 429.56L158.13 327.87"/>
+  <path class="pl-hatch" d="M343.13 245.68L343.13 142.87"/>
+  <path class="pl-hatch" d="M163.13 428.1L163.13 322.87"/>
+  <path class="pl-hatch" d="M338.13 255.33L338.13 147.87"/>
+  <path class="pl-hatch" d="M168.13 426.51L168.13 317.87"/>
+  <path class="pl-hatch" d="M333.13 264.65L333.13 152.87"/>
+  <path class="pl-hatch" d="M173.13 424.78L173.13 312.87"/>
+  <path class="pl-hatch" d="M178.13 422.91L178.13 307.87"/>
+  <path class="pl-hatch" d="M328.13 273.65L328.13 157.87"/>
+  <path class="pl-hatch" d="M183.13 420.9L183.13 302.87"/>
+  <path class="pl-hatch" d="M323.13 282.34L323.13 162.87"/>
+  <path class="pl-hatch" d="M188.13 418.73L188.13 297.87"/>
+  <path class="pl-hatch" d="M318.13 290.72L318.13 167.87"/>
+  <path class="pl-hatch" d="M193.13 416.41L193.13 292.87"/>
+  <path class="pl-hatch" d="M313.13 298.8L313.13 172.87"/>
+  <path class="pl-hatch" d="M198.13 413.92L198.13 287.87"/>
+  <path class="pl-hatch" d="M203.13 411.26L203.13 282.87"/>
+  <path class="pl-hatch" d="M308.13 306.58L308.13 177.87"/>
+  <path class="pl-hatch" d="M208.13 408.43L208.13 277.87"/>
+  <path class="pl-hatch" d="M303.13 314.07L303.13 182.87"/>
+  <path class="pl-hatch" d="M213.13 405.42L213.13 272.87"/>
+  <path class="pl-hatch" d="M298.13 321.27L298.13 187.87"/>
+  <path class="pl-hatch" d="M218.13 402.22L218.13 267.87"/>
+  <path class="pl-hatch" d="M293.13 328.2L293.13 192.87"/>
+  <path class="pl-hatch" d="M223.13 398.83L223.13 262.87"/>
+  <path class="pl-hatch" d="M288.13 334.85L288.13 197.87"/>
+  <path class="pl-hatch" d="M228.13 395.25L228.13 257.87"/>
+  <path class="pl-hatch" d="M283.13 341.23L283.13 202.87"/>
+  <path class="pl-hatch" d="M233.13 391.46L233.13 252.87"/>
+  <path class="pl-hatch" d="M278.13 347.34L278.13 207.87"/>
+  <path class="pl-hatch" d="M238.13 387.46L238.13 247.87"/>
+  <path class="pl-hatch" d="M273.13 353.2L273.13 212.87"/>
+  <path class="pl-hatch" d="M243.13 383.25L243.13 242.87"/>
+  <path class="pl-hatch" d="M268.13 358.81L268.13 217.87"/>
+  <path class="pl-hatch" d="M248.13 378.83L248.13 237.87"/>
+  <path class="pl-hatch" d="M263.13 364.17L263.13 222.87"/>
+  <path class="pl-hatch" d="M253.13 374.17L253.13 232.87"/>
+  <path class="pl-hatch" d="M258.13 369.29L258.13 227.87"/>
+  </g>
+  <g class="pl-stage" data-stage="4">
+  <path class="pl-ref pl-ref--faint" d="M193 434.42L334 293.42"/>
+  <path class="pl-line pl-line--key" d="M258.13 369.29L258.13 227.87"/>
+  <circle class="pl-dot pl-dot--key" cx="258.13" cy="369.29" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="258.13" cy="227.87" r="3"/>
+  <text class="pl-text pl-text--key pl-text--large" x="248.1" y="314.6" text-anchor="end">2√2/3</text>
+  <circle class="pl-ground" cx="503" cy="290" r="95"/>
+  <circle class="pl-ring" cx="503" cy="290" r="95"/>
+  <path class="pl-axis" d="M428.16 339.38L576.4 339.38"/>
+  <path class="pl-edge pl-thin" d="M436.9 334.6L442.9 329.8L448.9 325.1L454.9 320.4L460.9 315.8L466.9 311.3L472.9 306.7L479 302.3L485 297.8L491 293.4L497 289.1L503 284.8L509 280.6L515 276.4L521 272.2L527 268.1L533.1 264L539.1 260L545.1 256.1L551.1 252.1L557.1 248.2L563.1 244.4L569.1 240.6"/>
+  <path class="pl-edge pl-thin" d="M436.9 339.4L442.9 339.3L448.9 339.2L454.9 338.9L460.9 338.4L466.9 337.7L472.9 336.7L479 335.4L485 333.7L491 331.6L497 329L503 325.9L509 322.3L515 318L521 313.1L527 307.4L533.1 301.1L539.1 293.9L545.1 285.8L551.1 276.9L557.1 267.1L563.1 256.2L569.1 244.3"/>
+  <path class="pl-line pl-thin" d="M436.89 339.38L436.89 334.57"/>
+  <path class="pl-line pl-thin" d="M442.9 339.33L442.9 329.82"/>
+  <path class="pl-line pl-thin" d="M448.91 339.19L448.91 325.11"/>
+  <path class="pl-line pl-thin" d="M454.92 338.91L454.92 320.44"/>
+  <path class="pl-line pl-thin" d="M460.93 338.44L460.93 315.83"/>
+  <path class="pl-line pl-thin" d="M466.94 337.73L466.94 311.26"/>
+  <path class="pl-line pl-thin" d="M472.95 336.75L472.95 306.73"/>
+  <path class="pl-line pl-thin" d="M478.96 335.43L478.96 302.25"/>
+  <path class="pl-line pl-thin" d="M484.97 333.74L484.97 297.82"/>
+  <path class="pl-line pl-thin" d="M490.98 331.63L490.98 293.44"/>
+  <path class="pl-line pl-thin" d="M496.99 329.05L496.99 289.1"/>
+  <path class="pl-line pl-thin" d="M503 325.95L503 284.81"/>
+  <path class="pl-line pl-thin" d="M515.02 318.01L515.02 276.36"/>
+  <path class="pl-line pl-thin" d="M521.03 313.08L521.03 272.21"/>
+  <path class="pl-line pl-thin" d="M527.04 307.45L527.04 268.1"/>
+  <path class="pl-line pl-thin" d="M533.05 301.06L533.05 264.04"/>
+  <path class="pl-line pl-thin" d="M539.06 293.88L539.06 260.02"/>
+  <path class="pl-line pl-thin" d="M545.07 285.85L545.07 256.05"/>
+  <path class="pl-line pl-thin" d="M551.08 276.92L551.08 252.13"/>
+  <path class="pl-line pl-thin" d="M557.09 267.06L557.09 248.25"/>
+  <path class="pl-line pl-thin" d="M563.1 256.22L563.1 244.41"/>
+  <path class="pl-line pl-thin" d="M569.11 244.34L569.11 240.62"/>
+  <text class="pl-text" x="503" y="409" text-anchor="middle"><tspan class="pl-var">N</tspan> = 128</text>
+  <path class="pl-line pl-line--key" d="M509.01 322.28L509.01 280.56"/>
+  <text class="pl-text pl-text--small pl-text--key" x="505" y="271.6" text-anchor="end"><tspan class="pl-var">k</tspan> = 13</text>
+  <g class="pl-tech">
+  <text class="pl-text pl-text--small" x="267.1" y="231.9">√2</text>
+  <text class="pl-text pl-text--small" x="267.1" y="382.3">√2/3</text>
+  <path class="pl-ref pl-ref--faint" d="M430.9 339.4L556.4 213.9"/>
+  <path class="pl-axis" d="M527.04 339.38L527.04 343.38"/>
+  <text class="pl-text pl-text--small" x="527" y="355.4" text-anchor="middle"><tspan class="pl-var">k</tspan> = 16</text>
+  <text class="pl-text pl-text--small" x="527" y="369.4" text-anchor="middle">0.5786</text>
+  <text class="pl-text pl-text--small pl-text--key" x="505" y="257.6" text-anchor="end">0.6135</text>
+  </g>
+  </g>
 </svg>

@@ -74,7 +74,7 @@
   var KIND_PLURAL = {
     universe: 'Universe',
     problem: 'Problems',
-    public_claim: 'Checked claims',
+    public_claim: 'Claims',
     paper_statement: 'Paper results',
     paper: 'Papers',
     human_document: 'Repository documents',
@@ -351,6 +351,12 @@
     var viewWidth = 0, viewHeight = 0;
     var hover = -1;
     var selected = -1;
+    // The panel's view at rest (the panel views, below): problems, index,
+    // filters or about; a kept object reads over whichever it is.
+    var panelView = 'problems';
+    var indexCat = '', indexScope = '';
+    var viewScroll = {}, viewStack = [], returnState = null, lastProblemAt = -1;
+    var restBox = pageMode ? document.querySelector('[data-universe-rest]') : null;
     var query = '';
     var matchList = [];
     var lensOff = {};
@@ -4304,25 +4310,42 @@
       return parts.join('; ') + '.';
     }
 
+    /* The Problems view (6 October 2026): the panel at rest is a guide to
+       choosing a problem, with nothing appended. The lede (the head no
+       longer carries it); the scope in two short lines and the way into the
+       evidence in full; the eight problems, each a row the keyboard
+       reaches, its title the row's largest words, how many of its results
+       Comparator has replayed in figures that line up, and a slim strip of
+       the same counts; then the results by evidence in four lines. How to
+       read the map, where it comes from and every object as lists are
+       views of their own (the panel views, below). */
+    function ledeHtml() {
+      var lede = inspector && inspector.getAttribute ? inspector.getAttribute('data-universe-lede') : null;
+      return lede ? '<p class="universe-lede">' + escapeHtml(lede) + '</p>' : '';
+    }
+    function scopeLineHtml() {
+      var s = statementMeta && statementMeta.summary;
+      if (!s || !s.statements) return '';
+      var papers = {}, paperCount = 0, problems = 0;
+      nodes.forEach(function (n) {
+        if (n.kind === 'problem') problems++;
+        if (n.kind === 'paper_statement' && n.paperId && !papers[n.paperId]) { papers[n.paperId] = true; paperCount++; }
+      });
+      return '<p class="universe-scope-line"><span class="universe-scope-line__lead">' + fmtCount(problems) + ' problems, ' +
+        fmtCount(paperCount) + ' problem papers</span><span class="universe-scope-line__totals">' + fmtCount(s.statements) +
+        ' paper results, ' + fmtCount((s.comparator || {}).compared || 0) + ' replayed by Comparator.</span>' +
+        (explorerRoot ? '<button type="button" class="universe-scope-line__go" data-universe-view-go="about" data-universe-view-at="evidence">The evidence in full</button>' : '') +
+        '</p>';
+    }
+
     function overviewHtml() {
-      var counts = {};
       var shown = 0;
-      for (var i = 0; i < nodes.length; i++) {
-        if (!visible(nodes[i])) continue;
-        counts[nodes[i].kind] = (counts[nodes[i].kind] || 0) + 1;
-        shown++;
-      }
-      var parts = [summaryHtml()];
+      for (var i = 0; i < nodes.length; i++) if (visible(nodes[i])) shown++;
+      var parts = [ledeHtml(), explorerRoot ? scopeLineHtml() : summaryHtml()];
       var evidence = evidenceCensusHtml(null);
-      if (evidence.total) {
-        var totals = {};
-        for (var q = 0; q < nodes.length; q++) {
-          if (nodes[q].kind === 'paper_statement' && visible(nodes[q])) totals[nodes[q].tier] = (totals[nodes[q].tier] || 0) + 1;
-        }
-        parts.push('<div class="universe-overview__gauge">' + gaugeHtml(totals, 'Results shown') + '</div>');
-      } else {
+      if (!evidence.total) {
         parts.push('<p class="universe-inspector__body">No paper results match these filters; ' + fmtCount(shown) +
-          ' other objects are shown. Change the paper or verification selection below to see more.</p>');
+          ' other objects are shown. Change or reset the map filters to see more.</p>');
       }
       if (bands.length) {
         var problemCount = 0;
@@ -4333,37 +4356,36 @@
           var t = sectorTally(b.sector), visibleEvidence = {};
           EVIDENCE_ORDER.forEach(function (key) { if (t[key]) visibleEvidence[key] = t[key]; });
           var p = nodes[at];
-          return '<li><button type="button" class="universe-problem" data-universe-go="' + at + '">' +
+          return '<li><button type="button" class="universe-problem' + (at === lastProblemAt ? ' is-current' : '') +
+            '" data-universe-go="' + at + '"' + (at === lastProblemAt ? ' aria-current="true"' : '') + '>' +
             '<span class="universe-problem__num">' + escapeHtml(p.shortLabel) + '</span>' +
             '<span class="universe-problem__name">' + escapeHtml(p.label) + '</span>' +
-            '<span class="universe-problem__count">' + (t.total ? t.replayed + ' of ' + t.total + (t.total === 1 ? ' result' : ' results') + ' replayed' : 'No results shown') + '</span>' +
+            '<span class="universe-problem__count">' + (t.total ? '<b>' + fmtCount(t.replayed) + '</b> of ' + fmtCount(t.total) +
+              (t.total === 1 ? ' result' : ' results') + ' replayed' : 'No results shown') + '</span>' +
             gaugeHtml(visibleEvidence, p.shortLabel) + '</button></li>';
         }).join('');
-        parts.push('<h2 class="universe-section__title">The ' + countWords(problemCount) + ' problems</h2>' +
-          '<ol class="universe-problems">' + problemRows + '</ol>' +
-          '<p class="universe-inspector__hint">Choose a problem, here or on the map, to read its question, its short paper and its results. ' +
+        parts.push('<h2 class="universe-section__title universe-problems__title">The ' + countWords(problemCount) + ' problems</h2>' +
+          '<ol class="universe-problems">' + problemRows + '</ol>');
+      }
+      if (evidence.total && explorerRoot) {
+        parts.push('<h3 class="universe-inspector__sub">Results by evidence</h3>' + evidence.html);
+      }
+      if (bands.length) {
+        parts.push('<p class="universe-inspector__hint">Choose a problem, here or on the map, to read its question, its short paper and its results. ' +
           'Drag to move the map and scroll to zoom; press <kbd>/</kbd> to find a theorem, and <kbd>Esc</kbd> to go back.</p>');
       }
-      if (evidence.total) {
-        parts.push('<h2 class="universe-section__title">Reading the map</h2>');
-        parts.push('<ol class="universe-rings">' +
-          '<li>' + dotHtml('universe') + '<span>At the centre, the Lean universe, with Comparator and Palomar.</span></li>' +
-          '<li>' + dotHtml('problem') + '<span>On one orbit, the problems, each between its two papers.</span></li>' +
-          '<li>' + dotHtml('public_claim') + '<span>Just outside, the claims in each problem’s record.</span></li>' +
-          '<li>' + dotHtml('paper_statement') + '<span>Outermost, every result its papers state, short paper first, in the order each paper states them.</span></li>' +
-          '</ol>');
-        parts.push('<p class="universe-inspector__body">A result’s mark says how far it is checked: filled in Comparator’s colour when Comparator has replayed it, ' +
-          'with a pip when Lean states it exactly and the replay is queued, ringed when Lean states it under named inputs, and faint when no Lean statement is recorded. ' +
-          'Round the outside, a scale has one evenly spaced tick for each result, so the length of a run is its paper’s count.</p>');
-        captions.forEach(function (c) {
-          parts.push('<p class="universe-inspector__note">The fan inside the ring is ' + escapeHtml(c.sub || '') + ', ' + escapeHtml(c.text) + '.</p>');
-        });
-        parts.push('<h3 class="universe-inspector__sub">Paper results by evidence</h3>' + evidence.html);
-      }
+      if (!explorerRoot) parts.push(evidenceInFullHtml());
+      return parts.join('');
+    }
+    /* The evidence in full, in the How to read view: the results by
+       evidence, the claims by status and the Lean behind them, counted over
+       what the map shows; the fans inside the ring said in words. */
+    function evidenceInFullHtml() {
+      var parts = [];
+      var evidence = evidenceCensusHtml(null);
+      if (evidence.total) parts.push('<h4 class="universe-inspector__sub">Paper results by evidence</h4>' + evidence.html);
       var status = statusCensusHtml(null);
-      if (status.total) {
-        parts.push('<h3 class="universe-inspector__sub">Claims in the records, by status</h3>' + status.html);
-      }
+      if (status.total) parts.push('<h4 class="universe-inspector__sub">Claims in the records, by status</h4>' + status.html);
       var s = statementMeta && statementMeta.summary;
       if (s) {
         parts.push('<p class="universe-inspector__note">' + fmtCount(s.lean_declarations) +
@@ -4371,7 +4393,16 @@
           (statementMeta.ledger ? '<a href="' + escapeHtml(statementMeta.ledger) + '" data-link-kind="exogenous" rel="external noopener" target="_blank">coverage ledger</a>' : 'coverage ledger') +
           '.</p>');
       }
+      if (evidence.total || status.total) {
+        parts.push('<p class="universe-inspector__note">These counts follow the map filters' +
+          (fullLoaded ? '.' : ' and the objects loaded so far.') + '</p>');
+      }
       return parts.join('');
+    }
+    function captionsHtml() {
+      return captions.map(function (c) {
+        return 'The fan inside the ring is ' + escapeHtml(c.sub || '') + ', ' + escapeHtml(c.text) + '.';
+      }).join(' ');
     }
 
     /* ---- A problem's card ------------------------------------------- */
@@ -4480,6 +4511,12 @@
       if (lists) {
         parts.push('<h3 class="universe-inspector__sub">Its results</h3>' +
           '<p class="universe-inspector__hint universe-inspector__hint--lead">Point at one to find it on the map; choose it to read it.</p>' + lists);
+      }
+      // Its papers, claims and Lean modules as lists: the index, scoped to
+      // this problem, with a way back to this card.
+      if (explorerRoot && n.sector && document.querySelector('[data-universe-pane="index"]')) {
+        parts.push('<p class="universe-card__index"><button type="button" class="universe-go" data-universe-index-scope="' +
+          escapeHtml(n.sector) + '">Everything on ' + escapeHtml(n.shortLabel) + ' in the index</button></p>');
       }
       parts.push(sectorSummaryHtml(i, true));
       if (canCopy) {
@@ -5316,13 +5353,17 @@
       }
       return clip(n.shortLabel, 40);
     }
+    /* In the explorer a card at the top of its trail goes back to the view
+       it was opened from, and its button names that view ("← Index"), so
+       the way back never reads as a bare glyph or a vague Close. */
     function cardHeadHtml(head) {
       var back = backTarget();
       var up = back.up >= 0;
+      var home = !up && explorerRoot ? viewName(panelView) : null;
       return '<div class="universe-inspector__head">' + head +
         '<button type="button" class="universe-inspector__clear" data-universe-clear aria-label="' +
-        escapeHtml(up ? 'Back to ' + placeName(back.up) + ' (Esc)' : 'Close this card (Esc)') + '">' +
-        (up ? '<span aria-hidden="true">←</span> Back' : 'Close') + '</button></div>';
+        escapeHtml(up ? 'Back to ' + placeName(back.up) + ' (Esc)' : home ? 'Back to ' + home.long + ' (Esc)' : 'Close this card (Esc)') + '">' +
+        (up ? '<span aria-hidden="true">←</span> Back' : home ? '<span aria-hidden="true">←</span> ' + escapeHtml(home.short) : 'Close') + '</button></div>';
     }
     /* A card the pointer is only resting on says so where a kept card has
        its Back or Close: the reader sees at a glance whether the panel is
@@ -5336,6 +5377,7 @@
     function stepBackHtml() {
       var back = backTarget(), where;
       if (back.up >= 0) where = 'go back to ' + escapeHtml(placeName(back.up));
+      else if (explorerRoot && panelView !== 'problems') where = 'go back to ' + escapeHtml(viewName(panelView).long);
       else if (back.moves) where = back.fitted ? 'go back to the whole map' : 'go back to where you were';
       else where = 'close this card';
       return '<p class="universe-inspector__hint">Press <kbd>Esc</kbd> or click empty ground to ' + where + '.</p>';
@@ -5526,9 +5568,12 @@
     }
     /* The panel's body scrolls. A new card opens at its top; going back to
        the overview returns to where the reader had scrolled it. */
-    var shownAt = -1, overviewScroll = 0, lastInspectorHtml = null;
+    var shownAt = -1, lastInspectorHtml = null;
     function renderInspector() {
       if (!inspector) return;
+      // Leaving a view for a card: remember where the reader was in it (its
+      // focus and query) before the card's words replace anything.
+      if (selected >= 0 && shownAt < 0) noteReturn();
       var level = levelOf(selected);
       if (panel) {
         panel.classList.toggle('is-reading', selected >= 0);
@@ -5555,11 +5600,15 @@
         fitDisplays(inspector);
         if (arriving) playArrival(inspector, stepping);
       }
-      if (scrollBox && selected !== shownAt) {
-        if (shownAt < 0) overviewScroll = scrollBox.scrollTop;
-        scrollBox.scrollTop = selected < 0 ? overviewScroll : 0;
-      }
+      // Each view keeps its own place: a card opens at its top, and going
+      // back returns the view the reader left to where they had scrolled it.
+      var leaving = shownAt;
+      if (scrollBox && selected !== shownAt && shownAt < 0) viewScroll[viewKey()] = scrollBox.scrollTop;
+      syncPanelView();
+      if (scrollBox && selected !== shownAt) scrollBox.scrollTop = selected < 0 ? (viewScroll[viewKey()] || 0) : 0;
       shownAt = selected;
+      if (selected < 0 && leaving >= 0) restoreReturn();
+      if (selected < 0 && panelView === 'about') refreshAbout();
       refreshPreview();
     }
 
@@ -5692,7 +5741,11 @@
     }
     function pin(i, center, keepTrail) {
       if (!keepTrail) trail = i >= 0 ? [{ at: i, before: center ? viewNow() : null }] : [];
-      var restoreFocus = inspector && inspector.contains(document.activeElement);
+      // Focus in the card, or on a row of a view the card covers, follows
+      // the reader: to the card's way back, or back to where they were.
+      var restoreFocus = (inspector && inspector.contains(document.activeElement)) ||
+        (restBox && restBox.contains && restBox.contains(document.activeElement));
+      if (i >= 0 && nodes[i] && nodes[i].kind === 'problem') lastProblemAt = i;
       if (i !== selected) { quoteAt = -1; referEl = null; referAt = referShown = -1; referMix = 0; }
       selected = i;
       hover = -1;
@@ -5701,7 +5754,7 @@
       warmPaper(i);
       renderInspector();
       if (restoreFocus) {
-        var nextFocus = inspector.querySelector('[data-universe-clear]') || searchIn;
+        var nextFocus = (i < 0 && returnFocusEl()) || inspector.querySelector('[data-universe-clear]') || searchIn;
         if (nextFocus) nextFocus.focus({ preventScroll: true });
       }
       updateHash();
@@ -6230,6 +6283,512 @@
       renderResults();
     }
 
+    /* ---- The panel views (6 October 2026) ----------------------------
+       The panel is a guide to the reader's current question, one view at a
+       time over the same markup (without scripts every view stands in
+       order). Two destinations are peers, the problems and the index; two
+       tools open from beside them, the map filters and how to read the map
+       with its sources; a kept object reads over whichever view was open,
+       and its way back returns there, to the same place, query and focus.
+       Every view change pushes where the reader was, so each labelled Back
+       retraces the way they came. The explorer carries the view shown as
+       data-universe-view (and the index's mode as data-universe-index), so
+       CSS decides what stands; the head names the place being read. */
+    var V;
+    function dom() {
+      if (V) return V;
+      var find = function (sel) { return pageMode ? document.querySelector(sel) : null; };
+      var all = function (sel) {
+        return pageMode && document.querySelectorAll ? Array.prototype.slice.call(document.querySelectorAll(sel) || []) : [];
+      };
+      V = {
+        panel: explorerRoot && explorerRoot.querySelector ? explorerRoot.querySelector('.explorer__panel') : null,
+        where: find('[data-universe-where]'),
+        none: find('[data-universe-none]'),
+        searchLabel: find('[data-universe-search-label]'),
+        index: find('[data-universe-pane="index"]'),
+        indexStatus: find('[data-universe-index-status]'),
+        indexScopeOut: find('[data-universe-index-scope]'),
+        filtered: find('[data-universe-filtered]'),
+        filteredText: find('[data-universe-filtered-text]'),
+        badge: find('[data-universe-filter-badge]'),
+        captions: find('[data-universe-captions]'),
+        evidence: find('[data-universe-evidence]'),
+        goButtons: all('[data-universe-view-go]'),
+        backButtons: all('[data-universe-view-back]'),
+        resets: all('[data-universe-filters-reset]'),
+        cats: all('[data-universe-cat]'),
+        catNames: {}
+      };
+      all('[data-universe-index-go]').forEach(function (a) {
+        var name = a.querySelector ? a.querySelector('.universe-cats__name') : null;
+        V.catNames[a.getAttribute('data-universe-index-go')] = name ? name.textContent : a.getAttribute('data-universe-index-go');
+      });
+      all('[data-universe-cat-count], [data-universe-cats-count]').forEach(function (el) {
+        el.setAttribute('data-default', el.textContent);
+      });
+      return V;
+    }
+    var panelEl;
+    function viewNames() {
+      return {
+        problems: { short: 'Problems', long: 'the problems' },
+        index: { short: 'Index', long: 'the index' },
+        filters: { short: 'Map filters', long: 'the map filters' },
+        about: { short: 'How to read', long: 'how to read the map' }
+      };
+    }
+    function viewName(v) {
+      if (v === 'index' && indexCat && dom().catNames[indexCat]) {
+        return { short: dom().catNames[indexCat], long: 'the index: ' + dom().catNames[indexCat] };
+      }
+      return viewNames()[v] || viewNames().problems;
+    }
+    function indexMode() {
+      if (indexCat) return 'cat';
+      return query.length >= 2 || indexScope ? 'all' : 'cats';
+    }
+    function viewKey() {
+      return panelView === 'index' ? 'index:' + indexCat + ':' + indexScope : panelView;
+    }
+    function problemShort(pid) {
+      var at = problemIndex[pid];
+      return at === undefined ? pid : nodes[at].shortLabel;
+    }
+
+    // What the head says at depth: the place being read, as a short trail.
+    function whereParts(shown) {
+      if (shown === 'problems') return [];
+      if (shown === 'object') {
+        var n = nodes[selected];
+        if (!n) return [];
+        if (n.kind === 'problem') return [n.shortLabel + ' ' + n.label];
+        var up = n.sector && problemIndex[n.sector] !== undefined ? nodes[problemIndex[n.sector]].shortLabel : null;
+        if (n.kind === 'paper_statement') return (up ? [up] : []).concat([clip(n.label, 64)]);
+        return (up ? [up] : []).concat([capitalFirst(kindLine(n)) + ': ' + clip(n.label, 56)]);
+      }
+      if (shown === 'index') {
+        var parts = ['Index'];
+        if (indexCat && dom().catNames[indexCat]) parts.push(dom().catNames[indexCat]);
+        if (indexScope) parts.push(problemShort(indexScope));
+        return parts;
+      }
+      if (shown === 'filters') return ['Map filters'];
+      if (shown === 'about') return ['How to read the map'];
+      return [];
+    }
+    function backLabel() {
+      var s = viewStack.length ? viewStack[viewStack.length - 1] : null;
+      if (s && s.at >= 0 && nodes[s.at]) return { short: placeName(s.at), long: placeName(s.at) };
+      if (s) {
+        var keep = { cat: indexCat };
+        indexCat = s.cat || '';
+        var name = viewName(s.view);
+        indexCat = keep.cat;
+        return name;
+      }
+      if (panelView === 'index' && (indexCat || indexScope)) return { short: 'All categories', long: 'the index' };
+      return viewNames().problems;
+    }
+
+    function syncPanelView() {
+      if (!explorerRoot || !explorerRoot.setAttribute) return;
+      var d = dom();
+      var shown = selected >= 0 ? 'object' : panelView;
+      explorerRoot.setAttribute('data-universe-view', shown);
+      explorerRoot.setAttribute('data-universe-index', panelView === 'index' ? indexMode() : '');
+      if (explorerRoot.classList) explorerRoot.classList.toggle('is-deep', shown !== 'problems');
+      d.goButtons.forEach(function (btn) {
+        if (!btn.closest || !btn.closest('[data-universe-nav]')) return;
+        btn.setAttribute('aria-pressed', String(selected < 0 && btn.getAttribute('data-universe-view-go') === panelView));
+      });
+      if (d.where) {
+        var parts = whereParts(shown);
+        d.where.hidden = !parts.length;
+        d.where.innerHTML = parts.map(function (p) {
+          return '<span class="universe-where__seg">' + escapeHtml(p) + '</span>';
+        }).join('<span class="universe-where__sep" aria-hidden="true">/</span>');
+      }
+      var back = backLabel();
+      d.backButtons.forEach(function (btn) {
+        var visibleBack = !(panelView === 'index' && !indexCat && !indexScope && !viewStack.length);
+        btn.hidden = !visibleBack;
+        btn.innerHTML = '<span aria-hidden="true">←</span> ' + escapeHtml(back.short);
+        btn.setAttribute('aria-label', 'Back to ' + back.long + ' (Esc)');
+      });
+      if (searchIn) {
+        var inIndex = panelView === 'index' && selected < 0;
+        searchIn.setAttribute('placeholder', inIndex ? 'Find in the index\u2026' : 'Find a theorem or a Lean declaration\u2026');
+        if (d.searchLabel) d.searchLabel.textContent = inIndex ? 'Find in the index' : 'Find a theorem, a problem or a Lean declaration on the map';
+      }
+      renderFilterSummary();
+    }
+
+    function focusQuiet(el) {
+      if (!el || typeof el.focus !== 'function') return;
+      try { el.focus({ preventScroll: true }); } catch (err) { el.focus(); }
+    }
+    // Open a view. A destination leaves a kept card; opts.push records where
+    // the reader was, so the view's Back returns there.
+    function setView(v, opts) {
+      opts = opts || {};
+      if (!viewNames()[v]) return;
+      if (opts.push) viewStack.push(opts.push === true ? stateNow() : opts.push);
+      if (opts.reset) viewStack = [];
+      if (selected >= 0) { trail = []; pin(-1, false, true); }
+      if (scrollBox) viewScroll[viewKey()] = scrollBox.scrollTop;
+      panelView = v;
+      if (v === 'index') { indexCat = opts.cat || ''; indexScope = opts.scope || ''; }
+      if (opts.query != null && searchIn && searchIn.value !== opts.query) {
+        searchIn.value = opts.query;
+        query = normalizeSearchText(opts.query);
+        countMatches();
+        draw();
+      }
+      closeResults();
+      if (v === 'index') refreshIndex();
+      if (v === 'about') refreshAbout();
+      renderNone();
+      syncPanelView();
+      if (scrollBox) scrollBox.scrollTop = opts.restoreScroll ? (viewScroll[viewKey()] || 0) : 0;
+      if (opts.at) {
+        var target = document.getElementById(opts.at);
+        if (target && scrollBox && target.getBoundingClientRect) {
+          scrollBox.scrollTop += target.getBoundingClientRect().top - scrollBox.getBoundingClientRect().top - 12;
+          if (opts.focus !== false) focusQuiet(target);
+          return;
+        }
+      }
+      if (opts.focusSel && returnFocusFrom(opts.focusSel)) return;
+      if (opts.focus === 'heading') {
+        var pane = d0('[data-universe-pane="' + v + '"]');
+        var heading = null;
+        if (v === 'index' && indexCat) heading = document.getElementById('universe-cat-' + indexCat + '-title');
+        else if (pane && pane.querySelector) heading = pane.querySelector('h2');
+        focusQuiet(heading);
+      }
+    }
+    function d0(sel) { return pageMode ? document.querySelector(sel) : null; }
+    function stateNow() {
+      return { view: panelView, cat: indexCat, scope: indexScope, at: selected, trail: trail.slice(),
+               query: searchIn ? searchIn.value : '', focus: focusKey(document.activeElement) };
+    }
+    function viewBack() {
+      var s = viewStack.pop();
+      if (!s) {
+        if (panelView === 'index' && (indexCat || indexScope)) { setView('index', { restoreScroll: true, focus: 'heading' }); return; }
+        setView('problems', { restoreScroll: true });
+        return;
+      }
+      setView(s.view, { cat: s.cat, scope: s.scope, query: s.query, restoreScroll: true, focusSel: s.focus });
+      if (s.at >= 0 && nodes[s.at]) {
+        trail = s.trail && s.trail.length ? s.trail : [{ at: s.at, before: null }];
+        pin(s.at, false, true);
+        var back = inspector && inspector.querySelector ? inspector.querySelector('[data-universe-index-scope]') : null;
+        focusQuiet(back || (inspector && inspector.querySelector ? inspector.querySelector('[data-universe-clear]') : null));
+      }
+    }
+
+    // Where focus was, said so it can be found again after a redraw.
+    function focusKey(el) {
+      if (!el || !el.getAttribute) return null;
+      if (el === searchIn) return 'search';
+      var node = el.getAttribute('data-universe-node');
+      if (node) return '[data-universe-node="' + node.replace(/["\\]/g, '\\$&') + '"]';
+      var go = el.getAttribute('data-universe-go');
+      if (go && el.classList && el.classList.contains('universe-problem')) return '.universe-problem[data-universe-go="' + go + '"]';
+      var cat = el.getAttribute('data-universe-index-go');
+      if (cat) return '[data-universe-index-go="' + cat + '"]';
+      var to = el.getAttribute('data-universe-view-go');
+      if (to) return '[data-universe-nav] [data-universe-view-go="' + to + '"]';
+      return null;
+    }
+    function returnFocusFrom(key) {
+      if (!key) return false;
+      var el = key === 'search' ? searchIn : d0(key);
+      if (!el) return false;
+      focusQuiet(el);
+      return true;
+    }
+    function noteReturn() {
+      returnState = { query: searchIn ? searchIn.value : '', focus: focusKey(document.activeElement) };
+    }
+    function returnFocusEl() {
+      var key = returnState && returnState.focus;
+      if (!key) return null;
+      return key === 'search' ? searchIn : d0(key);
+    }
+    function restoreReturn() {
+      if (!returnState || !searchIn || panelView !== 'index') return;
+      if (searchIn.value !== returnState.query) {
+        searchIn.value = returnState.query;
+        query = normalizeSearchText(returnState.query);
+        countMatches();
+        draw();
+      }
+      refreshIndex();
+    }
+
+    // The index: a category list, one category, or every category filtered
+    // by the field or scoped to one problem. Counts say what is shown.
+    function rowText(li) {
+      if (li._uText == null) li._uText = normalizeSearchText(li.textContent || '');
+      return li._uText;
+    }
+    function refreshIndex() {
+      var d = dom();
+      if (!d.index) return;
+      var mode = indexMode();
+      var q = query.length >= 2 ? query : '';
+      var words = q ? q.split(' ').filter(Boolean) : [];
+      var totalShown = 0, filtered = !!(q || indexScope);
+      d.cats.forEach(function (section) {
+        var key = section.getAttribute('data-universe-cat');
+        var rows = section.querySelectorAll ? Array.prototype.slice.call(section.querySelectorAll('.uidx-list > li')) : [];
+        var shown = 0;
+        rows.forEach(function (li) {
+          var row = li.firstElementChild;
+          var problems = row && row.getAttribute ? String(row.getAttribute('data-problems') || '').split(' ') : [];
+          var text = words.length ? rowText(li) : '';
+          var ok = (!indexScope || problems.indexOf(indexScope) >= 0) &&
+            words.every(function (w) { return text.indexOf(w) >= 0; });
+          li.hidden = !ok;
+          if (ok) shown++;
+        });
+        totalShown += shown;
+        if (section.classList) {
+          section.classList.toggle('is-open', mode === 'cat' ? key === indexCat : mode === 'all');
+          section.classList.toggle('is-empty', mode === 'all' && !shown);
+        }
+        var outs = d.index.querySelectorAll('[data-universe-cat-count="' + key + '"], [data-universe-cats-count="' + key + '"]');
+        Array.prototype.forEach.call(outs || [], function (out) {
+          out.textContent = filtered && rows.length ? fmtCount(shown) + ' of ' + fmtCount(rows.length) : out.getAttribute('data-default');
+        });
+      });
+      if (d.indexScopeOut) {
+        d.indexScopeOut.hidden = !indexScope;
+        if (indexScope) {
+          var at = problemIndex[indexScope];
+          d.indexScopeOut.innerHTML = 'Showing what the map places with <b>' + escapeHtml(problemShort(indexScope)) +
+            (at !== undefined ? ' ' + escapeHtml(nodes[at].label) : '') + '</b>. ' +
+            '<button type="button" class="universe-inline-btn" data-universe-index-unscope>Show every problem</button>';
+        }
+      }
+      if (d.indexStatus) {
+        var said = '';
+        if (q && mode !== 'cats') {
+          said = totalShown ? fmtCount(totalShown) + (totalShown === 1 ? ' entry matches' : ' entries match') + ' \u201c' + escapeHtml(searchIn.value.trim()) + '\u201d.' :
+            'Nothing in the index matches \u201c' + escapeHtml(searchIn.value.trim()) + '\u201d' + (indexScope ? ' for ' + escapeHtml(problemShort(indexScope)) : '') + '.';
+          if (!fullLoaded) said += ' The index lists ' + escapeHtml(String(d.index.querySelectorAll('[data-universe-cat-list="modules"] > li').length)) +
+            ' Lean modules until the complete universe is loaded. <button type="button" class="universe-inline-btn" data-universe-load-proxy>Load it</button>';
+        }
+        d.indexStatus.innerHTML = said;
+        d.indexStatus.hidden = !said;
+      }
+      if (explorerRoot && explorerRoot.setAttribute && panelView === 'index') explorerRoot.setAttribute('data-universe-index', mode);
+    }
+    // After the complete universe loads, the index lists every Lean module.
+    function fillModuleIndex() {
+      var d = dom();
+      var list = d.index && d.index.querySelector ? d.index.querySelector('[data-universe-cat-list="modules"]') : null;
+      if (!list) return;
+      var mods = nodes.filter(function (n) { return n.kind === 'lean_module'; });
+      if (explorerRoot && explorerRoot.classList) explorerRoot.classList.add('is-full');
+      mods.sort(function (a, b) { return a.label < b.label ? -1 : a.label > b.label ? 1 : 0; });
+      list.innerHTML = mods.map(function (n) {
+        var label = String(n.label || ''), name = label.split('.').pop();
+        var problems = String(n.sector || '').split('+').filter(Boolean).join(' ');
+        return '<li><a class="uidx-row uidx-row--module" href="' + escapeHtml(n.source_github || '#') + '" data-link-kind="exogenous" rel="external noopener"' +
+          ' data-universe-node="' + escapeHtml(n.id) + '"' + (problems ? ' data-problems="' + escapeHtml(problems) + '"' : '') + '>' +
+          '<span class="uidx-title">' + escapeHtml(name) + '</span><code class="uidx-ident">' +
+          escapeHtml(label).replace(/\./g, '.<wbr>') + '</code></a></li>';
+      }).join('');
+      var count = fmtCount(mods.length);
+      Array.prototype.forEach.call(d.index.querySelectorAll('[data-universe-cat-count="modules"], [data-universe-cats-count="modules"]') || [], function (out) {
+        out.setAttribute('data-default', count);
+        out.textContent = count;
+      });
+      Array.prototype.forEach.call(d.index.querySelectorAll('[data-universe-load-proxy]') || [], function (btn) { btn.hidden = true; });
+      var note = d.index.querySelector('[data-universe-modules-note]');
+      if (note) note.textContent = 'All ' + count + ' Lean modules, now the complete universe is loaded. Choose one to see where the map places it and what it connects to.';
+      refreshIndex();
+    }
+
+    // How to read the map: the fans inside the ring and the evidence in
+    // full, counted over what the map shows.
+    function refreshAbout() {
+      var d = dom();
+      if (d.captions) d.captions.innerHTML = captionsHtml();
+      if (d.evidence) d.evidence.innerHTML = evidenceInFullHtml();
+    }
+
+    // The map filters: what is set, said in words wherever the reader is,
+    // with a reset that never needs the filters reopened.
+    // The kinds the map starts with, taken once, before any choice.
+    var lensDefault;
+    function lensDefaults() {
+      if (!lensDefault) {
+        lensDefault = {};
+        Object.keys(lensOff).forEach(function (k) { lensDefault[k] = lensOff[k]; });
+      }
+      return lensDefault;
+    }
+    function keyText(btn) { return String(btn.textContent || '').replace(/\s+/g, ' ').trim(); }
+    function activeFilters() {
+      var out = [];
+      if (paperScope !== 'all') out.push(paperScope === 'short' ? 'short papers only' : 'long papers only');
+      if (sharedOnly) out.push('shared Lean support only');
+      if (checking !== 'all' && checkingInput && checkingInput.options) {
+        var opt = checkingInput.options[checkingInput.selectedIndex];
+        out.push(opt ? opt.text.charAt(0).toLowerCase() + opt.text.slice(1) : checking);
+      }
+      var hidden = [], shownExtra = [];
+      Array.prototype.forEach.call(lensKeys || [], function (btn) {
+        if (btn.hidden) return;
+        var kinds = String(btn.getAttribute('data-universe-lens') || '').split(' ').filter(Boolean);
+        var off = kinds.every(function (k) { return !!lensOff[k]; });
+        var was = kinds.every(function (k) { return !!lensDefaults()[k]; });
+        if (off && !was) hidden.push(keyText(btn));
+        if (!off && was) shownExtra.push(keyText(btn));
+      });
+      if (hidden.length) out.push(hidden.join(', ') + ' hidden');
+      if (shownExtra.length) out.push(shownExtra.join(', ') + ' shown');
+      var tiersOff = [];
+      if (pageMode && document.querySelectorAll) {
+        Array.prototype.forEach.call(document.querySelectorAll('[data-universe-tier]') || [], function (btn) {
+          if (tierOff[btn.getAttribute('data-universe-tier')]) tiersOff.push(keyText(btn).toLowerCase());
+        });
+      }
+      if (tiersOff.length) out.push('claims hidden: ' + tiersOff.join(', '));
+      return out;
+    }
+    function renderFilterSummary() {
+      if (!explorerRoot) return;
+      var d = dom();
+      var active = activeFilters();
+      if (d.filtered) {
+        d.filtered.hidden = !active.length || (panelView === 'filters' && selected < 0);
+        if (d.filteredText) d.filteredText.textContent = active.length ? 'Map filtered: ' + active.join('; ') + '.' : '';
+      }
+      if (d.badge) {
+        d.badge.hidden = !active.length;
+        d.badge.innerHTML = active.length ? String(active.length) + '<span class="sr-only"> active</span>' : '';
+      }
+      d.resets.forEach(function (btn) { btn.disabled = !active.length; });
+    }
+    function resetFilters() {
+      paperScope = 'all';
+      document.querySelectorAll('[data-universe-scope]').forEach(function (btn) {
+        btn.setAttribute('aria-pressed', String(btn.getAttribute('data-universe-scope') === 'all'));
+      });
+      sharedOnly = false;
+      if (overlapInput) overlapInput.checked = false;
+      checking = 'all';
+      if (checkingInput) checkingInput.value = 'all';
+      tierOff = {};
+      document.querySelectorAll('[data-universe-tier]').forEach(function (btn) { btn.setAttribute('aria-pressed', 'true'); });
+      Object.keys(lensOff).forEach(function (k) { delete lensOff[k]; });
+      var base = lensDefaults();
+      Object.keys(base).forEach(function (k) { lensOff[k] = base[k]; });
+      Array.prototype.forEach.call(lensKeys || [], function (btn) {
+        var kinds = String(btn.getAttribute('data-universe-lens') || '').split(' ').filter(Boolean);
+        btn.setAttribute('aria-pressed', kinds.every(function (k) { return !lensOff[k]; }) ? 'true' : 'false');
+      });
+      afterFilterChange();
+    }
+
+    // A search that finds nothing says why: the filters, what is not loaded
+    // yet, and where every object is listed.
+    function renderNone() {
+      var d = dom();
+      if (!d.none || !searchIn) return;
+      var inIndex = explorerRoot && panelView === 'index' && selected < 0;
+      var show = !inIndex && overviewReady && query.length >= 2 && !matchList.length;
+      d.none.hidden = !show;
+      if (!show) { d.none.innerHTML = ''; return; }
+      var bits = ['Nothing shown on the map matches \u201c' + escapeHtml(searchIn.value.trim()) + '\u201d.'];
+      if (activeFilters().length) {
+        bits.push('The map filters hide some objects: <button type="button" class="universe-inline-btn" data-universe-filters-reset>reset them</button>.');
+      }
+      if (!fullLoaded) {
+        bits.push('Lean modules and argument steps are found once the complete universe is loaded: <button type="button" class="universe-inline-btn" data-universe-load-proxy>load it</button>.');
+      }
+      if (dom().index) bits.push('The <button type="button" class="universe-inline-btn" data-universe-view-go="index">index</button> lists every object.');
+      d.none.innerHTML = bits.join(' ');
+    }
+
+    if (explorerRoot && dom().panel) {
+      panelEl = dom().panel;
+      panelEl.addEventListener('click', function (event) {
+        var t = event.target;
+        if (!t || !t.closest) return;
+        var go = t.closest('[data-universe-view-go]');
+        if (go) {
+          event.preventDefault();
+          var to = go.getAttribute('data-universe-view-go');
+          var peer = !!go.closest('.universe-tabs');
+          if (peer) {
+            if (to === 'index' && panelView === 'index' && selected < 0 && !indexCat && !indexScope) return;
+            setView(to, { reset: true });
+          } else if (to === panelView && selected < 0 && go.closest('[data-universe-nav]')) {
+            viewBack();
+          } else {
+            setView(to, { push: true, focus: 'heading', at: go.getAttribute('data-universe-view-at') === 'evidence' ? 'universe-evidence-title' : null });
+          }
+          return;
+        }
+        if (t.closest('[data-universe-view-back]')) { event.preventDefault(); viewBack(); return; }
+        if (t.closest('[data-universe-filters-reset]')) {
+          event.preventDefault();
+          var inSummary = !!t.closest('[data-universe-filtered], [data-universe-none]');
+          resetFilters();
+          if (inSummary) focusQuiet(d0('[data-universe-nav] [data-universe-view-go="filters"]'));
+          return;
+        }
+        if (t.closest('[data-universe-load-proxy]')) { event.preventDefault(); loadFull(); return; }
+        var cat = t.closest('[data-universe-index-go]');
+        if (cat) {
+          event.preventDefault();
+          setView('index', { cat: cat.getAttribute('data-universe-index-go'), scope: indexScope, push: true, focus: 'heading' });
+          return;
+        }
+        if (t.closest('[data-universe-index-unscope]')) {
+          event.preventDefault();
+          indexScope = '';
+          refreshIndex();
+          syncPanelView();
+          focusQuiet(d0('#universe-index-title'));
+          return;
+        }
+        var scope = t.closest('[data-universe-index-scope]');
+        if (scope && selected >= 0) {
+          event.preventDefault();
+          setView('index', { scope: scope.getAttribute('data-universe-index-scope'), push: stateNow(), focus: 'heading' });
+          return;
+        }
+        // A row of the index whose object is on the map opens its card
+        // here; a modified click follows its link as any link does.
+        var row = t.closest('[data-universe-node]');
+        if (row && restBox && restBox.contains(row) && !(event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)) {
+          var at = byId[row.getAttribute('data-universe-node')];
+          if (at !== undefined && visible(nodes[at])) {
+            event.preventDefault();
+            pin(at, true);
+          }
+        }
+      });
+      syncPanelView();
+      // The body's scrollbar, where the system draws one, as a width the
+      // head adds to its right padding, so the search ends where rows end.
+      var measureGutter = function () {
+        if (!scrollBox || !explorerRoot.style || !explorerRoot.style.setProperty) return;
+        var gutter = Math.max(0, (scrollBox.offsetWidth || 0) - (scrollBox.clientWidth || 0));
+        explorerRoot.style.setProperty('--u-gutter', gutter + 'px');
+      };
+      measureGutter();
+      explorerRoot.addEventListener('explorer:resize', measureGutter);
+    }
+
     readPalette();
     if (pageMode && window.location.hash.indexOf('#o=') === 0) {
       try {
@@ -6475,6 +7034,14 @@
       document.addEventListener('keydown', function (event) {
         var tag = event.target && event.target.tagName;
         var typing = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (event.target && event.target.isContentEditable);
+        // In the panel, with nothing kept, Esc goes back a view (a category
+        // to the index, a tool to the view it was opened from).
+        if (event.key === 'Escape' && selected < 0 && explorerRoot && panelView !== 'problems' &&
+            panelEl && panelEl.contains(document.activeElement)) {
+          event.preventDefault();
+          viewBack();
+          return;
+        }
         if (event.key === 'Escape' && (selected >= 0 || (!typing && !viewIsFitted))) { stepBack(); return; }
         if (!typing && (event.key === 'ArrowLeft' || event.key === 'ArrowRight') &&
             selected >= 0 && nodes[selected].kind === 'paper_statement') {
@@ -6488,8 +7055,19 @@
           searchIn.select();
           return;
         }
-        // The keyboard's own zoom, as on a map: + and - step, 0 fits.
+        // The keyboard's own zoom, as on a map: + and - step, 0 fits. The
+        // arrows move the map (Shift for a long step), as on the system
+        // map, while nothing in the reading panel holds the keyboard; a
+        // kept paper statement keeps left and right for its neighbours.
         if (!typing && explorerRoot && !event.metaKey && !event.ctrlKey && !event.altKey) {
+          var arrow = { ArrowLeft: [1, 0], ArrowRight: [-1, 0], ArrowUp: [0, 1], ArrowDown: [0, -1] }[event.key];
+          var held = document.activeElement;
+          if (arrow && (!held || held === document.body || stage.contains(held))) {
+            event.preventDefault();
+            var stepPx = event.shiftKey ? 240 : 80;
+            cameraTo({ k: view.k, tx: view.tx + arrow[0] * stepPx, ty: view.ty + arrow[1] * stepPx }, false);
+            return;
+          }
           if (event.key === '+' || event.key === '=') { event.preventDefault(); zoomBy(1.5); }
           else if (event.key === '-' || event.key === '_') { event.preventDefault(); zoomBy(1 / 1.5); }
           else if (event.key === '0') { event.preventDefault(); fitAnimated(); }
@@ -6626,6 +7204,9 @@
       if (ref) return;
       var go = event.target && event.target.closest ? event.target.closest('[data-universe-go]') : null;
       var i = go ? parseInt(go.getAttribute('data-universe-go'), 10) : -1;
+      // An index row names its object by id; on the map, it lights it too.
+      var named = !go && event.target && event.target.closest ? event.target.closest('[data-universe-node]') : null;
+      if (named && byId[named.getAttribute('data-universe-node')] !== undefined) i = byId[named.getAttribute('data-universe-node')];
       if (isNaN(i) || !nodes[i] || !visible(nodes[i])) i = -1;
       if (i < 0 && (hoverFromMap || hover < 0)) return;
       if (i === hover && !hoverFromMap) return;
@@ -6662,6 +7243,7 @@
       else renderInspector();
       countMatches();
       renderResults();
+      renderFilterSummary();
       draw();
     }
 
@@ -6736,6 +7318,9 @@
       }
     }
     function renderResults() {
+      renderNone();
+      // In the index the field filters the lists in place; no menu opens.
+      if (explorerRoot && panelView === 'index' && selected < 0) { closeResults(); refreshIndex(); return; }
       if (!resultsBox || !searchIn) return;
       if (query.length < 2 || !matchList.length || document.activeElement !== searchIn) { closeResults(); return; }
       var top = matchList.slice(0, RESULT_CAP);
@@ -6968,6 +7553,8 @@
         document.querySelectorAll('[data-universe-lens-full]').forEach(function (btn) {
           btn.hidden = false;
         });
+        fillModuleIndex();
+        renderNone();
       }).catch(function () {
         fullLoading = false;
         loadFullBtn.disabled = false;

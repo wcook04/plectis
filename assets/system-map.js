@@ -1937,8 +1937,10 @@
       info.abide.forEach(function (a) { rules[a].cited++; });
     });
     var order = doctrineOrder(rules, lists);
+    // listed: each kind in the manifest's own order, the order the
+    // explorer's lists keep; the orders above are the drawing's.
     return { rules: rules, principles: order.principles, axioms: order.axioms, failures: order.failures, comp: comp, verdicts: verdicts,
-             enforcedBy: tested ? 'tests' : 'card' };
+             enforcedBy: tested ? 'tests' : 'card', listed: lists };
   }
 
   /* ---- Orders ------------------------------------------------------------- */
@@ -2169,6 +2171,21 @@
     var at = { level: 'system', fam: -1, comp: -1, rule: null };
     var trail = [];
     var hoverKey = null, pending = null, revealed = false, onScreen = true, doctrineState = 'pending', forceReveal = false;
+    // The relation a row in the panel is pointed at for (its kind and its
+    // direction from the chosen component's side), so the drawing singles
+    // out that one line and the readout says that one sentence.
+    var hoverRel = null;
+    /* What the reader is examining in the explorer's panel (6 October 2026,
+       a Type B review of the system view with Will's go-ahead): a
+       component's view (its overview, its code connections or the rules its
+       paper module cites), the doctrine's category, what has been typed
+       into a find, a family of connections chosen to stand alone, and the
+       connections and rules the drawing is narrowed to as a result. The
+       view and the category hold from one choice to the next; a find and a
+       narrowing belong to the choice they were made in. All of it survives
+       full screen, the panel folded and a new layout, which redraw the map
+       and keep the panel. */
+    var inspect = { view: 'overview', cat: 'axiom', key: null, find: Object.create(null), scope: null, narrow: null };
 
     /* ---- Elements ---- */
     function h(tag, cls, text) {
@@ -2221,6 +2238,41 @@
     tip.setAttribute('aria-hidden', 'true');
     var live = h('p', 'sm-live');
     live.setAttribute('aria-live', 'polite');
+    /* A narrowing is labelled beside the controls that made it, in the strip
+       of views that stays in reach at the top of the panel: a line saying
+       what the drawing shows of the whole ("The map shows 15 of 42 code
+       connections: reads the saved results of Formal math & proof") and a
+       way to show them all again. A label over the drawing covered the
+       family names round its top. The panel keeps every row and count. */
+    function syncScope() {
+      if (!explorer || !explorerEl.querySelector) return;
+      var bar = explorerEl.querySelector('[data-system-panel] .sc__tabs');
+      var N = narrowNow(), old = bar ? bar.querySelector('.sc__scopebar') : null;
+      if (!bar) return;
+      if (!N) { if (old && old.parentNode) old.parentNode.removeChild(old); return; }
+      var box = old || h('div', 'sc__scopebar'), text = old ? old.querySelector('.sc__scopebar-text') : null;
+      if (!old) {
+        box.setAttribute('role', 'status');
+        text = h('p', 'sc__scopebar-text');
+        var all = button('sc__scopebar-all', 'Show all');
+        all.addEventListener('click', function (e) {
+          var key = keyOf(at), keyedIt = keyedClick(e);
+          inspect.scope = null;
+          Object.keys(inspect.find).forEach(function (k) { if (k.indexOf(key + '|') === 0) delete inspect.find[k]; });
+          inspect.narrow = null;
+          column.again();
+          if (map) map.inspect();
+          if (keyedIt) {
+            var tab = explorerEl.querySelector('[data-system-panel] .sc__tab[aria-selected="true"]');
+            if (tab && tab.focus) tab.focus();
+          }
+        });
+        box.appendChild(text);
+        box.appendChild(all);
+        bar.appendChild(box);
+      }
+      text.textContent = N.text || '';
+    }
     // In the explorer the trail stands in the panel's head, the one way back,
     // and the view's sentence opens its page in the panel; the stage holds
     // the drawing, its controls and its key, and nothing else.
@@ -2466,10 +2518,14 @@
 
     /* ---- Pointing ---- */
     // What the pointer or the keyboard is on, lit lightly over the view.
-    function setHover(key, anchor) {
-      if (key === hoverKey) { if (anchor) showTipFor(key, anchor); return; }
+    // rel: the one relation a connection's row is pointed at for.
+    function relId(rel) { return rel ? rel.kind + '|' + rel.dir : ''; }
+    function setHover(key, anchor, rel) {
+      rel = key ? rel || null : null;
+      if (key === hoverKey && relId(rel) === relId(hoverRel)) { if (anchor) showTipFor(key, anchor); return; }
       hoverKey = key;
-      if (map) map.preview(key);
+      hoverRel = rel;
+      if (map) map.preview(key, rel);
       column.lit(key);
       if (key && anchor) showTipFor(key, anchor);
       else if (!key) hideTip();
@@ -2635,11 +2691,22 @@
       }
       return null;
     }
-    // The doctrine, filling the drawing.
+    // The doctrine, filling the drawing. In the explorer it is fitted with
+    // the names set beside its glyphs (6 October 2026: a review found the
+    // largest area given to its empty centre while names at its edge had no
+    // room): the necklace and its satellites stand in the room the controls
+    // and the key leave, with a band round them for a name's width.
     function coreCamera() {
       var B = baseMap;
       if (!(B.coreOuter > 0)) return null;
-      return camOf(clamp(Math.min(B.width, B.size) * 0.46 / B.coreOuter, 1, 2.2), B.cx, B.cy, -1);
+      var k = Math.min(B.width, B.size) * 0.46 / B.coreOuter, cx = B.cx, cy = B.cy;
+      if (explorer) {
+        var room = roomBox(20), nameW = 150, nameH = 42;
+        k = Math.min(k, ((room.x1 - room.x0) / 2 - nameW) / B.coreOuter, ((room.y1 - room.y0) / 2 - nameH) / B.coreOuter);
+        cx = (room.x0 + room.x1) / 2;
+        cy = (room.y0 + room.y1) / 2;
+      }
+      return camOf(clamp(k, 1, 2.2), cx, cy, -1);
     }
     function cameraFor(a) {
       if (!baseMap || !model || !a) return null;
@@ -2677,10 +2744,14 @@
       var s = k / from.k, cx = P[0] - s * (P[0] - from.cx), cy = P[1] - s * (P[1] - from.cy);
       return clampCam({ k: k, cx: cx, cy: cy });
     }
-    // The ring's centre kept near enough that the map never leaves the
-    // stage; zooming out draws it back to its resting place.
+    // The ring's centre may travel well past the stage's edges, at the
+    // whole map's scale as at any other, as the mathematics map moves
+    // (Will, 6 October 2026: "it should just be the exact same as the
+    // mathematics one, where you can, like, click and then move around");
+    // some of the ring always stays in reach, and zooming out draws it back
+    // to its resting place.
     function clampCam(c) {
-      var B = baseMap, room = Math.max(0.65, c.k - 1) * B.R0 * 1.15;
+      var B = baseMap, room = (0.6 + 0.75 * c.k) * B.R0;
       var camera = camOf(c.k, clamp(c.cx, B.cx - room, B.cx + room), clamp(c.cy, B.cy - room, B.cy + room), 'all', 15);
       if (c.k <= 1.02) camera.names = -1;
       return camera;
@@ -2870,6 +2941,27 @@
         focusBtn.setAttribute('aria-hidden', 'true');
         tools.insertBefore(focusBtn, tools.firstChild);
         focusBtn.addEventListener('click', function (e) { refocus({ keyed: keyedClick(e) }); });
+        // The reading panel folds away for a larger map and comes back from
+        // the same place (assets/explorer.js does the folding); full screen
+        // keeps it, so the map, the panel and the controls enlarge together.
+        var panelEl = explorerEl.querySelector('.explorer__panel');
+        if (!tools.querySelector('[data-explorer-panel-toggle]')) {
+          var fold = button('explorer-tool explorer-tool--panel');
+          fold.setAttribute('data-explorer-panel-toggle', '');
+          var folded = !!(explorerEl.classList && explorerEl.classList.contains('is-panel-collapsed'));
+          fold.setAttribute('aria-expanded', folded ? 'false' : 'true');
+          if (panelEl && panelEl.id) fold.setAttribute('aria-controls', panelEl.id);
+          fold.setAttribute('title', folded ? 'Show the reading panel' : 'Hide the reading panel');
+          var ico = h('span', 'explorer-tool__ico');
+          ico.setAttribute('aria-hidden', 'true');
+          ico.innerHTML = '<svg viewBox="0 0 16 16" focusable="false"><rect x="1.75" y="2.75" width="12.5" height="10.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/>' +
+            '<path d="M6 3v10" stroke="currentColor" stroke-width="1.5"/></svg>';
+          fold.appendChild(ico);
+          var lab = h('span', null, folded ? 'Show panel' : 'Hide panel');
+          lab.setAttribute('data-explorer-panel-label', '');
+          fold.appendChild(lab);
+          tools.insertBefore(fold, tools.firstChild);
+        }
       }
       explorerEl.addEventListener('explorer:fit', function () { if (model) setView(null, {}); });
       explorerEl.addEventListener('explorer:zoom', function (e) { zoomBy(e && e.detail && e.detail.direction < 0 ? -1 : 1, {}); });
@@ -2915,7 +3007,9 @@
           return;
         }
         var dx = list[0][0] - drag.start[0][0], dy = list[0][1] - drag.start[0][1];
-        if (!moved && Math.abs(dx) + Math.abs(dy) < 5) return;
+        // The same 3px a press may wander and still be a click on the
+        // mathematics map.
+        if (!moved && dx * dx + dy * dy < 9) return;
         moved = true;
         if (e.preventDefault) e.preventDefault();
         if (area.setPointerCapture && !drag.captured) { drag.captured = true; try { area.setPointerCapture(e.pointerId); } catch (err) {} }
@@ -2939,11 +3033,20 @@
         if (e.stopPropagation) e.stopPropagation();
         if (e.preventDefault) e.preventDefault();
       }, true);
-      // + and - zoom, 0 fits, from anywhere on the stage.
+      // + and - zoom, 0 fits and the arrows move the map (Shift for a long
+      // step), from anywhere on the stage; on a focused mark the arrows
+      // walk the marks instead (the drawing's own handler claims them).
       stage.addEventListener('keydown', function (e) {
         if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
         var t = e.target;
         if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+        var arrow = { ArrowLeft: [1, 0], ArrowRight: [-1, 0], ArrowUp: [0, 1], ArrowDown: [0, -1] }[e.key];
+        if (arrow && model && baseMap) {
+          e.preventDefault();
+          var V = viewCam(), stepPx = e.shiftKey ? 240 : 80;
+          setView(clampCam({ k: V.k, cx: V.cx + arrow[0] * stepPx, cy: V.cy + arrow[1] * stepPx }), { keyed: true });
+          return;
+        }
         if (e.key === '+' || e.key === '=') { e.preventDefault(); zoomBy(1, { keyed: true }); }
         else if (e.key === '-' || e.key === '_') { e.preventDefault(); zoomBy(-1, { keyed: true }); }
         else if (e.key === '0') { e.preventDefault(); setView(null, { keyed: true }); }
@@ -3249,6 +3352,71 @@
       }
       return null;
     }
+    /* One component's code connections: each a link of the scene, in the
+       scene's own order, with its kind, the way it runs from this
+       component's side, the component at its other end, that one's family
+       and the file holding the code that establishes it. Every row, count,
+       line, narrowing and sentence the explorer shows of a component's
+       connections is read from this one list, so the panel and the drawing
+       tell one story: a count of connections is a count of these, never of
+       the distinct components they reach. */
+    function relationsOf(ci) {
+      var out = [];
+      if (!model || ci < 0) return out;
+      model.links.forEach(function (l, k) {
+        if (l[0] !== ci && l[1] !== ci) return;
+        var other = l[0] === ci ? l[1] : l[0];
+        out.push({ k: k, kind: l.kind, dir: l.kind === 'named' ? 'both' : l[0] === ci ? 'out' : 'inc', other: other,
+                   fam: model.comps[other].fam, href: linkHref(l) });
+      });
+      return out;
+    }
+    function linkHref(l) {
+      return model && model.codeBase && l && l.ev ? model.codeBase + l.ev.path.split('/').map(encodeURIComponent).join('/') : null;
+    }
+    // The relations under their verbs: each kind in the scene's order, out
+    // before in; a listed relation has no direction worth reading.
+    function relationGroups(ci) {
+      var rels = relationsOf(ci), groups = [];
+      LINK_ORDER.forEach(function (kind) {
+        (kind === 'named' ? ['both'] : ['out', 'inc']).forEach(function (dir) {
+          var mine = rels.filter(function (x) { return x.kind === kind && x.dir === dir; });
+          if (mine.length) groups.push({ kind: kind, dir: dir, rels: mine });
+        });
+      });
+      return groups;
+    }
+    // One relation as a sentence, the component acting first, so reversing
+    // the viewpoint never reverses what the code does.
+    var RELATION_VERBS = { runs: 'runs', reads: 'reads the saved results of', checks: 'checks the copied files of',
+                           named: 'is listed as related to', other: 'connects to' };
+    function relationSentence(kind, dir, self, other) {
+      var a = dir === 'inc' ? other : self, b = dir === 'inc' ? self : other;
+      return a + ' ' + (RELATION_VERBS[kind] || RELATION_VERBS.other) + ' ' + b + '.';
+    }
+    // How a rule stands in a component, in the words the panel, the readout
+    // and the drawing's frames share: cited by its paper module, enforced
+    // there by a test, a narrower part of it checked there by a test. The
+    // three never stand for one another.
+    var HELD_WORDS = {
+      full: 'Enforced here: a test shows the rule’s core requirement in this component.',
+      part: 'Partly checked here: a test shows a narrower part of the rule in this component.'
+    };
+    function heldIn(ci, id) {
+      var info = D && D.comp[ci];
+      if (!info) return null;
+      return info.enforces.indexOf(id) >= 0 ? 'full' : info.partly.indexOf(id) >= 0 ? 'part' : null;
+    }
+    function citesRule(ci, id) {
+      var info = D && D.comp[ci];
+      return !!info && (info.gov.indexOf(id) >= 0 || info.abide.indexOf(id) >= 0);
+    }
+    // What the drawing is narrowed to, when it belongs to what is chosen.
+    function narrowNow() {
+      var N = inspect.narrow;
+      return N && model && N.key && N.key === keyOf(at) ? N : null;
+    }
+
     // What the red lines are, for the key.
     function aboutLines() {
       if (onlyNamed()) return 'Red lines are the relations each component’s own record lists, not read from the code.';
@@ -3696,7 +3864,15 @@
       var gHover = sv('g', { 'class': 'sm-hovers', 'aria-hidden': 'true' });
       // The light that runs along a choice's lines, above them, under the marks.
       var gFx = sv('g', { 'class': 'sm-fx', 'aria-hidden': 'true' });
-      [defs, gScale, gRest, gNeck, gSpans, gLight, gFx, gCore, gRim, gLabels, gPlates, gMarks, gTags, gHover].forEach(function (g) { svg.appendChild(g); });
+      // A component's connections drawn one by one, each its own whole
+      // route: those a narrowing in the panel keeps, and over them the one
+      // relation being examined. Neither is a ribbon: in a focused view a
+      // bundle stops acting as a highway. Beside each ribbon a choice
+      // lights, how many connections it carries.
+      var gScope = sv('g', { 'class': 'sm-scoped', 'aria-hidden': 'true' });
+      var gTrace = sv('g', { 'class': 'sm-trace', 'aria-hidden': 'true' });
+      var gCounts = sv('g', { 'class': 'sm-counts', 'aria-hidden': 'true' });
+      [defs, gScale, gRest, gNeck, gSpans, gLight, gScope, gTrace, gFx, gCore, gRim, gLabels, gPlates, gCounts, gMarks, gTags, gHover].forEach(function (g) { svg.appendChild(g); });
 
       /* ---- The rim ---- */
       /* One spacing for every component round the ring; a sector is as wide
@@ -3961,7 +4137,12 @@
         if (it.part === 'link') return widthOf(it.links[0], lit);
         var S = sheaves[it.sheaf], f = (KIND_WIDTH[it.kind] || 1) * (lit ? 1.85 : 0.95) * ws;
         if (it.part === 'trunk') {
-          var g = Math.sqrt(Math.max(1, n || S.links.length)), tw = TRUNK[S.role];
+          // At rest a ribbon is the square root of its links wide; lit, it
+          // grows by the logarithm, so a choice's ribbons never stand
+          // stronger than the marks and names they lead to (a ribbon of
+          // twenty lit was four and a half fibres wide; it is now under
+          // three).
+          var nn = Math.max(1, n || S.links.length), g = lit ? 1 + 0.42 * Math.log(nn) / Math.LN2 : Math.sqrt(nn), tw = TRUNK[S.role];
           return function (at, len) { return tw(at, len) * f * g; };
         }
         var tt = S.role === 'out' ? TRUNK.twigOut : TRUNK.twigIn;
@@ -4046,16 +4227,23 @@
       // One lit piece as a path. A link's own fibre and a parting fibre are
       // wires (one for each lit link, from the end its light starts at); a
       // ribbon is drawn under them as the stretch they share.
+      // Each lit piece also says what it carries, from the chosen end: its
+      // kind, its direction and the family at its other end (a ribbon, of
+      // its links), so a narrowing and a trace pick out exactly the
+      // relations the panel names.
+      function dirOf(x) { return x.l.kind === 'named' ? 'both' : x.l[0] === x.a ? 'out' : 'inc'; }
       function litPath(dr, cuts, cls, wire) {
         if (dr.t === 'trunk') {
           var S = sheaves[dr.si], hubKey = 'comp:' + model.comps[S.h].id, famKey = 'fam:' + model.families[S.fam].key;
           return sv('path', { 'class': cls + ' sm-route--' + S.kind + ' is-trunk', d: itemD(dr.it, true, cuts, dr.n),
-            'data-from': dr.reverse ? famKey : hubKey, 'data-to': dr.reverse ? hubKey : famKey, 'data-n': String(dr.n) });
+            'data-from': dr.reverse ? famKey : hubKey, 'data-to': dr.reverse ? hubKey : famKey, 'data-n': String(dr.n),
+            'data-kind': S.kind, 'data-dir': dirOf(dr.xs[0]), 'data-fam': model.families[S.fam].key });
         }
         var x = dr.x, kind = x.l.kind || 'named';
         return sv('path', { 'class': cls + (wire ? ' sm-wire' : '') + ' sm-route--' + kind + (dr.t === 'twig' ? ' is-twig' : routes[x.k].local ? ' is-local' : ''),
           d: dr.t === 'twig' ? itemD(dr.it, true, cuts) : fibreD(x.k, true, cuts),
-          'data-from': 'comp:' + model.comps[x.a].id, 'data-to': 'comp:' + model.comps[x.b].id });
+          'data-from': 'comp:' + model.comps[x.a].id, 'data-to': 'comp:' + model.comps[x.b].id,
+          'data-kind': kind, 'data-dir': dirOf(x), 'data-fam': model.families[model.comps[x.b].fam].key, 'data-k': String(x.k) });
       }
       // How lit pieces draw in: a lone link from its own end; a ribbon and
       // its parting fibres in turn, from the end the light starts at. The
@@ -4921,11 +5109,101 @@
         L.reticles.forEach(function (key, i) { reticle(key, moving, i === 0 ? 'self' : 'full', nearest); });
         L.open.forEach(function (key) { reticle(key, moving, 'part', nearest); });
         lit = L;
-        // The plates first, then the names, each keeping clear of what is
-        // already set.
+        chosen = s;
+        emphasise();
+        // The plates first, then the names, then the ribbons' counts, each
+        // keeping clear of what is already set.
+        label(moving, arrive, later);
+      }
+      /* ---- What the panel is examining ---- */
+      /* The explorer's panel says which relation the reader is reading, and
+         the drawing answers it: a component's connections view quiets its
+         rule lines, its rules view quiets its code connections and their
+         names, and a narrowing (a family of connections chosen to stand
+         alone, or a find) draws just those connections, each its own route,
+         over the rest stepped back. In the doctrine the category open in
+         the panel is the one named on the drawing. The camera never moves
+         for any of it. */
+      var chosen = null, PLATE_BUDGET = 10;
+      function emphasise() {
+        var s = chosen || { level: 'system' }, comp1 = explorer && s.level === 'component', N = comp1 ? narrowNow() : null;
+        svg.classList.toggle('is-view-code', comp1 && inspect.view === 'code');
+        svg.classList.toggle('is-view-rules', comp1 && inspect.view === 'rules');
+        ['axiom', 'principle', 'failure'].forEach(function (k) { svg.classList.toggle('is-cat-' + k, explorer && s.level === 'doctrine' && inspect.cat === k); });
+        svg.classList.toggle('is-narrowed', !!(N && N.links));
+        svg.classList.toggle('is-narrowed-rules', !!(N && N.rules));
+        clear(gScope);
+        litPaths.forEach(function (lp) {
+          if (lp.ink !== 'azure') return;
+          var to = lp.el.getAttribute('data-to') || '', from = lp.el.getAttribute('data-from') || '';
+          var id = to.indexOf('rule:') === 0 ? to.slice(5) : from.indexOf('rule:') === 0 ? from.slice(5) : null;
+          lp.el.classList.toggle('is-in-scope', !!(N && N.rules && id && N.rules.indexOf(id) >= 0));
+        });
+        if (N && N.links) N.links.forEach(function (k) {
+          var l = model.links[k];
+          if (!l || !routes[k]) return;
+          gScope.appendChild(sv('path', { 'class': 'sm-route sm-route--' + (l.kind || 'named') + ' is-scoped', d: fibreD(k, true, null),
+            'data-from': 'comp:' + model.comps[l[0]].id, 'data-to': 'comp:' + model.comps[l[1]].id, 'data-k': String(k) }));
+        });
+      }
+      // The components a view names on plates. In the explorer a component
+      // with more connections than fit on plates names none of them until
+      // the reader narrows to a family or points at a row; every name keeps
+      // its size, and every one is still listed in the panel. Its
+      // rules view names no component but itself.
+      function platesFor(L, s) {
+        if (!explorer || !s || s.level !== 'component' || !L.plates.length) return L.plates;
+        var self = L.plates.slice(0, 1), rest = L.plates.slice(1), N = narrowNow();
+        if (inspect.view === 'rules') return self;
+        if (N && N.links) {
+          var keep = Object.create(null);
+          N.links.forEach(function (k) { var l = model.links[k]; if (l) keep[l[0] === s.comp ? l[1] : l[0]] = true; });
+          return self.concat(rest.filter(function (ci) { return keep[ci]; }));
+        }
+        return rest.length > PLATE_BUDGET ? self : L.plates;
+      }
+      // How many connections each lit ribbon carries (of those a narrowing
+      // keeps), set beside the point where it parts: a ribbon is one kind of
+      // connection to one family, so the count is of that kind alone. A
+      // count that finds no clear place is left out; the panel has them all.
+      function countRibbons() {
+        clear(gCounts);
+        var s = chosen;
+        if (!explorer || !s || s.level !== 'component' || !lit) return;
+        var N = narrowNow(), keepK = null;
+        if (N && N.links) { keepK = Object.create(null); N.links.forEach(function (k) { keepK[k] = true; }); }
+        var litK = Object.create(null);
+        lit.links.forEach(function (x) { litK[x.k] = true; });
+        sheaves.forEach(function (S) {
+          if (S.h !== s.comp) return;
+          var n = S.links.filter(function (k) { return litK[k] && (!keepK || keepK[k]); }).length;
+          if (n < 3) return;
+          var text = String(n), w = Math.ceil(textWidth(text, 'sm-count') + 10), hgt = 20;
+          var a = polar(cx, cy, S.end.r, S.end.a);
+          var spot = placeBox(a, 5, w, hgt, { inside: true, toward: [Math.cos(S.end.a), Math.sin(S.end.a)], steps: [2, 6, 12, 20, 30] });
+          if (!spot) return;
+          var g = sv('g', { 'class': 'sm-count-g sm-count-g--' + S.kind, 'data-sm-count': model.families[S.fam].key, 'data-kind': S.kind, 'data-n': text });
+          var t = sv('text', { 'class': 'sm-count sm-note', x: fx((spot.box.x0 + spot.box.x1) / 2), y: fx((spot.box.y0 + spot.box.y1) / 2),
+            'text-anchor': 'middle', 'dominant-baseline': 'central' });
+          t.textContent = text;
+          g.appendChild(t);
+          gCounts.appendChild(g);
+          annot.add(spot.box);
+        });
+      }
+      function label(moving, arrive, later) {
         annot = boxGrid(28);
-        plates(L.plates, moving, arrive, later);
-        annotate(L, s, moving, later);
+        clear(gPlates);
+        plates(platesFor(lit, chosen), moving, arrive, later);
+        annotate(lit, chosen, moving, later);
+        countRibbons();
+      }
+      // The panel changed what it examines: the drawing answers at once.
+      function reinspect() {
+        if (!chosen) return;
+        emphasise();
+        label(false, null, 0);
+        if (hoverKey) preview(hoverKey, hoverRel);
       }
 
       /* A reticle: four corner ticks round the object chosen, a target lock,
@@ -5051,7 +5329,8 @@
                   if (box.x0 < edgeIn || box.x1 > width - edgeIn || box.y0 < edgeIn || box.y1 > size - edgeIn) return;
                   if (!outside(box)) return;
                   // Never under the explorer's controls or its key.
-                  for (var av = 0; av < avoidRects.length; av++) if (hits(box, avoidRects[av], 6)) return;
+                  var avoid = avoidRects;
+                  for (var av = 0; av < avoid.length; av++) if (hits(box, avoid[av], 6)) return;
                   var ey = clamp(e[1], box.y0 + 4, box.y1 - 4), ex = side > 0 ? box.x0 : box.x1;
                   var legs = [[s0[0], s0[1], e[0], e[1]], [e[0], e[1], ex, ey]];
                   if (Math.abs(cos) < 0.42 && v === 0) legs = [[s0[0], s0[1], e[0], e[1]], [e[0], e[1], e[0], Math.sin(C.a) < 0 ? box.y1 : box.y0]];
@@ -5216,8 +5495,9 @@
             if (opts.inside && nf2[1] > bandIn) continue;
             if (opts.outside && nf2[0] < bandOut) continue;
             var blocked = false;
-            for (var q = 0; q < avoidRects.length && !blocked; q++) {
-              var A = avoidRects[q];
+            var avoid = avoidRects;
+            for (var q = 0; q < avoid.length && !blocked; q++) {
+              var A = avoid[q];
               if (box.x0 < A.x1 + 6 && box.x1 > A.x0 - 6 && box.y0 < A.y1 + 6 && box.y1 > A.y0 - 6) blocked = true;
             }
             if (blocked || obs.hits(box, 2) || (annot && annot.hits(box, 4))) continue;
@@ -5371,14 +5651,20 @@
           L.cites.forEach(function (x) { cited[x.id] = true; });
           var ids = uniq(info.enforces.concat(info.partly, Object.keys(cited))).filter(function (id) { return !!rule[id]; })
             .sort(function (p, q2) { return rank(p) - rank(q2); });
-          var most = explorer ? 8 : 5, n = 0;
+          // The explorer's views share the names out: its connections view
+          // names no rule (their lines step back), its rules view as many as
+          // stand clear, its overview eight.
+          var most = !explorer ? 5 : inspect.view === 'code' ? 0 : inspect.view === 'rules' ? 14 : 8, n = 0;
           ids.forEach(function (id) {
             if (n >= most) return;
             var when = !moving ? undefined : cited[id] ? 60 + (later || 0) + Math.round(speedDur(ray(s.comp, id)) * 0.9) : 260 + (later || 0);
             if (!tagged['rule:' + id] && drawName(id, gTags, { delay: when, steps: [2, 7, 14, 24, 38, 56, 80] })) { tagged['rule:' + id] = true; n++; }
           });
         } else if (s.level === 'doctrine') {
-          D.axioms.forEach(function (id, k) { put(id, { cls: 'sm-rname-g--axiom', most: 200, delay: moving ? 220 + k * 24 + (later || 0) : undefined }); });
+          // The category open in the explorer's panel is the one named; the
+          // axioms otherwise.
+          var cat = explorer ? inspect.cat : 'axiom', ids2 = cat === 'principle' ? D.principles : cat === 'failure' ? D.failures : D.axioms;
+          ids2.forEach(function (id, k) { put(id, { cls: 'sm-rname-g--' + cat, most: 200, delay: moving ? 220 + k * 24 + (later || 0) : undefined }); });
         }
       }
       // The name of whatever the pointer is on, when the drawing does not
@@ -5419,20 +5705,46 @@
         if (key.indexOf('rule:') === 0) return !!lit.rules[key.slice(5)];
         return false;
       }
-      function trace(key) {
+      /* A connection pointed at (its mark, or its row in the panel) is drawn
+         whole, from the chosen component to it along its own route, never
+         left as a parting fibre at the end of a ribbon that stays lit: the
+         reader never has to guess whether two lines overlap or join. A row
+         names one relation (rel: its kind and direction), so a pair joined
+         two ways shows only the way that row reads. A small chevron at its
+         middle points the way the code acts. */
+      function chevron(pts) {
+        var cum = Loom.measure(pts), len = cum[cum.length - 1];
+        if (!(len > 28)) return null;
+        var p = Loom.pointAt(pts, len * 0.56, cum), tx = p.tx, ty = p.ty, nx = -ty, ny = tx, a = 5.5, b = 4.2;
+        var d = 'M' + fx(p.x - tx * a + nx * b) + ' ' + fx(p.y - ty * a + ny * b) + 'L' + fx(p.x + tx * a * 0.6) + ' ' + fx(p.y + ty * a * 0.6) +
+          'L' + fx(p.x - tx * a - nx * b) + ' ' + fx(p.y - ty * a - ny * b);
+        return sv('path', { 'class': 'sm-trace__dir', d: d });
+      }
+      function trace(key, rel) {
         var on = traced(key);
         svg.classList.toggle('is-tracing', on);
-        var ends = function (el) { return on && (el.getAttribute('data-from') === key || el.getAttribute('data-to') === key); };
+        clear(gTrace);
+        var fits = function (el) { return !rel || (el.getAttribute('data-kind') === rel.kind && el.getAttribute('data-dir') === rel.dir); };
+        var ends = function (el) { return on && (el.getAttribute('data-from') === key || el.getAttribute('data-to') === key) && fits(el); };
         litPaths.forEach(function (lp) { lp.el.classList.toggle('is-traced', ends(lp.el)); });
         Object.keys(spanEls).forEach(function (k) { spanEls[k].el.classList.toggle('is-traced', ends(spanEls[k].el)); });
         Array.prototype.forEach.call(gTags.children || [], function (g) {
           if (g.classList) g.classList.toggle('is-traced', on && g.getAttribute('data-sm-name') === key);
         });
+        if (!on || !lit || key.indexOf('comp:') !== 0 || at.level !== 'component') return;
+        var ci = nodes[key].__ci;
+        lit.links.forEach(function (x) {
+          if (x.b !== ci || !routes[x.k] || (rel && (x.l.kind !== rel.kind || dirOf(x) !== rel.dir))) return;
+          gTrace.appendChild(sv('path', { 'class': 'sm-route sm-route--' + (x.l.kind || 'named') + ' is-traced', d: fibreD(x.k, true, null),
+            'data-from': 'comp:' + model.comps[x.l[0]].id, 'data-to': 'comp:' + model.comps[x.l[1]].id, 'data-kind': x.l.kind, 'data-dir': dirOf(x), 'data-k': String(x.k) }));
+          var c = chevron(routes[x.k].pts);
+          if (c) gTrace.appendChild(c);
+        });
       }
-      function preview(key) {
+      function preview(key, rel) {
         clear(previewG);
         hoverName(key);
-        trace(key);
+        trace(key, rel);
         Object.keys(nodes).forEach(function (k) { nodes[k].classList.toggle('is-hover', k === key); });
         // Inside a family, a component pointed at shows its own relations
         // over the family's, which step back while it is pointed at.
@@ -5568,7 +5880,7 @@
         // the radius rule lines come into the core from, the centre's name.
         frame: { cx: fx(cx), cy: fx(cy), R: fx(R), gate: fx(rGate), near: fx(NEAR * 180 / Math.PI),
                  label: labelBox ? { x0: fx(labelBox.x0), x1: fx(labelBox.x1), y0: fx(labelBox.y0), y1: fx(labelBox.y1) } : null },
-        select: select, preview: preview, rove: rove, assemble: assemble, route: route,
+        select: select, preview: preview, rove: rove, assemble: assemble, route: route, inspect: reinspect,
         weave: function () { return woven ? woven.stats : null; },
         // The ribbons: which component, which way, of what kind, to which
         // family, carrying how many links.
@@ -5593,7 +5905,44 @@
        pointed at stands there, its bottom right. What is already chosen
        says how to open it. A camera move slides marks under a pointer that
        has not moved, so nothing is read out until it settles. */
-    function tipText(key) {
+    /* In a component's or a rule's view, what is pointed at is read out as
+       its relation to what is chosen: the code connection as a sentence
+       with the component that acts first, or how the rule stands there
+       (cited by its paper module, enforced there by a test, a part of it
+       checked there by a test), each said apart. */
+    function relationText(key, rel) {
+      if (!model) return null;
+      if (at.level === 'component' && key.indexOf('comp:') === 0) {
+        var ci = at.comp, self = model.comps[ci].label, said = [];
+        relationsOf(ci).forEach(function (x) {
+          if ('comp:' + model.comps[x.other].id !== key || (rel && (x.kind !== rel.kind || x.dir !== rel.dir))) return;
+          var s = relationSentence(x.kind, x.dir, self, model.comps[x.other].label);
+          if (said.indexOf(s) < 0) said.push(s);
+        });
+        return said.length ? said.join(' ') : null;
+      }
+      if (!D) return null;
+      var ci2 = -1, id = null;
+      if (at.level === 'component' && key.indexOf('rule:') === 0) { ci2 = at.comp; id = key.slice(5); }
+      else if (at.level === 'rule' && key.indexOf('comp:') === 0) {
+        id = at.rule;
+        for (var i = 0; i < model.comps.length; i++) if ('comp:' + model.comps[i].id === key) ci2 = i;
+      }
+      if (ci2 < 0 || !id || !D.rules[id]) return null;
+      var words = [], held = heldIn(ci2, id), r = D.rules[id];
+      if (r.kind !== 'failure') words.push(citesRule(ci2, id) ? 'Its paper module cites this rule.' : 'Its paper module does not cite this rule.');
+      if (held) words.push(HELD_WORDS[held]);
+      else if (r.kind !== 'failure' && D.enforcedBy === 'tests') words.push('No test marks it here.');
+      return words.join(' ');
+    }
+    function tipText(key, rel) {
+      var t = tipBase(key);
+      if (!t) return t;
+      var said = relationText(key, rel);
+      if (said) t.text = said;
+      return t;
+    }
+    function tipBase(key) {
       if (key === 'doctrine') {
         return { title: 'The doctrine', sub: D ? countWords(D.axioms.length, 'axiom', 'axioms') + ', ' + countWords(D.principles.length, 'principle', 'principles') +
           ' and ' + countWords(D.failures.length, 'failure mode', 'failure modes') : null, text: 'The rules the system is built on.' };
@@ -5621,7 +5970,7 @@
       // A mark already named on a plate lights its plate as well.
       var plated = key && map && map.svg.querySelector ? map.svg.querySelector('[data-sm-plate="' + key + '"]') : null;
       if (plated) { plated.classList.add('is-hover'); litPlate = plated; }
-      var t = key ? tipText(key) : null;
+      var t = key ? tipText(key, key === hoverKey ? hoverRel : null) : null;
       if (!t) { hideTip(); return; }
       clear(tip);
       var headLine = h('p', 'sm-readout__head');
@@ -5683,7 +6032,7 @@
     function makeColumn() {
       var host = explorer ? explorerEl.querySelector('[data-system-panel]') :
         section && section.querySelector ? section.querySelector('.home-split__text') : null;
-      var noop = { sync: function () {}, lit: function () {}, state: function () { return null; }, ready: function () {}, rows: function () {}, refit: function () {} };
+      var noop = { sync: function () {}, lit: function () {}, state: function () { return null; }, ready: function () {}, rows: function () {}, refit: function () {}, again: function () {} };
       if (!host || !host.appendChild) return noop;
       if (host.classList) host.classList.add('sc-host');
       var familyList = host.querySelector ? host.querySelector('.home-families') : null;
@@ -5740,8 +6089,11 @@
       }
 
       function line(cls, text) { return h('p', cls, text); }
+      // primary: true, or a weight ('primary', 'secondary', 'quiet'): the
+      // explorer's ways out are of unequal weight, its page first.
       function goLink(href, text, primary) {
-        var a = h('a', 'sc__go' + (primary ? ' sc__go--primary' : ''), text);
+        var weight = primary === true ? 'primary' : primary || '';
+        var a = h('a', 'sc__go' + (weight ? ' sc__go--' + weight : ''), text);
         a.setAttribute('href', href);
         if (/^https?:/i.test(href)) a.setAttribute('rel', 'noopener');
         return a;
@@ -5773,9 +6125,9 @@
         // is checked, as the map frames its glyph.
         if (opts.held) b.appendChild(h('span', 'sc__held sc__held--' + opts.held, opts.held === 'full' ? 'Enforced here' : 'Partly checked here'));
         b.addEventListener('click', function (e) { onPress(e); });
-        b.addEventListener('pointerenter', function () { pulse(key); });
+        b.addEventListener('pointerenter', function () { pulse(key, opts.rel); });
         b.addEventListener('pointerleave', function () { unpulse(key); });
-        b.addEventListener('focus', function () { pulse(key); });
+        b.addEventListener('focus', function () { pulse(key, opts.rel); });
         b.addEventListener('blur', function () { unpulse(key); });
         li.appendChild(b);
         return li;
@@ -5783,11 +6135,13 @@
       // A row pointed at finds its mark: the mark's ring closes once, the
       // map names it and singles out its lines to what is chosen, and the
       // readout says what it is.
-      function pulse(key) {
+      // rel: the one relation a connection's row reads, so the drawing
+      // singles out that line alone and the readout says that sentence.
+      function pulse(key, rel) {
         var n = map && map.nodeOf(key);
         if (!n) return;
         n.classList.add('is-pulse');
-        setHover(key, n);
+        setHover(key, n, rel);
       }
       function unpulse(key) {
         var n = map && map.nodeOf(key);
@@ -5930,20 +6284,199 @@
         return node;
       }
 
-      /* A component in the explorer, read in order: what it is in a
-         sentence and how it is backed, then at once the ways to its own
-         pages; then what the map shows of it, its code connections (each
-         relation under its own verb, the other end named) and the rules its
-         paper module cites (a different relation in a different ink, never
-         mixed into the first list, a rule shown holding here framed at the
-         row's end); and last, under its own heading, the whole description.
-         The ways out used to close the page, below a long description and
-         every relation (a Type B review, 6 October 2026). */
+      /* ---- The explorer's inspector (6 October 2026) ----
+         A Type B review of the system view, with Will's go-ahead: a
+         component with forty-two connections pushed the rules its paper
+         module cites below a long scroll, each row repeated its family, and
+         the whole doctrine was one list. Each choice now opens on a compact
+         head (its title, what it does, how it is backed, its ways out of
+         unequal weight) and one strip of views, so every relation is one
+         step away whatever the length of the others. */
+      var stripN = 0;
+      // A strip of views over one page, with the tab behaviour readers know:
+      // the arrows, Home and End move along it and show each view at once (a
+      // view is already built, so showing it costs nothing), and Tab moves
+      // on into the view.
+      function viewStrip(label, list, current, pick) {
+        var bar = h('div', 'sc__tabs'), strip = h('div', 'sc__tablist'), panels = Object.create(null), btns = [];
+        var uid = 'sc' + mounted + '-' + (++stripN);
+        strip.setAttribute('role', 'tablist');
+        strip.setAttribute('aria-label', label);
+        bar.appendChild(strip);
+        list.forEach(function (t, i) {
+          var b = button('sc__tab');
+          b.setAttribute('role', 'tab');
+          b.setAttribute('id', uid + '-' + t.id);
+          b.setAttribute('aria-controls', uid + '-' + t.id + '-panel');
+          b.setAttribute('data-view', t.id);
+          b.appendChild(h('span', 'sc__tab-name', t.text));
+          if (t.n !== undefined && t.n !== null) b.appendChild(h('span', 'sc__tab-n', String(t.n)));
+          var p = h('div', 'sc__panel sc__panel--' + t.id);
+          p.setAttribute('role', 'tabpanel');
+          p.setAttribute('id', uid + '-' + t.id + '-panel');
+          p.setAttribute('aria-labelledby', uid + '-' + t.id);
+          panels[t.id] = p;
+          btns.push(b);
+          b.addEventListener('click', function () { show(t.id, true); });
+          b.addEventListener('keydown', function (e) {
+            var n = btns.length, to = e.key === 'ArrowRight' ? (i + 1) % n : e.key === 'ArrowLeft' ? (i - 1 + n) % n :
+              e.key === 'Home' ? 0 : e.key === 'End' ? n - 1 : -1;
+            if (to < 0) return;
+            if (e.preventDefault) e.preventDefault();
+            if (e.stopPropagation) e.stopPropagation();
+            show(list[to].id, true);
+            if (btns[to].focus) btns[to].focus();
+          });
+          strip.appendChild(b);
+        });
+        function show(id, user) {
+          if (!panels[id]) id = list[0].id;
+          list.forEach(function (t, i) {
+            var on = t.id === id;
+            btns[i].setAttribute('aria-selected', on ? 'true' : 'false');
+            btns[i].setAttribute('tabindex', on ? '0' : '-1');
+            panels[t.id].hidden = !on;
+          });
+          if (user) pick(id);
+          return id;
+        }
+        var shownId = show(current, false);
+        return {
+          el: bar, panels: panels, first: shownId,
+          show: function (id, keyedIt) { show(id, true); var b = btns[list.map(function (t) { return t.id; }).indexOf(id)]; if (keyedIt && b && b.focus) b.focus(); },
+          // A tab's count, while a find narrows what it holds.
+          count: function (id, text) {
+            var b = btns[list.map(function (t) { return t.id; }).indexOf(id)], n = b && b.querySelector ? b.querySelector('.sc__tab-n') : null;
+            if (n) n.textContent = text;
+          }
+        };
+      }
+      function findText(v) { return String(v || '').toLowerCase().replace(/\s+/g, ' ').trim(); }
+      // A find over one list: what is typed is kept with the choice (so it
+      // survives full screen and the panel folded), Escape in the box clears
+      // it, and a line under it says how many of the list it shows.
+      function finder(label, stateKey, apply) {
+        var wrap = h('div', 'sc__find');
+        var uid = 'sc' + mounted + '-find-' + (++stripN);
+        var lab = h('label', 'sc__find-label', label);
+        lab.setAttribute('for', uid);
+        var input = h('input', 'sc__find-input');
+        input.setAttribute('type', 'search');
+        input.setAttribute('id', uid);
+        input.setAttribute('autocomplete', 'off');
+        input.setAttribute('spellcheck', 'false');
+        input.setAttribute('placeholder', label);
+        input.setAttribute('aria-describedby', uid + '-n');
+        var said = h('p', 'sc__find-n');
+        said.setAttribute('id', uid + '-n');
+        said.setAttribute('aria-live', 'polite');
+        input.value = inspect.find[stateKey] || '';
+        function run() {
+          inspect.find[stateKey] = input.value;
+          said.textContent = apply(findText(input.value)) || '';
+        }
+        input.addEventListener('input', run);
+        input.addEventListener('keydown', function (e) {
+          if (e.key !== 'Escape' || !input.value) return;
+          if (e.preventDefault) e.preventDefault();
+          if (e.stopPropagation) e.stopPropagation();
+          input.value = '';
+          run();
+        });
+        wrap.appendChild(lab);
+        wrap.appendChild(input);
+        wrap.appendChild(said);
+        return { el: wrap, input: input, run: run };
+      }
+      // The rules a component's paper module cites, in the manifest's order:
+      // its principles, then its axioms.
+      function citedOf(info) {
+        if (!info || !D) return [];
+        var L = D.listed || { principle: D.principles, axiom: D.axioms };
+        return L.principle.filter(function (id) { return info.gov.indexOf(id) >= 0; })
+          .concat(L.axiom.filter(function (id) { return info.abide.indexOf(id) >= 0; }));
+      }
+      function listedOf(kind) { return (D.listed && D.listed[kind]) || (kind === 'axiom' ? D.axioms : kind === 'principle' ? D.principles : D.failures); }
+      function inListed(ids) {
+        var order = listedOf('axiom').concat(listedOf('principle'), listedOf('failure')), p = positions(order);
+        return ids.slice().sort(function (a, b) { return p[a] - p[b]; });
+      }
+      // The narrowing the panel asks of the drawing: the connections a family
+      // chosen to stand alone and a find keep, and the rules a find keeps,
+      // with the words of its label in the strip of views.
+      function renarrow(ci, wantFocus) {
+        var c = model.comps[ci], selKey = 'comp:' + c.id, rels = relationsOf(ci);
+        var sc = inspect.scope && inspect.scope.key === selKey ? inspect.scope : null;
+        var q = findText(inspect.find[selKey + '|code']), rq = findText(inspect.find[selKey + '|rules']);
+        var N = { key: selKey, links: null, rules: null, text: null, total: rels.length };
+        if (sc || q) {
+          var kept = rels.filter(function (x) {
+            if (sc && !(x.kind === sc.kind && x.dir === sc.dir && x.fam === sc.fam)) return false;
+            return !q || codeMatch(x, q);
+          });
+          N.links = kept.map(function (x) { return x.k; });
+          var bits = [];
+          if (sc) bits.push(lowerFirst(RELATION_WORDS[sc.kind][sc.dir]) + ' ' + model.families[sc.fam].title);
+          if (q) bits.push('matching “' + inspect.find[selKey + '|code'].trim() + '”');
+          N.text = 'The map shows ' + kept.length + ' of ' + rels.length + ' ' + linkNoun(rels.length) + ': ' + bits.join(', ') + '.';
+        }
+        if (rq && D && D.comp[ci]) {
+          var info = D.comp[ci], all = citedOf(info);
+          N.rules = all.filter(function (id) { return findText(D.rules[id].title).indexOf(rq) >= 0; });
+          var rt = N.rules.length + ' of the ' + all.length + ' ' + plural(all.length, 'rule', 'rules') + ' its paper module cites, matching “' + inspect.find[selKey + '|rules'].trim() + '”.';
+          N.text = N.text ? N.text + ' And ' + rt : 'The map shows ' + rt;
+        }
+        var next = N.links || N.rules ? N : null, was = narrowNow();
+        inspect.narrow = next;
+        syncScope();
+        // The drawing answers only a narrowing that changed.
+        var sig = function (x) { return x ? (x.links || []).join(',') + '|' + (x.rules || []).join(',') : ''; };
+        if (map && sig(was) !== sig(next)) map.inspect();
+        if (wantFocus) wantFocus();
+      }
+      function codeMatch(x, q) {
+        return findText(model.comps[x.other].label).indexOf(q) >= 0 || findText(model.families[x.fam].title).indexOf(q) >= 0;
+      }
+      // A code connection's row: the component at the other end (pointed at,
+      // the drawing draws this one relation whole; pressed, the map goes
+      // there), and, quieter, the source file whose code establishes it.
+      function codeRow(ci, x) {
+        var n = model.comps[x.other];
+        var li = item('comp:' + n.id, n.label, null, function (e) { goComponent(x.other, { keyed: keyedClick(e) }); },
+          { glyph: n.cls, rel: { kind: x.kind, dir: x.dir } });
+        li.setAttribute('data-k', String(x.k));
+        if (x.href) {
+          var path = model.links[x.k].ev.path;
+          if (li.classList) li.classList.add('sc__li--code');
+          var a = h('a', 'sc__code', 'Source file');
+          a.setAttribute('href', x.href);
+          a.setAttribute('target', '_blank');
+          a.setAttribute('rel', 'noopener');
+          a.setAttribute('title', path);
+          a.setAttribute('aria-label', 'Source file establishing this connection, on GitHub: ' + path.split('/').pop());
+          li.appendChild(a);
+        }
+        return li;
+      }
+
+      /* A component in the explorer. Its head is compact and stays the same
+         in every view: its title (its family is the trail above it, once),
+         what it does in a sentence, how it is backed, and its ways out by
+         weight (its component page, then its paper module, then its source).
+         Under it one strip of views: an overview (a short account of its
+         relations, each a way to its view, and its whole description), its
+         code connections, and the rules its paper module cites. The
+         connections stand under their verbs, out before in, and under each
+         verb by family round the ring, in the scene's order; a family's
+         heading shows its connections alone on the drawing, and a find
+         narrows a long list and the drawing together. A component with no
+         connection keeps the view, which says so in a sentence and leads to
+         its rules. The views are kept from one component to the next. */
       function compReading(ci) {
-        var c = model.comps[ci], F = model.families[c.fam], info = D ? D.comp[ci] : null;
+        var c = model.comps[ci], info = D ? D.comp[ci] : null, selKey = 'comp:' + c.id;
+        if (info && info.missing) info = null;
         var node = page('comp');
         var headEl = h('div', 'sc__head');
-        headEl.appendChild(line('sc__kicker', F.title));
         headEl.appendChild(titleOf(c.label));
         if (c.line) headEl.appendChild(line('sc__lede', c.line));
         if (c.cls || c.basis) {
@@ -5959,69 +6492,334 @@
         }
         node.appendChild(headEl);
         var act = actions([
-          c.page ? goLink(c.page, 'Component page', true) : null,
-          c.reader ? goLink(c.reader, 'Paper module', !c.page) : null,
-          c.source ? goLink(c.source, /^https:\/\/github\.com\//i.test(c.source) ? 'Source on GitHub' : 'Source', false) : null
+          c.page ? goLink(c.page, 'Component page', 'primary') : null,
+          c.reader ? goLink(c.reader, 'Paper module', c.page ? 'secondary' : 'primary') : null,
+          c.source ? goLink(c.source, /^https:\/\/github\.com\//i.test(c.source) ? 'Source on GitHub' : 'Source', 'quiet') : null
         ]);
         if (act) node.appendChild(act);
-        var sc = scroller(node);
-        onMap(sc);
-        // Code connections, by what the code does, from this component's side.
-        var code = h('section', 'sc__section sc__section--code');
-        var total = 0, groups = [];
-        LINK_ORDER.forEach(function (kind) {
-          // A listed relation has no direction worth reading: one list.
-          (kind === 'named' ? ['both'] : ['out', 'inc']).forEach(function (dir) {
-            var ends = uniq(model.links.filter(function (l) { return l.kind === kind && (dir === 'both' ? l[0] === ci || l[1] === ci : l[dir === 'out' ? 0 : 1] === ci); })
-              .map(function (l) { return l[0] === ci ? l[1] : l[0]; }));
-            if (!ends.length) return;
-            total += ends.length;
-            groups.push({ kind: kind, dir: dir, ends: ends });
-          });
-        });
-        code.appendChild(h('h3', 'sc__section-title', capital(onlyNamed() ? 'listed relations' : 'code connections') + (total ? ' · ' + total : '')));
-        groups.forEach(function (g) {
-          var words = RELATION_WORDS[g.kind][g.dir];
-          // The other end's family is said where it is not this one's.
-          code.appendChild(list(words, byFamily(g.ends).map(function (x) {
-            return codeItem(ci, x, model.comps[x].fam === c.fam ? null : model.families[model.comps[x].fam].title);
-          }), null));
-        });
-        if (!c.out.length && !c.inc.length) code.appendChild(line('sc__note', onlyNamed() ? 'Its record lists no related components.' :
-          'No code connections. Its code does not run, read or check another component, and no other component’s code runs, reads or checks it.'));
-        else code.appendChild(line('sc__note', linkNote()));
-        sc.appendChild(code);
-        // The rules, in the doctrine's ink.
-        if (info) {
-          var held = function (id) { return info.enforces.indexOf(id) >= 0 ? 'full' : info.partly.indexOf(id) >= 0 ? 'part' : null; };
-          var cited = ordered(info.gov, D.principles).concat(ordered(info.abide, D.axioms));
-          var rules = h('section', 'sc__section sc__section--rules');
-          var source = lowerFirst(info.source || 'paper module');
-          rules.appendChild(h('h3', 'sc__section-title', 'Rules its ' + source + ' cites' + (cited.length ? ' · ' + cited.length : '')));
-          if (cited.length) rules.appendChild(list(null, cited.map(function (id) { return ruleItem(id, null, held(id)); }), null));
-          else rules.appendChild(line('sc__note', 'Its ' + source + ' cites no rule.'));
-          [['enforces', 'Also enforced here'], ['partly', 'Also partly checked here']].forEach(function (pair) {
-            var extra = info[pair[0]].filter(function (id) {
-              var r = D.rules[id];
-              return r.kind === 'failure' || (r.kind === 'principle' && info.gov.indexOf(id) < 0) || (r.kind === 'axiom' && info.abide.indexOf(id) < 0);
-            });
-            if (extra.length) rules.appendChild(list(pair[1], ordered(extra, D.axioms.concat(D.principles, D.failures)).map(function (id) {
-              return ruleItem(id, KIND_WORDS[D.rules[id].kind]);
-            }), null));
-          });
-          rules.appendChild(line('sc__note', byTests() ? 'A rule is marked enforced here only where a test shows it.' : 'Where a rule is enforced is what its doctrine card names.'));
-          sc.appendChild(rules);
+        var flow = scroller(node);
+        var groups = relationGroups(ci), total = 0;
+        groups.forEach(function (g) { total += g.rels.length; });
+        var cited = citedOf(info), source = lowerFirst(info && info.source || 'paper module');
+        var views = [{ id: 'overview', text: 'Overview' }, { id: 'code', text: onlyNamed() ? 'Relations' : 'Connections', n: total }];
+        if (info) views.push({ id: 'rules', text: 'Rules', n: cited.length });
+        var strip = viewStrip('Views of ' + c.label, views, inspect.view, function (v) { inspect.view = v; if (map) map.inspect(); });
+        flow.appendChild(strip.el);
+
+        // Overview: its relations in a few lines, each a way to its view.
+        var ov = strip.panels.overview, sum = h('ul', 'sc__sum');
+        function sumRow(view, big, small) {
+          var li = h('li', 'sc__sum-li'), b = button('sc__sum-go sc__sum-go--' + view);
+          b.setAttribute('data-to-view', view);
+          b.appendChild(h('span', 'sc__sum-big', big));
+          small.forEach(function (s) { if (s) b.appendChild(h('span', 'sc__sum-small', s)); });
+          b.addEventListener('click', function (e) { strip.show(view, keyedClick(e)); });
+          li.appendChild(b);
+          sum.appendChild(li);
         }
-        // The whole description, under its own heading.
+        sumRow('code', total ? capital(countFigure(total, linkNoun(1), linkNoun(2))) : onlyNamed() ? 'No listed relations' : 'No code connections',
+          groups.map(function (g) { return RELATION_WORDS[g.kind][g.dir] + ' ' + countFigure(g.rels.length, 'component', 'components'); }));
+        if (info) {
+          sumRow('rules', capital(countFigure(cited.length, 'rule', 'rules')) + ' its ' + source + ' cites', [
+            info.enforces.length ? 'Enforced here by a test: ' + countFigure(info.enforces.length, 'rule', 'rules') : null,
+            info.partly.length ? 'Partly checked here by a test: ' + countFigure(info.partly.length, 'rule', 'rules') : null
+          ]);
+        }
+        ov.appendChild(sum);
         var what = trimProse(c.what, 1e6);
         if (what && what !== c.line) {
           var about = h('section', 'sc__section sc__section--about');
           about.appendChild(h('h3', 'sc__section-title', 'What it does'));
           about.appendChild(line('sc__body', what));
-          sc.appendChild(about);
+          ov.appendChild(about);
+        }
+
+        // Connections, under their verbs, then by family.
+        var cp = strip.panels.code, rows = [], fams = [], secs = [];
+        if (!total) {
+          cp.appendChild(line('sc__zero', onlyNamed() ? 'Its record lists no related components.' : 'No code connections of the kinds the map draws.'));
+          if (!onlyNamed()) cp.appendChild(line('sc__note', 'Its code does not run another component, read another’s saved results or check another’s copied files, and no other component’s code does any of these to it.'));
+          if (info) {
+            var jump = button('sc__jump', capital(countFigure(cited.length, 'rule', 'rules')) + ' its ' + source + ' cites');
+            jump.addEventListener('click', function (e) { strip.show('rules', keyedClick(e)); });
+            cp.appendChild(jump);
+          }
+        } else {
+          cp.appendChild(line('sc__onmap', 'On the map: each in red, its texture its kind. Point at a row to draw that one connection whole; choose a family to show its connections alone.'));
+          var f = total >= 8 ? finder('Filter these ' + linkNoun(2), selKey + '|code', function (q) {
+            var shown = 0;
+            rows.forEach(function (r) { var on = !q || codeMatch(r.x, q); r.li.hidden = !on; if (on) shown++; });
+            fams.forEach(function (fr) { fr.wrap.hidden = !fr.rows.some(function (r) { return !r.li.hidden; }); });
+            secs.forEach(function (sr) { sr.el.hidden = !sr.rows.some(function (r) { return !r.li.hidden; }); });
+            renarrow(ci);
+            return q ? 'Showing ' + shown + ' of ' + total + ' ' + linkNoun(total) + '.' : '';
+          }) : null;
+          if (f) cp.appendChild(f.el);
+          groups.forEach(function (g) {
+            var sec = h('section', 'sc__rel'), mine = [];
+            var title = h('h3', 'sc__rel-title');
+            title.appendChild(h('span', null, RELATION_WORDS[g.kind][g.dir]));
+            title.appendChild(h('span', 'sc__label-n', ' · ' + g.rels.length));
+            sec.appendChild(title);
+            ring.order.forEach(function (fi) {
+              var those = g.rels.filter(function (x) { return x.fam === fi; });
+              if (!those.length) return;
+              var wrap = h('div', 'sc__famgroup'), F = model.families[fi];
+              var fb = button('sc__fam');
+              var on = !!inspect.scope && inspect.scope.key === selKey && inspect.scope.kind === g.kind && inspect.scope.dir === g.dir && inspect.scope.fam === fi;
+              fb.setAttribute('aria-pressed', on ? 'true' : 'false');
+              fb.setAttribute('data-sm-key', 'fam:' + F.key);
+              fb.setAttribute('title', 'Show only these ' + countFigure(those.length, linkNoun(1), linkNoun(2)) + ' on the map');
+              fb.appendChild(h('span', 'sc__fam-name', F.title));
+              fb.appendChild(h('span', 'sc__fam-n', String(those.length)));
+              fb.addEventListener('click', function (e) {
+                var was = fb.getAttribute('aria-pressed') === 'true';
+                inspect.scope = was ? null : { key: selKey, kind: g.kind, dir: g.dir, fam: fi };
+                fams.forEach(function (fr) { fr.btn.setAttribute('aria-pressed', !was && fr.btn === fb ? 'true' : 'false'); });
+                renarrow(ci);
+                if (keyedClick(e) && fb.focus) fb.focus();
+              });
+              wrap.appendChild(fb);
+              var ul = h('ul', 'sc__list sc__list--code'), rws = [];
+              those.forEach(function (x) {
+                var li = codeRow(ci, x), r = { li: li, x: x };
+                rows.push(r); rws.push(r); mine.push(r);
+                ul.appendChild(li);
+              });
+              wrap.appendChild(ul);
+              sec.appendChild(wrap);
+              fams.push({ btn: fb, wrap: wrap, rows: rws });
+            });
+            cp.appendChild(sec);
+            secs.push({ el: sec, rows: mine });
+          });
+          cp.appendChild(line('sc__note', onlyNamed() ? linkNote() : model.codeBase && model.links.some(function (l) { return !!l.ev; }) ?
+            'Each is derived from the code. Source file opens the file whose code establishes that connection.' : 'Each connection is derived from the code.'));
+          if (f) f.run();
+        }
+
+        // The rules its paper module cites, in the doctrine's ink.
+        if (info) {
+          var rp = strip.panels.rules, rrows = [];
+          rp.appendChild(h('h3', 'sc__section-title sc__rules-title', 'Rules its ' + source + ' cites' + (cited.length ? ' · ' + cited.length : '')));
+          if (cited.length) rp.appendChild(line('sc__onmap', 'On the map: an azure line to each. A frame round a rule’s mark is a test showing it here: four corners where it is enforced, two where a part of it is checked.'));
+          var rf = cited.length >= 10 ? finder('Filter these rules', selKey + '|rules', function (q) {
+            var shown = 0;
+            rrows.forEach(function (r) { var on = !q || findText(D.rules[r.id].title).indexOf(q) >= 0; r.li.hidden = !on; if (on) shown++; });
+            renarrow(ci);
+            return q ? 'Showing ' + shown + ' of ' + cited.length + ' ' + plural(cited.length, 'rule', 'rules') + '.' : '';
+          }) : null;
+          if (rf) rp.appendChild(rf.el);
+          if (cited.length) {
+            var ul2 = h('ul', 'sc__list sc__list--rules');
+            cited.forEach(function (id) {
+              var li = ruleItem(id, null, heldIn(ci, id));
+              rrows.push({ li: li, id: id });
+              ul2.appendChild(li);
+            });
+            var blk = h('div', 'sc__block');
+            blk.appendChild(ul2);
+            rp.appendChild(blk);
+          } else rp.appendChild(line('sc__note', 'Its ' + source + ' cites no rule.'));
+          [['enforces', 'Also enforced here'], ['partly', 'Also partly checked here']].forEach(function (pair) {
+            var extra = info[pair[0]].filter(function (id) { return cited.indexOf(id) < 0; });
+            if (extra.length) rp.appendChild(list(pair[1], inListed(extra).map(function (id) {
+              return ruleItem(id, KIND_WORDS[D.rules[id].kind]);
+            }), null));
+          });
+          var held = info.enforces.length + info.partly.length;
+          if (byTests()) {
+            var note = h('div', 'sc__heldnote');
+            if (info.enforces.length) note.appendChild(line('sc__note', HELD_WORDS.full));
+            if (info.partly.length) note.appendChild(line('sc__note', HELD_WORDS.part));
+            note.appendChild(line('sc__note', held ? 'A citation is what its ' + source + ' refers to; only a test marks a rule enforced or partly checked here.' :
+              'No test marks any rule here. A citation is what its ' + source + ' refers to.'));
+            if (held && c.page) {
+              var rec = h('p', 'sc__note sc__note--go');
+              rec.appendChild(goLink(c.page.replace(/#.*$/, '') + '#evidence', 'Its evidence record', 'quiet'));
+              note.appendChild(rec);
+            }
+            rp.appendChild(note);
+          } else rp.appendChild(line('sc__note', 'Where a rule is enforced is what its doctrine card names.'));
+          if (rf) rf.run();
+        }
+        renarrow(ci);
+        var flowPanels = [strip.panels.overview, strip.panels.code];
+        if (info) flowPanels.push(strip.panels.rules);
+        flowPanels.forEach(function (p) { flow.appendChild(p); });
+        return node;
+      }
+
+      /* The doctrine in the explorer: its three kinds as three views (the
+         axioms, the principles, the failure modes, each in the manifest's
+         order), one find over all of them, and how the diagram is arranged
+         in a note at the end. The kind open here is the one named on the
+         drawing. */
+      function doctrineCatalogue() {
+        var node = page('doctrine');
+        var headEl = h('div', 'sc__head');
+        headEl.appendChild(line('sc__kicker sc__kicker--doctrine', 'At the centre'));
+        headEl.appendChild(titleOf('The doctrine'));
+        headEl.appendChild(line('sc__lede', 'The rules the system is built on. A principle rests on axioms and a failure mode threatens them.'));
+        node.appendChild(headEl);
+        var flow = scroller(node);
+        var cats = [{ id: 'axiom', text: 'Axioms', many: 'axioms', one: 'axiom' }, { id: 'principle', text: 'Principles', many: 'principles', one: 'principle' },
+                    { id: 'failure', text: 'Failure modes', many: 'failure modes', one: 'failure mode' }];
+        var rows = { axiom: [], principle: [], failure: [] };
+        var strip = viewStrip('The doctrine’s rules by kind', cats.map(function (k) { return { id: k.id, text: k.text, n: listedOf(k.id).length }; }), inspect.cat,
+          function (v) { inspect.cat = v; if (map) map.inspect(); if (f) f.run(); });
+        flow.appendChild(strip.el);
+        var f = finder('Find a rule or failure mode', 'doctrine', function (q) {
+          var found = {};
+          cats.forEach(function (k) {
+            var n = 0;
+            rows[k.id].forEach(function (r) { var on = !q || findText(D.rules[r.id].title).indexOf(q) >= 0; r.li.hidden = !on; if (on) n++; });
+            found[k.id] = n;
+            strip.count(k.id, q ? n + ' of ' + listedOf(k.id).length : String(listedOf(k.id).length));
+          });
+          if (!q) return '';
+          var here = cats.filter(function (k) { return k.id === inspect.cat; })[0];
+          var say = capital(numberWord(found[here.id])) + ' of the ' + listedOf(here.id).length + ' ' + here.many + ' ' + (found[here.id] === 1 ? 'matches' : 'match') + '.';
+          var else_ = cats.filter(function (k) { return k.id !== here.id && found[k.id]; }).map(function (k) { return countFigure(found[k.id], k.one, k.many); });
+          return say + (else_.length ? ' Also ' + andList(else_) + ' under ' + (else_.length > 1 ? 'their own views' : 'its own view') + '.' : '');
+        });
+        flow.appendChild(f.el);
+        cats.forEach(function (k) {
+          var p = strip.panels[k.id], ul = h('ul', 'sc__list sc__list--doctrine');
+          listedOf(k.id).forEach(function (id) {
+            var li = ruleItem(id);
+            rows[k.id].push({ li: li, id: id });
+            ul.appendChild(li);
+          });
+          p.appendChild(ul);
+          flow.appendChild(p);
+        });
+        var how = h('details', 'sc__how');
+        var sum = h('summary', 'sc__how-summary', 'How this diagram is arranged');
+        how.appendChild(sum);
+        how.appendChild(line('sc__body', capital(countWords(D.axioms.length, 'axiom', 'axioms')) + ' stand on a ring at the centre. A rule tied to one axiom sits just outside it; a rule tied to several stands on the ring between them. ' +
+          'A fine line joins a principle to each axiom it rests on, and a dotted line joins a failure mode to each axiom it threatens. The components round the rim stay as they are.'));
+        how.appendChild(line('sc__body', byTests() ? 'A rule is marked enforced in a component only where a test shows it.' : 'Each rule’s doctrine card names the components where it is enforced.'));
+        flow.appendChild(how);
+        f.run();
+        return node;
+      }
+
+      // Where a rule stands in a component: its row, and, quieter, the
+      // component's evidence record, which gives its evidence and the limits
+      // of its scope.
+      function evidenceRow(ci) {
+        var li = compItem(ci, null), c = model.comps[ci];
+        if (c.page) {
+          if (li.classList) li.classList.add('sc__li--code');
+          var a = h('a', 'sc__code', 'Evidence record');
+          a.setAttribute('href', c.page.replace(/#.*$/, '') + '#evidence');
+          a.setAttribute('aria-label', 'Evidence record of ' + c.label);
+          li.appendChild(a);
+        }
+        return li;
+      }
+      // Which components' paper modules cite a rule, by family; while none
+      // is open the families run on, each a way to its components.
+      function citeReach(id) {
+        var r = D.rules[id], citing = [];
+        D.comp.forEach(function (info, ci) {
+          if ((r.kind === 'principle' ? info.gov : info.abide).indexOf(id) >= 0) citing.push(ci);
+        });
+        var wrap = h('div', 'sc__block');
+        wrap.appendChild(line('sc__label', !citing.length ? 'No paper module cites it' : citing.length === 1 ? 'Cited by one component’s paper module' :
+          'Cited by the paper modules of ' + citing.length + ' of ' + model.comps.length + ' components'));
+        var anyOpen = ring.order.some(function (fi) { return !!opened['cite:' + id + ':' + fi]; });
+        var foldKey = 'fams:' + id, folded = fold && citing.length > 0 && !anyOpen && !opened[foldKey];
+        if (folded) {
+          var unfold = button('sc__all', 'Show by family');
+          unfold.addEventListener('click', function (e) { opened[foldKey] = true; rebuild(keyedClick(e) ? foldKey : null); });
+          wrap.appendChild(unfold);
+        }
+        var groups = h('ul', 'sc__list' + (anyOpen ? '' : ' sc__list--flow'));
+        ring.order.forEach(function (fi) {
+          var mine = citing.filter(function (ci) { return model.comps[ci].fam === fi; });
+          if (!mine.length) return;
+          var li = h('li', 'sc__li sc__group');
+          var key = 'cite:' + id + ':' + fi, isOpen = !!opened[key];
+          var g = button('sc__item sc__group-btn');
+          g.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          g.setAttribute('data-sm-key', 'fam:' + model.families[fi].key);
+          var txt = h('span', 'sc__item-text');
+          txt.appendChild(h('span', 'sc__item-name', model.families[fi].title));
+          txt.appendChild(h('span', 'sc__item-note', String(mine.length)));
+          g.appendChild(txt);
+          g.addEventListener('click', function (e) { opened[key] = !opened[key]; rebuild(keyedClick(e) ? key : null); });
+          li.appendChild(g);
+          if (isOpen) {
+            var inner = h('ul', 'sc__list sc__list--inner');
+            mine.sort(function (p, q) { return byText(model.comps[p].label, model.comps[q].label); })
+              .forEach(function (ci) { inner.appendChild(compItem(ci, null)); });
+            li.appendChild(inner);
+          }
+          groups.appendChild(li);
+        });
+        if (!folded) wrap.appendChild(groups);
+        return wrap;
+      }
+      function partOf(cls, title) {
+        var s = h('section', 'sc__section sc__section--' + cls);
+        s.appendChild(h('h3', 'sc__section-title', title));
+        return s;
+      }
+      /* A rule in the explorer, read in the order a reader asks of it: what
+         it means; what it rests on and what threatens it, apart; where a
+         test shows it in a component, enforced or a part of it checked,
+         each component with its evidence record; and which components'
+         paper modules cite it. Citation, enforcement and partial checking
+         are three lists with three counts, and no count is read off the
+         others. */
+      function ruleReading(id) {
+        var r = D.rules[id];
+        var node = page('rule');
+        var headEl = h('div', 'sc__head');
+        headEl.appendChild(line('sc__kicker sc__kicker--doctrine', KIND_WORDS[r.kind]));
+        headEl.appendChild(titleOf(r.title));
+        if (r.plain) headEl.appendChild(line('sc__lede', r.plain));
+        node.appendChild(headEl);
+        var act = actions([r.doctrine ? goLink(r.doctrine, 'Read its doctrine card', true) : null]);
+        if (act) node.appendChild(act);
+        var flow = scroller(node);
+        onMap(flow);
+        var ties = partOf('ties', r.kind === 'principle' ? 'Foundations and threats' : r.kind === 'axiom' ? 'What rests on it and what threatens it' : 'What it threatens');
+        if (r.kind === 'principle') {
+          ties.appendChild(r.restsOn.length ? list('Rests on', inListed(r.restsOn).map(function (x) { return ruleItem(x); }), null) : line('sc__note', 'It rests on no axiom in the manifest.'));
+          ties.appendChild(r.brokenBy.length ? list('Threatened by', inListed(r.brokenBy).map(function (x) { return ruleItem(x); }), null) : line('sc__note', 'No failure mode is recorded as threatening it.'));
+        } else if (r.kind === 'axiom') {
+          if (r.grounds.length) ties.appendChild(list('Principles that rest on it', inListed(r.grounds).map(function (x) { return ruleItem(x); }), null));
+          if (r.threatenedBy.length) ties.appendChild(list('Failure modes that threaten it', inListed(r.threatenedBy).map(function (x) { return ruleItem(x); }), null));
+        } else {
+          if (r.guards.length) ties.appendChild(list('Axioms', inListed(r.guards).map(function (x) { return ruleItem(x); }), null));
+          if (r.negates.length) ties.appendChild(list('Principles', inListed(r.negates).map(function (x) { return ruleItem(x); }), null));
+        }
+        flow.appendChild(ties);
+        var ev = partOf('evidence', 'Evidence in components');
+        if (byTests()) {
+          if (r.enforced.length) ev.appendChild(list('Enforced in', byFamily(r.enforced).map(evidenceRow), null));
+          if (r.partly.length) ev.appendChild(list('Partly checked in', byFamily(r.partly).map(evidenceRow), null));
+          if (!r.enforced.length && !r.partly.length) ev.appendChild(line('sc__note', 'No test marks this rule in any component.'));
+          else ev.appendChild(line('sc__note', 'Enforced: a test shows the rule’s core requirement in that component. Partly checked: a test shows a narrower part of it there. Each mark holds for that component alone.'));
+        } else if (r.enforced.length) ev.appendChild(list('Enforced in, by its card', byFamily(r.enforced).map(function (x) { return compItem(x); }), null));
+        if (r.namedOnly.length) {
+          var quiet = list('Named in its doctrine card, not yet demonstrated by a test', byFamily(r.namedOnly).map(function (x) { return compItem(x); }), null);
+          if (quiet.classList) quiet.classList.add('sc__block--quiet');
+          ev.appendChild(quiet);
+        }
+        flow.appendChild(ev);
+        if (r.kind !== 'failure') {
+          var reach = partOf('reach', 'Citation reach');
+          reach.appendChild(citeReach(id));
+          reach.appendChild(line('sc__note', 'A citation is what a paper module refers to; it carries no test.'));
+          flow.appendChild(reach);
         }
         return node;
       }
+
       function compPage(ci) {
         if (explorer) return compReading(ci);
         var c = model.comps[ci], F = model.families[c.fam], info = D ? D.comp[ci] : null;
@@ -6198,19 +6996,21 @@
         return null;
       }
       function build() {
-        return at.level === 'rule' ? rulePage(at.rule) : at.level === 'doctrine' ? doctrinePage() :
+        return at.level === 'rule' ? (explorer ? ruleReading(at.rule) : rulePage(at.rule)) : at.level === 'doctrine' ? (explorer ? doctrineCatalogue() : doctrinePage()) :
           at.level === 'family' ? famPage(at.fam) : compPage(at.comp);
       }
       // A page built again in place (a list opened), its scroll kept.
       function rebuild(focusGroup) {
         if (!shown) return;
-        var sc = shown.node.querySelector ? shown.node.querySelector('.sc__scroll') : null, top = sc ? sc.scrollTop : 0;
+        var sc = shown.node.querySelector ? shown.node.querySelector('.sc__scroll') : null, top = sc ? sc.scrollTop : 0, hostTop = explorer ? host.scrollTop : 0;
         var node = build();
         panel.replaceChild ? panel.replaceChild(node, shown.node) : (panel.removeChild(shown.node), panel.appendChild(node));
         shown.node = node;
+        syncScope();
         fitScroll(node);
         var sc2 = node.querySelector ? node.querySelector('.sc__scroll') : null;
         if (sc2) sc2.scrollTop = top;
+        if (explorer) host.scrollTop = hostTop;
         if (focusGroup && node.querySelectorAll) {
           var g = Array.prototype.filter.call(node.querySelectorAll('.sc__group-btn'), function (b) { return b.getAttribute('aria-expanded') !== null; });
           if (g[0] && g[0].focus) g[0].focus();
@@ -6220,7 +7020,20 @@
         how = how || {};
         wireDoctrineRow();
         var key = wantKey();
+        // A find and a narrowing belong to the choice they were made in; the
+        // view and the doctrine's category hold from one choice to the next.
+        var sel = model ? keyOf(at) : null;
+        if (sel !== inspect.key) {
+          inspect.key = sel;
+          inspect.find = Object.create(null);
+          inspect.scope = null;
+          inspect.narrow = null;
+          syncScope();
+        }
         if (!key) { close(); return; }
+        // A page built again for the same choice (the doctrine arriving)
+        // keeps the panel where the reader had scrolled it.
+        var again = !!shown && shown.key === 'stale' && explorer, keepTop = again ? host.scrollTop : 0;
         if (shown && shown.key === key) return;
         caps = Object.create(null);
         lean = false;
@@ -6231,13 +7044,14 @@
         if (old && old.parentNode) old.parentNode.removeChild(old);
         panel.appendChild(node);
         shown = { key: key, node: node };
+        syncScope();
         panel.inert = false;
         panel.removeAttribute('aria-hidden');
         if (panel.classList) panel.classList.add('is-open');
         if (host.classList) host.classList.add('sc-host--open');
         // The explorer's page is read whole from its top; the column's is
         // fitted to the column.
-        if (explorer) host.scrollTop = 0;
+        if (explorer) host.scrollTop = keepTop;
         else { node = tighten(node); fitScroll(node); }
         // The card comes in as the column's own words step out (90ms), so
         // the two never stand over each other and the column is never empty.
@@ -6345,7 +7159,7 @@
         });
       }
       return {
-        sync: sync, lit: lit, rows: wireRows,
+        sync: sync, lit: lit, rows: wireRows, again: function () { rebuild(); },
         refit: function () { if (shown && shown.node && shown.node.__update) shown.node.__update(); },
         ready: function () { wireDoctrineRow(); if (shown) { shown.key = 'stale'; sync({ instant: true }); } },
         state: function () {

@@ -125,7 +125,12 @@ its tests check anchor closure, complete-edition byte identity and entry size.
 Map selection must not start rendering a second document. Warm bytes only;
 keep native click and double-click navigation. Cache bounded, immutable topology
 plans and recent cameras, and invalidate geometry and text measurements when
-size or fonts change. The system map supports hold-and-drag at every scale;
+size or fonts change. The system map supports hold-and-drag at every scale,
+the fitted one included, with the mathematics map's feel (Will, 6 October
+2026: "it should just be the exact same as the mathematics one"): a press
+may wander 3px and still be a click, the ring may travel well past the
+stage's edges while some of it stays in reach, and the arrow keys move it
+from the stage (Shift for a long step; on a focused mark they walk the marks).
 Fit restores its original framing. Native fullscreen keeps the complete page
 ancestor tree, with a window-filling fallback when an embedded host refuses it.
 Browser regressions cover native fullscreen, rejection, exiting and dragging.
@@ -170,6 +175,18 @@ Freshness is established by source commits and build-time receipts, never by
 the deterministic `generated_at` sentinel. Refresh with the public-site builder;
 never patch the emitted JSON or JavaScript wrappers by hand.
 
+Ordinary reading-room releases preserve the previous root/docs packet edition.
+When a mathematical update also refreshes the advertised AI handoff, select
+`deploy_plectis_site.py --publication-scope lean_math_reading_room
+--refresh-math-ai-downloads`. The normal reader builder owns the three JSON
+downloads, identity sidecar and two JavaScript companions. The deploy checks
+that toolkit source, documents, manuscripts, repository maps and mechanism
+digests retain their published content before admitting this family. The
+retained projection receipt updates only these artifact identities and records
+their mathematical source and generator commits; unrelated identities and
+Pages bytes retain their earlier editions. Verify the homepage and all three
+advertised downloads against the assembled bytes before reporting publication.
+
 ### Front door (October 2026)
 
 The landing has one subject, the mathematics. In order: the introduction and
@@ -210,8 +227,9 @@ theorem stand in order, and the strip of results scrolls. The statement is
 the one the paper link names or whose Lean declarations include the checked
 one; `test_strongest_results_have_direct_checked_evidence_and_paper_sections`
 holds each link to a statement in the map data. Quiet previous/next arrows
-and a count navigate the eight; touch swipes remain. There is no autoplay or
-delayed transition, and no dropdown. Each result keeps a stable `result-*`
+and a count navigate the eight; touch swipes remain. The results never turn
+by themselves and there is no dropdown; an opened result's plate tells its
+story once (see "The plates"). Each result keeps a stable `result-*`
 fragment, and the four results that left the band keep theirs through
 `data-result-aliases` (each opens its problem's result): `#result-257-measure`,
 `#result-1041-trinomials`, `#result-243-inclusive`, `#result-249-basis`.
@@ -222,15 +240,37 @@ the theorem button, or hijack native input keys.
 The same band supplies the mathematics film's establishing view (Will,
 6 October 2026): all eight actual Type B plates together, then the selected
 figure enlarged in its own result. `landing.js` derives the overview from
-each slide's inlined plate, with unique SVG ids for its thumbnail copy;
-`assets/results-overview.css` gives it four columns on laptops and monitors,
-two on phones. It becomes the default only when every slide has its plate.
-An incomplete edition retains the existing result reading and text index.
-“All eight” returns to the overview; “One result” retains the current choice.
+each slide's inlined plate, with unique SVG ids for its thumbnail copy, and
+the thumbnails hide every label and technical mark and keep their strokes at
+one width, so each reads as its drawing's silhouette. The overview's rules
+live in `assets/style.css`: the band paints as the overview room from its
+first frame, never the one-result sheet first (7 October 2026: a stylesheet
+that `landing.js` fetched late showed the first result's cream sheet on every
+refresh, Will's "flashes that white box thing"). Four columns on laptops and
+monitors, two on phones; the contents index above an open result reads across
+in the same rows, in the order the count walks (it used to read down columns,
+putting the second result under the first). It becomes the default only when
+every slide has its plate. An incomplete edition retains the existing result
+reading and text index. “All eight” returns to the overview; “One result”
+retains the current choice. Both views share one head: the title, its
+sentence, the band's top and the scroll stay exactly where they are when the
+reader switches (Will: switching "should surely stay within the same space";
+the overview's own padding and title size used to drop the band about 90px),
+and a test holds them still. Between the two, the chosen drawing travels (a
+view transition: the thumbnail grows into the plate, or the plate settles back
+into its place among the eight) while the rest crossfades; with reduced
+motion, or without view transitions, the change is immediate.
 `#result-overview` is the reproducible video capture entry. Individual result
 fragments and aliases still open their result directly. The enlarged reading
-keeps the Intuitive/Technical switch and theorem disclosure. Selection
-briefly settles the enlarged figure, with no motion under reduced motion.
+keeps the Intuitive/Technical switch and theorem disclosure.
+
+The open result sits on a sheet of the page's own theme, one step lifted and
+edged with a hairline: an ink sheet (`#231b2f`) on the night page, a paper
+one (`#fcf7ee`) on the day page. It used to reverse the page (cream at
+night); Will, 6 October 2026: "it's tailored for the light mode thing, but it
+needs to be tailored for the dark mode thing as well". Inside the sheet
+`--page` is the sheet's colour, so labels' halos, loupes' grounds and hollow
+points knock out against it.
 Video readiness requires a qualified source edition and actual capture; a
 working control alone does not establish integration or filming.
 
@@ -287,9 +327,11 @@ left to speak for themselves.
   `draw.py`. `build.py --check` rebuilds every plate, compares
   `sites/microcosm/assets/plates/<id>.svg` and enforces the shared rules:
   classes only from the `pl-` vocabulary, no inline colour or style, every
-  id prefixed by the plate's id, under 40 KB, no em dash. `preview.py`
-  renders a plate against the real stylesheet: both themes, the reversed
-  results sheet and a 200px thumbnail.
+  id prefixed by the plate's id, under 40 KB, no em dash, stages numbered
+  1, 2, ... with one beat each. `preview.py` renders a plate against the
+  real stylesheet on each theme's results sheet: one panel per stage of the
+  story with its beat under it, the resting drawing, the technical state and
+  the 240px thumbnail.
 - Truth: every mark is computed; each module asserts every fact its drawing
   and its words state and fails loudly otherwise; a second view is either a
   true enlargement, labelled with its factor or its window in the paper's
@@ -298,17 +340,36 @@ left to speak for themselves.
 - Look: hairline ink; regions hatched at -28 degrees like an engraving,
   never tinted; the plait's ember for the one object the result is about,
   its ice for the rest, and every colour distinction repeated in weight,
-  shape or a label; the page's own flat ground; still; numerals and symbols
-  inside the drawing, sentences outside it. The `pl-` classes in style.css
-  carry every colour, so a plate follows the theme and reverses with the
-  results sheet (the sheet's palette carries `--home-ice` for this).
+  shape or a label; the page's own flat ground; still at rest; numerals and
+  symbols inside the drawing, sentences outside it. The `pl-` classes in
+  style.css carry every colour, so a plate follows the theme it is read in.
+- Story (7 October 2026; Will: the intuitive one could be "animated too to
+  ... communicate the underlying ideas"): a landing plate tells its result
+  in three to five stages (`<g class="pl-stage" data-stage="n">`, from
+  `draw.Svg.stage`), and its intuitive text is as many beats, beat n the
+  sentence read while stage n appears. When a reader opens the result,
+  `landing.js` lays the whole drawing down faint, as an underdrawing, then
+  inks it stage by stage while the beat being read stands in ink and the
+  ones to come stand faint: strokes ruled on in the direction their paths
+  run, hatching cut stroke after stroke, points and numerals set, and the
+  result's ember burned in, arriving in a hotter ink (`--pl-hot`) and
+  cooling to its own. Then it rests whole. A sentence under the pointer
+  lights its stage again; "Replay" tells the story again and, while it
+  plays, skips to the end. The technical register, reduced motion, the
+  thumbnails and the problem pages show the whole drawing at once; the
+  technical annotations (`<g class="pl-tech">`, `Svg.tech`) stand only
+  beside the technical text and on the problem page. Motion is restraint:
+  mature ember, a glow of a pixel or two that dies as the stroke cools,
+  never a neon sign, never a literal flame.
 - Words: `PLATES` in `plectis_plates/__init__.py` gives each plate its
-  slide, its intuitive text and its technical text, as HTML with exact-TeX
-  spans (never `<sub>` or `<sup>`). `sync_curated_landing_plates` inlines
-  plate and words between each slide's `<!-- mc:plate:start/end -->`
-  markers, with the technical text in landing-depth markers; the problem
-  page builder opens each problem page on its plates with both texts under
-  the drawing (`problem_plates_html`, ids `plate-<id>`).
+  slide; a landing plate's module holds its own words beside the numbers
+  they state, `BEATS` and `TECHNICAL`, as HTML with exact-TeX spans
+  (`words.tex`, never `<sub>` or `<sup>`). `sync_curated_landing_plates`
+  inlines plate and words between each slide's `<!-- mc:plate:start/end -->`
+  markers, each beat a `home-result-plate__beat` span, with the technical
+  text in landing-depth markers; the problem page builder opens each problem
+  page on its plates with both texts under the drawing
+  (`problem_plates_html`, ids `plate-<id>`).
 - Rejected: decorative or "mathematical-looking" art; a tagline or heading
   inside a figure; a second view labelled as a magnification it is not; a
   figure beside a result it does not depict (the #249 Farey certificate
@@ -511,8 +572,7 @@ finds it there and needs the column only to read on.
   out its own lines to what is chosen, and the view's other lit lines step
   back while it is pointed at.
 - The explorer's column reads: what it is in a sentence and how it is
-  backed, the ways to its own pages, what the map shows, its relations, and
-  last its whole description under "What it does".
+  backed, the ways to its own pages, then its views (below).
 - The explorer keeps a choice and the camera apart: Fit shows the whole map
   with the choice still lit, and "Focus" (or F) frames the choice again; it
   shows only while there is a framing to go back to and holds its place in
@@ -521,8 +581,9 @@ finds it there and needs the column only to read on.
   doctrine, what is chosen as a dot, and the view as a frame that travels
   with the camera. No name or plate is set under it.
 - The back pill (docs.js) stands in the explorer's panel foot, in a band of
-  its own, never on the stage, where it covered the start of the key. On a
-  phone the inset is not shown (the key needs the room).
+  its own, never on the stage, where it covered the start of the key, and
+  there it never folds to a lone arrow: it always says where it goes back
+  to. On a phone the inset is not shown (the key needs the room).
 - The light runs. As a choice's lines draw in from the end their light
   starts at, a short brighter stretch rides each front (the line's own ink
   lifted toward the page's ink, the palette's glow step, no blur) and is
@@ -545,6 +606,71 @@ finds it there and needs the column only to read on.
   faster than before.
 - The landing card's sentence no longer repeats the name its trail shows in
   bold just above it; it says what the map shows of the choice.
+
+The explorer's inspector (6 October 2026; a Type B review of the system view
+with Will's go-ahead: "Make the selected object's relationships readable and
+interrogable, not merely highlighted"). A component with forty-two
+connections pushed the rules its paper module cites below a long scroll, each
+row repeated its family, the doctrine was one list, and the drawing lit a
+choice's whole fan at once. `assets/system-map.js` (`compReading`,
+`doctrineCatalogue`, `ruleReading`; the landing card keeps its own pages):
+- A component opens on a compact head (its title, its family once, in the
+  trail; what it does; how it is backed) and its ways out by weight: its
+  component page, its paper module, its source as a quiet link. Under it one
+  strip of views, real tabs (the arrows, Home and End move along it and show
+  each view at once; one tab stop), sticky at the top of the panel:
+  Overview, Connections n, Rules n. The overview gives each relation in a
+  line or two, each a way to its view, then the whole description. The view
+  holds from one component to the next.
+- Every row, count, line and narrowing of a component's connections comes
+  from one list (`relationsOf`: each link of the scene in its own order, its
+  kind, its direction from this side, the other end, its family, the file
+  of the code establishing it). A count is of connections, never of the
+  distinct components they reach. Connections stand under their verbs ("Reads
+  the saved results of", "Its saved results are read by", and the rest),
+  out before in, then by family round the ring, the family named once, in
+  the scene's order; each row's "Source file" opens the file of its own
+  connection. A list of eight or more has a find whose count says how many it
+  shows. A component with none keeps the view: "No code connections of the
+  kinds the map draws.", why, and a way to its rules. The rules view keeps
+  "Rules its paper module cites", each held rule marked "Enforced here" or
+  "Partly checked here", the two scopes said in a sentence, and a way to its
+  evidence record.
+- The drawing answers the view. Its connections view steps the rule lines
+  back and names no rule; its rules view steps the code connections back and
+  names no component but itself; a component with more than ten connections
+  names none of them on plates until the reader narrows or points; every
+  name keeps its size, and the panel lists them all. Pointing at a row draws that one relation
+  whole along its own route, with a chevron the way the code acts, and the
+  readout says it as a sentence, the component that acts first; neither the
+  camera nor the choice moves. A family's heading in the list shows its
+  connections alone, each its own route, over the rest stepped back, and the
+  strip of views labels what the map shows of the whole with a way to show
+  it all; a find narrows the list and the drawing together. A lit ribbon
+  grows by the logarithm of what it carries (at rest by the square root) and
+  carries one kind to one family, its count set beside the point where it
+  parts.
+- The doctrine opens on its three kinds as views (Axioms 12, Principles 20,
+  Failure modes 17), each in the manifest's order, one find over all three
+  whose counts show on the tabs, and how the diagram is arranged in a note
+  at the end. The kind open is the one named on the drawing, its glyphs at
+  full strength, the rim stepped back; the doctrine is fitted with room for
+  the names beside its glyphs.
+- A rule reads: what it means; what it rests on and what threatens it,
+  apart; "Evidence in components" (enforced in, partly checked in, each
+  component with its evidence record, the scopes said once); and "Citation
+  reach". Citation, enforcement and partial checking are three lists with
+  three counts and no count is read off the others; pointed at in a
+  component's view, a rule's readout says which of the three hold there.
+- Full screen enlarges the whole explorer: the panel, its controls and the
+  map together. "Hide panel" folds the panel away and brings it back from
+  the same place (`assets/explorer.js`, `[data-explorer-panel-toggle]`),
+  inert while folded; below 900px the explorer stays Map or Details. The
+  choice, the view, the finds and the narrowing survive entering and leaving
+  full screen and folding the panel. The control follows the browser's
+  state through the request's promise and `fullscreenchange`; an Escape the
+  browser hands the page just after it left full screen is the browser's
+  alone, and any later Escape reaches the maps as usual.
 
 The papers band (4 October 2026). Will: the short paper is "the main focus
 and attraction", its companion sits beside it, small, and the band had "too
@@ -1000,13 +1126,33 @@ the ledger, the evidence or the rendered papers come from different editions.
   ceiling. Absence of Lean alone never supplies an ordinary-proof category.
   The proof field travels in both overview and complete graph projections;
   Comparator replay remains an independent recorded fact.
-- The page is the map and its placard: the field takes the panel's full
-  height on the left, so a laptop's first screen holds the whole map, and the
-  right-hand column carries the title, the four figures and the search above
-  the reading rail. The placard comes first in the source; on narrow screens
-  it stacks above the map and the rail below. The field opens once from the
-  centre out (never under reduced motion, in a hidden tab, or on a deep
-  link), and starts closed so the load shows no flash.
+- The page is one explorer: the reading panel on the left and the field in
+  the rest of the window, so a laptop's first screen holds the whole map.
+  The panel is a guide to the reader's current question (Type B review, 6
+  October 2026), one view at a time. Its head keeps the way back, the
+  Mathematics | System switch, the title, the search, the two peer
+  destinations (Problems, Index) and two tools (Map filters, How to read);
+  at depth the title steps down and the head names the place ("Index /
+  Lean modules", "#249 The binary totient series"). Problems, the default,
+  holds the lede, the scope in two lines with the way into the evidence in
+  full, the eight problems (number, serif title, replay count, slim
+  evidence strip) and the results by evidence; nothing else is appended.
+  Index lists every object by category (Problems, Results by paper, Papers,
+  Claims, Repository documents, Lean modules, Argument steps), each with
+  its own rows; the search filters it, a problem's card scopes it, and once
+  the complete universe loads it lists every Lean module. Map filters holds
+  the scope, verification, kind and claim controls and the load control;
+  an active filter stays said under the head with a reset. How to read
+  holds the key, the evidence in full, how the map is drawn (with the
+  sentence that shared Lean support is not equivalence of statements) and
+  the sources. A kept object reads over the view it was opened from, and
+  its labelled Back ("← Index") returns there with the same scroll, query
+  and focus. `universe.js` sets the view as `data-universe-view` on the
+  explorer; without scripts every view stands in order and the index is
+  the map's text alternative. The panel comes first in the source; below
+  900px it is the Details side of the Map | Details switch. The field opens
+  once from the centre out (never under reduced motion, in a hidden tab, or
+  on a deep link), and starts closed so the load shows no flash.
 - A selected or hovered object lights its whole sector as one flat slice
   edged with a hairline. Plates have ruled edges and a fine tick marks each
   gap between sectors. The evidence gauge repeats what the dots and titles

@@ -771,37 +771,17 @@
   if (!track || slides.length < 2 || !prev || !next) return;
   var index = 0;
   root.classList.add('is-live');
+  var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   // Keep the overview in the results owner: its figures are copies of the
   // actual inlined plates, never a second catalogue of mathematical claims.
+  // Its rules live in style.css, so the band can paint as the overview from
+  // its first frame: a stylesheet this script fetched late used to show the
+  // first result's sheet for a moment on every refresh (Will, 6 October
+  // 2026: "when I refresh the page, it flashes that white box thing").
   var overview = false;
   var overviewButtons = [];
   var overviewControl;
-  var overviewStyleReady = false;
-  var pendingOverview = false;
   var views;
-  var overviewStyle = document.createElement('link');
-  overviewStyle.rel = 'stylesheet';
-  var runtimeSource = document.currentScript && document.currentScript.src;
-  overviewStyle.href = runtimeSource
-    ? runtimeSource.replace(/landing\.js(?:\?.*)?$/, 'results-overview.css') + new URL(runtimeSource).search
-    : new URL('assets/results-overview.css', document.baseURI).href;
-  overviewStyle.addEventListener('load', function () {
-    overviewStyleReady = true;
-    if (views) views.hidden = false;
-    if (pendingOverview) {
-      setOverview(true, false);
-      if (window.location.hash === '#result-overview') root.scrollIntoView({ block: 'start', behavior: 'auto' });
-    }
-  });
-  document.head.appendChild(overviewStyle);
-  // A slow enhancement must not replace a reading the visitor has already
-  // begun. Focus, keyboard or pointer intent wins over the default overview.
-  function keepEarlyReading() {
-    if (!overviewStyleReady) pendingOverview = false;
-  }
-  root.addEventListener('focusin', keepEarlyReading, true);
-  root.addEventListener('keydown', keepEarlyReading, true);
-  root.addEventListener('pointerdown', keepEarlyReading, { capture: true, passive: true });
 
   /* Each result leads with its plate, explained in two registers (Will,
      6 October 2026): intuitive by default, and on the switch "the technical
@@ -813,6 +793,8 @@
     modes.forEach(function (button) {
       button.setAttribute('aria-pressed', button.getAttribute('data-results-mode') === mode ? 'true' : 'false');
     });
+    // The technical reading shows the whole drawing with its annotations.
+    if (mode === 'technical') stopStory();
   }
   modes.forEach(function (button) {
     button.addEventListener('click', function () { setMode(button.getAttribute('data-results-mode')); });
@@ -824,7 +806,6 @@
      theorems keeps them while turning; the stylesheet unrolls it and draws
      the statement's rule down. Closed, it is hidden from the tab order. */
   var theoremButtons = Array.prototype.slice.call(root.querySelectorAll('[data-results-theorem]'));
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function setTheorem(open, from) {
     root.classList.toggle('is-theorem-open', open);
     theoremButtons.forEach(function (button) {
@@ -846,6 +827,222 @@
     });
   });
 
+  /* The plate's story (7 October 2026; Will: the intuitive one could be
+     "animated too to ... communicate the underlying ideas"). A plate with
+     beats is drawn in stages, each while its sentence is read: the whole
+     drawing first stands faint, as an engraver's underdrawing, then stage
+     by stage its strokes are ruled on in the direction the argument runs,
+     its regions hatched stroke after stroke, its points and numerals set,
+     and the result's own ember burned in, arriving hot and cooling to the
+     ink. The sentence being read is in ink, the ones to come faint. Then
+     the drawing rests whole, which is all a reader with reduced motion, a
+     thumbnail or the problem page sees. A sentence held under the pointer
+     lights its stage again; "Replay" tells it again. */
+  var EMBER_MS = 784;
+  var story = null;
+  function numberOf(node, name) { return parseInt(node.getAttribute(name), 10) || 0; }
+  function plateOf(slide) {
+    return slide && slide.querySelector ? slide.querySelector('.home-result-plate svg.plate') : null;
+  }
+  function stageGroups(svg) {
+    return svg && svg.querySelectorAll ? Array.prototype.slice.call(svg.querySelectorAll('.pl-stage')) : [];
+  }
+  function beatsOf(slide) {
+    return slide && slide.querySelectorAll ? Array.prototype.slice.call(slide.querySelectorAll('.home-result-plate__beat[data-beat]')) : [];
+  }
+  function markBeats(run, n) {
+    run.beats.forEach(function (beat) {
+      var k = numberOf(beat, 'data-beat');
+      beat.classList.toggle('is-reading', k === n);
+      beat.classList.toggle('is-read', k < n);
+    });
+  }
+  // The hot ink a burned stroke arrives in, and its glow (the night sheet
+  // only: on paper a glow reads as a blur, so there it is transparent).
+  function plateInk(svg, name, fallback) {
+    var value = window.getComputedStyle ? window.getComputedStyle(svg).getPropertyValue(name) : '';
+    return (value || '').trim() || fallback;
+  }
+  // How long a stroke's dash must be to draw it on. A path's dash pattern
+  // restarts at each of its subpaths, so a path of many strokes (a region's
+  // hatching, a row of ticks, a ring of petals) is drawn by growing every
+  // stroke at once from where it starts, as far as the longest: the dash is
+  // that stroke's length, and the region fills as one sweep of the burin.
+  function strokeRun(mark) {
+    var total = 0;
+    try { total = mark.getTotalLength(); } catch (err) { return 0; }
+    if (mark.tagName.toLowerCase() !== 'path') return total;
+    var parts = (mark.getAttribute('d') || '').split(/(?=M)/).filter(function (part) { return /\S/.test(part); });
+    if (parts.length < 2) return total;
+    var longest = 0, probe = null;
+    parts.forEach(function (part) {
+      var seg = /^M\s*(-?[\d.]+)[ ,]+(-?[\d.]+)\s*L\s*(-?[\d.]+)[ ,]+(-?[\d.]+)\s*$/.exec(part.trim());
+      var length = 0;
+      if (seg) length = Math.sqrt(Math.pow(seg[3] - seg[1], 2) + Math.pow(seg[4] - seg[2], 2));
+      else {
+        if (!probe) { probe = document.createElementNS('http://www.w3.org/2000/svg', 'path'); mark.parentNode.appendChild(probe); }
+        probe.setAttribute('d', part);
+        try { length = probe.getTotalLength(); } catch (err) { length = 0; }
+      }
+      if (length > longest) longest = length;
+    });
+    if (probe && probe.parentNode) probe.parentNode.removeChild(probe);
+    return longest || total;
+  }
+  // One stage: every mark it holds, in the order the plate drew them.
+  function drawStage(run, groups) {
+    var marks = [];
+    groups.forEach(function (group) {
+      group.classList.add('is-drawn');
+      Array.prototype.forEach.call(group.querySelectorAll('path, line, polyline, polygon, circle, ellipse, rect, text'), function (mark) {
+        // The technical marks are hidden while the story is told.
+        if (!(mark.closest && mark.closest('.pl-tech'))) marks.push(mark);
+      });
+    });
+    var hot = plateInk(run.svg, '--pl-hot', '#c5533f');
+    var glow = plateInk(run.svg, '--pl-glow', 'transparent');
+    var spread = Math.min(560, marks.length * 46);
+    marks.forEach(function (mark, i) {
+      if (!mark.animate) return;
+      var delay = marks.length > 1 ? Math.round(spread * i / (marks.length - 1)) : 0;
+      var style = window.getComputedStyle(mark);
+      var stroked = mark.tagName.toLowerCase() !== 'text' && style.stroke && style.stroke !== 'none' &&
+        (!style.strokeDasharray || style.strokeDasharray === 'none') && typeof mark.getTotalLength === 'function';
+      var length = 0;
+      if (stroked) length = strokeRun(mark);
+      var animation;
+      if (length > 0.5) {
+        var key = /--key\b/.test(mark.getAttribute('class') || '');
+        mark.style.strokeDasharray = length + ' ' + length;
+        run.dashed.push(mark);
+        if (key) {
+          // Burned in: the ember arrives hot and cools to its ink.
+          var ink = style.stroke;
+          animation = mark.animate([
+            { strokeDashoffset: length, stroke: hot, filter: 'drop-shadow(0 0 1.6px ' + glow + ')' },
+            { strokeDashoffset: 0, stroke: hot, filter: 'drop-shadow(0 0 1.6px ' + glow + ')', offset: 0.62 },
+            { strokeDashoffset: 0, stroke: ink, filter: 'drop-shadow(0 0 0px ' + glow + ')' }
+          ], { duration: EMBER_MS * 1.6, delay: delay, easing: 'cubic-bezier(0.45, 0.05, 0.2, 1)', fill: 'backwards' });
+        } else {
+          animation = mark.animate([{ strokeDashoffset: length }, { strokeDashoffset: 0 }],
+            { duration: EMBER_MS, delay: delay, easing: 'cubic-bezier(0.45, 0.05, 0.2, 1)', fill: 'backwards' });
+        }
+      } else {
+        // Points, numerals and grounds are set: they rise into place.
+        var point = /^(circle|ellipse)$/i.test(mark.tagName) && !/pl-ring|pl-ground|pl-ref/.test(mark.getAttribute('class') || '');
+        if (point) {
+          mark.style.transformBox = 'fill-box';
+          mark.style.transformOrigin = 'center';
+          run.dashed.push(mark);
+        }
+        animation = mark.animate(point
+          ? [{ opacity: 0, transform: 'scale(0.3)' }, { opacity: 1, transform: 'scale(1)' }]
+          : [{ opacity: 0 }, { opacity: 1 }],
+          { duration: point ? 520 : 460, delay: delay + (point ? 0 : 120), easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'backwards', composite: 'replace' });
+      }
+      run.anims.push(animation);
+    });
+  }
+  function stopStory() {
+    var run = story;
+    story = null;
+    if (!run) return;
+    run.timers.forEach(function (timer) { clearTimeout(timer); });
+    run.anims.forEach(function (animation) { try { animation.cancel(); } catch (err) {} });
+    run.dashed.forEach(function (mark) {
+      mark.style.strokeDasharray = '';
+      mark.style.transformBox = '';
+      mark.style.transformOrigin = '';
+    });
+    stageGroups(run.svg).forEach(function (group) { group.classList.remove('is-drawn'); });
+    run.svg.classList.remove('is-pending');
+    run.slide.classList.remove('is-telling');
+    run.beats.forEach(function (beat) { beat.classList.remove('is-reading'); beat.classList.remove('is-read'); });
+    syncReplay(run.slide);
+  }
+  function playStory(slide) {
+    stopStory();
+    if (reduceMotion || overview || root.getAttribute('data-results-mode') === 'technical') return;
+    var svg = plateOf(slide);
+    var groups = stageGroups(svg);
+    if (!svg || !svg.animate || !groups.length) return;
+    var numbers = [];
+    groups.forEach(function (group) {
+      var n = numberOf(group, 'data-stage');
+      if (numbers.indexOf(n) < 0) numbers.push(n);
+    });
+    numbers.sort(function (a, b) { return a - b; });
+    var run = { slide: slide, svg: svg, beats: beatsOf(slide), timers: [], anims: [], dashed: [] };
+    story = run;
+    svg.classList.add('is-pending');
+    slide.classList.add('is-telling');
+    syncReplay(slide);
+    var at = 420;
+    numbers.forEach(function (n) {
+      var beat = run.beats.filter(function (b) { return numberOf(b, 'data-beat') === n; })[0];
+      var mine = groups.filter(function (group) { return numberOf(group, 'data-stage') === n; });
+      run.timers.push(setTimeout(function () {
+        if (story !== run) return;
+        markBeats(run, n);
+        drawStage(run, mine);
+      }, at));
+      var words = beat ? (beat.textContent || '').split(/\s+/).filter(Boolean).length : 10;
+      at += Math.max(EMBER_MS + 1100, Math.min(4600, 900 + words * 210));
+    });
+    run.timers.push(setTimeout(function () { if (story === run) stopStory(); }, at));
+  }
+  // Play when the plate is on screen, once per opening.
+  var seenObserver = null;
+  function playWhenSeen(slide) {
+    if (reduceMotion || !plateOf(slide)) return;
+    var Observer = window.IntersectionObserver;
+    if (typeof Observer !== 'function') { playStory(slide); return; }
+    if (seenObserver) seenObserver.disconnect();
+    seenObserver = new Observer(function (records) {
+      records.forEach(function (record) {
+        if (!record.isIntersecting) return;
+        seenObserver.disconnect();
+        if (slides[index] === slide && !overview) playStory(slide);
+      });
+    }, { threshold: 0.35 });
+    seenObserver.observe(plateOf(slide));
+  }
+  // "Replay" under a story's sentences; while it plays it skips to the end.
+  function syncReplay(slide) {
+    var button = slide && slide.querySelector ? slide.querySelector('[data-results-replay]') : null;
+    if (!button) return;
+    var telling = !!(story && story.slide === slide);
+    button.textContent = telling ? 'Skip to the end' : 'Replay';
+    button.setAttribute('aria-label', telling ? 'Show the whole drawing now' : 'Draw the figure again, stage by stage');
+  }
+  slides.forEach(function (slide) {
+    var svg = plateOf(slide);
+    if (!stageGroups(svg).length) return;
+    var words = slide.querySelector('.home-result-plate__intuitive');
+    if (words && words.parentNode && !reduceMotion && typeof document.createElement === 'function') {
+      var replay = document.createElement('button');
+      replay.type = 'button';
+      replay.className = 'home-result-plate__replay';
+      replay.setAttribute('data-results-replay', '');
+      replay.addEventListener('click', function () {
+        if (story && story.slide === slide) stopStory(); else playStory(slide);
+      });
+      words.parentNode.insertBefore(replay, words.nextSibling);
+      syncReplay(slide);
+    }
+    beatsOf(slide).forEach(function (beat) {
+      var n = numberOf(beat, 'data-beat');
+      function trace(on) {
+        if (story && story.slide === slide) return;
+        svg.classList.toggle('is-tracing', on);
+        beat.classList.toggle('is-traced', on);
+        stageGroups(svg).forEach(function (group) { group.classList.toggle('is-traced', on && numberOf(group, 'data-stage') === n); });
+      }
+      beat.addEventListener('pointerenter', function () { trace(true); });
+      beat.addEventListener('pointerleave', function () { trace(false); });
+    });
+  });
+
   /* The contents (Type B reviews, 6 October 2026): every result by its
      problem and short title ("#1041" "Degree-seven counterexample"), so a
      reader can go straight to any of them; arrows and "1 / 12" said more
@@ -855,7 +1052,8 @@
      tall, and an index under them moved by up to 140px with each choice, so
      the next choice was never where the last one had been. Above, its place
      depends on the window and the labels alone, and a choice opens the
-     result below it with no scroll. */
+     result below it with no scroll. The entries run across the rows, in the
+     order the arrows and the count walk them. */
   var entries = [];
   var labelled = slides.every(function (slide) { return slide.getAttribute('data-result-label'); });
   var win = root.querySelector('.home-results__window');
@@ -878,7 +1076,7 @@
       var name = document.createElement('span');
       name.className = 'home-results__entry-name';
       name.textContent = cut > 0 ? label.slice(cut + 2) : label;
-      var drawing = slide.querySelector('.home-result-plate svg.plate');
+      var drawing = plateOf(slide);
       if (drawing) {
         var figure = drawing.cloneNode(true);
         // SVG masks, hatch patterns and accessibility ids must stay unique
@@ -913,19 +1111,19 @@
       entry.appendChild(name);
       entry.addEventListener('click', function () {
         var wasOverview = overview;
-        setOverview(false, false);
-        show(i, true);
-        if (wasOverview) {
-          // A figure opens into its own reading; focus follows it instead of
-          // remaining on a thumbnail which has just disappeared.
-          slides[i].tabIndex = -1;
-          slides[i].focus({ preventScroll: true });
-          var enlarged = slides[i].querySelector('svg.plate');
-          if (enlarged && enlarged.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            enlarged.animate([{ opacity: 0.5, transform: 'scale(0.96)' }, { opacity: 1, transform: 'scale(1)' }],
-              { duration: 240, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+        var change = function () {
+          setOverview(false, false);
+          show(i, true);
+          if (wasOverview) {
+            // A figure opens into its own reading; focus follows it instead
+            // of remaining on a thumbnail which has just disappeared.
+            slides[i].tabIndex = -1;
+            slides[i].focus({ preventScroll: true });
           }
-        }
+        };
+        var turn = wasOverview ? morph(thumbOf(i), change, function () { return plateOf(slides[i]); }) : null;
+        if (!turn) change();
+        afterTurn(turn, slides[i]);
       });
       item.appendChild(entry);
       list.appendChild(item);
@@ -938,7 +1136,6 @@
     if (entries.every(function (entry) { return entry.querySelector('.home-results__preview'); })) {
       root.classList.add('has-overview');
       views = document.createElement('div');
-      views.hidden = !overviewStyleReady;
       views.className = 'home-results__views';
       views.setAttribute('role', 'group');
       views.setAttribute('aria-label', 'Results view');
@@ -948,7 +1145,16 @@
         button.className = 'home-results__view';
         button.setAttribute('data-results-view', choice[0]);
         button.textContent = choice[1];
-        button.addEventListener('click', function () { setOverview(choice[0] === 'overview', true); });
+        button.addEventListener('click', function () {
+          var toOverview = choice[0] === 'overview';
+          if (toOverview === overview) return;
+          var change = function () { setOverview(toOverview, true); };
+          var turn = toOverview
+            ? morph(plateOf(slides[index]), change, function () { return thumbOf(index); })
+            : morph(thumbOf(index), change, function () { return plateOf(slides[index]); });
+          if (!turn) change();
+          if (!toOverview) afterTurn(turn, slides[index]);
+        });
         views.appendChild(button);
         overviewButtons.push(button);
       });
@@ -956,10 +1162,45 @@
       root.querySelector('.home-results__controls').insertBefore(views, prev);
     }
   }
+  function thumbOf(i) {
+    var entry = entries[i];
+    return entry && entry.querySelector ? entry.querySelector('.home-results__preview svg') : null;
+  }
+
+  /* Between the eight and the one, the chosen drawing travels: the
+     thumbnail grows into the plate, or the plate settles back into its
+     place among the eight, while the band's head and the page stay where
+     they are (Will, 6 October 2026: switching "should surely stay within the
+     same space on the website, so it's not, like, moving"). A browser
+     without view transitions, or a reader asking for less motion, gets the
+     change at once. */
+  function morph(from, change, target) {
+    if (reduceMotion || !from || typeof document.startViewTransition !== 'function') return null;
+    from.style.viewTransitionName = 'result-plate';
+    var turn;
+    try {
+      turn = document.startViewTransition(function () {
+        from.style.viewTransitionName = '';
+        change();
+        var to = target();
+        if (to) to.style.viewTransitionName = 'result-plate';
+      });
+    } catch (err) {
+      from.style.viewTransitionName = '';
+      return null;
+    }
+    var clear = function () { var to = target(); if (to) to.style.viewTransitionName = ''; };
+    turn.finished.then(clear, clear);
+    return turn;
+  }
+  function afterTurn(turn, slide) {
+    if (turn && turn.finished) turn.finished.then(function () { playWhenSeen(slide); }, function () { playWhenSeen(slide); });
+    else playWhenSeen(slide);
+  }
 
   function setOverview(on, updateHash) {
-    pendingOverview = !!on;
-    overview = !!on && overviewStyleReady && root.classList.contains('has-overview');
+    overview = !!on && root.classList.contains('has-overview');
+    if (overview) stopStory();
     root.classList.toggle('is-overview', overview);
     entries.forEach(function (entry) {
       var preview = entry.querySelector('.home-results__preview');
@@ -980,6 +1221,7 @@
     var from = index;
     var focusedReading = slides[from] === document.activeElement;
     index = (target + slides.length) % slides.length;
+    if (index !== from) stopStory();
     // A turn the reader made draws the new statement's rule down like a pen
     // (style.css, .is-turned); the first result at load arrives still.
     if (updateHash && index !== from) root.classList.add('is-turned');
@@ -1019,11 +1261,16 @@
       setOverview(false, false);
       show(target, false);
       root.scrollIntoView({ block: 'start', behavior: 'auto' });
+      playWhenSeen(slides[target]);
     }
     return target >= 0;
   }
-  prev.addEventListener('click', function () { show(index - 1, true); });
-  next.addEventListener('click', function () { show(index + 1, true); });
+  function turnTo(target) {
+    show(target, true);
+    playWhenSeen(slides[index]);
+  }
+  prev.addEventListener('click', function () { turnTo(index - 1); });
+  next.addEventListener('click', function () { turnTo(index + 1); });
   // Arrows page the results from anywhere in the band except a control that
   // names a result of its own: with focus on "#243 Cubic-rate
   // irrationality", an arrow that opened #1049 would leave focus naming one
@@ -1031,11 +1278,11 @@
   // (Tab moves, Enter or Space opens); the arrows and the count keep theirs.
   root.addEventListener('keydown', function (event) {
     if (overview || (event.target.closest && event.target.closest('[data-results-view], button[data-results-mode]'))) return;
-    if (event.target && (/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName) || event.target.isContentEditable || (event.target.closest && event.target.closest('a, .home-results__contents, [data-results-theorem]')))) return;
-    if (event.key === 'ArrowRight') { event.preventDefault(); show(index + 1, true); }
-    else if (event.key === 'ArrowLeft') { event.preventDefault(); show(index - 1, true); }
-    else if (event.key === 'Home') { event.preventDefault(); show(0, true); }
-    else if (event.key === 'End') { event.preventDefault(); show(slides.length - 1, true); }
+    if (event.target && (/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName) || event.target.isContentEditable || (event.target.closest && event.target.closest('a, .home-results__contents, [data-results-theorem], [data-results-replay]')))) return;
+    if (event.key === 'ArrowRight') { event.preventDefault(); turnTo(index + 1); }
+    else if (event.key === 'ArrowLeft') { event.preventDefault(); turnTo(index - 1); }
+    else if (event.key === 'Home') { event.preventDefault(); turnTo(0); }
+    else if (event.key === 'End') { event.preventDefault(); turnTo(slides.length - 1); }
   });
   var start = null;
   track.addEventListener('pointerdown', function (event) {
@@ -1047,7 +1294,7 @@
     if (!start) return;
     var dx = event.clientX - start.x, dy = event.clientY - start.y;
     start = null;
-    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) show(index + (dx < 0 ? 1 : -1), true);
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) turnTo(index + (dx < 0 ? 1 : -1));
   }, { passive: true });
   window.addEventListener('hashchange', fromHash);
   show(0, false);

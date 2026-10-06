@@ -89,7 +89,7 @@ async function mount(options = {}) {
     querySelectorAll: s => s === '[data-universe-zoom]' ? [zoom, fit] : [],
   });
   const selectors = {'[data-universe-results]': results, '[data-universe-scope]': scope.all, '[data-universe-overlap]': overlap, '[data-universe-checking]': checking, '[data-universe-inspector]': inspector, '[data-universe-count]': count,
-    '[data-universe-search]': search, '[data-universe-load-full]': full};
+    '[data-universe-search]': search, '[data-universe-load-full]': full, ...(options.extraSelectors || {})};
   const document = Object.assign(element(), {
     readyState: 'complete', documentElement: element(), activeElement: null,
     querySelector: s => selectors[s] || null,
@@ -1870,7 +1870,7 @@ test('publication scope and verification compose without inventing statement equ
   assert.equal(map.count.textContent, '3 of 7 shown');
   assert.equal(map.scope.short.getAttribute('aria-pressed'), 'true');
   assert.equal(map.scope.long.getAttribute('aria-pressed'), 'false');
-  assert.match(map.inspector.innerHTML, /1 of 2 results replayed/);
+  assert.match(map.inspector.innerHTML, /<b>1<\/b> of 2 results replayed/);
   map.overlap.checked = true; map.overlap.fire('change');
   assert.equal(map.count.textContent, '2 of 7 shown');
   map.scope.all.fire('click');
@@ -1880,7 +1880,7 @@ test('publication scope and verification compose without inventing statement equ
   map.overlap.checked = false; map.overlap.fire('change');
   map.checking.value = 'ordinary_proof'; map.checking.fire('change');
   assert.equal(map.count.textContent, '2 of 7 shown', 'missing Lean alone is not an ordinary proof');
-  assert.match(map.inspector.innerHTML, /0 of 1 result replayed/);
+  assert.match(map.inspector.innerHTML, /<b>0<\/b> of 1 result replayed/);
   map.scope.short.fire('click');
   assert.match(map.inspector.innerHTML, /No paper results match these filters/);
   map.scope.all.fire('click');
@@ -2097,4 +2097,38 @@ test('URL and search selections notify the explorer reading owner', async () => 
   map.search.fire('keydown', {key: 'Enter'});
   assert.equal(map.selections.length, 2);
   assert.equal(map.selections[1].detail.id, 'problem:two');
+});
+
+test('the explorer carries the view it shows, and a card at the top of its trail goes back to that view by name', async () => {
+  // 6 October 2026: the panel is one view at a time (problems, index,
+  // filters, how to read) with a kept object over it. The explorer says
+  // which view stands, for CSS; the card's way back names the view.
+  const map = await mount({explorer: true});
+  const explorer = map.canvas.closest('[data-explorer]');
+  assert.equal(explorer.getAttribute('data-universe-view'), 'problems', 'at rest the problems stand');
+  map.search.value = 'Second problem';
+  map.search.fire('input');
+  map.search.fire('keydown', {key: 'Enter'});
+  assert.equal(explorer.getAttribute('data-universe-view'), 'object', 'a kept object reads over the view');
+  assert.match(map.inspector.innerHTML,
+    /aria-label="Back to the problems \(Esc\)"><span aria-hidden="true">←<\/span> Problems<\/button>/,
+    'the way back says where it goes, never a bare glyph or a vague Close');
+  map.document.fire('keydown', {key: 'Escape', target: {tagName: 'BODY'}});
+  assert.equal(explorer.getAttribute('data-universe-view'), 'problems', 'Esc returns to the view it came from');
+});
+
+test('a search that finds nothing on the map says so, and why, outside the list of matches', async () => {
+  const none = element();
+  none.hidden = true;
+  const map = await mount({explorer: true, extraSelectors: {'[data-universe-none]': none}});
+  map.document.activeElement = map.search;
+  map.search.value = 'zzqqxx';
+  map.search.fire('input');
+  assert.equal(none.hidden, false);
+  assert.match(none.innerHTML, /Nothing shown on the map matches “zzqqxx”\./);
+  assert.match(none.innerHTML, /found once the complete universe is loaded/, 'what is not loaded yet is said, not taken for absence');
+  assert.equal(map.results.hidden, true, 'the combobox list stays closed: no option claims a match');
+  map.search.value = 'Second';
+  map.search.fire('input');
+  assert.equal(none.hidden, true);
 });
