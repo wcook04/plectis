@@ -3,10 +3,10 @@
   "authority_posture": "generated_navigation_projection_not_Lean_proof_authority",
   "root_node_id": "universe:plectis-lean",
   "counts": {
-    "nodes": 2904,
-    "edges": 9142,
+    "nodes": 2905,
+    "edges": 9143,
     "node_kinds": {
-      "human_document": 16,
+      "human_document": 17,
       "integration_surface": 2,
       "lean_module": 1902,
       "mathematical_object": 105,
@@ -27,7 +27,7 @@
       "holds_prepared": 616,
       "imports": 3883,
       "instantiates": 2,
-      "interpreted_by": 16,
+      "interpreted_by": 17,
       "makes_exact": 1,
       "positions": 3,
       "publishes": 160,
@@ -1768,6 +1768,14 @@
       "role": "development_chronology",
       "href": "documents/wave-index.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/WAVE_INDEX.md"
+    },
+    {
+      "id": "document:weighted-257-task",
+      "kind": "human_document",
+      "label": "Apply a result and change a hypothesis",
+      "role": "changed_hypothesis_task",
+      "href": "documents/weighted-257-task.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/weighted-257-task.md"
     },
     {
       "id": "integration:comparator",
@@ -93393,6 +93401,11 @@
       "source": "universe:plectis-lean",
       "relation": "interpreted_by",
       "target": "document:wave-index"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:weighted-257-task"
     },
     {
       "source": "universe:plectis-lean",

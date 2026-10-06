@@ -1,0 +1,65 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "weighted-257-task",
+  "title": "Apply a result and change a hypothesis",
+  "role": "changed_hypothesis_task",
+  "reading_order": 12,
+  "source_path": "docs/reading-edition/weighted-257-task.md",
+  "routes": {
+    "html_mathml": "documents/weighted-257-task.html",
+    "html_exact_tex": "documents/weighted-257-task.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/weighted-257-task.md"
+  },
+  "render_contract": {
+    "navigation_fingerprint": "53747847c786b2a4eb67372cfbe3c277431a820923e1ba40615c1ef19941aa8f",
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "source_sha256": "baf57ce13fe98fe6ad8b793c5a7948538cf6d8cd47fad825aab3776e0964e8fc",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 35,
+    "renderer_fingerprint": "065862ae86e3b045",
+    "source_manifest_match": true,
+    "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
+    "mathml_node_count": 71,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "04ae75f715f39aa390f03829b21ce3a041e034e742c4f5279423f057019308a7",
+    "html_exact_tex_sha256": "767ca652ea49a9113e4bcef415204b017b7eb780e2122526e349d1dc67dc2947"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": "criterion-and-definitions",
+      "label": "Criterion and definitions"
+    },
+    {
+      "level": 2,
+      "anchor": "registered-claim-and-source-boundary",
+      "label": "Registered claim and source boundary"
+    },
+    {
+      "level": 2,
+      "anchor": "exercise-hints-and-worked-answer",
+      "label": "Exercise, hints and worked answer"
+    },
+    {
+      "level": 2,
+      "anchor": "a-useful-next-question",
+      "label": "A useful next question"
+    },
+    {
+      "level": 2,
+      "anchor": "source-content-identities",
+      "label": "Source content identities"
+    }
+  ],
+  "source_heading_translations": {}
+}

@@ -5,9 +5,8 @@
 
 Plectis brings together research on eight Erdős problems: papers you can read,
 formal proofs you can check, and experiments and failed approaches you can
-continue. It is an independent, AI-assisted prototype by Will Cook. Lean is the
-proof assistant used to check the formal statements; the papers explain the
-arguments and identify what remains open.
+continue. It is an independent, AI-assisted prototype by Will Cook. Lean checks formal
+statements; papers explain the arguments and what remains open.
 
 **[Read the mathematics](https://wcook04.github.io/plectis/maths/)** ·
 [All papers](paper/README.md) ·
@@ -15,6 +14,10 @@ arguments and identify what remains open.
 [Contribute or correct](CONTRIBUTING.md)
 
 ## For a first look: #257
+
+**[Try three changed hypotheses](docs/reading-edition/weighted-257-task.md):**
+one result, optional hints, a worked answer, and where the test stops. Read
+offline or [use an agent](docs/agents/README.md#apply-a-result-to-a-changed-example).
 
 [Problem 257](https://www.erdosproblems.com/257) asks whether adding
 `1/(2^a − 1)` over **any infinite set of positive integers** always gives an
@@ -32,14 +35,11 @@ For every infinite `A ⊆ H` and every integer `b ≥ 2`, the sum
 condition even though `∑_{a∈H} 1/a` diverges; those example calculations are
 ordinary proofs. The question for every infinite support remains open.
 
-The difficult step is controlling infinitely many unfinished periods in an
-averaging argument. A second average, over window lengths that are powers of
-two, supplies the needed bound. Follow the [short proof](paper/257/erdos-257-mersenne-support-subseries.pdf),
+A second average over dyadic window lengths controls unfinished periods.
+Follow the [short proof](paper/257/erdos-257-mersenne-support-subseries.pdf),
 [longer proof record](paper/257/erdos257-mersenne-reasoning-surface.pdf),
 [Lean declaration](lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120),
 or [selected theorem replay](docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#reviewer-replay).
-The [weighted-support exercise](docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis)
-lets you investigate how the hypotheses matter.
 
 ![Eight Erdős problem programmes: papers, checked results, failed routes, and questions another researcher can continue](.github/system-map.png)
 

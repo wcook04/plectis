@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en" data-glossary-hint="off">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <title>Apply a result and change a hypothesis · Plectis maths</title>
+  <meta name="description" content="Apply a result and change a hypothesis, rendered from the public Lean repository.">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/documents/weighted-257-task.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Apply a result and change a hypothesis · Plectis maths">
+  <meta property="og:description" content="Apply a result and change a hypothesis, rendered from the public Lean repository.">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/documents/weighted-257-task.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Apply a result and change a hypothesis · Plectis maths">
+  <meta name="twitter:description" content="Apply a result and change a hypothesis, rendered from the public Lean repository.">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1526">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=79431b550b1f">
+  <link rel="stylesheet" href="../assets/maths.css?v=07db268db5ac">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=1eb60a8b10c2"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
+  <script defer src="../assets/maths.js?v=2481459dc144"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html"><img class="wordmark__mark" src="../../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
+        <a href="../index.html" aria-current="true">Mathematics</a>
+        <a href="../../docs/papers.html">Papers</a>
+        <a href="../../index.html#videos">Videos</a>
+        <a href="../../docs/glossary.html">Glossary</a>
+        <a href="../../docs/introduction.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents" class="is-active" aria-current="page">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <div class="maths-pagebar">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Apply a result and change a hypothesis</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+      <header class="paper-head">
+        <p class="doc-role-eyebrow">Research task</p>
+        <h1>Apply a result and change a hypothesis</h1>
+        <p class="doc-source-line">Rendered from <code>docs/reading-edition/weighted-257-task.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> repository. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/weighted-257-task.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+      </header>
+
+
+      <div class="paper-stage">
+<article class="lean-document" data-document-id="weighted-257-task" data-document-role="changed_hypothesis_task" data-math-mode="mathml">
+  <div class="lean-document__body" data-source="docs/reading-edition/weighted-257-task.md">
+<section class="level1 lean-doc-titled">
+<h2>Does the weighted #257 result apply when a hypothesis changes?</h2>
+<!-- Generated by scripts/build_reading_edition.py; do not edit by hand. -->
+<p>Source fingerprint: <code>93c3ef29878c3ed7</code> (authored regions,
+claim, boundary, paper and Lean sources).</p>
+<p>Read this saved file offline, with or without an assistant. No clone,
+account or Lean installation is needed. Links identify the public
+sources when you are online.</p>
+<p>Your task: decide what the weighted criterion says for the three
+cases below. Ask for one hint, a second hint, or the worked answer; an
+assistant should stop at your chosen depth. Collapsed answers are
+present in this file for offline reading.</p>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Changed hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>2</mn><mo>,</mo><mi>p</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>b</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">c=2,p=1,b=2</annotation></semantics></math></td>
+</tr>
+<tr>
+<td>2</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>2</mn><mo>,</mo><mi>p</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>b</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">c=2,p=1,b=3</annotation></semantics></math></td>
+</tr>
+<tr>
+<td>3</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>2</mn><mo>,</mo><mi>p</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">c=2,p=2</annotation></semantics></math>:
+what follows at every integer base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>?</td>
+</tr>
+</tbody>
+</table>
+<section id="criterion-and-definitions" class="level2">
+<h2>Criterion and definitions</h2>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">X_A(b)=\sum_{a\in A}(b^a-1)^{-1}</annotation></semantics></math>
+is the support series.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>W</mi><mrow><mi>b</mi><mo>,</mo><mi>P</mi></mrow></msub><annotation encoding="application/x-tex">W_{b,P}</annotation></semantics></math>
+denotes weighted mass, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">v_p(a)</annotation></semantics></math>
+is the exponent of prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.</p>
+<p>For a finite nonempty prime set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>P</mi></mrow></msub><msup><mi>p</mi><mrow><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">h_P(a)=\prod_{p\in P}p^{v_p(a)}</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+is an infinite set of positive integers, and</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>a</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>&lt;</mo><mi>∞</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">
+\sum_{a\in A}\frac{h_P(a)}{a(b^{h_P(a)}-1)}&lt;\infty,
+</annotation></semantics></math></p>
+<p>then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{a\in A}(b^a-1)^{-1}</annotation></semantics></math>
+is irrational. Separately, if a host
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
+of positive integers has finite weighted mass at base two for some such
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>,
+then <strong>every infinite subset</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">A\subseteq H</annotation></semantics></math>
+has an irrational support sum at <strong>every</strong> integer base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>.
+The paper states both clauses and their hereditary consequences at
+<code>res:weighted-support</code> in
+<code>paper/257/erdos-257-mersenne-support-subseries.tex</code>.</p>
+</section>
+<section id="registered-claim-and-source-boundary" class="level2">
+<h2>Registered claim and source boundary</h2>
+<p>Claim <code>finite_prime_weighted_support</code>:
+<strong>unconditional progress</strong>, projected from <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json">docs/claims.json</a>.
+This status means the criterion is proved with its stated hypotheses; it
+does not remove those hypotheses.</p>
+<p>For every integer base b &gt;= 2, every infinite positive support A
+with finite weighted mass for some finite nonempty prime set P has
+irrational support series. If a host H of positive integers has finite
+base-two weighted mass, then every infinite subset A of H has irrational
+support series at every integer base b &gt;= 2. This is a sufficient
+support criterion, not the universal statement.</p>
+<p>Open boundary
+<code>remaining_open.universal_257_all_infinite_supports</code>:
+<strong>open</strong>. Prove irrationality for every infinite support A,
+not only the named support families formalised here.</p>
+<p>Exact checked criterion:
+<code>ErdosProblems.Erdos257.PaperCompleteR8.divisibilityWeightedClaim</code>
+in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120">lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean:120</a>.
+Its conjunction type and weighted definitions are in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR7/AnalyticTargets.lean">AnalyticTargets.lean</a>.</p>
+<p>Lean proves the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a> criterion. The parameterised family
+calculation below is an ordinary deduction from the paper’s <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a>
+estimate, not a separately named Lean-checked instance. Finite samples
+cannot establish these infinite convergence claims.</p>
+</section>
+<section id="exercise-hints-and-worked-answer" class="level2">
+<h2>Exercise, hints and worked answer</h2>
+<p>The paper’s example uses the support
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mo>⋆</mo></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msup><mn>2</mn><mi>k</mi></msup><mi>m</mi><mo>:</mo><mi>k</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mi>m</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> odd</mtext></mrow><mo>,</mo><mspace width="0.222em"></mspace><mi>m</mi><mo>≤</mo><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">A_\star=\{2^km:k\ge1,\ m\text{ odd},\ m\le2^{2^k}\}</annotation></semantics></math>.
+Its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">reciprocal sum</a> diverges, yet its base-two weighted mass is finite,
+so Theorem 1 applies to every infinite subset at every integer base.
+What changes if the odd-factor cutoff in layer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+becomes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><msub><mi>r</mi><mi>k</mi></msub></msup><annotation encoding="application/x-tex">2^{r_k}</annotation></semantics></math>,
+where</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>k</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><msup><mi>c</mi><msup><mn>2</mn><mi>k</mi></msup></msup><msup><mi>k</mi><mi>p</mi></msup></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>c</mi><mo>≥</mo><mn>2</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> an integer</mtext></mrow><mo>,</mo><mspace width="1.0em"></mspace><mi>p</mi><mo>&gt;</mo><mn>0</mn><mi>?</mi></mrow><annotation encoding="application/x-tex">
+r_k=\left\lceil\frac{c^{2^k}}{k^p}\right\rceil,
+\qquad c\ge2\text{ an integer},\quad p&gt;0?
+</annotation></semantics></math></p>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>2</mn><mo>,</mo><mi>p</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c=2,p=1</annotation></semantics></math>,
+decide whether the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P=\{2\}</annotation></semantics></math>
+weighted test works at bases
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>.
+Then change only
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+and decide what Theorem 1 says at <em>every</em> base. Before opening
+the calculation, distinguish “this test fails” from a claim that the
+corresponding series is rational.</p>
+<details>
+<summary>
+Show one hint
+</summary>
+<p>Write the weighted mass layer by layer using
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P=\{2\}</annotation></semantics></math>.
+Compare the odd harmonic sum with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>k</mi></msub><annotation encoding="application/x-tex">r_k</annotation></semantics></math>
+before deciding convergence. Stop here if you want to do the comparison
+yourself.</p>
+</details>
+<details>
+<summary>
+Show a second hint
+</summary>
+<p>Use
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>/</mi><mn>4</mn><mo>≤</mo><msub><mi>S</mi><mi>r</mi></msub><mo>≤</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">r/4\le S_r\le r</annotation></semantics></math>
+and compare
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mi>/</mi><mi>b</mi><msup><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mi>k</mi></msup></msup><mi>/</mi><msup><mi>k</mi><mi>p</mi></msup></mrow><annotation encoding="application/x-tex">(c/b)^{2^k}/k^p</annotation></semantics></math>
+with the weighted term. At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">c=b</annotation></semantics></math>,
+the exponent cancels and the power
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+decides the test. A divergent sufficient test does not establish
+rationality.</p>
+</details>
+<details>
+<summary>
+Show the calculation and decisions
+</summary>
+<p>Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>,</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msup><mn>2</mn><mi>k</mi></msup><mi>m</mi><mo>:</mo><mi>k</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mi>m</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> odd</mtext></mrow><mo>,</mo><mspace width="0.222em"></mspace><mn>1</mn><mo>≤</mo><mi>m</mi><mo>≤</mo><msup><mn>2</mn><msub><mi>r</mi><mi>k</mi></msub></msup><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">A(c,p)=\{2^km:k\ge1,\ m\text{ odd},\ 1\le m\le2^{r_k}\}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>r</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mn>1</mn><mo>≤</mo><mi>m</mi><mo>≤</mo><msup><mn>2</mn><mi>r</mi></msup><mo>,</mo><mspace width="0.222em"></mspace><mi>m</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> odd</mtext></mrow></mrow></msub><mn>1</mn><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">S_r=\sum_{1\le m\le2^r,\ m\text{ odd}}1/m</annotation></semantics></math>.
+The dyadic estimate in the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex">paper’s
+example</a> gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>/</mi><mn>4</mn><mo>≤</mo><msub><mi>S</mi><mi>r</mi></msub><mo>≤</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">r/4\le S_r\le r</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r\ge1</annotation></semantics></math>.
+Layers are disjoint because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>k</mi></msup><mi>m</mi></mrow><annotation encoding="application/x-tex">2^km</annotation></semantics></math>
+has exactly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+factors of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
+Hence</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>,</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow></munder><mfrac><mn>1</mn><mi>a</mi></mfrac><mo>=</mo><munder><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><msub><mi>S</mi><msub><mi>r</mi><mi>k</mi></msub></msub><msup><mn>2</mn><mi>k</mi></msup></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>W</mi><mrow><mi>b</mi><mo>,</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>,</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><msub><mi>S</mi><msub><mi>r</mi><mi>k</mi></msub></msub><mrow><msup><mi>b</mi><msup><mn>2</mn><mi>k</mi></msup></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\sum_{a\in A(c,p)}\frac1a=\sum_{k\ge1}\frac{S_{r_k}}{2^k},
+\qquad
+W_{b,\{2\}}(A(c,p))=\sum_{k\ge1}\frac{S_{r_k}}{b^{2^k}-1}.
+</annotation></semantics></math></p>
+<p>The reciprocal sum diverges for every listed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>,</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">c,p</annotation></semantics></math>:
+its
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>th
+layer is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>c</mi><msup><mn>2</mn><mi>k</mi></msup></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>4</mn><msup><mi>k</mi><mi>p</mi></msup><msup><mn>2</mn><mi>k</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">c^{2^k}/(4k^p2^k)</annotation></semantics></math>,
+which does not tend to zero. For the weighted sum,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>k</mi></msub><annotation encoding="application/x-tex">r_k</annotation></semantics></math>
+lies between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>c</mi><msup><mn>2</mn><mi>k</mi></msup></msup><mi>/</mi><msup><mi>k</mi><mi>p</mi></msup></mrow><annotation encoding="application/x-tex">c^{2^k}/k^p</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>c</mi><msup><mn>2</mn><mi>k</mi></msup></msup><mi>/</mi><msup><mi>k</mi><mi>p</mi></msup><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c^{2^k}/k^p+1</annotation></semantics></math>.
+The same bounds on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mi>r</mi></msub><annotation encoding="application/x-tex">S_r</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><msup><mn>2</mn><mi>k</mi></msup></msup><mi>/</mi><mn>2</mn><mo>≤</mo><msup><mi>b</mi><msup><mn>2</mn><mi>k</mi></msup></msup><mo>−</mo><mn>1</mn><mo>≤</mo><msup><mi>b</mi><msup><mn>2</mn><mi>k</mi></msup></msup></mrow><annotation encoding="application/x-tex">b^{2^k}/2\le b^{2^k}-1\le b^{2^k}</annotation></semantics></math>,
+bound its
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>th
+term below by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mi>/</mi><mi>b</mi><msup><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mi>k</mi></msup></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>4</mn><msup><mi>k</mi><mi>p</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(c/b)^{2^k}/(4k^p)</annotation></semantics></math>
+and above by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mi>/</mi><mi>b</mi><msup><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mi>k</mi></msup></msup><mi>/</mi><msup><mi>k</mi><mi>p</mi></msup><mo>+</mo><mn>2</mn><msup><mi>b</mi><mrow><mi>−</mi><msup><mn>2</mn><mi>k</mi></msup></mrow></msup></mrow><annotation encoding="application/x-tex">2(c/b)^{2^k}/k^p+2b^{-2^k}</annotation></semantics></math>.
+Therefore:</p>
+<table>
+<thead>
+<tr>
+<th>Changed condition</th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P=\{2\}</annotation></semantics></math>
+weighted test at base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>&gt;</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">b&gt;c</annotation></semantics></math></td>
+<td>Converges</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">b=c</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p&gt;1</annotation></semantics></math></td>
+<td>Converges</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">b=c</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>p</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;p\le1</annotation></semantics></math></td>
+<td>Diverges</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>&lt;</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">b&lt;c</annotation></semantics></math></td>
+<td>Diverges</td>
+</tr>
+</tbody>
+</table>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>2</mn><mo>,</mo><mi>p</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c=2,p=1</annotation></semantics></math>,
+the test passes at base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>
+and every larger integer base. The fixed-base clause therefore makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_B(b)</annotation></semantics></math>
+irrational for each such base and every infinite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>⊆</mo><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B\subseteq A(2,1)</annotation></semantics></math>.
+At base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>,
+this particular test diverges: it gives <strong>no arithmetic
+verdict</strong> there. Another <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a> or argument has not been ruled
+out. When
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">p=2</annotation></semantics></math>,
+the base-two test passes; the all-base clause makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_B(b)</annotation></semantics></math>
+irrational for every integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
+and every infinite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>⊆</mo><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B\subseteq A(2,2)</annotation></semantics></math>.</p>
+<p>This parameterised calculation is an ordinary deduction from the
+paper’s criterion and its dyadic bound. The Lean declarations prove the
+conditional criterion, not a named theorem about this family. The
+unrestricted <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #257</a> question remains open.</p>
+</details>
+</section>
+<section id="a-useful-next-question" class="level2">
+<h2>A useful next question</h2>
+<p>Can a different fixed finite prime witness decide the case where this
+test diverges? Return an argument, obstruction, or precise non-answer
+with its source and assumptions. Failure of this witness does not settle
+the universal question.</p>
+</section>
+<section id="source-content-identities" class="level2">
+<h2>Source content identities</h2>
+<ul>
+<li><code>paper/257/erdos-257-mersenne-support-subseries.tex</code>:
+SHA-256
+<code>c0d63a763bd2f2c944d079c4e5bdbbe356268d138fd83bdb068464eeb3f2452b</code></li>
+<li><code>lean/ErdosProblems/Erdos257/PaperCompleteR7/AnalyticTargets.lean</code>:
+SHA-256
+<code>7d9cbb3b225cbad70ae1f8165560dc15602525143a64dccf9457259fbbdc9d0a</code></li>
+<li><code>lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean</code>:
+SHA-256
+<code>c00b39ee574aaec577de2cbc6971c12ca5865c8891f0c8fa88b9ba63335e92a0</code></li>
+</ul>
+<p><a
+href="https://raw.githubusercontent.com/wcook04/plectis-erdos/main/docs/papers/full-text/erdos-257-mersenne-support-subseries.md">Public
+paper text</a> · <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis">Author-owned
+exercise</a> · <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">Return
+or correct work</a></p>
+</section>
+</section>
+  </div>
+</article>
+
+      </div>
+      <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="paper-guide.html"><span class="maths-pager__dir">Previous</span>Current papers</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="documentation.html"><span class="maths-pager__dir">Next</span>Documentation guide</a></nav>
+      </div>
+    </main>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#criterion-and-definitions">Criterion and definitions</a><a class="toc-l2" href="#registered-claim-and-source-boundary">Registered claim and source boundary</a><a class="toc-l2" href="#exercise-hints-and-worked-answer">Exercise, hints and worked answer</a><a class="toc-l2" href="#a-useful-next-question">A useful next question</a><a class="toc-l2" href="#source-content-identities">Source content identities</a></aside>
+  </div>
+</body>
+</html>

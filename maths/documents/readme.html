@@ -104,15 +104,19 @@
 <p>Plectis brings together research on eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problems</a>: papers you
 can read, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proofs</a> you can check, and experiments and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed
 approaches</a> you can continue. It is an independent, AI-assisted prototype
-by Will Cook. Lean is the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof-assistant" data-term="proof_assistant" data-term-auto="1">proof assistant</a> used to check the formal
-statements; the papers explain the arguments and identify what remains
-open.</p>
+by Will Cook. Lean checks formal statements; papers explain the
+arguments and what remains open.</p>
 <p><strong><a href="https://wcook04.github.io/plectis/maths/" data-link-kind="exogenous" rel="external noopener">Read the
 mathematics</a></strong> · <a href="paper-guide.html">All papers</a> · <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">Clone and reproduce</a> · <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">Contribute or correct</a></p>
 <section id="for-a-first-look-257" class="level2">
 <h2>For a first look: #257</h2>
+<p><strong><a href="weighted-257-task.html">Try three
+changed hypotheses</a>:</strong> one result, optional hints, a worked
+answer, and where the test stops. Read offline or <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#apply-a-result-to-a-changed-example">use an
+agent</a>.</p>
 <p><a href="https://www.erdosproblems.com/257" data-link-kind="exogenous" rel="external noopener">Problem 257</a> asks
 whether adding <span class="math inline" data-term-auto="off" data-tex="\(1/(2^{a}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>a</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> over <strong>any infinite set of
 positive integers</strong> always gives an irrational number. Our <a
@@ -132,9 +136,8 @@ factors lie in <span class="math inline" data-term-auto="off" data-tex="\(P\)" d
 satisfying this condition even though <span class="math inline" data-term-auto="off" data-tex="\(\sum _{a\in H}1/a\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2208">∈</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D43B">𝐻</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>a</mi><mo>∈</mo><mi>H</mi></mrow></munder><mn>1</mn><mo>/</mo><mi>a</mi></math></mjx-assistive-mml></mjx-container></span> diverges;
 those example calculations are ordinary proofs. The question for every
 infinite support remains open.</p>
-<p>The difficult step is controlling infinitely many unfinished periods
-in an averaging argument. A second average, over window lengths that are
-powers of two, supplies the needed bound. Follow the <a
+<p>A second average over <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> window lengths controls unfinished
+periods. Follow the <a
 href="../../papers/erdos-257-mersenne-support-subseries.pdf">short
 proof</a>, <a
 href="../../papers/erdos257-mersenne-reasoning-surface.pdf">longer proof
@@ -142,9 +145,7 @@ record</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120">Lean
 declaration</a>, or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#reviewer-replay">selected
-theorem replay</a>. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis">weighted-support
-exercise</a> lets you investigate how the hypotheses matter.</p>
+theorem replay</a>.</p>
 
 </section>
 <section id="results-and-their-limits" class="level2">

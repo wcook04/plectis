@@ -107,6 +107,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [plectis-public-system (Evidence boundary, 22 pp.)](maths/papers/plectis-public-system.html)
 - [Repository overview](maths/documents/readme.html)
 - [A reader's way in](maths/documents/reading-guide.html)
+- [Apply a result and change a hypothesis](maths/documents/weighted-257-task.html)
 - [Current papers](maths/documents/paper-guide.html)
 - [Documentation guide](maths/documents/documentation.html)
 - [Results and open boundaries](maths/documents/results.html)

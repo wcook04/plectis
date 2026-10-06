@@ -12,15 +12,19 @@ class="level1">
 <p>Plectis brings together research on eight Erdős problems: papers you
 can read, formal proofs you can check, and experiments and failed
 approaches you can continue. It is an independent, AI-assisted prototype
-by Will Cook. Lean is the proof assistant used to check the formal
-statements; the papers explain the arguments and identify what remains
-open.</p>
+by Will Cook. Lean checks formal statements; papers explain the
+arguments and what remains open.</p>
 <p><strong><a href="https://wcook04.github.io/plectis/maths/">Read the
 mathematics</a></strong> · <a href="paper-guide.html">All papers</a> · <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">Clone and reproduce</a> · <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">Contribute or correct</a></p>
 <section id="for-a-first-look-257" class="level2">
 <h2>For a first look: #257</h2>
+<p><strong><a href="weighted-257-task.html">Try three
+changed hypotheses</a>:</strong> one result, optional hints, a worked
+answer, and where the test stops. Read offline or <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#apply-a-result-to-a-changed-example">use an
+agent</a>.</p>
 <p><a href="https://www.erdosproblems.com/257">Problem 257</a> asks
 whether adding <code>1/(2^a − 1)</code> over <strong>any infinite set of
 positive integers</strong> always gives an irrational number. Our <a
@@ -40,9 +44,8 @@ factors lie in <code>P</code>. For example, <code>P = {2}</code> gives
 satisfying this condition even though <code>∑_{a∈H} 1/a</code> diverges;
 those example calculations are ordinary proofs. The question for every
 infinite support remains open.</p>
-<p>The difficult step is controlling infinitely many unfinished periods
-in an averaging argument. A second average, over window lengths that are
-powers of two, supplies the needed bound. Follow the <a
+<p>A second average over dyadic window lengths controls unfinished
+periods. Follow the <a
 href="../../../papers/erdos-257-mersenne-support-subseries.pdf">short
 proof</a>, <a
 href="../../../papers/erdos257-mersenne-reasoning-surface.pdf">longer proof
@@ -50,9 +53,7 @@ record</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120">Lean
 declaration</a>, or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#reviewer-replay">selected
-theorem replay</a>. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis">weighted-support
-exercise</a> lets you investigate how the hypotheses matter.</p>
+theorem replay</a>.</p>
 <figure>
 Eight Erdős problem programmes: papers, checked results, failed routes, and questions another researcher can continue
 <figcaption aria-hidden="true">Eight Erdős problem programmes: papers,

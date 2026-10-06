@@ -193,7 +193,21 @@ The landing has one subject, the mathematics. In order: the introduction and
 the featured film; the eight problems beside the universe map teaser; the
 papers, as three reading pairs; the films; why the project exists and how to take part;
 one line for the earlier software. Every route is visible without opening
-anything. Only the transcripts fold.
+anything. Transcripts and optional agent prompt text fold.
+
+The selected changed-hypothesis experience links from the first-screen actions
+to `maths/documents/weighted-257-task.html`. Its source is the public repository's
+generated `docs/reading-edition/weighted-257-task.md`, registered in
+`LEAN_HUMAN_DOCUMENTS`; the ordinary document builders own the hosted edition.
+The landing's visible `research-question` section supplies a copyable learner
+task, the public packet and coding-agent quickstart links. A visible companion
+release link offers the packaged Agent Skill for use with an assistant outside
+a clone; describe it as an Agent Skill, following the source documentation.
+The task asks for one
+hint before a worked answer. Keep the distinction between the Lean-checked
+criterion, ordinary example deductions and the universal open boundary explicit;
+a failed sufficient weighted test gives no arithmetic verdict. The experience
+requires no browser integration, clone or Lean installation for reading.
 
 At phone widths, keep the menu, brand, search and theme controls together,
 with the five page destinations on the next row. The existing labelled search
