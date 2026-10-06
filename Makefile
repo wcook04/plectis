@@ -2,7 +2,10 @@ PYTHON ?= python3
 TMPDIR ?= /tmp
 PYTEST_TMP_KEY ?= $(shell $(PYTHON) -c 'import hashlib, os; print(hashlib.sha256(os.getcwd().encode()).hexdigest()[:12])')
 PYTEST_TMP_KEY := $(PYTEST_TMP_KEY)
-VENV ?= $(TMPDIR)/microcosm-substrate-venv-$(PYTEST_TMP_KEY)
+# Reusing a checkout must not silently reuse a different selected interpreter.
+PYTHON_ENV_KEY ?= $(shell $(PYTHON) -c 'import hashlib, sys; print(hashlib.sha256((sys.executable + sys.version).encode()).hexdigest()[:12])')
+PYTHON_ENV_KEY := $(PYTHON_ENV_KEY)
+VENV ?= $(TMPDIR)/microcosm-substrate-venv-$(PYTEST_TMP_KEY)-$(PYTHON_ENV_KEY)
 VENV_PYTHON ?= $(VENV)/bin/python
 PIP_CACHE_DIR ?= $(TMPDIR)/microcosm-substrate-pip-cache-$(PYTEST_TMP_KEY)
 PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)
@@ -36,6 +39,7 @@ PUBLIC_TESTS ?= \
 	tests/test_public_repo_ci.py \
 	tests/test_public_repo_makefile.py \
 	tests/test_package_data_contract.py \
+	tests/test_package_install_safety.py \
 	tests/test_public_source_body_custody.py \
 	tests/test_readme_first_screen_entry.py \
 	tests/test_observatory_browser_styles.py \
@@ -143,20 +147,20 @@ test-all: install
 
 smoke:
 	@mkdir -p $(SMOKE_OUT)
-	@# Diagnostic card commands can exit nonzero after emitting a useful JSON card.
-	@# Collect receipts first; check_smoke_outputs owns the final pass/fail reason.
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core hello . > $(SMOKE_OUT)/hello.txt || true
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core first-screen --card . > $(SMOKE_OUT)/first-screen-card.json || true
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card . > $(SMOKE_OUT)/tour-card.json || true
-	@$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab > $(SMOKE_OUT)/proof-lab-card.json || true
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core status --card . > $(SMOKE_OUT)/status-card.json || true
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/served_status_smoke.py --root . --project . --out $(SMOKE_OUT)/served-status-card.json || true
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core authority --card > $(SMOKE_OUT)/authority-card.json || true
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core workingness --card > $(SMOKE_OUT)/workingness-card.json || true
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard > $(SMOKE_OUT)/legibility-scorecard.json || true
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core comprehend --first-action "where do I start with this clone?" > $(SMOKE_OUT)/first-action.json || true
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core --version > $(SMOKE_OUT)/version.txt || true
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard > $(SMOKE_OUT)/stripping-guard.json || true
+	@# Only tour/status/authority may return a bounded diagnostic exit (1).
+	@# The checker validates those cards; command errors must still stop the run.
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core hello . > $(SMOKE_OUT)/hello.txt
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core first-screen --card . > $(SMOKE_OUT)/first-screen-card.json
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card . > $(SMOKE_OUT)/tour-card.json || test $$? -eq 1
+	@$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab > $(SMOKE_OUT)/proof-lab-card.json
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core status --card . > $(SMOKE_OUT)/status-card.json || test $$? -eq 1
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/served_status_smoke.py --root . --project . --out $(SMOKE_OUT)/served-status-card.json
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core authority --card > $(SMOKE_OUT)/authority-card.json || test $$? -eq 1
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core workingness --card > $(SMOKE_OUT)/workingness-card.json
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard > $(SMOKE_OUT)/legibility-scorecard.json
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core comprehend --first-action "where do I start with this clone?" > $(SMOKE_OUT)/first-action.json
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core --version > $(SMOKE_OUT)/version.txt
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard > $(SMOKE_OUT)/stripping-guard.json
 	@$(PYTHON) scripts/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)
 
 flight-recorder:
@@ -187,7 +191,8 @@ public-site-parity:
 	@PYTHONPATH=src $(PYTHON) -m microcosm_core public-site-parity --root . $(PUBLIC_SITE_PARITY_ARGS)
 
 package-smoke:
-	@status=0; $(PYTHON) scripts/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON) || status=$$?; if [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status
+	@# Preserve rejected paths and failed-run evidence; clean only a successful run.
+	@status=0; $(PYTHON) scripts/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON) || status=$$?; if [ "$$status" -eq 0 ] && [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status
 
 ci: check test smoke package-smoke
 

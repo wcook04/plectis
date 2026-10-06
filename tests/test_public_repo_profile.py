@@ -151,3 +151,18 @@ def test_profile_fails_when_classified_reference_owner_is_missing(tmp_path: Path
     report = json.loads(result.stdout)
     assert result.returncode != 0
     assert any("missing owner for ARCHITECTURE.md" in item for item in report["failures"])
+
+
+def test_profile_accepts_sdist_metadata_without_hiding_unclassified_files(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "sdist"
+    root.mkdir()
+    (root / "PKG-INFO").write_text("Metadata-Version: 2.4\nName: plectis\n")
+    (root / "setup.cfg").write_text("[egg_info]\ntag_build =\n")
+    (root / "unexpected.txt").write_text("still requires classification\n")
+
+    result = _run("--root", str(root), "--json")
+    report = json.loads(result.stdout)
+    assert result.returncode != 0
+    assert report["root_allowlist"]["unclassified_entries"] == ["unexpected.txt"]

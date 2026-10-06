@@ -99,7 +99,8 @@ secret strings. It writes the status in
 `make install` installs Plectis and its test dependencies (pytest, requests,
 NumPy and pandas) in a virtual environment. `VENV` selects the directory used
 in the examples below. Without that setting, the Makefile chooses a temporary
-directory from the checkout path. You do not need pytest installed beforehand.
+directory from the checkout path and selected Python interpreter. You do not
+need pytest installed beforehand.
 
 ## Tests and validation
 

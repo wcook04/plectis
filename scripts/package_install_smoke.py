@@ -226,6 +226,10 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     work_dir = work_dir.resolve()
     if not (source_root / "pyproject.toml").is_file():
         raise SystemExit(f"source root lacks pyproject.toml: {source_root}")
+    # Cleanup is recursive, and staging copies the entire source tree. Keep
+    # both operations away from the source and any symlink alias of it.
+    if source_root.is_relative_to(work_dir) or work_dir.is_relative_to(source_root):
+        raise SystemExit("source root and work directory must not overlap")
 
     if work_dir.exists():
         shutil.rmtree(work_dir)
@@ -302,6 +306,19 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
             "(a PYTHONPATH or cwd shadow defeats the install proof)"
         )
 
+    # Directory guides linked by the installed README must travel with it.
+    for reference in (
+        "examples/README.md",
+        "fixtures/README.md",
+        "receipts/README.md",
+        "paper/README.md",
+        "docs/guides/README.md",
+        "docs/reference/README.md",
+        "docs/maintainers/README.md",
+    ):
+        if not (venv_dir / "share/plectis" / reference).is_file():
+            raise SystemExit(f"installed package lacks documentation: {reference}")
+
     handoff_input = (
         venv_dir
         / "share/plectis/examples/hypothesis_handoff/independent_evaluation.json"
@@ -311,6 +328,20 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     handoff_input_before = handoff_input.read_bytes()
 
     checks: list[tuple[str, list[str], str]] = [
+        (
+            "companion-reference",
+            [
+                str(venv_python),
+                "-c",
+                "import json; "
+                "from microcosm_core.resource_root import installed_microcosm_root; "
+                "from microcosm_core.validators.lean_companion_snapshot import validate_lean_companion_snapshot; "
+                "result = validate_lean_companion_snapshot(installed_microcosm_root()); "
+                "print(json.dumps(result)); "
+                "raise SystemExit(0 if result['status'] == 'pass' else 1)",
+            ],
+            "json",
+        ),
         ("version", [str(plectis), "--version"], "text"),
         ("hello", [str(plectis), "hello", str(project_dir)], "text"),
         (
@@ -461,7 +492,10 @@ def main(argv: list[str] | None = None) -> int:
         )
     )
     parser.add_argument("--source-root", type=Path, default=Path.cwd())
-    parser.add_argument("--work-dir", type=Path, required=True)
+    parser.add_argument(
+        "--work-dir", type=Path, required=True,
+        help="Disposable directory recreated for this run; must not overlap the source tree.",
+    )
     parser.add_argument("--python", default=sys.executable)
     args = parser.parse_args(argv)
     run_package_smoke(args.source_root, args.work_dir, args.python)

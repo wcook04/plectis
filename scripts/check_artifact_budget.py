@@ -36,13 +36,13 @@ RUNTIME_PACKAGE = REPO_ROOT / "src" / "microcosm_core"
 # current footprint so ordinary churn passes but a new bulk-corpus import has
 # to come here and justify the increase.
 #
-# Measured 2026-06-26: 131,777,513 bytes (125.7 MiB) / 3,661 files; corpus
-# 116,152,961 bytes. The footprint is dominated by the example bundles
-# (~70 MiB) and atlas json (~10.5 MiB in 5 files) — those are the levers if the
-# wheel needs to slim down. Ceilings sit a few MiB / ~190 files above current.
+# The 2026-10-05 documentation split and install-link repair adds 19 packaged
+# reader pages and index/metadata files: 3,840 -> 3,859 files, with 371,996 net
+# added bytes. Raise only the file ceiling by that exact delta to preserve the
+# prior 10-file headroom. Both byte ceilings remain unchanged.
 ARTIFACT_BUDGET = {
     "max_total_bytes": 134_217_728,  # 128 MiB
-    "max_total_files": 3_850,
+    "max_total_files": 3_869,
     "max_data_files_bytes": 120_000_000,  # ~114.4 MiB
 }
 

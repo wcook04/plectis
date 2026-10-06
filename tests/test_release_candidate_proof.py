@@ -1143,6 +1143,19 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
     handoff_example = source_root / "examples/hypothesis_handoff/independent_evaluation.json"
     handoff_example.parent.mkdir(parents=True)
     handoff_example.write_text("{}", encoding="utf-8")
+    documentation_refs = (
+        "examples/README.md",
+        "fixtures/README.md",
+        "receipts/README.md",
+        "paper/README.md",
+        "docs/guides/README.md",
+        "docs/reference/README.md",
+        "docs/maintainers/README.md",
+    )
+    for reference in documentation_refs:
+        document = source_root / reference
+        document.parent.mkdir(parents=True, exist_ok=True)
+        document.write_text("# Documentation\n", encoding="utf-8")
 
     work_dir = tmp_path / "work with spaces"
     calls: list[tuple[list[str], dict[str, str] | None, Path | None]] = []
@@ -1183,6 +1196,10 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
             )
             installed_example.parent.mkdir(parents=True)
             installed_example.write_bytes(handoff_example.read_bytes())
+            for reference in documentation_refs:
+                installed_doc = work_dir / "venv/share/plectis" / reference
+                installed_doc.parent.mkdir(parents=True, exist_ok=True)
+                installed_doc.write_bytes((Path(argv[-1]) / reference).read_bytes())
         if "-c" in argv:
             stdout = str(
                 work_dir

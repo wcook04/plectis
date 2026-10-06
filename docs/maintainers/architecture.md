@@ -4,6 +4,45 @@ Use the [documentation index](../README.md) to read the system and the
 [validation runbook](validation.md) to check a change. This guide identifies
 what to edit and which consumers must move with it.
 
+## Implementation map
+
+The public package is one Python runtime with component modules and a shipped
+data tree. There is no private service to start or model account to configure.
+Individual components can invoke optional external tools; their example
+instructions state those requirements.
+
+```text
+plectis / python -m plectis / plectis.cli:main
+  -> microcosm_core.cli (shared entry, argument parsing and command dispatch)
+       -> runtime_shell + project_substrate (project inventory and local state)
+       -> organs/<component>.py (component-specific commands)
+       -> projections/ + validators/ (views and checks)
+
+resource_root -> checkout data or installed share/plectis data
+receipts + schemas -> JSON output and input validation
+```
+
+| Change | Start here | Keep working |
+|---|---|---|
+| Command arguments, aliases or exit behavior | [`cli.py`](../../src/microcosm_core/cli.py) | Both public and compatibility command names; see the refactoring contract below. |
+| Project inventory, proposed tasks or local state | [`project_substrate.py`](../../src/microcosm_core/project_substrate.py), [`runtime_shell.py`](../../src/microcosm_core/runtime_shell.py) | User source stays separate from ignored `.microcosm/` output. |
+| One component's behavior | Its module under [`organs/`](../../src/microcosm_core/organs/), selected through `ORGANS.md` | Example inputs, failure cases and the component's stated limits. |
+| A generated map or explanation | [`projections/`](../../src/microcosm_core/projections/) and its registry under `core/` | Regenerate the view; do not patch the generated Markdown. |
+| Reading/writing result files | [`schemas.py`](../../src/microcosm_core/schemas.py), [`receipts.py`](../../src/microcosm_core/receipts.py) | Strict JSON input, atomic writes and tests that preserve committed results. |
+| Installed resources or distributions | [`resource_root.py`](../../src/microcosm_core/resource_root.py), `pyproject.toml`, `MANIFEST.in` | Installed commands must work outside the checkout with their shipped inputs. |
+| Local verification or CI | `Makefile`, `.github/workflows/ci.yml` | The same public checks must be reproducible locally. |
+
+`src/plectis/` is intentionally a thin public alias. Keep common behavior in
+`microcosm_core` rather than implementing a second runtime under the new name.
+New command handlers should call reusable functions in their owning module;
+argument parsing should stay separate from computation and file writes.
+
+Use `make check` for the fast registry/source gate, focused pytest files for
+the changed behavior, and `make ci` for the integrated public check. Packaging
+changes also need `make package-smoke`: a source import alone cannot show
+whether a distribution contains its required files. The
+[validation runbook](validation.md) describes the wider release checks.
+
 ## Keep each document in its role
 
 Authored guides explain mechanisms, assumptions and decisions. Edit that
@@ -17,7 +56,11 @@ content and writers before considering a move.
 
 | Surface | Source or builder |
 |---|---|
+| `README.md`, `docs/overview.md` | Authored introduction and fuller project explanation. Keep runnable first contact in the README and background in the overview. |
+| `docs/guides/`, `docs/reference/`, `docs/maintainers/` | Worked examples, lookup material and maintenance instructions respectively. Each has a README index; add links there when adding a page. |
+| `examples/README.md`, `fixtures/README.md`, `receipts/README.md` | Authored directory guides. Explain inputs, test cases and recorded outputs without relocating source copies or historical data. |
 | `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, agent route JSON | [`organ_atlas.py`](../../src/microcosm_core/projections/organ_atlas.py), reading the component registries under `core/`; run `PYTHONPATH=src python3 scripts/build_organ_atlas.py --write`. |
+| `docs/reference/lean-companion.md` snapshot/release bullets | [`check_lean_companion_snapshot.py`](../../scripts/check_lean_companion_snapshot.py), using `docs/lean_companion_snapshot.json`. Preserve these managed bullets during reference-page edits; the checker owns refresh and validation. |
 | `FIRST_ACTION.md` | [`build_first_action_demo.py`](../../scripts/build_first_action_demo.py). |
 | `RELEASE_REVIEW.md` | [`build_release_review.py`](../../scripts/build_release_review.py), using the result contract in [`release_candidate_proof.py`](../../src/microcosm_core/release_candidate_proof.py). |
 | `PRINCIPLES.md`, `ANTI_PRINCIPLES.md`, `AXIOMS.md` | Authored doctrine consumed by [`doctrine_lattice.py`](../../src/microcosm_core/doctrine_lattice.py) and `standards/`. Preserve the authored argument and regenerate its projections. |

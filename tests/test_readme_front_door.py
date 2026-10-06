@@ -23,12 +23,24 @@ MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 _LINKED_SIBLINGS = (
     "plectis-public-system.pdf",
     "docs/guides/hypothesis-handoffs.md",
+    "docs/guides/checking-agent-completion.md",
     "QUICKSTART.md",
     "ARCHITECTURE.md",
     "docs/papers/README.md",
     "docs/README.md",
+    "docs/overview.md",
+    "docs/guides/README.md",
+    "docs/guides/prompt-injection.md",
+    "docs/reference/terminology.md",
+    "docs/reference/lean-companion.md",
+    "docs/maintainers/README.md",
+    "examples/README.md",
+    "fixtures/README.md",
+    "receipts/README.md",
+    "paper/README.md",
     "docs/UNDERSTANDING_PLECTIS.md",
     "docs/maintainers/validation.md",
+    "docs/maintainers/architecture.md",
     "ORGANS.md",
     "AGENTS.md",
     "AGENTS.override.md",
@@ -79,7 +91,9 @@ def _replace_hero_promise(root: Path, replacement: str) -> None:
 
 def _replace_paragraph(root: Path, marker: str, replacement: str) -> None:
     text = (root / "README.md").read_text(encoding="utf-8")
-    paragraphs = [p for p in re.split(r"\n\s*\n", text) if marker in p]
+    paragraphs = [
+        p for p in re.split(r"\n\s*\n", text) if marker in " ".join(p.split())
+    ]
     assert len(paragraphs) == 1, f"one paragraph must contain {marker!r}"
     _mutate(root, paragraphs[0], replacement)
 
@@ -201,19 +215,20 @@ def test_blocks_attribution_above_the_first_command(tmp_path: Path) -> None:
 
     This is where it sat until 2026-08-16: between the promise and anything
     runnable, so the second thing a stranger read was who wrote the code rather
-    than what it does. The paragraph itself is not the problem and stays on the
-    first screen; only its position ahead of the demonstration is blocked.
+    than what it does. The paragraph itself is not the problem; only its
+    position ahead of the demonstration is blocked.
     """
     root = _front_door_tree(tmp_path)
     readme = root / "README.md"
     text = readme.read_text(encoding="utf-8")
-    marker = "**How this was built, and why it is built the way it is.**"
+    marker = "**How this was built.**"
     start = text.find(marker)
     assert start >= 0, "fixture needs the provenance paragraph to relocate"
     end = text.find("\n\n", start)
     paragraph = text[start:end]
     moved = text.replace(paragraph + "\n\n", "", 1)
-    anchor = "Two commands, no install"
+    anchor = "```bash\n"
+    assert anchor in moved
     moved = moved.replace(anchor, paragraph + "\n\n" + anchor, 1)
     readme.write_text(moved, encoding="utf-8")
     receipt = validate_readme_front_door(root)
@@ -345,7 +360,7 @@ def test_requires_a_link_to_each_family(tmp_path: Path, anchor: str) -> None:
 
 def test_blocks_missing_component_inspection_guidance(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
-    _replace_section(root, "How it works", "Run the tour first, then browse the examples.")
+    _replace_paragraph(root, "To understand a component", "Run the tour first, then browse the examples.")
     receipt = validate_readme_front_door(root)
     assert "README_FRONT_DOOR_CLAIM_GRAMMAR_MISSING" in receipt["blocking_codes"]
     assert (
@@ -356,9 +371,9 @@ def test_blocks_missing_component_inspection_guidance(tmp_path: Path) -> None:
 
 def test_reading_journey_allows_different_order_and_concrete_verbs(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
-    _replace_section(
+    _replace_paragraph(
         root,
-        "How it works",
+        "To understand a component",
         "Start with an example's expected output and its test. Open the input data\n"
         "and the function that produces the output, then compare what you observe.",
     )
@@ -368,9 +383,9 @@ def test_reading_journey_allows_different_order_and_concrete_verbs(tmp_path: Pat
 
 def test_inspection_guidance_requires_a_way_to_evaluate_the_result(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
-    _replace_section(
+    _replace_paragraph(
         root,
-        "How it works",
+        "To understand a component",
         "Open the component input and source code. Trust the result it produces.",
     )
     receipt = validate_readme_front_door(root)
@@ -381,14 +396,40 @@ def test_inspection_guidance_requires_a_way_to_evaluate_the_result(tmp_path: Pat
 
 def test_scattered_nouns_do_not_replace_component_instructions(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
-    _replace_section(
+    _replace_paragraph(
         root,
-        "How it works",
+        "To understand a component",
         "Choose a component.\n\nInput data is included.\n\nThe source is readable.\n\n"
         "There is output.\n\nTests are included.",
     )
     receipt = validate_readme_front_door(root)
     assert "component-inspection-guidance" in receipt["findings"]["front_door_claim_grammar_missing"]
+
+
+@pytest.mark.parametrize("replacement", [
+    "A component has input, source code, output and a test. Its result is recorded.",
+    "| Example | Input | Source | Output | Test |\n|---|---|---|---|---|\n"
+    "| Follow this | data | code | result | check |",
+])
+def test_inventory_is_not_an_inspection_instruction(tmp_path: Path, replacement: str) -> None:
+    root = _front_door_tree(tmp_path)
+    _replace_paragraph(root, "To understand a component", replacement)
+    receipt = validate_readme_front_door(root)
+    assert "component-inspection-guidance" in receipt["findings"]["front_door_claim_grammar_missing"]
+
+
+def test_compatibility_note_allows_rewording(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    _replace_section(root, "Name and history", "Microcosm was renamed to Plectis.")
+    receipt = validate_readme_front_door(root)
+    assert receipt["status"] == "pass", receipt["blocking_codes"]
+
+
+def test_missing_compatibility_note_is_rejected(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    _replace_section(root, "Name and history", "See the provenance document for history.")
+    receipt = validate_readme_front_door(root)
+    assert "README_COMPATIBILITY_NOTE_MISSING" in receipt["blocking_codes"]
 
 
 def test_reversed_service_and_affiliation_claims_do_not_satisfy_limits(tmp_path: Path) -> None:

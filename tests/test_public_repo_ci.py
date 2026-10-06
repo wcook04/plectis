@@ -164,6 +164,7 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
         "timeout-minutes: 30",
         'python-version: ["3.11", "3.12", "3.13", "3.14"]',
         "run: make ci",
+        "run: git diff --exit-code HEAD --",
         # The published first screen, exercised on the platform where it broke.
         # Every Ubuntu job stayed green while `python3 -m pip install .` --
         # the README's first runnable command -- was refused under PEP 668 on
