@@ -195,6 +195,26 @@ papers, as three reading pairs; the films; why the project exists and how to tak
 one line for the earlier software. Every route is visible without opening
 anything. Transcripts and optional agent prompt text fold.
 
+The introduction (Will, 7 October 2026) says what Plectis is, why each
+problem is set out the way it is, and who built it, with the reason taken from
+Will's own films: models now write mathematics faster than mathematicians can
+check it, so each problem runs like a funnel from the Lean map down to one
+result. Under the plait the funnel names those layers in the order the work is
+prepared (Lean map, long records, short papers, videos, Interesting results),
+each step a link to where that layer is: the Lean repository, the long and the
+short papers in the catalogue, the Videos band and Interesting results. The
+plait above is drawn as the same funnel: `assets/art.js` reads each step's
+`data-plait-node` and stands a crossing over its name, and the cables close
+monotonically, crossing more often as they draw in, to a bead over Results.
+Below 760px, or if the steps wrap, the plait keeps its composed knot. The
+funnel took the place of three counts that said how much there was and nothing
+about what it was for. Call the films "videos" in visible copy, as the nav and
+the band do. First-person ambition
+with no object ("I want to tackle harder problems", "leave work that other
+people can understand and continue") stays out of every surface that
+introduces the project: this page, the About page and its PDF, the READMEs and
+the AI packet's summary. The site does not mention funding.
+
 The first-screen secondary action is **Read the README**, linking to
 `https://github.com/wcook04/plectis-erdos/blob/main/README.md`; name the document
 the reader will open. The changed-hypothesis exercise remains available at

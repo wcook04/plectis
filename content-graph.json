@@ -137964,7 +137964,7 @@
             "page": "paper-module-generated-projection-drift-runtime.html"
           }
         ],
-        "total_occurrences": 2152
+        "total_occurrences": 2153
       },
       "visible_text_byte_count": 754
     },
@@ -138185,7 +138185,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 186,
+        "page_count": 187,
         "top_page": "doctrine.html",
         "top_pages": [
           {
@@ -138213,7 +138213,7 @@
             "page": "paper-module-doctrine-fact-claim-audit.html"
           }
         ],
-        "total_occurrences": 2090
+        "total_occurrences": 2091
       },
       "visible_text_byte_count": 853
     },
@@ -156495,7 +156495,7 @@
             "page": "paper-module-mission-transaction-work-spine.html"
           }
         ],
-        "total_occurrences": 114
+        "total_occurrences": 113
       },
       "visible_text_byte_count": 858
     },
@@ -157929,15 +157929,10 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 1,
-        "top_page": "introduction.html",
-        "top_pages": [
-          {
-            "count": 1,
-            "page": "introduction.html"
-          }
-        ],
-        "total_occurrences": 1
+        "page_count": 0,
+        "top_page": null,
+        "top_pages": [],
+        "total_occurrences": 0
       },
       "visible_text_byte_count": 811
     },
@@ -157986,7 +157981,7 @@
         "top_page": "introduction.html",
         "top_pages": [
           {
-            "count": 7,
+            "count": 9,
             "page": "introduction.html"
           },
           {
@@ -157994,7 +157989,7 @@
             "page": "contact.html"
           }
         ],
-        "total_occurrences": 11
+        "total_occurrences": 13
       },
       "visible_text_byte_count": 739
     },
@@ -158042,7 +158037,7 @@
         "top_page": "introduction.html",
         "top_pages": [
           {
-            "count": 14,
+            "count": 15,
             "page": "introduction.html"
           },
           {
@@ -158066,7 +158061,7 @@
             "page": "source.html"
           }
         ],
-        "total_occurrences": 47
+        "total_occurrences": 48
       },
       "visible_text_byte_count": 877
     },
@@ -159366,7 +159361,7 @@
             "page": "paper-module-batch12-market-dashboard-read-model-capsule.html"
           }
         ],
-        "total_occurrences": 1039
+        "total_occurrences": 1041
       },
       "visible_text_byte_count": 816
     },
@@ -281665,7 +281660,7 @@
         "doctrine.html": 155,
         "evidence.html": 16,
         "index.html": 2,
-        "introduction.html": 6,
+        "introduction.html": 7,
         "lineage.html": 1,
         "open-questions.html": 15,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 13,
@@ -281783,7 +281778,7 @@
       },
       "page_count": 182,
       "top_page": "doctrine.html",
-      "total_occurrences": 2152
+      "total_occurrences": 2153
     },
     "checker": {
       "by_page": {
@@ -282009,6 +282004,7 @@
         "contact.html": 5,
         "doctrine.html": 255,
         "evidence.html": 1,
+        "introduction.html": 1,
         "lineage.html": 2,
         "open-questions.html": 11,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 20,
@@ -282121,9 +282117,9 @@
         "source.html": 2,
         "vulnerability-disclosure.html": 3
       },
-      "page_count": 186,
+      "page_count": 187,
       "top_page": "doctrine.html",
-      "total_occurrences": 2090
+      "total_occurrences": 2091
     },
     "claim_registry": {
       "by_page": {
@@ -287631,7 +287627,7 @@
         "contact.html": 1,
         "doctrine.html": 28,
         "evidence.html": 1,
-        "introduction.html": 2,
+        "introduction.html": 1,
         "paper-module-agent-route-observability-runtime.html": 5,
         "paper-module-annex-knowledge-routing.html": 1,
         "paper-module-batch10-cold-eval-honesty-capsule.html": 2,
@@ -287667,7 +287663,7 @@
       },
       "page_count": 49,
       "top_page": "doctrine.html",
-      "total_occurrences": 114
+      "total_occurrences": 113
     },
     "limit_inferior": {
       "by_page": {
@@ -288160,22 +288156,14 @@
       "top_page": "open-questions.html",
       "total_occurrences": 3
     },
-    "mathematical_priority": {
-      "by_page": {
-        "introduction.html": 1
-      },
-      "page_count": 1,
-      "top_page": "introduction.html",
-      "total_occurrences": 1
-    },
     "mathematician": {
       "by_page": {
         "contact.html": 4,
-        "introduction.html": 7
+        "introduction.html": 9
       },
       "page_count": 2,
       "top_page": "introduction.html",
-      "total_occurrences": 11
+      "total_occurrences": 13
     },
     "mathematics": {
       "by_page": {
@@ -288183,7 +288171,7 @@
         "coding-agents.html": 3,
         "contact.html": 4,
         "evidence.html": 1,
-        "introduction.html": 14,
+        "introduction.html": 15,
         "paper-module-navigation-fitness-benchmark.html": 2,
         "paper-module-proof-diagnostic-evidence-spine.html": 3,
         "papers.html": 13,
@@ -288193,7 +288181,7 @@
       },
       "page_count": 11,
       "top_page": "introduction.html",
-      "total_occurrences": 47
+      "total_occurrences": 48
     },
     "mathlib": {
       "by_page": {
@@ -288745,7 +288733,7 @@
         "components.html": 61,
         "doctrine.html": 48,
         "evidence.html": 2,
-        "introduction.html": 1,
+        "introduction.html": 3,
         "open-questions.html": 131,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 4,
         "paper-module-agent-closeout-faithfulness-audit.html": 2,
@@ -288841,7 +288829,7 @@
       },
       "page_count": 156,
       "top_page": "open-questions.html",
-      "total_occurrences": 1039
+      "total_occurrences": 1041
     },
     "module": {
       "by_page": {
@@ -296022,5 +296010,5 @@
       "total_occurrences": 5
     }
   },
-  "term_occurrence_term_count": 398
+  "term_occurrence_term_count": 397
 }

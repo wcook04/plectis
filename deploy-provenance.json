@@ -2,15 +2,15 @@
   "asset_transforms": {
     "assets/style.css": {
       "preserved_comment_count": 33,
-      "published_bytes": 401271,
-      "published_sha256": "cebb4a568d69d0832864b3042d5c95cf36d064d7d690836d4e9913f7ad94aebe",
-      "removed_comment_count": 713,
-      "source_bytes": 571052,
-      "source_sha256": "35cf5ca5ded79bbaecdff97fe99736da376bdda5ecf15fee70e7da5a8250e81f",
+      "published_bytes": 401689,
+      "published_sha256": "655f8f276dff609b6f7170562c5fb3d1cd39522b2d33e04981aa9e4f13db60bb",
+      "removed_comment_count": 717,
+      "source_bytes": 572451,
+      "source_sha256": "97fd099559a52b99af22b35be53f7697dece444cfb3659abf89ba48dae61f5a4",
       "transform": "isolated-css-comments-v1"
     }
   },
-  "generator_commit": "4f73c10bc709b9ae889446ee4a40db25f89aca14",
+  "generator_commit": "773807a05389e2330cfddc171454b8c39500830b",
   "note": "Public source commits this deploy was generated from. The next deploy reads this file and refuses to publish a build whose sources do not contain these commits, unless it is run with --allow-older-than-live.",
   "schema": "plectis_site_deploy_provenance_v1",
   "sources": {
