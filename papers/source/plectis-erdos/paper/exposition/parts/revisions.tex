@@ -3,12 +3,11 @@
 \section{Explain the choices in a proof}\label{sec:revisions}
 \papersectiontarget{exposition-revisions}
 
-The next cases explain why a construction reaches its target and how a
-later inference determines the accuracy of an estimate. They were accepted
-in the short-paper revision round of 30 September 2026, labelled R6. An earlier
-September series used the same round numbers; the source records distinguish
-the series and retain the accepted passages at commit
-\texttt{18cedaddedd1}, with its full identity and source digests~\cite{ledger}.
+These cases concern attainment and the accuracy an inference requires.
+They were accepted in the short-paper R6 round of 30 September 2026, not the
+earlier September series with the same round numbers. The records retain
+the passages at commit \texttt{18cedaddedd1}, its full identity and source
+digests~\cite{ledger}.
 
 \subsection{From repeated choice to an attained infinite sum}\label{sec:remainder}
 
@@ -37,12 +36,11 @@ They keep a finite remainder in an interval and use convergence to obtain
 the represented value. What transfers is the separation of two questions:
 can the next choice be made, and does the resulting sequence attain the target?
 
-For the \#251 construction, the covering property, the invariant and $F_j\to0$
-must each be justified. Attainment also leaves the sparsity and arithmetic
-constraints to their own arguments; a finite digit example settles none of
-these obligations. The integration preserved them and the unresolved status
-of the original prime-gap problem. The literary comparison identifies what
-needs explaining, not a substitute for any of those proofs.
+The \#251 construction must justify its covering, invariant and $F_j\to0$,
+as well as sparsity and arithmetic constraints. Neither a finite digit
+example nor the literary comparison supplies those proofs. The integration
+preserved these obligations and the unresolved status of the original
+prime-gap problem.
 
 \subsection{State how accurate the estimate must be}\label{sec:estimate}
 
@@ -52,17 +50,14 @@ $Y_a$ in the finite set
              (K^{-1}\mathbb Z)\cap(0,1).
 \]
 Here $K\ge1$ is the integer denominator in the rationality assumption.
-An accepted sentence then says that equality of two tails still has to
-propagate. This matters: finiteness provides repetition, but a repeated value
-need not determine the subsequent choices. Recovery must make the next block
-and tail depend on the present tail before equality can propagate. Repetition
-alone supplies no such rule.
+Finiteness forces two tails to agree; it does not force their successors to
+agree. The accepted revision makes the remaining task explicit: recover the
+next block and tail from the present tail. Only then does equality propagate.
 
-Han\v{c}l and Tijdeman's proof of Theorem~2.1 begins by turning a rationality
-assumption into an integral scaled remainder~\cite[p.~373]{hancl}. That
-ordering makes the arithmetic object visible before estimating it. The
-\#269 revision uses the same explanatory idea while retaining its additional
-recovery problem. The cited proof does not establish that extra step.
+Han\v{c}l and Tijdeman begin their proof of Theorem~2.1 with an integral
+scaled remainder obtained from rationality~\cite[p.~373]{hancl}. The \#269
+revision likewise identifies the arithmetic object before estimating it;
+recovery is its own additional task, not supplied by the cited proof.
 
 The next difficulty is quantitative. The maps
 $G_{53}(t)=(9+t)/30$ and $G_5(t)=(3+t)/10$ encode two possible blocks of
@@ -80,15 +75,17 @@ endpoint $U$ satisfying
 \]
 This specifies the improvement needed from the arithmetic sequence.
 \end{quote}
-The case is \caseid{r6-269-style\_rules-03}. Reading the desired separation
-backwards has turned ``improve the bound'' into a precise target for the next
-estimate. The displayed threshold is sufficient for this argument; it does
-not rule out another method using a different bound.
+The case is \caseid{r6-269-style\_rules-03}. The threshold is sufficient for
+this argument, not necessary for every possible method. The return's Knuth
+analogy concerns presentation; the separation inequality supplies the mathematics.
 
-The return associated this choice with Knuth's author--reader dialogue.
-That offers a broad compositional analogy. The separation inequality itself
-explains the threshold, so the writing reference must not appear to supply
-its mathematics.
+The source obtains the required improvement from the spacing of powers of $5$.
+At a block containing such a power the tail is at most $7/15$. Every three
+consecutive blocks contain at least one such block; moving backwards at most
+twice, each step is bounded by $t\mapsto(1+t)/2$. This gives $U=13/15<9/10$, for the actual
+prime-power sequence, not arbitrary block words. The source separates all five
+block images on this interval. The image identifies the block; its affine
+inverse determines the next tail. Equality can now propagate~\cite[proof of the distinct-height theorem]{paper269}.
 
 \subsection{An example must reveal the relevant difference}\label{sec:multiplicity}
 
@@ -127,20 +124,18 @@ the distinct-height argument uses $(16,32]$, whereas the table uses
 $[16,32)$. Matching the endpoint conventions is a separate task from
 preserving multiplicity.
 
-Halmos's concrete cases and Gowers's examples-first discussion suggest asking
-which small instance reveals an unfamiliar operation~\cite[\S4]{halmos}\cite{gowers}.
-Here the repeated heights provide the reason to use this instance. The table
-explains the counting convention; the infinite-series theorem still needs
-its proof. No claim about every reader's preferred order follows.
+The repeated heights make this table useful: they expose the counting
+convention. Halmos's concrete cases and Gowers's examples-first discussion
+suggest that choice~\cite[\S4]{halmos}\cite{gowers}; they prescribe no order
+for every reader. The infinite-series theorem still needs its proof.
 
 
 \section{From a formula to the sentence that explains it}\label{sec:worked-explanations}
 
-The following cases begin with a reader's question and use the existing
-formula to answer it. They originated in eight additional editorial returns
-(the \#1049 return is labelled R9) and were checked against the current
-manuscript sources. Their explanations are not new theorems or declarations
-of formal coverage or release status.
+These cases answer a reader's question from an existing formula. They come
+from eight additional editorial returns (\#1049 is labelled R9), checked
+against current manuscript sources. They add no theorem, formal coverage
+or release status.
 
 \subsection{How does the target determine the finite test?}\label{sec:certificate}
 
@@ -248,35 +243,31 @@ the part with $k>\ell$:
  =\frac{\displaystyle\prod_{r=0}^{\mu_j-1}(1-q^{N+1-j+r})}
         {\displaystyle\prod_{r=0}^{\mu_j-1}(1-q^{\ell+1-j+r})}.
 \]
-The original product has $N-\ell$ factors; each endpoint product has the
-fixed length $\mu_j$. Thus every factor in the numerator tends to $1$,
-while the denominator is fixed and positive.
-The remaining factors have $j,k\le\ell$ and are independent of $N$.
-This establishes convergence of the whole quotient for a fixed partition.
-Cancellation has removed the difficulty: only a fixed number of numerator
-factors still varies, and their limit is known. Convergence of individual
-factors in the original growing product would not suffice. The telescoping
-formula was proposed in the later return.
+The original product has $N-\ell$ factors, but each endpoint product has the
+fixed length $\mu_j$. Its numerator tends to $1$; its denominator is fixed
+and positive. The remaining factors have $j,k\le\ell$ and are independent
+of $N$, so the whole quotient converges for this fixed partition. The
+telescoping formula, proposed in the later return, justifies what factorwise
+convergence in a growing product would not.
 
-There is still a second question: can the limit be passed through the sum over
-all partitions? Extend the summand by zero when $\ell>N$, so that the index set
-is fixed. The source proof bounds the absolute value of each summand by a quantity
-independent of $N$. The total of these majorants over partitions of length
-$\ell$ is at most
+Passing the limit through the sum requires a second argument. Extend the
+summand by zero when $\ell>N$, fixing the index set. The source's nonnegative
+majorant is independent of $N$. Dropping the ordering of the positive parts
+gives an upper bound by separate sums for each part. The $j$th sum is at most
+a fixed constant times $q^{2j-1}$: geometric decay controls its polynomial
+weight. Multiplying gives a bound for the total majorant at length $\ell$:
 \[
                          K^\ell q^{\ell^2},
 \]
 where $K>0$ may depend on the fixed base and the fixed weight-bound constants.
-The ratio of successive terms is $Kq^{2\ell+1}\to0$, so this bound is summable
-over $\ell$. It controls both large parts and large lengths, and hence permits
-dominated convergence. Separate bounds for individual partitions are insufficient
-unless they provide a summable majorant.
+Here $\ell^2=1+3+\cdots+(2\ell-1)$ is the minimum total displacement exponent
+for $\ell$ positive parts. Their sizes have been summed out; their number
+remains. The ratio of successive bounds is $Kq^{2\ell+1}\to0$, so the sum over
+$\ell$ converges and dominated convergence applies.
 
-The improved explanation therefore has two conclusions, in this order:
-the whole summand converges for a fixed partition, and a summable bound controls
-all partitions uniformly in $N$. Neither conclusion asserts uniformity as
-$q\uparrow1$. Keeping the base fixed is part of the statement, not a temporary
-convenience that prose may suppress.
+The conclusions are distinct: the whole summand converges for a fixed partition;
+a summable bound controls all partitions uniformly in $N$. Neither asserts
+uniformity as $q\uparrow1$. The fixed base is part of the statement.
 
 \subsection{Does a complete test provide the required witnesses?}\label{sec:detection}
 
@@ -301,18 +292,19 @@ constant. The source proves that detection follows once
 \[
                  2^L\|D\|_{\mathbb R/\mathbb Z}>2B_L.
 \]
-Exponential growth of $2^L$ exceeds the linear growth of $B_L$, so such a
-depth exists. This converse is stronger than a merely sufficient test.
+The factor $2$ pays for two distances: from $2^LD$ to the computed centre
+$A_L$, then from that centre to an enclosure endpoint. Each is at most $B_L$;
+the displayed gap keeps the whole enclosure away from multiples of $2^L$.
+Since $2^L$ grows exponentially and $B_L$ linearly, a suitable depth exists.
+Thus the test has a converse, not merely a sufficient condition.
 
-There are two different limits to this conclusion. First, an integral value
-never triggers the test: the search has no stopping certificate for integrality.
-Failure at all depths tried is not a proof of integrality. Second, the
-irrationality argument requires a family of inputs: for every positive shift
-and every cutoff, some index beyond that cutoff must have a nonintegral
-difference. The converse detects a fixed nonintegral value; it does not establish that
-such values occur at the required indices. That is an existence question about
-the inputs, not an accuracy question about the test. Keep both the exact
-converse and the unproved quantifiers visible.
+The converse has two limits. An integral value never triggers the test;
+failure at the depths tried does not certify integrality. Nor does detecting
+a fixed nonintegral value supply the inputs needed for irrationality: for
+every positive shift and every cutoff, some later index must have a nonintegral
+difference. Existence of such an index is a separate question; increasing depth
+only refines the test of a fixed index. Preserve the converse without mistaking
+it for the missing existence statement.
 
 Whenever a proof offers arbitrarily accurate certificates, state which object
 stays fixed as the accuracy improves. If the object changes too, its distance

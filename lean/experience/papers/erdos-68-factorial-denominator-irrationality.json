@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "065862ae86e3b045",
-    "source_sha256": "512245ba2b6ba9550b28e23a6a76b2542d50d1ba8cd2ddc0bb3c74e7da2a6062",
+    "source_sha256": "eedffe484fe5a8dd349b199219f49f255c8904744befd44b212c813b041a998f",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 344,
+    "mathml_node_count": 345,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -47,8 +47,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "a10a1ce2e640c8a6b6da4a0cb6a4848c93806a099d140888de339221e315bc06",
-    "html_exact_tex_sha256": "cad21d5c5896cc5b641c2d9aa1d98264af61b33b00023ef17db86f986fa99fb2"
+    "html_mathml_sha256": "bc7133a6f1e8cb80985a835af710d5b351ef08acc66d978fd9c12b171b6586f1",
+    "html_exact_tex_sha256": "ed1bc11e2beb2a84a233555ee18c736dbcbbb9365cc077c0e5164e7eab3bc1ec"
   },
   "sections": [
     {
@@ -79,7 +79,7 @@
     {
       "level": 2,
       "anchor": "sec:depth-four",
-      "label": "An example attaining the minimum"
+      "label": "The least multiplier at depth four"
     },
     {
       "level": 2,

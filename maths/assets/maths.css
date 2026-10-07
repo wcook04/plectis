@@ -774,7 +774,9 @@ html:not(.scripting) .universe-nojs { display: block; }
 .problem-plates { margin: 0 0 var(--space-6); }
 .problem-plate { margin: 0 0 var(--space-6); }
 .problem-plate:last-child { margin-bottom: 0; }
-.problem-plate__drawing { width: min(100%, 34rem); }
+/* The plates are 720 by 500 (7 October 2026): 42rem draws one at about
+   0.93 of its size, so its labels read at body size. */
+.problem-plate__drawing { width: min(100%, 42rem); }
 .problem-plate__caption { max-width: var(--measure-note); margin-top: var(--space-3); }
 .problem-plate__lead {
   margin: 0 0 var(--space-2);

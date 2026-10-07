@@ -34,7 +34,7 @@
 \title{Distinct running least common multiples}
 \subtitle{Affine tails and Erd\H{o}s Problem~\#269}
 \author{Will Cook}
-\date{July 2026; revised 5 October 2026}
+\date{July 2026; revised 6 October 2026}
 
 
 % A local PDF link uses its destination name directly. The shared web-style
@@ -56,26 +56,29 @@ that criterion for the actual coefficients remains open here.
 \end{abstract}
 
 \section{Two sums from running least common multiples}\label{sec:problem}
-The $5$-smooth integers are the positive integers whose prime factors
-belong to $\{2,3,5\}$. Their running least common multiples begin
-$1,2,6,12,60,60,120,360,360,\ldots$. For a finite set of primes $P$, let
-$\mathcal S_P$ consist of $1$ and all positive integers whose prime factors
-belong to $P$, and put
+Let $P$ be a finite set of primes and $\mathcal S_P$ the positive integers
+with prime factors in $P$, including $1$. For $P=\{2,3,5\}$, the running
+least common multiples of these $5$-smooth integers begin
+$1,2,6,12,60,60,120,360,360,\ldots$. Put
 \[
  \Lprefix(x)=\lcm\{u\in\mathcal S_P:u\le x\},\qquad
  \hgt_P(x)=\prod_{p\in P}p^{\lfloor\log_p x\rfloor}\quad(x\ge1).
 \]
-Every integer in this finite set divides $\hgt_P(x)$. Conversely, the
-set contains the largest power of each $p\in P$ below or equal to $x$,
-so their product divides its least common multiple. Thus
-$\Lprefix(x)=\hgt_P(x)$. This value changes only at a positive prime
-power, where it is multiplied by that prime. Summing its distinct
-reciprocals gives
+Every member of the prefix divides $\hgt_P(x)$, while the prefix contains
+the largest power of each $p\in P$ at most $x$. Thus
+$\Lprefix(x)=\hgt_P(x)$, with a jump by $p$ exactly at each positive
+power of $p$. Counting distinct running LCMs or retaining multiplicities gives
 \[
- \mathcal D_P=1+\sum_{\substack{t=p^n\\p\in P,\ n\ge1}}\frac1{\hgt_P(t)}.
+ \mathcal D_P=1+\sum_{\substack{t=p^n\\p\in P,\ n\ge1}}\frac1{\hgt_P(t)},
+ \qquad
+ \mathcal R_P=\sum_{u\in\mathcal S_P}\frac1{\Lprefix(u)}.
 \]
-Positive powers of distinct primes never coincide, and geometric growth
-of the successive running LCMs gives convergence. We use $\N=\{0,1,2,\ldots\}$.
+For $P=\{2,3,5\}$, $\Lprefix(5)=\Lprefix(6)=60$ contributes $1/60$ to
+$\mathcal D_P$ and $2/60$ to $\mathcal R_P$. Erd\H{o}s Problem~\#269 asks about
+$\mathcal R_P$~\cite[p.~65]{erdosgraham1980} and~\cite[p.~106]{erdos1988}.
+Positive powers of distinct primes never coincide; geometric growth of
+successive running LCMs gives convergence of $\mathcal D_P$.
+We use $\N=\{0,1,2,\ldots\}$.
 
 \papersectiontarget{r4-five-map-theorem}
 \begin{theorem}[the sum over distinct running LCMs for $\{2,3,5\}$]\label{res:distinct-height-235}
@@ -98,16 +101,8 @@ isolated interchange of jumps on a torus. That argument is retained there
 as an ordinary proof awaiting formalisation. The proof below is independent
 of that argument.
 
-The question in Erd\H{o}s Problem~\#269 concerns the sum with multiplicity,
-\[
- \mathcal R_P=\sum_{u\in\mathcal S_P}\frac1{\Lprefix(u)},
-\]
-as recorded in~\cite[p.~65]{erdosgraham1980} and~\cite[p.~106]{erdos1988}.
-For example, $\Lprefix(5)=\Lprefix(6)=60$ for $P=\{2,3,5\}$, giving
-$2/60$ in $\mathcal R_P$ and $1/60$ in $\mathcal D_P$. The theorem treats
-the sum over distinct values; the problem asks about the sum with
-multiplicity. Our arguments leave the latter unresolved for finite $P$
-with $|P|\ge3$. For $P=\{p\}$ both sums equal $p/(p-1)$.
+Our arguments leave the repeated sum $\mathcal R_P$ unresolved for finite
+$P$ with $|P|\ge3$. For $P=\{p\}$ both sums equal $p/(p-1)$.
 
 After the five-map proof in Section~\ref{sec:distinct-235}, we retain the
 multiplicities. The bases remain the same, but the block coefficients and
@@ -332,38 +327,32 @@ sum assigns the coefficients $4,1,2$. The jumps alone therefore no longer
 determine the block contribution. Appendix~\ref{sec:height-identities}
 gives the general finite grouping identity.
 
-We use the half-open blocks $[2^a,2^{a+1})$, so the tail starts at
-$2^a$ rather than just after it. Its finite prefix excludes the jump
-by $2$ at that endpoint. Half the running LCM therefore clears that prefix:
-write
+With blocks $[2^a,2^{a+1})$, the tail now includes $2^a$. The prefix
+excludes the jump by $2$ there, so half the running LCM clears it. Put
 \[
  s_a=\sum_{\substack{x\in\mathcal S_P\\2^a\le x<2^{a+1}}}\frac1{\hgt(x)},
  \qquad T_a=\sum_{j\ge0}s_{a+j},\qquad
  h_a=\frac{\hgt(2^a)}2,\qquad X_a=h_aT_a.
 \]
-Indeed, a running LCM strictly before $2^a$ has exponent of $2$ at most
-$a-1$ and divides $h_a$. Here $h_0=1/2$, while $h_a$ is an integer for
-$a\ge1$. This endpoint convention explains the factor $1/2$ and the
-difference from the tails in Section~\ref{sec:distinct-235}.
+For $a\ge1$, each prefix LCM has exponent of $2$ at most $a-1$ and
+divides the integer $h_a$; at $a=0$, $h_0=1/2$. The factor $1/2$ reflects
+the endpoint change from Section~\ref{sec:distinct-235}, not multiplicity.
 
-The change in normalisation is
-$b_a=\hgt(2^{a+1})/\hgt(2^a)$. Since $h_0=1/2$, its product gives
-$h_{a+1}=(b_0\cdots b_a)/2$. Thus the block numerator $m_a=h_{a+1}s_a$
-satisfies $m_a/(b_0\cdots b_a)=s_a/2$; splitting off $s_a$ gives
-$X_{a+1}=b_aX_a-m_a$. Explicitly,
+Splitting $T_a=s_a+T_{a+1}$ and using $h_{a+1}=b_ah_a$ gives
+$X_{a+1}=b_aX_a-m_a$, where $m_a=h_{a+1}s_a$. Explicitly,
 \begin{equation}\label{eq:actual-digit}
  b_a=\frac{\hgt(2^{a+1})}{\hgt(2^a)},\qquad
  m_a=\sum_{\substack{x\in\mathcal S_P\\2^a\le x<2^{a+1}}}
        \frac{\hgt(2^{a+1})}{2\hgt(x)}.
 \end{equation}
+Since $h_0=1/2$, we also have $h_{a+1}=(b_0\cdots b_a)/2$ and
+$m_a/(b_0\cdots b_a)=s_a/2$.
 For $[2,4)$, the running LCMs at $2,3$ are $2,6$ and $h_2=6$, giving
 $m_1=6(1/2+1/6)=4$ and $b_1=6$. For the block displayed above,
 $h_5=10800$ and
 \[
  m_4=4\cdot15+3+2\cdot1=65,\qquad b_4=30.
 \]
-Thus $m_a$ need not be smaller than $b_a$.
-
 \begin{lemma}[integer coefficients and four possible bases]
 \label{res:dyadic-alphabet}
 For every $a\ge0$, $m_a$ is a positive integer and
@@ -377,10 +366,6 @@ Between successive powers of $2$ there is at most one power of $3$ and
 at most one power of $5$. Along with the final factor $2$, these give
 $b_a\in\{2,6,10,30\}$.
 \end{proof}
-
-Thus the jump word still determines $b_a$, but $m_a$ must also record
-multiplicities. The recurrence retains the same four bases, not the
-five-map table.
 
 \begin{proposition}[the tail recurrence and a quadratic bound]
 \label{res:actual-orbit}
@@ -423,8 +408,11 @@ to $m_a$, so
  m_a\ge(\lfloor a/5\rfloor+1)^2,\qquad X_a>m_a/30.
 \]
 Rationality would still put the tails in a fixed lattice, but not in a
-finite set. We shall use the quadratic upper bound to exclude integer
-tails instead.
+finite set. Repetition alone also gives no recovery rule: the maps
+$y\mapsto(m_a+y)/b_a$ now depend on $a$ and form an infinite family.
+The proof in Section~\ref{sec:distinct-235} needed both finiteness and
+unique recovery. We instead use the quadratic bound to limit the positive
+integer tails required by rationality.
 
 The Cantor-series form $S/2=\sum_{a\ge0}m_a/(b_0\cdots b_a)$ also
 explains why the criteria in \cite[Theorem~2.1]{erdosstraus1974} and
@@ -481,10 +469,9 @@ tail need not stay nonintegral. The
 the reduced denominator of $X_a$ itself.
 
 \section{A residue criterion}\label{sec:escape}\label{sec:open}
-A finite segment can certify that a specified $BX_\ell$ is not an integer.
-The recurrence fixes the residue class of the terminal tail, and its
-quadratic bound limits the positive integers in that class. If the least
-positive representative exceeds the bound, integrality is impossible.
+A finite segment bounds the starting tail. Its integrality would
+constrain the endpoint tail to a residue class. The residue inequality
+expresses the same obstruction in either form.
 
 For two steps the recurrence reads
 $X_{\ell+2}=b_{\ell+1}b_\ell X_\ell-(b_{\ell+1}m_\ell+m_{\ell+1})$.
@@ -507,9 +494,8 @@ $W_{\ell,h}=h_{\ell+h}/h_\ell$. Thus
  \qquad
  \frac{X_{\ell+h}}{W_{\ell,h}}=h_\ell T_{\ell+h}.
 \]
-These are the finite block contribution and the remainder, both in the
-starting normalisation $h_\ell$. Their sum is $X_\ell$ by
-\eqref{eq:actual-tail}.
+These finite and remaining contributions sum to $X_\ell$, both in the
+starting normalisation $h_\ell$, by \eqref{eq:actual-tail}.
 Throughout this section let
 \begin{equation}\label{eq:actual-bound}
  K(B,a)=90B(a+1)^2.
@@ -527,7 +513,8 @@ when
  BF+K(B,\ell+h)<W\bigl(\lfloor BF/W\rfloor+1\bigr).
 \]
 The right side is $W$ times the first integer strictly above $BF/W$.
-Subtracting $BF$ gives the least positive residue of $-BF$ modulo $W$.
+Its excess over $BF$ is the least positive residue of $-BF$ modulo $W$:
+the residue measures the gap to that integer in units of $1/W$.
 
 For integers $W\ge1,t$, define
 $\operatorname{lpr}_W(t)=1+((t-1)\bmod W)$, with remainder in
@@ -543,6 +530,8 @@ where $W\ge1$, then $\operatorname{lpr}_W(-BF)\le K$.
 The least positive representative is at most every positive representative
 of its class, and in particular at most $d$.
 \end{proof}
+In~\eqref{eq:actual-tail}, an integral $BX_\ell$ makes $BX_{\ell+h}$
+such a positive representative.
 
 For $\ell=1,h=6$, direct iteration gives
 $W_{1,6}=648000$ and $F_{1,6}=524431$. Since $K(1,7)=5760$, the interval is
@@ -550,10 +539,9 @@ $W_{1,6}=648000$ and $F_{1,6}=524431$. Since $K(1,7)=5760$, the interval is
  \frac{524431}{648000}<X_1\le\frac{530191}{648000}<1.
 \]
 Equivalently, $\operatorname{lpr}_{W_{1,6}}(-F_{1,6})=123569>5760$
-certifies $X_1\notin\mathbb Z$. This treats only $B=1$ at $\ell=1$;
-it leaves other multipliers and later clearing onsets untouched.
-To exclude every rational denominator, we need a successful segment
-for every $B$ coprime to $30$ beyond every prescribed onset.
+certifies $X_1\notin\mathbb Z$, treating only $B=1$ at $\ell=1$.
+For denominators $MB$, varying $B$ covers the part coprime to $30$;
+arbitrarily late starts allow each supported part $M$ to clear.
 
 \papersectiontarget{r4-repeated-criterion}
 \begin{theorem}[a residue criterion for irrationality]\label{res:windowconsumer}
@@ -596,21 +584,20 @@ every prescribed onset $a_0$. No bound uniform in $B$ or $\ell$ is
 needed for this direction.
 \end{proof}
 
-The fixed-start behaviour explains the quantifiers. A nonintegral
-$BX_\ell$ gives successful segments for all sufficiently large $h$,
-even if $S$ is rational with a denominator not yet cleared at $\ell$.
-If $BX_\ell$ is integral, the same calculation with $\delta=0$ instead
-gives $\operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})=BX_{\ell+h}$ for
-all sufficiently large $h$, so the test cannot succeed. A finite failure
-alone distinguishes neither case.
+At a fixed start, success rules out integrality of $BX_\ell$.
+If $BX_\ell$ is integral, the recurrence, positivity and the bound prevent
+success at any length; for all sufficiently large $h$,
+$\operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})=BX_{\ell+h}$.
+If $BX_\ell$ is nonintegral, every sufficiently long segment succeeds,
+even when $S$ is rational with a denominator not yet cleared at $\ell$.
+Increasing the length does not remove the need for starts beyond every
+cutoff. A finite failed search distinguishes neither case.
 
-The converse assumes the positive gap $\delta$; it does not prove one
-exists for the actual tails. Establishing~\eqref{eq:escape} without that
-assumption is the remaining task. The upper-bound property of $K$ is
-essential: a zero bound would make every residue inequality automatic.
-The \longrecord{r3-residue}{companion's residue analysis} proves the
-fixed-start formula and treats smaller and more general bounds.
-Finite searches cover only finitely many multipliers and starts.
+The converse obtains $\delta>0$ from irrationality. Proving~\eqref{eq:escape}
+without that assumption is the remaining task. The upper-bound property of $K$
+is essential: a zero bound would make every residue inequality automatic.
+The \longrecord{r3-residue}{companion's residue analysis} treats the fixed-start
+formula and smaller or more general bounds.
 
 \noindent\begin{minipage}{\linewidth}
 The repeated three-prime question can therefore be written in three
@@ -637,11 +624,10 @@ repeated sum} records finite calculations and the hypotheses missing
 from proposed finite-difference and function-theoretic arguments.
 
 \section{Two-prime transcendence}\label{sec:two-prime}
-For two primes, factorisation makes the multiplicities tractable.
+For two primes, the distinct sum is affine in one Hecke--Mahler value;
+the repeated sum is quadratic in it.
 Fan gave the factorisation of the repeated sum and its transcendence
 consequence in his post of 26 June 2026~\cite{fan2026comment}.
-The point is that both factors depend on one Hecke--Mahler value.
-The following calculation expresses the distinct sum in that same value.
 
 \begin{theorem}[both two-prime sums]
 \label{res:two-prime-transcendence}
@@ -773,13 +759,12 @@ in the part $F(H)$ all equal $1/H$.
 \end{proof}
 
 \section{The three-prime kernel}\label{sec:rank}
-The two-prime proof separates the summand into factors depending on
-individual exponents. For three primes, even a finite sum of products
-separating $i$ from $(j,k)$ is impossible. This concerns an exact identity
-for the kernel $\Kernel(i,j,k)$, not identities available only after
-summation. One binary carry causes the obstruction: diagonal rescaling
-leaves entries $1$ and $1/r$, from which we select nonzero minors of
-every order.
+The two-prime proof separates the summand by exponents. For three primes,
+the carry in adding two fractional parts prevents any finite separation
+of $i$ from $(j,k)$. Diagonal rescaling leaves just two entry values,
+$1$ and $1/r$; choosing their threshold positions gives nonzero minors
+of every order. This concerns exact kernel identities, not identities
+after summation.
 
 
 \begin{example}\label{res:rank}
@@ -787,11 +772,10 @@ For $(p,q,r)=(2,3,5)$, the leading two-by-two determinant is $-1/15$:
 its four entries are $1,1/6,1/2,1/60$, so it equals $1/60-1/12$.
 \end{example}
 
-This nonzero two-by-two minor rules out rank one. More generally, a sum
-of $d$ separated products would give every matrix layer rank at most $d$.
-To exclude every finite $d$, we therefore seek nonzero minors of
-arbitrarily large order. Their rows and columns may depend on the order;
-the same choices will work in every layer $k$.
+A sum of $d$ separated products has rank at most $d$ in each layer.
+Thus the two-by-two example excludes only rank one; excluding every
+finite $d$ requires nonzero minors of arbitrary order. Their indices
+may depend on the order, but not on $k$.
 
 \begin{theorem}[no finite separation of the kernel]\label{res:infinite-rank}
 Let $p,q,r$ be primes with $p\ne q$, $p\ne r$ and $q\ne r$.  For every
@@ -937,21 +921,19 @@ differences (their sum is $(1-c)\mathbf 1$), so the rank is $t-1$.
 \end{proof}
 
 
-For $c=1/r$ over $\mathbb Q$, both restrictions hold. Ordering the
-sampled row phases puts every column in this form, so the formula gives
-the rank of each nonempty rectangular sample. Since $k$ enters only
-through nonzero diagonal factors, that rank is independent of $k$.
-The \longrecord{r3-rank}{companion's kernel analysis} gives the exact
-rational comparisons.
+Order the sampled row phases and take $c=1/r$ over $\mathbb Q$.
+The formula then gives the rank of every nonempty rectangular sample,
+independently of $k$: the layer changes only the nonzero diagonal
+factors. The \longrecord{r3-rank}{companion's kernel analysis} gives the
+exact rational comparisons.
 
 
 \paragraph{Approximation.}
-Exact nonseparation does not prevent approximation. Keeping only rows
-$i<N$ gives $N$ separated terms, and $\hgt(x)>x^3/(pqr)$ makes the error
-tend to zero uniformly and in $\ell^1(\mathbb N^3)$. By contrast, the
-rescaled matrix has uniform distance $(1-1/r)/2$ from finite-rank
-matrices. The rescaling preserves exact rank but removes decay; it
-does not preserve uniform approximation error. The
+The diagonal rescaling preserves rank but removes the kernel's decay.
+Retaining rows $i<N$ in the original kernel gives $N$ separated terms;
+$\hgt(x)>x^3/(pqr)$ makes the error tend to zero uniformly and in
+$\ell^1(\mathbb N^3)$. The rescaled matrix instead has uniform distance
+$(1-1/r)/2$ from finite-rank matrices. The
 \longrecord{r3-approximation}{companion's approximation theorem} proves
 both statements. Neither implies irrationality of the scalar sum.
 

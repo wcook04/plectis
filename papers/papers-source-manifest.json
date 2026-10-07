@@ -11,39 +11,39 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.pdf",
-      "source_sha256": "2b1792d8f7bb44b853463f9fce12f804534c3358aed33b2840db1730501dab5c",
-      "bytes": 75630,
+      "source_sha256": "aed866b3e516ac9e86fbfae8b87ea804dc548ff12bd8f6704972ed3723b654d0",
+      "bytes": 74427,
       "source_tex_path": "paper/68/erdos-68-factorial-denominator-irrationality.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/68/erdos-68-factorial-denominator-irrationality.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/68/erdos-68-factorial-denominator-irrationality.tex",
-      "hosted_tex_sha256": "512245ba2b6ba9550b28e23a6a76b2542d50d1ba8cd2ddc0bb3c74e7da2a6062",
-      "tex_bytes": 24190
+      "hosted_tex_sha256": "eedffe484fe5a8dd349b199219f49f255c8904744befd44b212c813b041a998f",
+      "tex_bytes": 22990
     },
     {
       "hosted_path": "papers/erdos68-factorial-reasoning-surface.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.pdf",
-      "source_sha256": "e9b45a1a73132591e622c09f9a4497616f6bfc1da81cc71e238ec30541a582c6",
-      "bytes": 324190,
+      "source_sha256": "1b62398c30faacdb11f5272c975fad65bd8cde4742b5ff52279934fa8affe637",
+      "bytes": 324298,
       "source_tex_path": "paper/68/erdos68-factorial-reasoning-surface.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/68/erdos68-factorial-reasoning-surface.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/68/erdos68-factorial-reasoning-surface.tex",
-      "hosted_tex_sha256": "a8f5836a5143e345b7eb81b327b9d30e18514ec11620c7319a3e7fdd4389b4f0",
-      "tex_bytes": 178546
+      "hosted_tex_sha256": "3d0cf61f2dfde956a247f546a2649788b3e0f7edbb220d3d296c94ec7736f717",
+      "tex_bytes": 178564
     },
     {
       "hosted_path": "papers/erdos-243-reciprocal-tail-rigidity.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.pdf",
-      "source_sha256": "564f90160fb2f4f4dba092218c5f26612f2f8fed0c7b5a900f2597d9145eea80",
-      "bytes": 150037,
+      "source_sha256": "b1add0a0af44e65e0923ee1c974cb25a24ad94848bc9ad2ebf8be885baaec2fe",
+      "bytes": 147411,
       "source_tex_path": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/243/erdos-243-reciprocal-tail-rigidity.tex",
-      "hosted_tex_sha256": "529122fd3d00113504b29fc8ed4f999b68b4e2470a537c0f3d39f84958a4af90",
-      "tex_bytes": 74234
+      "hosted_tex_sha256": "774cae684af8d05776bb2fa5c66ed7d3e94bca241475cee186be1079383224a8",
+      "tex_bytes": 72434
     },
     {
       "hosted_path": "papers/erdos243-reciprocal-tail-reasoning-surface.pdf",
@@ -63,13 +63,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.pdf",
-      "source_sha256": "354969a20125449d2507b9e4170e4a40e34c8bf7d798a4dd2a8050e6aa2940f1",
-      "bytes": 122270,
+      "source_sha256": "9f6e453b629625a309de8cb7ef697e827a70cc7ca1faaf90038e2d22b6d5bedc",
+      "bytes": 120595,
       "source_tex_path": "paper/249/erdos-249-binary-totient-series.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/249/erdos-249-binary-totient-series.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/249/erdos-249-binary-totient-series.tex",
-      "hosted_tex_sha256": "cb6ddb9287d6e5471a76a36a2b177acb9dd21f03f3a58cbeb4bef68698cd02a6",
-      "tex_bytes": 44774
+      "hosted_tex_sha256": "45531de741b5525accf94e61770819fee824765544f5c1751688321ef5d9cebf",
+      "tex_bytes": 43484
     },
     {
       "hosted_path": "papers/erdos249-totient-reasoning-surface.pdf",
@@ -89,39 +89,39 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.pdf",
-      "source_sha256": "a37c5e393d8ddde37f4e1768a8bb6d803713e9394beced1411eb209f93165df7",
-      "bytes": 115201,
+      "source_sha256": "28f101158befa0822df641cb564161195016795bbc653be485e9d1cc96e480c5",
+      "bytes": 113494,
       "source_tex_path": "paper/251/erdos-251-prime-gap-dyadic-series.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/251/erdos-251-prime-gap-dyadic-series.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/251/erdos-251-prime-gap-dyadic-series.tex",
-      "hosted_tex_sha256": "bd5caeea5b3cc3995b121feb467f53cba1e803010c675c9cabf19fce5f2c8339",
-      "tex_bytes": 44655
+      "hosted_tex_sha256": "8d5c19e16d872f1f3d82e83965d33b8385dbcd028b0981d10a6ab2797c2e9c41",
+      "tex_bytes": 43334
     },
     {
       "hosted_path": "papers/erdos251-prime-gap-reasoning-surface.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.pdf",
-      "source_sha256": "b8417e034615671f7b293debfdc03ff7ddf8b6729da25868dcc3c29af8f9de0a",
-      "bytes": 301746,
+      "source_sha256": "974663e3f8494bc9a9ae7f6b30a93d671ffb17623e67520c53ebcbb5dcbc4f91",
+      "bytes": 300839,
       "source_tex_path": "paper/251/erdos251-prime-gap-reasoning-surface.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/251/erdos251-prime-gap-reasoning-surface.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/251/erdos251-prime-gap-reasoning-surface.tex",
-      "hosted_tex_sha256": "be02057958b51a7008be5d6dfaf833d1bdf71f874c59a3897d365b6463c62827",
-      "tex_bytes": 187466
+      "hosted_tex_sha256": "648e558fb987171119d8be1eb2f408bbf90b0f25ab08ed60b3fe37ef7bd86a36",
+      "tex_bytes": 186253
     },
     {
       "hosted_path": "papers/erdos-257-mersenne-support-subseries.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.pdf",
-      "source_sha256": "a1fe287c3c892447bea898b7ee50b3b949445fe64179f80edff93fff1304f55b",
-      "bytes": 194960,
+      "source_sha256": "2908e2bf7bc5a093f31dd3954a431c87870a4a2fc52f82fea4c227c80cc6f647",
+      "bytes": 192742,
       "source_tex_path": "paper/257/erdos-257-mersenne-support-subseries.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos-257-mersenne-support-subseries.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/257/erdos-257-mersenne-support-subseries.tex",
-      "hosted_tex_sha256": "c0d63a763bd2f2c944d079c4e5bdbbe356268d138fd83bdb068464eeb3f2452b",
-      "tex_bytes": 81455
+      "hosted_tex_sha256": "d72b79f31d5438b24af1f4c73ddc357234412a30f0a8af857e7e5af85acba8b3",
+      "tex_bytes": 79850
     },
     {
       "hosted_path": "papers/erdos257-mersenne-reasoning-surface.pdf",
@@ -154,26 +154,26 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.pdf",
-      "source_sha256": "eeb0bea5dc57317cb81c23ba5ad557ea9b010456dc3bc7c7e5a28d250383f6db",
-      "bytes": 137009,
+      "source_sha256": "c8f23e0b7669c900d39616019f1b1a1f688c1cf7f0bce94dbeb8337443a75c9b",
+      "bytes": 135739,
       "source_tex_path": "paper/269/erdos-269-three-prime-running-lcm.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/269/erdos-269-three-prime-running-lcm.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex",
-      "hosted_tex_sha256": "0c1f2ec03faab7787c5843c454bfff6a6ab9027051e191b44d56670e92e4bddc",
-      "tex_bytes": 53566
+      "hosted_tex_sha256": "abf6eb8736c95b8ba4c0d4ba1cb6c4bc7fd5913dd3789e620fbd9d36d7d4b4b5",
+      "tex_bytes": 52699
     },
     {
       "hosted_path": "papers/erdos-1041-lemniscate-newton-flow.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.pdf",
-      "source_sha256": "a3ebf684dc1c0911c14ac35c37fbe3a7ff7b238822acc8e09291034e1850c9a2",
-      "bytes": 150490,
+      "source_sha256": "2dd3af9969a2ae69f8043af0026879dd4ddaa2eecfe2722b8db628ee80f4d5c4",
+      "bytes": 151429,
       "source_tex_path": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/1041/erdos-1041-lemniscate-newton-flow.tex",
-      "hosted_tex_sha256": "ec43ef8adb90a4e6212002930d785830392a8be23bf2076074c9677245219037",
-      "tex_bytes": 66138
+      "hosted_tex_sha256": "32fcdf96311d4320bfff7664a4ed642ff60406e6b4a20f353639ecb58e9a750b",
+      "tex_bytes": 65114
     },
     {
       "hosted_path": "papers/erdos1041-lemniscate-reasoning-surface.pdf",
@@ -193,13 +193,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.pdf",
-      "source_sha256": "81c32c1cb729dc665cb33a2369726476225956901cba331a1d4167afd6c124a4",
-      "bytes": 156990,
+      "source_sha256": "d3aa7fad8254a26148a821a24f4b0508611e8a9c6902f9de25030d1c46eee217",
+      "bytes": 153459,
       "source_tex_path": "paper/1049/erdos-1049-rational-base-lambert.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/1049/erdos-1049-rational-base-lambert.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/1049/erdos-1049-rational-base-lambert.tex",
-      "hosted_tex_sha256": "5371d552354f3d035fe5ad41874d109bc7f84e8287601e74aaf329ed2a6fcb46",
-      "tex_bytes": 62103
+      "hosted_tex_sha256": "1e83c153261cea0f1223abad449d57feca8edb8bdb14d17800aa3eb97f9a1b49",
+      "tex_bytes": 59353
     },
     {
       "hosted_path": "papers/erdos1049-rational-base-lambert-reasoning-surface.pdf",
@@ -232,25 +232,25 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-a-good-mathematical-paper.pdf",
-      "source_sha256": "caad8b968c94acb953a47922125a904ac1f17a3904347112cde9bb99eed04c1d",
-      "bytes": 34213,
+      "source_sha256": "45bfb075a95acc483c6544efddc8bf699b92a6619fdfe4596abcf0905767f600",
+      "bytes": 34183,
       "source_tex_path": "paper/exposition/writing-a-good-mathematical-paper.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/exposition/writing-a-good-mathematical-paper.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/exposition/writing-a-good-mathematical-paper.tex",
-      "hosted_tex_sha256": "ab1c9e2bd207bd7638ff3fb2b3b31c94344e2fed0b76a772a5184b74e4a798b6",
-      "tex_bytes": 8906
+      "hosted_tex_sha256": "e96a5d3154eabc36ecd618ca3590672486f1be6d71868377ef1fc6b4c38b7452",
+      "tex_bytes": 8862
     },
     {
       "hosted_path": "papers/writing-mathematics-from-reviewed-revisions.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-mathematics-from-reviewed-revisions.pdf",
-      "source_sha256": "79e1ac5b925b420e519f00154a794177c8af2c184272abaf573804eef9fa2e1b",
-      "bytes": 134119,
+      "source_sha256": "29dbff057324a5dbb8ef3526abf82e9770917711ef7fe2e70f7a6fcdfc3d3f73",
+      "bytes": 134175,
       "source_tex_path": "paper/exposition/writing-mathematics-from-reviewed-revisions.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/exposition/writing-mathematics-from-reviewed-revisions.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/exposition/writing-mathematics-from-reviewed-revisions.tex",
-      "hosted_tex_sha256": "ff172560fbca4a1417d27b28b9124e900fcec8be928921f970c0b6cc3b486e47",
+      "hosted_tex_sha256": "96b7f3e3bad868197b0207ec66ac4496bc205193b49dc6ec8033df8de4d27d5e",
       "tex_bytes": 1951
     },
     {
@@ -318,32 +318,32 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_path": "paper/exposition/parts/revisions.tex",
-      "source_sha256": "e1082e00ce627f2b78348cad7b257125cd41ac0a33394d3d582fe316d850f83a",
-      "bytes": 16351
+      "source_sha256": "258e6e2b80bb7f40d2a20e3d52babccaa18e1d464c16752b8e00d9d791de3413",
+      "bytes": 15933
     },
     {
       "hosted_path": "papers/source/plectis-erdos/paper/exposition/parts/review.tex",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_path": "paper/exposition/parts/review.tex",
-      "source_sha256": "b48b53c9617e9a911eb3851c3a0d427ca2d27a811477ae84426720e6d94fd8ac",
-      "bytes": 11101
+      "source_sha256": "6dac232d3cb954231d52165102e3b80703a9b33840f2a6d6269f7815fc06a31c",
+      "bytes": 11243
     },
     {
       "hosted_path": "papers/source/plectis-erdos/paper/exposition/parts/practice.tex",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_path": "paper/exposition/parts/practice.tex",
-      "source_sha256": "e016fa1578b45ca549dd444a4f37575c9cd90c5fb8643fb733ee00a025048f47",
-      "bytes": 17112
+      "source_sha256": "dd5b09d68941b3209bf9f765964fb311ac91dc5b9d66e199a14f6ea72e4583f7",
+      "bytes": 16680
     },
     {
       "hosted_path": "papers/source/plectis-erdos/paper/exposition/parts/references.tex",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_path": "paper/exposition/parts/references.tex",
-      "source_sha256": "b55141df1839a03296bc77dca3db3bc2a4b8ffae4e7a17f5ddb79efa33cf0aac",
-      "bytes": 7850
+      "source_sha256": "d7a4c97fb1544e9504e134a70df96ed97785740fd14ca328f4646a4fba0f9356",
+      "bytes": 8148
     },
     {
       "hosted_path": "papers/source/plectis-erdos/paper/paper-evidence.tex",

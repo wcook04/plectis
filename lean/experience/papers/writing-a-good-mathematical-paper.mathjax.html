@@ -5,17 +5,17 @@
     <p class="lean-paper__subject">Exposition method</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/exposition/writing-a-good-mathematical-paper.tex">
-<p>A reader who knows the field should be able to state the result,
-reconstruct the decisive inference and use it correctly. Begin where
-that reader would get stuck; use the relevant instruction, not every
+<p>Test the draft for its intended reader: state the contribution,
+reconstruct the decisive inference and apply the result. Begin where one
+of these tasks fails; use the relevant instruction, not every
 instruction.</p>
 <p><strong>1. Decide what the paper contributes.</strong> Choose a
-coherent principal result and an intended reader. Explain what the
-result enables or clarifies, compare its assumptions and conclusion with
-the nearest prior work, and state what remains open. For a conditional
-result, say which familiar cases its hypothesis admits or excludes,
-where known. Distinguish the contribution from the mechanism that proves
-it; the abstract needs both. Neither theorem count nor generality
+coherent principal result; say what it enables or clarifies. Compared
+with the nearest prior work, what changes in the assumptions or
+conclusion? State what remains open. For a conditional result, give
+familiar cases its hypothesis admits or excludes, where known, and show
+where the proof uses it. Distinguish contribution from proof mechanism;
+the abstract needs both. Neither theorem count nor generality
 establishes importance.</p>
 <p><strong>2. Read the kind of mathematics you are writing.</strong>
 Read nearby papers for terminology, hypotheses and attribution; read
@@ -24,50 +24,51 @@ choice, limit or estimate. Check the version and passage. Identify what
 justifies the source’s next step and the corresponding fact in your
 proof; explain it in your own words.</p>
 <p><strong>3. Check the statement before polishing its prose.</strong>
-Check domains, quantifiers, signs, endpoints, constants, parameter
-dependencies and both directions of any claimed equivalence. State
-assumptions where the claim is made. Compare titles, abstracts and
-conclusions with the full statement. Separate witnesses need not be a
-common witness: over the natural numbers, <span
-class="math inline" data-term-auto="off">\(\forall n\,\exists x\;(x&gt;n)\)</span> does not
-imply <span class="math inline" data-term-auto="off">\(\exists x\,\forall
-n\;(x&gt;n)\)</span>. An exposition pass that exposes a proof gap must
-refer it for mathematical review; elegant wording cannot close it.</p>
+Check domains, quantifiers, signs, endpoints, constants and both
+directions of claimed equivalences. State what is fixed and what later
+choices may depend on. Keep assumptions with the claim; compare titles,
+abstracts and conclusions with it. When properties are needed together,
+prove they hold at the same witness: the even and odd integers are both
+unbounded but disjoint. Refer a discovered proof gap for mathematical
+review.</p>
 <p><strong>4. Organise by logical dependence.</strong> Give the
-question, result and proof idea before technical detail accumulates.
-Show what each major step establishes and why the next needs it.
-Introduce prerequisites when their purpose is visible, not all at once.
-Prepare unfamiliar operations with examples. Let headings name the
-object, result or operation; make assumptions and proofs findable from
-the theorem. Logical order need not reproduce discovery order.</p>
+question, result and proof idea before technical detail accumulates. For
+each major step, say what it uses, what it proves and where that
+conclusion is needed. Introduce prerequisites when their purpose is
+visible; use examples to explain unfamiliar operations. Let headings
+name objects, results or operations; make assumptions and proofs
+findable from the theorem. Logical order need not reproduce discovery
+order.</p>
 <p><strong>5. Explain the hard transition.</strong> Work backwards from
-the next conclusion: what quantity must be controlled, and how
-accurately? State that requirement before deriving the estimate or
-choosing a parameter. For an interval certificate, compare the error
-with both endpoint gaps. For a small-integer contradiction, justify
-integrality, nonvanishing and <span
-class="math inline" data-term-auto="off">\(|N|&lt;1\)</span> separately. When a technique
-recurs, identify its new job. Explain the decisive inference, not merely
-the calculation being performed.</p>
-<p><strong>6. Separate construction from completion.</strong> Account
-for each choice and preserved condition. A classification needs both
-construction and exhaustiveness. An enclosure alone does not show that
-every target is attained. For example, <span
-class="math inline" data-term-auto="off">\(r_n=x-S_n\)</span>, <span
+the next conclusion: what must be controlled, and how accurately? State
+the requirement before estimating or choosing a parameter. To certify
+<span class="math inline" data-term-auto="off">\(x\in(1/2,1)\)</span>, place an enclosure
+wholly inside that interval; <span
+class="math inline" data-term-auto="off">\([1/2,1]\)</span> does not suffice. For a
+small-integer contradiction, justify integrality, nonvanishing and <span
+class="math inline" data-term-auto="off">\(|N|&lt;1\)</span> separately. Explain which fact
+supplies each requirement; a repeated technique may have a different
+job.</p>
+<p><strong>6. Separate construction from completion.</strong> Justify
+each choice and preserved condition, then prove attainment. For example,
+<span class="math inline" data-term-auto="off">\(r_n=x-S_n\)</span>, <span
 class="math inline" data-term-auto="off">\(0\le r_n\le\varepsilon_n\)</span> and <span
 class="math inline" data-term-auto="off">\(\varepsilon_n\to 0\)</span> give <span
 class="math inline" data-term-auto="off">\(S_n\to x\)</span>; repeated choice alone does not.
-State which parameters are fixed and justify the limit of the whole
-summand, including any growing product. To interchange a limit and a
-sum, identify an applicable theorem and check its hypotheses.</p>
+A classification needs construction and exhaustiveness; an enclosure
+alone need not establish attainment. State what stays fixed; justify
+convergence of the whole summand, including growing products. To
+interchange limit and sum, check the theorem’s hypotheses; dominated
+convergence needs a summable majorant independent of the limiting
+parameter.</p>
 <p><strong>7. Make examples and figures do work.</strong> Choose a small
 instance that exposes a definition, invariant, obstruction or necessary
 hypothesis; a simpler case may hide it. Show what changes and what is
-preserved. Include an endpoint when the convention matters, and say what
-the example leaves unproved. A finite check supports an infinite claim
-only through a proved reduction. Check that a witness belongs to the
-claimed object. Label a diagram’s objects, maps and conventions; keep
-its explanation nearby.</p>
+preserved. When reindexing a sum, check multiplicities, not just values.
+Include relevant endpoints and say what remains unproved. A finite check
+supports an infinite claim only through a proved reduction. Check that a
+witness belongs to the claimed object. Label a diagram’s objects, maps
+and conventions; keep its explanation nearby.</p>
 <p><strong>8. Use the field’s words and purposeful notation.</strong>
 Keep established terms when their definitions fit, such as “Stieltjes
 moment sequence”. Replace private labels by the actual condition; <span
@@ -78,13 +79,13 @@ their reuse saves. Translate borrowed indices and normalisations.
 Distinguish a sum, its partial sums and its remainders, and a value from
 its enclosure.</p>
 <p><strong>9. Make sentences express the argument.</strong> Replace “We
-proceed with the estimate” by a reason: “Orthogonality makes the first
-sum zero; it remains to bound the second.” Let “since” supply a reason
-and “hence” mark a deduction. Give each “this” an unmistakable referent.
-After “similarly”, check that the same hypotheses apply. Punctuate
-displays as parts of sentences. Keep parallel claims parallel and
-conditions beside their consequences. Remove filler, not mathematical
-qualifications.</p>
+proceed with the estimate” by its reason: “The terms are nonnegative, so
+dropping the ordering restriction gives an upper bound.” Let “since”
+supply a reason and “hence” mark a deduction. Give each “this” an
+unmistakable referent. After “similarly”, check that the same hypotheses
+apply. Punctuate displays as parts of sentences. Keep parallel claims
+parallel and conditions beside their consequences. Remove filler, not
+mathematical qualifications.</p>
 <p><strong>10. Credit the exact input at its use.</strong> Distinguish
 applied theorems, adapted constructions, historical attribution,
 terminology and expository models. Check hypotheses, version and
@@ -92,38 +93,38 @@ passage; identify the input used here. State what an adaptation retains
 and changes. Credit supplied ideas and corrections locally. A writing
 analogy supplies no proof. Report only reading and checks performed.</p>
 <p><strong>11. State what has actually been established.</strong>
-Separate logical scope from evidence: conditional implications can have
-ordinary or formal proofs; computations and conjectures need separate
-labels. Keep unproved inputs beside dependent results. A checked lemma
-need not cover the whole proof; missing formalisation does not
-invalidate an ordinary proof. State computations’ finite scope locally;
-collect reproduction details in one verification section. For one-sided
-tests, distinguish success from inconclusive failure. Pointwise eventual
-detection need not give a uniform stopping bound or the required family
-of witnesses.</p>
+Separate scope from evidence: conditional implications may have ordinary
+or formal proofs. Match formal support to the exact statement,
+definitions and hypotheses. Check coverage of the steps joining lemmas.
+Missing formalisation does not invalidate an ordinary proof. Keep
+unproved inputs beside dependent results. Label computations and
+conjectures; give computations’ finite scope locally and reproduction
+details once. For one-sided tests, failure may be inconclusive.
+Detecting each fixed input need not give a uniform stopping bound or the
+required witnesses.</p>
 <p><strong>12. Preserve useful detail and informative failures.</strong>
-Keep the short argument readable and omitted detail recoverable. Check
-exact passage destinations and reconcile statements, assumptions and
-evidence in both directions. Preserve a useful failed route’s
-implication, assumptions, witness and missing ingredient. Distinguish
-flawed steps, failed methods and counterexamples. Cite omitted proofs by
-section or theorem; put build commands and source identifiers in the
-verification record. Do not invent discovery history.</p>
+Keep omitted detail recoverable by section or theorem references; check
+their destinations and reconcile statements, assumptions and evidence in
+both directions. For a failed route, retain the attempted implication,
+assumptions, witness and missing ingredient. Name the assertion a
+counterexample refutes; a failed method need not refute the theorem. Put
+build commands and source identifiers in the verification record. Do not
+invent discovery history.</p>
 <p><strong>13. Review changes as claims, then as prose.</strong> Compare
 meanings before fluency, including words beside unchanged formulas.
-Correct overclaims and stale underclaims. Removing shorthand must
-preserve its hypotheses; terminology must fit its definition. Accept,
-repair, reject or defer a proposal for a stated reason. Keep useful
-rejected revisions recoverable. Review scope and limits separately
-before turning a local improvement into a general lesson.</p>
+Check earlier criticisms against the current source. Correct overclaims
+and stale underclaims without losing hypotheses or credit. Accept,
+repair, reject or defer each proposal for a stated reason; preserve
+useful rejected revisions. Test a local improvement’s limits before
+promoting it to general advice.</p>
 <p><strong>14. Read the delivered paper from a cold start.</strong>
 Render the final sources; inspect formulas, captions, page breaks,
 bibliography and reference destinations. Read without supplying steps
 from memory. Can the reader reconstruct the hard inference, apply the
-result and identify an excluded case, where known? Record where
-reconstruction stops and what was understood there, not just that the
-passage feels unclear. A successful build is not a comprehension test.
-Revise the difficulty; preserve what works.</p>
+result and identify an excluded case, where known? Where reconstruction
+stops, record what is established and what the next step needs. A
+successful build is not a comprehension test. Revise that transition;
+preserve what works.</p>
 <p> <em>Further reading.</em> Halmos, <a
 href="https://doi.org/10.5169/seals-43857"><em>How to write
 mathematics</em></a>, §§3–5 (1970); Knuth et al., <a
@@ -132,8 +133,9 @@ Writing</em></a>, §§1–3 (1988); Gowers, <a
 href="https://gowers.wordpress.com/2007/10/19/my-favourite-pedagogical-principle-examples-first/"><em>Examples
 first!</em></a> (2007); Tao, <a
 href="https://terrytao.wordpress.com/advice-on-writing-papers/"><em>On
-writing</em></a>. Worked cases, sources and revision history: the <a
+writing</em></a>. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-mathematics-from-reviewed-revisions.pdf"><em>long
-companion</em></a>.</p>
+companion</em></a> gives worked cases (§§2–4), revision practice (§5)
+and genre transfer (§6).</p>
   </div>
 </article>

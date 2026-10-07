@@ -294,17 +294,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
       "renderer_fingerprint": "065862ae86e3b045",
-      "source_sha256": "529122fd3d00113504b29fc8ed4f999b68b4e2470a537c0f3d39f84958a4af90",
+      "source_sha256": "774cae684af8d05776bb2fa5c66ed7d3e94bca241475cee186be1079383224a8",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 745,
+      "mathml_node_count": 739,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "624ebff0e12c693d224c3ab24ca7f796aa12b977892255b0cef3f7c2eba6df94",
-      "html_exact_tex_sha256": "e33beab7414a9f9945804622e8f99e9941c5ed585af5166543117bfeb02587c2"
+      "html_mathml_sha256": "aa77e628958e9bf22fce41e400ab568e17129bd63078988b1aac700e3e694cec",
+      "html_exact_tex_sha256": "19d6204f40eac881975fec1f7114547559dbb5aa0c125a98d49e3e6ce372c536"
     },
     "sections": [
       {
@@ -478,17 +478,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "065862ae86e3b045",
-        "source_sha256": "529122fd3d00113504b29fc8ed4f999b68b4e2470a537c0f3d39f84958a4af90",
+        "source_sha256": "774cae684af8d05776bb2fa5c66ed7d3e94bca241475cee186be1079383224a8",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 745,
+        "mathml_node_count": 739,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "624ebff0e12c693d224c3ab24ca7f796aa12b977892255b0cef3f7c2eba6df94",
-        "html_exact_tex_sha256": "e33beab7414a9f9945804622e8f99e9941c5ed585af5166543117bfeb02587c2"
+        "html_mathml_sha256": "aa77e628958e9bf22fce41e400ab568e17129bd63078988b1aac700e3e694cec",
+        "html_exact_tex_sha256": "19d6204f40eac881975fec1f7114547559dbb5aa0c125a98d49e3e6ce372c536"
       },
       "sections": [
         {

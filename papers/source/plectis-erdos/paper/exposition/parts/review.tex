@@ -113,17 +113,19 @@ In \#1049, language suggesting that a degree bound was inevitable was repaired
 to state a sufficient inequality and preserve the qualification contributed
 by a remaining factor. In \#1041, the revision retained the fixed-polynomial
 scope instead of turning it into a freely varying family. For mixed
-irrationality criteria in \#257, independently chosen witnesses cannot replace
-the required common witness: two unbounded sets of candidate indices may be
-disjoint. The proof must make all conditions hold at one index. These are
-mathematical checks even when the edit is presented as compression or style.
+irrationality criteria in \#257, two unbounded sets of candidate indices
+may be disjoint: the even and odd integers provide an elementary example.
+The proof needs one index satisfying both conditions. The source adds the
+two nonnegative, normalised errors on the same finite distribution. Their
+sum has mean below one, so it is below one at some sampled index.
+Nonnegativity puts both errors below one there; no independence is needed~\cite[common-index argument]{paper257}.
+These are mathematical checks even when the edit is presented as compression or style.
 
-Ordinary proof and formal support answer different questions. An accepted
-ordinary argument may lack a complete Lean formalization; a checked nearby
-lemma may fail to cover the new proof. Identify the exact supported statement,
-including its named inputs and pending comparisons. The systems paper describes
-the records that retain these distinctions~\cite{systems}; the guide does
-not confer proof status by describing them.
+Compare the Lean proposition with the prose, including definitions,
+hypotheses and quantifiers. A checked ingredient need not cover the assembled
+argument. An ordinary proof may lack complete formalisation. Keep named inputs
+and pending comparisons visible. The systems paper's records preserve these
+distinctions~\cite{systems}; describing them does not confer proof status.
 
 A late-September prose pass removed remarks naming mathematical inputs beside
 the dependent results; the integrating agent restored them. Details of running
@@ -164,17 +166,16 @@ by ``$Q$ is an integer polynomial'' would be unsafe: an integer-valued polynomia
 can have nonintegral coefficients, as $n(n-1)/2$ shows. The useful simplification
 names the available arithmetic structure.
 
-Even prose that seems to paraphrase a bound deserves this review. In the
-\#257 finite average, $L,d,T$ are positive integers. The residues of
+In the \#257 finite average, $L,d,T$ are positive integers. The residues of
 $L,2L,3L,\ldots$ modulo $d$ repeat with period $d/\gcd(L,d)$; the sample
 uses only the first $T$ terms. The inequality $d\le LT$ does not assert
 that one whole period occurs. For $L=3,d=5,T=2$, it holds while the period
-has length five. Splitting the sample into complete periods, possibly none,
-and one remainder is sufficient for the displayed bound
+has length five. Split the sample into complete periods, possibly none,
+and one remainder. The kernel weights of Section~\ref{sec:formula-choice}
+are nonnegative, so that remainder contributes no more than a whole period.
+Allowing one extra period supplies the error term after division by $T$
 \cite[finite means for shifted divisor tails]{paper257}.
-Adding ``possibly none'' makes the prose agree with the estimate's complete-period
-and remainder decomposition. The small example refutes the gloss, not the bound:
-record which assertion fails before deciding that the proof needs repair.
+The example refutes the claim of a complete sampled period, not the estimate.
 
 \subsection{Correct the source without rewriting its history}
 

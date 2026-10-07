@@ -198,13 +198,12 @@ work the second account makes possible.</p>
 </section>
 <section id="sec:revisions" class="level2">
 <h2>Explain the choices in a proof</h2>
-<p>The next cases explain why a construction reaches its target and how
-a later inference determines the accuracy of an estimate. They were
-accepted in the short-paper revision round of 30 September 2026,
-labelled R6. An earlier September series used the same round numbers;
-the source records distinguish the series and retain the accepted
-passages at commit <code>18cedaddedd1</code>, with its full identity and
-source digests <span class="citation" data-cites="ledger"><a href="#ref-8">[8]</a></span>.</p>
+<p>These cases concern attainment and the accuracy an inference
+requires. They were accepted in the short-paper R6 round of 30 September
+2026, not the earlier September series with the same round numbers. The
+records retain the passages at commit <code>18cedaddedd1</code>, its
+full identity and source digests <span class="citation"
+data-cites="ledger"><a href="#ref-8">[8]</a></span>.</p>
 <section id="sec:remainder" class="level3">
 <h3>From repeated choice to an attained infinite sum</h3>
 <p>The #251 paper contains a construction in which a target <span
@@ -239,13 +238,12 @@ class="citation" data-cites="crmaric"><a href="#ref-5">[5]</a></span>. They keep
 remainder in an interval and use convergence to obtain the represented
 value. What transfers is the separation of two questions: can the next
 choice be made, and does the resulting sequence attain the target?</p>
-<p>For the #251 construction, the covering property, the invariant and
-<span class="math inline" data-term-auto="off">\(F_j\to0\)</span> must each be justified.
-Attainment also leaves the sparsity and arithmetic constraints to their
-own arguments; a finite digit example settles none of these obligations.
-The integration preserved them and the unresolved status of the original
-prime-gap problem. The literary comparison identifies what needs
-explaining, not a substitute for any of those proofs.</p>
+<p>The #251 construction must justify its covering, invariant and <span
+class="math inline" data-term-auto="off">\(F_j\to0\)</span>, as well as sparsity and
+arithmetic constraints. Neither a finite digit example nor the literary
+comparison supplies those proofs. The integration preserved these
+obligations and the unresolved status of the original prime-gap
+problem.</p>
 </section>
 <section id="sec:estimate" class="level3">
 <h3>State how accurate the estimate must be</h3>
@@ -255,18 +253,15 @@ tails <span class="math inline" data-term-auto="off">\(Y_a\)</span> in the finit
 class="math display" data-term-auto="off">\[(K^{-1}\mathbb Z)\cap(0,1).\]</span></div>
 <p>Here <span
 class="math inline" data-term-auto="off">\(K\ge1\)</span> is the integer denominator in the
-rationality assumption. An accepted sentence then says that equality of
-two tails still has to propagate. This matters: finiteness provides
-repetition, but a repeated value need not determine the subsequent
-choices. Recovery must make the next block and tail depend on the
-present tail before equality can propagate. Repetition alone supplies no
-such rule.</p>
-<p>Hančl and Tijdeman’s proof of Theorem 2.1 begins by turning a
-rationality assumption into an integral scaled remainder <span
-class="citation" data-cites="hancl"><a href="#ref-6">[6]</a></span>. That ordering makes the
-arithmetic object visible before estimating it. The #269 revision uses
-the same explanatory idea while retaining its additional recovery
-problem. The cited proof does not establish that extra step.</p>
+rationality assumption. Finiteness forces two tails to agree; it does
+not force their successors to agree. The accepted revision makes the
+remaining task explicit: recover the next block and tail from the
+present tail. Only then does equality propagate.</p>
+<p>Hančl and Tijdeman begin their proof of Theorem 2.1 with an integral
+scaled remainder obtained from rationality <span class="citation"
+data-cites="hancl"><a href="#ref-6">[6]</a></span>. The #269 revision likewise identifies the
+arithmetic object before estimating it; recovery is its own additional
+task, not supplied by the cited proof.</p>
 <p>The next difficulty is quantitative. The maps <span
 class="math inline" data-term-auto="off">\(G_{53}(t)=(9+t)/30\)</span> and <span
 class="math inline" data-term-auto="off">\(G_5(t)=(3+t)/10\)</span> encode two possible
@@ -286,15 +281,21 @@ class="math display" data-term-auto="off">\[G_{53}(U)&lt;G_5(3/10),\qquad
 <p>This
 specifies the improvement needed from the arithmetic sequence.</p>
 </blockquote>
-<p>The case is <code>r6-269-style_rules-03</code>. Reading the desired
-separation backwards has turned “improve the bound” into a precise
-target for the next estimate. The displayed threshold is sufficient for
-this argument; it does not rule out another method using a different
-bound.</p>
-<p>The return associated this choice with Knuth’s author–reader
-dialogue. That offers a broad compositional analogy. The separation
-inequality itself explains the threshold, so the writing reference must
-not appear to supply its mathematics.</p>
+<p>The case is <code>r6-269-style_rules-03</code>. The threshold is
+sufficient for this argument, not necessary for every possible method.
+The return’s Knuth analogy concerns presentation; the separation
+inequality supplies the mathematics.</p>
+<p>The source obtains the required improvement from the spacing of
+powers of <span class="math inline" data-term-auto="off">\(5\)</span>. At a block containing
+such a power the tail is at most <span
+class="math inline" data-term-auto="off">\(7/15\)</span>. Every three consecutive blocks
+contain at least one such block; moving backwards at most twice, each
+step is bounded by <span class="math inline" data-term-auto="off">\(t\mapsto(1+t)/2\)</span>.
+This gives <span class="math inline" data-term-auto="off">\(U=13/15&lt;9/10\)</span>, for the
+actual prime-power sequence, not arbitrary block words. The source
+separates all five block images on this interval. The image identifies
+the block; its affine inverse determines the next tail. Equality can now
+propagate <span class="citation" data-cites="paper269"><a href="#ref-22">[22]</a></span>.</p>
 </section>
 <section id="sec:multiplicity" class="level3">
 <h3>An example must reveal the relevant difference</h3>
@@ -371,22 +372,20 @@ distinct-height argument uses <span
 class="math inline" data-term-auto="off">\((16,32]\)</span>, whereas the table uses <span
 class="math inline" data-term-auto="off">\([16,32)\)</span>. Matching the endpoint
 conventions is a separate task from preserving multiplicity.</p>
-<p>Halmos’s concrete cases and Gowers’s examples-first discussion
-suggest asking which small instance reveals an unfamiliar
-operation <span class="citation" data-cites="halmos"><a href="#ref-1">[1]</a></span><span
-class="citation" data-cites="gowers"><a href="#ref-3">[3]</a></span>. Here the repeated heights
-provide the reason to use this instance. The table explains the counting
-convention; the infinite-series theorem still needs its proof. No claim
-about every reader’s preferred order follows.</p>
+<p>The repeated heights make this table useful: they expose the counting
+convention. Halmos’s concrete cases and Gowers’s examples-first
+discussion suggest that choice <span class="citation"
+data-cites="halmos"><a href="#ref-1">[1]</a></span><span class="citation"
+data-cites="gowers"><a href="#ref-3">[3]</a></span>; they prescribe no order for every reader.
+The infinite-series theorem still needs its proof.</p>
 </section>
 </section>
 <section id="sec:worked-explanations" class="level2">
 <h2>From a formula to the sentence that explains it</h2>
-<p>The following cases begin with a reader’s question and use the
-existing formula to answer it. They originated in eight additional
-editorial returns (the #1049 return is labelled R9) and were checked
-against the current manuscript sources. Their explanations are not new
-theorems or declarations of formal coverage or release status.</p>
+<p>These cases answer a reader’s question from an existing formula. They
+come from eight additional editorial returns (#1049 is labelled R9),
+checked against current manuscript sources. They add no theorem, formal
+coverage or release status.</p>
 <section id="sec:certificate" class="level3">
 <h3>How does the target determine the finite test?</h3>
 <p>A certificate is easier to understand when the reader sees the set it
@@ -529,41 +528,41 @@ class="math display" data-term-auto="off">\[\prod_{k=\ell+1}^{N}
 =\frac{\displaystyle\prod_{r=0}^{\mu_j-1}(1-q^{N+1-j+r})}
         {\displaystyle\prod_{r=0}^{\mu_j-1}(1-q^{\ell+1-j+r})}.\]</span></div>
 <p>The original product has <span class="math inline" data-term-auto="off">\(N-\ell\)</span>
-factors; each endpoint product has the fixed length <span
-class="math inline" data-term-auto="off">\(\mu_j\)</span>. Thus every factor in the numerator
-tends to <span class="math inline" data-term-auto="off">\(1\)</span>, while the denominator
-is fixed and positive. The remaining factors have <span
+factors, but each endpoint product has the fixed length <span
+class="math inline" data-term-auto="off">\(\mu_j\)</span>. Its numerator tends to <span
+class="math inline" data-term-auto="off">\(1\)</span>; its denominator is fixed and positive.
+The remaining factors have <span
 class="math inline" data-term-auto="off">\(j,k\le\ell\)</span> and are independent of <span
-class="math inline" data-term-auto="off">\(N\)</span>. This establishes convergence of the
-whole quotient for a fixed partition. Cancellation has removed the
-difficulty: only a fixed number of numerator factors still varies, and
-their limit is known. Convergence of individual factors in the original
-growing product would not suffice. The telescoping formula was proposed
-in the later return.</p>
-<p>There is still a second question: can the limit be passed through the
-sum over all partitions? Extend the summand by zero when <span
-class="math inline" data-term-auto="off">\(\ell&gt;N\)</span>, so that the index set is
-fixed. The source proof bounds the absolute value of each summand by a
-quantity independent of <span class="math inline" data-term-auto="off">\(N\)</span>. The
-total of these majorants over partitions of length <span
-class="math inline" data-term-auto="off">\(\ell\)</span> is at most</p>
+class="math inline" data-term-auto="off">\(N\)</span>, so the whole quotient converges for
+this fixed partition. The telescoping formula, proposed in the later
+return, justifies what factorwise convergence in a growing product would
+not.</p>
+<p>Passing the limit through the sum requires a second argument. Extend
+the summand by zero when <span class="math inline" data-term-auto="off">\(\ell&gt;N\)</span>,
+fixing the index set. The source’s nonnegative majorant is independent
+of <span class="math inline" data-term-auto="off">\(N\)</span>. Dropping the ordering of the
+positive parts gives an upper bound by separate sums for each part. The
+<span class="math inline" data-term-auto="off">\(j\)</span>th sum is at most a fixed constant
+times <span class="math inline" data-term-auto="off">\(q^{2j-1}\)</span>: geometric decay
+controls its polynomial weight. Multiplying gives a bound for the total
+majorant at length <span class="math inline" data-term-auto="off">\(\ell\)</span>:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[K^\ell q^{\ell^2},\]</span></div>
 <p class="display-continue">where <span
 class="math inline" data-term-auto="off">\(K&gt;0\)</span> may depend on the fixed base and
-the fixed weight-bound constants. The ratio of successive terms is <span
-class="math inline" data-term-auto="off">\(Kq^{2\ell+1}\to0\)</span>, so this bound is
-summable over <span class="math inline" data-term-auto="off">\(\ell\)</span>. It controls
-both large parts and large lengths, and hence permits dominated
-convergence. Separate bounds for individual partitions are insufficient
-unless they provide a summable majorant.</p>
-<p>The improved explanation therefore has two conclusions, in this
-order: the whole summand converges for a fixed partition, and a summable
-bound controls all partitions uniformly in <span
-class="math inline" data-term-auto="off">\(N\)</span>. Neither conclusion asserts uniformity
-as <span class="math inline" data-term-auto="off">\(q\uparrow1\)</span>. Keeping the base
-fixed is part of the statement, not a temporary convenience that prose
-may suppress.</p>
+the fixed weight-bound constants. Here <span
+class="math inline" data-term-auto="off">\(\ell^2=1+3+\cdots+(2\ell-1)\)</span> is the
+minimum total displacement exponent for <span
+class="math inline" data-term-auto="off">\(\ell\)</span> positive parts. Their sizes have
+been summed out; their number remains. The ratio of successive bounds is
+<span class="math inline" data-term-auto="off">\(Kq^{2\ell+1}\to0\)</span>, so the sum over
+<span class="math inline" data-term-auto="off">\(\ell\)</span> converges and dominated
+convergence applies.</p>
+<p>The conclusions are distinct: the whole summand converges for a fixed
+partition; a summable bound controls all partitions uniformly in <span
+class="math inline" data-term-auto="off">\(N\)</span>. Neither asserts uniformity as <span
+class="math inline" data-term-auto="off">\(q\uparrow1\)</span>. The fixed base is part of the
+statement.</p>
 </section>
 <section id="sec:detection" class="level3">
 <h3>Does a complete test provide the required witnesses?</h3>
@@ -595,20 +594,25 @@ nearest integer is then a positive constant. The source proves that
 detection follows once</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[2^L\|D\|_{\mathbb
 R/\mathbb Z}&gt;2B_L.\]</span></div>
-<p>Exponential growth of <span
-class="math inline" data-term-auto="off">\(2^L\)</span> exceeds the linear growth of <span
-class="math inline" data-term-auto="off">\(B_L\)</span>, so such a depth exists. This
-converse is stronger than a merely sufficient test.</p>
-<p>There are two different limits to this conclusion. First, an integral
-value never triggers the test: the search has no stopping certificate
-for integrality. Failure at all depths tried is not a proof of
-integrality. Second, the irrationality argument requires a family of
-inputs: for every positive shift and every cutoff, some index beyond
-that cutoff must have a nonintegral difference. The converse detects a
-fixed nonintegral value; it does not establish that such values occur at
-the required indices. That is an existence question about the inputs,
-not an accuracy question about the test. Keep both the exact converse
-and the unproved quantifiers visible.</p>
+<p>The factor <span
+class="math inline" data-term-auto="off">\(2\)</span> pays for two distances: from <span
+class="math inline" data-term-auto="off">\(2^LD\)</span> to the computed centre <span
+class="math inline" data-term-auto="off">\(A_L\)</span>, then from that centre to an
+enclosure endpoint. Each is at most <span
+class="math inline" data-term-auto="off">\(B_L\)</span>; the displayed gap keeps the whole
+enclosure away from multiples of <span
+class="math inline" data-term-auto="off">\(2^L\)</span>. Since <span
+class="math inline" data-term-auto="off">\(2^L\)</span> grows exponentially and <span
+class="math inline" data-term-auto="off">\(B_L\)</span> linearly, a suitable depth exists.
+Thus the test has a converse, not merely a sufficient condition.</p>
+<p>The converse has two limits. An integral value never triggers the
+test; failure at the depths tried does not certify integrality. Nor does
+detecting a fixed nonintegral value supply the inputs needed for
+irrationality: for every positive shift and every cutoff, some later
+index must have a nonintegral difference. Existence of such an index is
+a separate question; increasing depth only refines the test of a fixed
+index. Preserve the converse without mistaking it for the missing
+existence statement.</p>
 <p>Whenever a proof offers arbitrarily accurate certificates, state
 which object stays fixed as the accuracy improves. If the object changes
 too, its distance from the forbidden set may shrink, and a new
@@ -734,18 +738,22 @@ prose. In #1049, language suggesting that a degree bound was inevitable
 was repaired to state a sufficient inequality and preserve the
 qualification contributed by a remaining factor. In #1041, the revision
 retained the fixed-polynomial scope instead of turning it into a freely
-varying family. For mixed irrationality criteria in #257, independently
-chosen witnesses cannot replace the required common witness: two
-unbounded sets of candidate indices may be disjoint. The proof must make
-all conditions hold at one index. These are mathematical checks even
-when the edit is presented as compression or style.</p>
-<p>Ordinary proof and formal support answer different questions. An
-accepted ordinary argument may lack a complete Lean formalization; a
-checked nearby lemma may fail to cover the new proof. Identify the exact
-supported statement, including its named inputs and pending comparisons.
-The systems paper describes the records that retain these
-distinctions <span class="citation" data-cites="systems"><a href="#ref-11">[11]</a></span>; the
-guide does not confer proof status by describing them.</p>
+varying family. For mixed irrationality criteria in #257, two unbounded
+sets of candidate indices may be disjoint: the even and odd integers
+provide an elementary example. The proof needs one index satisfying both
+conditions. The source adds the two nonnegative, normalised errors on
+the same finite distribution. Their sum has mean below one, so it is
+below one at some sampled index. Nonnegativity puts both errors below
+one there; no independence is needed <span class="citation"
+data-cites="paper257"><a href="#ref-21">[21]</a></span>. These are mathematical checks even when
+the edit is presented as compression or style.</p>
+<p>Compare the Lean proposition with the prose, including definitions,
+hypotheses and quantifiers. A checked ingredient need not cover the
+assembled argument. An ordinary proof may lack complete formalisation.
+Keep named inputs and pending comparisons visible. The systems paper’s
+records preserve these distinctions <span class="citation"
+data-cites="systems"><a href="#ref-11">[11]</a></span>; describing them does not confer proof
+status.</p>
 <p>A late-September prose pass removed remarks naming mathematical
 inputs beside the dependent results; the integrating agent restored
 them. Details of running a check could recede, but the dependencies
@@ -795,22 +803,22 @@ class="math inline" data-term-auto="off">\(Q\)</span> is an integer polynomial�
 unsafe: an integer-valued polynomial can have nonintegral coefficients,
 as <span class="math inline" data-term-auto="off">\(n(n-1)/2\)</span> shows. The useful
 simplification names the available arithmetic structure.</p>
-<p>Even prose that seems to paraphrase a bound deserves this review. In
-the #257 finite average, <span class="math inline" data-term-auto="off">\(L,d,T\)</span> are
-positive integers. The residues of <span
-class="math inline" data-term-auto="off">\(L,2L,3L,\ldots\)</span> modulo <span
+<p>In the #257 finite average, <span
+class="math inline" data-term-auto="off">\(L,d,T\)</span> are positive integers. The residues
+of <span class="math inline" data-term-auto="off">\(L,2L,3L,\ldots\)</span> modulo <span
 class="math inline" data-term-auto="off">\(d\)</span> repeat with period <span
 class="math inline" data-term-auto="off">\(d/\gcd(L,d)\)</span>; the sample uses only the
 first <span class="math inline" data-term-auto="off">\(T\)</span> terms. The inequality <span
 class="math inline" data-term-auto="off">\(d\le LT\)</span> does not assert that one whole
 period occurs. For <span class="math inline" data-term-auto="off">\(L=3,d=5,T=2\)</span>, it
-holds while the period has length five. Splitting the sample into
-complete periods, possibly none, and one remainder is sufficient for the
-displayed bound <span class="citation" data-cites="paper257"><a href="#ref-21">[21]</a></span>.
-Adding “possibly none” makes the prose agree with the estimate’s
-complete-period and remainder decomposition. The small example refutes
-the gloss, not the bound: record which assertion fails before deciding
-that the proof needs repair.</p>
+holds while the period has length five. Split the sample into complete
+periods, possibly none, and one remainder. The kernel weights of
+Section <a class="math-ref" href="#sec:formula-choice">3.2</a>
+are nonnegative, so that remainder contributes no more than a whole
+period. Allowing one extra period supplies the error term after division
+by <span class="math inline" data-term-auto="off">\(T\)</span> <span class="citation"
+data-cites="paper257"><a href="#ref-21">[21]</a></span>. The example refutes the claim of a
+complete sampled period, not the estimate.</p>
 </section>
 <section id="correct-the-source-without-rewriting-its-history"
 class="level3">
@@ -914,14 +922,11 @@ in one verification and reproducibility section or appendix. Refer there
 from a theorem when its evidence class matters. This keeps proof status
 available without making a reader decode repository machinery between
 proof steps.</p>
-<p>Give a single account of a shared limitation, then repeat it only
-when a different claim would otherwise appear unconditional. A
-conditional premise belongs beside the statement it conditions; an
-editorial disclaimer does not need to recur after every equation. For an
-omitted proof, name its mathematical destination by section or theorem
-and cite the original source where an external result is used. A
-reference to a file or a “long record” alone does not tell a reader
-which argument to inspect.</p>
+<p>State shared limitations once, repeating a condition wherever its
+omission would make a dependent claim read unconditionally. Editorial
+disclaimers need not follow every equation. Cite an external result
+where it is used; locate an omitted proof by section or theorem, not
+merely by filename or “long record”.</p>
 </section>
 <section id="how-the-practice-developed" class="level3">
 <h3>How the practice developed</h3>
@@ -944,16 +949,14 @@ explicit. The finite-remainder explanation survived review; a Knuth
 locator required correction; a broad author–reader analogy did not
 justify a particular rule about estimates. The records retain those
 different outcomes rather than counting every proposal as progress.</p>
-<p>The nine R11 paper returns received editorial acceptance. The
-accepted R12 revisions supply local clarifications, not nine new
-instructions. The #269 revision distinguishes a short interval from one
-that excludes an integer; the systems revision distinguishes a recorded
-rationale from a judgement of its adequacy. These refine existing
-examples. The supplied dispositions record editorial acceptance, not
-reader benefit. The systems paper <span class="citation"
-data-cites="systems-r12"><a href="#ref-29">[29]</a></span> describes the mechanisms retaining
-these records; this guide concerns the judgments they make
-inspectable.</p>
+<p>The nine R11 returns received editorial acceptance; accepted R12
+revisions refine existing advice, not nine new instructions. The #269
+case separates a short interval from one excluding an integer; the
+systems case separates a recorded rationale from its adequacy <span
+class="citation" data-cites="systems-r12"><a href="#ref-29">[29]</a></span>. These dispositions
+record editorial acceptance, not reader benefit. Later criticism must be
+checked against the current source: an earlier defect may already be
+repaired.</p>
 </section>
 <section id="from-one-case-to-a-bounded-amendment" class="level3">
 <h3>From one case to a bounded amendment</h3>
@@ -1042,26 +1045,31 @@ question.</p>
 </section>
 <section id="sec:genre-transfer" class="level2">
 <h2>Transfer the method across research genres</h2>
-<p>A theorem, an implemented mechanism and a performance comparison
-require different kinds of support. For a theorem, explain the
-implication under its stated hypotheses. For a system, distinguish a
-design proposal from what is implemented, then identify what was tested.
-A performance claim needs the implementation, workload, comparator and
-observed result. An artifact build cannot establish unrestricted
-performance or usability.</p>
-<p>Levin and Redell distinguish papers about implemented systems,
-proposed systems and theoretical work, and caution that evaluation
-criteria vary across those classes <span class="citation"
-data-cites="levin-redell"><a href="#ref-25">[25]</a></span>. The SIGPLAN empirical-evaluation
-guidance asks authors to state claims and limitations clearly, and
-treats its checklist as an aid to judgment rather than a universal
+<p>A theorem needs a proof under its stated hypotheses. For a system,
+distinguish what is proposed, implemented and tested. A performance
+claim needs the implementation, workload, comparator and observed
+result; an artefact build does not establish unrestricted performance or
+usability.</p>
+<p>Levin and Redell distinguish implemented, proposed and theoretical
+systems: evaluation criteria depend on the paper’s class <span
+class="citation" data-cites="levin-redell"><a href="#ref-25">[25]</a></span>. SIGPLAN’s
+empirical-evaluation checklist aids judgement; it is not a universal
 score <span class="citation" data-cites="sigplan-evaluation"><a href="#ref-26">[26]</a></span>.
-These are genre-specific primary sources, not proof authority for any
-particular system. Trace a task through the system’s components: what
-each receives, changes and passes on, and who reviews the result. A
-component list alone leaves those relations unexplained. Read a nearby
-system’s opening and evaluation before transferring its
-presentation.</p>
+Read a nearby system’s opening and evaluation, then trace the target
+task: what each component receives, changes and passes on, and who
+reviews it. A component list leaves those relations unexplained. These
+sources guide presentation; they do not verify a particular system.</p>
+<p>The 6 October systems revision makes the task concrete before listing
+record fields <span class="citation"
+data-cites="systems-current"><a href="#ref-30">[30]</a></span>. Its hypothetical editor announces
+a solution to #257 while the unchanged theorem still restricts the
+exponent set. A successful proof check would not justify that
+introduction. One record links a paper statement to formal supports;
+another links explanatory prose to sources. The reviewer must compare
+the proposed passage with those sources. This example motivates the
+design; it is not an observed trial. The exact mathematical condition
+remains recoverable in the case’s own paper and the systems appendix;
+the introduction need not reproduce its derivation.</p>
 <p>A fair comparison names the closest corresponding object, not just a
 common aim. Prove2Me separates immutable theorem statements from
 submitted proofs and fixes a human-audited mission core. Its milestones
@@ -1073,13 +1081,10 @@ does not compose their proofs. A separate record binds explanatory prose
 to sources <span class="citation" data-cites="systems-r12"><a href="#ref-29">[29]</a></span>. This
 difference of focus establishes neither exclusivity, priority nor an
 advantage of repository hosting over a service.</p>
-<p>Verbs need equally precise subjects. Builders regenerate derived
-views; release checks test consistency. Calling both operations
-“updating the records” would obscure who changes what. The same
-discipline applies to a check’s guarantee: the passage checker requires
-matching text and source digests and a nonempty rationale; it does not
-judge whether that rationale supports the passage <span class="citation"
-data-cites="systems-r12"><a href="#ref-29">[29]</a></span>.</p>
+<p>Keep the operations distinct: builders regenerate views; release
+checks test consistency. The passage checker requires matching text and
+source digests and a nonempty rationale, not an adequate rationale <span
+class="citation" data-cites="systems-current"><a href="#ref-30">[30]</a></span>.</p>
 <p>The repository’s systems manuscript gives a concrete example. It
 reports nine rejections among ten deliberately false, author-selected
 edits in a historical trial. After one edit escaped, a follow-up checked
@@ -1089,22 +1094,18 @@ data-cites="systems"><a href="#ref-11">[11]</a></span>. The first report describ
 trials, not a general <span class="math inline" data-term-auto="off">\(90\%\)</span>
 reliability rate. The second describes the tested repair, not a
 post-repair ten-out-of-ten result. The manuscript also records missing
-original logs and the absence of an independent comparison. Those
-qualifications determine the conclusion. A repair that catches one
-escaped edit has passed that regression check; its effects on unrerun
-cases remain unmeasured.</p>
+original logs and the absence of an independent comparison. A repair
+that catches one escaped edit has passed that regression check; its
+effects on unrerun cases remain unmeasured.</p>
 <p>In a scientific exposition, identify the study or derivation, the
 population or model, the reported result and the author’s synthesis.
 State when there is no new experiment. Check each inference against the
 primary study: an association is not automatically causation, and a
 model prediction is not an observation.</p>
-<p>Keep the controlling condition beside the claim. In an empirical
-comparison, name the measured quantity and comparator with the reported
-change; in parallel outcomes, use parallel clauses. The earlier examples
-show why this helps: “rejected nine of ten selected edits” and “rejected
-the escaped edit after repair” describe different trials. Their
-difference must remain visible in the sentence, not be left for a
-distant limitation to undo.</p>
+<p>Keep the condition and comparator beside each empirical claim. The
+two reports above concern different trials; a distant limitation cannot
+undo a sentence that combines them. Use parallel clauses to make their
+different scopes visible.</p>
 </section>
 <section id="acknowledgement" class="level2 unnumbered">
 <h2 class="unnumbered">Acknowledgement</h2>
@@ -1131,18 +1132,18 @@ reader comprehension. Will Cook built and directed the research
 infrastructure and reviewed the claims when he could. AI agents did most
 of the research and drafting. Cook did not independently verify every
 claim.</p>
-<p><em>Source inspection and reproducibility.</em> The mathematical
-examples refer to the manuscript snapshot supplied on 5 October 2026,
-including the accepted R12 revisions; earlier cases retain their stated
-revision identities. This cumulative revision preserves both preceding
-returns and separates their reading declarations from fresh inspection.
-Its records track retained improvements as well as source identities.
-The reading record identifies the passages consulted, including Knuth’s
-proof comparison and Halmos’s discussion of audience and organisation.
-The retained systems comparison uses Prove2Me version 2, §§3–4.
-Repository links locate manuscript families, not immutable versions; the
-records identify the source bytes, passages and decisions. Availability
-of a source is not a claim that it was read in full.</p>
+<p><em>Source inspection and reproducibility.</em> Historical
+mathematical examples retain their stated revision identities; the
+current-source review uses the 6 October 2026 packet. The new systems
+example uses that day’s accepted source revision, not the earlier R12
+snapshot. The return identifies exact source bytes, inspected passages
+and decisions, separating earlier reading declarations from fresh
+inspection. Knuth’s proof comparison and Halmos’s audience and
+organisation advice were rechecked; the retained Prove2Me comparison
+uses version 2, §§3–4, without new reading credit. Repository links
+locate manuscript families, not immutable versions. Source availability
+does not imply full reading, and earlier acceptance does not accept this
+revision.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
@@ -1272,6 +1273,11 @@ class="uri">https://arxiv.org/abs/2608.28433v2</a>.</p></li>
 <li id="ref-29"><p>W. Cook, <em>A Repository-Based System for Research and
 Publication</em>, 30 September 2026; R12 manuscript snapshot supplied 5
 October 2026. <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex"
+class="uri">https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex</a>.</p></li>
+<li id="ref-30"><p>W. Cook, <em>A Repository-Based System for Research and
+Publication</em>, source revision accepted 6 October 2026; publication
+gates pending. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex"
 class="uri">https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex</a>.</p></li>
 </ol>

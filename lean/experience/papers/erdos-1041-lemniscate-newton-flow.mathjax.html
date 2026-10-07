@@ -61,22 +61,14 @@ the sum of the root distances from the critical point, minus twice the
 small disc’s radius. For the chosen pair this bound exceeds <span
 class="math inline" data-term-auto="off">\(2\)</span>.</p>
 <p>Section <a class="math-ref" href="#sec:counterexample">2</a>
-first tests this mechanism on a quadratic, where a narrow slit preimage
-does <em>not</em> obstruct a short path, and then gives the degree-seven
-construction. The roots that matter are those in the same component, not
-necessarily those nearest to the critical point; Section <a class="math-ref" href="#sec:critical-proximity">6.1</a> makes this
-distinction explicit. Section <a class="math-ref" href="#sec:trinomial">3</a> proves the positive
-trinomial result and shows why a fourth term can spoil a prescribed
-radial connection.</p>
-<p>The remaining results address two different ways to construct short
-paths: allowing a component to grow from a small critical level
-(Section <a class="math-ref" href="#sec:constant-factor">4</a>), or continuing
-two inverse branches around an isolated critical value (Section <a class="math-ref" href="#sec:separation">5</a>). These analytic
-arguments are independent of the counterexample and the trinomial
-theorem, and remain unformalised. The <a
-href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf">companion paper</a>
-contains their full proofs, the rational data for the counterexample,
-and the arguments underlying the later estimates and questions.</p>
+contrasts the quadratic with the counterexample; Section <a class="math-ref" href="#sec:trinomial">3</a> treats trinomials and
+the obstruction introduced by a fourth term. Section <a class="math-ref" href="#sec:critical-proximity">6.1</a> separates
+root proximity from containment. Sections <a class="math-ref" href="#sec:constant-factor">4</a> and <a class="math-ref" href="#sec:separation">5</a> construct paths by
+component growth and continuation around an isolated critical value,
+respectively. These independent analytic arguments remain unformalised.
+The <a href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf">companion
+paper</a> gives their proofs, the counterexample’s rational data, and
+the arguments behind the later estimates and questions.</p>
 </section>
 <section id="sec:counterexample" class="level2">
 <h2>A component with a narrow bottleneck</h2>
@@ -224,17 +216,16 @@ class="math inline" data-term-auto="off">\(U\)</span>.</figcaption>
 </section>
 <section id="the-polynomial" class="level3">
 <h3>The polynomial</h3>
-<p>We must put the roots inside the unit disc, identify the only
-component that can join a pair, and make its distance excess larger than
-the loss in Lemma <a class="math-ref" href="#lem:two-sheet-bottleneck">2.1</a>. The
-construction starts from <span class="math inline" data-term-auto="off">\(z^7-1\)</span> and
-separates the two relevant scales. The roots move slightly inward from
-the unit circle, while the multiple critical point at the origin splits
-at scale <span class="math inline" data-term-auto="off">\(\varepsilon\)</span>. The linear,
-quadratic and cubic perturbations below all have order <span
-class="math inline" data-term-auto="off">\(\varepsilon^7\)</span> when <span
-class="math inline" data-term-auto="off">\(z=\varepsilon w\)</span>; they can therefore alter
-the critical geometry without comparably moving the roots. The fixed
+<p>Starting from <span class="math inline" data-term-auto="off">\(z^7-1\)</span>, we put the
+roots on <span class="math inline" data-term-auto="off">\(|z|=\rho&lt;1\)</span> and split
+the multiple critical point at scale <span
+class="math inline" data-term-auto="off">\(\varepsilon\)</span>. The linear, quadratic and
+cubic perturbations below all have order <span
+class="math inline" data-term-auto="off">\(\varepsilon^7\)</span> at <span
+class="math inline" data-term-auto="off">\(z=\varepsilon w\)</span>, so they alter the
+critical geometry without comparable root displacement. We must identify
+the only component containing a pair and make its distance surplus
+exceed the loss in Lemma <a class="math-ref" href="#lem:two-sheet-bottleneck">2.1</a>. The fixed
 coefficients are those of <code>ani</code>’s construction. Put <span
 class="math inline" data-term-auto="off">\(s=10^{-6}\)</span>, <span
 class="math inline" data-term-auto="off">\(\varepsilon=s^2=10^{-12}\)</span> and <span
@@ -254,20 +245,19 @@ f(z)&amp;=\rho^7F(z/\rho).\label{eq:ani-f}
 \end{align}\]</span></div>
 <section id="putting-the-roots-on-a-circle." class="level5">
 <h5>Putting the roots on a circle.</h5>
-<p>The identity <span class="math inline" data-term-auto="off">\(F(z)=-z^7\overline{F(1/\bar
-z)}\)</span> reduces the Cayley substitution <span
-class="math inline" data-term-auto="off">\(z=(1+ix)/(1-ix)\)</span> to a real polynomial
-after clearing the denominator and removing a constant phase. The
-substitution parametrises the unit circle except <span
-class="math inline" data-term-auto="off">\(-1\)</span>; seven sign changes at rational
-endpoint pairs locate all seven zeros and exclude a zero at the omitted
-point. The resulting zeros <span class="math inline" data-term-auto="off">\(\zeta_j\)</span>
-are distinct and have modulus one. Thus <span
-class="math inline" data-term-auto="off">\(b_j=\rho\zeta_j\)</span> lies strictly inside the
-disc. At the chosen parameter, <span
-class="math inline" data-term-auto="off">\(1-\rho=\varepsilon^8\)</span>; the finite
-estimates below show that this contraction does not erase the excess in
-the selected root distances.</p>
+<p>By <span class="math inline" data-term-auto="off">\(F(z)=-z^7\overline{F(1/\bar
+z)}\)</span>, the Cayley substitution <span
+class="math inline" data-term-auto="off">\(z=(1+ix)/(1-ix)\)</span> gives a real polynomial
+after clearing the denominator and removing a constant phase. Symmetry
+alone does not locate the zeros: the decisive step is seven sign changes
+on disjoint rational intervals. The map parametrises the unit circle
+except <span class="math inline" data-term-auto="off">\(-1\)</span>, so these give seven
+distinct circle zeros <span class="math inline" data-term-auto="off">\(\zeta_j\)</span>,
+exhausting the degree. Thus <span class="math inline" data-term-auto="off">\(-1\)</span> is
+not a zero and <span class="math inline" data-term-auto="off">\(b_j=\rho\zeta_j\)</span>
+satisfies <span class="math inline" data-term-auto="off">\(|b_j|=\rho&lt;1\)</span>. The
+distance estimate below absorbs the contraction <span
+class="math inline" data-term-auto="off">\(1-\rho=\varepsilon^8\)</span>.</p>
 </section>
 <section id="resolving-the-critical-points." class="level5">
 <h5>Resolving the critical points.</h5>
@@ -290,16 +280,15 @@ class="math inline" data-term-auto="off">\(\delta=1-|v|\)</span>, and write <spa
 class="math inline" data-term-auto="off">\(f(c_s+z)-v=z^2A_s(z)\)</span>. Since <span
 class="math inline" data-term-auto="off">\(|\zeta_j|=1\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[|b_j-c_s|^2=\rho^2\bigl(1-2\varepsilon\operatorname{Re}
-(w_s\bar\zeta_j)+\varepsilon^2|w_s|^2\bigr).\]</span></div>
-<p>The term
-proportional to <span class="math inline" data-term-auto="off">\(\varepsilon\)</span>
-measures the effect of moving the critical point, while <span
-class="math inline" data-term-auto="off">\(1-\rho=\varepsilon^8\)</span> measures the
-contraction of the zeros. The following finite estimates give the sign
-and size of their combined effect for the chosen pair:</p>
-<div class="math-display" id="eq:ani-estimates" data-term-auto="off"><span class="tex-label" id="eq:ani-distances"></span><span
-class="math display" data-term-auto="off">\[\begin{align}
+class="math display" data-term-auto="off">\[|b_j-c_s|=\rho|\zeta_j-\varepsilon w_s|
+\ge\rho\bigl(1-\varepsilon\operatorname{Re}(w_s\bar\zeta_j)\bigr).\]</span></div>
+<p>The negative projection sum for <span
+class="math inline" data-term-auto="off">\(\zeta_3,\zeta_6\)</span> gives a positive distance
+surplus of order <span class="math inline" data-term-auto="off">\(\varepsilon\)</span>; the
+contraction has only order <span
+class="math inline" data-term-auto="off">\(\varepsilon^8\)</span>. The exact bounds at the
+fixed parameter are:</p>
+<div class="math-display" id="eq:ani-estimates" data-term-auto="off"><span class="tex-label" id="eq:ani-distances"></span><span class="math display" data-term-auto="off">\[\begin{align}
 M:=|A_s(0)|&amp;&gt;180\rho^5\varepsilon^5,&amp;
 \delta&amp;&lt;\frac{36}{5\cdot10^6}\rho^7\varepsilon^7,
        \label{eq:ani-estimates}\\
@@ -312,15 +301,14 @@ M:=|A_s(0)|&amp;&gt;180\rho^5\varepsilon^5,&amp;
 <p>The subscripts <span
 class="math inline" data-term-auto="off">\(3,6\)</span> refer to Cayley roots in the
 intervals <span class="math inline" data-term-auto="off">\((43812,43813)/10^4\)</span> and
-<span class="math inline" data-term-auto="off">\((-4816,-4815)/10^4\)</span>. These estimates
-have separate jobs. The Taylor bound supplies the lemma’s quadratic
-control; the bounds for <span class="math inline" data-term-auto="off">\(M\)</span> and <span
+<span class="math inline" data-term-auto="off">\((-4816,-4815)/10^4\)</span>. The Taylor
+bound gives the lemma’s quadratic control, while the bounds on <span
+class="math inline" data-term-auto="off">\(M\)</span> and <span
 class="math inline" data-term-auto="off">\(\delta\)</span> give <span
-class="math inline" data-term-auto="off">\(\sqrt{\delta/M}&lt;\rho\varepsilon/5000\)</span>,
-controlling the loss at the slit. The last bound supplies a positive
-distance excess of order <span
-class="math inline" data-term-auto="off">\(\varepsilon\)</span>. It remains to check that the
-two selected roots really belong to this component.</p>
+class="math inline" data-term-auto="off">\(\sqrt{\delta/M}&lt;\rho\varepsilon/5000\)</span>.
+Thus the slit loss is smaller than the displayed distance surplus. This
+comparison matters only if the selected roots share a component; the
+following paths establish that membership, not a short connection.</p>
 </section>
 <section id="identifying-the-two-roots-in-the-component."
 class="level5">
@@ -423,11 +411,11 @@ open unit lemniscate.</em></p>
 class="math inline" data-term-auto="off">\(\zeta\)</span>. Eliminating <span
 class="math inline" data-term-auto="off">\(a\zeta^m\)</span> with the root equation gives</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[f(t\zeta)=b(1-t^m)+\zeta^n(t^n-t^m).\]</span></div>
+class="math display" data-term-auto="off">\[f(t\zeta)=(1-t^m)b+(t^m-t^n)(-\zeta^n).\]</span></div>
 <p>Vieta’s formula gives <span class="math inline" data-term-auto="off">\(|b|&lt;1\)</span>. For
-<span class="math inline" data-term-auto="off">\(0\le t&lt;1\)</span>, the first weight <span
-class="math inline" data-term-auto="off">\(1-t^m\)</span> is positive and the second, <span
-class="math inline" data-term-auto="off">\(t^m-t^n\)</span>, is nonnegative. Hence</p>
+<span class="math inline" data-term-auto="off">\(0\le t&lt;1\)</span>, the two weights are
+nonnegative, the first is positive, and their sum is <span
+class="math inline" data-term-auto="off">\(1-t^n\)</span>. Hence</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[|f(t\zeta)|\le
 |b|(1-t^m)+|\zeta|^n(t^m-t^n)&lt;1-t^n\le1.\]</span></div>
@@ -546,24 +534,22 @@ class="math inline" data-term-auto="off">\(a=\operatorname{Area}(C_t)/\pi\)</spa
 class="math inline" data-term-auto="off">\(x=\log(t/\mu)\)</span>; Pólya’s inequality gives
 <span class="math inline" data-term-auto="off">\(a\le1\)</span> <span class="citation"
 data-cites="crane"><a href="#ref-7">[7]</a></span>. Uniformise <span
-class="math inline" data-term-auto="off">\(C_t\)</span> by the disc, with hyperbolic distance
-normalised by <span
+class="math inline" data-term-auto="off">\(C_t\)</span> by the disc, with <span
 class="math inline" data-term-auto="off">\(d(0,s)=2\operatorname{artanh}s\)</span> for <span
-class="math inline" data-term-auto="off">\(0\le s&lt;1\)</span>. The Bergman segment estimate
-constructs a curve of length at most <span
-class="math inline" data-term-auto="off">\(\sqrt{2a\log\cosh(d/2)}\)</span> between roots at
-hyperbolic distance <span class="math inline" data-term-auto="off">\(d\)</span>. Our
-assumption therefore forces pairwise distance at least <span
-class="math inline" data-term-auto="off">\(D\)</span>, where <span
-class="math inline" data-term-auto="off">\(\cosh(D/2)=e^{2/a}\)</span>.</p>
-<p>The length estimate uses the area identity <span
+class="math inline" data-term-auto="off">\(0\le s&lt;1\)</span>. For roots at hyperbolic
+distance <span class="math inline" data-term-auto="off">\(d\)</span>, choose <span
+class="math inline" data-term-auto="off">\(\varphi:\mathbb D\to C_t\)</span> sending <span
+class="math inline" data-term-auto="off">\(\pm s\)</span> to them. Then <span
+class="math inline" data-term-auto="off">\(d=4\operatorname{artanh}s\)</span> and <span
 class="math inline" data-term-auto="off">\(\int_{\mathbb D}|\varphi&#39;|^2\,dA=\pi
-a\)</span> for a conformal map <span
-class="math inline" data-term-auto="off">\(\varphi:\mathbb D\to C_t\)</span>. Cauchy–Schwarz
-bounds the image length of a real interval by this integral and the disc
-Bergman kernel. Moving the two preimages to opposite points of a
-diameter makes the remaining factor depend only on their hyperbolic
-distance.</p>
+a\)</span>. Cauchy–Schwarz with the Bergman kernel gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\operatorname{length}(\varphi([-s,s]))^2
+\le a\int_{-s}^{s}\int_{-s}^{s}\frac{du\,dv}{(1-uv)^2}
+=2a\log\cosh(d/2).\]</span></div>
+<p>Thus pairwise root distances are at least
+<span class="math inline" data-term-auto="off">\(D\)</span>, where <span
+class="math inline" data-term-auto="off">\(\cosh(D/2)=e^{2/a}\)</span>.</p>
 <p>To control the distances from the centre as well, choose a point
 <span class="math inline" data-term-auto="off">\(h\)</span> on a connected set through the
 first pair in <span class="math inline" data-term-auto="off">\(K_\mu(f)\)</span> whose
@@ -841,29 +827,31 @@ used in Section <a class="math-ref" href="#sec:constant-factor">4</a> now appli
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[L^2\le\frac2\pi\log\frac{S^2+S+p}{S^2-S+p}\,
                     \operatorname{Area}(U).\]</span></div>
-<p>It remains to bound
-the area of <span class="math inline" data-term-auto="off">\(U\)</span>. The factor <span
-class="math inline" data-term-auto="off">\(n-1\)</span> in the desired bound comes from the
-roots outside this degree-two component, not from Pólya’s inequality
-alone. The companion first treats a monic polynomial <span
-class="math inline" data-term-auto="off">\(F\)</span> of degree <span
-class="math inline" data-term-auto="off">\(n\)</span>, a regular level <span
-class="math inline" data-term-auto="off">\(t&gt;0\)</span> of <span
-class="math inline" data-term-auto="off">\(|F|\)</span>, and a component <span
-class="math inline" data-term-auto="off">\(W\)</span> of <span
+<p>The factor <span
+class="math inline" data-term-auto="off">\(n-1\)</span> comes from the roots outside <span
+class="math inline" data-term-auto="off">\(U\)</span>, not from Pólya’s inequality alone. For
+monic <span class="math inline" data-term-auto="off">\(F\)</span> of degree <span
+class="math inline" data-term-auto="off">\(n\)</span> and regular level <span
+class="math inline" data-term-auto="off">\(t&gt;0\)</span>, let <span
+class="math inline" data-term-auto="off">\(W\)</span> be a component of <span
 class="math inline" data-term-auto="off">\(\{|F|&lt;t\}\)</span> containing <span
-class="math inline" data-term-auto="off">\(k&lt;n\)</span> zeros of <span
-class="math inline" data-term-auto="off">\(F\)</span>, counted with multiplicity. Reflecting
-the <span class="math inline" data-term-auto="off">\(n-k\)</span> exterior-root factors into
-the disc gives a Blaschke product <span class="math inline" data-term-auto="off">\(B\)</span>
-with <span class="math inline" data-term-auto="off">\(|B(0)|=\operatorname{cap}(\overline
+class="math inline" data-term-auto="off">\(k&lt;n\)</span> zeros counted with multiplicity.
+Reflecting the <span class="math inline" data-term-auto="off">\(n-k\)</span> exterior-root
+factors into the disc gives a Blaschke product <span
+class="math inline" data-term-auto="off">\(B\)</span> of degree <span
+class="math inline" data-term-auto="off">\(n-k\)</span> with <span
+class="math inline" data-term-auto="off">\(|B(0)|=\operatorname{cap}(\overline
 W)^n/t\)</span> and <span class="math inline" data-term-auto="off">\(|B&#39;|&lt;n\)</span>
-on the boundary. The boundary-fibre identity expresses the sum of
-reciprocal derivatives as a Poisson kernel. This kernel is smallest at
-the boundary point opposite <span class="math inline" data-term-auto="off">\(B(0)\)</span>;
-evaluating there gives <span
-class="math inline" data-term-auto="off">\((n-k)/n&lt;(1-|B(0)|)/(1+|B(0)|)\)</span>, or
-equivalently <span class="math inline" data-term-auto="off">\(\operatorname{cap}(\overline
+on the boundary. The boundary-fibre identity gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{n-k}{n}&lt;
+\sum_{\substack{B(\zeta)=w\\|\zeta|=1}}\frac1{|B&#39;(\zeta)|}
+=\frac{1-|B(0)|^2}{|w-B(0)|^2},\qquad |w|=1.\]</span></div>
+<p>Choosing <span
+class="math inline" data-term-auto="off">\(w\)</span> opposite <span
+class="math inline" data-term-auto="off">\(B(0)\)</span> gives <span
+class="math inline" data-term-auto="off">\((n-k)/n&lt;(1-|B(0)|)/(1+|B(0)|)\)</span>, hence
+<span class="math inline" data-term-auto="off">\(\operatorname{cap}(\overline
 W)^n/t&lt;k/(2n-k)\)</span>.</p>
 <p>Apply this to <span class="math inline" data-term-auto="off">\(F=P-w_0\)</span> on the
 regular inner components exhausting <span
@@ -905,15 +893,20 @@ locations by themselves do not isolate it from the others. </p>
 </div>
 <section id="sec:critical-proximity" class="level3">
 <h3>Root distances do not ensure containment</h3>
-<p> At a non-root critical point <span class="math inline" data-term-auto="off">\(c\)</span>,
-the balance <span class="math inline" data-term-auto="off">\(\sum_j(c-z_j)^{-1}=0\)</span>
-bounds the ratio of the two smallest root distances by <span
-class="math inline" data-term-auto="off">\(n-1\)</span>. Comparing their sum with the
-geometric mean of all <span class="math inline" data-term-auto="off">\(n\)</span> distances
-gives a bound of <span class="math inline" data-term-auto="off">\(2r\)</span>, where <span
-class="math inline" data-term-auto="off">\(r=|f(c)|^{1/n}\)</span> since <span
-class="math inline" data-term-auto="off">\(r^n=\prod_j|c-z_j|\)</span>. This is a distance
-estimate, with no containment conclusion.</p>
+<p>Order the root distances at a non-root critical point <span
+class="math inline" data-term-auto="off">\(c\)</span> as <span
+class="math inline" data-term-auto="off">\(0&lt;d_1\le\cdots\le d_n\)</span>. The balance
+<span class="math inline" data-term-auto="off">\(\sum_j(c-z_j)^{-1}=0\)</span> and this
+ordering give</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac1{d_1}\le\frac{n-1}{d_2},\qquad
+d_1d_2^{n-1}\le|f(c)|.\]</span></div>
+<p>The ratio bound <span
+class="math inline" data-term-auto="off">\(1\le d_2/d_1\le n-1\)</span> permits the scalar
+comparison</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[d_1+d_2\le2(d_1d_2^{n-1})^{1/n}\le2|f(c)|^{1/n}.\]</span></div>
+<p>Neither inequality supplies containment.</p>
 <p> When all zeros lie in the open unit disc, a different estimate
 holds: at every non-root critical point the sum of the distances to the
 two nearest zeros is strictly less than <span
@@ -951,77 +944,87 @@ The component is now the whole filled lemniscate, whose capacity is
 given by <span
 class="math inline" data-term-auto="off">\(\operatorname{cap}(K_t(f))=t^{1/n}\)</span> <span
 class="citation" data-cites="ransford1995"><a href="#ref-23">[23]</a></span>.</p>
-<p> Finally, <span class="math inline" data-term-auto="off">\(z^8-(3/2)z\)</span> has a
-one-root unit-level component with perimeter larger than the proposed
-constant <span class="math inline" data-term-auto="off">\(\Gamma(1/4)^2/(2\sqrt\pi)\)</span>.
-These examples, with full calculations, appear in <a
+<p> Finally, <span class="math inline" data-term-auto="off">\(z^8-(3/2)z\)</span> has least
+critical-value modulus <span class="math inline" data-term-auto="off">\(\mu&gt;1\)</span>,
+yet a one-root unit-level component has perimeter larger than <span
+class="math inline" data-term-auto="off">\(\Gamma(1/4)^2/(2\sqrt\pi)\)</span>; see <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#component-counterexamples">the
-companion’s component examples</a>. The last example imposes no
-restriction on root locations and disproves that specific perimeter
-constant. The existence of a uniform perimeter constant remains a
-separate question. Although <span class="citation"
-data-cites="revision2026"><a href="#ref-21">[21]</a></span> reports a Runge construction of
-unbounded one-root perimeters, its proof is unavailable and we do not
-use it.</p>
+companion’s component examples</a>. No root-location restriction is
+imposed. The open question asks for a constant <span
+class="math inline" data-term-auto="off">\(\beta\)</span> bounding each component perimeter
+of <span class="math inline" data-term-auto="off">\(K_\sigma(f)\)</span> by <span
+class="math inline" data-term-auto="off">\(\beta\sigma^{1/n}\)</span>, uniformly over
+squarefree monic <span class="math inline" data-term-auto="off">\(f\)</span> of degree <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span> and <span
+class="math inline" data-term-auto="off">\(0&lt;\sigma&lt;\mu\)</span>. This level
+restriction is stronger than a one-root condition on a single component.
+Although <span class="citation" data-cites="revision2026"><a href="#ref-21">[21]</a></span>
+reports a Runge construction of unbounded one-root perimeters, its proof
+is unavailable and we do not use it.</p>
 </section>
 <section id="sec:solved-families" class="level3">
 <h3>Sparse families and binomial chords</h3>
-<p> Suppose that all zeros lie in the open unit disc. For <span
-class="math inline" data-term-auto="off">\(P((z-h)^q)\)</span>, where <span
-class="math inline" data-term-auto="off">\(q\ge2\)</span> and <span
-class="math inline" data-term-auto="off">\(P\)</span> is a monic cubic, one suitable segment
-for <span class="math inline" data-term-auto="off">\(P\)</span> produces an entire fibre of
-segments for the composition. If there are two distinct zeros, some pair
-can be joined by two such segments. The companion selects a nonzero root
-<span class="math inline" data-term-auto="off">\(r\)</span> of <span
-class="math inline" data-term-auto="off">\(P\)</span> for which <span
-class="math inline" data-term-auto="off">\([0,r]\subset\{|P|&lt;1\}\)</span>. Writing <span
-class="math inline" data-term-auto="off">\(f(z)=P((z-h)^q)\)</span> and <span
-class="math inline" data-term-auto="off">\(y^q=r\)</span>, we have <span
+<p> Let <span class="math inline" data-term-auto="off">\(f(z)=P((z-h)^q)\)</span>, where
+<span class="math inline" data-term-auto="off">\(q\ge2\)</span> and <span
+class="math inline" data-term-auto="off">\(P\)</span> is a monic cubic, and suppose all zeros
+of <span class="math inline" data-term-auto="off">\(f\)</span> lie in the open unit disc. For
+any root <span class="math inline" data-term-auto="off">\(r=y^q\)</span> of <span
+class="math inline" data-term-auto="off">\(P\)</span>, averaging <span
+class="math inline" data-term-auto="off">\(|h+y\zeta|^2\)</span> over the <span
+class="math inline" data-term-auto="off">\(q\)</span>th roots of unity cancels the cross term
+and gives <span class="math inline" data-term-auto="off">\(|h|^2+|y|^2&lt;1\)</span>. Thus
+the quotient roots satisfy <span
+class="math inline" data-term-auto="off">\(|r|=|y|^q&lt;1\)</span>. If <span
+class="math inline" data-term-auto="off">\(f\)</span> has two distinct zeros, the companion
+selects a nonzero root <span class="math inline" data-term-auto="off">\(r\)</span> with <span
+class="math inline" data-term-auto="off">\([0,r]\subset\{|P|&lt;1\}\)</span>. Choose <span
+class="math inline" data-term-auto="off">\(y^q=r\)</span>. Then <span
 class="math inline" data-term-auto="off">\(f(h+ty\zeta)=P(t^qr)\)</span> for <span
-class="math inline" data-term-auto="off">\(0\le t\le1\)</span> and every <span
-class="math inline" data-term-auto="off">\(q\)</span>th root of unity <span
-class="math inline" data-term-auto="off">\(\zeta\)</span>. Thus one quotient segment gives
-<span class="math inline" data-term-auto="off">\(q\)</span> contained segments through <span
-class="math inline" data-term-auto="off">\(h\)</span>. The <span
-class="math inline" data-term-auto="off">\(q\)</span>th roots of unity sum to zero, so
-averaging <span class="math inline" data-term-auto="off">\(|h+y\zeta|^2\)</span> over the
-full fibre cancels the cross term and gives <span
-class="math inline" data-term-auto="off">\(|h|^2+|y|^2&lt;1\)</span>. Any two distinct points
-in this fibre are therefore joined through <span
-class="math inline" data-term-auto="off">\(h\)</span> with length <span
-class="math inline" data-term-auto="off">\(2|y|&lt;2\)</span>.</p>
-<p> For <span class="math inline" data-term-auto="off">\(z^5+az^4+bz+c\)</span>, the
-remaining selection problem is to control the partial sum <span
-class="math inline" data-term-auto="off">\(bz_j+c\)</span>. A harmonic-moment identity
-supplies two root indices with <span
-class="math inline" data-term-auto="off">\(|bz_j+c|&lt;1\)</span>, after which Abel summation
-controls the whole segments. The missing coefficients determine the
-first three power sums of the roots. For <span
-class="math inline" data-term-auto="off">\(a\ne0\)</span>, the resulting harmonic identity
-rules out four indices with <span
-class="math inline" data-term-auto="off">\(|bz_j+c|\ge1\)</span>; when <span
+class="math inline" data-term-auto="off">\(0\le t\le1\)</span>, so the whole fibre gives
+contained segments through <span class="math inline" data-term-auto="off">\(h\)</span>. Two
+distinct fibre points are joined with length <span
+class="math inline" data-term-auto="off">\(2|y|&lt;2\)</span>, using the same average.</p>
+<p>For <span class="math inline" data-term-auto="off">\(f(z)=z^5+az^4+bz+c\)</span> with
+open-disc roots, Abel summation gives a contained radial segment
+whenever <span class="math inline" data-term-auto="off">\(|bz_j+c|&lt;1\)</span>. For <span
+class="math inline" data-term-auto="off">\(a\ne0\)</span>, the missing coefficients fix the
+first three power sums. After rotation, the companion’s harmonic
+function sums to <span class="math inline" data-term-auto="off">\(5-2|a|\)</span> over the
+roots. It is bounded above by <span
+class="math inline" data-term-auto="off">\(4-2|a|\)</span> on the disc and by <span
+class="math inline" data-term-auto="off">\(2/31\)</span> at roots with <span
+class="math inline" data-term-auto="off">\(|bz_j+c|\ge1\)</span>. Four such indices would
+therefore give</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[5-2|a|\le4-2|a|+\frac8{31}&lt;5-2|a|,\]</span></div>
+<p class="display-continue">a
+contradiction. Hence two indices satisfy <span
+class="math inline" data-term-auto="off">\(|bz_j+c|&lt;1\)</span>. When <span
 class="math inline" data-term-auto="off">\(a=0\)</span>, the root equation gives <span
-class="math inline" data-term-auto="off">\(|bz_j+c|=|z_j|^5&lt;1\)</span> directly. The two
-selected indices may represent the same root value, in which case the
-connecting path is constant. The companion gives the <a
+class="math inline" data-term-auto="off">\(|bz_j+c|=|z_j|^5&lt;1\)</span> directly.
+Coincident selected root values give the constant path. The companion
+gives the <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#cubic-fibre-proof">cubic-fibre
 proof</a> and the <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#quintic-proof">quintic
 selection argument</a>, including repeated root occurrences.</p>
-<p> For <span class="math inline" data-term-auto="off">\(z^n-r^n\)</span>, <span
-class="math inline" data-term-auto="off">\(0&lt;r&lt;1\)</span>, the maximum modulus on a
-chord between adjacent points of radius <span class="math inline" data-term-auto="off">\(s\le
+<p>For <span class="math inline" data-term-auto="off">\(z^n-r^n\)</span>, <span
+class="math inline" data-term-auto="off">\(0&lt;r&lt;1\)</span>, the maximum modulus on an
+adjacent chord of radius <span class="math inline" data-term-auto="off">\(0&lt;s\le
 r\)</span> is <span class="math inline" data-term-auto="off">\(r^n+(s\cos(\pi/n))^n\)</span>.
-Thus the outer root chord works below <span
+The outer root chord therefore works below <span
 class="math inline" data-term-auto="off">\(r_*=(1+\cos^n(\pi/n))^{-1/n}\)</span>. At and
-above this value, radial legs and a slightly contracted inner chord give
-open containment and length less than <span
-class="math inline" data-term-auto="off">\(2r\)</span>. The <a
+above this value, take a slightly contracted inner radius <span
+class="math inline" data-term-auto="off">\(s&gt;0\)</span> making that maximum less than one.
+The radial legs remain contained, and for <span
+class="math inline" data-term-auto="off">\(n\ge3\)</span> the total length is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[2(r-s)+2s\sin(\pi/n)&lt;2r&lt;2.\]</span></div>
+<p>The <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#binomial-chord-calculation">chord
-calculation</a> proves the maximum on the entire segment; it makes no
-assertion of geodesic optimality. For <span
-class="math inline" data-term-auto="off">\(n=2\)</span>, use the diameter.</p>
+calculation</a> proves the maximum on the entire segment, not geodesic
+optimality. For <span class="math inline" data-term-auto="off">\(n=2\)</span>, use the
+diameter.</p>
 </section>
 <section id="sec:collinear" class="level3">
 <h3>Collinear roots</h3>
@@ -1033,10 +1036,16 @@ class="math display" data-term-auto="off">\[|f|\le\frac{(D/2)^n}{2^{n-1}\cos^n(\
 <p>The constant is sharp, with equality for the appropriately scaled zeros
 of the Chebyshev polynomial <span class="math inline" data-term-auto="off">\(T_n\)</span>.
 Qualitative existence of a contained root segment was already proved in
-<span class="citation" data-cites="ehp1958"><a href="#ref-2">[2]</a></span>. We compare with the
-monic minimax polynomial (see Eremenko and Yuditskii <span
-class="citation" data-cites="eremenko-yuditskii"><a href="#ref-10">[10]</a></span> for the
-critical-sequence viewpoint). The companion contains the <a
+<span class="citation" data-cites="ehp1958"><a href="#ref-2">[2]</a></span>. For distinct roots,
+first reduce to the real monic case. If every gap maximum exceeded the
+bound, subtracting the endpoint-normalised monic Chebyshev polynomial
+would give a polynomial of degree at most <span
+class="math inline" data-term-auto="off">\(n-1\)</span> with <span
+class="math inline" data-term-auto="off">\(n\)</span> distinct zeros: two endpoints and <span
+class="math inline" data-term-auto="off">\(n-2\)</span> intervening sign changes. See
+Eremenko and Yuditskii <span class="citation"
+data-cites="eremenko-yuditskii"><a href="#ref-10">[10]</a></span> for the critical-sequence
+viewpoint. The companion contains the <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#collinear-proof">alternation
 proof and equality case</a>.</p>
 </section>
@@ -1047,29 +1056,25 @@ and positive weights of sum one, set <span
 class="math inline" data-term-auto="off">\(G(z)=\prod_j|1-\bar c_jz|^{w_j}\)</span>. Then
 <span class="math inline" data-term-auto="off">\(\sum_jw_jG(c_j)^2\le1\)</span>, with
 equality only when all <span class="math inline" data-term-auto="off">\(c_j=0\)</span>.</p>
-<p>The weighted Poisson kernel is <span
-class="math inline" data-term-auto="off">\(P(\zeta)=\sum_jw_j(1-|c_j|^2)/|\zeta-c_j|^2\)</span>
-for <span class="math inline" data-term-auto="off">\(|\zeta|=1\)</span> and interior centres.
-For interior points the factors are nonvanishing in the disc, so choose
-an analytic <span class="math inline" data-term-auto="off">\(g(z)=1+\sum_{\nu\ge1}a_\nu
-z^\nu\)</span> with <span class="math inline" data-term-auto="off">\(|g|=G\)</span>. On <span
-class="math inline" data-term-auto="off">\(\zeta=e^{i\theta}\)</span>, with normalised
-arclength <span class="math inline" data-term-auto="off">\(dm=d\theta/(2\pi)\)</span>, write
-the weighted Poisson kernel as <span
-class="math inline" data-term-auto="off">\(P=1-2\operatorname{Re}(\zeta g&#39;/g)\)</span>.
-Subharmonicity of <span class="math inline" data-term-auto="off">\(|g|^2\)</span> gives the
-inequality below; integrating the power series gives the identity:</p>
+<p>For interior centres, the nonvanishing factors give an analytic <span
+class="math inline" data-term-auto="off">\(g(z)=1+\sum_{\nu\ge1}a_\nu z^\nu\)</span> with
+<span class="math inline" data-term-auto="off">\(|g|=G\)</span>. On <span
+class="math inline" data-term-auto="off">\(\zeta=e^{i\theta}\)</span> the weighted Poisson
+kernel is <span
+class="math inline" data-term-auto="off">\(P=\sum_jw_j(1-|c_j|^2)/|\zeta-c_j|^2
+=1-2\operatorname{Re}(\zeta g&#39;/g)\)</span>. With <span
+class="math inline" data-term-auto="off">\(dm=d\theta/(2\pi)\)</span>, subharmonicity gives
+the inequality below, and orthogonality gives the identity:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_jw_jG(c_j)^2\le\int |g|^2P\,dm
           =1-\sum_{\nu\ge1}(2\nu-1)|a_\nu|^2.\]</span></div>
-<p>Orthogonality on
-the circle leaves <span class="math inline" data-term-auto="off">\(1+\sum|a_\nu|^2\)</span>
-from <span class="math inline" data-term-auto="off">\(|g|^2\)</span> and <span
-class="math inline" data-term-auto="off">\(\sum\nu|a_\nu|^2\)</span> from <span
-class="math inline" data-term-auto="off">\(\zeta g&#39;\overline g\)</span>, explaining the
-coefficients <span class="math inline" data-term-auto="off">\(2\nu-1\)</span>. For boundary
-centres, replace <span class="math inline" data-term-auto="off">\(c_j\)</span> by <span
-class="math inline" data-term-auto="off">\(rc_j\)</span> and let <span
+<p>Indeed, <span
+class="math inline" data-term-auto="off">\(\int|g|^2\,dm=1+\sum|a_\nu|^2\)</span> and <span
+class="math inline" data-term-auto="off">\(\int\zeta g&#39;\overline
+g\,dm=\sum\nu|a_\nu|^2\)</span>. Each nonconstant coefficient therefore
+contributes <span class="math inline" data-term-auto="off">\(1-2\nu&lt;0\)</span>. For
+boundary centres, replace <span class="math inline" data-term-auto="off">\(c_j\)</span> by
+<span class="math inline" data-term-auto="off">\(rc_j\)</span> and let <span
 class="math inline" data-term-auto="off">\(r\uparrow1\)</span> with a finite coefficient sum
 first; no boundary logarithm is needed. Equality forces every <span
 class="math inline" data-term-auto="off">\(a_\nu\)</span> to vanish. Logarithmic
@@ -1151,24 +1156,20 @@ calculation</a>.</p>
 <h2>Flow constructions and remaining questions</h2>
 <section id="sec:newton" class="level3">
 <h3>Inverse rays and perturbation</h3>
-<p> Along a Newton trajectory <span class="math inline" data-term-auto="off">\(\dot
-z=-f(z)/f&#39;(z)\)</span> on a real interval, with <span
+<p> Along an existing real-interval trajectory <span
+class="math inline" data-term-auto="off">\(\dot z=-f(z)/f&#39;(z)\)</span> with <span
 class="math inline" data-term-auto="off">\(f&#39;(z(t))\ne0\)</span>, the chain rule gives
-<span class="math inline" data-term-auto="off">\((f\circ z)&#39;=-f\circ z\)</span>.
-Integrating this scalar equation yields <span
-class="math inline" data-term-auto="off">\(f(z(t))=e^{-(t-t_0)}f(z(t_0))\)</span> for times
-in that interval. Thus the trajectory maps to a fixed value ray. This is
-the classical Newton-flow identity in Kozen and Stefánsson <span
-class="citation" data-cites="kozen-stefansson1997"><a href="#ref-6">[6]</a></span>, who develop
-the Newtonian graph of Shub, Tischler and Williams. It describes the
-value along an existing trajectory; it does not itself bound the
-trajectory’s Euclidean length. A length bound requires control of <span
-class="math inline" data-term-auto="off">\(\int |f(z(t))/f&#39;(z(t))|\,dt\)</span>. The
-companion also records local complex-parameter identities for <span
-class="math inline" data-term-auto="off">\((f\circ z)&#39;\)</span> and <span
-class="math inline" data-term-auto="off">\((e^t f(z(t)))&#39;\)</span>. These are pointwise
-derivative statements; the integration above concerns an existing
-real-interval trajectory. The companion retains the <a
+<span class="math inline" data-term-auto="off">\((f\circ z)&#39;=-f\circ z\)</span>, hence
+<span class="math inline" data-term-auto="off">\(f(z(t))=e^{-(t-t_0)}f(z(t_0))\)</span>. This
+classical identity fixes the ray of a nonzero value, not the Euclidean
+length <span
+class="math inline" data-term-auto="off">\(\int|f(z(t))/f&#39;(z(t))|\,dt\)</span>; see Kozen
+and Stefánsson <span class="citation"
+data-cites="kozen-stefansson1997"><a href="#ref-6">[6]</a></span> on the Newtonian graph of
+Shub, Tischler and Williams. The companion’s local complex-parameter
+identities for <span class="math inline" data-term-auto="off">\((f\circ z)&#39;\)</span> and
+<span class="math inline" data-term-auto="off">\((e^t f(z(t)))&#39;\)</span> are pointwise
+statements, distinct from the real-interval integration in its <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#newton-value-proof">value
 and finite-endpoint theorems</a>.</p>
 <p> For a finite interval <span class="math inline" data-term-auto="off">\([a,b]\)</span>,
@@ -1181,22 +1182,28 @@ evaluating <span class="math inline" data-term-auto="off">\(f/f&#39;\)</span> at
 Nonzero endpoint values therefore lie on the same positive ray. Critical
 values with distinct arguments exclude such a connection; distinct
 moduli are insufficient.</p>
-<p> Adding a constant leaves <span class="math inline" data-term-auto="off">\(f&#39;\)</span>
-unchanged and translates every critical value by the same amount. A
-generic translation separates the rays of distinct values, but equal
-values stay equal. The formal sources give the <a
+<p> Adding <span class="math inline" data-term-auto="off">\(\beta\)</span> leaves <span
+class="math inline" data-term-auto="off">\(f&#39;\)</span> unchanged and sends each critical
+value <span class="math inline" data-term-auto="off">\(v\)</span> to <span
+class="math inline" data-term-auto="off">\(v+\beta\)</span>. For distinct values <span
+class="math inline" data-term-auto="off">\(a,b\)</span>, a common positive ray requires <span
+class="math inline" data-term-auto="off">\(\beta\)</span> to lie on the real line through
+<span class="math inline" data-term-auto="off">\(-a\)</span> and <span
+class="math inline" data-term-auto="off">\(-b\)</span>. Avoiding these finitely many lines
+and the points <span class="math inline" data-term-auto="off">\(-v\)</span> therefore makes
+the distinct values nonzero and ray-separated; equal values remain
+equal. The formal sources give the <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">one-parameter
 collision locus</a> and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L162">finite
-affine-line avoidance argument</a>. The companion records an
-unformalised argument that a linear perturbation can do so generically.
-Neither qualitative assertion bounds a perturbation that preserves a
-near-extremal path inequality. The <a
-href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#argument-perturbation-proof">forbidden-ray
-locus calculation</a> identifies the translations to avoid. Separately,
-expand <span class="math inline" data-term-auto="off">\(\log|f|\)</span> about a non-root
-point and let <span class="math inline" data-term-auto="off">\(q\)</span> be the displacement
-divided by the distance to the nearest zero. For <span
+affine-line avoidance argument</a>. The <a
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#argument-perturbation-proof">companion
+calculation</a> describes the forbidden translations; its unformalised
+linear-perturbation argument supplies distinct critical values. Neither
+qualitative step controls the slack in a near-extremal path inequality.
+Separately, expand <span class="math inline" data-term-auto="off">\(\log|f|\)</span> about a
+non-root point and let <span class="math inline" data-term-auto="off">\(q\)</span> be the
+displacement divided by the distance to the nearest zero. For <span
 class="math inline" data-term-auto="off">\(q&lt;1\)</span>, the remainder after order <span
 class="math inline" data-term-auto="off">\(N\)</span> is at most <span
 class="math inline" data-term-auto="off">\(nq^{N+1}/((N+1)(1-q))\)</span>. This local

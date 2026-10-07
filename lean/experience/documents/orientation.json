@@ -11,7 +11,7 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ORIENTATION.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "53747847c786b2a4eb67372cfbe3c277431a820923e1ba40615c1ef19941aa8f",
+    "navigation_fingerprint": "7492693d1ee87883432048917681935261ba9f10a3cde24c15b551ba4f2d9925",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",

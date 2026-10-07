@@ -19910,7 +19910,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L158",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L150",
       "comparator_queued_at": "2026-09-29",
       "page": "3",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos-1041-lemniscate-newton-flow.md#lem-two-sheet-bottleneck",
@@ -20011,7 +20011,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L682",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L671",
       "named_inputs": [
         "ErdosProblems.Erdos1041.PaperCompleteR21.DiscSepBergmanArea"
       ],
@@ -20088,7 +20088,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L709",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L698",
       "named_inputs": [
         "ErdosProblems.Erdos1041.PaperCompleteR21.DiscSepBergmanArea",
         "ErdosProblems.Erdos1041.PaperCompleteR21.SeparationParent.CriticalValueSeparationTheorem"
@@ -20109,7 +20109,7 @@
       "comparator_status": "not_applicable",
       "palomar_status": "not_applicable",
       "declarations": [],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L506",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L494",
       "lean_reason": "the degree-two case and the closing inequality $(13/25)e^X<1$ at the recorded stopping time $X=635762889599/10^{12}$ are checked; the computation that certifies $X$ and the analytic argument in higher degrees are not",
       "page": "7",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos-1041-lemniscate-newton-flow.md#res-low-critical-thirteen-twentyfifths",
@@ -20143,7 +20143,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L517",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L505",
       "named_inputs": [
         "ErdosProblems.Erdos1041.PaperAnalyticTargets.LowCriticalThirteenTwentyFifths"
       ],
@@ -20171,7 +20171,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L465",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L453",
       "comparator_entries": [
         "E1041_05"
       ],
@@ -20202,7 +20202,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L425",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L413",
       "comparator_entries": [
         "E1041_01"
       ],
@@ -20254,7 +20254,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L964",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L948",
       "comparator_entries": [
         "E1049_01"
       ],
@@ -20386,7 +20386,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L678",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L675",
       "comparator_entries": [
         "E1049_01",
         "E1049_07"
@@ -20418,7 +20418,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L66",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L65",
       "comparator_entries": [
         "E1049_08"
       ],
@@ -20449,7 +20449,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L944",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L928",
       "comparator_entries": [
         "E1049_07"
       ],
@@ -20487,7 +20487,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L584",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L579",
       "comparator_entries": [
         "E1049_03",
         "E1049_04"
@@ -20519,7 +20519,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L178",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L173",
       "comparator_queued_at": "2026-09-29",
       "page": "3",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos-1049-rational-base-lambert.md#thm-geometric-moments",
@@ -20545,7 +20545,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L543",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L530",
       "comparator_entries": [
         "E243_09"
       ],
@@ -20576,7 +20576,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L608",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L595",
       "comparator_entries": [
         "E243_10"
       ],
@@ -20607,7 +20607,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L496",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L483",
       "comparator_entries": [
         "E243_08"
       ],
@@ -20638,7 +20638,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L644",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L631",
       "comparator_entries": [
         "E243_09"
       ],
@@ -20669,7 +20669,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L599",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L586",
       "comparator_entries": [
         "E243_09"
       ],
@@ -20731,7 +20731,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L1014",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L995",
       "comparator_entries": [
         "E243_08"
       ],
@@ -20762,7 +20762,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L575",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L562",
       "comparator_entries": [
         "E243_08"
       ],
@@ -20800,7 +20800,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L700",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L686",
       "comparator_entries": [
         "E243_06"
       ],
@@ -20831,7 +20831,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L958",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L939",
       "comparator_entries": [
         "E243_09"
       ],
@@ -20862,7 +20862,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L748",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L733",
       "comparator_entries": [
         "E243_08"
       ],
@@ -20893,7 +20893,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L663",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L650",
       "comparator_entries": [
         "E243_06"
       ],
@@ -20924,7 +20924,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L252",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L249",
       "comparator_entries": [
         "E243_08"
       ],
@@ -20955,7 +20955,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L1165",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L1143",
       "comparator_entries": [
         "E243_08"
       ],
@@ -20993,7 +20993,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L558",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L545",
       "comparator_entries": [
         "E243_02",
         "E243_09"
@@ -21025,7 +21025,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L519",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L506",
       "comparator_entries": [
         "E243_09"
       ],
@@ -21056,7 +21056,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L832",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L814",
       "comparator_entries": [
         "E243_02"
       ],
@@ -21087,7 +21087,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L1051",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L1030",
       "comparator_entries": [
         "E243_09"
       ],
@@ -21118,7 +21118,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L311",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L301",
       "comparator_entries": [
         "E249_29"
       ],
@@ -21149,7 +21149,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L503",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L488",
       "comparator_entries": [
         "E249_30"
       ],
@@ -21180,7 +21180,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L402",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L387",
       "comparator_entries": [
         "E249_30"
       ],
@@ -21211,7 +21211,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L483",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L468",
       "comparator_entries": [
         "E249_29"
       ],
@@ -21242,7 +21242,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L625",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L608",
       "comparator_entries": [
         "E249_30"
       ],
@@ -21308,7 +21308,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L717",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L699",
       "comparator_entries": [
         "E249_30",
         "E249_33"
@@ -21340,7 +21340,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L381",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L366",
       "comparator_entries": [
         "E249_30"
       ],
@@ -21409,7 +21409,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L559",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L544",
       "comparator_entries": [
         "E251_01",
         "E251_05"
@@ -21441,7 +21441,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L756",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L739",
       "comparator_entries": [
         "E251_02"
       ],
@@ -21507,7 +21507,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L502",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L489",
       "comparator_entries": [
         "E251_01",
         "E251_05"
@@ -21546,7 +21546,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L523",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L510",
       "comparator_entries": [
         "E251_01"
       ],
@@ -21591,7 +21591,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L416",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L404",
       "named_inputs": [
         "ErdosProblems.Erdos251.PaperR11.PrimeSource.PrimeNumberTheorem",
         "ErdosProblems.Erdos251.PaperR11.PrimeSource.SchlagePuchtaLemma4"
@@ -21627,7 +21627,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L606",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L590",
       "comparator_entries": [
         "E251_05"
       ],
@@ -21696,7 +21696,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L536",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L523",
       "comparator_entries": [
         "E251_01"
       ],
@@ -21727,7 +21727,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L673",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L657",
       "comparator_entries": [
         "E251_05"
       ],
@@ -21758,7 +21758,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1438",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1414",
       "comparator_entries": [
         "E257_48"
       ],
@@ -21789,7 +21789,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1174",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1148",
       "comparator_entries": [
         "E257_47"
       ],
@@ -21827,7 +21827,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L549",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L537",
       "comparator_entries": [
         "E257_01"
       ],
@@ -21886,7 +21886,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1292",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1266",
       "comparator_entries": [
         "E257_47",
         "E257_52"
@@ -21932,7 +21932,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1018",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L995",
       "comparator_entries": [
         "E257_47",
         "E257_50"
@@ -21964,7 +21964,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L932",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L919",
       "comparator_entries": [
         "E257_47"
       ],
@@ -21987,7 +21987,7 @@
       "comparator_status": "not_applicable",
       "palomar_status": "not_applicable",
       "declarations": [],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L775",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L763",
       "lean_reason": "the new host existence claim has not been formalised; the mixed implication it invokes is already checked",
       "page": "12",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos-257-mersenne-support-subseries.md#res-strict-mixed-supports",
@@ -22014,7 +22014,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1371",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1350",
       "comparator_queued_at": "2026-09-26",
       "page": "21",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos-257-mersenne-support-subseries.md#res-terminalhalf",
@@ -22047,7 +22047,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L627",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L613",
       "comparator_queued_at": "2026-09-26",
       "page": "10",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos-257-mersenne-support-subseries.md#res-weighted-cover-incomparability",
@@ -22112,7 +22112,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L369",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L364",
       "comparator_entries": [
         "E257_01"
       ],
@@ -22143,7 +22143,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L385",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L370",
       "comparator_entries": [
         "E269_08"
       ],
@@ -22174,7 +22174,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L884",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L868",
       "comparator_entries": [
         "E269_08"
       ],
@@ -22233,7 +22233,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L751",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L737",
       "comparator_entries": [
         "E269_01"
       ],
@@ -22264,7 +22264,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L538",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L525",
       "comparator_entries": [
         "E269_08"
       ],
@@ -22295,7 +22295,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L436",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L424",
       "comparator_entries": [
         "E269_08"
       ],
@@ -22326,7 +22326,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L81",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L84",
       "comparator_queued_at": "2026-09-26",
       "page": "1",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos-269-three-prime-running-lcm.md#res-distinct-height-235",
@@ -22352,7 +22352,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L367",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L356",
       "comparator_entries": [
         "E269_08"
       ],
@@ -22397,7 +22397,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L459",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L447",
       "comparator_entries": [
         "E269_04",
         "E269_05"
@@ -22429,7 +22429,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L763",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L749",
       "comparator_entries": [
         "E269_01"
       ],
@@ -22460,7 +22460,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L918",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L902",
       "comparator_entries": [
         "E269_02"
       ],
@@ -22491,7 +22491,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L796",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L780",
       "comparator_entries": [
         "E269_02"
       ],
@@ -22522,7 +22522,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L737",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L723",
       "comparator_entries": [
         "E269_01"
       ],
@@ -22637,7 +22637,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L646",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L632",
       "named_inputs": [
         "ErdosProblems.Erdos269.PaperCompleteR21.BugeaudLaurentTranscendence"
       ],
@@ -22665,7 +22665,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L559",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L547",
       "comparator_entries": [
         "E269_08"
       ],
@@ -22696,7 +22696,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex#L165",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex#L157",
       "comparator_entries": [
         "E68_05"
       ],
@@ -22734,7 +22734,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex#L307",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex#L292",
       "comparator_entries": [
         "E68_05"
       ],
@@ -37199,7 +37199,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L681",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L675",
       "comparator_entries": [
         "E251_01"
       ],
@@ -37230,7 +37230,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2753",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2737",
       "comparator_entries": [
         "E251_04"
       ],
@@ -37261,7 +37261,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L817",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L809",
       "comparator_entries": [
         "E251_01"
       ],
@@ -37292,7 +37292,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1371",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1362",
       "comparator_entries": [
         "E251_02"
       ],
@@ -37323,7 +37323,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1256",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1248",
       "comparator_queued_at": "2026-09-23",
       "page": "20",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos251-prime-gap-reasoning-surface.md#long251-res-cfexclusion",
@@ -37349,7 +37349,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2467",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2454",
       "comparator_entries": [
         "E251_04"
       ],
@@ -37387,7 +37387,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1208",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1200",
       "comparator_entries": [
         "E251_02"
       ],
@@ -37418,7 +37418,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L872",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L864",
       "comparator_entries": [
         "E251_01"
       ],
@@ -37449,7 +37449,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1105",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1097",
       "comparator_entries": [
         "E251_02"
       ],
@@ -37480,7 +37480,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1137",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1129",
       "comparator_entries": [
         "E251_02"
       ],
@@ -37511,7 +37511,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L952",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L944",
       "comparator_entries": [
         "E251_02"
       ],
@@ -37542,7 +37542,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1048",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1040",
       "comparator_entries": [
         "E251_02"
       ],
@@ -37573,7 +37573,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L730",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L724",
       "comparator_entries": [
         "E251_01"
       ],
@@ -37604,7 +37604,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L755",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L749",
       "comparator_entries": [
         "E251_01"
       ],
@@ -37649,7 +37649,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1560",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1551",
       "named_inputs": [
         "ErdosProblems.Erdos251.PaperR11.PrimeSource.PrimeNumberTheorem",
         "ErdosProblems.Erdos251.PaperR11.PrimeSource.SchlagePuchtaLemma4"
@@ -37678,7 +37678,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L983",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L975",
       "comparator_entries": [
         "E251_02"
       ],
@@ -37709,7 +37709,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L417",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L411",
       "comparator_entries": [
         "E251_01"
       ],
@@ -37768,7 +37768,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1505",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1496",
       "named_inputs": [
         "ErdosProblems.Erdos251.PaperR11.PrimeSource.PrimeNumberTheorem",
         "ErdosProblems.Erdos251.PaperR11.PrimeSource.SchlagePuchtaLemma4"
@@ -37797,7 +37797,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1474",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1465",
       "comparator_entries": [
         "E251_03"
       ],
@@ -37828,7 +37828,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1165",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1157",
       "comparator_entries": [
         "E251_02"
       ],
@@ -37859,7 +37859,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L704",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L698",
       "comparator_entries": [
         "E251_01"
       ],
@@ -37890,7 +37890,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1709",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1698",
       "comparator_entries": [
         "E251_03"
       ],
@@ -37921,7 +37921,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1871",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1860",
       "comparator_entries": [
         "E251_03"
       ],
@@ -37952,7 +37952,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1430",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1421",
       "comparator_entries": [
         "E251_03"
       ],
@@ -37983,7 +37983,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1071",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1063",
       "comparator_entries": [
         "E251_02"
       ],
@@ -38014,7 +38014,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1015",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1007",
       "comparator_entries": [
         "E251_02"
       ],
@@ -38045,7 +38045,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1034",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1026",
       "comparator_entries": [
         "E251_02"
       ],
@@ -38090,7 +38090,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1633",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1622",
       "named_inputs": [
         "ErdosProblems.Erdos251.PaperR11.PrimeSource.SchlagePuchtaLemma4"
       ],
@@ -38118,7 +38118,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1536",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1527",
       "comparator_entries": [
         "E251_03"
       ],
@@ -38163,7 +38163,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L134",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L138",
       "comparator_entries": [
         "E251_01"
       ],
@@ -38194,7 +38194,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1902",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1891",
       "comparator_entries": [
         "E251_03"
       ],
@@ -38225,7 +38225,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L900",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L892",
       "comparator_entries": [
         "E251_01"
       ],
@@ -38256,7 +38256,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2619",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2603",
       "comparator_entries": [
         "E251_04"
       ],
@@ -38287,7 +38287,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2385",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2372",
       "comparator_entries": [
         "E251_04"
       ],
@@ -38318,7 +38318,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2372",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2359",
       "comparator_entries": [
         "E251_04"
       ],
@@ -38349,7 +38349,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2420",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2407",
       "comparator_entries": [
         "E251_04"
       ],
@@ -47323,7 +47323,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L570",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L571",
       "comparator_entries": [
         "E68_02"
       ],
@@ -47354,7 +47354,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1324",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1325",
       "comparator_entries": [
         "E68_01"
       ],
@@ -47399,7 +47399,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1190",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1191",
       "comparator_entries": [
         "E68_03"
       ],
@@ -47430,7 +47430,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1429",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1430",
       "comparator_entries": [
         "E68_01"
       ],
@@ -47461,7 +47461,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L996",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L997",
       "comparator_entries": [
         "E68_01"
       ],
@@ -47492,7 +47492,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1719",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1720",
       "comparator_entries": [
         "E68_05"
       ],
@@ -47523,7 +47523,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1030",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1031",
       "comparator_entries": [
         "E68_01"
       ],
@@ -47554,7 +47554,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1511",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1512",
       "comparator_entries": [
         "E68_01"
       ],
@@ -47654,7 +47654,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L830",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L831",
       "comparator_entries": [
         "E68_01"
       ],
@@ -47685,7 +47685,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L967",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L968",
       "comparator_entries": [
         "E68_01"
       ],
@@ -47716,7 +47716,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1239",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1240",
       "comparator_entries": [
         "E68_06"
       ],
@@ -47799,7 +47799,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1008",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1009",
       "comparator_entries": [
         "E68_01"
       ],
@@ -47837,7 +47837,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1619",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1620",
       "comparator_entries": [
         "E68_02"
       ],
@@ -47868,7 +47868,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L593",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L594",
       "comparator_entries": [
         "E68_04"
       ],
@@ -47899,7 +47899,7 @@
           "kind": "theorem"
         }
       ],
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L929",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L930",
       "comparator_entries": [
         "E68_01"
       ],

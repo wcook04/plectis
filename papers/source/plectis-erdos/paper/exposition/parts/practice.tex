@@ -78,13 +78,11 @@ one verification and reproducibility section or appendix. Refer there from
 a theorem when its evidence class matters. This keeps proof status available
 without making a reader decode repository machinery between proof steps.
 
-Give a single account of a shared limitation, then repeat it only when a
-different claim would otherwise appear unconditional. A conditional premise
-belongs beside the statement it conditions; an editorial disclaimer does
-not need to recur after every equation. For an omitted proof, name its
-mathematical destination by section or theorem and cite the original source
-where an external result is used. A reference to a file or a ``long record''
-alone does not tell a reader which argument to inspect.
+State shared limitations once, repeating a condition wherever its omission
+would make a dependent claim read unconditionally. Editorial disclaimers
+need not follow every equation. Cite an external result where it is used;
+locate an omitted proof by section or theorem, not merely by filename or
+``long record''.
 
 \subsection{How the practice developed}
 
@@ -108,14 +106,12 @@ correction; a broad author--reader analogy did not justify a particular rule
 about estimates. The records retain those different outcomes rather than
 counting every proposal as progress.
 
-The nine R11 paper returns received editorial acceptance. The accepted R12
-revisions supply local clarifications, not nine new instructions.
-The \#269 revision distinguishes a short interval from one that excludes an
-integer; the systems revision distinguishes a recorded rationale from a
-judgement of its adequacy. These refine existing examples. The
-supplied dispositions record editorial acceptance, not reader benefit. The
-systems paper~\cite{systems-r12} describes the mechanisms retaining these records;
-this guide concerns the judgments they make inspectable.
+The nine R11 returns received editorial acceptance; accepted R12 revisions
+refine existing advice, not nine new instructions. The \#269 case separates a
+short interval from one excluding an integer; the systems case separates a
+recorded rationale from its adequacy~\cite{systems-r12}. These dispositions
+record editorial acceptance, not reader benefit. Later criticism must be
+checked against the current source: an earlier defect may already be repaired.
 
 \subsection{From one case to a bounded amendment}
 
@@ -201,23 +197,29 @@ measured reader benefit remains a separate question.
 
 \section{Transfer the method across research genres}\label{sec:genre-transfer}
 
-A theorem, an implemented mechanism and a performance comparison require
-different kinds of support. For a theorem, explain the implication under its
-stated hypotheses. For a system, distinguish a design proposal from what is
-implemented, then identify what was tested. A performance claim needs the
-implementation, workload, comparator and observed result. An artifact build
-cannot establish unrestricted performance or usability.
+A theorem needs a proof under its stated hypotheses. For a system, distinguish
+what is proposed, implemented and tested. A performance claim needs the
+implementation, workload, comparator and observed result; an artefact build
+does not establish unrestricted performance or usability.
 
-Levin and Redell distinguish papers about implemented systems, proposed
-systems and theoretical work, and caution that evaluation criteria vary across
-those classes~\cite{levin-redell}. The SIGPLAN empirical-evaluation guidance
-asks authors to state claims and limitations clearly, and treats its checklist
-as an aid to judgment rather than a universal score~\cite{sigplan-evaluation}.
-These are genre-specific primary sources, not proof authority for any
-particular system. Trace a task through the system's components: what each receives,
-changes and passes on, and who reviews the result. A component list alone
-leaves those relations unexplained. Read a nearby system's opening and
-evaluation before transferring its presentation.
+Levin and Redell distinguish implemented, proposed and theoretical systems:
+evaluation criteria depend on the paper's class~\cite{levin-redell}. SIGPLAN's
+empirical-evaluation checklist aids judgement; it is not a universal
+score~\cite{sigplan-evaluation}. Read a nearby system's opening and evaluation,
+then trace the target task: what each component receives, changes and passes
+on, and who reviews it. A component list leaves those relations unexplained.
+These sources guide presentation; they do not verify a particular system.
+
+The 6 October systems revision makes the task concrete before listing record
+fields~\cite[\S\S1,3; Appendix~B]{systems-current}. Its
+hypothetical editor announces a solution to \#257 while the unchanged theorem
+still restricts the exponent set. A successful proof check would not justify
+that introduction. One record links a paper statement to formal supports;
+another links explanatory prose to sources. The reviewer must compare the
+proposed passage with those sources. This example motivates the design; it is
+not an observed trial. The exact mathematical condition remains recoverable
+in the case's own paper and the systems appendix; the introduction need not
+reproduce its derivation.
 
 A fair comparison names the closest corresponding object, not just a common
 aim. Prove2Me separates immutable theorem statements from submitted proofs and
@@ -230,12 +232,9 @@ sources~\cite[related work]{systems-r12}. This difference of focus establishes
 neither exclusivity, priority nor an advantage of repository hosting over a
 service.
 
-Verbs need equally precise subjects. Builders regenerate derived views;
-release checks test consistency. Calling both operations ``updating the
-records'' would obscure who changes what. The same discipline applies to a
-check's guarantee: the passage checker requires matching text and source
-digests and a nonempty rationale; it does not judge whether that rationale
-supports the passage~\cite[operations on the records; proof and publication checks]{systems-r12}.
+Keep the operations distinct: builders regenerate views; release checks test
+consistency. The passage checker requires matching text and source digests
+and a nonempty rationale, not an adequate rationale~\cite[\S3.2; Appendix~A]{systems-current}.
 
 
 The repository's systems manuscript gives a concrete example. It reports nine
@@ -245,10 +244,9 @@ that escaped edit against a repair; the other nine edits were not rerun
 \cite[recorded observations]{systems}. The first report describes those ten
 trials, not a general $90\%$ reliability rate. The second describes the tested
 repair, not a post-repair ten-out-of-ten result. The manuscript also records
-missing original logs and the absence of an independent comparison. Those
-qualifications determine the conclusion. A repair that catches one escaped
-edit has passed that regression check; its effects on unrerun cases remain
-unmeasured.
+missing original logs and the absence of an independent comparison. A repair
+that catches one escaped edit has passed that regression check; its effects
+on unrerun cases remain unmeasured.
 
 In a scientific exposition, identify the study or derivation, the population
 or model, the reported result and the author's synthesis. State when there
@@ -256,12 +254,9 @@ is no new experiment. Check each inference against the primary study: an
 association is not automatically causation, and a model prediction is not
 an observation.
 
-Keep the controlling condition beside the claim. In an empirical comparison,
-name the measured quantity and comparator with the reported change; in parallel
-outcomes, use parallel clauses. The earlier examples show why this helps:
-``rejected nine of ten selected edits'' and ``rejected the escaped edit after
-repair'' describe different trials. Their difference must remain visible in
-the sentence, not be left for a distant limitation to undo.
+Keep the condition and comparator beside each empirical claim. The two reports
+above concern different trials; a distant limitation cannot undo a sentence
+that combines them. Use parallel clauses to make their different scopes visible.
 
 \section*{Acknowledgement}
 Wouter van Doorn's feedback on first-reader legibility, recorded in the project's

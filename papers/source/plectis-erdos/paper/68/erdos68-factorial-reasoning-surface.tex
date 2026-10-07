@@ -26,7 +26,7 @@
 \title{Factorial Linear Forms and Denominators\\Detailed Proofs and Rationality Criteria}
 \subtitle{Erd\H{o}s Problem~\#68}
 \author{Will Cook}
-\date{1 September 2026; revised 5 October 2026}
+\date{1 September 2026; revised 7 October 2026}
 
 \setlength{\emergencystretch}{3em}
 % Permit breaks inside long declaration names in the generated catalogue.
@@ -38,13 +38,14 @@
 \noteprovenance
 
 \begin{abstract}
-We determine the possible multipliers in factorial-weighted
-cancellation forms $MS+k$, where $S=\sum_{n\ge2}(n!-1)^{-1}$.
-An integral basis and a finite gcd give the complete coefficient
-classification; finite-support examples distinguish the least multiplier,
-least support size, and least coefficient norm. We also prove a lower
-bound for common-denominator growth, analyse prime-power cancellation
-on reduction, and derive equivalent carry and factorial-digit criteria.
+We classify multipliers in finitely supported factorial-weighted
+cancellation forms $MS+k$, where $S=\sum_{n\ge2}(n!-1)^{-1}$, with
+integer coefficients on $n\ge2$. An integral basis reduces cancellation through
+$D\ge2$ and exclusion of index one to a Diophantine equation whose coefficient gcd
+is determined below $2D^2$. Examples separate least multiplier, support
+size and coefficient norm. We prove a lower bound for common-denominator growth,
+analyse prime-power cancellation on reduction, and derive equivalent
+carry and factorial-digit rationality criteria.
 Recorded computations exclude $q\mid299999!$ and $q<2^{39990}$ under
 $S=a/q$. These computations are outside Lean; the required nonintegrality
 at arbitrarily large indices remains unproved.
@@ -62,15 +63,14 @@ Any further change of starting index adds a rational number. The
 expectation for all integer shifts remains unproved here.
 The problem number follows Bloom's catalogue \cite{bloom}.
 
-We separate construction from nonintegrality. The first question is
-algebraic: which integers $M$ occur when a finite integer vector
-cancels prescribed initial weighted sums in a form $MS+k$? The answer is an explicitly computable ideal of $\mathbb Z$.
-Adjacent factorial differences give an integral basis after correction
-at proper divisors. Cancellation fixes its lower coordinates;
-excluding index one leaves a single Diophantine equation. A finite-gcd
-formula then gives the least positive multiplier and a vector attaining
-it. For cancellation through four, that multiplier is $1380$, not merely
-the common denominator $115$ forced by the congruences.
+For finitely supported integer vectors on $n\ge2$, cancellation forms
+$MS+k$ give an explicitly computable ideal of multipliers.
+Correcting adjacent factorial differences at proper divisors gives an
+integral basis. Cancellation fixes its lower coordinates; excluding
+index one leaves a single Diophantine equation. Its gcd, computed below
+$2D^2$, gives the least positive multiplier and an attaining vector.
+At depth four, the support restriction strengthens $115\mid M$ to
+$1380\mid M$. This classification is independent of nonintegrality.
 
 The accompanying short paper proves this classification and bounds one
 resulting remainder between consecutive integers. Here we develop the
@@ -130,7 +130,7 @@ Where are the formal declarations? & Appendix~\ref{long68:sec:short-concordance}
 \section{Integer coefficient vectors and cancellation}\label{long68:sec:channels}
 
 We need weights that preserve the fractional part of $i!/(d!-1)$
-and whose adjacent differences have a simple form. Both requirements
+and whose scaled adjacent differences have a simple form. Both requirements
 are met by removing one factor $d!$ for each complete block of $d$
 indices. For a finitely supported integer vector $c=(c_i)$ on $i\ge2$,
 put
@@ -546,6 +546,7 @@ This factor is attained at $D=2$ and $D=3$ by
 $-6e_2+e_4$ and $-6e_2-8e_3+5e_4$, respectively.
 The next example shows that this need not be the whole restriction.
 
+\papersectiontarget{r15-depth-six}
 At $D=6$, the same recurrence
 gives
 \[

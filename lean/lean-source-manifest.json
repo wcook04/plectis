@@ -15,7 +15,7 @@
       "source_ref": "main",
       "source_path": "docs/claims.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json",
-      "source_sha256": "8ed843c5ec178853dd59259d29dad7191ab92d290f0f2a421f66987eec705577",
+      "source_sha256": "b92af9f98a8743f48cf40c399d0c03eee322b7195e48c96eb14721ecb92fce9a",
       "bytes": 1272712
     },
     {
@@ -33,7 +33,7 @@
       "source_ref": "main",
       "source_path": "docs/problem_library.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json",
-      "source_sha256": "c8cae18769a2c002e325bc1cf4b5048917eae5860b75c45b0473b9225c0502ac",
+      "source_sha256": "5606584e14e47fe0090540b6440c1b5cfd3d4968ad516c9058e0f56fc616477f",
       "bytes": 1276704
     },
     {
@@ -51,8 +51,8 @@
       "source_ref": "main",
       "source_path": "docs/paper_lean_coverage.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/paper_lean_coverage.json",
-      "source_sha256": "058ad95477aced1865be09cb8fc5057d2e8a5b4a882333c0e6f97ce64c79919e",
-      "bytes": 1036828
+      "source_sha256": "e46f063f93e1377776d485c9d9e5992ddcc97b1cabcf88e88e7a2df7b55db35d",
+      "bytes": 1036826
     },
     {
       "hosted_path": "lean/paper-evidence.json",
@@ -87,7 +87,7 @@
       "source_ref": "main",
       "source_path": "docs/reading-edition/weighted-257-task.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/weighted-257-task.md",
-      "source_sha256": "baf57ce13fe98fe6ad8b793c5a7948538cf6d8cd47fad825aab3776e0964e8fc",
+      "source_sha256": "12ed3062eed71508123f6851ee1fb9bb31f047f41bb3beebe97d6b9edd9198b9",
       "bytes": 7432
     },
     {
@@ -222,7 +222,7 @@
       "source_ref": "main",
       "source_path": "docs/research-commons/credit-ledger.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/credit-ledger.json",
-      "source_sha256": "5ca628d6583614c5cd6cfa315c2883764ccffc727da542f47d2be1399e431887",
+      "source_sha256": "12fec17e75fd7aa43076d571cd6945ec4fd67ee0006516b59ad316b63f7f5fce",
       "bytes": 12270
     }
   ]

@@ -5,7 +5,7 @@
   "subject": "Erdős #1049",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 21,
+  "pages": 20,
   "question": "What are the fixed-base Hankel asymptotics, and which rational bases give irrational values?",
   "precis": "Positive geometric moments and a uniform partition-sum bound give the fixed-base asymptotic of Zudilin’s normalised Hankel determinants, including its constant and power correction. A separate calculation of degrees after cancellation in his 2004 forms extends the rational-base irrationality region. It includes every positive integral power of 31/4 and excludes 3/2.",
   "owns": "the fixed-base Hankel asymptotic and rational-base irrationality theorem; the long paper develops exact orders, content and endpoint obstructions, and the remaining problem at 3/2",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "065862ae86e3b045",
-    "source_sha256": "5371d552354f3d035fe5ad41874d109bc7f84e8287601e74aaf329ed2a6fcb46",
+    "source_sha256": "1e83c153261cea0f1223abad449d57feca8edb8bdb14d17800aa3eb97f9a1b49",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 706,
+    "mathml_node_count": 679,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -52,8 +52,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "419af197d39b63154b28c13bb519450fe67b20ee9c10a0bb42ee9c6db4621a85",
-    "html_exact_tex_sha256": "10a3d490157505c6269522d848381906f666a7e150b5d5ddb418926dea294701"
+    "html_mathml_sha256": "6f7ce866bae8bf23f1a41434713beff276e6453eba0adcacb73aa8d664f1ee32",
+    "html_exact_tex_sha256": "e4393ec2866500e679584661e6e69f89474a772e991d9cb2476ede2c4f1acb8c"
   },
   "sections": [
     {

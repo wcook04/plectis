@@ -8,12 +8,9 @@
   <div class="lean-paper__body" data-source="../../../paper/1049/erdos-1049-rational-base-lambert.tex">
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
-<p>For each fixed real
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">q\in(0,1)</annotation></semantics></math>,
-we determine the asymptotic size of the Hankel determinants arising from
-Zudilin’s
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-logarithm
-approximations. Write
+<p>Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">q\in(0,1)</annotation></semantics></math>.
+Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>m</mi></msub><mo>=</mo><msubsup><mo>∏</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>z</mi><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(z;q)_m=\prod_{j=0}^{m-1}(1-zq^j)</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>t</mi><mi>n</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">F(t)=\sum_{n\ge1}(t^n-1)^{-1}</annotation></semantics></math>
@@ -76,42 +73,42 @@ preserves the first formal term but changes the fixed-base logarithm by
 a cubic quantity. No uniformity as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\to1</annotation></semantics></math>
 is asserted.</p>
-<p>The proof separates the node geometry from the weights. We write
+<p>The proof compares the moments with constant-weight geometric
+moments. We write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>v</mi><mi>m</mi><mo>*</mo></msubsup><mo>=</mo><msub><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow></msub><msub><mi>a</mi><mi>k</mi></msub><msup><mi>q</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>k</mi></mrow></msup></mrow><annotation encoding="application/x-tex">v_m^*=\sum_{k\ge0}a_kq^{(m+1)k}</annotation></semantics></math>
 with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>k</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a_k&gt;0</annotation></semantics></math>,
-so that the representing measure has mass
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>k</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a_k&gt;0</annotation></semantics></math>:
+the measure has mass
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>k</mi></msub><msup><mi>q</mi><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">a_kq^k</annotation></semantics></math>
 at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><mi>k</mi></msup><annotation encoding="application/x-tex">q^k</annotation></semantics></math>.
-Heine’s identity expresses the determinant as a positive sum over
-choices of
+Heine’s identity expresses the determinant as a positive sum of squared
+Vandermondes over choices of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
-nodes, with a squared Vandermonde for each choice <span class="citation"
-data-cites="zudilin2017det"><a href="#ref-7">[7]</a></span>. The first
+nodes <span class="citation" data-cites="zudilin2017det"><a href="#ref-7">[7]</a></span>. The
+first
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
-nodes give a natural normalisation, not an asymptotically complete
-answer: moving just the last node leaves a contribution of comparable
-size. We encode the displacements by partitions. A fixed partition moves
-only finitely many high-index nodes, where the weight ratios tend to
+nodes normalise this sum but do not exhaust it; moving the last node
+gives a comparable contribution. Partitions encode all such
+displacements. For each fixed partition, only finitely many weight
+ratios change, at indices tending to infinity, so those ratios tend to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
 A summable bound independent of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
-controls the sum over all partitions. After division by the first-node
-contribution, the limit therefore agrees with the constant-weight case,
-which Cauchy’s determinant formula evaluates exactly.</p>
-<p>The remaining calculation concerns the weights. Their factorisation
+then makes the whole normalised sum asymptotically independent of the
+weights. Cauchy’s determinant formula evaluates its limit in the
+constant-weight case.</p>
+<p>The weights retain a different contribution. Their factorisation
 involves two-fold and three-fold convolutions of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">1/(q;q)_k</annotation></semantics></math>,
-with first relative corrections
+with relative corrections
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-2F(1/q)/(k+1)</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>6</mn><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-6F(1/q)/(k+2)</annotation></semantics></math>.
-Taking logarithms turns these corrections into a harmonic sum, giving
+In the logarithm of the weight product these give a harmonic sum, hence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>N</mi><mrow><mi>−</mi><mn>8</mn><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">N^{-8F(1/q)}</annotation></semantics></math>;
-the summable errors affect only the constant. Theorem 2.1 isolates the
-determinant argument from this coefficient calculation; it also
-evaluates the determinant with entries
+the summable errors affect only the constant. Theorem 2.1 separates the
+determinant argument from this calculation and also treats entries
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>q</mi><mrow><mi>i</mi><mo>+</mo><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(1-q^{i+j+1})^{-2}</annotation></semantics></math>.</p>
 <p>Chowla’s conjecture, recorded by Erdős <span class="citation"
 data-cites="erdos1988"><a href="#ref-1">[1]</a></span>, asks whether
@@ -136,11 +133,9 @@ which lies outside the earlier sufficient region of Bundschuh and
 Väänänen <span class="citation" data-cites="bv1994"><a href="#ref-2">[2]</a></span>. Neither
 argument here settles
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>.</p>
-<p>Section 2 proves the general determinant formula. Section 3
-constructs the weights and proves Theorem 1.1. The rational-base
-argument is self-contained in Section 4, with longer calculations and
-complementary questions linked in Section 5. All logarithms are natural,
-empty products and determinants equal
+<p>Sections 2–3 prove Theorem 1.1; Section 4 gives the independent
+arithmetic argument. Section 5 links further questions to the companion.
+All logarithms are natural, empty products and determinants equal
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
 and constants in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>⋅</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_q(\cdot)</annotation></semantics></math>
@@ -181,13 +176,14 @@ Thus
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>D</mi><mi>N</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>∼</mo><mi mathvariant="script">ℳ</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>3</mn></msup><msup><mi>q</mi><msub><mi>B</mi><mi>N</mi></msub></msup><msup><mi>P</mi><mrow><mn>2</mn><mi>N</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:cauchy-model-limit}
  D_N^{(0)}\sim\mathcal M(q)^3q^{B_N}P^{2N}.
-\end{equation}</annotation></semantics></math> Under the following
-hypotheses, replacing the constant weights by
+\end{equation}</annotation></semantics></math> Replacing the constant
+weights by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>k</mi></msub><annotation encoding="application/x-tex">a_k</annotation></semantics></math>
-multiplies the asymptotic by
+will contribute
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∏</mo><mrow><mi>k</mi><mo>&lt;</mo><mi>N</mi></mrow></msub><msub><mi>a</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\prod_{k&lt;N}a_k</annotation></semantics></math>.
-The ratio limit controls each fixed displacement of a node, while the
-polynomial bound controls the sum over all displacements.</p>
+The two hypotheses below do different jobs: the ratio limit handles each
+fixed displacement; the polynomial bound permits summation over all
+displacements.</p>
 <div class="theorem" id="thm:geometric-moments">
 <p><strong>Theorem 2.1</strong> (geometric moment determinants). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>q</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;q&lt;1</annotation></semantics></math>
@@ -235,7 +231,21 @@ and summing the moments gives
 \label{eq:squared-cauchy-example}
  \det\left(\frac1{(1-q^{i+j+1})^2}\right)_{0\le i,j&lt;N}
  \sim\mathcal M(q)^3N!q^{B_N}P^{2N}.
-\end{equation}</annotation></semantics></math></p>
+\end{equation}</annotation></semantics></math> The polynomial bound
+excludes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>k</mi></msub><mo>=</mo><msup><mi>e</mi><msqrt><mi>k</mi></msqrt></msup></mrow><annotation encoding="application/x-tex">a_k=e^{\sqrt{k}}</annotation></semantics></math>,
+although its adjacent ratio tends to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
+The companion’s <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-ratio-extension">ordinary
+ratio-limit argument</a> allows
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>a</mi><mi>k</mi></msub><mo>→</mo><mi>ρ</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msup><mi>q</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a_{k+1}/a_k\to\rho\in(0,q^{-1})</annotation></semantics></math>
+and, at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\rho=1</annotation></semantics></math>,
+gives <code>[eq:geometric-limit]</code> without that bound. This broader
+claim remains unformalised and is not used here: the theorem and its
+applications retain both hypotheses in
+<code>[eq:automatic-shift-bound]</code>.</p>
 <div class="proof">
 <p><em>Proof of Theorem 2.1.</em> The bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>h</mi></msub><mo>≤</mo><mi>C</mi><msub><mi>a</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>h</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>κ</mi></msup></mrow><annotation encoding="application/x-tex">a_h\le Ca_0(1+h)^\kappa</annotation></semantics></math>
@@ -243,10 +253,9 @@ makes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow></msub><msub><mi>a</mi><mi>k</mi></msub><msup><mi>q</mi><mi>k</mi></msup><msub><mi>δ</mi><msup><mi>q</mi><mi>k</mi></msup></msub></mrow><annotation encoding="application/x-tex">\sum_{k\ge0}a_kq^k\delta_{q^k}</annotation></semantics></math>
 a finite positive measure with moments
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>m</mi></msub><annotation encoding="application/x-tex">M_m</annotation></semantics></math>.
-Truncate it to finitely many atoms and apply Cauchy–Binet. As the
-truncation grows, the matrix entries converge, hence so does the
-determinant; the tuple sum increases because its terms are nonnegative.
-We obtain
+Apply Cauchy–Binet to its finite truncations. The entries, hence the
+determinants, converge; the nonnegative tuple sums increase. Passing to
+the limit gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>N</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mn>0</mn><mo>≤</mo><msub><mi>k</mi><mn>0</mn></msub><mo>&lt;</mo><mi>⋯</mi><mo>&lt;</mo><msub><mi>k</mi><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow></munder><munder><mo>∏</mo><mrow><mi>i</mi><mo>&lt;</mo><mi>N</mi></mrow></munder><msub><mi>a</mi><msub><mi>k</mi><mi>i</mi></msub></msub><msup><mi>q</mi><msub><mi>k</mi><mi>i</mi></msub></msup><munder><mo>∏</mo><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi><mo>&lt;</mo><mi>N</mi></mrow></munder><mo stretchy="false" form="prefix">(</mo><msup><mi>q</mi><msub><mi>k</mi><mi>i</mi></msub></msup><mo>−</mo><msup><mi>q</mi><msub><mi>k</mi><mi>j</mi></msub></msup><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:heine-geometric}
  D_N=\sum_{0\le k_0&lt;\cdots&lt;k_{N-1}}
@@ -268,12 +277,10 @@ The ratio of its contribution to that of the original tuple is
  =q\frac{a_N}{a_{N-1}}\left(\frac{1-q^N}{1-q}\right)^2
  \longrightarrow\frac{q}{(1-q)^2}.
 \end{equation}</annotation></semantics></math> Only pairs involving the
-moved node change, so the product telescopes. At
+moved node change, and their product telescopes. At
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">q=1/2</annotation></semantics></math>
-the limiting ratio is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>:
-the displaced tuple contributes twice as much asymptotically as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1,\ldots,N-1)</annotation></semantics></math>.</p>
+the displaced tuple is asymptotically twice as large as the normalising
+tuple.</p>
 <p>Subtracting
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1,\ldots,N-1)</annotation></semantics></math>
 gives the shifts
@@ -304,41 +311,31 @@ W_N(\mu)={}&amp;q^{\sum_{j\le N}(2j-1)\mu_j}
 &amp;\hspace{2mm}\cdot\prod_{1\le j&lt;k\le N}
 \left(\frac{1-q^{k-j+\mu_j-\mu_k}}{1-q^{k-j}}\right)^2.
 \end{split}
-\end{equation}$$</span> Here “from the right” refers to the increasing
-indices
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mi>i</mi></msub><annotation encoding="application/x-tex">k_i</annotation></semantics></math>;
-the nodes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><msub><mi>k</mi><mi>i</mi></msub></msup><annotation encoding="application/x-tex">q^{k_i}</annotation></semantics></math>
-themselves decrease towards zero. The
+\end{equation}$$</span> The
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>th
-index from the right contributes once through
+index from the right enters once through the mass
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><msub><mi>k</mi><mi>i</mi></msub></msup><annotation encoding="application/x-tex">q^{k_i}</annotation></semantics></math>
 and twice through each of its
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j-1</annotation></semantics></math>
-pairs with later indices in the squared Vandermonde. Its displacement
-therefore has exponent
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>j</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1+2(j-1)=2j-1</annotation></semantics></math>.</p>
+pairs with later indices. This gives the exponent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>j</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1+2(j-1)=2j-1</annotation></semantics></math>.
+“Right” refers to increasing indices, not to the nodes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><msub><mi>k</mi><mi>i</mi></msub></msup><annotation encoding="application/x-tex">q^{k_i}</annotation></semantics></math>,
+which decrease towards zero.</p>
 <p>Set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">W_N(\mu)=0</annotation></semantics></math>
-when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
-has more than
+for partitions with more than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
-positive parts, so that every sum has the same index set. Fix a
-partition with
+positive parts, giving every sum the same index set. A fixed partition
+with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>
-positive parts. It affects only the last
+positive parts affects only the last
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>
 indices of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1,\ldots,N-1)</annotation></semantics></math>:
-for instance,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(2,1)</annotation></semantics></math>
-affects the last two for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N\ge2</annotation></semantics></math>.
-Those indices tend to infinity, so the weight ratios in
-<code>[eq:partition-summand]</code> tend to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-by the fixed-shift hypothesis.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1,\ldots,N-1)</annotation></semantics></math>.
+These indices tend to infinity while their displacements stay fixed, so
+the weight ratios in <code>[eq:partition-summand]</code> tend to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.</p>
 <p>The Vandermonde quotient still contains a growing number of factors,
 but its dependence on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
@@ -362,21 +359,18 @@ the remaining factors satisfy
 \end{equation}</annotation></semantics></math> Thus each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">W_N(\mu)</annotation></semantics></math>
 has the same limit as for constant weights.</p>
-<p>To pass this limit through the sum over partitions, we need a bound
-independent of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
-that remains summable as both the number and size of the parts grow.
-Only factors with
+<p>The fixed-partition limit does not yet control partitions whose
+length or parts grow with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+For a uniform bound, group the Vandermonde factors by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.
+Only
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≤</mo><mi>ℓ</mi></mrow><annotation encoding="application/x-tex">j\le\ell</annotation></semantics></math>
-can differ from
+contribute; each group’s denominator product is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+and its numerator product at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
-For each such
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>,
-the denominator product in the Vandermonde quotient is at least
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>,
-and its numerator product is at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
-Together with the polynomial shift bound, this gives
+The polynomial shift bound therefore gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>C</mi><msup><mi>P</mi><mrow><mi>−</mi><mn>2</mn></mrow></msup><msup><mo stretchy="false" form="postfix">)</mo><mi>ℓ</mi></msup><munderover><mo>∏</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>ℓ</mi></munderover><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msub><mi>μ</mi><mi>j</mi></msub><msup><mo stretchy="false" form="postfix">)</mo><mi>κ</mi></msup><msup><mi>q</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>j</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>μ</mi><mi>j</mi></msub></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">W_N(\mu)\le(CP^{-2})^\ell
  \prod_{j=1}^\ell(1+\mu_j)^\kappa q^{(2j-1)\mu_j}.</annotation></semantics></math>
 Let
@@ -391,29 +385,28 @@ Dropping the ordering of the positive parts, we obtain
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>j</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>u</mi></mrow></msup><mo>≤</mo><msup><mi>q</mi><mrow><mn>2</mn><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msup><msup><mi>q</mi><mrow><mi>u</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">q^{(2j-1)u}\le q^{2j-1}q^{u-1}</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>3</mn><mo>+</mo><mi>⋯</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>ℓ</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>ℓ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">1+3+\cdots+(2\ell-1)=\ell^2</annotation></semantics></math>.
-Each positive part pays at least its displacement exponent
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>j</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2j-1</annotation></semantics></math>.
-Their combined cost
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><msup><mi>ℓ</mi><mn>2</mn></msup></msup><annotation encoding="application/x-tex">q^{\ell^2}</annotation></semantics></math>
-dominates the exponential factor
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>C</mi><msup><mi>P</mi><mrow><mi>−</mi><mn>2</mn></mrow></msup><mi>A</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>ℓ</mi></msup></mrow><annotation encoding="application/x-tex">(CP^{-2}A)^\ell</annotation></semantics></math>,
-so the bound is summable over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>,
-independently of
+The size of each part is absorbed in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>;
+their number is controlled by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><msup><mi>ℓ</mi><mn>2</mn></msup></msup><annotation encoding="application/x-tex">q^{\ell^2}</annotation></semantics></math>,
+which dominates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>C</mi><msup><mi>P</mi><mrow><mi>−</mi><mn>2</mn></mrow></msup><mi>A</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>ℓ</mi></msup></mrow><annotation encoding="application/x-tex">(CP^{-2}A)^\ell</annotation></semantics></math>.
+Thus the bound is summable over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>
+and independent of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.</p>
-<p>Dominated convergence now shows that
+<p>Dominated convergence gives the same limit for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>μ</mi></msub><msub><mi>W</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_\mu W_N(\mu)</annotation></semantics></math>
-has the same limit as for
+as for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>k</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_k=1</annotation></semantics></math>.
-We need not evaluate the limiting partition sum directly: by
-<code>[eq:cauchy-model]</code>, it is
+Equation <code>[eq:cauchy-model]</code> evaluates that limit as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℳ</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal M(q)</annotation></semantics></math>,
-the reciprocal Cauchy denominator after division by the principal tuple.
-The other two copies of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℳ</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal M(q)</annotation></semantics></math>
-come from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mi>N</mi></msub><mi>/</mi><msup><mi>P</mi><mrow><mn>2</mn><mi>N</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\Delta_N/P^{2N}</annotation></semantics></math>.
-Restoring the principal tuple thus gives
+without a separate partition identity. Restoring the normalising tuple
+supplies the weight product and, through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mi>N</mi></msub><mi>/</mi><msup><mi>P</mi><mrow><mn>2</mn><mi>N</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\Delta_N/P^{2N}</annotation></semantics></math>,
+the other two copies of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℳ</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal M(q)</annotation></semantics></math>.
+Hence
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>D</mi><mi>N</mi></msub><mrow><msubsup><mi>D</mi><mi>N</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><munder><mo>∏</mo><mrow><mi>k</mi><mo>&lt;</mo><mi>N</mi></mrow></munder><msub><mi>a</mi><mi>k</mi></msub></mrow></mfrac><mo>→</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{D_N}{D_N^{(0)}\prod_{k&lt;N}a_k}\longrightarrow1.</annotation></semantics></math>
 Combining this limit with <code>[eq:cauchy-model-limit]</code> proves
 the theorem. ◻</p>
@@ -455,15 +448,12 @@ For the analytic identity, we use the absence of denominator zeros in
 that disc and the locally uniform bounds on the product tails. The
 factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>w</mi><mi>t</mi></msup><annotation encoding="application/x-tex">w^t</annotation></semantics></math>
-then gives locally uniform convergence of the sum. The product formula
-for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mi>q</mi></msub><annotation encoding="application/x-tex">G_q</annotation></semantics></math>
-does not yet make the signs of its coefficients evident. We need
-positive weights, control of their shifted ratios, and enough precision
-to multiply the first
+then gives locally uniform convergence of the sum. The signs of the
+coefficients are not evident from this product. The finite factorisation
+below gives positive weights and a uniform shift bound. Its two
+convolutions then give the accuracy needed to multiply the first
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
-weights. The finite factorisation below supplies positivity and the
-ratio bound; its two convolutions then supply the precision.</p>
+weights.</p>
 <section id="sec:weight-factorisation" class="level3">
 <h3>Positive weights</h3>
 <p>For
@@ -625,27 +615,21 @@ gives
 The shift bound follows from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>k</mi><mo>+</mo><mi>h</mi></mrow></msub><mi>/</mi><msub><mi>c</mi><mi>k</mi></msub><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>h</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">c_{k+h}/c_k\le(1+h)^3</annotation></semantics></math>. ◻</p>
 </div>
-<p>The positivity here is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a_k(q)&gt;0</annotation></semantics></math>
-at each fixed real
+<p>Positivity holds at each fixed real
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">q\in(0,1)</annotation></semantics></math>,
-not coefficientwise positivity of its formal
+not coefficientwise in the formal
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-series:
-already
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>P</mi><mn>4</mn></msup><mo>=</mo><mn>1</mn><mo>−</mo><mn>4</mn><mi>q</mi><mo>+</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>q</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a_0(q)=P^4=1-4q+O(q^2)</annotation></semantics></math>.
-The bounds prove the uniform shift estimate, but replacing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>k</mi></msub><annotation encoding="application/x-tex">a_k</annotation></semantics></math>
-by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>k</mi></msub><annotation encoding="application/x-tex">c_k</annotation></semantics></math>
-in a product of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
-terms requires greater accuracy. A relative error of order
+The bounds control shifted ratios, but do not determine the weight
+product. A relative error of order
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">1/k</annotation></semantics></math>
-accumulates logarithmically; an error of order
+accumulates logarithmically; one of order
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><msup><mi>k</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">1/k^2</annotation></semantics></math>
-is summable. We therefore compute
+is summable. Computing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>k</mi></msub><mi>/</mi><msub><mi>c</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">a_k/c_k</annotation></semantics></math>
-to first order. This also gives the fixed-shift limit.</p>
+to first order will therefore determine the power of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+and give the fixed-shift limit.</p>
 </section>
 <section id="sec:coefficient-asymptotic" class="level3">
 <h3>The coefficient asymptotic</h3>
@@ -659,27 +643,22 @@ Replacing every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>e</mi><mi>k</mi></msub><annotation encoding="application/x-tex">e_k</annotation></semantics></math>
 by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
-in the two convolution sums gives
+gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>E</mi><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E^2(k+1)</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>E</mi><mn>3</mn></msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E^3\binom{k+2}{2}</annotation></semantics></math>.
-The factors
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k+1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\binom{k+2}{2}</annotation></semantics></math>
-count nonnegative pairs and triples with sum
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>E</mi><mn>3</mn></msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E^3\binom{k+2}{2}</annotation></semantics></math>,
+counting nonnegative pairs and triples with sum
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.
-For a fixed
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
-one pair and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>−</mo><mi>i</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k-i+1</annotation></semantics></math>
-triples have first coordinate
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
-Consequently, the summable differences
+Terms with one deficit
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>−</mo><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">E-e_i</annotation></semantics></math>
-produce a constant correction in the two-fold convolution and a linear
-correction in the three-fold convolution. The terms containing two or
-more such differences contribute to the error bounds below.</p>
+give the first correction. That coordinate has two possible positions in
+a pair and three in a triple; fixing it at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+leaves one pair or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>−</mo><mi>i</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k-i+1</annotation></semantics></math>
+triples. Thus the same total deficit produces a constant correction in
+the first convolution and a linear correction in the second. We
+calculate it and control its first moment.</p>
 <p>Writing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>k</mi></msub><mo>=</mo><mi>E</mi><mo>−</mo><msub><mi>e</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">d_k=E-e_k</annotation></semantics></math>,
 the identity
@@ -736,31 +715,27 @@ and the term with three is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><msup><mi>q</mi><mi>k</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_q((k+1)^2q^k)</annotation></semantics></math>.
 It follows that
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>b</mi><mi>k</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>=</mo><msup><mi>E</mi><mn>3</mn></msup><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mn>3</mn><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>O</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">b_k^{(3)}=E^3\left(\binom{k+2}{2}-3L(k+1)\right)+O_q(1).</annotation></semantics></math>
-Dividing the correction
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>3</mn><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-3L(k+1)</annotation></semantics></math>
-by the leading term
+Division by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\binom{k+2}{2}</annotation></semantics></math>
-gives the relative correction
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>6</mn><mi>L</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-6L/(k+2)</annotation></semantics></math>.
-The two-fold convolution contributes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn><mi>L</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-2L/(k+1)</annotation></semantics></math>
-in the same way. Since
+turns
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>3</mn><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-3L(k+1)</annotation></semantics></math>
+into the relative correction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>6</mn><mi>L</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-6L/(k+2)</annotation></semantics></math>;
+the two-fold sum gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn><mi>L</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-2L/(k+1)</annotation></semantics></math>.
+Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msub><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msub><mi>O</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>q</mi><mi>k</mi></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(q;q)_k=P(1+O_q(q^k))</annotation></semantics></math>,
 the leading constants in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>k</mi></msub><mo>=</mo><msup><mi>P</mi><mn>4</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msub><msubsup><mi>b</mi><mi>k</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><msubsup><mi>b</mi><mi>k</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow></msubsup></mrow><annotation encoding="application/x-tex">a_k=P^4(q;q)_k b_k^{(2)}b_k^{(3)}</annotation></semantics></math>
-multiply to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>k</mi></msub><annotation encoding="application/x-tex">a_k</annotation></semantics></math>
+cancel:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>P</mi><mn>5</mn></msup><msup><mi>E</mi><mn>5</mn></msup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">P^5E^5=1</annotation></semantics></math>.
 Replacing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(k+2)^{-1}</annotation></semantics></math>
 by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(k+1)^{-1}</annotation></semantics></math>
-changes only the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>2</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_q((k+1)^{-2})</annotation></semantics></math>
-error. Thus the coefficients
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>L</mi></mrow><annotation encoding="application/x-tex">2L</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mi>L</mi></mrow><annotation encoding="application/x-tex">6L</annotation></semantics></math>
-add, and with
+costs only
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>2</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_q((k+1)^{-2})</annotation></semantics></math>.
+The two corrections therefore add, and with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>k</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">c_k=(k+1)^2(k+2)/2</annotation></semantics></math>
 we obtain
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mfrac><msub><mi>a</mi><mi>k</mi></msub><msub><mi>c</mi><mi>k</mi></msub></mfrac></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mfrac><mrow><mn>2</mn><mi>L</mi></mrow><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></mfrac><mo>+</mo><msub><mi>O</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>q</mi><mi>k</mi></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mfrac><mrow><mn>6</mn><mi>L</mi></mrow><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow></mfrac><mo>+</mo><msub><mi>O</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>2</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><msub><mi>O</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>q</mi><mi>k</mi></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><mrow><mn>8</mn><mi>L</mi></mrow><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></mfrac><mo>+</mo><msub><mi>O</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>2</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*}
@@ -790,8 +765,8 @@ denote Euler’s constant and put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>u</mi><mo>+</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>u</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(1+u)=u+O(u^2)</annotation></semantics></math>
 gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>k</mi></msub><mi>/</mi><msub><mi>c</mi><mi>k</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>8</mn><mi>L</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>O</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>2</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(a_k/c_k)+8L/(k+1)=O_q((k+1)^{-2})</annotation></semantics></math>.
-This summable tail makes the product converge to a nonzero limit; the
-finitely many initial factors are positive by Proposition 3.1. Hence
+This tail is summable, and the finitely many initial factors are
+positive by Proposition 3.1. Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi mathvariant="script">𝒜</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">0&lt;\mathcal A(q)&lt;\infty</annotation></semantics></math>.
 Using
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∏</mo><mrow><mi>k</mi><mo>&lt;</mo><mi>N</mi></mrow></msub><msub><mi>c</mi><mi>k</mi></msub><mo>=</mo><msub><mi>C</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\prod_{k&lt;N}c_k=C_N</annotation></semantics></math>,
@@ -810,19 +785,16 @@ equivalently
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msubsup><mi>V</mi><mi>N</mi><mo>*</mo></msubsup><mo>=</mo><msub><mi>B</mi><mi>N</mi></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi><mo>+</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>C</mi><mi>N</mi></msub><mo>+</mo><mn>2</mn><mi>N</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>P</mi><mo>−</mo><mn>8</mn><mi>L</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo>+</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\log V_N^*=B_N\log q+\log C_N+2N\log P
              -8L\log N+\log K(q)+o(1).</annotation></semantics></math> ◻</p>
 </div>
-<p>The logarithmic formula separates the scales:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi>N</mi></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">B_N\log q</annotation></semantics></math>
-is cubic in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
+<p>The scales are now separate: the node geometry gives the cubic term
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi>N</mi></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">B_N\log q</annotation></semantics></math>;
+the cubic growth of the weights gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>C</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\log C_N</annotation></semantics></math>
-has order
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N\log N</annotation></semantics></math>,
-and the remaining terms are linear, logarithmic and constant. The cubic
-weights give
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>N</mi></msub><annotation encoding="application/x-tex">C_N</annotation></semantics></math>;
+of order
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N\log N</annotation></semantics></math>;
 their first relative correction gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>N</mi><mrow><mi>−</mi><mn>8</mn><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">N^{-8F(1/q)}</annotation></semantics></math>.
-That correction refines the size without changing the cubic rate.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>8</mn><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">-8F(1/q)\log N</annotation></semantics></math>.
+The other terms are linear and constant. In particular, the power
+correction does not change the cubic rate.</p>
 </section>
 <section id="sec:hankel-order" class="level3">
 <h3>The first nonzero formal term</h3>
@@ -904,16 +876,19 @@ companion paper</a>.</p>
 </section>
 <section id="sec:rational-base-irrationality" class="level2">
 <h2>Rational bases</h2>
-<p>We now use the 2004 coefficient family. If
+<p>We now use the 2004 coefficient family. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>,</mo><mi>V</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">U,V\in\mathbb{Z}[X]</annotation></semantics></math>
-have degree at most
+of degree at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math>,
-evaluation at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">a/b</annotation></semantics></math>
-requires the factor
+multiplying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">U(a/b)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V(a/b)</annotation></semantics></math>
+by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>b</mi><mi>W</mi></msup><annotation encoding="application/x-tex">b^W</annotation></semantics></math>
-to produce integer coefficients. A common polynomial factor should
-therefore be cancelled first. For example, at
+makes them integers. This is a sufficient clearing factor, not in
+general the smallest one. Cancelling a common nonconstant polynomial
+factor first lowers the degree bound. For example, at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>
 the pair
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(X+1)(X+2),(X+1)(X+3)</annotation></semantics></math>
@@ -927,39 +902,40 @@ clearing to degree
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
 gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>7</mn><mo>,</mo><mn>9</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(7,9)</annotation></semantics></math>.
-For Zudilin’s forms, the degrees are of quadratic order in the index
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
-Write
+For Zudilin’s forms, let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mi>n</mi></msub><annotation encoding="application/x-tex">K_n</annotation></semantics></math>
-for the degree of the original coefficient and
+be the original coefficient degree and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>W</mi><mi>n</mi></msub><annotation encoding="application/x-tex">W_n</annotation></semantics></math>
-for its degree after cancellation. The cancelled remainder has leading
-size
+its degree after cancellation; both grow quadratically with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
+The uncancelled remainder stays between positive constants. The
+normalising multiplier creates the decay, with leading scale
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>x</mi><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>W</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">x^{-(K_n-W_n)}</annotation></semantics></math>
-at a fixed real base
+at fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x&gt;1</annotation></semantics></math>.
-At
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">x=a/b</annotation></semantics></math>,
-clearing the coefficients therefore has the balance
+Clearing at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">x=a/b</annotation></semantics></math>
+then gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><msub><mi>W</mi><mi>n</mi></msub></msup><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>W</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>=</mo><mfrac><msup><mi>b</mi><msub><mi>K</mi><mi>n</mi></msub></msup><msup><mi>a</mi><mrow><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>W</mi><mi>n</mi></msub></mrow></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:degree-balance}
  b^{W_n}(a/b)^{-(K_n-W_n)}
  =\frac{b^{K_n}}{a^{K_n-W_n}}.
-\end{equation}</annotation></semantics></math> The proof below shows
-that the remaining factors contribute only
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(n^2)</annotation></semantics></math>
-to the logarithm. Hence the limits
+\end{equation}</annotation></semantics></math> Net degree removal is
+therefore measured in powers of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>,
+while the original degree costs powers of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>.
+The remaining logarithmic terms are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(n^2)</annotation></semantics></math>,
+so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>n</mi></msub><mi>/</mi><msup><mi>n</mi><mn>2</mn></msup><mo>→</mo><msub><mi>C</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">K_n/n^2\to C_1</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>W</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mi>n</mi><mn>2</mn></msup><mo>→</mo><msub><mi>C</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">(K_n-W_n)/n^2\to C_0</annotation></semantics></math>
-give the sufficient inequality
+give
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>b</mi><mo>&lt;</mo><msub><mi>C</mi><mn>0</mn></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">C_1\log b&lt;C_0\log a</annotation></semantics></math>.
-We first justify cancellation in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\mathbb{Z}[X]</annotation></semantics></math>
-and calculate the degrees, before specialising
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">a/b</annotation></semantics></math>.</p>
+The proof must establish both the degree estimates and cancellation in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\mathbb{Z}[X]</annotation></semantics></math>,
+before evaluation.</p>
 <p>We use the parameter direction from Zudilin’s construction <span
 class="citation" data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>, together with its
 thirteen intervals and constants
@@ -1009,37 +985,28 @@ be coprime integers with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(a/b)</annotation></semantics></math>
 is irrational.</em></p>
 </div>
-<p>The condition holds for every integer base, since
+<p>Every integer base qualifies, since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b=1</annotation></semantics></math>
 gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>b</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>a</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\log b/\log a=0</annotation></semantics></math>.
-For a fixed denominator
+For each fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b&gt;1</annotation></semantics></math>,
-it requires
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><msup><mi>b</mi><mrow><mn>2.46497868</mn><mi>…</mi></mrow></msup></mrow><annotation encoding="application/x-tex">a&gt;b^{2.46497868\ldots}</annotation></semantics></math>,
-much more than
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a&gt;b</annotation></semantics></math>;
-nevertheless it gives infinitely many reduced noninteger rational bases
-for each such
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>.
-The base
+the restriction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><msup><mi>b</mi><mrow><mn>2.46497868</mn><mi>…</mi></mrow></msup></mrow><annotation encoding="application/x-tex">a&gt;b^{2.46497868\ldots}</annotation></semantics></math>
+is much stronger than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a&gt;b</annotation></semantics></math>,
+but still admits infinitely many coprime numerators. It includes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>31</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">31/4</annotation></semantics></math>
-satisfies the condition, and taking a common positive integer power of
-the numerator and denominator leaves their logarithmic ratio unchanged.
-Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>θ</mi><mo>*</mo></msup><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo>&lt;</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">\theta^*&lt;1/2&lt;\log2/\log3</annotation></semantics></math>,
-the condition fails at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>.
-At equality
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>b</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>a</mi><mo>=</mo><msup><mi>θ</mi><mo>*</mo></msup></mrow><annotation encoding="application/x-tex">\log b/\log a=\theta^*</annotation></semantics></math>
-the quadratic exponent vanishes, so the estimates below give no
+and its positive integral powers, whose logarithmic ratio is unchanged.
+It excludes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>,
+since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>θ</mi><mo>*</mo></msup><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo>&lt;</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">\theta^*&lt;1/2&lt;\log2/\log3</annotation></semantics></math>.
+At equality the quadratic exponent vanishes and the estimates give no
 conclusion.</p>
 <div class="proof">
-<p><em>Proof of Theorem 4.1.</em> We first identify the integral
-polynomials obtained by cancellation. We then compute their degrees and
-the size of the cleared remainder, which will justify
-<code>[eq:degree-balance]</code> to quadratic order.</p>
-<p><em>The source forms and polynomial cancellation.</em> Fix
+<p><em>Proof of Theorem 4.1.</em> <em>The source forms and polynomial
+cancellation.</em> Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>
 and set
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>0</mn></msub><mo>=</mo><mn>14</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>a</mi><mn>1</mn></msub><mo>=</mo><mn>12</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>a</mi><mn>2</mn></msub><mo>=</mo><mn>14</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><mspace width="1.0em"></mspace><mi>β</mi><mo>=</mo><mn>27</mn><mi>n</mi><mo>+</mo><mn>2</mn><mo>,</mo><mspace width="2.0em"></mspace><mi>N</mi><mo>=</mo><mn>15</mn><mi>n</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">a_0=14n+1,\quad a_1=12n+1,\quad a_2=14n+1,\quad\beta=27n+2,
@@ -1091,12 +1058,11 @@ these thirteen intervals and the exponents
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ν</mi><mi>ℓ</mi></msub><mo>=</mo><mi>ω</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>/</mi><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\nu_\ell=\omega(n/\ell)</annotation></semantics></math>
 of the source’s (22) are printed at <span class="citation"
 data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>.</p>
-<p>We first bound the remainder before cancellation. For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x&gt;1</annotation></semantics></math>
-we put
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mn>1</mn><mi>/</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">q=1/x</annotation></semantics></math>
-and use identity (9) on p. 156 of the source, which gives the positive
-representation
+<p>First isolate the part that does not create decay. At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x&gt;1</annotation></semantics></math>,
+put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mn>1</mn><mi>/</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">q=1/x</annotation></semantics></math>.
+Identity (9) on p. 156 of the source gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>t</mi><mo>≥</mo><mn>0</mn></mrow></munder><msup><mi>q</mi><mrow><msub><mi>a</mi><mn>0</mn></msub><mi>t</mi></mrow></msup><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><msup><mi>q</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>−</mo><mn>1</mn></mrow></msub></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>−</mo><mn>1</mn></mrow></msub></mrow></mfrac><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>β</mi><mo>−</mo><msub><mi>a</mi><mn>2</mn></msub><mo>−</mo><mn>1</mn></mrow></msub></mrow><mrow><mo stretchy="false" form="prefix">(</mo><msup><mi>q</mi><mrow><msub><mi>a</mi><mn>2</mn></msub><mo>+</mo><mi>t</mi></mrow></msup><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>β</mi><mo>−</mo><msub><mi>a</mi><mn>2</mn></msub></mrow></msub></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">H_n(x)=\sum_{t\ge0}q^{a_0t}
  \frac{(q^{t+1};q)_{a_1-1}}{(q;q)_{a_1-1}}
  \frac{(q;q)_{\beta-a_2-1}}{(q^{a_2+t};q)_{\beta-a_2}}.</annotation></semantics></math>
@@ -1108,23 +1074,29 @@ display of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R(T)</annotation></semantics></math>
 on that page has length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>−</mo><msub><mi>a</mi><mn>2</mn></msub><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\beta-a_2-1</annotation></semantics></math>
-instead. Each of the four finite products displayed above lies between
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>∞</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P=(q;q)_\infty&gt;0</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
-so
+instead. Each finite product lies in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>P</mi><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[P,1]</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>∞</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P=(q;q)_\infty&gt;0</annotation></semantics></math>.
+The
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math>
+term gives the lower bound; summing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><mrow><msub><mi>a</mi><mn>0</mn></msub><mi>t</mi></mrow></msup><annotation encoding="application/x-tex">q^{a_0t}</annotation></semantics></math>
+gives the upper bound:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>P</mi><mn>2</mn></msup><mo>≤</mo><msub><mi>H</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mfrac><msup><mi>P</mi><mrow><mi>−</mi><mn>2</mn></mrow></msup><mrow><mn>1</mn><mo>−</mo><msup><mi>q</mi><msub><mi>a</mi><mn>0</mn></msub></msup></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P^2\le H_n(x)\le\frac{P^{-2}}{1-q^{a_0}}.</annotation></semantics></math>
 In particular
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_n(x)&gt;0</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>H</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>O</mi><mi>x</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log H_n(x)=O_x(1)</annotation></semantics></math>.</p>
-<p>To identify the integral polynomials we use the inclusion in
-Zudilin’s Lemma 7, display (23) <span class="citation"
-data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>. The proof compares the cyclotomic
-valuations of the coefficient polynomials under six admissible parameter
-permutations, and gives the divisibility in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\mathbb{Z}[X]</annotation></semantics></math>
-that we need before evaluation. Its parameter vector is
+<p>The required polynomial integrality is the inclusion in Zudilin’s
+Lemma 7, display (23) <span class="citation"
+data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>. Its comparison of cyclotomic
+valuations under six admissible parameter permutations gives
+divisibility in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\mathbb{Z}[X]</annotation></semantics></math>,
+not merely at integer values of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>.
+Its parameter vector is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mn>13</mn><mo>,</mo><mn>14</mn><mo>,</mo><mn>12</mn><mo>,</mo><mn>14</mn><mo>,</mo><mn>15</mn><mo>,</mo><mn>13</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n(13,14,12,14,15,13)</annotation></semantics></math>,
 its maximum is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>15</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">15n</annotation></semantics></math>,
@@ -1221,30 +1193,28 @@ is Euler’s totient function, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ν</mi><mn>1</mn></msub><mo>=</mo><mi>ω</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\nu_1=\omega(n)=0</annotation></semantics></math>.
 In particular,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>W</mi><mi>n</mi></msub><mo>=</mo><msub><mi>M</mi><mi>n</mi></msub><mo>−</mo><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>D</mi><mi>N</mi></msub><mi>/</mi><msub><mi mathvariant="normal">Ω</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">K_n-W_n=M_n-\deg(D_N/\Omega_n).</annotation></semantics></math>
-Thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>W</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">K_n-W_n</annotation></semantics></math>
-measures the net degree removed by the normalisation: the monomial
-removes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>n</mi></msub><annotation encoding="application/x-tex">M_n</annotation></semantics></math>,
-and the surviving cyclotomic product restores
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>D</mi><mi>N</mi></msub><mi>/</mi><msub><mi mathvariant="normal">Ω</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\deg(D_N/\Omega_n)</annotation></semantics></math>.
-This same net degree governs the remainder decay.</p>
-<p>The bounds for
+The monomial removes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>n</mi></msub><annotation encoding="application/x-tex">M_n</annotation></semantics></math>
+degrees and the surviving cyclotomic product restores
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>D</mi><mi>N</mi></msub><mi>/</mi><msub><mi mathvariant="normal">Ω</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\deg(D_N/\Omega_n)</annotation></semantics></math>;
+their difference is the net removal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>W</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">K_n-W_n</annotation></semantics></math>.</p>
+<p>To determine the other coefficient’s degree, fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">x\to\infty</annotation></semantics></math>.
+The bounds for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>n</mi></msub><annotation encoding="application/x-tex">H_n</annotation></semantics></math>
 are uniform for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">x\ge2</annotation></semantics></math>:
-then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">x\ge2</annotation></semantics></math>,
+since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>≥</mo><msub><mo>∏</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P\ge\prod_{j\ge1}(1-2^{-j})&gt;0</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>x</mi><mrow><mi>−</mi><msub><mi>a</mi><mn>0</mn></msub></mrow></msup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">(1-x^{-a_0})^{-1}\le2</annotation></semantics></math>.
-For fixed
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
-therefore,
+Hence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H_n(x)=O(1)</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>x</mi><mrow><msub><mi>W</mi><mi>n</mi></msub><mo>−</mo><msub><mi>K</mi><mi>n</mi></msub></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Lambda_n(x)=O(x^{W_n-K_n})</annotation></semantics></math>
-as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">x\to\infty</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>x</mi><mrow><msub><mi>W</mi><mi>n</mi></msub><mo>−</mo><msub><mi>K</mi><mi>n</mi></msub></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Lambda_n(x)=O(x^{W_n-K_n})</annotation></semantics></math>.
 The unique top summand of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>n</mi></msub><annotation encoding="application/x-tex">A_n</annotation></semantics></math>
 has leading coefficient
@@ -1274,29 +1244,20 @@ Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">U_n(a/b)</annotation></semantics></math>
 has reduced denominator exactly
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>b</mi><msub><mi>W</mi><mi>n</mi></msub></msup><annotation encoding="application/x-tex">b^{W_n}</annotation></semantics></math>,
-the least common clearing denominator for this pair. Every common
-integer divisor of this cleared row is consequently coprime to
+which is the least common clearing denominator for the pair. Any common
+integer divisor of the cleared pair is coprime to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>.
-Thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>b</mi><msub><mi>W</mi><mi>n</mi></msub></msup><annotation encoding="application/x-tex">b^{W_n}</annotation></semantics></math>
-is an exact clearing cost for the chosen pair, not a lower bound for
-every possible approximation: common factors at other primes and
-combinations of different rows remain separate questions.</p>
-<p><em>The quadratic degree limits.</em> The degree calculation kept
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-fixed and let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">x\to\infty</annotation></semantics></math>.
-For the irrationality argument we now keep
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
-fixed and let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">n\to\infty</annotation></semantics></math>.
-We first find the quadratic part of the degree removed by cancellation.
-The limits below are the cyclotomic limits of <span class="citation"
-data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>. The proof uses the argument through
-reciprocal intervals, the summatory totient estimate and the trigamma
-function from the proof of <span class="citation"
-data-cites="zudilin2002"><a href="#ref-3">[3]</a></span>, with an explicit truncation of the
-block sum. The elementary summatory estimate
+This exact cost concerns these coefficients only: common factors at
+other primes and combinations of rows remain separate questions.</p>
+<p><em>The quadratic degree limits.</em> We now keep the base fixed and
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">n\to\infty</annotation></semantics></math>,
+extracting the quadratic part of the net degree removal. These are the
+cyclotomic limits of <span class="citation"
+data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>. We use the reciprocal intervals,
+summatory totient estimate and trigamma function from <span
+class="citation" data-cites="zudilin2002"><a href="#ref-3">[3]</a></span>, truncating the block
+sum before passing to the limit. The elementary summatory estimate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>ℓ</mi><mo>≤</mo><mi>y</mi></mrow></msub><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><msup><mi>y</mi><mn>2</mn></msup><mi>/</mi><msup><mi>π</mi><mn>2</mn></msup><mo>+</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{\ell\le y}\varphi(\ell)=3y^2/\pi^2+O(y\log y)</annotation></semantics></math>
 gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><msup><mi>n</mi><mn>2</mn></msup></mfrac><munder><mo>∑</mo><mrow><mi>ℓ</mi><mo>≤</mo><mn>15</mn><mi>n</mi></mrow></munder><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mfrac><mn>675</mn><msup><mi>π</mi><mn>2</mn></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac1{n^2}\sum_{\ell\le15n}\varphi(\ell)\longrightarrow\frac{675}{\pi^2}.</annotation></semantics></math>
@@ -1308,36 +1269,30 @@ is the disjoint union of intervals
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>ℓ</mi><mo>≤</mo><mi>n</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n/(k+v)&lt;\ell\le n/(k+u)</annotation></semantics></math>
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k\ge0</annotation></semantics></math>.
-We may apply the same summatory estimate term by term to any finite set
-of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.
-If we stop before
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k=K</annotation></semantics></math>,
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">K\ge1</annotation></semantics></math>,
-every omitted block has
+Apply the summatory estimate to finitely many blocks. Instead of summing
+its errors over all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
+bound the omitted blocks together: for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mi>K</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k\ge K\ge1</annotation></semantics></math>,
+all their indices satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>≤</mo><mi>n</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo>+</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\ell\le n/(K+u)</annotation></semantics></math>.
-Thus the elementary bound
+The bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>ℓ</mi><mo>≤</mo><mi>y</mi></mrow></msub><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mi>y</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\sum_{\ell\le y}\varphi(\ell)\le y^2</annotation></semantics></math>
-for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y\ge0</annotation></semantics></math>
-gives the uniform estimate
+gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><msup><mi>n</mi><mn>2</mn></msup></mfrac><munder><mo>∑</mo><mrow><mi>ℓ</mi><mo>≤</mo><mi>n</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo>+</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo></mrow></munder><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mfrac><mn>1</mn><mrow><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo>+</mo><mi>u</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac1{n^2}\sum_{\ell\le n/(K+u)}\varphi(\ell)
- \le\frac1{(K+u)^2}.</annotation></semantics></math> Indeed, for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">y\ge1</annotation></semantics></math>
-one can bound
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(\ell)</annotation></semantics></math>
-by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>
-and sum; for
+ \le\frac1{(K+u)^2}.</annotation></semantics></math> For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">y\ge1</annotation></semantics></math>,
+sum
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>ℓ</mi></mrow><annotation encoding="application/x-tex">\varphi(\ell)\le\ell</annotation></semantics></math>;
+for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>y</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\le y&lt;1</annotation></semantics></math>
-the sum is empty. This bound is uniform in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
-We can now let
+the sum is empty. The tail bound is uniform in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+so we may let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
 and then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
-tend to infinity, obtaining
+tend to infinity:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><msup><mi>n</mi><mn>2</mn></msup></mfrac><munder><mo>∑</mo><mrow><mi>ℓ</mi><mo>≤</mo><mn>15</mn><mi>n</mi></mrow></munder><msub><mi>ν</mi><mi>ℓ</mi></msub><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mfrac><mn>3</mn><msup><mi>π</mi><mn>2</mn></msup></mfrac><munder><mo>∑</mo><mrow><mo stretchy="false" form="prefix">[</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi mathvariant="script">ℐ</mi></mrow></munder><munder><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow></munder><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mi>u</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></mfrac><mo>−</mo><mfrac><mn>1</mn><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mi>v</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mrow><mn>3</mn><mi>J</mi></mrow><msup><mi>π</mi><mn>2</mn></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac1{n^2}\sum_{\ell\le15n}\nu_\ell\varphi(\ell)
  \longrightarrow\frac3{\pi^2}
  \sum_{[u,v)\in\mathcal I}\sum_{k\ge0}
@@ -1349,50 +1304,57 @@ since
 Consequently
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>n</mi></msub><mi>/</mi><msup><mi>n</mi><mn>2</mn></msup><mo>→</mo><msub><mi>C</mi><mn>1</mn></msub><mo>,</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>W</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mi>n</mi><mn>2</mn></msup><mo>→</mo><msub><mi>C</mi><mn>0</mn></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">K_n/n^2\longrightarrow C_1,\qquad
  (K_n-W_n)/n^2\longrightarrow C_0.</annotation></semantics></math></p>
-<p><em>The cleared remainder.</em> We return to a fixed real base
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x&gt;1</annotation></semantics></math>
-and estimate the cyclotomic product. Writing
+<p><em>The cleared remainder.</em> It remains to turn polynomial degrees
+into values at fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x&gt;1</annotation></semantics></math>.
+Writing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mrow><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi></mrow></msub><annotation encoding="application/x-tex">\mu_\mathrm{Mob}</annotation></semantics></math>
 for the Möbius function, we have
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi mathvariant="normal">Φ</mi><mi>ℓ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>x</mi><mo>=</mo><munder><mo>∑</mo><mrow><mi>d</mi><mo>∣</mo><mi>ℓ</mi></mrow></munder><msub><mi>μ</mi><mrow><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>x</mi><mrow><mi>−</mi><mi>ℓ</mi><mi>/</mi><mi>d</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\log\Phi_\ell(x)-\varphi(\ell)\log x
  =\sum_{d\mid\ell}\mu_\mathrm{Mob}(d)\log(1-x^{-\ell/d}).</annotation></semantics></math>
-The total absolute error over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>≤</mo><mn>15</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">\ell\le15n</annotation></semantics></math>
-is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>x</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_x(n)</annotation></semantics></math>,
-since it is at most
+Each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>x</mi><mrow><mi>−</mi><mi>d</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-\log(1-x^{-d})</annotation></semantics></math>
+occurs only for multiples
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
+at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>15</mn><mi>n</mi><mi>/</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">15n/d</annotation></semantics></math>
+times. The total absolute error is therefore at most
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>15</mn><mi>n</mi><munder><mo>∑</mo><mrow><mi>d</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><mi>−</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>x</mi><mrow><mi>−</mi><mi>d</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><mi>d</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">15n\sum_{d\ge1}\frac{-\log(1-x^{-d})}{d}.</annotation></semantics></math>
 The series converges because
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>x</mi><mrow><mi>−</mi><mi>d</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mi>x</mi><mrow><mi>−</mi><mi>d</mi></mrow></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>x</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-\log(1-x^{-d})\le x^{-d}/(1-x^{-1})</annotation></semantics></math>.
-Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mn>1</mn><mo>−</mo><msub><mi>ν</mi><mi>ℓ</mi></msub><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\le1-\nu_\ell\le1</annotation></semantics></math>,
-it follows that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>x</mi><mrow><mi>−</mi><mi>d</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mi>x</mi><mrow><mi>−</mi><mi>d</mi></mrow></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>x</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-\log(1-x^{-d})\le x^{-d}/(1-x^{-1})</annotation></semantics></math>,
+so the error is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>x</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_x(n)</annotation></semantics></math>.
+Using
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mn>1</mn><mo>−</mo><msub><mi>ν</mi><mi>ℓ</mi></msub><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\le1-\nu_\ell\le1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>H</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>O</mi><mi>x</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log H_n(x)=O_x(1)</annotation></semantics></math>
+gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>W</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>x</mi><mo>+</mo><msub><mi>O</mi><mi>x</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\log\Lambda_n(x)=-(K_n-W_n)\log x+O_x(n).</annotation></semantics></math></p>
-<p>We can now clear the denominators at the rational base. Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>n</mi></msub><mo>,</mo><msub><mi>V</mi><mi>n</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">U_n,V_n\in\mathbb{Z}[X]</annotation></semantics></math>
-and their degrees are at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>W</mi><mi>n</mi></msub><annotation encoding="application/x-tex">W_n</annotation></semantics></math>,
-the numbers
+<p>At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">x=a/b</annotation></semantics></math>,
+the coefficients
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><msub><mi>W</mi><mi>n</mi></msub></msup><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">b^{W_n}U_n(a/b)</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><msub><mi>W</mi><mi>n</mi></msub></msup><msub><mi>V</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">b^{W_n}V_n(a/b)</annotation></semantics></math>
-are integers. Moreover
+are integers, and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msup><mi>b</mi><msub><mi>W</mi><mi>n</mi></msub></msup><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><msub><mi>K</mi><mi>n</mi></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>b</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>W</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>a</mi><mo>+</mo><msub><mi>O</mi><mrow><mi>a</mi><mi>/</mi><mi>b</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>C</mi><mn>1</mn></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>b</mi><mo>−</mo><msub><mi>C</mi><mn>0</mn></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>a</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{split}
  \log\bigl(b^{W_n}\Lambda_n(a/b)\bigr)
  &amp;=K_n\log b-(K_n-W_n)\log a+O_{a/b}(n)\\
  &amp;=\bigl(C_1\log b-C_0\log a\bigr)n^2+o(n^2).
-\end{split}</annotation></semantics></math> The coefficient is negative
-under the theorem’s hypothesis, so the cleared forms tend to zero. Their
-positive-series representation also guarantees nonvanishing; no
-independence of two successive forms is needed. If
+\end{split}</annotation></semantics></math> The quadratic coefficient is
+negative under the hypothesis. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>r</mi><mi>/</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">F(a/b)=r/s</annotation></semantics></math>
 with integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>,</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">r,s</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">s\ne0</annotation></semantics></math>,
-every nonzero integer-coefficient form has absolute value at least
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">|</mo><mi>s</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">1/|s|</annotation></semantics></math>.
-The positive forms above eventually violate this bound. ◻</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">s&gt;0</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><msup><mi>b</mi><msub><mi>W</mi><mi>n</mi></msub></msup><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">s b^{W_n}\Lambda_n(a/b)</annotation></semantics></math>
+would be a positive integer tending to zero. This contradiction uses
+positivity of the same remainder, not independence of successive
+forms. ◻</p>
 </div>
 <div class="corollary" id="res:thirtyone-four">
 <p><strong>Corollary 4.2</strong>. <em>
@@ -1441,22 +1403,20 @@ for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r\ge1</annotation></semantics></math>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> We follow the passage from linear forms to an
-exponent bound used by Zudilin at integer bases <span class="citation"
-data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>. Applying the estimates separately at
-each fixed base
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>r</mi></msup></mrow><annotation encoding="application/x-tex">(a/b)^r</annotation></semantics></math>
-will give a bound independent of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>.
-We use the polynomials
+<p><em>Proof.</em> We use Zudilin’s passage from linear forms to an
+exponent bound <span class="citation" data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>,
+at each fixed base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>r</mi></msup></mrow><annotation encoding="application/x-tex">(a/b)^r</annotation></semantics></math>.
+Take
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>n</mi></msub><mo>,</mo><msub><mi>V</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">U_n,V_n</annotation></semantics></math>
-from Theorem 4.1, with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><msub><mi>U</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">W_n=\deg U_n</annotation></semantics></math>.
-For irrationality it was enough that the positive remainders tend to
-zero. To bound the irrationality exponent, we also need a lower bound
-for those remainders and an upper bound for the coefficients. The
-logarithmic remainder asymptotic already gives the former; we now prove
-the latter. In that construction the coefficient of
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><msub><mi>U</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">W_n=\deg U_n</annotation></semantics></math>
+from Theorem 4.1. A measure needs more than positive remainders tending
+to zero: it must bound how small they are relative to their
+coefficients. The logarithmic remainder asymptotic supplies a lower
+bound; we now bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mi>n</mi></msub><annotation encoding="application/x-tex">U_n</annotation></semantics></math>
+above. In that construction the coefficient of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
 before cancellation is a sum of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math>
@@ -1487,18 +1447,12 @@ With
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>Q</mi><mi>n</mi></msub><mi>ξ</mi><mo>−</mo><msub><mi>P</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>τ</mi><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(Q_n\xi-P_n)=-\tau n^2+o(n^2)</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>Q</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mrow><mi mathvariant="normal">exp</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>α</mi><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|Q_n|\le\exp(\alpha n^2+o(n^2))</annotation></semantics></math>.</p>
-<p>In this proof
+<p>Here
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
-now denotes an approximation denominator, not the fixed geometric base
-of Sections 2 and 3. We choose
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mn>2</mn></msup><annotation encoding="application/x-tex">n^2</annotation></semantics></math>
-near
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>τ</mi></mrow><annotation encoding="application/x-tex">(\log q)/\tau</annotation></semantics></math>
-so that the remainder is at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2q)</annotation></semantics></math>
-while the coefficient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>Q</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|Q_n|</annotation></semantics></math>
-remains controlled. The required comparison is elementary. For integers
+denotes an approximation denominator, not the geometric base of
+Sections 2 and 3. The comparison uses the integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>p</mi><mo>−</mo><mi>B</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">Ap-Bq</annotation></semantics></math>,
+allowing it to vanish. For integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi><mo>,</mo><mi>p</mi><mo>,</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">A,B,p,q</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>,
@@ -1508,15 +1462,15 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>q</mi><mo stretchy="false" form="prefix">|</mo><mi>L</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2q|L|\le1</annotation></semantics></math>,
 then
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>L</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mo stretchy="false" form="prefix">|</mo><mi>A</mi><mo stretchy="false" form="prefix">|</mo><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>−</mo><mi>p</mi><mi>/</mi><mi>q</mi><mo stretchy="false" form="prefix">|</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">|L|\le |A|\,|\xi-p/q|.</annotation></semantics></math>
-When
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>p</mi><mo>−</mo><mi>B</mi><mi>q</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Ap-Bq=0</annotation></semantics></math>
-this is equality. Otherwise the nonzero integer
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>p</mi><mo>−</mo><mi>B</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">Ap-Bq</annotation></semantics></math>
-gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>q</mi><mo>≤</mo><mo stretchy="false" form="prefix">|</mo><mi>L</mi><mo stretchy="false" form="prefix">|</mo><mi>+</mi><mo stretchy="false" form="prefix">|</mo><mi>A</mi><mo stretchy="false" form="prefix">|</mo><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>−</mo><mi>p</mi><mi>/</mi><mi>q</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">1/q\le |L|+|A|\,|\xi-p/q|</annotation></semantics></math>,
-which proves the inequality. We fix
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>p</mi><mo>−</mo><mi>B</mi><mi>q</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Ap-Bq=0</annotation></semantics></math>,
+this is equality; otherwise
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>q</mi><mo>≤</mo><mo stretchy="false" form="prefix">|</mo><mi>L</mi><mo stretchy="false" form="prefix">|</mo><mi>+</mi><mo stretchy="false" form="prefix">|</mo><mi>A</mi><mo stretchy="false" form="prefix">|</mo><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>−</mo><mi>p</mi><mi>/</mi><mi>q</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">1/q\le |L|+|A|\,|\xi-p/q|</annotation></semantics></math>
+gives the inequality. Thus no rational
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">p/q</annotation></semantics></math>
+is excluded from the comparison. Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>η</mi><mo>&lt;</mo><mi>τ</mi></mrow><annotation encoding="application/x-tex">0&lt;\eta&lt;\tau</annotation></semantics></math>
-and use the preceding estimates in the form
+and write
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>τ</mi><mo>+</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo><msup><mi>n</mi><mn>2</mn></msup></mrow></msup><mo>≤</mo><msub><mi>Q</mi><mi>n</mi></msub><mi>ξ</mi><mo>−</mo><msub><mi>P</mi><mi>n</mi></msub><mo>≤</mo><msup><mi>e</mi><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>τ</mi><mo>−</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo><msup><mi>n</mi><mn>2</mn></msup></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">|</mo><msub><mi>Q</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><msup><mi>e</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo><msup><mi>n</mi><mn>2</mn></msup></mrow></msup></mrow><annotation encoding="application/x-tex">e^{-(\tau+\eta)n^2}\le Q_n\xi-P_n\le e^{-(\tau-\eta)n^2},
  \qquad |Q_n|\le e^{(\alpha+\eta)n^2}</annotation></semantics></math>
 for all sufficiently large
@@ -1626,49 +1580,38 @@ when
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c&gt;0</annotation></semantics></math>
 computable but unspecified <span class="citation"
-data-cites="zudilin2016"><a href="#ref-5">[5]</a></span>. For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>,
-the specialisation above gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">c=\mu</annotation></semantics></math>,
-the exponent bound of <span class="citation"
-data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>.</p>
+data-cites="zudilin2016"><a href="#ref-5">[5]</a></span>. The value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">c=\mu</annotation></semantics></math>
+here comes from the 2004 forms <span class="citation"
+data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>, not from evaluating the unspecified
+constant in the 2016 construction.</p>
 <p>The positive-remainder estimates require
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x&gt;1</annotation></semantics></math>,
 so they give no statement for negative bases. The series diverges at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x=1</annotation></semantics></math>.
-The companion record also checks the parameters at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">7/2</annotation></semantics></math>
-in its section on Bundschuh and Väänänen’s height criterion. The
-analytic irrationality result used there is their cited theorem.</p>
+The companion’s height-criterion section also applies Bundschuh and
+Väänänen’s cited theorem at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">7/2</annotation></semantics></math>.</p>
 </section>
 </section>
 <section id="sec:open" class="level2">
 <h2>Further questions</h2>
-<p>The determinant result leaves an arithmetic question: how much does
-clearing its coefficient denominators cost? For the elementary integer
-contradiction, the cleared determinants must be nonzero and tend to
-zero. The moment representation proves positivity, not the required
-denominator estimate. The <a
+<p>The determinant asymptotic still needs a coefficient-denominator
+estimate to give an integer contradiction. The companion’s <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-countermodel">rational-value
-model in the companion paper</a> has the same formal orders, leading
-coefficients and type of fixed-base power correction, despite a rational
-target value. Its denominator calculation explains why these analytic
-properties do not produce small nonzero integer forms. The model and
-that calculation have ordinary proofs there and remain unformalised. The
-companion paper also gives an <a
-href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-ratio-extension">ordinary
-argument for the ratio-limit extension</a> under
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>a</mi><mi>k</mi></msub><mo>→</mo><mi>ρ</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msup><mi>q</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a_{k+1}/a_k\to\rho\in(0,q^{-1})</annotation></semantics></math>,
-without the polynomial shift bound in Theorem 2.1. That extension
-remains unformalised.</p>
-<p>A different question concerns the polynomial coefficients of the
-approximants, rather than their remainders. Van Assche’s
+model</a> has the same formal orders, leading coefficients and type of
+fixed-base power correction, but a rational target value. Its
+denominator calculation shows why clearing need not yield small nonzero
+integer forms. The model and its denominator argument have ordinary
+proofs only and are not used above.</p>
+<p>The approximants’ polynomial coefficients pose a separate moment
+problem. The normalisation matters in Van Assche’s
 little-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-Legendre
 construction <span class="citation" data-cites="vanassche2001"><a href="#ref-12">[12]</a></span>
 and the multiple-orthogonality construction of Postelmans and Van Assche
-<span class="citation" data-cites="postelmansvanassche2007"><a href="#ref-13">[13]</a></span> make
-the normalisation important. In the 2016 family, the companion paper
-proves positivity of the first matrix of a coefficient pencil for sizes
+<span class="citation" data-cites="postelmansvanassche2007"><a href="#ref-13">[13]</a></span>. In
+the 2016 family, the companion paper proves positivity of the first
+matrix of a coefficient pencil for sizes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≤</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">N\le8</annotation></semantics></math>,
 with real, interlacing roots below
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(p)</annotation></semantics></math>
@@ -1694,100 +1637,82 @@ data-cites="krvz2009"><a href="#ref-14">[14]</a></span>, for example, concerns a
 construction.</p>
 <section id="sec:round8-transfer-boundaries" class="level3">
 <h3>Congruences and divided forms</h3>
-<p>At
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>,
-a polynomial
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">Q\in\mathbb{Z}[X]</annotation></semantics></math>
 of degree at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math>
-has integral homogenised value
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mn>2</mn><mi>W</mi></msup><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H_W(Q)=2^WQ(3/2)</annotation></semantics></math>.
-Congruences at powers of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math>,
+the homogenised value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mn>2</mn><mi>W</mi></msup><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H_W(Q)=2^WQ(3/2)</annotation></semantics></math>
+is integral. The companion treats its congruences at powers of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>
-give finite counting criteria for combinations of such values. The
-companion paper treats <a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>,
+including <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-arithmetic">integer
 rescaling</a> and <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-endpoints">endpoint
-congruences and signed sums</a>. It also treats the rank-one case and
-proves the quantitative finite-fibre estimate used below. Equal residues
-ensure that subtraction and division leave integer coefficients. They do
-not ensure a nonzero small remainder. Smith normal form counts the
-residue image of the evaluated lattice <span class="citation"
-data-cites="stanley2016"><a href="#ref-6">[6]</a></span>; a separate estimate must control the
-real remainders within each residue class.</p>
-<p>For example, suppose that
+congruences and signed sums</a>, with the rank-one case. Smith normal
+form counts the residue image <span class="citation"
+data-cites="stanley2016"><a href="#ref-6">[6]</a></span>. To obtain a small nonzero remainder
+after division, the count must also distinguish nearby real values from
+repeated ones.</p>
+<p>Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 integral rows
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mi>j</mi></msub><mo>,</mo><msub><mi>B</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(A_j,B_j)</annotation></semantics></math>
 have remainders
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>j</mi></msub><mo>=</mo><msub><mi>A</mi><mi>j</mi></msub><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>B</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">e_j=A_jF(3/2)-B_j</annotation></semantics></math>.
-Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>j</mi></msub><mo>=</mo><msub><mi>A</mi><mi>j</mi></msub><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>B</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">e_j=A_jF(3/2)-B_j</annotation></semantics></math>,
+and let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
-be a positive integer, and suppose that the coefficient-pair subset sums
+be a positive integer. Suppose the subset sums
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>j</mi><mo>∈</mo><mi>I</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mi>j</mi></msub><mo>,</mo><msub><mi>B</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{j\in I}(A_j,B_j)</annotation></semantics></math>
 take
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
 values in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℤ</mi><mi>/</mi><mi>D</mi><mi mathvariant="double-struck">ℤ</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">(\mathbb Z/D\mathbb Z)^2</annotation></semantics></math>.
-Put
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msub><mo>∑</mo><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>e</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">T=\sum_j|e_j|</annotation></semantics></math>
-and suppose that at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℤ</mi><mi>/</mi><mi>D</mi><mi mathvariant="double-struck">ℤ</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">(\mathbb Z/D\mathbb Z)^2</annotation></semantics></math>,
+with at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-subsets give any fixed remainder within a residue class. The least and
-greatest subset remainders are
+subsets giving any fixed real remainder within a residue class. Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msub><mo>∑</mo><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>e</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">T=\sum_j|e_j|</annotation></semantics></math>.
+The least and greatest subset remainders are
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><msub><mi>e</mi><mi>j</mi></msub><mo>&lt;</mo><mn>0</mn></mrow></munder><msub><mi>e</mi><mi>j</mi></msub><mspace width="1.0em"></mspace><mtext mathvariant="normal">and</mtext><mspace width="1.0em"></mspace><munder><mo>∑</mo><mrow><msub><mi>e</mi><mi>j</mi></msub><mo>&gt;</mo><mn>0</mn></mrow></munder><msub><mi>e</mi><mi>j</mi></msub><mo>;</mo></mrow><annotation encoding="application/x-tex">\sum_{e_j&lt;0}e_j\quad\text{and}\quad\sum_{e_j&gt;0}e_j;</annotation></semantics></math>
 their difference is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>.
-Thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
-bounds the width of the range in each residue class as well. The count
-below combines three losses: the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
-residue classes, the number of intervals needed to cover width
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>,
-and the multiplicity
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-of a remainder value. For each positive integer
+For a positive integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
-the inequality
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>M</mi></msup><mo>&gt;</mo><mi>Q</mi><mi>k</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><mrow><mi>n</mi><mi>T</mi></mrow><mi>D</mi></mfrac><mo stretchy="true" form="postfix">⌋</mo></mrow><mo>+</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
-\label{eq:quantitative-selector-budget}
- 2^M&gt;Qk\left(\left\lfloor\frac{nT}{D}\right\rfloor+1\right)
-\end{equation}</annotation></semantics></math> gives two subsets with
-the same residue vector whose remainder values differ by an amount
-strictly between
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">D/n</annotation></semantics></math>
-in absolute value. Indeed, in each residue class divide the range of
-remainders into half-open intervals of width
+divide this whole range into half-open intervals of width
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">D/n</annotation></semantics></math>,
 starting at its least value. At most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>n</mi><mi>T</mi><mi>/</mi><mi>D</mi><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lfloor nT/D\rfloor+1</annotation></semantics></math>
-intervals are needed, including a last interval when the greatest value
-is an endpoint. If each interval contained only one remainder value, it
-would contain at most
+intervals suffice, including a last interval when the greatest value is
+an endpoint. If every residue–interval pair contained only one remainder
+value, it would contain at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-subsets, contrary to <code>[eq:quantitative-selector-budget]</code>.
-Thus some interval contains two different remainder values; the
-half-open convention makes their separation strictly less than
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">D/n</annotation></semantics></math>.
-Subtracting the two subset sums and dividing their coefficients by
+subsets. Hence
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>M</mi></msup><mo>&gt;</mo><mi>Q</mi><mi>k</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><mrow><mi>n</mi><mi>T</mi></mrow><mi>D</mi></mfrac><mo stretchy="true" form="postfix">⌋</mo></mrow><mo>+</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:quantitative-selector-budget}
+ 2^M&gt;Qk\left(\left\lfloor\frac{nT}{D}\right\rfloor+1\right)
+\end{equation}</annotation></semantics></math> forces two different
+remainders in one residue–interval pair. Subtracting the subset sums and
+dividing by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
 gives an integral linear form of nonzero absolute value less than
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math>.
-The <a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math>:
+the residue condition gives integrality, the interval gives smallness,
+and the multiplicity bound prevents a zero difference. The <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-selectors">quantitative
-lemma and its proof</a> state the finite-set version without assumptions
-about Lambert series. Distinct subsets alone would not suffice: their
-sums could be equal, or distinct coefficient rows could have equal
-remainders. The bound
+lemma and its proof</a> state the finite-set result independently of
+Lambert series. Distinct input rows do not rule out equal subset
+remainders;
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-controls repeated real values within a residue class, not merely
-repeated rows.</p>
+bounds repetitions within a residue class. No family of bounds on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>,</mo><mi>T</mi><mo>,</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">Q,T,k</annotation></semantics></math>
+satisfying <code>[eq:quantitative-selector-budget]</code> for
+arbitrarily large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>
+is supplied here.</p>
 <p>The elementary integer-base method provides a different comparison.
 Vandehey <span class="citation" data-cites="vandehey2013"><a href="#ref-10">[10]</a></span> and
 Duverney and Tachiya <span class="citation"
@@ -1809,59 +1734,61 @@ rational argument undecided.</p>
 <section id="prob:kernel" class="level5">
 <h5>A construction problem.</h5>
 <p>The unrestricted request for primitive polynomial rows and a signed
-combination whose divided remainder lies strictly between
+combination with divided remainder strictly between
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math>
-is equivalent to the irrationality of the target. The companion paper
-retains the full statement and proves this equivalence in its <a
+is equivalent to irrationality of the target; the companion’s <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-open-construction">section
-on divided linear forms</a>. A more specific question must prescribe the
-approximation family. For the 2004 family one can instead ask whether a
-parameter direction improves
+on divided linear forms</a> states and proves the equivalence. A more
+specific problem must prescribe a family: for the 2004 forms, the
+question is whether a parameter direction improves
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>θ</mi><mo>*</mo></msup><annotation encoding="application/x-tex">\theta^*</annotation></semantics></math>.
 The <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-region-extensions">all-base
-degree restriction</a> proves an upper bound of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
-for the degree cutoff. Its hypotheses require one polynomial family,
-with common leading constants in its degree, coefficient-height and
-remainder estimates at every fixed real base
+degree restriction</a> bounds the degree cutoff by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.
+It assumes one polynomial family, with common leading constants in its
+degree, coefficient-height and remainder estimates at every fixed real
+base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x&gt;1</annotation></semantics></math>;
-the error terms may depend on
+errors may depend on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>.
-Merely having estimates at
+A cutoff above
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
+would make remainder decay outpace coefficient growth at a sufficiently
+large fixed integer base. Consecutive integer row determinants would
+then tend to zero and eventually vanish, forcing the rational row ratios
+to stabilise. The remainders would be either zero or bounded away from
+zero, contradicting nonzero decay. Estimates only at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>
-does not suffice.</p>
-<p>Under those hypotheses, the <a
+do not permit that choice of base.</p>
+<p>Under the same hypotheses, the <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-no-decay">nondecay
-corollary</a> goes beyond the failure of a sufficient criterion: after
-denominator clearing, the undivided forms cannot tend to zero at any
-rational base
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">a/b</annotation></semantics></math>
-with
+corollary</a> excludes decay of the denominator-cleared, undivided forms
+whenever
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>&lt;</mo><mi>a</mi><mo>&lt;</mo><msup><mi>b</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">b&lt;a&lt;b^2</annotation></semantics></math>,
 including
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>,
-even without a quadratic degree limit. If that limit exists, their
-absolute values tend to infinity in this strict region. Division by
-additional base-dependent content and families outside these hypotheses
-remain unclassified. Equality in the rational-base cutoff is also
-unresolved by the estimates of Section 4.</p>
+without assuming a quadratic degree limit. If that limit exists, their
+absolute values tend to infinity throughout this strict region. Further
+division by base-dependent content and families outside these hypotheses
+remain unclassified, as does equality in the cutoff of Section 4.</p>
 </section>
 </section>
 </section>
 <section id="app:index" class="level2">
 <h2>Verification and reproducibility</h2>
-<p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/\evidencerecordurl">evidence record</a> indexes the
-existing Lean proofs and recorded Comparator comparisons at the <a
-href="https://github.com/wcook04/plectis-erdos/tree/7380b7871687b6bcc41ca0143c61f232e8af6500">source revision</a>. Theorem 2.1 is the
-polynomial-bound specialisation of the <a
+<p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/\evidencerecordurl">evidence record</a> lists Lean
+proofs for all seven numbered results and Comparator checks for six,
+with their checked revisions. Beside the <a href="https://github.com/wcook04/plectis-erdos/tree/7380b7871687b6bcc41ca0143c61f232e8af6500">main
+source revision</a>, Theorem 2.1 uses the later <a
 href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324">geometric-moment
-proof</a> cited in the companion paper; its Comparator association
-remains pending. The broader ratio-limit argument and rational-value
-model there have ordinary proofs only. This revision has had no fresh
-Lean or Comparator run and no independent review. </p>
+proof</a>; its Comparator association remains pending. Neither the
+broader ratio-limit argument nor the rational-value model is a
+dependency; both have ordinary proofs only. This expository revision
+changes no result statement and has no fresh Lean or Comparator run or
+independent review. </p>
 <section id="data-availability." class="level5">
 <h5>Data availability.</h5>
 <p>The cited source revision contains the Lean sources, toolchain and

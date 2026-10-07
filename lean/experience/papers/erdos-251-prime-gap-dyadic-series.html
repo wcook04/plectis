@@ -22,18 +22,16 @@ gives
 with convergence justified in Section 4. We study which properties of
 the gaps survive when the latter sum is changed to a prescribed
 value.</p>
-<p>The point is not merely that one can change the sum. The same family
-contains rational and irrational values while retaining eventual
-residues of both the coefficients and their partial sums. Its permitted
-support and all modulus cutoffs are chosen before the target. With a
-polylogarithmic correction bound, blocks of length
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(\log\log X)</annotation></semantics></math>
-have asymptotically the same empirical distributions, and in the
-prime-gap application the cumulative growth remains
+<p>The support and every modulus cutoff are fixed before the target is
+chosen. The interval contains rational and irrational sums with the same
+eventual coefficient and partial-sum residues. A block changes only when
+it meets the support, whereas every correction enters the dyadic sum.
+With polylogarithmic corrections, empirical block laws agree
+asymptotically at lengths
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(\log\log X)</annotation></semantics></math>;
+for prime gaps, cumulative growth remains
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n\log n</annotation></semantics></math>.
-These data therefore do not decide rationality for comparison integer
-sequences. They do not ensure that the cumulative positions are
-consecutive primes.</p>
+The comparison positions need not be consecutive primes.</p>
 <p>We use a standard interval-covering argument for series with finite
 choices. Fridy’s generalised-base lemma <span class="citation"
 data-cites="fridy1966"><a href="#ref-5">[5]</a></span> treats prescribed digit bounds and
@@ -136,30 +134,33 @@ with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">m(X)=o(\log\log X)</annotation></semantics></math>,
 uniformly over target values.</em></p>
 </div>
-<p>Only
+<p>The cutoff may depend on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
+but
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+and all cutoffs are fixed before
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>.
+Only
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
-depends on the target; its support may occupy just part of the common
-set
+varies with the target, and its support may occupy just part of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
-Infinitely many changes are essential to changing rationality, since
-finitely many integer dyadic corrections add a rational number. The size
-allowance may nevertheless grow as slowly as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log\log(n+3)</annotation></semantics></math>.
-It cannot be replaced by a bounded allowance: a modulus exceeding the
-bound forces
+Infinitely many changes are essential: finitely many integer dyadic
+corrections add a rational number. The allowance may grow as slowly as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log\log(n+3)</annotation></semantics></math>,
+but it cannot be bounded. A modulus exceeding the bound would force
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
-eventually to vanish, after which its constant cumulative sum must be
-divisible by every positive integer. Nonnegativity then forces
+eventually to vanish; its constant cumulative sum would then be
+divisible by every positive integer. Nonnegativity forces
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e=0</annotation></semantics></math>.
 Polynomially growing coefficients satisfy the convergence hypothesis;
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">a_n=2^n</annotation></semantics></math>
 does not.</p>
 <p>Section 2 proves the construction and Section 3 transfers the stated
-prime-gap properties. The rest of the paper returns to the actual
-primes: integral tail shifts give an exact rationality criterion,
-whereas two consecutive small differences give a sufficient condition.
-Finite enclosures certify individual witnesses, not their occurrence
-arbitrarily late. The <a
+prime-gap properties. For the actual primes, integral tail shifts
+characterise rationality. Two consecutive small differences with unequal
+gaps give a sufficient condition for irrationality. Finite enclosures
+certify individual witnesses without supplying arbitrarily late ones.
+The <a
 href="../../../papers/erdos251-prime-gap-reasoning-surface.pdf#context">companion’s
 literature discussion</a> contains the further comparisons, including
 finite subsums and other dyadic coefficient sequences.</p>
@@ -167,14 +168,13 @@ finite subsums and other dyadic coefficient sequences.</p>
 <section id="sec:construction" class="level2">
 <h2>Proof of Proposition 1.1</h2>
 <div class="proof">
-<p><em>Proof.</em> <em>Fixed totals.</em> Each stage must do two things:
-cancel a cumulative residue and leave a choice of weighted contribution.
-We use
+<p><em>Proof.</em> <em>Fixed totals.</em> Use
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_j-1</annotation></semantics></math>
-for the cancellation and
+to cancel a cumulative residue and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>,</mo><msub><mi>n</mi><mi>j</mi></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_j,n_j+1</annotation></semantics></math>
-for a pair with fixed ordinary sum. Varying that pair then cannot alter
-the residue to be cancelled at any later stage. Choose an initial index
+for a pair with fixed ordinary sum. Varying the pair changes its
+weighted contribution without altering any later residue to be
+cancelled. Choose an initial index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mrow><mi>−</mi><mn>1</mn></mrow></msub><mo>≥</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">n_{-1}\ge K</annotation></semantics></math>
 and centres with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>j</mi></msub><mo>=</mo><msub><mi>n</mi><mi>j</mi></msub><mo>−</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">s_j=n_j-n_{j-1}\ge4</annotation></semantics></math>,
@@ -186,8 +186,7 @@ and let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mi>j</mi></msub><annotation encoding="application/x-tex">D_j</annotation></semantics></math>
 bound the digit at stage
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.
-We first determine which corrections preserve the congruences; the
-spacing and digit ranges will then be chosen together.</p>
+The spacing, moduli and digit bounds will be chosen below.</p>
 <p>Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>j</mi></msub><annotation encoding="application/x-tex">C_j</annotation></semantics></math>
 record the ordinary correction before the
@@ -214,19 +213,16 @@ elsewhere. The two sums of a triple are
  \end{aligned}</annotation></semantics></math> The ordinary total
 contains no
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>j</mi></msub><annotation encoding="application/x-tex">d_j</annotation></semantics></math>,
-so the first identity verifies the meaning of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>j</mi></msub><annotation encoding="application/x-tex">C_j</annotation></semantics></math>
-and makes every
+so the recurrence fixes every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>j</mi></msub><annotation encoding="application/x-tex">c_j</annotation></semantics></math>
-independent of the digits. The weighted total does contain
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>j</mi></msub><annotation encoding="application/x-tex">d_j</annotation></semantics></math>:
+in advance. In the weighted total only the last term varies:
 transferring
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>j</mi></msub><annotation encoding="application/x-tex">M_j</annotation></semantics></math>
 from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_j+1</annotation></semantics></math>
 to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>j</mi></msub><annotation encoding="application/x-tex">n_j</annotation></semantics></math>
-increases it by
+adds
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>j</mi></msub><mo>=</mo><msub><mi>M</mi><mi>j</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mi>j</mi></msub><mo>−</mo><mn>2</mn></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">w_j=M_j2^{-n_j-2}.</annotation></semantics></math></p>
 <p>After
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>j</mi></msub><annotation encoding="application/x-tex">c_j</annotation></semantics></math>
@@ -261,17 +257,16 @@ depends on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
 and the chosen moduli, but not on the digits or the value to be
 attained.</p>
-<p><em>Spacing and size.</em> The variable part at stage
+<p><em>Spacing and size.</em> The choices at stage
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
-takes the values
+are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><msub><mi>w</mi><mi>j</mi></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>D</mi><mi>j</mi></msub><msub><mi>w</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">0,w_j,\ldots,D_jw_j</annotation></semantics></math>.
-The covering argument will work if later stages have total range at
-least one present step,
+The covering argument will work if the later ranges total at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>j</mi></msub><annotation encoding="application/x-tex">w_j</annotation></semantics></math>.
-To retain this range as the centres spread out, we make each diameter a
-difference of successive dyadic scales. Choose
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>i</mi></msub><mo>=</mo><msup><mn>2</mn><msub><mi>s</mi><mi>i</mi></msub></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">D_i=2^{s_i}-1</annotation></semantics></math>,
-for which
+Taking
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>i</mi></msub><mo>=</mo><msup><mn>2</mn><msub><mi>s</mi><mi>i</mi></msub></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">D_i=2^{s_i}-1</annotation></semantics></math>
+compensates for separation by making each later range a scaled dyadic
+difference:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>i</mi></msub><msub><mi>w</mi><mi>i</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><msub><mi>n</mi><mi>i</mi></msub><mo>−</mo><msub><mi>n</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>M</mi><mi>i</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mi>i</mi></msub><mo>−</mo><mn>2</mn></mrow></msup><mo>=</mo><msub><mi>M</mi><mi>i</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>2</mn></mrow></msup><mo>−</mo><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mi>i</mi></msub><mo>−</mo><mn>2</mn></mrow></msup><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">D_iw_i=(2^{n_i-n_{i-1}}-1)M_i2^{-n_i-2}
        =M_i\bigl(2^{-n_{i-1}-2}-2^{-n_i-2}\bigr).</annotation></semantics></math>
 Because
@@ -289,30 +284,28 @@ gives the finite estimate
        \bigl(2^{-n_{i-1}-2}-2^{-n_i-2}\bigr)\\
  &amp;=w_j-M_j2^{-n_J-2}\qquad(J&gt;j).
  \end{aligned}
-\end{equation}</annotation></semantics></math> The digit range
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>j</mi></msub><mo>=</mo><msup><mn>2</mn><msub><mi>s</mi><mi>j</mi></msub></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">D_j=2^{s_j}-1</annotation></semantics></math>
-therefore gives the required overlap estimate even when the separations
-increase. Every entry of <code>[eq:correction-triple]</code> is at most
+\end{equation}</annotation></semantics></math> No monotonicity of the
+weights is needed. Each entry of <code>[eq:correction-triple]</code> is
+at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>j</mi></msub><msup><mn>2</mn><msub><mi>s</mi><mi>j</mi></msub></msup></mrow><annotation encoding="application/x-tex">M_j2^{s_j}</annotation></semantics></math>,
-so we must keep this quantity below the prescribed bound at the three
-indices. We must also have
+so the size cost of separating the stages is exponential. We must fit
+this product below the allowance at all three indices, while
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>j</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">s_j\to\infty</annotation></semantics></math>
-and ensure that every fixed positive integer divides all sufficiently
-late
+and every fixed positive integer eventually divides
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>j</mi></msub><annotation encoding="application/x-tex">M_j</annotation></semantics></math>.</p>
 <p>To allow a nonmonotone bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>,
 put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mi mathvariant="normal">inf</mi><mrow><mi>m</mi><mo>≥</mo><mi>n</mi></mrow></munder><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">h(n)=\inf_{m\ge n}\min(f(m),m).</annotation></semantics></math>
-The lower envelope is nondecreasing and tends to infinity, even if
+This nondecreasing lower envelope tends to infinity even when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
-oscillates. Thus a bound imposed at
+oscillates. A bound at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">n_{j-1}</annotation></semantics></math>
-remains valid at all three later coordinates. The cap by
+therefore controls all three later coordinates; the cap by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-additionally gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>n</mi></msub><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">e_n\le n</annotation></semantics></math>,
-ensuring summability for every digit choice. Enlarge
+ensures
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>n</mi></msub><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">e_n\le n</annotation></semantics></math>
+and hence summability for every digit choice. Enlarge
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mrow><mi>−</mi><mn>1</mn></mrow></msub><mo>≥</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">n_{-1}\ge K</annotation></semantics></math>
 until
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>−</mi><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">h(n_{-1})\ge32</annotation></semantics></math>,
@@ -324,65 +317,58 @@ The maximum exists:
 is admissible because
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>!</mi><msup><mn>2</mn><mn>4</mn></msup><mo>=</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">2!2^4=32</annotation></semantics></math>,
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>!</mi><msup><mn>2</mn><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">k!2^{k+2}</annotation></semantics></math>
-tends to infinity. Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
-is nondecreasing, so is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mi>j</mi></msub><annotation encoding="application/x-tex">k_j</annotation></semantics></math>.
-Moreover
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">n_j\to\infty</annotation></semantics></math>,
-hence
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">h(n_j)\to\infty</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>!</mi><msup><mn>2</mn><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow></msup><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">k!2^{k+2}\to\infty</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">n_j\to\infty</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>j</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">k_j\to\infty</annotation></semantics></math>.
-It follows that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+is nondecreasing and divergent,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mi>j</mi></msub><annotation encoding="application/x-tex">k_j</annotation></semantics></math>
+is nondecreasing and tends to infinity. Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>j</mi></msub><mo>∣</mo><msub><mi>M</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">M_j\mid M_{j+1}</annotation></semantics></math>,
 every fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
-divides all sufficiently late
+eventually divides
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>j</mi></msub><mo>=</mo><msub><mi>k</mi><mi>j</mi></msub><mi>!</mi></mrow><annotation encoding="application/x-tex">M_j=k_j!</annotation></semantics></math>,
-and the separations
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>j</mi></msub><mo>=</mo><msub><mi>k</mi><mi>j</mi></msub><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">s_j=k_j+2</annotation></semantics></math>
-tend to infinity. This one choice therefore supplies nested moduli and
-increasing separations while also respecting the size allowance: at
-every coordinate
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>j</mi></msub><mo>=</mo><msub><mi>k</mi><mi>j</mi></msub><mo>+</mo><mn>2</mn><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">s_j=k_j+2\to\infty</annotation></semantics></math>.
+At every coordinate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
 of the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>th
-triple,
+triple, this schedule also gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><msub><mi>e</mi><mi>n</mi></msub><mo>≤</mo><msub><mi>M</mi><mi>j</mi></msub><msup><mn>2</mn><msub><mi>s</mi><mi>j</mi></msub></msup><mo>≤</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">0\le e_n\le M_j2^{s_j}\le h(n_{j-1})\le\min(f(n),n).</annotation></semantics></math>
-This proves the size bound and convergence for every choice of
-digits.</p>
-<p>Let
+Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><msub><mo>⋃</mo><mrow><mi>j</mi><mo>≥</mo><mn>0</mn></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>n</mi><mi>j</mi></msub><mo>−</mo><mn>1</mn><mo>,</mo><msub><mi>n</mi><mi>j</mi></msub><mo>,</mo><msub><mi>n</mi><mi>j</mi></msub><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">S=\bigcup_{j\ge0}\{n_j-1,n_j,n_j+1\}</annotation></semantics></math>.
-For any
+For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">R\ge4</annotation></semantics></math>,
-all but finitely many successive centres are at least
+all sufficiently late centres are at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
-apart. An interval of length
+apart. Every interval of length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
-therefore contains at most
+contains at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mi>/</mi><mi>R</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">3(H/R+2)</annotation></semantics></math>
-points from these later triples. The earlier triples contribute a fixed
-finite number, independent of the interval’s position. Dividing by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
-and taking the supremum over positions gives a limiting upper bound
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">3/R</annotation></semantics></math>.
-Letting
+points from those triples; the earlier triples add a fixed number,
+independent of the interval’s position. Divide by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>,
+take the supremum over positions, then let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">H\to\infty</annotation></semantics></math>.
+The limiting upper bound is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">3/R</annotation></semantics></math>;
+letting
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">R\to\infty</annotation></semantics></math>
 proves upper Banach density zero.</p>
 <p><em>Attaining the interval.</em> The support and congruence
 requirements are now settled independently of the target. Only the
 digits remain to be chosen. Define
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>0</mn></mrow></munder><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mi>j</mi></msub></mrow></msup><mo>+</mo><msub><mi>D</mi><mi>j</mi></msub><msub><mi>w</mi><mi>j</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>F</mi><mi>j</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>i</mi><mo>≥</mo><mi>j</mi></mrow></munder><msub><mi>D</mi><mi>i</mi></msub><msub><mi>w</mi><mi>i</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\beta=\sum_{j\ge0}\bigl(c_j2^{-n_j}+D_jw_j\bigr),\qquad
- F_j=\sum_{i\ge j}D_iw_i.</annotation></semantics></math> Here
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-is the weighted contribution with all digits zero;
+ F_j=\sum_{i\ge j}D_iw_i.</annotation></semantics></math> Even zero
+digits contribute
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\beta&gt;0</annotation></semantics></math>;
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mi>j</mi></msub><annotation encoding="application/x-tex">F_j</annotation></semantics></math>
 is the maximum variable contribution from stage
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
-onwards. Both are finite by the bounds just proved, with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\beta&gt;0</annotation></semantics></math>,
+onwards. The size bound makes both finite, with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mn>0</mn></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F_0&gt;0</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>j</mi></msub><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F_j\to0</annotation></semantics></math>.
@@ -394,16 +380,14 @@ in <code>[eq:finite-overlap]</code> now gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≥</mo><msub><mi>M</mi><mi>j</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mi>j</mi></msub><mo>−</mo><mn>2</mn></mrow></msup><mo>=</mo><msub><mi>w</mi><mi>j</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:overlap}
  F_{j+1}\ge M_j2^{-n_j-2}=w_j.
-\end{equation}</annotation></semantics></math> Every variable sum from
-stage
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
-onwards lies in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><msub><mi>F</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,F_j]</annotation></semantics></math>;
-we must still show that each point is attained. Choosing digit
+\end{equation}</annotation></semantics></math> These bounds do not yet
+prove that every point of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><msub><mi>F</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,F_j]</annotation></semantics></math>
+is attained. A digit
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
-leaves the next remainder in
+leaves a remainder in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><msub><mi>F</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,F_{j+1}]</annotation></semantics></math>
-exactly when the current remainder belongs to
+precisely for current remainders in
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>d</mi><msub><mi>w</mi><mi>j</mi></msub><mo>,</mo><mi>d</mi><msub><mi>w</mi><mi>j</mi></msub><mo>+</mo><msub><mi>F</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">]</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>d</mi><mo>=</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>D</mi><mi>j</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">[dw_j,dw_j+F_{j+1}],\qquad d=0,\ldots,D_j.</annotation></semantics></math>
 These intervals meet or overlap by <code>[eq:overlap]</code>, and their
 union is
@@ -466,13 +450,14 @@ imposing the congruences and requiring the support to lie in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.</p>
 <p><em>The logarithmic scale.</em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mi>ε</mi></msup></mrow><annotation encoding="application/x-tex">f(n)=(\log(n+3))^\varepsilon</annotation></semantics></math>,
-we split the available size between the modulus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>j</mi></msub><annotation encoding="application/x-tex">M_j</annotation></semantics></math>
-and the spacing cost
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><msub><mi>s</mi><mi>j</mi></msub></msup><annotation encoding="application/x-tex">2^{s_j}</annotation></semantics></math>.
-Keep the same triples and
+the size cost
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><msub><mi>s</mi><mi>j</mi></msub></msup><annotation encoding="application/x-tex">2^{s_j}</annotation></semantics></math>
+leads to the iterated logarithm. We choose separations of order
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>n</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">\log\log n_j</annotation></semantics></math>
+and reserve part of the allowance for growing moduli. Keep the same
+triples and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>j</mi></msub><mo>=</mo><msup><mn>2</mn><msub><mi>s</mi><mi>j</mi></msub></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">D_j=2^{s_j}-1</annotation></semantics></math>,
-and choose
+and set
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>s</mi><mi>j</mi></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><mi>ε</mi><mn>2</mn></mfrac><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mi mathvariant="normal">log</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">⌋</mo></mrow><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>k</mi><mi>j</mi></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>k</mi><mo>≥</mo><mn>2</mn><mo>:</mo><mi>k</mi><mi>!</mi><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>ε</mi><mi>/</mi><mn>4</mn></mrow></msup><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
  s_j&amp;=\left\lfloor\frac{\varepsilon}{2}
                \log_2\log(n_{j-1}+3)\right\rfloor,\\
@@ -506,19 +491,17 @@ are separated by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>≫</mo><mi>ε</mi></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">\gg_\varepsilon\log\log X</annotation></semantics></math>.
 Each contributes at most three support points, giving
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>S</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>=</mo><msub><mi>O</mi><mi>ε</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">|S\cap[X,2X)|=O_\varepsilon(X/\log\log X).</annotation></semantics></math></p>
-<p>Couple the two blocks by choosing the same uniform starting index
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n\in[X,2X)</annotation></semantics></math>.
-They agree whenever the sampled block avoids
+<p>Choose the same uniform starting index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n\in[X,2X)</annotation></semantics></math>
+for both blocks. They agree when the block avoids
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
 A changed coordinate
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
-can occur only in blocks starting at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mi>t</mi><mo>−</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">n\in[t-m+1,t]</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∈</mo><mi>S</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t\in S\cap[X,2X+m)</annotation></semantics></math>
+affects only starts in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>t</mi><mo>−</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[t-m+1,t]</annotation></semantics></math>,
 at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-starts. Only
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∈</mo><mi>S</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t\in S\cap[X,2X+m)</annotation></semantics></math>
-can occur in a sampled block. The union bound consequently gives
+choices. The union bound gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>d</mi><mrow><mi mathvariant="normal">T</mi><mi mathvariant="normal">V</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>μ</mi><mrow><mi>a</mi><mo>,</mo><mi>X</mi><mo>,</mo><mi>m</mi></mrow></msub><mo>,</mo><msub><mi>μ</mi><mrow><mi>a</mi><mo>+</mo><mi>e</mi><mo>,</mo><mi>X</mi><mo>,</mo><mi>m</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mi mathvariant="double-struck">ℙ</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>e</mi><mrow><mi>n</mi><mo>+</mo><mi>i</mi></mrow></msub><mo>≠</mo><mn>0</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> for some </mtext><mspace width="0.333em"></mspace></mrow><mn>0</mn><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>m</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mfrac><mrow><mi>m</mi><mo stretchy="false" form="prefix">|</mo><mi>S</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo></mrow><mi>X</mi></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
  d_\mathrm{TV}(\mu_{a,X,m},\mu_{a+e,X,m})
  &amp;\le\mathbb P\bigl(e_{n+i}\ne0\text{ for some }0\le i&lt;m\bigr)\\
@@ -526,29 +509,31 @@ can occur in a sampled block. The union bound consequently gives
  \end{aligned}</annotation></semantics></math> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≤</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">m\le X</annotation></semantics></math>,
 two dyadic bands cover
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[X,2X+m)</annotation></semantics></math>
-and give the bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[X,2X+m)</annotation></semantics></math>,
+giving
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>ε</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_\varepsilon(m/\log\log X)</annotation></semantics></math>.
-In particular it tends to zero when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">m=o(\log\log X)</annotation></semantics></math>,
-uniformly over the values attained, since the same set
+A block of length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(\log\log X)</annotation></semantics></math>
+therefore avoids
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+with probability tending to one. The convergence is uniform over targets
+because the same
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 contains every correction support. ◻</p>
 </div>
-<p>No limiting block distribution is assumed: the coupling compares the
-two empirical laws at each
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>.
-It also bounds the change in the mean of any index-dependent test of
-absolute value at most
+<p>No limiting block law is assumed. A block-only test bounded in
+absolute value by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mn>0</mn></msub><annotation encoding="application/x-tex">B_0</annotation></semantics></math>
-by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mi>B</mi><mn>0</mn></msub><mi>m</mi><mo stretchy="false" form="prefix">|</mo><mi>S</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mi>X</mi></mrow><annotation encoding="application/x-tex">2B_0m|S\cap[X,2X+m)|/X</annotation></semantics></math>;
-for a block-only test the bound is
+changes its mean by at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mi>B</mi><mn>0</mn></msub><msub><mi>d</mi><mrow><mi mathvariant="normal">T</mi><mi mathvariant="normal">V</mi></mrow></msub></mrow><annotation encoding="application/x-tex">2B_0d_\mathrm{TV}</annotation></semantics></math>.
-These are absolute errors, not relative estimates for rare events or
-comparisons of complete infinite tails. The scale
+For such a test also depending on the starting index, the common-index
+coupling gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mi>B</mi><mn>0</mn></msub><mi>m</mi><mo stretchy="false" form="prefix">|</mo><mi>S</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mi>X</mi></mrow><annotation encoding="application/x-tex">2B_0m|S\cap[X,2X+m)|/X</annotation></semantics></math>
+instead. Vanishing absolute error can still erase a rare event; it
+supplies neither relative-frequency control nor a comparison of complete
+tails. The scale
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(\log\log X)</annotation></semantics></math>
-is sufficient here, not proved optimal. The companion’s <a
+is sufficient, not proved optimal. The companion’s <a
 href="../../../papers/erdos251-prime-gap-reasoning-surface.pdf#sparse-construction">Section 2</a>
 also distinguishes upper Banach density from ordinary density.</p>
 </section>
@@ -560,9 +545,8 @@ suffices for convergence of the prime and gap series. We use the
 central-binomial argument of Erdős <span class="citation"
 data-cites="erdos1932"><a href="#ref-19">[19]</a></span>; <a
 href="../../../papers/erdos251-prime-gap-reasoning-surface.pdf#prime-bound">Appendix A
-of the companion</a> derives this bound, including the prime-power
-estimate. This supplies the convergence hypothesis needed to apply
-Proposition 1.1 to the prime gaps.</p>
+of the companion</a> derives the prime-power estimate and the bound. We
+may therefore apply Proposition 1.1 to the gaps.</p>
 <div class="corollary" id="res:jointcountermodel">
 <p><strong>Corollary 3.1</strong> (a rational sum with the stated
 prime-gap statistics). <em> Let
@@ -625,9 +609,11 @@ are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(N)</annotation></semantics></math>
 because
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
-has density zero. Only changed blocks are counted, so the values of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
-need not be bounded. Since
+has density zero. We count the event
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F=0</annotation></semantics></math>,
+not averages of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>,
+so no bound on its values is needed. Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
 was chosen before
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>,</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">F,k</annotation></semantics></math>,
@@ -678,13 +664,11 @@ also gives
 once
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>n</mi></msub><mo>&gt;</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">p_n&gt;y</annotation></semantics></math>.
 The cutoff depends on
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>:
-this does not prove that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>n</mi></msub><annotation encoding="application/x-tex">P_n</annotation></semantics></math>
-avoids every prime up to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><msub><mi>P</mi><mi>n</mi></msub></msqrt><annotation encoding="application/x-tex">\sqrt{P_n}</annotation></semantics></math>.
-Even prime-valued positions would not ensure that no primes are
-omitted.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>;
+primality would require excluding every prime up to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><msub><mi>P</mi><mi>n</mi></msub></msqrt><annotation encoding="application/x-tex">\sqrt{P_n}</annotation></semantics></math>
+at that same index. Even prime-valued positions could omit intervening
+primes.</p>
 <p>Land’s draft <span class="citation" data-cites="land2026"><a href="#ref-8">[8]</a></span>
 proves conditional irrationality under a uniform Hardy–Littlewood
 hypothesis of the kind formulated by Kuperberg <span class="citation"
@@ -697,9 +681,7 @@ Section 3</a> compares the hypotheses and sampling conventions.</p>
 </section>
 <section id="sec:parts" class="level2">
 <h2>The prime series and its actual tails</h2>
-<p>The construction shows what the specified coefficient data fail to
-determine. We now ask what would determine rationality for the actual
-primes. Write
+<p>We now study complete tails of the actual prime gaps. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></msub><msub><mi>g</mi><mi>n</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">G=\sum_{n\ge0}g_n2^{-(n+1)}</annotation></semantics></math>.
 The polynomial bound from Section 3 proves convergence and makes the
 endpoint in finite summation by parts vanish.</p>
@@ -752,15 +734,15 @@ preserves rationality and irrationality. ◻</p>
 </div>
 <p>The index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
-is the last omitted coefficient: the first term of
+is the last omitted coefficient, so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi>N</mi></msub><annotation encoding="application/x-tex">T_N</annotation></semantics></math>
-is
+starts with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">g_{N+1}/2</annotation></semantics></math>.
-These are rescaled complete tails, not the unscaled remainders of
+Rescaling distinguishes these tails from the remainders of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>.
-The recurrence alone does not identify them, since adding
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><msup><mn>2</mn><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">C2^N</annotation></semantics></math>
-preserves it. The next lemma excludes this extra term.</p>
+The recurrence also admits an extra term
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><msup><mn>2</mn><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">C2^N</annotation></semantics></math>;
+the vanishing boundary condition below excludes it.</p>
 <div class="lemma" id="res:true-tail">
 <p><strong>Lemma 4.3</strong> (the boundary condition for the tail
 recurrence). <em> Let
@@ -789,24 +771,17 @@ by absolute convergence. ◻</p>
 </div>
 <section id="sec:tail" class="level3">
 <h3>Integral shifts</h3>
-<p>For the recurrence
+<p>For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>U</mi><mi>N</mi></msub><mo>−</mo><msub><mi>a</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">U_{N+1}=2U_N-a_{N+1}</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a_n\in\mathbb{Z}</annotation></semantics></math>,
 write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>U</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>−</mo><msub><mi>U</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">D_h(N)=U_{N+h}-U_N</annotation></semantics></math>.
-Modulo integers, each step is doubling:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mi>N</mi></msub><annotation encoding="application/x-tex">U_N</annotation></semantics></math>
-has the fractional part of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><msub><mi>U</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">2^NU_0</annotation></semantics></math>.
-An integral shift means that a fractional part has returned to an
-earlier value. Such a return makes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>U</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">2^N(2^h-1)U_0</annotation></semantics></math>
-an integer and forces rationality when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h&gt;0</annotation></semantics></math>.
-Conversely, doubling a rational number eventually gives periodic
-fractional parts. The next theorem records the denominator calculation
-and the exact quantifiers.</p>
+Modulo integers, each step doubles, so an integral shift is a return to
+the same fractional part. For rational
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mn>0</mn></msub><annotation encoding="application/x-tex">U_0</annotation></semantics></math>,
+the power of two in its reduced denominator determines when returns of
+positive length can begin; the odd part determines their lengths.</p>
 <div class="theorem" id="res:escape-irrational">
 <p><strong>Theorem 4.4</strong> (exact rationality classification). <em>
 For a real integer-coefficient recurrence, the following are equivalent:
@@ -868,21 +843,21 @@ This shift works for every
 Negating the pointwise and eventual criteria gives the two assertions
 about irrationality. ◻</p>
 </div>
-<p>The two preceding results have different roles. Lemma 4.3 identifies
-the complete tails; the classification applies to every
-integer-coefficient recurrence. Its periodicity concerns fractional
-parts, not necessarily full tails. For instance, the positive even
+<p>The classification applies to any integer-coefficient recurrence;
+Lemma 4.3 is needed only to identify complete tails. The periodicity is
+of fractional parts, not necessarily tail values. For the positive even
 coefficients
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>4</mn><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">2,4,2,4,\ldots</annotation></semantics></math>
 starting at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n=1</annotation></semantics></math>
-give tails
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><mi>/</mi><mn>3</mn><mo>,</mo><mn>10</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">8/3,10/3</annotation></semantics></math>
-alternately. Every shift of length
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-is nonintegral and every shift of length
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
-is zero. This explains why a single shift length is insufficient.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n=1</annotation></semantics></math>,
+the tails alternate between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">8/3</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">10/3</annotation></semantics></math>.
+Length-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+shifts are nonintegral, but
+length-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+shifts vanish: one shift length cannot suffice.</p>
 </section>
 </section>
 <section id="sec:local-certificate" class="level2">
@@ -900,8 +875,8 @@ gap
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">g_0=1</annotation></semantics></math>;
 hence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mi>N</mi></msub><annotation encoding="application/x-tex">\delta_N</annotation></semantics></math>
-is even. Two integers of absolute value less than one must both vanish,
-forcing
+is even. Two integral differences of absolute value less than one must
+both vanish, forcing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>N</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\delta_N=0</annotation></semantics></math>.
 Evenness yields the sharper signed test below.</p>
 <div class="proposition" id="res:signedwindow">
@@ -972,23 +947,24 @@ with
  g_{N+h+1}\ne g_{N+1}.
 \end{equation}</annotation></semantics></math></em></p>
 </div>
-<p>This is a sufficient condition, not another equivalence: the exact
-classification requires nonintegrality, not smallness. A solution gives
-the shifts required by Theorem 4.4. All three conditions must hold at
-the same index; separate infinite sets of witnesses do not suffice.</p>
+<p>Theorem 4.4 requires nonintegrality, not smallness;
+<code>[eq:smallpair]</code> is only a sufficient condition. All three
+requirements must hold at the same arbitrarily late indices. Separate
+infinite sets need not intersect.</p>
 <p>By Proposition 5.1, such an index must have
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>N</mi></msub><mo>=</mo><mi>±</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\delta_N=\pm2</annotation></semantics></math>.
 Schlage-Puchta’s lemma <span class="citation"
 data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span>, applied to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>h</mi></msub><mo>−</mo><msub><mi>x</mi><mn>0</mn></msub><mo>±</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">x_h-x_0\pm2</annotation></semantics></math>,
-shows that these eligible indices already have density zero. Thus the
-required witnesses concern a rare event whose relative frequency is not
-controlled by the absolute block comparison in Proposition 1.1.</p>
+shows that these eligible indices already have density zero. Density
+zero is compatible with arbitrarily late witnesses; it supplies no lower
+bound for their occurrence. The absolute block comparison in
+Proposition 1.1 likewise gives no relative-frequency estimate for this
+rare event.</p>
 <section id="finite-separation-from-the-integers" class="level3">
 <h3>Finite separation from the integers</h3>
-<p>To certify a nonintegral difference from finitely many gaps, we need
-an enclosure disjoint from the integers; an enclosure meeting an integer
-is inconclusive. Choose
+<p>An enclosure certifies nonintegrality only when it misses every
+integer. Choose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>g</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">M(n)\ge g_n</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_nM(n)2^{-n}&lt;\infty</annotation></semantics></math>,
@@ -1000,10 +976,11 @@ Splitting the complete tails after
 terms gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>N</mi></msub><mo>=</mo><msub><mi>S</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mo>+</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>L</mi></mrow></msup><msub><mi>D</mi><mrow><mi>N</mi><mo>+</mo><mi>L</mi></mrow></msub><mo>,</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">|</mo><msub><mi>D</mi><mi>N</mi></msub><mo>−</mo><msub><mi>S</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><msub><mi>R</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">D_N=S_{h,N,L}+2^{-L}D_{N+L},\qquad
  |D_N-S_{h,N,L}|\le R_{h,N,L}(M).</annotation></semantics></math> The
-uncomputed part is another complete tail difference, with the same shift
+uncomputed term is a rescaled later complete tail difference with the
+same shift
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.
-The criterion below uses only the displayed bound; a general real
-majorant need not make that bound computable.</p>
+An arbitrary real majorant gives an enclosure, but need not give a
+computable radius.</p>
 <p>For the actual prime gaps, one computable choice is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1250</mn><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">M(n)=1250(n+2)^4</annotation></semantics></math>.
 For
@@ -1086,16 +1063,13 @@ and its upper endpoint below
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
 gives, respectively,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>s</mi><mi>A</mi><mo>−</mo><mi>Q</mi><mo>&gt;</mo><mn>2</mn><mi>B</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>Q</mi><mo>−</mo><mi>s</mi><mi>A</mi><mo>&gt;</mo><mi>B</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">2sA-Q&gt;2B,\qquad Q-sA&gt;B.</annotation></semantics></math>
-Reducing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-modulo
+We retain the signed numerator: reduction modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
-would preserve its distance to
+preserves distance to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">Q\mathbb{Z}</annotation></semantics></math>
-but lose the enclosure’s location. We retain the signed numerator and
-use the sign
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
-fixed by the gap difference. At
+but loses the enclosure’s location. The gap difference fixes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>,
+so it cannot be chosen to fit the enclosure. At
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>N</mi><mo>=</mo><mn>2</mn><mo>,</mo><mi>L</mi><mo>=</mo><mn>40</mn></mrow><annotation encoding="application/x-tex">h=1,N=2,L=40</annotation></semantics></math>,
 one has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mn>2</mn></msub><mo>=</mo><msub><mi>g</mi><mn>4</mn></msub><mo>−</mo><msub><mi>g</mi><mn>3</mn></msub><mo>=</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\delta_2=g_4-g_3=-2</annotation></semantics></math>
@@ -1139,9 +1113,8 @@ with the prescribed prefix unchanged. The estimate controls the dyadic
 change, not the ordinary total.</p>
 <section id="sec:carry" class="level3">
 <h3>Nonperiodic coefficients</h3>
-<p>Rationality forces eventual periodicity of binary digits, not of an
-arbitrary integer coefficient sequence. Carrying changes the sequence to
-which that criterion applies. For example,
+<p>Rationality forces eventual periodicity of the binary digits obtained
+after carrying, not of the original integer coefficients. For example,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><mfrac><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow><msup><mn>2</mn><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mo>=</mo><mi>−</mi><mfrac><mi>n</mi><msup><mn>2</mn><mi>n</mi></msup></mfrac><mo>→</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{i=0}^{n-1}\frac{i-1}{2^{i+1}}=-\frac{n}{2^n}\longrightarrow0.</annotation></semantics></math>
 Its coefficients are unbounded and its first coefficient is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math>.

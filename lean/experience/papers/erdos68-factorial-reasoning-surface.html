@@ -22,23 +22,21 @@ the sum begins after all zero or negative denominators. Any further
 change of starting index adds a rational number. The expectation for all
 integer shifts remains unproved here. The problem number follows Bloom’s
 catalogue <span class="citation" data-cites="bloom"><a href="#ref-2">[2]</a></span>.</p>
-<p>We separate construction from nonintegrality. The first question is
-algebraic: which integers
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-occur when a finite integer vector cancels prescribed initial weighted
-sums in a form
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>S</mi><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">MS+k</annotation></semantics></math>?
-The answer is an explicitly computable ideal of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb Z</annotation></semantics></math>.
-Adjacent factorial differences give an integral basis after correction
-at proper divisors. Cancellation fixes its lower coordinates; excluding
-index one leaves a single Diophantine equation. A finite-gcd formula
-then gives the least positive multiplier and a vector attaining it. For
-cancellation through four, that multiplier is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1380</mn><annotation encoding="application/x-tex">1380</annotation></semantics></math>,
-not merely the common denominator
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>115</mn><annotation encoding="application/x-tex">115</annotation></semantics></math>
-forced by the congruences.</p>
+<p>For finitely supported integer vectors on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>,
+cancellation forms
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>S</mi><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">MS+k</annotation></semantics></math>
+give an explicitly computable ideal of multipliers. Correcting adjacent
+factorial differences at proper divisors gives an integral basis.
+Cancellation fixes its lower coordinates; excluding index one leaves a
+single Diophantine equation. Its gcd, computed below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>D</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">2D^2</annotation></semantics></math>,
+gives the least positive multiplier and an attaining vector. At depth
+four, the support restriction strengthens
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>115</mn><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">115\mid M</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1380</mn><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">1380\mid M</annotation></semantics></math>.
+This classification is independent of nonintegrality.</p>
 <p>The accompanying short paper proves this classification and bounds
 one resulting remainder between consecutive integers. Here we develop
 the support and coefficient-norm refinements and a primitive
@@ -147,8 +145,8 @@ computations?</td>
 <h2>Integer coefficient vectors and cancellation</h2>
 <p>We need weights that preserve the fractional part of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>!</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">i!/(d!-1)</annotation></semantics></math>
-and whose adjacent differences have a simple form. Both requirements are
-met by removing one factor
+and whose scaled adjacent differences have a simple form. Both
+requirements are met by removing one factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">d!</annotation></semantics></math>
 for each complete block of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>

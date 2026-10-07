@@ -1537,7 +1537,7 @@
     {
       "id": "statement:erdos-1041-lemniscate-newton-flow#lem:two-sheet-bottleneck",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L158",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L150",
       "label": "Lemma 2.1"
     },
     {
@@ -1549,43 +1549,43 @@
     {
       "id": "statement:erdos-1041-lemniscate-newton-flow#res:critical-value-separation",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L682",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L671",
       "label": "Remark 5.1 (unformalised isolated-value assertion)"
     },
     {
       "id": "statement:erdos-1041-lemniscate-newton-flow#res:critical-value-thresholds",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L709",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L698",
       "label": "Remark 5.2 (conditional numerical thresholds)"
     },
     {
       "id": "statement:erdos-1041-lemniscate-newton-flow#res:low-critical-thirteen-twentyfifths",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L506",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L494",
       "label": "Remark 4.1 (unformalised small-critical-value assertion)"
     },
     {
       "id": "statement:erdos-1041-lemniscate-newton-flow#res:scaled-low-critical",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L517",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L505",
       "label": "Remark 4.2 (scaling of the preceding assertion)"
     },
     {
       "id": "statement:erdos-1041-lemniscate-newton-flow#res:sextic-spoke",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L465",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L453",
       "label": "Proposition 3.2 (failure of a prescribed radial segment)"
     },
     {
       "id": "statement:erdos-1041-lemniscate-newton-flow#res:trinomial-all-degree",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L425",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex#L413",
       "label": "Theorem 3.1 (all-degree monic trinomials)"
     },
     {
       "id": "statement:erdos-1049-rational-base-lambert#cor:rational-base-measure",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L964",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L948",
       "label": "Corollary 4.3 (an irrationality measure uniform over powers)"
     },
     {
@@ -1597,61 +1597,61 @@
     {
       "id": "statement:erdos-1049-rational-base-lambert#res:rational-base-threshold",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L678",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L675",
       "label": "Theorem 4.1 (rational-base region for Zudilin’s forms)"
     },
     {
       "id": "statement:erdos-1049-rational-base-lambert#res:sharp-fixed-base",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L66",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L65",
       "label": "Theorem 1.1 (the size of V_N^ at a fixed base)"
     },
     {
       "id": "statement:erdos-1049-rational-base-lambert#res:thirtyone-four",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L944",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L928",
       "label": "Corollary 4.2"
     },
     {
       "id": "statement:erdos-1049-rational-base-lambert#res:zudilin-sharp-qorder",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L584",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L579",
       "label": "Theorem 3.2 (the first nonzero term of the Hankel determinant)"
     },
     {
       "id": "statement:erdos-1049-rational-base-lambert#thm:geometric-moments",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L178",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex#L173",
       "label": "Theorem 2.1 (geometric moment determinants)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:absorb",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L543",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L530",
       "label": "Theorem 4.3 (absorption and descent)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:barrier",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L608",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L595",
       "label": "Theorem 4.7 (Chinese remainder theorem and first crossing)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:bounded",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L496",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L483",
       "label": "Theorem 4.1 (bounded negative part)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:cor",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L644",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L631",
       "label": "Corollary 4.8"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:crt",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L599",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L586",
       "label": "Lemma 4.6 (consecutive multiples)"
     },
     {
@@ -1663,115 +1663,115 @@
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:frontier",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L1014",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L995",
       "label": "Proposition 7.1 (necessary profile)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:gcdstab",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L575",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L562",
       "label": "Proposition 4.5 (gcd stabilisation)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:inclusiveone",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L700",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L686",
       "label": "Corollary 4.10 (an inclusive one-sided 1/n bound)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:lcmbounded",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L958",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L939",
       "label": "Corollary 6.2 (a bound using the least common multiple)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:massscalar",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L748",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L733",
       "label": "Theorem 5.1 (a convergent sum of relative increases)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:originalbounded",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L663",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L650",
       "label": "Corollary 4.9 (bounded increments of P_n/a_n)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:reduced",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L252",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L249",
       "label": "Proposition 3.1 (persistent coprimality)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:residue",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L1165",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L1143",
       "label": "Theorem A.2 (factorial residue reduction)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:step",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L558",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L545",
       "label": "Corollary 4.4 (two zero errors)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:update",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L519",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L506",
       "label": "Proposition 4.2 (error identities)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:weightedrecord",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L832",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L814",
       "label": "Theorem 6.1 (a convergent weighted sum over new maxima)"
     },
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:weights",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L1051",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L1030",
       "label": "Lemma 7.2 (weights and linear density)"
     },
     {
       "id": "statement:erdos-249-binary-totient-series#cor:integral-normal-form",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L311",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L301",
       "label": "Corollary 3.1 (Integral coordinates and all integral relations)"
     },
     {
       "id": "statement:erdos-249-binary-totient-series#cor:periodic-freezing",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L503",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L488",
       "label": "Corollary A.2 (Periodic coefficients)"
     },
     {
       "id": "statement:erdos-249-binary-totient-series#lem:bounded-pulse",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L402",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L387",
       "label": "Lemma 4.2 (An isolated nonzero coefficient between long zero blocks)"
     },
     {
       "id": "statement:erdos-249-binary-totient-series#res:basis",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L483",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L468",
       "label": "Corollary A.1 (Dyadic basis)"
     },
     {
       "id": "statement:erdos-249-binary-totient-series#res:fulldepth",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L625",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L608",
       "label": "Theorem B.1 (Propagation of one nonintegral tail difference)"
     },
     {
       "id": "statement:erdos-249-binary-totient-series#res:rankonefloor",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L717",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L699",
       "label": "Theorem B.3 (A lower bound for the rank-one quotients)"
     },
     {
       "id": "statement:erdos-249-binary-totient-series#res:residueseries",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L381",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex#L366",
       "label": "Theorem 4.1 (Series of totient residues)"
     },
     {
@@ -1783,37 +1783,37 @@
     {
       "id": "statement:erdos-251-prime-gap-dyadic-series#res:escape-irrational",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L559",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L544",
       "label": "Theorem 4.4 (exact rationality classification)"
     },
     {
       "id": "statement:erdos-251-prime-gap-dyadic-series#res:gap-nonperiodic",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L756",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L739",
       "label": "Proposition 6.1 (prime gaps do not become periodic)"
     },
     {
       "id": "statement:erdos-251-prime-gap-dyadic-series#res:infinite",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L502",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L489",
       "label": "Theorem 4.1 (prime-to-gap identity)"
     },
     {
       "id": "statement:erdos-251-prime-gap-dyadic-series#res:irr-equivalence",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L523",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L510",
       "label": "Corollary 4.2 (exact irrationality reformulation)"
     },
     {
       "id": "statement:erdos-251-prime-gap-dyadic-series#res:jointcountermodel",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L416",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L404",
       "label": "Corollary 3.1 (a rational sum with the stated prime-gap statistics)"
     },
     {
       "id": "statement:erdos-251-prime-gap-dyadic-series#res:signedwindow",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L606",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L590",
       "label": "Proposition 5.1 (two consecutive differences of absolute value less than one)"
     },
     {
@@ -1825,67 +1825,67 @@
     {
       "id": "statement:erdos-251-prime-gap-dyadic-series#res:true-tail",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L536",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L523",
       "label": "Lemma 4.3 (the boundary condition for the tail recurrence)"
     },
     {
       "id": "statement:erdos-251-prime-gap-dyadic-series#res:truncation",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L673",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex#L657",
       "label": "Proposition 5.3 (finite separation criterion)"
     },
     {
       "id": "statement:erdos-257-mersenne-support-subseries#res:cylinderhalf",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1438",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1414",
       "label": "Theorem D.3 (unbounded shared-prefix families represent one half)"
     },
     {
       "id": "statement:erdos-257-mersenne-support-subseries#res:general-repair",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1174",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1148",
       "label": "Theorem C.1 (membership and nonincreasing integer remainders)"
     },
     {
       "id": "statement:erdos-257-mersenne-support-subseries#res:mixed-supports",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L549",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L537",
       "label": "Theorem 4.1 (mixed weighted and cover supports)"
     },
     {
       "id": "statement:erdos-257-mersenne-support-subseries#res:one-over-twenty-one-frontier",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1292",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1266",
       "label": "Theorem D.1 (integer-quotient tests for 1/21)"
     },
     {
       "id": "statement:erdos-257-mersenne-support-subseries#res:period",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1018",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L995",
       "label": "Theorem B.1 (the exact denominator period)"
     },
     {
       "id": "statement:erdos-257-mersenne-support-subseries#res:reciprocal-support",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L932",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L919",
       "label": "Theorem A.1 (reciprocal-summable supports)"
     },
     {
       "id": "statement:erdos-257-mersenne-support-subseries#res:strict-mixed-supports",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L775",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L763",
       "label": "Corollary 5.2 (a support requiring the mixed criterion)"
     },
     {
       "id": "statement:erdos-257-mersenne-support-subseries#res:terminalhalf",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1371",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L1350",
       "label": "Theorem D.2 (finite approximations with vanishing scaled error)"
     },
     {
       "id": "statement:erdos-257-mersenne-support-subseries#res:weighted-cover-incomparability",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L627",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L613",
       "label": "Proposition 5.1 (incomparable support criteria)"
     },
     {
@@ -1897,103 +1897,103 @@
     {
       "id": "statement:erdos-257-mersenne-support-subseries#thm:variable-fractional-cover",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L369",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex#L364",
       "label": "Theorem 3.1 (a summable divisor-cover criterion)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:actual-orbit",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L385",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L370",
       "label": "Proposition 3.2 (the tail recurrence and a quadratic bound)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:admissible-modular-minors",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L884",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L868",
       "label": "Corollary B.3 (the same minors modulo integers coprime to 30)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:cell",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L751",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L737",
       "label": "Proposition A.2 (cells and jumps)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:consumer",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L538",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L525",
       "label": "Lemma 4.1 (least positive residues)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:denominator-reduction",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L436",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L424",
       "label": "Theorem 3.3 (rationality gives positive integer tails)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:distinct-height-235",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L81",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L84",
       "label": "Theorem 1.1 (the sum over distinct running LCMs for {2,3,5})"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:dyadic-alphabet",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L367",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L356",
       "label": "Lemma 3.1 (integer coefficients and four possible bases)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:exact-onset",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L459",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L447",
       "label": "Corollary 3.4 (the first index at which the denominator clears)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:fibre-prop",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L763",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L749",
       "label": "Proposition A.3 (grouping terms with the same running LCM)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:finite-cut-rank",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L918",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L902",
       "label": "Proposition B.4 (rank of a matrix of threshold columns)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:infinite-rank",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L796",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L780",
       "label": "Theorem B.2 (no finite separation of the kernel)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:lcm",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L737",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L723",
       "label": "Proposition A.1 (the running least common multiple)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:two-prime-transcendence",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L646",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L632",
       "label": "Theorem 5.1 (both two-prime sums)"
     },
     {
       "id": "statement:erdos-269-three-prime-running-lcm#res:windowconsumer",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L559",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex#L547",
       "label": "Theorem 4.2 (a residue criterion for irrationality)"
     },
     {
       "id": "statement:erdos-68-factorial-denominator-irrationality#res:divisor-channel-coordinates",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex#L165",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex#L157",
       "label": "Theorem 2.1 (an integer basis with prescribed weighted sums)"
     },
     {
       "id": "statement:erdos-68-factorial-denominator-irrationality#res:finite-channel-moment-certificate",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex#L307",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex#L292",
       "label": "Theorem 3.1 (a finite formula for the gcd)"
     },
     {
@@ -4009,217 +4009,217 @@
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:abel",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L681",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L675",
       "label": "Proposition 4.1 (finite summation by parts)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:affinecollapse",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2753",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2737",
       "label": "Theorem E.1 (equivalent arithmetic-progression tests)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:block",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L817",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L809",
       "label": "Theorem 5.2 (block identity)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:boundedperturbation",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1371",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1362",
       "label": "Theorem 8.1 (bounded perturbations preserving congruences)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:cfexclusion",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1256",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1248",
       "label": "Theorem 7.2 (certified continued-fraction exclusion)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:complete-truncation",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2467",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2454",
       "label": "Proposition D.4 (completeness of finite separation)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:denominatorfloor",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1208",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1200",
       "label": "Theorem 7.1 (a denominator bound checked by exact integer comparisons)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:escape-irrational",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L872",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L864",
       "label": "Theorem 5.3 (exact rationality classification)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:explicit-remainder",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1105",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1097",
       "label": "Proposition 6.5 (explicit remainder)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:finite-smallpair",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1137",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1129",
       "label": "Proposition 6.6 (a certified adjacent pair)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:freepair",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L952",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L944",
       "label": "Theorem 5.5 (pairs of congruent indices)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:gap-nonperiodic",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1048",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1040",
       "label": "Proposition 6.3 (prime gaps do not become periodic)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:infinite",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L730",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L724",
       "label": "Theorem 4.3 (infinite prime-gap identity)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:irr-equivalence",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L755",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L749",
       "label": "Corollary 4.4 (exact irrationality reformulation)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:jointcountermodel",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1560",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1551",
       "label": "Corollary 8.6 (a rational sum with the stated prime-gap statistics)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:lcmdiagonal",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L983",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L975",
       "label": "Theorem 5.6 ([criterion using least common multiples](https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/OrderLatticeDiagonal.lean#L153))"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:local-targets",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L417",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L411",
       "label": "Corollary 2.2 (target intervals arbitrarily close to the original sum)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:nonconc-primes",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1505",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1496",
       "label": "Corollary 8.4 (nonconcentration does not force irrationality)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:nonconcentration",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1474",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1465",
       "label": "Theorem 8.3 (nonconcentration is perturbation-stable)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:one-tail-certificate",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1165",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1157",
       "label": "Proposition 6.7 (certifying two small differences from one enclosure)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:parts",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L704",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L698",
       "label": "Theorem 4.2 (prime-gap reformulation)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:polignacfail",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1709",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1698",
       "label": "Theorem 8.8 (recurring values are not enough)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:polynomialcountermodel",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1871",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1860",
       "label": "Proposition 8.9 (a quadratic sequence with integral tails)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:shiftedcount",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1430",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1421",
       "label": "Proposition 8.2 (finite counting for shifted gap differences)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:signedwindow",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1071",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1063",
       "label": "Theorem 6.4 ([an equivalent signed interval test](https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/AffineShiftEscape.lean#L113))"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:smallpair",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1015",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1007",
       "label": "Theorem 6.1 (two consecutive small tail differences)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:smallpair-real",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1034",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1026",
       "label": "Corollary 6.2 (real form and the sufficient condition)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:sparse",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1633",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1622",
       "label": "Theorem 8.7 (density zero for the small-difference condition)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:sparse-nonconcentration",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1536",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1527",
       "label": "Proposition 8.5 (nonconcentration under sparse changes)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:sparse-rationalisation",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L134",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L138",
       "label": "Theorem 2.1 (sparse changes preserving congruences)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:telescope",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1902",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L1891",
       "label": "Proposition 8.10 (exact telescoping)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:true-tail",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L900",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L892",
       "label": "Lemma 5.4 (the boundary condition for the tail recurrence)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:xr:boundedpolignac",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2619",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2603",
       "label": "Proposition D.6 (recurring values with integral tails)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:xr:propagate",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2385",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2372",
       "label": "Proposition D.2 (propagation)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:xr:totient",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2372",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2359",
       "label": "Proposition D.1 (a shift of totient length)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:xr:truncation",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2420",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2407",
       "label": "Proposition D.3 (finite truncation)"
     },
     {
@@ -5563,49 +5563,49 @@
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:bandbreakpoint",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L570",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L571",
       "label": "Theorem 1.2 (constant values of the floor in the weights)"
     },
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:carry-equivalence",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1324",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1325",
       "label": "Theorem 4.1 (an exact criterion from successive partial sums)"
     },
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:channel-radius",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1190",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1191",
       "label": "Theorem 1.5 (a lower bound for the support parameter)"
     },
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:companion-orbit",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1429",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1430",
       "label": "Proposition 4.2 (rationality and factorial residues)"
     },
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:gap-gcd",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L996",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L997",
       "label": "Lemma 3.2 (factorial-gap gcd)"
     },
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:global-residue",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1719",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1720",
       "label": "Theorem 5.1 (a sufficient tail inequality)"
     },
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:lcm-growth",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1030",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1031",
       "label": "Theorem 3.4 (common-denominator growth)"
     },
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:lower-escape",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1511",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1512",
       "label": "Proposition 4.3 (lower-interval criterion)"
     },
     {
@@ -5623,19 +5623,19 @@
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:prime-pole",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L830",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L831",
       "label": "Theorem 2.1 (maximal prime-power survival)"
     },
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:product-lcm",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L967",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L968",
       "label": "Lemma 3.1 (product, least common multiple, pairwise gcd)"
     },
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:radius-constant",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1239",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1240",
       "label": "Corollary 1.6 (the asymptotic lower bound)"
     },
     {
@@ -5647,25 +5647,25 @@
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:segment",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1008",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1009",
       "label": "Lemma 3.3 (segment inequality)"
     },
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:shift-family",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1619",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L1620",
       "label": "Theorem 4.4 (a criterion for the shifts t≥-1)"
     },
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:translator",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L593",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L594",
       "label": "Theorem 1.7 (changing just one weighted sum)"
     },
     {
       "id": "statement:erdos68-factorial-reasoning-surface#long68:res:wilson-cofinality",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L929",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos68/core.tex#L930",
       "label": "Proposition 2.2 (cofinal first prime occurrences)"
     },
     {

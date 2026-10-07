@@ -20,18 +20,17 @@ negative denominators. Any further change of starting index adds a
 rational number. The expectation for all integer shifts remains unproved
 here. The problem number follows Bloom’s catalogue <span
 class="citation" data-cites="bloom"><a href="#ref-2">[2]</a></span>.</p>
-<p>We separate construction from nonintegrality. The first question is
-algebraic: which integers <span class="math inline" data-term-auto="off">\(M\)</span> occur
-when a finite integer vector cancels prescribed initial weighted sums in
-a form <span class="math inline" data-term-auto="off">\(MS+k\)</span>? The answer is an
-explicitly computable ideal of <span class="math inline" data-term-auto="off">\(\mathbb
-Z\)</span>. Adjacent factorial differences give an integral basis after
-correction at proper divisors. Cancellation fixes its lower coordinates;
-excluding index one leaves a single Diophantine equation. A finite-gcd
-formula then gives the least positive multiplier and a vector attaining
-it. For cancellation through four, that multiplier is <span
-class="math inline" data-term-auto="off">\(1380\)</span>, not merely the common denominator
-<span class="math inline" data-term-auto="off">\(115\)</span> forced by the congruences.</p>
+<p>For finitely supported integer vectors on <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span>, cancellation forms <span
+class="math inline" data-term-auto="off">\(MS+k\)</span> give an explicitly computable ideal
+of multipliers. Correcting adjacent factorial differences at proper
+divisors gives an integral basis. Cancellation fixes its lower
+coordinates; excluding index one leaves a single Diophantine equation.
+Its gcd, computed below <span class="math inline" data-term-auto="off">\(2D^2\)</span>, gives
+the least positive multiplier and an attaining vector. At depth four,
+the support restriction strengthens <span class="math inline" data-term-auto="off">\(115\mid
+M\)</span> to <span class="math inline" data-term-auto="off">\(1380\mid M\)</span>. This
+classification is independent of nonintegrality.</p>
 <p>The accompanying short paper proves this classification and bounds
 one resulting remainder between consecutive integers. Here we develop
 the support and coefficient-norm refinements and a primitive
@@ -128,12 +127,12 @@ computations?</td>
 <section id="long68:sec:channels" class="level2">
 <h2>Integer coefficient vectors and cancellation</h2>
 <p>We need weights that preserve the fractional part of <span
-class="math inline" data-term-auto="off">\(i!/(d!-1)\)</span> and whose adjacent differences
-have a simple form. Both requirements are met by removing one factor
-<span class="math inline" data-term-auto="off">\(d!\)</span> for each complete block of <span
-class="math inline" data-term-auto="off">\(d\)</span> indices. For a finitely supported
-integer vector <span class="math inline" data-term-auto="off">\(c=(c_i)\)</span> on <span
-class="math inline" data-term-auto="off">\(i\ge2\)</span>, put</p>
+class="math inline" data-term-auto="off">\(i!/(d!-1)\)</span> and whose scaled adjacent
+differences have a simple form. Both requirements are met by removing
+one factor <span class="math inline" data-term-auto="off">\(d!\)</span> for each complete
+block of <span class="math inline" data-term-auto="off">\(d\)</span> indices. For a finitely
+supported integer vector <span class="math inline" data-term-auto="off">\(c=(c_i)\)</span> on
+<span class="math inline" data-term-auto="off">\(i\ge2\)</span>, put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[M(c)=\sum_i c_i\,i!,\qquad
 W_{d,i}=\frac{i!}{(d!)^{\lfloor i/d\rfloor}},\qquad

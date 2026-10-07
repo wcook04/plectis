@@ -7,35 +7,45 @@
   <div class="lean-paper__body" data-source="../../../paper/269/erdos-269-three-prime-running-lcm.tex">
 <section id="sec:problem" class="level2">
 <h2>Two sums from running least common multiples</h2>
-<p>The <span class="math inline" data-term-auto="off">\(5\)</span>-smooth integers are the
-positive integers whose prime factors belong to <span
-class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>. Their running least common
-multiples begin <span
-class="math inline" data-term-auto="off">\(1,2,6,12,60,60,120,360,360,\ldots\)</span>. For a
-finite set of primes <span class="math inline" data-term-auto="off">\(P\)</span>, let <span
-class="math inline" data-term-auto="off">\(\mathcal S_P\)</span> consist of <span
-class="math inline" data-term-auto="off">\(1\)</span> and all positive integers whose prime
-factors belong to <span class="math inline" data-term-auto="off">\(P\)</span>, and put</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\operatorname{L}(x)=\lcm\{u\in\mathcal S_P:u\le
-x\},\qquad
+<p>Let <span class="math inline" data-term-auto="off">\(P\)</span> be a finite set of primes
+and <span class="math inline" data-term-auto="off">\(\mathcal S_P\)</span> the positive
+integers with prime factors in <span class="math inline" data-term-auto="off">\(P\)</span>,
+including <span class="math inline" data-term-auto="off">\(1\)</span>. For <span
+class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span>, the running least common
+multiples of these <span class="math inline" data-term-auto="off">\(5\)</span>-smooth
+integers begin <span
+class="math inline" data-term-auto="off">\(1,2,6,12,60,60,120,360,360,\ldots\)</span>. Put</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\operatorname{L}(x)=\lcm\{u\in\mathcal
+S_P:u\le x\},\qquad
 \operatorname{H}_P(x)=\prod_{p\in P}p^{\lfloor\log_p
 x\rfloor}\quad(x\ge1).\]</span></div>
-<p>Every integer in this finite set divides
-<span class="math inline" data-term-auto="off">\(\operatorname{H}_P(x)\)</span>. Conversely,
-the set contains the largest power of each <span
-class="math inline" data-term-auto="off">\(p\in P\)</span> below or equal to <span
-class="math inline" data-term-auto="off">\(x\)</span>, so their product divides its least
-common multiple. Thus <span
-class="math inline" data-term-auto="off">\(\operatorname{L}(x)=\operatorname{H}_P(x)\)</span>.
-This value changes only at a positive prime power, where it is
-multiplied by that prime. Summing its distinct reciprocals gives</p>
+<p>Every member of the prefix divides <span
+class="math inline" data-term-auto="off">\(\operatorname{H}_P(x)\)</span>, while the prefix
+contains the largest power of each <span class="math inline" data-term-auto="off">\(p\in
+P\)</span> at most <span class="math inline" data-term-auto="off">\(x\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(\operatorname{L}(x)=\operatorname{H}_P(x)\)</span>,
+with a jump by <span class="math inline" data-term-auto="off">\(p\)</span> exactly at each
+positive power of <span class="math inline" data-term-auto="off">\(p\)</span>. Counting
+distinct running LCMs or retaining multiplicities gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathcal D_P=1+\sum_{\substack{t=p^n\\p\in P,\
-n\ge1}}\frac1{\operatorname{H}_P(t)}.\]</span></div>
-<p>Positive powers of
-distinct primes never coincide, and geometric growth of the successive
-running LCMs gives convergence. We use <span
+n\ge1}}\frac1{\operatorname{H}_P(t)},
+\qquad
+\mathcal R_P=\sum_{u\in\mathcal
+S_P}\frac1{\operatorname{L}(u)}.\]</span></div>
+<p>For <span
+class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span>, <span
+class="math inline" data-term-auto="off">\(\operatorname{L}(5)=\operatorname{L}(6)=60\)</span>
+contributes <span class="math inline" data-term-auto="off">\(1/60\)</span> to <span
+class="math inline" data-term-auto="off">\(\mathcal D_P\)</span> and <span
+class="math inline" data-term-auto="off">\(2/60\)</span> to <span
+class="math inline" data-term-auto="off">\(\mathcal R_P\)</span>. Erdős Problem #269 asks
+about <span class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> <span
+class="citation" data-cites="erdosgraham1980"><a href="#ref-1">[1]</a></span> and <span
+class="citation" data-cites="erdos1988"><a href="#ref-2">[2]</a></span>. Positive powers of
+distinct primes never coincide; geometric growth of successive running
+LCMs gives convergence of <span class="math inline" data-term-auto="off">\(\mathcal
+D_P\)</span>. We use <span
 class="math inline" data-term-auto="off">\(\N=\{0,1,2,\ldots\}\)</span>.</p>
 <div class="theorem" id="res:distinct-height-235">
 <p><strong>Theorem 1.1</strong> (the sum over distinct running LCMs for
@@ -62,22 +72,8 @@ href="../../../papers/erdos269-running-lcm-reasoning-surface.pdf#r3-distinct-pro
 general argument</a> uses an isolated interchange of jumps on a torus.
 That argument is retained there as an ordinary proof awaiting
 formalisation. The proof below is independent of that argument.</p>
-<p>The question in Erdős Problem #269 concerns the sum with
-multiplicity,</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal
-R_P=\sum_{u\in\mathcal S_P}\frac1{\operatorname{L}(u)},\]</span></div>
-<p class="display-continue">as
-recorded in <span class="citation" data-cites="erdosgraham1980"><a href="#ref-1">[1]</a></span>
-and <span class="citation" data-cites="erdos1988"><a href="#ref-2">[2]</a></span>. For example,
-<span
-class="math inline" data-term-auto="off">\(\operatorname{L}(5)=\operatorname{L}(6)=60\)</span>
-for <span class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span>, giving <span
-class="math inline" data-term-auto="off">\(2/60\)</span> in <span
-class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> and <span
-class="math inline" data-term-auto="off">\(1/60\)</span> in <span
-class="math inline" data-term-auto="off">\(\mathcal D_P\)</span>. The theorem treats the sum
-over distinct values; the problem asks about the sum with multiplicity.
-Our arguments leave the latter unresolved for finite <span
+<p>Our arguments leave the repeated sum <span
+class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> unresolved for finite <span
 class="math inline" data-term-auto="off">\(P\)</span> with <span
 class="math inline" data-term-auto="off">\(|P|\ge3\)</span>. For <span
 class="math inline" data-term-auto="off">\(P=\{p\}\)</span> both sums equal <span
@@ -316,36 +312,29 @@ once; the repeated sum assigns the coefficients <span
 class="math inline" data-term-auto="off">\(4,1,2\)</span>. The jumps alone therefore no
 longer determine the block contribution. Appendix <a class="math-ref" href="#sec:height-identities">A</a> gives the
 general finite grouping identity.</p>
-<p>We use the half-open blocks <span
-class="math inline" data-term-auto="off">\([2^a,2^{a+1})\)</span>, so the tail starts at
-<span class="math inline" data-term-auto="off">\(2^a\)</span> rather than just after it. Its
-finite prefix excludes the jump by <span
-class="math inline" data-term-auto="off">\(2\)</span> at that endpoint. Half the running LCM
-therefore clears that prefix: write</p>
+<p>With blocks <span class="math inline" data-term-auto="off">\([2^a,2^{a+1})\)</span>, the
+tail now includes <span class="math inline" data-term-auto="off">\(2^a\)</span>. The prefix
+excludes the jump by <span class="math inline" data-term-auto="off">\(2\)</span> there, so
+half the running LCM clears it. Put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[s_a=\sum_{\substack{x\in\mathcal S_P\\2^a\le
 x&lt;2^{a+1}}}\frac1{\operatorname{H}(x)},
 \qquad T_a=\sum_{j\ge0}s_{a+j},\qquad
 h_a=\frac{\operatorname{H}(2^a)}2,\qquad X_a=h_aT_a.\]</span></div>
-<p>Indeed, a
-running LCM strictly before <span class="math inline" data-term-auto="off">\(2^a\)</span> has
-exponent of <span class="math inline" data-term-auto="off">\(2\)</span> at most <span
-class="math inline" data-term-auto="off">\(a-1\)</span> and divides <span
-class="math inline" data-term-auto="off">\(h_a\)</span>. Here <span
-class="math inline" data-term-auto="off">\(h_0=1/2\)</span>, while <span
-class="math inline" data-term-auto="off">\(h_a\)</span> is an integer for <span
-class="math inline" data-term-auto="off">\(a\ge1\)</span>. This endpoint convention explains
-the factor <span class="math inline" data-term-auto="off">\(1/2\)</span> and the difference
-from the tails in Section <a class="math-ref" href="#sec:distinct">2</a>.</p>
-<p>The change in normalisation is <span
-class="math inline" data-term-auto="off">\(b_a=\operatorname{H}(2^{a+1})/\operatorname{H}(2^a)\)</span>.
-Since <span class="math inline" data-term-auto="off">\(h_0=1/2\)</span>, its product gives
-<span class="math inline" data-term-auto="off">\(h_{a+1}=(b_0\cdots b_a)/2\)</span>. Thus the
-block numerator <span class="math inline" data-term-auto="off">\(m_a=h_{a+1}s_a\)</span>
-satisfies <span class="math inline" data-term-auto="off">\(m_a/(b_0\cdots
-b_a)=s_a/2\)</span>; splitting off <span
-class="math inline" data-term-auto="off">\(s_a\)</span> gives <span
-class="math inline" data-term-auto="off">\(X_{a+1}=b_aX_a-m_a\)</span>. Explicitly,</p>
+<p>For <span
+class="math inline" data-term-auto="off">\(a\ge1\)</span>, each prefix LCM has exponent of
+<span class="math inline" data-term-auto="off">\(2\)</span> at most <span
+class="math inline" data-term-auto="off">\(a-1\)</span> and divides the integer <span
+class="math inline" data-term-auto="off">\(h_a\)</span>; at <span
+class="math inline" data-term-auto="off">\(a=0\)</span>, <span
+class="math inline" data-term-auto="off">\(h_0=1/2\)</span>. The factor <span
+class="math inline" data-term-auto="off">\(1/2\)</span> reflects the endpoint change from
+Section <a class="math-ref" href="#sec:distinct">2</a>, not
+multiplicity.</p>
+<p>Splitting <span class="math inline" data-term-auto="off">\(T_a=s_a+T_{a+1}\)</span> and
+using <span class="math inline" data-term-auto="off">\(h_{a+1}=b_ah_a\)</span> gives <span
+class="math inline" data-term-auto="off">\(X_{a+1}=b_aX_a-m_a\)</span>, where <span
+class="math inline" data-term-auto="off">\(m_a=h_{a+1}s_a\)</span>. Explicitly,</p>
 <div class="math-display" id="eq:actual-digit" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-digit}
@@ -353,17 +342,20 @@ b_a=\frac{\operatorname{H}(2^{a+1})}{\operatorname{H}(2^a)},\qquad
 m_a=\sum_{\substack{x\in\mathcal S_P\\2^a\le x&lt;2^{a+1}}}
        \frac{\operatorname{H}(2^{a+1})}{2\operatorname{H}(x)}.
 \end{equation}\]</span></div>
-<p>For <span class="math inline" data-term-auto="off">\([2,4)\)</span>,
-the running LCMs at <span class="math inline" data-term-auto="off">\(2,3\)</span> are <span
+<p>Since <span
+class="math inline" data-term-auto="off">\(h_0=1/2\)</span>, we also have <span
+class="math inline" data-term-auto="off">\(h_{a+1}=(b_0\cdots b_a)/2\)</span> and <span
+class="math inline" data-term-auto="off">\(m_a/(b_0\cdots b_a)=s_a/2\)</span>. For <span
+class="math inline" data-term-auto="off">\([2,4)\)</span>, the running LCMs at <span
+class="math inline" data-term-auto="off">\(2,3\)</span> are <span
 class="math inline" data-term-auto="off">\(2,6\)</span> and <span
 class="math inline" data-term-auto="off">\(h_2=6\)</span>, giving <span
 class="math inline" data-term-auto="off">\(m_1=6(1/2+1/6)=4\)</span> and <span
 class="math inline" data-term-auto="off">\(b_1=6\)</span>. For the block displayed above,
 <span class="math inline" data-term-auto="off">\(h_5=10800\)</span> and</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[m_4=4\cdot15+3+2\cdot1=65,\qquad b_4=30.\]</span></div>
-<p>Thus <span class="math inline" data-term-auto="off">\(m_a\)</span> need not be smaller than
-<span class="math inline" data-term-auto="off">\(b_a\)</span>.</p>
+class="math display" data-term-auto="off">\[m_4=4\cdot15+3+2\cdot1=65,\qquad
+b_4=30.\]</span></div>
 <div class="lemma" id="res:dyadic-alphabet">
 <p><strong>Lemma 3.1</strong> (integer coefficients and four possible
 bases). <em> For every <span class="math inline" data-term-auto="off">\(a\ge0\)</span>, <span
@@ -386,10 +378,6 @@ power of <span class="math inline" data-term-auto="off">\(5\)</span>. Along with
 factor <span class="math inline" data-term-auto="off">\(2\)</span>, these give <span
 class="math inline" data-term-auto="off">\(b_a\in\{2,6,10,30\}\)</span>. ◻</p>
 </div>
-<p>Thus the jump word still determines <span
-class="math inline" data-term-auto="off">\(b_a\)</span>, but <span
-class="math inline" data-term-auto="off">\(m_a\)</span> must also record multiplicities. The
-recurrence retains the same four bases, not the five-map table.</p>
 <div class="proposition" id="res:actual-orbit">
 <p><strong>Proposition 3.2</strong> (the tail recurrence and a quadratic
 bound). <em> The series defining <span
@@ -449,8 +437,13 @@ class="math inline" data-term-auto="off">\(m_a\)</span>, so</p>
 class="math display" data-term-auto="off">\[m_a\ge(\lfloor a/5\rfloor+1)^2,\qquad
 X_a&gt;m_a/30.\]</span></div>
 <p>Rationality would still put the tails in a fixed
-lattice, but not in a finite set. We shall use the quadratic upper bound
-to exclude integer tails instead.</p>
+lattice, but not in a finite set. Repetition alone also gives no
+recovery rule: the maps <span
+class="math inline" data-term-auto="off">\(y\mapsto(m_a+y)/b_a\)</span> now depend on <span
+class="math inline" data-term-auto="off">\(a\)</span> and form an infinite family. The proof
+in Section <a class="math-ref" href="#sec:distinct">2</a>
+needed both finiteness and unique recovery. We instead use the quadratic
+bound to limit the positive integer tails required by rationality.</p>
 <p>The Cantor-series form <span
 class="math inline" data-term-auto="off">\(S/2=\sum_{a\ge0}m_a/(b_0\cdots b_a)\)</span> also
 explains why the criteria in <span class="citation"
@@ -534,11 +527,9 @@ class="math inline" data-term-auto="off">\(X_a\)</span> itself.</p>
 </section>
 <section id="sec:escape" class="level2">
 <h2>A residue criterion</h2>
-<p> A finite segment can certify that a specified <span
-class="math inline" data-term-auto="off">\(BX_\ell\)</span> is not an integer. The recurrence
-fixes the residue class of the terminal tail, and its quadratic bound
-limits the positive integers in that class. If the least positive
-representative exceeds the bound, integrality is impossible.</p>
+<p> A finite segment bounds the starting tail. Its integrality would
+constrain the endpoint tail to a residue class. The residue inequality
+expresses the same obstruction in either form.</p>
 <p>For two steps the recurrence reads <span
 class="math inline" data-term-auto="off">\(X_{\ell+2}=b_{\ell+1}b_\ell
 X_\ell-(b_{\ell+1}m_\ell+m_{\ell+1})\)</span>. To keep track of the
@@ -561,10 +552,10 @@ Thus</p>
 =h_\ell\sum_{a=\ell}^{\ell+h-1}s_a,
 \qquad
 \frac{X_{\ell+h}}{W_{\ell,h}}=h_\ell T_{\ell+h}.\]</span></div>
-<p>These are the
-finite block contribution and the remainder, both in the starting
-normalisation <span class="math inline" data-term-auto="off">\(h_\ell\)</span>. Their sum is
-<span class="math inline" data-term-auto="off">\(X_\ell\)</span> by <a class="math-ref" data-equation-ref="true" href="#eq:actual-tail">eq:actual-tail</a>. Throughout this
+<p>These finite
+and remaining contributions sum to <span
+class="math inline" data-term-auto="off">\(X_\ell\)</span>, both in the starting
+normalisation <span class="math inline" data-term-auto="off">\(h_\ell\)</span>, by <a class="math-ref" data-equation-ref="true" href="#eq:actual-tail">eq:actual-tail</a>. Throughout this
 section let</p>
 <div class="math-display" id="eq:actual-bound" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-bound}
@@ -586,10 +577,11 @@ class="math display" data-term-auto="off">\[BF+K(B,\ell+h)&lt;W\bigl(\lfloor
 BF/W\rfloor+1\bigr).\]</span></div>
 <p>The right side is <span
 class="math inline" data-term-auto="off">\(W\)</span> times the first integer strictly above
-<span class="math inline" data-term-auto="off">\(BF/W\)</span>. Subtracting <span
-class="math inline" data-term-auto="off">\(BF\)</span> gives the least positive residue of
-<span class="math inline" data-term-auto="off">\(-BF\)</span> modulo <span
-class="math inline" data-term-auto="off">\(W\)</span>.</p>
+<span class="math inline" data-term-auto="off">\(BF/W\)</span>. Its excess over <span
+class="math inline" data-term-auto="off">\(BF\)</span> is the least positive residue of <span
+class="math inline" data-term-auto="off">\(-BF\)</span> modulo <span
+class="math inline" data-term-auto="off">\(W\)</span>: the residue measures the gap to that
+integer in units of <span class="math inline" data-term-auto="off">\(1/W\)</span>.</p>
 <p>For integers <span class="math inline" data-term-auto="off">\(W\ge1,t\)</span>, define
 <span class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(t)=1+((t-1)\bmod
 W)\)</span>, with remainder in <span
@@ -613,6 +605,10 @@ class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(-BF)\le K\)</spa
 positive representative of its class, and in particular at most <span
 class="math inline" data-term-auto="off">\(d\)</span>. ◻</p>
 </div>
+<p>In <a class="math-ref" data-equation-ref="true" href="#eq:actual-tail">eq:actual-tail</a>, an
+integral <span class="math inline" data-term-auto="off">\(BX_\ell\)</span> makes <span
+class="math inline" data-term-auto="off">\(BX_{\ell+h}\)</span> such a positive
+representative.</p>
 <p>For <span class="math inline" data-term-auto="off">\(\ell=1,h=6\)</span>, direct iteration
 gives <span class="math inline" data-term-auto="off">\(W_{1,6}=648000\)</span> and <span
 class="math inline" data-term-auto="off">\(F_{1,6}=524431\)</span>. Since <span
@@ -621,13 +617,13 @@ class="math inline" data-term-auto="off">\(K(1,7)=5760\)</span>, the interval is
 class="math display" data-term-auto="off">\[\frac{524431}{648000}&lt;X_1\le\frac{530191}{648000}&lt;1.\]</span></div>
 <p>Equivalently, <span
 class="math inline" data-term-auto="off">\(\operatorname{lpr}_{W_{1,6}}(-F_{1,6})=123569&gt;5760\)</span>
-certifies <span class="math inline" data-term-auto="off">\(X_1\notin\mathbb Z\)</span>. This
-treats only <span class="math inline" data-term-auto="off">\(B=1\)</span> at <span
-class="math inline" data-term-auto="off">\(\ell=1\)</span>; it leaves other multipliers and
-later clearing onsets untouched. To exclude every rational denominator,
-we need a successful segment for every <span
-class="math inline" data-term-auto="off">\(B\)</span> coprime to <span
-class="math inline" data-term-auto="off">\(30\)</span> beyond every prescribed onset.</p>
+certifies <span class="math inline" data-term-auto="off">\(X_1\notin\mathbb Z\)</span>,
+treating only <span class="math inline" data-term-auto="off">\(B=1\)</span> at <span
+class="math inline" data-term-auto="off">\(\ell=1\)</span>. For denominators <span
+class="math inline" data-term-auto="off">\(MB\)</span>, varying <span
+class="math inline" data-term-auto="off">\(B\)</span> covers the part coprime to <span
+class="math inline" data-term-auto="off">\(30\)</span>; arbitrarily late starts allow each
+supported part <span class="math inline" data-term-auto="off">\(M\)</span> to clear.</p>
 <div class="theorem" id="res:windowconsumer">
 <p><strong>Theorem 4.2</strong> (a residue criterion for irrationality).
 <em> The number <span class="math inline" data-term-auto="off">\(S\)</span> is irrational if
@@ -681,27 +677,26 @@ class="math inline" data-term-auto="off">\(a_0\)</span>. No bound uniform in <sp
 class="math inline" data-term-auto="off">\(B\)</span> or <span
 class="math inline" data-term-auto="off">\(\ell\)</span> is needed for this direction. ◻</p>
 </div>
-<p>The fixed-start behaviour explains the quantifiers. A nonintegral
-<span class="math inline" data-term-auto="off">\(BX_\ell\)</span> gives successful segments
-for all sufficiently large <span class="math inline" data-term-auto="off">\(h\)</span>, even
-if <span class="math inline" data-term-auto="off">\(S\)</span> is rational with a denominator
-not yet cleared at <span class="math inline" data-term-auto="off">\(\ell\)</span>. If <span
-class="math inline" data-term-auto="off">\(BX_\ell\)</span> is integral, the same calculation
-with <span class="math inline" data-term-auto="off">\(\delta=0\)</span> instead gives <span
-class="math inline" data-term-auto="off">\(\operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})=BX_{\ell+h}\)</span>
-for all sufficiently large <span class="math inline" data-term-auto="off">\(h\)</span>, so
-the test cannot succeed. A finite failure alone distinguishes neither
-case.</p>
-<p>The converse assumes the positive gap <span
-class="math inline" data-term-auto="off">\(\delta\)</span>; it does not prove one exists for
-the actual tails. Establishing <a class="math-ref" data-equation-ref="true" href="#eq:escape">eq:escape</a> without that assumption
+<p>At a fixed start, success rules out integrality of <span
+class="math inline" data-term-auto="off">\(BX_\ell\)</span>. If <span
+class="math inline" data-term-auto="off">\(BX_\ell\)</span> is integral, the recurrence,
+positivity and the bound prevent success at any length; for all
+sufficiently large <span class="math inline" data-term-auto="off">\(h\)</span>, <span
+class="math inline" data-term-auto="off">\(\operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})=BX_{\ell+h}\)</span>.
+If <span class="math inline" data-term-auto="off">\(BX_\ell\)</span> is nonintegral, every
+sufficiently long segment succeeds, even when <span
+class="math inline" data-term-auto="off">\(S\)</span> is rational with a denominator not yet
+cleared at <span class="math inline" data-term-auto="off">\(\ell\)</span>. Increasing the
+length does not remove the need for starts beyond every cutoff. A finite
+failed search distinguishes neither case.</p>
+<p>The converse obtains <span class="math inline" data-term-auto="off">\(\delta&gt;0\)</span>
+from irrationality. Proving <a class="math-ref" data-equation-ref="true" href="#eq:escape">eq:escape</a> without that assumption
 is the remaining task. The upper-bound property of <span
 class="math inline" data-term-auto="off">\(K\)</span> is essential: a zero bound would make
 every residue inequality automatic. The <a
 href="../../../papers/erdos269-running-lcm-reasoning-surface.pdf#r3-residue">companion’s
-residue analysis</a> proves the fixed-start formula and treats smaller
-and more general bounds. Finite searches cover only finitely many
-multipliers and starts.</p>
+residue analysis</a> treats the fixed-start formula and smaller or more
+general bounds.</p>
 <p></p>
 <div class="minipage">
 <p>The repeated three-prime question can therefore be written in three
@@ -738,12 +733,10 @@ function-theoretic arguments.</p>
 </section>
 <section id="sec:two-prime" class="level2">
 <h2>Two-prime transcendence</h2>
-<p>For two primes, factorisation makes the multiplicities tractable. Fan
-gave the factorisation of the repeated sum and its transcendence
-consequence in his post of 26 June 2026 <span class="citation"
-data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>. The point is that both factors
-depend on one Hecke–Mahler value. The following calculation expresses
-the distinct sum in that same value.</p>
+<p>For two primes, the distinct sum is affine in one Hecke–Mahler value;
+the repeated sum is quadratic in it. Fan gave the factorisation of the
+repeated sum and its transcendence consequence in his post of 26 June
+2026 <span class="citation" data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>.</p>
 <div class="theorem" id="res:two-prime-transcendence"><span class="tex-label" id="res:two-prime-repeated-transcendence" hidden></span>
 <p><strong>Theorem 5.1</strong> (both two-prime sums). <em> Let <span
 class="math inline" data-term-auto="off">\(p&lt;q\)</span> be distinct primes. Put <span
@@ -933,16 +926,14 @@ class="math inline" data-term-auto="off">\(1/H\)</span>. ◻</p>
 </section>
 <section id="sec:rank" class="level2">
 <h2>The three-prime kernel</h2>
-<p>The two-prime proof separates the summand into factors depending on
-individual exponents. For three primes, even a finite sum of products
-separating <span class="math inline" data-term-auto="off">\(i\)</span> from <span
-class="math inline" data-term-auto="off">\((j,k)\)</span> is impossible. This concerns an
-exact identity for the kernel <span
-class="math inline" data-term-auto="off">\(\operatorname{K}(i,j,k)\)</span>, not identities
-available only after summation. One binary carry causes the obstruction:
-diagonal rescaling leaves entries <span class="math inline" data-term-auto="off">\(1\)</span>
-and <span class="math inline" data-term-auto="off">\(1/r\)</span>, from which we select
-nonzero minors of every order.</p>
+<p>The two-prime proof separates the summand by exponents. For three
+primes, the carry in adding two fractional parts prevents any finite
+separation of <span class="math inline" data-term-auto="off">\(i\)</span> from <span
+class="math inline" data-term-auto="off">\((j,k)\)</span>. Diagonal rescaling leaves just two
+entry values, <span class="math inline" data-term-auto="off">\(1\)</span> and <span
+class="math inline" data-term-auto="off">\(1/r\)</span>; choosing their threshold positions
+gives nonzero minors of every order. This concerns exact kernel
+identities, not identities after summation.</p>
 <div class="example" id="res:rank">
 <p><strong>Example B.1</strong>. <em> For <span
 class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, the leading two-by-two
@@ -950,13 +941,11 @@ determinant is <span class="math inline" data-term-auto="off">\(-1/15\)</span>: 
 entries are <span class="math inline" data-term-auto="off">\(1,1/6,1/2,1/60\)</span>, so it
 equals <span class="math inline" data-term-auto="off">\(1/60-1/12\)</span>.</em></p>
 </div>
-<p>This nonzero two-by-two minor rules out rank one. More generally, a
-sum of <span class="math inline" data-term-auto="off">\(d\)</span> separated products would
-give every matrix layer rank at most <span
-class="math inline" data-term-auto="off">\(d\)</span>. To exclude every finite <span
-class="math inline" data-term-auto="off">\(d\)</span>, we therefore seek nonzero minors of
-arbitrarily large order. Their rows and columns may depend on the order;
-the same choices will work in every layer <span
+<p>A sum of <span class="math inline" data-term-auto="off">\(d\)</span> separated products
+has rank at most <span class="math inline" data-term-auto="off">\(d\)</span> in each layer.
+Thus the two-by-two example excludes only rank one; excluding every
+finite <span class="math inline" data-term-auto="off">\(d\)</span> requires nonzero minors of
+arbitrary order. Their indices may depend on the order, but not on <span
 class="math inline" data-term-auto="off">\(k\)</span>.</p>
 <div class="theorem" id="res:infinite-rank">
 <p><strong>Theorem B.2</strong> (no finite separation of the kernel).
@@ -1147,28 +1136,27 @@ differences (their sum is <span class="math inline" data-term-auto="off">\((1-c)
 1\)</span>), so the rank is <span
 class="math inline" data-term-auto="off">\(t-1\)</span>. ◻</p>
 </div>
-<p>For <span class="math inline" data-term-auto="off">\(c=1/r\)</span> over <span
-class="math inline" data-term-auto="off">\(\mathbb Q\)</span>, both restrictions hold.
-Ordering the sampled row phases puts every column in this form, so the
-formula gives the rank of each nonempty rectangular sample. Since <span
-class="math inline" data-term-auto="off">\(k\)</span> enters only through nonzero diagonal
-factors, that rank is independent of <span
-class="math inline" data-term-auto="off">\(k\)</span>. The <a
+<p>Order the sampled row phases and take <span
+class="math inline" data-term-auto="off">\(c=1/r\)</span> over <span
+class="math inline" data-term-auto="off">\(\mathbb Q\)</span>. The formula then gives the
+rank of every nonempty rectangular sample, independently of <span
+class="math inline" data-term-auto="off">\(k\)</span>: the layer changes only the nonzero
+diagonal factors. The <a
 href="../../../papers/erdos269-running-lcm-reasoning-surface.pdf#r3-rank">companion’s
 kernel analysis</a> gives the exact rational comparisons.</p>
 </section>
 <section id="approximation." class="level5">
 <h5>Approximation.</h5>
-<p>Exact nonseparation does not prevent approximation. Keeping only rows
-<span class="math inline" data-term-auto="off">\(i&lt;N\)</span> gives <span
-class="math inline" data-term-auto="off">\(N\)</span> separated terms, and <span
+<p>The diagonal rescaling preserves rank but removes the kernel’s decay.
+Retaining rows <span class="math inline" data-term-auto="off">\(i&lt;N\)</span> in the
+original kernel gives <span class="math inline" data-term-auto="off">\(N\)</span> separated
+terms; <span
 class="math inline" data-term-auto="off">\(\operatorname{H}(x)&gt;x^3/(pqr)\)</span> makes
 the error tend to zero uniformly and in <span
-class="math inline" data-term-auto="off">\(\ell^1(\mathbb N^3)\)</span>. By contrast, the
-rescaled matrix has uniform distance <span
+class="math inline" data-term-auto="off">\(\ell^1(\mathbb N^3)\)</span>. The rescaled matrix
+instead has uniform distance <span
 class="math inline" data-term-auto="off">\((1-1/r)/2\)</span> from finite-rank matrices. The
-rescaling preserves exact rank but removes decay; it does not preserve
-uniform approximation error. The <a
+<a
 href="../../../papers/erdos269-running-lcm-reasoning-surface.pdf#r3-approximation">companion’s
 approximation theorem</a> proves both statements. Neither implies
 irrationality of the scalar sum.</p>

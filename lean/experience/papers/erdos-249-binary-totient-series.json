@@ -5,7 +5,7 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 16,
+  "pages": 15,
   "question": "What explicit basis and integral relations does the totient k-kernel have at every integer base, and why does that not decide Erdős #249?",
   "precis": "For integers k≥2 and e≥1, the totient sections n↦φ(k^j n+r) with 0≤j≤e and 0≤r<k^j have an explicit rational basis of dimension k^e+1. Every section is an explicit integer multiple of a retained one, and these reductions generate all integral relations, with unique coefficients. The proof combines the local formula for Euler's totient with a nonsingular evaluation matrix obtained from the Chinese remainder theorem and Dirichlet's theorem. The basis theorem does not decide the irrationality of S=∑ φ(n)2^{-n}.",
   "owns": "the exact finite-level totient-kernel basis, independence proof and integral relations; the long paper develops denominator exclusions and other approaches to the binary series",
@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "065862ae86e3b045",
-    "source_sha256": "cb6ddb9287d6e5471a76a36a2b177acb9dd21f03f3a58cbeb4bef68698cd02a6",
+    "source_sha256": "45531de741b5525accf94e61770819fee824765544f5c1751688321ef5d9cebf",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 496,
+    "mathml_node_count": 510,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "a42ce0aa0ee3c9013cc000050fc8ce9af04c65446060f29329b55036eb6bb19e",
-    "html_exact_tex_sha256": "87d2e2c0c8098b2a82ad8a9b7a1bede0e2b0b1557a6f8cdfd4a7996c2a007486"
+    "html_mathml_sha256": "a01983ed5f46f750e50e4e1a3eb6bb8f1a167f174f45d7bf83739453ce0e177a",
+    "html_exact_tex_sha256": "2c6fce3e49d3de7225be14b478f54ad3b0e82eb6d6f1d1a978506b747ea84057"
   },
   "sections": [
     {
