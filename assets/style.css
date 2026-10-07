@@ -7585,7 +7585,7 @@ html.plait-live .plait { opacity: 1; }
    instrument seen from two sides. */
 .home-atlas {
   position: relative; --atlas-move: 620ms; --atlas-top: clamp(4px, 0.9vh, 10px);
-  --atlas-bar-h: 40px; --atlas-bar-gap: clamp(16px, 2.4vh, 26px);
+  --atlas-bar-h: 40px; --atlas-bar-gap: clamp(30px, 4.6vh, 52px);
   /* Leaves at once and settles slowly: the symmetric ease it replaced held
      the slice still for the first tenth of a second after a click. */
   --atlas-ease: cubic-bezier(0.45, 0, 0.2, 1);
