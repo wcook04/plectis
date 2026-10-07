@@ -11,6 +11,28 @@
     }
   },
   "generator_commit": "773807a05389e2330cfddc171454b8c39500830b",
+  "last_scoped_release": {
+    "cache_key_pages": 2,
+    "generator_commit": "abe15a321f16bda93acf4f1b9f68510ab382da0f",
+    "not_run": [
+      "paper sync",
+      "Lean sync",
+      "site experience",
+      "maths render",
+      "reader packets",
+      "glossary"
+    ],
+    "protected_products": "every other byte is the full generation's, not regenerated or relabeled current",
+    "published_assets": {
+      "assets/art.js": {
+        "after": "5e2cbba7c90b8b9ddbfed9d212d817d23f0403cec0dd36008b8797c350806c3f",
+        "before": "77c0e2109a1d6668485e504a67dc5054bfb610bbc379dcb523845bbaefb0d3fc"
+      }
+    },
+    "retained_content_changes": 35,
+    "retained_full_generation": "773807a05389e2330cfddc171454b8c39500830b",
+    "scope": "presentation"
+  },
   "note": "Public source commits this deploy was generated from. The next deploy reads this file and refuses to publish a build whose sources do not contain these commits, unless it is run with --allow-older-than-live.",
   "schema": "plectis_site_deploy_provenance_v1",
   "sources": {

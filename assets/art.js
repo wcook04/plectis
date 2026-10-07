@@ -93,6 +93,7 @@
       return {
         warmBack: [160, 63, 60], warmFront: [230, 123, 109],
         coolBack: [53, 96, 143], coolFront: [147, 197, 230],
+        tip: [196, 160, 222],
         warmCore: [225, 115, 102], coolCore: [123, 178, 217],
         alpha: 0.62, glow: 0.26, width: 1.0, blend: 'lighter',
         coreWidth: 1.35, coreAlpha: 0.95, channel: 0.8,
@@ -102,6 +103,7 @@
     return {
       warmBack: [209, 137, 128], warmFront: [147, 43, 39],
       coolBack: [124, 156, 185], coolFront: [37, 83, 124],
+      tip: [104, 64, 138],
       warmCore: [154, 50, 44], coolCore: [42, 89, 130],
       alpha: 0.64, glow: 0, width: 0.95, blend: 'source-over',
       coreWidth: 1.25, coreAlpha: 0.9, channel: 0.85,
@@ -634,8 +636,10 @@
 
   /* The funnel's ends and stations. Past the last station the weave is
      cut away behind a short soft edge, so the drawing stops where the
-     cables meet; each earlier station's crossing carries a small dot in the
-     page's ink, and the last carries a bead in the ember: one result. */
+     cables meet; each earlier station's crossing carries a small black
+     hole, and the last carries a bead where the two cables meet, in
+     the violet between their red and blue (Will, 7 October 2026): one
+     result. */
   function drawStations(c, g, pal) {
     var dark = pal.blend === 'lighter';
     var y = g.centre(0);
@@ -647,13 +651,22 @@
     c.fillStyle = cut;
     c.fillRect(g.tip - 8, 0, g.W - g.tip + 40, g.H);
     c.globalCompositeOperation = 'source-over';
+    /* Each earlier station is a small black hole (Will, 7 October 2026):
+       a dense dark core that swallows the cables passing through it, with
+       a faint lit rim where the light bends round its edge. */
     for (var i = 0; i + 1 < g.stations.length; i += 1) {
-      c.fillStyle = dark ? 'rgba(242,230,212,0.82)' : 'rgba(33,19,24,0.72)';
+      var sx = g.stations[i];
+      c.fillStyle = dark ? 'rgb(8,5,11)' : 'rgb(20,12,18)';
       c.beginPath();
-      c.arc(g.stations[i], y, 2.1, 0, Math.PI * 2);
+      c.arc(sx, y, 2.9, 0, Math.PI * 2);
       c.fill();
+      c.strokeStyle = dark ? 'rgba(242,230,212,0.34)' : 'rgba(20,12,18,0.28)';
+      c.lineWidth = 0.8;
+      c.beginPath();
+      c.arc(sx, y, 3.6, 0, Math.PI * 2);
+      c.stroke();
     }
-    var col = pal.warmFront;
+    var col = pal.tip;
     var rgb = col[0] + ',' + col[1] + ',' + col[2];
     var halo = c.createRadialGradient(g.tip, y, 0, g.tip, y, dark ? 12 : 7);
     halo.addColorStop(0, 'rgba(' + rgb + ',' + (dark ? 0.5 : 0.22) + ')');
