@@ -43,6 +43,10 @@
   var lastW = 0;
   var lastH = 0;
   var generation = 0;
+  /* The funnel's stations for the current paint: page x of each step named
+     under the band (data-plait-node), or null where the plait keeps its
+     composed knot. */
+  var nodes = null;
 
   function isDark() {
     var t = root.getAttribute('data-theme');
@@ -142,6 +146,34 @@
     return box ? box.height : 0;
   }
 
+  /* The steps under the band, left to right, while they stand on one line
+     and far enough apart to take a crossing each; otherwise null. */
+  function funnelNodes(W) {
+    if (contained() || W < 760) return null;
+    var els = doc.querySelectorAll('[data-plait-node]');
+    if (els.length < 3) return null;
+    var xs = [], top = null, r, x, i;
+    for (i = 0; i < els.length; i += 1) {
+      r = els[i].getBoundingClientRect();
+      if (!r.width || !r.height) return null;
+      if (top === null) top = r.top;
+      if (Math.abs(r.top - top) > 6) return null;
+      x = Math.round(r.left + r.width / 2 + (window.pageXOffset || 0));
+      if (xs.length && x - xs[xs.length - 1] < 48) return null;
+      xs.push(x);
+    }
+    return xs;
+  }
+
+  function sameNodes(a, b) {
+    if (!a || !b) return a === b;
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i += 1) {
+      if (Math.abs(a[i] - b[i]) >= 3) return false;
+    }
+    return true;
+  }
+
   function build() {
     wrap = doc.createElement('div');
     wrap.className = 'plait';
@@ -190,7 +222,86 @@
      the separation makes the two long openings unequal: one longer and
      shallower, one shorter and fuller. */
   var KNOT = 0.585;
+  /* 7 October 2026: the funnel (Will: "combine that with the funnel rather
+     than have the two separate", and "it should be monotonic"). On the
+     landing the plait is the funnel each problem is prepared in, and the
+     steps named under the band are its stations: the cables come in wide on
+     the left, over the Lean map, cross once over each station, and close
+     steadily towards the last, Results, crossing more often as they draw in,
+     and close to a point on it, where the drawing ends in a bead. The
+     closing and the quickening are both monotonic, so the drawing only ever
+     narrows. The
+     phase is a monotone cubic through one crossing per station, so a
+     crossing stands over each name at every width the steps hold on one
+     line; narrower than that, the composed knot below returns. */
+  function funnelGeometry(W, H, xs) {
+    var m = xs.length;
+    var base = Math.max(300, Math.min(540, W * 0.3));
+    var lo = -Math.round(base), hi = Math.round(W + base);
+    var half = [], i;
+    for (i = 0; i + 1 < m; i += 1) half.push(1 + Math.round((2 * i) / Math.max(1, m - 2)));
+    var ax = [lo], ap = [0];
+    var p = Math.PI / 2;
+    ap[0] = p - 0.8 * (Math.PI * half[0] / (xs[1] - xs[0])) * (xs[0] - lo);
+    for (i = 0; i < m; i += 1) {
+      if (i > 0) p += Math.PI * half[i - 1];
+      ax.push(xs[i]);
+      ap.push(p);
+    }
+    ax.push(hi);
+    ap.push(p + 1.6 * (Math.PI * half[m - 2] / (xs[m - 1] - xs[m - 2])) * (hi - xs[m - 1]));
+    /* Tangents by the harmonic mean of the neighbouring slopes (Fritsch and
+       Butland), which keeps the cubic monotone between the crossings. */
+    var n = ax.length, d = [], tan = [];
+    for (i = 0; i + 1 < n; i += 1) d.push((ap[i + 1] - ap[i]) / (ax[i + 1] - ax[i]));
+    tan.push(d[0]);
+    for (i = 1; i + 1 < n; i += 1) {
+      tan.push(d[i - 1] * d[i] > 0 ? (2 * d[i - 1] * d[i]) / (d[i - 1] + d[i]) : 0);
+    }
+    tan.push(d[n - 2]);
+    var dx = 2, table = [], x, k = 0;
+    for (x = lo; x <= hi + dx; x += dx) {
+      while (k < n - 2 && x > ax[k + 1]) k += 1;
+      var h = ax[k + 1] - ax[k];
+      var s = Math.max(0, Math.min(1, (x - ax[k]) / h));
+      var s2 = s * s, s3 = s2 * s;
+      table.push((2 * s3 - 3 * s2 + 1) * ap[k] + (s3 - 2 * s2 + s) * h * tan[k] +
+        (3 * s2 - 2 * s3) * ap[k + 1] + (s3 - s2) * h * tan[k + 1]);
+    }
+    var mouth = Math.max(0, xs[0] - (xs[1] - xs[0]));
+    var end = xs[m - 1];
+    var drawn = function (u) {
+      return Math.max(0, Math.min(1, (u * W - mouth) / Math.max(1, end - mouth)));
+    };
+    return {
+      W: W,
+      H: H,
+      period: base,
+      ropeTwist: Math.max(58, Math.min(92, W * 0.056)),
+      strands: 8,
+      tight: drawn,
+      lo: lo,
+      hi: hi,
+      phase: function (xx) {
+        var q = (Math.max(lo, Math.min(hi, xx)) - lo) / dx;
+        var j = Math.min(table.length - 2, Math.floor(q)), f = q - j;
+        return table[j] + (table[j + 1] - table[j]) * f;
+      },
+      centre: function () { return H * 0.5; },
+      sep: function (u) {
+        /* Never closer than two ropes side by side: the cord the funnel ends
+           in stays two plies, still narrowing as its rope thins, and the bead
+           caps it. Overlapping ropes cut nicks into each other at the joins. */
+        return Math.max(H * 0.36 * Math.pow(1 - drawn(u), 1.15), 2.3 * H * (0.05 - 0.026 * drawn(u)));
+      },
+      rope: function (u) { return H * (0.05 - 0.026 * drawn(u)); },
+      stations: xs,
+      tip: end
+    };
+  }
+
   function geometry(W, H, composed) {
+    if (composed && nodes) return funnelGeometry(W, H, nodes);
     var narrow = W < 760;
     var swell = function (u) { return Math.sin(Math.PI * Math.max(0, Math.min(1, u))); };
     var base = Math.max(300, Math.min(540, W * 0.3));
@@ -493,8 +604,12 @@
     var count = g.W < 760 ? 3 : 5;
     for (var i = 0; i < count; i += 1) {
       var k = i % 2;
-      var xStart = g.W * (0.08 + 0.84 * rand());
-      var len = 120 + 220 * rand();
+      /* In the funnel the loose fibres stay in its wide mouth; at the
+         narrow end they read as scratches across the cord. */
+      var xStart = g.tip
+        ? g.stations[0] * 0.5 + (g.stations[2] - g.stations[0] * 0.5) * rand()
+        : g.W * (0.08 + 0.84 * rand());
+      var len = g.tip ? 70 + 120 * rand() : 120 + 220 * rand();
       var dir = rand() < 0.5 ? -1 : 1;
       var bend = g.H * (0.06 + 0.14 * rand()) * dir;
       var col = k === 0 ? pal.warmFront : pal.coolFront;
@@ -515,6 +630,43 @@
         c.stroke();
       }
     }
+  }
+
+  /* The funnel's ends and stations. Past the last station the weave is
+     cut away behind a short soft edge, so the drawing stops where the
+     cables meet; each earlier station's crossing carries a small dot in the
+     page's ink, and the last carries a bead in the ember: one result. */
+  function drawStations(c, g, pal) {
+    var dark = pal.blend === 'lighter';
+    var y = g.centre(0);
+    c.save();
+    c.globalCompositeOperation = 'destination-out';
+    var cut = c.createLinearGradient(g.tip - 8, 0, g.tip + 16, 0);
+    cut.addColorStop(0, 'rgba(0,0,0,0)');
+    cut.addColorStop(1, 'rgba(0,0,0,1)');
+    c.fillStyle = cut;
+    c.fillRect(g.tip - 8, 0, g.W - g.tip + 40, g.H);
+    c.globalCompositeOperation = 'source-over';
+    for (var i = 0; i + 1 < g.stations.length; i += 1) {
+      c.fillStyle = dark ? 'rgba(242,230,212,0.82)' : 'rgba(33,19,24,0.72)';
+      c.beginPath();
+      c.arc(g.stations[i], y, 2.1, 0, Math.PI * 2);
+      c.fill();
+    }
+    var col = pal.warmFront;
+    var rgb = col[0] + ',' + col[1] + ',' + col[2];
+    var halo = c.createRadialGradient(g.tip, y, 0, g.tip, y, dark ? 12 : 7);
+    halo.addColorStop(0, 'rgba(' + rgb + ',' + (dark ? 0.5 : 0.22) + ')');
+    halo.addColorStop(1, 'rgba(' + rgb + ',0)');
+    c.fillStyle = halo;
+    c.beginPath();
+    c.arc(g.tip, y, dark ? 12 : 7, 0, Math.PI * 2);
+    c.fill();
+    c.fillStyle = 'rgb(' + rgb + ')';
+    c.beginPath();
+    c.arc(g.tip, y, 3.2, 0, Math.PI * 2);
+    c.fill();
+    c.restore();
   }
 
   function paintInto(target, W, H, dpr, dark) {
@@ -550,6 +702,7 @@
       }
     }
     drawFibres(c, g, pal, 1);
+    if (g.tip) drawStations(c, g, pal);
 
     /* Night only: a soft halo, as if the threads carried their own light. */
     if (pal.glow > 0 && typeof c.filter === 'string') {
@@ -576,7 +729,7 @@
      cable does. On the night ground they glow; on paper they are two small
      points of ink with a faint wash. They exist only while the reveal runs. */
   function drawNeedles(c, g, pal, x, dpr, p) {
-    if (x < 0 || x > g.W) return;
+    if (x < 0 || x > g.W || (g.tip && x > g.tip)) return;
     var fade = Math.min(1, p / 0.08) * Math.min(1, (1 - p) / 0.12);
     if (fade <= 0) return;
     var dark = pal.blend === 'lighter';
@@ -628,7 +781,10 @@
       if (!t0) t0 = now;
       var p = Math.min(1, (now - t0) / dur);
       var e = 1 - Math.pow(1 - p, 3);
-      var front = Math.round((canvas.width + feather) * e);
+      /* The funnel ends at its last station, so the front travels that far
+         and no further: the weave arrives at the pace of the whole width. */
+      var span = g.tip ? Math.min(canvas.width, Math.round((g.tip + 24) * dpr)) : canvas.width;
+      var front = Math.round((span + feather) * e);
       var w = Math.max(1, Math.min(canvas.width, front));
       ctx.globalCompositeOperation = 'source-over';
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -664,6 +820,7 @@
     if (!wrap && !build()) return;
     var W = bandWidth(box);
     var H = box.height;
+    nodes = funnelNodes(W);
     lastW = W;
     lastH = H;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -718,6 +875,11 @@
     }
     var W = contained() ? box.width : root.clientWidth || window.innerWidth;
     if (Math.abs(W - lastW) >= 2 || Math.abs(box.height - lastH) >= 4) {
+      paint(false);
+      return;
+    }
+    /* Late fonts can move the steps under the band without resizing it. */
+    if (!sameNodes(funnelNodes(W), nodes)) {
       paint(false);
       return;
     }
