@@ -1,178 +1,135 @@
-<svg class="plate" viewBox="0 0 600 500" role="img" aria-labelledby="erdos-251-intervals-title" focusable="false" data-plate="erdos-251-intervals">
-  <title id="erdos-251-intervals-title">One stage of the #251 construction. Left, sixteen bars of one length, 30, each split between two neighbouring entries as 2d and 30 - 2d. Right, on a true-scale axis in steps w0 of the dyadic sum, a dot in row d at d steps and the bar of every sum still reachable after split d, three steps long; neighbouring bars overlap by two steps (the overlap of rows 7 and 8 in red), so their union beneath, in red, is one interval with no gap. Above, the top bar stretched 32/3 times horizontally: the next stage&#x27;s 32 intervals meet end to end and fill it exactly. One target on the axis is traced: it lies in bars 14 and 15, takes split 15, and in the stretched bar falls in the next stage&#x27;s interval 14.</title>
+<svg class="plate" viewBox="0 0 720 500" role="img" aria-labelledby="erdos-251-intervals-title" focusable="false" data-plate="erdos-251-intervals" data-underdrawing="none">
+  <title id="erdos-251-intervals-title">Upper left, a staircase of added units over a ruler whose slots halve: thirty units shared between two neighbouring entries, sixteen of them placed earlier, so the middle height is 16 and the count is 30 + 16 = 46; the last packet of two, red, was moved earlier and lifted that height by two, adding one step to the dyadic sum, while the height after the pair stays 30. Upper right, one row per split: sixteen windows of totals, each three steps wide and one step right of the last, so neighbours overlap and together cover one interval; window 8, red, is level with the middle height 16 and holds the target, a red dot on the axis. Below, that window enlarged 32/3 times holds the next group&#x27;s 32 windows meeting end to end; the target falls in window 6, and two further enlargements by 32 show the same again, closing on the target.</title>
   <g class="pl-stage" data-stage="1">
-  <path class="pl-edge pl-thin" d="M62 388h90v12h-90z"/>
-  <path class="pl-hatch" d="M62 371.4l2.6-1.4m-2.6 5.2 6-3.2m-6 7.1 6-3.2m-4.3 6.1 4.3-2.3"/>
-  <path class="pl-edge pl-thin" d="M62 370h90v12h-90zM68 370L68 382"/>
-  <path class="pl-hatch" d="M62 356l7.4-4m-7.4 7.8 12-6.4m-12 10.3 12-6.4m-5.4 6.7 5.4-2.9"/>
-  <path class="pl-edge pl-thin" d="M62 352h90v12h-90zM74 352L74 364"/>
-  <path class="pl-hatch" d="M62 336.7l5.1-2.7m-5.1 6.6 12.3-6.6m-12.3 10.4 18-9.6m-13.8 11.2 13.8-7.3m-6.5 7.3 6.5-3.5"/>
-  <path class="pl-edge pl-thin" d="M62 334h90v12h-90zM80 334L80 346"/>
-  <path class="pl-hatch" d="M62 317.5l2.7-1.5m-2.7 5.3 10-5.3m-10 9.2 17.2-9.2m-15.3 12 22.1-11.8m-14.9 11.8 14.9-7.9m-7.6 7.9 7.6-4.1m-.4 4.1 .4-.2"/>
-  <path class="pl-edge pl-thin" d="M62 316h90v12h-90zM86 316L86 328"/>
-  <path class="pl-hatch" d="M62 298.2l.4-.2m-.4 4 7.6-4m-7.6 7.9 14.9-7.9m-14.9 11.7 22.1-11.7m-15.3 12 22.5-12m-15.3 12 16-8.5m-8.7 8.5 8.7-4.6m-1.5 4.6 1.5-.8"/>
-  <path class="pl-edge pl-thin" d="M62 298h90v12h-90zM92 298L92 310"/>
-  <path class="pl-hatch" d="M62 282.8l5.3-2.8m-5.3 6.6 12.5-6.6m-12.5 10.5 19.7-10.5m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 17.1-9.1m-9.9 9.1 9.9-5.2m-2.6 5.2 2.6-1.4"/>
-  <path class="pl-edge pl-thin" d="M62 280h90v12h-90zM98 280L98 292"/>
-  <path class="pl-hatch" d="M62 263.5l2.9-1.5m-2.9 5.4 10.1-5.4m-10.1 9.2 17.4-9.2m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 18.2-9.7m-11 9.7 11-5.8m-3.7 5.8 3.7-2"/>
-  <path class="pl-edge pl-thin" d="M62 262h90v12h-90zM104 262L104 274"/>
-  <path class="pl-hatch" d="M62 244.3l.5-.3m-.5 4.1 7.8-4.1m-7.8 8 15-8m-15 11.8 22.3-11.8m-15.4 12 22.6-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 19.3-10.3m-12.1 10.3 12.1-6.4m-4.8 6.4 4.8-2.6"/>
-  <path class="pl-edge pl-thin" d="M62 244h90v12h-90zM110 244L110 256"/>
-  <path class="pl-hatch" d="M62 228.9l5.4-2.9m-5.4 6.7 12.7-6.7m-12.7 10.6 19.9-10.6m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 20.4-10.9m-13.2 10.9 13.2-7m-6 7 6-3.2"/>
-  <path class="pl-edge pl-thin" d="M62 226h90v12h-90zM116 226L116 238"/>
-  <path class="pl-hatch" d="M62 209.6l3.1-1.6m-3.1 5.5 10.3-5.5m-10.3 9.3 17.6-9.3m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 21.6-11.5m-14.3 11.5 14.3-7.6m-7.1 7.6 7.1-3.8"/>
-  <path class="pl-edge pl-thin" d="M62 208h90v12h-90zM122 208L122 220"/>
-  <path class="pl-hatch" d="M62 190.4l.7-.4m-.7 4.2 8-4.2m-8 8.1 15.2-8.1m-15.2 11.9 22.4-11.9m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 15.4-8.2m-8.2 8.2 8.2-4.4m-1 4.4 1-.5"/>
-  <path class="pl-edge pl-thin" d="M62 190h90v12h-90zM128 190L128 202"/>
-  <path class="pl-hatch" d="M62 175l5.6-3m-5.6 6.8 12.8-6.8m-12.8 10.7 20.1-10.7m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 16.6-8.8m-9.3 8.8 9.3-5m-2.1 5 2.1-1.1"/>
-  <path class="pl-edge pl-thin" d="M62 172h90v12h-90zM134 172L134 184"/>
-  <path class="pl-hatch" d="M62 155.7l3.2-1.7m-3.2 5.6 10.5-5.6m-10.5 9.4 17.7-9.4m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.6-12m-15.4 12 17.7-9.4m-10.4 9.4 10.4-5.5m-3.2 5.5 3.2-1.7"/>
-  <path class="pl-edge pl-thin" d="M62 154h90v12h-90zM140 154L140 166"/>
-  <path class="pl-hatch" d="M62 136.5l.9-.5m-.9 4.3 8.1-4.3m-8.1 8.2 15.4-8.2m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 18.8-10m-11.5 10 11.5-6.1m-4.3 6.1 4.3-2.3"/>
-  <path class="pl-edge pl-thin" d="M62 136h90v12h-90zM146 136L146 148"/>
-  <path class="pl-hatch" d="M62 121.1l5.8-3.1m-5.8 6.9 13-6.9m-13 10.8 20.2-10.8m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 19.9-10.6m-12.7 10.6 12.7-6.7m-5.4 6.7 5.4-2.9"/>
-  <path class="pl-edge pl-thin" d="M62 118h90v12h-90z"/>
-  <path class="pl-axis" d="M62 108L152 108M62 105L62 111M152 105L152 111"/>
-  <text class="pl-text" x="107" y="102" text-anchor="middle">30</text>
-  <path class="pl-axis" d="M182 439L478 439M186 439L186 445M202 439L202 442.5M218 439L218 442.5M234 439L234 442.5M250 439L250 442.5M266 439L266 442.5M282 439L282 442.5M298 439L298 442.5M314 439L314 442.5M330 439L330 442.5M346 439L346 442.5M362 439L362 442.5M378 439L378 442.5M394 439L394 442.5M410 439L410 442.5M426 439L426 442.5M442 439L442 442.5M458 439L458 442.5M474 439L474 445"/>
-  <text class="pl-text" x="186" y="461" text-anchor="middle">0</text>
-  <g class="pl-tech">
-  <text class="pl-text pl-text--small" x="55" y="398" text-anchor="end"><tspan class="pl-var">d</tspan> = 0</text>
-  <text class="pl-text pl-text--small" x="55" y="128" text-anchor="end">15</text>
-  <text class="pl-text pl-text--small" x="78" y="145.5"><tspan class="pl-var">e</tspan><tspan class="pl-sup" dy="0.3em">192</tspan></text>
-  <text class="pl-text pl-text--small" x="136" y="379.5" text-anchor="end"><tspan class="pl-var">e</tspan><tspan class="pl-sup" dy="0.3em">193</tspan></text>
+  <path class="pl-axis" d="M14 204L286 204M14 199L14 209M150 199L150 209M218 199L218 209M286 199L286 209M252 201L252 207M269 201L269 207M277.5 201L277.5 207M281.8 201L281.8 207M283.9 201L283.9 207M284.9 201L284.9 207M285.5 201L285.5 207"/>
   </g>
+  <g class="pl-stage" data-stage="1" data-until="2">
+  <path class="pl-hatch" d="M218 43.6L224.7 40M218 48.5L234.1 40M218 53.5L243.4 40M218 58.5L252.8 40M218 63.5L262.2 40M218 68.5L271.5 40M218 73.5L280.9 40M218 78.4L286 42.3M218 83.4L286 47.3M218 88.4L286 52.2M218 93.4L286 57.2M218 98.4L286 62.2M218 103.4L286 67.2M150 144.5L158.4 140M218 108.3L286 72.2M150 149.5L167.8 140M218 113.3L286 77.2M150 154.5L177.2 140M218 118.3L286 82.1M150 159.4L186.6 140M218 123.3L286 87.1M150 164.4L195.9 140M218 128.3L286 92.1M150 169.4L205.3 140M218 133.3L286 97.1M150 174.4L214.7 140M218 138.2L286 102.1M150 179.4L218 143.2M218 143.2L286 107.1M150 184.4L218 148.2M218 148.2L286 112M150 189.3L218 153.2M218 153.2L286 117M158.1 190L218 158.2M218 158.2L286 122M167.5 190L218 163.2M218 163.2L286 127M176.9 190L218 168.1M218 168.1L286 132M186.3 190L218 173.1M218 173.1L286 137M195.6 190L218 178.1M218 178.1L286 141.9M205 190L218 183.1M218 183.1L286 146.9M214.4 190L218 188.1M218 188.1L286 151.9M223.7 190L286 156.9M233.1 190L286 161.9M242.5 190L286 166.9M251.9 190L286 171.8M261.2 190L286 176.8M270.6 190L286 181.8M280 190L286 186.8"/>
+  <path class="pl-line pl-thin" d="M218 165L286 165M218 140L286 140M218 115L286 115M218 90L286 90M218 65L286 65M150 165L218 165"/>
+  <path class="pl-edge" d="M150 190L150 140L218 140L218 40L286 40L286 190"/>
+  <text class="pl-text pl-text--body pl-text--ink" x="292" y="45">6</text>
+  <text class="pl-text" x="82" y="224" text-anchor="middle"><tspan class="pl-var">n</tspan></text>
+  <text class="pl-text" x="184" y="224" text-anchor="middle"><tspan class="pl-var">n</tspan> + 1</text>
+  <text class="pl-text" x="252" y="224" text-anchor="middle"><tspan class="pl-var">n</tspan> + 2 …</text>
   </g>
-  <g class="pl-stage" data-stage="2">
-  <path class="pl-hatch" d="M186 390.1l4-2.1m-4 6 11.3-6m-11.3 9.8 18.5-9.8m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 15.8-8.4m-8.6 8.4 8.6-4.6m-1.4 4.6 1.4-.7"/>
-  <path class="pl-edge pl-thin" d="M186 388h48v12h-48z"/>
-  <path class="pl-hatch" d="M202 373.9l7.4-3.9m-7.4 7.8 14.6-7.8m-14.6 11.6 21.9-11.6m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 19.7-10.5m-12.5 10.5 12.5-6.6m-5.2 6.6 5.2-2.8"/>
-  <path class="pl-edge pl-thin" d="M202 370h48v12h-48z"/>
-  <path class="pl-hatch" d="M218 353.9l3.5-1.9m-3.5 5.7 10.8-5.7m-10.8 9.6 18-9.6m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 16.3-8.7m-9.1 8.7 9.1-4.8m-1.9 4.8 1.9-1"/>
-  <path class="pl-edge pl-thin" d="M218 352h48v12h-48z"/>
-  <path class="pl-hatch" d="M234 337.7l6.9-3.7m-6.9 7.5 14.1-7.5m-14.1 11.4 21.4-11.4m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 20.2-10.7m-13 10.7 13-6.9m-5.7 6.9 5.7-3"/>
-  <path class="pl-edge pl-thin" d="M234 334h48v12h-48z"/>
-  <path class="pl-hatch" d="M250 317.6l3-1.6m-3 5.5 10.3-5.5m-10.3 9.3 17.5-9.3m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 16.8-9m-9.6 9 9.6-5.1m-2.4 5.1 2.4-1.3"/>
-  <path class="pl-edge pl-thin" d="M250 316h48v12h-48z"/>
-  <path class="pl-hatch" d="M266 301.4l6.4-3.4m-6.4 7.3 13.6-7.3m-13.6 11.1 20.9-11.1m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 20.7-11m-13.5 11 13.5-7.2m-6.2 7.2 6.2-3.3"/>
-  <path class="pl-edge pl-thin" d="M266 298h48v12h-48z"/>
-  <path class="pl-hatch" d="M282 281.3l2.5-1.3m-2.5 5.2 9.8-5.2m-9.8 9 17-9m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 17.4-9.2m-10.1 9.2 10.1-5.4m-2.9 5.4 2.9-1.5"/>
-  <path class="pl-edge pl-thin" d="M282 280h48v12h-48z"/>
-  <path class="pl-hatch" d="M298 265.1l5.9-3.1m-5.9 7 13.1-7m-13.1 10.8 20.4-10.8m-15.4 12 22.6-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 21.2-11.3m-14 11.3 14-7.4m-6.7 7.4 6.7-3.6"/>
-  <path class="pl-edge pl-thin" d="M298 262h48v12h-48z"/>
-  <path class="pl-hatch" d="M314 245.1l2-1.1m-2 4.9 9.3-4.9m-9.3 8.8 16.5-8.8m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 17.9-9.5m-10.6 9.5 10.6-5.6m-3.4 5.6 3.4-1.8"/>
-  <path class="pl-edge pl-thin" d="M314 244h48v12h-48z"/>
-  <path class="pl-hatch" d="M330 228.9l5.4-2.9m-5.4 6.7 12.6-6.7m-12.6 10.6 19.9-10.6m-15.4 12 22.6-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 21.7-11.6m-14.5 11.6 14.5-7.7m-7.2 7.7 7.2-3.9"/>
-  <path class="pl-edge pl-thin" d="M330 226h48v12h-48z"/>
-  <path class="pl-hatch" d="M346 208.8l1.5-.8m-1.5 4.7 8.8-4.7m-8.8 8.5 16-8.5m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 18.4-9.8m-11.1 9.8 11.1-5.9m-3.9 5.9 3.9-2.1"/>
-  <path class="pl-edge pl-thin" d="M346 208h48v12h-48z"/>
-  <path class="pl-hatch" d="M362 192.6l4.9-2.6m-4.9 6.4 12.1-6.4m-12.1 10.3 19.4-10.3m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.2-11.8m-15 11.8 15-8m-7.8 8 7.8-4.1m-.5 4.1 .5-.3"/>
-  <path class="pl-edge pl-thin" d="M362 190h48v12h-48z"/>
-  <path class="pl-hatch" d="M378 172.5l1-.5m-1 4.4 8.2-4.4m-8.2 8.2 15.5-8.2m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.6-12m-15.4 12 18.9-10m-11.6 10 11.6-6.2m-4.4 6.2 4.4-2.3"/>
-  <path class="pl-edge pl-thin" d="M378 172h48v12h-48z"/>
-  <path class="pl-hatch" d="M394 156.3l4.4-2.3m-4.4 6.2 11.6-6.2m-11.6 10 18.9-10m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 15.5-8.2m-8.3 8.2 8.3-4.4m-1 4.4 1-.5"/>
-  <path class="pl-edge pl-thin" d="M394 154h48v12h-48z"/>
-  <path class="pl-hatch" d="M410 136.3l.5-.3m-.5 4.1 7.7-4.1m-7.7 8 15-8m-15 11.8 22.2-11.8m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.6-12m-15.4 12 19.4-10.3m-12.1 10.3 12.1-6.4m-4.9 6.4 4.9-2.6"/>
-  <path class="pl-edge pl-thin" d="M410 136h48v12h-48z"/>
-  <path class="pl-hatch" d="M426 120.1l3.9-2.1m-3.9 5.9 11.1-5.9m-11.1 9.8 18.4-9.8m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 16-8.5m-8.8 8.5 8.8-4.7m-1.5 4.7 1.5-.8"/>
-  <path class="pl-edge pl-thin" d="M426 118h48v12h-48z"/>
+  <g class="pl-stage" data-stage="1" data-until="1">
+  <text class="pl-text pl-text--large pl-text--ink" x="82" y="100" text-anchor="middle">6 + 2 = 8</text>
+  </g>
+  <g class="pl-stage" data-stage="2" data-until="2" data-glide="68 0">
+  <path class="pl-hatch pl-hatch--key" d="M150 93.6L151.9 90M150 101.3L156 90M150 109L160.1 90M150 116.6L164.2 90M150 124.3L168.2 90M150 132L172.3 90M150 139.6L176.4 90M153.9 140L180.5 90M158 140L184.5 90M162 140L188.6 90M166.1 140L192.7 90M170.2 140L196.8 90M174.3 140L200.9 90M178.4 140L204.9 90M182.4 140L209 90M186.5 140L213.1 90M190.6 140L217.2 90M194.7 140L218 96.1M198.7 140L218 103.8M202.8 140L218 111.4M206.9 140L218 119.1M211 140L218 126.8M215 140L218 134.4"/>
+  <path class="pl-edge pl-edge--key" d="M150 90L218 90L218 140L150 140Z"/>
+  </g>
+  <g class="pl-stage" data-stage="2" data-until="2">
+  <text class="pl-text pl-text--large pl-text--key" x="82" y="100" text-anchor="middle">6 + 4 = 10</text>
   </g>
   <g class="pl-stage" data-stage="3">
-  <rect class="pl-ground" x="314.6" y="262.6" width="30.8" height="10.8"/>
-  <path class="pl-hatch pl-hatch--key" d="M314 264.3l4.4-2.3m-4.4 6.2 11.6-6.2m-11.6 10 18.9-10m-15.4 12 22.6-12m-15.3 12 21.2-11.3m-14 11.3 14-7.4m-6.7 7.4 6.7-3.6"/>
-  <rect class="pl-ground" x="314.6" y="244.6" width="30.8" height="10.8"/>
-  <path class="pl-hatch pl-hatch--key" d="M314 245.1l2-1.1m-2 4.9 9.3-4.9m-9.3 8.8 16.5-8.8m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 16.3-8.7m-9.1 8.7 9.1-4.8m-1.9 4.8 1.9-1"/>
-  <path class="pl-line pl-line--key pl-thin pl-dashed" d="M314 241L314 277M346 241L346 277"/>
-  <path class="pl-hatch pl-hatch--key" d="M186 417.1l5.8-3.1m-5.8 7 13.1-7m-13.1 10.8 20.3-10.8m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.6-12m-15.4 12 22.6-12m-15.3 12 22.5-12m-15.3 12 22.3-11.9m-15 11.9 15-8m-7.8 8 7.8-4.2m-.6 4.2 .6-.3"/>
-  <path class="pl-edge pl-edge--key" d="M186 414h288v12h-288z"/>
-  <text class="pl-text" x="474" y="461" text-anchor="middle"><tspan class="pl-var">F</tspan><tspan class="pl-sup" dy="0.3em">0</tspan></text>
+  <path class="pl-hatch" d="M218 43.6L224.7 40M218 48.5L234.1 40M218 53.5L243.4 40M218 58.5L252.8 40M218 63.5L262.2 40M218 68.5L271.5 40M218 73.5L280.9 40M218 78.4L286 42.3M218 83.4L286 47.3M150 124.6L158.6 120M218 88.4L286 52.2M150 129.5L167.9 120M218 93.4L286 57.2M150 134.5L177.3 120M218 98.4L286 62.2M150 139.5L186.7 120M218 103.4L286 67.2M150 144.5L196.1 120M218 108.3L286 72.2M150 149.5L205.4 120M218 113.3L286 77.2M150 154.5L214.8 120M218 118.3L286 82.1M150 159.4L218 123.3M218 123.3L286 87.1M150 164.4L218 128.3M218 128.3L286 92.1M150 169.4L218 133.3M218 133.3L286 97.1M150 174.4L218 138.2M218 138.2L286 102.1M150 179.4L218 143.2M218 143.2L286 107.1M150 184.4L218 148.2M218 148.2L286 112M150 189.3L218 153.2M218 153.2L286 117M158.1 190L218 158.2M218 158.2L286 122M167.5 190L218 163.2M218 163.2L286 127M176.9 190L218 168.1M218 168.1L286 132M186.3 190L218 173.1M218 173.1L286 137M195.6 190L218 178.1M218 178.1L286 141.9M205 190L218 183.1M218 183.1L286 146.9M214.4 190L218 188.1M218 188.1L286 151.9M223.7 190L286 156.9M233.1 190L286 161.9M242.5 190L286 166.9M251.9 190L286 171.8M261.2 190L286 176.8M270.6 190L286 181.8M280 190L286 186.8"/>
+  <path class="pl-line pl-thin" d="M218 180L286 180M218 170L286 170M218 160L286 160M218 150L286 150M218 140L286 140M218 130L286 130M218 120L286 120M218 110L286 110M218 100L286 100M218 90L286 90M218 80L286 80M218 70L286 70M218 60L286 60M218 50L286 50M150 180L218 180M150 170L218 170M150 160L218 160M150 150L218 150M150 140L218 140M150 130L218 130"/>
+  <path class="pl-edge" d="M150 190L150 120L218 120L218 40L286 40L286 190"/>
+  <text class="pl-text pl-text--body pl-text--ink" x="292" y="45">30</text>
+  <text class="pl-text" x="82" y="224" text-anchor="middle">192</text>
+  <text class="pl-text" x="184" y="224" text-anchor="middle">193</text>
+  <text class="pl-text" x="252" y="224" text-anchor="middle">194 …</text>
+  <path class="pl-axis" d="M328 217L702 217"/>
+  <path class="pl-axis" d="M334 217L334 222M354 217L354 220M374 217L374 220M394 217L394 220M414 217L414 220M434 217L434 220M454 217L454 220M474 217L474 220M494 217L494 220M514 217L514 220M534 217L534 220M554 217L554 220M574 217L574 220M594 217L594 220M614 217L614 220M634 217L634 220M654 217L654 220M674 217L674 220M694 217L694 222"/>
+  <text class="pl-text" x="334" y="237" text-anchor="middle">0</text>
+  <path class="pl-hatch" d="M474 117.6L475.2 117M474 121.5L482.4 117M478.4 123L489.7 117M485.6 123L496.9 117M492.9 123L504.2 117M500.1 123L511.4 117M507.4 123L518.7 117M514.6 123L525.9 117M521.9 123L533.1 117M529.1 123L534 120.4"/>
+  <path class="pl-edge pl-thin" d="M474 117L534 117L534 123L474 123Z"/>
   <g class="pl-tech">
-  <text class="pl-text pl-text--small" x="426" y="461" text-anchor="middle">15<tspan class="pl-var">w</tspan><tspan class="pl-sup" dy="0.3em">0</tspan></text>
+  <text class="pl-text pl-text--small" x="144" y="155" text-anchor="end"><tspan class="pl-var">e</tspan><tspan class="pl-sup" dy="0.3em">192</tspan></text>
   </g>
+  </g>
+  <g class="pl-stage" data-stage="3" data-until="3">
+  <path class="pl-leader" d="M288 120L471 120"/>
+  <text class="pl-text pl-text--large pl-text--ink" x="82" y="100" text-anchor="middle">30 + 14 = 44</text>
+  </g>
+  <g class="pl-stage" data-stage="4" data-glide="68 0">
+  <path class="pl-hatch pl-hatch--key" d="M150 114.1L152.2 110M150.3 120L155.6 110M153.6 120L159 110M157 120L162.4 110M160.4 120L165.8 110M163.8 120L169.2 110M167.2 120L172.6 110M170.6 120L176 110M174 120L179.4 110M177.4 120L182.7 110M180.8 120L186.1 110M184.2 120L189.5 110M187.6 120L192.9 110M191 120L196.3 110M194.4 120L199.7 110M197.8 120L203.1 110M201.2 120L206.5 110M204.6 120L209.9 110M208 120L213.3 110M211.4 120L216.7 110M214.8 120L218 114"/>
+  <path class="pl-edge pl-edge--key" d="M150 110L218 110L218 120L150 120Z"/>
+  </g>
+  <g class="pl-stage" data-stage="4" data-glide="-20 10">
+  <path class="pl-hatch pl-hatch--key" d="M494 110.9L501.3 107M497.2 113L508.5 107M504.5 113L515.7 107M511.7 113L523 107M518.9 113L530.2 107M526.2 113L537.5 107M533.4 113L544.7 107M540.7 113L551.9 107M547.9 113L554 109.8"/>
+  <path class="pl-edge pl-edge--key" d="M494 107L554 107L554 113L494 113Z"/>
   </g>
   <g class="pl-stage" data-stage="4">
-  <path class="pl-leader" d="M426 118L44 62M474 118L556 62"/>
-  <path class="pl-hatch" d="M44 53.6l6.8-3.6m-6.8 7.5 14-7.5m-14 11.3 16-8.5m0 0 5.3-2.8m-15.3 12 10-5.3m0 0 12.5-6.7m-15.3 12 2.8-1.5m0 0 16-8.5m0 0 3.8-2m-15.4 12 11.6-6.1m0 0 11-5.9m-15.3 12 4.3-2.3m0 0 16-8.5m0 0 2.3-1.2m-15.4 12 13.1-6.9m0 0 9.5-5.1m-15.3 12 5.8-3.1m0 0 16-8.5m0 0 .7-.4m-15.3 12 14.6-7.8m0 0 8-4.2m-15.3 12 7.3-3.9m0 0 15.2-8.1m-15.2 11.9 16-8.5m0 0 6.5-3.4m-15.4 12 8.9-4.7m0 0 13.7-7.3m-15.3 12 1.6-.9m0 0 16-8.5m0 0 5-2.6m-15.4 12 10.4-5.5m0 0 12.2-6.5m-15.3 12 3.1-1.7m0 0 16-8.5m0 0 3.4-1.8m-15.3 12 11.9-6.3m0 0 10.7-5.7m-15.3 12 4.6-2.5m0 0 16-8.5m0 0 1.9-1m-15.3 12 13.4-7.1m0 0 9.2-4.9m-15.4 12 6.2-3.3m0 0 16-8.5m0 0 .4-.2m-15.3 12 14.9-7.9m0 0 7.7-4.1m-15.4 12 7.7-4.1m0 0 14.9-7.9m-15.3 12 .4-.2m0 0 16-8.5m0 0 6.1-3.3m-15.3 12 9.2-4.9m0 0 13.4-7.1m-15.3 12 1.9-1m0 0 16-8.5m0 0 4.6-2.5m-15.3 12 10.7-5.7m0 0 11.9-6.3m-15.4 12 3.5-1.8m0 0 16-8.5m0 0 3.1-1.7m-15.3 12 12.2-6.5m0 0 10.3-5.5m-15.3 12 5-2.6m0 0 16-8.6m0 0 1.6-.8m-15.3 12 13.7-7.3m0 0 8.8-4.7m-15.3 12 6.5-3.5m0 0 16-8.5m-15.3 12 15.3-8.1m0 0 7.3-3.9m-15.3 12 8-4.3m0 0 14.6-7.7m-15.4 12 .8-.4m0 0 16-8.5m0 0 5.8-3.1m-15.3 12 9.5-5.1m0 0 13-6.9m-15.3 12 2.3-1.2m0 0 16-8.5m0 0 4.3-2.3m-15.3 12 11-5.9m0 0 11.5-6.1m-15.3 12 3.8-2m0 0 16-8.5m0 0 2.8-1.5m-15.4 12 12.6-6.7m0 0 10-5.3m-15.3 12 5.3-2.8m0 0 16-8.5m0 0 1.3-.7m-15.4 12 14.1-7.5m0 0 8.5-4.5m-15.3 12 6.8-3.6m0 0 15.7-8.4m-15.3 12 15.6-8.3m0 0 7-3.7m-15.3 12 8.3-4.4m0 0 14.2-7.6m-15.3 12 1.1-.6m0 0 16-8.5m0 0 5.5-2.9m-15.4 12 9.9-5.2m0 0 12.7-6.8m-15.3 12 2.6-1.4m0 0 16-8.5m0 0 3.9-2.1m-15.3 12 11.4-6.1m0 0 11.2-5.9m-15.3 12 4.1-2.2m0 0 16-8.5m0 0 2.4-1.3m-15.3 12 12.9-6.9m0 0 9.7-5.1m-15.4 12 5.7-3m0 0 16-8.5m0 0 .9-.5m-15.3 12 14.4-7.7m0 0 8.2-4.3m-15.4 12 7.2-3.8m0 0 15.4-8.2m-15.3 12 15.9-8.5m0 0 6.6-3.5m-15.3 12 8.7-4.6m0 0 13.9-7.4m-15.3 12 1.4-.8m0 0 16-8.5m0 0 5.1-2.7m-15.3 12 10.2-5.4m0 0 12.4-6.6m-15.4 12 3-1.6m0 0 16-8.5m0 0 3.6-1.9m-15.3 12 11.7-6.2m0 0 10.9-5.8m-15.4 12 4.5-2.4m0 0 16-8.5m0 0 2.1-1.1m-15.3 12 13.2-7m0 0 9.3-5m-15.3 12 6-3.2m0 0 16-8.5m0 0 .6-.3m-15.3 12 14.7-7.8m0 0 7.8-4.2m-15.3 12 7.5-4m0 0 15.1-8m-15.1 11.9 16-8.5m0 0 6.3-3.4m-15.3 12 9-4.8m0 0 13.5-7.2m-15.3 12 1.8-.9m0 0 16-8.6m0 0 4.8-2.5m-15.3 12 10.5-5.6m0 0 12-6.4m-15.3 12 3.3-1.8m0 0 16-8.5m0 0 3.3-1.7m-15.4 12 12.1-6.4m0 0 10.5-5.6m-15.3 12 4.8-2.6m0 0 16-8.5m-13.6 11.1 13.6-7.2m-6.3 7.2 6.3-3.4"/>
-  <path class="pl-edge pl-thin" d="M44 50h512v12h-512z"/>
-  <path class="pl-line pl-line--key pl-thin" d="M60 47L60 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M76 47L76 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M92 47L92 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M108 47L108 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M124 47L124 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M140 47L140 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M156 47L156 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M172 47L172 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M188 47L188 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M204 47L204 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M220 47L220 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M236 47L236 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M252 47L252 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M268 47L268 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M284 47L284 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M300 47L300 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M316 47L316 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M332 47L332 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M348 47L348 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M364 47L364 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M380 47L380 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M396 47L396 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M412 47L412 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M428 47L428 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M444 47L444 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M460 47L460 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M476 47L476 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M492 47L492 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M508 47L508 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M524 47L524 65"/>
-  <path class="pl-line pl-line--key pl-thin" d="M540 47L540 65"/>
-  <text class="pl-text pl-text--small" x="556" y="41" text-anchor="end">×32/3 across</text>
+  <path class="pl-leader" d="M288 110L491 110"/>
+  <text class="pl-text pl-text--large pl-text--key" x="82" y="100" text-anchor="middle">30 + 16 = 46</text>
   <g class="pl-tech">
-  <text class="pl-text pl-text--small" x="44" y="41"><tspan class="pl-var">w</tspan><tspan class="pl-sup" dy="0.3em">1</tspan> = 3<tspan class="pl-var">w</tspan><tspan class="pl-sup" dy="0.3em">0</tspan>/32</text>
+  <text class="pl-text pl-text--small" x="212" y="75" text-anchor="end"><tspan class="pl-var">e</tspan><tspan class="pl-sup" dy="0.3em">193</tspan></text>
   </g>
   </g>
   <g class="pl-stage" data-stage="5">
-  <circle class="pl-ground" cx="447.75" cy="439" r="3.6"/>
-  <circle class="pl-dot pl-dot--key" cx="447.75" cy="439" r="2.6"/>
-  <path class="pl-leader" d="M447.75 435L447.75 118"/>
-  <rect class="pl-edge pl-edge--key" x="424.4" y="116.4" width="51.2" height="15.2"/>
-  <path class="pl-leader" d="M447.75 116.4L276 63.6"/>
-  <rect class="pl-edge pl-edge--key" x="266.8" y="48.4" width="18.4" height="15.2"/>
+  <path class="pl-hatch" d="M334 188.2L336.3 187M334 192.1L343.6 187M339.5 193L350.8 187M346.8 193L358 187M354 193L365.3 187M361.2 193L372.5 187M368.5 193L379.8 187M375.7 193L387 187M383 193L394 187.1M390.2 193L394 191"/>
+  <path class="pl-edge pl-thin" d="M334 187L394 187L394 193L334 193Z"/>
+  <path class="pl-hatch" d="M354 177.6L355.1 177M354 181.4L362.4 177M358.3 183L369.6 177M365.6 183L376.8 177M372.8 183L384.1 177M380 183L391.3 177M387.3 183L398.6 177M394.5 183L405.8 177M401.8 183L413.1 177M409 183L414 180.3"/>
+  <path class="pl-edge pl-thin" d="M354 177L414 177L414 183L354 183Z"/>
+  <path class="pl-hatch" d="M374 170.8L381.2 167M377.1 173L388.4 167M384.4 173L395.7 167M391.6 173L402.9 167M398.9 173L410.1 167M406.1 173L417.4 167M413.3 173L424.6 167M420.6 173L431.9 167M427.8 173L434 169.7"/>
+  <path class="pl-edge pl-thin" d="M374 167L434 167L434 173L374 173Z"/>
+  <path class="pl-hatch" d="M394 160.2L400 157M395.9 163L407.2 157M403.2 163L414.5 157M410.4 163L421.7 157M417.7 163L428.9 157M424.9 163L436.2 157M432.1 163L443.4 157M439.4 163L450.7 157M446.6 163L454 159.1"/>
+  <path class="pl-edge pl-thin" d="M394 157L454 157L454 163L394 163Z"/>
+  <path class="pl-hatch" d="M414 149.5L418.8 147M414.7 153L426 147M422 153L433.3 147M429.2 153L440.5 147M436.5 153L447.8 147M443.7 153L455 147M451 153L462.2 147M458.2 153L469.5 147M465.4 153L474 148.4M472.7 153L474 152.3"/>
+  <path class="pl-edge pl-thin" d="M414 147L474 147L474 153L414 153Z"/>
+  <path class="pl-hatch" d="M434 138.9L437.6 137M434 142.8L444.8 137M440.8 143L452.1 137M448 143L459.3 137M455.3 143L466.6 137M462.5 143L473.8 137M469.8 143L481 137M477 143L488.3 137M484.2 143L494 137.8M491.5 143L494 141.7"/>
+  <path class="pl-edge pl-thin" d="M434 137L494 137L494 143L434 143Z"/>
+  <path class="pl-hatch" d="M454 128.3L456.4 127M454 132.1L463.6 127M459.6 133L470.9 127M466.8 133L478.1 127M474.1 133L485.4 127M481.3 133L492.6 127M488.6 133L499.9 127M495.8 133L507.1 127M503.1 133L514 127.2M510.3 133L514 131"/>
+  <path class="pl-edge pl-thin" d="M454 127L514 127L514 133L454 133Z"/>
+  <path class="pl-hatch" d="M514 100.2L520.1 97M516 103L527.3 97M523.3 103L534.5 97M530.5 103L541.8 97M537.7 103L549 97M545 103L556.3 97M552.2 103L563.5 97M559.5 103L570.8 97M566.7 103L574 99.1"/>
+  <path class="pl-edge pl-thin" d="M514 97L574 97L574 103L514 103Z"/>
+  <path class="pl-hatch" d="M534 89.6L538.9 87M534.8 93L546.1 87M542.1 93L553.4 87M549.3 93L560.6 87M556.6 93L567.8 87M563.8 93L575.1 87M571 93L582.3 87M578.3 93L589.6 87M585.5 93L594 88.5M592.8 93L594 92.3"/>
+  <path class="pl-edge pl-thin" d="M534 87L594 87L594 93L534 93Z"/>
+  <path class="pl-hatch" d="M554 79L557.7 77M554 82.8L564.9 77M560.9 83L572.2 77M568.1 83L579.4 77M575.4 83L586.6 77M582.6 83L593.9 77M589.8 83L601.1 77M597.1 83L608.4 77M604.3 83L614 77.9M611.6 83L614 81.7"/>
+  <path class="pl-edge pl-thin" d="M554 77L614 77L614 83L554 83Z"/>
+  <path class="pl-hatch" d="M574 68.3L576.5 67M574 72.2L583.7 67M579.7 73L591 67M586.9 73L598.2 67M594.2 73L605.5 67M601.4 73L612.7 67M608.7 73L619.9 67M615.9 73L627.2 67M623.1 73L634 67.2M630.4 73L634 71.1"/>
+  <path class="pl-edge pl-thin" d="M574 67L634 67L634 73L574 73Z"/>
+  <path class="pl-hatch" d="M594 57.7L595.3 57M594 61.5L602.5 57M598.5 63L609.8 57M605.7 63L617 57M613 63L624.3 57M620.2 63L631.5 57M627.5 63L638.7 57M634.7 63L646 57M641.9 63L653.2 57M649.2 63L654 60.4"/>
+  <path class="pl-edge pl-thin" d="M594 57L654 57L654 63L594 63Z"/>
+  <path class="pl-hatch" d="M614 50.9L621.3 47M617.3 53L628.6 47M624.5 53L635.8 47M631.8 53L643.1 47M639 53L650.3 47M646.3 53L657.6 47M653.5 53L664.8 47M660.8 53L672 47M668 53L674 49.8"/>
+  <path class="pl-edge pl-thin" d="M614 47L674 47L674 53L614 53Z"/>
+  <path class="pl-hatch" d="M634 40.3L640.1 37M636.1 43L647.4 37M643.3 43L654.6 37M650.6 43L661.9 37M657.8 43L669.1 37M665.1 43L676.4 37M672.3 43L683.6 37M679.6 43L690.8 37M686.8 43L694 39.2"/>
+  <path class="pl-edge pl-thin" d="M634 37L694 37L694 43L634 43Z"/>
+  <path class="pl-hatch" d="M334 203L339.6 200M334.7 206L345.9 200M341 206L352.3 200M347.4 206L358.7 200M353.8 206L365.1 200M360.2 206L371.5 200M366.6 206L377.9 200M373 206L384.3 200M379.4 206L390.7 200M385.8 206L397.1 200M392.2 206L403.5 200M398.6 206L409.8 200M405 206L416.2 200M411.3 206L422.6 200M417.7 206L429 200M424.1 206L435.4 200M430.5 206L441.8 200M436.9 206L448.2 200M443.3 206L454.6 200M449.7 206L461 200M456.1 206L467.4 200M462.5 206L473.7 200M468.9 206L480.1 200M475.2 206L486.5 200M481.6 206L492.9 200M488 206L499.3 200M494.4 206L505.7 200M500.8 206L512.1 200M507.2 206L518.5 200M513.6 206L524.9 200M520 206L531.3 200M526.4 206L537.6 200M532.8 206L544 200M539.1 206L550.4 200M545.5 206L556.8 200M551.9 206L563.2 200M558.3 206L569.6 200M564.7 206L576 200M571.1 206L582.4 200M577.5 206L588.8 200M583.9 206L595.2 200M590.3 206L601.5 200M596.7 206L607.9 200M603 206L614.3 200M609.4 206L620.7 200M615.8 206L627.1 200M622.2 206L633.5 200M628.6 206L639.9 200M635 206L646.3 200M641.4 206L652.7 200M647.8 206L659.1 200M654.2 206L665.5 200M660.6 206L671.8 200M666.9 206L678.2 200M673.3 206L684.6 200M679.7 206L691 200M686.1 206L694 201.8M692.5 206L694 205.2"/>
+  <path class="pl-edge" d="M334 200L694 200L694 206L334 206Z"/>
+  <text class="pl-text" x="694" y="237" text-anchor="middle"><tspan class="pl-var">F</tspan><tspan class="pl-sup" dy="0.3em">0</tspan></text>
+  </g>
+  <g class="pl-stage" data-stage="6">
+  <circle class="pl-ground" cx="505.62" cy="217" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="505.62" cy="217" r="2.6"/>
+  <path class="pl-line pl-line--key pl-thin" d="M494 219L494 226M554 219L554 226"/>
+  <path class="pl-leader" d="M494 226L40 284M554 226L680 284"/>
+  <path class="pl-hatch" d="M40 286.8L45.2 284M40 290.6L52.5 284M40.9 294L59.7 284M48.2 294L60 287.7M60 287.7L67 284M55.4 294L60 291.6M60 291.6L74.2 284M62.7 294L80 284.8M80 284.8L81.5 284M69.9 294L80 288.6M80 288.6L88.7 284M77.1 294L80 292.5M80 292.5L95.9 284M84.4 294L100 285.7M100 285.7L103.2 284M91.6 294L100 289.5M100 289.5L110.4 284M98.9 294L100 293.4M100 293.4L117.7 284M106.1 294L120 286.6M120 286.6L124.9 284M113.3 294L120 290.5M120 290.5L132.2 284M120.6 294L139.4 284M127.8 294L140 287.5M140 287.5L146.6 284M135.1 294L140 291.4M140 291.4L153.9 284M142.3 294L160 284.6M149.6 294L160 288.4M156.8 294L160 292.3M180 285.5L182.9 284M180 289.4L190.1 284M180 293.2L197.3 284M185.8 294L200 286.4M200 286.4L204.6 284M193 294L200 290.3M200 290.3L211.8 284M200.3 294L219.1 284M207.5 294L220 287.4M220 287.4L226.3 284M214.7 294L220 291.2M220 291.2L233.5 284M222 294L240 284.4M240 284.4L240.8 284M229.2 294L240 288.3M240 288.3L248 284M236.5 294L240 292.1M240 292.1L255.3 284M243.7 294L260 285.3M260 285.3L262.5 284M250.9 294L260 289.2M260 289.2L269.8 284M258.2 294L260 293M260 293L277 284M265.4 294L280 286.3M280 286.3L284.2 284M272.7 294L280 290.1M280 290.1L291.5 284M280 294L298.7 284M287.2 294L300 287.2M300 287.2L306 284M294.4 294L300 291M300 291L313.2 284M301.6 294L320 284.2M320 284.2L320.5 284M308.9 294L320 288.1M320 288.1L327.7 284M316.1 294L320 291.9M320 291.9L334.9 284M323.4 294L340 285.2M340 285.2L342.2 284M330.6 294L340 289M340 289L349.4 284M337.9 294L340 292.9M340 292.9L356.7 284M345.1 294L360 286.1M360 286.1L363.9 284M352.3 294L360 289.9M360 289.9L371.1 284M359.6 294L360 293.8M360 293.8L378.4 284M366.8 294L380 287M380 287L385.6 284M374.1 294L380 290.8M380 290.8L392.9 284M381.3 294L400 284.1M388.6 294L400 287.9M400 287.9L407.4 284M395.8 294L400 291.8M400 291.8L414.6 284M403 294L420 285M420 285L421.8 284M410.3 294L420 288.8M420 288.8L429.1 284M417.5 294L420 292.7M420 292.7L436.3 284M424.8 294L440 285.9M440 285.9L443.6 284M432 294L440 289.7M440 289.7L450.8 284M439.2 294L440 293.6M440 293.6L458.1 284M446.5 294L460 286.8M460 286.8L465.3 284M453.7 294L460 290.7M460 290.7L472.5 284M461 294L479.8 284M468.2 294L480 287.7M480 287.7L487 284M475.5 294L480 291.6M480 291.6L494.3 284M482.7 294L500 284.8M500 284.8L501.5 284M489.9 294L500 288.7M500 288.7L508.7 284M497.2 294L500 292.5M500 292.5L516 284M504.4 294L520 285.7M520 285.7L523.2 284M511.7 294L520 289.6M520 289.6L530.5 284M518.9 294L520 293.4M520 293.4L537.7 284M526.2 294L540 286.6M540 286.6L545 284M533.4 294L540 290.5M540 290.5L552.2 284M540.6 294L559.4 284M547.9 294L560 287.6M560 287.6L566.7 284M555.1 294L560 291.4M560 291.4L573.9 284M562.4 294L580 284.6M580 284.6L581.2 284M569.6 294L580 288.5M580 288.5L588.4 284M576.8 294L580 292.3M580 292.3L595.7 284M584.1 294L600 285.5M600 285.5L602.9 284M591.3 294L600 289.4M600 289.4L610.1 284M598.6 294L600 293.2M600 293.2L617.4 284M605.8 294L620 286.5M620 286.5L624.6 284M613.1 294L620 290.3M620 290.3L631.9 284M620.3 294L639.1 284M627.5 294L640 287.4M640 287.4L646.3 284M634.8 294L640 291.2M640 291.2L653.6 284M642 294L660 284.4M660 284.4L660.8 284M649.3 294L660 288.3M660 288.3L668.1 284M656.5 294L660 292.1M660 292.1L675.3 284M663.8 294L680 285.4M671 294L680 289.2M678.2 294L680 293.1"/>
+  <path class="pl-edge pl-thin" d="M40 284L680 284L680 294L40 294Z"/>
+  <path class="pl-edge pl-thin" d="M60 282L60 296M80 282L80 296M100 282L100 296M120 282L120 296M140 282L140 296M160 282L160 296M180 282L180 296M200 282L200 296M220 282L220 296M240 282L240 296M260 282L260 296M280 282L280 296M300 282L300 296M320 282L320 296M340 282L340 296M360 282L360 296M380 282L380 296M400 282L400 296M420 282L420 296M440 282L440 296M460 282L460 296M480 282L480 296M500 282L500 296M520 282L520 296M540 282L540 296M560 282L560 296M580 282L580 296M600 282L600 296M620 282L620 296M640 282L640 296M660 282L660 296"/>
+  <path class="pl-hatch pl-hatch--key" d="M160 287L161.6 284M160 293.4L165 284M163.1 294L168.4 284M166.5 294L171.8 284M169.9 294L175.2 284M173.3 294L178.6 284M176.7 294L180 287.7"/>
+  <path class="pl-edge pl-edge--key" d="M160 284L180 284L180 294L160 294Z"/>
+  <circle class="pl-ground" cx="164" cy="301" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="164" cy="301" r="2.5"/>
+  <text class="pl-text" x="40" y="320">× 32/3</text>
   <g class="pl-tech">
-  <text class="pl-text pl-text--small pl-text--key" x="455.8" y="238">15<tspan class="pl-var">w</tspan><tspan class="pl-sup" dy="0.3em">0</tspan> + 14<tspan class="pl-var">w</tspan><tspan class="pl-sup" dy="0.3em">1</tspan> + ⋯</text>
+  <text class="pl-text pl-text--small" x="680" y="320" text-anchor="end">step <tspan class="pl-var">w</tspan><tspan class="pl-sup" dy="0.3em">1</tspan> = 3<tspan class="pl-var">w</tspan><tspan class="pl-sup" dy="0.3em">0</tspan>/32</text>
   </g>
   </g>
-  <g class="pl-stage" data-stage="1">
-  <circle class="pl-ground" cx="186" cy="394" r="3.4"/>
-  <circle class="pl-dot" cx="186" cy="394" r="2.2"/>
-  <circle class="pl-ground" cx="202" cy="376" r="3.4"/>
-  <circle class="pl-dot" cx="202" cy="376" r="2.2"/>
-  <circle class="pl-ground" cx="218" cy="358" r="3.4"/>
-  <circle class="pl-dot" cx="218" cy="358" r="2.2"/>
-  <circle class="pl-ground" cx="234" cy="340" r="3.4"/>
-  <circle class="pl-dot" cx="234" cy="340" r="2.2"/>
-  <circle class="pl-ground" cx="250" cy="322" r="3.4"/>
-  <circle class="pl-dot" cx="250" cy="322" r="2.2"/>
-  <circle class="pl-ground" cx="266" cy="304" r="3.4"/>
-  <circle class="pl-dot" cx="266" cy="304" r="2.2"/>
-  <circle class="pl-ground" cx="282" cy="286" r="3.4"/>
-  <circle class="pl-dot" cx="282" cy="286" r="2.2"/>
-  <circle class="pl-ground" cx="298" cy="268" r="3.4"/>
-  <circle class="pl-dot" cx="298" cy="268" r="2.2"/>
-  <circle class="pl-ground" cx="314" cy="250" r="3.4"/>
-  <circle class="pl-dot" cx="314" cy="250" r="2.2"/>
-  <circle class="pl-ground" cx="330" cy="232" r="3.4"/>
-  <circle class="pl-dot" cx="330" cy="232" r="2.2"/>
-  <circle class="pl-ground" cx="346" cy="214" r="3.4"/>
-  <circle class="pl-dot" cx="346" cy="214" r="2.2"/>
-  <circle class="pl-ground" cx="362" cy="196" r="3.4"/>
-  <circle class="pl-dot" cx="362" cy="196" r="2.2"/>
-  <circle class="pl-ground" cx="378" cy="178" r="3.4"/>
-  <circle class="pl-dot" cx="378" cy="178" r="2.2"/>
-  <circle class="pl-ground" cx="394" cy="160" r="3.4"/>
-  <circle class="pl-dot" cx="394" cy="160" r="2.2"/>
-  <circle class="pl-ground" cx="410" cy="142" r="3.4"/>
-  <circle class="pl-dot" cx="410" cy="142" r="2.2"/>
-  <circle class="pl-ground" cx="426" cy="124" r="3.4"/>
-  <circle class="pl-dot" cx="426" cy="124" r="2.2"/>
+  <g class="pl-stage" data-stage="7">
+  <path class="pl-leader" d="M160 296L40 358M180 296L680 358"/>
+  <path class="pl-hatch" d="M40 360L43.7 358M40 363.8L50.9 358M40 367.7L58.2 358M46.6 368L60 360.9M60 360.9L65.4 358M53.8 368L60 364.7M60 364.7L72.6 358M61.1 368L79.9 358M68.3 368L80 361.8M80 361.8L87.1 358M75.6 368L80 365.6M80 365.6L94.4 358M82.8 368L100 358.9M100 358.9L101.6 358M90 368L100 362.7M100 362.7L108.9 358M97.3 368L100 366.6M100 366.6L116.1 358M104.5 368L120 359.8M120 359.8L123.3 358M111.8 368L120 363.6M120 363.6L130.6 358M119 368L120 367.5M120 367.5L137.8 358M126.3 368L140 360.7M140 360.7L145.1 358M133.5 368L140 364.5M140 364.5L152.3 358M140.7 368L159.6 358M148 368L160 361.6M155.2 368L160 365.5M180 358.7L181.3 358M180 362.5L188.5 358M180 366.4L195.8 358M184.2 368L200 359.6M200 359.6L203 358M191.4 368L200 363.4M200 363.4L210.2 358M198.7 368L200 367.3M200 367.3L217.5 358M205.9 368L220 360.5M220 360.5L224.7 358M213.2 368L220 364.4M220 364.4L232 358M220.4 368L239.2 358M227.7 368L240 361.4M240 361.4L246.5 358M234.9 368L240 365.3M240 365.3L253.7 358M242.1 368L260 358.5M260 358.5L260.9 358M249.4 368L260 362.4M260 362.4L268.2 358M256.6 368L260 366.2M260 366.2L275.4 358M263.9 368L280 359.4M280 359.4L282.7 358M271.1 368L280 363.3M280 363.3L289.9 358M278.3 368L280 367.1M280 367.1L297.2 358M285.6 368L300 360.3M300 360.3L304.4 358M292.8 368L300 364.2M300 364.2L311.6 358M300.1 368L318.9 358M307.3 368L320 361.3M320 361.3L326.1 358M314.6 368L320 365.1M320 365.1L333.4 358M321.8 368L340 358.3M340 358.3L340.6 358M329 368L340 362.2M340 362.2L347.8 358M336.3 368L340 366M340 366L355.1 358M343.5 368L360 359.2M360 359.2L362.3 358M350.8 368L360 363.1M360 363.1L369.6 358M358 368L360 366.9M360 366.9L376.8 358M365.3 368L380 360.2M380 360.2L384.1 358M372.5 368L380 364M380 364L391.3 358M380 367.9L398.5 358M387 368L400 361.1M400 361.1L405.8 358M394.2 368L400 364.9M400 364.9L413 358M401.5 368L420 358.1M420 358.1L420.3 358M408.7 368L420 362M420 362L427.5 358M415.9 368L420 365.8M420 365.8L434.8 358M423.2 368L440 359.1M440 359.1L442 358M430.4 368L440 362.9M440 362.9L449.2 358M437.7 368L440 366.8M440 366.8L456.5 358M444.9 368L460 360M460 360L463.7 358M452.2 368L460 363.8M460 363.8L471 358M459.4 368L460 367.7M460 367.7L478.2 358M466.6 368L480 360.9M480 360.9L485.4 358M473.9 368L480 364.7M480 364.7L492.7 358M481.1 368L499.9 358M488.4 368L500 361.8M500 361.8L507.2 358M495.6 368L500 365.7M500 365.7L514.4 358M502.9 368L520 358.9M520 358.9L521.7 358M510.1 368L520 362.7M520 362.7L528.9 358M517.3 368L520 366.6M520 366.6L536.1 358M524.6 368L540 359.8M540 359.8L543.4 358M531.8 368L540 363.7M540 363.7L550.6 358M539.1 368L540 367.5M540 367.5L557.9 358M546.3 368L560 360.7M560 360.7L565.1 358M553.5 368L560 364.6M560 364.6L572.4 358M560.8 368L579.6 358M568 368L580 361.6M580 361.6L586.8 358M575.3 368L580 365.5M580 365.5L594.1 358M582.5 368L600 358.7M600 358.7L601.3 358M589.8 368L600 362.6M600 362.6L608.6 358M597 368L600 366.4M600 366.4L615.8 358M604.2 368L620 359.6M620 359.6L623.1 358M611.5 368L620 363.5M620 363.5L630.3 358M618.7 368L620 367.3M620 367.3L637.5 358M626 368L640 360.5M640 360.5L644.8 358M633.2 368L640 364.4M640 364.4L652 358M640.5 368L659.3 358M647.7 368L660 361.5M660 361.5L666.5 358M654.9 368L660 365.3M660 365.3L673.7 358M662.2 368L680 358.5M669.4 368L680 362.4M676.7 368L680 366.2"/>
+  <path class="pl-edge pl-thin" d="M40 358L680 358L680 368L40 368Z"/>
+  <path class="pl-edge pl-thin" d="M60 356L60 370M80 356L80 370M100 356L100 370M120 356L120 370M140 356L140 370M160 356L160 370M180 356L180 370M200 356L200 370M220 356L220 370M240 356L240 370M260 356L260 370M280 356L280 370M300 356L300 370M320 356L320 370M340 356L340 370M360 356L360 370M380 356L380 370M400 356L400 370M420 356L420 370M440 356L440 370M460 356L460 370M480 356L480 370M500 356L500 370M520 356L520 370M540 356L540 370M560 356L560 370M580 356L580 370M600 356L600 370M620 356L620 370M640 356L640 370M660 356L660 370"/>
+  <path class="pl-hatch pl-hatch--key" d="M160 363.7L163 358M161.1 368L166.4 358M164.5 368L169.8 358M167.9 368L173.2 358M171.3 368L176.6 358M174.7 368L180 358M178.1 368L180 364.4"/>
+  <path class="pl-edge pl-edge--key" d="M160 358L180 358L180 368L160 368Z"/>
+  <circle class="pl-ground" cx="168" cy="375" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="168" cy="375" r="2.5"/>
+  <text class="pl-text" x="40" y="394">× 32</text>
+  <path class="pl-leader" d="M160 370L40 432M180 370L680 432"/>
+  <path class="pl-hatch" d="M40 433.1L42.1 432M40 437L49.3 432M40 440.8L56.6 432M45 442L60 434M60 434L63.8 432M52.3 442L60 437.9M60 437.9L71.1 432M59.5 442L60 441.7M60 441.7L78.3 432M66.7 442L80 435M80 435L85.6 432M74 442L80 438.8M80 438.8L92.8 432M81.2 442L100 432M88.5 442L100 435.9M100 435.9L107.3 432M95.7 442L100 439.7M100 439.7L114.5 432M103 442L120 432.9M120 432.9L121.8 432M110.2 442L120 436.8M120 436.8L129 432M117.4 442L120 440.6M120 440.6L136.3 432M124.7 442L140 433.9M140 433.9L143.5 432M131.9 442L140 437.7M140 437.7L150.7 432M139.2 442L140 441.6M140 441.6L158 432M146.4 442L160 434.8M160 434.8L165.2 432M153.7 442L160 438.6M160 438.6L172.5 432M160.9 442L179.7 432M168.1 442L180 435.7M180 435.7L186.9 432M175.4 442L180 439.5M180 439.5L194.2 432M182.6 442L200 432.8M200 432.8L201.4 432M189.9 442L200 436.6M200 436.6L208.7 432M197.1 442L200 440.5M200 440.5L215.9 432M204.4 442L220 433.7M220 433.7L223.2 432M211.6 442L220 437.5M220 437.5L230.4 432M218.8 442L220 441.4M220 441.4L237.6 432M226.1 442L240 434.6M240 434.6L244.9 432M233.3 442L240 438.4M240 438.4L252.1 432M240.6 442L259.4 432M247.8 442L260 435.5M260 435.5L266.6 432M255 442L260 439.4M260 439.4L273.9 432M262.3 442L280 432.6M269.5 442L280 436.4M276.8 442L280 440.3M300 433.5L302.8 432M300 437.4L310.1 432M300 441.2L317.3 432M305.7 442L320 434.4M320 434.4L324.5 432M313 442L320 438.3M320 438.3L331.8 432M320.2 442L339 432M327.5 442L340 435.3M340 435.3L346.3 432M334.7 442L340 439.2M340 439.2L353.5 432M342 442L360 432.4M360 432.4L360.8 432M349.2 442L360 436.3M360 436.3L368 432M356.4 442L360 440.1M360 440.1L375.2 432M363.7 442L380 433.3M380 433.3L382.5 432M370.9 442L380 437.2M380 437.2L389.7 432M378.2 442L380 441M380 441L397 432M385.4 442L400 434.2M400 434.2L404.2 432M392.6 442L400 438.1M400 438.1L411.5 432M400 441.9L418.7 432M407.1 442L420 435.2M420 435.2L425.9 432M414.4 442L420 439M420 439L433.2 432M421.6 442L440 432.2M440 432.2L440.4 432M428.9 442L440 436.1M440 436.1L447.7 432M436.1 442L440 439.9M440 439.9L454.9 432M443.3 442L460 433.1M460 433.1L462.2 432M450.6 442L460 437M460 437L469.4 432M457.8 442L460 440.8M460 440.8L476.6 432M465.1 442L480 434.1M480 434.1L483.9 432M472.3 442L480 437.9M480 437.9L491.1 432M479.6 442L480 441.8M480 441.8L498.4 432M486.8 442L500 435M500 435L505.6 432M494 442L500 438.8M500 438.8L512.8 432M501.3 442L520 432M508.5 442L520 435.9M520 435.9L527.3 432M515.8 442L520 439.7M520 439.7L534.6 432M523 442L540 433M540 433L541.8 432M530.2 442L540 436.8M540 436.8L549.1 432M537.5 442L540 440.7M540 440.7L556.3 432M544.7 442L560 433.9M560 433.9L563.5 432M552 442L560 437.7M560 437.7L570.8 432M559.2 442L560 441.6M560 441.6L578 432M566.5 442L580 434.8M580 434.8L585.3 432M573.7 442L580 438.7M580 438.7L592.5 432M580.9 442L599.8 432M588.2 442L600 435.7M600 435.7L607 432M595.4 442L600 439.6M600 439.6L614.2 432M602.7 442L620 432.8M620 432.8L621.5 432M609.9 442L620 436.6M620 436.6L628.7 432M617.2 442L620 440.5M620 440.5L636 432M624.4 442L640 433.7M640 433.7L643.2 432M631.6 442L640 437.6M640 437.6L650.4 432M638.9 442L640 441.4M640 441.4L657.7 432M646.1 442L660 434.6M660 434.6L664.9 432M653.4 442L660 438.5M660 438.5L672.2 432M660.6 442L679.4 432M667.9 442L680 435.5M675.1 442L680 439.4"/>
+  <path class="pl-edge pl-thin" d="M40 432L680 432L680 442L40 442Z"/>
+  <path class="pl-edge pl-thin" d="M60 430L60 444M80 430L80 444M100 430L100 444M120 430L120 444M140 430L140 444M160 430L160 444M180 430L180 444M200 430L200 444M220 430L220 444M240 430L240 444M260 430L260 444M280 430L280 444M300 430L300 444M320 430L320 444M340 430L340 444M360 430L360 444M380 430L380 444M400 430L400 444M420 430L420 444M440 430L440 444M460 430L460 444M480 430L480 444M500 430L500 444M520 430L520 444M540 430L540 444M560 430L560 444M580 430L580 444M600 430L600 444M620 430L620 444M640 430L640 444M660 430L660 444"/>
+  <path class="pl-hatch pl-hatch--key" d="M280 438.3L283.4 432M281.4 442L286.8 432M284.8 442L290.2 432M288.2 442L293.5 432M291.6 442L296.9 432M295 442L300 432.6M298.4 442L300 439"/>
+  <path class="pl-edge pl-edge--key" d="M280 432L300 432L300 442L280 442Z"/>
+  <circle class="pl-ground" cx="296" cy="449" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="296" cy="449" r="2.5"/>
+  <text class="pl-text" x="40" y="468">× 32</text>
+  <g class="pl-tech">
+  <text class="pl-text pl-text--small" x="680" y="394" text-anchor="end">step <tspan class="pl-var">w</tspan><tspan class="pl-sup" dy="0.3em">2</tspan> = <tspan class="pl-var">w</tspan><tspan class="pl-sup" dy="0.3em">1</tspan>/32</text>
+  <text class="pl-text pl-text--small" x="680" y="468" text-anchor="end">step <tspan class="pl-var">w</tspan><tspan class="pl-sup" dy="0.3em">3</tspan> = <tspan class="pl-var">w</tspan><tspan class="pl-sup" dy="0.3em">2</tspan>/32</text>
+  </g>
   </g>
 </svg>

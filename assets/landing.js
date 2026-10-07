@@ -837,7 +837,11 @@
      ink. The sentence being read is in ink, the ones to come faint. Then
      the drawing rests whole, which is all a reader with reduced motion, a
      thumbnail or the problem page sees. A sentence held under the pointer
-     lights its stage again; "Replay" tells it again. */
+     shows the drawing as it stood when that sentence was read; a sentence
+     clicked holds the story there; "Replay" tells it again. A plate told in
+     scenes (7 October 2026, Will: "so fucking good looking and clear")
+     can change as well as grow: a scene stands for a few stages and leaves,
+     and a moved object glides to its new place. */
   var EMBER_MS = 784;
   var story = null;
   function numberOf(node, name) { return parseInt(node.getAttribute(name), 10) || 0; }
@@ -849,6 +853,22 @@
   }
   function beatsOf(slide) {
     return slide && slide.querySelectorAll ? Array.prototype.slice.call(slide.querySelectorAll('.home-result-plate__beat[data-beat]')) : [];
+  }
+  // A scene (data-until) stands from its stage until the stage it names,
+  // then leaves; a resting group stands from its stage to the end.
+  function untilOf(group) {
+    var until = parseInt(group.getAttribute('data-until'), 10);
+    return isNaN(until) ? Infinity : until;
+  }
+  function standsAt(group, n) {
+    var k = numberOf(group, 'data-stage');
+    return k <= n && n <= untilOf(group);
+  }
+  // A moved object (data-glide="dx dy"): it arrives inked, sliding in from
+  // that offset in plate units, rather than being drawn again.
+  function glideOf(group) {
+    var parts = (group.getAttribute('data-glide') || '').split(/\s+/).map(Number);
+    return parts.length === 2 && isFinite(parts[0]) && isFinite(parts[1]) ? parts : null;
   }
   function markBeats(run, n) {
     run.beats.forEach(function (beat) {
@@ -894,6 +914,14 @@
     var marks = [];
     groups.forEach(function (group) {
       group.classList.add('is-drawn');
+      var glide = glideOf(group);
+      if (glide && group.animate) {
+        run.anims.push(group.animate([
+          { transform: 'translate(' + glide[0] + 'px, ' + glide[1] + 'px)' },
+          { transform: 'translate(0px, 0px)' }
+        ], { duration: 980, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'backwards' }));
+        return;
+      }
       Array.prototype.forEach.call(group.querySelectorAll('path, line, polyline, polygon, circle, ellipse, rect, text'), function (mark) {
         // The technical marks are hidden while the story is told.
         if (!(mark.closest && mark.closest('.pl-tech'))) marks.push(mark);
@@ -954,7 +982,7 @@
       mark.style.transformBox = '';
       mark.style.transformOrigin = '';
     });
-    stageGroups(run.svg).forEach(function (group) { group.classList.remove('is-drawn'); });
+    stageGroups(run.svg).forEach(function (group) { group.classList.remove('is-drawn'); group.classList.remove('is-retired'); });
     run.svg.classList.remove('is-pending');
     run.slide.classList.remove('is-telling');
     run.beats.forEach(function (beat) { beat.classList.remove('is-reading'); beat.classList.remove('is-read'); });
@@ -984,12 +1012,45 @@
       run.timers.push(setTimeout(function () {
         if (story !== run) return;
         markBeats(run, n);
+        retireBefore(run, n);
         drawStage(run, mine);
       }, at));
+      // Time to read the sentence and look at what it drew: about a quarter
+      // of a second a word, never less than the drawing itself takes, and
+      // at most ten seconds (a sentence can be held: click it).
       var words = beat ? (beat.textContent || '').split(/\s+/).filter(Boolean).length : 10;
-      at += Math.max(EMBER_MS + 1100, Math.min(4600, 900 + words * 210));
+      at += Math.max(EMBER_MS * 1.6 + 1400, Math.min(10000, 1600 + words * 240));
     });
     run.timers.push(setTimeout(function () { if (story === run) stopStory(); }, at));
+  }
+  // Scenes whose last stage has passed leave as the next stage begins.
+  function retireBefore(run, n) {
+    stageGroups(run.svg).forEach(function (group) {
+      if (group.classList.contains('is-drawn') && untilOf(group) < n) group.classList.add('is-retired');
+    });
+  }
+  // A sentence clicked (or chosen with Enter) holds the drawing at its
+  // stage: what stood before it stands, its own stage is drawn, and the
+  // story waits there until another sentence is chosen, "Skip to the end"
+  // shows the whole drawing, or the result changes. With reduced motion the
+  // stage simply appears, so every reader can step through the scenes.
+  function stepTo(slide, n) {
+    var svg = plateOf(slide);
+    var groups = stageGroups(svg);
+    if (!svg || !groups.length || overview || root.getAttribute('data-results-mode') === 'technical') return;
+    stopStory();
+    var run = { slide: slide, svg: svg, beats: beatsOf(slide), timers: [], anims: [], dashed: [], held: n };
+    story = run;
+    svg.classList.add('is-pending');
+    slide.classList.add('is-telling');
+    groups.forEach(function (group) {
+      if (numberOf(group, 'data-stage') < n && standsAt(group, n)) group.classList.add('is-drawn');
+    });
+    markBeats(run, n);
+    var mine = groups.filter(function (group) { return numberOf(group, 'data-stage') === n; });
+    if (reduceMotion || !svg.animate) mine.forEach(function (group) { group.classList.add('is-drawn'); });
+    else drawStage(run, mine);
+    syncReplay(slide);
   }
   // Play when the plate is on screen, once per opening.
   var seenObserver = null;
@@ -1012,14 +1073,15 @@
     var button = slide && slide.querySelector ? slide.querySelector('[data-results-replay]') : null;
     if (!button) return;
     var telling = !!(story && story.slide === slide);
-    button.textContent = telling ? 'Skip to the end' : 'Replay';
+    button.textContent = telling ? (reduceMotion ? 'Show the whole drawing' : 'Skip to the end') : 'Replay';
     button.setAttribute('aria-label', telling ? 'Show the whole drawing now' : 'Draw the figure again, stage by stage');
+    button.hidden = reduceMotion && !telling;
   }
   slides.forEach(function (slide) {
     var svg = plateOf(slide);
     if (!stageGroups(svg).length) return;
     var words = slide.querySelector('.home-result-plate__intuitive');
-    if (words && words.parentNode && !reduceMotion && typeof document.createElement === 'function') {
+    if (words && words.parentNode && typeof document.createElement === 'function') {
       var replay = document.createElement('button');
       replay.type = 'button';
       replay.className = 'home-result-plate__replay';
@@ -1036,8 +1098,18 @@
         if (story && story.slide === slide) return;
         svg.classList.toggle('is-tracing', on);
         beat.classList.toggle('is-traced', on);
-        stageGroups(svg).forEach(function (group) { group.classList.toggle('is-traced', on && numberOf(group, 'data-stage') === n); });
+        stageGroups(svg).forEach(function (group) {
+          group.classList.toggle('is-at', on && standsAt(group, n));
+          group.classList.toggle('is-traced', on && numberOf(group, 'data-stage') === n);
+        });
       }
+      beat.setAttribute('tabindex', '0');
+      beat.setAttribute('role', 'button');
+      beat.setAttribute('data-step', '');
+      beat.addEventListener('click', function () { trace(false); stepTo(slide, n); });
+      beat.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); trace(false); stepTo(slide, n); }
+      });
       beat.addEventListener('pointerenter', function () { trace(true); });
       beat.addEventListener('pointerleave', function () { trace(false); });
     });
@@ -1198,6 +1270,24 @@
     else playWhenSeen(slide);
   }
 
+  // A thumbnail shows the drawing, not its sheet (7 October 2026; Will: the
+  // eight were "not lined up and arranged nicely"). Each plate leaves its own
+  // margins on its 720 by 500 sheet, and the overview hides its labels, so a
+  // thumbnail of the whole sheet floated its drawing at a different place in
+  // every cell. Once the thumbnail is shown, its viewBox closes on what it
+  // draws, with one even margin, and the drawing stands on the cell's bottom
+  // edge, so the eight share a baseline above their names.
+  function cropPreview(svg) {
+    if (!svg || svg.getAttribute('data-cropped') || typeof svg.getBBox !== 'function') return;
+    var box;
+    try { box = svg.getBBox(); } catch (err) { return; }
+    if (!box || box.width < 24 || box.height < 24) return;
+    var pad = 0.035 * Math.max(box.width, box.height);
+    var round = function (v) { return Math.round(v * 10) / 10; };
+    svg.setAttribute('viewBox', [round(box.x - pad), round(box.y - pad), round(box.width + 2 * pad), round(box.height + 2 * pad)].join(' '));
+    svg.setAttribute('preserveAspectRatio', 'xMidYMax meet');
+    svg.setAttribute('data-cropped', '');
+  }
   function setOverview(on, updateHash) {
     overview = !!on && root.classList.contains('has-overview');
     if (overview) stopStory();
@@ -1205,6 +1295,7 @@
     entries.forEach(function (entry) {
       var preview = entry.querySelector('.home-results__preview');
       if (preview) preview.hidden = !overview;
+      if (preview && overview) cropPreview(preview.querySelector('svg'));
     });
     if (win) win.hidden = overview;
     prev.hidden = next.hidden = overview;

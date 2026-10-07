@@ -195,19 +195,18 @@ papers, as three reading pairs; the films; why the project exists and how to tak
 one line for the earlier software. Every route is visible without opening
 anything. Transcripts and optional agent prompt text fold.
 
-The selected changed-hypothesis experience links from the first-screen actions
-to `maths/documents/weighted-257-task.html`. Its source is the public repository's
+The first-screen secondary action is **Read the README**, linking to
+`https://github.com/wcook04/plectis-erdos/blob/main/README.md`; name the document
+the reader will open. The changed-hypothesis exercise remains available at
+`maths/documents/weighted-257-task.html`. Its source is the public repository's
 generated `docs/reading-edition/weighted-257-task.md`, registered in
 `LEAN_HUMAN_DOCUMENTS`; the ordinary document builders own the hosted edition.
-The landing's visible `research-question` section supplies a copyable learner
-task, the public packet and coding-agent quickstart links. A visible companion
-release link offers the packaged Agent Skill for use with an assistant outside
-a clone; describe it as an Agent Skill, following the source documentation.
-The task asks for one
-hint before a worked answer. Keep the distinction between the Lean-checked
-criterion, ordinary example deductions and the universal open boundary explicit;
-a failed sufficient weighted test gives no arithmetic verdict. The experience
-requires no browser integration, clone or Lean installation for reading.
+The landing no longer carries the copyable research-question task (Will, 7
+October 2026: "so ugly and unnecessary what you copy it??? then what???"); its
+`research-question` anchor survives as an alias in the Why section. Where the
+exercise is described, keep the distinction between the Lean-checked criterion,
+ordinary example deductions and the universal open boundary explicit; a failed
+sufficient weighted test gives no arithmetic verdict.
 
 At phone widths, keep the menu, brand, search and theme controls together,
 with the five page destinations on the next row. The existing labelled search
@@ -341,8 +340,8 @@ left to speak for themselves.
   `draw.py`. `build.py --check` rebuilds every plate, compares
   `sites/microcosm/assets/plates/<id>.svg` and enforces the shared rules:
   classes only from the `pl-` vocabulary, no inline colour or style, every
-  id prefixed by the plate's id, under 40 KB, no em dash, stages numbered
-  1, 2, ... with one beat each. `preview.py` renders a plate against the
+  id prefixed by the plate's id, under 48 KB, no em dash, stages numbered
+  1, 2, ... with one beat each, a scene leaving before the last stage. `preview.py` renders a plate against the
   real stylesheet on each theme's results sheet: one panel per stage of the
   story with its beat under it, the resting drawing, the technical state and
   the 240px thumbnail.
@@ -359,7 +358,7 @@ left to speak for themselves.
   style.css carry every colour, so a plate follows the theme it is read in.
 - Story (7 October 2026; Will: the intuitive one could be "animated too to
   ... communicate the underlying ideas"): a landing plate tells its result
-  in three to five stages (`<g class="pl-stage" data-stage="n">`, from
+  in five to seven stages (`<g class="pl-stage" data-stage="n">`, from
   `draw.Svg.stage`), and its intuitive text is as many beats, beat n the
   sentence read while stage n appears. When a reader opens the result,
   `landing.js` lays the whole drawing down faint, as an underdrawing, then
@@ -368,13 +367,29 @@ left to speak for themselves.
   run, hatching cut stroke after stroke, points and numerals set, and the
   result's ember burned in, arriving in a hotter ink (`--pl-hot`) and
   cooling to its own. Then it rests whole. A sentence under the pointer
-  lights its stage again; "Replay" tells the story again and, while it
-  plays, skips to the end. The technical register, reduced motion, the
+  shows the drawing as it stood when that sentence was read; a sentence
+  clicked (or chosen with Enter) holds the drawing at its stage; "Replay"
+  tells the story again and, while it plays, skips to the end. Sentences
+  are paced for reading, about a quarter of a second a word, at most ten
+  seconds. The technical register, reduced motion, the
   thumbnails and the problem pages show the whole drawing at once; the
   technical annotations (`<g class="pl-tech">`, `Svg.tech`) stand only
   beside the technical text and on the problem page. Motion is restraint:
   mature ember, a glow of a pixel or two that dies as the stroke cools,
   never a neon sign, never a literal flame.
+- Scenes (7 October 2026; Will: "even more beautiful visual versions ...
+  so fucking good looking and clear"): the eight plates were redrawn from
+  eight Type B explanation returns against the r15 papers, on a 720 by 500
+  sheet, each telling its proof's mechanism as a story. A stage group with
+  `data-until` (`Svg.stage(n, until=m)`) is a scene: it stands for stages n
+  to m and leaves, so a drawing can change as well as grow (a prediction
+  replaced by the actual value); a scene is never part of the resting
+  drawing, which must be complete on its own. `glide` moves an object
+  already inked to a new place; `underdrawing=False` starts the story on a
+  blank plate. `preview.py --story` watches a plate in the landing's own
+  player at 1440 by 790. The overview's thumbnails crop to what they draw
+  (`landing.js`, `cropPreview`) and stand on one baseline, so the eight line
+  up whatever margins their sheets leave.
 - Words: `PLATES` in `plectis_plates/__init__.py` gives each plate its
   slide; a landing plate's module holds its own words beside the numbers
   they state, `BEATS` and `TECHNICAL`, as HTML with exact-TeX spans
@@ -782,8 +797,35 @@ The earlier software is reached from the landing's last line and the footer.
 The landing is glossary-linked by the builder, and the hover definitions and
 the first-visit glossary chip stay on.
 
-To feature a new film, edit the `home-film` figure and its card in the videos
-list; nothing else depends on which film it is. Judge the first screen at
+Film copy and release metadata live in `film-programme.json`; the adapter
+`plectis_film_publication.py` renders the hero, programme, VideoObject records
+and packet narration from the same released subset. The AI packets carry
+no film transcripts (Will, 7 October 2026, in reduction mode). Never hand-edit
+the film-programme marked regions. A null release is an explicitly forthcoming
+slot, with no Watch link, duration, transcript, thumbnail or VideoObject.
+Only an authorized release tied to one approved/hosted edition, matching
+thumbnail and transcript edition may supply those surfaces. Missing evidence
+scope must never default to verbatim. Narration is not visual evidence.
+Use semantic presentation roles, not positional selectors: introduction,
+featured Mathematics, CodeMap, Agent Trace, overlapping Combined. The mathematics
+film links the reciprocal-summability result separately from the broader
+weighted theorem. Derive availability language from the released subset.
+The band is a shelf (Will, 7 October 2026: "the short video, then ... a
+combined one, and then ... standalone"): the heading and the Combined
+walkthrough in the left five columns, the introduction large in the right
+seven, and the standalone films on one shelf under both, their rows shared
+so titles, status and text line up. Every film has a 16:9 frame: a released
+film's own still with its play mark and running time; before release, a
+frame taken from the film and dropped in as `assets/films/<id>.jpg` (or
+`.png`, `.webp`); until then a placeholder, the empty frame with the film's
+short `label` in the page's own tone. No drawn posters ("no need for svg").
+Until the introduction has a frame, the hero offers the films as a plain
+link. The hero's second action is **Read the README**, the public
+repository's README (Will: "somewhere we need to link to the actual github
+repo"); the research-question task left the landing (Will: "so ugly and
+unnecessary"), and the exercise stays at `maths/documents/weighted-257-task.html`.
+Refresh the landing with the adapter and regenerate the reader/reviewer packets
+through the ordinary full-site publication owner before any deployment. Judge the first screen at
 1440 × 900 and 1280 × 800: the introduction, the weave, the figures and the
 top of the mathematics map fit together.
 

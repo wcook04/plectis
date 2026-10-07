@@ -1,0 +1,59 @@
+{
+  "schema": "plectis_film_programme_v1",
+  "films": [
+    {
+      "id": "introduction",
+      "title": "Introduction to Plectis",
+      "label": "Introduction",
+      "description": "Why I built the system, and how the mathematics and software fit together.",
+      "role": "introduction",
+      "links": [],
+      "release": null
+    },
+    {
+      "id": "mathematics",
+      "title": "An irrationality criterion for Erdős #257",
+      "label": "Erdős #257",
+      "description": "The reciprocal-summability argument, with the statement and its source. The paper develops broader criteria; the unrestricted problem remains open.",
+      "role": "featured",
+      "links": [
+        {
+          "label": "The reciprocal-summability result",
+          "href": "maths/papers/erdos-257-mersenne-support-subseries.html#res:reciprocal-support"
+        },
+        {
+          "label": "The broader weighted criterion",
+          "href": "maths/papers/erdos-257-mersenne-support-subseries.html#res:weighted-support"
+        }
+      ],
+      "release": null
+    },
+    {
+      "id": "codemap",
+      "title": "CodeMap: inspecting the research system",
+      "label": "CodeMap",
+      "description": "Following files, descriptions and connections in my private research system.",
+      "role": "supporting",
+      "links": [],
+      "release": null
+    },
+    {
+      "id": "agent-trace",
+      "title": "Agent Trace: carrying context into another review",
+      "label": "Agent Trace",
+      "description": "Inspecting recorded activity and selecting context for another agent. A demonstration of my private system.",
+      "role": "supporting",
+      "links": [],
+      "release": null
+    },
+    {
+      "id": "combined",
+      "title": "Combined walkthrough",
+      "label": "Combined walkthrough",
+      "description": "Selected introduction, mathematics and software demonstrations in one viewing. This overlaps with the separate films; you do not need to watch both.",
+      "role": "combined",
+      "links": [],
+      "release": null
+    }
+  ]
+}

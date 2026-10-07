@@ -1,142 +1,152 @@
-<svg class="plate" viewBox="0 0 600 500" role="img" aria-labelledby="erdos-68-growth-title" focusable="false" data-plate="erdos-68-growth">
-  <title id="erdos-68-growth-title">The region between the line y = alpha and the cubic y = alpha cubed over 6, for alpha from 0 to root 6, on axes where alpha is the block length k over root N and heights are logarithms divided by N to the 3 halves times log N. The region is filled with vertical chords, each a lower bound for the growth of the common denominator; the longest, red, at alpha = root 2, has length 2 root 2 over 3, and the dashed line is the cubic&#x27;s tangent there, parallel to the line. A separate circle shows the same estimate computed exactly at N = 128, one bar for each block length k; the longest, red, is at k = 13.</title>
+<svg class="plate" viewBox="0 0 720 500" role="img" aria-labelledby="erdos-68-growth-title" focusable="false" data-plate="erdos-68-growth">
+  <title id="erdos-68-growth-title">Left, two posts reaching the same ceiling 11 factorial: 11 factorial minus 1, one short, and 990 copies of 8 factorial minus 1, which fall 990 short; the gap between their tops is a ladder of 43 steps of 23, since both are multiples of 23. Lower right, twelve columns, one for each denominator counted back from N = 50, each N powers of N tall: the powers its gaps may share stack from the floor as a triangle of cells 1, 2, 3, and so on, and the powers kept, in red, last until the tenth column. Upper right, the limit on a shared axis: the line alpha and the cubic alpha cubed over 6, the lens between them filled with vertical chords; the longest, red, at alpha = root 2 above the tenth column, has length 2 root 2 over 3, and the dashed tangent to the cubic there is parallel to the line.</title>
   <g class="pl-stage" data-stage="1">
-  <path class="pl-axis" d="M37 440L425.42 440"/>
-  <path class="pl-axis" d="M46 440L46 62.58"/>
-  <path class="pl-axis" d="M46 440L46 445"/>
-  <path class="pl-axis" d="M258.13 440L258.13 445"/>
-  <path class="pl-axis" d="M413.42 440L413.42 445"/>
-  <text class="pl-text" x="46" y="464" text-anchor="middle">0</text>
-  <text class="pl-text" x="258.1" y="464" text-anchor="middle">√2</text>
-  <text class="pl-text" x="413.4" y="464" text-anchor="middle">√6</text>
-  <text class="pl-text" x="152.1" y="464" text-anchor="middle"><tspan class="pl-var">α</tspan> = <tspan class="pl-var">k</tspan>/√<tspan class="pl-var">N</tspan></text>
-  <text class="pl-text" x="40" y="52.6">log ÷ <tspan class="pl-var">N</tspan><tspan class="pl-sup" dy="-0.42em">3/2</tspan><tspan dy="0.42em"> log <tspan class="pl-var">N</tspan></tspan></text>
-  <path class="pl-edge" d="M46 440L413.42 72.58"/>
-  <text class="pl-text pl-text--ice" x="165" y="303" text-anchor="end"><tspan class="pl-var">α</tspan></text>
+  <path class="pl-ref pl-ref--faint" d="M16 62L168 62"/>
+  <text class="pl-text pl-text--body pl-text--ink" x="174" y="67">11!</text>
+  <path class="pl-hatch" d="M30 67.4L39.7 62.3M30 72.6L49.5 62.3M30 77.8L56 64M30 83L56 69.2M30 88.2L56 74.4M30 93.5L56 79.6M30 98.7L56 84.8M30 103.9L56 90.1M30 109.1L56 95.3M30 114.3L56 100.5M30 119.5L56 105.7M30 124.7L56 110.9M30 129.9L56 116.1M30 135.1L56 121.3M30 140.3L56 126.5M30 145.6L56 131.7M30 150.8L56 136.9M30 156L56 142.1M30 161.2L56 147.4M30 166.4L56 152.6M30 171.6L56 157.8M30 176.8L56 163M30 182L56 168.2M30 187.2L56 173.4M30 192.4L56 178.6M30 197.7L56 183.8M30 202.9L56 189M30 208.1L56 194.2M30 213.3L56 199.5M30 218.5L56 204.7M30 223.7L56 209.9M30 228.9L56 215.1M30 234.1L56 220.3M30 239.3L56 225.5M30 244.5L56 230.7M30 249.7L56 235.9M30 255L56 241.1M30 260.2L56 246.3M30 265.4L56 251.6M30 270.6L56 256.8M30 275.8L56 262M30 281L56 267.2M30 286.2L56 272.4M30 291.4L56 277.6M30 296.6L56 282.8M30 301.8L56 288M30 307.1L56 293.2M30 312.3L56 298.4M30 317.5L56 303.7M30 322.7L56 308.9M30 327.9L56 314.1M30 333.1L56 319.3M30 338.3L56 324.5M30 343.5L56 329.7M30 348.7L56 334.9M30 353.9L56 340.1M30 359.2L56 345.3M30 364.4L56 350.5M30 369.6L56 355.8M30 374.8L56 361M30 380L56 366.2M30 385.2L56 371.4M30 390.4L56 376.6M30 395.6L56 381.8M30 400.8L56 387M30 406L56 392.2M30 411.3L56 397.4M30 416.5L56 402.6M30 421.7L56 407.8M30 426.9L56 413.1M30 432.1L56 418.3M36.2 434L56 423.5M46 434L56 428.7M30 442.5L31 442M30 447.7L40.8 442M30 452.9L50.6 442M30 458.1L56 444.3M30 463.4L56 449.5M30 468.6L56 454.7M30 473.8L56 459.9M31.8 478L56 465.2M41.6 478L56 470.4M51.4 478L56 475.6"/>
+  <path class="pl-edge" d="M30 434L30 62.3L56 62.3L56 434"/>
+  <path class="pl-edge" d="M30 442L30 478L56 478L56 442"/>
+  <path class="pl-axis" d="M26 437L60 431M26 445L60 439"/>
+  <path class="pl-hatch" d="M126 334.2L136 328.9M126 339.4L145.7 328.9M126 344.6L152 330.8M126 349.8L152 336M126 355L152 341.2M126 360.2L152 346.4M126 365.4L152 351.6M126 370.6L152 356.8M126 375.8L152 362M126 381L152 367.2M126 386.3L152 372.4M126 391.5L152 377.6M126 396.7L152 382.9M126 401.9L152 388.1M126 407.1L152 393.3M126 412.3L152 398.5M126 417.5L152 403.7M126 422.7L152 408.9M126 427.9L152 414.1M126 433.1L152 419.3M134.2 434L152 424.5M144 434L152 429.7M126 443.6L128.9 442M126 448.8L138.7 442M126 454L148.5 442M126 459.2L152 445.4M126 464.4L152 450.6M126 469.6L152 455.8M126 474.8L152 461M129.8 478L152 466.2M139.6 478L152 471.4M149.4 478L152 476.6"/>
+  <path class="pl-edge" d="M126 434L126 328.9L152 328.9L152 434"/>
+  <path class="pl-edge" d="M126 442L126 478L152 478L152 442"/>
+  <path class="pl-axis" d="M122 437L156 431M122 445L156 439"/>
+  <text class="pl-text pl-text--body pl-text--ink" x="64" y="86">11! − 1</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="160" y="334.9">990 · (8! − 1)</text>
+  <text class="pl-text" x="160" y="355.9">= 11! − 990</text>
   </g>
   <g class="pl-stage" data-stage="2">
-  <path class="pl-edge" d="M46 440L70.5 439.9L87.3 439.5L102.6 438.7L116.4 437.4L124.1 436.5L130.2 435.6L137.9 434.3L144 433L150.1 431.6L156.2 430.1L162.4 428.3L168.5 426.4L174.6 424.2L180.7 421.9L186.8 419.3L193 416.5L199.1 413.4L205.2 410.1L211.3 406.5L215.9 403.7L222.1 399.6L226.6 396.3L232.8 391.7L237.4 388.1L243.5 382.9L248.1 378.9L254.2 373.1L258.8 368.6L264.9 362.3L269.5 357.3L275.6 350.3L280.2 344.8L286.4 337.1L290.9 331.1L300.1 318.4L306.3 309.4L310.9 302.4L320 287.6L326.2 277.1L330.8 269L339.9 251.9L349.1 233.7L358.3 214.4L367.5 193.9L376.7 172.1L385.9 149.2L395.1 125L404.2 99.5L413.4 72.6"/>
-  <text class="pl-text pl-text--ice" x="357" y="257.9"><tspan class="pl-var">α</tspan><tspan class="pl-sup" dy="-0.42em">3</tspan><tspan dy="0.42em">/6</tspan></text>
+  <path class="pl-axis" d="M126 62.3L126 328.9M152 62.3L152 328.9"/>
+  <path class="pl-line pl-line--key pl-thin" d="M126 62.3L152 62.3M126 68.5L152 68.5M126 74.7L152 74.7M126 80.9L152 80.9M126 87.1L152 87.1M126 93.3L152 93.3M126 99.5L152 99.5M126 105.7L152 105.7M126 111.9L152 111.9M126 118.1L152 118.1M126 124.3L152 124.3M126 130.5L152 130.5M126 136.7L152 136.7M126 142.9L152 142.9M126 149.1L152 149.1M126 155.3L152 155.3M126 161.5L152 161.5M126 167.7L152 167.7M126 173.9L152 173.9M126 180.1L152 180.1M126 186.3L152 186.3M126 192.5L152 192.5M126 198.7L152 198.7M126 204.9L152 204.9M126 211.1L152 211.1M126 217.3L152 217.3M126 223.5L152 223.5M126 229.7L152 229.7M126 235.9L152 235.9M126 242.1L152 242.1M126 248.3L152 248.3M126 254.5L152 254.5M126 260.7L152 260.7M126 266.9L152 266.9M126 273.1L152 273.1M126 279.3L152 279.3M126 285.5L152 285.5M126 291.7L152 291.7M126 297.9L152 297.9M126 304.1L152 304.1M126 310.3L152 310.3M126 316.5L152 316.5M126 322.7L152 322.7"/>
+  <path class="pl-axis" d="M116 62.27L126 62.27"/>
+  <text class="pl-text pl-text--large pl-text--key" x="160" y="191.6">989</text>
+  <text class="pl-text pl-text--body pl-text--key" x="160" y="212.6">= 23 · 43</text>
+  <text class="pl-text" x="160" y="233.6">&lt; 11<tspan class="pl-sup" dy="-0.42em">3</tspan></text>
+  <g class="pl-tech">
+  <text class="pl-text pl-text--small" x="160" y="255.6">gcd = 23</text>
+  </g>
+  <text class="pl-text" x="160" y="402.9"><tspan class="pl-var">R</tspan>(<tspan class="pl-var">i</tspan>! − 1) = <tspan class="pl-var">j</tspan>! − <tspan class="pl-var">R</tspan></text>
+  <text class="pl-text" x="160" y="424.9"><tspan class="pl-var">R</tspan> − 1 &lt; <tspan class="pl-var">N</tspan><tspan class="pl-sup" dy="-0.42em">j−i</tspan></text>
   </g>
   <g class="pl-stage" data-stage="3">
-  <path class="pl-hatch" d="M48.13 440L48.13 437.87"/>
-  <path class="pl-hatch" d="M53.13 440L53.13 432.87"/>
-  <path class="pl-hatch" d="M408.13 88.22L408.13 77.87"/>
-  <path class="pl-hatch" d="M58.13 439.99L58.13 427.87"/>
-  <path class="pl-hatch" d="M63.13 439.96L63.13 422.87"/>
-  <path class="pl-hatch" d="M403.13 102.59L403.13 82.87"/>
-  <path class="pl-hatch" d="M68.13 439.92L68.13 417.87"/>
-  <path class="pl-hatch" d="M73.13 439.85L73.13 412.87"/>
-  <path class="pl-hatch" d="M398.13 116.57L398.13 87.87"/>
-  <path class="pl-hatch" d="M78.13 439.75L78.13 407.87"/>
-  <path class="pl-hatch" d="M83.13 439.62L83.13 402.87"/>
-  <path class="pl-hatch" d="M393.13 130.15L393.13 92.87"/>
-  <path class="pl-hatch" d="M88.13 439.45L88.13 397.87"/>
-  <path class="pl-hatch" d="M388.13 143.35L388.13 97.87"/>
-  <path class="pl-hatch" d="M93.13 439.22L93.13 392.87"/>
-  <path class="pl-hatch" d="M98.13 438.95L98.13 387.87"/>
-  <path class="pl-hatch" d="M383.13 156.16L383.13 102.87"/>
-  <path class="pl-hatch" d="M103.13 438.62L103.13 382.87"/>
-  <path class="pl-hatch" d="M108.13 438.22L108.13 377.87"/>
-  <path class="pl-hatch" d="M378.13 168.61L378.13 107.87"/>
-  <path class="pl-hatch" d="M113.13 437.76L113.13 372.87"/>
-  <path class="pl-hatch" d="M373.13 180.68L373.13 112.87"/>
-  <path class="pl-hatch" d="M118.13 437.22L118.13 367.87"/>
-  <path class="pl-hatch" d="M123.13 436.6L123.13 362.87"/>
-  <path class="pl-hatch" d="M368.13 192.39L368.13 117.87"/>
-  <path class="pl-hatch" d="M128.13 435.9L128.13 357.87"/>
-  <path class="pl-hatch" d="M363.13 203.74L363.13 122.87"/>
-  <path class="pl-hatch" d="M133.13 435.1L133.13 352.87"/>
-  <path class="pl-hatch" d="M138.13 434.21L138.13 347.87"/>
-  <path class="pl-hatch" d="M358.13 214.74L358.13 127.87"/>
-  <path class="pl-hatch" d="M143.13 433.21L143.13 342.87"/>
-  <path class="pl-hatch" d="M353.13 225.39L353.13 132.87"/>
-  <path class="pl-hatch" d="M148.13 432.11L148.13 337.87"/>
-  <path class="pl-hatch" d="M348.13 235.71L348.13 137.87"/>
-  <path class="pl-hatch" d="M153.13 430.89L153.13 332.87"/>
-  <path class="pl-hatch" d="M158.13 429.56L158.13 327.87"/>
-  <path class="pl-hatch" d="M343.13 245.68L343.13 142.87"/>
-  <path class="pl-hatch" d="M163.13 428.1L163.13 322.87"/>
-  <path class="pl-hatch" d="M338.13 255.33L338.13 147.87"/>
-  <path class="pl-hatch" d="M168.13 426.51L168.13 317.87"/>
-  <path class="pl-hatch" d="M333.13 264.65L333.13 152.87"/>
-  <path class="pl-hatch" d="M173.13 424.78L173.13 312.87"/>
-  <path class="pl-hatch" d="M178.13 422.91L178.13 307.87"/>
-  <path class="pl-hatch" d="M328.13 273.65L328.13 157.87"/>
-  <path class="pl-hatch" d="M183.13 420.9L183.13 302.87"/>
-  <path class="pl-hatch" d="M323.13 282.34L323.13 162.87"/>
-  <path class="pl-hatch" d="M188.13 418.73L188.13 297.87"/>
-  <path class="pl-hatch" d="M318.13 290.72L318.13 167.87"/>
-  <path class="pl-hatch" d="M193.13 416.41L193.13 292.87"/>
-  <path class="pl-hatch" d="M313.13 298.8L313.13 172.87"/>
-  <path class="pl-hatch" d="M198.13 413.92L198.13 287.87"/>
-  <path class="pl-hatch" d="M203.13 411.26L203.13 282.87"/>
-  <path class="pl-hatch" d="M308.13 306.58L308.13 177.87"/>
-  <path class="pl-hatch" d="M208.13 408.43L208.13 277.87"/>
-  <path class="pl-hatch" d="M303.13 314.07L303.13 182.87"/>
-  <path class="pl-hatch" d="M213.13 405.42L213.13 272.87"/>
-  <path class="pl-hatch" d="M298.13 321.27L298.13 187.87"/>
-  <path class="pl-hatch" d="M218.13 402.22L218.13 267.87"/>
-  <path class="pl-hatch" d="M293.13 328.2L293.13 192.87"/>
-  <path class="pl-hatch" d="M223.13 398.83L223.13 262.87"/>
-  <path class="pl-hatch" d="M288.13 334.85L288.13 197.87"/>
-  <path class="pl-hatch" d="M228.13 395.25L228.13 257.87"/>
-  <path class="pl-hatch" d="M283.13 341.23L283.13 202.87"/>
-  <path class="pl-hatch" d="M233.13 391.46L233.13 252.87"/>
-  <path class="pl-hatch" d="M278.13 347.34L278.13 207.87"/>
-  <path class="pl-hatch" d="M238.13 387.46L238.13 247.87"/>
-  <path class="pl-hatch" d="M273.13 353.2L273.13 212.87"/>
-  <path class="pl-hatch" d="M243.13 383.25L243.13 242.87"/>
-  <path class="pl-hatch" d="M268.13 358.81L268.13 217.87"/>
-  <path class="pl-hatch" d="M248.13 378.83L248.13 237.87"/>
-  <path class="pl-hatch" d="M263.13 364.17L263.13 222.87"/>
-  <path class="pl-hatch" d="M253.13 374.17L253.13 232.87"/>
-  <path class="pl-hatch" d="M258.13 369.29L258.13 227.87"/>
+  <path class="pl-axis" d="M306 468L583.35 468"/>
+  <path class="pl-edge pl-thin" d="M312 468L312 368M312 368L333.8 368M333.8 468L333.8 368M333.8 368L355.6 368M355.6 468L355.6 368M355.6 368L377.3 368M377.3 468L377.3 368M377.3 368L399.1 368M399.1 468L399.1 368M399.1 368L420.9 368M420.9 468L420.9 368M420.9 368L442.7 368M442.7 468L442.7 368M442.7 368L464.5 368M464.5 468L464.5 368M464.5 368L486.2 368M486.2 468L486.2 368M486.2 368L508 368M508 468L508 368M508 368L529.8 368M529.8 468L529.8 358M529.8 358L551.6 358M551.6 468L551.6 336M551.6 336L573.3 336M573.3 468L573.3 336"/>
+  <path class="pl-line pl-thin" d="M355.6 466L573.3 466M377.3 462L573.3 462M399.1 456L573.3 456M420.9 448L573.3 448M442.7 438L573.3 438M464.5 426L573.3 426M486.2 412L573.3 412M508 396L573.3 396M529.8 378L573.3 378M551.6 358L573.3 358"/>
+  <path class="pl-ref" d="M306 368L583.35 368"/>
+  <text class="pl-text pl-text--body pl-text--ice" x="302" y="373" text-anchor="end"><tspan class="pl-var">N</tspan></text>
+  <text class="pl-text pl-text--small" x="322.9" y="486" text-anchor="middle">1</text>
+  <text class="pl-text pl-text--small" x="518.9" y="486" text-anchor="middle">10</text>
+  <text class="pl-text pl-text--small" x="587.3" y="486"><tspan class="pl-var">k</tspan></text>
   </g>
   <g class="pl-stage" data-stage="4">
-  <path class="pl-ref pl-ref--faint" d="M193 434.42L334 293.42"/>
-  <path class="pl-line pl-line--key" d="M258.13 369.29L258.13 227.87"/>
-  <circle class="pl-dot pl-dot--key" cx="258.13" cy="369.29" r="3"/>
-  <circle class="pl-dot pl-dot--key" cx="258.13" cy="227.87" r="3"/>
-  <text class="pl-text pl-text--key pl-text--large" x="248.1" y="314.6" text-anchor="end">2√2/3</text>
-  <circle class="pl-ground" cx="503" cy="290" r="95"/>
-  <circle class="pl-ring" cx="503" cy="290" r="95"/>
-  <path class="pl-axis" d="M428.16 339.38L576.4 339.38"/>
-  <path class="pl-edge pl-thin" d="M436.9 334.6L442.9 329.8L448.9 325.1L454.9 320.4L460.9 315.8L466.9 311.3L472.9 306.7L479 302.3L485 297.8L491 293.4L497 289.1L503 284.8L509 280.6L515 276.4L521 272.2L527 268.1L533.1 264L539.1 260L545.1 256.1L551.1 252.1L557.1 248.2L563.1 244.4L569.1 240.6"/>
-  <path class="pl-edge pl-thin" d="M436.9 339.4L442.9 339.3L448.9 339.2L454.9 338.9L460.9 338.4L466.9 337.7L472.9 336.7L479 335.4L485 333.7L491 331.6L497 329L503 325.9L509 322.3L515 318L521 313.1L527 307.4L533.1 301.1L539.1 293.9L545.1 285.8L551.1 276.9L557.1 267.1L563.1 256.2L569.1 244.3"/>
-  <path class="pl-line pl-thin" d="M436.89 339.38L436.89 334.57"/>
-  <path class="pl-line pl-thin" d="M442.9 339.33L442.9 329.82"/>
-  <path class="pl-line pl-thin" d="M448.91 339.19L448.91 325.11"/>
-  <path class="pl-line pl-thin" d="M454.92 338.91L454.92 320.44"/>
-  <path class="pl-line pl-thin" d="M460.93 338.44L460.93 315.83"/>
-  <path class="pl-line pl-thin" d="M466.94 337.73L466.94 311.26"/>
-  <path class="pl-line pl-thin" d="M472.95 336.75L472.95 306.73"/>
-  <path class="pl-line pl-thin" d="M478.96 335.43L478.96 302.25"/>
-  <path class="pl-line pl-thin" d="M484.97 333.74L484.97 297.82"/>
-  <path class="pl-line pl-thin" d="M490.98 331.63L490.98 293.44"/>
-  <path class="pl-line pl-thin" d="M496.99 329.05L496.99 289.1"/>
-  <path class="pl-line pl-thin" d="M503 325.95L503 284.81"/>
-  <path class="pl-line pl-thin" d="M515.02 318.01L515.02 276.36"/>
-  <path class="pl-line pl-thin" d="M521.03 313.08L521.03 272.21"/>
-  <path class="pl-line pl-thin" d="M527.04 307.45L527.04 268.1"/>
-  <path class="pl-line pl-thin" d="M533.05 301.06L533.05 264.04"/>
-  <path class="pl-line pl-thin" d="M539.06 293.88L539.06 260.02"/>
-  <path class="pl-line pl-thin" d="M545.07 285.85L545.07 256.05"/>
-  <path class="pl-line pl-thin" d="M551.08 276.92L551.08 252.13"/>
-  <path class="pl-line pl-thin" d="M557.09 267.06L557.09 248.25"/>
-  <path class="pl-line pl-thin" d="M563.1 256.22L563.1 244.41"/>
-  <path class="pl-line pl-thin" d="M569.11 244.34L569.11 240.62"/>
-  <text class="pl-text" x="503" y="409" text-anchor="middle"><tspan class="pl-var">N</tspan> = 128</text>
-  <path class="pl-line pl-line--key" d="M509.01 322.28L509.01 280.56"/>
-  <text class="pl-text pl-text--small pl-text--key" x="505" y="271.6" text-anchor="end"><tspan class="pl-var">k</tspan> = 13</text>
+  <path class="pl-hatch pl-hatch--key" d="M312 371.7L314 368M312 379.4L318.1 368M312 387.1L322.1 368M312 394.7L326.2 368M312 402.4L330.3 368M312 410.1L333.8 369.1M333.8 369.1L334.4 368M312 417.7L333.8 376.8M333.8 376.8L338.5 368M312 425.4L333.8 384.5M333.8 384.5L342.5 368M312 433.1L333.8 392.1M333.8 392.1L346.6 368M312 440.8L333.8 399.8M333.8 399.8L350.7 368M312 448.4L333.8 407.5M333.8 407.5L354.8 368M312 456.1L333.8 415.1M333.8 415.1L355.6 374.2M355.6 374.2L358.8 368M312 463.8L333.8 422.8M333.8 422.8L355.6 381.8M355.6 381.8L362.9 368M313.8 468L333.8 430.5M333.8 430.5L355.6 389.5M355.6 389.5L367 368M317.9 468L333.8 438.1M333.8 438.1L355.6 397.2M355.6 397.2L371.1 368M322 468L333.8 445.8M333.8 445.8L355.6 404.8M355.6 404.8L375.1 368M326.1 468L333.8 453.5M333.8 453.5L355.6 412.5M355.6 412.5L377.3 371.5M377.3 371.5L379.2 368M330.1 468L333.8 461.1M333.8 461.1L355.6 420.2M355.6 420.2L377.3 379.2M377.3 379.2L383.3 368M335.3 466L355.6 427.8M355.6 427.8L377.3 386.9M377.3 386.9L387.4 368M339.3 466L355.6 435.5M355.6 435.5L377.3 394.6M377.3 394.6L391.5 368M343.4 466L355.6 443.2M355.6 443.2L377.3 402.2M377.3 402.2L395.5 368M347.5 466L355.6 450.8M355.6 450.8L377.3 409.9M377.3 409.9L399.1 368.9M399.1 368.9L399.6 368M351.6 466L355.6 458.5M355.6 458.5L377.3 417.6M377.3 417.6L399.1 376.6M399.1 376.6L403.7 368M357.8 462L377.3 425.2M377.3 425.2L399.1 384.3M399.1 384.3L407.8 368M361.9 462L377.3 432.9M377.3 432.9L399.1 391.9M399.1 391.9L411.8 368M365.9 462L377.3 440.6M377.3 440.6L399.1 399.6M399.1 399.6L415.9 368M370 462L377.3 448.2M377.3 448.2L399.1 407.3M399.1 407.3L420 368M374.1 462L377.3 455.9M377.3 455.9L399.1 414.9M399.1 414.9L420.9 374M420.9 374L424.1 368M381.4 456L399.1 422.6M399.1 422.6L420.9 381.6M420.9 381.6L428.2 368M385.4 456L399.1 430.3M399.1 430.3L420.9 389.3M420.9 389.3L432.2 368M389.5 456L399.1 437.9M399.1 437.9L420.9 397M420.9 397L436.3 368M393.6 456L399.1 445.6M399.1 445.6L420.9 404.7M420.9 404.7L440.4 368M397.7 456L399.1 453.3M401.9 448L420.9 412.3M420.9 412.3L442.7 371.4M442.7 371.4L444.5 368M406 448L420.9 420M420.9 420L442.7 379M442.7 379L448.5 368M410.1 448L420.9 427.7M420.9 427.7L442.7 386.7M442.7 386.7L452.6 368M414.2 448L420.9 435.3M420.9 435.3L442.7 394.4M442.7 394.4L456.7 368M418.2 448L420.9 443M423.5 438L442.7 402M442.7 402L460.8 368M427.6 438L442.7 409.7M442.7 409.7L464.5 368.7M464.5 368.7L464.8 368M431.7 438L442.7 417.4M442.7 417.4L464.5 376.4M464.5 376.4L468.9 368M435.8 438L442.7 425M442.7 425L464.5 384.1M464.5 384.1L473 368M439.9 438L442.7 432.7M446.2 426L464.5 391.7M464.5 391.7L477.1 368M450.3 426L464.5 399.4M464.5 399.4L481.2 368M454.4 426L464.5 407.1M464.5 407.1L485.2 368M458.5 426L464.5 414.7M465.9 412L486.2 373.8M486.2 373.8L489.3 368M462.5 426L464.5 422.4M470 412L486.2 381.5M486.2 381.5L493.4 368M474.1 412L486.2 389.1M486.2 389.1L497.5 368M478.1 412L486.2 396.8M486.7 396L501.5 368M482.2 412L486.2 404.5M490.7 396L505.6 368M494.8 396L508 371.2M508 371.2L509.7 368M498.9 396L508 378.8M508.5 378L513.8 368M503 396L508 386.5M512.5 378L517.9 368M507 396L508 394.2M516.6 378L521.9 368M520.7 378L526 368M524.8 378L529.8 368.6M528.8 378L529.8 376.2"/>
+  <path class="pl-edge pl-edge--key" d="M312 468L333.8 468L333.8 466L355.6 466L355.6 462L377.3 462L377.3 456L399.1 456L399.1 448L420.9 448L420.9 438L442.7 438L442.7 426L464.5 426L464.5 412L486.2 412L486.2 396L508 396L508 378L529.8 378L529.8 368"/>
   <g class="pl-tech">
-  <text class="pl-text pl-text--small" x="267.1" y="231.9">√2</text>
-  <text class="pl-text pl-text--small" x="267.1" y="382.3">√2/3</text>
-  <path class="pl-ref pl-ref--faint" d="M430.9 339.4L556.4 213.9"/>
-  <path class="pl-axis" d="M527.04 339.38L527.04 343.38"/>
-  <text class="pl-text pl-text--small" x="527" y="355.4" text-anchor="middle"><tspan class="pl-var">k</tspan> = 16</text>
-  <text class="pl-text pl-text--small" x="527" y="369.4" text-anchor="middle">0.5786</text>
-  <text class="pl-text pl-text--small pl-text--key" x="505" y="257.6" text-anchor="end">0.6135</text>
+  <text class="pl-text pl-text--small" x="587.3" y="408">165</text>
+  <path class="pl-bar" d="M585.35 413L613.35 413"/>
+  <text class="pl-text pl-text--small" x="587.3" y="427">500</text>
+  </g>
+  </g>
+  <g class="pl-stage" data-stage="5">
+  <path class="pl-axis" d="M306 268L697.22 268"/>
+  <path class="pl-axis" d="M312 268L312 34.65"/>
+  <text class="pl-text" x="308" y="22.6">log ÷ <tspan class="pl-var">N</tspan><tspan class="pl-sup" dy="-0.42em">3/2</tspan><tspan dy="0.42em"> log <tspan class="pl-var">N</tspan></tspan></text>
+  <path class="pl-axis" d="M312 268L312 273"/>
+  <path class="pl-axis" d="M689.22 268L689.22 273"/>
+  <text class="pl-text" x="312" y="290" text-anchor="middle">0</text>
+  <text class="pl-text" x="689.2" y="290" text-anchor="middle">√6</text>
+  <text class="pl-text" x="422.9" y="290" text-anchor="middle"><tspan class="pl-var">α</tspan> = <tspan class="pl-var">k</tspan>/√<tspan class="pl-var">N</tspan></text>
+  <path class="pl-hatch" d="M314.79 268L314.79 266.33"/>
+  <path class="pl-hatch" d="M319.79 268L319.79 263.35"/>
+  <path class="pl-hatch" d="M684.79 50.5L684.79 45.29"/>
+  <path class="pl-hatch" d="M324.79 267.99L324.79 260.36"/>
+  <path class="pl-hatch" d="M329.79 267.98L329.79 257.37"/>
+  <path class="pl-hatch" d="M679.79 59.13L679.79 48.28"/>
+  <path class="pl-hatch" d="M334.79 267.95L334.79 254.39"/>
+  <path class="pl-hatch" d="M674.79 67.54L674.79 51.27"/>
+  <path class="pl-hatch" d="M339.79 267.91L339.79 251.4"/>
+  <path class="pl-hatch" d="M344.79 267.85L344.79 248.41"/>
+  <path class="pl-hatch" d="M669.79 75.71L669.79 54.26"/>
+  <path class="pl-hatch" d="M349.79 267.77L349.79 245.42"/>
+  <path class="pl-hatch" d="M354.79 267.67L354.79 242.44"/>
+  <path class="pl-hatch" d="M664.79 83.66L664.79 57.24"/>
+  <path class="pl-hatch" d="M359.79 267.54L359.79 239.45"/>
+  <path class="pl-hatch" d="M364.79 267.38L364.79 236.46"/>
+  <path class="pl-hatch" d="M659.79 91.39L659.79 60.23"/>
+  <path class="pl-hatch" d="M369.79 267.19L369.79 233.48"/>
+  <path class="pl-hatch" d="M654.79 98.9L654.79 63.22"/>
+  <path class="pl-hatch" d="M374.79 266.96L374.79 230.49"/>
+  <path class="pl-hatch" d="M379.79 266.69L379.79 227.5"/>
+  <path class="pl-hatch" d="M649.79 106.19L649.79 66.2"/>
+  <path class="pl-hatch" d="M384.79 266.38L384.79 224.52"/>
+  <path class="pl-hatch" d="M644.79 113.27L644.79 69.19"/>
+  <path class="pl-hatch" d="M389.79 266.02L389.79 221.53"/>
+  <path class="pl-hatch" d="M394.79 265.62L394.79 218.54"/>
+  <path class="pl-hatch" d="M639.79 120.14L639.79 72.18"/>
+  <path class="pl-hatch" d="M399.79 265.16L399.79 215.55"/>
+  <path class="pl-hatch" d="M634.79 126.8L634.79 75.17"/>
+  <path class="pl-hatch" d="M404.79 264.65L404.79 212.57"/>
+  <path class="pl-hatch" d="M409.79 264.07L409.79 209.58"/>
+  <path class="pl-hatch" d="M629.79 133.26L629.79 78.15"/>
+  <path class="pl-hatch" d="M414.79 263.44L414.79 206.59"/>
+  <path class="pl-hatch" d="M624.79 139.52L624.79 81.14"/>
+  <path class="pl-hatch" d="M419.79 262.74L419.79 203.61"/>
+  <path class="pl-hatch" d="M424.79 261.98L424.79 200.62"/>
+  <path class="pl-hatch" d="M619.79 145.59L619.79 84.13"/>
+  <path class="pl-hatch" d="M429.79 261.14L429.79 197.63"/>
+  <path class="pl-hatch" d="M614.79 151.45L614.79 87.11"/>
+  <path class="pl-hatch" d="M434.79 260.23L434.79 194.65"/>
+  <path class="pl-hatch" d="M609.79 157.13L609.79 90.1"/>
+  <path class="pl-hatch" d="M439.79 259.24L439.79 191.66"/>
+  <path class="pl-hatch" d="M444.79 258.17L444.79 188.67"/>
+  <path class="pl-hatch" d="M604.79 162.62L604.79 93.09"/>
+  <path class="pl-hatch" d="M449.79 257.02L449.79 185.68"/>
+  <path class="pl-hatch" d="M599.79 167.93L599.79 96.07"/>
+  <path class="pl-hatch" d="M454.79 255.78L454.79 182.7"/>
+  <path class="pl-hatch" d="M594.79 173.06L594.79 99.06"/>
+  <path class="pl-hatch" d="M459.79 254.45L459.79 179.71"/>
+  <path class="pl-hatch" d="M589.79 178L589.79 102.05"/>
+  <path class="pl-hatch" d="M464.79 253.03L464.79 176.72"/>
+  <path class="pl-hatch" d="M584.79 182.78L584.79 105.04"/>
+  <path class="pl-hatch" d="M469.79 251.51L469.79 173.74"/>
+  <path class="pl-hatch" d="M474.79 249.89L474.79 170.75"/>
+  <path class="pl-hatch" d="M579.79 187.38L579.79 108.02"/>
+  <path class="pl-hatch" d="M479.79 248.17L479.79 167.76"/>
+  <path class="pl-hatch" d="M574.79 191.81L574.79 111.01"/>
+  <path class="pl-hatch" d="M484.79 246.34L484.79 164.78"/>
+  <path class="pl-hatch" d="M569.79 196.08L569.79 114"/>
+  <path class="pl-hatch" d="M489.79 244.41L489.79 161.79"/>
+  <path class="pl-hatch" d="M564.79 200.18L564.79 116.98"/>
+  <path class="pl-hatch" d="M494.79 242.36L494.79 158.8"/>
+  <path class="pl-hatch" d="M559.79 204.13L559.79 119.97"/>
+  <path class="pl-hatch" d="M499.79 240.2L499.79 155.81"/>
+  <path class="pl-hatch" d="M554.79 207.92L554.79 122.96"/>
+  <path class="pl-hatch" d="M504.79 237.92L504.79 152.83"/>
+  <path class="pl-hatch" d="M549.79 211.55L549.79 125.94"/>
+  <path class="pl-hatch" d="M509.79 235.52L509.79 149.84"/>
+  <path class="pl-hatch" d="M544.79 215.04L544.79 128.93"/>
+  <path class="pl-hatch" d="M514.79 232.99L514.79 146.85"/>
+  <path class="pl-hatch" d="M539.79 218.38L539.79 131.92"/>
+  <path class="pl-hatch" d="M519.79 230.33L519.79 143.87"/>
+  <path class="pl-hatch" d="M534.79 221.57L534.79 134.91"/>
+  <path class="pl-hatch" d="M524.79 227.55L524.79 140.88"/>
+  <path class="pl-edge" d="M312 268L689.22 42.65"/>
+  <path class="pl-edge" d="M312 268L337.1 267.9L354.4 267.7L370.2 267.2L384.3 266.4L398.4 265.3L412.6 263.7L425.2 261.9L437.7 259.7L450.3 256.9L462.9 253.6L475.5 249.7L486.5 245.7L497.5 241.2L508.5 236.2L519.5 230.5L530.5 224.2L541.5 217.3L552.5 209.6L563.5 201.2L572.9 193.4L583.9 183.6L593.3 174.5L604.3 163.1L613.8 152.6L623.2 141.5L632.6 129.6L642.1 117L651.5 103.7L660.9 89.6L670.4 74.8L679.8 59.1L689.2 42.6"/>
+  <text class="pl-text pl-text--body pl-text--ice" x="425.2" y="186.4" text-anchor="end"><tspan class="pl-var">α</tspan></text>
+  <text class="pl-text pl-text--body pl-text--ice" x="632" y="159.3"><tspan class="pl-var">α</tspan><tspan class="pl-sup" dy="-0.42em">3</tspan><tspan dy="0.42em">/6</tspan></text>
+  </g>
+  <g class="pl-stage" data-stage="6">
+  <path class="pl-ref pl-ref--faint" d="M529.79 365L529.79 224.63"/>
+  <path class="pl-ref pl-ref--faint" d="M462.92 264.58L607.68 178.1"/>
+  <path class="pl-line pl-line--key" d="M529.79 224.63L529.79 137.89"/>
+  <circle class="pl-dot pl-dot--key" cx="529.79" cy="224.63" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="529.79" cy="137.89" r="3"/>
+  <text class="pl-text pl-text--large pl-text--key" x="517.8" y="125.9" text-anchor="end">2√2/3</text>
+  <text class="pl-text" x="536.8" y="290">√2</text>
+  <g class="pl-tech">
+  <text class="pl-text pl-text--small" x="535.8" y="119.9">√2</text>
+  <text class="pl-text pl-text--small" x="538.8" y="238.6">√2/3</text>
+  <path class="pl-ref pl-ref--faint" d="M312 468L320.5 467.8L329 467.4L337.6 466.6L346.1 465.6L354.6 464.2L363.1 462.5L375.9 459.4L384.4 456.9L393 454.2L401.5 451.1L410 447.8L418.5 444.1L427 440.1L439.8 433.6L448.3 428.8L456.9 423.8L469.6 415.6L478.2 409.8L486.7 403.7L495.2 397.2L503.7 390.5L516.5 379.8L525 372.3L533.6 364.5L542.1 356.4L550.6 348L559.1 339.3L567.6 330.2"/>
   </g>
   </g>
 </svg>
