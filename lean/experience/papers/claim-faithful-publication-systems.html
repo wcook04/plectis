@@ -21,13 +21,11 @@ alongside proposed contributions and their review. The prototype is a
 local research environment: a researcher or agent chooses what to
 investigate and which tools to invoke. Broader autonomous discovery and
 services for other scientific fields remain proposals (Section 9).</p>
-<p>The architecture separates authored records from derived views and
-separates a tool’s output from a decision to adopt it. A successful
+<p>The architecture separates authored records, derived views and
+adoption decisions (Figure <code>[fig:lifecycle]</code>). A successful
 proof probe can remain a session result; a revised explanation can
-remain a proposal. Acceptance updates the relevant source records, after
-which builders regenerate their indexes and summaries.
-Figure <code>[fig:lifecycle]</code> places these operations within the
-continuing research cycle.</p>
+remain a proposal. Acceptance updates the source records, after which
+builders regenerate their indexes and summaries.</p>
 <p>Erdős Problems supplies the questions and their public discussion,
 while Lean and mathlib supply the formal language and library <span
 class="citation" data-cites="erdosproblems lean4 mathlib"><a href="#ref-1">[1]</a><a href="#ref-11">[11]</a><a href="#ref-76">[76]</a></span>.
@@ -51,11 +49,9 @@ inspection, the worked proof, scope and attribution examples, and
 references grouped by purpose.</p>
 <figure id="fig:lifecycle" data-latex-placement="H">
 
-<figcaption>Research and publication cycle. Arrows name operations, not
-logical implications or automatic approval. Reviewed source changes
-precede rebuilding and inspection. The journal retains entered returns
-and decisions. Source checks do not judge whether an explanation
-preserves the mathematics.</figcaption>
+<figcaption>Authored records and derived views. Accepted edits change
+the relevant sources; builders regenerate views. Tool success alone does
+not adopt a claim.</figcaption>
 </figure>
 </section>
 <section id="sec:world" class="level2">
@@ -271,13 +267,19 @@ href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c41
 citing the ordinary proof and a formal declaration. The claim-evidence
 builder derives status or gap reports; the passage checker tests text
 and source bindings.</p>
-<p>Dropping the weighted hypothesis need not change either Lean proof.
-Editing the prose alone makes its passage binding stale; updating the
-binding as well can remove that warning without repairing the claim. The
-reviewer must therefore compare the proposed wording with the cited
-statements. Only after acceptance are the explanation and its record
-integrated and the publication views regenerated. This proposed edit
-illustrates the division of work; it is not a new test run.</p>
+<p>Neither Lean proof need change when the explanation loses its
+weighted hypothesis. The prose edit makes its passage binding stale;
+rebinding can remove that warning without repairing the claim. Review
+must compare the wording with the cited statements. Accepted edits
+update the explanation and its record before publication views are
+regenerated. Figure <code>[fig:hypothesis]</code> compares the three
+versions. This is an illustration, not a new test run.</p>
+<figure id="fig:hypothesis" data-latex-placement="htbp">
+
+<figcaption>Hypothesis loss with unchanged formal supports. Rebinding
+can restore byte consistency while leaving the overclaim intact. This is
+an illustration, not a new test or historical edit 8.</figcaption>
+</figure>
 </section>
 <section id="sec:checks" class="level2">
 <h2>Proof and publication checks</h2>
@@ -298,57 +300,11 @@ revision cannot silently support another.</p>
 <p>Figure <code>[fig:checks]</code> separates the objects checked
 mechanically from the questions that remain for review.</p>
 <figure id="fig:checks" data-latex-placement="htbp">
-<table>
-<thead>
-<tr>
-<th class="ta-l">Relation being assessed</th>
-<th class="ta-l"> Check or judgement required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="ta-l">Formal statement and proof</td>
-<td class="ta-l"> Lean kernel checking.</td>
-</tr>
-<tr>
-<td class="ta-l">Challenge and formal statement</td>
-<td class="ta-l"> Comparator checking against the selected
-challenge.</td>
-</tr>
-<tr>
-<td class="ta-l">Paper occurrence and registered support
-set</td>
-<td class="ta-l"> Coverage audit: all registered
-declarations and their recorded revisions.</td>
-</tr>
-<tr>
-<td class="ta-l">Passage and declared source bytes</td>
-<td class="ta-l"> Passage audit: text and source digests,
-with a recorded rationale.</td>
-</tr>
-<tr>
-<td class="ta-l"><p>Passage and mathematical
-meaning</p></td>
-<td class="ta-l"> Author and reviewer judgement about what
-the sources establish.</td>
-</tr>
-<tr>
-<td class="ta-l">Result and motivating question</td>
-<td class="ta-l"> Author and reviewer judgement about the
-scope of the result.</td>
-</tr>
-<tr>
-<td class="ta-l">Novelty, significance and acceptance</td>
-<td class="ta-l"> Assessment by reviewers and the
-mathematical community.</td>
-</tr>
-</tbody>
-</table>
-<figcaption>Four checks with different objects, followed by three
-questions of judgement. The upper rows identify checking mechanisms, not
-new executions reported here. The lower rows identify review
-responsibilities, not evidence of independent review. A recorded
-rationale still requires assessment of its meaning.</figcaption>
+
+<figcaption>Two correspondence records. Lines are recorded links, not
+implications. Binding and formal checks do not establish the paper’s
+intended meaning. Review responsibilities do not imply independent
+review.</figcaption>
 </figure>
 <p>Lean verifies that a proof establishes the formal statement written
 in the source; it does not verify whether that statement captures the
@@ -431,11 +387,10 @@ proposed changes for the same review of mathematical scope, wording and
 credit.</p>
 <figure id="fig:refinement" data-latex-placement="H">
 
-<figcaption>Exposition workflow in numbered order, with exchanged
-objects labelled. Step 3 may request revision or decline a proposal;
-only accepted changes reach integration. These are responsibilities,
-which one agent may perform. Rendering and inspection remain separate
-from source checks.</figcaption>
+<figcaption>Only accepted edits enter live sources. The return audit
+neither applies edits nor executes returned programs. Review may request
+revision or decline; one agent may perform several
+responsibilities.</figcaption>
 </figure>
 <p>The return checker verifies packet identity and permitted paths,
 accounts for statement changes, and checks retained labels, citation
@@ -483,10 +438,10 @@ evidence at the submitted base before reconciling it with current main,
 and to credit a substantive integration repair separately.</p>
 <figure id="fig:contribute" data-latex-placement="H">
 
-<figcaption>Two entry routes and three possible review outcomes.
-Repository adoption applies to mathematical and methodological
-contributions; it establishes neither independent review nor acceptance
-by the wider mathematical community.</figcaption>
+<figcaption>Two entry routes and three dispositions. Adopted work
+includes mathematics and methods. Only explicitly entered returns become
+journal events; adoption establishes neither independent review nor
+wider acceptance.</figcaption>
 </figure>
 <p>For explicitly entered returns, the journal preserves an append-only,
 hash-linked sequence of dispositions. A later correction can withdraw an
@@ -851,11 +806,10 @@ class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 submitted; comparison does not establish registry acceptance.</p>
 <figure id="fig:theorem" data-latex-placement="htbp">
 
-<figcaption>The arrows show recorded support links, not proof
-dependencies. The audit checks both listed supports even where their
-mathematical roles overlap. The support hypothesis still needs
-explanation. The false paraphrase is illustrative, distinct from
-historical edit 8 in Table <code>[tab:mutations]</code>.</figcaption>
+<figcaption>Registered supports have overlapping roles; lines are not
+proof dependencies. Auditing the full list adds no hypothesis to the
+weighted statement. Recorded comparison does not establish registry
+acceptance.</figcaption>
 </figure>
 </section>
 <section id="interpret-the-recorded-inventory" class="level3">

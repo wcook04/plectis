@@ -137,12 +137,11 @@ alongside proposed contributions and their review. The prototype is a
 local research environment: a researcher or agent chooses what to
 investigate and which tools to invoke. Broader autonomous discovery and
 services for other scientific fields remain proposals (Section <a class="math-ref" href="#sec:limits">9</a>).</p>
-<p>The architecture separates authored records from derived views and
-separates a tool’s output from a decision to adopt it. A successful
-proof probe can remain a session result; a revised explanation can
-remain a proposal. Acceptance updates the relevant source records, after
-which builders regenerate their indexes and summaries. Figure <a class="math-ref" href="#fig:lifecycle">1</a> places these
-operations within the continuing research cycle.</p>
+<p>The architecture separates authored records, derived views and
+adoption decisions (Figure <a class="math-ref" href="#fig:lifecycle">1</a>). A successful proof
+probe can remain a session result; a revised explanation can remain a
+proposal. Acceptance updates the source records, after which builders
+regenerate their indexes and summaries.</p>
 <p>Erdős Problems supplies the questions and their public discussion,
 while Lean and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">mathlib</a> supply the formal language and library <span
 class="citation" data-cites="erdosproblems lean4 mathlib"><a href="#ref-1">[1]</a><a href="#ref-11">[11]</a><a href="#ref-76">[76]</a></span>.
@@ -379,17 +378,18 @@ href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c41
 citing the ordinary proof and a formal declaration. The claim-evidence
 builder derives status or gap reports; the passage checker tests text
 and source bindings.</p>
-<p>Dropping the weighted hypothesis need not change either Lean proof.
-Editing the prose alone makes its passage binding stale; updating the
-binding as well can remove that warning without repairing the claim. The
-reviewer must therefore compare the proposed wording with the cited
-statements. Only after acceptance are the explanation and its record
-integrated and the publication views regenerated. This proposed edit
-illustrates the division of work; it is not a new test run.</p>
+<p>Neither Lean proof need change when the explanation loses its
+weighted hypothesis. The prose edit makes its passage binding stale;
+rebinding can remove that warning without repairing the claim. Review
+must compare the wording with the cited statements. Accepted edits
+update the explanation and its record before publication views are
+regenerated. Figure <a class="math-ref" href="#fig:hypothesis">3</a> compares the three
+versions. This is an illustration, not a new test run.</p>
+<p class="figure-elsewhere" id="fig:hypothesis" data-term-auto="off">This figure is drawn in the <a href="../../papers/claim-faithful-publication-systems-paper.pdf">PDF</a>.</p>
 </section>
 <section id="sec:checks" class="level2">
 <h2>Proof and publication checks</h2>
-<p> The two formal supports in the example overlap (Figure <a class="math-ref" href="#fig:theorem">6</a>). One gives fixed-base
+<p> The two formal supports in the example overlap (Figure <a class="math-ref" href="#fig:theorem">7</a>). One gives fixed-base
 irrationality and the all-base conclusion for every infinite subset; the
 other states the fixed-base hereditary conclusion explicitly. The
 <em>registered support set</em> is the list attached to this paper
@@ -402,65 +402,13 @@ remain visible. By contrast, the weighted condition in the example is a
 hypothesis inside the proved statement. Revising either the statement or
 its source requires checking the corresponding records again; evidence
 for one revision cannot silently support another.</p>
-<p>Figure <a class="math-ref" href="#fig:checks">3</a>
+<p>Figure <a class="math-ref" href="#fig:checks">4</a>
 separates the objects checked mechanically from the questions that
 remain for review.</p>
-<figure id="fig:checks" data-latex-placement="htbp">
-<table>
-<thead>
-<tr>
-<th class="ta-l">Relation being assessed</th>
-<th class="ta-l"> Check or judgement required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="ta-l">Formal statement and proof</td>
-<td class="ta-l"> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">Lean kernel</a> checking.</td>
-</tr>
-<tr>
-<td class="ta-l">Challenge and formal statement</td>
-<td class="ta-l"> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> checking against the selected
-challenge.</td>
-</tr>
-<tr>
-<td class="ta-l">Paper occurrence and registered support
-set</td>
-<td class="ta-l"> Coverage audit: all registered
-declarations and their recorded revisions.</td>
-</tr>
-<tr>
-<td class="ta-l">Passage and declared source bytes</td>
-<td class="ta-l"> Passage audit: text and source digests,
-with a recorded rationale.</td>
-</tr>
-<tr>
-<td class="ta-l"><p>Passage and mathematical
-meaning</p></td>
-<td class="ta-l"> Author and reviewer judgement about what
-the sources establish.</td>
-</tr>
-<tr>
-<td class="ta-l">Result and motivating question</td>
-<td class="ta-l"> Author and reviewer judgement about the
-scope of the result.</td>
-</tr>
-<tr>
-<td class="ta-l">Novelty, significance and acceptance</td>
-<td class="ta-l"> Assessment by reviewers and the
-mathematical community.</td>
-</tr>
-</tbody>
-</table>
-<figcaption>Four checks with different objects, followed by three
-questions of judgement. The upper rows identify checking mechanisms, not
-new executions reported here. The lower rows identify review
-responsibilities, not evidence of independent review. A recorded
-rationale still requires assessment of its meaning.</figcaption>
-</figure>
+<p class="figure-elsewhere" id="fig:checks" data-term-auto="off">This figure is drawn in the <a href="../../papers/claim-faithful-publication-systems-paper.pdf">PDF</a>.</p>
 <p>Lean verifies that a proof establishes the formal statement written
 in the source; it does not verify whether that statement captures the
-intended mathematics or whether the paper describes it well. Comparator
+intended mathematics or whether the paper describes it well. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a>
 adds a separately stated challenge and a check of its selected Lean
 implementation under the permitted axioms <span class="citation"
 data-cites="leanfrocomparator nanodalib"><a href="#ref-19">[19]</a><a href="#ref-20">[20]</a></span>.</p>
@@ -559,7 +507,7 @@ inspection of the compiled pages, figures and proof links.</p>
 <p>A reusable writing lesson is a separate proposal, with an example and
 limits. Adopting it requires a reviewed change to the writing
 contract.</p>
-<p>The packet and audit stages in Figure <a class="math-ref" href="#fig:refinement">4</a> are implemented by
+<p>The packet and audit stages in Figure <a class="math-ref" href="#fig:refinement">5</a> are implemented by
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/short_paper_writer.py"><code>short_paper_writer.py</code></a>
 and <a
@@ -576,7 +524,7 @@ autonomous discovery.</p>
 An idea or reference needs no clone; a patch identifies the public
 commit on which it was prepared. An executable return includes changed
 files, commands and results, resource use, surviving limitations, and
-credit for the people and tools involved. Figure <a class="math-ref" href="#fig:contribute">5</a> follows both entry
+credit for the people and tools involved. Figure <a class="math-ref" href="#fig:contribute">6</a> follows both entry
 routes through triage and adoption. The protocol asks reviewers to
 reproduce executable evidence at the submitted base before reconciling
 it with current main, and to credit a substantive integration repair
@@ -922,7 +870,7 @@ class="level3">
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/paper_lean_coverage.json">paper-to-Lean
 coverage record</a> identifies two formal supports: a weighted criterion
 and a version whose conclusion explicitly covers every infinite subset.
-Figure <a class="math-ref" href="#fig:theorem">6</a> shows the
+Figure <a class="math-ref" href="#fig:theorem">7</a> shows the
 recorded links. The exact declaration names are provided for readers
 locating them in Lean.<a href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a> These entries support the stated
@@ -1433,7 +1381,7 @@ its relation to every support and named input.</p>
 <h2>A reading map for the wider literature</h2>
 <p>Section <a class="math-ref" href="#sec:related">8</a>
 compares the closest systems; Appendices <a class="math-ref" href="#app:worked-proof">B</a> and <a class="math-ref" href="#app:attribution">C</a> explain the
-mathematical antecedents used in the examples. Figure <a class="math-ref" href="#fig:credit">7</a> is a guide to the
+mathematical antecedents used in the examples. Figure <a class="math-ref" href="#fig:credit">8</a> is a guide to the
 remaining references and to sources cited by the two historical design
 accounts in Appendix <a class="math-ref" href="#app:repro">A</a>. Its groups indicate why
 a source is cited, not that every listed method is implemented here or
@@ -2005,7 +1953,7 @@ class="footnote-back" role="doc-backlink">↩︎</a></p></li>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           
         </div>
-        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:dbed62caf7ff08bf</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:d268dd185b92190b</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
       </section>
       </div>
     </main>

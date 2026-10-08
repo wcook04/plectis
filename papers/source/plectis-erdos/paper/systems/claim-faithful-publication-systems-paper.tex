@@ -13,19 +13,17 @@
 \newcommand{\repolink}[2]{\href{\repobase/blob/992cf60a27efd8c34f437e347c413bb781d75c32/#1}{\texttt{#2}}}
 % Prose links retain the same pinned destination without printing a file identifier.
 \newcommand{\reporef}[2]{\href{\repobase/blob/992cf60a27efd8c34f437e347c413bb781d75c32/#1}{#2}}
-% Diagram colours supplement explicit labels and line styles.
+% Records, derived views and review decisions have distinct forms.
 \tikzset{
- w/.style={text width=#1cm}, h/.style={minimum height=#1cm},
- sys box/.style={draw=black!35,line width=.55pt,fill=white,
-   rounded corners=2pt,inner xsep=7pt,inner ysep=7pt,
-   align=left,font=\small},
- sys focus/.style={sys box,draw=linkinternal,fill=linkinternal!5,line width=.8pt},
- sys record/.style={sys box,draw=linkexternal!70,fill=linkexternal!3},
- sys arrow/.style={-{Stealth[length=2mm,width=1.4mm]},
-   line width=.65pt,draw=black!65,rounded corners=4pt},
- sys return/.style={sys arrow,densely dashed},
- sys label/.style={font=\footnotesize,align=center,inner sep=2pt,fill=white},
- sys note/.style={font=\small,align=left,text=black!80,inner sep=0pt}
+ w/.style={text width=#1cm},h/.style={minimum height=#1cm},
+ box/.style={draw=black!35,fill=white,inner sep=6pt,align=left,font=\small},
+ rec/.style={box,draw=linkexternal!70,fill=linkexternal!3},
+ gate/.style={box,draw=linkinternal,fill=linkinternal!5,line width=.8pt},
+ view/.style={box,dashed},
+ flow/.style={-{Stealth[length=2mm]},draw=black!65,rounded corners=3pt},
+ link/.style={draw=linkexternal!70,line width=.6pt},
+ note/.style={font=\small,align=left,inner sep=0pt},
+ tag/.style={font=\footnotesize,align=center,fill=white,inner sep=2pt}
 }
 \emergencystretch=1.7em
 \runninghead{A system for research and publication}
@@ -107,7 +105,7 @@ Plectis supports this work in a public repository. Questions, prior sources, com
 % END SENTENCE r4.intro1.02
 
 % SENTENCE r4.intro1.03
-The architecture separates authored records from derived views and separates a tool's output from a decision to adopt it. A successful proof probe can remain a session result; a revised explanation can remain a proposal. Acceptance updates the relevant source records, after which builders regenerate their indexes and summaries. Figure~\ref{fig:lifecycle} places these operations within the continuing research cycle.
+The architecture separates authored records, derived views and adoption decisions (Figure~\ref{fig:lifecycle}). A successful proof probe can remain a session result; a revised explanation can remain a proposal. Acceptance updates the source records, after which builders regenerate their indexes and summaries.
 % END SENTENCE r4.intro1.03
 
 % SENTENCE r4.intro2.01
@@ -126,26 +124,24 @@ Section~\ref{sec:world} describes the architecture; Sections~\ref{sec:example}--
 % END SENTENCE r4.intro2.04
 
 % SENTENCE r4.fig.lifecycle
-\begin{figure}[H]
-\centering
+\begin{figure}[H]\centering
 \begin{tikzpicture}
-\node[sys record,w=4.7,h=1.65](c)at (0,0){\textbf{Research record}\\Sources and proofs\\Tests and failures\\Open questions};
-\node[sys focus,w=4.7,h=1.65](s)at (7.8,0){\textbf{Accepted change}\\Claim and support\\Explanation and review decision};
-\node[sys box,w=4.7,h=1.65](p)at (7.8,-3.05){\textbf{Publication}\\Papers and derived views\\Source links};
-\node[sys box,w=4.7,h=1.65](r)at (0,-3.05){\textbf{Further work}\\Readers and agents\\inspect and extend};
-\draw[sys arrow] (c.east)--(s.west);
-\node[sys label,w=2.2] at (3.9,.5) {propose, check\\and review};
-\draw[sys arrow] (s.south)--(p.north);
-\node[sys label,anchor=west] at (8,-1.525) {rebuild; inspect};
-\draw[sys arrow] (p.west)--(r.east);
-\node[sys label,w=2.2] at (3.9,-2.57) {read and retrieve};
-\draw[sys return] (r.north)--(c.south);
-\node[sys label,anchor=west] at (.2,-1.525) {return through review};
-\node[sys note,w=12.8,anchor=north west] at (-2.6,-4.25){Researchers and agents choose the next task. The journal retains entered returns and decisions; it does not schedule research.};
+\node[note,anchor=west]at(-6.7,.7){\textsc{Authored sources}};
+\node[note,anchor=west]at(2.6,.7){\textsc{Derived views}};
+\node[rec,w=6.2,h=1.35](r)at(-3.4,-.4){\textbf{Research records}\\Sources, proofs, computations,\\failed approaches and open questions};
+\node[rec,w=6.2,h=1.35](p)at(-3.4,-2.4){\textbf{Publication records}\\Manuscript; claim and coverage records;\\passage bindings and rationales};
+\node[view,w=3.7,h=1.35](i)at(4.6,-.4){\textbf{Research views}\\Indexes, maps and\\evidence summaries};
+\node[view,w=3.7,h=1.35](v)at(4.6,-2.4){\textbf{Reading views}\\Rendered papers\\and source links};
+\draw[flow](r)--(i);\draw[flow](p)--(v);
+\node[tag]at(.8,.05){builders};\node[tag]at(.8,-1.95){builders};
+\node[gate,w=6.2,h=1.1](a)at(-3.4,-4.75){\textbf{Review proposed changes}\\Check meaning, scope, evidence and credit.};
+\node[draw=linkexternal!25,fit=(r)(p),inner sep=3pt](sources){};
+\draw[flow,draw=linkinternal](a)--node[tag,right]{accepted edits}(sources);
+\node[note,w=3.7](q)at(4.6,-4.75){Readers and agents\\choose further work\\and propose changes.};
+\draw[flow](v)--(q);\draw[flow](q)--(a);
 \end{tikzpicture}
-\caption{Research and publication cycle. Arrows name operations, not logical implications or automatic approval. Reviewed source changes precede rebuilding and inspection. The journal retains entered returns and decisions. Source checks do not judge whether an explanation preserves the mathematics.}
-\label{fig:lifecycle}
-\end{figure}
+\caption{Authored records and derived views. Accepted edits change the relevant sources; builders regenerate views. Tool success alone does not adopt a claim.}
+\label{fig:lifecycle}\end{figure}
 % END SENTENCE r4.fig.lifecycle
 \section{A repository organised around problems}\label{sec:world}
 \papersectiontarget{systems-scaling}
@@ -257,8 +253,31 @@ The worked case comes from Erd\H{o}s Problem~257, which asks whether every infin
 % SENTENCE r8.case.proof-role
 Consider a contributor revising that explanation. The coverage row \texttt{res:weighted-support} in \repolink{docs/paper_lean_coverage.json}{paper\_lean\_coverage.json} fixes the printed statement and lists two Lean supports. The explanation here has a separate \repolink{docs/systems_paper_sentences.json}{passage record}, citing the ordinary proof and a formal declaration. The claim-evidence builder derives status or gap reports; the passage checker tests text and source bindings.
 
-Dropping the weighted hypothesis need not change either Lean proof. Editing the prose alone makes its passage binding stale; updating the binding as well can remove that warning without repairing the claim. The reviewer must therefore compare the proposed wording with the cited statements. Only after acceptance are the explanation and its record integrated and the publication views regenerated. This proposed edit illustrates the division of work; it is not a new test run.
+Neither Lean proof need change when the explanation loses its weighted hypothesis. The prose edit makes its passage binding stale; rebinding can remove that warning without repairing the claim. Review must compare the wording with the cited statements. Accepted edits update the explanation and its record before publication views are regenerated. Figure~\ref{fig:hypothesis} compares the three versions. This is an illustration, not a new test run.
 % END SENTENCE r8.case.proof-role
+
+% SENTENCE r15.fig.hypothesis
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}
+\node[rec,w=12.8](f)at(0,0){\textbf{Formal supports held fixed throughout}\\The statements retain their weighted hypothesis.};
+\foreach \x/\n in {-4.6/1,0/2,4.6/3}{
+ \node[tag]at(\x,-1){\textsc{Version \n}};}
+\node[box,w=3.75,h=2.6](a)at(-4.6,-2.65){\textbf{Faithful explanation}\\[4pt]
+Under the weighted condition, irrationality holds for every infinite subset and every integer base at least two.};
+\node[gate,w=3.75,h=2.6](b)at(0,-2.65){\textbf{Hypothesis removed}\\[4pt]
+Every infinite subseries is irrational.\\[4pt]
+\emph{The unresolved general case is now claimed.}};
+\node[gate,w=3.75,h=2.6](c)at(4.6,-2.65){\textbf{Binding refreshed}\\[4pt]
+The unsupported wording remains; the passage record is updated to match the new bytes.};
+\node[note,w=3.75,anchor=north]at(-4.6,-4.35){Recorded wording agrees with its sources.};
+\node[note,w=3.75,anchor=north]at(0,-4.35){Prose-only edit:\\passage binding is stale.};
+\node[note,w=3.75,anchor=north]at(4.6,-4.35){Binding warning can disappear; the claim remains unproved.};
+\draw[black!30](-6.7,-5.55)--(6.7,-5.55);
+\node[note,w=12.8,anchor=north]at(0,-5.8){\textbf{Review question:} does the explanation retain the hypothesis and quantifiers of the cited statements? Valid formal proofs and matching source hashes do not answer it.};
+\end{tikzpicture}
+\caption{Hypothesis loss with unchanged formal supports. Rebinding can restore byte consistency while leaving the overclaim intact. This is an illustration, not a new test or historical edit~8.}
+\label{fig:hypothesis}\end{figure}\FloatBarrier
+% END SENTENCE r15.fig.hypothesis
 
 
 \section{Proof and publication checks}\label{sec:checks}\label{sec:graph}
@@ -275,25 +294,22 @@ Figure~\ref{fig:checks} separates the objects checked mechanically from the ques
 % END SENTENCE r4.checks1.03
 
 % SENTENCE r4.fig.checks
-\begin{figure}[htbp]
-\centering\small
-\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{5.35cm}>{\raggedright\arraybackslash}X@{}}
-\toprule
-Relation being assessed & Check or judgement required\\
-\midrule
-Formal statement and proof & Lean kernel checking.\\[3pt]
-Challenge and formal statement & Comparator checking against the selected challenge.\\[3pt]
-Paper occurrence and registered support set & Coverage audit: all registered declarations and their recorded revisions.\\[3pt]
-Passage and declared source bytes & Passage audit: text and source digests, with a recorded rationale.\\
-\midrule
-Passage and mathematical meaning & Author and reviewer judgement about what the sources establish.\\[3pt]
-Result and motivating question & Author and reviewer judgement about the scope of the result.\\[3pt]
-Novelty, significance and acceptance & Assessment by reviewers and the mathematical community.\\
-\bottomrule
-\end{tabularx}
-\caption{Four checks with different objects, followed by three questions of judgement. The upper rows identify checking mechanisms, not new executions reported here. The lower rows identify review responsibilities, not evidence of independent review. A recorded rationale still requires assessment of its meaning.}
-\label{fig:checks}
-\end{figure}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}
+\node[note,w=5.9](s)at(-3.5,0){\textbf{Labelled paper statement}};
+\node[note,w=5.9](p)at(3.5,0){\textbf{Explanatory passage}};
+\node[rec,w=5.9,h=1.3](c)at(-3.5,-1.65){\textbf{Coverage record}\\Statement digest; registered supports;\\correspondence relation};
+\node[rec,w=5.9,h=1.3](r)at(3.5,-1.65){\textbf{Passage record}\\Text digest; source spans;\\evidence class and rationale};
+\node[box,w=5.9,h=1.1](l)at(-3.5,-3.75){\textbf{Registered Lean declarations}\\Full registered list, including overlaps};
+\node[box,w=5.9,h=1.1](e)at(3.5,-3.75){\textbf{Cited source excerpts}\\Declared revisions and source digests};
+\draw[link](s)--(c);\draw[link](c)--(l);
+\draw[link](p)--(r);\draw[link](r)--(e);
+\node[note,w=5.9,anchor=north]at(-3.5,-4.65){\textbf{Separate formal checks}\\Lean: proof against formal statement.\\Comparator: selected implementation against a separate challenge and axiom policy.};
+\node[note,w=5.9,anchor=north]at(3.5,-4.65){\textbf{What the binding checks establish}\\Recorded text and source bytes agree.\\A nonempty rationale is required;\\its meaning is not checked.};
+\node[gate,w=12.8,anchor=north]at(0,-6.65){\textbf{Review across both relationships}\\Do the hypotheses, quantifiers, scope and attribution match? Does the explanation justify the claim? Novelty, significance and acceptance require further judgement.};
+\end{tikzpicture}
+\caption{Two correspondence records. Lines are recorded links, not implications. Binding and formal checks do not establish the paper's intended meaning. Review responsibilities do not imply independent review.}
+\label{fig:checks}\end{figure}
 % END SENTENCE r4.fig.checks
 
 % SENTENCE r4.checks2.01
@@ -386,31 +402,23 @@ An advisory model may work from that packet; a tool-enabled agent may prepare a 
 % END SENTENCE r13.paper.04
 
 % SENTENCE r13.fig.refinement
-\begin{figure}[H]
-\centering
+\begin{figure}[H]\centering
 \begin{tikzpicture}
-\node[sys record,w=4.65,h=1.5](freeze)at (0,0){\textbf{1. Freeze inputs}\\Manuscripts, statements\\and source records};
-\node[sys box,w=4.65,h=1.5](write)at (7.8,0){\textbf{2. Propose revisions}\\Wording, organisation,\\examples and figures};
-\node[sys focus,w=4.65,h=1.7](review)at (7.8,-2.95){\textbf{3. Check and review}\\Source checks; meaning, scope and credit.\\Revise or decline here if needed.};
-\node[sys box,w=4.65,h=1.7](bind)at (0,-2.95){\textbf{4. Integrate changes}\\Apply accepted source edits;\\update source bindings};
-\node[sys box,w=4.65,h=1.5](render)at (0,-5.9){\textbf{5. Render and inspect}\\Regenerate evidence,\\PDFs and reading links};
-\node[sys record,w=4.65,h=1.5](record)at (7.8,-5.9){\textbf{6. Record outcome}\\Accepted changes,\\lessons and limitations};
-\draw[sys arrow] (freeze.east)--(write.west);
-\node[sys label,w=2.15] at (3.9,.46) {frozen packet};
-\draw[sys arrow] (write.south)--(review.north);
-\node[sys label,anchor=east,w=3] at (7.58,-1.425) {proposed source changes};
-\draw[sys arrow,draw=linkinternal] (review.west)--(bind.east);
-\node[sys label,w=2.15] at (3.9,-2.49) {if accepted};
-\draw[sys arrow] (bind.south)--(render.north);
-\node[sys label,anchor=west] at (.22,-4.475) {integrated sources};
-\draw[sys arrow] (render.east)--(record.west);
-\node[sys label,w=2.15] at (3.9,-5.44) {inspected outputs};
-\draw[sys return] (record.south)--++(0,-.65)--(-3.05,-7.3)--(-3.05,0)--(freeze.west);
-\node[sys label] at (3.2,-7.48) {next revision};
+\node[rec,w=3.7,h=1.3](f)at(-4.6,0){\textbf{Frozen inputs}\\Manuscripts, evidence\\and audit rules};
+\node[box,w=3.7,h=1.3](p)at(-4.6,-2.2){\textbf{Proposed revisions}\\Wording, organisation,\\examples and figures};
+\node[box,w=3.7,h=1.5](a)at(-4.6,-4.5){\textbf{Return audit}\\Packet identity, permitted paths and statement changes; temporary copy};
+\node[gate,w=3.2,h=1.9](r)at(0,-4.5){\textbf{Review decision}\\Meaning, scope,\\wording and credit};
+\node[rec,w=3.7,h=1.5](i)at(4.6,-4.5){\textbf{Integrate accepted edits}\\Apply accepted edits;\\update source bindings};
+\node[view,w=3.7,h=1.3](v)at(4.6,-6.9){\textbf{Render and inspect}\\PDFs, evidence views\\and reading links};
+\draw[flow](f)--(p);\draw[flow](p)--(a);\draw[flow](a)--(r);
+\draw[flow,draw=linkinternal](r)--node[tag,above]{accept}(i);
+\draw[flow](i)--(v);
+\draw[flow,dashed](r.north)--(0,-2.2)--node[tag,above]{revise}(p.east);
+\draw[flow](r.south)--(0,-6.15)node[note,below]{Decline; record reason.};
+\node[note,w=3.7,anchor=north]at(4.6,-7.95){Record accepted changes,\\lessons and limitations.};
 \end{tikzpicture}
-\caption{Exposition workflow in numbered order, with exchanged objects labelled. Step~3 may request revision or decline a proposal; only accepted changes reach integration. These are responsibilities, which one agent may perform. Rendering and inspection remain separate from source checks.}
-\label{fig:refinement}
-\end{figure}
+\caption{Only accepted edits enter live sources. The return audit neither applies edits nor executes returned programs. Review may request revision or decline; one agent may perform several responsibilities.}
+\label{fig:refinement}\end{figure}
 % END SENTENCE r13.fig.refinement
 
 % SENTENCE r13.paper.05
@@ -456,30 +464,21 @@ The protocol asks reviewers to reproduce executable evidence at the submitted ba
 % END SENTENCE r4.contribute1.04
 
 % SENTENCE r4.fig.contribute
-\begin{figure}[H]
-\centering
+\begin{figure}[H]\centering
 \begin{tikzpicture}
-\node[sys box,w=5.7,h=1.55](idea)at (0,0){\textbf{Idea, reference or review}\\State the problem and proposal.\\No checkout is required.};
-\node[sys box,w=5.7,h=1.55](patch)at (7.1,0){\textbf{Executable result or patch}\\Return the base revision, change,\\evidence and limitations.};
-\node[sys focus,w=10.7,h=1.3](review)at (3.55,-2.4){\textbf{Triage and review}\\Assess the proposal and reproduce executable evidence where applicable.\\Decide whether to adopt, request revision or decline.};
-\draw[sys arrow] (idea.south)--(idea.south|-review.north);
-\draw[sys arrow] (patch.south)--(patch.south|-review.north);
-\node[sys box,w=3.65,h=1.55](math)at (-.9,-4.9){\textbf{Adopted mathematics}\\Proofs, corrections,\\scoped negative results};
-\node[sys box,w=3.65,h=1.55](tool)at (3.55,-4.9){\textbf{Adopted methods}\\Navigation, validation,\\exposition or software};
-\node[sys box,dashed,w=3.65,h=1.55](revise)at (8,-4.9){\textbf{Revision or rejection}\\Record the reason;\\resubmit if appropriate.};
-\draw[sys arrow] (math.north|-review.south)--(math.north);
-\draw[sys arrow] (tool.north|-review.south)--(tool.north);
-\draw[sys return] (revise.north|-review.south)--(revise.north);
-\node[sys label] at (-.9,-3.62) {adopt};
-\node[sys label] at (3.55,-3.62) {adopt};
-\node[sys label] at (8,-3.62) {revise or decline};
-\node[sys record,w=8.1,h=1.2](record)at (1.325,-7.2){\textbf{Retain the accepted work}\\Record evidence, limits, role credit and correction history.\\Both kinds of adopted work inform subsequent tasks.};
-\draw[sys arrow] (math.south)--(math.south|-record.north);
-\draw[sys arrow] (tool.south)--(tool.south|-record.north);
+\node[box,w=5.9](a)at(-3.5,0){\textbf{Idea, reference or review}\\State the question and proposal.\\No checkout is required.};
+\node[box,w=5.9](b)at(3.5,0){\textbf{Executable result or patch}\\Identify base, changes, commands,\\results, resource use, limits and credit.};
+\node[gate,w=12.8](r)at(0,-2.15){\textbf{Triage and review}\\Reproduce executable evidence at its submitted base before reconciling with main.\\Decide whether to adopt, request revision or decline.};
+\draw[flow](a)--(a|-r.north);\draw[flow](b)--(b|-r.north);
+\node[rec,w=6.1,h=1.8](yes)at(-3.4,-4.85){\textbf{Adopted source changes}\\Mathematics or methods\\[3pt]Retain evidence, limits, role credit\\and correction history.};
+\node[note,w=2.6](rev)at(2.1,-4.85){\textbf{Revise}\\Return the review\\obligations.};
+\node[note,w=2.4](no)at(5.2,-4.85){\textbf{Decline}\\Record the\\reason.};
+\draw[flow](yes|-r.south)--node[tag,left]{adopt}(yes);
+\draw[flow,dashed](rev|-r.south)--(rev);
+\draw[flow](no|-r.south)--(no);
 \end{tikzpicture}
-\caption{Two entry routes and three possible review outcomes. Repository adoption applies to mathematical and methodological contributions; it establishes neither independent review nor acceptance by the wider mathematical community.}
-\label{fig:contribute}
-\end{figure}
+\caption{Two entry routes and three dispositions. Adopted work includes mathematics and methods. Only explicitly entered returns become journal events; adoption establishes neither independent review nor wider acceptance.}
+\label{fig:contribute}\end{figure}
 % END SENTENCE r4.fig.contribute
 
 \papersectiontarget{systems-research-loop}
@@ -750,28 +749,21 @@ Both runs are recorded as compared. Palomar entries are prepared, not submitted;
 % END SENTENCE r4.repro2.03
 
 % SENTENCE r4.fig.theorem
-\begin{figure}[htbp]
-\centering
+\begin{figure}[htbp]\centering
 \begin{tikzpicture}
-\node[sys record,w=12.7,h=1.2](s)at (0,0){\textbf{Weighted criterion from the Problem 257 paper}\\
-A condition on the exponents ensures irrationality for every infinite subset\\
-at every integer base at least two; the condition is stated in Appendix~\ref{app:worked-proof}.};
-\node[sys box,w=4.1,h=2.4](l)at (-4.25,-2.7){\textbf{Paper-to-Lean record}\\Two registered supports.\\[3pt]
-Exact or stronger support.\\Audit checks both entries.};
-\node[sys box,w=6.15,h=1](a)at (3.1,-1.95){\textbf{Fixed-base and all-base criterion}\\\reporef{lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean}{Formal proof}};
-\node[sys box,w=6.15,h=1](b)at (3.1,-3.45){\textbf{Criterion for every infinite subset}\\\reporef{lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedHereditaryClaim.lean}{Formal proof at a fixed base}};
-\draw[sys arrow] (s.south -| l.north)--(l.north);
-\draw[sys arrow] ([yshift=10pt]l.east)--++(.65,0)|-(a.west);
-\draw[sys arrow] ([yshift=-10pt]l.east)--++(.85,0)|-(b.west);
-\node[sys note,w=12.7,anchor=north west] at (-6.6,-4.55){Formal comparisons: recorded as compared.\\Submission to the Palomar registry: prepared, not submitted.};
-\draw[black!25,line width=.45pt] (-6.6,-5.5)--(6.6,-5.5);
-\node[sys box,w=5.8,h=1.8] at (-3.5,-6.8){\textbf{What the explanation must retain}\\The condition on the exponents;\\the averaging argument;\\the roles of the earlier papers.};
-\node[sys focus,w=5.8,h=1.8] at (3.5,-6.8){\textbf{False illustrative paraphrase}\\``Solves Problem 257.''\\This drops the support hypothesis\\even if both source links remain.};
+\node[rec,w=12.8](s)at(0,0){\textbf{Weighted criterion: the conditional statement}\\
+\emph{If the weighted sum in~\eqref{eq:worked-condition} is finite}, then irrationality holds for every infinite subset and every integer base at least two.};
+\node[rec,w=12.8](r)at(0,-1.9){\textbf{Coverage row \texttt{res:weighted-support}}\\Exact or stronger support; both entries below are registered and audited.};
+\node[box,w=5.9,h=1.6](a)at(-3.5,-4){\textbf{Weighted criterion}\\Fixed-base irrationality; all-base\\conclusion for every infinite subset.\\\reporef{lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean}{Formal proof}};
+\node[box,w=5.9,h=1.6](b)at(3.5,-4){\textbf{Hereditary criterion}\\Explicit conclusion for every infinite\\subset at a fixed base.\\\reporef{lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedHereditaryClaim.lean}{Formal proof}};
+\draw[link](s)--(r);
+\draw[link](r.south)--(0,-2.85);
+\draw[link](-3.5,-2.85)--(3.5,-2.85);
+\draw[link](-3.5,-2.85)--(a.north);\draw[link](3.5,-2.85)--(b.north);
+\node[note,w=12.8,anchor=north]at(0,-5.2){\textbf{Recorded comparisons:} compared. \quad\textbf{Palomar submission:} prepared, not submitted.};
 \end{tikzpicture}
-\caption{The arrows show recorded support links, not proof dependencies. The audit checks both listed supports even where their mathematical roles overlap. The support hypothesis still needs explanation. The false paraphrase is illustrative, distinct from historical edit~8 in Table~\ref{tab:mutations}.}
-\label{fig:theorem}
-\end{figure}
-\FloatBarrier
+\caption{Registered supports have overlapping roles; lines are not proof dependencies. Auditing the full list adds no hypothesis to the weighted statement. Recorded comparison does not establish registry acceptance.}
+\label{fig:theorem}\end{figure}\FloatBarrier
 % END SENTENCE r4.fig.theorem
 
 \subsection{Interpret the recorded inventory}

@@ -10,807 +10,327 @@
       "transform": "isolated-css-comments-v1"
     }
   },
-  "generator_commit": "000b9409f429eb80e8775887ae26fd3909454f0b",
+  "generator_commit": "8782691e63ed0edd407a1e54088dd4912c38f126",
   "last_scoped_release": {
     "changed_paths": {
       "assets/ai-reader-digest-packet.js": {
         "after": {
           "mode": 420,
-          "sha256": "f76953b120961cd515388a72ad6871273b9b4f1ca768c378811fdebccf129330"
+          "sha256": "2efe7ddcd78e637bbe7400b639f9409b6483fab684cc261b87a82499613f2e2d"
         },
         "before": {
           "mode": 420,
-          "sha256": "a590c6246c95c5ccf43442d2f99982409822250392ebe8144cb9d536d6b6077a"
+          "sha256": "f76953b120961cd515388a72ad6871273b9b4f1ca768c378811fdebccf129330"
         }
       },
       "assets/ai-review-packet.js": {
         "after": {
           "mode": 420,
-          "sha256": "2d24c62643bb85d9b8d219847ccd9368eb8eb82de8626f3a1220fb7a320b161d"
+          "sha256": "91f061c6b5c031718e04541f41a892328060a5928bf451e6204b3737c1476869"
         },
         "before": {
           "mode": 420,
-          "sha256": "dcdabb0dab41209c34997b58a7abe2b6eb564e9a6a7a5360164cf4ff210d9024"
+          "sha256": "2d24c62643bb85d9b8d219847ccd9368eb8eb82de8626f3a1220fb7a320b161d"
         }
       },
       "lean/credit-ledger.json": {
         "after": {
           "mode": 420,
+          "sha256": "575c4856e1c5116a131e19250dbeddd34ab2cc8401df99629d2daceac1b054fb"
+        },
+        "before": {
+          "mode": 420,
           "sha256": "008c2eb45f388a2f6f05453e86f8e46931287ed8b99f6c997549e769ad4c0da3"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "12fec17e75fd7aa43076d571cd6945ec4fd67ee0006516b59ad316b63f7f5fce"
-        }
-      },
-      "lean/experience/documents/architecture.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "12e318f1fbaa51a9494d229983358f0d8f6a7d5ec959ff2822a8b54ea56ed2d9"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "6936e1e02a73ed8a4f66db0cb5d52a13147fa60adf4ff0fde78643107d6ba630"
-        }
-      },
-      "lean/experience/documents/comparator-1049.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "6b3dbf65db0a78d3a032ba35ab38d0a6920e104b42543524af69e3188d978aaf"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "377aa79bd2c42445cb579ad2cdc91840f410af87f6c489bb7c3d831bf83fa173"
-        }
-      },
-      "lean/experience/documents/documentation.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "d6e568e4a0d329f243957923c61637afd9e5b5d58ce2beca0a394b01ac8b3e94"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "908ce0ccc4cd1fc63f5a42f5673c833b54b1eccab4a16790701b21ef96bcfd68"
-        }
-      },
-      "lean/experience/documents/external-verification.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "6e8452b3f6dfd5b539dc74d4d858a88bffa74cc289d3e41897f9c7d8e61f972d"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "ed7d831abf0572cabf6a2234f9dd22cee2738406c27050b36e8434a0d1a0747d"
-        }
-      },
-      "lean/experience/documents/index.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "872407a23bf1ed2728299b64e3b61963c4181009399d8500766062d6da5d006e"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "881fe48771a9ea85c069c710bdd55941f9a6623498654e03b93eeb8a00106121"
-        }
-      },
-      "lean/experience/documents/methodology.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "070d75230f74166b6893fad35d4a885f05f5ac0c0397b7f1193e2b03cb9343c7"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "436e40ab4f7d39e490d8f4e4de6f517fe712567cc2cd23c3061fe38137dde6d8"
-        }
-      },
-      "lean/experience/documents/orientation.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "b44ab221fa1b8608980178b38eff36a70f02db30ccd63112054ba6bcb398d2be"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "21e253a9612389406a85390ea3410d5a458b22792c7811f2ec54b1d5762e7a63"
-        }
-      },
-      "lean/experience/documents/paper-guide.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "dc03cbc41a83d787e7f3b8f85a1056953f344ebd0bc7be1135b4ea5d719ab1e1"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "30f0a1102e69646fe3559bdf23f7881ac2b15b61c5107c007ec113b58d91771b"
-        }
-      },
-      "lean/experience/documents/prior-art.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "80332bdf99d986a1ae71b9a7eb65635926c0879d47dbc820ec1c63b5217b2211"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "27f80c7caabbf115a9cdc0df4a166a714f43a7613913b27d1b8767d8246be72d"
-        }
-      },
-      "lean/experience/documents/reading-guide.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "ca773f439baf323d98c43fedc7512f4d57e2a91dd499fa5d4b34882051c1bc2c"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "d1bdb31cb4c64f02f34b513d39328878f440ac567ea40fc890b420e1fd28ff7e"
-        }
-      },
-      "lean/experience/documents/readme.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "6d2ccefbe13f01f5951589d926da2c1a00d783d16b65c9c5709096de21fc95e2"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "a98a18a3a7987b27e78de3ded522528c50f0997a3ca53b709b6d6b32c400df67"
-        }
-      },
-      "lean/experience/documents/related-problems.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "55181baf4939d6f13326dcafd5e7671866a1b6e25540cba44e9cdae388d204d5"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "05adde559d936c766908825f5bc6b1f0c83c526e9726c61f99d2509a35a3bcef"
-        }
-      },
-      "lean/experience/documents/residual-progress.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "176df8b0d4118cce646d4a3263e1278072eeb65c04b1780f3e095119efaf61ab"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "b877a5813ea4d079e6f6bf28932af399395f08728e8dc26bddfef17e67c83292"
-        }
-      },
-      "lean/experience/documents/results.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "18615318457515eb0b63bfd3fed81c753648f83abba579fd1ce7a322b11717c4"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "26dfa781553c8554f24be697e4824c3cf391bc8b7d6a9f451c6064cfe2128afc"
-        }
-      },
-      "lean/experience/documents/scope.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "c2d54c16c6a89943f3f3381633767601f5ab22bf5f1a5de006d2c437bef95f9c"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "642c4c00b37f604ba0aa1aca3e4a3d4e32de4dea1f5105b0234aa3d447334c3a"
-        }
-      },
-      "lean/experience/documents/source-map.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "17db7534ca8625e08af16bd8dc265f39b3ed1e23557b5c1c86a43819ec2193c2"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "2cdc9bc500d6c883c5a90dba12ce4a55145be99d7a60adf2a5a1baed6350cad9"
-        }
-      },
-      "lean/experience/documents/wave-index.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "5c23bdb3fe6d7c024a852e18556da6bfd95baa65fb3eaa226e6879df1ac6f763"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "059efae1434b4e76d609fd3ccf379df308fa17a739ba43b5e36b5d95daa8ea52"
-        }
-      },
-      "lean/experience/documents/weighted-257-task.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "0dcd036b95733225eb9422cfe703e75f9dabecb85bcaf42fe8f41d326a2000e0"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "184ce1f808ec5f6519882bf46d904bde6f193ac03d0d0d7680c92180a770e324"
         }
       },
       "lean/experience/manifest.json": {
         "after": {
           "mode": 420,
-          "sha256": "162a45cb11e68dcb3af60d2433043250c85d6a07b1053d773f748947ca2791de"
+          "sha256": "6d2b2f501305fd3ce4971827df09a340d019fb16a4a5a8775bededb8c9a44e4c"
         },
         "before": {
           "mode": 420,
-          "sha256": "58692a0e9b0b7ab4163163a5490749add8b96b73e99cbfb9ce36d3bd2301c7e4"
+          "sha256": "162a45cb11e68dcb3af60d2433043250c85d6a07b1053d773f748947ca2791de"
         }
       },
       "lean/experience/papers/claim-faithful-publication-systems.html": {
         "after": {
           "mode": 420,
-          "sha256": "ffaf71a4fcd1adc86a76c55bb3b87dbfe9c85a9b42771cc29639533dac3f8819"
+          "sha256": "b21be0e5152fd82e313418bbe8be28b5b7418c8b109e44690b1d29f5aad6e499"
         },
         "before": {
           "mode": 420,
-          "sha256": "3cddbf9629cf424d4887b2f84497e77bcedb655f9da99ff0bb4846857cd42073"
+          "sha256": "ffaf71a4fcd1adc86a76c55bb3b87dbfe9c85a9b42771cc29639533dac3f8819"
         }
       },
       "lean/experience/papers/claim-faithful-publication-systems.json": {
         "after": {
           "mode": 420,
-          "sha256": "09de17c43134d444322489a58e629f068f16173c96db1271460ebf8ce8b69b42"
+          "sha256": "1ad37a4c0b11cb31affae84cf74282ce6ca4178331cdfc6e5fcd3f16b3b9c7ba"
         },
         "before": {
           "mode": 420,
-          "sha256": "c0ddfea9797eac664c884ab540db84b90a6a1705f39cf94fc10fe6c7265d19a4"
+          "sha256": "09de17c43134d444322489a58e629f068f16173c96db1271460ebf8ce8b69b42"
         }
       },
       "lean/experience/papers/claim-faithful-publication-systems.mathjax.html": {
         "after": {
           "mode": 420,
+          "sha256": "72e6bbba7b8e2753267a2b6aa289572b704d5219fae64b89786173f7c4aa7fc4"
+        },
+        "before": {
+          "mode": 420,
           "sha256": "de7a46c00f17f800025ce9226900cbd78c31196ce98e530d27b1d4e8079184ce"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "bfd4ed727735e0831956ac84241ca8685f252c2b8074a46231006e71a330561d"
-        }
-      },
-      "lean/experience/papers/erdos-1041-lemniscate-newton-flow.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "24d5852f28689e72ed0484399d2ac6b509269e21d7504cd1a3ba75c695dc490f"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "949e88b1a9d19b3fc55061599dec3e5025b43f9966d592002a63d90d000f4a7d"
-        }
-      },
-      "lean/experience/papers/erdos-1049-rational-base-lambert.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "c36a4deda91b9eec75e4e3c19ead47bc866292395f1367a4feab7964d3d0a6a8"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "28660f07d808252cc31fee0d9fb26f40cbc5eeb1752f0521478cb43107626431"
-        }
-      },
-      "lean/experience/papers/erdos-243-reciprocal-tail-rigidity.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "2bf8a95406225050048214a0a1ef8763b989faf6bc1e6e4ab5ba5f94eb33fe6e"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "4a7db869be73ac63fccc852030d8bdfed74ec6ed4650c22950428194d01bd4b2"
-        }
-      },
-      "lean/experience/papers/erdos-249-binary-totient-series.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "3e5559ba4b051abdd33273318c55707c637d315a8d4f93e7ffbf804c3ce09b33"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "c49e72f3b3312fa7830e9a3c7c5882b4c0f82bec50142f26022c55999a33a07d"
-        }
-      },
-      "lean/experience/papers/erdos-251-prime-gap-dyadic-series.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "8262e873b279413f2267b01367806ce7cf23224989ce7fffe7a1a8ba01aac2f3"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "246709f9fee303b49a6a62593603d455a702f504c360fffdbd36da38a0fdfee5"
-        }
-      },
-      "lean/experience/papers/erdos-257-mersenne-support-subseries.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "9da05ec147eee111a7b27051e973a2e46e10f5717f481394b886212974ee33c8"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "0d075254ae6b6296b0422a0401ec740d7bbacbefe1a47330cdc38b307e41e5f6"
-        }
-      },
-      "lean/experience/papers/erdos-269-three-prime-running-lcm.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "56a1b178db89dc6c92303781fcee5b0ae4e10b278521403ea44aca21515c2012"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "8903aee4b662506e47aec34665aafaf0154b4b6b9add468b20e4ff2e66bf1961"
-        }
-      },
-      "lean/experience/papers/erdos-68-factorial-denominator-irrationality.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "b5141c75c45db5da7af91d3372207b97396ef5ebd8c67808680b58b67e481f03"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "41dd43c4c3d9d5da597b035bf7ecce38e967cd03c3d2eb80b578193d8daa19c3"
-        }
-      },
-      "lean/experience/papers/erdos1041-lemniscate-reasoning-surface.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "6d9dc2bc6d64d0a3ad64592d8e9bc1d42b1c9eef1b7f94682244a17c605413d0"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "04c0fd687025507eff4a4a936cc749c258a26d8ef131928f93a93d19f813840b"
-        }
-      },
-      "lean/experience/papers/erdos1049-rational-base-lambert-reasoning-surface.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "eecb887d5639970b3ec482ec99b6acbae1f21339557b66b2e44ed1135221e767"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "b4e18332d19ea7d21a9228c129e07186a384295637b1eaf3d4250b1399167f53"
-        }
-      },
-      "lean/experience/papers/erdos243-reciprocal-tail-reasoning-surface.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "38f9ba09722d899a997cf56379bbcf45e861141dfcadaf46e0a532d16a7e2d19"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "3fb276a026a1eef1cf2431374dc8b80f8829e4cdd519ae35d440d0d6f2d5aa98"
-        }
-      },
-      "lean/experience/papers/erdos249-totient-reasoning-surface.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "dbd615bd62d717e2ec0380f11831b17463e57e79ce1e32ea7849040bcd48a7f7"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "e13b72d277966315e3c8ef22339d4a0886956e1c5a9f37a7067912abd940bcf7"
-        }
-      },
-      "lean/experience/papers/erdos251-prime-gap-reasoning-surface.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "a86f77674d496bb266dc0830732b48281c6edba50a59bacb53307f9d59ced539"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "87192b06fa2b4a80ac2bd8892322c914d1c8cd897bdf0687925d469f455e2ac2"
-        }
-      },
-      "lean/experience/papers/erdos257-mersenne-reasoning-surface.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "033f74294bb4d87f01f86c0c6b945cb71cb06d93ba01b2d8f0aa39f2ff65d1b0"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "ad9b1cb80bfcd8cf81434ff0533175755d6cf794475df35dfa35a1b8bea5f813"
-        }
-      },
-      "lean/experience/papers/erdos269-running-lcm-reasoning-surface.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "432101e913e77bf75f596565c01f4fa17be451e4ea7930f04652572658d90c9a"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "6ce94e549a7c21964b18a1508fc9b568dbbce0c0e1e97bc7e675a90ae556f3ed"
-        }
-      },
-      "lean/experience/papers/erdos68-factorial-reasoning-surface.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "33a23d3daadc3b2e56cb5a4c8d1533eb02ccfb03111c8437214c77bd435977c9"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "9a5dbee2f93fcd79527675ac30cceb2a146d428d2b7c88673dcc5fe477f9d8c8"
         }
       },
       "lean/experience/papers/index.json": {
         "after": {
           "mode": 420,
+          "sha256": "3a4f3a8d8b271be37371f30c07057211c4c565e973bffb51d0b1ab68d29be210"
+        },
+        "before": {
+          "mode": 420,
           "sha256": "3bb76171fc329857746a2e3e3515ac3a45dbb4833162d471099d1c973a692875"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "b8d7d3ad56ee0ab17517cb54d61ae87ff3fb35a544ce51426de40749e3998285"
-        }
-      },
-      "lean/experience/papers/optimal-sparse-perturbations.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "ccf2a7d7ab58cd456d0305915f9b0e38f1fbdc4b6c53dd71d4376aedcea1795b"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "cea89460b2cc0f0bb72805b8dedabb266d51e4e8f1088550d92acf3ffbb4ff83"
-        }
-      },
-      "lean/experience/papers/writing-a-good-mathematical-paper.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "d67eb138ced59b8723e52e25cc214987da27d05d22a93ddada2904bff90f0b9e"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "4f215aefcaf3e1fe9778e48368e8c544828ba9265c8237e61e372f29df923b3c"
-        }
-      },
-      "lean/experience/papers/writing-mathematics-from-reviewed-revisions.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "2aa1a8ff922dee7ed09787c86cd84e28bd9c51df728a53530ac5a9f16ca28a36"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "b7ba16277ae63b28d3074b70cdda16711e9dba777544d1c21182c33600ab4a33"
-        }
-      },
-      "lean/experience/problems/erdos_1041.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "88bb4328b9be39d9434e318360633cd944639398ea88b9796692b3f203c538f9"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "712afca6390fec173ff51cc8b69cce3d7b9b6da448f193bd380c4fbf401938c3"
-        }
-      },
-      "lean/experience/problems/erdos_1049.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "fa16c3e38b34ff044d818bb923761ffd7dfa91aa8552c18785c182c536768764"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "3b2075b73022c42f8e452289f0506fe579168e2dcbc10516731425ac2dfc3842"
-        }
-      },
-      "lean/experience/problems/erdos_243.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "eb6dba9a885f15c388248123c76eb538061bf6f37f50dea6032e3393c66a1c67"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "0a67079d41e4fdcc2171702961d2a04854e5b53b6f4f082c7b1b9a06dcbcc7ba"
-        }
-      },
-      "lean/experience/problems/erdos_249.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "f27f513578bdfa2ebb2b747938ac37fbaee939ba8b5deee47120342fff9af148"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "7560341c4de4d8210662b429bd241831f584bfab01f5f2972dc9ef6a3fb473ba"
-        }
-      },
-      "lean/experience/problems/erdos_251.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "150a89f833ae71fd1d578eac0afa1531e8e64915c4f9d8d5dbf4b8a2156bbb1d"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "7bde5c19035e709a4872122d8fa3806ae4bea2edc1746b93c845410e02d321ba"
-        }
-      },
-      "lean/experience/problems/erdos_257.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "3fe87759044155a4de24735b380223e6e353412465604e35c3a5b4f2e571b710"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "cb433da53dd97f214ed6876dc053738527c0a71323c704b52d85ea3941710002"
-        }
-      },
-      "lean/experience/problems/erdos_269.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "14f09714d3cb25e7d3398391228755d629b3fc2bc903eb7271da71586189d412"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "0b243c176400443cbbbd7ba4fb0623b407a1035ac84d2a311b0895ee12af6860"
-        }
-      },
-      "lean/experience/problems/erdos_68.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "626e56cc5709f90fb45b2b771aeb407304bf226a5ca9501ddce40b9abf76b7a3"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "212373470acfed16994bad1d2e6ebea8c7852c60fd506b1e481abab99021a7c1"
-        }
-      },
-      "lean/experience/render-receipt.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "0670f124341a58f4fc369418ae8c3cd7dfb28f1a701996a355d6bfbf4475b15f"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "aa719ac7f0c35fb93acae888b4c9acadbb6f8ad870b2f5f72920adfdff5e7b6c"
         }
       },
       "lean/lean-source-manifest.json": {
         "after": {
           "mode": 420,
-          "sha256": "56ba542cb81b5327cbe32e0e196884bd1285ed4cc7c575ab0e578f8683f09194"
+          "sha256": "0f49d5499b3bd9a778ab1c01eadc8cfc9a1c719135fb85efde6ddc6ae97c91fd"
         },
         "before": {
           "mode": 420,
-          "sha256": "fd151a4c14e73cc667f3e7ddd82ab3d9ede085b62452555daea6dd934cc86ae9"
+          "sha256": "56ba542cb81b5327cbe32e0e196884bd1285ed4cc7c575ab0e578f8683f09194"
         }
       },
       "lean/problem-library.json": {
         "after": {
           "mode": 420,
+          "sha256": "49e0905f0c0321f49afa839cc5a2584d0465eda3f911f6d73194beb050071736"
+        },
+        "before": {
+          "mode": 420,
           "sha256": "7b3b780d9ff4612989fe654098772368aff87c984ce88a3b8574182a426f4734"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "5606584e14e47fe0090540b6440c1b5cfd3d4968ad516c9058e0f56fc616477f"
-        }
-      },
-      "maths/assets/universe-companion.js": {
-        "after": {
-          "mode": 420,
-          "sha256": "8f6f93468ddb8bff653348b530a16c54ce2f313e47b8e89fc8ce3b18e482cf20"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "68a3f225f393b283000390dab2e4845eb84b93c48e9dfa6f998553af430eba62"
         }
       },
       "maths/assets/universe-data.json": {
         "after": {
           "mode": 420,
-          "sha256": "b8c684a3759a052d516aee798031272f55d4abbe821b491101fe2ba1ad541246"
+          "sha256": "8953b0da839184937bde5d0ee4134e292fda5a2c319cb4a53797e987ab71c074"
         },
         "before": {
           "mode": 420,
-          "sha256": "24148a70faecfba44de1f37c9cbfe9b20c65153d96222bfc75541bbdedf0104c"
+          "sha256": "b8c684a3759a052d516aee798031272f55d4abbe821b491101fe2ba1ad541246"
         }
       },
       "maths/assets/universe-layout-full.json": {
         "after": {
           "mode": 420,
+          "sha256": "7c2358cc950d28786e33cd5f95abd65748a120df47e3c57d1636b844728c4757"
+        },
+        "before": {
+          "mode": 420,
           "sha256": "682c4f1c87c0e98dbe4b448029733d004d3aed59611d27b08fed1617d83f7e5d"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "b3bd94b7b2e3b01a8c8ebda4be9de7489e7d37c6e09c9a3c9e206b49ced7aee5"
-        }
-      },
-      "maths/assets/universe.js": {
-        "after": {
-          "mode": 420,
-          "sha256": "272a622bd40cac03ac631569386b2a4f72b6dc357b20410c156cbcc377dd2610"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "c62978fcbe07356cbcac1662cf3b2492ccda15d45e801c8a11c70951112ddef3"
         }
       },
       "maths/index.html": {
         "after": {
           "mode": 420,
-          "sha256": "9f2e7e50fc292d1049c26544069efa4529e804d12999b49c058006ef26627a80"
+          "sha256": "6a1610e43dd134f0f626e7902dbb0d455fb3fa43a542593dfbfd251cd972e250"
         },
         "before": {
           "mode": 420,
-          "sha256": "d49dffde4c9ba8db8af516ff429e33a835bfb4d5ac726201032a06db316c891f"
+          "sha256": "9f2e7e50fc292d1049c26544069efa4529e804d12999b49c058006ef26627a80"
         }
       },
       "maths/papers/claim-faithful-publication-systems.html": {
         "after": {
           "mode": 420,
-          "sha256": "3f094447afbdbf595bcf7afb1c554c4c978ca928e0f2b5a92ab0fabc6d21e011"
+          "sha256": "0b3f514064990aa4b35f95dbb6a75e249a9b846610611a60d9501da336ef5e56"
         },
         "before": {
           "mode": 420,
-          "sha256": "3040a4168fef92125d464d739d13ed9f0c2048ee1c082f21af4f9cb59a31136e"
+          "sha256": "3f094447afbdbf595bcf7afb1c554c4c978ca928e0f2b5a92ab0fabc6d21e011"
         }
       },
       "maths/papers/claim-faithful-publication-systems.pdf": {
         "after": {
           "mode": 420,
-          "sha256": "337454430ec7ae19caf7288fce197c3bbfed46a574be239718317971fa331885"
+          "sha256": "4d0de95387eb33c6507ef557b0c52fa86a3753dee236feb82e39347053f4d325"
         },
         "before": {
           "mode": 420,
-          "sha256": "910d0e8f7a69097c1bf99ec03aee47d14d4f808dda40c749bfc51f0b37b5ec16"
+          "sha256": "337454430ec7ae19caf7288fce197c3bbfed46a574be239718317971fa331885"
         }
       },
       "maths/problems/erdos_1041.html": {
         "after": {
           "mode": 420,
-          "sha256": "3d38823b9a345162f5f8bdebdd613726e495d26daa1d11a1ddb2bafca2875dff"
+          "sha256": "1094ba306fa423564c076bea537bb2b0b58fa806e3e4b0a1fa0ea6ef4cdc9613"
         },
         "before": {
           "mode": 420,
-          "sha256": "8647c97a2234bfea72e214741eacf93d6b1a0a1a42bf4c60a9b1b8373cc145e0"
+          "sha256": "3d38823b9a345162f5f8bdebdd613726e495d26daa1d11a1ddb2bafca2875dff"
         }
       },
       "maths/problems/erdos_1049.html": {
         "after": {
           "mode": 420,
-          "sha256": "365059fb2eb63968f0355b28a5d25995644c0fb53c7946c36e37dd4fad5777ff"
+          "sha256": "613c8ead6db381a998deea70568661099093c8e08260cef6d7e7b9f9c6b7e8c9"
         },
         "before": {
           "mode": 420,
-          "sha256": "a7ef041362f617a5ac1e5bf2ebf52b7f29dbc78e3e5bd63a59e67dd1829e0a3c"
+          "sha256": "365059fb2eb63968f0355b28a5d25995644c0fb53c7946c36e37dd4fad5777ff"
         }
       },
       "maths/problems/erdos_243.html": {
         "after": {
           "mode": 420,
-          "sha256": "7402562739e956f4bc7a0cebd0338a7d6b1b1024361781f6c8ba9f5f5882fc13"
+          "sha256": "070ef310841916c713f38f1a9fba90637a50537a1ec295239005c7e126f452ac"
         },
         "before": {
           "mode": 420,
-          "sha256": "9d217f9c2fac33213da85e9ed5360e1726c2b21b5aa98b5423e2034094f3684e"
+          "sha256": "7402562739e956f4bc7a0cebd0338a7d6b1b1024361781f6c8ba9f5f5882fc13"
         }
       },
       "maths/problems/erdos_249.html": {
         "after": {
           "mode": 420,
-          "sha256": "23a6c0f67b4490be8bd723c9f7c3e8eb63d09f86849f6e6df95f3cd088c6c919"
+          "sha256": "d618433ed03aa043c25bfb521b1db48fd59b22038a66b344785a2788dd66d783"
         },
         "before": {
           "mode": 420,
-          "sha256": "a3643374c7b8c5f7e6caed9eeb85403e60276ccc62cfa3d3ba383fc89c27f31f"
+          "sha256": "23a6c0f67b4490be8bd723c9f7c3e8eb63d09f86849f6e6df95f3cd088c6c919"
         }
       },
       "maths/problems/erdos_251.html": {
         "after": {
           "mode": 420,
-          "sha256": "cb1427920541bdc67f72c8373ca0b6cb581e16238b97922c34467447be55bc77"
+          "sha256": "f263012df99a4bede7c50456b2aa9615a3c4f0b92dc425ade63837acbd5ebdff"
         },
         "before": {
           "mode": 420,
-          "sha256": "08558201c5fdd759d286dde7c5c54b6e4aaef9f5ad7e94e74be078e6d881c497"
+          "sha256": "cb1427920541bdc67f72c8373ca0b6cb581e16238b97922c34467447be55bc77"
         }
       },
       "maths/problems/erdos_257.html": {
         "after": {
           "mode": 420,
-          "sha256": "b20be170150c2b7be3ba61ac8a4786b20e9143d4cfe5ff92c4006674349753d5"
+          "sha256": "903035cb8d2342ff0ccd5d843904444a578973ab436fd5d4a82dabd2eaa55a0a"
         },
         "before": {
           "mode": 420,
-          "sha256": "160684a76ea03907568dfc40c65fdc3c3b7f0c1068ce3689c63e1c6e18c2a0ec"
+          "sha256": "b20be170150c2b7be3ba61ac8a4786b20e9143d4cfe5ff92c4006674349753d5"
         }
       },
       "maths/problems/erdos_269.html": {
         "after": {
           "mode": 420,
-          "sha256": "7b28729fa8d286a614e2eea186a26db9818a0ed82044758382d87fcb6698a9b4"
+          "sha256": "a41d412c7120d1e4f6c98765b096fa8cd53f50bbc7cfc340b4bf3cff50241c4c"
         },
         "before": {
           "mode": 420,
-          "sha256": "fde3b58d03c5cc8a697f348c4e94ca0ee4403a9a493b90f662c47a6963aeb82c"
+          "sha256": "7b28729fa8d286a614e2eea186a26db9818a0ed82044758382d87fcb6698a9b4"
         }
       },
       "maths/problems/erdos_68.html": {
         "after": {
           "mode": 420,
-          "sha256": "4d8a167bc586f74f040319a315fc5b95470505e0d0241ae5c6f0147258f821fd"
+          "sha256": "5162520b4afaf745ddb64a616b672e7825f1fc720351e6ef9e42a12ed457b31e"
         },
         "before": {
           "mode": 420,
-          "sha256": "3de84a9f14a43c60bd8d1581006bcb07701f3b7fb121d8e7a8e220a19779a15c"
+          "sha256": "4d8a167bc586f74f040319a315fc5b95470505e0d0241ae5c6f0147258f821fd"
         }
       },
       "maths/universe.html": {
         "after": {
           "mode": 420,
-          "sha256": "854bfecb44344418a536e73edb50af3bcc0324f575bb72096cd236dfd419b8aa"
+          "sha256": "d4503dc41a476ba353c9282c502427d45f63794a0d6f41367e22e944ee058adf"
         },
         "before": {
           "mode": 420,
-          "sha256": "63eedb738beaf46a7bcbaec41010469fe430599c6a11e7f45467edf96ff214ca"
+          "sha256": "854bfecb44344418a536e73edb50af3bcc0324f575bb72096cd236dfd419b8aa"
         }
       },
       "papers/claim-faithful-publication-systems-paper.pdf": {
         "after": {
           "mode": 420,
-          "sha256": "337454430ec7ae19caf7288fce197c3bbfed46a574be239718317971fa331885"
+          "sha256": "4d0de95387eb33c6507ef557b0c52fa86a3753dee236feb82e39347053f4d325"
         },
         "before": {
           "mode": 420,
-          "sha256": "910d0e8f7a69097c1bf99ec03aee47d14d4f808dda40c749bfc51f0b37b5ec16"
+          "sha256": "337454430ec7ae19caf7288fce197c3bbfed46a574be239718317971fa331885"
         }
       },
       "papers/papers-source-manifest.json": {
         "after": {
           "mode": 420,
-          "sha256": "3b911d68698fddfe87c3d25dc1b9773f94569d8e2c6e373880ccb0d91a5f672e"
+          "sha256": "8b30cd14bf42f36ce9a2d521f52821dd632786405e961ec2506b41d3eef5cca6"
         },
         "before": {
           "mode": 420,
-          "sha256": "60d2a8cfea83217c72b136eb23f040f5f370798608eef1896792d11615adc7ae"
+          "sha256": "3b911d68698fddfe87c3d25dc1b9773f94569d8e2c6e373880ccb0d91a5f672e"
         }
       },
       "papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex": {
         "after": {
           "mode": 420,
-          "sha256": "dbed62caf7ff08bfd671ab90c39b231db3230804d4962634e29a1de1582922cf"
+          "sha256": "d268dd185b92190b2c0c4556608387070cfc58660bff0f5c468e9f2bf10bafbc"
         },
         "before": {
           "mode": 420,
-          "sha256": "86ee08187521ffb6454c7c40b226753ecafa13d2071a7d7f653f81ca0dab6a08"
+          "sha256": "dbed62caf7ff08bfd671ab90c39b231db3230804d4962634e29a1de1582922cf"
         }
       },
       "plectis-ai-reader-digest.json": {
         "after": {
           "mode": 420,
-          "sha256": "8359e0eb476b96679ee6b666e69bd945c885a3ec85294c76be2ada7a015205ba"
+          "sha256": "d1791872540ed83d2a21812c91b391a3ef6a4e2f18a0207e743d79a4e3d4cc99"
         },
         "before": {
           "mode": 420,
-          "sha256": "5436022590fc0f793f8a4d4d9865093b1522cd5ff7e7017c85eef547995e5de5"
+          "sha256": "8359e0eb476b96679ee6b666e69bd945c885a3ec85294c76be2ada7a015205ba"
         }
       },
       "plectis-ai-review-packet.identity.json": {
         "after": {
           "mode": 420,
-          "sha256": "b1b5e114ba15d00145e066b900ded57edea9227186ca760228e065d276010c6a"
+          "sha256": "9270b2124980120ea13dbcc23f1cdc10b986348f449f590a5b1d7653901a13ba"
         },
         "before": {
           "mode": 420,
-          "sha256": "a07efabbee00dac93bc075b187db3df792316bf9ed8f7ef9f4d88ca6ff68201b"
+          "sha256": "b1b5e114ba15d00145e066b900ded57edea9227186ca760228e065d276010c6a"
         }
       },
       "plectis-ai-review-packet.json": {
         "after": {
           "mode": 420,
-          "sha256": "95e836df3dae4b2fab415ed7499dd3a364474b8620772be0735c05f2645c43e9"
+          "sha256": "fc7ee135f6c1a5fcb038bb7a8b9b2e43d1eda7a4355557543d77e81f4d4e0e04"
         },
         "before": {
           "mode": 420,
-          "sha256": "5bd65900740eeb4c63b12c9e8ed1625b3414d933a5c2f331f5e6cc6b15cfdb68"
+          "sha256": "95e836df3dae4b2fab415ed7499dd3a364474b8620772be0735c05f2645c43e9"
         }
       },
       "plectis-reviewer-brief.json": {
         "after": {
           "mode": 420,
-          "sha256": "d7c8a778cbe6cb6493f1e1c703616dbe4d3e6f0430e2a232146c7de88f7dc14e"
+          "sha256": "c78a208af31ed45184fe8e9e7b1ae35a3bdd9ea69c161ef9fdcf45f25b255aeb"
         },
         "before": {
           "mode": 420,
-          "sha256": "67be1601edeac8f5457107d7aded50b23cc9779648f3c33e81d76df70ea14cda"
+          "sha256": "d7c8a778cbe6cb6493f1e1c703616dbe4d3e6f0430e2a232146c7de88f7dc14e"
         }
       },
       "projection-status.json": {
         "after": {
           "mode": 420,
-          "sha256": "9fbf81753ba212d0769cb65fe56f5ce78b2a6c72e82979984668d7f1f6c1dd8b"
+          "sha256": "92e996ddef5cd2751ef4806c8e6820236467c41b02c8686ed3493f0ffaf5fff4"
         },
         "before": {
           "mode": 420,
-          "sha256": "1e90290bf674154475afb63a7d7d99b3dd865e84aa072d4f312fa672e80975be"
+          "sha256": "9fbf81753ba212d0769cb65fe56f5ce78b2a6c72e82979984668d7f1f6c1dd8b"
         }
       }
     },
@@ -825,36 +345,36 @@
       "maths/assets/universe.js",
       "maths/universe.html"
     ],
-    "generator_commit": "000b9409f429eb80e8775887ae26fd3909454f0b",
+    "generator_commit": "8782691e63ed0edd407a1e54088dd4912c38f126",
     "math_ai_companions": {
       "artifacts": {
         "assets/ai-reader-digest-packet.js": {
           "byte_count": 398209,
-          "sha256": "sha256:f76953b120961cd515388a72ad6871273b9b4f1ca768c378811fdebccf129330"
+          "sha256": "sha256:2efe7ddcd78e637bbe7400b639f9409b6483fab684cc261b87a82499613f2e2d"
         },
         "assets/ai-review-packet.js": {
-          "byte_count": 33959019,
-          "sha256": "sha256:2d24c62643bb85d9b8d219847ccd9368eb8eb82de8626f3a1220fb7a320b161d"
+          "byte_count": 33959143,
+          "sha256": "sha256:91f061c6b5c031718e04541f41a892328060a5928bf451e6204b3737c1476869"
         },
         "plectis-ai-reader-digest.json": {
           "byte_count": 372253,
-          "sha256": "sha256:8359e0eb476b96679ee6b666e69bd945c885a3ec85294c76be2ada7a015205ba"
+          "sha256": "sha256:d1791872540ed83d2a21812c91b391a3ef6a4e2f18a0207e743d79a4e3d4cc99"
         },
         "plectis-ai-review-packet.identity.json": {
           "byte_count": 1529,
-          "sha256": "sha256:b1b5e114ba15d00145e066b900ded57edea9227186ca760228e065d276010c6a"
+          "sha256": "sha256:9270b2124980120ea13dbcc23f1cdc10b986348f449f590a5b1d7653901a13ba"
         },
         "plectis-ai-review-packet.json": {
-          "byte_count": 32706332,
-          "sha256": "sha256:95e836df3dae4b2fab415ed7499dd3a364474b8620772be0735c05f2645c43e9"
+          "byte_count": 32706420,
+          "sha256": "sha256:fc7ee135f6c1a5fcb038bb7a8b9b2e43d1eda7a4355557543d77e81f4d4e0e04"
         },
         "plectis-reviewer-brief.json": {
-          "byte_count": 11895893,
-          "sha256": "sha256:d7c8a778cbe6cb6493f1e1c703616dbe4d3e6f0430e2a232146c7de88f7dc14e"
+          "byte_count": 11895981,
+          "sha256": "sha256:c78a208af31ed45184fe8e9e7b1ae35a3bdd9ea69c161ef9fdcf45f25b255aeb"
         }
       },
-      "generator_commit": "000b9409f429eb80e8775887ae26fd3909454f0b",
-      "native_commit": "aa397d2244c5a3362f528e93c12fc1c2f7ef0298",
+      "generator_commit": "8782691e63ed0edd407a1e54088dd4912c38f126",
+      "native_commit": "56e53f3ac4eaf1b1d9b9ac9c078959db444f59c5",
       "paths": [
         "assets/ai-reader-digest-packet.js",
         "assets/ai-review-packet.js",
@@ -867,7 +387,7 @@
       "rule": "Only listed artifact identities are refreshed; all other projection identities retain their recorded editions.",
       "schema": "plectis-math-ai-companion-release/1"
     },
-    "pages_base_commit": "1dd0d6e042c7a3c403b31392e87a9dacfb52bb32",
+    "pages_base_commit": "b5a5513c1f69283b7cdeae17895f1707796b6272",
     "private_root_released": false,
     "protected_file_count": 722,
     "protected_products": "preserved Pages baseline bytes/modes; historical generation, not relabeled current",
@@ -891,7 +411,7 @@
       "repository": "wcook04/plectis"
     },
     "plectis-erdos": {
-      "commit": "aa397d2244c5a3362f528e93c12fc1c2f7ef0298",
+      "commit": "56e53f3ac4eaf1b1d9b9ac9c078959db444f59c5",
       "ref": "main",
       "repository": "wcook04/plectis-erdos"
     }

@@ -258,13 +258,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.pdf",
-      "source_sha256": "337454430ec7ae19caf7288fce197c3bbfed46a574be239718317971fa331885",
-      "bytes": 177046,
+      "source_sha256": "4d0de95387eb33c6507ef557b0c52fa86a3753dee236feb82e39347053f4d325",
+      "bytes": 180168,
       "source_tex_path": "paper/systems/claim-faithful-publication-systems-paper.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/claim-faithful-publication-systems-paper.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex",
-      "hosted_tex_sha256": "dbed62caf7ff08bfd671ab90c39b231db3230804d4962634e29a1de1582922cf",
-      "tex_bytes": 105016
+      "hosted_tex_sha256": "d268dd185b92190b2c0c4556608387070cfc58660bff0f5c468e9f2bf10bafbc",
+      "tex_bytes": 105065
     },
     {
       "hosted_path": "papers/plectis-public-system.pdf",
