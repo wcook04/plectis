@@ -28,11 +28,11 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/style.css?v=655f8f276dff">
-  <link rel="stylesheet" href="../assets/maths.css?v=1e652ab204f6">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=1eb60a8b10c2"></script></template>
+  <link rel="stylesheet" href="../../assets/style.css?v=21e585488b71">
+  <link rel="stylesheet" href="../assets/maths.css?v=988ea40d1d74">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=4ef1d16f00fb"></script></template>
   <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
-  <script defer src="../assets/maths.js?v=2481459dc144"></script>
+  <script defer src="../assets/maths.js?v=eb35fe169ca1"></script>
   <meta name="author" content="Will Cook">
   <meta name="citation_title" content="A Repository-Based System for Research and Publication">
   <meta name="citation_author" content="Will Cook">
@@ -175,7 +175,7 @@ selected claims and <a class="narrative-ref narrative-ref--term is-term-first" h
 decisions. Indexes, coordinates and status summaries derive from them.
 Freshness checks detect disagreement; builders regenerate views. Neither
 adopts a claim. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/ARCHITECTURE.md"><code>architecture guide</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/ARCHITECTURE.md" data-link-kind="exogenous" rel="external noopener"><code>architecture guide</code></a>
 identifies each view’s source, where repairs belong.</p>
 <p>The coverage ledger follows a labelled <em>paper occurrence</em>,
 identified by location and statement digest, and lists its registered
@@ -269,60 +269,60 @@ researcher or agent.</p>
 <tr>
 <td class="ta-l">Task routing</td>
 <td class="ta-l"> <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/agent_entry.py"><code>agent_entry.py</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/agent_entry.py" data-link-kind="exogenous" rel="external noopener"><code>agent_entry.py</code></a>
 maps a stated task to instructions, relevant files and commands. It
 routes a request rather than choosing the research question.</td>
 </tr>
 <tr>
 <td class="ta-l">Evidence retrieval</td>
 <td class="ta-l"> <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/query_corpus.py"><code>query_corpus.py</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/query_corpus.py" data-link-kind="exogenous" rel="external noopener"><code>query_corpus.py</code></a>
 returns problem, claim, declaration and paper-source records from the
 indexes.</td>
 </tr>
 <tr>
 <td class="ta-l">Proof sessions</td>
 <td class="ta-l"> <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/proof_workbench.py"><code>proof_workbench.py</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/proof_workbench.py" data-link-kind="exogenous" rel="external noopener"><code>proof_workbench.py</code></a>
 stores notes and submitted Lean probes, obtains verdicts from Lean, and
 binds a session claim to an accepted probe.</td>
 </tr>
 <tr>
 <td class="ta-l">Statement evidence</td>
 <td class="ta-l"> <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_evidence.py"><code>paper_evidence.py</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_evidence.py" data-link-kind="exogenous" rel="external noopener"><code>paper_evidence.py</code></a>
 locates each registered support at the recorded revision and checks its
 source and verification bindings; <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_claim_evidence.py"><code>paper_claim_evidence.py</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_claim_evidence.py" data-link-kind="exogenous" rel="external noopener"><code>paper_claim_evidence.py</code></a>
 derives status and gap reports from those records.</td>
 </tr>
 <tr>
 <td class="ta-l">Editorial exchange</td>
 <td class="ta-l"> <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/short_paper_writer.py"><code>short_paper_writer.py</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/short_paper_writer.py" data-link-kind="exogenous" rel="external noopener"><code>short_paper_writer.py</code></a>
 audits manuscripts and packages proposed revisions without applying or
 approving the return.</td>
 </tr>
 <tr>
 <td class="ta-l">Research history</td>
 <td class="ta-l"> <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/research_record.py"><code>research_record.py</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/research_record.py" data-link-kind="exogenous" rel="external noopener"><code>research_record.py</code></a>
 verifies the journal of entered returns and dispositions and reports the
 outstanding milestones of recorded outputs.</td>
 </tr>
 <tr>
 <td class="ta-l">Derived views</td>
 <td class="ta-l"> <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/refresh_projections.py"><code>refresh_projections.py</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/refresh_projections.py" data-link-kind="exogenous" rel="external noopener"><code>refresh_projections.py</code></a>
 runs builders in dependency order; <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/check_release.py"><code>check_release.py</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/check_release.py" data-link-kind="exogenous" rel="external noopener"><code>check_release.py</code></a>
 checks release contracts and freshness.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <p>A separate self-audit, <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/systems_paper_evidence.py"><code>systems_paper_evidence.py</code></a>,
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/systems_paper_evidence.py" data-link-kind="exogenous" rel="external noopener"><code>systems_paper_evidence.py</code></a>,
 checks this systems manuscript’s text and cited source bindings. These
 are implemented interfaces, not reports that every operation has been
 executed successfully.</p>
@@ -344,9 +344,9 @@ explanation without a clone or an agent. The maintainer reviews scope,
 attribution and unresolved obligations before adoption. These are
 responsibilities, not necessarily different people or agents:
 contributor and reviewer may coincide. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/agents/README.md"><code>agent quickstart</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/agents/README.md" data-link-kind="exogenous" rel="external noopener"><code>agent quickstart</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CONTRIBUTING.md"><code>contribution guide</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener"><code>contribution guide</code></a>
 describe setup and review.</p>
 <p>An iteration retrieves relevant work, investigates a question and
 returns an argument, experiment, correction or manuscript change with
@@ -371,10 +371,10 @@ condition would claim the unresolved general case. Appendix <a class="math-ref"
 series, its antecedents and the proof.</p>
 <p>Consider a contributor revising that explanation. The coverage row
 <code>res:weighted-support</code> in <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/paper_lean_coverage.json"><code>paper_lean_coverage.json</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/paper_lean_coverage.json" data-link-kind="exogenous" rel="external noopener"><code>paper_lean_coverage.json</code></a>
 fixes the printed statement and lists two Lean supports. The explanation
 here has a separate <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/systems_paper_sentences.json"><code>passage record</code></a>,
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/systems_paper_sentences.json" data-link-kind="exogenous" rel="external noopener"><code>passage record</code></a>,
 citing the ordinary proof and a formal declaration. The claim-evidence
 builder derives status or gap reports; the passage checker tests text
 and source bindings.</p>
@@ -509,9 +509,9 @@ limits. Adopting it requires a reviewed change to the writing
 contract.</p>
 <p>The packet and audit stages in Figure <a class="math-ref" href="#fig:refinement">5</a> are implemented by
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/short_paper_writer.py"><code>short_paper_writer.py</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/short_paper_writer.py" data-link-kind="exogenous" rel="external noopener"><code>short_paper_writer.py</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_refinement.py"><code>paper_refinement.py</code></a>.
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_refinement.py" data-link-kind="exogenous" rel="external noopener"><code>paper_refinement.py</code></a>.
 A return can change the paper without changing the rules for later
 writers. Accepted lessons revise documents and instructions, not model
 weights; the procedure itself measures neither reader benefit nor
@@ -816,29 +816,29 @@ below separate document checks from reproduced proofs.</p>
 <section id="read-a-result-and-follow-its-sources" class="level3">
 <h3>Read a result and follow its sources</h3>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/READING_GUIDE.md">reading
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/READING_GUIDE.md" data-link-kind="exogenous" rel="external noopener">reading
 guide</a> routes readers through one problem or across the papers,
 including <em>Reading Eight Erdős Problems Together</em> <span
 class="citation" data-cites="synthesis"><a href="#ref-17">[17]</a></span>. Read a result’s short
 paper, then follow its argument, attribution and formal-support
 references. Agents can use <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/AGENTS.md">agent
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/AGENTS.md" data-link-kind="exogenous" rel="external noopener">agent
 instructions</a> and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/agents/AGENT_WORKBENCH.md">workbench’s</a>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/agents/AGENT_WORKBENCH.md" data-link-kind="exogenous" rel="external noopener">workbench’s</a>
 optional proof sessions. Corrections follow the <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CONTRIBUTING.md">contribution
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">contribution
 guide</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/research-commons/CREDIT_POLICY.md">credit
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/research-commons/CREDIT_POLICY.md" data-link-kind="exogenous" rel="external noopener">credit
 policy</a>.</p>
 </section>
 <section id="inspect-the-records-and-rerun-document-checks"
 class="level3">
 <h3>Inspect the records and rerun document checks</h3>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/publication_evidence.json">experiment
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/publication_evidence.json" data-link-kind="exogenous" rel="external noopener">experiment
 record</a> contains the ten-edit matrix and limited follow-up in
 Section <a class="math-ref" href="#sec:checks">4</a>. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/publication_contract.json">publication-check
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/publication_contract.json" data-link-kind="exogenous" rel="external noopener">publication-check
 specification</a> identifies required checks. These structured files
 trace evidence; they do not replace the paper’s explanation.</p>
 <p>From a complete public checkout, run:</p>
@@ -850,13 +850,13 @@ trace evidence; they do not replace the paper’s explanation.</p>
 second compares the generated inventory with its records. Success
 establishes agreement, not the correctness of an explanation.</p>
 <p>For proof replay, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/lean/Erdos249257.lean">Lean
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/lean/Erdos249257.lean" data-link-kind="exogenous" rel="external noopener">Lean
 entry file</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/.github/workflows/lean.yml">CI
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/.github/workflows/lean.yml" data-link-kind="exogenous" rel="external noopener">CI
 workflow</a> identify build entry points. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/claims.json">claim
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/claims.json" data-link-kind="exogenous" rel="external noopener">claim
 register</a> lists curated assertions; <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/check_release.py">release
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/check_release.py" data-link-kind="exogenous" rel="external noopener">release
 checks</a> cover wider publication requirements. Use the result’s
 recorded revisions and environment.</p>
 <p>A writing packet contains manuscripts, selected records and
@@ -867,7 +867,7 @@ full Lean, Comparator or release rerun.</p>
 class="level3">
 <h3>Locate the formal supports of the worked example</h3>
 <p>For the weighted criterion in Appendix <a class="math-ref" href="#app:worked-proof">B</a>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/paper_lean_coverage.json">paper-to-Lean
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/paper_lean_coverage.json" data-link-kind="exogenous" rel="external noopener">paper-to-Lean
 coverage record</a> identifies two formal supports: a weighted criterion
 and a version whose conclusion explicitly covers every infinite subset.
 Figure <a class="math-ref" href="#fig:theorem">7</a> shows the
@@ -877,9 +877,9 @@ role="doc-noteref"><sup>1</sup></a> These entries support the stated
 conclusion; they do not assert line-by-line agreement between the
 ordinary proof and the Lean proofs.</p>
 <p>The recorded Comparator runs are the <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144">first
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144" data-link-kind="exogenous" rel="external noopener">first
 comparison run</a> and the <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171">second
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171" data-link-kind="exogenous" rel="external noopener">second
 comparison run</a>. Comparator checks a formal result against a
 separately stated challenge. These records concern the specified formal
 statements, not the historical attribution or the correctness of this
@@ -887,7 +887,7 @@ paper’s explanation.</p>
 <p>The reciprocal-summability criterion attributed to Erdős in
 Appendix <a class="math-ref" href="#app:worked-proof">B</a> has
 its own <a
-href="https://github.com/wcook04/plectis-erdos/blob/7308896010e6b527d283dfdd0687a717a6183fb6/lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean">formal
+href="https://github.com/wcook04/plectis-erdos/blob/7308896010e6b527d283dfdd0687a717a6183fb6/lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean" data-link-kind="exogenous" rel="external noopener">formal
 proof</a>, also recorded in the second comparison run.<a href="#fn2"
 class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>Both runs are recorded as compared. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar</a> entries are prepared, not
@@ -932,17 +932,17 @@ Worlds</em>.</p>
 <p>This paper supersedes the two earlier design accounts described
 below. Cite a mathematical result by the paper and version actually
 used; cite repository software using its <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CITATION.cff">software
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CITATION.cff" data-link-kind="exogenous" rel="external noopener">software
 citation record</a> at the chosen commit or release tag.</p>
 <p><em><a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/systems/cold-clone-to-proof-receipt.tex">From
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/systems/cold-clone-to-proof-receipt.tex" data-link-kind="exogenous" rel="external noopener">From
 a Cold Clone to a Proof Receipt</a></em> (August 2026) describes the
 declaration, dependency, interpretation and claim views and the optional
 recorded proof session. Its counts and audit figures belong to that
 snapshot; Section <a class="math-ref" href="#sec:world">2</a>
 describes the current task entry and inspected implementation.</p>
 <p><em><a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/systems/open-source-mathematics-strategy.tex">From
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/systems/open-source-mathematics-strategy.tex" data-link-kind="exogenous" rel="external noopener">From
 Spare Compute to Cumulative Mathematics</a></em> (September 2026)
 describes contribution roles, reproduction against the original inputs,
 subsequent integration and role credit. Section <a class="math-ref" href="#sec:contribute">6</a> gives the current
@@ -1361,9 +1361,9 @@ class="citation" data-cites="formalconjectures fcpr ehp1958"><a href="#ref-77">[
 The construction, its formalisation and that historical correspondence
 are separate claims.</p>
 <p>Readers inspecting the formal result can follow the <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/lean/ErdosProblems/Erdos1041/Counterexample/Assembly.lean">counterexample
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/lean/ErdosProblems/Erdos1041/Counterexample/Assembly.lean" data-link-kind="exogenous" rel="external noopener">counterexample
 assembly</a> and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean">Hausdorff-length
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean" data-link-kind="exogenous" rel="external noopener">Hausdorff-length
 proofs</a>.<a href="#fn4" class="footnote-ref" id="fnref4"
 role="doc-noteref"><sup>4</sup></a></p>
 <p>The coverage row records exact-or-stronger Lean support for these
@@ -1515,95 +1515,95 @@ rediscovery.</figcaption>
 <h2 class="unnumbered">References</h2>
 <ol>
 <li id="ref-1"><p>T. F. Bloom, <em>Erdős problems</em>, <a
-href="https://www.erdosproblems.com">erdosproblems.com</a>, accessed
+href="https://www.erdosproblems.com" data-link-kind="exogenous" rel="external noopener">erdosproblems.com</a>, accessed
 September 2026.</p></li>
 <li id="ref-2"><p>W. Cook, <em>Weighted and Covered Supports for <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mersenne-number" data-term="mersenne_number" data-term-auto="1">Mersenne</a>
 Subseries</em>, short paper on Erdős Problem 257, September 2026, <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/257/erdos-257-mersenne-support-subseries.pdf"><code>PDF</code></a>.</p></li>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/257/erdos-257-mersenne-support-subseries.pdf" data-link-kind="exogenous" rel="external noopener"><code>PDF</code></a>.</p></li>
 <li id="ref-3"><p>P. Erdős, <em>On the irrationality of certain series</em>,
 Math. Student 36 (1968), 222–226 (issued 1969), <a
-href="https://users.renyi.hu/~p_erdos/1969-09.pdf">scan</a>.</p></li>
+href="https://users.renyi.hu/~p_erdos/1969-09.pdf" data-link-kind="exogenous" rel="external noopener">scan</a>.</p></li>
 <li id="ref-4"><p>D. Duverney and Y. Tachiya, <em>Refinement of the Chowla–Erdős
 method and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-linear-independence" data-term="linear_independence" data-term-auto="1">linear independence</a> of certain <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lambert-series" data-term="lambert_series" data-term-auto="1">Lambert series</a></em>, Forum
 Math. 31 (2019), 1557–1566, <a
-href="https://doi.org/10.1515/forum-2018-0299">DOI</a>.</p></li>
+href="https://doi.org/10.1515/forum-2018-0299" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-5"><p>B. Kra, <em>Deep theorems were scarce and difficult and so became
 an effective mechanism to identify deep thought. AI has broken this
 system</em>, guest post on <em>What’s new</em>, 13 September 2026, <a
-href="https://terrytao.wordpress.com/2026/09/13/deep-theorems-were-scarce-and-difficult-and-so-became-an-effective-mechanism-to-identify-deep-thought-ai-has-broken-this-system/">blog
+href="https://terrytao.wordpress.com/2026/09/13/deep-theorems-were-scarce-and-difficult-and-so-became-an-effective-mechanism-to-identify-deep-thought-ai-has-broken-this-system/" data-link-kind="exogenous" rel="external noopener">blog
 post</a>.</p></li>
 <li id="ref-6"><p>H. Cohn, <em>The technical debt of AI-generated mathematics</em>,
 guest post on <em>What’s new</em>, 15 September 2026, <a
-href="https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/">blog
+href="https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/" data-link-kind="exogenous" rel="external noopener">blog
 post</a>.</p></li>
 <li id="ref-7"><p>T. Tao, thread on mining open problems, Mathstodon, 8 September
 2026, <a
-href="https://mathstodon.xyz/@tao/117237320796901560">thread</a>.</p></li>
+href="https://mathstodon.xyz/@tao/117237320796901560" data-link-kind="exogenous" rel="external noopener">thread</a>.</p></li>
 <li id="ref-8"><p>Twenty-five Fields Medallists, <em>A severe misalignment of AI in
 mathematics</em>, declaration posted on <em>What’s new</em>, 11
 September 2026, <a
-href="https://terrytao.wordpress.com/2026/09/11/a-severe-misalignment-of-ai-in-mathematics/">blog
+href="https://terrytao.wordpress.com/2026/09/11/a-severe-misalignment-of-ai-in-mathematics/" data-link-kind="exogenous" rel="external noopener">blog
 post</a>.</p></li>
 <li id="ref-9"><p>G. Sanderson, <em>If math is more than proof, we need to better
 celebrate the rest of it</em>, guest post on <em>What’s new</em>, 18
 September 2026, <a
-href="https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/">blog
+href="https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/" data-link-kind="exogenous" rel="external noopener">blog
 post</a>.</p></li>
 <li id="ref-10"><p>Advisory Group on Mathematics and Artificial Intelligence at IAS,
 <em>Responsible Release of AI-Generated Mathematics</em>, 29 September
 2026, <a href="https://agmai.org/general-sep29/" data-link-kind="exogenous" rel="external noopener">recommendations</a>, <a
-href="https://agmai.org/wp-content/uploads/2026/09/recommendations.pdf">PDF</a>.</p></li>
+href="https://agmai.org/wp-content/uploads/2026/09/recommendations.pdf" data-link-kind="exogenous" rel="external noopener">PDF</a>.</p></li>
 <li id="ref-11"><p>L. de Moura and S. Ullrich, <em>The Lean 4 Theorem Prover and
 Programming Language</em>, in <em>Automated Deduction, CADE 28</em>,
 Lecture Notes in Computer Science 12699, 2021, pp. 625–635, <a
-href="https://doi.org/10.1007/978-3-030-79876-5_37">DOI</a>.</p></li>
+href="https://doi.org/10.1007/978-3-030-79876-5_37" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-12"><p>P. Erdős and R. L. Graham, <em>Old and New Problems and Results
 in Combinatorial Number Theory</em>, Monographies de L’Enseignement
 Mathématique 28, 1980, p. 61.</p></li>
 <li id="ref-13"><p>W. Cook, <em>Integral Relations among Totient Sections</em>,
 short paper on Erdős Problem 249, revised 30 September 2026, <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/249/erdos-249-binary-totient-series.pdf"><code>PDF</code></a>.</p></li>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/249/erdos-249-binary-totient-series.pdf" data-link-kind="exogenous" rel="external noopener"><code>PDF</code></a>.</p></li>
 <li id="ref-14"><p>M. Coons, <em>(Non)Automaticity of number theoretic
 functions</em>, J. Théor. Nombres Bordeaux 22 (2010), 339–352, <a
-href="https://doi.org/10.5802/jtnb.718">DOI</a>, Theorem 3.2.</p></li>
+href="https://doi.org/10.5802/jtnb.718" data-link-kind="exogenous" rel="external noopener">DOI</a>, Theorem 3.2.</p></li>
 <li id="ref-15"><p>G. Martin, <em>Simultaneous inequalities among values of the
 Euler phi-function</em>, 2006, <a
-href="https://arxiv.org/abs/math/0603053v1">arXiv:math/0603053v1</a>,
+href="https://arxiv.org/abs/math/0603053v1" data-link-kind="exogenous" rel="external noopener">arXiv:math/0603053v1</a>,
 Theorem 1.</p></li>
 <li id="ref-16"><p>S. Yazdani, <em><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-multiplicative-function" data-term="multiplicative_function" data-term-auto="1">Multiplicative functions</a> and <span
 class="math inline" data-term-auto="off" data-tex="\(k\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D458">𝑘</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi></math></mjx-assistive-mml></mjx-container></span>-automatic sequences</em>,
 J. Théor. Nombres Bordeaux 13 (2001), 651–658, <a
-href="https://www.numdam.org/item/JTNB_2001__13_2_651_0/">Numdam</a>.</p></li>
+href="https://www.numdam.org/item/JTNB_2001__13_2_651_0/" data-link-kind="exogenous" rel="external noopener">Numdam</a>.</p></li>
 <li id="ref-17"><p>W. Cook, <em>Reading Eight Erdős Problems Together</em>,
 synthesis paper, September 2026, <a
-href="https://github.com/wcook04/plectis-erdos/blob/af1462ce/paper/synthesis/optimal-sparse-perturbations.tex">source,
+href="https://github.com/wcook04/plectis-erdos/blob/af1462ce/paper/synthesis/optimal-sparse-perturbations.tex" data-link-kind="exogenous" rel="external noopener">source,
 including the periodic-chain theorem</a>.</p></li>
 <li id="ref-18"><p>T. Feng, T. Trinh, G. Bingham, et al., <em>Semi-Autonomous
 Mathematics Discovery with Gemini: A Case Study on the Erdős
 Problems</em>, 2026, <a
-href="https://doi.org/10.48550/arXiv.2601.22401">arXiv</a>.</p></li>
+href="https://doi.org/10.48550/arXiv.2601.22401" data-link-kind="exogenous" rel="external noopener">arXiv</a>.</p></li>
 <li id="ref-19"><p>Lean FRO, <em>Comparator</em>, 2025, <a
-href="https://github.com/leanprover/comparator">GitHub</a>.</p></li>
+href="https://github.com/leanprover/comparator" data-link-kind="exogenous" rel="external noopener">GitHub</a>.</p></li>
 <li id="ref-20"><p><code>ammkrn</code>, <em>nanoda_lib</em>, an independent <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-type-checker" data-term="type_checker" data-term-auto="1">type
 checker</a> for Lean 4, <a
-href="https://github.com/ammkrn/nanoda_lib">GitHub</a>.</p></li>
+href="https://github.com/ammkrn/nanoda_lib" data-link-kind="exogenous" rel="external noopener">GitHub</a>.</p></li>
 <li id="ref-21"><p>T. F. Bloom, <em>Erdős Problem #1041</em>, <a
-href="https://www.erdosproblems.com/1041">erdosproblems.com</a>,
+href="https://www.erdosproblems.com/1041" data-link-kind="exogenous" rel="external noopener">erdosproblems.com</a>,
 accessed September 2026.</p></li>
 <li id="ref-22"><p>P. Erdős, F. Herzog and G. Piranian, <em>Metric properties of
 polynomials</em>, J. Analyse Math. 6 (1958), 125–148, <a
-href="https://doi.org/10.1007/BF02790232">DOI</a>.</p></li>
+href="https://doi.org/10.1007/BF02790232" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-23"><p><code>ani</code>, post in the Problem 1041 discussion thread, 7
 September 2026, <a
-href="https://www.erdosproblems.com/forum/thread/1041#post-8861">erdosproblems.com
+href="https://www.erdosproblems.com/forum/thread/1041#post-8861" data-link-kind="exogenous" rel="external noopener">erdosproblems.com
 forum</a>.</p></li>
 <li id="ref-24"><p>Formal Conjectures, pull request 6505, <em>Erdős 1041: mark
 solved with answer(False) and link a formal proof</em>, merged 23
 September 2026, <a
-href="https://github.com/google-deepmind/formal-conjectures/pull/6505">GitHub</a>.</p></li>
+href="https://github.com/google-deepmind/formal-conjectures/pull/6505" data-link-kind="exogenous" rel="external noopener">GitHub</a>.</p></li>
 <li id="ref-25"><p>T. Zheng, X. Wu, Z. Zhang, et al., <em>Dream-RSI: Recursive
 Self-Improvement through Evolving Worlds</em>, 2026, <a
-href="https://arxiv.org/abs/2609.14858">arXiv:2609.14858</a>.</p></li>
+href="https://arxiv.org/abs/2609.14858" data-link-kind="exogenous" rel="external noopener">arXiv:2609.14858</a>.</p></li>
 <li id="ref-26"><p>J. H. Loxton and A. J. van der Poorten, <em>Arithmetic properties
 of certain functions in several variables III</em>, Bull. Austral. Math.
 Soc. <strong>16</strong> (1977), 15–47.</p></li>
@@ -1612,57 +1612,57 @@ fraction expansion of values of Hecke–Mahler series</em>, Acta Arith.
 <strong>209</strong> (2023), 59–90.</p></li>
 <li id="ref-28"><p>W. Cook, <em>Distinct running least common multiples</em>, short
 paper on Erdős Problem 269, September 2026, <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/269/erdos-269-three-prime-running-lcm.pdf"><code>PDF</code></a>.</p></li>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/269/erdos-269-three-prime-running-lcm.pdf" data-link-kind="exogenous" rel="external noopener"><code>PDF</code></a>.</p></li>
 <li id="ref-29"><p>S. Fan, comment on Erdős Problem #269, erdosproblems.com forum,
 26 June 2026, <a
-href="https://www.erdosproblems.com/forum/thread/269#post-7218">forum
+href="https://www.erdosproblems.com/forum/thread/269#post-7218" data-link-kind="exogenous" rel="external noopener">forum
 post</a>.</p></li>
 <li id="ref-30"><p>N. Patel, A. Rammal, A. Hayat, R. Munos, and J. Kempe,
 <em>Learning to Discover Interesting Mathematics</em>,
 arXiv:2609.28603v1, 2026, <a
-href="https://arxiv.org/abs/2609.28603v1">arXiv:2609.28603v1</a>.</p></li>
+href="https://arxiv.org/abs/2609.28603v1" data-link-kind="exogenous" rel="external noopener">arXiv:2609.28603v1</a>.</p></li>
 <li id="ref-31"><p>S. Chen, K. Marwaha, X. Lu, H. Yuen, and T. Peng, <em>Prove2Me:
 An Open Collaborative Platform for Scaling Math Formalization</em>,
 2026, <a
-href="https://doi.org/10.48550/arXiv.2608.28433">arXiv</a>.</p></li>
+href="https://doi.org/10.48550/arXiv.2608.28433" data-link-kind="exogenous" rel="external noopener">arXiv</a>.</p></li>
 <li id="ref-32"><p>T. Feng, T. H. Trinh, G. Bingham, et al., <em>Towards Autonomous
 Mathematics Research</em>, 2026, <a
-href="https://doi.org/10.48550/arXiv.2602.10177">arXiv</a>.</p></li>
+href="https://doi.org/10.48550/arXiv.2602.10177" data-link-kind="exogenous" rel="external noopener">arXiv</a>.</p></li>
 <li id="ref-33"><p>T. Tao, <em>AI contributions to Erdős problems</em>, <a
-href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems">GitHub</a>,
+href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems" data-link-kind="exogenous" rel="external noopener">GitHub</a>,
 accessed September 2026.</p></li>
 <li id="ref-34"><p>T. Ringer, <em>Becoming a benchmark</em>, guest post on
 <em>What’s new</em>, 17 September 2026, <a
-href="https://terrytao.wordpress.com/2026/09/17/becoming-a-benchmark/">blog
+href="https://terrytao.wordpress.com/2026/09/17/becoming-a-benchmark/" data-link-kind="exogenous" rel="external noopener">blog
 post</a>.</p></li>
 <li id="ref-35"><p>P. Massot, <em>leanblueprint</em>, plasTeX plugin for Lean
 formalisation blueprints, 2020, <a
-href="https://github.com/PatrickMassot/leanblueprint">software
+href="https://github.com/PatrickMassot/leanblueprint" data-link-kind="exogenous" rel="external noopener">software
 repository</a>.</p></li>
 <li id="ref-36"><p>Y. Zhang, Y. Sun, T. Suzuki, J. D. Lee, and F. Liu,
 <em>LeanMarathon: Toward Reliable AI Co-Mathematicians through
 Long-Horizon Lean Autoformalization</em>, 2026, <a
-href="https://arxiv.org/abs/2606.05400">arXiv:2606.05400</a>.</p></li>
+href="https://arxiv.org/abs/2606.05400" data-link-kind="exogenous" rel="external noopener">arXiv:2606.05400</a>.</p></li>
 <li id="ref-37"><p>S. Hattori, T. Matsuzaki, and M. Fujiwara, <em>Natural Language
 Translation of Formal Proofs through Informalization of Proof Steps and
 Recursive Summarization along Proof Structure</em>, in <em>Proceedings
 of the 18th International Natural Language Generation Conference</em>,
 2025, pp. 376–389, <a
-href="https://aclanthology.org/2025.inlg-main.23/">ACL
+href="https://aclanthology.org/2025.inlg-main.23/" data-link-kind="exogenous" rel="external noopener">ACL
 Anthology</a>.</p></li>
 <li id="ref-38"><p>S. Akiyama and H. Kaneko, <em>Multiplicative analogue of
 Markoff–Lagrange spectrum and Pisot numbers</em>, Adv. Math. 380 (2021),
 107547, p. 3, reporting the theorem of A. Dubickas, J. Number Theory 117
 (2006), 222–239, <a
-href="https://arxiv.org/abs/1911.06170v6">arXiv:1911.06170v6</a>.</p></li>
+href="https://arxiv.org/abs/1911.06170v6" data-link-kind="exogenous" rel="external noopener">arXiv:1911.06170v6</a>.</p></li>
 <li id="ref-39"><p>K. Yang et al., <em>LeanDojo: Theorem Proving with
 Retrieval-Augmented Language Models</em>, NeurIPS 2023, Datasets and
 Benchmarks Track, <a
-href="https://arxiv.org/abs/2306.15626">arXiv:2306.15626</a>.</p></li>
+href="https://arxiv.org/abs/2306.15626" data-link-kind="exogenous" rel="external noopener">arXiv:2306.15626</a>.</p></li>
 <li id="ref-40"><p>C. Li, Z. Lai, D. An, J. Hu, and Z. Wen, <em>Advancing
 Mathematical Research via Human-AI Interactive Theorem Proving</em>,
 2025, <a
-href="https://arxiv.org/abs/2512.09443v2">arXiv:2512.09443v2</a>.</p></li>
+href="https://arxiv.org/abs/2512.09443v2" data-link-kind="exogenous" rel="external noopener">arXiv:2512.09443v2</a>.</p></li>
 <li id="ref-41"><p>U. Kohlenbach, <em>Applied Proof Theory: Proof Interpretations
 and their Use in Mathematics</em>, Springer Monographs in Mathematics,
 Springer, Berlin, 2008.</p></li>
@@ -1670,102 +1670,102 @@ Springer, Berlin, 2008.</p></li>
 Generalizing Proofs and Statements</em>, in <em>16th International
 Conference on Interactive Theorem Proving</em>, LIPIcs 352, 2025,
 pp. 12:1–12:18, <a
-href="https://doi.org/10.4230/LIPIcs.ITP.2025.12">DOI</a>.</p></li>
+href="https://doi.org/10.4230/LIPIcs.ITP.2025.12" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-43"><p>Lean community, <em>Batteries</em>, the
 <code>unusedArguments</code> linter in
 <code>Batteries/Tactic/Lint/Misc.lean</code>, <a
-href="https://github.com/leanprover-community/batteries">GitHub</a>,
+href="https://github.com/leanprover-community/batteries" data-link-kind="exogenous" rel="external noopener">GitHub</a>,
 accessed September 2026.</p></li>
 <li id="ref-44"><p>J. Xin, A. Schneidman, C. Cummins, K. Ram, S. Ganesh, and
 J. Limperg, <em>AXLE: A Cloud Infrastructure for Lean 4 Theorem Proving
 Utilities</em>, 2026, <a
-href="https://arxiv.org/abs/2606.26442">arXiv:2606.26442</a>.</p></li>
+href="https://arxiv.org/abs/2606.26442" data-link-kind="exogenous" rel="external noopener">arXiv:2606.26442</a>.</p></li>
 <li id="ref-45"><p>X. Li, N. Peng, S. Severini, and P. Shafto, <em>The Network
 Structure of Mathlib</em>, 2026, <a
-href="https://arxiv.org/abs/2604.24797">arXiv:2604.24797</a>.</p></li>
+href="https://arxiv.org/abs/2604.24797" data-link-kind="exogenous" rel="external noopener">arXiv:2604.24797</a>.</p></li>
 <li id="ref-46"><p>F. Huch, <em>Structure in Theorem Proving: Analyzing and
 Improving the Isabelle Archive of Formal Proofs</em>, extended abstract,
 2022, <a
-href="https://arxiv.org/abs/2209.13305">arXiv:2209.13305</a>.</p></li>
+href="https://arxiv.org/abs/2209.13305" data-link-kind="exogenous" rel="external noopener">arXiv:2209.13305</a>.</p></li>
 <li id="ref-47"><p>J. de Kleer, <em>An assumption-based TMS</em>, Artificial
 Intelligence 28 (1986), 127–162, <a
-href="https://doi.org/10.1016/0004-3702(86)90080-9">DOI</a>.</p></li>
+href="https://doi.org/10.1016/0004-3702(86)90080-9" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-48"><p>A. Mokhov, N. Mitchell, and S. Peyton Jones, <em>Build Systems à
 la Carte</em>, Proc. ACM Program. Lang. 2 (ICFP), 2018, article 79, <a
-href="https://doi.org/10.1145/3236774">DOI</a>.</p></li>
+href="https://doi.org/10.1145/3236774" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-49"><p>T. Zhu, J. Clune, J. Avigad, A. Q. Jiang, and S. Welleck,
 <em>Premise Selection for a Lean Hammer</em>, 2025, revised 2026, <a
-href="https://arxiv.org/abs/2506.07477">arXiv:2506.07477</a>.</p></li>
+href="https://arxiv.org/abs/2506.07477" data-link-kind="exogenous" rel="external noopener">arXiv:2506.07477</a>.</p></li>
 <li id="ref-50"><p>J. Limperg and A. H. From, <em>Aesop: White-Box Best-First Proof
 Search for Lean</em>, in <em>Proceedings of the 12th ACM SIGPLAN
 International Conference on Certified Programs and Proofs</em>, 2023,
 pp. 253–266, <a
-href="https://doi.org/10.1145/3573105.3575671">DOI</a>.</p></li>
+href="https://doi.org/10.1145/3573105.3575671" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-51"><p>Lean community, <em>Plausible</em>, a property testing framework
 for Lean 4, <a
-href="https://github.com/leanprover-community/plausible">GitHub</a>,
+href="https://github.com/leanprover-community/plausible" data-link-kind="exogenous" rel="external noopener">GitHub</a>,
 accessed September 2026.</p></li>
 <li id="ref-52"><p>H. Chockler, A. Gurfinkel, and O. Strichman, <em>Beyond Vacuity:
 Towards the Strongest Passing Formula</em>, Form. Methods Syst. Des. 43
 (2013), 552–571, <a
-href="https://doi.org/10.1007/s10703-013-0192-6">DOI</a>.</p></li>
+href="https://doi.org/10.1007/s10703-013-0192-6" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-53"><p>C. Kaliszyk and J. Urban, <em>Lemma Mining over HOL Light</em>,
 LPAR-19, LNCS 8312, 2013, pp. 503–517, <a
-href="https://doi.org/10.1007/978-3-642-45221-5_34">DOI</a>.</p></li>
+href="https://doi.org/10.1007/978-3-642-45221-5_34" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-54"><p>M. Johansson, D. Rosén, N. Smallbone, and K. Claessen,
 <em>Hipster: Integrating Theory Exploration in a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof-assistant" data-term="proof_assistant" data-term-auto="1">Proof Assistant</a></em>,
 CICM 2014, LNCS 8543, pp. 108–122, <a
-href="https://doi.org/10.1007/978-3-319-08434-3_9">DOI</a>.</p></li>
+href="https://doi.org/10.1007/978-3-319-08434-3_9" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-55"><p>K. Ellis et al., <em>DreamCoder: Growing Generalizable,
 Interpretable Knowledge with Wake-Sleep Bayesian Program Learning</em>,
 2020, <a
-href="https://arxiv.org/abs/2006.08381">arXiv:2006.08381</a>.</p></li>
+href="https://arxiv.org/abs/2006.08381" data-link-kind="exogenous" rel="external noopener">arXiv:2006.08381</a>.</p></li>
 <li id="ref-56"><p>H. Wang, H. Xin, et al., <em>LEGO-Prover: Neural Theorem Proving
 with Growing Libraries</em>, ICLR 2024, <a
-href="https://arxiv.org/abs/2310.00656">arXiv:2310.00656</a>.</p></li>
+href="https://arxiv.org/abs/2310.00656" data-link-kind="exogenous" rel="external noopener">arXiv:2310.00656</a>.</p></li>
 <li id="ref-57"><p>Y. Zhang, J. Sun, et al., <em>DreamProver: Evolving Transferable
 Lemma Libraries via a Wake-Sleep Theorem-Proving Agent</em>, 2026, <a
-href="https://arxiv.org/abs/2604.26311">arXiv:2604.26311</a>.</p></li>
+href="https://arxiv.org/abs/2604.26311" data-link-kind="exogenous" rel="external noopener">arXiv:2604.26311</a>.</p></li>
 <li id="ref-58"><p>W. Ye, Z. Guan, et al., <em>ProofEvolve: Neuro-Symbolic Evolution
 for Formal Automated Theorem Proving</em>, 2026, <a
-href="https://arxiv.org/abs/2608.26334">arXiv:2608.26334</a>.</p></li>
+href="https://arxiv.org/abs/2608.26334" data-link-kind="exogenous" rel="external noopener">arXiv:2608.26334</a>.</p></li>
 <li id="ref-59"><p>S. Böhme and T. Nipkow, <em>Sledgehammer: Judgement Day</em>,
 IJCAR 2010, LNCS 6173, pp. 107–121, <a
-href="https://doi.org/10.1007/978-3-642-14203-1_9">DOI</a>.</p></li>
+href="https://doi.org/10.1007/978-3-642-14203-1_9" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-60"><p>I. Berlot-Attwell, T. Sesterhenn, F. Rudzicz, and X. Si, <em>Is
 This LLM Library Learning? Evaluation Must Account For Compute and
 Behaviour</em>, EACL 2026, pp. 3534–3568, <a
-href="https://doi.org/10.18653/v1/2026.eacl-long.163">DOI</a>.</p></li>
+href="https://doi.org/10.18653/v1/2026.eacl-long.163" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-61"><p>Y. Fu, P. Liu, Z. Wang, and K. Yuan, <em>Proof-Refactor:
 Refactoring Generated Formal Proofs into Modular Artifacts</em>, 2026,
 <a
-href="https://arxiv.org/abs/2606.03743">arXiv:2606.03743</a>.</p></li>
+href="https://arxiv.org/abs/2606.03743" data-link-kind="exogenous" rel="external noopener">arXiv:2606.03743</a>.</p></li>
 <li id="ref-62"><p>N. Onda et al., <em>LeanConjecturer: Automatic Generation of
 Mathematical Conjectures for Theorem Proving</em>, 2025, <a
-href="https://arxiv.org/abs/2506.22005">arXiv:2506.22005</a>.</p></li>
+href="https://arxiv.org/abs/2506.22005" data-link-kind="exogenous" rel="external noopener">arXiv:2506.22005</a>.</p></li>
 <li id="ref-63"><p>D. Litt, <em>A beginning for mathematics</em>, 13 September 2026,
 <a
-href="https://www.daniellitt.com/blog/2026/9/13/a-beginning-for-mathematics/">blog
+href="https://www.daniellitt.com/blog/2026/9/13/a-beginning-for-mathematics/" data-link-kind="exogenous" rel="external noopener">blog
 post</a>.</p></li>
 <li id="ref-64"><p>T. Chu, <em>The AI dissenter viewpoint</em>, <em>Proofs and
 Prompts</em>, 9 August 2026, <a
-href="https://proofsandprompts.com/2026/08/09/the-ai-dissenter-viewpoint/">blog
+href="https://proofsandprompts.com/2026/08/09/the-ai-dissenter-viewpoint/" data-link-kind="exogenous" rel="external noopener">blog
 post</a>.</p></li>
 <li id="ref-65"><p>B. Green and forty-one other Fellows and Foreign Members of the
 Royal Society, <em>Open letter to Sir Paul Nurse, President of the Royal
 Society</em>, <em>Proofs and Prompts</em>, 17 September 2026, <a
-href="https://proofsandprompts.com/2026/09/17/open-letter-to-sir-paul-nurse-president-of-the-royal-society/">blog
+href="https://proofsandprompts.com/2026/09/17/open-letter-to-sir-paul-nurse-president-of-the-royal-society/" data-link-kind="exogenous" rel="external noopener">blog
 post</a>.</p></li>
 <li id="ref-66"><p>W. T. Gowers, <em>Why I didn’t sign the Fields medallists’
 letter</em>, 17 September 2026, <a
-href="https://gowers.wordpress.com/2026/09/17/why-i-didnt-sign-the-fields-medallists-letter/">blog
+href="https://gowers.wordpress.com/2026/09/17/why-i-didnt-sign-the-fields-medallists-letter/" data-link-kind="exogenous" rel="external noopener">blog
 post</a>.</p></li>
 <li id="ref-67"><p>D. Koukoulopoulos, <em>A CERN for AI-assisted science?</em>,
 guest post on <em>What’s new</em>, 17 September 2026, <a
-href="https://terrytao.wordpress.com/2026/09/17/a-cern-for-ai-assisted-science/">blog
+href="https://terrytao.wordpress.com/2026/09/17/a-cern-for-ai-assisted-science/" data-link-kind="exogenous" rel="external noopener">blog
 post</a>.</p></li>
 <li id="ref-68"><p>B. Antieau, <em>Fast math/slow math</em>, 15 September 2026, <a
-href="https://antieau.github.io/2026/09/15/fast-math-slow-math.html">blog
+href="https://antieau.github.io/2026/09/15/fast-math-slow-math.html" data-link-kind="exogenous" rel="external noopener">blog
 post</a>.</p></li>
 <li id="ref-69"><p>D. E. Knuth, T. Larrabee and P. M. Roberts. <em>Mathematical
 Writing</em>. Stanford report CS1193, based on the autumn 1987 course,
@@ -1786,46 +1786,46 @@ Autoformalization</em>. arXiv:2406.07222v3, 2025.</p></li>
 <li id="ref-74"><p>T. Zhu, P. Monticone, J. Avigad and S. Welleck.
 <em>LeanArchitect: Automating Blueprint Generation for Humans and
 AI</em>. <a
-href="https://arxiv.org/abs/2601.22554v1">arXiv:2601.22554v1</a>, 2026,
+href="https://arxiv.org/abs/2601.22554v1" data-link-kind="exogenous" rel="external noopener">arXiv:2601.22554v1</a>, 2026,
 Methods and Case Studies.</p></li>
 <li id="ref-75"><p>M. Bolan et al. <em>The Equational Theories Project: Advancing
 Collaborative Mathematical Research at Scale</em>. <a
-href="https://arxiv.org/abs/2512.07087v2">arXiv:2512.07087v2</a>, 2025,
+href="https://arxiv.org/abs/2512.07087v2" data-link-kind="exogenous" rel="external noopener">arXiv:2512.07087v2</a>, 2025,
 Project Management and Data Management.</p></li>
 <li id="ref-76"><p>The mathlib Community. <em>The Lean Mathematical Library</em>.
 CPP 2020. DOI: <a
-href="https://doi.org/10.1145/3372885.3373824">10.1145/3372885.3373824</a>.</p></li>
+href="https://doi.org/10.1145/3372885.3373824" data-link-kind="exogenous" rel="external noopener">10.1145/3372885.3373824</a>.</p></li>
 <li id="ref-77"><p>Google DeepMind. <em>Formal Conjectures</em>. <a
-href="https://github.com/google-deepmind/formal-conjectures">Repository
+href="https://github.com/google-deepmind/formal-conjectures" data-link-kind="exogenous" rel="external noopener">Repository
 README</a>, consulted 29 September 2026; descriptive context
 only.</p></li>
 <li id="ref-78"><p>A. Novikov et al. <em>AlphaEvolve: A coding agent for scientific
 and algorithmic discovery</em>. <a
-href="https://arxiv.org/abs/2506.13131v1">arXiv:2506.13131v1</a>, 2025,
+href="https://arxiv.org/abs/2506.13131v1" data-link-kind="exogenous" rel="external noopener">arXiv:2506.13131v1</a>, 2025,
 Task Specification and Evolution.</p></li>
 <li id="ref-79"><p>B. Georgiev, J. Gómez-Serrano, T. Tao and A. Z. Wagner.
 <em>Mathematical exploration and discovery at scale</em>. <a
-href="https://arxiv.org/abs/2511.02864v3">arXiv:2511.02864v3</a>,
+href="https://arxiv.org/abs/2511.02864v3" data-link-kind="exogenous" rel="external noopener">arXiv:2511.02864v3</a>,
 2025.</p></li>
 <li id="ref-80"><p>C. E. Brown, C. Kaliszyk and J. Urban. <em>Agent Hunt: Bounty
 Based Collaborative Autoformalization With LLM Agents</em>. <a
-href="https://arxiv.org/abs/2603.06737v1">arXiv:2603.06737v1</a>,
+href="https://arxiv.org/abs/2603.06737v1" data-link-kind="exogenous" rel="external noopener">arXiv:2603.06737v1</a>,
 2026.</p></li>
 <li id="ref-81"><p>M. Kripner and M. Straka. <em>OpenProver: Agentic and Interactive
 Theorem Proving with Lean 4</em>. <a
-href="https://arxiv.org/abs/2607.09217v1">arXiv:2607.09217v1</a>, 2026,
+href="https://arxiv.org/abs/2607.09217v1" data-link-kind="exogenous" rel="external noopener">arXiv:2607.09217v1</a>, 2026,
 State and Memory Management.</p></li>
 <li id="ref-82"><p>D. Ma et al. <em>OProver: A Unified Framework for Agentic Formal
 Theorem Proving</em>. <a
-href="https://arxiv.org/abs/2605.17283v1">arXiv:2605.17283v1</a>, 2026,
+href="https://arxiv.org/abs/2605.17283v1" data-link-kind="exogenous" rel="external noopener">arXiv:2605.17283v1</a>, 2026,
 Introduction.</p></li>
 <li id="ref-83"><p>Z. Yang et al. <em>CircuitProver: Agentic Lean 4 Theorem Proving
 with Reusable Circuit Proof Library for Hardware Verification</em>. <a
-href="https://arxiv.org/abs/2607.27259v1">arXiv:2607.27259v1</a>,
+href="https://arxiv.org/abs/2607.27259v1" data-link-kind="exogenous" rel="external noopener">arXiv:2607.27259v1</a>,
 2026.</p></li>
 <li id="ref-84"><p>H. Wijk et al. <em>RE-Bench: Evaluating <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a> AI R&amp;D
 capabilities of language model agents against human experts</em>. <a
-href="https://arxiv.org/abs/2411.15114v1">arXiv:2411.15114v1</a>, 2024;
+href="https://arxiv.org/abs/2411.15114v1" data-link-kind="exogenous" rel="external noopener">arXiv:2411.15114v1</a>, 2024;
 official abstract used here.</p></li>
 <li id="ref-85"><p>P. R. Halmos. <em>How to Write Mathematics</em>. L’Enseignement
 Mathématique 16 (1970), 123–152; sections on organising a mathematical
@@ -1835,81 +1835,81 @@ Supplied anthology, <code>AI_ESSAYS_SOURCE.pdf</code>, snapshot 22
 September 2026; Kra, pp. 31–33; Riehl, pp. 39–40; Cohn, pp. 41–44;
 Gowers, pp. 55–60; Sanderson, pp. 73–77. Riehl’s essay is also available
 as <a
-href="https://terrytao.wordpress.com/2026/09/14/why-i-do-mathematical-research/">Why
+href="https://terrytao.wordpress.com/2026/09/14/why-i-do-mathematical-research/" data-link-kind="exogenous" rel="external noopener">Why
 I do mathematical research</a>.</p></li>
 <li id="ref-87"><p>L. Becker et al., <em>A Blueprint for the Formalization of
 Carleson’s Theorem on Convergence of Fourier Series</em>, 2025, <a
-href="https://doi.org/10.48550/arXiv.2405.06423">arXiv:2405.06423</a>.</p></li>
+href="https://doi.org/10.48550/arXiv.2405.06423" data-link-kind="exogenous" rel="external noopener">arXiv:2405.06423</a>.</p></li>
 <li id="ref-88"><p>L. Aniva, C. Sun, B. Miranda, C. Barrett, and S. Koyejo,
 <em>Pantograph: A Machine-to-Machine Interaction Interface for Advanced
 Theorem Proving, High Level Reasoning, and Data Extraction in Lean
 4</em>, in <em>Tools and Algorithms for the Construction and Analysis of
 Systems</em>, 2025, pp. 116–137, <a
-href="https://doi.org/10.1007/978-3-031-90643-5_6">DOI</a>.</p></li>
+href="https://doi.org/10.1007/978-3-031-90643-5_6" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-89"><p>S. Kurgan et al., <em>TheoremGraph: Bridging Formal and Informal
 Mathematics</em>, 2026, <a
-href="https://doi.org/10.48550/arXiv.2606.25363">arXiv:2606.25363</a>.</p></li>
+href="https://doi.org/10.48550/arXiv.2606.25363" data-link-kind="exogenous" rel="external noopener">arXiv:2606.25363</a>.</p></li>
 <li id="ref-90"><p>J. Asher, <em>LeanExplore: A Search Engine for Lean 4
 Declarations</em>, 2025, <a
-href="https://doi.org/10.48550/arXiv.2506.11085">arXiv:2506.11085</a>.</p></li>
+href="https://doi.org/10.48550/arXiv.2506.11085" data-link-kind="exogenous" rel="external noopener">arXiv:2506.11085</a>.</p></li>
 <li id="ref-91"><p>G. Gao et al., <em>LeanSearch v2: Global Premise Retrieval for
 Lean 4 Theorem Proving</em>, 2026, <a
-href="https://doi.org/10.48550/arXiv.2605.13137">arXiv:2605.13137</a>.</p></li>
+href="https://doi.org/10.48550/arXiv.2605.13137" data-link-kind="exogenous" rel="external noopener">arXiv:2605.13137</a>.</p></li>
 <li id="ref-92"><p>A. Baanen, M. R. Ballard, J. Commelin, B. Gin-ge Chen,
 M. Rothgang, and D. Testa, <em>Growing Mathlib: Maintenance of a Large
 Scale Mathematical Library</em>, in <em>Intelligent Computer
 Mathematics</em>, 2025, <a
-href="https://doi.org/10.48550/arXiv.2508.21593">arXiv:2508.21593</a>.</p></li>
+href="https://doi.org/10.48550/arXiv.2508.21593" data-link-kind="exogenous" rel="external noopener">arXiv:2508.21593</a>.</p></li>
 <li id="ref-93"><p>B. Yanahama and A. Sannai, <em>Lean Atlas: An Integrated Proof
 Environment for Scalable Human–AI Collaborative Formalization</em>,
 2026, <a
-href="https://doi.org/10.48550/arXiv.2604.16347">arXiv:2604.16347</a>.</p></li>
+href="https://doi.org/10.48550/arXiv.2604.16347" data-link-kind="exogenous" rel="external noopener">arXiv:2604.16347</a>.</p></li>
 <li id="ref-94"><p>R. Souza, T. Poteet, B. Etz, D. Rosendo, A. Gueroudji, W. Shin,
 P. Balaprakash, and R. Ferreira da Silva, <em>LLM Agents for Interactive
 Workflow Provenance: Reference Architecture and Evaluation
 Methodology</em>, WORKS at the ACM/IEEE International Conference for
 High Performance Computing, Networking, Storage and Analysis, 2025, <a
-href="https://doi.org/10.1145/3731599.3767582">DOI</a>.</p></li>
+href="https://doi.org/10.1145/3731599.3767582" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-95"><p>S. Abedu, S. Khatoonabadi, and E. Shihab, <em>Synergizing LLMs
 and Knowledge Graphs: A Novel Approach to Software Repository-Related
 Question Answering</em>, 2024, revised 2025, <a
-href="https://arxiv.org/abs/2412.03815">arXiv:2412.03815</a>.</p></li>
+href="https://arxiv.org/abs/2412.03815" data-link-kind="exogenous" rel="external noopener">arXiv:2412.03815</a>.</p></li>
 <li id="ref-96"><p>T. Tao, <em>Mathematics in the age of AI</em>, 2026, <a
-href="https://arxiv.org/abs/2608.16753">arXiv:2608.16753</a>.</p></li>
+href="https://arxiv.org/abs/2608.16753" data-link-kind="exogenous" rel="external noopener">arXiv:2608.16753</a>.</p></li>
 <li id="ref-97"><p>D. P. Anderson, <em>BOINC: A Platform for Volunteer
 Computing</em>, Journal of Grid Computing 18 (2020), 99–122, <a
-href="https://doi.org/10.1007/s10723-019-09497-9">DOI</a>.</p></li>
+href="https://doi.org/10.1007/s10723-019-09497-9" data-link-kind="exogenous" rel="external noopener">DOI</a>.</p></li>
 <li id="ref-98"><p>Great Internet Mersenne Prime Search, <em>GIMPS</em>, project
 documentation and discovery-credit record, <a
-href="https://www.mersenne.org/">mersenne.org</a>, accessed August
+href="https://www.mersenne.org/" data-link-kind="exogenous" rel="external noopener">mersenne.org</a>, accessed August
 2026.</p></li>
 <li id="ref-99"><p>Polymath Project, <em>General polymath rules</em>, <a
-href="https://polymathprojects.org/general-polymath-rules/">project
+href="https://polymathprojects.org/general-polymath-rules/" data-link-kind="exogenous" rel="external noopener">project
 rules</a>, accessed August 2026.</p></li>
 <li id="ref-100"><p>Lean community, <em>Contributing to mathlib</em>, <a
-href="https://leanprover-community.github.io/contribute/index.html">contributor
+href="https://leanprover-community.github.io/contribute/index.html" data-link-kind="exogenous" rel="external noopener">contributor
 guide</a>, accessed August 2026.</p></li>
 <li id="ref-101"><p>Palomar Registry, <em>About Palomar</em> and <em>Contribution
 policy</em>, <a href="https://palomar-registry.org/about" data-link-kind="exogenous" rel="external noopener">registry
 documentation</a> and <a
-href="https://github.com/PalomarRegistry/PalomarPolicy/blob/main/CONTRIBUTING.md">submission
+href="https://github.com/PalomarRegistry/PalomarPolicy/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">submission
 standard</a>, accessed August 2026.</p></li>
 <li id="ref-102"><p>J. Henkel, <em>The Mathematician’s Assistant: Integrating AI into
 Research Practice</em>, 2025, <a
-href="https://arxiv.org/abs/2508.20236">arXiv:2508.20236</a>.</p></li>
+href="https://arxiv.org/abs/2508.20236" data-link-kind="exogenous" rel="external noopener">arXiv:2508.20236</a>.</p></li>
 <li id="ref-103"><p>J. Dekoninck et al., <em>The Open Proof Corpus: A Large-Scale
 Study of LLM-Generated Mathematical Proofs</em>, 2025, <a
-href="https://arxiv.org/abs/2506.21621">arXiv:2506.21621</a>.</p></li>
+href="https://arxiv.org/abs/2506.21621" data-link-kind="exogenous" rel="external noopener">arXiv:2506.21621</a>.</p></li>
 <li id="ref-104"><p>NISO, <em>CRediT: Contributor Roles Taxonomy</em>, <a
-href="https://credit.niso.org/contributor-roles-defined/">role
+href="https://credit.niso.org/contributor-roles-defined/" data-link-kind="exogenous" rel="external noopener">role
 definitions</a>, accessed August 2026.</p></li>
 <li id="ref-105"><p>GitHub, <em>Preventing pwn requests</em>, GitHub Actions security
 guidance, <a
-href="https://docs.github.com/en/actions/reference/security/secure-use">documentation</a>,
+href="https://docs.github.com/en/actions/reference/security/secure-use" data-link-kind="exogenous" rel="external noopener">documentation</a>,
 accessed August 2026.</p></li>
 <li id="ref-106"><p>M. Yuan et al., <em>End-to-End Testing of Open-Source Hardware
 Documentation Developed in Large Collaborations</em>, 2023, <a
-href="https://arxiv.org/abs/2309.05942">arXiv:2309.05942</a>.</p></li>
+href="https://arxiv.org/abs/2309.05942" data-link-kind="exogenous" rel="external noopener">arXiv:2309.05942</a>.</p></li>
 </ol>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
@@ -1946,7 +1946,7 @@ class="footnote-back" role="doc-backlink">↩︎</a></p></li>
       <section class="paper-foot" id="about-paper" aria-labelledby="about-paper-title">
         <h2 class="paper-foot__title" id="about-paper-title">About this paper</h2>
         <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
-        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
+        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff" data-link-kind="exogenous" rel="external noopener">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
         <p class="paper-foot__label">Prefer the manuscript?</p>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/claim-faithful-publication-systems-paper.pdf"><span class="btn__format">PDF</span>Open the PDF, 25&nbsp;pages</a>

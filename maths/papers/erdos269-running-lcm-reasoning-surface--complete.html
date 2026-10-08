@@ -28,11 +28,11 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/style.css?v=655f8f276dff">
-  <link rel="stylesheet" href="../assets/maths.css?v=1e652ab204f6">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=1eb60a8b10c2"></script></template>
+  <link rel="stylesheet" href="../../assets/style.css?v=21e585488b71">
+  <link rel="stylesheet" href="../assets/maths.css?v=988ea40d1d74">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=4ef1d16f00fb"></script></template>
   <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
-  <script defer src="../assets/maths.js?v=2481459dc144"></script>
+  <script defer src="../assets/maths.js?v=eb35fe169ca1"></script>
   <meta name="author" content="Will Cook">
   <meta name="citation_title" content="Running least common multiples: distinct values and multiplicities">
   <meta name="citation_author" content="Will Cook">
@@ -476,20 +476,20 @@ factorisation, since it would imply <span
 class="math inline" data-term-auto="off" data-tex="\(2^\ell=3^c\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c2113 STX-S">ℓ</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-msup space="4"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D450">𝑐</mjx-c></mjx-mi></mjx-script></mjx-msup></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mn>2</mn><mi>ℓ</mi></msup><mo>=</mo><msup><mn>3</mn><mi>c</mi></msup></math></mjx-assistive-mml></mjx-container></span>. ◻</p>
 </div>
 <p>The Lean proof follows this route. It <a
-href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L60">identifies
+href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L60" data-link-kind="exogenous" rel="external noopener">identifies
 <span class="math inline" data-term-auto="off" data-tex="\(\operatorname{H}(t)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c48">H</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2061">⁡</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi data-mjx-texclass="OP" mathvariant="normal">H</mi><mo data-mjx-texclass="NONE">⁡</mo><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> with the
 running least common multiple</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L698">shows
+href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L698" data-link-kind="exogenous" rel="external noopener">shows
 that the sum counts each distinct value once</a>, identifies the
 contribution of each <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> block with one of the five pairs <span
 class="math inline" data-term-auto="off" data-tex="\((b_\tau,\mu_\tau)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44F">𝑏</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D70F">𝜏</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-msub space="2"><mjx-mi><mjx-c class="mjx-c1D707">𝜇</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D70F">𝜏</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><msub><mi>b</mi><mi>τ</mi></msub><mo>,</mo><msub><mi>μ</mi><mi>τ</mi></msub><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>, and proves that <a
-href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L437">every
+href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L437" data-link-kind="exogenous" rel="external noopener">every
 three consecutive blocks contain a power of <span
 class="math inline" data-term-auto="off" data-tex="\(5\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c35">5</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>5</mn></math></mjx-assistive-mml></mjx-container></span></a> and that <a
-href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L494">the
+href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L494" data-link-kind="exogenous" rel="external noopener">the
 blocks containing a power of <span class="math inline" data-term-auto="off" data-tex="\(3\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn></math></mjx-assistive-mml></mjx-container></span> are
 not eventually periodic</a>. It then applies an <a
-href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightBlockRadix.lean#L340">irrationality
+href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightBlockRadix.lean#L340" data-link-kind="exogenous" rel="external noopener">irrationality
 criterion for block series with these five pairs</a>, whose proof
 contains the bounds, the separation and the return above.</p>
 <p>The first twelve block types are <span
@@ -1368,7 +1368,7 @@ to every chain.</p>
 <section id="exact-illustrations." class="level5">
 <h5>Exact illustrations.</h5>
 <p>The program <code>two_tail.py</code> of the <a
-href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height">programs
+href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height" data-link-kind="exogenous" rel="external noopener">programs
 for sums over distinct values</a> checks the finite facts above in <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exact-rational-arithmetic" data-term="exact_rational_arithmetic" data-term-auto="1">exact
 arithmetic</a>; the proof uses none of them. Among the sets of two or three
 primes below <span class="math inline" data-term-auto="off" data-tex="\(200\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>200</mn></math></mjx-assistive-mml></mjx-container></span>, <span
@@ -1691,7 +1691,7 @@ class="math inline" data-term-auto="off" data-tex="\(\mathcal D_P\)" data-math-r
 <div class="proof">
 <p><em>Proof.</em> For each set, the program <code>certificate.py</code>
 of the <a
-href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height">programs
+href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height" data-link-kind="exogenous" rel="external noopener">programs
 for sums over distinct values</a> builds the automaton, computes
 intervals <span class="math inline" data-term-auto="off" data-tex="\(J(s)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D43D">𝐽</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D460">𝑠</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> by <span
 class="math inline" data-term-auto="off" data-tex="\(80\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>80</mn></math></mjx-assistive-mml></mjx-container></span> rounds of the operation above from
@@ -4311,14 +4311,14 @@ the tails of <span class="math inline" data-term-auto="off" data-tex="\(S\)" dat
 sum using twelve blocks to exclude small rational denominators. The
 larger scan and two larger exclusions are separate saved computations;
 their programs and outputs are in the <a
-href="https://github.com/wcook04/plectis-erdos/tree/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations">large-computation
+href="https://github.com/wcook04/plectis-erdos/tree/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations" data-link-kind="exogenous" rel="external noopener">large-computation
 directory</a>. Each certificate excludes its stated finite family. None
 establishes the criterion for every denominator beyond every starting
 threshold.</p>
 <section id="checking-individual-segments" class="level3">
 <h3>Checking individual segments</h3>
 <p>We calculate each row using the integer-only <a
-href="https://github.com/wcook04/plectis-erdos/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8/scripts/check_erdos269_dyadic_windows.py">integer-arithmetic
+href="https://github.com/wcook04/plectis-erdos/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8/scripts/check_erdos269_dyadic_windows.py" data-link-kind="exogenous" rel="external noopener">integer-arithmetic
 checker</a>. For block <span class="math inline" data-term-auto="off" data-tex="\(a\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi></math></mjx-assistive-mml></mjx-container></span>, enumerate
 the pairs with <span class="math inline" data-term-auto="off" data-tex="\(3^j5^k&lt;2^{a+1}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msup><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D457">𝑗</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-msup><mjx-mn><mjx-c class="mjx-c35">5</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D458">𝑘</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-msup space="4"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msup></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mn>3</mn><mi>j</mi></msup><msup><mn>5</mn><mi>k</mi></msup><mo>&lt;</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup></math></mjx-assistive-mml></mjx-container></span>,
 choose the unique <span class="math inline" data-term-auto="off" data-tex="\(i\ge0\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D456">𝑖</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi><mo>≥</mo><mn>0</mn></math></mjx-assistive-mml></mjx-container></span> for which
@@ -4361,7 +4361,7 @@ class="math inline" data-term-auto="off" data-tex="\(3{,}869{,}934\)" data-math-
 inequality, with first successful length at most <span
 class="math inline" data-term-auto="off" data-tex="\(18\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38">8</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>18</mn></math></mjx-assistive-mml></mjx-container></span> in a search to length <span
 class="math inline" data-term-auto="off" data-tex="\(24\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c34">4</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>24</mn></math></mjx-assistive-mml></mjx-container></span> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-5000-100-3000.json">saved
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-5000-100-3000.json" data-link-kind="exogenous" rel="external noopener">saved
 run</a>). Its histogram in Section <a class="math-ref" href="#long269:long:experiments">13.4</a> is a
 finite observation that the product-growth bound does not predict. The
 accompanying integer-only check reconstructs the blocks and tests all
@@ -4456,9 +4456,9 @@ whereas Lemma <a class="math-ref" href="#long269:res:all-scale-lattice">9.2</a>
 the half running LCM <span class="math inline" data-term-auto="off" data-tex="\(h_{10005}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c35">5</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>h</mi><mrow data-mjx-texclass="ORD"><mn>10005</mn></mrow></msub></math></mjx-assistive-mml></mjx-container></span>.
 This family of smooth denominators is the larger one.</p>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/block_certificate.json">certificate</a>
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/block_certificate.json" data-link-kind="exogenous" rel="external noopener">certificate</a>
 and its exact <a
-href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/verify_recovered.py">checker</a>
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/verify_recovered.py" data-link-kind="exogenous" rel="external noopener">checker</a>
 are published. Its starts <span
 class="math inline" data-term-auto="off" data-tex="\(a_1&lt;\dots&lt;a_{64}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mn size="s"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-mo space="4"><mjx-c class="mjx-c22EF">⋯</mjx-c></mjx-mo><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-msub space="4"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c36" noic="true">6</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c34">4</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>a</mi><mn>1</mn></msub><mo>&lt;</mo><mo>⋯</mo><mo>&lt;</mo><msub><mi>a</mi><mrow data-mjx-texclass="ORD"><mn>64</mn></mrow></msub></math></mjx-assistive-mml></mjx-container></span> are the first
 <span class="math inline" data-term-auto="off" data-tex="\(a\ge10005\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c35">5</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>≥</mo><mn>10005</mn></math></mjx-assistive-mml></mjx-container></span> with <span
@@ -4521,15 +4521,15 @@ endpoints have cross-determinant <span class="math inline" data-term-auto="off" 
 and strictly contain the enclosure, so every fraction in the enclosure
 has denominator at least the sum of the two endpoint denominators, a
 <span class="math inline" data-term-auto="off" data-tex="\(22{,}483\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c2C" noic="true">,</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c34" noic="true">4</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c33">3</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>22,483</mn></math></mjx-assistive-mml></mjx-container></span>-bit integer. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/tail_certificate.json">enclosure</a>,
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/tail_certificate.json" data-link-kind="exogenous" rel="external noopener">enclosure</a>,
 the <a
-href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/cf_common_prefix.json">common
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/cf_common_prefix.json" data-link-kind="exogenous" rel="external noopener">common
 digits</a>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerate_269.py">regeneration
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerate_269.py" data-link-kind="exogenous" rel="external noopener">regeneration
 program</a> and the exact <a
-href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/verify_recovered.py">checker</a>
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/verify_recovered.py" data-link-kind="exogenous" rel="external noopener">checker</a>
 are published. A separate continued-fraction probe (<a
-href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/cf-statistics.json">saved
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/cf-statistics.json" data-link-kind="exogenous" rel="external noopener">saved
 run</a>) certifies <span class="math inline" data-term-auto="off" data-tex="\(13{,}109\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c2C" noic="true">,</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c39">9</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>13,109</mn></math></mjx-assistive-mml></mjx-container></span> partial
 quotients after <span class="math inline" data-term-auto="off" data-tex="\(a_0\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mn size="s"><mjx-c class="mjx-c30">0</mjx-c></mjx-mn></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>a</mi><mn>0</mn></msub></math></mjx-assistive-mml></mjx-container></span> and records a
 largest denominator of <span class="math inline" data-term-auto="off" data-tex="\(22{,}483\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c2C" noic="true">,</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c34" noic="true">4</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c33">3</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>22,483</mn></math></mjx-assistive-mml></mjx-container></span>
@@ -5138,16 +5138,16 @@ determine the represented function: equal encodings must give equal
 functions. The Lean sources impose this through a factorisation of the
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-linear-map" data-term="linear_map" data-term-auto="1">linear map</a> to functions through a finite-dimensional space. The
 resulting space of functions is then finite-dimensional (<a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L109">identity
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L109" data-link-kind="exogenous" rel="external noopener">identity
 for the carry</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L293">map
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L293" data-link-kind="exogenous" rel="external noopener">map
 to functions</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L334">finite-dimensional
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L334" data-link-kind="exogenous" rel="external noopener">finite-dimensional
 conclusion</a>). They also bound the carry residue and its digit in
 their stated intervals (<a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L150">residue
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L150" data-link-kind="exogenous" rel="external noopener">residue
 bound</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L157">digit
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L157" data-link-kind="exogenous" rel="external noopener">digit
 bound</a>). These conditional linear-algebra statements neither
 construct a function representing <span class="math inline" data-term-auto="off" data-tex="\(\mathcal
 D_{\{2,3,5\}}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-TeXAtom texclass="ORD"><mjx-mi><mjx-c class="mjx-c44 STX-C">D</mjx-c></mjx-mi></mjx-TeXAtom><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo class="mjx-s-a47e4be61538a0f6"><mjx-c class="mjx-c7B">{</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c35">5</mjx-c></mjx-mn><mjx-mo class="mjx-s-a47e4be61538a0f6"><mjx-c class="mjx-c7D">}</mjx-c></mjx-mo></mjx-TeXAtom></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow data-mjx-texclass="ORD"><mi data-mjx-variant="-tex-calligraphic" mathvariant="script">D</mi></mrow><mrow data-mjx-texclass="ORD"><mo fence="false" stretchy="false">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo fence="false" stretchy="false">}</mo></mrow></msub></math></mjx-assistive-mml></mjx-container></span> nor show that a corresponding function space must
@@ -5374,7 +5374,7 @@ also have ordinary proofs. The program <code>two_tail.py</code> checks
 their finite instances in exact arithmetic.</p>
 <p>For <span class="math inline" data-term-auto="off" data-tex="\(\{2,3,5\}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-a47e4be61538a0f6"><mjx-c class="mjx-c7B">{</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c35">5</mjx-c></mjx-mn><mjx-mo class="mjx-s-a47e4be61538a0f6"><mjx-c class="mjx-c7D">}</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo fence="false" stretchy="false">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo fence="false" stretchy="false">}</mo></math></mjx-assistive-mml></mjx-container></span> the separate
 theorem for the sum over distinct values has a <a
-href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L689">Lean
+href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L689" data-link-kind="exogenous" rel="external noopener">Lean
 proof</a>; its source record says that <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> had not been run on
 it. The general affine-block calculation, decoding criterion and
 finite-set application are also remarks with ordinary proofs; the last
@@ -5406,9 +5406,9 @@ subseries arguments.</p>
 checker open a <a href="https://github.com/wcook04/plectis-erdos/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8" data-link-kind="exogenous" rel="external noopener">fixed revision</a> of the
 repository. The witnesses and exact checkers for the two large numerical
 exclusions and the saved larger scan are in the <a
-href="https://github.com/wcook04/plectis-erdos/tree/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations">large-computation
+href="https://github.com/wcook04/plectis-erdos/tree/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations" data-link-kind="exogenous" rel="external noopener">large-computation
 directory</a>. The <a
-href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height">programs
+href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height" data-link-kind="exogenous" rel="external noopener">programs
 for sums over distinct values</a> recompute the constants of
 Theorem <a class="math-ref" href="#long269:res:distinct-height-235">1.1</a> and
 the certificates of Remark <a class="math-ref" href="#long269:res:distinct-height-sets">5.8</a> in
@@ -5817,7 +5817,7 @@ larger scan in Section <a class="math-ref" href="#long269:sec:evidence">11</a>.
 class="math inline" data-term-auto="off" data-tex="\(30\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>30</mn></math></mjx-assistive-mml></mjx-container></span> and <span
 class="math inline" data-term-auto="off" data-tex="\(100\le\ell\le3000\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c2113 STX-S">ℓ</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>100</mn><mo>≤</mo><mi>ℓ</mi><mo>≤</mo><mn>3000</mn></math></mjx-assistive-mml></mjx-container></span>, stopping each search
 at depth <span class="math inline" data-term-auto="off" data-tex="\(24\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c34">4</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>24</mn></math></mjx-assistive-mml></mjx-container></span>. The saved output (<a
-href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-5000-100-3000.json">scan-5000-100-3000.json</a>)
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-5000-100-3000.json" data-link-kind="exogenous" rel="external noopener">scan-5000-100-3000.json</a>)
 gives <span class="math inline" data-term-auto="off" data-tex="\(3{,}869{,}934\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c2C" noic="true">,</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c36" noic="true">6</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c39" noic="true">9</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c2C" noic="true">,</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c39" noic="true">9</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c34">4</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3,869,934</mn></math></mjx-assistive-mml></mjx-container></span> pairs, a
 segment satisfying the inequality in every case, and the following
 first-success histogram:</p>
@@ -5831,7 +5831,7 @@ h&amp;4&amp;5&amp;6&amp;7&amp;8&amp;9&amp;10&amp;11&amp;12&amp;13&amp;14&amp;15&
 length <span class="math inline" data-term-auto="off" data-tex="\(18\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38">8</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>18</mn></math></mjx-assistive-mml></mjx-container></span> has <span
 class="math inline" data-term-auto="off" data-tex="\(B=917\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D435">𝐵</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c39" noic="true">9</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c37">7</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>B</mi><mo>=</mo><mn>917</mn></math></mjx-assistive-mml></mjx-container></span> and <span
 class="math inline" data-term-auto="off" data-tex="\(\ell=2980\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c2113 STX-S">ℓ</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c39" noic="true">9</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℓ</mi><mo>=</mo><mn>2980</mn></math></mjx-assistive-mml></mjx-container></span>. The smaller run (<a
-href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-1000-100-500.json">scan-1000-100-500.json</a>)
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-1000-100-500.json" data-link-kind="exogenous" rel="external noopener">scan-1000-100-500.json</a>)
 over <span class="math inline" data-term-auto="off" data-tex="\(B\le1000\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D435">𝐵</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>B</mi><mo>≤</mo><mn>1000</mn></math></mjx-assistive-mml></mjx-container></span> coprime to <span
 class="math inline" data-term-auto="off" data-tex="\(30\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>30</mn></math></mjx-assistive-mml></mjx-container></span> and <span
 class="math inline" data-term-auto="off" data-tex="\(100\le\ell\le500\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c2113 STX-S">ℓ</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c35" noic="true">5</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>100</mn><mo>≤</mo><mi>ℓ</mi><mo>≤</mo><mn>500</mn></math></mjx-assistive-mml></mjx-container></span> gives <span
@@ -5959,451 +5959,451 @@ preserves the denominator, its smooth factor and the clearing onset.</p>
 <td class="ta-l">integer represented by an exponent
 triple</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L32">smooth3
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L32" data-link-kind="exogenous" rel="external noopener">smooth3
 val</a></td>
 </tr>
 <tr>
 <td class="ta-l">pure-power running LCM</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L37">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L37" data-link-kind="exogenous" rel="external noopener">three
 prime height</a></td>
 </tr>
 <tr>
 <td class="ta-l">lattice kernel</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L41">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L41" data-link-kind="exogenous" rel="external noopener">three
 prime kernel q</a></td>
 </tr>
 <tr>
 <td class="ta-l">exponent triples below the cutoff</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L47">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L47" data-link-kind="exogenous" rel="external noopener">smooth
 prefix exponents</a></td>
 </tr>
 <tr>
 <td class="ta-l">running least common multiple</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L54">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L54" data-link-kind="exogenous" rel="external noopener">smooth
 prefix lcm</a></td>
 </tr>
 <tr>
 <td class="ta-l">prefix value divides the running LCM</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L60">smooth3
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L60" data-link-kind="exogenous" rel="external noopener">smooth3
 val dvd three prime height of mem</a></td>
 </tr>
 <tr>
 <td class="ta-l">divisibility into the running LCM</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L78">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L78" data-link-kind="exogenous" rel="external noopener">smooth
 prefix lcm dvd three prime height</a></td>
 </tr>
 <tr>
 <td class="ta-l">first pure-power membership</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L85">pure
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L85" data-link-kind="exogenous" rel="external noopener">pure
 first mem smooth prefix exponents</a></td>
 </tr>
 <tr>
 <td class="ta-l">second pure-power membership</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L98">pure
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L98" data-link-kind="exogenous" rel="external noopener">pure
 second mem smooth prefix exponents</a></td>
 </tr>
 <tr>
 <td class="ta-l">third pure-power membership</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L111">pure
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L111" data-link-kind="exogenous" rel="external noopener">pure
 third mem smooth prefix exponents</a></td>
 </tr>
 <tr>
 <td class="ta-l">running-lcm identity</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L124">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L124" data-link-kind="exogenous" rel="external noopener">smooth
 prefix lcm eq three prime height</a></td>
 </tr>
 <tr>
 <td class="ta-l">cell relation</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L164">same
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L164" data-link-kind="exogenous" rel="external noopener">same
 three prime log cell</a></td>
 </tr>
 <tr>
 <td class="ta-l">cell constancy of the running LCM</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L170">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L170" data-link-kind="exogenous" rel="external noopener">three
 prime height eq of same log cell</a></td>
 </tr>
 <tr>
 <td class="ta-l">cell constancy of the running value</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L180">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L180" data-link-kind="exogenous" rel="external noopener">smooth
 prefix lcm eq of same log cell</a></td>
 </tr>
 <tr>
 <td class="ta-l">cell constancy of the kernel</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L192">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L192" data-link-kind="exogenous" rel="external noopener">three
 prime kernel q eq of same log cell</a></td>
 </tr>
 <tr>
 <td class="ta-l">positive power sets</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L205">positive
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L205" data-link-kind="exogenous" rel="external noopener">positive
 prime powers</a></td>
 </tr>
 <tr>
 <td class="ta-l">counting positive prime powers</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L209">positive
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L209" data-link-kind="exogenous" rel="external noopener">positive
 prime powers card</a></td>
 </tr>
 <tr>
 <td class="ta-l">exclusion of the origin</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L220">one
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L220" data-link-kind="exogenous" rel="external noopener">one
 not mem positive prime powers</a></td>
 </tr>
 <tr>
 <td class="ta-l">disjoint positive prime powers</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L230">positive
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L230" data-link-kind="exogenous" rel="external noopener">positive
 prime powers disjoint</a></td>
 </tr>
 <tr>
 <td class="ta-l">union of positive prime powers</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L244">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L244" data-link-kind="exogenous" rel="external noopener">three
 prime positive jump set</a></td>
 </tr>
 <tr>
 <td class="ta-l">positive jump count</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L250">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L250" data-link-kind="exogenous" rel="external noopener">three
 prime positive jump set card</a></td>
 </tr>
 <tr>
 <td class="ta-l">jump set with the origin</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L274">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L274" data-link-kind="exogenous" rel="external noopener">three
 prime jump set with origin</a></td>
 </tr>
 <tr>
 <td class="ta-l">jump count with the origin</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L279">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L279" data-link-kind="exogenous" rel="external noopener">three
 prime jump set with origin card</a></td>
 </tr>
 <tr>
 <td class="ta-l">first running LCM step</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L295">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L295" data-link-kind="exogenous" rel="external noopener">three
 prime height first log step</a></td>
 </tr>
 <tr>
 <td class="ta-l">second running LCM step</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L306">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L306" data-link-kind="exogenous" rel="external noopener">three
 prime height second log step</a></td>
 </tr>
 <tr>
 <td class="ta-l">third running LCM step</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L317">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L317" data-link-kind="exogenous" rel="external noopener">three
 prime height third log step</a></td>
 </tr>
 <tr>
 <td class="ta-l">first coordinate step</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L327">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L327" data-link-kind="exogenous" rel="external noopener">smooth
 prefix lcm first log step</a></td>
 </tr>
 <tr>
 <td class="ta-l">second coordinate step</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L340">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L340" data-link-kind="exogenous" rel="external noopener">smooth
 prefix lcm second log step</a></td>
 </tr>
 <tr>
 <td class="ta-l">third coordinate step</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L353">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L353" data-link-kind="exogenous" rel="external noopener">smooth
 prefix lcm third log step</a></td>
 </tr>
 <tr>
 <td class="ta-l">exponent box</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L369">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L369" data-link-kind="exogenous" rel="external noopener">smooth
 exponent box</a></td>
 </tr>
 <tr>
 <td class="ta-l">point running LCM</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L374">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L374" data-link-kind="exogenous" rel="external noopener">smooth
 point height</a></td>
 </tr>
 <tr>
 <td class="ta-l">running LCM fibre</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L378">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L378" data-link-kind="exogenous" rel="external noopener">smooth
 height fiber</a></td>
 </tr>
 <tr>
 <td class="ta-l">fibre sum</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L385">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L385" data-link-kind="exogenous" rel="external noopener">smooth
 height fiber kernel sum</a></td>
 </tr>
 <tr>
 <td class="ta-l">grouping equal denominators in a finite
 sum</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407">finite
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407" data-link-kind="exogenous" rel="external noopener">finite
 smooth kernel sum grouped by height</a></td>
 </tr>
 <tr>
 <td class="ta-l">upper bound by the cube of the cutoff</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L431">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L431" data-link-kind="exogenous" rel="external noopener">three
 prime height le cube</a></td>
 </tr>
 <tr>
 <td class="ta-l">origin value</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L444">kernel
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L444" data-link-kind="exogenous" rel="external noopener">kernel
 235 origin</a></td>
 </tr>
 <tr>
 <td class="ta-l">value at two</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L451">kernel
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L451" data-link-kind="exogenous" rel="external noopener">kernel
 235 two</a></td>
 </tr>
 <tr>
 <td class="ta-l">value at three</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L459">kernel
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L459" data-link-kind="exogenous" rel="external noopener">kernel
 235 three</a></td>
 </tr>
 <tr>
 <td class="ta-l">value at six</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L468">kernel
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L468" data-link-kind="exogenous" rel="external noopener">kernel
 235 six</a></td>
 </tr>
 <tr>
 <td class="ta-l">example excluding a product of two
 factors</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L480">kernel
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L480" data-link-kind="exogenous" rel="external noopener">kernel
 235 not rank one</a></td>
 </tr>
 <tr>
 <td class="ta-l">variable-base tail step</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L488">tail
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L488" data-link-kind="exogenous" rel="external noopener">tail
 state step</a></td>
 </tr>
 <tr>
 <td class="ta-l">expanded tail step</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L491">tail
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L491" data-link-kind="exogenous" rel="external noopener">tail
 state step eq</a></td>
 </tr>
 <tr>
 <td class="ta-l">smooth exponent block</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L501">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L501" data-link-kind="exogenous" rel="external noopener">smooth
 exponent shell</a></td>
 </tr>
 <tr>
 <td class="ta-l">short-interval uniqueness</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L510">exponent
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L510" data-link-kind="exogenous" rel="external noopener">exponent
 unique in short interval</a></td>
 </tr>
 <tr>
 <td class="ta-l">first-coordinate projection</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L544">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L544" data-link-kind="exogenous" rel="external noopener">smooth
 exponent shell card le drop first</a></td>
 </tr>
 <tr>
 <td class="ta-l">third-coordinate projection</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L586">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L586" data-link-kind="exogenous" rel="external noopener">smooth
 exponent shell card le drop third</a></td>
 </tr>
 <tr>
 <td class="ta-l">sorted quadratic estimate</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L630">sorted
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L630" data-link-kind="exogenous" rel="external noopener">sorted
 pair quadratic</a></td>
 </tr>
 <tr>
 <td class="ta-l">quadratic block bound</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L647">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L647" data-link-kind="exogenous" rel="external noopener">smooth
 exponent shell card quadratic</a></td>
 </tr>
 <tr>
 <td class="ta-l">dyadic internal power</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L663">dyadic
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L663" data-link-kind="exogenous" rel="external noopener">dyadic
 internal power</a></td>
 </tr>
 <tr>
 <td class="ta-l">internal-power uniqueness</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L669">dyadic
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L669" data-link-kind="exogenous" rel="external noopener">dyadic
 internal power exponent unique</a></td>
 </tr>
 <tr>
 <td class="ta-l">dyadic block base</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L751">dyadic
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L751" data-link-kind="exogenous" rel="external noopener">dyadic
 block base235</a></td>
 </tr>
 <tr>
 <td class="ta-l">exact dyadic radix alphabet</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L762">dyadic
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L762" data-link-kind="exogenous" rel="external noopener">dyadic
 block base235 cases</a></td>
 </tr>
 <tr>
 <td class="ta-l">bounded-radix consequence</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L774">dyadic
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L774" data-link-kind="exogenous" rel="external noopener">dyadic
 block base235 mem interval</a></td>
 </tr>
 <tr>
 <td class="ta-l">a nonzero <span
 class="math inline" data-term-auto="off" data-tex="\(2\times2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-cD7">×</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>2</mn><mo>×</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> determinant</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L827">kernel
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L827" data-link-kind="exogenous" rel="external noopener">kernel
 235 minor eq neg one fifteen</a></td>
 </tr>
 <tr>
 <td class="ta-l">no integer rotation orbit</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L154">no
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L154" data-link-kind="exogenous" rel="external noopener">no
 integer orbit logb of prime</a></td>
 </tr>
 <tr>
 <td class="ta-l">running LCM factorisation</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L218">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L218" data-link-kind="exogenous" rel="external noopener">three
 prime height factorisation</a></td>
 </tr>
 <tr>
 <td class="ta-l">kernel factorisation</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L259">three
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L259" data-link-kind="exogenous" rel="external noopener">three
 prime kernel q factorisation</a></td>
 </tr>
 <tr>
 <td class="ta-l">two-prime outer product</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L278">two
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L278" data-link-kind="exogenous" rel="external noopener">two
 prime kernel q eq outer product</a></td>
 </tr>
 <tr>
 <td class="ta-l">two-prime vanishing minors</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L298">two
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L298" data-link-kind="exogenous" rel="external noopener">two
 prime kernel q minor two eq zero</a></td>
 </tr>
 <tr>
 <td class="ta-l">uniform minors, general form</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L313">exists
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L313" data-link-kind="exogenous" rel="external noopener">exists
 uniform nonsingular three prime kernel minor</a></td>
 </tr>
 <tr>
 <td class="ta-l">uniform minors for primes</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L376">exists
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L376" data-link-kind="exogenous" rel="external noopener">exists
 uniform nonsingular three prime kernel minor of prime</a></td>
 </tr>
 <tr>
 <td class="ta-l">no finite separation</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L388">not
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L388" data-link-kind="exogenous" rel="external noopener">not
 finite separable three prime kernel</a></td>
 </tr>
 <tr>
 <td class="ta-l">second-order minor</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L560">kernel
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L560" data-link-kind="exogenous" rel="external noopener">kernel
 235 minor2 eq neg one fifteen</a></td>
 </tr>
 <tr>
 <td class="ta-l">third-order minor</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L570">kernel
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L570" data-link-kind="exogenous" rel="external noopener">kernel
 235 minor3 eq one over 81000</a></td>
 </tr>
 <tr>
 <td class="ta-l">misleading proportional row</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L583">kernel
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L583" data-link-kind="exogenous" rel="external noopener">kernel
 235 row three eq smul row zero</a></td>
 </tr>
 <tr>
 <td class="ta-l">failure of that proportionality</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L592">kernel
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L592" data-link-kind="exogenous" rel="external noopener">kernel
 235 row three ne smul row zero at four</a></td>
 </tr>
 <tr>
 <td class="ta-l">integer numerator for one dyadic
 block</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicBlockThresholdPartition.lean#L150">dyadic
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicBlockThresholdPartition.lean#L150" data-link-kind="exogenous" rel="external noopener">dyadic
 ordered block digit235</a></td>
 </tr>
 <tr>
 <td class="ta-l">recurrence for normalised tails</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicOrderedTailRecurrence.lean#L110">dyadic
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicOrderedTailRecurrence.lean#L110" data-link-kind="exogenous" rel="external noopener">dyadic
 normalized tail state r235 succ</a></td>
 </tr>
 <tr>
 <td class="ta-l">block summability</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L142">summable
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L142" data-link-kind="exogenous" rel="external noopener">summable
 dyadic shell mass r235</a></td>
 </tr>
 <tr>
 <td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series-tail" data-term="series_tail" data-term-auto="1">infinite tail</a> recurrence</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L177">dyadic
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L177" data-link-kind="exogenous" rel="external noopener">dyadic
 normalized shell tsum tail r235 succ</a></td>
 </tr>
 <tr>
 <td class="ta-l">integer tails or separation from the
 integers</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L188">dyadic
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L188" data-link-kind="exogenous" rel="external noopener">dyadic
 shell tsum tail integer or cofinal far</a></td>
 </tr>
 <tr>
 <td class="ta-l">boundary divisibility</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L51">smooth
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L51" data-link-kind="exogenous" rel="external noopener">smooth
 height mul prime dvd boundary height</a></td>
 </tr>
 <tr>
 <td class="ta-l">half the running LCM for <span
 class="math inline" data-term-auto="off" data-tex="\(a\ge1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>≥</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span></td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L101">two
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L101" data-link-kind="exogenous" rel="external noopener">two
 mul height normalizer235</a></td>
 </tr>
 <tr>
 <td class="ta-l">segment clearing identity</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L158">height
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L158" data-link-kind="exogenous" rel="external noopener">height
 normalizer235 mul window mass eq int</a></td>
 </tr>
 <tr>
@@ -6411,334 +6411,334 @@ normalizer235 mul window mass eq int</a></td>
 class="math inline" data-term-auto="off" data-tex="\(T_1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D447">𝑇</mjx-c></mjx-mi><mjx-script class="mjx-s-a2c1ec1c99ad594d"><mjx-mn size="s"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>T</mi><mn>1</mn></msub></math></mjx-assistive-mml></mjx-container></span> at <span
 class="math inline" data-term-auto="off" data-tex="\(a\ge1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>≥</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span></td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L196">qsmul
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L196" data-link-kind="exogenous" rel="external noopener">qsmul
 normalized tail state eq int of value eq rat</a></td>
 </tr>
 <tr>
 <td class="ta-l">congruence between normalised tails</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L296">exists
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L296" data-link-kind="exogenous" rel="external noopener">exists
 normalized tail state collision of value eq rat</a></td>
 </tr>
 <tr>
 <td class="ta-l">least positive residue</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L26">least
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L26" data-link-kind="exogenous" rel="external noopener">least
 positive residue</a></td>
 </tr>
 <tr>
 <td class="ta-l">positive representative range</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L31">least
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L31" data-link-kind="exogenous" rel="external noopener">least
 positive residue pos le</a></td>
 </tr>
 <tr>
 <td class="ta-l">representative congruence</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L52">least
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L52" data-link-kind="exogenous" rel="external noopener">least
 positive residue mod eq</a></td>
 </tr>
 <tr>
 <td class="ta-l">residue inequality</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L71">residue
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L71" data-link-kind="exogenous" rel="external noopener">residue
 escapes window</a></td>
 </tr>
 <tr>
 <td class="ta-l">excluding a bounded positive natural
 number</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L76">no
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L76" data-link-kind="exogenous" rel="external noopener">no
 bounded positive state of residue escape</a></td>
 </tr>
 <tr>
 <td class="ta-l">contrapositive form</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L96">residue
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L96" data-link-kind="exogenous" rel="external noopener">residue
 le bound of bounded positive state</a></td>
 </tr>
 <tr>
 <td class="ta-l">excluding a bounded positive integer</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L110">no
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L110" data-link-kind="exogenous" rel="external noopener">no
 bounded positive int state of least positive residue</a></td>
 </tr>
 <tr>
 <td class="ta-l">identifying the least positive
 representative</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L138">least
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L138" data-link-kind="exogenous" rel="external noopener">least
 positive residue eq nat abs of pos le mod eq</a></td>
 </tr>
 <tr>
 <td class="ta-l">product of the bases</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L417">window
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L417" data-link-kind="exogenous" rel="external noopener">window
 base</a></td>
 </tr>
 <tr>
 <td class="ta-l">accumulated numerator in a segment</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L422">window
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L422" data-link-kind="exogenous" rel="external noopener">window
 forcing</a></td>
 </tr>
 <tr>
 <td class="ta-l">affine iterated recurrence</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L455">affine
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L455" data-link-kind="exogenous" rel="external noopener">affine
 recurrence window</a></td>
 </tr>
 <tr>
 <td class="ta-l">scaling the accumulated numerator</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L469">window
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L469" data-link-kind="exogenous" rel="external noopener">window
 forcing const mul</a></td>
 </tr>
 <tr>
 <td class="ta-l">iterating an integer recurrence</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L480">integral
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L480" data-link-kind="exogenous" rel="external noopener">integral
 carry window</a></td>
 </tr>
 <tr>
 <td class="ta-l">endpoint residue identification</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L497">least
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L497" data-link-kind="exogenous" rel="external noopener">least
 positive residue window forcing eq carry</a></td>
 </tr>
 <tr>
 <td class="ta-l">divisibility by the smooth part of the
 denominator</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L548">smooth3
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L548" data-link-kind="exogenous" rel="external noopener">smooth3
 val dvd three prime height of le</a></td>
 </tr>
 <tr>
 <td class="ta-l">common-factor cancellation</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L581">integral
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L581" data-link-kind="exogenous" rel="external noopener">integral
 carry cancel common factor</a></td>
 </tr>
 <tr>
 <td class="ta-l">bound after dividing out the common
 factor</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L601">reduced
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L601" data-link-kind="exogenous" rel="external noopener">reduced
 carry pos le of common factor</a></td>
 </tr>
 <tr>
 <td class="ta-l">iterated recurrence after division</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L612">reduced
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L612" data-link-kind="exogenous" rel="external noopener">reduced
 integral carry window</a></td>
 </tr>
 <tr>
 <td class="ta-l">cofinal segment hypothesis</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L629">cofinal
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L629" data-link-kind="exogenous" rel="external noopener">cofinal
 local window escape</a></td>
 </tr>
 <tr>
 <td class="ta-l">the residue inequality excludes a positive
 integer solution of the reduced recurrence</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L645">no
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L645" data-link-kind="exogenous" rel="external noopener">no
 positive reduced carry of cofinal local window escape</a></td>
 </tr>
 <tr>
 <td class="ta-l">the same contradiction with a common
 factor</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L689">no
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L689" data-link-kind="exogenous" rel="external noopener">no
 positive absorbed carry of cofinal local window escape</a></td>
 </tr>
 <tr>
 <td class="ta-l">real iterated recurrence</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L68">true
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L68" data-link-kind="exogenous" rel="external noopener">true
 normalized state window</a></td>
 </tr>
 <tr>
 <td class="ta-l">irrationality implies the residue
 inequality, general bound</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L327">cofinal
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L327" data-link-kind="exogenous" rel="external noopener">cofinal
 local window escape of irrational of beaten</a></td>
 </tr>
 <tr>
 <td class="ta-l">irrationality implies the residue
 inequality, quadratic family</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L355">cofinal
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L355" data-link-kind="exogenous" rel="external noopener">cofinal
 local window escape of irrational of quadratic</a></td>
 </tr>
 <tr>
 <td class="ta-l">irrationality implies the residue
 inequality, actual bound</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L379">cofinal
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L379" data-link-kind="exogenous" rel="external noopener">cofinal
 local window escape of irrational</a></td>
 </tr>
 <tr>
 <td class="ta-l">residue criterion equivalent to an
 irrational tail</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L392">actual
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L392" data-link-kind="exogenous" rel="external noopener">actual
 cofinal local window escape iff</a></td>
 </tr>
 <tr>
 <td class="ta-l">residue criterion equivalent to an
 irrational sum</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L398">actual
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L398" data-link-kind="exogenous" rel="external noopener">actual
 cofinal local window escape iff irrational value</a></td>
 </tr>
 <tr>
 <td class="ta-l">rational <span
 class="math inline" data-term-auto="off" data-tex="\(T_1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D447">𝑇</mjx-c></mjx-mi><mjx-script class="mjx-s-a2c1ec1c99ad594d"><mjx-mn size="s"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>T</mi><mn>1</mn></msub></math></mjx-assistive-mml></mjx-container></span> gives eventual integer carries</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L324">exists
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L324" data-link-kind="exogenous" rel="external noopener">exists
 reduced carry of value eq rat</a></td>
 </tr>
 <tr>
 <td class="ta-l">residue condition for the actual
 series</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L397">actual
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L397" data-link-kind="exogenous" rel="external noopener">actual
 cofinal local window escape</a></td>
 </tr>
 <tr>
 <td class="ta-l">irrationality from the residue
 condition</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L479">irrational
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L479" data-link-kind="exogenous" rel="external noopener">irrational
 value of cofinal local window escape</a></td>
 </tr>
 <tr>
 <td class="ta-l">bounded-radix alternative</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean#L89">bounded
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean#L89" data-link-kind="exogenous" rel="external noopener">bounded
 radix zero or cofinal far</a></td>
 </tr>
 <tr>
 <td class="ta-l">rational value from an integral scaled
 tail</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean#L183">rational
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean#L183" data-link-kind="exogenous" rel="external noopener">rational
 of scaled tail integer</a></td>
 </tr>
 <tr>
 <td class="ta-l">zero block sums as differences of
 potentials</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean#L59">channel
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreeChannelBlockRigidity.lean#L59" data-link-kind="exogenous" rel="external noopener">channel
 block null iff channel potential</a></td>
 </tr>
 <tr>
 <td class="ta-l">a nonzero error exceeds the bound at one
 index</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L178">no
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L178" data-link-kind="exogenous" rel="external noopener">no
 carry lift of error bound below two pow</a></td>
 </tr>
 <tr>
 <td class="ta-l">a nonzero error cannot stay uniformly
 bounded</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L238">no
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L238" data-link-kind="exogenous" rel="external noopener">no
 bounded carry lift of block null two anchors</a></td>
 </tr>
 <tr>
 <td class="ta-l">first-block sum</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L289">binary
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L289" data-link-kind="exogenous" rel="external noopener">binary
 lift two anchors force first block sum one</a></td>
 </tr>
 <tr>
 <td class="ta-l">four consecutive values cannot meet all
 three conditions</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L308">no
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L308" data-link-kind="exogenous" rel="external noopener">no
 unit accurate lift with two anchors and first two block null</a></td>
 </tr>
 <tr>
 <td class="ta-l">carry as a residue plus a potential
 difference</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L109">carry
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L109" data-link-kind="exogenous" rel="external noopener">carry
 eq residue digit add coboundary</a></td>
 </tr>
 <tr>
 <td class="ta-l">carry interval</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L150">carry
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L150" data-link-kind="exogenous" rel="external noopener">carry
 residue mem interval</a></td>
 </tr>
 <tr>
 <td class="ta-l">digit interval</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L157">residue
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L157" data-link-kind="exogenous" rel="external noopener">residue
 digit mem interval</a></td>
 </tr>
 <tr>
 <td class="ta-l">map from formal expressions to
 functions</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L293">cartier
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L293" data-link-kind="exogenous" rel="external noopener">cartier
 realisation</a></td>
 </tr>
 <tr>
 <td class="ta-l">finite-dimensional span of the resulting
 functions</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L334">finite
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L334" data-link-kind="exogenous" rel="external noopener">finite
 realised span of factorisation</a></td>
 </tr>
 <tr>
 <td class="ta-l">interval containing a Cantor-series
 tail</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L61">state
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L61" data-link-kind="exogenous" rel="external noopener">state
 mem ioo</a></td>
 </tr>
 <tr>
 <td class="ta-l">lower bound for a difference of tails</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L74">state
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L74" data-link-kind="exogenous" rel="external noopener">state
 gap lower bound</a></td>
 </tr>
 <tr>
 <td class="ta-l">small-form criterion</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L94">irrational
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L94" data-link-kind="exogenous" rel="external noopener">irrational
 of small nonzero forms</a></td>
 </tr>
 <tr>
 <td class="ta-l">irrationality from clearing and small
 nonzero gaps</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L156">irrational
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L156" data-link-kind="exogenous" rel="external noopener">irrational
 of clearing and small gaps</a></td>
 </tr>
 <tr>
 <td class="ta-l">indices giving the threshold
 staircase</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Shared/IrrationalRotationStaircase.lean#L271">staircase
+href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Shared/IrrationalRotationStaircase.lean#L271" data-link-kind="exogenous" rel="external noopener">staircase
 indices</a></td>
 </tr>
 <tr>
 <td class="ta-l">finite threshold-column rank, including
 the extreme-column defect</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/d11bd0b16f2c0b68d722777762ebbd4f96a12db8/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182">finite
+href="https://github.com/wcook04/plectis-erdos/blob/d11bd0b16f2c0b68d722777762ebbd4f96a12db8/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182" data-link-kind="exogenous" rel="external noopener">finite
 cut rank</a></td>
 </tr>
 <tr>
 <td class="ta-l">uniform admissible modular minors, with
 indices chosen before modulus and layer</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/d11bd0b16f2c0b68d722777762ebbd4f96a12db8/lean/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133">uniform
+href="https://github.com/wcook04/plectis-erdos/blob/d11bd0b16f2c0b68d722777762ebbd4f96a12db8/lean/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133" data-link-kind="exogenous" rel="external noopener">uniform
 modular minors</a></td>
 </tr>
 </tbody>
@@ -6893,21 +6893,21 @@ carries the additional named input described here.</p>
 Results in Combinatorial Number Theory</em>, Monographies de
 L’Enseignement Mathématique <strong>28</strong>, L’Enseignement
 Mathématique (1980), <a
-href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf">source</a>.</p></li>
+href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
 <li id="ref-2"><p>Paul Erdős, <em>On the irrationality of certain series: problems
 and results</em>, in <em>New Advances in Transcendence Theory</em>,
 Cambridge University Press (1988), 102–109, <a
-href="https://doi.org/10.1017/CBO9780511897184.009">doi:<code>10.1017/CBO9780511897184.009</code></a>.</p></li>
+href="https://doi.org/10.1017/CBO9780511897184.009" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1017/CBO9780511897184.009</code></a>.</p></li>
 <li id="ref-3"><p>Paul Erdős, <em>Letter to the Editor</em>, Fibonacci Quarterly
 <strong>12</strong>, no. 4 (1974), 335, <a
-href="https://www.fq.math.ca/Scanned/12-4/letter.pdf">source</a>.</p></li>
+href="https://www.fq.math.ca/Scanned/12-4/letter.pdf" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
 <li id="ref-4"><p>Thomas F. Bloom, <em>Erdős Problem #269</em> (2026), <a
-href="https://www.erdosproblems.com/269">source</a>. Accessed 28 July
+href="https://www.erdosproblems.com/269" data-link-kind="exogenous" rel="external noopener">source</a>. Accessed 28 July
 2026.</p></li>
 <li id="ref-5"><p><em>Missing Erdős problems</em>, discussion thread on the
 erdosproblems.com forum, posts 2427 by Alfaiz (26 December 2025) and
 2531 by Thomas F. Bloom (28 December 2025), <a
-href="https://www.erdosproblems.com/forum/thread/Missing%20Erd%C5%91s%20problems">source</a>.
+href="https://www.erdosproblems.com/forum/thread/Missing%20Erd%C5%91s%20problems" data-link-kind="exogenous" rel="external noopener">source</a>.
 Accessed 26 September 2026.</p></li>
 <li id="ref-6"><p>Paul Erdős, <em>A survey of problems in combinatorial number
 theory</em>, Annals of Discrete Mathematics <strong>6</strong> (1980),
@@ -6916,93 +6916,93 @@ theory</em>, Annals of Discrete Mathematics <strong>6</strong> (1980),
 of certain classes of numbers II</em>, American Mathematical Monthly
 <strong>62</strong>, no. 4 (1955), 222–225. Cited in the form stated by
 Serbenyuk, arXiv:<a
-href="https://arxiv.org/abs/1706.03124">1706.03124</a>,
+href="https://arxiv.org/abs/1706.03124" data-link-kind="exogenous" rel="external noopener">1706.03124</a>,
 Theorem 1.</p></li>
 <li id="ref-8"><p>Paul Erdős, <em>Some problems and results on the irrationality of
 the sum of infinite series</em>, Journal of Mathematical Sciences
 <strong>10</strong> (1975), 1–7, <a
-href="https://users.renyi.hu/~p_erdos/1976-44.pdf">source</a>.</p></li>
+href="https://users.renyi.hu/~p_erdos/1976-44.pdf" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
 <li id="ref-9"><p>The Formal Conjectures Authors,
 <em>FormalConjectures.ErdosProblems.269</em> (2025), <a
-href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/269.lean">source</a>.</p></li>
+href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/269.lean" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
 <li id="ref-10"><p>Tom M. Apostol, <em>Introduction to Analytic Number Theory</em>,
 Springer (1976), <a
-href="https://doi.org/10.1007/978-1-4757-5579-4">doi:<code>10.1007/978-1-4757-5579-4</code></a>.</p></li>
+href="https://doi.org/10.1007/978-1-4757-5579-4" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1007/978-1-4757-5579-4</code></a>.</p></li>
 <li id="ref-11"><p>Adolf Hildebrand, <em>On the number of positive integers <span
 class="math inline" data-term-auto="off" data-tex="\(\le\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>≤</mo></math></mjx-assistive-mml></mjx-container></span> x and free of prime factors &gt;
 y</em>, Journal of Number Theory <strong>22</strong> (1986), 289–307, <a
-href="https://doi.org/10.1016/0022-314X(86)90013-2">doi:<code>10.1016/0022-314X(86)90013-2</code></a>.</p></li>
+href="https://doi.org/10.1016/0022-314X(86)90013-2" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1016/0022-314X(86)90013-2</code></a>.</p></li>
 <li id="ref-12"><p>Hugh L. Montgomery and Robert C. Vaughan, <em>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime-number-theorem" data-term="prime_number_theorem" data-term-auto="1">Prime Number
 Theorem</a></em>, in <em>Multiplicative Number Theory I: Classical
 Theory</em>, Cambridge Studies in Advanced Mathematics
 <strong>97</strong>, Cambridge University Press (2007), 168–198, <a
-href="https://doi.org/10.1017/CBO9780511618314.008">doi:<code>10.1017/CBO9780511618314.008</code></a>.</p></li>
+href="https://doi.org/10.1017/CBO9780511618314.008" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1017/CBO9780511618314.008</code></a>.</p></li>
 <li id="ref-13"><p>Vjekoslav Kovač and Terence Tao, <em>On several irrationality
 problems for Ahmes series</em>, Acta Mathematica Hungarica
 <strong>175</strong> (2025), 572–608, <a
-href="https://doi.org/10.1007/s10474-025-01528-0">doi:<code>10.1007/s10474-025-01528-0</code></a>;
+href="https://doi.org/10.1007/s10474-025-01528-0" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1007/s10474-025-01528-0</code></a>;
 arXiv:<a
-href="https://arxiv.org/abs/2406.17593">2406.17593</a>.</p></li>
+href="https://arxiv.org/abs/2406.17593" data-link-kind="exogenous" rel="external noopener">2406.17593</a>.</p></li>
 <li id="ref-14"><p>R. P. Stanley, <em>Smith <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-normal-form" data-term="normal_form" data-term-auto="1">normal form</a> in combinatorics</em>, J.
 Combin. Theory Ser. A <strong>144</strong> (2016), 476–495, doi:<a
-href="https://doi.org/10.1016/j.jcta.2016.06.013">10.1016/j.jcta.2016.06.013</a>;
+href="https://doi.org/10.1016/j.jcta.2016.06.013" data-link-kind="exogenous" rel="external noopener">10.1016/j.jcta.2016.06.013</a>;
 arXiv:<a
-href="https://arxiv.org/abs/1602.00166v1">1602.00166v1</a>.</p></li>
+href="https://arxiv.org/abs/1602.00166v1" data-link-kind="exogenous" rel="external noopener">1602.00166v1</a>.</p></li>
 <li id="ref-15"><p>Yann Bugeaud and Michel Laurent, <em>Transcendence and continued
 fraction expansion of values of Hecke–Mahler series</em>, Acta
 Arithmetica <strong>209</strong> (2023), 59–90, <a
-href="https://doi.org/10.4064/aa220323-18-1">doi:<code>10.4064/aa220323-18-1</code></a>;
+href="https://doi.org/10.4064/aa220323-18-1" data-link-kind="exogenous" rel="external noopener">doi:<code>10.4064/aa220323-18-1</code></a>;
 arXiv:<a
-href="https://arxiv.org/abs/2203.12901">2203.12901</a>.</p></li>
+href="https://arxiv.org/abs/2203.12901" data-link-kind="exogenous" rel="external noopener">2203.12901</a>.</p></li>
 <li id="ref-16"><p>John H. Loxton and Alfred J. van der Poorten, <em>Arithmetic
 properties of certain functions in several variables III</em>, Bulletin
 of the Australian Mathematical Society <strong>16</strong> (1977),
 15–47, <a
-href="https://doi.org/10.1017/S0004972700022978">doi:<code>10.1017/S0004972700022978</code></a>.</p></li>
+href="https://doi.org/10.1017/S0004972700022978" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1017/S0004972700022978</code></a>.</p></li>
 <li id="ref-17"><p>Steve Fan, <em>Comment on Erdős Problem #269, thread 269, post
 7218</em> (2026), <a
-href="https://www.erdosproblems.com/forum/thread/269#post-7218">source</a>.
+href="https://www.erdosproblems.com/forum/thread/269#post-7218" data-link-kind="exogenous" rel="external noopener">source</a>.
 Public forum post, 26 June 2026, thread 269, post 7218.</p></li>
 <li id="ref-18"><p>Paul Erdős and Ernst G. Straus, <em>On the irrationality of
 certain series</em>, Pacific Journal of Mathematics <strong>55</strong>,
 no. 1 (1974), 85–92, <a
-href="https://doi.org/10.2140/pjm.1974.55.85">doi:<code>10.2140/pjm.1974.55.85</code></a>.</p></li>
+href="https://doi.org/10.2140/pjm.1974.55.85" data-link-kind="exogenous" rel="external noopener">doi:<code>10.2140/pjm.1974.55.85</code></a>.</p></li>
 <li id="ref-19"><p>Jaroslav Hančl and Robert Tijdeman, <em>On the irrationality of
 Cantor and Ahmes series</em>, Publicationes Mathematicae Debrecen
 <strong>65</strong>, no. 3–4 (2004), 371–380, <a
-href="https://doi.org/10.5486/PMD.2004.3254">doi:<code>10.5486/PMD.2004.3254</code></a>.</p></li>
+href="https://doi.org/10.5486/PMD.2004.3254" data-link-kind="exogenous" rel="external noopener">doi:<code>10.5486/PMD.2004.3254</code></a>.</p></li>
 <li id="ref-20"><p>Angeliki Koutsoukou-Argyraki and Wenda Li, <em>Irrationality
 Criteria for Series by Erdős and Straus</em>, Archive of Formal Proofs
 (2020), <a
-href="https://isa-afp.org/entries/Irrational_Series_Erdos_Straus.html">source</a>.
+href="https://isa-afp.org/entries/Irrational_Series_Erdos_Straus.html" data-link-kind="exogenous" rel="external noopener">source</a>.
 Entry dated 12 May 2020; proof-document version consulted: 6 February
 2026.</p></li>
 <li id="ref-21"><p>Paul Erdős and S. James Taylor, <em>On the set of points of
 convergence of a lacunary trigonometric series and the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equidistribution" data-term="equidistribution" data-term-auto="1">equidistribution</a>
 properties of related sequences</em>, Proceedings of the London
 Mathematical Society <strong>s3-7</strong>, no. 1 (1957), 598–615, <a
-href="https://doi.org/10.1112/plms/s3-7.1.598">doi:<code>10.1112/plms/s3-7.1.598</code></a>.</p></li>
+href="https://doi.org/10.1112/plms/s3-7.1.598" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1112/plms/s3-7.1.598</code></a>.</p></li>
 <li id="ref-22"><p>Steve Fan, <em>Strongly complete sets and a conjecture of
 Erdős</em> (2026), <a
-href="https://arxiv.org/abs/2607.14071v1">source</a>; arXiv:<a
-href="https://arxiv.org/abs/2607.14071">2607.14071</a>. The cited
+href="https://arxiv.org/abs/2607.14071v1" data-link-kind="exogenous" rel="external noopener">source</a>; arXiv:<a
+href="https://arxiv.org/abs/2607.14071" data-link-kind="exogenous" rel="external noopener">2607.14071</a>. The cited
 Lemma 3.1 is in arXiv v1, 15 July 2026.</p></li>
 <li id="ref-23"><p>Paul Lévy, <em>Sur le développement en fraction continue d’un
 nombre choisi au hasard</em>, Compositio Mathematica <strong>3</strong>
 (1936), 286–303, <a
-href="https://www.numdam.org/item/CM_1936__3__286_0/">source</a>.</p></li>
+href="https://www.numdam.org/item/CM_1936__3__286_0/" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
 <li id="ref-24"><p>Wieb Bosma, Cor Kraaikamp, S. Hommersom, M. Keune, C. Kooloos, W.
 van Loon, R. Loos, E. Omiljan, G. Popma, D. Venhoek and M. Zwart,
 <em>Continued Fractions</em> (2013), <a
-href="https://www.math.ru.nl/~bosma/Students/CF.pdf">source</a>.</p></li>
+href="https://www.math.ru.nl/~bosma/Students/CF.pdf" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
 <li id="ref-25"><p>Jaroslav Hančl and Robert Tijdeman, <em>On the irrationality of
 polynomial Cantor series</em>, Acta Arithmetica <strong>133</strong>,
 no. 1 (2008), 37–52, <a
-href="https://doi.org/10.4064/aa133-1-3">doi:<code>10.4064/aa133-1-3</code></a>.</p></li>
+href="https://doi.org/10.4064/aa133-1-3" data-link-kind="exogenous" rel="external noopener">doi:<code>10.4064/aa133-1-3</code></a>.</p></li>
 <li id="ref-26"><p>Florian Luca, Joël Ouaknine and James Worrell, <em>Transcendence
 of Hecke–Mahler Series</em>, Bulletin of the London Mathematical Society
 <strong>57</strong>, no. 5 (2025), 1360–1368, <a
-href="https://doi.org/10.1112/blms.70033">doi:<code>10.1112/blms.70033</code></a>;
+href="https://doi.org/10.1112/blms.70033" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1112/blms.70033</code></a>;
 arXiv:<a href="https://arxiv.org/abs/2412.07908" data-link-kind="exogenous" rel="external noopener">2412.07908</a>.
 Numbered references use the published article.</p></li>
 <li id="ref-27"><p>Pavol Kebis, Florian Luca, Joël Ouaknine, Andrew Scoones and
@@ -7011,38 +7011,38 @@ Arnoux-Rauzy Words</em>, in <em>51st International Colloquium on
 Automata, Languages, and Programming (ICALP 2024)</em>, Leibniz
 International Proceedings in Informatics <strong>297</strong>, Schloss
 Dagstuhl – Leibniz-Zentrum für Informatik (2024), 144:1–144:15, <a
-href="https://doi.org/10.4230/LIPIcs.ICALP.2024.144">doi:<code>10.4230/LIPIcs.ICALP.2024.144</code></a>.</p></li>
+href="https://doi.org/10.4230/LIPIcs.ICALP.2024.144" data-link-kind="exogenous" rel="external noopener">doi:<code>10.4230/LIPIcs.ICALP.2024.144</code></a>.</p></li>
 <li id="ref-28"><p>Robert Tijdeman and H. G. Meijer, <em>On integers generated by a
 finite number of fixed primes</em>, Compositio Mathematica
 <strong>29</strong>, no. 3 (1974), 273–286, <a
-href="https://www.numdam.org/article/CM_1974__29_3_273_0.pdf">source</a>.</p></li>
+href="https://www.numdam.org/article/CM_1974__29_3_273_0.pdf" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
 <li id="ref-29"><p>Alessandro Languasco, Florian Luca, Pieter Moree and Alain Togbé,
 <em>Sequences of integers generated by two fixed primes</em>,
 Abhandlungen aus dem Mathematischen Seminar der Universität Hamburg
 <strong>95</strong> (2025), 123–148, <a
-href="https://doi.org/10.1007/s12188-025-00293-9">doi:<code>10.1007/s12188-025-00293-9</code></a>;
+href="https://doi.org/10.1007/s12188-025-00293-9" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1007/s12188-025-00293-9</code></a>;
 arXiv:<a
-href="https://arxiv.org/abs/2309.12806">2309.12806</a>.</p></li>
+href="https://arxiv.org/abs/2309.12806" data-link-kind="exogenous" rel="external noopener">2309.12806</a>.</p></li>
 <li id="ref-30"><p>Boris Adamczewski and Yann Bugeaud, <em>On the complexity of
 algebraic numbers I. Expansions in integer bases</em>, Annals of
 Mathematics <strong>165</strong>, no. 2 (2007), 547–565, <a
-href="https://doi.org/10.4007/annals.2007.165.547">doi:<code>10.4007/annals.2007.165.547</code></a>.</p></li>
+href="https://doi.org/10.4007/annals.2007.165.547" data-link-kind="exogenous" rel="external noopener">doi:<code>10.4007/annals.2007.165.547</code></a>.</p></li>
 <li id="ref-31"><p>Federico Pellarin, <em>On the arithmetic properties of complex
 values of Hecke–Mahler series I. The rank one case</em>, Annali della
 Scuola Normale Superiore di Pisa, Classe di Scienze (5)
 <strong>5</strong>, no. 3 (2006), 329–374, <a
-href="https://www.numdam.org/item/ASNSP_2006_5_5_3_329_0/">published
+href="https://www.numdam.org/item/ASNSP_2006_5_5_3_329_0/" data-link-kind="exogenous" rel="external noopener">published
 source</a>.</p></li>
 <li id="ref-32"><p>Boris Adamczewski and Colin Faverjon, <em>A new proof of
 Nishioka’s theorem in Mahler’s method</em>, Comptes Rendus. Mathématique
 <strong>361</strong> (2023), 1011–1028, <a
-href="https://doi.org/10.5802/crmath.458">doi:<code>10.5802/crmath.458</code></a>.</p></li>
+href="https://doi.org/10.5802/crmath.458" data-link-kind="exogenous" rel="external noopener">doi:<code>10.5802/crmath.458</code></a>.</p></li>
 <li id="ref-33"><p>Boris Adamczewski and Colin Faverjon, <em>Mahler’s method in
 several variables and finite automata</em>, Annals of Mathematics
 <strong>204</strong>, no. 2 (2026), 455–533, <a
-href="https://doi.org/10.4007/annals.2026.204.2.1">doi:<code>10.4007/annals.2026.204.2.1</code></a>.
+href="https://doi.org/10.4007/annals.2026.204.2.1" data-link-kind="exogenous" rel="external noopener">doi:<code>10.4007/annals.2026.204.2.1</code></a>.
 Online 13 September 2026; locators here refer to the <a
-href="https://faverjon.perso.math.cnrs.fr/AdamczewskiFaverjon_MahlerFiniteAutomata.pdf">68-page
+href="https://faverjon.perso.math.cnrs.fr/AdamczewskiFaverjon_MahlerFiniteAutomata.pdf" data-link-kind="exogenous" rel="external noopener">68-page
 author manuscript</a>.</p></li>
 </ol>
 </section>
@@ -7054,7 +7054,7 @@ role="doc-endnotes">
 theorem, see Keith Conrad, <em>Transcendence of <span
 class="math inline" data-term-auto="off" data-tex="\(e\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D452">𝑒</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>e</mi></math></mjx-assistive-mml></mjx-container></span></em>, p. 1, footnote 1, <a
 href="https://kconrad.math.uconn.edu/blurbs/analysis/transcendence-e.pdf"
-class="uri">https://kconrad.math.uconn.edu/blurbs/analysis/transcendence-e.pdf</a>
+class="uri" data-link-kind="exogenous" rel="external noopener">https://kconrad.math.uconn.edu/blurbs/analysis/transcendence-e.pdf</a>
 (accessed 18 September 2026).<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
@@ -7066,7 +7066,7 @@ role="doc-backlink">↩︎</a></p></li>
       <section class="paper-foot" id="about-paper" aria-labelledby="about-paper-title">
         <h2 class="paper-foot__title" id="about-paper-title">About this paper</h2>
         <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
-        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
+        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff" data-link-kind="exogenous" rel="external noopener">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
         <p class="paper-foot__label">Prefer the manuscript?</p>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/erdos269-running-lcm-reasoning-surface.pdf"><span class="btn__format">PDF</span>Open the PDF, 73&nbsp;pages</a>

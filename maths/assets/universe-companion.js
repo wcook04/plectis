@@ -482,7 +482,14 @@
       return !!(data && data.problems && sector && data.problems[sector] && rows[sector] && sideBySide());
     };
 
+    function rowHasFocus() {
+      var active = document.activeElement;
+      return !!(active && active.closest && active.closest('li.home-problem[data-problem-id]') && host.contains(active));
+    }
+
     function show(pid, s) {
+      // A delayed pointer dwell must never cover the native link in focus.
+      if (rowHasFocus()) return;
       if (!data || !data.problems || !data.problems[pid] || !rows[pid] || !sideBySide()) return;
       clearTimeout(timers.leave);
       if (!state.open) {
@@ -552,9 +559,10 @@
       var li = event.target.closest ? event.target.closest('li.home-problem[data-problem-id]') : null;
       if (!li) return;
       var pid = li.getAttribute('data-problem-id');
+      clearTimeout(timers.dwell);
+      clearTimeout(timers.leave);
+      close();
       state.keyboard = true;
-      show(pid, null);
-      if (state.open) fillProblem(pid);
       api.light(pid);
     });
     host.addEventListener('focusout', function (event) {

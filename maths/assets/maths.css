@@ -12,59 +12,65 @@
    style.css: the @media block covers system dark, the [data-theme] block
    covers the explicit choice). */
 :root {
-  --u-universe: #211318;
-  /* Structure is ink and quiet greys; colour is kept for evidence. A problem
-     is drawn like the core, a ring round a point. */
-  --u-problem: #2e2126;
-  --u-claim: #6f6152;
-  --u-paper: #a39389;
-  --u-document: #786359;
-  --u-integration: #b0512a;
-  --u-module: #a99781;
-  --u-object: #6f83cf;
-  /* Queued teal, checked with the dataviz palette validator against the
-     replayed orange on this surface: chroma, colour-blind separation and
-     contrast all pass. */
-  --u-statement: #00826a;
-  --u-plate: rgba(33, 19, 24, 0.045);
-  --u-edge: rgba(33, 19, 24, 0.14);
-  --u-edge-hot: rgba(52, 80, 142, 0.55);
-  --u-halo: rgba(33, 19, 24, 0.10);
-  --u-rim: rgba(33, 19, 24, 0.3);
+  /* The same block as the landing's in assets/style.css (keep the two in
+     step; universe_runtime_regression.test.mjs holds them equal). The map
+     is the plait seen from above: Comparator's replays a field in the
+     ember's mark step, what Lean states and no replay has reached yet seeds
+     in the ice's glow step (the photograph's red half holding its dots of
+     azure), the two inks the doctrine map gives the machinery and the
+     rules. Structure is ink and the ground's own violet greys; colour is
+     kept for evidence and colours marks, never words. A problem is drawn
+     like the core, a ring round a point. The dataviz palette validator
+     passes the pair's colour-blind separation (worst Delta E 26 at night,
+     14 by day, against 9.7 and 9.6 for the orange and teal it replaced),
+     its normal-vision floor and its contrast on both grounds; it flags the
+     azure's chroma (0.07 to 0.085 against its 0.10 floor), which the
+     palette holds mature on purpose, so a queued result also carries its
+     pip and colour is never the only signal. */
+  --u-universe: var(--ink);
+  --u-problem: #272230;
+  --u-claim: #716c7b;
+  --u-paper: #9894a0;
+  --u-document: #6a6573;
+  --u-integration: var(--weave-red);
+  --u-module: #9c98a4;
+  --u-object: #8c8499;
+  --u-statement: var(--weave-azure-glow);
+  --u-plate: rgba(25, 21, 32, 0.045);
+  --u-edge: rgba(25, 21, 32, 0.14);
+  --u-edge-hot: rgba(42, 89, 130, 0.55);
+  --u-halo: rgba(25, 21, 32, 0.10);
+  --u-rim: rgba(25, 21, 32, 0.3);
+  /* Gold marks a link that leaves the site (the source links), as
+     --link-ext does; labels and numerals take the ember. */
   --maths-gold: #8f6212;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --u-universe: #f2e6d4;
     --u-problem: #ece0cf;
-    --u-claim: #c6baa6;
-    --u-paper: #8b8088;
-    --u-document: #a18e88;
-    --u-integration: #e08a58;
-    --u-module: #857aa4;
-    --u-object: #8ea2e0;
-    --u-statement: #4dbb9f;
+    --u-claim: #a29dac;
+    --u-paper: #85818e;
+    --u-document: #94909e;
+    --u-module: #847e8f;
+    --u-object: #a7a0b6;
     --u-plate: rgba(242, 230, 212, 0.05);
     --u-edge: rgba(242, 230, 212, 0.14);
-    --u-edge-hot: rgba(169, 192, 238, 0.7);
+    --u-edge-hot: rgba(151, 193, 223, 0.7);
     --u-halo: rgba(242, 230, 212, 0.12);
     --u-rim: rgba(12, 8, 16, 0.55);
     --maths-gold: #e6b264;
   }
 }
 :root[data-theme="dark"] {
-  --u-universe: #f2e6d4;
   --u-problem: #ece0cf;
-  --u-claim: #c6baa6;
-  --u-paper: #8b8088;
-  --u-document: #a18e88;
-  --u-integration: #e08a58;
-  --u-module: #857aa4;
-  --u-object: #8ea2e0;
-  --u-statement: #4dbb9f;
+  --u-claim: #a29dac;
+  --u-paper: #85818e;
+  --u-document: #94909e;
+  --u-module: #847e8f;
+  --u-object: #a7a0b6;
   --u-plate: rgba(242, 230, 212, 0.05);
   --u-edge: rgba(242, 230, 212, 0.14);
-  --u-edge-hot: rgba(169, 192, 238, 0.7);
+  --u-edge-hot: rgba(151, 193, 223, 0.7);
   --u-halo: rgba(242, 230, 212, 0.12);
   --u-rim: rgba(12, 8, 16, 0.55);
   --maths-gold: #e6b264;
@@ -272,7 +278,7 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 /* Section frame shared by the landing bands. */
 .maths-band { margin: var(--space-8) 0; }
 .maths-band__head { margin-bottom: var(--space-5); }
-.maths-band__head .eyebrow { color: var(--maths-gold); }
+.maths-band__head .eyebrow { color: var(--home-ember); }
 .maths-band__head h2 {
   font-family: var(--font-serif);
   font-size: clamp(1.5rem, 3vw, 2rem);
@@ -640,7 +646,7 @@ html:not(.scripting) .universe-nojs { display: block; }
   font-family: var(--font-serif);
   font-variant-numeric: oldstyle-nums;
   font-size: 1.35rem;
-  color: var(--maths-gold);
+  color: var(--home-ember);
 }
 .problem-row__title { font-weight: 600; }
 .problem-row__q {
@@ -660,11 +666,15 @@ html:not(.scripting) .universe-nojs { display: block; }
 .problem-row__meta .chip { margin-left: var(--space-2); }
 
 /* Status chips — text carries the meaning; colour assists. */
+/* A status chip is a sentence-case label, like every label in the reading
+   room (tracked capitals turned "locally proved result; novelty unassessed"
+   into a line nobody reads). A result's status wears the ember and an open
+   question the azure, the site's two inks; the class keeps its old name. */
 .chip {
   display: inline-block;
-  font-size: var(--fs-micro);
-  letter-spacing: var(--tracking-kicker);
-  text-transform: uppercase;
+  font-size: var(--fs-meta);
+  letter-spacing: 0;
+  text-transform: none;
   padding: 0.12rem 0.55rem;
   border: 1px solid var(--rule-control);
   border-radius: var(--r-pill);
@@ -672,7 +682,7 @@ html:not(.scripting) .universe-nojs { display: block; }
   max-width: 100%;
 }
 .chip--open { border-color: var(--accent); color: var(--accent); }
-.chip--gold { border-color: var(--maths-gold); color: var(--maths-gold); }
+.chip--gold { border-color: color-mix(in srgb, var(--home-ember) 70%, transparent); color: var(--home-ember); }
 .chip--warn { border-color: var(--warn-warm, #a8481e); color: var(--warn-warm, #a8481e); }
 
 /* ---- Shelves (papers, documents) ---------------------------------------- */
@@ -734,7 +744,7 @@ html:not(.scripting) .universe-nojs { display: block; }
 .dossier-head__num {
   font-family: var(--font-serif);
   font-variant-numeric: oldstyle-nums;
-  color: var(--maths-gold);
+  color: var(--home-ember);
   font-size: clamp(1.4rem, 3vw, 1.9rem);
   display: block;
   margin-bottom: var(--space-1);
@@ -809,7 +819,7 @@ html:not(.scripting) .universe-nojs { display: block; }
   height: 7px;
   border-radius: 50%;
 }
-.fact-list--checked li::before { background: var(--maths-gold); }
+.fact-list--checked li::before { background: var(--weave-red); }
 .fact-list--unchecked li::before {
   background: transparent;
   border: 1.5px solid var(--rule-control);
@@ -949,10 +959,6 @@ html:not(.scripting) .universe-nojs { display: block; }
   font-size: var(--fs-meta);
   padding: 0.5rem 0.9rem;
 }
-.paper-head__routes .btn[data-link-kind="exogenous"],
-.paper-choice__links .btn[data-link-kind="exogenous"] { color: var(--ink); }
-.paper-head__routes .btn[data-link-kind="exogenous"]::after,
-.paper-choice__links .btn[data-link-kind="exogenous"]::after { color: var(--link-ext); }
 
 /* The précis opens on a hairline with a run-in head, the way a journal sets
    an abstract; a coloured side bar and a capitals label made it a callout. */
@@ -1481,7 +1487,7 @@ html:not(.scripting) .universe-nojs { display: block; }
   color: var(--muted);
   font-variant-numeric: lining-nums tabular-nums;
 }
-.paper-stage #references li:target { background: color-mix(in srgb, var(--maths-gold) 10%, transparent); }
+.paper-stage #references li:target { background: color-mix(in srgb, var(--home-ember) 10%, transparent); }
 .paper-stage #references li > p { margin: 0; }
 .paper-stage #references li > p + p { margin-top: 0.3em; }
 
@@ -2864,11 +2870,6 @@ html:not(.scripting) .universe-explorer .universe-show { display: none; }
   .universe-explorer .universe-problem, .universe-item { transition: none; }
 }
 
-/* The panel is a little wider than the shared frame's: a result's
-   displayed formulae and its Lean statements need the measure, and the
-   ring, which fills the stage's height on every laptop and monitor, gives
-   up nothing for it. */
-.universe-explorer { --explorer-panel: clamp(360px, 22vw + 130px, 660px); }
 /* A closer view brings marks into the corners, so the key steps aside
    while the reader explores and returns with Fit. */
 .universe-explorer .explorer__legend.universe-marks {
@@ -3090,7 +3091,7 @@ body.maths-folio .maths-layout--folio .docs-main { padding-top: 0; }
 }
 .folio-kicker {
   margin: 0 0 var(--space-4);
-  color: var(--maths-gold);
+  color: var(--home-ember);
   font-size: var(--fs-meta);
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -3106,16 +3107,23 @@ body.maths-folio .maths-layout--folio .docs-main { padding-top: 0; }
 .folio-cover h1 .folio-line { display: inline-block; }
 .reading-index.folio .folio-cover .maths-hero__map { margin: var(--space-3) 0 0; max-width: 40em; font-size: var(--fs-meta); }
 
-/* The plate reverses the page: ivory on the night ground, night on the
-   cream one, flat, with the expression set large in display style. */
+/* The plate is a sheet of the page's own theme, one step lifted and edged
+   with a hairline, the landing's results sheet: a paper sheet by day, an
+   ink sheet by night, the expression set large in display style in the
+   page's ink (8 October 2026). It used to reverse the page, ivory on the
+   night ground, the brightest thing on the screen; Will turned the
+   results sheet the same way ("it needs to be tailored for the dark mode
+   thing as well"). */
 .folio-specimen { margin: 0; min-width: 0; }
 .folio-specimen__plate {
   display: grid;
   place-items: center;
   min-height: clamp(11rem, 18vw, 15rem);
   padding: clamp(1.75rem, 3.5vw, 3rem) clamp(1rem, 3vw, 2.5rem);
-  background: var(--ink);
-  color: var(--page);
+  --folio-sheet: #fcf7ee; --folio-edge: rgba(25, 21, 32, 0.10);
+  background: var(--folio-sheet);
+  color: var(--ink);
+  box-shadow: 0 0 0 1px var(--folio-edge);
   border-radius: var(--r-md);
   font-size: clamp(1.3rem, 0.75rem + 1.45vw, 2.25rem);
   overflow-x: auto;
@@ -3123,6 +3131,10 @@ body.maths-folio .maths-layout--folio .docs-main { padding-top: 0; }
 .folio-specimen__plate .math.display { display: block; margin: 0; }
 /* On a phone the widest statement (#243's two conditions) still fits the plate. */
 @media (max-width: 640px) { .folio-specimen__plate { font-size: 1.1rem; padding-inline: 0.6rem; } }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .folio-specimen__plate { --folio-sheet: #231b2f; --folio-edge: rgba(242, 230, 212, 0.085); }
+}
+:root[data-theme="dark"] .folio-specimen__plate { --folio-sheet: #231b2f; --folio-edge: rgba(242, 230, 212, 0.085); }
 .folio-specimen__plate mjx-container[display="true"],
 .folio-specimen__plate math[display="block"] { margin: 0; color: inherit; }
 /* One formula per programme. The numbers above the plate are radio
@@ -3138,7 +3150,7 @@ body.maths-folio .maths-layout--folio .docs-main { padding-top: 0; }
   font-family: var(--font-serif); font-size: 0.98rem; color: var(--ink-soft);
   font-variant-numeric: lining-nums tabular-nums;
 }
-.folio-specimen__picks label:hover span { border-color: var(--maths-gold); color: var(--ink); }
+.folio-specimen__picks label:hover span { border-color: var(--home-ember); color: var(--ink); }
 .folio-specimen__picks input:checked + span { border-color: var(--ink); background: var(--ink); color: var(--page); }
 .folio-specimen__picks input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
 .folio-specimen__slides { display: grid; grid-template-columns: minmax(0, 1fr); }
@@ -3166,7 +3178,7 @@ body.maths-folio .maths-layout--folio .docs-main { padding-top: 0; }
   color: var(--ink);
   text-decoration: none;
 }
-.folio-specimen__label span { color: var(--maths-gold); font-variant-numeric: lining-nums tabular-nums; margin-right: 0.3em; }
+.folio-specimen__label span { color: var(--home-ember); font-variant-numeric: lining-nums tabular-nums; margin-right: 0.3em; }
 .folio-specimen__label:hover { color: var(--accent); }
 .folio-specimen__caption p { margin: var(--space-1) 0 0; color: var(--muted); font-size: var(--fs-base); line-height: var(--lh-body); }
 
@@ -3208,7 +3220,7 @@ body.maths-folio .maths-layout--folio .docs-main { padding-top: 0; }
   margin-bottom: 0.3rem;
   font-family: var(--font-serif);
   font-size: 1.05rem;
-  color: var(--maths-gold);
+  color: var(--home-ember);
   font-variant-numeric: lining-nums tabular-nums;
 }
 .reading-index.folio .problem-entry__title strong {

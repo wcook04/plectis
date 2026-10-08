@@ -946,7 +946,8 @@ test('a result card quotes its paper first, then says in words how it is checked
   await map.settle();
   assert.match(map.inspector.innerHTML, /<h2 class="universe-inspector__title">Cap<\/h2>/);
   assert.match(map.inspector.innerHTML, /The cap holds\./);
-  assert.match(map.inspector.innerHTML, /Its replay is queued\./);
+  assert.match(map.inspector.innerHTML, /No Comparator replay is recorded for this paper result\./);
+  assert.doesNotMatch(map.inspector.innerHTML, /Its replay is queued\./);
   assert.equal(map.location.hash, '#o=statement%3Ap257%23thm%3Ab');
 });
 
@@ -2147,4 +2148,36 @@ test('a search that finds nothing on the map says so, and why, outside the list 
   map.search.value = 'Second';
   map.search.fire('input');
   assert.equal(none.hidden, true);
+});
+
+test('the teaser and the full map read one palette, keyed to the plait', () => {
+  // 8 October 2026: the map kept the wine palette's orange and teal after the
+  // site moved to the brick and steel inks on violet, because its colours
+  // live in two copies (the landing's style.css for the teaser, maths.css for
+  // the full map) and one was left behind. Both copies must say the same.
+  const strip = text => text.replace(/\/\*[\s\S]*?\*\//g, '');
+  const siteCss = strip(readFileSync(new URL('../assets/style.css', import.meta.url), 'utf8'));
+  const mathsCss = strip(readFileSync(new URL('../../../tools/meta/dissemination/maths_site_assets/maths.css', import.meta.url), 'utf8'));
+  // Every --u-* declaration in each of the three scheme blocks (light, system
+  // dark, chosen dark), in order, as one comparable list per stylesheet.
+  const schemes = css => {
+    const blocks = [];
+    const re = /(:root\s*\{|:root:not\(\[data-theme\]\)\s*\{|:root\[data-theme="dark"\]\s*\{)([^}]*)\}/g;
+    for (let m; (m = re.exec(css));) {
+      const decls = [...m[2].matchAll(/(--u-[a-z-]+)\s*:\s*([^;]+);/g)].map(d => `${d[1]}: ${d[2].trim()}`);
+      if (decls.length) blocks.push(`${m[1].replace(/\s*\{$/, '')} { ${decls.join('; ')} }`);
+    }
+    return blocks;
+  };
+  const site = schemes(siteCss), maths = schemes(mathsCss);
+  assert.equal(site.length, 3, 'the landing declares the map palette for day, system night and chosen night');
+  assert.deepEqual(maths, site, 'maths.css repeats the landing block exactly');
+  const day = site[0];
+  assert.match(day, /--u-integration: var\(--weave-red\)/, 'a replay is drawn in the ember mark step');
+  assert.match(day, /--u-statement: var\(--weave-azure-glow\)/, 'a queued result is drawn in the ice');
+  assert.match(day, /--u-universe: var\(--ink\)/, 'the core is the page ink');
+  for (const block of site) {
+    assert.doesNotMatch(block, /#(?:b0512a|e08a58|00826a|4dbb9f|211318)|33, 19, 24/i,
+      'no orange, teal or wine survives in the map palette');
+  }
 });

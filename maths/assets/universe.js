@@ -5884,18 +5884,19 @@
        marks were explained only after a hover. It now holds one quiet line
        of the map's own marks: Comparator's colour for a replayed result,
        the pip of one whose replay is queued, a checked claim, the open ring
-       of a result with no Lean statement. As many whole marks as the line
-       has room for, in that order (one on a 1280-wide window, two from 1440
-       up). It steps out while the caption names
-       what the pointer is on, or the column reads it, and comes back a
-       moment after both are done (style.css, .universe-key). */
+       of a result with no Lean statement. Every mark, in that order, each
+       kept whole: on a narrow card the line wraps and the drawing yields
+       the room (style.css, .home-universe__caption), since a dot the key
+       does not name is a dot the reader cannot read. It steps out while the
+       caption names what the pointer is on, or the column reads it, and
+       comes back a moment after both are done (style.css, .universe-key). */
     var KEY_MARKS = [
       ['replayed', 'Replayed by Comparator'],
       ['lean', 'Replay queued'],
       ['claim', 'Checked claim'],
       ['none', 'No Lean statement']
     ];
-    var key = null, keyWidth = -1;
+    var key = null;
     function buildKey() {
       if (pageMode || key || !caption || !caption.parentNode || typeof document.createElement !== 'function') return;
       var row = caption.parentNode;
@@ -5912,21 +5913,6 @@
           '" aria-hidden="true"></span>' + escapeHtml(m[1]) + '</li>';
       }).join('');
       slot.appendChild(key);
-      fitKey();
-      if (typeof ResizeObserver === 'function') new ResizeObserver(fitKey).observe(slot);
-      else window.addEventListener('resize', fitKey);
-    }
-    // Whole marks on one line: a mark that would start a second line waits
-    // out of sight rather than wrapping under the drawing.
-    function fitKey() {
-      if (!key || !key.parentNode) return;
-      var width = key.parentNode.clientWidth;
-      if (width === keyWidth) return;
-      keyWidth = width;
-      var items = key.children || [];
-      for (var j = 0; j < items.length; j++) items[j].hidden = false;
-      var top = items.length ? items[0].offsetTop : 0;
-      for (j = 1; j < items.length; j++) if (items[j].offsetTop > top + 2) items[j].hidden = true;
     }
     function showCaption(i) {
       if (key) key.classList.toggle('is-out', i >= 0);

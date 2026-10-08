@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en" data-glossary-hint="off">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <title>Running least common multiples: distinct values and multiplicities · Plectis maths</title>
+  <meta name="description" content="The reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density…">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/papers/erdos269-running-lcm-reasoning-surface.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Running least common multiples: distinct values and multiplicities · Plectis maths">
+  <meta property="og:description" content="The reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density…">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/papers/erdos269-running-lcm-reasoning-surface.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Running least common multiples: distinct values and multiplicities · Plectis maths">
+  <meta name="twitter:description" content="The reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density…">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1526">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=21e585488b71">
+  <link rel="stylesheet" href="../assets/maths.css?v=988ea40d1d74">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=4ef1d16f00fb"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
+  <script defer src="../assets/maths.js?v=eb35fe169ca1"></script>
+  <meta name="author" content="Will Cook">
+  <meta name="citation_title" content="Running least common multiples: distinct values and multiplicities">
+  <meta name="citation_author" content="Will Cook">
+  <meta name="citation_date" content="2026/10/05">
+  <meta name="citation_pdf_url" content="https://wcook04.github.io/plectis/maths/papers/erdos269-running-lcm-reasoning-surface.pdf">
+  <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/math/aff4cd3f65d96d6c.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html"><img class="wordmark__mark" src="../../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
+        <a href="../index.html">Mathematics</a>
+        <a href="../../docs/papers.html" aria-current="true">Papers</a>
+        <a href="../../index.html#videos">Videos</a>
+        <a href="../../docs/glossary.html">Glossary</a>
+        <a href="../../docs/introduction.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers" class="is-active" aria-current="page">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <div class="maths-pagebar">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Erdős #269 long paper</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root=".paper-stage" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy section</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root=".paper-stage" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download section JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+      <header class="paper-head">
+        <p class="paper-head__eyebrow">Long paper</p>
+        <h1 data-page-name="Erdős #269 long paper">Running least common multiples: distinct values and multiplicities</h1>
+        <div class="paper-head__meta">
+          <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #269</a></span>
+          <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
+          <span>July 2026; revised 5 October 2026</span>
+          <a href="#about-paper">Authorship, AI use and citation</a>
+        </div>
+        <div class="paper-head__routes">
+          <a class="btn btn--primary btn--file" href="../../papers/erdos269-running-lcm-reasoning-surface.pdf"><span class="btn__format">PDF</span>Open the PDF, 73&nbsp;pages</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/269/erdos269-running-lcm-reasoning-surface.tex"><span class="btn__format">TeX</span>LaTeX source</a>
+          <a class="btn btn--ghost" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos269-running-lcm-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
+          <a class="btn btn--ghost" href="../problems/erdos_269.html">Problem page</a>
+        </div>
+      </header>
+
+      <div class="paper-precis">
+        <p><b class="paper-precis__head">Pr&eacute;cis.</b> The reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density supplies the required threshold pattern. The record computes the rank of every finite restriction and the least uniform approximation error over all matrices of finite separated rank. For the repeated {2,3,5} sum it derives an integer-coefficient tail recurrence and a residue criterion equivalent to irrationality. The unproved step is to find such windows for every positive multiplier <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> to 30 and after every prescribed start. It also gives the full two-prime comparison, following Fan&#x27;s earlier Hecke–Mahler reduction, and identifies the boundary terms that survive a proposed finite-difference cancellation.</p>
+        <div class="authority-card paper-scope">
+          <p><b>This paper owns</b> the complete problem-specific <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">reasoning surface</a> for Erdős #269, including all registered result families and their boundaries.</p>
+          <p><b>It is not authority for</b> the validity of claims tagged <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open.</p>
+        </div>
+      </div>
+
+      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here, by the editorial route</p><nav aria-label="Start here"><a href="erdos269-running-lcm-reasoning-surface--chapter-4675202b1dd7.html#long269:sec:problem">Two sums from running least common multiples</a><a href="erdos269-running-lcm-reasoning-surface--chapter-3edfde07bd4a.html#long269:sec:rank">Separation of the three-prime kernel</a><a href="erdos269-running-lcm-reasoning-surface--chapter-02b29f1a4fa1.html#long269:sec:open">The remaining arithmetic questions</a><a href="erdos269-running-lcm-reasoning-surface--chapter-fe8d252a0d35.html#sec:erdos-269-complete-family-map">Dependencies and remaining questions</a></nav></div>
+      <details class="reader-contents"><summary>In this paper</summary><nav aria-label="Paper contents"><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-4675202b1dd7.html#long269:sec:problem">Two sums from running least common multiples</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-c3b462c05fd0.html#long269:sec:distinct-235">Recovering the prime-power jumps</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-fd24020c3379.html#long269:sec:lcm">Intervals of constancy of the running LCM</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-82a7b88ca6f0.html#long269:sec:two-prime">The two-prime Hecke–Mahler reduction</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-99a40715e737.html#long269:sec:distinct">The sums over distinct running LCMs</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-54272c652c35.html#long269:sec:distinct-all">Proof for an arbitrary finite prime set</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-52ea1cfa87bd.html#long269:sec:distinct-blocks">Blocks and affine maps</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-15e7aee668cf.html#long269:sec:distinct-criterion">A decoding criterion for every finite set of primes</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-9488825d1865.html#long269:sec:distinct-certificates">Certificates for three and four primes</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-4d4d7257aeeb.html#long269:sec:distinct-stop">Repeated tails and prime-power subseries</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-bbfc75488b8d.html#long269:sec:clock-transfer">Words obtained from a linear flow</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-3edfde07bd4a.html#long269:sec:rank">Separation of the three-prime kernel</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-87300275961f.html#long269:sec:selected-kernel-height">Smith factors of the selected staircase</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-688f10ebfb2e.html#long269:sec:approximation">Uniform approximation of the rescaled kernel</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-d990f59f3816.html#long269:sec:blocks">The recurrence for tails between powers of two</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-35cd5137bcc6.html#long269:sec:actual-orbit">Bounding the tails and clearing a rational denominator</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-e1f50af8842d.html#long269:sec:smaller-bound">A bound using the order of the jumps</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-d88e3f29aeda.html#long269:sec:escape">A residue criterion and the bounds it allows</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-50fb54915197.html#how-fast-the-product-of-the-bases-grows">How fast the product of the bases grows</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-d9eaa537c976.html#long269:sec:evidence">Finite computations and their limits</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-d9eaa537c976.html#checking-individual-segments">Checking individual segments</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-d9eaa537c976.html#finite-denominator-bounds">Finite denominator bounds</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-02b29f1a4fa1.html#long269:sec:open">The remaining arithmetic questions</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-ecc458c97731.html#long269:sec:weighted-shifts">An exact weighted-shift identity for the repeated series</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-fe038d8230c5.html#long269:sec:boundary-difference">Boundary terms in weighted finite differences</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-f06da962e145.html#long269:sec:function-representation">Function-theoretic representations</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-7102eeebba98.html#long269:sec:carry-hypotheses">Hypotheses for auxiliary integer recurrences</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-25ab23ef5eca.html#long269:sec:remaining-question">The unresolved repeated-sum question</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-e1180834410f.html#long269:sec:proof-sources">Verification and reproducibility</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-1adeae134226.html#long269:long:extended">Further examples, conditional lemmas and source references</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-a18f5b18f0d6.html#long269:long:history">The historical and catalogue record</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-3d308da5586d.html#long269:long:general-carries">Integer recurrences in their general form</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-7bf8c7a4e11d.html#long269:long:finite-geometry">Worked finite examples</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-434178bfa50f.html#long269:long:experiments">The finite-scan histogram</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-78a801ff92cf.html#long269:long:sources">Source inventory</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-fe8d252a0d35.html#sec:erdos-269-complete-family-map">Dependencies and remaining questions</a><a class="toc-l3" href="erdos269-running-lcm-reasoning-surface--chapter-fe8d252a0d35.html#long269:sec:coverage">The formal two-prime reduction</a><a class="toc-l2" href="#references">References</a></nav></details>
+      <div class="paper-stage"><nav class="paper-chapter-nav" aria-label="Paper reading options"><a href="erdos269-running-lcm-reasoning-surface.html">Paper contents</a> · <a href="erdos269-running-lcm-reasoning-surface--complete.html" data-paper-full>Complete HTML for search and print</a></nav><nav class="paper-chapter-nav" aria-label="Section navigation"><a href="erdos269-running-lcm-reasoning-surface--chapter-fe8d252a0d35.html#sec:erdos-269-complete-family-map">Previous section</a> · <a href="erdos269-running-lcm-reasoning-surface--chapter-c56ec1d73c11.html#footnotes">Next section</a></nav><section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<ol>
+<li id="ref-1"><p>Paul Erdős and Ronald L. Graham, <em>Old and New Problems and
+Results in Combinatorial Number Theory</em>, Monographies de
+L’Enseignement Mathématique <strong>28</strong>, L’Enseignement
+Mathématique (1980), <a
+href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
+<li id="ref-2"><p>Paul Erdős, <em>On the irrationality of certain series: problems
+and results</em>, in <em>New Advances in Transcendence Theory</em>,
+Cambridge University Press (1988), 102–109, <a
+href="https://doi.org/10.1017/CBO9780511897184.009" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1017/CBO9780511897184.009</code></a>.</p></li>
+<li id="ref-3"><p>Paul Erdős, <em>Letter to the Editor</em>, Fibonacci Quarterly
+<strong>12</strong>, no. 4 (1974), 335, <a
+href="https://www.fq.math.ca/Scanned/12-4/letter.pdf" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
+<li id="ref-4"><p>Thomas F. Bloom, <em>Erdős Problem #269</em> (2026), <a
+href="https://www.erdosproblems.com/269" data-link-kind="exogenous" rel="external noopener">source</a>. Accessed 28 July
+2026.</p></li>
+<li id="ref-5"><p><em>Missing Erdős problems</em>, discussion thread on the
+erdosproblems.com forum, posts 2427 by Alfaiz (26 December 2025) and
+2531 by Thomas F. Bloom (28 December 2025), <a
+href="https://www.erdosproblems.com/forum/thread/Missing%20Erd%C5%91s%20problems" data-link-kind="exogenous" rel="external noopener">source</a>.
+Accessed 26 September 2026.</p></li>
+<li id="ref-6"><p>Paul Erdős, <em>A survey of problems in combinatorial number
+theory</em>, Annals of Discrete Mathematics <strong>6</strong> (1980),
+89–115.</p></li>
+<li id="ref-7"><p>P. H. Diananda and A. Oppenheim, <em>Criteria for irrationality
+of certain classes of numbers II</em>, American Mathematical Monthly
+<strong>62</strong>, no. 4 (1955), 222–225. Cited in the form stated by
+Serbenyuk, arXiv:<a
+href="https://arxiv.org/abs/1706.03124" data-link-kind="exogenous" rel="external noopener">1706.03124</a>,
+Theorem 1.</p></li>
+<li id="ref-8"><p>Paul Erdős, <em>Some problems and results on the irrationality of
+the sum of infinite series</em>, Journal of Mathematical Sciences
+<strong>10</strong> (1975), 1–7, <a
+href="https://users.renyi.hu/~p_erdos/1976-44.pdf" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
+<li id="ref-9"><p>The Formal Conjectures Authors,
+<em>FormalConjectures.ErdosProblems.269</em> (2025), <a
+href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/269.lean" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
+<li id="ref-10"><p>Tom M. Apostol, <em>Introduction to Analytic Number Theory</em>,
+Springer (1976), <a
+href="https://doi.org/10.1007/978-1-4757-5579-4" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1007/978-1-4757-5579-4</code></a>.</p></li>
+<li id="ref-11"><p>Adolf Hildebrand, <em>On the number of positive integers <span
+class="math inline" data-term-auto="off" data-tex="\(\le\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>≤</mo></math></mjx-assistive-mml></mjx-container></span> x and free of prime factors &gt;
+y</em>, Journal of Number Theory <strong>22</strong> (1986), 289–307, <a
+href="https://doi.org/10.1016/0022-314X(86)90013-2" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1016/0022-314X(86)90013-2</code></a>.</p></li>
+<li id="ref-12"><p>Hugh L. Montgomery and Robert C. Vaughan, <em>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime-number-theorem" data-term="prime_number_theorem" data-term-auto="1">Prime Number
+Theorem</a></em>, in <em>Multiplicative Number Theory I: Classical
+Theory</em>, Cambridge Studies in Advanced Mathematics
+<strong>97</strong>, Cambridge University Press (2007), 168–198, <a
+href="https://doi.org/10.1017/CBO9780511618314.008" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1017/CBO9780511618314.008</code></a>.</p></li>
+<li id="ref-13"><p>Vjekoslav Kovač and Terence Tao, <em>On several irrationality
+problems for Ahmes series</em>, Acta Mathematica Hungarica
+<strong>175</strong> (2025), 572–608, <a
+href="https://doi.org/10.1007/s10474-025-01528-0" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1007/s10474-025-01528-0</code></a>;
+arXiv:<a
+href="https://arxiv.org/abs/2406.17593" data-link-kind="exogenous" rel="external noopener">2406.17593</a>.</p></li>
+<li id="ref-14"><p>R. P. Stanley, <em>Smith <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-normal-form" data-term="normal_form" data-term-auto="1">normal form</a> in combinatorics</em>, J.
+Combin. Theory Ser. A <strong>144</strong> (2016), 476–495, doi:<a
+href="https://doi.org/10.1016/j.jcta.2016.06.013" data-link-kind="exogenous" rel="external noopener">10.1016/j.jcta.2016.06.013</a>;
+arXiv:<a
+href="https://arxiv.org/abs/1602.00166v1" data-link-kind="exogenous" rel="external noopener">1602.00166v1</a>.</p></li>
+<li id="ref-15"><p>Yann Bugeaud and Michel Laurent, <em>Transcendence and continued
+fraction expansion of values of Hecke–Mahler series</em>, Acta
+Arithmetica <strong>209</strong> (2023), 59–90, <a
+href="https://doi.org/10.4064/aa220323-18-1" data-link-kind="exogenous" rel="external noopener">doi:<code>10.4064/aa220323-18-1</code></a>;
+arXiv:<a
+href="https://arxiv.org/abs/2203.12901" data-link-kind="exogenous" rel="external noopener">2203.12901</a>.</p></li>
+<li id="ref-16"><p>John H. Loxton and Alfred J. van der Poorten, <em>Arithmetic
+properties of certain functions in several variables III</em>, Bulletin
+of the Australian Mathematical Society <strong>16</strong> (1977),
+15–47, <a
+href="https://doi.org/10.1017/S0004972700022978" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1017/S0004972700022978</code></a>.</p></li>
+<li id="ref-17"><p>Steve Fan, <em>Comment on Erdős Problem #269, thread 269, post
+7218</em> (2026), <a
+href="https://www.erdosproblems.com/forum/thread/269#post-7218" data-link-kind="exogenous" rel="external noopener">source</a>.
+Public forum post, 26 June 2026, thread 269, post 7218.</p></li>
+<li id="ref-18"><p>Paul Erdős and Ernst G. Straus, <em>On the irrationality of
+certain series</em>, Pacific Journal of Mathematics <strong>55</strong>,
+no. 1 (1974), 85–92, <a
+href="https://doi.org/10.2140/pjm.1974.55.85" data-link-kind="exogenous" rel="external noopener">doi:<code>10.2140/pjm.1974.55.85</code></a>.</p></li>
+<li id="ref-19"><p>Jaroslav Hančl and Robert Tijdeman, <em>On the irrationality of
+Cantor and Ahmes series</em>, Publicationes Mathematicae Debrecen
+<strong>65</strong>, no. 3–4 (2004), 371–380, <a
+href="https://doi.org/10.5486/PMD.2004.3254" data-link-kind="exogenous" rel="external noopener">doi:<code>10.5486/PMD.2004.3254</code></a>.</p></li>
+<li id="ref-20"><p>Angeliki Koutsoukou-Argyraki and Wenda Li, <em>Irrationality
+Criteria for Series by Erdős and Straus</em>, Archive of Formal Proofs
+(2020), <a
+href="https://isa-afp.org/entries/Irrational_Series_Erdos_Straus.html" data-link-kind="exogenous" rel="external noopener">source</a>.
+Entry dated 12 May 2020; proof-document version consulted: 6 February
+2026.</p></li>
+<li id="ref-21"><p>Paul Erdős and S. James Taylor, <em>On the set of points of
+convergence of a lacunary trigonometric series and the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equidistribution" data-term="equidistribution" data-term-auto="1">equidistribution</a>
+properties of related sequences</em>, Proceedings of the London
+Mathematical Society <strong>s3-7</strong>, no. 1 (1957), 598–615, <a
+href="https://doi.org/10.1112/plms/s3-7.1.598" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1112/plms/s3-7.1.598</code></a>.</p></li>
+<li id="ref-22"><p>Steve Fan, <em>Strongly complete sets and a conjecture of
+Erdős</em> (2026), <a
+href="https://arxiv.org/abs/2607.14071v1" data-link-kind="exogenous" rel="external noopener">source</a>; arXiv:<a
+href="https://arxiv.org/abs/2607.14071" data-link-kind="exogenous" rel="external noopener">2607.14071</a>. The cited
+Lemma 3.1 is in arXiv v1, 15 July 2026.</p></li>
+<li id="ref-23"><p>Paul Lévy, <em>Sur le développement en fraction continue d’un
+nombre choisi au hasard</em>, Compositio Mathematica <strong>3</strong>
+(1936), 286–303, <a
+href="https://www.numdam.org/item/CM_1936__3__286_0/" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
+<li id="ref-24"><p>Wieb Bosma, Cor Kraaikamp, S. Hommersom, M. Keune, C. Kooloos, W.
+van Loon, R. Loos, E. Omiljan, G. Popma, D. Venhoek and M. Zwart,
+<em>Continued Fractions</em> (2013), <a
+href="https://www.math.ru.nl/~bosma/Students/CF.pdf" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
+<li id="ref-25"><p>Jaroslav Hančl and Robert Tijdeman, <em>On the irrationality of
+polynomial Cantor series</em>, Acta Arithmetica <strong>133</strong>,
+no. 1 (2008), 37–52, <a
+href="https://doi.org/10.4064/aa133-1-3" data-link-kind="exogenous" rel="external noopener">doi:<code>10.4064/aa133-1-3</code></a>.</p></li>
+<li id="ref-26"><p>Florian Luca, Joël Ouaknine and James Worrell, <em>Transcendence
+of Hecke–Mahler Series</em>, Bulletin of the London Mathematical Society
+<strong>57</strong>, no. 5 (2025), 1360–1368, <a
+href="https://doi.org/10.1112/blms.70033" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1112/blms.70033</code></a>;
+arXiv:<a href="https://arxiv.org/abs/2412.07908" data-link-kind="exogenous" rel="external noopener">2412.07908</a>.
+Numbered references use the published article.</p></li>
+<li id="ref-27"><p>Pavol Kebis, Florian Luca, Joël Ouaknine, Andrew Scoones and
+James Worrell, <em>On Transcendence of Numbers Related to Sturmian and
+Arnoux-Rauzy Words</em>, in <em>51st International Colloquium on
+Automata, Languages, and Programming (ICALP 2024)</em>, Leibniz
+International Proceedings in Informatics <strong>297</strong>, Schloss
+Dagstuhl – Leibniz-Zentrum für Informatik (2024), 144:1–144:15, <a
+href="https://doi.org/10.4230/LIPIcs.ICALP.2024.144" data-link-kind="exogenous" rel="external noopener">doi:<code>10.4230/LIPIcs.ICALP.2024.144</code></a>.</p></li>
+<li id="ref-28"><p>Robert Tijdeman and H. G. Meijer, <em>On integers generated by a
+finite number of fixed primes</em>, Compositio Mathematica
+<strong>29</strong>, no. 3 (1974), 273–286, <a
+href="https://www.numdam.org/article/CM_1974__29_3_273_0.pdf" data-link-kind="exogenous" rel="external noopener">source</a>.</p></li>
+<li id="ref-29"><p>Alessandro Languasco, Florian Luca, Pieter Moree and Alain Togbé,
+<em>Sequences of integers generated by two fixed primes</em>,
+Abhandlungen aus dem Mathematischen Seminar der Universität Hamburg
+<strong>95</strong> (2025), 123–148, <a
+href="https://doi.org/10.1007/s12188-025-00293-9" data-link-kind="exogenous" rel="external noopener">doi:<code>10.1007/s12188-025-00293-9</code></a>;
+arXiv:<a
+href="https://arxiv.org/abs/2309.12806" data-link-kind="exogenous" rel="external noopener">2309.12806</a>.</p></li>
+<li id="ref-30"><p>Boris Adamczewski and Yann Bugeaud, <em>On the complexity of
+algebraic numbers I. Expansions in integer bases</em>, Annals of
+Mathematics <strong>165</strong>, no. 2 (2007), 547–565, <a
+href="https://doi.org/10.4007/annals.2007.165.547" data-link-kind="exogenous" rel="external noopener">doi:<code>10.4007/annals.2007.165.547</code></a>.</p></li>
+<li id="ref-31"><p>Federico Pellarin, <em>On the arithmetic properties of complex
+values of Hecke–Mahler series I. The rank one case</em>, Annali della
+Scuola Normale Superiore di Pisa, Classe di Scienze (5)
+<strong>5</strong>, no. 3 (2006), 329–374, <a
+href="https://www.numdam.org/item/ASNSP_2006_5_5_3_329_0/" data-link-kind="exogenous" rel="external noopener">published
+source</a>.</p></li>
+<li id="ref-32"><p>Boris Adamczewski and Colin Faverjon, <em>A new proof of
+Nishioka’s theorem in Mahler’s method</em>, Comptes Rendus. Mathématique
+<strong>361</strong> (2023), 1011–1028, <a
+href="https://doi.org/10.5802/crmath.458" data-link-kind="exogenous" rel="external noopener">doi:<code>10.5802/crmath.458</code></a>.</p></li>
+<li id="ref-33"><p>Boris Adamczewski and Colin Faverjon, <em>Mahler’s method in
+several variables and finite automata</em>, Annals of Mathematics
+<strong>204</strong>, no. 2 (2026), 455–533, <a
+href="https://doi.org/10.4007/annals.2026.204.2.1" data-link-kind="exogenous" rel="external noopener">doi:<code>10.4007/annals.2026.204.2.1</code></a>.
+Online 13 September 2026; locators here refer to the <a
+href="https://faverjon.perso.math.cnrs.fr/AdamczewskiFaverjon_MahlerFiniteAutomata.pdf" data-link-kind="exogenous" rel="external noopener">68-page
+author manuscript</a>.</p></li>
+</ol>
+</section><nav class="paper-chapter-nav" aria-label="Paper reading options"><a href="erdos269-running-lcm-reasoning-surface.html">Paper contents</a> · <a href="erdos269-running-lcm-reasoning-surface--complete.html" data-paper-full>Complete HTML for search and print</a></nav><nav class="paper-chapter-nav" aria-label="Section navigation"><a href="erdos269-running-lcm-reasoning-surface--chapter-fe8d252a0d35.html#sec:erdos-269-complete-family-map">Previous section</a> · <a href="erdos269-running-lcm-reasoning-surface--chapter-c56ec1d73c11.html#footnotes">Next section</a></nav></div>
+      <section class="paper-foot" id="about-paper" aria-labelledby="about-paper-title">
+        <h2 class="paper-foot__title" id="about-paper-title">About this paper</h2>
+        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
+        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff" data-link-kind="exogenous" rel="external noopener">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
+        <p class="paper-foot__label">Prefer the manuscript?</p>
+        <div class="paper-head__routes">
+          <a class="btn btn--primary btn--file" href="../../papers/erdos269-running-lcm-reasoning-surface.pdf"><span class="btn__format">PDF</span>Open the PDF, 73&nbsp;pages</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/269/erdos269-running-lcm-reasoning-surface.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
+          <a class="btn btn--ghost" href="../problems/erdos_269.html">Problem page</a>
+        </div>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:4643ae2207eb93d2</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+      </section>
+      </div>
+    </main>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-4675202b1dd7.html#long269:sec:problem">Two sums from running least common multiples</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-c3b462c05fd0.html#long269:sec:distinct-235">Recovering the prime-power jumps</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-fd24020c3379.html#long269:sec:lcm">Intervals of constancy of the running LCM</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-82a7b88ca6f0.html#long269:sec:two-prime">The two-prime Hecke–Mahler reduction</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-99a40715e737.html#long269:sec:distinct">The sums over distinct running LCMs</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-bbfc75488b8d.html#long269:sec:clock-transfer">Words obtained from a linear flow</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-3edfde07bd4a.html#long269:sec:rank">Separation of the three-prime kernel</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-d990f59f3816.html#long269:sec:blocks">The recurrence for tails between powers of two</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-35cd5137bcc6.html#long269:sec:actual-orbit">Bounding the tails and clearing a rational denominator</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-d88e3f29aeda.html#long269:sec:escape">A residue criterion and the bounds it allows</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-d9eaa537c976.html#long269:sec:evidence">Finite computations and their limits</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-02b29f1a4fa1.html#long269:sec:open">The remaining arithmetic questions</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-1adeae134226.html#long269:long:extended">Further examples, conditional lemmas and source references</a><a class="toc-l2" href="erdos269-running-lcm-reasoning-surface--chapter-fe8d252a0d35.html#sec:erdos-269-complete-family-map">Dependencies and remaining questions</a><a class="toc-l2" href="#references">References</a><a class="toc-l2" href="#about-paper">About this paper</a></aside>
+  </div>
+</body>
+</html>

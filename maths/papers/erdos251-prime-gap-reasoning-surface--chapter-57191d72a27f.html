@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en" data-glossary-hint="off">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <title>Prime-Gap Dyadic Series: Perturbations, Exact Criteria and Certificates · Plectis maths</title>
+  <meta name="description" content="A convergent dyadic series with nonnegative integer coefficients can be made rational by sparse nonnegative corrections of upper Banach density zero,…">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/papers/erdos251-prime-gap-reasoning-surface.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Prime-Gap Dyadic Series: Perturbations, Exact Criteria and Certificates · Plectis maths">
+  <meta property="og:description" content="A convergent dyadic series with nonnegative integer coefficients can be made rational by sparse nonnegative corrections of upper Banach density zero,…">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/papers/erdos251-prime-gap-reasoning-surface.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Prime-Gap Dyadic Series: Perturbations, Exact Criteria and Certificates · Plectis maths">
+  <meta name="twitter:description" content="A convergent dyadic series with nonnegative integer coefficients can be made rational by sparse nonnegative corrections of upper Banach density zero,…">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1526">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=21e585488b71">
+  <link rel="stylesheet" href="../assets/maths.css?v=988ea40d1d74">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=4ef1d16f00fb"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
+  <script defer src="../assets/maths.js?v=eb35fe169ca1"></script>
+  <meta name="author" content="Will Cook">
+  <meta name="citation_title" content="Prime-Gap Dyadic Series: Perturbations, Exact Criteria and Certificates">
+  <meta name="citation_author" content="Will Cook">
+  <meta name="citation_date" content="2026/09">
+  <meta name="citation_pdf_url" content="https://wcook04.github.io/plectis/maths/papers/erdos251-prime-gap-reasoning-surface.pdf">
+  <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/math/d3a90076e831a472.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html"><img class="wordmark__mark" src="../../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
+        <a href="../index.html">Mathematics</a>
+        <a href="../../docs/papers.html" aria-current="true">Papers</a>
+        <a href="../../index.html#videos">Videos</a>
+        <a href="../../docs/glossary.html">Glossary</a>
+        <a href="../../docs/introduction.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers" class="is-active" aria-current="page">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <div class="maths-pagebar">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Erdős #251 long paper</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root=".paper-stage" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy section</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root=".paper-stage" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download section JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+      <header class="paper-head">
+        <p class="paper-head__eyebrow">Long paper</p>
+        <h1 data-page-name="Erdős #251 long paper">Prime-Gap Dyadic Series: Perturbations, Exact Criteria and Certificates</h1>
+        <div class="paper-head__meta">
+          <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #251</a></span>
+          <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
+          <span>September 2026</span>
+          <a href="#about-paper">Authorship, AI use and citation</a>
+        </div>
+        <div class="paper-head__routes">
+          <a class="btn btn--primary btn--file" href="../../papers/erdos251-prime-gap-reasoning-surface.pdf"><span class="btn__format">PDF</span>Open the PDF, 47&nbsp;pages</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/251/erdos251-prime-gap-reasoning-surface.tex"><span class="btn__format">TeX</span>LaTeX source</a>
+          <a class="btn btn--ghost" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
+          <a class="btn btn--ghost" href="../problems/erdos_251.html">Problem page</a>
+        </div>
+      </header>
+
+      <div class="paper-precis">
+        <p><b class="paper-precis__head">Pr&eacute;cis.</b> A convergent <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> series with nonnegative integer coefficients can be made rational by sparse nonnegative corrections of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-upper-banach-density" data-term="upper_banach_density" data-term-auto="1">upper Banach density zero</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-eventual-property" data-term="eventual_property" data-term-auto="1">eventually</a> bounded by any f(n)→∞, while preserving every fixed modulus and, for a logarithmic allowance, short-block <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-empirical-distribution" data-term="empirical_distribution" data-term-auto="1">empirical distributions</a>. For <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime-gap" data-term="prime_gap" data-term-auto="1">prime gaps</a> the cumulative positions remain asymptotic to n log n; no primality conclusion is asserted. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-summation-by-parts" data-term="summation_by_parts" data-term-auto="1">Summation by parts</a> reduces the prime series to the gap series, and the tails <span class="math inline" data-term-auto="off" data-tex="\(T_{N}=\sum _{j\ge 1}g_{N+j}2^{-j}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D447">𝑇</mjx-c></mjx-mi><mjx-script class="mjx-s-a2c1ec1c99ad594d"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-munder space="4" limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D457">𝑗</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-munder><mjx-msub space="2"><mjx-mi><mjx-c class="mjx-c1D454">𝑔</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D457">𝑗</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D457">𝑗</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>T</mi><mrow data-mjx-texclass="ORD"><mi>N</mi></mrow></msub><mo>=</mo><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></munder><msub><mi>g</mi><mrow data-mjx-texclass="ORD"><mi>N</mi><mo>+</mo><mi>j</mi></mrow></msub><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mo>−</mo><mi>j</mi></mrow></msup></math></mjx-assistive-mml></mjx-container></span> satisfy <span class="math inline" data-term-auto="off" data-tex="\(T_{N+1}=2T_{N}-g_{N+1}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D447">𝑇</mjx-c></mjx-mi><mjx-script class="mjx-s-a2c1ec1c99ad594d"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-msub><mjx-mi><mjx-c class="mjx-c1D447">𝑇</mjx-c></mjx-mi><mjx-script class="mjx-s-a2c1ec1c99ad594d"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-msub space="3"><mjx-mi><mjx-c class="mjx-c1D454">𝑔</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>T</mi><mrow data-mjx-texclass="ORD"><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>T</mi><mrow data-mjx-texclass="ORD"><mi>N</mi></mrow></msub><mo>−</mo><msub><mi>g</mi><mrow data-mjx-texclass="ORD"><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub></math></mjx-assistive-mml></mjx-container></span>. That recurrence characterises rationality and yields finite tests with explicit remainder bounds. An exact finite certificate shows that a rational value of the prime series would have denominator at least <span class="math inline" data-term-auto="off" data-tex="\(2^{39998}&gt;10^{12040}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c39" noic="true">9</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c39" noic="true">9</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c39" noic="true">9</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38">8</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3E">&gt;</mjx-c></mjx-mo><mjx-msup space="4"><mjx-mn><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn><mjx-script class="mjx-s-e04259e686b28a46"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c34" noic="true">4</mjx-c><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c30">0</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msup></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mn>39998</mn></mrow></msup><mo>&gt;</mo><msup><mn>10</mn><mrow data-mjx-texclass="ORD"><mn>12040</mn></mrow></msup></math></mjx-assistive-mml></mjx-container></span>. The bound does not establish irrationality.</p>
+        <div class="authority-card paper-scope">
+          <p><b>This paper owns</b> the complete problem-specific <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">reasoning surface</a> for Erdős #251, including all registered result families and their boundaries.</p>
+          <p><b>It is not authority for</b> the validity of claims tagged <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open.</p>
+        </div>
+      </div>
+
+      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here, by the editorial route</p><nav aria-label="Start here"><a href="erdos251-prime-gap-reasoning-surface--chapter-daa090b8ce0a.html#long251:sec:tail">The tail recurrence and the exact criteria</a><a href="erdos251-prime-gap-reasoning-surface--chapter-52fa477f4e90.html#long251:sec:obstructions">Coefficient conditions and counterexamples</a><a href="erdos251-prime-gap-reasoning-surface--chapter-a2defd18ca65.html#long251:sec:open">Remaining prime-gap estimates</a><a href="erdos251-prime-gap-reasoning-surface--chapter-5f1b2c9babe8.html#sec:erdos-251-complete-family-map">Conclusions</a></nav></div>
+      <details class="reader-contents"><summary>In this paper</summary><nav aria-label="Paper contents"><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-85d255716274.html#long251:sec:problem">Introduction</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-b6d4e3d982cd.html#long251:sec:paired-corrections">Sparse congruence-preserving perturbations</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-79cbb259b1fb.html#long251:sec:context">Context and mathematical dependencies</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-f4896d0d8704.html#long251:sec:parts">Summation by parts, with the endpoint retained</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-f4896d0d8704.html#long251:sec:infinite">The infinite identity and the irrationality equivalence</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-daa090b8ce0a.html#long251:sec:tail">The tail recurrence and the exact criteria</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-daa090b8ce0a.html#long251:sec:freepair">Pairs of congruent indices and least-common-multiple shifts</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-56c0742cd198.html#long251:sec:local-certificate">A local certificate, and one actual pair</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-56c0742cd198.html#an-explicit-remainder-and-a-certified-actual-pair">An explicit remainder and a certified actual pair</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-e3a554488c02.html#long251:sec:denominator-floor">Two lower bounds on a possible rational denominator</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-52fa477f4e90.html#long251:sec:obstructions">Coefficient conditions and counterexamples</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-876b693fba0d.html#bounded-residue-preserving-perturbations">Bounded residue-preserving perturbations</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-896984ec16e9.html#algebraic-nonconcentration-survives-the-rationalising-perturbation">Algebraic nonconcentration survives the rationalising perturbation</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-3c66d16de6a9.html#density-of-indices-with-two-small-tail-differences">Density of indices with two small tail differences</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-97a4de99d430.html#recurring-gap-values-differing-by-two-do-not-suffice">Recurring gap values differing by two do not suffice</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-fe35a27fe97d.html#long251:res:all-residue-log-countermodel">A rational series with recurring values in every residue class</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-7c226c227e7d.html#polynomial-coefficients-and-telescoping-sums">Polynomial coefficients and telescoping sums</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-2bc5d09cfc5c.html#long251:sec:measurements">Finite numerical searches</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-a2defd18ca65.html#long251:sec:open">Remaining prime-gap estimates</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-fd43769d956a.html#long251:app:prime-bound">An elementary polynomial bound for the primes</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-6caea3d2fee6.html#long251:app:certificates">Integer certificates</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-435bb433be42.html#long251:app:index">Verification and reproducibility</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-895aa20b1c41.html#long251:sec:erdos-251-extended-record">Further criteria, examples and computational details</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-9c140be31684.html#long251:sec:xr-totient">Totient-length shifts and persistence of integrality</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-b9505bee3e93.html#long251:sec:xr-truncation">The finite truncation criterion</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-9f081d8f7313.html#long251:sec:xr-divisorhit">Nonintegral differences at multiples of each shift</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-f166299b5efe.html#long251:sec:xr-compression">Repeated tail values and congruent indices</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-d03ec162147f.html#long251:sec:xr-boundedpolignac">A bounded sequence with recurring values and a rational sum</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-50c432a5ea98.html#long251:sec:xr-densities">Numerical counts and proportions</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-691b91b6717f.html#long251:sec:xr-corrections">Two corrections</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-a0a1066a4335.html#long251:app:affine-detail">Arithmetic-progression reformulations of integrality</a><a class="toc-l3" href="erdos251-prime-gap-reasoning-surface--chapter-a0a1066a4335.html#long251:sec:signed-dirichlet-comparison">A signed comparison with more analytic data</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-5f1b2c9babe8.html#sec:erdos-251-complete-family-map">Conclusions</a><a class="toc-l2" href="#long251:app:short-source-index">Source index for the short paper</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-53d124998230.html#references">References</a></nav></details>
+      <div class="paper-stage"><nav class="paper-chapter-nav" aria-label="Paper reading options"><a href="erdos251-prime-gap-reasoning-surface.html">Paper contents</a> · <a href="erdos251-prime-gap-reasoning-surface--complete.html" data-paper-full>Complete HTML for search and print</a></nav><nav class="paper-chapter-nav" aria-label="Section navigation"><a href="erdos251-prime-gap-reasoning-surface--chapter-5f1b2c9babe8.html#sec:erdos-251-complete-family-map">Previous section</a> · <a href="erdos251-prime-gap-reasoning-surface--chapter-53d124998230.html#references">Next section</a></nav><section id="long251:app:short-source-index" class="level2">
+<h2>Source index for the short paper</h2>
+<p>The links below identify further formal definitions and statements
+used in the short paper, at its original revision
+<code>99f4bf47422a</code> and line numbers. This local source pin
+applies only to the index below; Appendix <a class="math-ref" href="erdos251-prime-gap-reasoning-surface--chapter-435bb433be42.html#long251:app:index">C</a> retains the long
+record’s separate pin. Each link is labelled by the mathematics it
+states.</p>
+<p><strong>Finite series.</strong> <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L47" data-link-kind="exogenous" rel="external noopener">The
+first prime gap is one</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L51" data-link-kind="exogenous" rel="external noopener">The
+second prime gap is two</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L101" data-link-kind="exogenous" rel="external noopener">Finite
+dyadic sums</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L121" data-link-kind="exogenous" rel="external noopener">Finite
+dyadic sums of consecutive differences</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L138" data-link-kind="exogenous" rel="external noopener">Summation
+by parts for a rational sequence</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L111" data-link-kind="exogenous" rel="external noopener">The
+two prime-series normalisations differ by a factor of two</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L172" data-link-kind="exogenous" rel="external noopener">Summation
+by parts for the primes</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L183" data-link-kind="exogenous" rel="external noopener">Terms
+of the prime series</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L192" data-link-kind="exogenous" rel="external noopener">Terms
+of the prime-gap series</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L202" data-link-kind="exogenous" rel="external noopener">The
+identity relating prime and gap terms</a>.</p>
+<p><strong>Convergent series.</strong> <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L385" data-link-kind="exogenous" rel="external noopener">Convergence
+of the gap series from convergence of the prime series</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L404" data-link-kind="exogenous" rel="external noopener">The
+infinite prime-to-gap identity under summability</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L188" data-link-kind="exogenous" rel="external noopener">Prime
+terms with denominator powers starting at zero</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L196" data-link-kind="exogenous" rel="external noopener">The
+factor-of-two identity for individual terms</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L435" data-link-kind="exogenous" rel="external noopener">Equivalent
+irrationality of the prime and gap series</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L444" data-link-kind="exogenous" rel="external noopener">The
+infinite identity in the second normalisation</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L459" data-link-kind="exogenous" rel="external noopener">Equivalent
+irrationality in the second normalisation</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360" data-link-kind="exogenous" rel="external noopener">An
+elementary polynomial upper bound for the primes</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L379" data-link-kind="exogenous" rel="external noopener">Convergence
+of the prime series</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L427" data-link-kind="exogenous" rel="external noopener">The
+prime-to-gap identity with convergence proved</a>.</p>
+<p><strong>Recurrences.</strong> <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L482" data-link-kind="exogenous" rel="external noopener">The
+recurrence satisfied by rescaled dyadic tails</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L544" data-link-kind="exogenous" rel="external noopener">The
+difference between two terms of a recurrence</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L647" data-link-kind="exogenous" rel="external noopener">The
+weighted integer sum accumulated by iteration</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L653" data-link-kind="exogenous" rel="external noopener">Iteration
+of the recurrence</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L667" data-link-kind="exogenous" rel="external noopener">A
+shift as a multiple of a tail minus an integer</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L563" data-link-kind="exogenous" rel="external noopener">The
+recurrence for consecutive tail differences</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L677" data-link-kind="exogenous" rel="external noopener">Subtracting
+an integer preserves integrality</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L802" data-link-kind="exogenous" rel="external noopener">The
+criterion for a shift to be integral</a>.</p>
+<p><strong>Denominators and integral shifts.</strong> <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1279" data-link-kind="exogenous" rel="external noopener">The
+denominator divisibility criterion for an integral shift</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L695" data-link-kind="exogenous" rel="external noopener">Euler’s
+congruence for an odd denominator</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L877" data-link-kind="exogenous" rel="external noopener">An
+integral shift of totient length</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L888" data-link-kind="exogenous" rel="external noopener">An
+integral shift remains integral at the next index</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L900" data-link-kind="exogenous" rel="external noopener">An
+integral shift remains integral at every later index</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1217" data-link-kind="exogenous" rel="external noopener">The
+denominator after one recurrence step</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1226" data-link-kind="exogenous" rel="external noopener">An
+odd denominator is unchanged by a step</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1236" data-link-kind="exogenous" rel="external noopener">An
+even denominator is halved by a step</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L723" data-link-kind="exogenous" rel="external noopener">Removing
+the power of two from a rational denominator</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L756" data-link-kind="exogenous" rel="external noopener">An
+integral multiple after the power of two is removed</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L830" data-link-kind="exogenous" rel="external noopener">Eventual
+integral shifts from the denominator factorisation</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L853" data-link-kind="exogenous" rel="external noopener">Eventual
+integral shifts under rationality</a>.</p>
+<p><strong>Rationality criteria.</strong> <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L489" data-link-kind="exogenous" rel="external noopener">Rational
+representation of a rescaled prime-gap tail</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L527" data-link-kind="exogenous" rel="external noopener">The
+recurrence for that rational representation</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L510" data-link-kind="exogenous" rel="external noopener">Existence
+of the rational representation under rationality</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1479" data-link-kind="exogenous" rel="external noopener">Rationality
+is equivalent to one integral positive-length shift</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1525" data-link-kind="exogenous" rel="external noopener">Rationality
+is equivalent to eventual integrality of a fixed shift</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1551" data-link-kind="exogenous" rel="external noopener">Irrationality
+is equivalent to nonintegrality of every positive-length shift</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1572" data-link-kind="exogenous" rel="external noopener">Irrationality
+is equivalent to arbitrarily late nonintegral shifts of each
+length</a>.</p>
+<p><strong>Small differences and counterexamples.</strong> <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L979" data-link-kind="exogenous" rel="external noopener">Two
+small differences with unequal coefficients cannot both be integral</a>;
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1006" data-link-kind="exogenous" rel="external noopener">Arbitrarily
+late small unequal pairs exclude eventual integrality</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1112" data-link-kind="exogenous" rel="external noopener">The
+small-pair implication for prime gaps</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L57" data-link-kind="exogenous" rel="external noopener">Prime
+gaps exceed every prescribed bound</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1023" data-link-kind="exogenous" rel="external noopener">Prime
+gaps are not eventually periodic</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1129" data-link-kind="exogenous" rel="external noopener">Coefficients
+obtained by telescoping</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1137" data-link-kind="exogenous" rel="external noopener">The
+finite telescoping identity</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1157" data-link-kind="exogenous" rel="external noopener">The
+telescoping example with coefficients equal to the index minus one</a>;
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1163" data-link-kind="exogenous" rel="external noopener">Nonperiodicity
+of the telescoping example</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1097" data-link-kind="exogenous" rel="external noopener">Rationality
+forces some fixed shift to fail eventual smallness</a>.</p>
+<p><strong>Further finite identities.</strong> <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L106" data-link-kind="exogenous" rel="external noopener">Finite
+prime sums in the second normalisation</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L124" data-link-kind="exogenous" rel="external noopener">Adding
+one term to a dyadic partial sum</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L129" data-link-kind="exogenous" rel="external noopener">Adding
+one term to a difference partial sum</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L152" data-link-kind="exogenous" rel="external noopener">Consecutive
+primes are in increasing order</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L156" data-link-kind="exogenous" rel="external noopener">The
+natural-number gap agrees with subtraction in the rationals</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L161" data-link-kind="exogenous" rel="external noopener">Finite
+sums of weighted prime gaps</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1133" data-link-kind="exogenous" rel="external noopener">Finite
+sums for the telescoping coefficients</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1177" data-link-kind="exogenous" rel="external noopener">A
+nonnegative version of the telescoping coefficients</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1180" data-link-kind="exogenous" rel="external noopener">Agreement
+of the nonnegative and integer formulas</a>.</p>
+</section><nav class="paper-chapter-nav" aria-label="Paper reading options"><a href="erdos251-prime-gap-reasoning-surface.html">Paper contents</a> · <a href="erdos251-prime-gap-reasoning-surface--complete.html" data-paper-full>Complete HTML for search and print</a></nav><nav class="paper-chapter-nav" aria-label="Section navigation"><a href="erdos251-prime-gap-reasoning-surface--chapter-5f1b2c9babe8.html#sec:erdos-251-complete-family-map">Previous section</a> · <a href="erdos251-prime-gap-reasoning-surface--chapter-53d124998230.html#references">Next section</a></nav></div>
+      <section class="paper-foot" id="about-paper" aria-labelledby="about-paper-title">
+        <h2 class="paper-foot__title" id="about-paper-title">About this paper</h2>
+        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
+        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff" data-link-kind="exogenous" rel="external noopener">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
+        <p class="paper-foot__label">Prefer the manuscript?</p>
+        <div class="paper-head__routes">
+          <a class="btn btn--primary btn--file" href="../../papers/erdos251-prime-gap-reasoning-surface.pdf"><span class="btn__format">PDF</span>Open the PDF, 47&nbsp;pages</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/251/erdos251-prime-gap-reasoning-surface.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
+          <a class="btn btn--ghost" href="../problems/erdos_251.html">Problem page</a>
+        </div>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:648e558fb9871711</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+      </section>
+      </div>
+    </main>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-85d255716274.html#long251:sec:problem">Introduction</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-b6d4e3d982cd.html#long251:sec:paired-corrections">Sparse congruence-preserving perturbations</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-79cbb259b1fb.html#long251:sec:context">Context and mathematical dependencies</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-f4896d0d8704.html#long251:sec:parts">Summation by parts, with the endpoint retained</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-daa090b8ce0a.html#long251:sec:tail">The tail recurrence and the exact criteria</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-56c0742cd198.html#long251:sec:local-certificate">A local certificate, and one actual pair</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-e3a554488c02.html#long251:sec:denominator-floor">Two lower bounds on a possible rational denominator</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-52fa477f4e90.html#long251:sec:obstructions">Coefficient conditions and counterexamples</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-2bc5d09cfc5c.html#long251:sec:measurements">Finite numerical searches</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-a2defd18ca65.html#long251:sec:open">Remaining prime-gap estimates</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-fd43769d956a.html#long251:app:prime-bound">An elementary polynomial bound for the primes</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-6caea3d2fee6.html#long251:app:certificates">Integer certificates</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-435bb433be42.html#long251:app:index">Verification and reproducibility</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-895aa20b1c41.html#long251:sec:erdos-251-extended-record">Further criteria, examples and computational details</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-a0a1066a4335.html#long251:app:affine-detail">Arithmetic-progression reformulations of integrality</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-5f1b2c9babe8.html#sec:erdos-251-complete-family-map">Conclusions</a><a class="toc-l2" href="#long251:app:short-source-index">Source index for the short paper</a><a class="toc-l2" href="erdos251-prime-gap-reasoning-surface--chapter-53d124998230.html#references">References</a><a class="toc-l2" href="#about-paper">About this paper</a></aside>
+  </div>
+</body>
+</html>

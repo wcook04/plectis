@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en" data-glossary-hint="off">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <title>Reciprocal Sums and the Sylvester Recurrence: Further Results and Proofs · Plectis maths</title>
+  <meta name="description" content="An increasing sequence of positive integers satisfying aₙ²/aₙ₊₁=1+3/n+o(n⁻³) has an irrational reciprocal sum: rationality would force integer tail…">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/papers/erdos243-reciprocal-tail-reasoning-surface.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Reciprocal Sums and the Sylvester Recurrence: Further Results and Proofs · Plectis maths">
+  <meta property="og:description" content="An increasing sequence of positive integers satisfying aₙ²/aₙ₊₁=1+3/n+o(n⁻³) has an irrational reciprocal sum: rationality would force integer tail…">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/papers/erdos243-reciprocal-tail-reasoning-surface.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Reciprocal Sums and the Sylvester Recurrence: Further Results and Proofs · Plectis maths">
+  <meta name="twitter:description" content="An increasing sequence of positive integers satisfying aₙ²/aₙ₊₁=1+3/n+o(n⁻³) has an irrational reciprocal sum: rationality would force integer tail…">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1526">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=21e585488b71">
+  <link rel="stylesheet" href="../assets/maths.css?v=988ea40d1d74">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=4ef1d16f00fb"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
+  <script defer src="../assets/maths.js?v=eb35fe169ca1"></script>
+  <meta name="author" content="Will Cook">
+  <meta name="citation_title" content="Reciprocal Sums and the Sylvester Recurrence: Further Results and Proofs">
+  <meta name="citation_author" content="Will Cook">
+  <meta name="citation_date" content="2026/09">
+  <meta name="citation_pdf_url" content="https://wcook04.github.io/plectis/maths/papers/erdos243-reciprocal-tail-reasoning-surface.pdf">
+  <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/math/594c0ab9ed9d2823.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html"><img class="wordmark__mark" src="../../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
+        <a href="../index.html">Mathematics</a>
+        <a href="../../docs/papers.html" aria-current="true">Papers</a>
+        <a href="../../index.html#videos">Videos</a>
+        <a href="../../docs/glossary.html">Glossary</a>
+        <a href="../../docs/introduction.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers" class="is-active" aria-current="page">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <div class="maths-pagebar">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Erdős #243 long paper</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root=".paper-stage" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy section</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root=".paper-stage" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download section JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+      <header class="paper-head">
+        <p class="paper-head__eyebrow">Long paper</p>
+        <h1 data-page-name="Erdős #243 long paper">Reciprocal Sums and the Sylvester Recurrence: Further Results and Proofs</h1>
+        <div class="paper-head__meta">
+          <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #243</a></span>
+          <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
+          <span>September 2026</span>
+          <a href="#about-paper">Authorship, AI use and citation</a>
+        </div>
+        <div class="paper-head__routes">
+          <a class="btn btn--primary btn--file" href="../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf"><span class="btn__format">PDF</span>Open the PDF, 61&nbsp;pages</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex"><span class="btn__format">TeX</span>LaTeX source</a>
+          <a class="btn btn--ghost" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
+          <a class="btn btn--ghost" href="../problems/erdos_243.html">Problem page</a>
+        </div>
+      </header>
+
+      <div class="paper-precis">
+        <p><b class="paper-precis__head">Pr&eacute;cis.</b> An increasing sequence of positive integers satisfying <span class="math inline" data-term-auto="off" data-tex="\(a_{n}^{2}/a_{n+1}=1+3/n+o(n^{-3})\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msubsup><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-9561742b60faf9f3"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-TeXAtom><mjx-spacer class="mjx-s-7978193657f16d34"></mjx-spacer><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msubsup><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mi space="3"><mjx-c class="mjx-c1D45C">𝑜</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msubsup><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow><mrow data-mjx-texclass="ORD"><mn>2</mn></mrow></msubsup><mo>/</mo><msub><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>1</mn><mo>+</mo><mn>3</mn><mo>/</mo><mi>n</mi><mo>+</mo><mi>o</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mrow data-mjx-texclass="ORD"><mo>−</mo><mn>3</mn></mrow></msup><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> has an irrational <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">reciprocal sum</a>: rationality would force integer tail numerators to agree <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-eventual-property" data-term="eventual_property" data-term-auto="1">eventually</a> with a cubic polynomial, which divisibility, a cubic-field calculation, and congruences modulo seven exclude. For rational reciprocal sums under <span class="math inline" data-term-auto="off" data-tex="\(a_{n+1}/a_{n}^{2}\to 1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msubsup><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-9561742b60faf9f3"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-TeXAtom><mjx-spacer class="mjx-s-7978193657f16d34"></mjx-spacer><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msubsup><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2192">→</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>/</mo><msubsup><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow><mrow data-mjx-texclass="ORD"><mn>2</mn></mrow></msubsup><mo accent="false" stretchy="false">→</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span>, the record also develops sufficient conditions for the eventual recurrence <span class="math inline" data-term-auto="off" data-tex="\(a_{n+1}=a_{n}^{2}-a_{n}+1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-msubsup space="4"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-9561742b60faf9f3"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-TeXAtom><mjx-spacer class="mjx-s-7978193657f16d34"></mjx-spacer><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msubsup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-msub space="3"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow><mrow data-mjx-texclass="ORD"><mn>2</mn></mrow></msubsup><mo>−</mo><msub><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msub><mo>+</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span>, controlling either increases of an integer tail numerator or a convergent sum at steps setting new maxima. Examples separate numerical growth bounds from the exact recurrences. The cubic proof is distinguished from the theorems formalised in <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>. None of the additional bounds is derived for every rational reciprocal sum in Erdős #243.</p>
+        <div class="authority-card paper-scope">
+          <p><b>This paper owns</b> the complete problem-specific <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">reasoning surface</a> for Erdős #243, including all registered result families and their boundaries.</p>
+          <p><b>It is not authority for</b> the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #243, which remains open.</p>
+        </div>
+      </div>
+
+      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here, by the editorial route</p><nav aria-label="Start here"><a href="erdos243-reciprocal-tail-reasoning-surface--chapter-99670e6a0f8b.html#long243:sec:cubicrate">Irrationality at the cubic rate</a><a href="erdos243-reciprocal-tail-reasoning-surface--chapter-66fa018dd883.html#long243:sec:bounded">Bounded negative part</a><a href="erdos243-reciprocal-tail-reasoning-surface--chapter-d62670624957.html#long243:sec:open">Further questions</a><a href="erdos243-reciprocal-tail-reasoning-surface--chapter-6603377369f7.html#sec:erdos-243-complete-family-map">Result map and proof dependencies</a></nav></div>
+      <details class="reader-contents"><summary>In this paper</summary><nav aria-label="Paper contents"><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-a31398fc1c1a.html#long243:sec:problem">Introduction</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-99670e6a0f8b.html#long243:sec:cubicrate">Irrationality at the cubic rate</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-518cc5ef880a.html#reduction-and-lower-density">Reduction and lower density</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-fa375fd17087.html#square-specialisation">Square specialisation</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-6aaa5bbda465.html#the-square-condition-forces-m12">The square condition forces <span class="math inline" data-term-auto="off" data-tex="\(m=12\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45A">𝑚</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>m</mi><mo>=</mo><mn>12</mn></math></mjx-assistive-mml></mjx-container></span></a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-3dd961352dae.html#long243:sec:modseven">The two remaining cubics fail modulo seven</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-e4b9281661bb.html#polynomial-extraction-at-a-regular-rate">Polynomial extraction at a regular rate</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-875e443ddaef.html#long243:sec:priorwork">Prior work and formalisation</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-f1ed9ecd47cb.html#long243:sec:state">Integer numerators, denominators and errors</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-6bfc779bff5c.html#long243:sec:defect">Zero errors and the Sylvester recurrence</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-6bfc779bff5c.html#relations-among-three-consecutive-numerators">Relations among three consecutive numerators</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-df2ffea85234.html#long243:sec:lcmrecords">LCM numerators and weighted records</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-986dec7f7d71.html#long243:sec:records">New maxima of reduced numerators</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-b6af2c823314.html#growth-of-the-running-maximum">Growth of the running maximum</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-0881fa221e3a.html#bounds-that-allow-for-cancellation-and-earlier-decreases">Bounds that allow for cancellation and earlier decreases</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-fb51ce4f4968.html#counting-jumps-before-a-prime-power-can-be-lost">Counting jumps before a prime power can be lost</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-c5c93c7b8ddd.html#bounds-on-the-error-and-on-the-original-sequence">Bounds on the error and on the original sequence</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-d7f4d91851f8.html#signs-of-the-error-and-of-the-growth-ratio">Signs of the error and of the growth ratio</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-bbe5cae2dbdc.html#long243:sec:descent">Nonnegative errors</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-9c7fe4667c8c.html#long243:sec:constant">Constant negative errors</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-2d105026be98.html#long243:sec:periodic">Periodic negative errors</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-54fc2bb5ab33.html#long243:sec:barrier">Bounded increases and coprimality</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-66fa018dd883.html#long243:sec:bounded">Bounded negative part</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-8692b7359150.html#long243:sec:mass">Finite total relative increase</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-d62670624957.html#long243:sec:open">Further questions</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-43fd89d92ede.html#growth-of-the-factors-repeated-in-the-denominator">Growth of the factors repeated in the denominator</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-ad3b34a0a5c2.html#cancellation-during-recovery-intervals">Cancellation during recovery intervals</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-bb83beae1b31.html#the-direct-analytic-question">The direct analytic question</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-9d73e44ea56e.html#unbounded-upward-increments">Unbounded upward increments</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-469badac89a2.html#formalisation-targets">Formalisation targets</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-74b1cffe0b4c.html#statements-and-declarations">Statements and declarations</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-3086d642b356.html#long243:app:index">Verification and reproducibility</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-3086d642b356.html#indexing-of-the-regular-rate-theorems">Indexing of the regular-rate theorems</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-3086d642b356.html#the-square-specialisation-proofs">The square-specialisation proofs</a><a class="toc-l3" href="erdos243-reciprocal-tail-reasoning-surface--chapter-3086d642b356.html#recurrence-declarations">Recurrence declarations</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-a0d6d4d6a840.html#long243:app:residue">A factorial modulus for integral recursion</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-6603377369f7.html#sec:erdos-243-complete-family-map">Result map and proof dependencies</a><a class="toc-l2" href="#references">References</a></nav></details>
+      <div class="paper-stage"><nav class="paper-chapter-nav" aria-label="Paper reading options"><a href="erdos243-reciprocal-tail-reasoning-surface.html">Paper contents</a> · <a href="erdos243-reciprocal-tail-reasoning-surface--complete.html" data-paper-full>Complete HTML for search and print</a></nav><nav class="paper-chapter-nav" aria-label="Section navigation"><a href="erdos243-reciprocal-tail-reasoning-surface--chapter-6603377369f7.html#sec:erdos-243-complete-family-map">Previous section</a></nav><section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<ol>
+<li id="ref-1"><p>P. Erdős and E. G. Straus, <a
+href="https://users.renyi.hu/~p_erdos/1964-19.pdf" data-link-kind="exogenous" rel="external noopener"><em>On the
+irrationality of certain Ahmes series</em></a>, J. Indian Math. Soc.
+(N.S.) <strong>27</strong> (1964), 129–133. MR 175848.</p></li>
+<li id="ref-2"><p>D. Duverney, <a
+href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf" data-link-kind="exogenous" rel="external noopener"><em>Irrationality
+of fast converging series of rational numbers</em></a>, J. Math. Sci.
+Univ. Tokyo <strong>8</strong> (2001), 275–316. MR 1837165.</p></li>
+<li id="ref-3"><p>C. Badea, <a
+href="https://matwbn.icm.edu.pl/ksiazki/aa/aa63/aa6342.pdf" data-link-kind="exogenous" rel="external noopener"><em>A
+theorem on irrationality of infinite series and applications</em></a>,
+Acta Arith. <strong>63</strong> (1993), no. 4, 313–323, doi:<a
+href="https://doi.org/10.4064/aa-63-4-313-323" data-link-kind="exogenous" rel="external noopener">10.4064/aa-63-4-313-323</a>.</p></li>
+<li id="ref-4"><p>R. Tijdeman and P. Yuan, <em>On the rationality of Cantor and
+Ahmes series</em>, Indag. Math. (N.S.) <strong>13</strong> (2002),
+no. 3, 407–418, doi:<a
+href="https://doi.org/10.1016/S0019-3577(02)80018-0" data-link-kind="exogenous" rel="external noopener">10.1016/S0019-3577(02)80018-0</a>.</p></li>
+<li id="ref-5"><p>P. Erdős and R. L. Graham, <a
+href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf" data-link-kind="exogenous" rel="external noopener"><em>Old
+and New Problems and Results in Combinatorial Number Theory</em></a>,
+Monogr. Enseign. Math. 28, Geneva, 1980, p. 64.</p></li>
+<li id="ref-6"><p>P. Erdős, <a
+href="https://users.renyi.hu/~p_erdos/1988-22.pdf" data-link-kind="exogenous" rel="external noopener"><em>On the
+irrationality of certain series: problems and results</em></a>, in
+A. Baker (ed.), <em>New Advances in Transcendence Theory</em>, Cambridge
+UP, 1988, pp. 102–109, doi:<a
+href="https://doi.org/10.1017/CBO9780511897184.009" data-link-kind="exogenous" rel="external noopener">10.1017/CBO9780511897184.009</a>.</p></li>
+<li id="ref-7"><p>V. Kovač and T. Tao, <a
+href="https://arxiv.org/abs/2406.17593v4" data-link-kind="exogenous" rel="external noopener"><em>On several irrationality
+problems for Ahmes series</em></a>, Acta Math. Hungar.
+<strong>175</strong> (2025), no. 2, 572–608, doi:<a
+href="https://doi.org/10.1007/s10474-025-01528-0" data-link-kind="exogenous" rel="external noopener">10.1007/s10474-025-01528-0</a>;
+arXiv:<a href="https://arxiv.org/abs/2406.17593v4" data-link-kind="exogenous" rel="external noopener">2406.17593v4</a>.
+Page references are to arXiv:2406.17593v4.</p></li>
+<li id="ref-8"><p>I. O. Bado, <em>Prime-Support Rigidity and Primitive
+Pseudo-Greedy Dynamics: Partial Progress on Erdős Problem #243</em>,
+preprint posted September 2026, doi:<a
+href="https://doi.org/10.13140/RG.2.2.36612.08325" data-link-kind="exogenous" rel="external noopener">10.13140/RG.2.2.36612.08325</a>.</p></li>
+<li id="ref-9"><p>P. White with Claude (Anthropic), <a
+href="https://erdosproblemaday.com/report/243" data-link-kind="exogenous" rel="external noopener"><em>Erdős #243: working
+report</em></a>, Erdős Problem a Day, page dated 12 August 2026.
+AI-assisted, unrefereed working report.</p></li>
+<li id="ref-10"><p>P. Stevenhagen and H. W. Lenstra, Jr., <a
+href="https://pub.math.leidenuniv.nl/~lenstrahw/PUBLICATIONS/1994c/art.pdf" data-link-kind="exogenous" rel="external noopener"><em>Chebotarëv
+and his density theorem</em></a>, Math. Intelligencer
+<strong>18</strong> (1996), no. 2, 26–37, doi:<a
+href="https://doi.org/10.1007/BF03027290" data-link-kind="exogenous" rel="external noopener">10.1007/BF03027290</a>. Page
+references are to the linked author version dated 23 March
+1995.</p></li>
+<li id="ref-11"><p>W. van Doorn, Y. Li and Q. Tang, <a
+href="https://arxiv.org/abs/2603.28636" data-link-kind="exogenous" rel="external noopener"><em>Optimal bounds for an Erdős
+problem on matching integers to distinct multiples</em></a>, preprint
+arXiv:2603.28636v1, 2026.</p></li>
+<li id="ref-12"><p>J. Koizumi, <a
+href="https://math.colgate.edu/~integers/aa28/aa28.pdf" data-link-kind="exogenous" rel="external noopener"><em>Irrationality
+of the reciprocal sum of doubly exponential sequences</em></a>, Integers
+<strong>26</strong> (2026), Paper No. A28, 17 pp., doi:<a
+href="https://doi.org/10.5281/zenodo.18714404" data-link-kind="exogenous" rel="external noopener">10.5281/zenodo.18714404</a>.
+Locators refer to this published version.</p></li>
+<li id="ref-13"><p>T. F. Bloom, <a
+href="https://www.erdosproblems.com/243" data-link-kind="exogenous" rel="external noopener"><em>Erdős Problem
+#243</em></a>, accessed 28 July 2026.</p></li>
+<li id="ref-14"><p>The Formal Conjectures Authors, <a
+href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/243.lean" data-link-kind="exogenous" rel="external noopener"><em>FormalConjectures.ErdosProblems.<code>243</code></em></a>,
+Lean source at commit <code>f776d2f</code>, 2025. Formal problem
+statement, not a proof.</p></li>
+<li id="ref-15"><p>P. Erdős and E. G. Straus, <a
+href="https://msp.org/pjm/1974/55-1/pjm-v55-n1-p08-s.pdf" data-link-kind="exogenous" rel="external noopener"><em>On the
+irrationality of certain series</em></a>, Pacific J. Math.
+<strong>55</strong> (1974), no. 1, 85–92.</p></li>
+<li id="ref-16"><p>J. Hančl and R. Tijdeman, <a
+href="https://www.impan.pl/shop/en/publication/transaction/download/product/82186" data-link-kind="exogenous" rel="external noopener"><em>On
+the irrationality of polynomial Cantor series</em></a>, Acta Arith.
+<strong>133</strong> (2008), no. 1, 37–52, doi:<a
+href="https://doi.org/10.4064/aa133-1-3" data-link-kind="exogenous" rel="external noopener">10.4064/aa133-1-3</a>. Locators
+refer to the published version.</p></li>
+<li id="ref-17"><p>D. Duverney, T. Kurosawa and I. Shiokawa, <a
+href="https://danielduverney.fr/documents/theorie-des-nombres/Tsukuba.pdf" data-link-kind="exogenous" rel="external noopener"><em>Irrationality
+exponents of certain fast converging series of rational
+numbers</em></a>, Tsukuba J. Math. <strong>44</strong> (2020), no. 2,
+235–250, doi:<a
+href="https://doi.org/10.21099/tkbjm/20204402235" data-link-kind="exogenous" rel="external noopener">10.21099/tkbjm/20204402235</a>.
+Theorem locators follow the linked 14-page author version.</p></li>
+<li id="ref-18"><p>T. Crmarić and V. Kovač, <a
+href="https://arxiv.org/abs/2504.18712v1" data-link-kind="exogenous" rel="external noopener"><em>On the irrationality of
+certain super-polynomially decaying series</em></a>, Colloq. Math.
+<strong>179</strong> (2025), 55–68, doi:<a
+href="https://doi.org/10.4064/cm9628-5-2025" data-link-kind="exogenous" rel="external noopener">10.4064/cm9628-5-2025</a>.
+Theorem locators follow arXiv:2504.18712v1.</p></li>
+<li id="ref-19"><p>A. Koutsoukou-Argyraki and W. Li, <a
+href="https://isa-afp.org/entries/Irrational_Series_Erdos_Straus.html" data-link-kind="exogenous" rel="external noopener"><em>Irrationality
+Criteria for Series by Erdős and Straus</em></a>, Archive of Formal
+Proofs, 12 May 2020. An Isabelle/HOL formalisation; the archive entry
+identifies the results formalised.</p></li>
+<li id="ref-20"><p>National Institute of Standards and Technology, <a
+href="https://dlmf.nist.gov/5.11.E12" data-link-kind="exogenous" rel="external noopener"><em>Digital Library of
+Mathematical Functions</em>, §5.11(iii), formula 5.11.12</a>, accessed
+16 September 2026.</p></li>
+<li id="ref-21"><p>E. H. el Abdalaoui, M. Lemańczyk and T. de la Rue, <em>A
+dynamical point of view on the set of <span
+class="math inline" data-term-auto="off" data-tex="\(\mathcal B\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-TeXAtom texclass="ORD"><mjx-mi><mjx-c class="mjx-c42 STX-C">B</mjx-c></mjx-mi></mjx-TeXAtom></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow data-mjx-texclass="ORD"><mi data-mjx-variant="-tex-calligraphic" mathvariant="script">B</mi></mrow></math></mjx-assistive-mml></mjx-container></span>-free integers</em>, Int. Math.
+Res. Not. IMRN (2015), no. 16, 7258–7286, doi:<a
+href="https://doi.org/10.1093/imrn/rnu164" data-link-kind="exogenous" rel="external noopener">10.1093/imrn/rnu164</a>. The
+cited definition is also in §1.2 of arXiv:<a
+href="https://arxiv.org/abs/1311.3752v3" data-link-kind="exogenous" rel="external noopener">1311.3752v3</a>.</p></li>
+</ol>
+</section><nav class="paper-chapter-nav" aria-label="Paper reading options"><a href="erdos243-reciprocal-tail-reasoning-surface.html">Paper contents</a> · <a href="erdos243-reciprocal-tail-reasoning-surface--complete.html" data-paper-full>Complete HTML for search and print</a></nav><nav class="paper-chapter-nav" aria-label="Section navigation"><a href="erdos243-reciprocal-tail-reasoning-surface--chapter-6603377369f7.html#sec:erdos-243-complete-family-map">Previous section</a></nav></div>
+      <section class="paper-foot" id="about-paper" aria-labelledby="about-paper-title">
+        <h2 class="paper-foot__title" id="about-paper-title">About this paper</h2>
+        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
+        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff" data-link-kind="exogenous" rel="external noopener">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
+        <p class="paper-foot__label">Prefer the manuscript?</p>
+        <div class="paper-head__routes">
+          <a class="btn btn--primary btn--file" href="../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf"><span class="btn__format">PDF</span>Open the PDF, 61&nbsp;pages</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
+          <a class="btn btn--ghost" href="../problems/erdos_243.html">Problem page</a>
+        </div>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:3620f60f31463a83</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+      </section>
+      </div>
+    </main>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-a31398fc1c1a.html#long243:sec:problem">Introduction</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-99670e6a0f8b.html#long243:sec:cubicrate">Irrationality at the cubic rate</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-875e443ddaef.html#long243:sec:priorwork">Prior work and formalisation</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-f1ed9ecd47cb.html#long243:sec:state">Integer numerators, denominators and errors</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-6bfc779bff5c.html#long243:sec:defect">Zero errors and the Sylvester recurrence</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-df2ffea85234.html#long243:sec:lcmrecords">LCM numerators and weighted records</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-986dec7f7d71.html#long243:sec:records">New maxima of reduced numerators</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-bbe5cae2dbdc.html#long243:sec:descent">Nonnegative errors</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-9c7fe4667c8c.html#long243:sec:constant">Constant negative errors</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-2d105026be98.html#long243:sec:periodic">Periodic negative errors</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-54fc2bb5ab33.html#long243:sec:barrier">Bounded increases and coprimality</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-66fa018dd883.html#long243:sec:bounded">Bounded negative part</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-8692b7359150.html#long243:sec:mass">Finite total relative increase</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-d62670624957.html#long243:sec:open">Further questions</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-3086d642b356.html#long243:app:index">Verification and reproducibility</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-a0d6d4d6a840.html#long243:app:residue">A factorial modulus for integral recursion</a><a class="toc-l2" href="erdos243-reciprocal-tail-reasoning-surface--chapter-6603377369f7.html#sec:erdos-243-complete-family-map">Result map and proof dependencies</a><a class="toc-l2" href="#references">References</a><a class="toc-l2" href="#about-paper">About this paper</a></aside>
+  </div>
+</body>
+</html>

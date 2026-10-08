@@ -46,7 +46,12 @@
       '</span>';
     btn.addEventListener('click', function () {
       var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      try { localStorage.setItem(KEY, next); } catch (e) {}
+      // A choice that matches the system's scheme clears the stored one, so
+      // the page follows the system again, its flips included (8 October
+      // 2026: one click used to pin the scheme for good, even after the
+      // reader clicked back to their system's).
+      var system = mq && mq.matches ? 'dark' : 'light';
+      try { if (next === system) localStorage.removeItem(KEY); else localStorage.setItem(KEY, next); } catch (e) {}
       flip(next);
     });
     nav.appendChild(btn);

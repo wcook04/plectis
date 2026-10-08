@@ -189,6 +189,11 @@ advertised downloads against the assembled bytes before reporting publication.
 
 ### Front door (October 2026)
 
+Keyboard focus on a native problem-row link keeps the problem list visible.
+The companion closes immediately for that focus, including its closing fade,
+and pending pointer previews cannot reopen it over the focused row. Moving
+focus keeps the native link's navigation and reading order intact.
+
 The landing has one subject, the mathematics. In order: the introduction and
 the featured film; the eight problems beside the universe map teaser; the
 papers, as three reading pairs; the films; why the project exists and how to take part;
@@ -306,6 +311,38 @@ needs to be tailored for the dark mode thing as well". Inside the sheet
 points knock out against it.
 Video readiness requires a qualified source edition and actual capture; a
 working control alone does not establish integration or filming.
+
+The band's controls (8 October 2026). "All eight" and "One result" choose a
+view the way Intuitive and Technical choose a register, so the two pairs
+read in one grammar: a pill whose thumb slides under the chosen word on the
+switch's own curve (the views had been bare words, the chosen one on a 4px
+box, beside the register's pill). The group draws its thumb from the band's
+own state, so the script is unchanged. In the overview the count would only
+repeat "All eight": it steps out of sight and stays for a screen reader,
+which hears the view change through it. The round arrows join the site's
+one press grammar (97% while held); the segmented words do not, because
+their thumb is their answer. The band holds focus for its arrow keys and an
+in-page jump lands it there: the ring the `[tabindex]` rule draws would box
+the whole band, so, as with `main#main`, the ring goes and the band's own
+top rule takes the accent. The overview's two rows of figures fit a
+laptop's first screen under the head once its sentence wraps beside the
+controls: the figure height budgets 380px for the head (at 360px the second
+row's names ended 10px under the fold at 1440 by 790, on the film's capture
+entry); `test_landing_results_overview_runtime.py` holds it. A focused control
+keeps its shape. The site-wide focus rule's 3px corner, at (0,1,1), had
+overridden every class's radius: it squared the pills and circles (the
+register and view pills, the map band's switch and "Expand map", the round
+arrows, the explorers' tools and their joined zoom pair, the universe
+panel's "Map filters") and re-cornered 7px buttons (the maths overview's
+calls to action, Search, Menu, the doctrine card). The corner is now a
+zero-specificity default (`:where(…):where(:focus-visible)`) for what
+declares no radius, such as a text link, so no control needs a patch. Term
+links ring in the accent like every other control: on `currentColor` a
+first mention ringed in ink and a repeat in the accent. In the
+overview an entry answers the pointer the way a problem row does: the ember
+thread runs along its top rule and its number takes the ember; the drawing
+no longer swells 2.5% under the pointer, because no still image zooms on
+hover.
 
 Every formula in this band, including titles and proof ideas, uses exact TeX
 spans compiled by the existing `plectis_math_renderer` during the public-site
@@ -498,7 +535,11 @@ vanished in a selected state, and both full maps ran below the window).
   the drawing in the rest of the window with Fit, zoom and Full screen in its
   top right and its key in its bottom left. The whole drawing fits the window
   on arrival at laptop and monitor sizes; below 900px the explorer is one
-  column with a Map | Details switch.
+  column with a Map | Details switch. Both maps share one panel width (the
+  universe's measure, `clamp(360px, 22vw + 130px, 660px)`, which its
+  displayed formulae and Lean statements need), so the switch between them
+  leaves the panel's edge where it stood (8 October 2026; the universe's
+  had been 44px wider at 1440).
 - The earlier software row and the footer name the system map.
 - The plait is a divider, not a band of its own: about six crossings across a
   laptop window, eleven threads a rope, a band of 70-100px (`assets/art.js`
@@ -792,8 +833,30 @@ its ground 0.27 to 0.35, chroma 0.05, hue 306. The rules that follow from it:
   with the dataviz `validate_palette.js`). A third identity colour cannot
   be a hue: violet collapses into azure and gold into red for colour-blind
   readers. A third mark separates by lightness, and only with a label.
-- Gold (`--link-ext`) stays for links that leave the site; it is violet's
-  complement and is never an identity colour beside the inks.
+- The day ink is one violet everywhere (8 October 2026). The system map's
+  words and rails, the landing's lines and film shadow, the results sheet's
+  edge and both maps' greys had kept the wine `#211318` and
+  `rgba(33, 19, 24, a)` of the palette before; they take `#191520` and
+  `rgba(25, 21, 32, a)`, and `--s-ink` is `var(--ink)`. The warning orange
+  (`--warn-warm`) stays for real warnings only (a retired paper, a failing
+  label): the glossary's margin letters are wayfinding numerals and take
+  the ember, and a glossary figure's two vectors take the two inks. The
+  floating glossary chip, on every page, follows the same grammar: its mark
+  and hairline wear the glossary's ember, its way to the glossary is an
+  in-site link in the azure, and only its mail link keeps the gold.
+  `site.webmanifest` carries the violet `theme_color` and the hero's own
+  description of the work.
+- Gold (`--link-ext`) stays for links that leave the site, the footer's
+  columns included (their quiet ink had taken the gold off the two
+  repositories until 8 October 2026); it is violet's
+  complement and is never an identity colour beside the inks. Where an
+  off-site link keeps an ink on purpose, the ↗ still says it leaves: a ghost
+  button keeps the button's ink and its arrow wears the gold, and a paper's
+  quiet Lean citations keep the prose ink and their dotted rule, with the
+  arrow (before 8 October they looked exactly like the in-page Lean
+  anchors). The maths builder stamps every assembled page, not only paper
+  fragments, and an href in any attribute position: 6,767 off-site links
+  across 882 reading-room pages had gone out unmarked.
 - The mark keeps two registers: by night the brick and steel S on
   violet-black, by day the classic black-and-bone yin-yang on paper.
   `tools/brand/plectis_favicon.py` samples the night tile's ground, so a
@@ -809,6 +872,12 @@ its ground 0.27 to 0.35, chroma 0.05, hue 306. The rules that follow from it:
   Rejected: a violet-tinted light ground (cream is violet's complement and the
   publication register the October passes chose), and "one accent only"
   (the two inks act as one pair).
+
+The not-found page (`not_found_html`, 8 October 2026) routes to what the
+front door leads with, the front page, the mathematics and the papers,
+never to the earlier software's manual; it carries the site's icon, both
+theme colours and the theme script, so a reader's chosen night stays
+night. Its paths stay absolute, because the host serves it at any depth.
 
 Every page carries the same five destinations, defined once as
 `SITE_PRIMARY_NAV` in `build_microcosm_public_site.py`: Mathematics, Papers,
@@ -839,6 +908,11 @@ film's own still with its play mark and running time; before release, a
 frame taken from the film and dropped in as `assets/films/<id>.jpg` (or
 `.png`, `.webp`); until then a placeholder, the empty frame with the film's
 short `label` in the page's own tone. No drawn posters ("no need for svg").
+An empty frame wears the maps' registration marks, drawn the same way in
+CSS (8 October 2026): in print they show where an image will be laid down,
+which is what the frame is, so five films in preparation read as frames
+held for them rather than five grey tiles; the short name stays the only
+word inside.
 Until the introduction has a frame, the hero offers the films as a plain
 link. The hero's second action is **Read the README**, the public
 repository's README (Will: "somewhere we need to link to the actual github
@@ -912,7 +986,10 @@ text and headings; it is the same design as the STIX Two math font MathJax uses
 for the papers' formulas, so prose and formulas read as one face. Source Sans 3
 sets interface and body text. Plectis Math, STIX Two Math's arrows and
 operators, supplies the symbols the text faces lack, and a page downloads it
-only when it prints one. All three are OFL fonts, subset and renamed by
+only when it prints one. Native MathML uses the separate Plectis MathML
+subset with mathematical alphabets and its MATH layout table intact, explicitly
+selected on `math`; it must not depend on an installed operating-system face.
+All three source families are OFL fonts, subset and renamed by
 `tools/meta/dissemination/build_plectis_web_fonts.py` (run it with
 `uv run --no-project --with fonttools --with brotli python ...`); its report prints the
 `unicode-range` values and the fallback metric overrides that `style.css`
@@ -1069,6 +1146,18 @@ checks idle motion and theme smear.
   fades in over the old in 200ms. The map and its teasers repaint on the
   `plectis:theme` event that both docs.js and maths.js send. Links never use
   a cross-document `@view-transition`, so navigation never waits on one.
+- The switch remembers only a real choice (8 October 2026, from smoothui's
+  theme toggle): a choice that matches the system's scheme clears the stored
+  one, so the page follows the system again, its later flips included. One
+  click used to pin the scheme for good, even after the reader clicked back
+  to their system's. docs.js and maths.js keep the same rule.
+- A reader who asks for less transparency or more contrast gets opaque
+  controls where the landing blurs them over drawings and film stills (the
+  film marks, the map band's edge arrows, the explorers' tools), with the
+  play triangle in ink (taste-skill's reduced-transparency rule). The
+  results band's thumbs ride the map band's curve, `--atlas-ease`, now
+  declared at the root: on `.home-atlas` alone it never reached the sibling
+  band, and both thumbs had fallen back to `--ease-out`.
 - Reduced motion keeps every final state and none of the movement; print sees
   none of it.
 
@@ -1241,13 +1330,40 @@ the ledger, the evidence or the rendered papers come from different editions.
   say, so it shows only for a band in focus.
 - Colour belongs to evidence alone (October 2026 aesthetic pass, from the
   dataviz, make-interfaces-feel-better and huashu-design guidance): a problem
-  is an ink ring round a point like the core, carrying only its orange
-  evidence ring; papers are a quiet grey; context out of focus turns grey,
-  never a muddy tint of its own colour. Every kind keeps one size (a mark
-  that grew with its connections would suggest a quantity the legend never
-  names). A queued result carries a pip and a result with no Lean statement
-  is a faint ring, so colour is never the only signal; the queued teal was
-  checked against the replayed orange with the dataviz palette validator.
+  is an ink ring round a point like the core, carrying only its evidence
+  ring; papers are a quiet grey; context out of focus turns grey, never a
+  muddy tint of its own colour. Every kind keeps one size (a mark that grew
+  with its connections would suggest a quantity the legend never names). A
+  queued result carries a pip and a result with no Lean statement is a faint
+  ring, so colour is never the only signal.
+- The map is the plait seen from above (8 October 2026; Will: "the red blue
+  which combine to purple feeling ... the maths map (especially which right
+  now is orange)"). It had kept the wine palette's orange and teal over khaki
+  greys after every other surface moved to the brick and steel inks on
+  violet, because its colours live in two copies (the landing's teaser block
+  in `style.css`, the full map's in `maths.css`) and neither followed. Now:
+  what Comparator replayed is a field in the ember's mark step
+  (`--weave-red`, the deep brick the palette keeps for dots and fills), and
+  what Lean states with no replay yet are seeds in the ice's glow step
+  (`--weave-azure-glow`), so the ring reads as the photograph's red half
+  holding its dots of azure and what is left to replay is found at a
+  glance. These are the doctrine map's two inks, machinery and rules there,
+  replay and statement here: red is what a machine ran, azure what is stated.
+  Structure (problems, claims, papers, documents, modules, objects) sits in
+  the ground's own violet greys at the lightness each was checked at, and
+  the core is the page ink. The evidence and core tokens are references
+  (`var(--weave-red)`, `var(--ink)`), so they follow the theme with no dark
+  copy; they colour marks only, never words (a kept result's frame takes the
+  brighter `--home-ember`). The night steps were chosen from side-by-side
+  renders of the text, glow and mark steps: the text step read pink, the
+  mark step sank the azure seeds, and the mark field with glow seeds held
+  both. The dataviz validator passes the pair's colour-blind separation
+  (worst Delta E 26 at night and 14 by day, against 9.7 and 9.6 for the
+  orange and teal), its normal-vision floor and its contrast; it flags the
+  azure's chroma (0.07 to 0.085 against its 0.10 floor), which the palette
+  holds mature on purpose, so the pip carries the difference too.
+  `universe_runtime_regression.test.mjs` holds the two copies equal and keeps
+  orange, teal and the wine ink out of them.
 - Motion: the opening assembles the rings in reading order (core with
   Comparator and Palomar, orbit, claims, results with their scale, then
   words), 110ms apart, each fading in over 300ms and seating from a fortieth
@@ -1326,6 +1442,15 @@ the ledger, the evidence or the rendered papers come from different editions.
   ("Theorem 6.32 on #257, replayed by Comparator") and clears when the
   pointer leaves; card kind lines are sentence case, with "Centre of the
   map", "Replay checker" and "Prepared corpus" for the core and the checkers.
+- At rest the teaser's foot is its key, and the key names every mark it
+  draws (8 October 2026: it had kept to one line, so a phone named two of
+  the four and a 1024 window three). The foot is in the figure's flow and
+  the key sets its height, one line on a wide card and two on a phone's, so
+  the drawing yields the room; the caption sits on the key's last line and
+  grows upward over the drawing's margin, so a long name never resizes the
+  drawing under the pointer. Below 560px the drawing is sized by its own
+  width (canvas 1 / 0.92) rather than by the card's 1.08 frame, which left
+  a 196px canvas, too small for the ring to keep its labels by their hubs.
 - The landing's `script-src 'self'` refuses inline speculation rules, so a pin
   on the landing only prefetches its paper; the map page still prerenders.
 - The toolkit's system paper keeps its live position: the deploy restores it,
@@ -1547,6 +1672,18 @@ reading pages; only the universe map keeps the wide workbench layout.
   "Erdős #1041 short paper" as the last crumb); no tracked capitals, no
   middle-dot strings in visible text (the `<title>` keeps "·", as the docs
   do). A PDF button carries its length as "Open the PDF, 17 pages".
+- The reading room speaks the site's two inks (8 October 2026). Its kickers
+  and numerals (the overview's "Eight Erdős problem programmes", a problem
+  page's "Erdős problem #257", the problem numbers) take the ember, as the
+  landing's do; gold (`--maths-gold`) is left to the source links that
+  leave the site. Status chips are sentence case like every other label: a
+  result's status ("locally proved result; novelty unassessed") wears the
+  ember, an open question the azure (the class `chip--gold` keeps its old
+  name). They had been tracked capitals in gold, which turned the longest
+  statuses into lines nobody reads. The overview's specimen plate is a sheet
+  of the page's own theme, lifted a step and edged with a hairline, like the
+  landing's results sheet; it used to reverse the page, an ivory block that
+  was the brightest thing on the night screen.
 - The précis opens on a hairline with a run-in head. Theorem-like statements
   and problems keep one hairline beside them; definitions, examples and
   remarks rely on their run-in heads. No coloured side tabs or tinted panels.
@@ -1601,7 +1738,9 @@ reference layout" block of `assets/style.css`.
   rule, never a tinted box; focus keeps its own ring.
 - Definitions and entry prose are set in the serif, the face of the formulas
   they contain; labels, kinds and controls stay in the sans.
-- The letter of each group stands in the margin and rides under the lookup
+- The letter of each group stands in the margin, in the plait's ember (a
+  wayfinding numeral, like the catalogue's; it was the warning orange until
+  8 October 2026), and rides under the lookup
   bar while its entries scroll. The current-letter mark names the group still
   reaching below the bar, never one that has scrolled away.
 - The masthead holds the title, the lede and the guide beside the plait.

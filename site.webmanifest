@@ -1,13 +1,13 @@
 {
   "name": "Plectis",
   "short_name": "Plectis",
-  "description": "Runnable public components, each with a stated claim, a local check, and a result file.",
+  "description": "AI-assisted research on eight hard Erdős problems, with Lean proofs, papers and open questions.",
   "id": "/plectis/",
   "start_url": "/plectis/",
   "scope": "/plectis/",
   "display": "browser",
   "background_color": "#f8f0e2",
-  "theme_color": "#1d0f15",
+  "theme_color": "#1c1526",
   "icons": [
     { "src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
     { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },

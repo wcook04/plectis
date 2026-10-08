@@ -46,6 +46,15 @@
   transition: opacity 0s linear 90ms, visibility 0s;
 }
 
+/* Keyboard focus reveals its native row immediately, including during the
+   panel's closing fade. A pending hover cannot hide that link again. */
+.uc-host:has(li.home-problem :focus-visible) > :not(.uc) {
+  opacity: 1; pointer-events: auto; transition: none;
+}
+.uc-host:has(li.home-problem :focus-visible) > .uc {
+  opacity: 0; visibility: hidden; transition: none;
+}
+
 /* The head takes the band heading's place and size: the row's number and
    title travel up into it. */
 .uc__kicker, .uc__title { transform-origin: 0 0; }
