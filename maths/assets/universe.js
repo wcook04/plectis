@@ -98,12 +98,12 @@
     'mathematical_object', 'lean_module'];
   /* A paper result's evidence, from the coverage ledger, folded into four
      glyphs: replayed by Comparator (Comparator's colour, filled); exact Lean
-     with the replay queued (Lean colour, filled); Lean modulo named inputs
+     with no replay recorded (Lean colour, filled); Lean modulo named inputs
      (ring); no Lean statement (faint ring). */
   var EVIDENCE_ORDER = ['replayed', 'lean', 'modulo', 'none'];
   var EVIDENCE_TEXT = {
     replayed: 'replayed by Comparator',
-    lean: 'exact Lean, replay queued',
+    lean: 'exact Lean, replay not recorded',
     modulo: 'Lean modulo named inputs',
     none: 'no Lean statement'
   };
@@ -116,9 +116,15 @@
   };
   var COMPARATOR_STATUS_TEXT = {
     compared: 'replayed',
-    pending: 'replay queued',
+    pending: 'replay pending',
     not_applicable: 'nothing to replay without an exact Lean statement'
   };
+  function comparatorReplayText(node) {
+    if (node.comparator_status === 'pending' && node.comparator_queued_at) {
+      return 'Its replay is queued since ' + node.comparator_queued_at + '.';
+    }
+    return 'No Comparator replay is recorded for this paper result.';
+  }
   function evidenceOf(node) {
     var lean = node.lean_status || 'none';
     if (lean === 'exact' || lean === 'exact_or_stronger') {
@@ -4300,12 +4306,12 @@
       return t;
     }
     // "174 of its 186 results are replayed by Comparator; 6 more are exact
-    // in Lean with the replay queued; …"
+    // in Lean with no replay recorded; …"
     function tallySentence(t) {
       if (!t.total) return 'None of its results is shown with these filters.';
       var parts = [(t.replayed === t.total ? (t.total === 1 ? 'Its one result is' : 'All ' + t.total + ' of its results are') :
         t.replayed + ' of its ' + t.total + ' results ' + (t.replayed === 1 ? 'is' : 'are')) + ' replayed by Comparator'];
-      if (t.lean) parts.push(t.lean + ' more ' + (t.lean === 1 ? 'is' : 'are') + ' exact in Lean with the replay queued');
+      if (t.lean) parts.push(t.lean + ' more ' + (t.lean === 1 ? 'is' : 'are') + ' exact in Lean with no replay recorded');
       if (t.modulo) parts.push(t.modulo + ' ' + (t.modulo === 1 ? 'is' : 'are') + ' stated in Lean under named inputs');
       if (t.none) parts.push(t.none + ' ' + (t.none === 1 ? 'has' : 'have') + ' no Lean statement yet');
       return parts.join('; ') + '.';
@@ -4816,7 +4822,7 @@
       var text;
       if (n.lean_status === 'exact' || n.lean_status === 'exact_or_stronger') {
         text = n.comparator_status === 'compared' ? how + ', and Comparator has replayed that statement.' :
-          how + '; its Comparator replay is queued' + (n.comparator_queued_at ? ' since ' + n.comparator_queued_at : '') + '.';
+          how + '. ' + comparatorReplayText(n);
       } else if (n.lean_status === 'modulo_named_input') {
         text = 'Lean states it under named inputs.';
       } else {
@@ -5192,8 +5198,7 @@
         }
         rows.push(checkHtml('done', 'Comparator', said, cmpMore, pinned ? hubAttr(n, 'integration:comparator') : ''));
       } else if (lean === 'exact' || lean === 'exact_or_stronger') {
-        rows.push(checkHtml('queued', 'Comparator', 'Its replay is queued' +
-          (n.comparator_queued_at ? ' since ' + escapeHtml(n.comparator_queued_at) : '') + '.', '',
+        rows.push(checkHtml(n.comparator_status === 'pending' && n.comparator_queued_at ? 'queued' : 'none', 'Comparator', escapeHtml(comparatorReplayText(n)), '',
           pinned ? hubAttr(n, 'integration:comparator') : ''));
       } else {
         rows.push(checkHtml('none', 'Comparator', 'Nothing to replay until Lean states it exactly.'));
@@ -5860,7 +5865,7 @@
        totient series", "Comparator: 616 of 689 replayed". */
     var CAPTION_EVIDENCE = {
       replayed: 'replayed by Comparator',
-      lean: 'exact in Lean, replay queued',
+      lean: 'exact in Lean, replay not recorded',
       modulo: 'in Lean under named inputs',
       none: 'not yet stated in Lean'
     };
@@ -5964,6 +5969,7 @@
         label: n.label, sector: n.sector || null, tier: n.tier || null,
         evidence: n.kind === 'paper_statement' ? (EVIDENCE_TEXT[n.tier] || null) : null,
         lean_status: n.lean_status || null,
+        comparator_status: n.comparator_status || null,
         comparator_queued_at: n.comparator_queued_at || null,
         status: n.status || null, statement: n.statement || null,
         side: n.side || null, paperId: n.paperId || null, paperTitle: n.paperTitle || null,

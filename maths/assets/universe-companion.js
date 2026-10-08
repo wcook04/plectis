@@ -151,7 +151,7 @@
         var line = '<span class="uc-mark uc-mark--replayed" aria-hidden="true"></span>' +
           esc(t.replayed + ' of ' + count(t.results, 'result') + ' in its papers replayed by Comparator');
         var rest = [];
-        if (t.lean) rest.push(t.lean + ' exact in Lean with the replay queued');
+        if (t.lean) rest.push(t.lean + ' exact in Lean with no replay recorded');
         if (t.modulo) rest.push(t.modulo + ' in Lean under named inputs');
         if (t.none) rest.push(count(t.none, 'without a Lean statement', 'without a Lean statement'));
         if (rest.length) line += esc('; ' + rest.join(', '));
@@ -187,7 +187,9 @@
       var how = s.lean_status === 'exact_or_stronger' ? 'Lean states it or something stronger' : 'Lean states it exactly';
       if (s.tier === 'replayed') return how + ', and Comparator has replayed it.';
       if (s.tier === 'lean') {
-        return how + '; its Comparator replay is queued' + (s.comparator_queued_at ? ' since ' + s.comparator_queued_at : '') + '.';
+        return how + (s.comparator_status === 'pending' && s.comparator_queued_at
+          ? '; its Comparator replay is queued since ' + s.comparator_queued_at + '.'
+          : '; no Comparator replay is recorded for this paper result.');
       }
       if (s.tier === 'modulo') return 'Lean states it under named inputs.';
       return 'No Lean statement is recorded for it yet.';

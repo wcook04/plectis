@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "065862ae86e3b045",
+    "renderer_fingerprint": "8105e7ae6659f2fe",
     "source_sha256": "b3e81fd9513b713a2be7b59524dad08e5615b9abe6854f9d895164ce85483ae9",
     "source_manifest_match": true,
     "publication_manifest_match": true,
