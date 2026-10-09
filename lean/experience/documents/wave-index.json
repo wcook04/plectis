@@ -11,7 +11,7 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/WAVE_INDEX.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "2f02ac00cbef852d00af7d9c1194069586a5c2e38f22d3bb06be654eb963dafb",
+    "navigation_fingerprint": "c6e0ab1d44dddf9c00376c5f5ce3d79a18656a027336e9e8e486094ae167b7ba",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -31,8 +31,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "f959ef084918b1020fc2211a239fb1c4f5a7a6056cd769a82b53d5beab51a626",
-    "html_exact_tex_sha256": "61ec408893edc342d88034543eb0a33ab2b904a2491ca08a7401d546bff17203"
+    "html_mathml_sha256": "03d1aa340c6580eba144e18a4ac855e0076c3386e5b7c25f079b8eb29ca1e2a3",
+    "html_exact_tex_sha256": "e37bcb3c4f89d20c424b616c6b1336ea31b2072e527ec8ef97e4248edec35296"
   },
   "sections": [
     {

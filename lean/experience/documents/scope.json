@@ -11,7 +11,7 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/SCOPE.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "2f02ac00cbef852d00af7d9c1194069586a5c2e38f22d3bb06be654eb963dafb",
+    "navigation_fingerprint": "c6e0ab1d44dddf9c00376c5f5ce3d79a18656a027336e9e8e486094ae167b7ba",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",

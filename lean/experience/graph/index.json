@@ -4,8 +4,8 @@
   "root_node_id": "universe:plectis-lean",
   "full_graph": "graph.json",
   "counts": {
-    "nodes": 898,
-    "edges": 2243,
+    "nodes": 899,
+    "edges": 2244,
     "deferred_node_kinds": {
       "lean_module": 1902,
       "mathematical_object": 105
@@ -1163,6 +1163,14 @@
       "role": "comparator_explanation",
       "href": "documents/external-verification.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/EXTERNAL_VERIFICATION.md"
+    },
+    {
+      "id": "document:formal-conjectures",
+      "kind": "human_document",
+      "label": "Formal Conjectures contributions",
+      "role": "upstream_contribution_record",
+      "href": "documents/formal-conjectures.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md"
     },
     {
       "id": "document:methodology",
@@ -16026,6 +16034,11 @@
       "source": "universe:plectis-lean",
       "relation": "interpreted_by",
       "target": "document:external-verification"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:formal-conjectures"
     },
     {
       "source": "universe:plectis-lean",

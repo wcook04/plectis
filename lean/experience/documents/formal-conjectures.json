@@ -1,0 +1,154 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "formal-conjectures",
+  "title": "Formal Conjectures contributions",
+  "role": "upstream_contribution_record",
+  "reading_order": 95,
+  "source_path": "docs/verification/FORMAL_CONJECTURES_CROSSWALK.md",
+  "routes": {
+    "html_mathml": "documents/formal-conjectures.html",
+    "html_exact_tex": "documents/formal-conjectures.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md"
+  },
+  "render_contract": {
+    "navigation_fingerprint": "c6e0ab1d44dddf9c00376c5f5ce3d79a18656a027336e9e8e486094ae167b7ba",
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "source_sha256": "103162b45d03f45cf7f6780ff3bbb91490873522eb873b311d5f96746e3ac137",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 35,
+    "renderer_fingerprint": "d42a1d68697473be",
+    "source_manifest_match": true,
+    "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "8e418e21ec5fed8f72b276ec89b062813a87c6810b89af198b53d4d8f26a5636",
+    "html_exact_tex_sha256": "d5ea356a07477177f35cc7d2c3950ff3aa89cc3eedc6aba326b46a014620590b"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": "contribution-activity",
+      "label": "Contribution activity"
+    },
+    {
+      "level": 3,
+      "anchor": "merged-mathematical-contributions",
+      "label": "Merged mathematical contributions"
+    },
+    {
+      "level": 3,
+      "anchor": "open-requests",
+      "label": "Open requests"
+    },
+    {
+      "level": 3,
+      "anchor": "proof-link-maintenance",
+      "label": "Proof-link maintenance"
+    },
+    {
+      "level": 3,
+      "anchor": "authorship-and-closed-requests",
+      "label": "Authorship and closed requests"
+    },
+    {
+      "level": 2,
+      "anchor": "pinned-statement-comparison",
+      "label": "Pinned statement comparison"
+    },
+    {
+      "level": 2,
+      "anchor": "pinned-upstream-sources",
+      "label": "Pinned upstream sources"
+    },
+    {
+      "level": 2,
+      "anchor": "per-problem-comparison",
+      "label": "Per-problem comparison"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-68",
+      "label": "Erdős #68"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-243",
+      "label": "Erdős #243"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-249",
+      "label": "Erdős #249"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-251",
+      "label": "Erdős #251"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-257",
+      "label": "Erdős #257"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-269",
+      "label": "Erdős #269"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-1041",
+      "label": "Erdős #1041"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-1049",
+      "label": "Erdős #1049"
+    },
+    {
+      "level": 2,
+      "anchor": "adapter-candidates",
+      "label": "Adapter candidates"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-257-erdos257.erdos_257.variants.tsum_top",
+      "label": "Erdős #257: Erdos257.erdos_257.variants.tsum_top"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-1049-erdos1049.erdos_1049.variants.geq_2_integer",
+      "label": "Erdős #1049: Erdos1049.erdos_1049.variants.geq_2_integer"
+    },
+    {
+      "level": 2,
+      "anchor": "cross-index-matches",
+      "label": "Cross-index matches"
+    },
+    {
+      "level": 3,
+      "anchor": "upstream-258-erdos258.erdos_258.variants.constant",
+      "label": "Upstream #258: Erdos258.erdos_258.variants.constant"
+    },
+    {
+      "level": 2,
+      "anchor": "reproduction",
+      "label": "Reproduction"
+    }
+  ],
+  "source_heading_translations": {
+    "erdős-257-erdos257erdos_257variantstsum_top": "erdős-257-erdos257.erdos_257.variants.tsum_top",
+    "erdős-1049-erdos1049erdos_1049variantsgeq_2_integer": "erdős-1049-erdos1049.erdos_1049.variants.geq_2_integer",
+    "upstream-258-erdos258erdos_258variantsconstant": "upstream-258-erdos258.erdos_258.variants.constant"
+  }
+}

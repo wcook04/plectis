@@ -117,6 +117,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [Prior art](maths/documents/prior-art.html)
 - [Methodology](maths/documents/methodology.html)
 - [Scope and claim boundary](maths/documents/scope.html)
+- [Formal Conjectures contributions](maths/documents/formal-conjectures.html)
 - [External verification](maths/documents/external-verification.html)
 - [Comparator #1049 fixture](maths/documents/comparator-1049.html)
 - [Repository architecture](maths/documents/architecture.html)

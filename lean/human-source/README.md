@@ -9,18 +9,16 @@ Eight Erdős problems, with papers to read, proofs to inspect and research to co
 
 **[Explore the website](https://wcook04.github.io/plectis/maths/)** ·
 **[Open the maths map](https://wcook04.github.io/plectis/maths/universe.html)** ·
-**[Read the papers](paper/README.md)**
+**[Read the papers](paper/README.md)** · **[Watch the videos](#videos)**
 
 [![Eight Erdős problem programmes: the interactive maths map connects papers, results and their formal evidence](.github/maths-map.png)](https://wcook04.github.io/plectis/maths/universe.html)
 
 <sub>The maths map on 9 October 2026. Open the image to explore the current edition.</sub>
 
 Plectis is an independent, AI-assisted prototype built and maintained by Will Cook.
-The website lets you explore the research. This repository contains the arguments,
-Lean proofs, experiments and approaches that did not work. You can read everything
-without installing Lean. [A reader's way in](docs/READING_GUIDE.md) introduces the
-project; the [glossary](https://wcook04.github.io/plectis/docs/glossary.html) explains
-mathematical terms along the way.
+Read the arguments, Lean proofs, experiments and failed approaches without
+installing Lean. Start with [A reader's way in](docs/READING_GUIDE.md) or the
+[glossary](https://wcook04.github.io/plectis/docs/glossary.html) of mathematical terms.
 
 ---
 
@@ -77,20 +75,29 @@ its assumptions, earlier work and remaining questions.
   explore an open question or improve a tool. The repository includes its
   instructions and links to the evidence.
 
+<a id="videos"></a>
+
+## Watch the videos
+
+- [Plectis: introduction](https://youtu.be/TZycALG7vTo)
+- [Erdős #257: the reciprocal-summability criterion](https://youtu.be/3zJkG-kY4qg)
+- [CodeMap demonstration](https://youtu.be/8yk8rmhk02U)
+- [Agent Trace demonstration](https://youtu.be/SGeVUNqjfsk)
+- [Combined film](https://youtu.be/bkHJvRVWtC0)
+
 <a id="about-the-project"></a>
 
 ## Why keep the whole research record?
 
-I want other people to work on these questions with me. The longer records
-include calculations and routes that stopped at a precise obstruction. You can
-question an approach, repair it or use the idea elsewhere without repeating
-the investigation.
+I want other people to work on these questions with me. The records preserve
+calculations and routes that stopped, which you can question, repair or reuse.
 
 AI agents did most of the research and drafting. I built and directed the
 infrastructure and reviewed claims when I could; I have not independently
 verified every claim. I maintain the sources and take responsibility for
-correcting the public record. Novelty and significance need human judgement;
-independent mathematical review of the corpus has not been recorded.
+correcting the public record. Novelty and significance need human judgement.
+Selected contributions have [independent reviews](#formal-conjectures-contributions);
+review does not cover the whole corpus.
 The [system paper](paper/systems/claim-faithful-publication-systems-paper.pdf)
 explains how the repository records results and corrections and credits contributors.
 
@@ -149,9 +156,8 @@ build or platform submission does not establish those judgements.
 
 ## Contribute
 
-An idea, correction, earlier reference, counterexample, useful failed approach
-or clearer explanation can help. One specific observation is enough to start;
-you need not review the whole repository, solve an Erdős problem or write
+An idea, correction, reference, counterexample, failed approach or clearer
+explanation can help. One observation is enough; you need not solve a problem or write
 Lean. I can help formalise an argument while preserving its attribution.
 
 - **Mathematics or exposition:** [work on a paper](docs/CONTRIBUTE_BY_PAPER.md)
@@ -240,18 +246,17 @@ order without asking you to decode Lean declaration names first.
 
 ## Formal Conjectures contributions
 
-As of **8 October 2026**, four mathematical contributions have merged:
-proof links for solved variants of Erdős's 1948 theorem in
-[#257](https://github.com/google-deepmind/formal-conjectures/pull/6506),
-[#258](https://github.com/google-deepmind/formal-conjectures/pull/5034) and
-[#1049](https://github.com/google-deepmind/formal-conjectures/pull/6507), plus the
-[#1041 correction](https://github.com/google-deepmind/formal-conjectures/pull/6505)
-based on ani's counterexample.
+As of **9 October 2026**, [five mathematical contributions](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#merged-mathematical-contributions)
+have merged into Formal Conjectures. The latest,
+[#6529](https://github.com/google-deepmind/formal-conjectures/pull/6529), adds
+Erdős's reciprocal-summable support variant for every integer base at least two;
+arbitrary infinite supports remain open.
 
-**Nine further requests remain open.** The
-[contribution record](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#contribution-activity)
-separates merged changes, open requests and the AUTHORS update, with each
-request's scope and dated review state. [Trace the #1041 Lean proof](docs/case-studies/formal-conjectures-1041.md).
+[Bo Cowgill's review](https://github.com/google-deepmind/formal-conjectures/pull/6529#pullrequestreview-5435090546)
+checked source correspondence and independently replayed the original proof.
+The [contribution record](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#contribution-activity)
+separates accepted changes, pending requests, proof-link maintenance and authorship.
+[Trace the #1041 Lean proof](docs/case-studies/formal-conjectures-1041.md).
 
 The [Prove2Me #243/#257 proof packets](docs/research-commons/README.md#native-prove2me-theorems)
 and [plectis-erdos-lean](https://github.com/wcook04/plectis-erdos-lean) provide

@@ -3,10 +3,10 @@
   "authority_posture": "generated_navigation_projection_not_Lean_proof_authority",
   "root_node_id": "universe:plectis-lean",
   "counts": {
-    "nodes": 2905,
-    "edges": 9143,
+    "nodes": 2906,
+    "edges": 9144,
     "node_kinds": {
-      "human_document": 17,
+      "human_document": 18,
       "integration_surface": 2,
       "lean_module": 1902,
       "mathematical_object": 105,
@@ -27,7 +27,7 @@
       "holds_prepared": 616,
       "imports": 3883,
       "instantiates": 2,
-      "interpreted_by": 17,
+      "interpreted_by": 18,
       "makes_exact": 1,
       "positions": 3,
       "publishes": 160,
@@ -1672,6 +1672,14 @@
       "role": "comparator_explanation",
       "href": "documents/external-verification.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/EXTERNAL_VERIFICATION.md"
+    },
+    {
+      "id": "document:formal-conjectures",
+      "kind": "human_document",
+      "label": "Formal Conjectures contributions",
+      "role": "upstream_contribution_record",
+      "href": "documents/formal-conjectures.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md"
     },
     {
       "id": "document:methodology",
@@ -93508,6 +93516,11 @@
       "source": "universe:plectis-lean",
       "relation": "interpreted_by",
       "target": "document:external-verification"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:formal-conjectures"
     },
     {
       "source": "universe:plectis-lean",

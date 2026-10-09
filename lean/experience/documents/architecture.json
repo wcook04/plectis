@@ -11,7 +11,7 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ARCHITECTURE.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "2f02ac00cbef852d00af7d9c1194069586a5c2e38f22d3bb06be654eb963dafb",
+    "navigation_fingerprint": "c6e0ab1d44dddf9c00376c5f5ce3d79a18656a027336e9e8e486094ae167b7ba",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -31,8 +31,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "04c6d3209fc7c691ae7aba8b42f3c8b1baffa22687e06d843a31af2dc5a5c091",
-    "html_exact_tex_sha256": "37d32420980be69c7707f91ef809099828fc6120eba9ee0cb07ebea104d34143"
+    "html_mathml_sha256": "23dc5d57fb62f15957197d1648c6c791de7983eae169f4d8851135c3c1deb557",
+    "html_exact_tex_sha256": "a2db8a417fecddba2276aba5ac6b54bc30b374704b1ef0ba4ba1922aec46297c"
   },
   "sections": [
     {
