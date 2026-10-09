@@ -1144,6 +1144,9 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
     handoff_example.parent.mkdir(parents=True)
     handoff_example.write_text("{}", encoding="utf-8")
     documentation_refs = (
+        "assets/system-map-dark.png",
+        "assets/README.md",
+        "atlas/doctrine_lattice_graph.mmd",
         "examples/README.md",
         "fixtures/README.md",
         "receipts/README.md",

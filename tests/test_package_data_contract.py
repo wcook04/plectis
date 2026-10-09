@@ -307,7 +307,7 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         ".github/copilot-instructions.md",
     ]
 
-    assert data_files["share/plectis/atlas"] == ["atlas/*.json"]
+    assert data_files["share/plectis/atlas"] == ["atlas/*.json", "atlas/*.mmd"]
     assert data_files["share/plectis/core/preflight_support"] == [
         "core/preflight_support/*.json"
     ]

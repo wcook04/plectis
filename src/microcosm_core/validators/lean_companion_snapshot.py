@@ -316,15 +316,9 @@ def _expected_companion_fact_phrase(payload: dict[str, Any]) -> str:
     word = _NUMBER_WORDS.get(count)
     if word is None:
         raise ValueError(f"no spelled form for problem_count={count}")
-    if inventory["all_open"] is not True:
-        # Not a formatting failure. The companion registry no longer reports
-        # every tracked problem as open, so "N open Erdos problems" has become
-        # a false public claim and a human has to choose the new wording.
-        raise ValueError(
-            "companion registry no longer reports every problem open: "
-            f"{inventory.get('observed_statuses')}"
-        )
-    return f"{word} open Erdős problems"
+    # Scope is stable even when a tracked problem's status changes. Keep the
+    # count binding separate from any stronger assertion that all remain open.
+    return f"{word} Erdős problems"
 
 
 def _validate_companion_facts(
@@ -357,7 +351,15 @@ def _validate_companion_facts(
                 }
             )
             continue
-        if phrase not in path.read_text(encoding="utf-8"):
+        text = path.read_text(encoding="utf-8")
+        open_phrase = phrase.replace(" Erdős problems", " open Erdős problems")
+        if open_phrase in text and payload["problem_inventory"]["all_open"] is not True:
+            errors.append({
+                "code": "LEAN_COMPANION_PROBLEM_INVENTORY_INVALID",
+                "detail": f"{rel} claims all problems open despite recorded statuses: "
+                          f"{payload['problem_inventory'].get('observed_statuses')}",
+            })
+        if phrase not in text and open_phrase not in text:
             surfaces_missing.append(str(rel))
     if surfaces_missing:
         errors.append(

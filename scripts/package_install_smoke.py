@@ -308,6 +308,9 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
 
     # Directory guides linked by the installed README must travel with it.
     for reference in (
+        "assets/system-map-dark.png",
+        "assets/README.md",
+        "atlas/doctrine_lattice_graph.mmd",
         "examples/README.md",
         "fixtures/README.md",
         "receipts/README.md",

@@ -13,7 +13,7 @@ accountability layer, not the product — do not describe this repository by it,
 and do not treat the nearest component as the whole system. Read counts from the
 self-model card below rather than asserting them. The companion
 [`plectis-erdos`](https://github.com/wcook04/plectis-erdos)
-repository contains the Lean source and papers for eight open Erdős problems.
+repository contains the Lean source and papers for eight Erdős problems.
 Neither repository gives access to private state or makes claims about it.
 
 ## Route the task before reading broadly

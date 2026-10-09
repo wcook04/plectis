@@ -66,15 +66,15 @@ def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> No
         in agents
     )
     # AGENTS.md routes the agent to the README's human sections; after the
-    # assurance migration those are the `Choose a route` table and the
-    # `How the result stays honest` section (the old `Public Repo Map` /
+    # assurance migration those are the `Choose a starting point` table and the
+    # `What a passing result means` section (the old `Public Repo Map` /
     # `Component Map` headings were retired with the README rewrite).
     assert (
-        "In that README, use\n   the `Choose a route` table and "
-        "`How the result stays honest`"
+        "In that README, use\n   the `Choose a starting point` table and "
+        "`What a passing result means`"
         in agents
     )
-    assert agents.index("`Choose a route` table") < agents.index(
+    assert agents.index("`Choose a starting point` table") < agents.index(
         "## Accepted Public Runtime Spine"
     )
     agent_smoke = agents.split(

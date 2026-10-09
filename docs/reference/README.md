@@ -19,6 +19,23 @@ at their established repository paths because commands, packages and incoming
 links use those paths. Their [maintainer guide](../maintainers/architecture.md#keep-each-document-in-its-role)
 names the source and generator for each one.
 
+## The doctrine in the map
+
+The [interactive system map](https://wcook04.github.io/plectis/docs/system-map.html)
+places software components around the rules their explanations cite. Its centre
+links three kinds of document:
+
+- [Axioms](../../AXIOMS.md): the assumptions and constraints the tools start from.
+- [Principles](../../PRINCIPLES.md): rules for designing and checking the tools.
+- [Failure modes](../../ANTI_PRINCIPLES.md): mistakes those rules are intended to prevent.
+
+The [generated diagram](../../atlas/doctrine_lattice_graph.mmd) and
+[machine-readable connections](../../atlas/doctrine_lattice_projection.json)
+record these relationships. A citation connects an explanation to a rule; it
+does not establish that the implementation enforces it. Follow the component's
+source and tests to check that claim. See the [maintainer guide](../maintainers/architecture.md)
+for the source owners and generation commands.
+
 ## Sources, results and releases
 
 | Reference | What it tells you |

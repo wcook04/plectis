@@ -260,8 +260,8 @@ def test_blocks_stale_companion_problem_count_in_the_agent_entry(
     entry_path = root / "AGENTS.override.md"
     entry_path.write_text(
         entry_path.read_text(encoding="utf-8").replace(
-            "eight open Erdős problems",
-            "six open Erdős problems",
+            "eight Erdős problems",
+            "six Erdős problems",
             1,
         ),
         encoding="utf-8",
@@ -279,7 +279,7 @@ def test_blocks_open_problem_claim_once_a_problem_stops_being_open(
 
     This is the direction that would embarrass the project rather than merely
     age: prose asserting a problem is open after the registry says otherwise.
-    The validator refuses to spell a phrase it can no longer support.
+    The neutral scope remains valid; an explicit all-open claim is rejected.
     """
     root = _fixture_root(tmp_path)
     snapshot_path = root / "docs/lean_companion_snapshot.json"
@@ -288,6 +288,16 @@ def test_blocks_open_problem_claim_once_a_problem_stops_being_open(
     payload["problem_inventory"]["observed_statuses"] = ["open", "resolved"]
     snapshot_path.write_text(
         json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    # A neutral count does not assert that every tracked problem is still open.
+    receipt = validate_lean_companion_snapshot(root)
+    assert receipt["status"] == "pass", receipt["errors"]
+    entry = root / "AGENTS.override.md"
+    entry.write_text(
+        entry.read_text(encoding="utf-8").replace(
+            "eight Erdős problems", "eight open Erdős problems", 1
+        ),
         encoding="utf-8",
     )
     receipt = validate_lean_companion_snapshot(root)
