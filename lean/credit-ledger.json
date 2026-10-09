@@ -3,11 +3,65 @@
   "authority_boundary": "Acknowledges advice that changed public files in this repository. It does not say that the person reviewed, checked or endorsed any mathematics, and it does not make them an author.",
   "counts": {
     "anonymous_by_request": 0,
-    "entries": 5,
+    "entries": 9,
     "named_with_permission": 0,
-    "withheld_pending_confirmation": 5
+    "withheld_pending_confirmation": 9
   },
   "entries": [
+    {
+      "anchor": "credit-correspondence-007",
+      "artifacts": [
+        {
+          "excerpt_sha256": "sha256:1c5d760a7eca0b5806db621f0b57d6478ac17d58c96c2c740ba6c56b548c15cb",
+          "line_end": 125,
+          "line_start": 118,
+          "path": "docs/research-commons/CREDIT_POLICY.md"
+        }
+      ],
+      "changed": "The communication rules now require an inspectable comparison and evidence for a claimed advantage, while keeping an invitation to look distinct from a completed review.",
+      "commits": [],
+      "credited_as": "A researcher (name withheld pending confirmation)",
+      "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-007",
+      "id": "correspondence-007",
+      "naming": {
+        "confirmation_status": "not_confirmed",
+        "confirmed_on": null,
+        "display": "Name withheld until they confirm.",
+        "state": "withheld_pending_confirmation"
+      },
+      "problems": [],
+      "received_on": "2026-09-22",
+      "role": "researcher",
+      "title": "Showing an inspectable comparison",
+      "told": "A researcher advised showing a clear advantage over existing systems when asking people to use the work."
+    },
+    {
+      "anchor": "credit-correspondence-009",
+      "artifacts": [
+        {
+          "excerpt_sha256": "sha256:88d97e510c6630f615abb927f41afe9c1dbd259f9d637d7df1df9824a246e2af",
+          "line_end": 145,
+          "line_start": 137,
+          "path": "docs/research-commons/CREDIT_POLICY.md"
+        }
+      ],
+      "changed": "The explanation now distinguishes persistent records for inspection and continuation from a model’s problem-solving capability; the distinction is also published in the credit policy.",
+      "commits": [],
+      "credited_as": "A researcher (name withheld pending confirmation)",
+      "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-009",
+      "id": "correspondence-009",
+      "naming": {
+        "confirmation_status": "not_confirmed",
+        "confirmed_on": null,
+        "display": "Name withheld until they confirm.",
+        "state": "withheld_pending_confirmation"
+      },
+      "problems": [],
+      "received_on": "2026-09-17",
+      "role": "researcher",
+      "title": "Clarifying the role of persistent research records",
+      "told": "A researcher challenged the framing of the system as an external improvement to rapidly advancing models."
+    },
     {
       "anchor": "credit-correspondence-004",
       "artifacts": [
@@ -238,6 +292,33 @@
       "told": "A mathematician advised listing each selected result with its exact statement, proof source, novelty status, axioms and limits, and giving reviewers a cheap way to check the statements themselves."
     },
     {
+      "anchor": "credit-correspondence-008",
+      "artifacts": [
+        {
+          "excerpt_sha256": "sha256:4b4e287db8c278bf0c90fdffa8c029c4615fa4ef95e800efb5115c3530a1d2dd",
+          "line_end": 135,
+          "line_start": 127,
+          "path": "docs/research-commons/CREDIT_POLICY.md"
+        }
+      ],
+      "changed": "That connection was removed from future correspondence unless new evidence supports it; the published credit policy records the same rule for correcting scope.",
+      "commits": [],
+      "credited_as": "A mathematician (name withheld pending confirmation)",
+      "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-008",
+      "id": "correspondence-008",
+      "naming": {
+        "confirmation_status": "not_confirmed",
+        "confirmed_on": null,
+        "display": "Name withheld until they confirm.",
+        "state": "withheld_pending_confirmation"
+      },
+      "problems": [],
+      "received_on": "2026-08-05",
+      "role": "mathematician",
+      "title": "Removing an unsupported specialist connection",
+      "told": "A mathematician saw no connection between their specialist methods and the question presented to them."
+    },
+    {
       "anchor": "credit-correspondence-003",
       "artifacts": [
         {
@@ -288,11 +369,38 @@
       "role": "mathematician",
       "title": "Earlier work on the #1049 Lambert value",
       "told": "A mathematician suggested comparing the #1049 construction with an earlier irrationality paper."
+    },
+    {
+      "anchor": "credit-correspondence-006",
+      "artifacts": [
+        {
+          "excerpt_sha256": "sha256:191bdaa5c6a034f8f74163c139dd6774fc83d1c917ad107d0014d342c594d0f9",
+          "line_end": 116,
+          "line_start": 109,
+          "path": "docs/research-commons/CREDIT_POLICY.md"
+        }
+      ],
+      "changed": "The correspondence rules now require one concrete object, its purpose, a narrow request and a clear reading or time cost; those rules are also published in the credit policy.",
+      "commits": [],
+      "credited_as": "A reader (name withheld pending confirmation)",
+      "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-006",
+      "id": "correspondence-006",
+      "naming": {
+        "confirmation_status": "not_confirmed",
+        "confirmed_on": null,
+        "display": "Name withheld until they confirm.",
+        "state": "withheld_pending_confirmation"
+      },
+      "problems": [],
+      "received_on": "2026-06-30",
+      "role": "reader",
+      "title": "Explaining the purpose of the work",
+      "told": "A reader could not identify the system’s goal, the object being shown, or why its interface was useful."
     }
   ],
   "generated_by": "scripts/build_source_attributions.py",
   "naming_policy": "Every entry starts with the name withheld. A name appears only after that person confirms the public name they want, and an entry stays anonymous if they ask. Private messages stay outside this repository.",
   "schema": "plectis-credit-ledger/1",
   "source_registry": "docs/research-commons/source-attributions.json",
-  "source_registry_sha256": "sha256:7cb370edcadd6f968098db1e3cae7638da376695e81f6fe7feb9d2d7c5fd178a"
+  "source_registry_sha256": "sha256:a5433f977a2a769c1d4f118ae86ac5c3b699fb9e0e47b0eb84a61357595cb467"
 }

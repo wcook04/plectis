@@ -2,7 +2,7 @@
   "schema": "plectis_lean_experience_manifest_v1",
   "experience_version": "plectis_lean_experience_v1",
   "generated_by": "tools/meta/dissemination/build_plectis_lean_experience.py",
-  "source_fingerprint": "ce1360b5b15699c8f49fcfd4a89e033da02e11ed5b81b3e81b43152cc3d2883e",
+  "source_fingerprint": "d6f7cff66ffcfb80a54aaefa46bd43ab2d0f4373f9a5e3e93570a4e26063641c",
   "publication_state": "published_source",
   "public_parity": true,
   "authority_model": {
@@ -80,7 +80,7 @@
   },
   "source_identity": {
     "human_document_navigation": "2f02ac00cbef852d00af7d9c1194069586a5c2e38f22d3bb06be654eb963dafb",
-    "lean_manifest": "e8d380a0208825b0e190ce33818ba9d857fbe36c5bfd1b83b72cd5c3b2f61f88",
+    "lean_manifest": "4cfb10181e0f6dc5c191075841bb22500514b42e5468807c22c06e099bebb9dc",
     "paper_manifest": "8b30cd14bf42f36ce9a2d521f52821dd632786405e961ec2506b41d3eef5cca6",
     "claims": "b92af9f98a8743f48cf40c399d0c03eee322b7195e48c96eb14721ecb92fce9a",
     "problems": "e8e1d7c043cfc172833f1cf5a60896534759346bc65a1e62f5d50bbf5dc5c175",
