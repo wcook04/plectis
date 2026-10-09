@@ -3,11 +3,28 @@
 
 # Papers
 
-Each of the eight covered Erdős problems has a short first-read paper and a
-longer complete reasoning record. Start with the short paper for the result,
-its argument and the question that remains. Use the longer record when you
-want to recover a detailed step, inspect a computation, or follow an approach
-that stopped. You do not need Lean or a coding agent to read either.
+[Browse on the website](https://wcook04.github.io/plectis/docs/papers.html) ·
+[Explore the maths map](https://wcook04.github.io/plectis/maths/universe.html) ·
+[Read without a clone](../docs/reading-edition/README.md)
+
+Each problem has a short first-read paper and a longer complete reasoning record.
+The collection has four complementary roles:
+
+- **[Eight short papers](#problem-papers)** introduce selected results, their
+  arguments and what remains open, one paper for each Erdős problem.
+- **[Eight longer reasoning records](#problem-papers)** preserve detailed
+  proofs, computations, attempted approaches and the obstructions they met.
+- **[Reading Eight Erdős Problems Together](#reading-the-eight-together)**
+  develops the mathematical connections and limits of shared methods.
+- **[A Repository-Based System for Research and Publication](#project-papers)**
+  explains how the arguments, evidence, explanations and contributions fit
+  together. This is the main systems paper.
+
+You do not need Lean or a coding agent to read the papers. PDFs and LaTeX
+sources are paired below; the [website catalogue](https://wcook04.github.io/plectis/docs/papers.html)
+offers browser reading alongside the downloads.
+
+## What the papers establish
 
 Using the degree-seven polynomial constructed by the erdosproblems.com
 contributor ani, Lean proves that every preconnected strict-lemniscate set
@@ -25,16 +42,71 @@ and the research process, go to the [project papers](#project-papers).
 
 ## Problem papers
 
-| Problem | Short paper | Complete reasoning record |
-|---|---|---|
-| #68 | [Integer Linear Forms for a Factorial Reciprocal Series](68/erdos-68-factorial-denominator-irrationality.pdf) ([source](68/erdos-68-factorial-denominator-irrationality.tex)) | [Factorial Linear Forms and Denominators: Detailed Proofs and Rationality Criteria](68/erdos68-factorial-reasoning-surface.pdf) ([source](68/erdos68-factorial-reasoning-surface.tex)) |
-| #243 | [Cubic-Rate Irrationality and Reciprocal-Tail Rigidity](243/erdos-243-reciprocal-tail-rigidity.pdf) ([source](243/erdos-243-reciprocal-tail-rigidity.tex)) | [Reciprocal-Tail Rigidity: Theorems, Proofs and Questions](243/erdos243-reciprocal-tail-reasoning-surface.pdf) ([source](243/erdos243-reciprocal-tail-reasoning-surface.tex)) |
-| #249 | [Integral Relations among Totient Sections](249/erdos-249-binary-totient-series.pdf) ([source](249/erdos-249-binary-totient-series.tex)) | [The Binary Totient Series](249/erdos249-totient-reasoning-surface.pdf) ([source](249/erdos249-totient-reasoning-surface.tex)) |
-| #251 | [Sparse Congruence-Preserving Perturbations of Dyadic Series](251/erdos-251-prime-gap-dyadic-series.pdf) ([source](251/erdos-251-prime-gap-dyadic-series.tex)) | [Prime-Gap Dyadic Series: Perturbations, Exact Criteria and Certificates](251/erdos251-prime-gap-reasoning-surface.pdf) ([source](251/erdos251-prime-gap-reasoning-surface.tex)) |
-| #257 | [Weighted and Covered Supports for Mersenne Subseries](257/erdos-257-mersenne-support-subseries.pdf) ([source](257/erdos-257-mersenne-support-subseries.tex)) | [Reciprocal Mersenne Subseries](257/erdos257-mersenne-reasoning-surface.pdf) ([source](257/erdos257-mersenne-reasoning-surface.tex)) |
-| #269 | [Distinct running least common multiples](269/erdos-269-three-prime-running-lcm.pdf) ([source](269/erdos-269-three-prime-running-lcm.tex)) | [Running least common multiples: distinct heights and repeated sums](269/erdos269-running-lcm-reasoning-surface.pdf) ([source](269/erdos269-running-lcm-reasoning-surface.tex)) |
-| #1041 | [Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Radial Connections](1041/erdos-1041-lemniscate-newton-flow.pdf) ([source](1041/erdos-1041-lemniscate-newton-flow.tex)) | [Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Radial Connections](1041/erdos1041-lemniscate-reasoning-surface.pdf) ([source](1041/erdos1041-lemniscate-reasoning-surface.tex)) |
-| #1049 | [Hankel Determinants of Geometric Moments and Rational Lambert Values](1049/erdos-1049-rational-base-lambert.pdf) ([source](1049/erdos-1049-rational-base-lambert.tex)) | [Geometric Moments and Rational Lambert Values: Proofs and Further Results](1049/erdos1049-rational-base-lambert-reasoning-surface.pdf) ([source](1049/erdos1049-rational-base-lambert-reasoning-surface.tex)) |
+[#68](#erdős-68) · [#243](#erdős-243) · [#249](#erdős-249) · [#251](#erdős-251) · [#257](#erdős-257) · [#269](#erdős-269) · [#1041](#erdős-1041) · [#1049](#erdős-1049)
+
+### Erdős #68
+
+**Short paper**<br>
+[Integer Linear Forms for a Factorial Reciprocal Series](68/erdos-68-factorial-denominator-irrationality.pdf) ([source](68/erdos-68-factorial-denominator-irrationality.tex))
+
+**Complete reasoning record**<br>
+[Factorial Linear Forms and Denominators: Detailed Proofs and Rationality Criteria](68/erdos68-factorial-reasoning-surface.pdf) ([source](68/erdos68-factorial-reasoning-surface.tex))
+
+### Erdős #243
+
+**Short paper**<br>
+[Reciprocal Sums and the Sylvester Recurrence](243/erdos-243-reciprocal-tail-rigidity.pdf) ([source](243/erdos-243-reciprocal-tail-rigidity.tex))
+
+**Complete reasoning record**<br>
+[Reciprocal Sums and the Sylvester Recurrence: Further Results and Proofs](243/erdos243-reciprocal-tail-reasoning-surface.pdf) ([source](243/erdos243-reciprocal-tail-reasoning-surface.tex))
+
+### Erdős #249
+
+**Short paper**<br>
+[Integral Relations among Totient Sections](249/erdos-249-binary-totient-series.pdf) ([source](249/erdos-249-binary-totient-series.tex))
+
+**Complete reasoning record**<br>
+[The Binary Totient Series](249/erdos249-totient-reasoning-surface.pdf) ([source](249/erdos249-totient-reasoning-surface.tex))
+
+### Erdős #251
+
+**Short paper**<br>
+[Sparse Congruence-Preserving Perturbations of Dyadic Series](251/erdos-251-prime-gap-dyadic-series.pdf) ([source](251/erdos-251-prime-gap-dyadic-series.tex))
+
+**Complete reasoning record**<br>
+[Prime-Gap Dyadic Series: Perturbations, Exact Criteria and Certificates](251/erdos251-prime-gap-reasoning-surface.pdf) ([source](251/erdos251-prime-gap-reasoning-surface.tex))
+
+### Erdős #257
+
+**Short paper**<br>
+[Irrationality criteria for Lambert subseries](257/erdos-257-mersenne-support-subseries.pdf) ([source](257/erdos-257-mersenne-support-subseries.tex))
+
+**Complete reasoning record**<br>
+[Reciprocal Mersenne Subseries](257/erdos257-mersenne-reasoning-surface.pdf) ([source](257/erdos257-mersenne-reasoning-surface.tex))
+
+### Erdős #269
+
+**Short paper**<br>
+[Distinct running least common multiples](269/erdos-269-three-prime-running-lcm.pdf) ([source](269/erdos-269-three-prime-running-lcm.tex))
+
+**Complete reasoning record**<br>
+[Running least common multiples: distinct values and multiplicities](269/erdos269-running-lcm-reasoning-surface.pdf) ([source](269/erdos269-running-lcm-reasoning-surface.tex))
+
+### Erdős #1041
+
+**Short paper**<br>
+[Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Radial Connections](1041/erdos-1041-lemniscate-newton-flow.pdf) ([source](1041/erdos-1041-lemniscate-newton-flow.tex))
+
+**Complete reasoning record**<br>
+[Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Radial Connections](1041/erdos1041-lemniscate-reasoning-surface.pdf) ([source](1041/erdos1041-lemniscate-reasoning-surface.tex))
+
+### Erdős #1049
+
+**Short paper**<br>
+[Hankel Determinants of Geometric Moments and Rational Lambert Values](1049/erdos-1049-rational-base-lambert.pdf) ([source](1049/erdos-1049-rational-base-lambert.tex))
+
+**Complete reasoning record**<br>
+[Geometric Moments and Rational Lambert Values: Proofs and Further Results](1049/erdos1049-rational-base-lambert-reasoning-surface.pdf) ([source](1049/erdos1049-rational-base-lambert-reasoning-surface.tex))
 
 The #243 short paper leads with irrationality under the cubic rate
 `a_n²/a_(n+1) = 1 + 3/n + o(n⁻³)` for strictly increasing positive integer
@@ -87,6 +159,15 @@ Start with [A Repository-Based System for Research and Publication](systems/clai
 systems paper: it follows a result from its mathematical argument through
 formal support, written explanation, review and contribution.
 
+The accompanying writing guides describe the exposition process:
+[Writing a Good Mathematical Paper](exposition/writing-a-good-mathematical-paper.pdf)
+is the compact guide; [Writing Mathematics from the Literature and Reviewed Revisions](exposition/writing-mathematics-from-reviewed-revisions.pdf)
+records the method and its sources. Their LaTeX sources are in
+[exposition/](exposition/).
+
+<details>
+<summary>Earlier systems papers: historical background</summary>
+
 Two earlier papers are retained as historical background. Their account is
 superseded by the main paper; their observations and cross-references belong
 to the revisions they describe.
@@ -95,6 +176,8 @@ to the revisions they describe.
 |---|---|
 | [From a Cold Clone to a Proof Receipt](systems/cold-clone-to-proof-receipt.pdf) ([source](systems/cold-clone-to-proof-receipt.tex)) | Navigation, recorded proof checks and incremental validation. |
 | [From Spare Compute to Cumulative Mathematics](systems/open-source-mathematics-strategy.pdf) ([source](systems/open-source-mathematics-strategy.tex)) | Contribution protocol, compute, credit and governance. |
+
+</details>
 
 For current use, follow [the reading guide](../docs/READING_GUIDE.md),
 [agent instructions](../AGENTS.md) or [Contributing](../CONTRIBUTING.md).
@@ -186,8 +269,8 @@ python3 scripts/paper_evidence.py build --corpus-repo /path/to/plectis-erdos-lea
 Review and commit changed evidence records before pointing that paper's
 `record_commit_overrides` entry in `evidence/config.json` at the new commit.
 Run the evidence builder again, rebuild the affected PDF and synchronize it.
-`python3 scripts/check_paper_evidence_pdfs.py` checks each margin link against
-the heading and page in the resulting PDF; `make -C paper check` includes
+`python3 scripts/check_paper_evidence_pdfs.py` checks the final verification concordance
+and its links against the result headings and pages in the resulting PDF; `make -C paper check` includes
 this check. It needs the dependencies in `scripts/requirements-release.txt`.
 
 After editing a manuscript, rebuild its PDF before updating its recorded

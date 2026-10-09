@@ -93,7 +93,7 @@
         <p class="doc-source-line">Rendered from <code>paper/README.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> repository. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/README.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
-
+<details class="reader-contents reader-contents--all"><summary>All sections</summary><nav aria-label="Document contents"><a class="toc-l2" href="#what-the-papers-establish">What the papers establish</a><a class="toc-l2" href="#problem-papers">Problem papers</a><a class="toc-l3" href="#erdős-68">Erdős #68</a><a class="toc-l3" href="#erdős-243">Erdős #243</a><a class="toc-l3" href="#erdős-249">Erdős #249</a><a class="toc-l3" href="#erdős-251">Erdős #251</a><a class="toc-l3" href="#erdős-257">Erdős #257</a><a class="toc-l3" href="#erdős-269">Erdős #269</a><a class="toc-l3" href="#erdős-1041">Erdős #1041</a><a class="toc-l3" href="#erdős-1049">Erdős #1049</a><a class="toc-l2" href="#reading-the-eight-together">Reading the eight together</a><a class="toc-l2" href="#follow-the-argument-into-its-evidence">Follow the argument into its evidence</a><a class="toc-l2" href="#project-papers">Project papers</a><a class="toc-l2" href="#sources-and-earlier-manuscripts">Sources and earlier manuscripts</a><a class="toc-l3" href="#returning-from-a-problem-note-to-checked-evidence">Returning from a problem note to checked evidence</a><a class="toc-l2" href="#build-and-update">Build and update</a></nav></details>
       <div class="paper-stage">
 <article class="lean-document" data-document-id="paper-guide" data-document-role="current_paper_catalogue" data-math-mode="mathml">
   <div class="lean-document__body" data-source="paper/README.md">
@@ -101,12 +101,34 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <section class="level1 lean-doc-titled">
 <h2>Papers</h2>
-<p>Each of the eight covered <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problems</a> has a short first-read paper
-and a longer complete reasoning record. Start with the short paper for
-the result, its argument and the question that remains. Use the longer
-record when you want to recover a detailed step, inspect a computation,
-or follow an approach that stopped. You do not need Lean or a coding
-agent to read either.</p>
+<p><a href="https://wcook04.github.io/plectis/docs/papers.html" data-link-kind="exogenous" rel="external noopener">Browse
+on the website</a> · <a
+href="https://wcook04.github.io/plectis/maths/universe.html" data-link-kind="exogenous" rel="external noopener">Explore the
+maths map</a> · <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md" data-link-kind="exogenous" rel="external noopener">Read without
+a clone</a></p>
+<p>Each problem has a short first-read paper and a longer complete
+reasoning record. The collection has four complementary roles:</p>
+<ul>
+<li><strong><a href="#problem-papers">Eight short papers</a></strong>
+introduce selected results, their arguments and what remains open, one
+paper for each <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a>.</li>
+<li><strong><a href="#problem-papers">Eight longer reasoning
+records</a></strong> preserve detailed proofs, computations, attempted
+approaches and the obstructions they met.</li>
+<li><strong><a href="#reading-the-eight-together">Reading Eight Erdős
+Problems Together</a></strong> develops the mathematical connections and
+limits of shared methods.</li>
+<li><strong><a href="#project-papers">A Repository-Based System for
+Research and Publication</a></strong> explains how the arguments,
+evidence, explanations and contributions fit together. This is the main
+systems paper.</li>
+</ul>
+<p>You do not need Lean or a coding agent to read the papers. PDFs and
+LaTeX sources are paired below; the <a
+href="https://wcook04.github.io/plectis/docs/papers.html" data-link-kind="exogenous" rel="external noopener">website
+catalogue</a> offers browser reading alongside the downloads.</p>
+<section id="what-the-papers-establish" class="level2">
+<h2>What the papers establish</h2>
 <p>Using the degree-seven polynomial constructed by the
 erdosproblems.com contributor ani, Lean proves that every preconnected
 strict-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a> set containing two distinct roots has <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hausdorff-measure" data-term="hausdorff_measure" data-term-auto="1">one-dimensional
@@ -122,102 +144,101 @@ problem numbers or formalisation are unfamiliar, read <a
 href="reading-guide.html">a reader’s way in</a> first. For the
 design of the tools and the research process, go to the <a
 href="#project-papers">project papers</a>.</p>
+</section>
 <section id="problem-papers" class="level2">
 <h2>Problem papers</h2>
-<table>
-<colgroup>
-<col />
-<col />
-<col />
-</colgroup>
-<thead>
-<tr>
-<th>Problem</th>
-<th>Short paper</th>
-<th>Complete reasoning record</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>#68</td>
-<td><a
+<p><a href="#erdős-68">#68</a> · <a href="#erdős-243">#243</a> · <a
+href="#erdős-249">#249</a> · <a href="#erdős-251">#251</a> · <a
+href="#erdős-257">#257</a> · <a href="#erdős-269">#269</a> · <a
+href="#erdős-1041">#1041</a> · <a href="#erdős-1049">#1049</a></p>
+<section id="erdős-68" class="level3">
+<h3>Erdős #68</h3>
+<p><strong>Short paper</strong><br> <a
 href="../../papers/erdos-68-factorial-denominator-irrationality.pdf">Integer
 Linear Forms for a Factorial Reciprocal Series</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-<td><a href="../../papers/erdos68-factorial-reasoning-surface.pdf">Factorial
-Linear Forms and Denominators: Detailed Proofs and Rationality
-Criteria</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-</tr>
-<tr>
-<td>#243</td>
-<td><a href="../../papers/erdos-243-reciprocal-tail-rigidity.pdf">Cubic-Rate
-Irrationality and Reciprocal-Tail Rigidity</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-<td><a
-href="../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf">Reciprocal-Tail
-Rigidity: Theorems, Proofs and Questions</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-</tr>
-<tr>
-<td>#249</td>
-<td><a href="../../papers/erdos-249-binary-totient-series.pdf">Integral Relations
-among Totient Sections</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-<td><a href="../../papers/erdos249-totient-reasoning-surface.pdf">The Binary
-Totient Series</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos249-totient-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-</tr>
-<tr>
-<td>#251</td>
-<td><a href="../../papers/erdos-251-prime-gap-dyadic-series.pdf">Sparse
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+<p><strong>Complete reasoning record</strong><br> <a
+href="../../papers/erdos68-factorial-reasoning-surface.pdf">Factorial Linear Forms
+and Denominators: Detailed Proofs and Rationality Criteria</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+</section>
+<section id="erdős-243" class="level3">
+<h3>Erdős #243</h3>
+<p><strong>Short paper</strong><br> <a
+href="../../papers/erdos-243-reciprocal-tail-rigidity.pdf">Reciprocal Sums and
+the Sylvester Recurrence</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+<p><strong>Complete reasoning record</strong><br> <a
+href="../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf">Reciprocal
+Sums and the Sylvester Recurrence: Further Results and Proofs</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+</section>
+<section id="erdős-249" class="level3">
+<h3>Erdős #249</h3>
+<p><strong>Short paper</strong><br> <a
+href="../../papers/erdos-249-binary-totient-series.pdf">Integral Relations among
+Totient Sections</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+<p><strong>Complete reasoning record</strong><br> <a
+href="../../papers/erdos249-totient-reasoning-surface.pdf">The Binary Totient
+Series</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos249-totient-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+</section>
+<section id="erdős-251" class="level3">
+<h3>Erdős #251</h3>
+<p><strong>Short paper</strong><br> <a
+href="../../papers/erdos-251-prime-gap-dyadic-series.pdf">Sparse
 Congruence-Preserving Perturbations of Dyadic Series</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-<td><a href="../../papers/erdos251-prime-gap-reasoning-surface.pdf">Prime-Gap
-Dyadic Series: Perturbations, Exact Criteria and Certificates</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-</tr>
-<tr>
-<td>#257</td>
-<td><a href="../../papers/erdos-257-mersenne-support-subseries.pdf">Weighted and
-Covered Supports for Mersenne Subseries</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-<td><a href="../../papers/erdos257-mersenne-reasoning-surface.pdf">Reciprocal
-Mersenne Subseries</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-</tr>
-<tr>
-<td>#269</td>
-<td><a href="../../papers/erdos-269-three-prime-running-lcm.pdf">Distinct running
-least common multiples</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-<td><a href="../../papers/erdos269-running-lcm-reasoning-surface.pdf">Running
-least common multiples: distinct heights and repeated sums</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos269-running-lcm-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-</tr>
-<tr>
-<td>#1041</td>
-<td><a href="../../papers/erdos-1041-lemniscate-newton-flow.pdf">Paths in
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+<p><strong>Complete reasoning record</strong><br> <a
+href="../../papers/erdos251-prime-gap-reasoning-surface.pdf">Prime-Gap Dyadic
+Series: Perturbations, Exact Criteria and Certificates</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+</section>
+<section id="erdős-257" class="level3">
+<h3>Erdős #257</h3>
+<p><strong>Short paper</strong><br> <a
+href="../../papers/erdos-257-mersenne-support-subseries.pdf">Irrationality
+criteria for Lambert subseries</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+<p><strong>Complete reasoning record</strong><br> <a
+href="../../papers/erdos257-mersenne-reasoning-surface.pdf">Reciprocal Mersenne
+Subseries</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+</section>
+<section id="erdős-269" class="level3">
+<h3>Erdős #269</h3>
+<p><strong>Short paper</strong><br> <a
+href="../../papers/erdos-269-three-prime-running-lcm.pdf">Distinct running least
+common multiples</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+<p><strong>Complete reasoning record</strong><br> <a
+href="../../papers/erdos269-running-lcm-reasoning-surface.pdf">Running least
+common multiples: distinct values and multiplicities</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos269-running-lcm-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+</section>
+<section id="erdős-1041" class="level3">
+<h3>Erdős #1041</h3>
+<p><strong>Short paper</strong><br> <a
+href="../../papers/erdos-1041-lemniscate-newton-flow.pdf">Paths in Polynomial
+Lemniscates: A Degree-Seven Counterexample and Radial Connections</a>
+(<a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+<p><strong>Complete reasoning record</strong><br> <a
+href="../../papers/erdos1041-lemniscate-reasoning-surface.pdf">Paths in
 Polynomial Lemniscates: A Degree-Seven Counterexample and Radial
 Connections</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-<td><a href="../../papers/erdos1041-lemniscate-reasoning-surface.pdf">Paths in
-Polynomial Lemniscates: A Degree-Seven Counterexample and Radial
-Connections</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-</tr>
-<tr>
-<td>#1049</td>
-<td><a href="../../papers/erdos-1049-rational-base-lambert.pdf">Hankel
-Determinants of Geometric Moments and Rational Lambert Values</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-<td><a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+</section>
+<section id="erdős-1049" class="level3">
+<h3>Erdős #1049</h3>
+<p><strong>Short paper</strong><br> <a
+href="../../papers/erdos-1049-rational-base-lambert.pdf">Hankel Determinants of
+Geometric Moments and Rational Lambert Values</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
+<p><strong>Complete reasoning record</strong><br> <a
 href="../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf">Geometric
 Moments and Rational Lambert Values: Proofs and Further Results</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</td>
-</tr>
-</tbody>
-</table>
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex" data-link-kind="exogenous" rel="external noopener">source</a>)</p>
 <p>The #243 short paper leads with irrationality under the cubic rate
 <span class="math inline" data-term-auto="off" data-tex="\(a_{n}^{2}/a_{n+1}=1+3/n+o(n^{-3})\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msubsup><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-9561742b60faf9f3"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-TeXAtom><mjx-spacer class="mjx-s-7978193657f16d34"></mjx-spacer><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msubsup><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mi space="3"><mjx-c class="mjx-c1D45C">𝑜</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msubsup><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow><mrow data-mjx-texclass="ORD"><mn>2</mn></mrow></msubsup><mo>/</mo><msub><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>1</mn><mo>+</mo><mn>3</mn><mo>/</mo><mi>n</mi><mo>+</mo><mi>o</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mrow data-mjx-texclass="ORD"><mo>−</mo><mn>3</mn></mrow></msup><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> for strictly increasing
 positive integer sequences. Its bounded-increment criterion for an
@@ -227,6 +248,7 @@ region using Zudilin’s forms after cyclotomic cancellation and
 denominator accounting. Its region contains <span class="math inline" data-term-auto="off" data-tex="\(31/4\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c34">4</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>31</mn><mo>/</mo><mn>4</mn></math></mjx-assistive-mml></mjx-container></span>, which is
 outside the earlier Bundschuh–Väänänen sufficient region;
 <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> remains open.</p>
+</section>
 </section>
 <section id="reading-the-eight-together" class="level2">
 <h2>Reading the eight together</h2>
@@ -277,6 +299,17 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-fai
 This is the main systems paper: it follows a result from its
 mathematical argument through formal support, written explanation,
 review and contribution.</p>
+<p>The accompanying writing guides describe the exposition process: <a
+href="../../papers/writing-a-good-mathematical-paper.pdf">Writing a Good
+Mathematical Paper</a> is the compact guide; <a
+href="../../papers/writing-mathematics-from-reviewed-revisions.pdf">Writing
+Mathematics from the Literature and Reviewed Revisions</a> records the
+method and its sources. Their LaTeX sources are in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition" data-link-kind="exogenous" rel="external noopener">exposition/</a>.</p>
+<details>
+<summary>
+Earlier systems papers: historical background
+</summary>
 <p>Two earlier papers are retained as historical background. Their
 account is superseded by the main paper; their observations and
 cross-references belong to the revisions they describe.</p>
@@ -306,6 +339,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-sour
 </tr>
 </tbody>
 </table>
+</details>
 <p>For current use, follow <a href="reading-guide.html">the
 reading guide</a>, <a href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md" data-link-kind="exogenous" rel="external noopener">agent instructions</a> or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">Contributing</a>.</p>
@@ -443,10 +477,11 @@ pages:</p>
 paper’s <code>record_commit_overrides</code> entry in
 <code>evidence/config.json</code> at the new commit. Run the evidence
 builder again, rebuild the affected PDF and synchronize it.
-<code>python3 scripts/check_paper_evidence_pdfs.py</code> checks each
-margin link against the heading and page in the resulting PDF;
-<code>make -C paper check</code> includes this check. It needs the
-dependencies in <code>scripts/requirements-release.txt</code>.</p>
+<code>python3 scripts/check_paper_evidence_pdfs.py</code> checks the
+final verification concordance and its links against the result headings
+and pages in the resulting PDF; <code>make -C paper check</code>
+includes this check. It needs the dependencies in
+<code>scripts/requirements-release.txt</code>.</p>
 <p>After editing a manuscript, rebuild its PDF before updating its
 recorded digests. The following command previews digest changes; add
 <code>--apply</code> only after reviewing the source and rebuilt
@@ -479,7 +514,7 @@ generated output by hand.</p>
       <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="reading-guide.html"><span class="maths-pager__dir">Previous</span>A reader&#x27;s way in</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="weighted-257-task.html"><span class="maths-pager__dir">Next</span>Apply a result and change a hypothesis</a></nav>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#problem-papers">Problem papers</a><a class="toc-l2" href="#reading-the-eight-together">Reading the eight together</a><a class="toc-l2" href="#follow-the-argument-into-its-evidence">Follow the argument into its evidence</a><a class="toc-l2" href="#project-papers">Project papers</a><a class="toc-l2" href="#sources-and-earlier-manuscripts">Sources and earlier manuscripts</a><a class="toc-l3" href="#returning-from-a-problem-note-to-checked-evidence">Returning from a problem note to checked evidence</a><a class="toc-l2" href="#build-and-update">Build and update</a></aside>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#what-the-papers-establish">What the papers establish</a><a class="toc-l2" href="#problem-papers">Problem papers</a><a class="toc-l2" href="#reading-the-eight-together">Reading the eight together</a><a class="toc-l2" href="#follow-the-argument-into-its-evidence">Follow the argument into its evidence</a><a class="toc-l2" href="#project-papers">Project papers</a><a class="toc-l2" href="#sources-and-earlier-manuscripts">Sources and earlier manuscripts</a><a class="toc-l2" href="#build-and-update">Build and update</a></aside>
   </div>
 </body>
 </html>

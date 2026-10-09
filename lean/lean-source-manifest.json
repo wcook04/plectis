@@ -33,7 +33,7 @@
       "source_ref": "main",
       "source_path": "docs/problem_library.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json",
-      "source_sha256": "49e0905f0c0321f49afa839cc5a2584d0465eda3f911f6d73194beb050071736",
+      "source_sha256": "9691e966935ffb80e75ec2553c29740bf01bf49fe7c8ce83c9ddcd7cfa2dab02",
       "bytes": 1276704
     },
     {
@@ -69,8 +69,8 @@
       "source_ref": "main",
       "source_path": "README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/README.md",
-      "source_sha256": "516975d8b09da62525c45dc255fc71cfc13983fb72e69efb0f18d8566a3bb013",
-      "bytes": 16749
+      "source_sha256": "47793206d07e46b2c73d49383543ad6a4e20b4191e39e41200b3cfa7b3bd1da1",
+      "bytes": 17480
     },
     {
       "hosted_path": "lean/human-source/docs/READING_GUIDE.md",
@@ -96,8 +96,8 @@
       "source_ref": "main",
       "source_path": "paper/README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/README.md",
-      "source_sha256": "531f0b1ee68ba6311dc08440541364bc623d3d604f9d621dcceb0716ebf3a812",
-      "bytes": 13709
+      "source_sha256": "8214642977ff63fc5b1ebd635804c30d0fbc0f35e2d85897e40951358dcb7449",
+      "bytes": 15692
     },
     {
       "hosted_path": "lean/human-source/docs/README.md",
@@ -105,8 +105,8 @@
       "source_ref": "main",
       "source_path": "docs/README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/README.md",
-      "source_sha256": "266d05fccf645f9a7ffb2110364fbbc5cf6a60fb0e6841369ec8420d01023794",
-      "bytes": 8036
+      "source_sha256": "c2eb0ae77c4426603aadbf1657b2891d69ead2def3737d844b5207e0a0a06c50",
+      "bytes": 8534
     },
     {
       "hosted_path": "lean/human-source/docs/RESULTS.md",
@@ -195,8 +195,8 @@
       "source_ref": "main",
       "source_path": "docs/ARCHITECTURE.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ARCHITECTURE.md",
-      "source_sha256": "9cfff690ac9439ffb1a6e75c48892e835b426d325ae9d69e9b715f58963f4a9c",
-      "bytes": 17958
+      "source_sha256": "e79a63ea29765fcba7455a5486d444436eced30378e797132a31e949a1d14f81",
+      "bytes": 17971
     },
     {
       "hosted_path": "lean/human-source/docs/reference/RESIDUAL_PROGRESS.md",

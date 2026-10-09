@@ -11,12 +11,12 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/README.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "7492693d1ee87883432048917681935261ba9f10a3cde24c15b551ba4f2d9925",
+    "navigation_fingerprint": "2f02ac00cbef852d00af7d9c1194069586a5c2e38f22d3bb06be654eb963dafb",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "531f0b1ee68ba6311dc08440541364bc623d3d604f9d621dcceb0716ebf3a812",
+    "source_sha256": "8214642977ff63fc5b1ebd635804c30d0fbc0f35e2d85897e40951358dcb7449",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "8105e7ae6659f2fe",
@@ -31,14 +31,59 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "0f5a200021ee40e932c3bd16e9fc828ebf4c0ee3850b40837aca4efcc962b78c",
-    "html_exact_tex_sha256": "0d9a5a77ceeb0a7038416eaf232b82ee6fc9b1d11db545ff7d4150d8bf25df82"
+    "html_mathml_sha256": "9d65515f49abfd5a83299ce9e72190a31ce62f3ce9809654b9916b0de9e53787",
+    "html_exact_tex_sha256": "1df6b2075699f7f3fbbd2f5a0962fdbb67b353668ce940bdf9b4438b947b50cf"
   },
   "sections": [
     {
       "level": 2,
+      "anchor": "what-the-papers-establish",
+      "label": "What the papers establish"
+    },
+    {
+      "level": 2,
       "anchor": "problem-papers",
       "label": "Problem papers"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-68",
+      "label": "Erdős #68"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-243",
+      "label": "Erdős #243"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-249",
+      "label": "Erdős #249"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-251",
+      "label": "Erdős #251"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-257",
+      "label": "Erdős #257"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-269",
+      "label": "Erdős #269"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-1041",
+      "label": "Erdős #1041"
+    },
+    {
+      "level": 3,
+      "anchor": "erdős-1049",
+      "label": "Erdős #1049"
     },
     {
       "level": 2,

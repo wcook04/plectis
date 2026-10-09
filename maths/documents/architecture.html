@@ -98,11 +98,10 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <section class="level1 lean-doc-titled">
 <h2>How this repository works</h2>
-<p>This repository studies eight mathematical problem programmes. This
-guide connects the proofs, papers, computations and research records.
-You do not need to know Lean or the project history. For the
-mathematics, start with a <a
-href="paper-guide.html#problem-papers">problem paper</a>.</p>
+<p>Eight mathematical problem programmes connect papers, proofs,
+computations and research records. Start with a <a
+href="paper-guide.html#problem-papers">problem paper</a>. You do not
+need to know Lean or the project history.</p>
 <section id="what-this-repository-is" class="level2">
 <h2>What this repository is</h2>
 <p>Lean checks <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proofs</a>. The papers explain the mathematics,
@@ -130,25 +129,29 @@ mathematical claims do not depend on private files.</p>
 <section id="why-preserve-explanations-and-failed-approaches"
 class="level2">
 <h2>Why preserve explanations and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed approaches</a>?</h2>
-<p>Henry Cohn’s <a
-href="https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/" data-link-kind="exogenous" rel="external noopener">The
-technical debt of AI-generated mathematics</a> argues that producers owe
-readers explanation, attribution and integration. Tim Gowers’s <a
-href="https://gowers.wordpress.com/2026/09/17/why-i-didnt-sign-the-fields-medallists-letter/" data-link-kind="exogenous" rel="external noopener">Why
-I didn’t sign the Fields medallists’ letter</a> discusses selecting what
-to study and using hints for active reading. Grant Sanderson’s <a
-href="https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/" data-link-kind="exogenous" rel="external noopener">essay
-on explanations</a> asks writers to show why a construction is needed
-and how one might arrive at it.</p>
-<p>Plectis keeps arguments, sources and failed routes together. The <a
+<p>The design responds to <a
+href="https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/" data-link-kind="exogenous" rel="external noopener">Henry
+Cohn on mathematical technical debt</a>, <a
+href="https://gowers.wordpress.com/2026/09/17/why-i-didnt-sign-the-fields-medallists-letter/" data-link-kind="exogenous" rel="external noopener">Tim
+Gowers on active reading</a> and <a
+href="https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/" data-link-kind="exogenous" rel="external noopener">Grant
+Sanderson on explanations</a>. Plectis keeps arguments, sources and
+failed routes together so readers can reconstruct an argument and
+continue it. Whether this helps more than papers, source and an
+on-demand model remains untested. The <a
 href="reading-guide.html#work-through-an-argument">reading guide</a>
-offers an active way in; <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">contributions</a>
-include explanations of existing results. An explanation still needs a
-reader to work through it and assess its use. Whether this record helps
-more than papers, source and an on-demand model remains untested. The <a
-href="../../papers/claim-faithful-publication-systems-paper.pdf">systems
-paper</a> describes the contribution process and its evidence
-boundaries.</p>
+offers an active way in.</p>
+</section>
+<section id="website-map-and-repository" class="level2">
+<h2>Website, map and repository</h2>
+<p>The <a href="https://wcook04.github.io/plectis/maths/" data-link-kind="exogenous" rel="external noopener">website</a>
+and its <a
+href="https://wcook04.github.io/plectis/maths/universe.html" data-link-kind="exogenous" rel="external noopener">maths
+map</a> connect a problem to papers, results and recorded formal
+evidence. This checkout holds the sources and works independently of the
+site. Humans enter through <a href="readme.html">README.md</a>; agents
+use <a href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md" data-link-kind="exogenous" rel="external noopener">AGENTS.md</a>. Both lead to the same
+evidence.</p>
 </section>
 <section id="the-architecture-in-one-page" class="level2">
 <h2>The architecture in one page</h2>
@@ -202,10 +205,9 @@ statement faithfully and what mathematical significance it has.</li>
 relationships: declarations resolve, source locations agree, paper
 identities match, and required limitations remain present.</li>
 </ul>
-<p>Those are responsibilities, not a claim that independent mathematical
-review has occurred. The <a href="reading-guide.html#contributing">reading
-guide</a> states the project’s authorship and current review
-position.</p>
+<p>The <a href="reading-guide.html#contributing">reading guide</a> records
+authorship and review. These responsibilities do not imply that
+independent review has occurred.</p>
 </section>
 <section id="which-file-is-authoritative-for-what" class="level2">
 <h2>Which file is authoritative for what</h2>
@@ -273,6 +275,13 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_POLICY_REC
 recorded separately.</td>
 </tr>
 <tr>
+<td>Formal Conjectures progress?</td>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/formal_conjectures_crosswalk.json" data-link-kind="exogenous" rel="external noopener">Crosswalk source</a> and
+<a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md" data-link-kind="exogenous" rel="external noopener">guide</a></td>
+<td>Dated reviews and merges; separate pinned statement
+comparisons.</td>
+</tr>
+<tr>
 <td>What did a research round return, and what does it still owe?</td>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/RESEARCH_RECORD.md" data-link-kind="exogenous" rel="external noopener">The research record</a></td>
 <td>Custody of each return, its dispositions, computed milestones,
@@ -306,92 +315,59 @@ is archived provenance only, not an active gateway.</p>
 </section>
 <section id="repository-map" class="level2">
 <h2>Repository map</h2>
-<table>
-<colgroup>
-<col />
-<col />
-</colgroup>
-<thead>
-<tr>
-<th>Location</th>
-<th>What it contains</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="paper-guide.html">paper/</a></td>
-<td>Short papers, longer research records, manuscript sources and
-PDFs.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257.lean" data-link-kind="exogenous" rel="external noopener">lean/Erdos249257.lean</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257" data-link-kind="exogenous" rel="external noopener">lean/Erdos249257/</a></td>
-<td>The historical library for #249/#257 and machinery used by later
-work.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems.lean" data-link-kind="exogenous" rel="external noopener">lean/ErdosProblems.lean</a> and
-<a href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems" data-link-kind="exogenous" rel="external noopener">lean/ErdosProblems/</a></td>
-<td>Formal work grouped by problem; claim status is recorded
-separately.</td>
-</tr>
-<tr>
-<td><a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research/examples/Examples.lean" data-link-kind="exogenous" rel="external noopener">research/examples/</a></td>
-<td>A small downstream Lean user of the library.</td>
-</tr>
-<tr>
-<td><a href="documentation.html">docs/</a></td>
-<td>Reading guides, claim records and generated indexes.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/scripts/README.md" data-link-kind="exogenous" rel="external noopener">scripts/</a></td>
-<td>Queries, builders, release checks and tests.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/verification/README.md" data-link-kind="exogenous" rel="external noopener">verification/</a></td>
-<td>Comparator statements and configuration, replay tools and
-external-statement comparisons.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/evidence/README.md" data-link-kind="exogenous" rel="external noopener">evidence/</a></td>
-<td>Paper-to-proof records and stored Comparator replay reports.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/computations/README.md" data-link-kind="exogenous" rel="external noopener">computations/</a></td>
-<td><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exact-rational-arithmetic" data-term="exact_rational_arithmetic" data-term-auto="1">Exact arithmetic</a> certificates with independent recomputation
-programs.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/skills/README.md" data-link-kind="exogenous" rel="external noopener">skills/</a></td>
-<td>Workflows for research, validation and contribution.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/research/README.md" data-link-kind="exogenous" rel="external noopener">research/</a></td>
-<td>Runnable experiments, downstream examples, adapters and session
-records.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/README.md" data-link-kind="exogenous" rel="external noopener">research_corpus/</a></td>
-<td>Dated research returns with source manifests, corrections and
-explicit local evidence boundaries.</td>
-</tr>
-</tbody>
-</table>
-<p>Start from a problem or a statement, then follow the source map to
-its modules. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKBENCH.md" data-link-kind="exogenous" rel="external noopener">agent workbench</a>
-documents the query commands for a problem, claim, module, declaration
-or paper passage. The <a
+<p>This tree groups repeated directories; folder indexes give the full
+contents.</p>
+<pre class="text"><code>plectis-erdos/
+|-- README.md, AGENTS.md       Human and agent entry
+|-- CONTRIBUTING.md           Contributions and credit
+|-- CITATION.cff, LICENSE*    Citation and licences
+|-- lake*, lean-toolchain     Lean build and dependency pins
+|-- formalization.yaml        Selected Comparator statements
+|-- paper/
+|   |-- 68/ … 1049/           Short papers and longer records
+|   |-- synthesis/, systems/  Cross-problem and system papers
+|   |-- exposition/           Writing-method papers
+|   |-- reasoning-parts/      Long-record source sections
+|   `-- evidence/, archive/   Generated links and earlier work
+|-- lean/
+|   |-- ErdosProblems/        Eight programmes, Shared/, Synthesis/
+|   `-- Erdos249257/          Original library and certificates
+|-- docs/
+|   |-- *.md, *.json          Reader guides and source records
+|   |-- agents/               Operational instructions
+|   |-- papers/               Inventory and generated full text
+|   |-- reading-edition/      Portable paper introduction
+|   |-- verification/         Replay instructions
+|   |-- semantic/             Statement relationships
+|   |-- research-commons/     Contributions, reviews and credit
+|   `-- reference/, …         Specialist guides and provenance
+|-- research/                 Experiments, examples and sessions
+|-- research_corpus/          Preserved research returns
+|-- computations/             Exact certificates and recomputation
+|-- verification/             Formal interfaces and replay setup
+|-- evidence/                 Paper-to-proof and Comparator records
+|-- scripts/, skills/         Tools and agent workflows
+`-- .github/                  CI, forms and community policies</code></pre>
+<p>Folder guides: <a href="paper-guide.html">papers</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/README.md" data-link-kind="exogenous" rel="external noopener">Lean</a>, <a
+href="documentation.html">documentation</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research/README.md" data-link-kind="exogenous" rel="external noopener">research</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/README.md" data-link-kind="exogenous" rel="external noopener">experiments</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/README.md" data-link-kind="exogenous" rel="external noopener">returns</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/computations/README.md" data-link-kind="exogenous" rel="external noopener">computations</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/verification/README.md" data-link-kind="exogenous" rel="external noopener">verification</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/evidence/README.md" data-link-kind="exogenous" rel="external noopener">evidence</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/scripts/README.md" data-link-kind="exogenous" rel="external noopener">scripts</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/skills/README.md" data-link-kind="exogenous" rel="external noopener">skills</a>.</p>
+<p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKBENCH.md" data-link-kind="exogenous" rel="external noopener">agent workbench</a> documents
+exact queries; the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md" data-link-kind="exogenous" rel="external noopener">Formal Conjectures
-crosswalk</a> provides the corresponding routes into the pinned upstream
-statement collection.</p>
-<p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/README.md" data-link-kind="exogenous" rel="external noopener">research commons</a>
-explains how independent work returns to the repository with its
-starting commit, evidence and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a>. This checkout contains the
-mathematics and the tools needed to work with it. The companion <a
+crosswalk</a> connects to upstream statements. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/README.md" data-link-kind="exogenous" rel="external noopener">research commons</a> explains how work
+returns with evidence and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a>. The companion <a
 href="https://github.com/wcook04/plectis-erdos-lean" data-link-kind="exogenous" rel="external noopener">selected
-verification repository</a> packages individual statements for external
-checking; it is not required to read or build this corpus.</p>
+verification repository</a> is optional; this checkout is
+self-contained.</p>
 <section id="directory-and-naming-conventions" class="level3">
 <h3>Directory and naming conventions</h3>
 <p><code>paper/</code> holds manuscripts and PDFs;
@@ -410,7 +386,7 @@ consumers together.</p>
 <section id="a-complete-example" class="level2">
 <h2>A complete example</h2>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos249-totient-reasoning-surface.md#the-problem-and-what-is-actually-known" data-link-kind="exogenous" rel="external noopener">certificate
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos249-totient-reasoning-surface.md#definition-of-the-finite-residue-test" data-link-kind="exogenous" rel="external noopener">certificate
 definition</a> and <a
 href="source-map.html#certificate-reductions">certificate source
 map</a> give the mathematical notation and source routes behind this
@@ -456,8 +432,6 @@ preserves that reviewed relationship after it has been recorded.</p>
 </section>
 <section id="what-happens-when-a-change-is-made" class="level2">
 <h2>What happens when a change is made</h2>
-<p>The kind of change determines the checks and the files that follow
-it.</p>
 <table>
 <colgroup>
 <col />
@@ -498,11 +472,9 @@ source-change and validation instructions; the <a
 href="paper-guide.html#build-and-update">paper build guide</a> gives
 the manuscript commands. Builders run after their source records change.
 An English edit cannot change what Lean proved.</p>
-<p>When another contribution lands during the work, preserve the
-original delta, reconcile it with current main and check the combined
-result. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">contributor guide</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md" data-link-kind="exogenous" rel="external noopener">credit policy</a> explain how
-that return is reviewed and attributed.</p>
+<p>Preserve and reconcile concurrent contributions with evidence and
+attribution: <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">Contributing</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md" data-link-kind="exogenous" rel="external noopener">credit policy</a>.</p>
 </section>
 <section id="how-the-checks-run" class="level2">
 <h2>How the checks run</h2>
@@ -517,12 +489,10 @@ to main that touch a Lean input, and on manual dispatch. The
 release-surface job checks the claim records, source links, generated
 files, papers, licences and query routes, including tests with
 deliberately invalid inputs.</p>
-<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md" data-link-kind="exogenous" rel="external noopener">Reproducibility</a> is the command
-guide. It starts with a claim you can inspect without Lean, then gives
-installation and proof-build instructions. The proof wrapper invokes
-<code>lake build</code>; it is separate from
-<code>python3 scripts/check_release.py</code>, which does not run
-Lean.</p>
+<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md" data-link-kind="exogenous" rel="external noopener">Reproducibility</a> gives inspection,
+installation and build commands. The proof wrapper invokes
+<code>lake build</code>; <code>python3 scripts/check_release.py</code>
+does not run Lean.</p>
 <p>For documentation work, the focused reader checks include
 <code>python3 scripts/test_human_first_contact.py</code> and
 <code>python3 scripts/check_architecture_guide.py</code>.
@@ -543,7 +513,7 @@ selected for checking. <a href="methodology.html">Methodology</a> sets out
 those responsibilities, and <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/README.md" data-link-kind="exogenous" rel="external noopener">external
 verification</a> explains additional statement comparisons and their
 limits.</p>
-<p>The printable <a
+<p>The <a
 href="../../papers/claim-faithful-publication-systems-paper.pdf">systems
 paper</a> explains the publication architecture in more depth. Its
 historical checker example is documented in <a
@@ -556,8 +526,8 @@ illustrates the checks recorded for that exercise.</p>
 <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md" data-link-kind="exogenous" rel="external noopener">reproduce a check</a>, or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">propose a contribution</a>.</p>
 <p>The archived combined #249/#257 PDF is not a default reading route.
-<a href="documentation.html">The documentation index</a> lists the current guides
-and specialist references.</p>
+<a href="documentation.html">The documentation index</a> lists current guides and
+specialist references.</p>
 </section>
 </section>
   </div>
@@ -567,7 +537,7 @@ and specialist references.</p>
       <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="comparator-1049.html"><span class="maths-pager__dir">Previous</span>Comparator #1049 fixture</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="residual-progress.html"><span class="maths-pager__dir">Next</span>Residual progress</a></nav>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#what-this-repository-is">What this repository is</a><a class="toc-l2" href="#why-preserve-explanations-and-failed-approaches">Why preserve explanations and failed approaches?</a><a class="toc-l2" href="#the-architecture-in-one-page">The architecture in one page</a><a class="toc-l2" href="#which-file-is-authoritative-for-what">Which file is authoritative for what</a><a class="toc-l2" href="#repository-map">Repository map</a><a class="toc-l3" href="#directory-and-naming-conventions">Directory and naming conventions</a><a class="toc-l2" href="#a-complete-example">A complete example</a><a class="toc-l2" href="#what-happens-when-a-change-is-made">What happens when a change is made</a><a class="toc-l2" href="#how-the-checks-run">How the checks run</a><a class="toc-l2" href="#what-the-checks-do-not-prove">What the checks do not prove</a><a class="toc-l2" href="#where-to-start">Where to start</a></aside>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#what-this-repository-is">What this repository is</a><a class="toc-l2" href="#why-preserve-explanations-and-failed-approaches">Why preserve explanations and failed approaches?</a><a class="toc-l2" href="#website-map-and-repository">Website, map and repository</a><a class="toc-l2" href="#the-architecture-in-one-page">The architecture in one page</a><a class="toc-l2" href="#which-file-is-authoritative-for-what">Which file is authoritative for what</a><a class="toc-l2" href="#repository-map">Repository map</a><a class="toc-l3" href="#directory-and-naming-conventions">Directory and naming conventions</a><a class="toc-l2" href="#a-complete-example">A complete example</a><a class="toc-l2" href="#what-happens-when-a-change-is-made">What happens when a change is made</a><a class="toc-l2" href="#how-the-checks-run">How the checks run</a><a class="toc-l2" href="#what-the-checks-do-not-prove">What the checks do not prove</a><a class="toc-l2" href="#where-to-start">Where to start</a></aside>
   </div>
 </body>
 </html>

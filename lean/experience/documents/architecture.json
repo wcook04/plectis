@@ -11,12 +11,12 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ARCHITECTURE.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "7492693d1ee87883432048917681935261ba9f10a3cde24c15b551ba4f2d9925",
+    "navigation_fingerprint": "2f02ac00cbef852d00af7d9c1194069586a5c2e38f22d3bb06be654eb963dafb",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "9cfff690ac9439ffb1a6e75c48892e835b426d325ae9d69e9b715f58963f4a9c",
+    "source_sha256": "e79a63ea29765fcba7455a5486d444436eced30378e797132a31e949a1d14f81",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "8105e7ae6659f2fe",
@@ -31,8 +31,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "7c49941c32dbe6c36ae52f428896293ade1be6d5acc9f449c1611e4f5807091d",
-    "html_exact_tex_sha256": "9a1cfcdd23d7c70dfb302c75b0c0301e51a07003adddb50202419f64cb4dad8a"
+    "html_mathml_sha256": "04c6d3209fc7c691ae7aba8b42f3c8b1baffa22687e06d843a31af2dc5a5c091",
+    "html_exact_tex_sha256": "37d32420980be69c7707f91ef809099828fc6120eba9ee0cb07ebea104d34143"
   },
   "sections": [
     {
@@ -44,6 +44,11 @@
       "level": 2,
       "anchor": "why-preserve-explanations-and-failed-approaches",
       "label": "Why preserve explanations and failed approaches?"
+    },
+    {
+      "level": 2,
+      "anchor": "website-map-and-repository",
+      "label": "Website, map and repository"
     },
     {
       "level": 2,

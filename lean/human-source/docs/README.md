@@ -19,6 +19,15 @@ historical correspondence. The papers report intermediate results and the
 approaches that stopped, with enough of the record preserved for somebody
 else to inspect the argument and continue from it.
 
+## Read on the website
+
+The [mathematics overview](https://wcook04.github.io/plectis/maths/) introduces
+the eight problems. The [interactive maths map](https://wcook04.github.io/plectis/maths/universe.html)
+connects papers, results and recorded evidence; the
+[paper catalogue](https://wcook04.github.io/plectis/docs/papers.html) provides
+browser reading and PDFs. This index gives the corresponding routes inside a
+clone. No website account or coding agent is needed to read the work.
+
 ## Choose a way in
 
 | What you want to do | Start here | Where it takes you |
@@ -57,6 +66,9 @@ compared with the development. The [verification guides](verification/README.md)
 explain those checks and their limits.
 
 ## Contribute
+
+[Work on a paper](CONTRIBUTE_BY_PAPER.md) brings its question, sources and
+contribution instructions together, one programme at a time.
 
 A contribution can be a correction, clearer explanation, earlier reference,
 counterexample, or useful failed approach. [Contributing](../CONTRIBUTING.md)
@@ -124,5 +136,3 @@ matter, and check examples from the repository root. Keep mathematical
 hypotheses, evidence and open boundaries exact when changing the prose.
 For a generated page, change its source and run its owning builder;
 [Contributing](../CONTRIBUTING.md) explains how to return the improvement.
-
-[Work on a paper](CONTRIBUTE_BY_PAPER.md) joins the existing question, paper, source and return routes for every programme.

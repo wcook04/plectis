@@ -3,10 +3,9 @@
 
 # How this repository works
 
-This repository studies eight mathematical problem programmes. This guide
-connects the proofs, papers, computations and research records.
-You do not need to know Lean or the project history. For the mathematics,
-start with a [problem paper](../paper/README.md#problem-papers).
+Eight mathematical problem programmes connect papers, proofs, computations and
+research records. Start with a [problem paper](../paper/README.md#problem-papers).
+You do not need to know Lean or the project history.
 
 ## What this repository is
 
@@ -34,20 +33,22 @@ and its mathematical claims do not depend on private files.
 
 ## Why preserve explanations and failed approaches?
 
-Henry Cohn's [The technical debt of AI-generated mathematics](https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/)
-argues that producers owe readers explanation, attribution and integration.
-Tim Gowers's [Why I didn't sign the Fields medallists' letter](https://gowers.wordpress.com/2026/09/17/why-i-didnt-sign-the-fields-medallists-letter/)
-discusses selecting what to study and using hints for active reading.
-Grant Sanderson's [essay on explanations](https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/)
-asks writers to show why a construction is needed and how one might arrive at it.
+The design responds to [Henry Cohn on mathematical technical debt](https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/),
+[Tim Gowers on active reading](https://gowers.wordpress.com/2026/09/17/why-i-didnt-sign-the-fields-medallists-letter/)
+and [Grant Sanderson on explanations](https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/).
+Plectis keeps arguments, sources and failed routes together so readers can
+reconstruct an argument and continue it. Whether this helps more than papers,
+source and an on-demand model remains untested. The
+[reading guide](READING_GUIDE.md#work-through-an-argument) offers an active way in.
 
-Plectis keeps arguments, sources and failed routes together. The
-[reading guide](READING_GUIDE.md#work-through-an-argument) offers an active way
-in; [contributions](../CONTRIBUTING.md) include explanations of existing results.
-An explanation still needs a reader to work through it and assess its use.
-Whether this record helps more than papers, source and an on-demand model remains
-untested. The [systems paper](../paper/systems/claim-faithful-publication-systems-paper.pdf)
-describes the contribution process and its evidence boundaries.
+## Website, map and repository
+
+The [website](https://wcook04.github.io/plectis/maths/) and its
+[maths map](https://wcook04.github.io/plectis/maths/universe.html) connect a
+problem to papers, results and recorded formal evidence. This checkout holds
+the sources and works independently of the site. Humans enter through
+[README.md](../README.md); agents use [AGENTS.md](../AGENTS.md). Both lead to
+the same evidence.
 
 ## The architecture in one page
 
@@ -103,9 +104,8 @@ Lean and the release checks test different parts of that route:
   relationships: declarations resolve, source locations agree, paper identities
   match, and required limitations remain present.
 
-Those are responsibilities, not a claim that independent mathematical review
-has occurred. The [reading guide](READING_GUIDE.md#contributing) states the
-project's authorship and current review position.
+The [reading guide](READING_GUIDE.md#contributing) records authorship and review.
+These responsibilities do not imply that independent review has occurred.
 
 ## Which file is authoritative for what
 
@@ -118,6 +118,7 @@ project's authorship and current review position.
 | Where is the evidence for one result? | [docs/SOURCE_MAP.md](SOURCE_MAP.md) | Routes between problems, claims, paper passages and Lean source. |
 | Which statement does Comparator compare? | [verification/comparator.json](../verification/comparator.json) and [external verification](EXTERNAL_VERIFICATION.md) | The selected challenge, solution, permitted axioms and replay boundary. |
 | What is ready for Palomar? | [docs/verification/PALOMAR_QUALIFICATION.md](verification/PALOMAR_QUALIFICATION.md) and [docs/PALOMAR_POLICY_RECONCILIATION.json](PALOMAR_POLICY_RECONCILIATION.json) | Repository qualification, with external actions and outcomes recorded separately. |
+| Formal Conjectures progress? | [Crosswalk source](formal_conjectures_crosswalk.json) and [guide](verification/FORMAL_CONJECTURES_CROSSWALK.md) | Dated reviews and merges; separate pinned statement comparisons. |
 | What did a research round return, and what does it still owe? | [The research record](reference/RESEARCH_RECORD.md) | Custody of each return, its dispositions, computed milestones, relation rows and contrasts. |
 | Which checks govern a release? | [scripts/check_release.py](../scripts/check_release.py) and [the GitHub workflow](../.github/workflows/lean.yml) | The local checks and the checks run on pushes and pull requests. |
 
@@ -138,33 +139,55 @@ is archived provenance only, not an active gateway.
 
 ## Repository map
 
-| Location | What it contains |
-|---|---|
-| [paper/](../paper/README.md) | Short papers, longer research records, manuscript sources and PDFs. |
-| [lean/Erdos249257.lean](../lean/Erdos249257.lean) and [lean/Erdos249257/](../lean/Erdos249257/) | The historical library for #249/#257 and machinery used by later work. |
-| [lean/ErdosProblems.lean](../lean/ErdosProblems.lean) and [lean/ErdosProblems/](../lean/ErdosProblems/) | Formal work grouped by problem; claim status is recorded separately. |
-| [research/examples/](../research/examples/Examples.lean) | A small downstream Lean user of the library. |
-| [docs/](README.md) | Reading guides, claim records and generated indexes. |
-| [scripts/](../scripts/README.md) | Queries, builders, release checks and tests. |
-| [verification/](../verification/README.md) | Comparator statements and configuration, replay tools and external-statement comparisons. |
-| [evidence/](../evidence/README.md) | Paper-to-proof records and stored Comparator replay reports. |
-| [computations/](../computations/README.md) | Exact arithmetic certificates with independent recomputation programs. |
-| [skills/](../skills/README.md) | Workflows for research, validation and contribution. |
-| [research/](../research/README.md) | Runnable experiments, downstream examples, adapters and session records. |
-| [research_corpus/](../research_corpus/README.md) | Dated research returns with source manifests, corrections and explicit local evidence boundaries. |
+This tree groups repeated directories; folder indexes give the full contents.
 
-Start from a problem or a statement, then follow the source map to its
-modules. The [agent workbench](agents/AGENT_WORKBENCH.md) documents the query
-commands for a problem, claim, module, declaration or paper passage. The
-[Formal Conjectures crosswalk](verification/FORMAL_CONJECTURES_CROSSWALK.md)
-provides the corresponding routes into the pinned upstream statement collection.
+```text
+plectis-erdos/
+|-- README.md, AGENTS.md       Human and agent entry
+|-- CONTRIBUTING.md           Contributions and credit
+|-- CITATION.cff, LICENSE*    Citation and licences
+|-- lake*, lean-toolchain     Lean build and dependency pins
+|-- formalization.yaml        Selected Comparator statements
+|-- paper/
+|   |-- 68/ … 1049/           Short papers and longer records
+|   |-- synthesis/, systems/  Cross-problem and system papers
+|   |-- exposition/           Writing-method papers
+|   |-- reasoning-parts/      Long-record source sections
+|   `-- evidence/, archive/   Generated links and earlier work
+|-- lean/
+|   |-- ErdosProblems/        Eight programmes, Shared/, Synthesis/
+|   `-- Erdos249257/          Original library and certificates
+|-- docs/
+|   |-- *.md, *.json          Reader guides and source records
+|   |-- agents/               Operational instructions
+|   |-- papers/               Inventory and generated full text
+|   |-- reading-edition/      Portable paper introduction
+|   |-- verification/         Replay instructions
+|   |-- semantic/             Statement relationships
+|   |-- research-commons/     Contributions, reviews and credit
+|   `-- reference/, …         Specialist guides and provenance
+|-- research/                 Experiments, examples and sessions
+|-- research_corpus/          Preserved research returns
+|-- computations/             Exact certificates and recomputation
+|-- verification/             Formal interfaces and replay setup
+|-- evidence/                 Paper-to-proof and Comparator records
+|-- scripts/, skills/         Tools and agent workflows
+`-- .github/                  CI, forms and community policies
+```
 
-The [research commons](research-commons/README.md) explains how independent
-work returns to the repository with its starting commit, evidence and credit.
-This checkout contains the mathematics and the tools needed to work with it.
-The companion [selected verification repository](https://github.com/wcook04/plectis-erdos-lean)
-packages individual statements for external checking; it is not required to
-read or build this corpus.
+Folder guides: [papers](../paper/README.md), [Lean](../lean/README.md),
+[documentation](README.md), [research](../research/README.md),
+[experiments](../research/experiments/README.md),
+[returns](../research_corpus/README.md), [computations](../computations/README.md),
+[verification](../verification/README.md), [evidence](../evidence/README.md),
+[scripts](../scripts/README.md) and [skills](../skills/README.md).
+
+The [agent workbench](agents/AGENT_WORKBENCH.md) documents exact queries;
+the [Formal Conjectures crosswalk](verification/FORMAL_CONJECTURES_CROSSWALK.md)
+connects to upstream statements. The [research commons](research-commons/README.md)
+explains how work returns with evidence and credit. The companion
+[selected verification repository](https://github.com/wcook04/plectis-erdos-lean)
+is optional; this checkout is self-contained.
 
 ### Directory and naming conventions
 
@@ -180,7 +203,7 @@ source requires updating those consumers together.
 
 ## A complete example
 
-The [certificate definition](papers/full-text/erdos249-totient-reasoning-surface.md#the-problem-and-what-is-actually-known)
+The [certificate definition](papers/full-text/erdos249-totient-reasoning-surface.md#definition-of-the-finite-residue-test)
 and [certificate source map](SOURCE_MAP.md#249--certificate-reductions)
 give the mathematical notation and source routes behind this example.
 
@@ -225,8 +248,6 @@ reviewed relationship after it has been recorded.
 
 ## What happens when a change is made
 
-The kind of change determines the checks and the files that follow it.
-
 | Change | What follows |
 |---|---|
 | A Lean statement or proof changes | Check the affected proof, review its assumptions and meaning, then update the claim and paper if their content changed. |
@@ -239,11 +260,8 @@ instructions; the [paper build guide](../paper/README.md#build-and-update)
 gives the manuscript commands. Builders run after their source records change.
 An English edit cannot change what Lean proved.
 
-When another contribution lands during the work, preserve the original delta,
-reconcile it with current main and check the combined result. The
-[contributor guide](../CONTRIBUTING.md) and
-[credit policy](research-commons/CREDIT_POLICY.md) explain how that return is
-reviewed and attributed.
+Preserve and reconcile concurrent contributions with evidence and attribution:
+[Contributing](../CONTRIBUTING.md), [credit policy](research-commons/CREDIT_POLICY.md).
 
 ## How the checks run
 
@@ -257,10 +275,9 @@ a Lean input, and on manual dispatch. The release-surface job checks the claim
 records, source links, generated files, papers, licences and query routes,
 including tests with deliberately invalid inputs.
 
-[Reproducibility](REPRODUCIBILITY.md) is the command guide. It starts with a
-claim you can inspect without Lean, then gives installation and proof-build
-instructions. The proof wrapper invokes `lake build`; it is separate from
-`python3 scripts/check_release.py`, which does not run Lean.
+[Reproducibility](REPRODUCIBILITY.md) gives inspection, installation and build
+commands. The proof wrapper invokes `lake build`;
+`python3 scripts/check_release.py` does not run Lean.
 
 For documentation work, the focused reader checks include
 `python3 scripts/test_human_first_contact.py` and
@@ -281,7 +298,7 @@ also does not prove that every important sentence was selected for checking.
 [external verification](verification/README.md) explains additional statement
 comparisons and their limits.
 
-The printable
+The
 [systems paper](../paper/systems/claim-faithful-publication-systems-paper.pdf)
 explains the publication architecture in more depth. Its historical checker
 example is documented in [docs/publication_evidence.json](publication_evidence.json);
@@ -294,5 +311,4 @@ Read a [problem paper](../paper/README.md#problem-papers),
 [propose a contribution](../CONTRIBUTING.md).
 
 The archived combined #249/#257 PDF is not a default reading route.
-[The documentation index](README.md) lists the current guides and specialist
-references.
+[The documentation index](README.md) lists current guides and specialist references.

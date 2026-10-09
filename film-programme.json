@@ -9,23 +9,48 @@
       "role": "introduction",
       "links": [],
       "release": {
-        "edition_sha256": "c74c689b5ce5113506f13a8a7084d72b6596d5153770f729addf74699e79a3cd",
-        "approved_edition_sha256": "c74c689b5ce5113506f13a8a7084d72b6596d5153770f729addf74699e79a3cd",
-        "hosted_edition_sha256": "c74c689b5ce5113506f13a8a7084d72b6596d5153770f729addf74699e79a3cd",
-        "thumbnail_edition_sha256": "c74c689b5ce5113506f13a8a7084d72b6596d5153770f729addf74699e79a3cd",
-        "transcript_edition_sha256": "c74c689b5ce5113506f13a8a7084d72b6596d5153770f729addf74699e79a3cd",
+        "edition_sha256": "59de9cd9ea66f8312dd59b5788953963d6231837ccee79999468a1e667677c4d",
+        "approved_edition_sha256": "59de9cd9ea66f8312dd59b5788953963d6231837ccee79999468a1e667677c4d",
+        "hosted_edition_sha256": "59de9cd9ea66f8312dd59b5788953963d6231837ccee79999468a1e667677c4d",
+        "thumbnail_edition_sha256": "59de9cd9ea66f8312dd59b5788953963d6231837ccee79999468a1e667677c4d",
+        "transcript_edition_sha256": "59de9cd9ea66f8312dd59b5788953963d6231837ccee79999468a1e667677c4d",
         "publication_authorized": true,
-        "url": "https://youtu.be/182gyetRry8",
+        "url": "https://youtu.be/Yt27qSIKnpk",
         "upload_date": "2026-10-09",
-        "duration_seconds": 180,
-        "thumbnail": "assets/films/introduction-native-c74c689b5ce5.jpg",
-        "thumbnail_sha256": "8134a5652d03ade024e55297446f7b4d915c06369d483cc85d4cc0b6284e3949",
+        "duration_seconds": 209,
+        "thumbnail": "assets/films/introduction-corrected-20261009.jpg",
+        "thumbnail_sha256": "4b5ca6b43a976593936a091606915748eff057ee6283ce3733760bd0ee63d7b2",
         "transcript": {
           "scope": "route_summary",
           "text": "I introduce Plectis and show the papers, map and software I use for mathematical research with AI agents.",
           "sha256": "098a7b84d09e62620e80c9898562ec8a82199b9f48fd13b883e3525697bfb530"
         },
-        "chapters": []
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "Plectis"
+          },
+          {
+            "seconds": 89,
+            "title": "CodeMap"
+          },
+          {
+            "seconds": 117,
+            "title": "Agent Trace"
+          },
+          {
+            "seconds": 149,
+            "title": "Demo Take"
+          },
+          {
+            "seconds": 179,
+            "title": "Bringing it together"
+          },
+          {
+            "seconds": 190,
+            "title": "Explore the work"
+          }
+        ]
       }
     },
     {

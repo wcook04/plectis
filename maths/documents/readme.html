@@ -33,9 +33,6 @@
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=4ef1d16f00fb"></script></template>
   <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
   <script defer src="../assets/maths.js?v=eb35fe169ca1"></script>
-  <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/math/6a028c76c26d3a18.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -93,60 +90,57 @@
         <p class="doc-source-line">Rendered from <code>README.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> repository. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/README.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
-<details class="reader-contents reader-contents--all"><summary>All sections</summary><nav aria-label="Document contents"><a class="toc-l2" href="#for-a-first-look-257">For a first look: #257</a><a class="toc-l2" href="#results-and-their-limits">Results and their limits</a><a class="toc-l2" href="#where-to-start">Where to start</a><a class="toc-l2" href="#why-keep-the-whole-research-record">Why keep the whole research record?</a><a class="toc-l2" href="#problem-papers">Problem papers</a><a class="toc-l2" href="#what-lean-and-comparator-verify">What Lean and Comparator verify</a><a class="toc-l2" href="#contribute">Contribute</a><a class="toc-l2" href="#read-or-verify-locally">Read or verify locally</a><a class="toc-l3" href="#repository-map">Repository map</a><a class="toc-l2" href="#corpus-at-a-glance">Corpus at a glance</a><a class="toc-l2" href="#following-a-result-into-lean">Following a result into Lean</a><a class="toc-l2" href="#formal-conjectures-contributions">Formal Conjectures contributions</a><a class="toc-l2" href="#credit">Credit</a><a class="toc-l2" href="#citation-and-licence">Citation and licence</a></nav></details>
+<details class="reader-contents reader-contents--all"><summary>All sections</summary><nav aria-label="Document contents"><a class="toc-l3" href="#open-mathematical-research">Open mathematical research</a><a class="toc-l2" href="#for-a-first-look-257">For a first look: #257</a><a class="toc-l2" href="#results-and-their-limits">Results and their limits</a><a class="toc-l2" href="#read-inspect-or-continue">Read, inspect or continue</a><a class="toc-l2" href="#why-keep-the-whole-research-record">Why keep the whole research record?</a><a class="toc-l2" href="#problem-papers">Problem papers</a><a class="toc-l3" href="#reading-across-the-problems">Reading across the problems</a><a class="toc-l2" href="#what-lean-and-comparator-verify">What Lean and Comparator verify</a><a class="toc-l2" href="#contribute">Contribute</a><a class="toc-l2" href="#read-or-verify-locally">Read or verify locally</a><a class="toc-l3" href="#repository-map">Repository map</a><a class="toc-l2" href="#corpus-at-a-glance">Corpus at a glance</a><a class="toc-l2" href="#following-a-result-into-lean">Following a result into Lean</a><a class="toc-l2" href="#formal-conjectures-contributions">Formal Conjectures contributions</a><a class="toc-l2" href="#reading-routes">Reading routes</a><a class="toc-l2" href="#credit">Credit</a><a class="toc-l2" href="#citation-and-licence">Citation and licence</a></nav></details>
       <div class="paper-stage">
 <article class="lean-document" data-document-id="readme" data-document-role="human_front_door" data-math-mode="mathml">
   <div class="lean-document__body" data-source="README.md">
 <!-- SPDX-FileCopyrightText: 2026 Will Cook -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <section class="level1 lean-doc-titled">
-<h2>Plectis: open mathematical research with Lean</h2>
-<p>Plectis brings together research on eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problems</a>: papers you
-can read, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proofs</a> you can check, and experiments and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed
-approaches</a> you can continue. It is an independent, AI-assisted prototype
-by Will Cook. Lean checks formal statements; papers explain the
-arguments and what remains open.</p>
-<p><strong><a href="https://wcook04.github.io/plectis/maths/" data-link-kind="exogenous" rel="external noopener">Read the
-mathematics</a></strong> · <a href="paper-guide.html">All papers</a> · <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md" data-link-kind="exogenous" rel="external noopener">Clone and reproduce</a> · <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">Contribute or correct</a></p>
+<h2>Plectis</h2>
+<section id="open-mathematical-research" class="level3">
+<h2 class="paper-minor-head">Open mathematical research</h2>
+<p>Eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problems</a>, with papers to read, proofs to inspect and
+research to continue.</p>
+<p><strong><a href="https://wcook04.github.io/plectis/maths/" data-link-kind="exogenous" rel="external noopener">Explore
+the website</a></strong> · <strong><a
+href="https://wcook04.github.io/plectis/maths/universe.html" data-link-kind="exogenous" rel="external noopener">Open the
+maths map</a></strong> · <strong><a href="paper-guide.html">Read the
+papers</a></strong></p>
+<p><a href="https://wcook04.github.io/plectis/maths/universe.html" data-link-kind="exogenous" rel="external noopener">Eight Erdős problem programmes: the interactive maths map connects papers, results and their formal evidence</a></p>
+<p><sub>The maths map on 9 October 2026. Open the image to explore the
+current edition.</sub></p>
+<p>Plectis is an independent, AI-assisted prototype built and maintained
+by Will Cook. The website lets you explore the research. This repository
+contains the arguments, Lean proofs, experiments and approaches that did
+not work. You can read everything without installing Lean. <a
+href="reading-guide.html">A reader’s way in</a> introduces the
+project; the <a
+href="https://wcook04.github.io/plectis/docs/glossary.html" data-link-kind="exogenous" rel="external noopener">glossary</a>
+explains mathematical terms along the way.</p>
+<hr />
+</section>
 <section id="for-a-first-look-257" class="level2">
 <h2>For a first look: #257</h2>
-<p><strong><a href="weighted-257-task.html">Try three
-changed hypotheses</a>:</strong> one result, optional hints, a worked
-answer, and where the test stops. Read offline or <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#apply-a-result-to-a-changed-example" data-link-kind="exogenous" rel="external noopener">use an
-agent</a>.</p>
 <p><a href="https://www.erdosproblems.com/257" data-link-kind="exogenous" rel="external noopener">Problem 257</a> asks
-whether adding <span class="math inline" data-term-auto="off" data-tex="\(1/(2^{a}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>a</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> over <strong>any infinite set of
-positive integers</strong> always gives an irrational number. Our <a
+whether the series</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mn>1</mn><mrow><msup><mn>2</mn><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">\sum_{a\in A} \frac{1}{2^a-1}</annotation></semantics></math></p>
+<p>is irrational for <strong>every infinite set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+of positive integers</strong>. The universal question remains open.</p>
+<p>The <a
 href="../../papers/erdos-257-mersenne-support-subseries.pdf">short
-paper</a> proves a sufficient condition that Lean checks: if a set of
-positive integer exponents has finite base-two <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime-weighted-mass" data-term="prime_weighted_mass" data-term-auto="1">prime-weighted mass</a>,
-every infinite subset gives an irrational sum at <strong>every integer
-base at least two</strong>.</p>
-<p>Choose a finite nonempty set of primes <span class="math inline" data-term-auto="off" data-tex="\(P\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi></math></mjx-assistive-mml></mjx-container></span>, and let
-<span class="math inline" data-term-auto="off" data-tex="\(h_{P}(a)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>h</mi><mrow data-mjx-texclass="ORD"><mi>P</mi></mrow></msub><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> be the largest divisor of <span class="math inline" data-term-auto="off" data-tex="\(a\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi></math></mjx-assistive-mml></mjx-container></span> whose prime
-factors lie in <span class="math inline" data-term-auto="off" data-tex="\(P\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi></math></mjx-assistive-mml></mjx-container></span>. For example, <span class="math inline" data-term-auto="off" data-tex="\(P=\{2\}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mo space="4" class="mjx-s-a47e4be61538a0f6"><mjx-c class="mjx-c7B">{</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-mo class="mjx-s-a47e4be61538a0f6"><mjx-c class="mjx-c7D">}</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mo>=</mo><mo fence="false" stretchy="false">{</mo><mn>2</mn><mo fence="false" stretchy="false">}</mo></math></mjx-assistive-mml></mjx-container></span> gives
-<span class="math inline" data-term-auto="off" data-tex="\(h_{P}(12)=4\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32">2</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c34">4</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>h</mi><mrow data-mjx-texclass="ORD"><mi>P</mi></mrow></msub><mo stretchy="false">(</mo><mn>12</mn><mo stretchy="false">)</mo><mo>=</mo><mn>4</mn></math></mjx-assistive-mml></mjx-container></span>. The required bound is
-<span class="math inline" data-term-auto="off" data-tex="\(\sum _{a\in H}h_{P}(a)/(a(2^{h_{P}(a)}-1))&lt;\infty\)" data-math-rendered="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2208">∈</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D43B">𝐻</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-msub space="2"><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-msub><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c221E">∞</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>a</mi><mo>∈</mo><mi>H</mi></mrow></munder><msub><mi>h</mi><mrow data-mjx-texclass="ORD"><mi>P</mi></mrow></msub><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><mo>/</mo><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><msub><mi>h</mi><mrow data-mjx-texclass="ORD"><mi>P</mi></mrow></msub><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>&lt;</mo><mi mathvariant="normal">∞</mi></math></mjx-assistive-mml></mjx-container></span> for a set
-<span class="math inline" data-term-auto="off" data-tex="\(H\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D43B">𝐻</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>H</mi></math></mjx-assistive-mml></mjx-container></span> of positive integers. For every infinite
-<span class="math inline" data-term-auto="off" data-tex="\(A\subseteq H\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D434">𝐴</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2286">⊆</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D43B">𝐻</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi><mo>⊆</mo><mi>H</mi></math></mjx-assistive-mml></mjx-container></span> and every integer <span class="math inline" data-term-auto="off" data-tex="\(b\ge 2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44F">𝑏</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>b</mi><mo>≥</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span>, the sum
-<span class="math inline" data-term-auto="off" data-tex="\(\sum _{a\in A}1/(b^{a}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2208">∈</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D434">𝐴</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mi><mjx-c class="mjx-c1D44F">𝑏</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mi>b</mi><mrow data-mjx-texclass="ORD"><mi>a</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> is irrational. The paper constructs sets
-satisfying this condition even though <span class="math inline" data-term-auto="off" data-tex="\(\sum _{a\in H}1/a\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2208">∈</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D43B">𝐻</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>a</mi><mo>∈</mo><mi>H</mi></mrow></munder><mn>1</mn><mo>/</mo><mi>a</mi></math></mjx-assistive-mml></mjx-container></span> diverges;
-those example calculations are ordinary proofs. The question for every
-infinite support remains open.</p>
-<p>A second average over <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> window lengths controls unfinished
-periods. Follow the <a
-href="../../papers/erdos-257-mersenne-support-subseries.pdf">short
-proof</a>, <a
-href="../../papers/erdos257-mersenne-reasoning-surface.pdf">longer proof
-record</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120" data-link-kind="exogenous" rel="external noopener">Lean
-declaration</a>, or <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#reviewer-replay" data-link-kind="exogenous" rel="external noopener">selected
-theorem replay</a>.</p>
-
+paper</a> proves sufficient conditions for particular infinite sets,
+including a Lean-checked prime-weighted criterion that works at every
+integer base at least two. Cancellation removes a finite batch of terms;
+averaging controls what the remaining terms leave behind.</p>
+<p><a href="../../papers/erdos-257-mersenne-support-subseries.pdf">Read the
+argument</a>, <a href="weighted-257-task.html">try
+three changed hypotheses</a>, or <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120" data-link-kind="exogenous" rel="external noopener">follow
+the Lean declaration</a>. The <a
+href="../../papers/erdos257-mersenne-reasoning-surface.pdf">longer
+record</a> preserves other approaches and where they stop.</p>
 </section>
 <section id="results-and-their-limits" class="level2">
 <h2>Results and their limits</h2>
@@ -164,62 +158,61 @@ correspondence.</p>
 href="https://www.erdosproblems.com/forum/thread/1041#post-8861" data-link-kind="exogenous" rel="external noopener">ani’s
 original counterexample</a> is credited in the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/case-studies/formal-conjectures-1041.md" data-link-kind="exogenous" rel="external noopener">#1041 case
-study</a>. <a href="results.html">Results and limits</a> gives each
-programme’s strongest results, prior work and exact remaining questions.
-It distinguishes ordinary proofs, Lean-checked statements, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional
-results</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite-computation" data-term="finite_computation" data-term-auto="1">finite computations</a>.</p>
+study</a>. <a href="results.html">Results and limits</a> keeps each
+programme’s statements beside its assumptions, earlier work and
+remaining questions.</p>
 </section>
-<section id="where-to-start" class="level2">
-<h2>Where to start</h2>
+<section id="read-inspect-or-continue" class="level2">
+<h2>Read, inspect or continue</h2>
+<blockquote>
+<p><strong><a
+href="https://wcook04.github.io/plectis/maths/universe.html" data-link-kind="exogenous" rel="external noopener">Choose a
+question</a></strong> → <strong><a href="paper-guide.html">Read a
+paper</a></strong> → <strong><a href="source-map.html">Follow its
+evidence</a></strong><br> Papers lead to exact statements, selected Lean
+proofs, experiments and <a href="results.html">open
+questions</a>.</p>
+</blockquote>
 <ul>
 <li><strong>Read and understand.</strong> <a
 href="reading-guide.html">A reader’s way in</a> introduces the
 questions. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md" data-link-kind="exogenous" rel="external noopener">reading
-edition</a> collects the opening of each paper in one file, also
-suitable for sharing with an AI. <a
-href="reading-guide.html#work-through-an-argument">Work through one
-argument</a> on your own or ask an agent for hints. No clone, Lean or
-model account is needed to read the papers.</li>
+edition</a> gathers the paper openings in one file, suitable for reading
+or sharing with an AI.</li>
 <li><strong>Inspect or reproduce.</strong> <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md#try-one-claim-without-lean" data-link-kind="exogenous" rel="external noopener">Follow one
 claim</a> with Git and Python, or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md#reproduce-the-257-exact-rational-example" data-link-kind="exogenous" rel="external noopener">rerun
-an exact-rational experiment</a> using Python alone after cloning. The
-guide separates these checks from compiling a proof. The experiment is a
-finite exclusion test; it does not reproduce the weighted theorem
-above.</li>
+an exact-rational experiment</a>. That finite experiment does not
+reproduce the weighted theorem above.</li>
 <li><strong>Work with an agent.</strong> The <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work" data-link-kind="exogenous" rel="external noopener">agent
 quickstart</a> gives clone commands and a copyable prompt. Ask it to
-explain a result, investigate a question, or improve a tool; the public
-checkout contains the required instructions. <a
-href="architecture.html">How the repository works</a> explains the
-software behind those routes.</li>
+explain an argument, explore an open question or improve a tool. The
+repository includes its instructions and links to the evidence.</li>
 </ul>
 <p><a id="about-the-project"></a></p>
 </section>
 <section id="why-keep-the-whole-research-record" class="level2">
 <h2>Why keep the whole research record?</h2>
-<p>I want other people to be able to work on these questions with me. A
-checked proof still needs an explanation of why the argument works and
-how someone might arrive at it. The longer records preserve calculations
-and routes that stopped at a precise obstruction, so another reader can
-question the approach, repair it or try the idea elsewhere.</p>
-<p>I am responsible for the claims, sources and release. AI assists
-research, formalisation and exposition; formal checking, readable prose
-and human understanding remain separate responsibilities. Novelty and
-significance need human judgement. The <a
+<p>I want other people to work on these questions with me. The longer
+records include calculations and routes that stopped at a precise
+obstruction. You can question an approach, repair it or use the idea
+elsewhere without repeating the investigation.</p>
+<p>AI agents did most of the research and drafting. I built and directed
+the infrastructure and reviewed claims when I could; I have not
+independently verified every claim. I maintain the sources and take
+responsibility for correcting the public record. Novelty and
+significance need human judgement; independent mathematical review of
+the corpus has not been recorded. The <a
 href="../../papers/claim-faithful-publication-systems-paper.pdf">system
-paper</a> explains how results, corrections and credited contributions
-move through the repository. The <a
-href="architecture.html#why-preserve-explanations-and-failed-approaches">design
-discussion</a> sets out the reasoning and its limits. Independent
-mathematical review of the corpus has not been recorded.</p>
+paper</a> explains how the repository records results and corrections
+and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credits</a> contributors.</p>
 </section>
 <section id="problem-papers" class="level2">
 <h2>Problem papers</h2>
 <p>The <a href="results.html#problem-by-problem-guide">results
-guide</a> keeps the statements beside their qualifications and
+guide</a> lists each result with its assumptions, limits and
 sources.</p>
 <table>
 <colgroup>
@@ -318,23 +311,34 @@ paper</a></td>
 </tr>
 </tbody>
 </table>
-<p>The <a
-href="../../papers/optimal-sparse-perturbations.pdf">cross-problem
-paper, Reading Eight Erdős Problems Together</a> develops connections
-through factorial series, Lambert <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsums</a> and the limits of shared
-methods. Its main theorems are ordinary proofs; Lean checks specified
-ingredients. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/README.md" data-link-kind="exogenous" rel="external noopener">synthesis guide</a>
-identifies ways to continue that work. The <a
-href="paper-guide.html">paper index</a> also identifies the main systems
-paper and the earlier accounts retained for historical context.</p>
+<section id="reading-across-the-problems" class="level3">
+<h3>Reading across the problems</h3>
+<p><strong><a
+href="../../papers/optimal-sparse-perturbations.pdf">Reading Eight
+Erdős Problems Together</a></strong><br> The cross-problem paper
+develops connections through factorial series, Lambert <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsums</a> and the
+limits of shared methods. Its main theorems are ordinary proofs; Lean
+checks specified ingredients. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/README.md" data-link-kind="exogenous" rel="external noopener">synthesis guide</a> identifies ways to
+continue the work.</p>
+<p><strong><a
+href="../../papers/claim-faithful-publication-systems-paper.pdf">A
+Repository-Based System for Research and Publication</a></strong><br>
+The system paper explains how research, evidence and publication fit
+together.</p>
+<p><a href="https://wcook04.github.io/plectis/docs/papers.html" data-link-kind="exogenous" rel="external noopener">Browse
+the website catalogue</a> for browser reading, or the <a
+href="paper-guide.html">repository paper index</a> for sources and
+earlier editions.</p>
 <p><a id="what-the-checks-establish"></a></p>
+</section>
 </section>
 <section id="what-lean-and-comparator-verify" class="level2">
 <h2>What Lean and Comparator verify</h2>
 <p>Lean checks whether a proof establishes the exact formal statement
 written in its source. The <a href="source-map.html">source map</a>
 connects paper passages to those declarations. <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json" data-link-kind="exogenous" rel="external noopener">Claim records</a> state their public status and
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json" data-link-kind="exogenous" rel="external noopener">Claim records</a> list their public status and
 limits; <a href="prior-art.html">prior art</a> identifies earlier
 results and their relationship to this work.</p>
 <p>Comparator checks a solution against a separately declared formal
@@ -352,10 +356,11 @@ review required to change a claim.</p>
 </section>
 <section id="contribute" class="level2">
 <h2>Contribute</h2>
-<p>An idea, correction, earlier reference, counterexample, useful failed
-approach or clearer explanation can help. You need not solve an Erdős
-problem or write Lean. I can help formalise an argument while preserving
-its attribution.</p>
+<p>An idea, correction, earlier reference, counterexample, useful <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed
+approach</a> or clearer explanation can help. One specific observation is
+enough to start; you need not review the whole repository, solve an
+Erdős problem or write Lean. I can help formalise an argument while
+preserving its attribution.</p>
 <ul>
 <li><strong>Mathematics or exposition:</strong> <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md" data-link-kind="exogenous" rel="external noopener">work on a paper</a> or <a
@@ -375,7 +380,7 @@ the argument, evidence, limits and next question.</li>
 </ul>
 <p><a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">CONTRIBUTING</a> explains what to send,
 including work without a clone. Accepted contributions receive a public
-record of their evidence and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a> under the <a
+record of their evidence and credit under the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md" data-link-kind="exogenous" rel="external noopener">credit policy</a>. If you
 solve a problem, the credit for your solution is yours. If this repo or
 an intermediate result helped, please cite the relevant work and say
@@ -383,8 +388,18 @@ how.</p>
 </section>
 <section id="read-or-verify-locally" class="level2">
 <h2>Read or verify locally</h2>
+<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md" data-link-kind="exogenous" rel="external noopener">REPRODUCIBILITY</a> gives
+installation instructions, commands and build requirements. Start by <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md#try-one-claim-without-lean" data-link-kind="exogenous" rel="external noopener">following one
+claim without Lean</a>. Instructions for coding agents are in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md" data-link-kind="exogenous" rel="external noopener">AGENTS.md</a> and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKBENCH.md" data-link-kind="exogenous" rel="external noopener">agent workbench</a>.</p>
 <section id="repository-map" class="level3">
 <h3>Repository map</h3>
+<details>
+<summary>
+Where the papers, proofs, experiments and tools live
+</summary>
 <table>
 <colgroup>
 <col />
@@ -402,8 +417,8 @@ how.</p>
 <td>PDFs and manuscript sources by problem.</td>
 </tr>
 <tr>
-<td><a href="source-map.html">lean/</a></td>
-<td>Formal proofs in the <code>Erdos249257</code> and
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/lean/README.md" data-link-kind="exogenous" rel="external noopener">lean/</a></td>
+<td><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">Formal proofs</a> in the <code>Erdos249257</code> and
 <code>ErdosProblems</code> libraries.</td>
 </tr>
 <tr>
@@ -416,7 +431,7 @@ how.</p>
 </tr>
 <tr>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/README.md" data-link-kind="exogenous" rel="external noopener">research_corpus/</a></td>
-<td>Dated research returns and unresolved <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligations</a>.</td>
+<td>Dated research contributions and unresolved <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligations</a>.</td>
 </tr>
 <tr>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/computations/README.md" data-link-kind="exogenous" rel="external noopener">computations/</a></td>
@@ -440,15 +455,12 @@ how.</p>
 </tr>
 </tbody>
 </table>
-<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md" data-link-kind="exogenous" rel="external noopener">REPRODUCIBILITY</a> owns
-installation, commands and build requirements. The checkout is hundreds
-of megabytes; Lean builds download additional toolchains and
-dependencies. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/.github/SECURITY.md" data-link-kind="exogenous" rel="external noopener">security policy</a>
-explains the execution boundary. Agents enter through <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md" data-link-kind="exogenous" rel="external noopener">AGENTS.md</a> and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKBENCH.md" data-link-kind="exogenous" rel="external noopener">agent workbench</a>. The <a
-href="architecture.html#repository-map">architecture guide</a>
-explains the folder names.</p>
+</details>
+<p>The <a href="architecture.html">architecture guide</a> explains
+how the folders fit together. The checkout is hundreds of megabytes;
+Lean builds download additional toolchains and dependencies. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/.github/SECURITY.md" data-link-kind="exogenous" rel="external noopener">security policy</a> covers code
+execution.</p>
 <!-- BEGIN generated_corpus_at_a_glance -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
 <details>
@@ -514,15 +526,21 @@ declaration names first.
 </section>
 <section id="formal-conjectures-contributions" class="level2">
 <h2>Formal Conjectures contributions</h2>
-<p>Four merged changes: <a
+<p>As of <strong>8 October 2026</strong>, four mathematical
+contributions have merged: proof links for solved variants of Erdős’s
+1948 theorem in <a
 href="https://github.com/google-deepmind/formal-conjectures/pull/6506" data-link-kind="exogenous" rel="external noopener">#257</a>,
 <a
-href="https://github.com/google-deepmind/formal-conjectures/pull/5034" data-link-kind="exogenous" rel="external noopener">#258</a>,
+href="https://github.com/google-deepmind/formal-conjectures/pull/5034" data-link-kind="exogenous" rel="external noopener">#258</a>
 and <a
-href="https://github.com/google-deepmind/formal-conjectures/pull/6507" data-link-kind="exogenous" rel="external noopener">#1049</a>
-proof links for solved variants of Erdős’s 1948 theorem; a <a
+href="https://github.com/google-deepmind/formal-conjectures/pull/6507" data-link-kind="exogenous" rel="external noopener">#1049</a>,
+plus the <a
 href="https://github.com/google-deepmind/formal-conjectures/pull/6505" data-link-kind="exogenous" rel="external noopener">#1041
-correction</a> using ani’s counterexample. <a
+correction</a> based on ani’s counterexample.</p>
+<p><strong>Nine further requests remain open.</strong> The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#contribution-activity" data-link-kind="exogenous" rel="external noopener">contribution
+record</a> separates merged changes, open requests and the AUTHORS
+update, with each request’s scope and dated review state. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/case-studies/formal-conjectures-1041.md" data-link-kind="exogenous" rel="external noopener">Trace the #1041 Lean
 proof</a>.</p>
 <p>The <a
@@ -530,13 +548,27 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/R
 #243/#257 proof packets</a> and <a
 href="https://github.com/wcook04/plectis-erdos-lean" data-link-kind="exogenous" rel="external noopener">plectis-erdos-lean</a>
 provide additional selected statement checks and their recorded
-outcomes. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/README.md" data-link-kind="exogenous" rel="external noopener">paper catalogue</a> links
+outcomes.</p>
+<p><a href="https://palomar-registry.org/" data-link-kind="exogenous" rel="external noopener">Palomar</a> checks Lean
+proofs and publishes registered results with their review comments. Our
+<a
+href="https://github.com/wcook04/plectis-erdos-lean#palomar-publication-surface" data-link-kind="exogenous" rel="external noopener">submission
+record</a> distinguishes verification, editorial review and
+registration. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md" data-link-kind="exogenous" rel="external noopener">Palomar guide</a>
+explains the local preparation checks; passing those checks alone does
+not establish acceptance.</p>
+<p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/README.md" data-link-kind="exogenous" rel="external noopener">paper catalogue</a> links
 versioned aiXiv editions; the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/README.md" data-link-kind="exogenous" rel="external noopener">verification guides</a> explain
 submission and registry records. An archived edition may differ from the
 current paper. This main checkout contains the mathematics and tools
 needed to work with the corpus. Do not infer results from private or
 unreleased work.</p>
+</section>
+<section id="reading-routes" class="level2">
+<h2>Reading routes</h2>
+<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/.github/system-map.svg" data-link-kind="exogenous" rel="external noopener">Website → papers → research records and open questions</a></p>
 </section>
 <section id="credit" class="level2">
 <h2>Credit</h2>
@@ -573,7 +605,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/.github/CODE_OF_CONDUCT
       <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><span class="maths-pager__spacer"></span><a class="maths-pager__link maths-pager__link--next" rel="next" href="reading-guide.html"><span class="maths-pager__dir">Next</span>A reader&#x27;s way in</a></nav>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#for-a-first-look-257">For a first look: #257</a><a class="toc-l2" href="#results-and-their-limits">Results and their limits</a><a class="toc-l2" href="#where-to-start">Where to start</a><a class="toc-l2" href="#why-keep-the-whole-research-record">Why keep the whole research record?</a><a class="toc-l2" href="#problem-papers">Problem papers</a><a class="toc-l2" href="#what-lean-and-comparator-verify">What Lean and Comparator verify</a><a class="toc-l2" href="#contribute">Contribute</a><a class="toc-l2" href="#read-or-verify-locally">Read or verify locally</a><a class="toc-l2" href="#corpus-at-a-glance">Corpus at a glance</a><a class="toc-l2" href="#following-a-result-into-lean">Following a result into Lean</a><a class="toc-l2" href="#formal-conjectures-contributions">Formal Conjectures contributions</a><a class="toc-l2" href="#credit">Credit</a><a class="toc-l2" href="#citation-and-licence">Citation and licence</a></aside>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#for-a-first-look-257">For a first look: #257</a><a class="toc-l2" href="#results-and-their-limits">Results and their limits</a><a class="toc-l2" href="#read-inspect-or-continue">Read, inspect or continue</a><a class="toc-l2" href="#why-keep-the-whole-research-record">Why keep the whole research record?</a><a class="toc-l2" href="#problem-papers">Problem papers</a><a class="toc-l2" href="#what-lean-and-comparator-verify">What Lean and Comparator verify</a><a class="toc-l2" href="#contribute">Contribute</a><a class="toc-l2" href="#read-or-verify-locally">Read or verify locally</a><a class="toc-l2" href="#corpus-at-a-glance">Corpus at a glance</a><a class="toc-l2" href="#following-a-result-into-lean">Following a result into Lean</a><a class="toc-l2" href="#formal-conjectures-contributions">Formal Conjectures contributions</a><a class="toc-l2" href="#reading-routes">Reading routes</a><a class="toc-l2" href="#credit">Credit</a><a class="toc-l2" href="#citation-and-licence">Citation and licence</a></aside>
   </div>
 </body>
 </html>
