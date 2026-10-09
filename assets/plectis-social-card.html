@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light">
+  <title>Plectis link preview</title>
+  <link rel="icon" href="favicon.svg">
+  <style>
+    @font-face { font-family: Plectis; src: url("fonts/plectis-serif.woff2"); font-weight: 400 700; }
+    @font-face { font-family: PlectisSans; src: url("fonts/plectis-sans.woff2"); font-weight: 200 900; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 896px; height: 512px; overflow: hidden; background: #f8f0e2; color: #1c1526; }
+    body { border-top: 3px solid #1c1526; padding: 36px 54px; }
+    h1 { font: 600 122px/1 Plectis, Georgia, serif; letter-spacing: -5px; margin: 0 0 19px; }
+    .mark { position: absolute; top: 42px; right: 54px; width: 64px; height: 64px; }
+    .subject { font: 400 39px/1.2 Plectis, Georgia, serif; margin: 0; }
+    .detail { font: 400 24px/1.4 PlectisSans, sans-serif; margin: 19px 0 0; color: #514457; }
+    .weave { position: absolute; top: 334px; left: 0; width: 896px; height: 97px; }
+    .plait { position: absolute; pointer-events: none; }
+    .plait canvas { display: block; }
+    footer { position: absolute; bottom: 31px; left: 54px; right: 54px; display: flex; justify-content: space-between; align-items: baseline; font: 400 21px PlectisSans, sans-serif; }
+    footer span:last-child { color: #756779; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <img class="mark" src="favicon-day.svg" alt="" width="64" height="64">
+  <main>
+    <h1>Plectis</h1>
+    <p class="subject">AI-assisted research on<br>eight hard Erdős problems.</p>
+    <p class="detail">Lean proofs, papers and open questions.</p>
+    <div class="weave" data-plait-band="contained" aria-hidden="true"></div>
+  </main>
+  <footer><span>Will Cook</span><span>wcook04.github.io/plectis</span></footer>
+  <script src="art.js"></script>
+</body>
+</html>
