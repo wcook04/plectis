@@ -5833,7 +5833,7 @@
        reader starts reading (the first real scroll) or uses a term, so it
        never sits over a button or a figure for the rest of the page. Touch:
        it starts folded so the small screen stays clear. */
-    if (touch) {
+    if (touch || window.matchMedia('(max-width: 620px)').matches) {
       setCompact(true);
     } else {
       var folded = false;

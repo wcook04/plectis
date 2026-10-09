@@ -6,6 +6,24 @@ import vm from 'node:vm';
 const HOT_EDGE = '#13579b';
 const source = readFileSync(new URL('../../../tools/meta/dissemination/maths_site_assets/universe.js', import.meta.url), 'utf8');
 
+test('rebuilt evidence gauges retain count proportions without CSP-blocked styles', () => {
+  const start = source.indexOf('function gaugeHtml(');
+  const end = source.indexOf('// The map\'s own count', start);
+  const gauge = vm.runInNewContext(`${source.slice(start, end)}; gaugeHtml`, {
+    EVIDENCE_ORDER: ['replayed', 'lean', 'modulo', 'none'],
+    EVIDENCE_TEXT: {replayed: 'replayed', lean: 'Lean', modulo: 'modulo', none: 'unchecked'},
+    fmtCount: String, escapeHtml: s => s.replaceAll('&', '&amp;'),
+  });
+  const html = gauge({replayed: 2, lean: 3, modulo: 0, none: 5}, 'Evidence');
+  assert.match(html, /viewBox="0 0 10 1"/);
+  const rectangles = [...html.matchAll(/<rect[^>]* x="(\d+)" width="(\d+)"/g)]
+    .map(m => [+m[1], +m[2]]);
+  assert.deepEqual(rectangles, [[0, 2], [2, 3], [5, 5]]);
+  assert.match(html, /aria-label="Evidence: 2 replayed, 3 Lean, 5 unchecked"/);
+  assert.doesNotMatch(html, /\sstyle=/);
+  assert.equal(gauge({replayed: 0, lean: 0, modulo: 0, none: 0}), '');
+});
+
 function element(attrs = {}) {
   const events = {};
   const classes = new Set();

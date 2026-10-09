@@ -8,16 +8,17 @@
       "description": "I introduce Plectis and show the papers, map and software I use for mathematical research with AI agents.",
       "role": "introduction",
       "links": [],
+      "still_inset": "top-right",
       "release": {
-        "edition_sha256": "2492723197f200486a701859a0ab1d5bc8c1d7dc9183b0abc5b04dda749a9896",
-        "approved_edition_sha256": "2492723197f200486a701859a0ab1d5bc8c1d7dc9183b0abc5b04dda749a9896",
-        "hosted_edition_sha256": "2492723197f200486a701859a0ab1d5bc8c1d7dc9183b0abc5b04dda749a9896",
-        "thumbnail_edition_sha256": "2492723197f200486a701859a0ab1d5bc8c1d7dc9183b0abc5b04dda749a9896",
-        "transcript_edition_sha256": "2492723197f200486a701859a0ab1d5bc8c1d7dc9183b0abc5b04dda749a9896",
+        "edition_sha256": "238a49bb59ef2ec7420b827a820e6203b6a6aa7b3d8b82c9dc62b695d00f9e12",
+        "approved_edition_sha256": "238a49bb59ef2ec7420b827a820e6203b6a6aa7b3d8b82c9dc62b695d00f9e12",
+        "hosted_edition_sha256": "238a49bb59ef2ec7420b827a820e6203b6a6aa7b3d8b82c9dc62b695d00f9e12",
+        "thumbnail_edition_sha256": "238a49bb59ef2ec7420b827a820e6203b6a6aa7b3d8b82c9dc62b695d00f9e12",
+        "transcript_edition_sha256": "238a49bb59ef2ec7420b827a820e6203b6a6aa7b3d8b82c9dc62b695d00f9e12",
         "publication_authorized": true,
-        "url": "https://youtu.be/5Rm4aFxhJbY",
+        "url": "https://youtu.be/253C_6kQrGs",
         "upload_date": "2026-10-09",
-        "duration_seconds": 209,
+        "duration_seconds": 226,
         "thumbnail": "assets/films/introduction-text-only-20261009.jpg",
         "thumbnail_sha256": "feeb2559cd0ca2e6eac428f49d21f2d13406163702f9ec6851c5fd67deed0fa9",
         "transcript": {
@@ -31,23 +32,23 @@
             "title": "Plectis"
           },
           {
-            "seconds": 89,
+            "seconds": 92,
             "title": "CodeMap"
           },
           {
-            "seconds": 117,
+            "seconds": 122,
             "title": "Agent Trace"
           },
           {
-            "seconds": 149,
+            "seconds": 154,
             "title": "Demo Take"
           },
           {
-            "seconds": 179,
+            "seconds": 185,
             "title": "Bringing it together"
           },
           {
-            "seconds": 190,
+            "seconds": 207,
             "title": "Explore the work"
           }
         ]
@@ -69,6 +70,7 @@
           "href": "maths/papers/erdos-257-mersenne-support-subseries.html#res:weighted-support"
         }
       ],
+      "still_inset": "bottom-right",
       "release": {
         "edition_sha256": "f19e65b3fb67c80dde20e5e2728d34211c86da72a1b3686034d03cea9366d898",
         "approved_edition_sha256": "f19e65b3fb67c80dde20e5e2728d34211c86da72a1b3686034d03cea9366d898",
@@ -96,6 +98,7 @@
       "description": "I use CodeMap to view Python files, their descriptions and connections in my private research system.",
       "role": "supporting",
       "links": [],
+      "still_inset": "bottom-left",
       "release": {
         "edition_sha256": "3162e9a3f36abfc2466c0e99c39f9a76f704555ef80d5399b3d0c31c4de6bf74",
         "approved_edition_sha256": "3162e9a3f36abfc2466c0e99c39f9a76f704555ef80d5399b3d0c31c4de6bf74",
@@ -123,6 +126,7 @@
       "description": "I inspect recorded agent activity and copy selected context into another conversation for review.",
       "role": "supporting",
       "links": [],
+      "still_inset": "bottom-left",
       "release": {
         "edition_sha256": "e5e1c6d94f486638e13484ab34276b59df81a8ffd268f4e2d36bca16d69fb6ce",
         "approved_edition_sha256": "e5e1c6d94f486638e13484ab34276b59df81a8ffd268f4e2d36bca16d69fb6ce",
@@ -150,6 +154,7 @@
       "description": "The mathematics and software in Plectis. Includes material from the separate films.",
       "role": "combined",
       "links": [],
+      "still_inset": "top-right",
       "release": {
         "edition_sha256": "fb6964184b5baff80771abdd690c529b0884851acf4ead100aba245cc620ce7d",
         "approved_edition_sha256": "fb6964184b5baff80771abdd690c529b0884851acf4ead100aba245cc620ce7d",

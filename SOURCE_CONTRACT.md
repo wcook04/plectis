@@ -906,7 +906,35 @@ The band is a shelf (Will, 7 October 2026: "the short video, then ... a
 combined one, and then ... standalone"): the heading and the Combined
 walkthrough in the left five columns, the introduction large in the right
 seven, and the standalone films on one shelf under both, their rows shared
-so titles, status and text line up. Every film has a 16:9 frame: a released
+so titles, status and text line up.
+Shared tracks express comparison; optional reading stays local (9 October
+2026, from two Type B reviews read against the source). Still, title, status
+and description share rows by name; a film's evidence links, chapters or
+transcript are one `film__support` stack under its description, so opening
+one moves no neighbour's still, title or text. The band's failure order:
+required, complete text and working routes under 320px, 200% text and
+text-spacing overrides; strong, captions belong to their stills and local
+reading stays local; preferred, on wide screens the 5:7 pair's stills end on
+one shelf line with their captions hanging from it; optical, the
+introduction's top meeting the heading's capitals at 1440, which drifts at
+narrower widths by design. Compounds in film titles and the lede's phrases
+are inline blocks, kept whole where they fit and never nowrap; the title is
+the one watch action in the Tab order, its still echoing focus in its
+hairline, and the stills never zoom. A disclosure must add information: a route
+summary equal to the description (whitespace aside) is not folded, though
+the release record keeps it; chapters are an index keyed by time. The running
+time is on the poster and spoken in the watch link, never printed twice. The
+play mark and running time are one dark chip in both themes, the running time
+solid, in the bottom corner the presenter's webcam leaves free: each film
+records its still's `still_inset` corner in `film-programme.json`, a fact about
+the image rather than a selector per film. In film titles an article joins its
+kept compound only where the title's measure absorbs it (19em), so a narrower
+column keeps two lines instead of spending a third; "Erdős #257" never splits. The band's first
+line is its contents ("A three-minute introduction, a twenty-minute
+walk-through and three films on one subject each."), broken only between
+phrases, instead of role labels over the stills. A jump to `#videos` lands
+the heading 44px under the header at every width; the band draws no focus
+ring round itself, and its heading takes a short accent rule instead. Every film has a 16:9 frame: a released
 film's own still with its play mark and running time; before release, a
 frame taken from the film and dropped in as `assets/films/<id>.jpg` (or
 `.png`, `.webp`); until then a placeholder, the empty frame with the film's
@@ -963,6 +991,28 @@ viewports in both schemes:
 
     ./repo-python tools/meta/frontend/public_web_audit.py capture http://localhost:8766/ --pages 8 --out <dir>
     ./repo-python tools/meta/frontend/public_web_audit.py audit http://localhost:8766/
+
+Reflow checks cover the whole landing at 320 CSS pixels, with text at 100%
+and 200%, in both schemes and with scripts disabled as well as enabled.
+The atlas controls wrap between controls; their labels, the papers catalogue
+link and the result-view labels wrap within their available width. Equal
+switch columns use zero minimums, so enlarging text cannot expand the page.
+The hero film caption keeps its complete title and duration. Passing the
+Videos and Why bands alone does not establish page reflow: inspect the
+document width and the controls' rendered text, including clipped text.
+The browser regression runs in Chromium, Firefox and WebKit when available.
+Scripted jumps to Videos measure the heading's real position and its own
+scroll margin. A band-padding estimate left the heading 73px below the
+header in WebKit at 320px. Its heading margin plus the shared scroll padding
+now keeps the intended 44px clearance across the tested engines.
+The funnel, result contents and footer use intrinsic grid tracks with minima
+that follow the root text size. This avoids relying on width-query breakpoints
+being re-evaluated after a font-only change. Problem rows stack on the narrowest
+screens; result contents and footer columns yield when their text measure
+becomes too narrow. On a narrow screen the
+glossary cue starts folded and opens with its text below the controls. A
+header occupying more than a third of the viewport leaves with the page
+instead of remaining over the reader's text.
 
 What the October 2026 pass settled: no tracked-caps eyebrows, middle-dot
 strings or monospace labels on the landing (the result card keeps one plain
@@ -1232,6 +1282,11 @@ the destination:
 | `partnership` | `docs/contact.html#audience-routes` | `public_experience_route_contract.routes[partnership]` |
 
 ### Universe map (October 2026)
+
+Evidence gauges use SVG rectangles in both the builder's static index and
+the runtime's rebuilt index. Counts set rectangle widths in the SVG viewBox;
+the shared stylesheet supplies colours. Neither edition emits inline style
+attributes, so the published CSP preserves the evidence proportions.
 
 The map (`maths/universe.html`, and every teaser drawn from
 `maths/assets/universe-data.json`) shows every asserting statement of the

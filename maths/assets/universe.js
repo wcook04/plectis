@@ -4267,14 +4267,15 @@
       var total = 0, key;
       for (key in counts) total += counts[key];
       if (!total) return '';
-      var segs = '', words = [];
+      var segs = '', words = [], x = 0;
       for (var j = 0; j < EVIDENCE_ORDER.length; j++) {
         key = EVIDENCE_ORDER[j];
         if (!counts[key]) continue;
-        segs += '<span class="universe-gauge__seg universe-gauge__seg--' + key + '" style="flex-grow:' + counts[key] + '"></span>';
+        segs += '<rect class="universe-gauge__seg universe-gauge__seg--' + key + '" x="' + x + '" width="' + counts[key] + '" height="1"/>';
+        x += counts[key];
         words.push(fmtCount(counts[key]) + ' ' + EVIDENCE_TEXT[key]);
       }
-      return '<span class="universe-gauge" role="img" aria-label="' + escapeHtml((label ? label + ': ' : '') + words.join(', ')) + '">' + segs + '</span>';
+      return '<svg class="universe-gauge" viewBox="0 0 ' + total + ' 1" preserveAspectRatio="none" role="img" aria-label="' + escapeHtml((label ? label + ': ' : '') + words.join(', ')) + '">' + segs + '</svg>';
     }
 
     // The map's own count of what it holds, said as a sentence.

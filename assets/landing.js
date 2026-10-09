@@ -349,11 +349,42 @@
     anchorRaf = 0;
   }
 
+  /* A jump lands where the browser's own fragment scroll would: under the
+     root's scroll-padding-top as well as the target's scroll-margin-top. The
+     animated path read the margin alone, so it landed the root's 66px higher
+     than the reduced-motion path (scrollIntoView), and on a phone, whose
+     header takes two rows, a jump to Videos left the heading under the header
+     (9 October 2026). The header is one row on a laptop and two on a phone,
+     so its height is measured into --home-header-h for the stylesheet's
+     scroll-padding rather than assumed, and re-measured whenever the header
+     itself changes size (a web font arriving, a reader's larger text), not
+     only when the window does. */
+  var siteHeader = doc.querySelector && doc.querySelector('.site-header');
+  function publishHeaderHeight() {
+    if (!siteHeader || !siteHeader.getBoundingClientRect || !root.style || !root.style.setProperty) return;
+    var height = Math.round(siteHeader.getBoundingClientRect().height);
+    var flowing = height > window.innerHeight / 3;
+    siteHeader.classList.toggle('is-flowing', flowing);
+    if (height > 0) root.style.setProperty('--home-header-h', flowing ? '0px' : height + 'px');
+  }
+  publishHeaderHeight();
+  if (siteHeader && window.ResizeObserver) {
+    try { new window.ResizeObserver(publishHeaderHeight).observe(siteHeader); } catch (e) {}
+  } else {
+    window.addEventListener('resize', publishHeaderHeight, { passive: true });
+  }
+
   function scrollTargetTop(target) {
+    // Measure the title itself: its distance from the band's top varies
+    // with wrapped layout across engines, especially on a narrow screen.
+    var anchor = target;
+    if (target.id === 'videos' && target.querySelector) anchor = target.querySelector('h2') || target;
     var y = window.pageYOffset || root.scrollTop || 0;
     var margin = 0;
-    try { margin = parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0; } catch (e) {}
-    var top = y + target.getBoundingClientRect().top - margin;
+    var padding = 0;
+    try { margin = parseFloat(window.getComputedStyle(anchor).scrollMarginTop) || 0; } catch (e) {}
+    try { padding = parseFloat(window.getComputedStyle(root).scrollPaddingTop) || 0; } catch (e) {}
+    var top = y + anchor.getBoundingClientRect().top - margin - padding;
     var limit = Math.max(0, root.scrollHeight - window.innerHeight);
     return Math.max(0, Math.min(limit, top));
   }
@@ -706,7 +737,7 @@
     if (gone || hint.classList.contains('is-compact') || hint.classList.contains('is-open')) return;
     if (overDrawing()) setCompact(true);
   }
-  if (touch) {
+  if (touch || window.matchMedia('(max-width: 620px)').matches) {
     setCompact(true);
   } else {
     foldIfOverDrawing();
