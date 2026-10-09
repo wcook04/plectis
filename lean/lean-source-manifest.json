@@ -64,6 +64,15 @@
       "bytes": 4458604
     },
     {
+      "hosted_path": "lean/palomar-registry-status.json",
+      "source_repo": "plectis-erdos",
+      "source_ref": "main",
+      "source_path": "docs/verification/palomar_registry_status.json",
+      "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/palomar_registry_status.json",
+      "source_sha256": "9b78da156e77f20b6aab43c5019c1883ac184418f510e6e3eb5d9cfd5ce0a47a",
+      "bytes": 11470
+    },
+    {
       "hosted_path": "lean/human-source/README.md",
       "source_repo": "plectis-erdos",
       "source_ref": "main",

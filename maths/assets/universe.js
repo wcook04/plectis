@@ -4834,8 +4834,40 @@
       return text;
     }
 
+    function palomarRegistryHtml(record) {
+      if (!record) return '';
+      var counts = record.counts || {};
+      var registered = counts.registered || 0, requested = counts.registration_requested || 0;
+      var blocked = counts.publication_blocked || 0;
+      var observed = new Date(record.observed_at).toLocaleString('en-GB', {
+        timeZone: 'UTC', dateStyle: 'medium', timeStyle: 'short'
+      }) + ' UTC';
+      var rows = (record.entries || []).map(function (entry) {
+        var source = 'https://github.com/' + entry.repository + '/blob/' + entry.commit + '/' +
+          entry.comparator_config_path.split('/').map(encodeURIComponent).join('/');
+        var blocker = entry.publication_blocker;
+        var label = entry.status === 'registered' ? 'Registered' : blocker ?
+          'Registration requested; publication blocked' : 'Registration requested; publication pending';
+        return '<p class="universe-inspector__note"><strong>' + escapeHtml(entry.title) + '</strong><br>' +
+          label + '. ' + extLink(source, 'Source <code>' + escapeHtml(entry.commit.slice(0, 12)) + '</code>') +
+          (entry.status === 'registered' && entry.registered_url ?
+            '; ' + extLink(entry.registered_url, 'Registry entry') : '') +
+          '; ' + extLink(entry.verification_run_url, 'Verification run') + '.' +
+          (blocker ? '<br>' + escapeHtml(blocker.summary) + ' ' +
+            extLink(blocker.evidence_url, 'Publication failure') + '.' : '') + '</p>';
+      }).join('');
+      return '<p class="universe-inspector__body">' + fmtCount(registered) +
+        ' registered ' + (registered === 1 ? 'entry' : 'entries') + '. ' + fmtCount(requested) +
+        ' registration ' + (requested === 1 ? 'request' : 'requests') + ' recorded' +
+        (blocked ? '; ' + fmtCount(blocked) + (blocked === 1 ? ' has a publication blocker' : ' have publication blockers') : '') +
+        '. Observed ' + escapeHtml(observed) + '.</p>' + rows +
+        '<p class="universe-inspector__boundary">' + escapeHtml(record.boundary) + '</p>' +
+        '<p class="universe-inspector__note">' + extLink(record.source_github, 'Dated registry status') + '</p>';
+    }
+
     /* What a verification hub reaches, from the same ledger the band draws. */
     function surfaceHtml(n) {
+      if (n.id === 'integration:palomar' && n.registry_status) return palomarRegistryHtml(n.registry_status);
       var s = statementMeta && statementMeta.summary;
       if (!s) return '';
       var cmp = s.comparator || {}, pal = s.palomar || {};
@@ -5402,7 +5434,7 @@
     // A card's first line names the kind of thing, in plain words.
     function kindLine(n) {
       if (n.id === 'integration:comparator') return 'Replay checker';
-      if (n.id === 'integration:palomar') return 'Prepared corpus';
+      if (n.id === 'integration:palomar') return n.registry_status ? 'Dated registry status' : 'Prepared corpus';
       if (n.kind === 'universe') return 'Centre of the map';
       return capitalFirst(KIND_LABEL[n.kind] || n.kind);
     }
@@ -6143,6 +6175,7 @@
           shortLabel: plainText(n.short || n.label),
           status: n.status || null, statement: n.statement || null,
           proof_status: n.proof_status || null, proof_note: n.proof_note || null,
+          registry_status: n.registry_status || null,
           boundary: n.boundary || null, disposition: n.disposition || null,
           question: n.question || null, subject: n.subject || null,
           declaration_count: n.declaration_count != null ? n.declaration_count : null,
@@ -7521,6 +7554,7 @@
             sub: subs[n.id] || null,
             status: n.status, statement: n.statement, boundary: n.boundary,
             proof_status: n.proof_status, proof_note: n.proof_note,
+            registry_status: n.registry_status,
             disposition: n.disposition, question: n.question, subject: n.subject,
             declaration_count: n.declaration_count, theorem_count: n.theorem_count,
             page: pages[n.id] || null, source_github: n.source_github,

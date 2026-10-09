@@ -1976,6 +1976,14 @@ in `tools/meta/dissemination/math_renderer` with `npm ci --ignore-scripts`.
 Ignored dependencies and caches do not travel with Git; missing dependencies
 remain build errors.
 
+A detached release candidate is recorded as the live generator commit. Before
+publishing one, check two transitions through `older_than_live_findings`: the
+current live generator to the candidate, and that candidate to the next ordinary
+main build. Both must pass. If the second fails because the candidate is outside
+main's ancestry, bind the approved candidate ancestry while preserving main's
+exact tree and the shared index; retain those identity proofs. The next build
+must remain admissible under the existing rollback gate.
+
 A sparse release checkout must also include the tracked
 `state/lean_corpus/lean_corpus_facts.json` input. It supplies the landing's
 projected Lean counts and is separate from the builder's substrate source list.
@@ -2018,6 +2026,14 @@ committed static files:
   --base-url https://<public-domain> --require-hsts \
   --expected-release-mode canonical_plectis_site
 ```
+
+For direct GitHub Pages canonical hosting, the verifier's existing
+`--host-platform-waiver github_pages_state_a_public_shell` records the platform's
+custom-response-header and root-redirect limits. It still requires HSTS, current
+canonical copy and the vulnerability-disclosure policy; other failures remain
+blocking. Retain the unwaived and admitted receipts together. An admitted Pages
+envelope does not claim custom CSP response headers or a root security.txt
+redirect were delivered.
 
 Use `--require-hsts-preload` only after the final domain and all covered
 subdomains are intentionally inside the preload boundary. The host verifier also
