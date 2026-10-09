@@ -10,17 +10,17 @@
       "links": [],
       "still_inset": "top-right",
       "release": {
-        "edition_sha256": "238a49bb59ef2ec7420b827a820e6203b6a6aa7b3d8b82c9dc62b695d00f9e12",
-        "approved_edition_sha256": "238a49bb59ef2ec7420b827a820e6203b6a6aa7b3d8b82c9dc62b695d00f9e12",
-        "hosted_edition_sha256": "238a49bb59ef2ec7420b827a820e6203b6a6aa7b3d8b82c9dc62b695d00f9e12",
-        "thumbnail_edition_sha256": "238a49bb59ef2ec7420b827a820e6203b6a6aa7b3d8b82c9dc62b695d00f9e12",
-        "transcript_edition_sha256": "238a49bb59ef2ec7420b827a820e6203b6a6aa7b3d8b82c9dc62b695d00f9e12",
+        "edition_sha256": "b2866abd9dabccf77a9620a731f516c798ccfdc4f98e0d1d4f73ef1f3bfd1eae",
+        "approved_edition_sha256": "b2866abd9dabccf77a9620a731f516c798ccfdc4f98e0d1d4f73ef1f3bfd1eae",
+        "hosted_edition_sha256": "b2866abd9dabccf77a9620a731f516c798ccfdc4f98e0d1d4f73ef1f3bfd1eae",
+        "thumbnail_edition_sha256": "b2866abd9dabccf77a9620a731f516c798ccfdc4f98e0d1d4f73ef1f3bfd1eae",
+        "transcript_edition_sha256": "b2866abd9dabccf77a9620a731f516c798ccfdc4f98e0d1d4f73ef1f3bfd1eae",
         "publication_authorized": true,
-        "url": "https://youtu.be/253C_6kQrGs",
+        "url": "https://youtu.be/TZycALG7vTo",
         "upload_date": "2026-10-09",
-        "duration_seconds": 226,
-        "thumbnail": "assets/films/introduction-text-only-20261009.jpg",
-        "thumbnail_sha256": "feeb2559cd0ca2e6eac428f49d21f2d13406163702f9ec6851c5fd67deed0fa9",
+        "duration_seconds": 210,
+        "thumbnail": "assets/films/introduction-native-b2866abd9dab.jpg",
+        "thumbnail_sha256": "93f06862b05df37069c3ddf7028d70969cb38a9d47b65347d3804e0d8b5a1550",
         "transcript": {
           "scope": "route_summary",
           "text": "I introduce Plectis and show the papers, map and software I use for mathematical research with AI agents.",
@@ -32,23 +32,23 @@
             "title": "Plectis"
           },
           {
-            "seconds": 92,
+            "seconds": 89,
             "title": "CodeMap"
           },
           {
-            "seconds": 122,
+            "seconds": 118,
             "title": "Agent Trace"
           },
           {
-            "seconds": 154,
+            "seconds": 150,
             "title": "Demo Take"
           },
           {
-            "seconds": 185,
+            "seconds": 179,
             "title": "Bringing it together"
           },
           {
-            "seconds": 207,
+            "seconds": 192,
             "title": "Explore the work"
           }
         ]
@@ -123,28 +123,53 @@
       "id": "agent-trace",
       "title": "Agent Trace demonstration",
       "label": "Agent Trace",
-      "description": "I inspect recorded agent activity and copy selected context into another conversation for review.",
+      "description": "I follow live agent activity, compare a saved Codex answer with ChatGPT given a ZIP packet and thread trace, and show compact and detailed copy options. Agent Trace is a private prototype.",
       "role": "supporting",
       "links": [],
       "still_inset": "bottom-left",
       "release": {
-        "edition_sha256": "e5e1c6d94f486638e13484ab34276b59df81a8ffd268f4e2d36bca16d69fb6ce",
-        "approved_edition_sha256": "e5e1c6d94f486638e13484ab34276b59df81a8ffd268f4e2d36bca16d69fb6ce",
-        "hosted_edition_sha256": "e5e1c6d94f486638e13484ab34276b59df81a8ffd268f4e2d36bca16d69fb6ce",
-        "thumbnail_edition_sha256": "e5e1c6d94f486638e13484ab34276b59df81a8ffd268f4e2d36bca16d69fb6ce",
-        "transcript_edition_sha256": "e5e1c6d94f486638e13484ab34276b59df81a8ffd268f4e2d36bca16d69fb6ce",
+        "edition_sha256": "9c313b5ca8e19ba3f677cbfd63b0291fcd8461712562db745c54663cff8b4184",
+        "approved_edition_sha256": "9c313b5ca8e19ba3f677cbfd63b0291fcd8461712562db745c54663cff8b4184",
+        "hosted_edition_sha256": "9c313b5ca8e19ba3f677cbfd63b0291fcd8461712562db745c54663cff8b4184",
+        "thumbnail_edition_sha256": "9c313b5ca8e19ba3f677cbfd63b0291fcd8461712562db745c54663cff8b4184",
+        "transcript_edition_sha256": "9c313b5ca8e19ba3f677cbfd63b0291fcd8461712562db745c54663cff8b4184",
         "publication_authorized": true,
-        "url": "https://youtu.be/NEQby2HLz34",
-        "upload_date": "2026-10-08",
-        "duration_seconds": 113,
-        "thumbnail": "assets/films/agent-trace-native-e5e1c6d94f48.png",
-        "thumbnail_sha256": "f2b8a41967fb7d3cb45b9e2a88346c3786a1170c0b8a6179227d752d381ec2a7",
+        "url": "https://youtu.be/SGeVUNqjfsk",
+        "upload_date": "2026-10-09",
+        "duration_seconds": 142,
+        "thumbnail": "assets/films/agent-trace-native-9c313b5ca8e1.jpg",
+        "thumbnail_sha256": "5c66bd6529cc16643a7b5ccf3db81d611ed9ed14806409747e998e5c5d12f04d",
         "transcript": {
           "scope": "route_summary",
-          "text": "I inspect recorded agent activity and copy selected context into another conversation for review.",
-          "sha256": "0e0bcd9dc7395eb1549cf3595999dbf8be3331ee907cf5384dbf60750d4fd3e8"
+          "text": "I follow live agent activity, compare a saved Codex answer with ChatGPT given a ZIP packet and thread trace, and show compact and detailed copy options. Agent Trace is a private prototype.",
+          "sha256": "1eece4d0d6ffecbd774ec747ef0e50ed3d6d196c0951c77633b0faed2f8701fd"
         },
-        "chapters": []
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "Live agent activity"
+          },
+          {
+            "seconds": 28,
+            "title": "Eight sentences, before and after"
+          },
+          {
+            "seconds": 62,
+            "title": "Compact and detailed exports"
+          },
+          {
+            "seconds": 77,
+            "title": "Context for another conversation"
+          },
+          {
+            "seconds": 103,
+            "title": "Continue and compact prompts"
+          },
+          {
+            "seconds": 122,
+            "title": "The private prototype"
+          }
+        ]
       }
     },
     {
