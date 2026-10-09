@@ -1184,25 +1184,35 @@ owned by `tools/meta/dissemination/maths_site_assets/` and copied into
 documents, keep the margin contents to major sections and offer the full list
 in a collapsed disclosure that remains available at laptop widths.
 
-The public Contact page is a conversion map, not a generic inbox. Its generated
-route rail must keep distinct, non-invasive next steps for:
+The Contact page leads with Gmail and a request to name the page, claim or file
+that needs checking. Mathematics reports go to `plectis-erdos/issues`; security
+reports retain their private route. Three visible reading rows offer:
 
-- inspection or verification (`evidence.html`);
-- cloning or reproduction (`source.html`);
-- reuse or adaptation (`source.html#license`);
-- correction or critique;
-- collaboration or research review;
-- a conversation about the work, with no money asked up front (it replaced
-  the funding-or-hiring enquiry on 3 October 2026, and says plainly that
-  Will's own funding runs out in early November 2026); and
-- partnership or licensing.
+- Inspect or verify a claim (`../maths/index.html`);
+- Clone or reproduce the mathematics (`https://github.com/wcook04/plectis-erdos`);
+- Use or adapt the public source (`source.html#license`).
 
-Those links are authored in the owner builder, not by hand in generated HTML.
-After changing the route rail, run the builder's `--write --validate` and
-`--check --validate` passes, then treat any remaining generated-page drift as a
-mechanical re-entry condition rather than silently describing the old page as
-current. Builder/operator credit identifies who assembled and directs the
-system; it is not mathematical authorship or verification.
+The four email intentions remain ordinary inline links: Suggest a correction or
+critique; Collaborate or arrange a research review; Talk about the work; Discuss
+a partnership or license. They need no repeated cards or explanatory disclaimers.
+Keep `get-in-touch`, `audience-routes`, `who-built-this` and `follow-updates`
+fragments stable. The short introduction, AI disclosure and worked example stay
+visible; Will's longer account and its citations remain in a native optional
+background disclosure. Personal prose and utility links opt out of automatic
+term linking; the worked example keeps its glossary help. Copy/download, search,
+theme and keyboard features remain available. The Contact sidebar shows Research,
+Site and one Earlier software overview link; the complete software directory
+remains on that overview. Other documentation pages retain their full directory.
+
+Earlier software reporting, discussions and evidence stay explicitly labelled
+at the end. The mathematics repository is the primary follow route; the site
+feed is labelled as site announcements. Bristol and LinkedIn remain secondary
+contact links. No funding claim belongs on this page.
+
+Edit the owner builder and regenerate, including its reader packets. Validate
+the built Contact page and route evaluator, then inspect desktop and phone
+captures in both themes. Builder/operator credit identifies who assembled and
+directs the system; it is not mathematical authorship or verification.
 
 The route identities are deliberately bidirectional. Destinations are relative
 to the site root; the reverse lookup names the machine contract row that owns
@@ -1776,7 +1786,8 @@ surface. A future direct destination must update both columns and the builder
 contract together; it must not silently repoint an existing route.
 
 The generated Contact page is part of this contract, not an independent copy.
-The `audience-routes` heading, its seven route labels, and their destinations
+The `audience-routes` heading, its three reading rows, four inline email
+intentions, and their destinations
 must be present in `sites/microcosm/docs/contact.html` after every builder run.
 If the source contract or builder contains the rail but the committed page does
 not, classify the page as stale projection and re-enter through the owner

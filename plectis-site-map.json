@@ -6033,7 +6033,7 @@
     "artifact_path": "assets/site-packet.js",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.assets/site-packet.js",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:cbca106e58ae3060ca83f5435b69883f37a83e7b127c10306d46bafe7eff1e3e",
+    "payload_sha256_excluding_identity": "sha256:34b2fabc0a964feadf3fede07743458f76cf295ad85f0eeec42fc5bec3ed0be3",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_site_json_map_packet_v2",
     "source_fingerprint": "7df1d17a5ca1da4df9f569b2ccb2a18b"
@@ -15055,11 +15055,11 @@
       ],
       "title": "Contact",
       "visible_text": {
-        "byte_count": 8991,
+        "byte_count": 8125,
         "format": "markdown",
         "packaging": "full_public_main_content_markdown_without_repeated_global_nav",
         "schema": "microcosm_public_page_visible_text_v1",
-        "text": "Site\n\n### Contact\n\nThe person behind Plectis, and the routes for questions, corrections, and critique.\n\n#### Who built this\n\nMy name is Will Cook. My background is economics. I built this research system with AI coding agents and funded the work myself.\n\nAI agents draft and revise the papers from objectives and review criteria I set. I choose what to release and maintain the research record. Each paper identifies the earlier sources and other contributors it draws on.\n\nFor a small example, try [multiplying two polynomial approximations](https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/enclosure-product-use.md). The question is whether their error bounds guarantee the accuracy of the product. The note credits the original theorem and includes an exact arithmetic checker.\n\nI am clearly not a mathematician. I try my best to create things that I think of, because it\u2019s fun.\n\nIt started as a private repo built for a trading system. UK financial regulation meant that seemed too hairy a path to go down without more guidance, but by then I had already built a large financial database, which I probably can\u2019t release. This was before I had even used Claude Code.\n\nI then discovered coding agent apps, and it all changed. I spent months and months building whatever I could come up with. I developed a doctrine for my agents, and built a frontend that would evolve with the backend to be able to see what was happening in the system.\n\nI realised I couldn\u2019t release the entire thing, so I abandoned what I deemed risky and focused on building a new system, Plectis, that would let me showcase cross-sections of the system.\n\nI stopped vibe-mathing and focused on trying to build AI systems, as I realised systems can do a much better job than I could at doing the most abstract repeatable tasks, and in organising work done, and ultimately in directing and planning the efforts of AI at any given moment.\n\nThen I picked eight Erd\u0151s problems. I didn\u2019t expect to be able to solve them, the point was the journey getting there and what you can learn from it, so every no-go and failed route gets written down where the next person can use it.\n\nIn September a lot of mathematicians wrote about AI and mathematics, and a lot of it lands on the point I started from, that getting a result checked is not the same as understanding it. [De Toffoli and Duede](https://terrytao.wordpress.com/2026/09/12/after-math/) separate a logical proof, which Lean can certify, from an intelligible one that people can understand and build on. [Henry Cohn](https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/) calls unexplained AI proofs technical debt, and asks whoever pushed the button to take responsibility for the result, talk to people in the field and shed light on how it was found. [Bryna Kra](https://terrytao.wordpress.com/2026/09/13/deep-theorems-were-scarce-and-difficult-and-so-became-an-effective-mechanism-to-identify-deep-thought-ai-has-broken-this-system/) wants authors who can explain a proof\u2019s mechanism and how they got there, with discovery, proof, formalisation and explanation credited separately. [Daniel Litt](https://www.daniellitt.com/blog/2026/9/13/a-beginning-for-mathematics/) argues that talks now show understanding better than papers do, and that working out what is interesting is the community\u2019s job. [Grant Sanderson](https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/) points out that an AI proof arrives with its explanation still to be written, and no proof assistant will ever check that part. [Terence Tao](https://mathstodon.xyz/@tao/117237320796901560) says the scarce thing now is a promising problem, along with knowing which nearby problems are easy, hard or out of reach. And the [AGMAI recommendations](https://agmai.org/general-sep29/) of 29 September ask AI labs that release mathematics nobody yet understands to cite related work, write it up as a normal paper, formalise it as far as possible, with a Comparator challenge and a formalization.yaml, or state its formalization status if doing that would cause unacceptable delays, and say how AI was used and what it tried and failed.\n\nSo that\u2019s basically what I\u2019ve been trying to build as a lay person. Creating a Lean corpus is one thing, but what I think is my main contribution is the pipeline that distils it into papers that try to avoid the common pitfalls of AI-written papers, like just dropping Lean bombs: Lean for the logical part, a short paper for the intelligible part, a long paper for the routes that failed and how hard each nearby question turned out to be, and seminar-style videos we\u2019re trying to automate, because a talk shows whether something is understood. It\u2019s more of a proof of concept than me claiming I understand the mathematics deeply enough to explain it. If someone unknown with no understanding can get even part of the way, it\u2019s an example of what an expert could do with the same tools. I\u2019m not presupposing any of it is good, which is why the claims link to their evidence and why I need people who know the field to tell me what\u2019s wrong.\n\nHuman mathematicians are meant to provide the direction. I\u2019ve been struggling to get it, so a lot of this is me seeing how far you can get without it. Ideally a mathematician glances through, finds an idea worth their time, and either works on it themselves or emails me a direction, and we take that as the seed and get agents to attack it, given all of the failed routes and the short paper as it stands. When someone has told me what was wrong, it changed the work, and the [credit ledger](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_LEDGER.md) lists every case, with names withheld until each person says they\u2019re happy to be named.\n\nMy biggest problem has been that nobody with expertise can really judge the entire thing, because it spans so many domains.\n\nYou will get the credit. I just want my system used.\n\nThank you for your time and interest.\n\nBuilder and operator credit is not mathematical authorship. The cited Lean sources, papers, claim registry, and receipts carry mathematical authority; the papers and proof records name contributors. The University of Bristol has no affiliation with this work. This public record is published so it can be inspected and corrected.\n\n#### Choose a route\n\nDifferent readers need different next steps. These are direct routes into inspection, correction, use, and serious discussion; they are not endorsements, a funding solicitation, or a promise that every enquiry can be accepted.\n\n[**Inspect or verify a claim** Start with the public evidence classes, source links, and stated claim limits. Inspect](docs/evidence.html) [**Clone or reproduce the public slice** Use the source, license, quickstart, and replay routes for a cold local check. Reproduce](docs/source.html) [**Use or adapt the public source** Read the license and source boundary before reusing the released material in another project. Reuse](docs/source.html#license) **Suggest a correction or critique** Send a concrete page, file, claim, or assumption that needs checking. Correct **Collaborate or arrange a research review** Describe the relevant background, question, and bounded route you want to inspect together. Discuss **Talk about the work** A call or an email about any part of the work. Talk **Discuss a partnership or license** Start with the source and license posture, then describe the use or partnership you have in mind. Enquire\n\n#### Get in touch\n\n**Email (personal, always works)** williamwkcook@gmail.com, for questions, feedback, or anything you think I have got wrong. Send **Email (University of Bristol)** gj23368@bristol.ac.uk. I may not keep access to this one. Copy the Gmail address if you use it. Send [**Software bugs and documentation** Report something broken or unclear in the public software or this site. Open](https://github.com/wcook04/plectis/issues) [**Mathematics and proof code** Report a problem with a mathematical claim, paper, or Lean proof. Open](https://github.com/wcook04/plectis-erdos/issues) [**Repository discussions** Public questions, critique, or collaboration. Open](https://github.com/wcook04/plectis/discussions) [**LinkedIn** Will Cook, who builds and maintains Plectis. Open](https://www.linkedin.com/in/will-cook-278127234/) [**Security issues** The private reporting route for anything security-shaped. Open](docs/vulnerability-disclosure.html)\n\n#### Follow updates\n\nThere is no mailing list, newsletter provider, or signup form for Plectis at the moment. Follow public changes through the generated feed or repository surfaces.\n\n[**Follow updates** Generated feed, GitHub Watch route, releases route, and discussions route. Open](docs/updates.html) [**Atom feed** A static machine-readable feed generated from the public narrative owner. Open](updates.xml)"
+        "text": "### Contact\n\nQuestions, corrections or an idea to work on together.\n\n#### Get in touch\n\nEmail me at williamwkcook@gmail.com. If something looks wrong, send the page, claim or file and what you think needs checking.\n\nFor a public report about a paper or Lean proof, use [the mathematics issue tracker](https://github.com/wcook04/plectis-erdos/issues). Please report security issues through the [private reporting route](docs/vulnerability-disclosure.html).\n\n#### Choose a route\n\n[**Inspect or verify a claim** The mathematics, with links to papers, Lean proofs and claim limits. Read](maths/index.html) [**Clone or reproduce the mathematics** Source files and build instructions in the mathematics repository. GitHub](https://github.com/wcook04/plectis-erdos) [**Use or adapt the public source** Check the license for the material you want to use. Read](docs/source.html#license)\n\nYou can also email to suggest a correction or critique, collaborate or arrange a research review, talk about the work, or discuss a partnership or license.\n\n#### Who built this\n\nMy name is Will Cook. My background is economics. I built this research system with AI coding agents and funded the work myself.\n\nAI agents draft and revise the papers from objectives and review criteria I set. I choose what to release and maintain the research record. Each paper identifies the earlier sources and other contributors it draws on.\n\nI am clearly not a mathematician. I try my best to create things that I think of, because it\u2019s fun. I need people who know the field to tell me what\u2019s wrong, or suggest a direction worth pursuing.\n\nFor a small example, try [multiplying two polynomial approximations](https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/enclosure-product-use.md). The question is whether their error bounds guarantee the accuracy of the product. The note credits the original theorem and includes an exact arithmetic checker.\n\nMore background: how I got here\n\nIt started as a private repo built for a trading system. UK financial regulation meant that seemed too hairy a path to go down without more guidance, but by then I had already built a large financial database, which I probably can\u2019t release. This was before I had even used Claude Code.\n\nI then discovered coding agent apps, and it all changed. I spent months and months building whatever I could come up with. I developed a doctrine for my agents, and built a frontend that would evolve with the backend to be able to see what was happening in the system.\n\nI realised I couldn\u2019t release the entire thing, so I abandoned what I deemed risky and focused on building a new system, Plectis, that would let me showcase cross-sections of the system.\n\nI stopped vibe-mathing and focused on trying to build AI systems, as I realised systems can do a much better job than I could at doing the most abstract repeatable tasks, and in organising work done, and ultimately in directing and planning the efforts of AI at any given moment.\n\nThen I picked eight Erd\u0151s problems. I didn\u2019t expect to be able to solve them, the point was the journey getting there and what you can learn from it, so every no-go and failed route gets written down where the next person can use it.\n\nIn September a lot of mathematicians wrote about AI and mathematics, and a lot of it lands on the point I started from, that getting a result checked is not the same as understanding it. [De Toffoli and Duede](https://terrytao.wordpress.com/2026/09/12/after-math/) separate a logical proof, which Lean can certify, from an intelligible one that people can understand and build on. [Henry Cohn](https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/) calls unexplained AI proofs technical debt, and asks whoever pushed the button to take responsibility for the result, talk to people in the field and shed light on how it was found. [Bryna Kra](https://terrytao.wordpress.com/2026/09/13/deep-theorems-were-scarce-and-difficult-and-so-became-an-effective-mechanism-to-identify-deep-thought-ai-has-broken-this-system/) wants authors who can explain a proof\u2019s mechanism and how they got there, with discovery, proof, formalisation and explanation credited separately. [Daniel Litt](https://www.daniellitt.com/blog/2026/9/13/a-beginning-for-mathematics/) argues that talks now show understanding better than papers do, and that working out what is interesting is the community\u2019s job. [Grant Sanderson](https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/) points out that an AI proof arrives with its explanation still to be written, and no proof assistant will ever check that part. [Terence Tao](https://mathstodon.xyz/@tao/117237320796901560) says the scarce thing now is a promising problem, along with knowing which nearby problems are easy, hard or out of reach. And the [AGMAI recommendations](https://agmai.org/general-sep29/) of 29 September ask AI labs that release mathematics nobody yet understands to cite related work, write it up as a normal paper, formalise it as far as possible, with a Comparator challenge and a formalization.yaml, or state its formalization status if doing that would cause unacceptable delays, and say how AI was used and what it tried and failed.\n\nSo that\u2019s basically what I\u2019ve been trying to build as a lay person. Creating a Lean corpus is one thing, but what I think is my main contribution is the pipeline that distils it into papers that try to avoid the common pitfalls of AI-written papers, like just dropping Lean bombs: Lean for the logical part, a short paper for the intelligible part, a long paper for the routes that failed and how hard each nearby question turned out to be, and seminar-style videos we\u2019re trying to automate, because a talk shows whether something is understood. It\u2019s more of a proof of concept than me claiming I understand the mathematics deeply enough to explain it. If someone unknown with no understanding can get even part of the way, it\u2019s an example of what an expert could do with the same tools. I\u2019m not presupposing any of it is good, which is why the claims link to their evidence and why I need people who know the field to tell me what\u2019s wrong.\n\nHuman mathematicians are meant to provide the direction. I\u2019ve been struggling to get it, so a lot of this is me seeing how far you can get without it. Ideally a mathematician glances through, finds an idea worth their time, and either works on it themselves or emails me a direction, and we take that as the seed and get agents to attack it, given all of the failed routes and the short paper as it stands. When someone has told me what was wrong, it changed the work, and the [credit ledger](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_LEDGER.md) lists every case, with names withheld until each person says they\u2019re happy to be named.\n\nMy biggest problem has been that nobody with expertise can really judge the entire thing, because it spans so many domains.\n\nYou will get the credit. I just want my system used.\n\nThank you for your time and interest.\n\nBuilder and operator credit is not mathematical authorship. The cited Lean sources, papers, claim registry, and receipts carry mathematical authority; the papers and proof records name contributors. The University of Bristol has no affiliation with this work. This public record is published so it can be inspected and corrected.\n\n#### Follow updates\n\n[Watch the mathematics repository on GitHub](https://github.com/wcook04/plectis-erdos) for source changes. The [site updates page](docs/updates.html) and [Atom feed](updates.xml) carry published site announcements.\n\nOther ways to reach me: [LinkedIn](https://www.linkedin.com/in/will-cook-278127234/) or gj23368@bristol.ac.uk. I may not keep access to the Bristol address, so copy Gmail if you use it.\n\nEarlier software: [bugs and documentation](https://github.com/wcook04/plectis/issues), [discussions](https://github.com/wcook04/plectis/discussions), and [evidence and checks](docs/evidence.html)."
       }
     },
     {
@@ -20578,7 +20578,7 @@
               "page": "paper-module-batch8-compliance-pipeline-capsule.html"
             }
           ],
-          "total_occurrences": 852
+          "total_occurrences": 851
         },
         "visible_text_byte_count": 786
       },
@@ -21921,7 +21921,7 @@
               "page": "paper-module-generated-projection-drift-runtime.html"
             }
           ],
-          "total_occurrences": 2153
+          "total_occurrences": 2154
         },
         "visible_text_byte_count": 754
       },
@@ -22170,7 +22170,7 @@
               "page": "paper-module-doctrine-fact-claim-audit.html"
             }
           ],
-          "total_occurrences": 2091
+          "total_occurrences": 2090
         },
         "visible_text_byte_count": 853
       },
@@ -23327,7 +23327,7 @@
           "top_page": "contact.html",
           "top_pages": [
             {
-              "count": 2,
+              "count": 1,
               "page": "contact.html"
             },
             {
@@ -23335,7 +23335,7 @@
               "page": "open-questions.html"
             }
           ],
-          "total_occurrences": 3
+          "total_occurrences": 2
         },
         "visible_text_byte_count": 1033
       },
@@ -35033,7 +35033,7 @@
               "page": "coding-agents.html"
             },
             {
-              "count": 2,
+              "count": 3,
               "page": "contact.html"
             },
             {
@@ -35041,7 +35041,7 @@
               "page": "index.html"
             }
           ],
-          "total_occurrences": 59
+          "total_occurrences": 60
         },
         "visible_text_byte_count": 797
       },
@@ -36700,7 +36700,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 24,
+          "page_count": 23,
           "top_page": "paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
           "top_pages": [
             {
@@ -36728,7 +36728,7 @@
               "page": "area-formal-math.html"
             }
           ],
-          "total_occurrences": 52
+          "total_occurrences": 51
         },
         "visible_text_byte_count": 816
       },
@@ -37729,18 +37729,18 @@
             },
             {
               "count": 4,
-              "page": "contact.html"
-            },
-            {
-              "count": 4,
               "page": "paper-module-batch5-authority-systems-capsule.html"
             },
             {
               "count": 4,
               "page": "paper-module-world-model-projection-drift-control-room.html"
+            },
+            {
+              "count": 3,
+              "page": "paper-module-agent-route-observability-runtime.html"
             }
           ],
-          "total_occurrences": 94
+          "total_occurrences": 91
         },
         "visible_text_byte_count": 876
       },
@@ -39904,7 +39904,7 @@
               "page": "paper-module-formal-math-lean-proof-witness.html"
             }
           ],
-          "total_occurrences": 922
+          "total_occurrences": 923
         },
         "visible_text_byte_count": 839
       },
@@ -41461,7 +41461,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 15,
+          "page_count": 14,
           "top_page": "lineage.html",
           "top_pages": [
             {
@@ -41489,7 +41489,7 @@
               "page": "architecture.html"
             }
           ],
-          "total_occurrences": 23
+          "total_occurrences": 22
         },
         "visible_text_byte_count": 931
       },
@@ -42002,7 +42002,7 @@
               "page": "papers.html"
             },
             {
-              "count": 4,
+              "count": 9,
               "page": "contact.html"
             },
             {
@@ -42018,7 +42018,7 @@
               "page": "source.html"
             }
           ],
-          "total_occurrences": 48
+          "total_occurrences": 53
         },
         "visible_text_byte_count": 877
       },
@@ -46886,7 +46886,7 @@
               "page": "doctrine.html"
             },
             {
-              "count": 12,
+              "count": 13,
               "page": "contact.html"
             },
             {
@@ -46894,7 +46894,7 @@
               "page": "open-questions.html"
             }
           ],
-          "total_occurrences": 314
+          "total_occurrences": 315
         },
         "visible_text_byte_count": 1057
       },
@@ -50907,7 +50907,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 121,
+          "page_count": 120,
           "top_page": "rules-and-ideas.html",
           "top_pages": [
             {
@@ -50935,7 +50935,7 @@
               "page": "paper-module-derived-fact-provider-runtime.html"
             }
           ],
-          "total_occurrences": 692
+          "total_occurrences": 691
         },
         "visible_text_byte_count": 818
       },
@@ -51420,7 +51420,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 8,
+          "page_count": 7,
           "top_page": "coding-agents.html",
           "top_pages": [
             {
@@ -51437,18 +51437,18 @@
             },
             {
               "count": 1,
-              "page": "contact.html"
-            },
-            {
-              "count": 1,
               "page": "lineage.html"
             },
             {
               "count": 1,
               "page": "open-questions.html"
+            },
+            {
+              "count": 1,
+              "page": "paper-module-batch10-cold-eval-honesty-capsule.html"
             }
           ],
-          "total_occurrences": 16
+          "total_occurrences": 15
         },
         "visible_text_byte_count": 929
       },
@@ -52217,7 +52217,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 100,
+          "page_count": 99,
           "top_page": "paper-module-first-screen-composition-root.html",
           "top_pages": [
             {
@@ -52245,7 +52245,7 @@
               "page": "paper-module-public-reveal-walkthrough.html"
             }
           ],
-          "total_occurrences": 361
+          "total_occurrences": 360
         },
         "visible_text_byte_count": 712
       },
@@ -53527,15 +53527,15 @@
             },
             {
               "count": 5,
-              "page": "contact.html"
-            },
-            {
-              "count": 5,
               "page": "updates.html"
             },
             {
               "count": 4,
               "page": "component-batch12-release-claim-language-gate.html"
+            },
+            {
+              "count": 4,
+              "page": "contact.html"
             },
             {
               "count": 3,
@@ -53546,7 +53546,7 @@
               "page": "architecture.html"
             }
           ],
-          "total_occurrences": 47
+          "total_occurrences": 46
         },
         "visible_text_byte_count": 789
       },
@@ -53746,7 +53746,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 95,
+          "page_count": 94,
           "top_page": "rules-and-ideas.html",
           "top_pages": [
             {
@@ -53774,7 +53774,7 @@
               "page": "paper-module-research-replication-rubric-artifact-replay.html"
             }
           ],
-          "total_occurrences": 1280
+          "total_occurrences": 1279
         },
         "visible_text_byte_count": 892
       },
@@ -53918,7 +53918,7 @@
               "page": "paper-module-egress-self-compliance-audit.html"
             }
           ],
-          "total_occurrences": 118
+          "total_occurrences": 117
         },
         "visible_text_byte_count": 918
       },
@@ -56886,7 +56886,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 23,
+          "page_count": 22,
           "top_page": "paper-module-macro-projection-import-protocol.html",
           "top_pages": [
             {
@@ -56914,7 +56914,7 @@
               "page": "open-questions.html"
             }
           ],
-          "total_occurrences": 65
+          "total_occurrences": 64
         },
         "visible_text_byte_count": 861
       },
@@ -57220,7 +57220,7 @@
               "page": "paper-module-metabolism-queue-reconciliation.html"
             }
           ],
-          "total_occurrences": 254
+          "total_occurrences": 253
         },
         "visible_text_byte_count": 789
       },
@@ -57347,7 +57347,7 @@
               "page": "paper-module-world-model-projection-drift-control-room.html"
             }
           ],
-          "total_occurrences": 5338
+          "total_occurrences": 5335
         },
         "visible_text_byte_count": 1152
       },
@@ -57468,7 +57468,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 58,
+          "page_count": 59,
           "top_page": "components.html",
           "top_pages": [
             {
@@ -57496,7 +57496,7 @@
               "page": "area-formal-math.html"
             }
           ],
-          "total_occurrences": 105
+          "total_occurrences": 106
         },
         "visible_text_byte_count": 938
       },
@@ -69683,7 +69683,7 @@
       "evidence_profile_record_count": 359,
       "logical_text_byte_count": 4136035,
       "page_count": 220,
-      "page_text_byte_count": 491577,
+      "page_text_byte_count": 490711,
       "paper_module_record_count": 103,
       "public_glossary_record_count": 784,
       "roster_section_count": 3,
@@ -198771,7 +198771,7 @@
                 "page": "paper-module-batch8-compliance-pipeline-capsule.html"
               }
             ],
-            "total_occurrences": 852
+            "total_occurrences": 851
           },
           "visible_text_byte_count": 786
         },
@@ -200114,7 +200114,7 @@
                 "page": "paper-module-generated-projection-drift-runtime.html"
               }
             ],
-            "total_occurrences": 2153
+            "total_occurrences": 2154
           },
           "visible_text_byte_count": 754
         },
@@ -200363,7 +200363,7 @@
                 "page": "paper-module-doctrine-fact-claim-audit.html"
               }
             ],
-            "total_occurrences": 2091
+            "total_occurrences": 2090
           },
           "visible_text_byte_count": 853
         },
@@ -201520,7 +201520,7 @@
             "top_page": "contact.html",
             "top_pages": [
               {
-                "count": 2,
+                "count": 1,
                 "page": "contact.html"
               },
               {
@@ -201528,7 +201528,7 @@
                 "page": "open-questions.html"
               }
             ],
-            "total_occurrences": 3
+            "total_occurrences": 2
           },
           "visible_text_byte_count": 1033
         },
@@ -213226,7 +213226,7 @@
                 "page": "coding-agents.html"
               },
               {
-                "count": 2,
+                "count": 3,
                 "page": "contact.html"
               },
               {
@@ -213234,7 +213234,7 @@
                 "page": "index.html"
               }
             ],
-            "total_occurrences": 59
+            "total_occurrences": 60
           },
           "visible_text_byte_count": 797
         },
@@ -214893,7 +214893,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 24,
+            "page_count": 23,
             "top_page": "paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
             "top_pages": [
               {
@@ -214921,7 +214921,7 @@
                 "page": "area-formal-math.html"
               }
             ],
-            "total_occurrences": 52
+            "total_occurrences": 51
           },
           "visible_text_byte_count": 816
         },
@@ -215922,18 +215922,18 @@
               },
               {
                 "count": 4,
-                "page": "contact.html"
-              },
-              {
-                "count": 4,
                 "page": "paper-module-batch5-authority-systems-capsule.html"
               },
               {
                 "count": 4,
                 "page": "paper-module-world-model-projection-drift-control-room.html"
+              },
+              {
+                "count": 3,
+                "page": "paper-module-agent-route-observability-runtime.html"
               }
             ],
-            "total_occurrences": 94
+            "total_occurrences": 91
           },
           "visible_text_byte_count": 876
         },
@@ -218097,7 +218097,7 @@
                 "page": "paper-module-formal-math-lean-proof-witness.html"
               }
             ],
-            "total_occurrences": 922
+            "total_occurrences": 923
           },
           "visible_text_byte_count": 839
         },
@@ -219654,7 +219654,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 15,
+            "page_count": 14,
             "top_page": "lineage.html",
             "top_pages": [
               {
@@ -219682,7 +219682,7 @@
                 "page": "architecture.html"
               }
             ],
-            "total_occurrences": 23
+            "total_occurrences": 22
           },
           "visible_text_byte_count": 931
         },
@@ -220195,7 +220195,7 @@
                 "page": "papers.html"
               },
               {
-                "count": 4,
+                "count": 9,
                 "page": "contact.html"
               },
               {
@@ -220211,7 +220211,7 @@
                 "page": "source.html"
               }
             ],
-            "total_occurrences": 48
+            "total_occurrences": 53
           },
           "visible_text_byte_count": 877
         },
@@ -225079,7 +225079,7 @@
                 "page": "doctrine.html"
               },
               {
-                "count": 12,
+                "count": 13,
                 "page": "contact.html"
               },
               {
@@ -225087,7 +225087,7 @@
                 "page": "open-questions.html"
               }
             ],
-            "total_occurrences": 314
+            "total_occurrences": 315
           },
           "visible_text_byte_count": 1057
         },
@@ -229100,7 +229100,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 121,
+            "page_count": 120,
             "top_page": "rules-and-ideas.html",
             "top_pages": [
               {
@@ -229128,7 +229128,7 @@
                 "page": "paper-module-derived-fact-provider-runtime.html"
               }
             ],
-            "total_occurrences": 692
+            "total_occurrences": 691
           },
           "visible_text_byte_count": 818
         },
@@ -229613,7 +229613,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 8,
+            "page_count": 7,
             "top_page": "coding-agents.html",
             "top_pages": [
               {
@@ -229630,18 +229630,18 @@
               },
               {
                 "count": 1,
-                "page": "contact.html"
-              },
-              {
-                "count": 1,
                 "page": "lineage.html"
               },
               {
                 "count": 1,
                 "page": "open-questions.html"
+              },
+              {
+                "count": 1,
+                "page": "paper-module-batch10-cold-eval-honesty-capsule.html"
               }
             ],
-            "total_occurrences": 16
+            "total_occurrences": 15
           },
           "visible_text_byte_count": 929
         },
@@ -230410,7 +230410,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 100,
+            "page_count": 99,
             "top_page": "paper-module-first-screen-composition-root.html",
             "top_pages": [
               {
@@ -230438,7 +230438,7 @@
                 "page": "paper-module-public-reveal-walkthrough.html"
               }
             ],
-            "total_occurrences": 361
+            "total_occurrences": 360
           },
           "visible_text_byte_count": 712
         },
@@ -231720,15 +231720,15 @@
               },
               {
                 "count": 5,
-                "page": "contact.html"
-              },
-              {
-                "count": 5,
                 "page": "updates.html"
               },
               {
                 "count": 4,
                 "page": "component-batch12-release-claim-language-gate.html"
+              },
+              {
+                "count": 4,
+                "page": "contact.html"
               },
               {
                 "count": 3,
@@ -231739,7 +231739,7 @@
                 "page": "architecture.html"
               }
             ],
-            "total_occurrences": 47
+            "total_occurrences": 46
           },
           "visible_text_byte_count": 789
         },
@@ -231939,7 +231939,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 95,
+            "page_count": 94,
             "top_page": "rules-and-ideas.html",
             "top_pages": [
               {
@@ -231967,7 +231967,7 @@
                 "page": "paper-module-research-replication-rubric-artifact-replay.html"
               }
             ],
-            "total_occurrences": 1280
+            "total_occurrences": 1279
           },
           "visible_text_byte_count": 892
         },
@@ -232111,7 +232111,7 @@
                 "page": "paper-module-egress-self-compliance-audit.html"
               }
             ],
-            "total_occurrences": 118
+            "total_occurrences": 117
           },
           "visible_text_byte_count": 918
         },
@@ -235079,7 +235079,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 23,
+            "page_count": 22,
             "top_page": "paper-module-macro-projection-import-protocol.html",
             "top_pages": [
               {
@@ -235107,7 +235107,7 @@
                 "page": "open-questions.html"
               }
             ],
-            "total_occurrences": 65
+            "total_occurrences": 64
           },
           "visible_text_byte_count": 861
         },
@@ -235413,7 +235413,7 @@
                 "page": "paper-module-metabolism-queue-reconciliation.html"
               }
             ],
-            "total_occurrences": 254
+            "total_occurrences": 253
           },
           "visible_text_byte_count": 789
         },
@@ -235540,7 +235540,7 @@
                 "page": "paper-module-world-model-projection-drift-control-room.html"
               }
             ],
-            "total_occurrences": 5338
+            "total_occurrences": 5335
           },
           "visible_text_byte_count": 1152
         },
@@ -235661,7 +235661,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 58,
+            "page_count": 59,
             "top_page": "components.html",
             "top_pages": [
               {
@@ -235689,7 +235689,7 @@
                 "page": "area-formal-math.html"
               }
             ],
-            "total_occurrences": 105
+            "total_occurrences": 106
           },
           "visible_text_byte_count": 938
         },
@@ -283373,7 +283373,7 @@
         "title": "Source & license"
       },
       {
-        "byte_count": 8991,
+        "byte_count": 8125,
         "content_refs": {
           "component_refs": [],
           "family_id": null
