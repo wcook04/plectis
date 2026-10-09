@@ -3,18 +3,36 @@
   "films": [
     {
       "id": "introduction",
-      "title": "Introduction to Plectis",
+      "title": "Plectis: introduction",
       "label": "Introduction",
-      "description": "Why I built the system, and how the mathematics and software fit together.",
+      "description": "I introduce Plectis and show the papers, map and software I use for mathematical research with AI agents.",
       "role": "introduction",
       "links": [],
-      "release": null
+      "release": {
+        "edition_sha256": "c74c689b5ce5113506f13a8a7084d72b6596d5153770f729addf74699e79a3cd",
+        "approved_edition_sha256": "c74c689b5ce5113506f13a8a7084d72b6596d5153770f729addf74699e79a3cd",
+        "hosted_edition_sha256": "c74c689b5ce5113506f13a8a7084d72b6596d5153770f729addf74699e79a3cd",
+        "thumbnail_edition_sha256": "c74c689b5ce5113506f13a8a7084d72b6596d5153770f729addf74699e79a3cd",
+        "transcript_edition_sha256": "c74c689b5ce5113506f13a8a7084d72b6596d5153770f729addf74699e79a3cd",
+        "publication_authorized": true,
+        "url": "https://youtu.be/182gyetRry8",
+        "upload_date": "2026-10-09",
+        "duration_seconds": 180,
+        "thumbnail": "assets/films/introduction-native-c74c689b5ce5.jpg",
+        "thumbnail_sha256": "8134a5652d03ade024e55297446f7b4d915c06369d483cc85d4cc0b6284e3949",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "I introduce Plectis and show the papers, map and software I use for mathematical research with AI agents.",
+          "sha256": "098a7b84d09e62620e80c9898562ec8a82199b9f48fd13b883e3525697bfb530"
+        },
+        "chapters": []
+      }
     },
     {
       "id": "mathematics",
-      "title": "An irrationality criterion for Erdős #257",
+      "title": "Erdős #257: the reciprocal-summability criterion",
       "label": "Erdős #257",
-      "description": "The reciprocal-summability argument, with the statement and its source. The paper develops broader criteria; the unrestricted problem remains open.",
+      "description": "The reciprocal-summability criterion for Erdős #257, with the paper and Lean proof. The unrestricted problem remains open.",
       "role": "featured",
       "links": [
         {
@@ -26,34 +44,131 @@
           "href": "maths/papers/erdos-257-mersenne-support-subseries.html#res:weighted-support"
         }
       ],
-      "release": null
+      "release": {
+        "edition_sha256": "f19e65b3fb67c80dde20e5e2728d34211c86da72a1b3686034d03cea9366d898",
+        "approved_edition_sha256": "f19e65b3fb67c80dde20e5e2728d34211c86da72a1b3686034d03cea9366d898",
+        "hosted_edition_sha256": "f19e65b3fb67c80dde20e5e2728d34211c86da72a1b3686034d03cea9366d898",
+        "thumbnail_edition_sha256": "f19e65b3fb67c80dde20e5e2728d34211c86da72a1b3686034d03cea9366d898",
+        "transcript_edition_sha256": "f19e65b3fb67c80dde20e5e2728d34211c86da72a1b3686034d03cea9366d898",
+        "publication_authorized": true,
+        "url": "https://youtu.be/3zJkG-kY4qg",
+        "upload_date": "2026-10-08",
+        "duration_seconds": 840,
+        "thumbnail": "assets/films/mathematics-native-f19e65b3fb67.png",
+        "thumbnail_sha256": "c8cbf4168e2e9dba17ed59abb60bd8cb97ed40efc5007663a55f0dca1e532391",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "The reciprocal-summability criterion for Erdős #257, with the paper and Lean proof. The unrestricted problem remains open.",
+          "sha256": "f18aaffe0bea53e8017ecb21ae2c30164604c67346e7033f7a6c0a4519c86bd9"
+        },
+        "chapters": []
+      }
     },
     {
       "id": "codemap",
-      "title": "CodeMap: inspecting the research system",
+      "title": "CodeMap demonstration",
       "label": "CodeMap",
-      "description": "Following files, descriptions and connections in my private research system.",
+      "description": "I use CodeMap to view Python files, their descriptions and connections in my private research system.",
       "role": "supporting",
       "links": [],
-      "release": null
+      "release": {
+        "edition_sha256": "3162e9a3f36abfc2466c0e99c39f9a76f704555ef80d5399b3d0c31c4de6bf74",
+        "approved_edition_sha256": "3162e9a3f36abfc2466c0e99c39f9a76f704555ef80d5399b3d0c31c4de6bf74",
+        "hosted_edition_sha256": "3162e9a3f36abfc2466c0e99c39f9a76f704555ef80d5399b3d0c31c4de6bf74",
+        "thumbnail_edition_sha256": "3162e9a3f36abfc2466c0e99c39f9a76f704555ef80d5399b3d0c31c4de6bf74",
+        "transcript_edition_sha256": "3162e9a3f36abfc2466c0e99c39f9a76f704555ef80d5399b3d0c31c4de6bf74",
+        "publication_authorized": true,
+        "url": "https://youtu.be/8yk8rmhk02U",
+        "upload_date": "2026-10-08",
+        "duration_seconds": 204,
+        "thumbnail": "assets/films/codemap-native-3162e9a3f36a.png",
+        "thumbnail_sha256": "1a1b71034761534d1935e040041c064ac4ceef4b116d6f61a69707250b0ea235",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "I use CodeMap to view Python files, their descriptions and connections in my private research system.",
+          "sha256": "1baf1e1a67cb197e58f6c8e9a3dc79cce7deb996a37a04eb81492671dedbdcde"
+        },
+        "chapters": []
+      }
     },
     {
       "id": "agent-trace",
-      "title": "Agent Trace: carrying context into another review",
+      "title": "Agent Trace demonstration",
       "label": "Agent Trace",
-      "description": "Inspecting recorded activity and selecting context for another agent. A demonstration of my private system.",
+      "description": "I inspect recorded agent activity and copy selected context into another conversation for review.",
       "role": "supporting",
       "links": [],
-      "release": null
+      "release": {
+        "edition_sha256": "e5e1c6d94f486638e13484ab34276b59df81a8ffd268f4e2d36bca16d69fb6ce",
+        "approved_edition_sha256": "e5e1c6d94f486638e13484ab34276b59df81a8ffd268f4e2d36bca16d69fb6ce",
+        "hosted_edition_sha256": "e5e1c6d94f486638e13484ab34276b59df81a8ffd268f4e2d36bca16d69fb6ce",
+        "thumbnail_edition_sha256": "e5e1c6d94f486638e13484ab34276b59df81a8ffd268f4e2d36bca16d69fb6ce",
+        "transcript_edition_sha256": "e5e1c6d94f486638e13484ab34276b59df81a8ffd268f4e2d36bca16d69fb6ce",
+        "publication_authorized": true,
+        "url": "https://youtu.be/NEQby2HLz34",
+        "upload_date": "2026-10-08",
+        "duration_seconds": 113,
+        "thumbnail": "assets/films/agent-trace-native-e5e1c6d94f48.png",
+        "thumbnail_sha256": "f2b8a41967fb7d3cb45b9e2a88346c3786a1170c0b8a6179227d752d381ec2a7",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "I inspect recorded agent activity and copy selected context into another conversation for review.",
+          "sha256": "0e0bcd9dc7395eb1549cf3595999dbf8be3331ee907cf5384dbf60750d4fd3e8"
+        },
+        "chapters": []
+      }
     },
     {
       "id": "combined",
-      "title": "Combined walkthrough",
+      "title": "Plectis: mathematics and software",
       "label": "Combined walkthrough",
-      "description": "Selected introduction, mathematics and software demonstrations in one viewing. This overlaps with the separate films; you do not need to watch both.",
+      "description": "The mathematics and software in Plectis. Includes material from the separate films.",
       "role": "combined",
       "links": [],
-      "release": null
+      "release": {
+        "edition_sha256": "fb6964184b5baff80771abdd690c529b0884851acf4ead100aba245cc620ce7d",
+        "approved_edition_sha256": "fb6964184b5baff80771abdd690c529b0884851acf4ead100aba245cc620ce7d",
+        "hosted_edition_sha256": "fb6964184b5baff80771abdd690c529b0884851acf4ead100aba245cc620ce7d",
+        "thumbnail_edition_sha256": "fb6964184b5baff80771abdd690c529b0884851acf4ead100aba245cc620ce7d",
+        "transcript_edition_sha256": "fb6964184b5baff80771abdd690c529b0884851acf4ead100aba245cc620ce7d",
+        "publication_authorized": true,
+        "url": "https://youtu.be/bkHJvRVWtC0",
+        "upload_date": "2026-10-09",
+        "duration_seconds": 1200,
+        "thumbnail": "assets/films/combined-native-fb6964184b5b.jpg",
+        "thumbnail_sha256": "6e8c592970c6cd89e85f74fa8e7a37798c4506f11c2fcb4470f759cb104032ed",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "The mathematics and software in Plectis. Includes material from the separate films.",
+          "sha256": "d7bd797e586ba7729ab05a1ee645c34cd29ceb462146c6ac895d2b8eb40886b3"
+        },
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "Introduction"
+          },
+          {
+            "seconds": 71,
+            "title": "Mathematics"
+          },
+          {
+            "seconds": 825,
+            "title": "Software introduction"
+          },
+          {
+            "seconds": 836,
+            "title": "CodeMap"
+          },
+          {
+            "seconds": 1040,
+            "title": "Agent Trace"
+          },
+          {
+            "seconds": 1153,
+            "title": "Demo Take and closing"
+          }
+        ]
+      }
     }
   ]
 }
