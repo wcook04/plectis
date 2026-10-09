@@ -74,7 +74,7 @@ not start by absorbing the organ inventory. First prove the local entry path
 and the public authority membrane:
 
 1. Read `README.md` for the human map and install mode. In that README, use
-   the `Choose a route` table and `How the result stays honest` before opening
+   the `Choose a starting point` table and `What a passing result means` before opening
    raw receipts or the long organ inventory.
 2. From the repository root, run the bounded cold-clone probe before any
    install step:

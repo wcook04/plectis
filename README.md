@@ -1,18 +1,29 @@
 # Plectis
 
-**Plectis is an experiment in doing research with AI while keeping the work
-understandable, checkable and possible for someone else to continue.** This
-repository is its public Python toolkit: programs and worked examples for
-checking proposed proofs, testing records of agent actions, comparing forecasts,
-keeping generated documents consistent with their sources, and preserving
-work between sessions.
+**Tools for making AI-assisted research easier to inspect and continue.**
+Plectis is a public Python toolkit with programs and worked examples for
+checking proofs, testing records of agent actions, comparing forecasts and
+keeping generated documents consistent with their sources.
 
-The tools come from a larger research workbench built by Will Cook with AI
-coding agents. You can run the public examples independently, study how they
-work and adapt useful parts. The mathematical papers and proofs live in the
-separate [Plectis Erdős repository](https://github.com/wcook04/plectis-erdos).
+> **Looking for the mathematics?** Start with
+> [**Plectis Erdős →**](https://github.com/wcook04/plectis-erdos), the main research
+> repository for the Lean proofs, papers and open questions.
+> [Read the guide](https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md)
+> or [explore the mathematics map](https://wcook04.github.io/plectis/maths/universe.html).
 
-[About the project](https://wcook04.github.io/plectis/docs/introduction.html) ·
+This repository contains the earlier software toolkit. You can run its examples
+independently, study how they work and adapt useful parts. The tools come from
+a larger research workbench built by Will Cook with AI coding agents.
+
+<a href="https://wcook04.github.io/plectis/docs/system-map.html">
+  <img src="assets/system-map-dark.png" alt="Plectis system map in dark mode: seven families of software components surround the axioms, principles and failure modes they cite." width="100%">
+</a>
+
+[**Explore the system map →**](https://wcook04.github.io/plectis/docs/system-map.html)
+<br>
+<sub>Components around the rim; the doctrine they cite at the centre. Select a
+component or rule on the website to follow its connections.</sub>
+
 [Worked examples](#see-it-work) · [Quickstart](QUICKSTART.md) ·
 [Documentation](docs/README.md) · [Contributing](CONTRIBUTING.md)
 
@@ -37,7 +48,7 @@ what was tried, check the results and choose a useful next step. Experts can
 contribute a correction or direction without operating the AI themselves.
 
 This toolkit publishes selected parts of that effort. The
-[mathematics repository](https://github.com/wcook04/plectis-erdos) holds the
+[mathematics repository](https://github.com/wcook04/plectis-erdos) contains the
 papers, proofs and open questions; the [website](https://wcook04.github.io/plectis/)
 explains both. The larger private workbench shown in the videos is separate
 from this clone. The [project overview](docs/overview.md) explains how the
@@ -91,15 +102,15 @@ records against rules. An entry in the catalogue is not a promise that every
 example can run in every environment: its page lists required tools and source
 files, and the runner reports unavailable requirements.
 
-| If you are interested in… | Open this area | Example |
-|---|---|---|
-| Getting oriented in an unfamiliar project | [Getting started](ORGANS.md#entry--reveal) | Check that a suggested first step names an available command, document and result file. |
-| Finding the right files and tools | [Maps and navigation](ORGANS.md#architecture--navigation) | Compare selected files and components with an expected selection. |
-| Working with formal proofs | [Mathematics and proof tools](ORGANS.md#formal-math--proof) | Try proof steps on small supplied theorems and ask Lean whether they are accepted. |
-| Checking agent behaviour | [Agent reliability and safety](ORGANS.md#agent-reliability--safety-replays) | Test records involving prompt injection, poisoned memory or unsupported completion claims. |
-| Evaluating research methods | [Research and forecasting](ORGANS.md#research--science-replays) | Compare forecast errors on synthetic data using statistical resampling. |
-| Keeping generated documents consistent with their sources | [Source and generated-file checks](ORGANS.md#import-projection--drift) | Compare file fingerprints and check that declared outputs exist. |
-| Resuming and coordinating work | [Work and continuity](ORGANS.md#work-landing--continuity) | Check that a completed-work record names the changes, validation results and commits. |
+| Area | Try it for… |
+|---|---|
+| [Entry and orientation](ORGANS.md#entry--reveal) | Checking that a suggested first step names an available command and result file. |
+| [Architecture and navigation](ORGANS.md#architecture--navigation) | Comparing a selection of files and components with an expected selection. |
+| [Mathematics and proof](ORGANS.md#formal-math--proof) | Trying proof steps on supplied theorems and asking Lean to check them. |
+| [Agent reliability and safety](ORGANS.md#agent-reliability--safety-replays) | Testing records of prompt injection, poisoned memory or completion claims. |
+| [Research and forecasting](ORGANS.md#research--science-replays) | Comparing forecast errors on synthetic data. |
+| [Source and generated files](ORGANS.md#import-projection--drift) | Comparing file fingerprints and checking that declared outputs exist. |
+| [Work and continuity](ORGANS.md#work-landing--continuity) | Checking that a work record names its changes, validation results and commits. |
 
 You can [browse the components on the website](https://wcook04.github.io/plectis/docs/components.html)
 or list and search their descriptions from the terminal:
@@ -188,21 +199,42 @@ The older `microcosm` command remains an alias.
 Start with the guides and examples. The large reference files are indexes for
 looking things up; you do not need to read them all before trying a component.
 
-| Location | What belongs here |
-|---|---|
-| [Documentation](docs/README.md), [quickstart](QUICKSTART.md) | Explanations, worked guides and setup instructions. |
-| `src/plectis/`, `src/microcosm_core/` | Public command entry points and Python implementation. The older import name is retained for compatibility. |
-| `src/microcosm_core/organs/` | Individual component implementations; “organ” is the older name for a component. |
-| [Examples](examples/README.md), [fixtures](fixtures/README.md), `tests/` | Example inputs, prepared test cases and executable checks. |
-| `core/` | Machine-readable component lists and configuration. |
-| `atlas/`, `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md` | Generated reference maps built from the component records. |
-| `standards/`, `skills/`, `paper_modules/` | Detailed requirements, procedures and component explanations. |
-| [Paper source](paper/README.md), [paper collection](docs/papers/README.md) | The toolkit paper's source and a guide to the wider paper collection. |
-| [Recorded results](receipts/README.md) | Recorded example results shipped with this version. Your own runs belong in `.microcosm/`. |
-| `scripts/`, `Makefile`, `.github/workflows/` | Documentation builders, local checks and continuous integration. |
+```text
+plectis/
+├── src/
+│   ├── plectis/           Public command entry points
+│   └── microcosm_core/    Python implementation; components in organs/
+├── docs/                 Guides, reference, maintainer notes and paper guide
+├── examples/             Runnable examples and checked source bundles
+├── fixtures/             Prepared inputs and expected results
+├── tests/                Executable checks
+├── core/                 Component registry and configuration
+├── atlas/                Generated maps and indexes
+├── standards/            Requirements checked by the tools
+├── skills/               Procedures for agents
+├── paper_modules/        Component explanations
+├── paper/                Toolkit paper source
+├── receipts/             Recorded example results
+├── assets/               README and social preview images
+└── scripts/              Builders, validation and release tools
+```
+
+Start with the [examples](examples/README.md); use the
+[fixtures](fixtures/README.md) and [recorded results](receipts/README.md) to
+understand their checks. Your own runs go in the ignored `.microcosm/` directory.
+The [paper guide](docs/papers/README.md) distinguishes the toolkit paper's
+[source](paper/README.md) from the main research papers.
+
+The root `ORGANS.md`, `ARCHITECTURE.md` and `AGENT_ROUTES.md` are generated
+indexes. `AXIOMS.md`, `PRINCIPLES.md` and `ANTI_PRINCIPLES.md` contain the
+[doctrine shown in the map](docs/reference/README.md#the-doctrine-in-the-map).
+`Makefile` and `.github/workflows/` run the checks. The
+[maintainer architecture guide](docs/maintainers/architecture.md) identifies
+which files to edit and which builders to run.
 
 The [documentation index](docs/README.md) separates human guides, reference
-maps and maintainer instructions. Open a directory’s README for its starting points. The [terminology guide](docs/reference/terminology.md)
+maps and maintainer instructions. Directory READMEs explain the examples and
+reference collections. The [terminology guide](docs/reference/terminology.md)
 translates older names you may encounter in source files.
 
 <a id="how-the-result-stays-honest"></a>
@@ -269,7 +301,7 @@ the public claims; AI coding agents write and maintain most of the code.
 The project was called Microcosm until 21 June 2026. It became Plectis to avoid
 confusion with Southampton's earlier Microcosm hypermedia system, without
 implying endorsement or affiliation. Old names remain in package imports,
-output paths and historical records so existing tools keep working.
+output paths and historical records for compatibility with existing tools.
 
 For private security reports, see [SECURITY.md](SECURITY.md). To cite the
 software, use [CITATION.cff](CITATION.cff). Copyright 2026 William Cook;

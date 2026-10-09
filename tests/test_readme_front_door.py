@@ -21,6 +21,7 @@ MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 # README link destinations that must exist relative to the README directory.
 _LINKED_SIBLINGS = (
+    "assets/system-map-dark.png",
     "plectis-public-system.pdf",
     "docs/guides/hypothesis-handoffs.md",
     "docs/guides/checking-agent-completion.md",
@@ -31,6 +32,7 @@ _LINKED_SIBLINGS = (
     "docs/overview.md",
     "docs/guides/README.md",
     "docs/guides/prompt-injection.md",
+    "docs/reference/README.md",
     "docs/reference/terminology.md",
     "docs/reference/lean-companion.md",
     "docs/maintainers/README.md",
@@ -265,9 +267,8 @@ def test_blocks_former_name_in_hero(tmp_path: Path) -> None:
 
 
 def test_banner_is_optional_but_gated_when_present(tmp_path: Path) -> None:
-    # The real README carries no hero banner (the social card is a GitHub
-    # social-preview asset, not first-screen content). A banner that IS added
-    # back must still satisfy the alt-text discipline.
+    # An additional banner must still satisfy the alt-text discipline,
+    # even when the real README already has a valid map preview.
     root = _front_door_tree(tmp_path)
     _mutate(
         root,

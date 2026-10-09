@@ -18,7 +18,7 @@ PYTHONPATH=src python3 scripts/check_lean_companion_snapshot.py
 
 <!-- The two snapshot/release bullets are maintained by scripts/check_lean_companion_snapshot.py. -->
 
-## Companion project: eight open Erdős problems in Lean 4
+## Companion project: eight Erdős problems in Lean 4
 
 The toolkit’s [mathematics and proof area](../../ORGANS.md#formal-math--proof)
 includes examples drawn from a separate repository containing the Lean proof source and mathematical papers:
