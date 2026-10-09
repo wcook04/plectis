@@ -895,6 +895,9 @@ slot, with no Watch link, duration, transcript, thumbnail or VideoObject.
 Only an authorized release tied to one approved/hosted edition, matching
 thumbnail and transcript edition may supply those surfaces. Missing evidence
 scope must never default to verbatim. Narration is not visual evidence.
+Adjacent films must use visibly distinct representative scenes. Different filenames
+or hashes do not establish visual distinction: compare the actual thumbnails
+at their rendered card sizes before release, especially Introduction and Combined.
 Use semantic presentation roles, not positional selectors: introduction,
 featured Mathematics, CodeMap, Agent Trace, overlapping Combined. The mathematics
 film links the reciprocal-summability result separately from the broader
