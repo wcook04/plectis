@@ -33,7 +33,7 @@
       "source_ref": "main",
       "source_path": "docs/problem_library.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json",
-      "source_sha256": "9691e966935ffb80e75ec2553c29740bf01bf49fe7c8ce83c9ddcd7cfa2dab02",
+      "source_sha256": "db98aa7140986be2e4013a62d9ea6315c09150adf15f260c506b1216d80a2e2f",
       "bytes": 1276704
     },
     {
@@ -51,7 +51,7 @@
       "source_ref": "main",
       "source_path": "docs/paper_lean_coverage.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/paper_lean_coverage.json",
-      "source_sha256": "e46f063f93e1377776d485c9d9e5992ddcc97b1cabcf88e88e7a2df7b55db35d",
+      "source_sha256": "633921ae2018e3e674609382150b4733ae6f071793a1589a1ab7f0b4985878a9",
       "bytes": 1036826
     },
     {
@@ -96,7 +96,7 @@
       "source_ref": "main",
       "source_path": "docs/reading-edition/weighted-257-task.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/weighted-257-task.md",
-      "source_sha256": "12ed3062eed71508123f6851ee1fb9bb31f047f41bb3beebe97d6b9edd9198b9",
+      "source_sha256": "aef833af3cce15890c08c2a96439fe835fe99f20f78beeea7c33129c1ef4e5cd",
       "bytes": 7432
     },
     {
@@ -240,7 +240,7 @@
       "source_ref": "main",
       "source_path": "docs/research-commons/credit-ledger.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/credit-ledger.json",
-      "source_sha256": "f2cf8dd419ea0cf7efbe2136e4b5fc5249ee5cee790d2586a2643bd503221616",
+      "source_sha256": "97047441aeae1b886dae7260e1af7f79e833732be8d039aa646d80a3a03314d6",
       "bytes": 17033
     }
   ]

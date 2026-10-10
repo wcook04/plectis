@@ -29,7 +29,7 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "d42a1d68697473be",
-    "source_sha256": "774cae684af8d05776bb2fa5c66ed7d3e94bca241475cee186be1079383224a8",
+    "source_sha256": "b393a9190d51137fb1ba6d3ba15bb1915219b468de6fe7279cbfaec46abd9b9c",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 739,
@@ -38,8 +38,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "aa77e628958e9bf22fce41e400ab568e17129bd63078988b1aac700e3e694cec",
-    "html_exact_tex_sha256": "19d6204f40eac881975fec1f7114547559dbb5aa0c125a98d49e3e6ce372c536"
+    "html_mathml_sha256": "009ad823ee42fef03b096a77e60f445a3fc5aa6bc7c0f0278f16402c3022b608",
+    "html_exact_tex_sha256": "4a32fca02c7f203668f151e67132dfa8e2e3181102096bfa1abdd68cef539bdc"
   },
   "sections": [
     {
@@ -121,11 +121,6 @@
       "level": 3,
       "anchor": "sec:scalar-limit",
       "label": "Arithmetic compatibility"
-    },
-    {
-      "level": 5,
-      "anchor": "acknowledgements.",
-      "label": "Acknowledgements."
     },
     {
       "level": 2,

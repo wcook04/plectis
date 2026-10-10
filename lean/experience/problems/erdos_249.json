@@ -562,7 +562,7 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
       "renderer_fingerprint": "d42a1d68697473be",
-      "source_sha256": "45531de741b5525accf94e61770819fee824765544f5c1751688321ef5d9cebf",
+      "source_sha256": "df848f1a20fab00a6a062234582b65feddc3dfddc3964a7d74c1eaab73a64fc0",
       "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 510,
@@ -571,8 +571,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "a01983ed5f46f750e50e4e1a3eb6bb8f1a167f174f45d7bf83739453ce0e177a",
-      "html_exact_tex_sha256": "2c6fce3e49d3de7225be14b478f54ad3b0e82eb6d6f1d1a978506b747ea84057"
+      "html_mathml_sha256": "1f438cc4e7d50766e1e96525a741ef3eb4ee1c515eb2c4f302dc0633d50a4dd0",
+      "html_exact_tex_sha256": "1d994d9b4921967d90a8b8e8356d80bc1743f597b952e1692b49b5c167d530cc"
     },
     "sections": [
       {
@@ -641,11 +641,6 @@
         "label": "Verification and reproducibility"
       },
       {
-        "level": 5,
-        "anchor": "acknowledgement.",
-        "label": "Acknowledgement."
-      },
-      {
         "level": 2,
         "anchor": "references",
         "label": "References"
@@ -711,7 +706,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "d42a1d68697473be",
-        "source_sha256": "45531de741b5525accf94e61770819fee824765544f5c1751688321ef5d9cebf",
+        "source_sha256": "df848f1a20fab00a6a062234582b65feddc3dfddc3964a7d74c1eaab73a64fc0",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 510,
@@ -720,8 +715,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "a01983ed5f46f750e50e4e1a3eb6bb8f1a167f174f45d7bf83739453ce0e177a",
-        "html_exact_tex_sha256": "2c6fce3e49d3de7225be14b478f54ad3b0e82eb6d6f1d1a978506b747ea84057"
+        "html_mathml_sha256": "1f438cc4e7d50766e1e96525a741ef3eb4ee1c515eb2c4f302dc0633d50a4dd0",
+        "html_exact_tex_sha256": "1d994d9b4921967d90a8b8e8356d80bc1743f597b952e1692b49b5c167d530cc"
       },
       "sections": [
         {
@@ -790,11 +785,6 @@
           "label": "Verification and reproducibility"
         },
         {
-          "level": 5,
-          "anchor": "acknowledgement.",
-          "label": "Acknowledgement."
-        },
-        {
           "level": 2,
           "anchor": "references",
           "label": "References"
@@ -860,7 +850,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "d42a1d68697473be",
-        "source_sha256": "e9e5032bdc4824ed696914d222ebf808bd7171e3209cbcbae335bae3f1ecae15",
+        "source_sha256": "2be13b340f9dafc4e3a3dcb34742a66225b3216015b6efa7ae3222c3e3d4a0ed",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 5321,
@@ -888,8 +878,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "caab19b9061797ee4b532da9b974252e494915663c4a9d886fa38d69173160e1",
-        "html_exact_tex_sha256": "15ddbc6f48e9fa96d29c2d602092fe794707f09ab00026130c21da44df6f77d3"
+        "html_mathml_sha256": "d964e975ceb308bf698ad5a90f9a2b5d164ff1e1e998ccaf03eea5eb795e8cf0",
+        "html_exact_tex_sha256": "f19af5b92cdf8693ee41a7b3050b99412740442aa9f5226a0d1c2652eb370a1e"
       },
       "sections": [
         {
@@ -1721,11 +1711,6 @@
           "level": 5,
           "anchor": "verification-scope.",
           "label": "Verification scope."
-        },
-        {
-          "level": 5,
-          "anchor": "acknowledgements.",
-          "label": "Acknowledgements."
         },
         {
           "level": 5,

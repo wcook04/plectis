@@ -5,7 +5,7 @@
   "subject": "Erdős #1049",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 81,
+  "pages": 80,
   "question": "What all-rank Zudilin specialisations and Hankel formulae are proved at rational bases, and which clearing arguments still fail at 3/2?",
   "precis": "Specialising Zudilin's 2004 linear forms shows F(a/b) irrational for coprime a>b≥1 when θ=log b / log a is less than θ^*=0.4056830213840605…, with irrationality-exponent bound (1−θ)/(θ^*−θ) for every positive integral power. In particular the bound is less than 301 for every positive integral power of 31/4. The constants are Zudilin's; the proof cancels common cyclotomic factors before rational specialisation. For the 2016 Hankel construction with x=z=1, the first nonzero term of the normalised determinant is computed at every rank. A separate positive-measure argument proves positivity and a size estimate for each fixed real 0<q<1. The final sections explain the limits of the stated clearing and congruence arguments at 3/2: no small nonzero sequence of divided remainders is constructed there, and the full rational-base conjecture remains open.",
   "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
@@ -29,7 +29,7 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "d42a1d68697473be",
-    "source_sha256": "b3e81fd9513b713a2be7b59524dad08e5615b9abe6854f9d895164ce85483ae9",
+    "source_sha256": "1f04580702ed8f8cb553b617b264f9654eb525828225c9ea81204f1db65b18bc",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 3107,
@@ -83,8 +83,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "3b5dab99c4514b98a97de1436c5f10679935755914ee0cbbe30118da1fb774e2",
-    "html_exact_tex_sha256": "78c244319e581a2a7a99702778e0f77e9fdcf6cff4681f1505214fe0d45fe3fb"
+    "html_mathml_sha256": "2d2e10915152ed700f90765e92912128664fd0c23cfa04eafaf877353e177797",
+    "html_exact_tex_sha256": "14aee32ee166e65e7efe4f1ea8ca48d116f5e8ed8b34ee66583b5336c1a5f756"
   },
   "sections": [
     {

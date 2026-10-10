@@ -38,8 +38,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "0f1d73ab2b8c530bb21fe015a87fc425a106918f58a96fbb14756df3603c1d6f",
-    "html_exact_tex_sha256": "f65f7237308f34cd50ac0913d6595a4106c3e85ab5f50292670d84fba78615e7"
+    "html_mathml_sha256": "18fd0129f79abb502eb81a5dac2aa7d83f4d7b45c291c6038d7eecbad7e3edf4",
+    "html_exact_tex_sha256": "f83ca9854e6fbbe1d1f68f663ebf631198bbe952e2b8b34d8a6db26c528641e2"
   },
   "sections": [
     {
@@ -186,11 +186,6 @@
       "level": 2,
       "anchor": "sec:genre-transfer",
       "label": "Transfer the method across research genres"
-    },
-    {
-      "level": 2,
-      "anchor": "acknowledgement",
-      "label": "Acknowledgement"
     },
     {
       "level": 2,

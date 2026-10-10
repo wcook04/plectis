@@ -50,11 +50,11 @@
       },
       "assets/ai-reader-digest-packet.js": {
         "byte_count": 398209,
-        "sha256": "sha256:9707369b6ba2a1850151ee57d93268110c1f91badb02706c5febf9452beed317"
+        "sha256": "sha256:a83232f4df99bf613c97c8d950ab6f06225d5a7315f556323a590ebe8d74728e"
       },
       "assets/ai-review-packet.js": {
-        "byte_count": 33995907,
-        "sha256": "sha256:c6a06e4ea91133af7904c31adba7019b0cc64564f79d18e4d3c8b7e021024758"
+        "byte_count": 33945620,
+        "sha256": "sha256:9b3db780306eefd3cd4db333d96d97becfeebcaf7ad00b224d27f4e78198337c"
       },
       "assets/math/83ea68d83f72a097.css": {
         "byte_count": 29117,
@@ -2469,23 +2469,23 @@
       },
       "plectis-ai-reader-digest.json": {
         "byte_count": 372253,
-        "sha256": "sha256:f349016c3b433809544ef65a08af94643fe97f71903822b6a10fe78cd5c4c67f"
+        "sha256": "sha256:62a990f84d28a728000adbb108f93e1dbafa60e5bbd2ab51efd28c18ea505be3"
       },
       "plectis-ai-review-packet.identity.json": {
         "byte_count": 1529,
-        "sha256": "sha256:00f26995db3123331f7ca246d01f9c1d7f1c463e8ac476fb88d9cc67844088cc"
+        "sha256": "sha256:0ac29cb6b2d5ded40d5a93f105337cf5771ba797d8224960e8bd8aeb57f9f5fb"
       },
       "plectis-ai-review-packet.json": {
-        "byte_count": 32741731,
-        "sha256": "sha256:5e50fdb52e85d8e29c27718d136b288d2fbd0b85b26cbaad7c75814532950258"
+        "byte_count": 32691969,
+        "sha256": "sha256:115f086641899818a1b07f03892dd5196dec251fa53a11de244cc2b922402fff"
       },
       "plectis-public-reader-assurance.json": {
         "byte_count": 113414,
         "sha256": "sha256:fd58b68d19647e9eb899b40d98b790fb35ed1378714fe2c98e14472c5745fb3c"
       },
       "plectis-reviewer-brief.json": {
-        "byte_count": 11932921,
-        "sha256": "sha256:0a84d9a0f676b7ebc0db183baf1cf12e46b17704c6f04d84d9993816b48b7d6c"
+        "byte_count": 11928271,
+        "sha256": "sha256:167725c0342485872246873f7d69a967d7e36bf4e0e16dba12e4a8224fd64431"
       },
       "plectis-site-map.json": {
         "byte_count": 18302163,
@@ -2513,15 +2513,56 @@
         "sha256": "sha256:765f5c1fae40146ed985d809523744e1b65a3854ce362453e2265baead3c2e92"
       }
     },
+    "last_math_ai_companion_release": {
+      "artifacts": {
+        "assets/ai-reader-digest-packet.js": {
+          "byte_count": 398209,
+          "sha256": "sha256:a83232f4df99bf613c97c8d950ab6f06225d5a7315f556323a590ebe8d74728e"
+        },
+        "assets/ai-review-packet.js": {
+          "byte_count": 33945620,
+          "sha256": "sha256:9b3db780306eefd3cd4db333d96d97becfeebcaf7ad00b224d27f4e78198337c"
+        },
+        "plectis-ai-reader-digest.json": {
+          "byte_count": 372253,
+          "sha256": "sha256:62a990f84d28a728000adbb108f93e1dbafa60e5bbd2ab51efd28c18ea505be3"
+        },
+        "plectis-ai-review-packet.identity.json": {
+          "byte_count": 1529,
+          "sha256": "sha256:0ac29cb6b2d5ded40d5a93f105337cf5771ba797d8224960e8bd8aeb57f9f5fb"
+        },
+        "plectis-ai-review-packet.json": {
+          "byte_count": 32691969,
+          "sha256": "sha256:115f086641899818a1b07f03892dd5196dec251fa53a11de244cc2b922402fff"
+        },
+        "plectis-reviewer-brief.json": {
+          "byte_count": 11928271,
+          "sha256": "sha256:167725c0342485872246873f7d69a967d7e36bf4e0e16dba12e4a8224fd64431"
+        }
+      },
+      "generator_commit": "43b81884864cca4b7cfd93f2a9cf453a54883a6b",
+      "native_commit": "0f3d8b08c8f5fee06888ec11ea0ed672f92d2266",
+      "paths": [
+        "assets/ai-reader-digest-packet.js",
+        "assets/ai-review-packet.js",
+        "plectis-ai-reader-digest.json",
+        "plectis-ai-review-packet.identity.json",
+        "plectis-ai-review-packet.json",
+        "plectis-reviewer-brief.json"
+      ],
+      "preserved_toolkit_sha256": "caf297e8aaa3d287043e2940ea6c71f4363228b49c8b4d52c308b473b305085e",
+      "rule": "Only listed artifact identities are refreshed; all other projection identities retain their recorded editions.",
+      "schema": "plectis-math-ai-companion-release/1"
+    },
     "lite_public_handoff": "plectis-ai-reader-digest.json",
-    "lite_public_handoff_sha256": "sha256:f349016c3b433809544ef65a08af94643fe97f71903822b6a10fe78cd5c4c67f",
+    "lite_public_handoff_sha256": "sha256:62a990f84d28a728000adbb108f93e1dbafa60e5bbd2ab51efd28c18ea505be3",
     "primary_public_handoff": "plectis-ai-review-packet.json",
-    "primary_public_handoff_sha256": "sha256:5e50fdb52e85d8e29c27718d136b288d2fbd0b85b26cbaad7c75814532950258",
+    "primary_public_handoff_sha256": "sha256:115f086641899818a1b07f03892dd5196dec251fa53a11de244cc2b922402fff",
     "projection_status_self_digest": "not_self_embedded",
     "public_reader_assurance_dossier": "plectis-public-reader-assurance.json",
     "public_reader_assurance_dossier_sha256": "sha256:fd58b68d19647e9eb899b40d98b790fb35ed1378714fe2c98e14472c5745fb3c",
     "reader_digest": "plectis-ai-reader-digest.json",
-    "reader_digest_sha256": "sha256:f349016c3b433809544ef65a08af94643fe97f71903822b6a10fe78cd5c4c67f",
+    "reader_digest_sha256": "sha256:62a990f84d28a728000adbb108f93e1dbafa60e5bbd2ab51efd28c18ea505be3",
     "schema": "microcosm_public_generated_artifact_identity_v0",
     "source_fingerprint": "7df1d17a5ca1da4df9f569b2ccb2a18b"
   },

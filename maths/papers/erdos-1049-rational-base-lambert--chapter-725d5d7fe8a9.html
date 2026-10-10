@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" data-glossary-hint="off">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <title>Hankel Determinants of Geometric Moments and Rational Lambert Values · Plectis maths</title>
+  <meta name="description" content="Positive geometric moments and a uniform partition-sum bound give the fixed-base asymptotic of Zudilin’s normalised Hankel determinants, including its…">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/papers/erdos-1049-rational-base-lambert.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Hankel Determinants of Geometric Moments and Rational Lambert Values · Plectis maths">
+  <meta property="og:description" content="Positive geometric moments and a uniform partition-sum bound give the fixed-base asymptotic of Zudilin’s normalised Hankel determinants, including its…">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/papers/erdos-1049-rational-base-lambert.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hankel Determinants of Geometric Moments and Rational Lambert Values · Plectis maths">
+  <meta name="twitter:description" content="Positive geometric moments and a uniform partition-sum bound give the fixed-base asymptotic of Zudilin’s normalised Hankel determinants, including its…">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1526">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=7b0bb6523874">
+  <link rel="stylesheet" href="../assets/maths.css?v=988ea40d1d74">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=3323afd66307"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
+  <script defer src="../assets/maths.js?v=eb35fe169ca1"></script>
+  <meta name="author" content="Will Cook">
+  <meta name="citation_title" content="Hankel Determinants of Geometric Moments and Rational Lambert Values">
+  <meta name="citation_author" content="Will Cook">
+  <meta name="citation_date" content="2026/09">
+  <meta name="citation_pdf_url" content="https://wcook04.github.io/plectis/maths/papers/erdos-1049-rational-base-lambert.pdf">
+  <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/math/d00774dc5815757f.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html"><img class="wordmark__mark" src="../../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
+        <a href="../index.html">Mathematics</a>
+        <a href="../../docs/papers.html" aria-current="true">Papers</a>
+        <a href="../../index.html#videos">Videos</a>
+        <a href="../../docs/glossary.html">Glossary</a>
+        <a href="../../docs/introduction.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers" class="is-active" aria-current="page">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <div class="maths-pagebar">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Erdős #1049 short paper</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root=".paper-stage" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy section</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root=".paper-stage" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download section JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+      <header class="paper-head">
+        <p class="paper-head__eyebrow">Short paper</p>
+        <h1 data-page-name="Erdős #1049 short paper">Hankel Determinants of Geometric Moments and Rational Lambert Values</h1>
+        <div class="paper-head__meta">
+          <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #1049</a></span>
+          <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
+          <span>September 2026</span>
+          <a href="#about-paper">Authorship, AI use and citation</a>
+        </div>
+        <div class="paper-head__routes">
+          <a class="btn btn--primary btn--file" href="../../papers/erdos-1049-rational-base-lambert.pdf"><span class="btn__format">PDF</span>Open the PDF, 20&nbsp;pages</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/1049/erdos-1049-rational-base-lambert.tex"><span class="btn__format">TeX</span>LaTeX source</a>
+          <a class="btn btn--ghost" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
+          <a class="btn btn--ghost" href="../problems/erdos_1049.html">Problem page</a>
+        </div>
+      </header>
+
+      <div class="paper-precis">
+        <p><b class="paper-precis__head">Pr&eacute;cis.</b> Positive <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-moment-sequence" data-term="moment_sequence" data-term-auto="1">geometric moments</a> and a uniform partition-sum bound give the fixed-base asymptotic of Zudilin’s normalised <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hankel-determinant" data-term="hankel_determinant" data-term-auto="1">Hankel determinants</a>, including its constant and power correction. A separate calculation of degrees after cancellation in his 2004 forms extends the rational-base irrationality region. It includes every positive integral power of <span class="math inline" data-term-auto="off" data-tex="\(31/4\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c34">4</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>31</mn><mo>/</mo><mn>4</mn></math></mjx-assistive-mml></mjx-container></span> and excludes <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span>.</p>
+        <div class="authority-card paper-scope">
+          <p><b>This paper owns</b> the fixed-base Hankel asymptotic and rational-base irrationality theorem; the long paper develops exact orders, content and endpoint obstructions, and the remaining problem at <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span>.</p>
+          <p><b>It is not authority for</b> the validity of claims tagged <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, which belongs to the cited kernel-checked source, or a solution to Erdős #1049, which remains open.</p>
+        </div>
+      </div>
+
+      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here, by the editorial route</p><nav aria-label="Start here"><a href="erdos-1049-rational-base-lambert--chapter-eaa9f7af60c9.html#sec:problem">Introduction</a><a href="erdos-1049-rational-base-lambert--chapter-577713452995.html#sec:geometric-moments">Geometric moment determinants</a><a href="erdos-1049-rational-base-lambert--chapter-501edaf5b35e.html#sec:rational-base-irrationality">Rational bases</a><a href="erdos-1049-rational-base-lambert--chapter-591ae6a36919.html#sec:open">Further questions</a></nav></div>
+      <details class="reader-contents"><summary>In this paper</summary><nav aria-label="Paper contents"><a class="toc-l2" href="erdos-1049-rational-base-lambert--chapter-eaa9f7af60c9.html#sec:problem">Introduction</a><a class="toc-l2" href="erdos-1049-rational-base-lambert--chapter-577713452995.html#sec:geometric-moments">Geometric moment determinants</a><a class="toc-l2" href="erdos-1049-rational-base-lambert--chapter-33cc4472b11e.html#sec:weights">The weights of Zudilin’s moments</a><a class="toc-l3" href="erdos-1049-rational-base-lambert--chapter-f884cf00a083.html#sec:weight-factorisation">Positive weights</a><a class="toc-l3" href="erdos-1049-rational-base-lambert--chapter-8ca6adf08f5f.html#sec:coefficient-asymptotic">The coefficient asymptotic</a><a class="toc-l3" href="erdos-1049-rational-base-lambert--chapter-dc86015077f7.html#sec:hankel-order">The first nonzero formal term</a><a class="toc-l2" href="erdos-1049-rational-base-lambert--chapter-501edaf5b35e.html#sec:rational-base-irrationality">Rational bases</a><a class="toc-l3" href="erdos-1049-rational-base-lambert--chapter-e41ef140fafc.html#comparison-with-earlier-criteria">Comparison with earlier criteria</a><a class="toc-l2" href="erdos-1049-rational-base-lambert--chapter-591ae6a36919.html#sec:open">Further questions</a><a class="toc-l3" href="erdos-1049-rational-base-lambert--chapter-591ae6a36919.html#sec:round8-transfer-boundaries">Congruences and divided forms</a><a class="toc-l2" href="#app:index">Verification and reproducibility</a><a class="toc-l2" href="erdos-1049-rational-base-lambert--chapter-ba7b5071071a.html#references">References</a></nav></details>
+      <div class="paper-stage"><nav class="paper-chapter-nav" aria-label="Paper reading options"><a href="erdos-1049-rational-base-lambert.html">Paper contents</a> · <a href="erdos-1049-rational-base-lambert--complete.html" data-paper-full>Complete HTML for search and print</a></nav><nav class="paper-chapter-nav" aria-label="Section navigation"><a href="erdos-1049-rational-base-lambert--chapter-591ae6a36919.html#sec:open">Previous section</a> · <a href="erdos-1049-rational-base-lambert--chapter-ba7b5071071a.html#references">Next section</a></nav><section id="app:index" class="level2">
+<h2>Verification and reproducibility</h2>
+<p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/\evidencerecordurl" data-link-kind="exogenous" rel="external noopener">evidence record</a> lists Lean
+proofs for all seven numbered results and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> checks for six,
+with their checked revisions. Beside the <a href="https://github.com/wcook04/plectis-erdos/tree/7380b7871687b6bcc41ca0143c61f232e8af6500" data-link-kind="exogenous" rel="external noopener">main
+source revision</a>, Theorem <a class="math-ref" href="erdos-1049-rational-base-lambert--chapter-577713452995.html#thm:geometric-moments">2.1</a> uses the
+later <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324" data-link-kind="exogenous" rel="external noopener">geometric-moment
+proof</a>; its Comparator association remains pending. Neither the
+broader ratio-limit argument nor the rational-value model is a
+dependency; both have ordinary proofs only. This expository revision
+changes no result statement and has no fresh Lean or Comparator run or
+independent review. </p>
+<section id="data-availability." class="level5">
+<h3 class="paper-minor-head">Data availability.</h3>
+<p>The cited source revision contains the Lean sources, toolchain and
+library manifest. The companion paper supplies the longer algebraic
+arguments and the precise scope of the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite-computation" data-term="finite_computation" data-term-auto="1">finite computations</a>.</p>
+</section>
+<section id="funding-and-competing-interests." class="level5">
+<h4 class="paper-minor-head">Funding and competing interests.</h4>
+<p>This work received no external funding. The author declares no
+competing interests.</p>
+</section>
+<section id="acknowledgements." class="level5">
+<h5>Acknowledgements.</h5>
+<p>The problem numbering follows the catalogue maintained by Thomas
+Bloom <span class="citation" data-cites="erdosproblems"><a href="erdos-1049-rational-base-lambert--chapter-ba7b5071071a.html#ref-8">[8]</a></span>.</p>
+</section>
+</section><nav class="paper-chapter-nav" aria-label="Paper reading options"><a href="erdos-1049-rational-base-lambert.html">Paper contents</a> · <a href="erdos-1049-rational-base-lambert--complete.html" data-paper-full>Complete HTML for search and print</a></nav><nav class="paper-chapter-nav" aria-label="Section navigation"><a href="erdos-1049-rational-base-lambert--chapter-591ae6a36919.html#sec:open">Previous section</a> · <a href="erdos-1049-rational-base-lambert--chapter-ba7b5071071a.html#references">Next section</a></nav></div>
+      <section class="paper-foot" id="about-paper" aria-labelledby="about-paper-title">
+        <h2 class="paper-foot__title" id="about-paper-title">About this paper</h2>
+        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
+        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff" data-link-kind="exogenous" rel="external noopener">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
+        <p class="paper-foot__label">Prefer the manuscript?</p>
+        <div class="paper-head__routes">
+          <a class="btn btn--primary btn--file" href="../../papers/erdos-1049-rational-base-lambert.pdf"><span class="btn__format">PDF</span>Open the PDF, 20&nbsp;pages</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/1049/erdos-1049-rational-base-lambert.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
+          <a class="btn btn--ghost" href="../problems/erdos_1049.html">Problem page</a>
+        </div>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:7d9bf99ea6b7e699</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+      </section>
+      </div>
+    </main>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="erdos-1049-rational-base-lambert--chapter-eaa9f7af60c9.html#sec:problem">Introduction</a><a class="toc-l2" href="erdos-1049-rational-base-lambert--chapter-577713452995.html#sec:geometric-moments">Geometric moment determinants</a><a class="toc-l2" href="erdos-1049-rational-base-lambert--chapter-33cc4472b11e.html#sec:weights">The weights of Zudilin’s moments</a><a class="toc-l3" href="erdos-1049-rational-base-lambert--chapter-f884cf00a083.html#sec:weight-factorisation">Positive weights</a><a class="toc-l3" href="erdos-1049-rational-base-lambert--chapter-8ca6adf08f5f.html#sec:coefficient-asymptotic">The coefficient asymptotic</a><a class="toc-l3" href="erdos-1049-rational-base-lambert--chapter-dc86015077f7.html#sec:hankel-order">The first nonzero formal term</a><a class="toc-l2" href="erdos-1049-rational-base-lambert--chapter-501edaf5b35e.html#sec:rational-base-irrationality">Rational bases</a><a class="toc-l3" href="erdos-1049-rational-base-lambert--chapter-e41ef140fafc.html#comparison-with-earlier-criteria">Comparison with earlier criteria</a><a class="toc-l2" href="erdos-1049-rational-base-lambert--chapter-591ae6a36919.html#sec:open">Further questions</a><a class="toc-l3" href="erdos-1049-rational-base-lambert--chapter-591ae6a36919.html#sec:round8-transfer-boundaries">Congruences and divided forms</a><a class="toc-l2" href="#app:index">Verification and reproducibility</a><a class="toc-l2" href="erdos-1049-rational-base-lambert--chapter-ba7b5071071a.html#references">References</a><a class="toc-l2" href="#about-paper">About this paper</a></aside>
+  </div>
+</body>
+</html>

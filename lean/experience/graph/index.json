@@ -1713,7 +1713,7 @@
     {
       "id": "statement:erdos-243-reciprocal-tail-rigidity#res:residue",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L1143",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex#L1138",
       "label": "Theorem A.2 (factorial residue reduction)"
     },
     {
@@ -2703,7 +2703,7 @@
     {
       "id": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:residue",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos243/core.tex#L3943",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos243/core.tex#L3941",
       "label": "Theorem B.1 (factorial residue reduction)"
     },
     {
@@ -4023,7 +4023,7 @@
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:affinecollapse",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2737",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2733",
       "label": "Theorem E.1 (equivalent arithmetic-progression tests)"
     },
     {
@@ -4047,7 +4047,7 @@
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:res:complete-truncation",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2454",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2450",
       "label": "Proposition D.4 (completeness of finite separation)"
     },
     {
@@ -4209,25 +4209,25 @@
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:xr:boundedpolignac",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2603",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2599",
       "label": "Proposition D.6 (recurring values with integral tails)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:xr:propagate",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2372",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2368",
       "label": "Proposition D.2 (propagation)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:xr:totient",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2359",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2355",
       "label": "Proposition D.1 (a shift of totient length)"
     },
     {
       "id": "statement:erdos251-prime-gap-reasoning-surface#long251:xr:truncation",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2407",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos251/core.tex#L2403",
       "label": "Proposition D.3 (finite truncation)"
     },
     {
@@ -5301,13 +5301,13 @@
     {
       "id": "statement:erdos269-running-lcm-reasoning-surface#long269:long:denominator-reduction",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos269/core.tex#L3920",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos269/core.tex#L3915",
       "label": "Proposition 13.1 (conditional denominator reduction)"
     },
     {
       "id": "statement:erdos269-running-lcm-reasoning-surface#long269:long:windowconsumer",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos269/core.tex#L3985",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos269/core.tex#L3980",
       "label": "Proposition 13.2 (segments satisfying the residue inequality exclude a positive bounded integer solution)"
     },
     {

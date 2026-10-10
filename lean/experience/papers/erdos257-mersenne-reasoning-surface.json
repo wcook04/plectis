@@ -5,7 +5,7 @@
   "subject": "Erdős #257",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 153,
+  "pages": 152,
   "question": "What weighted and cover criteria prove hereditary Mersenne irrationality for Erdős #257, and which targets remain open?",
   "precis": "A weighted summability criterion proves irrationality of reciprocal Mersenne subseries: if h is the part of a supported on a finite nonempty prime set P, every infinite A with ∑ h(a)/(a(b^{h(a)}−1)) finite has irrational ∑ (b^a−1)^{-1}. The base-two condition gives the conclusion at every integer base for every infinite subset, and permits an example with divergent reciprocal sum, while excluding full support and all odd exponents. The proof averages over a finite part of the support and over dyadic observation lengths. Erdős's weaker reciprocal-summable theorem is proved in full, and a common window extends both arguments to unions of weighted and positive-cover supports. Finite-denominator and achievement-set calculations formulate tests for the targets 1/2 and 1/21; those tests do not decide either target or the universal question. Prime support at base 2 and squarefree support at power-of-two bases are attributed as existing work.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
@@ -29,7 +29,7 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "d42a1d68697473be",
-    "source_sha256": "185074ce31bacd2b3ab803ae1982face22f6951d82ae97d7c951fad2083325e6",
+    "source_sha256": "47cf6a152738f17c6879bd5070adb73c34a1254775afd44dbf7b6ccd346aa100",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 4776,
@@ -64,8 +64,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "07af563aa4693fb5617105aeba2d123cc121f9c8784c0ad34cf64ced7a47279f",
-    "html_exact_tex_sha256": "1286babbe10134594f208ef3b661e9ae8cd5c7bd625dced6286881f503156977"
+    "html_mathml_sha256": "623cb94144b634ddede2acd737cd2ef2ae78262bd77bfef2ae3810ec2ab27d6f",
+    "html_exact_tex_sha256": "a2d18f805ebc94f5bb1f21170f3a0bced75e87f083df60b0bc40b1ab3c4883c2"
   },
   "sections": [
     {
@@ -807,11 +807,6 @@
       "level": 4,
       "anchor": "verification-and-reproducibility",
       "label": "Verification and reproducibility"
-    },
-    {
-      "level": 4,
-      "anchor": "acknowledgements",
-      "label": "Acknowledgements"
     },
     {
       "level": 4,

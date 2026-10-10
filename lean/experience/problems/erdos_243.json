@@ -294,7 +294,7 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
       "renderer_fingerprint": "d42a1d68697473be",
-      "source_sha256": "774cae684af8d05776bb2fa5c66ed7d3e94bca241475cee186be1079383224a8",
+      "source_sha256": "b393a9190d51137fb1ba6d3ba15bb1915219b468de6fe7279cbfaec46abd9b9c",
       "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 739,
@@ -303,8 +303,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "aa77e628958e9bf22fce41e400ab568e17129bd63078988b1aac700e3e694cec",
-      "html_exact_tex_sha256": "19d6204f40eac881975fec1f7114547559dbb5aa0c125a98d49e3e6ce372c536"
+      "html_mathml_sha256": "009ad823ee42fef03b096a77e60f445a3fc5aa6bc7c0f0278f16402c3022b608",
+      "html_exact_tex_sha256": "4a32fca02c7f203668f151e67132dfa8e2e3181102096bfa1abdd68cef539bdc"
     },
     "sections": [
       {
@@ -386,11 +386,6 @@
         "level": 3,
         "anchor": "sec:scalar-limit",
         "label": "Arithmetic compatibility"
-      },
-      {
-        "level": 5,
-        "anchor": "acknowledgements.",
-        "label": "Acknowledgements."
       },
       {
         "level": 2,
@@ -478,7 +473,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "d42a1d68697473be",
-        "source_sha256": "774cae684af8d05776bb2fa5c66ed7d3e94bca241475cee186be1079383224a8",
+        "source_sha256": "b393a9190d51137fb1ba6d3ba15bb1915219b468de6fe7279cbfaec46abd9b9c",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 739,
@@ -487,8 +482,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "aa77e628958e9bf22fce41e400ab568e17129bd63078988b1aac700e3e694cec",
-        "html_exact_tex_sha256": "19d6204f40eac881975fec1f7114547559dbb5aa0c125a98d49e3e6ce372c536"
+        "html_mathml_sha256": "009ad823ee42fef03b096a77e60f445a3fc5aa6bc7c0f0278f16402c3022b608",
+        "html_exact_tex_sha256": "4a32fca02c7f203668f151e67132dfa8e2e3181102096bfa1abdd68cef539bdc"
       },
       "sections": [
         {
@@ -570,11 +565,6 @@
           "level": 3,
           "anchor": "sec:scalar-limit",
           "label": "Arithmetic compatibility"
-        },
-        {
-          "level": 5,
-          "anchor": "acknowledgements.",
-          "label": "Acknowledgements."
         },
         {
           "level": 2,
@@ -662,7 +652,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "d42a1d68697473be",
-        "source_sha256": "3620f60f31463a8399822e2626556524215a94f6f93e410b183b522764fc7a37",
+        "source_sha256": "92512a9aa35a79c5e4d2fb5690c56912a7a7dff9a4a244e356b1c2e886b37bac",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 2513,
@@ -681,8 +671,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "d72c9f65004e26ad3ecf28c242fee6f694d29742aef29608bb8fd1eb8f7e64b5",
-        "html_exact_tex_sha256": "d4f18729a28646f60080567ee3ba415dc66830fb0a7e48e4c13380b1dd8c9421"
+        "html_mathml_sha256": "69ef6e158a4415dfe6eea70d68923702b22e9025ac38f75e25b8024487ca3d96",
+        "html_exact_tex_sha256": "c325a1282fdc3b8512a9fb322d7b4c76b1d99815067a35ee4f8b765205c0092c"
       },
       "sections": [
         {
