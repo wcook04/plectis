@@ -198,7 +198,7 @@
     "pages": 19,
     "question": "How does the degree-seven counterexample obstruct short lemniscate connections, and why do trinomials admit them?",
     "precis": "The degree-seven polynomial constructed by ani has all its zeros in the open unit disc, but every connected subset of {|f|<1} containing two zeros has Hausdorff measure greater than two. The proof confines a slit preimage near a critical point and applies radial projection on its two inverse sheets. For monic trinomials with zeros in the open unit disc, the root equation instead keeps every root-to-origin segment inside the lemniscate.",
-    "owns": "the degree-seven counterexample and the trinomial connection theorem; the long paper develops critical-value estimates, other subclasses and subsidiary formal checks",
+    "owns": "ani's degree-seven counterexample and the trinomial connection theorem; the long paper develops critical-value estimates, other subclasses and subsidiary formal checks",
     "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041, including the later one-polynomial Formal Conjectures path-image Hausdorff-length check and its unreviewed historical curve-length correspondence; those distinctions belong to docs/claims.json in the mathematics repository",
     "problem_id": "erdos_1041",
     "routes": {
@@ -412,7 +412,7 @@
       "pages": 19,
       "question": "How does the degree-seven counterexample obstruct short lemniscate connections, and why do trinomials admit them?",
       "precis": "The degree-seven polynomial constructed by ani has all its zeros in the open unit disc, but every connected subset of {|f|<1} containing two zeros has Hausdorff measure greater than two. The proof confines a slit preimage near a critical point and applies radial projection on its two inverse sheets. For monic trinomials with zeros in the open unit disc, the root equation instead keeps every root-to-origin segment inside the lemniscate.",
-      "owns": "the degree-seven counterexample and the trinomial connection theorem; the long paper develops critical-value estimates, other subclasses and subsidiary formal checks",
+      "owns": "ani's degree-seven counterexample and the trinomial connection theorem; the long paper develops critical-value estimates, other subclasses and subsidiary formal checks",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041, including the later one-polynomial Formal Conjectures path-image Hausdorff-length check and its unreviewed historical curve-length correspondence; those distinctions belong to docs/claims.json in the mathematics repository",
       "problem_id": "erdos_1041",
       "routes": {
@@ -624,9 +624,9 @@
       "subject_kind": "problem",
       "form": "Reasoning surface",
       "pages": 86,
-      "question": "What path-length, critical-value, and coefficient-family results are proved for polynomial lemniscates, and what remains of the unrestricted length-2 problem?",
-      "precis": "For a monic trinomial with roots in the open unit disc, any two distinct roots are joined inside {|f|<1} by a path of length less than 2. For any squarefree monic polynomial of degree n≥2, an area-growth argument gives such a path when the least critical-value modulus μ is at most 13/25; scaling gives length less than (5/2)μ^{1/n} inside {|f|<(25/13)μ}. The record develops this argument, an inverse-ray averaging estimate, and a construction using an isolated simple critical value, together with results for collinear roots and several coefficient families. A weighted Poisson identity gives a sharp mean bound on critical values; examples distinguish that bound from path-length control. The final sections examine inverse-sheet topology and refute an earlier spanning-tree estimate. These results do not prove the unrestricted length-2 assertion.",
-      "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
+      "question": "How does ani's degree-seven counterexample work, which polynomial families admit short paths, and which critical-value constructions remain unformalised?",
+      "precis": "The record gives the rational estimates and geometric proof for ani's degree-seven polynomial: every connected set in its strict unit lemniscate joining two roots has Hausdorff measure greater than two. It develops contained paths for trinomials, collinear roots and two sparse families. Ordinary analytic arguments for critical-value criteria retain their unformalised inputs beside the statements. Critical-value moments, counterexamples to prescribed paths and questions about flow-strip geometry complete the account. The one-polynomial formal statement and correspondence with the historical wording remain distinct.",
+      "owns": "the exact geometry of ani's one-polynomial counterexample, proved positive families and critical-value arguments with their unformalised inputs identified; formal-statement status and historical correspondence remain owned by the claims registry",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041, including the later one-polynomial Formal Conjectures path-image Hausdorff-length check and its unreviewed historical curve-length correspondence; those distinctions belong to docs/claims.json in the mathematics repository",
       "problem_id": "erdos_1041",
       "routes": {

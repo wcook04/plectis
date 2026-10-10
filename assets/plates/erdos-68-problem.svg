@@ -1,0 +1,63 @@
+<svg class="plate" viewBox="0 0 720 500" role="img" aria-labelledby="erdos-68-problem-title" focusable="false" data-plate="erdos-68-problem">
+  <title id="erdos-68-problem-title">A chart against N from 2 to 12. N is the last term made whole: the multiplier makes every term up to n = N a whole number. The vertical axis, on a logarithmic scale, measures that multiplier times the tail left after the terms up to N. For e, multiplier N factorial, the values stay just below 1, inside the hatched strip of values below 1, which is why Fourier&#x27;s proof works. For the sum of 1 over n factorial minus 1, multiplier the common denominator of the first terms, the red values cross 1 at N = 4 and reach about 10 to the 30 at N = 12; the region between them and the line 1 is hatched in red.</title>
+  <path class="pl-hatch pl-thin" d="M114 415.1L126.9 408.2M114 421.9L139.7 408.2M114 428.7L152.5 408.2M114 435.5L165.3 408.2M118.2 440L178 408.2M131 440L190.8 408.2M143.8 440L203.6 408.2M156.6 440L216.4 408.2M169.3 440L229.2 408.2M182.1 440L241.9 408.2M194.9 440L254.7 408.2M207.7 440L267.5 408.2M220.5 440L280.3 408.2M233.2 440L293.1 408.2M246 440L305.8 408.2M258.8 440L318.6 408.2M271.6 440L331.4 408.2M284.4 440L344.2 408.2M297.1 440L357 408.2M309.9 440L369.7 408.2M322.7 440L382.5 408.2M335.5 440L395.3 408.2M348.3 440L408.1 408.2M361.1 440L420.9 408.2M373.8 440L433.6 408.2M386.6 440L446.4 408.2M399.4 440L459.2 408.2M412.2 440L472 408.2M425 440L484.8 408.2M437.7 440L497.5 408.2M450.5 440L510.3 408.2M463.3 440L523.1 408.2M476.1 440L535.9 408.2M488.9 440L548.7 408.2M501.6 440L561.4 408.2M514.4 440L574.2 408.2M527.2 440L587 408.2M540 440L599.8 408.2M552.8 440L602 413.8M565.5 440L602 420.6M578.3 440L602 427.4M591.1 440L602 434.2"/>
+  <path class="pl-axis" d="M114 440L602 440"/>
+  <path class="pl-axis" d="M114 440L114 69"/>
+  <path class="pl-axis" d="M128 440L128 445"/>
+  <path class="pl-axis" d="M174 440L174 443"/>
+  <path class="pl-axis" d="M220 440L220 445"/>
+  <path class="pl-axis" d="M266 440L266 443"/>
+  <path class="pl-axis" d="M312 440L312 445"/>
+  <path class="pl-axis" d="M358 440L358 443"/>
+  <path class="pl-axis" d="M404 440L404 445"/>
+  <path class="pl-axis" d="M450 440L450 443"/>
+  <path class="pl-axis" d="M496 440L496 445"/>
+  <path class="pl-axis" d="M542 440L542 443"/>
+  <path class="pl-axis" d="M588 440L588 445"/>
+  <text class="pl-text" x="128" y="461" text-anchor="middle">2</text>
+  <text class="pl-text" x="220" y="461" text-anchor="middle">4</text>
+  <text class="pl-text" x="312" y="461" text-anchor="middle">6</text>
+  <text class="pl-text" x="404" y="461" text-anchor="middle">8</text>
+  <text class="pl-text" x="496" y="461" text-anchor="middle">10</text>
+  <text class="pl-text" x="588" y="461" text-anchor="middle">12</text>
+  <text class="pl-text pl-text--ink" x="358" y="488" text-anchor="middle"><tspan class="pl-var">N</tspan>: every term up to <tspan class="pl-var">n</tspan> = <tspan class="pl-var">N</tspan> made whole</text>
+  <path class="pl-axis" d="M109 302.2L114 302.2"/>
+  <text class="pl-text" x="104" y="307.2" text-anchor="end">10<tspan class="pl-sup" dy="-0.42em">10</tspan></text>
+  <path class="pl-axis" d="M109 196.2L114 196.2"/>
+  <text class="pl-text" x="104" y="201.2" text-anchor="end">10<tspan class="pl-sup" dy="-0.42em">20</tspan></text>
+  <path class="pl-axis" d="M109 90.2L114 90.2"/>
+  <text class="pl-text" x="104" y="95.2" text-anchor="end">10<tspan class="pl-sup" dy="-0.42em">30</tspan></text>
+  <path class="pl-line" d="M114 408.2L602 408.2"/>
+  <text class="pl-text pl-text--body pl-text--ink" x="104" y="414.2" text-anchor="end">1</text>
+  <text class="pl-text pl-text--ink" x="74" y="26">multiplier × tail, logarithmic scale</text>
+  <path class="pl-line" d="M128 412L174 413.6L220 414.8L266 415.8L312 416.6L358 417.2L404 417.8L450 418.4L496 418.8L542 419.3L588 419.7"/>
+  <circle class="pl-dot" cx="128" cy="412.02" r="2.6"/>
+  <circle class="pl-dot" cx="174" cy="413.6" r="2.6"/>
+  <circle class="pl-dot" cx="220" cy="414.79" r="2.6"/>
+  <circle class="pl-dot" cx="266" cy="415.75" r="2.6"/>
+  <circle class="pl-dot" cx="312" cy="416.55" r="2.6"/>
+  <circle class="pl-dot" cx="358" cy="417.24" r="2.6"/>
+  <circle class="pl-dot" cx="404" cy="417.83" r="2.6"/>
+  <circle class="pl-dot" cx="450" cy="418.36" r="2.6"/>
+  <circle class="pl-dot" cx="496" cy="418.84" r="2.6"/>
+  <circle class="pl-dot" cx="542" cy="419.27" r="2.6"/>
+  <circle class="pl-dot" cx="588" cy="419.67" r="2.6"/>
+  <path class="pl-hatch pl-hatch--key" d="M584.1 97.2L588 95.1M579.4 105.3L588 100.7M574.7 113.5L588 106.4M570.1 121.6L588 112.1M565.4 129.8L588 117.7M560.7 137.9L588 123.4M556 146L588 129.1M551.4 154.2L588 134.7M546.7 162.3L588 140.4M542 170.5L588 146M526.9 184.2L588 151.7M511.7 197.9L588 157.4M496.5 211.7L588 163M488.6 221.5L588 168.7M480.9 231.3L588 174.4M473.3 241L588 180M465.6 250.8L588 185.7M458 260.5L588 191.3M450.3 270.2L588 197M439.5 281.6L588 202.7M428.6 293.1L588 208.3M222.8 408.2L229 404.9M417.6 304.6L588 214M233.4 408.2L253 397.8M406.7 316.1L588 219.7M244.1 408.2L302.9 376.9M317.7 369L588 225.3M254.7 408.2L588 231M265.4 408.2L588 236.7M276 408.2L588 242.3M286.7 408.2L588 248M297.3 408.2L588 253.6M308 408.2L588 259.3M318.6 408.2L588 265M329.3 408.2L588 270.6M339.9 408.2L588 276.3M350.6 408.2L588 282M361.2 408.2L588 287.6M371.9 408.2L588 293.3M382.5 408.2L588 298.9M393.2 408.2L588 304.6M403.8 408.2L588 310.3M414.5 408.2L588 315.9M425.1 408.2L588 321.6M435.8 408.2L588 327.3M446.4 408.2L588 332.9M457.1 408.2L588 338.6M467.7 408.2L588 344.2M478.4 408.2L588 349.9M489 408.2L588 355.6M499.7 408.2L588 361.2M510.3 408.2L588 366.9M521 408.2L588 372.6M531.6 408.2L588 378.2M542.3 408.2L588 383.9M552.9 408.2L588 389.5M563.6 408.2L588 395.2M574.2 408.2L588 400.9M584.9 408.2L588 406.5"/>
+  <path class="pl-line pl-line--key" d="M128 414.5L174 414.3L220 407.5L266 393.9L312 372.7L358 343.1L404 318.9L450 270.6L496 212.2L542 170.5L588 90.4"/>
+  <circle class="pl-dot pl-dot--key" cx="128" cy="414.52" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="174" cy="414.27" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="220" cy="407.55" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="266" cy="393.94" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="312" cy="372.71" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="358" cy="343.11" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="404" cy="318.9" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="450" cy="270.61" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="496" cy="212.15" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="542" cy="170.53" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="588" cy="90.35" r="3"/>
+  <text class="pl-text pl-text--large pl-text--key" x="574" y="96.4" text-anchor="end"><tspan class="pl-var">S</tspan></text>
+  <text class="pl-text pl-text--body pl-text--key" x="450" y="201.5" text-anchor="end">common denominator</text>
+  <text class="pl-text pl-text--body pl-text--key" x="450" y="222.5" text-anchor="end">× tail</text>
+  <text class="pl-text pl-text--large pl-text--ice" x="610" y="404.2"><tspan class="pl-var">e</tspan></text>
+  <text class="pl-text pl-text--body pl-text--ice" x="610" y="427.2"><tspan class="pl-var">N</tspan>! × tail</text>
+</svg>

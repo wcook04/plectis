@@ -1,0 +1,220 @@
+<svg class="plate" viewBox="0 0 720 500" role="img" aria-labelledby="erdos-249-problem-title" focusable="false" data-plate="erdos-249-problem">
+  <title id="erdos-249-problem-title">A column addition in binary. Row n writes Euler&#x27;s totient phi(n) in binary with its last digit in place n after the binary point, for n from 1 to 20 (rows continue below); a hatched cell is a digit 1, a dot a digit 0. The rows form a slowly widening diagonal band of overlapping digits that carry into each other. Under the rule, the binary digits of the sum S = 1.3676..., 1.0101111000011101 and so on, in no visible pattern. Ringed in ember, changes of at most 2 to phi(n) at seven even n; with them, and similar changes further on, the sum is exactly 5/4, whose binary digits 1.01 are followed by zeros only.</title>
+  <text class="pl-text pl-text--small" x="127.2" y="18">place <tspan class="pl-var">k</tspan> after the binary point, worth 1/2<tspan class="pl-sup" dy="-0.42em">k</tspan></text>
+  <path class="pl-line pl-thin pl-tabular" d="M539.8 8.6L540.9 8M539.8 12L547.3 8M539.8 15.4L553.7 8M539.8 18.8L560.1 8M545.8 19L560.8 11M552.2 19L560.8 14.4M558.6 19L560.8 17.8"/>
+  <path class="pl-edge pl-tabular" d="M539.8 8L560.8 8L560.8 19L539.8 19Z"/>
+  <text class="pl-text pl-text--small" x="565.8" y="18">digit 1</text>
+  <circle class="pl-dot pl-dot--faint pl-tabular" cx="632.75" cy="13.5" r="1.3"/>
+  <text class="pl-text pl-text--small" x="639.8" y="18">digit 0</text>
+  <text class="pl-text pl-text--small" x="137.8" y="40" text-anchor="middle">1</text>
+  <text class="pl-text pl-text--small" x="247.8" y="40" text-anchor="middle">5</text>
+  <text class="pl-text pl-text--small" x="385.2" y="40" text-anchor="middle">10</text>
+  <text class="pl-text pl-text--small" x="522.8" y="40" text-anchor="middle">15</text>
+  <text class="pl-text pl-text--small" x="660.2" y="40" text-anchor="middle">20</text>
+  <text class="pl-text pl-text--small" x="62" y="40" text-anchor="end"><tspan class="pl-var">n</tspan></text>
+  <text class="pl-text pl-text--small" x="104" y="40" text-anchor="end"><tspan class="pl-var">φ</tspan>(<tspan class="pl-var">n</tspan>)</text>
+  <path class="pl-axis pl-tabular" d="M137.8 46L137.8 50M165.2 46L165.2 50M192.8 46L192.8 50M220.2 46L220.2 50M247.8 46L247.8 50M275.2 46L275.2 50M302.8 46L302.8 50M330.2 46L330.2 50M357.8 46L357.8 50M385.2 46L385.2 50M412.8 46L412.8 50M440.2 46L440.2 50M467.8 46L467.8 50M495.2 46L495.2 50M522.8 46L522.8 50M550.2 46L550.2 50M577.8 46L577.8 50M605.2 46L605.2 50M632.8 46L632.8 50M660.2 46L660.2 50"/>
+  <text class="pl-text pl-text--small" x="62" y="66.5" text-anchor="end">1</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="66.5" text-anchor="end">1</text>
+  <path class="pl-line pl-thin" d="M127.2 58.1L130.2 56.5M127.2 61.5L136.6 56.5M127.2 64.9L143 56.5M128.7 67.5L148.2 57.1M135 67.5L148.2 60.5M141.4 67.5L148.2 63.9M147.8 67.5L148.2 67.3"/>
+  <path class="pl-edge" d="M127.2 56.5L148.2 56.5L148.2 67.5L127.2 67.5Z"/>
+  <text class="pl-text pl-text--small" x="62" y="83.5" text-anchor="end">2</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="83.5" text-anchor="end">1</text>
+  <path class="pl-line pl-thin" d="M154.8 74L155.7 73.5M154.8 77.4L162.1 73.5M154.8 80.8L168.5 73.5M154.8 84.2L174.9 73.5M160.6 84.5L175.8 76.4M167 84.5L175.8 79.8M173.4 84.5L175.8 83.2"/>
+  <path class="pl-edge" d="M154.8 73.5L175.8 73.5L175.8 84.5L154.8 84.5Z"/>
+  <text class="pl-text pl-text--small" x="62" y="100.5" text-anchor="end">3</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="100.5" text-anchor="end">2</text>
+  <path class="pl-line pl-thin" d="M154.8 91L155.7 90.5M154.8 94.4L162.1 90.5M154.8 97.8L168.5 90.5M154.8 101.2L174.9 90.5M160.6 101.5L175.8 93.4M167 101.5L175.8 96.8M173.3 101.5L175.8 100.2"/>
+  <path class="pl-edge" d="M154.8 90.5L175.8 90.5L175.8 101.5L154.8 101.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="192.75" cy="96" r="1.3"/>
+  <text class="pl-text pl-text--small" x="62" y="117.5" text-anchor="end">4</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="117.5" text-anchor="end">2</text>
+  <path class="pl-line pl-thin" d="M182.2 110.4L187.6 107.5M182.2 113.8L194 107.5M182.2 117.2L200.4 107.5M186.1 118.5L203.2 109.4M192.5 118.5L203.2 112.8M198.9 118.5L203.3 116.2"/>
+  <path class="pl-edge" d="M182.2 107.5L203.2 107.5L203.2 118.5L182.2 118.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="220.25" cy="113" r="1.3"/>
+  <circle class="pl-edge pl-edge--key pl-thin" cx="220.25" cy="113" r="7.4"/>
+  <text class="pl-text pl-text--small pl-text--key" x="233.2" y="117.5">−2</text>
+  <text class="pl-text pl-text--small" x="62" y="134.5" text-anchor="end">5</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="134.5" text-anchor="end">4</text>
+  <path class="pl-line pl-thin" d="M182.2 127.3L187.6 124.5M182.2 130.7L194 124.5M182.2 134.1L200.4 124.5M186.1 135.5L203.3 126.4M192.5 135.5L203.2 129.8M198.9 135.5L203.3 133.2"/>
+  <path class="pl-edge" d="M182.2 124.5L203.2 124.5L203.2 135.5L182.2 135.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="220.25" cy="130" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="247.75" cy="130" r="1.3"/>
+  <text class="pl-text pl-text--small" x="62" y="151.5" text-anchor="end">6</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="151.5" text-anchor="end">2</text>
+  <path class="pl-line pl-thin" d="M237.2 142.3L238.7 141.5M237.2 145.7L245.1 141.5M237.3 149.1L251.5 141.5M237.2 152.5L257.9 141.5M243.6 152.5L258.2 144.7M250 152.5L258.3 148.1M256.4 152.5L258.3 151.5"/>
+  <path class="pl-edge" d="M237.2 141.5L258.2 141.5L258.2 152.5L237.2 152.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="275.25" cy="147" r="1.3"/>
+  <circle class="pl-edge pl-edge--key pl-thin" cx="275.25" cy="147" r="7.4"/>
+  <text class="pl-text pl-text--small pl-text--key" x="288.2" y="151.5">+1</text>
+  <text class="pl-text pl-text--small" x="62" y="168.5" text-anchor="end">7</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="168.5" text-anchor="end">6</text>
+  <path class="pl-line pl-thin" d="M237.3 159.3L238.7 158.5M237.3 162.7L245.1 158.5M237.2 166.1L251.5 158.5M237.2 169.5L257.8 158.5M243.6 169.5L258.2 161.7M249.9 169.5L258.3 165.1M256.3 169.5L258.3 168.5"/>
+  <path class="pl-edge" d="M237.2 158.5L258.2 158.5L258.2 169.5L237.2 169.5Z"/>
+  <path class="pl-line pl-thin" d="M264.8 161.6L270.6 158.5M264.8 165L277 158.5M264.8 168.4L283.4 158.5M269.1 169.5L285.8 160.7M275.5 169.5L285.8 164.1M281.9 169.5L285.8 167.4"/>
+  <path class="pl-edge" d="M264.8 158.5L285.8 158.5L285.8 169.5L264.8 169.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="302.75" cy="164" r="1.3"/>
+  <text class="pl-text pl-text--small" x="62" y="185.5" text-anchor="end">8</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="185.5" text-anchor="end">4</text>
+  <path class="pl-line pl-thin" d="M264.8 178.6L270.6 175.5M264.8 182L277 175.5M264.8 185.4L283.4 175.5M269.1 186.5L285.8 177.6M275.5 186.5L285.8 181M281.9 186.5L285.8 184.4"/>
+  <path class="pl-edge" d="M264.8 175.5L285.8 175.5L285.8 186.5L264.8 186.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="302.75" cy="181" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="330.25" cy="181" r="1.3"/>
+  <circle class="pl-edge pl-edge--key pl-thin" cx="330.25" cy="181" r="7.4"/>
+  <text class="pl-text pl-text--small pl-text--key" x="343.2" y="185.5">−2</text>
+  <text class="pl-text pl-text--small" x="62" y="202.5" text-anchor="end">9</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="202.5" text-anchor="end">6</text>
+  <path class="pl-line pl-thin" d="M292.2 194.6L296.1 192.5M292.2 198L302.5 192.5M292.2 201.4L308.9 192.5M294.6 203.5L313.2 193.6M301 203.5L313.2 197M307.4 203.5L313.3 200.4"/>
+  <path class="pl-edge" d="M292.2 192.5L313.2 192.5L313.2 203.5L292.2 203.5Z"/>
+  <path class="pl-line pl-thin" d="M319.8 193.5L321.7 192.5M319.8 196.9L328.1 192.5M319.8 200.3L334.5 192.5M320.2 203.5L340.8 192.6M326.6 203.5L340.8 196M333 203.5L340.8 199.4M339.4 203.5L340.8 202.8"/>
+  <path class="pl-edge" d="M319.8 192.5L340.8 192.5L340.8 203.5L319.8 203.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="357.75" cy="198" r="1.3"/>
+  <text class="pl-text pl-text--small" x="62" y="219.5" text-anchor="end">10</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="219.5" text-anchor="end">4</text>
+  <path class="pl-line pl-thin" d="M319.8 210.5L321.7 209.5M319.8 213.9L328.1 209.5M319.8 217.3L334.5 209.5M320.2 220.5L340.8 209.6M326.6 220.5L340.8 213M332.9 220.5L340.8 216.4M339.3 220.5L340.8 219.7"/>
+  <path class="pl-edge" d="M319.8 209.5L340.8 209.5L340.8 220.5L319.8 220.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="357.75" cy="215" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="385.25" cy="215" r="1.3"/>
+  <text class="pl-text pl-text--small" x="62" y="236.5" text-anchor="end">11</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="236.5" text-anchor="end">10</text>
+  <path class="pl-line pl-thin" d="M319.8 227.5L321.7 226.5M319.8 230.9L328.1 226.5M319.8 234.3L334.4 226.5M320.1 237.5L340.8 226.5M326.5 237.5L340.8 229.9M332.9 237.5L340.8 233.3M339.3 237.5L340.8 236.7"/>
+  <path class="pl-edge" d="M319.8 226.5L340.8 226.5L340.8 237.5L319.8 237.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="357.75" cy="232" r="1.3"/>
+  <path class="pl-line pl-thin" d="M374.8 228.9L379.2 226.5M374.8 232.3L385.6 226.5M374.8 235.6L392 226.5M377.7 237.5L395.8 227.9M384 237.5L395.8 231.3M390.4 237.5L395.8 234.7"/>
+  <path class="pl-edge" d="M374.8 226.5L395.8 226.5L395.8 237.5L374.8 237.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="412.75" cy="232" r="1.3"/>
+  <text class="pl-text pl-text--small" x="62" y="253.5" text-anchor="end">12</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="253.5" text-anchor="end">4</text>
+  <path class="pl-line pl-thin" d="M374.8 245.8L379.2 243.5M374.8 249.2L385.5 243.5M374.8 252.6L391.9 243.5M377.6 254.5L395.8 244.9M384 254.5L395.8 248.3M390.4 254.5L395.8 251.7"/>
+  <path class="pl-edge" d="M374.8 243.5L395.8 243.5L395.8 254.5L374.8 254.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="412.75" cy="249" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="440.25" cy="249" r="1.3"/>
+  <circle class="pl-edge pl-edge--key pl-thin" cx="440.25" cy="249" r="7.4"/>
+  <text class="pl-text pl-text--small pl-text--key" x="453.2" y="253.5">−2</text>
+  <text class="pl-text pl-text--small" x="62" y="270.5" text-anchor="end">13</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="270.5" text-anchor="end">12</text>
+  <path class="pl-line pl-thin" d="M374.8 262.8L379.1 260.5M374.8 266.2L385.5 260.5M374.8 269.6L391.9 260.5M377.6 271.5L395.8 261.9M384 271.5L395.8 265.3M390.4 271.5L395.8 268.7"/>
+  <path class="pl-edge" d="M374.8 260.5L395.8 260.5L395.8 271.5L374.8 271.5Z"/>
+  <path class="pl-line pl-thin" d="M402.2 261.8L404.7 260.5M402.2 265.2L411.1 260.5M402.2 268.6L417.5 260.5M403.2 271.5L423.2 260.8M409.6 271.5L423.3 264.2M416 271.5L423.3 267.6M422.3 271.5L423.3 271"/>
+  <path class="pl-edge" d="M402.2 260.5L423.2 260.5L423.2 271.5L402.2 271.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="440.25" cy="266" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="467.75" cy="266" r="1.3"/>
+  <text class="pl-text pl-text--small" x="62" y="287.5" text-anchor="end">14</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="287.5" text-anchor="end">6</text>
+  <path class="pl-line pl-thin" d="M429.8 277.8L430.2 277.5M429.8 281.2L436.6 277.5M429.8 284.6L443 277.5M429.8 287.9L449.4 277.5M435.1 288.5L450.8 280.2M441.5 288.5L450.8 283.6M447.9 288.5L450.8 287"/>
+  <path class="pl-edge" d="M429.8 277.5L450.8 277.5L450.8 288.5L429.8 288.5Z"/>
+  <path class="pl-line pl-thin" d="M457.3 280.1L462.2 277.5M457.3 283.5L468.6 277.5M457.3 286.9L475 277.5M460.7 288.5L478.2 279.2M467.1 288.5L478.3 282.5M473.4 288.5L478.3 285.9"/>
+  <path class="pl-edge" d="M457.2 277.5L478.2 277.5L478.2 288.5L457.2 288.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="495.25" cy="283" r="1.3"/>
+  <circle class="pl-edge pl-edge--key pl-thin" cx="495.25" cy="283" r="7.4"/>
+  <text class="pl-text pl-text--small pl-text--key" x="508.2" y="287.5">+1</text>
+  <text class="pl-text pl-text--small" x="62" y="304.5" text-anchor="end">15</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="304.5" text-anchor="end">8</text>
+  <path class="pl-line pl-thin" d="M429.8 294.7L430.2 294.5M429.8 298.1L436.6 294.5M429.8 301.5L443 294.5M429.8 304.9L449.4 294.5M435.1 305.5L450.8 297.2M441.5 305.5L450.8 300.6M447.9 305.5L450.8 304"/>
+  <path class="pl-edge" d="M429.8 294.5L450.8 294.5L450.8 305.5L429.8 305.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="467.75" cy="300" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="495.25" cy="300" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="522.75" cy="300" r="1.3"/>
+  <text class="pl-text pl-text--small" x="62" y="321.5" text-anchor="end">16</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="321.5" text-anchor="end">8</text>
+  <path class="pl-line pl-thin" d="M457.2 314.1L462.1 311.5M457.3 317.5L468.5 311.5M457.3 320.9L474.9 311.5M460.6 322.5L478.2 313.1M467 322.5L478.2 316.5M473.4 322.5L478.2 319.9"/>
+  <path class="pl-edge" d="M457.2 311.5L478.2 311.5L478.2 322.5L457.2 322.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="495.25" cy="317" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="522.75" cy="317" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="550.25" cy="317" r="1.3"/>
+  <circle class="pl-edge pl-edge--key pl-thin" cx="550.25" cy="317" r="7.4"/>
+  <text class="pl-text pl-text--small pl-text--key" x="563.2" y="321.5">−1</text>
+  <text class="pl-text pl-text--small" x="62" y="338.5" text-anchor="end">17</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="338.5" text-anchor="end">16</text>
+  <path class="pl-line pl-thin" d="M457.3 331.1L462.1 328.5M457.3 334.5L468.5 328.5M457.3 337.9L474.9 328.5M460.6 339.5L478.2 330.1M467 339.5L478.2 333.5M473.4 339.5L478.3 336.9"/>
+  <path class="pl-edge" d="M457.2 328.5L478.2 328.5L478.2 339.5L457.2 339.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="495.25" cy="334" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="522.75" cy="334" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="550.25" cy="334" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="577.75" cy="334" r="1.3"/>
+  <text class="pl-text pl-text--small" x="62" y="355.5" text-anchor="end">18</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="355.5" text-anchor="end">6</text>
+  <path class="pl-line pl-thin" d="M539.8 348.4L545.2 345.5M539.8 351.8L551.6 345.5M539.8 355.2L557.9 345.5M543.7 356.5L560.8 347.4M550 356.5L560.8 350.8M556.4 356.5L560.8 354.2"/>
+  <path class="pl-edge" d="M539.8 345.5L560.8 345.5L560.8 356.5L539.8 356.5Z"/>
+  <path class="pl-line pl-thin" d="M567.2 347.4L570.7 345.5M567.2 350.7L577.1 345.5M567.2 354.1L583.5 345.5M569.2 356.5L588.3 346.4M575.6 356.5L588.3 349.8M582 356.5L588.2 353.2"/>
+  <path class="pl-edge" d="M567.2 345.5L588.2 345.5L588.2 356.5L567.2 356.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="605.25" cy="351" r="1.3"/>
+  <text class="pl-text pl-text--small" x="62" y="372.5" text-anchor="end">19</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="372.5" text-anchor="end">18</text>
+  <path class="pl-line pl-thin" d="M512.2 363L513.2 362.5M512.3 366.4L519.6 362.5M512.2 369.8L526 362.5M512.2 373.2L532.4 362.5M518.1 373.5L533.2 365.4M524.5 373.5L533.2 368.8M530.9 373.5L533.2 372.2"/>
+  <path class="pl-edge" d="M512.2 362.5L533.2 362.5L533.2 373.5L512.2 373.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="550.25" cy="368" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="577.75" cy="368" r="1.3"/>
+  <path class="pl-line pl-thin" d="M594.8 363.3L596.3 362.5M594.8 366.7L602.7 362.5M594.8 370.1L609 362.5M594.8 373.5L615.4 362.5M601.1 373.5L615.8 365.7M607.5 373.5L615.8 369.1M613.9 373.5L615.8 372.5"/>
+  <path class="pl-edge" d="M594.8 362.5L615.8 362.5L615.8 373.5L594.8 373.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="632.75" cy="368" r="1.3"/>
+  <text class="pl-text pl-text--small" x="62" y="389.5" text-anchor="end">20</text>
+  <text class="pl-text pl-text--small pl-text--ice" x="104" y="389.5" text-anchor="end">8</text>
+  <path class="pl-line pl-thin" d="M567.2 381.3L570.7 379.5M567.2 384.7L577.1 379.5M567.2 388.1L583.5 379.5M569.2 390.5L588.2 380.4M575.6 390.5L588.2 383.8M581.9 390.5L588.2 387.2"/>
+  <path class="pl-edge" d="M567.2 379.5L588.2 379.5L588.2 390.5L567.2 390.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="605.25" cy="385" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="632.75" cy="385" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="660.25" cy="385" r="1.3"/>
+  <circle class="pl-edge pl-edge--key pl-thin" cx="660.25" cy="385" r="7.4"/>
+  <text class="pl-text pl-text--small pl-text--key" x="673.2" y="389.5">−1</text>
+  <text class="pl-text pl-text--small" x="605.2" y="400" text-anchor="middle">⋮</text>
+  <text class="pl-text pl-text--small" x="58" y="402.5" text-anchor="middle">⋮</text>
+  <path class="pl-line" d="M118 414L678 414"/>
+  <text class="pl-text pl-text--small" x="104" y="418.5" text-anchor="end">sum of all rows</text>
+  <text class="pl-text pl-text--small pl-text--ink" x="90" y="442.5" text-anchor="end"><tspan class="pl-var">S</tspan> = 1.3676…</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="120" y="443.5" text-anchor="end">1 .</text>
+  <circle class="pl-dot pl-dot--faint" cx="137.75" cy="438" r="1.3"/>
+  <path class="pl-line pl-thin" d="M154.8 434.2L157.9 432.5M154.7 437.6L164.3 432.5M154.8 441L170.7 432.5M156.4 443.5L175.8 433.2M162.8 443.5L175.8 436.6M169.2 443.5L175.8 440"/>
+  <path class="pl-edge" d="M154.8 432.5L175.8 432.5L175.8 443.5L154.8 443.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="192.75" cy="438" r="1.3"/>
+  <path class="pl-line pl-thin" d="M209.8 435.5L215.4 432.5M209.8 438.9L221.8 432.5M209.8 442.3L228.2 432.5M213.9 443.5L230.8 434.5M220.3 443.5L230.8 437.9M226.7 443.5L230.8 441.3"/>
+  <path class="pl-edge" d="M209.8 432.5L230.8 432.5L230.8 443.5L209.8 443.5Z"/>
+  <path class="pl-line pl-thin" d="M237.3 434.5L241 432.5M237.3 437.9L247.4 432.5M237.3 441.3L253.7 432.5M239.4 443.5L258.3 433.5M245.8 443.5L258.3 436.9M252.2 443.5L258.3 440.3"/>
+  <path class="pl-edge" d="M237.2 432.5L258.2 432.5L258.2 443.5L237.2 443.5Z"/>
+  <path class="pl-line pl-thin" d="M264.8 433.4L266.5 432.5M264.8 436.8L272.9 432.5M264.8 440.2L279.3 432.5M265 443.5L285.7 432.5M271.4 443.5L285.8 435.9M277.8 443.5L285.8 439.3M284.2 443.5L285.8 442.7"/>
+  <path class="pl-edge" d="M264.8 432.5L285.8 432.5L285.8 443.5L264.8 443.5Z"/>
+  <path class="pl-line pl-thin" d="M292.2 435.8L298.5 432.5M292.2 439.2L304.9 432.5M292.2 442.6L311.3 432.5M297 443.5L313.3 434.8M303.3 443.5L313.3 438.2M309.7 443.5L313.2 441.6"/>
+  <path class="pl-edge" d="M292.2 432.5L313.2 432.5L313.2 443.5L292.2 443.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="330.25" cy="438" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="357.75" cy="438" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="385.25" cy="438" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="412.75" cy="438" r="1.3"/>
+  <path class="pl-line pl-thin" d="M429.8 434.1L432.7 432.5M429.8 437.4L439.1 432.5M429.8 440.8L445.4 432.5M431.2 443.5L450.8 433.1M437.5 443.5L450.8 436.5M443.9 443.5L450.8 439.9M450.3 443.5L450.8 443.3"/>
+  <path class="pl-edge" d="M429.8 432.5L450.8 432.5L450.8 443.5L429.8 443.5Z"/>
+  <path class="pl-line pl-thin" d="M457.3 433L458.2 432.5M457.3 436.4L464.6 432.5M457.3 439.8L471 432.5M457.3 443.2L477.4 432.5M463.1 443.5L478.2 435.4M469.5 443.5L478.2 438.8M475.9 443.5L478.3 442.2"/>
+  <path class="pl-edge" d="M457.2 432.5L478.2 432.5L478.2 443.5L457.2 443.5Z"/>
+  <path class="pl-line pl-thin" d="M484.8 435.4L490.2 432.5M484.8 438.8L496.6 432.5M484.8 442.2L503 432.5M488.7 443.5L505.8 434.4M495.1 443.5L505.8 437.8M501.4 443.5L505.8 441.2"/>
+  <path class="pl-edge" d="M484.8 432.5L505.8 432.5L505.8 443.5L484.8 443.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="522.75" cy="438" r="1.3"/>
+  <path class="pl-line pl-thin" d="M539.8 433.3L541.3 432.5M539.8 436.7L547.7 432.5M539.8 440.1L554.1 432.5M539.8 443.5L560.5 432.5M546.2 443.5L560.8 435.7M552.6 443.5L560.8 439.1M559 443.5L560.8 442.5"/>
+  <path class="pl-edge" d="M539.8 432.5L560.8 432.5L560.8 443.5L539.8 443.5Z"/>
+  <circle class="pl-dot pl-dot--faint" cx="577.75" cy="438" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="605.25" cy="438" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="632.75" cy="438" r="1.3"/>
+  <circle class="pl-dot pl-dot--faint" cx="660.25" cy="438" r="1.3"/>
+  <text class="pl-text pl-text--small" x="680" y="442.5">…</text>
+  <text class="pl-text pl-text--small pl-text--key" x="90" y="470.5" text-anchor="end">5/4 = 1.25</text>
+  <text class="pl-text pl-text--body pl-text--key" x="120" y="471.5" text-anchor="end">1 .</text>
+  <circle class="pl-dot pl-dot--key" cx="137.75" cy="466" r="1.3"/>
+  <path class="pl-hatch pl-hatch--key" d="M154.8 461.4L156.4 460.5M154.8 464.7L162.7 460.5M154.8 468.1L169.1 460.5M154.8 471.5L175.5 460.5M161.2 471.5L175.8 463.8M167.6 471.5L175.8 467.2M174 471.5L175.8 470.6"/>
+  <path class="pl-edge pl-edge--key" d="M154.8 460.5L175.8 460.5L175.8 471.5L154.8 471.5Z"/>
+  <circle class="pl-dot pl-dot--key" cx="192.75" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="220.25" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="247.75" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="275.25" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="302.75" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="330.25" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="357.75" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="385.25" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="412.75" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="440.25" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="467.75" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="495.25" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="522.75" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="550.25" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="577.75" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="605.25" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="632.75" cy="466" r="1.3"/>
+  <circle class="pl-dot pl-dot--key" cx="660.25" cy="466" r="1.3"/>
+  <text class="pl-text pl-text--small pl-text--key" x="680" y="470.5">…</text>
+</svg>

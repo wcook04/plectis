@@ -1,0 +1,116 @@
+<svg class="plate" viewBox="0 0 720 500" role="img" aria-labelledby="erdos-269-problem-title" focusable="false" data-plate="erdos-269-problem">
+  <title id="erdos-269-problem-title">Erdős #269 for the primes 2, 3 and 5. The row a_n lists the 5-smooth numbers from 1 to 30, equally spaced, and continues. Above them, their running least common multiple as a staircase against a logarithmic scale marked 1, 10, 100, 1000 and 10000: it rises only at a prime power, by that prime (times 2 at 2, 4, 8 and 16; times 3 at 3, 9 and 27; times 5 at 5 and 25), so equal terms form runs. Runs of more than one term are red and bracketed: 5 and 6 share 60; 9, 10, 12 and 15 share 360; 16, 18, 20 and 24 share 720; 27 and 30 share 10800. The row running lcm gives each run&#x27;s value, and the row terms each run&#x27;s share of the sum: 1, 1/2, 1/6, 1/12, 2/60, 1/120, 4/360, 4/720, 1/3600 and 2/10800, and so on.</title>
+  <path class="pl-axis" d="M60 296L60 52.43"/>
+  <path class="pl-axis" d="M56 296L60 296M56 239.4L60 239.4M56 182.7L60 182.7M56 126.1L60 126.1M56 69.4L60 69.4"/>
+  <text class="pl-text" x="53" y="301" text-anchor="end">1</text>
+  <text class="pl-text" x="53" y="244.4" text-anchor="end">10</text>
+  <text class="pl-text" x="53" y="187.7" text-anchor="end">100</text>
+  <text class="pl-text" x="53" y="131.1" text-anchor="end">1000</text>
+  <text class="pl-text" x="53" y="74.4" text-anchor="end">10000</text>
+  <text class="pl-text" x="16" y="40.4">running lcm, log scale</text>
+  <path class="pl-line" d="M75.2 296L108.8 296L108.8 278.95L142.4 278.95L142.4 251.92L176 251.92L176 234.87L209.6 234.87L209.6 195.28L276.8 195.28L276.8 178.23L310.4 178.23L310.4 151.2L444.8 151.2L444.8 134.15L579.2 134.15L579.2 94.56L612.8 94.56L612.8 67.53L680 67.53"/>
+  <path class="pl-line pl-line--key" d="M209.6 195.28L276.8 195.28"/>
+  <path class="pl-line pl-line--key" d="M310.4 151.2L444.8 151.2"/>
+  <path class="pl-line pl-line--key" d="M444.8 134.15L579.2 134.15"/>
+  <path class="pl-line pl-line--key" d="M612.8 67.53L680 67.53"/>
+  <path class="pl-grid pl-dashed" d="M92 301L92 321M125.6 283.9L125.6 321M159.2 256.9L159.2 321M192.8 239.9L192.8 321M226.4 200.3L226.4 321M260 200.3L260 321M293.6 183.2L293.6 321M327.2 156.2L327.2 321M360.8 156.2L360.8 321M394.4 156.2L394.4 321M428 156.2L428 321M461.6 139.2L461.6 321M495.2 139.2L495.2 321M528.8 139.2L528.8 321M562.4 139.2L562.4 321M596 99.6L596 321M629.6 72.5L629.6 321M663.2 72.5L663.2 321"/>
+  <circle class="pl-dot" cx="92" cy="296" r="3"/>
+  <circle class="pl-dot" cx="125.6" cy="278.95" r="3"/>
+  <circle class="pl-dot" cx="159.2" cy="251.92" r="3"/>
+  <circle class="pl-dot" cx="192.8" cy="234.87" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="226.4" cy="195.28" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="260" cy="195.28" r="3.6"/>
+  <circle class="pl-dot" cx="293.6" cy="178.23" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="327.2" cy="151.2" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="360.8" cy="151.2" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="394.4" cy="151.2" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="428" cy="151.2" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="461.6" cy="134.15" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="495.2" cy="134.15" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="528.8" cy="134.15" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="562.4" cy="134.15" r="3.6"/>
+  <circle class="pl-dot" cx="596" cy="94.56" r="3"/>
+  <circle class="pl-dot pl-dot--key" cx="629.6" cy="67.53" r="3.6"/>
+  <circle class="pl-dot pl-dot--key" cx="663.2" cy="67.53" r="3.6"/>
+  <text class="pl-text pl-text--ink" x="108.8" y="272.4" text-anchor="middle">×2</text>
+  <text class="pl-text pl-text--ink" x="142.4" y="245.4" text-anchor="middle">×3</text>
+  <text class="pl-text pl-text--ink" x="176" y="228.4" text-anchor="middle">×2</text>
+  <text class="pl-text pl-text--ink" x="209.6" y="188.8" text-anchor="middle">×5</text>
+  <text class="pl-text pl-text--ink" x="276.8" y="171.7" text-anchor="middle">×2</text>
+  <text class="pl-text pl-text--ink" x="310.4" y="144.7" text-anchor="middle">×3</text>
+  <text class="pl-text pl-text--ink" x="444.8" y="127.7" text-anchor="middle">×2</text>
+  <text class="pl-text pl-text--ink" x="579.2" y="88.1" text-anchor="middle">×5</text>
+  <text class="pl-text pl-text--ink" x="612.8" y="61" text-anchor="middle">×3</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="92" y="340" text-anchor="middle">1</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="125.6" y="340" text-anchor="middle">2</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="159.2" y="340" text-anchor="middle">3</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="192.8" y="340" text-anchor="middle">4</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="226.4" y="340" text-anchor="middle">5</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="260" y="340" text-anchor="middle">6</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="293.6" y="340" text-anchor="middle">8</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="327.2" y="340" text-anchor="middle">9</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="360.8" y="340" text-anchor="middle">10</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="394.4" y="340" text-anchor="middle">12</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="428" y="340" text-anchor="middle">15</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="461.6" y="340" text-anchor="middle">16</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="495.2" y="340" text-anchor="middle">18</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="528.8" y="340" text-anchor="middle">20</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="562.4" y="340" text-anchor="middle">24</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="596" y="340" text-anchor="middle">25</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="629.6" y="340" text-anchor="middle">27</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="663.2" y="340" text-anchor="middle">30</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="684" y="340">…</text>
+  <text class="pl-text pl-text--body" x="16" y="340"><tspan class="pl-var">a</tspan><tspan class="pl-sup" dy="0.3em">n</tspan></text>
+  <path class="pl-edge pl-edge--key pl-thin" d="M215.4 347L215.4 351L271 351L271 347M316.2 347L316.2 351L439 351L439 347M450.6 347L450.6 351L573.4 351L573.4 347M618.6 347L618.6 351L674.2 351L674.2 347"/>
+  <text class="pl-text pl-text--ink" x="92" y="377" text-anchor="middle">1</text>
+  <text class="pl-text pl-text--ink" x="125.6" y="377" text-anchor="middle">2</text>
+  <text class="pl-text pl-text--ink" x="159.2" y="377" text-anchor="middle">6</text>
+  <text class="pl-text pl-text--ink" x="192.8" y="377" text-anchor="middle">12</text>
+  <text class="pl-text pl-text--key" x="243.2" y="377" text-anchor="middle">60</text>
+  <text class="pl-text pl-text--ink" x="293.6" y="377" text-anchor="middle">120</text>
+  <text class="pl-text pl-text--key" x="377.6" y="377" text-anchor="middle">360</text>
+  <text class="pl-text pl-text--key" x="512" y="377" text-anchor="middle">720</text>
+  <text class="pl-text pl-text--ink" x="596" y="377" text-anchor="middle">3600</text>
+  <text class="pl-text pl-text--key" x="646.4" y="377" text-anchor="middle">10800</text>
+  <text class="pl-text" x="16" y="369">running</text>
+  <text class="pl-text" x="16" y="386">lcm</text>
+  <text class="pl-text pl-text--ink pl-text--body" x="92" y="435" text-anchor="middle">1</text>
+  <text class="pl-text pl-text--ink" x="125.6" y="425.8" text-anchor="middle">1</text>
+  <path class="pl-bar pl-bar--ink" d="M119.58 430L131.62 430"/>
+  <text class="pl-text pl-text--ink" x="125.6" y="443.7" text-anchor="middle">2</text>
+  <text class="pl-text pl-text--ink" x="159.2" y="425.8" text-anchor="middle">1</text>
+  <path class="pl-bar pl-bar--ink" d="M153.18 430L165.22 430"/>
+  <text class="pl-text pl-text--ink" x="159.2" y="443.7" text-anchor="middle">6</text>
+  <text class="pl-text pl-text--ink" x="192.8" y="425.8" text-anchor="middle">1</text>
+  <path class="pl-bar pl-bar--ink" d="M182.86 430L202.74 430"/>
+  <text class="pl-text pl-text--ink" x="192.8" y="443.7" text-anchor="middle">12</text>
+  <text class="pl-text pl-text--ink" x="243.2" y="425.8" text-anchor="middle"><tspan class="pl-text--key">2</tspan></text>
+  <path class="pl-bar pl-bar--ink" d="M233.26 430L253.14 430"/>
+  <text class="pl-text pl-text--ink" x="243.2" y="443.7" text-anchor="middle">60</text>
+  <text class="pl-text pl-text--ink" x="293.6" y="425.8" text-anchor="middle">1</text>
+  <path class="pl-bar pl-bar--ink" d="M279.74 430L307.46 430"/>
+  <text class="pl-text pl-text--ink" x="293.6" y="443.7" text-anchor="middle">120</text>
+  <text class="pl-text pl-text--ink" x="377.6" y="425.8" text-anchor="middle"><tspan class="pl-text--key">4</tspan></text>
+  <path class="pl-bar pl-bar--ink" d="M363.74 430L391.46 430"/>
+  <text class="pl-text pl-text--ink" x="377.6" y="443.7" text-anchor="middle">360</text>
+  <text class="pl-text pl-text--ink" x="512" y="425.8" text-anchor="middle"><tspan class="pl-text--key">4</tspan></text>
+  <path class="pl-bar pl-bar--ink" d="M498.14 430L525.86 430"/>
+  <text class="pl-text pl-text--ink" x="512" y="443.7" text-anchor="middle">720</text>
+  <text class="pl-text pl-text--ink" x="596" y="425.8" text-anchor="middle">1</text>
+  <path class="pl-bar pl-bar--ink" d="M578.22 430L613.78 430"/>
+  <text class="pl-text pl-text--ink" x="596" y="443.7" text-anchor="middle">3600</text>
+  <text class="pl-text pl-text--ink" x="655.5" y="425.8" text-anchor="middle"><tspan class="pl-text--key">2</tspan></text>
+  <path class="pl-bar pl-bar--ink" d="M633.78 430L677.18 430"/>
+  <text class="pl-text pl-text--ink" x="655.5" y="443.7" text-anchor="middle">10800</text>
+  <text class="pl-text pl-text--small" x="108.8" y="434.5" text-anchor="middle">+</text>
+  <text class="pl-text pl-text--small" x="142.4" y="434.5" text-anchor="middle">+</text>
+  <text class="pl-text pl-text--small" x="174" y="434.5" text-anchor="middle">+</text>
+  <text class="pl-text pl-text--small" x="218" y="434.5" text-anchor="middle">+</text>
+  <text class="pl-text pl-text--small" x="266.4" y="434.5" text-anchor="middle">+</text>
+  <text class="pl-text pl-text--small" x="335.6" y="434.5" text-anchor="middle">+</text>
+  <text class="pl-text pl-text--small" x="444.8" y="434.5" text-anchor="middle">+</text>
+  <text class="pl-text pl-text--small" x="552" y="434.5" text-anchor="middle">+</text>
+  <text class="pl-text pl-text--small" x="623.8" y="434.5" text-anchor="middle">+</text>
+  <text class="pl-text pl-text--small" x="682.2" y="434.5">+ …</text>
+  <text class="pl-text" x="16" y="435">terms</text>
+</svg>

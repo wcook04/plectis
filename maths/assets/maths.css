@@ -31,6 +31,8 @@
   --u-problem: #272230;
   --u-claim: #716c7b;
   --u-paper: #9894a0;
+  --u-paper-short: #8f6212;
+  --u-paper-long: #6a4fa3;
   --u-document: #6a6573;
   --u-integration: var(--weave-red);
   --u-module: #9c98a4;
@@ -50,6 +52,8 @@
     --u-problem: #ece0cf;
     --u-claim: #a29dac;
     --u-paper: #85818e;
+    --u-paper-short: #d9a84e;
+    --u-paper-long: #a98fd6;
     --u-document: #94909e;
     --u-module: #847e8f;
     --u-object: #a7a0b6;
@@ -65,6 +69,8 @@
   --u-problem: #ece0cf;
   --u-claim: #a29dac;
   --u-paper: #85818e;
+  --u-paper-short: #d9a84e;
+  --u-paper-long: #a98fd6;
   --u-document: #94909e;
   --u-module: #847e8f;
   --u-object: #a7a0b6;
@@ -454,7 +460,8 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   box-shadow: inset 0 0 0 1.5px var(--u-problem);
 }
 .dot--claim { background: var(--u-claim); }
-.dot--paper { background: var(--u-paper); }
+/* A problem's two papers, short and long, each in its own colour. */
+.dot--paper { background: linear-gradient(90deg, var(--u-paper-short) 50%, var(--u-paper-long) 50%); }
 .dot--document { background: var(--u-document); }
 .dot--integration { background: var(--u-integration); }
 .dot--module { background: var(--u-module); }
@@ -781,6 +788,30 @@ html:not(.scripting) .universe-nojs { display: block; }
    figure of one strongest result, with the caption the landing gives it and
    the mathematician's reading under it. The drawing keeps the papers page's
    frontispiece scale; the reading keeps the page's measure. */
+/* The problem itself first (10 October 2026): Erdős's wording on the ember
+   rule, then what it says, an example and the crux beside its drawing, each
+   a summary and its full explanation, all open. */
+.problem-opening { margin: 0 0 var(--space-6); max-width: var(--measure-note); }
+.problem-opening__title { margin: 0 0 var(--space-3); font-family: var(--font-serif); font-weight: 500; font-size: 1.5rem; }
+.problem-opening__original {
+  position: relative; margin: 0 0 var(--space-4); padding-left: 1.1rem;
+  font-family: var(--font-serif); font-size: 1.14rem; line-height: 1.55; color: var(--ink);
+}
+.problem-opening__original::before {
+  content: ""; position: absolute; left: 0; top: 0.2em; bottom: 0.2em; width: 2px;
+  background: color-mix(in oklab, var(--home-ember, var(--accent)) 62%, transparent);
+}
+.problem-opening__original p { margin: 0; }
+.problem-opening__original footer { margin-top: 0.4rem; font-family: var(--font-sans, inherit); font-size: var(--fs-meta); color: var(--muted); }
+.problem-opening__part { margin: 0 0 var(--space-4); }
+.problem-opening__label { margin: 0 0 0.35rem; font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 1.12rem; color: var(--ink); }
+.problem-opening__summary { margin: 0 0 0.75rem; font-size: 1.04rem; line-height: 1.6; color: var(--ink); text-wrap: pretty; }
+.problem-opening__part > p:not(.problem-opening__summary) { margin: 0 0 0.75rem; line-height: 1.64; color: var(--ink-soft); text-wrap: pretty; }
+.problem-opening__part > ol, .problem-opening__part > ul { margin: 0 0 0.8rem; padding-left: 1.3rem; color: var(--ink-soft); line-height: 1.6; }
+.problem-opening__part li { margin: 0 0 0.4rem; }
+.problem-opening__part > .math.display { margin: 0.2rem 0 0.85rem; }
+.problem-opening__figure { margin: var(--space-3) 0 var(--space-3); }
+.problem-opening__drawing { width: min(100%, 42rem); }
 .problem-plates { margin: 0 0 var(--space-6); }
 .problem-plate { margin: 0 0 var(--space-6); }
 .problem-plate:last-child { margin-bottom: 0; }
@@ -1058,7 +1089,8 @@ html:not(.scripting) .universe-nojs { display: block; }
   display: inline-flex;
   align-items: baseline;
   max-width: min(28ch, 100%);
-  padding: 0;
+  min-height: 24px;
+  padding: 2px 0;
   border: 0;
   border-bottom: 1px dotted var(--muted);
   border-radius: 0;
@@ -1107,7 +1139,7 @@ html:not(.scripting) .universe-nojs { display: block; }
 .lean-identifier-detail button { font: .8rem var(--font-sans); cursor: pointer; }
 .lean-identifier-detail__status { color: var(--muted); font-size: .8rem; }
 @media print {
-  .paper-stage .lean-identifier { display: inline; max-width: none; border: 0; }
+  .paper-stage .lean-identifier { display: inline; max-width: none; padding: 0; border: 0; }
   .paper-stage .lean-identifier code { display: inline; white-space: normal; overflow-wrap: anywhere; }
   .lean-identifier::after, .lean-identifier-detail { display: none; }
 }
@@ -2735,6 +2767,23 @@ html:not(.scripting) .maths-layout a.narrative-ref--term {
 .universe-paper__title a:hover { color: var(--home-ember); text-decoration: none; }
 .universe-precis { margin: 0.45rem 0 0; max-width: 58ch; font-size: var(--fs-body); line-height: 1.62; color: var(--ink-soft); text-wrap: pretty; }
 .universe-precis .math, .universe-question .math { white-space: normal; }
+/* A problem's card opens on Erdős's own wording, quoted on the ember rule
+   the landing gives it, then what it says in plain words (10 October 2026). */
+.universe-original {
+  position: relative; margin: 0 0 0.85rem; padding-left: 0.95rem; max-width: 56ch;
+  font-family: var(--font-serif); font-size: 1.08rem; line-height: 1.55; color: var(--ink);
+}
+.universe-original::before {
+  content: ""; position: absolute; left: 0; top: 0.2em; bottom: 0.2em; width: 2px;
+  background: color-mix(in oklab, var(--home-ember, var(--accent)) 62%, transparent);
+}
+.universe-original p { margin: 0; }
+.universe-original .universe-original__source { margin-top: 0.35rem; font-family: var(--font-sans, inherit); font-size: var(--fs-meta); color: var(--muted); }
+.universe-plain { margin: 0 0 0.85rem; max-width: 56ch; font-size: 1rem; line-height: 1.6; color: var(--ink-soft); text-wrap: pretty; }
+.universe-plain strong { font-weight: 600; color: var(--ink); }
+.universe-original math, .universe-plain math { font-size: 1.04em; }
+.universe-chip .paper-swatch { margin-right: 0.4em; transform: none; }
+.universe-precis--waiting { min-height: 3.2em; }
 .universe-explorer .universe-go { min-height: 30px; font-size: var(--fs-small); }
 .universe-explorer .universe-quote__go .universe-go--primary,
 .universe-preview .universe-quote__go .universe-go--primary {
@@ -3578,3 +3627,24 @@ a.uidx-row[data-link-kind="exogenous"]::after { position: absolute; right: 0.5re
    and the way back is a full target. */
 .universe-explorer .explorer__crumbs { flex-wrap: wrap; row-gap: 0.5rem; }
 .universe-explorer .explorer__back { display: inline-flex; align-items: center; gap: 0.3rem; min-height: 28px; }
+
+/* Each problem's two papers have a colour each (Will, 10 October 2026:
+   "color code short and long papers"). The swatch is what the map draws:
+   the paper's node in the colour, its rows of results on a wash of it. */
+.paper-swatch {
+  display: inline-block; flex: none; width: 11px; height: 11px; box-sizing: border-box;
+  border-radius: 2px; border: 1.5px solid var(--u-paper); vertical-align: baseline; transform: translateY(1px);
+}
+.paper-swatch--short { border-color: var(--u-paper-short); background: color-mix(in srgb, var(--u-paper-short) 30%, transparent); }
+.paper-swatch--long { border-color: var(--u-paper-long); background: color-mix(in srgb, var(--u-paper-long) 30%, transparent); }
+
+/* What the words on the map mean: under the lede at rest, and first in How
+   to read. A term and its sentence, the term's own mark beside it. */
+.universe-terms { margin: 0 0 1.1rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.universe-terms__title { margin: 0; padding: 0.6rem 0; font-size: var(--fs-small); font-weight: 600; color: var(--ink); }
+.universe-terms dl { margin: 0 0 0.7rem; display: grid; gap: 0.6rem; }
+.universe-terms__row { display: grid; gap: 0.15rem; }
+.universe-terms dt { display: flex; align-items: center; gap: 0.5rem; font-size: var(--fs-small); font-weight: 600; color: var(--ink); }
+.universe-terms dt .dot { display: inline-block; flex: none; width: 10px; height: 10px; border-radius: 50%; }
+.universe-terms dt .dot, .universe-terms dt .glyph, .universe-terms dt .paper-swatch { margin: 0; transform: none; }
+.universe-terms dd { margin: 0 0 0 calc(11px + 0.5rem); font-size: var(--fs-small); line-height: 1.5; color: var(--ink-soft); text-wrap: pretty; }

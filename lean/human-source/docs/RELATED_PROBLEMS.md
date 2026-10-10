@@ -5,7 +5,7 @@ SPDX-License-Identifier: Apache-2.0
 
 # Related Erdős problems
 
-Where this work sits among the numbered problems it is near. Statuses are as listed on the individual problem pages ([68](https://www.erdosproblems.com/68), [249](https://www.erdosproblems.com/249), [257](https://www.erdosproblems.com/257), [1041](https://www.erdosproblems.com/1041), [1049](https://www.erdosproblems.com/1049), [69](https://www.erdosproblems.com/69), [250](https://www.erdosproblems.com/250), [258](https://www.erdosproblems.com/258)) in July 2026; none of the external results is re-proved in this repository.
+Where this work sits among the numbered problems it is near. Statuses are as listed on the individual problem pages ([68](https://www.erdosproblems.com/68), [249](https://www.erdosproblems.com/249), [257](https://www.erdosproblems.com/257), [1041](https://www.erdosproblems.com/1041), [1049](https://www.erdosproblems.com/1049), [69](https://www.erdosproblems.com/69), [250](https://www.erdosproblems.com/250), [258](https://www.erdosproblems.com/258)) in July 2026. The catalogue column preserves those dated classifications; the local-scope column and source links below describe this repository.
 
 ## Bounded status route
 
@@ -37,8 +37,8 @@ records an `advances_open_target` edge.
 | **#68** `∑_{n≥2} 1/(n!−1)` | open | problem-owned checked reductions and finite evidence |
 | **#249** `∑ φ(n)/2ⁿ` | open | open target |
 | **#257** `∑_{n∈A} 1/(2ⁿ−1)` | open | open target with formalised special cases |
-| **#1041** short curves in polynomial lemniscates | open | problem-owned dynamical reductions and proof audit |
-| **#1049** `∑ 1/(tⁿ−1)`, rational `t>1` | open (rational `t`) | integer-base theorem plus problem-owned rational-base obstructions |
+| **#1041** short curves in polynomial lemniscates | open | ani's exact Formal Conjectures refutation plus dynamical reductions |
+| **#1049** `∑ 1/(tⁿ−1)`, rational `t>1` | open (rational `t`) | Zudilin's strict rational-base region theorem plus rational-base obstructions |
 | **#69** `∑ ω(n)/2ⁿ` | solved (Tao–Teräväinen) | cited-only solved neighbour plus formalised identity bridge |
 | **#250** `∑ σ(n)/2ⁿ` | solved (Nesterenko 1996) | cited-only solved neighbour |
 | **#258** `∑ τ(n)/(a₁···aₙ)` | solved | untouched analogy |
@@ -70,8 +70,15 @@ records an `advances_open_target` edge.
 - **#269** — the [running-lcm note](papers/full-text/erdos-269-three-prime-running-lcm.md)
   and [ThreePrimeRunningLcm source](../lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123)
   expose exact three-prime identities and a conditional residue-escape route;
-  open boundary: the rationality-to-carry bridge and cofinal window escape.
-- **#1041** — the paper-facing route checks Newton-flow ray separation and
+  the [rationality-to-carry bridge](../lean/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L324)
+  proves that rationality of the actual `{2,3,5}` series produces a positive
+  reduced carry from an explicit onset. Open boundary: cofinal window escape
+  for that actual orbit.
+- **#1041** — ani's degree-seven polynomial has a formalised
+  [Hausdorff-length refutation](../lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L407)
+  of the exact Formal Conjectures statement. This checks one polynomial;
+  independent human review of correspondence with the 1958 wording is not
+  recorded. The paper-facing route also checks Newton-flow ray separation and
   perturbation lemmas. The source-current [frontier delta](../research_corpus/Erdos1041/FRONTIER.md)
   additionally routes the surviving hub-selection, near-Fekete, perimeter,
   inverse-sheet, and degree-five premise families through their exact public
@@ -81,7 +88,10 @@ records an `advances_open_target` edge.
   and [paper note](papers/full-text/erdos-1041-lemniscate-newton-flow.md)
   together, keeping the source-only frontier separate from reviewed claim
   authority.
-- **#1049** — the [rational-base note](papers/full-text/erdos-1049-rational-base-lambert.md)
+- **#1049** — [Zudilin's strict rational-base region theorem](../lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L113)
+  proves irrationality at `a/b` for natural `0 < b < a` satisfying
+  `ZudilinContourRegion a b`, including every `(31/4)^r` with positive natural
+  `r`. The [rational-base note](papers/full-text/erdos-1049-rational-base-lambert.md)
   and its checked source family — [RationalBaseLambert](../lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155)
   for the `3/2` corridor and `7/2` height input, [ZudilinHeightRegion](../lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91)
   for the `81/200` region, [RationalPadeArithmetic](../lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30)
@@ -89,8 +99,9 @@ records an `advances_open_target` edge.
   for finite Padé arithmetic and comparison, and [QAperyDiagonalNonEquivalence](../lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67)
   for the moving-diagonal no-go, with [ZudilinConeArithmetic](../lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L286)
   covering the endpoint-unit common-divisor obstruction — route distinct
-  mechanisms without claiming irrationality. The integer-base case `b ≥ 2` is
-  `irrational_erdosSum_full_support`; open boundary: irrationality at `3/2`,
+  arithmetic and obstruction mechanisms. The integer-base case `b ≥ 2` is
+  `irrational_erdosSum_full_support`; open boundary: universal rational-base
+  irrationality, irrationality at `3/2`,
   the primitive noncollapsed construction, and analytic remainder control.
 - **#69** — the prime-support case of #257; only the identity bridge to
   `∑_p 1/(2ᵖ−1)` is formalised, not the irrationality.

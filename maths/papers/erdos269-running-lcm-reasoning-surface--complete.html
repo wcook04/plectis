@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="format-detection" content="telephone=no">
   <title>Running least common multiples: distinct values and multiplicities · Plectis maths</title>
-  <meta name="description" content="The reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density…">
+  <meta name="description" content="For the prime set {2,3,5}, a five-map argument proves irrationality of the sum over distinct running LCMs. Two-prime sums reduce to a transcendental…">
   <link rel="canonical" href="https://wcook04.github.io/plectis/maths/papers/erdos269-running-lcm-reasoning-surface.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Plectis">
   <meta property="og:title" content="Running least common multiples: distinct values and multiplicities · Plectis maths">
-  <meta property="og:description" content="The reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density…">
+  <meta property="og:description" content="For the prime set {2,3,5}, a five-map argument proves irrationality of the sum over distinct running LCMs. Two-prime sums reduce to a transcendental…">
   <meta property="og:url" content="https://wcook04.github.io/plectis/maths/papers/erdos269-running-lcm-reasoning-surface.html">
   <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
   <meta property="og:image:width" content="1792">
@@ -18,7 +18,7 @@
   <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Running least common multiples: distinct values and multiplicities · Plectis maths">
-  <meta name="twitter:description" content="The reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density…">
+  <meta name="twitter:description" content="For the prime set {2,3,5}, a five-map argument proves irrationality of the sum over distinct running LCMs. Two-prime sums reduce to a transcendental…">
   <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1526">
@@ -28,8 +28,8 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/style.css?v=7b0bb6523874">
-  <link rel="stylesheet" href="../assets/maths.css?v=988ea40d1d74">
+  <link rel="stylesheet" href="../../assets/style.css?v=90bbbd0d600b">
+  <link rel="stylesheet" href="../assets/maths.css?v=1150f9202197">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=3323afd66307"></script></template>
   <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
   <script defer src="../assets/maths.js?v=eb35fe169ca1"></script>
@@ -110,9 +110,9 @@
       </header>
 
       <div class="paper-precis">
-        <p><b class="paper-precis__head">Pr&eacute;cis.</b> The reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density supplies the required threshold pattern. The record computes the rank of every finite restriction and the least uniform approximation error over all matrices of finite separated rank. For the repeated {2,3,5} sum it derives an integer-coefficient tail recurrence and a residue criterion equivalent to irrationality. The unproved step is to find such windows for every positive multiplier <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> to 30 and after every prescribed start. It also gives the full two-prime comparison, following Fan&#x27;s earlier Hecke–Mahler reduction, and identifies the boundary terms that survive a proposed finite-difference cancellation.</p>
+        <p><b class="paper-precis__head">Pr&eacute;cis.</b> For the prime set {2,3,5}, a five-map argument proves irrationality of the sum over distinct <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-running-lcm" data-term="running_lcm" data-term-auto="1">running LCMs</a>. Two-prime sums reduce to a transcendental Hecke–Mahler value. For the repeated three-prime sum, an equivalent residue criterion leaves an arithmetic condition open. Complete ordinary arguments for general distinct-running-LCM sums and prime-power <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subseries" data-term="subseries" data-term-auto="1">subseries</a> are retained as remarks awaiting formalisation.</p>
         <div class="authority-card paper-scope">
-          <p><b>This paper owns</b> the complete problem-specific <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">reasoning surface</a> for Erdős #269, including all registered result families and their boundaries.</p>
+          <p><b>This paper owns</b> distinct-height irrationality, all-rank kernel structure and the repeated-sum tail criteria, preserving the multiplicity distinction and the remaining open residue-window <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a>.</p>
           <p><b>It is not authority for</b> the validity of claims tagged <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open.</p>
         </div>
       </div>
@@ -123,7 +123,7 @@
 <article class="lean-paper" data-paper-id="erdos269-running-lcm-reasoning-surface" data-math-mode="mathjax">
   <div class="lean-paper__body" data-source="../../../paper/269/erdos269-running-lcm-reasoning-surface.tex">
 <section id="long269:sec:problem" class="level2">
-<h2>Two sums from <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-running-lcm" data-term="running_lcm" data-term-auto="1">running least common multiples</a></h2>
+<h2>Two sums from running least common multiples</h2>
 <p>Let <span class="math inline" data-term-auto="off" data-tex="\(P\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi></math></mjx-assistive-mml></mjx-container></span> be a finite set of at
 least two primes, and let <span class="math inline" data-term-auto="off" data-tex="\(\mathcal
 S_P\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-TeXAtom texclass="ORD"><mjx-mi><mjx-c class="mjx-c53 STX-C">S</mjx-c></mjx-mi></mjx-TeXAtom><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow data-mjx-texclass="ORD"><mi data-mjx-variant="-tex-calligraphic" mathvariant="script">S</mi></mrow><mi>P</mi></msub></math></mjx-assistive-mml></mjx-container></span> consist of <span class="math inline" data-term-auto="off" data-tex="\(1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn></math></mjx-assistive-mml></mjx-container></span> and all
@@ -227,7 +227,7 @@ class="math inline" data-term-auto="off" data-tex="\(X_a\)" data-math-rendered="
 finite-tail repetition argument no longer applies. Rationality would
 still make every sufficiently late <span
 class="math inline" data-term-auto="off" data-tex="\(BX_a\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D435">𝐵</mjx-c></mjx-mi><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44B">𝑋</mjx-c></mjx-mi><mjx-script class="mjx-s-b4ca2e60bc5952f5"><mjx-mi size="s"><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>B</mi><msub><mi>X</mi><mi>a</mi></msub></math></mjx-assistive-mml></mjx-container></span> integral, where <span
-class="math inline" data-term-auto="off" data-tex="\(B\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D435">𝐵</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>B</mi></math></mjx-assistive-mml></mjx-container></span> is the denominator part coprime to
+class="math inline" data-term-auto="off" data-tex="\(B\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D435">𝐵</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>B</mi></math></mjx-assistive-mml></mjx-container></span> is the denominator part <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> to
 <span class="math inline" data-term-auto="off" data-tex="\(30\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>30</mn></math></mjx-assistive-mml></mjx-container></span>. A finite segment excludes such
 an integer tail when its least positive residue exceeds the quadratic
 bound. Irrationality is equivalent to finding these segments for every
@@ -238,7 +238,7 @@ quantifier.</p>
 the running LCM geometry and two-prime formulae. For general distinct
 sums, Section <a class="math-ref" href="#long269:sec:distinct-all">5.1</a> uses
 comparison of two tails rather than recovery from one; the finite-state,
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subseries" data-term="subseries" data-term-auto="1">subseries</a> and linear-flow extensions follow as ordinary arguments
+subseries and linear-flow extensions follow as ordinary arguments
 pending formalisation. Section <a class="math-ref" href="#long269:sec:rank">7</a> separates exact
 kernel rank from approximation. For the repeated target, Sections <a class="math-ref" href="#long269:sec:blocks">8</a>–<a class="math-ref" href="#long269:sec:escape">10</a> derive the
 coefficients, bounds and residue criterion; the remaining sections

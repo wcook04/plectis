@@ -126,10 +126,10 @@ table put these sentences 354px past the rendered column, so they read here:
 - **#68** — `weighted_collision_and_complementary_residue`; `cofinal_prime_power_amplification`; `cofinal_lower_endpoint_escape`; `cofinal_doubled_prime_branch_failure`; `cramer_residual_nonintegrality`
 - **#243** — `unbounded_negative_excursions`; `derive_negative_part_bound`; `formalise_the_published_criteria`
 - **#249** — Index: `strict_prime_tail_orbit_gap`; `hankel_denominator_fan_in`; `euler_sieve_limit_theorem`; `prime_ray_resultant_supply`; `stern_brocot_arithmetic_bridge`. Family: `totient_coprimality_probability`; `squared_lambert_gcd_moments`; `stern_brocot_cylinder_law`; `stern_brocot_run_fibonacci_stability`. Reviewed: `remaining_open.erdos_249_irrationality`; `remaining_open.unbounded_certificate_supply`
-- **#251** — `prime_gap_cofinal_shift_escape`; `cofinal_adjacent_small_mismatch`; `actual_prime_gap_tail_formal_bridge`
+- **#251** — `prime_gap_cofinal_shift_escape`; `cofinal_adjacent_small_mismatch`. Under a rationality witness, the actual infinite-tail identification is proved in [`PrimeGapDyadicTail.lean`](../lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L494); the cofinal escape and small-shift supplies remain open.
 - **#257** — Index: `arithmetic_rigidity_for_thin_supports`; `formalise_measure_and_stride_geometry`. Reviewed: `remaining_open.half_value_membership`; `remaining_open.twenty_one_permanent_affine_supercapacity`; `remaining_open.universal_257_all_infinite_supports`
-- **#269** — `actual_local_window_residue_escape`; `actual_rational_carry_instantiation`; `nonstationary_analytic_theorem`; `unbounded_height_certificate`
-- **#1041** — `repair_or_refute_saddle_block`; `compact_ray_cut_strip_decomposition`; `metric_gluing_below_two`; `two_stage_stable_perturbation`; `relative_global_newton_flow_theorem`
+- **#269** — `actual_local_window_residue_escape`; `nonstationary_analytic_theorem`; `unbounded_height_certificate`. The actual rationality-to-reduced-carry bridge is proved in [`RationalityCarryBridge.lean`](../lean/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L324); the actual cofinal escape producer remains open.
+- **#1041** — `historical_curve_length_correspondence`; `repair_or_refute_saddle_block`; `compact_ray_cut_strip_decomposition`; `corrected_metric_gluing_for_restricted_families`; `two_stage_stable_perturbation`; `relative_global_newton_flow_theorem`
 - **#1049** — `three_halves_growing_rank_endpoint_jet_kernel`
 
 From a reviewed route, use the registered claim or paper-anchor query to

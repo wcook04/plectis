@@ -3,24 +3,37 @@
 
 # Plectis
 
-### Open mathematical research
+### Mathematical research and the system behind it
 
-Eight Erdős problems, with papers to read, proofs to inspect and research to continue.
+Eight Erdős problem programmes connect papers, Lean proofs, experiments,
+failed approaches and open questions. The system paper, writing guides and
+recorded demonstrations explain how this research is produced and inspected.
 
-**[Explore the website](https://wcook04.github.io/plectis/maths/)** ·
-**[Open the maths map](https://wcook04.github.io/plectis/maths/universe.html)** ·
-**[Read the papers](paper/README.md)** · **[Watch the videos](#videos)**
+**[Explore the research](#problem-papers)** · **[Read the system paper](paper/systems/claim-faithful-publication-systems-paper.pdf)** · **[Watch the videos](#videos)** · **[Open the maths map](https://wcook04.github.io/plectis/maths/universe.html)**
 
 [![Eight Erdős problem programmes: the interactive maths map connects papers, results and their formal evidence](.github/maths-map.png)](https://wcook04.github.io/plectis/maths/universe.html)
 
 <sub>The maths map on 9 October 2026. Open the image to explore the current edition.</sub>
 
 Plectis is an independent, AI-assisted prototype built and maintained by Will Cook.
-Read the arguments, Lean proofs, experiments and failed approaches without
-installing Lean. Start with [A reader's way in](docs/READING_GUIDE.md) or the
-[glossary](https://wcook04.github.io/plectis/docs/glossary.html) of mathematical terms.
+Start with [A reader's way in](docs/READING_GUIDE.md)
+or the [glossary](https://wcook04.github.io/plectis/docs/glossary.html).
 
 ---
+
+## Choose a way in
+
+- **Mathematics:** [eight short papers and longer research records](#problem-papers).
+- **Research system:** [A Repository-Based System for Research and Publication](paper/systems/claim-faithful-publication-systems-paper.pdf).
+- **Writing and revision:** [writing guide](paper/exposition/writing-a-good-mathematical-paper.pdf) and [method](paper/exposition/writing-mathematics-from-reviewed-revisions.pdf).
+- **Reader feedback:** [paper revisions](docs/research-commons/CREDIT_LEDGER.md#credit-correspondence-004).
+- **Connections between problems:** [cross-problem paper](paper/synthesis/optimal-sparse-perturbations.pdf).
+- **Formal evidence:** [Lean source](docs/SOURCE_MAP.md) and [Comparator checks](docs/EXTERNAL_VERIFICATION.md).
+- **Working environment:** [introduction, mathematics, CodeMap and Agent Trace films](#videos).
+
+This repository is the public research workspace. The [website](https://wcook04.github.io/plectis/)
+provides reading and map views. Its 88-component software map describes the
+earlier Plectis toolkit. The films also show private interfaces, not included here.
 
 ## For a first look: #257
 
@@ -61,29 +74,24 @@ its assumptions, earlier work and remaining questions.
 
 ## Read, inspect or continue
 
-> **[Choose a question](https://wcook04.github.io/plectis/maths/universe.html)** → **[Read a paper](paper/README.md)** → **[Follow its evidence](docs/SOURCE_MAP.md)**<br>
-> Papers lead to exact statements, selected Lean proofs, experiments and [open questions](docs/RESULTS.md).
-
-- **Read and understand.** [A reader's way in](docs/READING_GUIDE.md) introduces
-  the questions. The [reading edition](docs/reading-edition/README.md) gathers
-  the paper openings in one file, suitable for reading or sharing with an AI.
-- **Inspect or reproduce.** [Follow one claim](docs/REPRODUCIBILITY.md#try-one-claim-without-lean)
-  with Git and Python, or [rerun an exact-rational experiment](docs/REPRODUCIBILITY.md#reproduce-the-257-exact-rational-example).
-  That finite experiment does not reproduce the weighted theorem above.
-- **Work with an agent.** The [agent quickstart](docs/agents/README.md#start-with-current-public-work)
-  gives clone commands and a copyable prompt. Ask it to explain an argument,
-  explore an open question or improve a tool. The repository includes its
-  instructions and links to the evidence.
+[Read a paper](paper/README.md), [follow one claim](docs/REPRODUCIBILITY.md#try-one-claim-without-lean),
+or [work with your own agent](docs/agents/README.md#start-with-current-public-work).
+The [reading edition](docs/reading-edition/README.md) gathers the paper openings
+for reading or sharing with an AI. Return an argument, correction or question
+through the [contribution guide](#contribute).
 
 <a id="videos"></a>
 
 ## Watch the videos
 
-- [Plectis: introduction](https://youtu.be/TZycALG7vTo)
-- [Erdős #257: the reciprocal-summability criterion](https://youtu.be/3zJkG-kY4qg)
-- [CodeMap demonstration](https://youtu.be/8yk8rmhk02U)
-- [Agent Trace demonstration](https://youtu.be/SGeVUNqjfsk)
-- [Combined film](https://youtu.be/bkHJvRVWtC0)
+- [Plectis: introduction](https://youtu.be/TZycALG7vTo): how the research, papers and tools connect.
+- [Erdős #257: the reciprocal-summability criterion](https://youtu.be/3zJkG-kY4qg): follow an argument through the map, paper and formal statement.
+- [CodeMap demonstration](https://youtu.be/8yk8rmhk02U): inspect source files, their purposes and dependencies.
+- [Agent Trace demonstration](https://youtu.be/SGeVUNqjfsk): inspect recorded agent work and carry selected context into another review.
+- [Combined film](https://youtu.be/bkHJvRVWtC0): the introduction and demonstrations together.
+
+CodeMap and Agent Trace demonstrate private interfaces in the research
+environment. This repository publishes the mathematical research and its tools.
 
 <a id="about-the-project"></a>
 
@@ -120,18 +128,10 @@ with its assumptions, limits and sources.
 
 ### Reading across the problems
 
-**[Reading Eight Erdős Problems Together](paper/synthesis/optimal-sparse-perturbations.pdf)**<br>
-The cross-problem paper develops connections through factorial series, Lambert
-subsums and the limits of shared methods. Its main theorems are ordinary proofs;
-Lean checks specified ingredients. The [synthesis guide](paper/synthesis/README.md)
+[Reading Eight Erdős Problems Together](paper/synthesis/optimal-sparse-perturbations.pdf)
+develops connections and the limits of shared methods. Its main theorems are
+ordinary proofs; Lean checks specified ingredients. The [synthesis guide](paper/synthesis/README.md)
 identifies ways to continue the work.
-
-**[A Repository-Based System for Research and Publication](paper/systems/claim-faithful-publication-systems-paper.pdf)**<br>
-The system paper explains how research, evidence and publication fit together.
-
-[Browse the website catalogue](https://wcook04.github.io/plectis/docs/papers.html)
-for browser reading, or the [repository paper index](paper/README.md) for sources
-and earlier editions.
 
 <a id="what-the-checks-establish"></a>
 
@@ -149,16 +149,14 @@ lists the selected statements. The [verification dossier](docs/EXTERNAL_VERIFICA
 records selected statements across all eight problems and their replay requirements;
 it does not cover every argument in the papers.
 
-Researchers still judge whether the formal statement captures the intended
-mathematics, whether a result is new, and whether it is useful. A successful
-build or platform submission does not establish those judgements.
+Researchers judge correspondence with the intended mathematics, novelty and
+usefulness. A build or platform submission does not establish those judgements.
 [Methodology](docs/METHODOLOGY.md) explains the review required to change a claim.
 
 ## Contribute
 
-An idea, correction, reference, counterexample, failed approach or clearer
-explanation can help. One observation is enough; you need not solve a problem or write
-Lean. I can help formalise an argument while preserving its attribution.
+Ideas, corrections, references, counterexamples and clearer explanations are
+welcome. You need not solve a problem or write Lean.
 
 - **Mathematics or exposition:** [work on a paper](docs/CONTRIBUTE_BY_PAPER.md)
   or [develop a method across problems](paper/synthesis/README.md).
@@ -170,16 +168,15 @@ Lean. I can help formalise an argument while preserving its attribution.
 - **An investigation with your own agent:** the [frontier relay](docs/FRONTIER_RELAY.md)
   explains how to return the argument, evidence, limits and next question.
 
-[CONTRIBUTING](CONTRIBUTING.md) explains what to send,
-including work without a clone. Accepted contributions receive a public record
-of their evidence and credit under the [credit policy](docs/research-commons/CREDIT_POLICY.md).
-If you solve a problem, the credit for your solution is yours. If this repo
-or an intermediate result helped, please cite the relevant work and say how.
+[CONTRIBUTING](CONTRIBUTING.md) explains returns without a clone.
+Accepted contributions receive a public evidence and credit record under the
+[credit policy](docs/research-commons/CREDIT_POLICY.md). Credit for your solution
+is yours; cite any result here that helped.
 
 ## Read or verify locally
 
-[REPRODUCIBILITY](docs/REPRODUCIBILITY.md) gives installation instructions,
-commands and build requirements. Start by [following one claim without Lean](docs/REPRODUCIBILITY.md#try-one-claim-without-lean).
+[REPRODUCIBILITY](docs/REPRODUCIBILITY.md) gives installation and build instructions.
+[Follow one claim without Lean](docs/REPRODUCIBILITY.md#try-one-claim-without-lean).
 Instructions for coding agents are in [AGENTS.md](AGENTS.md) and the
 [agent workbench](docs/agents/AGENT_WORKBENCH.md).
 

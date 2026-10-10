@@ -8,7 +8,7 @@
 [Read without a clone](../docs/reading-edition/README.md)
 
 Each problem has a short first-read paper and a longer complete reasoning record.
-The collection has four complementary roles:
+The collection has five complementary roles:
 
 - **[Eight short papers](#problem-papers)** introduce selected results, their
   arguments and what remains open, one paper for each Erdős problem.
@@ -19,6 +19,8 @@ The collection has four complementary roles:
 - **[A Repository-Based System for Research and Publication](#project-papers)**
   explains how the arguments, evidence, explanations and contributions fit
   together. This is the main systems paper.
+- **[The writing guides](#project-papers)** explain how mathematical papers are
+  structured and revised using literature and feedback.
 
 You do not need Lean or a coding agent to read the papers. PDFs and LaTeX
 sources are paired below; the [website catalogue](https://wcook04.github.io/plectis/docs/papers.html)

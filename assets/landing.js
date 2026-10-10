@@ -858,6 +858,67 @@
     });
   });
 
+  /* "Read the interesting result" (Will, 10 October 2026: the band led with
+     results and "nobody's gonna understand that"). Each slide now opens on
+     its problem; the result, its plate, its two registers and its theorem
+     stand behind this fold, open or closed on every problem at once, like
+     the theorem's. Closed, they are hidden from the tab order, and the
+     plate's story waits until the fold opens to be told. */
+  var resultButtons = Array.prototype.slice.call(root.querySelectorAll('[data-results-result]'));
+  function setResult(open, from) {
+    root.classList.toggle('is-result-open', open);
+    resultButtons.forEach(function (button) {
+      button.setAttribute('aria-expanded', open ? 'true' : 'false');
+      button.textContent = open ? 'Hide the interesting result' : 'Read the interesting result';
+    });
+    if (!open) {
+      stopStory();
+      setTheorem(false);
+      setMode('intuitive');
+      return;
+    }
+    if (from) {
+      var region = document.getElementById(from.getAttribute('aria-controls'));
+      if (region && region.scrollIntoView) {
+        window.setTimeout(function () {
+          region.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' });
+        }, reduceMotion ? 0 : 240);
+      }
+    }
+    playWhenSeen(slides[index]);
+  }
+  resultButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      setResult(!root.classList.contains('is-result-open'), button);
+    });
+  });
+
+  /* "Explain in full" (Will, 10 October 2026: each section is "like a
+     summary, but then you can click it and then it becomes the full height,
+     and it goes even more into depth"). Each section of a problem opens on
+     its own, under its summary; the label, or the summary itself, opens and
+     closes it. A click that ends a text selection, or lands on a link, is
+     left alone. */
+  Array.prototype.forEach.call(root.querySelectorAll('[data-explainer-part]'), function (part) {
+    var button = part.querySelector('[data-explainer-more]');
+    if (!button) return;
+    function setOpen(open) {
+      part.classList.toggle('is-open', open);
+      button.setAttribute('aria-expanded', open ? 'true' : 'false');
+      button.textContent = open ? 'Show less' : 'Explain in full';
+    }
+    button.addEventListener('click', function () { setOpen(!part.classList.contains('is-open')); });
+    var summary = part.querySelector('.home-explainer__summary');
+    if (summary) {
+      summary.addEventListener('click', function (event) {
+        if (event.target.closest && event.target.closest('a, button')) return;
+        var selection = window.getSelection ? window.getSelection() : null;
+        if (selection && String(selection).length) return;
+        setOpen(!part.classList.contains('is-open'));
+      });
+    }
+  });
+
   /* The plate's story (7 October 2026; Will: the intuitive one could be
      "animated too to ... communicate the underlying ideas"). A plate with
      beats is drawn in stages, each while its sentence is read: the whole
@@ -878,6 +939,15 @@
   function numberOf(node, name) { return parseInt(node.getAttribute(name), 10) || 0; }
   function plateOf(slide) {
     return slide && slide.querySelector ? slide.querySelector('.home-result-plate svg.plate') : null;
+  }
+  // The drawing a slide opens on: its problem's crux, or, on a slide
+  // without one, its result's plate. The overview's thumbnails are these.
+  function figureOf(slide) {
+    if (!slide || !slide.querySelector) return null;
+    // A slide that opens on its problem shows that drawing or none: an
+    // edition missing one keeps the text index (no partial overview).
+    if (slide.querySelector('.home-explainer-plate')) return slide.querySelector('.home-explainer-plate svg.plate');
+    return plateOf(slide);
   }
   function stageGroups(svg) {
     return svg && svg.querySelectorAll ? Array.prototype.slice.call(svg.querySelectorAll('.pl-stage')) : [];
@@ -1087,6 +1157,8 @@
   var seenObserver = null;
   function playWhenSeen(slide) {
     if (reduceMotion || !plateOf(slide)) return;
+    // A result's plate is told when its fold is open, not before.
+    if (resultButtons.length && !root.classList.contains('is-result-open')) return;
     var Observer = window.IntersectionObserver;
     if (typeof Observer !== 'function') { playStory(slide); return; }
     if (seenObserver) seenObserver.disconnect();
@@ -1163,7 +1235,7 @@
   if (labelled && win && win.parentNode && typeof document.createElement === 'function') {
     var contents = document.createElement('nav');
     contents.className = 'home-results__contents';
-    contents.setAttribute('aria-label', 'All ' + slides.length + ' results');
+    contents.setAttribute('aria-label', 'All ' + slides.length + ' problems');
     var list = document.createElement('ol');
     slides.forEach(function (slide, i) {
       var label = slide.getAttribute('data-result-label');
@@ -1179,7 +1251,7 @@
       var name = document.createElement('span');
       name.className = 'home-results__entry-name';
       name.textContent = cut > 0 ? label.slice(cut + 2) : label;
-      var drawing = plateOf(slide);
+      var drawing = figureOf(slide);
       if (drawing) {
         var figure = drawing.cloneNode(true);
         // SVG masks, hatch patterns and accessibility ids must stay unique
@@ -1224,7 +1296,7 @@
             slides[i].focus({ preventScroll: true });
           }
         };
-        var turn = wasOverview ? morph(thumbOf(i), change, function () { return plateOf(slides[i]); }) : null;
+        var turn = wasOverview ? morph(thumbOf(i), change, function () { return figureOf(slides[i]); }) : null;
         if (!turn) change();
         afterTurn(turn, slides[i]);
       });
@@ -1242,19 +1314,29 @@
       views.className = 'home-results__views';
       views.setAttribute('role', 'group');
       views.setAttribute('aria-label', 'Results view');
-      [['overview', 'All eight'], ['focus', 'One result']].forEach(function (choice) {
+      [['overview', 'All eight'], ['focus', 'One problem']].forEach(function (choice) {
         var button = document.createElement('button');
         button.type = 'button';
         button.className = 'home-results__view';
         button.setAttribute('data-results-view', choice[0]);
         button.textContent = choice[1];
+        // On a phone "One problem" is "One": the pair keeps one line beside
+        // the arrows, and the button keeps its full name.
+        if (choice[0] === 'focus' && typeof document.createElement === 'function') {
+          button.textContent = 'One';
+          var rest = document.createElement('span');
+          rest.className = 'home-results__view-rest';
+          rest.textContent = ' problem';
+          button.appendChild(rest);
+          button.setAttribute('aria-label', choice[1]);
+        }
         button.addEventListener('click', function () {
           var toOverview = choice[0] === 'overview';
           if (toOverview === overview) return;
           var change = function () { setOverview(toOverview, true); };
           var turn = toOverview
-            ? morph(plateOf(slides[index]), change, function () { return thumbOf(index); })
-            : morph(thumbOf(index), change, function () { return plateOf(slides[index]); });
+            ? morph(figureOf(slides[index]), change, function () { return thumbOf(index); })
+            : morph(thumbOf(index), change, function () { return figureOf(slides[index]); });
           if (!turn) change();
           if (!toOverview) afterTurn(turn, slides[index]);
         });
@@ -1400,7 +1482,7 @@
   // (Tab moves, Enter or Space opens); the arrows and the count keep theirs.
   root.addEventListener('keydown', function (event) {
     if (overview || (event.target.closest && event.target.closest('[data-results-view], button[data-results-mode]'))) return;
-    if (event.target && (/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName) || event.target.isContentEditable || (event.target.closest && event.target.closest('a, .home-results__contents, [data-results-theorem], [data-results-replay]')))) return;
+    if (event.target && (/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName) || event.target.isContentEditable || (event.target.closest && event.target.closest('a, .home-results__contents, [data-results-theorem], [data-results-result], [data-results-replay]')))) return;
     if (event.key === 'ArrowRight') { event.preventDefault(); turnTo(index + 1); }
     else if (event.key === 'ArrowLeft') { event.preventDefault(); turnTo(index - 1); }
     else if (event.key === 'Home') { event.preventDefault(); turnTo(0); }

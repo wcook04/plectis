@@ -81,9 +81,15 @@ restricts the nonnegative weighted summability witness to subsets.</li>
 <li><strong>Source and evidence.</strong> <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean">Lean
 source</a>; The source theorem is Lean-checked in
-PaperCompleteR8/WeightedReturn.lean:120. This packet adds a separately
-declared Comparator interface and thin transport; external Comparator
-replay remains pending.</li>
+PaperCompleteR8/WeightedReturn.lean:120. This packet includes a
+separately declared Comparator interface and thin transport. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#pull-request-merge-gate">replay
+guide’s repository CI record</a> reports a passing weighted-support
+positive check and deliberate statement-mismatch rejection at commit
+<code>7e33a58bb86180013b1fb855cdd8aaff1d7f9057</code>. The recorded CI
+result applies only to that snapshot. Independent Linux replay remains
+pending; verification of later commits requires receipts bound to those
+commits.</li>
 <li><strong>Boundary.</strong> The finite-prime weighted-summability
 premise is explicit in both clauses. This criterion does not cover every
 infinite support or settle universal Erdős #257; no novelty, priority,

@@ -8,7 +8,7 @@
   "pages": 19,
   "question": "How does the degree-seven counterexample obstruct short lemniscate connections, and why do trinomials admit them?",
   "precis": "The degree-seven polynomial constructed by ani has all its zeros in the open unit disc, but every connected subset of {|f|<1} containing two zeros has Hausdorff measure greater than two. The proof confines a slit preimage near a critical point and applies radial projection on its two inverse sheets. For monic trinomials with zeros in the open unit disc, the root equation instead keeps every root-to-origin segment inside the lemniscate.",
-  "owns": "the degree-seven counterexample and the trinomial connection theorem; the long paper develops critical-value estimates, other subclasses and subsidiary formal checks",
+  "owns": "ani's degree-seven counterexample and the trinomial connection theorem; the long paper develops critical-value estimates, other subclasses and subsidiary formal checks",
   "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041, including the later one-polynomial Formal Conjectures path-image Hausdorff-length check and its unreviewed historical curve-length correspondence; those distinctions belong to docs/claims.json in the mathematics repository",
   "problem_id": "erdos_1041",
   "routes": {

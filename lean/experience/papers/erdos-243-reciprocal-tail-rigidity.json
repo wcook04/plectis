@@ -6,9 +6,9 @@
   "subject_kind": "problem",
   "form": "Problem note",
   "pages": 21,
-  "question": "Why does the cubic rate a_n²/a_{n+1}=1+3/n+o(n^{-3}) force an irrational reciprocal sum?",
-  "precis": "For strictly increasing positive integers with a_n²/a_{n+1}=1+3/n+o(n^{-3}), the reciprocal sum is irrational. The argument extracts a cubic polynomial from an integer tail numerator, restricts its coefficients using a square in a cubic field, and excludes the remaining cases modulo seven. The unrestricted Erdős–Graham question remains open.",
-  "owns": "the cubic-rate irrationality theorem and its proof; the long paper develops the separate Sylvester-tail criteria and broader recurrence questions",
+  "question": "Which growth rates force irrational reciprocal sums, and which additional tail conditions force the Sylvester recurrence?",
+  "precis": "For strictly increasing positive integers with a_n²/a_{n+1}=1+3/n+o(n^{-3}), the reciprocal sum is irrational. The argument extracts a cubic polynomial from an integer tail numerator, restricts its coefficients using a square in a cubic field, and excludes the remaining cases modulo seven. Under rationality and the quadratic growth limit, separate criteria using bounded numerator increases and weighted first crossings force the eventual Sylvester recurrence. The unrestricted Erdős–Graham question remains open.",
+  "owns": "cubic-rate irrationality, nonintegral regular-rate exclusion and sufficient tail criteria for the Sylvester recurrence; the unrestricted Erdős–Graham question remains open",
   "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #243, which remains open",
   "problem_id": "erdos_243",
   "routes": {

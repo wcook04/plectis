@@ -5,6 +5,24 @@ and [Plectis mathematics](https://github.com/wcook04/plectis-erdos).
 Each repository owns its source, documentation and evidence. The site helps
 readers find and understand that work; private working state is outside its scope.
 
+## Repository-first launch preparation
+
+A request to prepare the repository for visitors keeps the repository as the
+entry object. Review its complete research and system story before selecting
+an example. The existing site supplies reading and inspection views linked
+to source. A small calculation is supporting research material, not a separate
+launch identity or a replacement for the repository, papers and demonstrations.
+Do not add a branded landing page or host an experimental UI merely to make
+something immediately clickable. Require a reader need served by that surface
+and an explicit fit with the selected programme before doing website work.
+
+The fraction-subsums launch presentation and its pending hosted integration
+were retired on 10 October 2026 at the operator's request. Do not restore them
+from a recovery checkout or treat their old audit receipts as a launch plan.
+The Python experiment and mathematical evidence remain research material.
+The operator's strategy owns this allocation; the existing site remains the
+public reading layer.
+
 ## Contract
 
 - The public repository is the source of record for the standalone released
@@ -205,9 +223,10 @@ problem is set out the way it is, and who built it, with the reason taken from
 Will's own films: models now write mathematics faster than mathematicians can
 check it, so each problem runs like a funnel from the Lean map down to one
 result. Under the plait the funnel names those layers in the order the work is
-prepared (Lean map, long records, short papers, videos, Interesting results),
-each step a link to where that layer is: the Lean repository, the long and the
-short papers in the catalogue, the Videos band and Interesting results. The
+prepared (Lean map, long records, short papers, videos, results), each step
+a link to where that layer is: the Lean repository, the long and the short
+papers in the catalogue, the Videos band and The eight problems, which holds
+one result per problem. The
 plait above is drawn as the same funnel: `assets/art.js` reads each step's
 `data-plait-node` and stands a crossing over its name, and the cables close
 monotonically, crossing more often as they draw in, to a bead over Results.
@@ -382,6 +401,28 @@ it does not provide human peer review or certify novelty. Later unpublished
 strengthenings do not inherit this status automatically. In particular, use
 the exact checked sufficient threshold `81/200` in the short #1049 statement,
 not unverified decimal rounding of the sharper constant.
+
+The problems first (10 October 2026). Will, of the band when it led with
+results: "nobody's gonna understand that". The band is now The eight
+problems: each slide opens on its problem, built by
+`sync_curated_landing_problem_explainers` into `<!-- mc:problem:start/end -->`
+markers from the problem's module `plectis_plates/erdos<N>_problem.py`: the
+question in plain words, Erdős's wording as erdosproblems.com states it (the
+source linked), what it says, an example, and the crux, drawn by the module
+(plate `erdos-<N>-problem`, every drawn number asserted) and said under the
+drawing. Each of the three sections is a summary with its full version behind
+"Explain in full" (Will: "click it and then it becomes the full height, and it
+goes even more into depth"), written for a reader with A-level mathematics
+from each problem's short paper and long record; the full versions are
+landing depth. The result that used to lead the slide (its plate, two
+registers and theorem) stands behind "Read the interesting result", one
+landing-depth region per slide; depth markers never nest. Under every
+result's evidence links `sync_curated_landing_result_checks` says what Lean
+and Comparator check. The same words open each problem's page in the maths
+reading room (all sections open) and the problem's card on the universe map
+(its wording and what it says, typeset to MathML at build time). A slide ends
+at the `</li>` alone on its line (`_LANDING_SLIDE_RE`), since the full
+versions hold numbered steps.
 
 The plates (6 October 2026). Each selected result stands beside
 one computed figure: the object its proof turns on, drawn from numbers its

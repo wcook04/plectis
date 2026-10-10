@@ -463,6 +463,11 @@
       for (var kind in KIND_COLOR) {
         palette[kind] = cssColor(styles, KIND_COLOR[kind], '#888888');
       }
+      // The two papers on each problem have a colour each (Will, 10 October
+      // 2026: "color code short and long papers"): the paper's node, its
+      // rows of the results band and its swatch in the key share it.
+      palette.shortPaper = cssColor(styles, '--u-paper-short', palette.paper);
+      palette.longPaper = cssColor(styles, '--u-paper-long', palette.paper);
       darkGround = groundIsDark(palette.ground);
       // A kept (pinned) result is framed in the landing's ember, the colour
       // the column's card rule turns when it holds a result.
@@ -1190,6 +1195,30 @@
         }
         ctx.stroke();
       });
+      /* Under each paper's run of ticks, a rule in the paper's colour
+         (10 October 2026): read round the ring, the scale says where the
+         short paper's results end and the long paper's begin, in the
+         colours the band's rows and the papers' marks carry. */
+      ctx.lineWidth = Math.max(1.5, hairPx * 3);
+      scaleRows.forEach(function (row) {
+        var sectorOn = !litSectors || litSectors.indexOf(row.sector) !== -1;
+        row.papers.forEach(function (paper) {
+          var first = paperSequence[paper.pid] && nodes[paperSequence[paper.pid][0]];
+          var side = first ? first.side : null;
+          if (side !== 'short' && side !== 'long') return;
+          var from = slotAngle(row, paper.from) + 0.15 * scalePitch, to = slotAngle(row, paper.from + paper.count) - 0.15 * scalePitch;
+          if (!(to > from)) return;
+          var dim = (litPaper ? paper.pid === litPaper : sectorOn) ? 1 : rest;
+          ctx.globalAlpha = 0.9 * dim * ra * Math.min(setAt(from), setAt(to));
+          if (ctx.globalAlpha <= 0.01) return;
+          ctx.strokeStyle = side === 'short' ? palette.shortPaper : palette.longPaper;
+          ctx.beginPath();
+          ctx.arc(view.tx, view.ty, R - 1.5, from, to);
+          ctx.stroke();
+        });
+      });
+      ctx.strokeStyle = palette.ink;
+      ctx.lineWidth = hairPx;
       // The boundaries between sectors are its strongest marks.
       var gaps = sectorGaps(), any = false;
       ctx.beginPath();
@@ -1857,6 +1886,11 @@
        reach across the statement band without a single spoke drawn. */
     function glyphColor(n) {
       if (n.tier === 'replayed') return palette.integration_surface;
+      if (n.kind === 'paper') {
+        var side = paperSideOf(n);
+        if (side === 'short') return palette.shortPaper;
+        if (side === 'long') return palette.longPaper;
+      }
       // No Lean statement is not Lean's colour: it is drawn in the quiet ink.
       if (n.kind === 'paper_statement' && n.tier === 'none') return palette.faint;
       return palette[n.kind] || palette.faint;
@@ -1953,6 +1987,26 @@
       }
       return [r0, r1];
     }
+    // Which of its problem's two papers a paper node is: the side its
+    // results are stated on.
+    function paperSideOf(n) {
+      var run = paperSequence[String(n.id).replace(/^paper:/, '')];
+      return run && nodes[run[0]] ? nodes[run[0]].side : null;
+    }
+    /* Each paper's rows of a band, as [inner, outer] radii: the short
+       paper's rows lie inside, the long record's outside, with half a row of
+       air between them, which the two regions split. */
+    function bandSides(b, pad) {
+      var s = b.rings && b.rings.short, l = b.rings && b.rings.long, out = {};
+      if (s && l) {
+        var seam = (s[1] + l[0]) / 2;
+        out.short = [s[0] - pad, seam];
+        out.long = [seam, l[1] + pad];
+      } else if (s) out.short = [s[0] - pad, s[1] + pad];
+      else if (l) out.long = [l[0] - pad, l[1] + pad];
+      return out;
+    }
+    var PAPER_TINT = 0.16;
     function bandState(b, focus) {
       if (focus < 0) return 'rest';
       var f = nodes[focus];
@@ -2190,6 +2244,20 @@
         ctx.arc(view.tx, view.ty, Math.max(0, (radii[0] - pad) * k), b.hi, b.lo, true);
         ctx.closePath();
         ctx.fill();
+        // Over the plate, each paper's rows take a wash of its colour, so the
+        // short paper's results read apart from the long record's.
+        var sides = bandSides(b, pad);
+        ['short', 'long'].forEach(function (side) {
+          var r = sides[side];
+          if (!r || (paperScope !== 'all' && paperScope !== side)) return;
+          ctx.globalAlpha = (state === 'off' ? dimmed(0.35) : 1) * ra * PAPER_TINT;
+          ctx.fillStyle = side === 'short' ? palette.shortPaper : palette.longPaper;
+          ctx.beginPath();
+          ctx.arc(view.tx, view.ty, r[1] * k, b.lo, b.hi);
+          ctx.arc(view.tx, view.ty, Math.max(0, r[0] * k), b.hi, b.lo, true);
+          ctx.closePath();
+          ctx.fill();
+        });
         // Both long edges are ruled, in hairline. The evidence gauge, which
         // repeats what the dots and the title already say, shows only for a
         // band in focus.
@@ -2544,6 +2612,61 @@
       }
       arcPlaces[key] = out;
       return out;
+    }
+    /* The two washes of a band say which paper they are, in words along
+       their own rows (Will, 10 October 2026: it "should be clear which
+       stands for which, which is long, which is short paper"). At rest one
+       band, the one nearest the top, carries the words, a key set in the
+       drawing itself; a band in focus, or any band once the map is drawn
+       large enough to read them, carries its own. Each name starts at the
+       end of the band its reading starts from, and stands only where its
+       wash is deep and long enough to hold it. */
+    // Where a band's paper names would stand: for each wash in view, its
+    // words, font, radius and angle, or nothing when the wash cannot hold
+    // them. A name may run a little deeper than a one-row wash: its letters
+    // are knocked out of what lies under them.
+    function paperRowNames(b, state, focus) {
+      var k = view.k, sides = bandSides(b, 6), out = [];
+      ['short', 'long'].forEach(function (side) {
+        var r = sides[side];
+        if (!r || (paperScope !== 'all' && paperScope !== side)) return;
+        // The landing sets nothing under 12px; the map's page keeps its
+        // smaller type.
+        var least = pageMode ? 9 : 12;
+        var depth = (r[1] - r[0]) * k;
+        if (depth + 2 < least) return;
+        var size = Math.max(least, Math.min(TYPE.count, depth + 1));
+        var radius = (r[0] + r[1]) / 2 * k;
+        var row = { text: side === 'short' ? 'short paper' : 'long paper', font: face(500, Math.round(size * 10) / 10, true),
+                    color: palette.ink, alpha: state === 'on' || focus < 0 ? 0.92 : 0.75 };
+        ctx.font = row.font;
+        var span = arcLetters(row.text).width / radius, air = 8 / radius;
+        if (span + 2 * air > b.hi - b.lo) return;
+        var mid = (b.lo + b.hi) / 2, lower = Math.sin(mid) > 0;
+        out.push({ row: row, radius: radius, at: lower ? b.hi - air - span / 2 : b.lo + air + span / 2, lower: lower });
+      });
+      return out;
+    }
+    function drawPaperRowNames(focus) {
+      if (!bands.length || lensOff.paper_statement || reveal < 1) return;
+      var keyBand = null;
+      if (focus < 0) {
+        // The key: the band nearest the top that holds both names.
+        bands.slice().sort(function (a, c) {
+          return Math.abs(shortArc(-Math.PI / 2, (a.lo + a.hi) / 2)) - Math.abs(shortArc(-Math.PI / 2, (c.lo + c.hi) / 2));
+        }).some(function (b) {
+          if (paperRowNames(b, 'rest', focus).length === 2) { keyBand = b; return true; }
+          return false;
+        });
+      }
+      bands.forEach(function (b) {
+        var state = bandState(b, focus);
+        if (state === 'off') return;
+        if (!(state === 'on' || view.k >= 1.6 || b === keyBand)) return;
+        paperRowNames(b, state, focus).forEach(function (name) {
+          drawArcText(name.row, name.radius, name.at, name.lower);
+        });
+      });
     }
     function drawArcText(row, radius, mid, lower) {
       ctx.font = row.font;
@@ -3426,6 +3549,7 @@
       drawPulse(focus, threads, rs, routes);
       drawReferMark(focus, rs, w, h);
 
+      drawPaperRowNames(focus);
       // The shared callout goes over the dots, so a band never covers it.
       drawCaptions(calloutPlan, focus);
       drawLabels(labelPlan);
@@ -4331,6 +4455,15 @@
       var lede = inspector && inspector.getAttribute ? inspector.getAttribute('data-universe-lede') : null;
       return lede ? '<p class="universe-lede">' + escapeHtml(lede) + '</p>' : '';
     }
+    /* What the words on the map mean (Will, 10 October 2026: make clear
+       "what comparator is and lean and ... what claims are"). The page
+       carries the definitions once, in a template the builder writes; the
+       resting panel shows them under the lede, always open (nothing in the
+       panel folds). */
+    function termsHtml() {
+      var source = document.querySelector ? document.querySelector('template[data-universe-terms]') : null;
+      return source && source.innerHTML ? source.innerHTML : '';
+    }
     function scopeLineHtml() {
       var s = statementMeta && statementMeta.summary;
       if (!s || !s.statements) return '';
@@ -4349,7 +4482,7 @@
     function overviewHtml() {
       var shown = 0;
       for (var i = 0; i < nodes.length; i++) if (visible(nodes[i])) shown++;
-      var parts = [ledeHtml(), explorerRoot ? scopeLineHtml() : summaryHtml()];
+      var parts = [ledeHtml(), explorerRoot ? scopeLineHtml() : summaryHtml(), termsHtml()];
       var evidence = evidenceCensusHtml(null);
       if (!evidence.total) {
         parts.push('<p class="universe-inspector__body">No paper results match these filters; ' + fmtCount(shown) +
@@ -4457,6 +4590,35 @@
       });
       return pids;
     }
+    /* A paper's card says which paper it is and what it does (Will, 10
+       October 2026: "hovering papers right now just doesn't even show
+       anything. It should show, like, the abstract"): its problem and its
+       role, in the colour the map gives it, its abstract (the précis the
+       companion data carries), and how many of its results the map places. */
+    function paperAboutHtml(n) {
+      var pid = String(n.id).replace(/^paper:/, '');
+      var run = paperSequence[pid] || [];
+      var side = paperSideOf(n);
+      var at = n.sector && problemIndex[n.sector] !== undefined ? problemIndex[n.sector] : -1;
+      var out = [];
+      if (TAB_NAME[side] && at >= 0) {
+        out.push('<p class="universe-inspector__meta"><span class="universe-chip"><span class="paper-swatch paper-swatch--' +
+          side + '" aria-hidden="true"></span>' + escapeHtml(TAB_NAME[side]) + ' on ' + escapeHtml(nodes[at].shortLabel) +
+          '</span></p>');
+      }
+      var info = at >= 0 ? problemInfoOf(nodes[at]) : null;
+      var paper = info && info.papers ? info.papers.filter(function (p) { return p.id === pid; })[0] : null;
+      if (paper && paper.precis_html) {
+        out.push('<p class="universe-label">Abstract</p><p class="universe-precis">' + paper.precis_html + '</p>');
+      } else if (at >= 0 && !info && problemInfoState !== 'failed') {
+        out.push('<p class="universe-precis universe-precis--waiting" aria-hidden="true"></p>');
+      }
+      if (run.length) {
+        out.push('<p class="universe-tally">' + fmtCount(run.length) + (run.length === 1 ? ' result' : ' results') +
+          ' from this paper on the map' + (side === 'long' ? ', in the outer rows of its band.' : side === 'short' ? ', in the inner rows of its band.' : '.') + '</p>');
+      }
+      return out.join('');
+    }
     function problemCardHtml(i, pinned) {
       var n = nodes[i];
       var info = problemInfoOf(n);
@@ -4469,8 +4631,21 @@
       // Until the set question arrives (a moment, once) the line waits
       // empty rather than flash the plain text's markup.
       var plainQuestion = !companionSpec || problemInfoState === 'failed';
-      var question = info && info.question_html ? info.question_html : plainQuestion ? escapeHtml(n.question || '') : '';
-      if (question) parts.push('<p class="universe-question">' + question + '</p>');
+      /* Erdős's own wording first, then what it says in plain words (Will,
+         10 October 2026: choosing a problem "should actually state what is
+         the actual problem that he stated, and then how can we restate that
+         in a much clearer way"); the same words open the problem on the
+         landing. A problem without them keeps the record's question. */
+      if (info && info.original_html) {
+        parts.push('<blockquote class="universe-original"><p>' + info.original_html + '</p>' +
+          '<p class="universe-original__source">Erdős problem ' + escapeHtml(n.shortLabel) + ', as ' +
+          extLink(info.original_source, escapeHtml(String(info.original_source).replace(/^https?:\/\/(?:www\.)?/, '')), 'universe-original__link') +
+          ' states it</p></blockquote>');
+        if (info.asks_html) parts.push('<p class="universe-plain"><strong>In plain words.</strong> ' + info.asks_html + '</p>');
+      } else {
+        var question = info && info.question_html ? info.question_html : plainQuestion ? escapeHtml(n.question || '') : '';
+        if (question) parts.push('<p class="universe-question">' + question + '</p>');
+      }
       if (info && info.note_html) parts.push('<p class="universe-inspector__note">' + info.note_html + '</p>');
       var t = sectorTally(n.sector), counts = {};
       EVIDENCE_ORDER.forEach(function (key) { if (t[key]) counts[key] = t[key]; });
@@ -5453,6 +5628,7 @@
       }
       if (n.disposition) chips += '<span class="universe-chip">' + escapeHtml(n.disposition) + '</span>';
       if (chips) parts.push('<p class="universe-inspector__meta">' + chips + '</p>');
+      if (n.kind === 'paper') parts.push(paperAboutHtml(n));
       parts.push(proofHtml(n));
       var body = n.statement || n.question || null;
       var claim = n.kind === 'public_claim';
@@ -5462,7 +5638,7 @@
       if (n.boundary) {
         parts.push('<p class="universe-inspector__boundary">' + (claim ? notationHtml(n.boundary) : escapeHtml(n.boundary)) + '</p>');
       }
-      if (n.subject) {
+      if (n.subject && !(n.kind === 'paper' && n.sector)) {
         parts.push('<p class="universe-inspector__note">Subject: ' + escapeHtml(n.subject) + '</p>');
       }
       if (n.kind === 'integration_surface' || n.kind === 'universe') parts.push(surfaceHtml(n));
@@ -5927,7 +6103,11 @@
       ['replayed', 'Replayed by Comparator'],
       ['lean', 'Replay queued'],
       ['claim', 'Checked claim'],
-      ['none', 'No Lean statement']
+      ['none', 'No Lean statement'],
+      // The wash behind each problem's rows of results says which paper
+      // states them (10 October 2026).
+      ['short', 'Short paper'],
+      ['long', 'Long paper']
     ];
     var key = null;
     function buildKey() {

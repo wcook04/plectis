@@ -19,8 +19,9 @@ href="https://www.erdosproblems.com/1041">1041</a>, <a
 href="https://www.erdosproblems.com/1049">1049</a>, <a
 href="https://www.erdosproblems.com/69">69</a>, <a
 href="https://www.erdosproblems.com/250">250</a>, <a
-href="https://www.erdosproblems.com/258">258</a>) in July 2026; none of
-the external results is re-proved in this repository.</p>
+href="https://www.erdosproblems.com/258">258</a>) in July 2026. The
+catalogue column preserves those dated classifications; the local-scope
+column and source links below describe this repository.</p>
 <section id="bounded-status-route" class="level2">
 <h2>Bounded status route</h2>
 <p>The external catalogue status and the local release status are
@@ -89,13 +90,14 @@ records an <code>advances_open_target</code> edge.</p>
 <tr>
 <td><strong>#1041</strong> short curves in polynomial lemniscates</td>
 <td>open</td>
-<td>problem-owned dynamical reductions and proof audit</td>
+<td>ani’s exact Formal Conjectures refutation plus dynamical
+reductions</td>
 </tr>
 <tr>
 <td><strong>#1049</strong> <code>∑ 1/(tⁿ−1)</code>, rational
 <code>t&gt;1</code></td>
 <td>open (rational <code>t</code>)</td>
-<td>integer-base theorem plus problem-owned rational-base
+<td>Zudilin’s strict rational-base region theorem plus rational-base
 obstructions</td>
 </tr>
 <tr>
@@ -159,9 +161,17 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/e
 note</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123">ThreePrimeRunningLcm
 source</a> expose exact three-prime identities and a conditional
-residue-escape route; open boundary: the rationality-to-carry bridge and
-cofinal window escape.</li>
-<li><strong>#1041</strong> — the paper-facing route checks Newton-flow
+residue-escape route; the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L324">rationality-to-carry
+bridge</a> proves that rationality of the actual <code>{2,3,5}</code>
+series produces a positive reduced carry from an explicit onset. Open
+boundary: cofinal window escape for that actual orbit.</li>
+<li><strong>#1041</strong> — ani’s degree-seven polynomial has a
+formalised <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L407">Hausdorff-length
+refutation</a> of the exact Formal Conjectures statement. This checks
+one polynomial; independent human review of correspondence with the 1958
+wording is not recorded. The paper-facing route also checks Newton-flow
 ray separation and perturbation lemmas. The source-current <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/FRONTIER.md">frontier delta</a>
 additionally routes the surviving hub-selection, near-Fekete, perimeter,
@@ -174,7 +184,12 @@ result map</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md">paper
 note</a> together, keeping the source-only frontier separate from
 reviewed claim authority.</li>
-<li><strong>#1049</strong> — the <a
+<li><strong>#1049</strong> — <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L113">Zudilin’s
+strict rational-base region theorem</a> proves irrationality at
+<code>a/b</code> for natural <code>0 &lt; b &lt; a</code> satisfying
+<code>ZudilinContourRegion a b</code>, including every
+<code>(31/4)^r</code> with positive natural <code>r</code>. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-1049-rational-base-lambert.md">rational-base
 note</a> and its checked source family — <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155">RationalBaseLambert</a>
@@ -189,10 +204,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdo
 for the moving-diagonal no-go, with <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L286">ZudilinConeArithmetic</a>
 covering the endpoint-unit common-divisor obstruction — route distinct
-mechanisms without claiming irrationality. The integer-base case
+arithmetic and obstruction mechanisms. The integer-base case
 <code>b ≥ 2</code> is <code>irrational_erdosSum_full_support</code>;
-open boundary: irrationality at <code>3/2</code>, the primitive
-noncollapsed construction, and analytic remainder control.</li>
+open boundary: universal rational-base irrationality, irrationality at
+<code>3/2</code>, the primitive noncollapsed construction, and analytic
+remainder control.</li>
 <li><strong>#69</strong> — the prime-support case of #257; only the
 identity bridge to <code>∑_p 1/(2ᵖ−1)</code> is formalised, not the
 irrationality.</li>

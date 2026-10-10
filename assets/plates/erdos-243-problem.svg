@@ -1,0 +1,66 @@
+<svg class="plate" viewBox="0 0 720 500" role="img" aria-labelledby="erdos-243-problem-title" focusable="false" data-plate="erdos-243-problem">
+  <title id="erdos-243-problem-title">Five stacked bars, each one unit long, for Sylvester&#x27;s sequence 2, 3, 7, 43, 1807, whose reciprocal sum is 1. Bar n is the tail of the reciprocal sum from the n-th term on, multiplied by the product of the earlier terms: 1 times 1, 2 times one half, 6 times one sixth, 42 times one forty-second, 1806 times one over 1806, and each equals 1, so every whole number C_n is 1. In each bar the next term, times the product, takes all but the last 1 over a_n of the unit, hatched (1 times one half, 2 times one third, 6 times one seventh, 42 times one forty-third, 1806 times one over 1807); the rest of the tail, red, is enlarged by a_n (times 2, 3, 7, 43) into the next bar, where it is again exactly one.</title>
+  <text class="pl-text pl-text--small" x="180" y="40" text-anchor="end"><tspan class="pl-var">a</tspan><tspan class="pl-sup" dy="0.3em">1</tspan><tspan dy="-0.3em">⋯<tspan class="pl-var">a</tspan></tspan><tspan class="pl-sup" dy="0.3em">n−1</tspan><tspan dy="-0.3em"> × tail</tspan></text>
+  <text class="pl-text pl-text--small pl-text--key" x="612" y="40"><tspan class="pl-var">C</tspan><tspan class="pl-sup" dy="0.3em">n</tspan></text>
+  <path class="pl-hatch" d="M196 62.5L200.7 60M196 67.7L210.5 60M196 72.9L220.3 60M196 78.1L230.1 60M196 83.3L239.9 60M200.8 86L249.7 60M210.6 86L259.5 60M220.4 86L269.3 60M230.2 86L279.1 60M240 86L288.9 60M249.8 86L298.7 60M259.6 86L308.5 60M269.4 86L318.3 60M279.2 86L328.1 60M289 86L337.9 60M298.8 86L347.7 60M308.6 86L357.5 60M318.4 86L367.3 60M328.2 86L377.1 60M338 86L386.9 60M347.8 86L396 60.4M357.6 86L396 65.6M367.4 86L396 70.8M377.2 86L396 76M387 86L396 81.2"/>
+  <path class="pl-hatch pl-hatch--key" d="M396 66.4L399.4 60M396 73.6L403.2 60M396 80.8L407.1 60M397.1 86L410.9 60M401 86L414.8 60M404.8 86L418.6 60M408.7 86L422.5 60M412.5 86L426.3 60M416.4 86L430.2 60M420.2 86L434 60M424.1 86L437.9 60M427.9 86L441.7 60M431.8 86L445.6 60M435.6 86L449.4 60M439.5 86L453.3 60M443.3 86L457.1 60M447.2 86L461 60M451 86L464.8 60M454.9 86L468.7 60M458.7 86L472.5 60M462.6 86L476.4 60M466.4 86L480.2 60M470.3 86L484.1 60M474.1 86L487.9 60M478 86L491.8 60M481.8 86L495.6 60M485.7 86L499.5 60M489.5 86L503.4 60M493.4 86L507.2 60M497.2 86L511.1 60M501.1 86L514.9 60M504.9 86L518.8 60M508.8 86L522.6 60M512.6 86L526.5 60M516.5 86L530.3 60M520.3 86L534.2 60M524.2 86L538 60M528 86L541.9 60M531.9 86L545.7 60M535.7 86L549.6 60M539.6 86L553.4 60M543.4 86L557.3 60M547.3 86L561.1 60M551.1 86L565 60M555 86L568.8 60M558.8 86L572.7 60M562.7 86L576.5 60M566.5 86L580.4 60M570.4 86L584.2 60M574.2 86L588.1 60M578.1 86L591.9 60M581.9 86L595.8 60M585.8 86L596 66.8M589.6 86L596 74M593.5 86L596 81.3"/>
+  <rect class="pl-edge" x="196" y="60" width="400" height="26"/>
+  <path class="pl-edge" d="M396 60L396 86"/>
+  <path class="pl-edge pl-edge--key" d="M396 60L596 60L596 86L396 86"/>
+  <text class="pl-text pl-text--small" x="14" y="82"><tspan class="pl-var">n</tspan> = 1</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="180" y="82" text-anchor="end">1 × 1</text>
+  <text class="pl-text pl-text--large pl-text--key" x="612" y="82">1</text>
+  <text class="pl-text pl-text--small" x="296" y="103" text-anchor="middle">1 × 1/2</text>
+  <path class="pl-line pl-line--key pl-thin" d="M396 86L196 140"/>
+  <path class="pl-line pl-line--key pl-thin" d="M596 86L596 140"/>
+  <text class="pl-text pl-text--body pl-text--key" x="586" y="125" text-anchor="end">×2</text>
+  <path class="pl-hatch" d="M196 140.6L197.2 140M196 145.9L207 140M196 151.1L216.8 140M196 156.3L226.6 140M196 161.5L236.4 140M197.3 166L246.2 140M207.1 166L256 140M216.9 166L265.8 140M226.7 166L275.6 140M236.5 166L285.4 140M246.3 166L295.2 140M256.1 166L305 140M265.9 166L314.8 140M275.7 166L324.6 140M285.5 166L334.4 140M295.3 166L344.2 140M305.1 166L354 140M314.9 166L363.8 140M324.7 166L373.6 140M334.5 166L383.4 140M344.3 166L393.2 140M354.1 166L403 140M363.9 166L412.8 140M373.7 166L422.6 140M383.5 166L432.4 140M393.3 166L442.2 140M403.1 166L452 140M412.9 166L461.8 140M422.7 166L462.7 144.7M432.5 166L462.7 149.9M442.3 166L462.7 155.2M452.1 166L462.7 160.4M461.9 166L462.7 165.6"/>
+  <path class="pl-hatch pl-hatch--key" d="M462.7 143.8L464.7 140M462.7 151L468.5 140M462.7 158.2L472.4 140M462.7 165.5L476.2 140M466.2 166L480.1 140M470.1 166L483.9 140M473.9 166L487.8 140M477.8 166L491.6 140M481.6 166L495.5 140M485.5 166L499.3 140M489.3 166L503.2 140M493.2 166L507 140M497 166L510.9 140M500.9 166L514.7 140M504.7 166L518.6 140M508.6 166L522.4 140M512.5 166L526.3 140M516.3 166L530.1 140M520.2 166L534 140M524 166L537.8 140M527.9 166L541.7 140M531.7 166L545.5 140M535.6 166L549.4 140M539.4 166L553.2 140M543.3 166L557.1 140M547.1 166L560.9 140M551 166L564.8 140M554.8 166L568.6 140M558.7 166L572.5 140M562.5 166L576.3 140M566.4 166L580.2 140M570.2 166L584 140M574.1 166L587.9 140M577.9 166L591.7 140M581.8 166L595.6 140M585.6 166L596 146.5M589.5 166L596 153.7M593.3 166L596 161"/>
+  <rect class="pl-edge" x="196" y="140" width="400" height="26"/>
+  <path class="pl-edge" d="M462.67 140L462.67 166"/>
+  <path class="pl-edge pl-edge--key" d="M462.67 140L596 140L596 166L462.67 166"/>
+  <text class="pl-text pl-text--small" x="14" y="162"><tspan class="pl-var">n</tspan> = 2</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="180" y="162" text-anchor="end">2 × 1/2</text>
+  <text class="pl-text pl-text--large pl-text--key" x="612" y="162">1</text>
+  <text class="pl-text pl-text--small" x="329.3" y="183" text-anchor="middle">2 × 1/3</text>
+  <path class="pl-line pl-line--key pl-thin" d="M462.67 166L196 220"/>
+  <path class="pl-line pl-line--key pl-thin" d="M596 166L596 220"/>
+  <text class="pl-text pl-text--body pl-text--key" x="586" y="205" text-anchor="end">×3</text>
+  <path class="pl-hatch" d="M196 224L203.5 220M196 229.2L213.3 220M196 234.4L223.1 220M196 239.6L232.9 220M196 244.8L242.7 220M203.6 246L252.5 220M213.4 246L262.3 220M223.2 246L272.1 220M233 246L281.9 220M242.8 246L291.7 220M252.6 246L301.5 220M262.4 246L311.3 220M272.2 246L321.1 220M282 246L330.9 220M291.8 246L340.7 220M301.6 246L350.5 220M311.4 246L360.3 220M321.2 246L370.1 220M331 246L379.9 220M340.8 246L389.7 220M350.6 246L399.5 220M360.4 246L409.3 220M370.2 246L419.1 220M380 246L428.9 220M389.8 246L438.7 220M399.6 246L448.5 220M409.4 246L458.3 220M419.2 246L468.1 220M429 246L477.9 220M438.8 246L487.7 220M448.6 246L497.5 220M458.4 246L507.3 220M468.2 246L517.1 220M478 246L526.9 220M487.8 246L536.7 220M497.6 246L538.9 224M507.4 246L538.9 229.3M517.2 246L538.9 234.5M527 246L538.9 239.7M536.8 246L538.9 244.9"/>
+  <path class="pl-hatch pl-hatch--key" d="M538.9 225L541.5 220M538.9 232.2L545.4 220M538.9 239.5L549.2 220M539.2 246L553.1 220M543.1 246L556.9 220M546.9 246L560.8 220M550.8 246L564.6 220M554.6 246L568.5 220M558.5 246L572.3 220M562.3 246L576.2 220M566.2 246L580 220M570 246L583.9 220M573.9 246L587.7 220M577.7 246L591.6 220M581.6 246L595.4 220M585.4 246L596 226.1M589.3 246L596 233.4M593.1 246L596 240.6"/>
+  <rect class="pl-edge" x="196" y="220" width="400" height="26"/>
+  <path class="pl-edge" d="M538.86 220L538.86 246"/>
+  <path class="pl-edge pl-edge--key" d="M538.86 220L596 220L596 246L538.86 246"/>
+  <text class="pl-text pl-text--small" x="14" y="242"><tspan class="pl-var">n</tspan> = 3</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="180" y="242" text-anchor="end">6 × 1/6</text>
+  <text class="pl-text pl-text--large pl-text--key" x="612" y="242">1</text>
+  <text class="pl-text pl-text--small" x="367.4" y="263" text-anchor="middle">6 × 1/7</text>
+  <path class="pl-line pl-line--key pl-thin" d="M538.86 246L196 300"/>
+  <path class="pl-line pl-line--key pl-thin" d="M596 246L596 300"/>
+  <text class="pl-text pl-text--body pl-text--key" x="586" y="285" text-anchor="end">×7</text>
+  <path class="pl-hatch" d="M196 302.2L200 300M196 307.4L209.8 300M196 312.6L219.6 300M196 317.8L229.4 300M196 323L239.2 300M200.1 326L249 300M209.9 326L258.8 300M219.7 326L268.6 300M229.5 326L278.4 300M239.3 326L288.2 300M249.1 326L298 300M258.9 326L307.8 300M268.7 326L317.6 300M278.5 326L327.4 300M288.3 326L337.2 300M298.1 326L347 300M307.9 326L356.8 300M317.7 326L366.6 300M327.5 326L376.4 300M337.3 326L386.2 300M347.1 326L396 300M356.9 326L405.8 300M366.7 326L415.6 300M376.5 326L425.4 300M386.3 326L435.2 300M396.1 326L445 300M405.9 326L454.8 300M415.7 326L464.6 300M425.5 326L474.4 300M435.3 326L484.2 300M445.1 326L494 300M454.9 326L503.8 300M464.7 326L513.6 300M474.5 326L523.4 300M484.3 326L533.2 300M494.1 326L543 300M503.9 326L552.8 300M513.7 326L562.6 300M523.5 326L572.4 300M533.3 326L582.2 300M543.1 326L586.7 302.8M552.9 326L586.7 308M562.7 326L586.7 313.2M572.5 326L586.7 318.4M582.3 326L586.7 323.6"/>
+  <path class="pl-hatch pl-hatch--key" d="M586.7 301.6L587.5 300M586.7 308.8L591.4 300M586.7 316.1L595.2 300M586.7 323.3L596 305.8M589.1 326L596 313M593 326L596 320.3"/>
+  <rect class="pl-edge" x="196" y="300" width="400" height="26"/>
+  <path class="pl-edge" d="M586.7 300L586.7 326"/>
+  <path class="pl-edge pl-edge--key" d="M586.7 300L596 300L596 326L586.7 326"/>
+  <text class="pl-text pl-text--small" x="14" y="322"><tspan class="pl-var">n</tspan> = 4</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="180" y="322" text-anchor="end">42 × 1/42</text>
+  <text class="pl-text pl-text--large pl-text--key" x="612" y="322">1</text>
+  <text class="pl-text pl-text--small" x="391.3" y="343" text-anchor="middle">42 × 1/43</text>
+  <path class="pl-line pl-line--key pl-thin" d="M586.7 326L196 380"/>
+  <path class="pl-line pl-line--key pl-thin" d="M596 326L596 380"/>
+  <text class="pl-text pl-text--body pl-text--key" x="586" y="365" text-anchor="end">×43</text>
+  <path class="pl-hatch" d="M196 380.3L196.6 380M196 385.5L206.4 380M196 390.7L216.2 380M196 395.9L226 380M196 401.1L235.8 380M196.7 406L245.6 380M206.5 406L255.4 380M216.3 406L265.1 380M226 406L274.9 380M235.8 406L284.7 380M245.6 406L294.5 380M255.4 406L304.3 380M265.2 406L314.1 380M275 406L323.9 380M284.8 406L333.7 380M294.6 406L343.5 380M304.4 406L353.3 380M314.2 406L363.1 380M324 406L372.9 380M333.8 406L382.7 380M343.6 406L392.5 380M353.4 406L402.3 380M363.2 406L412.1 380M373 406L421.9 380M382.8 406L431.7 380M392.6 406L441.5 380M402.4 406L451.3 380M412.2 406L461.1 380M422 406L470.9 380M431.8 406L480.7 380M441.6 406L490.5 380M451.4 406L500.3 380M461.2 406L510.1 380M471 406L519.9 380M480.8 406L529.7 380M490.6 406L539.5 380M500.4 406L549.3 380M510.2 406L559.1 380M520 406L568.9 380M529.8 406L578.7 380M539.6 406L588.5 380M549.4 406L595.8 381.3M559.2 406L595.8 386.5M569 406L595.8 391.8M578.8 406L595.8 397M588.6 406L595.8 402.2"/>
+  <rect class="pl-edge" x="196" y="380" width="400" height="26"/>
+  <path class="pl-edge" d="M595.78 380L595.78 406"/>
+  <path class="pl-edge pl-edge--key" d="M595.78 380L596 380L596 406L595.78 406"/>
+  <text class="pl-text pl-text--small" x="14" y="402"><tspan class="pl-var">n</tspan> = 5</text>
+  <text class="pl-text pl-text--body pl-text--ink" x="180" y="402" text-anchor="end">1806 × 1/1806</text>
+  <text class="pl-text pl-text--large pl-text--key" x="612" y="402">1</text>
+  <text class="pl-text pl-text--small" x="395.9" y="423" text-anchor="middle">1806 × 1/1807</text>
+  <path class="pl-line pl-line--key" d="M594.8 375L594.8 411"/>
+  <text class="pl-text pl-text--small" x="14" y="458">tail = 1/<tspan class="pl-var">a</tspan><tspan class="pl-sup" dy="0.3em">n</tspan><tspan dy="-0.3em"> + 1/</tspan><tspan class="pl-var">a</tspan><tspan class="pl-sup" dy="0.3em">n+1</tspan><tspan dy="-0.3em"> + ⋯</tspan></text>
+  <text class="pl-text pl-text--small" x="330" y="458">hatched = <tspan class="pl-var">a</tspan><tspan class="pl-sup" dy="0.3em">1</tspan><tspan dy="-0.3em">⋯<tspan class="pl-var">a</tspan></tspan><tspan class="pl-sup" dy="0.3em">n−1</tspan><tspan dy="-0.3em"> × 1/</tspan><tspan class="pl-var">a</tspan><tspan class="pl-sup" dy="0.3em">n</tspan></text>
+  <text class="pl-text pl-text--small" x="14" y="482">the sum is 1, so <tspan class="pl-var">q</tspan> = 1</text>
+  <text class="pl-text pl-text--small pl-text--key" x="330" y="482">red = rest of the tail; × <tspan class="pl-var">a</tspan><tspan class="pl-sup" dy="0.3em">n</tspan><tspan dy="-0.3em"> gives the next row</tspan></text>
+</svg>

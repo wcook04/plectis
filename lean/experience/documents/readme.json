@@ -11,12 +11,12 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/README.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "d1fb70372d977bb827aaa43acdded9323e3c435668cc9dbdad9cf064c0317252",
+    "navigation_fingerprint": "aec3fef804b7e7bf3fe3a117c07465f02dccf046d66cfb85865a022f81978149",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "c2c14d1502e0c44405c7864bd5ac228294f7ed97b6f18850b346da6b7696e42e",
+    "source_sha256": "1bea0a1e2660c7c1983093581fd45047f058b784de676d5bcb8c1d18505f8715",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "d42a1d68697473be",
@@ -31,14 +31,19 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "33d91a381a7618d53125a636d30076482be2e439fea07bfab6241189113712a0",
-    "html_exact_tex_sha256": "0de42ba5c26cfcc30ecaf1af8359478b89c01d22219aa42ad37348bfd62f559a"
+    "html_mathml_sha256": "1a43097def05a61e810eac32e3645317cbd50af05cd1e227ca37d81cb4a4db39",
+    "html_exact_tex_sha256": "39decd9ccfbc76fcd3090bdf09ecbdfe1d72e739d6c7ae68755217395b400b0b"
   },
   "sections": [
     {
       "level": 3,
-      "anchor": "open-mathematical-research",
-      "label": "Open mathematical research"
+      "anchor": "mathematical-research-and-the-system-behind-it",
+      "label": "Mathematical research and the system behind it"
+    },
+    {
+      "level": 2,
+      "anchor": "choose-a-way-in",
+      "label": "Choose a way in"
     },
     {
       "level": 2,

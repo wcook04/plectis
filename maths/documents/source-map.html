@@ -28,8 +28,8 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/style.css?v=7b0bb6523874">
-  <link rel="stylesheet" href="../assets/maths.css?v=988ea40d1d74">
+  <link rel="stylesheet" href="../../assets/style.css?v=90bbbd0d600b">
+  <link rel="stylesheet" href="../assets/maths.css?v=1150f9202197">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=3323afd66307"></script></template>
   <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
   <script defer src="../assets/maths.js?v=eb35fe169ca1"></script>
@@ -405,8 +405,10 @@ they read here:</p>
 <code>remaining_open.erdos_249_irrationality</code>;
 <code>remaining_open.unbounded_certificate_supply</code></li>
 <li><strong>#251</strong> — <code>prime_gap_cofinal_shift_escape</code>;
-<code>cofinal_adjacent_small_mismatch</code>;
-<code>actual_prime_gap_tail_formal_bridge</code></li>
+<code>cofinal_adjacent_small_mismatch</code>. Under a rationality
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>, the actual infinite-tail identification is proved in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L494" data-link-kind="exogenous" rel="external noopener"><code>PrimeGapDyadicTail.lean</code></a>;
+the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> escape and small-shift supplies remain open.</li>
 <li><strong>#257</strong> — Index:
 <code>arithmetic_rigidity_for_thin_supports</code>;
 <code>formalise_measure_and_stride_geometry</code>. Reviewed:
@@ -415,12 +417,16 @@ they read here:</p>
 <code>remaining_open.universal_257_all_infinite_supports</code></li>
 <li><strong>#269</strong> —
 <code>actual_local_window_residue_escape</code>;
-<code>actual_rational_carry_instantiation</code>;
 <code>nonstationary_analytic_theorem</code>;
-<code>unbounded_height_certificate</code></li>
-<li><strong>#1041</strong> — <code>repair_or_refute_saddle_block</code>;
+<code>unbounded_height_certificate</code>. The actual
+rationality-to-reduced-carry bridge is proved in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/RationalityCarryBridge.lean#L324" data-link-kind="exogenous" rel="external noopener"><code>RationalityCarryBridge.lean</code></a>;
+the actual cofinal escape producer remains open.</li>
+<li><strong>#1041</strong> —
+<code>historical_curve_length_correspondence</code>;
+<code>repair_or_refute_saddle_block</code>;
 <code>compact_ray_cut_strip_decomposition</code>;
-<code>metric_gluing_below_two</code>;
+<code>corrected_metric_gluing_for_restricted_families</code>;
 <code>two_stage_stable_perturbation</code>;
 <code>relative_global_newton_flow_theorem</code></li>
 <li><strong>#1049</strong> —
@@ -513,8 +519,8 @@ then return to the open problem with
 (<code>prime_ray_resultant_supply</code>) — <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L95" data-link-kind="exogenous" rel="external noopener"><code>PrimeRayCyclotomicCurvature.lean</code></a>
 turns bounded-degree order divisibility and eventual nontrivial clean
-layers into finite-support escape and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> unbounded prime divisors.
-Its bounded order is an existence of an exponent <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>, not exact
+layers into finite-support escape and cofinal unbounded prime divisors.
+Its bounded order is an existence of an exponent witness, not exact
 order. The actual totient layer/resultant bridge and the route from
 unbounded prime support to certificate or carry escape remain open; the
 Mersenne-only instantiation in
