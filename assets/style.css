@@ -8425,11 +8425,13 @@ html.vt-theme .theme-toggle__ico {
 }
 .home-result-plate__intuitive { font-size: clamp(1.06rem, 0.62rem + 0.62vw, 1.24rem); }
 .home-result-plate__technical { font-size: clamp(0.98rem, 0.68rem + 0.42vw, 1.1rem); line-height: 1.6; }
+.home-result-plate__technical > p { margin: 0; }
+.home-result-plate__technical > p + p { margin-top: 0.85em; }
 .home-results:not(.is-live) .home-result-plate__technical { margin-top: 0.85rem; }
 .home-results.is-live:not([data-results-mode="technical"]) .home-result-plate__technical,
 .home-results.is-live[data-results-mode="technical"] .home-result-plate__intuitive { display: none; }
 @media (prefers-reduced-motion: no-preference) {
-  .home-results.is-live .home-result-plate__words > p { animation: home-result-settle 240ms var(--ease-out) both; }
+  .home-results.is-live .home-result-plate__words > * { animation: home-result-settle 240ms var(--ease-out) both; }
 }
 
 .home-results__switch {
@@ -8504,6 +8506,8 @@ html.vt-theme .theme-toggle__ico {
 .home-explainer__original p { margin: 0; }
 .home-explainer__original footer { margin-top: 0.45rem; font-family: var(--font-sans, inherit); font-size: 0.86rem; color: var(--muted); }
 .home-explainer__asks, .home-explainer__example { margin: 1rem 0 0; font-size: 1.02rem; line-height: 1.62; color: var(--ink-soft); text-wrap: pretty; }
+.home-explainer__summary > p { margin: 0 0 0.75rem; }
+.home-explainer__summary > p:last-child { margin-bottom: 0; }
 .home-explainer strong, .home-explainer__crux strong {
   font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 1.06em; color: var(--ink);
 }
@@ -8827,7 +8831,12 @@ html:not(.vt-theme)::view-transition-old(root),
 html:not(.vt-theme)::view-transition-new(root) { animation-duration: 300ms; }
 
 
-.home-result-plate__beat { transition: color 260ms var(--ease-out); }
+.home-result-plate__beat {
+  display: block;
+  transition: color 260ms var(--ease-out);
+}
+
+.home-result-plate__beat + .home-result-plate__beat { margin-top: 0.75em; }
 .home-result-slide.is-telling .home-result-plate__beat { color: var(--faint); }
 .home-result-slide.is-telling .home-result-plate__beat.is-read { color: var(--ink-soft); }
 .home-result-slide.is-telling .home-result-plate__beat.is-reading,

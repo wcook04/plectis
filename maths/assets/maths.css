@@ -806,6 +806,8 @@ html:not(.scripting) .universe-nojs { display: block; }
 .problem-opening__part { margin: 0 0 var(--space-4); }
 .problem-opening__label { margin: 0 0 0.35rem; font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 1.12rem; color: var(--ink); }
 .problem-opening__summary { margin: 0 0 0.75rem; font-size: 1.04rem; line-height: 1.6; color: var(--ink); text-wrap: pretty; }
+.problem-opening__summary > p { margin: 0 0 0.75rem; }
+.problem-opening__summary > p:last-child { margin-bottom: 0; }
 .problem-opening__part > p:not(.problem-opening__summary) { margin: 0 0 0.75rem; line-height: 1.64; color: var(--ink-soft); text-wrap: pretty; }
 .problem-opening__part > ol, .problem-opening__part > ul { margin: 0 0 0.8rem; padding-left: 1.3rem; color: var(--ink-soft); line-height: 1.6; }
 .problem-opening__part li { margin: 0 0 0.4rem; }
@@ -825,6 +827,10 @@ html:not(.scripting) .universe-nojs { display: block; }
   color: var(--ink-soft); text-wrap: pretty;
 }
 .problem-plate__reading { margin: 0; color: var(--ink-soft); line-height: 1.62; text-wrap: pretty; }
+.problem-plate__reading > p { margin: 0; }
+.problem-plate__reading > p + p { margin-top: 0.85em; }
+.problem-plate__lead .home-result-plate__beat { display: block; }
+.problem-plate__lead .home-result-plate__beat + .home-result-plate__beat { margin-top: 0.75em; }
 
 .dossier-section { margin: var(--space-6) 0; }
 .dossier-section > h2 {

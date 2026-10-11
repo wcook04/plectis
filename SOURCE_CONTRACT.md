@@ -433,6 +433,20 @@ that proposal checked against its paper and redrawn, and the words were
 rewritten because the drafts read "like a salesperson" (Will): intuitive,
 from first principles, interesting to a mathematician, with the ideas
 left to speak for themselves.
+Each original problem must also stand on its own for a mathematician encountering it for the first time (11 October 2026). The always-visible opening defines the objects and notation, works a small example, and says exactly what is being asked before introducing proof machinery or quoting the formal statement. Essential definitions must not live only behind “Explain in full”. Keep paragraph breaks in both opening summaries and result explanations, and state how the featured result bears on the original question without promoting a restricted theorem or method obstruction to a solution.
+
+The expanded result explanations (11 October 2026) give each drawing stage
+its own visible paragraph, and divide the technical account into paragraphs
+inside a block container on both the landing and the problem page. Define
+the object and notation before the operation, explain why the example was
+chosen, and connect its calculation to the theorem. A finite figure must
+say which part of the proof it illustrates. Keep the exact hypotheses and
+the statement covered by the linked formal check; a stronger paper theorem
+does not inherit that check. These expanded readings have a 320-word
+intuitive budget, separate from the problem-summary budget. Do not remove
+prerequisites merely to fit the old 130-word caption limit. Owner:
+`codex/doctrine/skills/dissemination/first_principles_maths_exposition.md`.
+
 - Source: one module per plate in `tools/meta/dissemination/plectis_plates/`
   (`erdos<N>_<slug>.py`, `PLATE_ID`, `build() -> (svg, facts)`), sharing
   `draw.py`. `build.py --check` rebuilds every plate, compares
