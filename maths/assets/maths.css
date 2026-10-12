@@ -33,6 +33,12 @@
   --u-paper: #9894a0;
   --u-paper-short: #8f6212;
   --u-paper-long: #6a4fa3;
+  /* A problem's optional expository paper (11 October 2026): verdigris,
+     the one hue family the map's inks leave open. The dataviz palette
+     validator passes it against brass and violet on both grounds (worst
+     colour-blind Delta E 10.6 by day, 9.9 at night; normal vision 16.5
+     and 20.2), and its lightness, chroma and contrast pass on its own. */
+  --u-paper-expository: #0d8b73;
   --u-document: #6a6573;
   --u-integration: var(--weave-red);
   --u-module: #9c98a4;
@@ -54,6 +60,7 @@
     --u-paper: #85818e;
     --u-paper-short: #d9a84e;
     --u-paper-long: #a98fd6;
+    --u-paper-expository: #1daa8d;
     --u-document: #94909e;
     --u-module: #847e8f;
     --u-object: #a7a0b6;
@@ -71,6 +78,7 @@
   --u-paper: #85818e;
   --u-paper-short: #d9a84e;
   --u-paper-long: #a98fd6;
+  --u-paper-expository: #1daa8d;
   --u-document: #94909e;
   --u-module: #847e8f;
   --u-object: #a7a0b6;
@@ -3643,6 +3651,7 @@ a.uidx-row[data-link-kind="exogenous"]::after { position: absolute; right: 0.5re
 }
 .paper-swatch--short { border-color: var(--u-paper-short); background: color-mix(in srgb, var(--u-paper-short) 30%, transparent); }
 .paper-swatch--long { border-color: var(--u-paper-long); background: color-mix(in srgb, var(--u-paper-long) 30%, transparent); }
+.paper-swatch--expository { border-color: var(--u-paper-expository); background: color-mix(in srgb, var(--u-paper-expository) 30%, transparent); }
 
 /* What the words on the map mean: under the lede at rest, and first in How
    to read. A term and its sentence, the term's own mark beside it. */

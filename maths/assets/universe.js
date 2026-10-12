@@ -468,6 +468,10 @@
       // rows of the results band and its swatch in the key share it.
       palette.shortPaper = cssColor(styles, '--u-paper-short', palette.paper);
       palette.longPaper = cssColor(styles, '--u-paper-long', palette.paper);
+      // A problem may also have an expository paper (11 October 2026), which
+      // explains one result of its short paper. It states no result of its
+      // own, so it has a node and a key swatch in its own colour, and no rows.
+      palette.expositoryPaper = cssColor(styles, '--u-paper-expository', palette.paper);
       darkGround = groundIsDark(palette.ground);
       // A kept (pinned) result is framed in the landing's ember, the colour
       // the column's card rule turns when it holds a result.
@@ -1890,6 +1894,7 @@
         var side = paperSideOf(n);
         if (side === 'short') return palette.shortPaper;
         if (side === 'long') return palette.longPaper;
+        if (side === 'expository') return palette.expositoryPaper;
       }
       // No Lean statement is not Lean's colour: it is drawn in the quiet ink.
       if (n.kind === 'paper_statement' && n.tier === 'none') return palette.faint;
@@ -1987,9 +1992,11 @@
       }
       return [r0, r1];
     }
-    // Which of its problem's two papers a paper node is: the side its
-    // results are stated on.
+    // Which of its problem's papers a paper node is: the side its results are
+    // stated on. An expository paper states no result of its own, so the
+    // data names its side on the paper node itself.
     function paperSideOf(n) {
+      if (n.kind === 'paper' && n.side) return n.side;
       var run = paperSequence[String(n.id).replace(/^paper:/, '')];
       return run && nodes[run[0]] ? nodes[run[0]].side : null;
     }
@@ -2985,10 +2992,10 @@
          paper" and "Long paper", the way the card's tabs name them: a
          title cut to fit ("Reciprocal Sums and the Sylv…") said less, and
          the pair either side of each problem now reads as the structure it
-         is. Pointed at, a paper names itself in full on its plate. */
+         is. Pointed at, a paper names itself in full on its plate. An
+         expository paper is named the same way, "Expository paper". */
       if (n.kind === 'paper' && !isFocus) {
-        var run = paperSequence[String(n.id).replace(/^paper:/, '')];
-        var side = run && nodes[run[0]] ? nodes[run[0]].side : null;
+        var side = paperSideOf(n);
         if (TAB_NAME[side]) return TAB_NAME[side];
       }
       var text = clip(n.shortLabel, isFocus ? 60 : 42);
@@ -4616,6 +4623,8 @@
       if (run.length) {
         out.push('<p class="universe-tally">' + fmtCount(run.length) + (run.length === 1 ? ' result' : ' results') +
           ' from this paper on the map' + (side === 'long' ? ', in the outer rows of its band.' : side === 'short' ? ', in the inner rows of its band.' : '.') + '</p>');
+      } else if (side === 'expository') {
+        out.push('<p class="universe-tally">It explains a result of the short paper, so it adds no results to the map.</p>');
       }
       return out.join('');
     }
@@ -4653,7 +4662,11 @@
       if (t.total) parts.push('<div class="universe-overview__gauge">' + gaugeHtml(counts, n.shortLabel) + '</div>');
       var papers = info && info.papers || [];
       var short = papers.filter(function (p) { return p.label === 'Short paper'; })[0] || papers[0];
-      var long = papers.filter(function (p) { return p !== short && p.page; })[0];
+      // An expository paper, where there is one, is a third read after the
+      // pair; it never stands in for the long record.
+      var expository = papers.filter(function (p) { return p !== short && p.label === 'Expository paper' && p.page; })[0];
+      var long = papers.filter(function (p) { return p !== short && p.label === 'Long paper' && p.page; })[0] ||
+        papers.filter(function (p) { return p !== short && p !== expository && p.label !== 'Expository paper' && p.page; })[0];
       if (short) {
         var go = [];
         if (short.page) {
@@ -4667,6 +4680,7 @@
           go.push(extLink(short.pdf, 'PDF' + (short.pages ? ', ' + short.pages + '&nbsp;pages' : ''), 'universe-go'));
         }
         if (long && long.page) go.push('<a class="universe-go" href="' + escapeHtml(route(long.page)) + '">The long record</a>');
+        if (expository) go.push('<a class="universe-go" href="' + escapeHtml(route(expository.page)) + '">The expository paper</a>');
         if (n.page) go.push('<a class="universe-go" href="' + escapeHtml(route(n.page)) + '">The problem’s page</a>');
         parts.push('<section class="universe-paper" aria-label="The short paper">' +
           '<p class="universe-label">The short paper</p>' +
@@ -4865,8 +4879,9 @@
     function externalAttrs() {
       return '" data-link-kind="exogenous" rel="external noopener" target="_blank"';
     }
-    // The short paper before the long record, wherever places are listed.
-    var SIDE_ORDER = { short: 0, long: 1 };
+    // The short paper before the long record, wherever places are listed,
+    // and an expository paper after both.
+    var SIDE_ORDER = { short: 0, long: 1, expository: 2 };
 
     function openHtml(i, pinned) {
       var n = nodes[i];
@@ -5124,8 +5139,8 @@
        and the Comparator files wait one step down for whoever wants them,
        and every way out (the paper, the TeX, GitHub) is a button. */
 
-    var ROLE_NAME = { short: 'the short paper', long: 'the long paper' };
-    var TAB_NAME = { short: 'Short paper', long: 'Long paper' };
+    var ROLE_NAME = { short: 'the short paper', long: 'the long paper', expository: 'the expository paper' };
+    var TAB_NAME = { short: 'Short paper', long: 'Long paper', expository: 'Expository paper' };
     function roleName(m) { return ROLE_NAME[m.side] || 'the paper'; }
     // A name the paper prints in lower case ("conditional numerical
     // thresholds") heads the card with a capital; markup and maths are left be.
@@ -5561,9 +5576,7 @@
       var problem = n.sector && problemIndex[n.sector] !== undefined ? nodes[problemIndex[n.sector]].shortLabel : null;
       if (n.kind === 'problem') return n.shortLabel;
       if (n.kind === 'paper') {
-        var run = paperSequence[String(n.id).replace(/^paper:/, '')];
-        var side = run && nodes[run[0]] ? nodes[run[0]].side : null;
-        return (ROLE_NAME[side] || 'the paper') + (problem ? ' on ' + problem : '');
+        return (ROLE_NAME[paperSideOf(n)] || 'the paper') + (problem ? ' on ' + problem : '');
       }
       return clip(n.shortLabel, 40);
     }
@@ -6109,6 +6122,16 @@
       ['short', 'Short paper'],
       ['long', 'Long paper']
     ];
+    // An expository paper's swatch joins the key only where some problem
+    // has one (11 October 2026): a key never names a mark the map lacks.
+    function keyMarks() {
+      for (var i = 0; i < nodes.length; i++) {
+        if (nodes[i].kind === 'paper' && paperSideOf(nodes[i]) === 'expository') {
+          return KEY_MARKS.concat([['expository', 'Expository paper']]);
+        }
+      }
+      return KEY_MARKS;
+    }
     var key = null;
     function buildKey() {
       if (pageMode || key || !caption || !caption.parentNode || typeof document.createElement !== 'function') return;
@@ -6121,7 +6144,7 @@
       key = document.createElement('ul');
       key.className = 'universe-key';
       key.setAttribute('aria-label', 'Key to the marks');
-      key.innerHTML = KEY_MARKS.map(function (m) {
+      key.innerHTML = keyMarks().map(function (m) {
         return '<li class="universe-key__item"><span class="universe-key__mark universe-key__mark--' + m[0] +
           '" aria-hidden="true"></span>' + escapeHtml(m[1]) + '</li>';
       }).join('');
@@ -6367,6 +6390,8 @@
           sub: n.sub || null,
           x: n.x, y: n.y, r: KIND_RADIUS[n.kind] || 2
         };
+        // An expository paper's role is on its own node (paperSideOf).
+        if (n.kind === 'paper' && n.side) row.side = n.side;
         if (n.kind === 'paper_statement') {
           /* The id is statement:<paper id>#<label>; the first screen leaves
              what the id, the tables and the sector already say unsaid. */

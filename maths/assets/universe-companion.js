@@ -164,7 +164,11 @@
       var papers = problem.papers || [];
       var short = papers.filter(function (p) { return p.label === 'Short paper'; })[0] || papers[0];
       if (!short) return '';
-      var long = papers.filter(function (p) { return p !== short && p.page; })[0];
+      // A problem's expository paper, where it has one, follows the pair and
+      // never stands in for the long record (11 October 2026).
+      var expository = papers.filter(function (p) { return p !== short && p.label === 'Expository paper' && p.page; })[0];
+      var long = papers.filter(function (p) { return p !== short && p.label === 'Long paper' && p.page; })[0] ||
+        papers.filter(function (p) { return p !== short && p !== expository && p.label !== 'Expository paper' && p.page; })[0];
       var links = [];
       if (short.page) links.push('<a href="' + esc(api.route(short.page)) + '">Read it</a>');
       if (short.pdf) {
@@ -172,6 +176,7 @@
           (short.pages ? ', ' + esc(count(short.pages, 'page')).replace(' ', '&nbsp;') : '') + '</a>');
       }
       if (long) links.push('<a href="' + esc(api.route(long.page)) + '">The long record</a>');
+      if (expository) links.push('<a href="' + esc(api.route(expository.page)) + '">The expository paper</a>');
       var title = short.page
         ? '<a class="uc__paper-title" href="' + esc(api.route(short.page)) + '">' + short.title_html + '</a>'
         : '<span class="uc__paper-title">' + short.title_html + '</span>';

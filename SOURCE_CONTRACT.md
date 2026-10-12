@@ -1351,6 +1351,9 @@ sixteen problem papers. Its sources are the public coverage ledger
 ledger owns each statement's status; the evidence adds printed numbers,
 declaration lines, Lean statements and Comparator checks. The build stops when
 the ledger, the evidence or the rendered papers come from different editions.
+An expository paper (11 October 2026; #257 has one) explains one result of its
+problem's short paper and states none of its own, so it stays out of the
+ledger and the evidence: the map draws its node and no results.
 
 - Comparator's colour fills a replayed result, the Lean colour fills an exact
   Lean result whose replay is queued, a ring marks Lean under named inputs and
@@ -1376,7 +1379,9 @@ the ledger, the evidence or the rendered papers come from different editions.
   the card's buttons walk its paper.
 - The field reads from the centre out, one ring per layer: the Lean universe
   with Comparator and Palomar below it; the problems on one orbit, each between
-  its two papers; the claims of each record, on plates; then every result, on
+  its two papers (an expository paper, where a problem has one, one step
+  further out on the short paper's side, whatever its id sorts as); the claims
+  of each record, on plates; then every result, on
   plates. Each problem owns one sector, sized by its results plus a floor, so
   the results ring keeps one depth all the way round. A shared namespace's
   claims sit in one block on the edge between its two sectors. The rail at rest
@@ -1398,6 +1403,18 @@ the ledger, the evidence or the rendered papers come from different editions.
   `\hgt`, …) in one strict run, kept beside the authored text as
   `lean_reason_html` and the detail's `html_mathml`. A note pandoc cannot
   convert stops the build, so the card never shows a reader backslashes.
+- An expository paper has its own colour, verdigris (`--u-paper-expository`:
+  `#0d8b73` by day, `#1daa8d` at night), beside brass for the short paper and
+  violet for the long. The bundled dataviz validator passes it against both
+  on each ground (colour-blind Delta E 10.6 by day, 9.9 at night; normal
+  vision 16.5 and 20.2). Its node is named "Expository paper" at rest, its
+  card names it with a swatch ("Expository paper on #257") and quotes its
+  abstract from the companion data, and the keys (the landing teaser's and
+  the map page's) and "What the map shows" add its swatch only when some
+  problem has one. Its role reaches the drawing on the paper node itself
+  (`side: "expository"`), since it has no results to carry it. A problem's
+  page lists it after the short paper and the long record and links it to
+  its own page; only the short paper is read inline.
 - A result's card quotes its paper and related statements in the other
   paper through excerpt tabs ("Short paper, 5.2" / "Long paper, 8.1").
   Counterparts require a shared `(Lean file, fully qualified declaration)`

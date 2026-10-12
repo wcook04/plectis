@@ -2105,6 +2105,40 @@ test('at rest the caption slot holds a key of the map’s own marks, which steps
   assert.ok(!key.classList.contains('is-out'), 'and comes back when the caption is empty');
 });
 
+test('an expository paper wears its own ink, names its role on its card, and joins the key only where one exists', async () => {
+  // 11 October 2026: a problem's optional third paper explains one result of
+  // its short paper and states none of its own, so its role rides on its node.
+  const INK = '#0d8b73';
+  const styles = {'--u-paper-expository': INK};
+  const withExpository = () => {
+    const data = structureData();
+    data.initial.nodes.push({id: 'paper:a-explain', kind: 'paper', label: 'The first expository paper',
+      short: 'The first expository paper', sector: 'p1', side: 'expository',
+      x: 250 * Math.cos(-1.2), y: 250 * Math.sin(-1.2)});
+    return data;
+  };
+  const keyOf = map => map.captionRow.children.find(node => node.className === 'universe-captionslot')
+    .children.find(node => node.className === 'universe-key');
+  const plain = await mountStructure({keyRow: true, styles});
+  plain.intersect(true);
+  plain.advanceTo(plain.now() + 2000);
+  assert.doesNotMatch(keyOf(plain).innerHTML, /xpository/, 'a key never names a mark the map lacks');
+  const teaser = await mountStructure({keyRow: true, styles, data: withExpository});
+  teaser.intersect(true);
+  teaser.advanceTo(teaser.now() + 2000);
+  assert.match(keyOf(teaser).innerHTML, /universe-key__mark--expository" aria-hidden="true"><\/span>Expository paper/);
+  const inks = [...teaser.strokes().map(s => s.style), ...teaser.fills().map(f => f.style)];
+  assert.ok(inks.includes(INK), 'its mark is drawn in the expository ink');
+  const page = await mountStructure({page: true, withInspector: true, styles, data: withExpository});
+  page.advanceTo(page.now() + 2000);
+  const at = page.at('paper:a-explain');
+  page.canvas.fire('click', {clientX: at.x, clientY: at.y, detail: 1});
+  page.advanceTo(page.now() + 2000);
+  const card = page.inspector.innerHTML;
+  assert.match(card, /paper-swatch--expository" aria-hidden="true"><\/span>Expository paper on #1/);
+  assert.match(card, /It explains a result of the short paper, so it adds no results to the map\./);
+});
+
 test('the column and the drawing’s card never show at once: out in 90ms, then the title travels; away in 160ms, then the list', () => {
   const css = readFileSync(new URL('../../../tools/meta/dissemination/maths_site_assets/universe-companion.css', import.meta.url), 'utf8');
   const js = readFileSync(new URL('../../../tools/meta/dissemination/maths_site_assets/universe-companion.js', import.meta.url), 'utf8');
