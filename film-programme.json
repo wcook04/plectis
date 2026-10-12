@@ -265,8 +265,139 @@
       "description": "The mathematics and software in Plectis. Includes material from the separate films.",
       "role": "combined",
       "links": [],
-      "still_inset": "top-right",
-      "release": null
+      "still_inset": null,
+      "release": {
+        "edition_sha256": "a1fd41334e1ec55789dc91f6ce4c76a8c318b9c4e4a4a98736ab301429966026",
+        "approved_edition_sha256": "a1fd41334e1ec55789dc91f6ce4c76a8c318b9c4e4a4a98736ab301429966026",
+        "hosted_edition_sha256": "a1fd41334e1ec55789dc91f6ce4c76a8c318b9c4e4a4a98736ab301429966026",
+        "thumbnail_edition_sha256": "a1fd41334e1ec55789dc91f6ce4c76a8c318b9c4e4a4a98736ab301429966026",
+        "transcript_edition_sha256": "a1fd41334e1ec55789dc91f6ce4c76a8c318b9c4e4a4a98736ab301429966026",
+        "publication_authorized": true,
+        "url": "https://youtu.be/di1k5zf5MnM",
+        "upload_date": "2026-10-12",
+        "duration_seconds": 2234,
+        "thumbnail": "assets/films/combined-a1fd41334e1e.jpg",
+        "thumbnail_sha256": "ab8f188b14af31dd1cd05abe21e1072af79abbf772ddf7b4c1bee47c2caf44a1",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "The mathematics and software in Plectis. Includes material from the separate films.",
+          "sha256": "d7bd797e586ba7729ab05a1ee645c34cd29ceb462146c6ac895d2b8eb40886b3"
+        },
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "1 The programme"
+          },
+          {
+            "seconds": 17,
+            "title": "1.1 Checked proofs"
+          },
+          {
+            "seconds": 45,
+            "title": "1.2 Papers and films"
+          },
+          {
+            "seconds": 71,
+            "title": "1.3 The website"
+          },
+          {
+            "seconds": 111,
+            "title": "2 The mathematics: 2.1 Erdős's question"
+          },
+          {
+            "seconds": 289,
+            "title": "2.2 What we prove"
+          },
+          {
+            "seconds": 416,
+            "title": "2.3 The test"
+          },
+          {
+            "seconds": 520,
+            "title": "2.4 Multiply and split"
+          },
+          {
+            "seconds": 674,
+            "title": "2.5 Which come out whole"
+          },
+          {
+            "seconds": 841,
+            "title": "2.6 One row's average"
+          },
+          {
+            "seconds": 975,
+            "title": "2.7 Many columns at once"
+          },
+          {
+            "seconds": 1229,
+            "title": "2.8 The contradiction"
+          },
+          {
+            "seconds": 1303,
+            "title": "2.9 Where this stops"
+          },
+          {
+            "seconds": 1376,
+            "title": "2.10 The proof in Lean"
+          },
+          {
+            "seconds": 1502,
+            "title": "2.11 Finding it on the map"
+          },
+          {
+            "seconds": 1591,
+            "title": "2.12 What this is for"
+          },
+          {
+            "seconds": 1685,
+            "title": "3 CodeMap: 3.1 Finding a file"
+          },
+          {
+            "seconds": 1723,
+            "title": "3.2 The description"
+          },
+          {
+            "seconds": 1778,
+            "title": "3.3 Each function"
+          },
+          {
+            "seconds": 1821,
+            "title": "3.4 Blast"
+          },
+          {
+            "seconds": 1875,
+            "title": "3.5 Two readers"
+          },
+          {
+            "seconds": 1924,
+            "title": "4 Agent Trace"
+          },
+          {
+            "seconds": 1956,
+            "title": "4.1 Eight sentences, twice"
+          },
+          {
+            "seconds": 2011,
+            "title": "4.2 What you can copy"
+          },
+          {
+            "seconds": 2060,
+            "title": "4.3 Starting a new chat"
+          },
+          {
+            "seconds": 2128,
+            "title": "5 Demo Take, and how to take part: 5.1 Demo Take"
+          },
+          {
+            "seconds": 2166,
+            "title": "5.2 One system"
+          },
+          {
+            "seconds": 2182,
+            "title": "5.3 What this is for"
+          }
+        ]
+      }
     }
   ]
 }
