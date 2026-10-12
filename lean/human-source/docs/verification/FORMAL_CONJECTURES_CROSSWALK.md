@@ -5,11 +5,11 @@ Follow the public Formal Conjectures contributions, then inspect the pinned stat
 
 ## Contribution activity
 
-Observed **2026-10-11T14:30:00Z** from the linked public pull requests.
+Observed **2026-10-12T18:49:29.505431+00:00** from the linked public pull requests.
 
 **5 merged mathematical contributions · 8 open requests · 1 merged AUTHORS update.**
 
-A dated observation of public pull requests. Individual review, aggregate approval requirements and merge state are separate. A merge accepts the scoped upstream change, not every mathematical claim in this repository. Maintenance of existing proof links is listed separately and excluded from the merged mathematical contribution count. The pinned statement comparison below retains its original source identity.
+A dated observation of public pull requests. Individual review, aggregate approval requirements and merge state are separate. A merge accepts the scoped upstream change, not every mathematical claim in this repository. Maintenance of existing proof links is listed separately and excluded from the merged mathematical contribution count. The pinned statement comparison below retains its original source identity. The #6579 review chain was refreshed on 12 October; other request observations retain the 11 October snapshot.
 
 ### Merged mathematical contributions
 
@@ -105,11 +105,15 @@ Latest individual review: [approved](https://github.com/google-deepmind/formal-c
 
 **[#6579 · Erdős 249: classify rational dyadic totient observables](https://github.com/google-deepmind/formal-conjectures/pull/6579)**
 
-For rational-valued observables modulo 2^k, the binary series is rational exactly when the observable is constant on even residue classes.
+For rational-valued observables modulo 2^k, the binary series is rational exactly when the observable is constant on even residue classes. The unreduced-totient problem remains open.
+
+[Bo Cowgill approved the current head](https://github.com/google-deepmind/formal-conjectures/pull/6579#pullrequestreview-5493193130) on 12 October, relying on author-hosted evidence; he did not independently rerun verification. [Run 38173617731](https://github.com/wcook04/plectis-erdos-lean/actions/runs/38173617731) compares FC head `a6a2e0e1` with proof source `04e14917` in Lean 4.33.1 and FC's Mathlib environment. It reports matching statements and dependencies, defaultLean/NanoDa acceptance under `propext`, `Classical.choice` and `Quot.sound`, and positive/mismatch controls.
+
+His [earlier approval](https://github.com/google-deepmind/formal-conjectures/pull/6579#pullrequestreview-5435222238) independently checked the older Lean 4.29.1 proof. The [11 October failure](https://github.com/google-deepmind/formal-conjectures/pull/6579#issuecomment-6112373414) at `e6bf75a5` remains historical evidence of a cross-version comparison mismatch, does not establish a mathematical defect. Individual approval, native verification, aggregate review requirements and merge state remain separate.
 
 Open; aggregate review decision: **review required**.
 
-Latest individual review: [approved](https://github.com/google-deepmind/formal-conjectures/pull/6579#pullrequestreview-5435222238) on an earlier head, 2026-10-06.
+Latest individual review: [approved](https://github.com/google-deepmind/formal-conjectures/pull/6579#pullrequestreview-5493193130) on current head, 2026-10-12.
 
 **[#6780 · Add fixed-base geometric-moment Hankel asymptotic](https://github.com/google-deepmind/formal-conjectures/pull/6780)**
 

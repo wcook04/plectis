@@ -239,20 +239,22 @@ order without asking you to decode Lean declaration names first.
 
 ## Formal Conjectures contributions
 
-As of **11 October 2026**, [five mathematical contributions](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#merged-mathematical-contributions)
-have merged into Formal Conjectures. The latest,
-[#6529](https://github.com/google-deepmind/formal-conjectures/pull/6529), adds
-Erdős's reciprocal-summable support variant for every integer base at least two;
+[Five mathematical contributions](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#merged-mathematical-contributions)
+have merged into Formal Conjectures. [#6529](https://github.com/google-deepmind/formal-conjectures/pull/6529)
+covers reciprocal-summable supports for integer bases at least two;
 arbitrary infinite supports remain open.
 
-On 11 October, [#6971](https://github.com/google-deepmind/formal-conjectures/pull/6971)
-merged four links to immutable Palomar-verified packages. Proofs and FC statements
-are unchanged. [Bo Cowgill's checks and Moritz Firsching's approval](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#proof-link-maintenance)
-concern this maintenance; no mathematical results were added. [Trace the #1041 proof](docs/case-studies/formal-conjectures-1041.md).
+[#6971](https://github.com/google-deepmind/formal-conjectures/pull/6971) repaired four immutable proof links on 11 October.
+[Bo Cowgill's checks and Moritz Firsching's approval](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#proof-link-maintenance)
+concern maintenance, with proofs and statements unchanged and no new mathematics.
+[Trace #1041](docs/case-studies/formal-conjectures-1041.md).
 
-The [Prove2Me #243/#257 proof packets](docs/research-commons/README.md#native-prove2me-theorems)
-and [plectis-erdos-lean](https://github.com/wcook04/plectis-erdos-lean) provide
-additional selected statement checks and their recorded outcomes.
+On 12 October, [Bo Cowgill approved #6579](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#open-requests)
+using author-hosted verification, without an independent rerun.
+The request remains open with review required; the unreduced-totient problem remains open.
+
+Other checks: [Prove2Me #243/#257 packets](docs/research-commons/README.md#native-prove2me-theorems)
+and [plectis-erdos-lean](https://github.com/wcook04/plectis-erdos-lean).
 
 [Palomar](https://palomar-registry.org/) checks Lean proofs and publishes
 registered results with their review comments. Our [submission record](https://github.com/wcook04/plectis-erdos-lean#palomar-publication-surface)
