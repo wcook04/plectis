@@ -29,7 +29,7 @@ or the [glossary](https://wcook04.github.io/plectis/docs/glossary.html).
 - **Reader feedback:** [paper revisions](docs/research-commons/CREDIT_LEDGER.md#credit-correspondence-004).
 - **Connections between problems:** [cross-problem paper](paper/synthesis/optimal-sparse-perturbations.pdf).
 - **Formal evidence:** [Lean source](docs/SOURCE_MAP.md) and [Comparator checks](docs/EXTERNAL_VERIFICATION.md).
-- **Working environment:** [introduction, mathematics, CodeMap and Agent Trace films](#videos).
+- **Working environment:** [mathematics and CodeMap films](#videos).
 
 This repository is the public research workspace. The [website](https://wcook04.github.io/plectis/)
 provides reading and map views. Its 88-component software map describes the
@@ -84,14 +84,10 @@ through the [contribution guide](#contribute).
 
 ## Watch the videos
 
-- [Plectis: introduction](https://youtu.be/lkO7EARGv2Q): how the research, papers and tools connect.
 - [Erdős #257: the reciprocal-summability criterion](https://youtu.be/3S1t-CvsQjI): follow an argument through the map, paper and formal statement.
 - [CodeMap demonstration](https://youtu.be/1twvvQ-wteI): inspect source files, their purposes and dependencies.
-- [Agent Trace demonstration](https://youtu.be/RKIz8gOmnDI): inspect recorded agent work and carry selected context into another review.
-- [Combined film](https://youtu.be/ab5oQz8G2no): mathematics and software, 37 minutes.
 
-CodeMap and Agent Trace demonstrate private interfaces in the research
-environment. This repository publishes the mathematical research and its tools.
+CodeMap demonstrates a private interface in the research environment. This repository publishes the mathematical research and its tools.
 
 <a id="about-the-project"></a>
 
@@ -243,17 +239,16 @@ order without asking you to decode Lean declaration names first.
 
 ## Formal Conjectures contributions
 
-As of **9 October 2026**, [five mathematical contributions](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#merged-mathematical-contributions)
+As of **11 October 2026**, [five mathematical contributions](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#merged-mathematical-contributions)
 have merged into Formal Conjectures. The latest,
 [#6529](https://github.com/google-deepmind/formal-conjectures/pull/6529), adds
 Erdős's reciprocal-summable support variant for every integer base at least two;
 arbitrary infinite supports remain open.
 
-[Bo Cowgill's review](https://github.com/google-deepmind/formal-conjectures/pull/6529#pullrequestreview-5435090546)
-checked source correspondence and independently replayed the original proof.
-The [contribution record](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#contribution-activity)
-separates accepted changes, pending requests, proof-link maintenance and authorship.
-[Trace the #1041 Lean proof](docs/case-studies/formal-conjectures-1041.md).
+On 11 October, [#6971](https://github.com/google-deepmind/formal-conjectures/pull/6971)
+merged four links to immutable Palomar-verified packages. Proofs and FC statements
+are unchanged. [Bo Cowgill's checks and Moritz Firsching's approval](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#proof-link-maintenance)
+concern this maintenance; no mathematical results were added. [Trace the #1041 proof](docs/case-studies/formal-conjectures-1041.md).
 
 The [Prove2Me #243/#257 proof packets](docs/research-commons/README.md#native-prove2me-theorems)
 and [plectis-erdos-lean](https://github.com/wcook04/plectis-erdos-lean) provide

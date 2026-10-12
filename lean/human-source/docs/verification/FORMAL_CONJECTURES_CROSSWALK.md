@@ -5,9 +5,9 @@ Follow the public Formal Conjectures contributions, then inspect the pinned stat
 
 ## Contribution activity
 
-Observed **2026-10-09T22:36:29Z** from the linked public pull requests.
+Observed **2026-10-11T14:30:00Z** from the linked public pull requests.
 
-**5 merged mathematical contributions · 9 open requests · 1 merged AUTHORS update.**
+**5 merged mathematical contributions · 8 open requests · 1 merged AUTHORS update.**
 
 A dated observation of public pull requests. Individual review, aggregate approval requirements and merge state are separate. A merge accepts the scoped upstream change, not every mathematical claim in this repository. Maintenance of existing proof links is listed separately and excluded from the merged mathematical contribution count. The pinned statement comparison below retains its original source identity.
 
@@ -69,7 +69,7 @@ Cubic-rate irrationality and slow-growth rigidity under additional growth and in
 
 Open; aggregate review decision: **review required**.
 
-Latest individual review: [commented](https://github.com/google-deepmind/formal-conjectures/pull/6523#pullrequestreview-5435079771) on an earlier head, 2026-10-06.
+Latest individual review: [approved](https://github.com/google-deepmind/formal-conjectures/pull/6523#pullrequestreview-5477814639) on current head, 2026-10-10.
 
 **[#6527 · Erdős 1049: add rational-base contour and irrationality exponent bound](https://github.com/google-deepmind/formal-conjectures/pull/6527)**
 
@@ -85,7 +85,7 @@ Irrationality under sufficient weighted support and covering hypotheses, not for
 
 Open; aggregate review decision: **review required**.
 
-Latest individual review: [commented](https://github.com/google-deepmind/formal-conjectures/pull/6528#pullrequestreview-5434950823) on an earlier head, 2026-10-06.
+Latest individual review: [approved](https://github.com/google-deepmind/formal-conjectures/pull/6528#pullrequestreview-5477798867) on current head, 2026-10-10.
 
 **[#6576 · Erdős 1041: add sharp normalized collinear gap variant](https://github.com/google-deepmind/formal-conjectures/pull/6576)**
 
@@ -93,7 +93,7 @@ Sharp product-height bound for normalized real roots and a whole adjacent interv
 
 Open; aggregate review decision: **review required**.
 
-Latest individual review: [commented](https://github.com/google-deepmind/formal-conjectures/pull/6576#pullrequestreview-5435304111) on an earlier head, 2026-10-06.
+Latest individual review: [approved](https://github.com/google-deepmind/formal-conjectures/pull/6576#pullrequestreview-5477816245) on current head, 2026-10-10.
 
 **[#6577 · Erdős 249: add countable least-residue dilation independence](https://github.com/google-deepmind/formal-conjectures/pull/6577)**
 
@@ -123,9 +123,11 @@ Latest individual review: [commented](https://github.com/google-deepmind/formal-
 
 **[#6971 · Update four proof links to kernel-checked sources](https://github.com/google-deepmind/formal-conjectures/pull/6971)**
 
-Updates four already accepted proof links to immutable sources checked by Lean and NanoDa in the cited Palomar runs. This maintains their evidence links; it adds no new mathematical result.
+Replaces four already accepted proof links with immutable Palomar-verified packages; the proof files are byte-for-byte identical and the FC statements are unchanged. [Bo Cowgill reviewed](https://github.com/google-deepmind/formal-conjectures/pull/6971#pullrequestreview-5477230569) statement correspondence, including the Hausdorff path-image measure and series indexing, and the source-bound Lean and NanoDa acceptance reports on Lean 4.29.1 with propext, Classical.choice and Quot.sound. [Moritz Firsching also approved](https://github.com/google-deepmind/formal-conjectures/pull/6971#pullrequestreview-5483329663), asking about file identity and noting the benefit of the Palomar-linked repository. This is proof-link maintenance; it adds no new mathematical result.
 
-Open; aggregate review decision: **review required**.
+Merged 2026-10-11.
+
+Latest individual review: [approved](https://github.com/google-deepmind/formal-conjectures/pull/6971#pullrequestreview-5483329663) on current head, 2026-10-11.
 
 ### Authorship and closed requests
 

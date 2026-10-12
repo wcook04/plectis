@@ -78,8 +78,8 @@
       "source_ref": "main",
       "source_path": "README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/README.md",
-      "source_sha256": "10ac742c6f06b30296b02b088aee91c7c5ba08a20aaba0592c8a482cb7d87bd1",
-      "bytes": 17782
+      "source_sha256": "adf712c684b8da6cc5ab4626b68d800c78ca6302456852079a0076c39adde903",
+      "bytes": 17411
     },
     {
       "hosted_path": "lean/human-source/docs/READING_GUIDE.md",
@@ -186,8 +186,8 @@
       "source_ref": "main",
       "source_path": "docs/verification/FORMAL_CONJECTURES_CROSSWALK.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md",
-      "source_sha256": "103162b45d03f45cf7f6780ff3bbb91490873522eb873b311d5f96746e3ac137",
-      "bytes": 28404
+      "source_sha256": "3f1812660a10284c320ab5765d3f933bbfcaa7dc03d5a2783957818f0bc42901",
+      "bytes": 29098
     },
     {
       "hosted_path": "lean/human-source/docs/EXTERNAL_VERIFICATION.md",
