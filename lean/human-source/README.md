@@ -85,10 +85,10 @@ through the [contribution guide](#contribute).
 ## Watch the videos
 
 - [Plectis: introduction](https://youtu.be/lkO7EARGv2Q): how the research, papers and tools connect.
-- [Erdős #257: the reciprocal-summability criterion](https://youtu.be/y8s3t_pwIGM): follow an argument through the map, paper and formal statement.
-- [CodeMap demonstration](https://youtu.be/r48SJdiGKKM): inspect source files, their purposes and dependencies.
-- [Agent Trace demonstration](https://youtu.be/FbMiKx4nwJk): inspect recorded agent work and carry selected context into another review.
-- [Combined film](https://youtu.be/di1k5zf5MnM): mathematics and software, 37 minutes.
+- [Erdős #257: the reciprocal-summability criterion](https://youtu.be/3S1t-CvsQjI): follow an argument through the map, paper and formal statement.
+- [CodeMap demonstration](https://youtu.be/1twvvQ-wteI): inspect source files, their purposes and dependencies.
+- [Agent Trace demonstration](https://youtu.be/RKIz8gOmnDI): inspect recorded agent work and carry selected context into another review.
+- [Combined film](https://youtu.be/ab5oQz8G2no): mathematics and software, 37 minutes.
 
 CodeMap and Agent Trace demonstrate private interfaces in the research
 environment. This repository publishes the mathematical research and its tools.

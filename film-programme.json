@@ -84,17 +84,17 @@
       ],
       "still_inset": "bottom-right",
       "release": {
-        "edition_sha256": "998f283d71d69139266c86064b8136cba93eecd186a77a224d8b7415201d1d94",
-        "approved_edition_sha256": "998f283d71d69139266c86064b8136cba93eecd186a77a224d8b7415201d1d94",
-        "hosted_edition_sha256": "998f283d71d69139266c86064b8136cba93eecd186a77a224d8b7415201d1d94",
-        "thumbnail_edition_sha256": "998f283d71d69139266c86064b8136cba93eecd186a77a224d8b7415201d1d94",
-        "transcript_edition_sha256": "998f283d71d69139266c86064b8136cba93eecd186a77a224d8b7415201d1d94",
+        "edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
+        "approved_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
+        "hosted_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
+        "thumbnail_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
+        "transcript_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
         "publication_authorized": true,
-        "url": "https://youtu.be/y8s3t_pwIGM",
+        "url": "https://youtu.be/3S1t-CvsQjI",
         "upload_date": "2026-10-12",
-        "duration_seconds": 1708,
-        "thumbnail": "assets/films/mathematics-998f283d71d6.jpg",
-        "thumbnail_sha256": "757976d470f85f50e55cd5d59647c2612d83bd63439a0bc176d854a04d242747",
+        "duration_seconds": 1678,
+        "thumbnail": "assets/films/mathematics-b78835654ca7.jpg",
+        "thumbnail_sha256": "d947f14695c2315720f3cd50ab8f4d8dde3b86fa1115fbd15fa45a31d793123a",
         "transcript": {
           "scope": "route_summary",
           "text": "The reciprocal-summability criterion for Erdős #257, with the paper and Lean proof. The unrestricted problem remains open.",
@@ -122,35 +122,35 @@
             "title": "Multiply and split"
           },
           {
-            "seconds": 653,
+            "seconds": 649,
             "title": "Which come out whole"
           },
           {
-            "seconds": 820,
+            "seconds": 817,
             "title": "One row's average"
           },
           {
-            "seconds": 954,
+            "seconds": 951,
             "title": "Many columns at once"
           },
           {
-            "seconds": 1208,
+            "seconds": 1205,
             "title": "The contradiction"
           },
           {
-            "seconds": 1281,
+            "seconds": 1278,
             "title": "Where this stops"
           },
           {
-            "seconds": 1355,
+            "seconds": 1352,
             "title": "The proof in Lean"
           },
           {
-            "seconds": 1480,
+            "seconds": 1477,
             "title": "Finding it on the map"
           },
           {
-            "seconds": 1569,
+            "seconds": 1566,
             "title": "What this is for"
           }
         ]
@@ -165,15 +165,15 @@
       "links": [],
       "still_inset": "bottom-right",
       "release": {
-        "edition_sha256": "f9d2b4e93039e11371344743970fb79112eaa843ced1b3f41ae029df2b1e65eb",
-        "approved_edition_sha256": "f9d2b4e93039e11371344743970fb79112eaa843ced1b3f41ae029df2b1e65eb",
-        "hosted_edition_sha256": "f9d2b4e93039e11371344743970fb79112eaa843ced1b3f41ae029df2b1e65eb",
-        "thumbnail_edition_sha256": "f9d2b4e93039e11371344743970fb79112eaa843ced1b3f41ae029df2b1e65eb",
-        "transcript_edition_sha256": "f9d2b4e93039e11371344743970fb79112eaa843ced1b3f41ae029df2b1e65eb",
+        "edition_sha256": "89c054b52c871f306f0808aeb043e7a525c1910a509deb91d85d6fd9742f281a",
+        "approved_edition_sha256": "89c054b52c871f306f0808aeb043e7a525c1910a509deb91d85d6fd9742f281a",
+        "hosted_edition_sha256": "89c054b52c871f306f0808aeb043e7a525c1910a509deb91d85d6fd9742f281a",
+        "thumbnail_edition_sha256": "89c054b52c871f306f0808aeb043e7a525c1910a509deb91d85d6fd9742f281a",
+        "transcript_edition_sha256": "89c054b52c871f306f0808aeb043e7a525c1910a509deb91d85d6fd9742f281a",
         "publication_authorized": true,
-        "url": "https://youtu.be/r48SJdiGKKM",
+        "url": "https://youtu.be/1twvvQ-wteI",
         "upload_date": "2026-10-12",
-        "duration_seconds": 263,
+        "duration_seconds": 259,
         "thumbnail": "assets/films/codemap-f9d2b4e93039.jpg",
         "thumbnail_sha256": "15ace8535b895c9f913fed5f44af0dc6f43c6fa7e6563eb0a3fee43da96c82ff",
         "transcript": {
@@ -191,19 +191,19 @@
             "title": "Finding a file"
           },
           {
-            "seconds": 56,
+            "seconds": 54,
             "title": "The description"
           },
           {
-            "seconds": 111,
+            "seconds": 109,
             "title": "Each function"
           },
           {
-            "seconds": 154,
+            "seconds": 150,
             "title": "Blast"
           },
           {
-            "seconds": 208,
+            "seconds": 204,
             "title": "Two readers"
           }
         ]
@@ -218,15 +218,15 @@
       "links": [],
       "still_inset": "bottom-right",
       "release": {
-        "edition_sha256": "f5865794bc81bed0e74a482bcf1d7ed2d8ea28e52820d72c08d2be5a63337bc8",
-        "approved_edition_sha256": "f5865794bc81bed0e74a482bcf1d7ed2d8ea28e52820d72c08d2be5a63337bc8",
-        "hosted_edition_sha256": "f5865794bc81bed0e74a482bcf1d7ed2d8ea28e52820d72c08d2be5a63337bc8",
-        "thumbnail_edition_sha256": "f5865794bc81bed0e74a482bcf1d7ed2d8ea28e52820d72c08d2be5a63337bc8",
-        "transcript_edition_sha256": "f5865794bc81bed0e74a482bcf1d7ed2d8ea28e52820d72c08d2be5a63337bc8",
+        "edition_sha256": "e4d3dbb70c716088b379f23ee157639c0ba21976517dbef9db48ba956a51668d",
+        "approved_edition_sha256": "e4d3dbb70c716088b379f23ee157639c0ba21976517dbef9db48ba956a51668d",
+        "hosted_edition_sha256": "e4d3dbb70c716088b379f23ee157639c0ba21976517dbef9db48ba956a51668d",
+        "thumbnail_edition_sha256": "e4d3dbb70c716088b379f23ee157639c0ba21976517dbef9db48ba956a51668d",
+        "transcript_edition_sha256": "e4d3dbb70c716088b379f23ee157639c0ba21976517dbef9db48ba956a51668d",
         "publication_authorized": true,
-        "url": "https://youtu.be/FbMiKx4nwJk",
+        "url": "https://youtu.be/RKIz8gOmnDI",
         "upload_date": "2026-10-12",
-        "duration_seconds": 217,
+        "duration_seconds": 229,
         "thumbnail": "assets/films/agent-trace-f5865794bc81.jpg",
         "thumbnail_sha256": "f3e682f2b0e225c0e407d58e2903f0878c7c65e3e81a21e54def2114b36f3981",
         "transcript": {
@@ -237,22 +237,26 @@
         "chapters": [
           {
             "seconds": 0,
+            "title": "Context rot"
+          },
+          {
+            "seconds": 12,
             "title": "Agent Trace"
           },
           {
-            "seconds": 36,
+            "seconds": 48,
             "title": "Eight sentences, twice"
           },
           {
-            "seconds": 90,
+            "seconds": 102,
             "title": "What you can copy"
           },
           {
-            "seconds": 140,
+            "seconds": 152,
             "title": "Starting a new chat"
           },
           {
-            "seconds": 204,
+            "seconds": 216,
             "title": "Close"
           }
         ]
@@ -267,15 +271,15 @@
       "links": [],
       "still_inset": null,
       "release": {
-        "edition_sha256": "a1fd41334e1ec55789dc91f6ce4c76a8c318b9c4e4a4a98736ab301429966026",
-        "approved_edition_sha256": "a1fd41334e1ec55789dc91f6ce4c76a8c318b9c4e4a4a98736ab301429966026",
-        "hosted_edition_sha256": "a1fd41334e1ec55789dc91f6ce4c76a8c318b9c4e4a4a98736ab301429966026",
-        "thumbnail_edition_sha256": "a1fd41334e1ec55789dc91f6ce4c76a8c318b9c4e4a4a98736ab301429966026",
-        "transcript_edition_sha256": "a1fd41334e1ec55789dc91f6ce4c76a8c318b9c4e4a4a98736ab301429966026",
+        "edition_sha256": "26b56687ca3b153f60b09c2f23b1ba249f4a9112aa119c957ac36e93a3312e94",
+        "approved_edition_sha256": "26b56687ca3b153f60b09c2f23b1ba249f4a9112aa119c957ac36e93a3312e94",
+        "hosted_edition_sha256": "26b56687ca3b153f60b09c2f23b1ba249f4a9112aa119c957ac36e93a3312e94",
+        "thumbnail_edition_sha256": "26b56687ca3b153f60b09c2f23b1ba249f4a9112aa119c957ac36e93a3312e94",
+        "transcript_edition_sha256": "26b56687ca3b153f60b09c2f23b1ba249f4a9112aa119c957ac36e93a3312e94",
         "publication_authorized": true,
-        "url": "https://youtu.be/di1k5zf5MnM",
+        "url": "https://youtu.be/ab5oQz8G2no",
         "upload_date": "2026-10-12",
-        "duration_seconds": 2234,
+        "duration_seconds": 2200,
         "thumbnail": "assets/films/combined-a1fd41334e1e.jpg",
         "thumbnail_sha256": "ab8f188b14af31dd1cd05abe21e1072af79abbf772ddf7b4c1bee47c2caf44a1",
         "transcript": {
@@ -317,83 +321,83 @@
             "title": "2.4 Multiply and split"
           },
           {
-            "seconds": 674,
+            "seconds": 670,
             "title": "2.5 Which come out whole"
           },
           {
-            "seconds": 841,
+            "seconds": 838,
             "title": "2.6 One row's average"
           },
           {
-            "seconds": 975,
+            "seconds": 972,
             "title": "2.7 Many columns at once"
           },
           {
-            "seconds": 1229,
+            "seconds": 1226,
             "title": "2.8 The contradiction"
           },
           {
-            "seconds": 1303,
+            "seconds": 1299,
             "title": "2.9 Where this stops"
           },
           {
-            "seconds": 1376,
+            "seconds": 1373,
             "title": "2.10 The proof in Lean"
           },
           {
-            "seconds": 1502,
+            "seconds": 1498,
             "title": "2.11 Finding it on the map"
           },
           {
-            "seconds": 1591,
+            "seconds": 1587,
             "title": "2.12 What this is for"
           },
           {
-            "seconds": 1685,
+            "seconds": 1655,
             "title": "3 CodeMap: 3.1 Finding a file"
           },
           {
-            "seconds": 1723,
+            "seconds": 1691,
             "title": "3.2 The description"
           },
           {
-            "seconds": 1778,
+            "seconds": 1746,
             "title": "3.3 Each function"
           },
           {
-            "seconds": 1821,
+            "seconds": 1787,
             "title": "3.4 Blast"
           },
           {
-            "seconds": 1875,
+            "seconds": 1842,
             "title": "3.5 Two readers"
           },
           {
-            "seconds": 1924,
+            "seconds": 1890,
             "title": "4 Agent Trace"
           },
           {
-            "seconds": 1956,
+            "seconds": 1922,
             "title": "4.1 Eight sentences, twice"
           },
           {
-            "seconds": 2011,
+            "seconds": 1977,
             "title": "4.2 What you can copy"
           },
           {
-            "seconds": 2060,
+            "seconds": 2027,
             "title": "4.3 Starting a new chat"
           },
           {
-            "seconds": 2128,
+            "seconds": 2095,
             "title": "5 Demo Take, and how to take part: 5.1 Demo Take"
           },
           {
-            "seconds": 2166,
+            "seconds": 2133,
             "title": "5.2 One system"
           },
           {
-            "seconds": 2182,
+            "seconds": 2148,
             "title": "5.3 What this is for"
           }
         ]

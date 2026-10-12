@@ -11,7 +11,7 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/weighted-257-task.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "68f340dcebc14802ab45c703e7bce5ec4a0174142e2237af61a45c368826f191",
+    "navigation_fingerprint": "68496e8b1f6209855ce1528e994d75349de855b5bf055ecd60db4bd496c4ade5",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
