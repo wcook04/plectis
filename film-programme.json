@@ -9,7 +9,62 @@
       "role": "introduction",
       "links": [],
       "still_inset": "bottom-right",
-      "release": null
+      "release": {
+        "edition_sha256": "b32f12663102814968fb28d5ada0dff5397d02d043b0cbc604d9a992b61022af",
+        "approved_edition_sha256": "b32f12663102814968fb28d5ada0dff5397d02d043b0cbc604d9a992b61022af",
+        "hosted_edition_sha256": "b32f12663102814968fb28d5ada0dff5397d02d043b0cbc604d9a992b61022af",
+        "thumbnail_edition_sha256": "b32f12663102814968fb28d5ada0dff5397d02d043b0cbc604d9a992b61022af",
+        "transcript_edition_sha256": "b32f12663102814968fb28d5ada0dff5397d02d043b0cbc604d9a992b61022af",
+        "publication_authorized": true,
+        "url": "https://youtu.be/lkO7EARGv2Q",
+        "upload_date": "2026-10-12",
+        "duration_seconds": 246,
+        "thumbnail": "assets/films/introduction-b32f12663102.jpg",
+        "thumbnail_sha256": "e10955d6a7f1a2cd14568dd51493ec9f7bcfea7a86fe0006319281ad81d432b3",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "I introduce Plectis and show the papers, map and software I use for mathematical research with AI agents.",
+          "sha256": "098a7b84d09e62620e80c9898562ec8a82199b9f48fd13b883e3525697bfb530"
+        },
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "Plectis"
+          },
+          {
+            "seconds": 13,
+            "title": "Checked proofs"
+          },
+          {
+            "seconds": 41,
+            "title": "Papers and films"
+          },
+          {
+            "seconds": 67,
+            "title": "The website"
+          },
+          {
+            "seconds": 107,
+            "title": "CodeMap"
+          },
+          {
+            "seconds": 138,
+            "title": "Agent Trace"
+          },
+          {
+            "seconds": 173,
+            "title": "Demo Take"
+          },
+          {
+            "seconds": 206,
+            "title": "One system"
+          },
+          {
+            "seconds": 222,
+            "title": "Take part"
+          }
+        ]
+      }
     },
     {
       "id": "mathematics",
@@ -28,7 +83,78 @@
         }
       ],
       "still_inset": "bottom-right",
-      "release": null
+      "release": {
+        "edition_sha256": "998f283d71d69139266c86064b8136cba93eecd186a77a224d8b7415201d1d94",
+        "approved_edition_sha256": "998f283d71d69139266c86064b8136cba93eecd186a77a224d8b7415201d1d94",
+        "hosted_edition_sha256": "998f283d71d69139266c86064b8136cba93eecd186a77a224d8b7415201d1d94",
+        "thumbnail_edition_sha256": "998f283d71d69139266c86064b8136cba93eecd186a77a224d8b7415201d1d94",
+        "transcript_edition_sha256": "998f283d71d69139266c86064b8136cba93eecd186a77a224d8b7415201d1d94",
+        "publication_authorized": true,
+        "url": "https://youtu.be/y8s3t_pwIGM",
+        "upload_date": "2026-10-12",
+        "duration_seconds": 1708,
+        "thumbnail": "assets/films/mathematics-998f283d71d6.jpg",
+        "thumbnail_sha256": "757976d470f85f50e55cd5d59647c2612d83bd63439a0bc176d854a04d242747",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "The reciprocal-summability criterion for Erdős #257, with the paper and Lean proof. The unrestricted problem remains open.",
+          "sha256": "f18aaffe0bea53e8017ecb21ae2c30164604c67346e7033f7a6c0a4519c86bd9"
+        },
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "Introduction"
+          },
+          {
+            "seconds": 94,
+            "title": "Erdős's question"
+          },
+          {
+            "seconds": 268,
+            "title": "What we prove"
+          },
+          {
+            "seconds": 395,
+            "title": "The test"
+          },
+          {
+            "seconds": 499,
+            "title": "Multiply and split"
+          },
+          {
+            "seconds": 653,
+            "title": "Which come out whole"
+          },
+          {
+            "seconds": 820,
+            "title": "One row's average"
+          },
+          {
+            "seconds": 954,
+            "title": "Many columns at once"
+          },
+          {
+            "seconds": 1208,
+            "title": "The contradiction"
+          },
+          {
+            "seconds": 1281,
+            "title": "Where this stops"
+          },
+          {
+            "seconds": 1355,
+            "title": "The proof in Lean"
+          },
+          {
+            "seconds": 1480,
+            "title": "Finding it on the map"
+          },
+          {
+            "seconds": 1569,
+            "title": "What this is for"
+          }
+        ]
+      }
     },
     {
       "id": "codemap",
@@ -37,8 +163,51 @@
       "description": "I use CodeMap to view Python files, their descriptions and connections in my private research system.",
       "role": "supporting",
       "links": [],
-      "still_inset": "bottom-left",
-      "release": null
+      "still_inset": "bottom-right",
+      "release": {
+        "edition_sha256": "f9d2b4e93039e11371344743970fb79112eaa843ced1b3f41ae029df2b1e65eb",
+        "approved_edition_sha256": "f9d2b4e93039e11371344743970fb79112eaa843ced1b3f41ae029df2b1e65eb",
+        "hosted_edition_sha256": "f9d2b4e93039e11371344743970fb79112eaa843ced1b3f41ae029df2b1e65eb",
+        "thumbnail_edition_sha256": "f9d2b4e93039e11371344743970fb79112eaa843ced1b3f41ae029df2b1e65eb",
+        "transcript_edition_sha256": "f9d2b4e93039e11371344743970fb79112eaa843ced1b3f41ae029df2b1e65eb",
+        "publication_authorized": true,
+        "url": "https://youtu.be/r48SJdiGKKM",
+        "upload_date": "2026-10-12",
+        "duration_seconds": 263,
+        "thumbnail": "assets/films/codemap-f9d2b4e93039.jpg",
+        "thumbnail_sha256": "15ace8535b895c9f913fed5f44af0dc6f43c6fa7e6563eb0a3fee43da96c82ff",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "I use CodeMap to view Python files, their descriptions and connections in my private research system.",
+          "sha256": "1baf1e1a67cb197e58f6c8e9a3dc79cce7deb996a37a04eb81492671dedbdcde"
+        },
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "CodeMap"
+          },
+          {
+            "seconds": 21,
+            "title": "Finding a file"
+          },
+          {
+            "seconds": 56,
+            "title": "The description"
+          },
+          {
+            "seconds": 111,
+            "title": "Each function"
+          },
+          {
+            "seconds": 154,
+            "title": "Blast"
+          },
+          {
+            "seconds": 208,
+            "title": "Two readers"
+          }
+        ]
+      }
     },
     {
       "id": "agent-trace",
@@ -57,7 +226,7 @@
         "publication_authorized": true,
         "url": "https://youtu.be/FbMiKx4nwJk",
         "upload_date": "2026-10-12",
-        "duration_seconds": 216,
+        "duration_seconds": 217,
         "thumbnail": "assets/films/agent-trace-f5865794bc81.jpg",
         "thumbnail_sha256": "f3e682f2b0e225c0e407d58e2903f0878c7c65e3e81a21e54def2114b36f3981",
         "transcript": {
