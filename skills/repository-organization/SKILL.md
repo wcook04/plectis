@@ -37,3 +37,27 @@ Run the affected behavior and packaging checks, then commit only owned paths.
 
 The portable check and fixtures are copied from the repository-organization skill
 asset; project roles remain local. No private runtime or sibling checkout is required.
+
+## Add a folder for your purpose
+
+Create folders that suit this project. Ordinary reversible folder additions and
+purpose declarations need no new approval. Add a `directories` entry in the local
+policy, for example `"field-notes": {"purpose": "Instrument observations and supporting material"}`.
+Update the README map when this becomes a maintained part of the project.
+
+`undeclared_directories: "warn"` reports new folders without blocking them.
+Projects may choose `"error"` to require declaration before landing; older policies
+without this setting remain strict. Declared placement constraints, required
+owners, root interfaces and route checks still apply in either mode. There is no
+universal folder template. Suffix restrictions are optional project decisions.
+
+The `repository_layout@2` policy accepts nested declarations such as
+`field-notes/instruments`. The deepest declaration explains the local purpose;
+all ancestor placement constraints still hold. An optional `guide` names an
+existing repository-relative owner document, checked in the same Git view.
+Do not use broad exceptions to introduce a legitimate new purpose.
+
+Preserve a local lesson in this workflow and a regression fixture. Generalise the
+reusable rule into the canonical skill or helper when evidence supports it, while
+keeping this project's folder names and purposes local. Existing skill registries
+and builders remain the owners of routing and generated mirrors.

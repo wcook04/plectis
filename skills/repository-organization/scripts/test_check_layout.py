@@ -5,7 +5,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
-from check_layout import check
+from check_layout import check, inspect, validate_policy
 
 
 class Layout(unittest.TestCase):
@@ -77,6 +77,64 @@ class Layout(unittest.TestCase):
         self.write('docs/repository_layout.json', json.dumps(self.policy))
         self.assertEqual(check(self.root), [])
         self.assertTrue(check(self.root, index=True))
+
+    def test_warn_discovers_once_without_relaxing_declared_constraints(self):
+        self.policy['undeclared_directories'] = 'warn'
+        self.write('docs/repository_layout.json', json.dumps(self.policy))
+        self.write('field-notes/a.md')
+        self.write('field-notes/b.csv')
+        result = inspect(self.root)
+        self.assertTrue(result['ok'])
+        self.assertEqual(len(result['warnings']), 1)
+        self.write('docs/tool.py')
+        self.assertFalse(inspect(self.root)['ok'])
+
+    def test_staged_policy_controls_discovery_mode(self):
+        self.write('custom/a.md')
+        self.git('add', 'custom/a.md')
+        self.policy['undeclared_directories'] = 'warn'
+        self.write('docs/repository_layout.json', json.dumps(self.policy))
+        self.assertEqual(check(self.root), [])
+        self.assertTrue(check(self.root, index=True))
+        self.git('add', 'docs/repository_layout.json')
+        self.assertEqual(check(self.root, index=True), [])
+
+    def test_custom_purpose_and_nested_constraints(self):
+        self.policy['schema'] = 'repository_layout@2'
+        self.policy['directories']['field-notes'] = {'purpose': 'Instrument observations'}
+        self.policy['directories']['docs/notes'] = {'purpose': 'Local observations', 'suffixes': ['.md']}
+        self.write('docs/repository_layout.json', json.dumps(self.policy))
+        self.write('field-notes/data.csv')
+        self.write('docs/notes/visit.md')
+        self.assertEqual(check(self.root), [])
+        self.write('docs/notes/data.json')
+        self.assertTrue(check(self.root))
+        self.policy['directories']['docs/notes']['suffixes'].append('.py')
+        self.write('docs/repository_layout.json', json.dumps(self.policy))
+        self.write('docs/notes/tool.py')
+        self.assertTrue(any('docs (' in e for e in check(self.root)))
+
+    def test_guide_uses_selected_git_view(self):
+        self.policy['directories']['docs']['guide'] = 'docs/README.md'
+        self.write('docs/repository_layout.json', json.dumps(self.policy))
+        self.git('add', 'docs/repository_layout.json')
+        self.write('docs/README.md')
+        self.assertEqual(check(self.root), [])
+        self.assertTrue(any('missing owner guide' in e for e in check(self.root, index=True)))
+
+    def test_invalid_mode_and_paths_fail(self):
+        for mode in ('allow', None, 3):
+            self.policy['undeclared_directories'] = mode
+            with self.assertRaises(ValueError):
+                validate_policy(self.policy)
+        self.policy.pop('undeclared_directories')
+        for path in ('../escape', '/absolute', 'docs//notes', 'docs/../notes', 'https:bad'):
+            with self.subTest(path=path):
+                policy = dict(self.policy, directories={path: {'purpose': 'bad'}})
+                with self.assertRaises(ValueError):
+                    validate_policy(policy)
+        with self.assertRaises(ValueError):
+            validate_policy(dict(self.policy, directories={'docs/notes': {'purpose': 'needs v2'}}))
 
     def test_missing_policy_and_non_git_fail_clearly(self):
         with self.assertRaises(ValueError):

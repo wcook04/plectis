@@ -8,16 +8,8 @@
     "inspect": "Print compact inspection cards",
     "papers": "Maintain the publication corpus and its indexes"
   },
-  "required_paths": [
-    "README.md",
-    "AGENTS.md",
-    "scripts/README.md",
-    "scripts/check/check_repository_layout.py",
-    "docs/maintainers/repository-layout.json",
-    "tests/test_repository_layout.py"
-  ],
   "exceptions": {},
-  "schema": "repository_layout@1",
+  "schema": "repository_layout@2",
   "root_files": [
     ".gitignore",
     "AGENTS.md",
@@ -124,14 +116,15 @@
     }
   },
   "required_files": [
-    "README.md",
+    ".github/workflows/repository-layout.yml",
     "AGENTS.md",
+    "README.md",
     "docs/maintainers/repository-layout.json",
+    "scripts/README.md",
+    "scripts/check/check_repository_layout.py",
     "skills/repository-organization/SKILL.md",
     "skills/repository-organization/scripts/check_layout.py",
     "skills/repository-organization/scripts/test_check_layout.py",
-    ".github/workflows/repository-layout.yml",
-    "scripts/check/check_repository_layout.py",
     "tests/test_repository_layout.py"
   ],
   "content_routes": {
@@ -146,5 +139,6 @@
       "python3 skills/repository-organization/scripts/check_layout.py --config docs/maintainers/repository-layout.json",
       "python3 skills/repository-organization/scripts/test_check_layout.py"
     ]
-  }
+  },
+  "undeclared_directories": "warn"
 }
