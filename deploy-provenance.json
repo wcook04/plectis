@@ -16,421 +16,421 @@
       "lean/experience/documents/architecture.json": {
         "after": {
           "mode": 420,
-          "sha256": "df41c230664137ba1c99589542c0e432ea2f5fa560a247d0d00f135bb2a2e96f"
+          "sha256": "152dfe16931038bbd5f7043cb61d9ec83cd76d0f3c8d7dc24e93ddef38fb6c73"
         },
         "before": {
           "mode": 420,
-          "sha256": "d1ad58663e55754cdb89cec1aea1eb65c5bd97913ad85b1d6d21b03608087d6d"
+          "sha256": "df41c230664137ba1c99589542c0e432ea2f5fa560a247d0d00f135bb2a2e96f"
         }
       },
       "lean/experience/documents/comparator-1049.json": {
         "after": {
           "mode": 420,
-          "sha256": "28c0104f49d26c628c2305cd594250efdf81022a8fdd7ce8ef113bc518d12a6a"
+          "sha256": "e6d795fb703ad3799fb5a02e27c1c4e4e375740c3c5adb24d33e7343955c601f"
         },
         "before": {
           "mode": 420,
-          "sha256": "0b5a5209cdafdc75ed903794d1b4801bc48cc2d62dd97a9e5ee337ddba1bf0c8"
+          "sha256": "28c0104f49d26c628c2305cd594250efdf81022a8fdd7ce8ef113bc518d12a6a"
         }
       },
       "lean/experience/documents/documentation.json": {
         "after": {
           "mode": 420,
-          "sha256": "9c82f27601ddb447bd8b988de5dd97d6756db0ce2326011e198749b7ddad91b2"
+          "sha256": "d43e12b6dbdcebff8d5be3b8714231802ebe888538be368602853b6cf7bd5f17"
         },
         "before": {
           "mode": 420,
-          "sha256": "186f7f41d669a3274eb6920379caaaa58ef90c6d76b2f8d673aaeffe1aa0c6ff"
+          "sha256": "9c82f27601ddb447bd8b988de5dd97d6756db0ce2326011e198749b7ddad91b2"
         }
       },
       "lean/experience/documents/external-verification.json": {
         "after": {
           "mode": 420,
-          "sha256": "485d3f35346b5cd8e2483c01d0b48e926ba363aa97076d87520b93ea7a2c56b4"
+          "sha256": "dd60f753fb67d6e2deeb7d04d02a365ccd5126a9ae5c14ca39cb299c580e079d"
         },
         "before": {
           "mode": 420,
-          "sha256": "252071c8d35ebec149a48d50e92e4221d744b826e987c590d97490b62fd868b1"
+          "sha256": "485d3f35346b5cd8e2483c01d0b48e926ba363aa97076d87520b93ea7a2c56b4"
         }
       },
       "lean/experience/documents/formal-conjectures.html": {
         "after": {
           "mode": 420,
-          "sha256": "566ec0f46249e7d50f3dcc6a7648d2693739fd2dc6bc5ffc645ce35e07644ce2"
+          "sha256": "3381493e4bd1436a245b265935f00c3d98563a5362d732b0ebf3713943a9c23d"
         },
         "before": {
           "mode": 420,
-          "sha256": "c9512fb140f42e6953a685c8b36045fa24be2628f77d47fa170112c1bc4757a3"
+          "sha256": "566ec0f46249e7d50f3dcc6a7648d2693739fd2dc6bc5ffc645ce35e07644ce2"
         }
       },
       "lean/experience/documents/formal-conjectures.json": {
         "after": {
           "mode": 420,
-          "sha256": "56289960ced59bf21470c21fd7d2e80e0c26cdee2a0952226ab0fba0e3d37ca7"
+          "sha256": "1039f59d8b8f2a811cdb6ae74b31910c834716fc345669d22223134a8c8eabba"
         },
         "before": {
           "mode": 420,
-          "sha256": "ca89c11b2dae0bdfa04153c79493b46bb4acf9ddaf8fed4ec697e1adbfee3c58"
+          "sha256": "56289960ced59bf21470c21fd7d2e80e0c26cdee2a0952226ab0fba0e3d37ca7"
         }
       },
       "lean/experience/documents/formal-conjectures.mathjax.html": {
         "after": {
           "mode": 420,
-          "sha256": "6febadf25b4dfda88ceeb30b8a6fc2fa86d52611bef23a7373c15c8998a9b1a6"
+          "sha256": "5258d2bd85db32abc6b6408a16f90f9f2840d30b1ee820e82e720b256a729655"
         },
         "before": {
           "mode": 420,
-          "sha256": "b0eec4b3255d2ce920fff81bd6f07b3d4b49e668cf57ad108da1da9dcd9e5ce8"
+          "sha256": "6febadf25b4dfda88ceeb30b8a6fc2fa86d52611bef23a7373c15c8998a9b1a6"
         }
       },
       "lean/experience/documents/index.json": {
         "after": {
           "mode": 420,
-          "sha256": "6b3f2308c8db01e5b6c4699d9ed14bf448e83d6019978e438610bf94626c13e9"
+          "sha256": "fb3a3832c72645596cd11f12dd56e4a6b4b8108fa872b1f0f515d520ba746540"
         },
         "before": {
           "mode": 420,
-          "sha256": "dc057d0a7e646b6cdd5ec65e0ba37c2c6b606fe6c74dcad720f81a794a41de52"
+          "sha256": "6b3f2308c8db01e5b6c4699d9ed14bf448e83d6019978e438610bf94626c13e9"
         }
       },
       "lean/experience/documents/methodology.json": {
         "after": {
           "mode": 420,
-          "sha256": "32de8394497ff9ae933cf37b5a42e6771ffa37f3b8624b7d109c5cef4775679a"
+          "sha256": "dd72ff0f77e81638a0e4961cf015221b71d0baa5c4891581afc067db4409ae20"
         },
         "before": {
           "mode": 420,
-          "sha256": "c34be34ff658dda66db3f572952856a313ff67fff844cb77ad42610473b53516"
+          "sha256": "32de8394497ff9ae933cf37b5a42e6771ffa37f3b8624b7d109c5cef4775679a"
         }
       },
       "lean/experience/documents/orientation.json": {
         "after": {
           "mode": 420,
-          "sha256": "b715f5c747e2eaaf34b4ed1389e0577681db0d7d0ec0938471ecf5484b11bc6a"
+          "sha256": "543bdecc18f2e602b0f23a38b7422820bedb26e0f23f4f4755397a61aea34f00"
         },
         "before": {
           "mode": 420,
-          "sha256": "fd0b70c5dc1e3bd7daadd43afd894a60217fdce906203575ea821c12d69a062e"
+          "sha256": "b715f5c747e2eaaf34b4ed1389e0577681db0d7d0ec0938471ecf5484b11bc6a"
         }
       },
       "lean/experience/documents/paper-guide.json": {
         "after": {
           "mode": 420,
-          "sha256": "4ff0fa4a3fd874ba9f4ff1d9fac3649dba938cef9122dd0a4b10bdd928bfec18"
+          "sha256": "49b2c8394ead9a2e025b6cdc231df17b1078b8dcef401d620ff87656283d10fa"
         },
         "before": {
           "mode": 420,
-          "sha256": "ecacd35935f55fcbce29e5ca97ddc45160df44f1a3a00622aa99de5cc6a9e69b"
+          "sha256": "4ff0fa4a3fd874ba9f4ff1d9fac3649dba938cef9122dd0a4b10bdd928bfec18"
         }
       },
       "lean/experience/documents/prior-art.json": {
         "after": {
           "mode": 420,
-          "sha256": "7ae5e936848dd17402463f4d7955f6f2768e0abc2676e41bc78de5ad4146ac01"
+          "sha256": "b1f4bb6d5834c95df5e1b5ce8b4a4fd99e3c3359682980e0fca70c3cfb772bd2"
         },
         "before": {
           "mode": 420,
-          "sha256": "843f91aaf2a3fe6d6466d81d14256962f51cbb49b072bc6bff542d118049cbbb"
+          "sha256": "7ae5e936848dd17402463f4d7955f6f2768e0abc2676e41bc78de5ad4146ac01"
         }
       },
       "lean/experience/documents/reading-guide.json": {
         "after": {
           "mode": 420,
-          "sha256": "28c7716d5685af34e63fd21de8d99d4469116c42c54b4c8a415ae370984817cc"
+          "sha256": "8101a7855f7a5fe65a025f8794782561570db1d377264f79dc4b0f9d5f2234e8"
         },
         "before": {
           "mode": 420,
-          "sha256": "7c019600bc6d133e60ef4650af2e03658bce4544765f8b99df85fec95fa4f167"
+          "sha256": "28c7716d5685af34e63fd21de8d99d4469116c42c54b4c8a415ae370984817cc"
         }
       },
       "lean/experience/documents/readme.html": {
         "after": {
           "mode": 420,
-          "sha256": "05fd03606bf0d16872eb39d315c32c55f47ce833cc96e4bfa0142ea9d83cf246"
+          "sha256": "97cef3fe375bfb104a342db69b1138a4d5d121b2e7bded9f89f737859ed5777d"
         },
         "before": {
           "mode": 420,
-          "sha256": "7c6e4addb620a0b188a9c5109f7b735dac6abf30f431377b93e3dec3198a8a55"
+          "sha256": "05fd03606bf0d16872eb39d315c32c55f47ce833cc96e4bfa0142ea9d83cf246"
         }
       },
       "lean/experience/documents/readme.json": {
         "after": {
           "mode": 420,
-          "sha256": "a01d25302ee820bedd74c2c2bffa17dc2e987e11bdb5c56676376a6ef9592024"
+          "sha256": "e9f3b125637449740c1db58f9f7074709ce0b3f576455b09dbf0295ee250b431"
         },
         "before": {
           "mode": 420,
-          "sha256": "1df54c71a043948fbb499e93f946c857c7d90aa2fee5e95b88d045ea39c23f19"
+          "sha256": "a01d25302ee820bedd74c2c2bffa17dc2e987e11bdb5c56676376a6ef9592024"
         }
       },
       "lean/experience/documents/readme.mathjax.html": {
         "after": {
           "mode": 420,
-          "sha256": "2282d26ca04a03301d88145e2da890daa174f270d505e27863cdcca3fb723f21"
+          "sha256": "cd8d570bf018c0f8c7aa0ae9a9a5021c03081840a8a16fa4b605be0700194b7b"
         },
         "before": {
           "mode": 420,
-          "sha256": "e10c00e33764f5dc8423f8fdad4684c0888ee04ca7efbf58cbc84636f2ba1547"
+          "sha256": "2282d26ca04a03301d88145e2da890daa174f270d505e27863cdcca3fb723f21"
         }
       },
       "lean/experience/documents/related-problems.json": {
         "after": {
           "mode": 420,
-          "sha256": "da325876e1ece759859c161cafc63763467e60ec6f054165955744bc75f62dbd"
+          "sha256": "cd0911abc83f28902f0b39b6d753e975386b84a748beb281f92815bd394a4647"
         },
         "before": {
           "mode": 420,
-          "sha256": "4da3d0440001bb7b71a5c8265c9e0538bc0dc6400351320603d92e3e87a5cd60"
+          "sha256": "da325876e1ece759859c161cafc63763467e60ec6f054165955744bc75f62dbd"
         }
       },
       "lean/experience/documents/residual-progress.json": {
         "after": {
           "mode": 420,
-          "sha256": "dec8096187be5eae853581a646ae6305873d6ba6a1e7034d4baa20e0a02f2057"
+          "sha256": "e0beea88cd180bd8e5cccc954dd6b16eb23a52c9da94e038583550799ee265d1"
         },
         "before": {
           "mode": 420,
-          "sha256": "7e233b389e925a2f8a328983a88ca21cdb021f37a9dff5061f97090d8201cd94"
+          "sha256": "dec8096187be5eae853581a646ae6305873d6ba6a1e7034d4baa20e0a02f2057"
         }
       },
       "lean/experience/documents/results.json": {
         "after": {
           "mode": 420,
-          "sha256": "f028f6b6753b20e49f09b15f9fda119e5aaf4f3d05af05af52a5d002cda27db4"
+          "sha256": "f94108ef3bea6dc332e3b1c0a42fc2dfa3292b5cbcd46d52084769471ceb4e45"
         },
         "before": {
           "mode": 420,
-          "sha256": "bfe2e1473d624e43402477e45745e9790c60485335970a40339e422a4625adc8"
+          "sha256": "f028f6b6753b20e49f09b15f9fda119e5aaf4f3d05af05af52a5d002cda27db4"
         }
       },
       "lean/experience/documents/scope.json": {
         "after": {
           "mode": 420,
-          "sha256": "adb9684cc94be0ab76fd02c732b278bc9d7777ce57c3c10216cfaff3851ef246"
+          "sha256": "1326620c5e5d0b0ae00a55d4802a4ad501aa3037ac4ef8d53d1aadc6d3a35042"
         },
         "before": {
           "mode": 420,
-          "sha256": "80bf44b705bc62d380268c6822a33c6c18defaf649031f81496d5d11975190b6"
+          "sha256": "adb9684cc94be0ab76fd02c732b278bc9d7777ce57c3c10216cfaff3851ef246"
         }
       },
       "lean/experience/documents/source-map.json": {
         "after": {
           "mode": 420,
-          "sha256": "c3772ddb078b9ae0f8a8174b2ccf11a00751a26ce6371f0da8acea7256bada35"
+          "sha256": "0399c49981615c7b8613b4f59dc7c509002e54184f033c177739780bcab9946d"
         },
         "before": {
           "mode": 420,
-          "sha256": "5ccefce5f1a7aac16a41e4a0bfa647c35e9c264c6c7b4216e7e736d71a2dcc23"
+          "sha256": "c3772ddb078b9ae0f8a8174b2ccf11a00751a26ce6371f0da8acea7256bada35"
         }
       },
       "lean/experience/documents/wave-index.json": {
         "after": {
           "mode": 420,
-          "sha256": "fe9adc42d42d7403ea461809380790d847f2012d8cfdf4ab07f057d87520d566"
+          "sha256": "37f4b7ec4bc6a7719d0bb1175ce5e59a60daa116d25907dcdbc2f6779c7c14db"
         },
         "before": {
           "mode": 420,
-          "sha256": "e35117867ddce465e5b6f00029a5346b0ac48aba58481cc01e5d7710af9187f4"
+          "sha256": "fe9adc42d42d7403ea461809380790d847f2012d8cfdf4ab07f057d87520d566"
         }
       },
       "lean/experience/documents/weighted-257-task.json": {
         "after": {
           "mode": 420,
-          "sha256": "c53c2466eb74b0eab6388ae5de05e46159a4cb51d9de3c0f9fb519787cfe3d48"
+          "sha256": "a9736ca91f610c96ef9ec7fc4e4f7b10c0825789f1351c1f5915731d101cd17e"
         },
         "before": {
           "mode": 420,
-          "sha256": "9ba0ef1a2d17b35a77978a4ce76707a0bc83b4954d9bd06ebfdb1896eeb0d4ab"
+          "sha256": "c53c2466eb74b0eab6388ae5de05e46159a4cb51d9de3c0f9fb519787cfe3d48"
         }
       },
       "lean/experience/manifest.json": {
         "after": {
           "mode": 420,
-          "sha256": "03f949df5791df152e2a42aeb0cf28f67fa10d62dfbde63af5c70d680af48010"
+          "sha256": "b3ce45117e9e8093b21530aadb27cddba9be94d78895ce1b249d3eed61f835ca"
         },
         "before": {
           "mode": 420,
-          "sha256": "c1cfe48a5c5c1b2e0b5cdbc447772a9a113f0d8c1cf496784f5e97a165700f20"
+          "sha256": "03f949df5791df152e2a42aeb0cf28f67fa10d62dfbde63af5c70d680af48010"
         }
       },
       "lean/experience/render-receipt.json": {
         "after": {
           "mode": 420,
-          "sha256": "39d65145e23c30f674635e81805937d342d1220630e7ad3f00271e7a20c51ff1"
+          "sha256": "8cbbad4d82c15666974dcf9b8b18764a01ca035e9503c5493ecc830e7748666f"
         },
         "before": {
           "mode": 420,
-          "sha256": "3850452b454403029f87e7f912d5d9d25e98c2661a13c99c554552f177524af5"
+          "sha256": "39d65145e23c30f674635e81805937d342d1220630e7ad3f00271e7a20c51ff1"
         }
       },
       "lean/human-source/README.md": {
         "after": {
           "mode": 420,
-          "sha256": "ac43397d5b32b36f3266eec099524f5e2d722fc2e45a23960840f369aef0ea4b"
+          "sha256": "ba3d485df116d4b016bdeca2a7d698fa0eb515516566d4fce68d1f77def71748"
         },
         "before": {
           "mode": 420,
-          "sha256": "adf712c684b8da6cc5ab4626b68d800c78ca6302456852079a0076c39adde903"
+          "sha256": "ac43397d5b32b36f3266eec099524f5e2d722fc2e45a23960840f369aef0ea4b"
         }
       },
       "lean/human-source/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md": {
         "after": {
           "mode": 420,
-          "sha256": "eed3713f958346f790666666263c081cd8bab4e5842cbf44f7d66bbdf9735b18"
+          "sha256": "c8c5ada7ac81902a4c0954d15e8f50ad243f0ddec958209eeec185e3db343d63"
         },
         "before": {
           "mode": 420,
-          "sha256": "3f1812660a10284c320ab5765d3f933bbfcaa7dc03d5a2783957818f0bc42901"
+          "sha256": "eed3713f958346f790666666263c081cd8bab4e5842cbf44f7d66bbdf9735b18"
         }
       },
       "lean/lean-source-manifest.json": {
         "after": {
           "mode": 420,
-          "sha256": "37365415a97a0c1ce3029c89802c4c335b4f4827b14c40a5e732e1b5e25aa055"
+          "sha256": "d8892263a42001a5ee3a7123e5805a4f68385f26cc230eef63cbbd27d520fa48"
         },
         "before": {
           "mode": 420,
-          "sha256": "66b569cb0f52a6e734fe5e2ac3a1c9766d48c97d589c01ca28b19e5c0da82579"
+          "sha256": "37365415a97a0c1ce3029c89802c4c335b4f4827b14c40a5e732e1b5e25aa055"
         }
       },
       "maths/assets/universe-data.json": {
         "after": {
           "mode": 420,
-          "sha256": "cfd5dc7911e39e70623b3bc7e2fda83918e1b931de97108ea9fa3b1cb08df558"
+          "sha256": "d9f12b6bf2eef686d015b763d8062d037ae781fc092f47e74d1af66bff81d845"
         },
         "before": {
           "mode": 420,
-          "sha256": "6f9e29970f5826d01d019ccad0d5314575af6312122f1fe61788856845c77b0b"
+          "sha256": "cfd5dc7911e39e70623b3bc7e2fda83918e1b931de97108ea9fa3b1cb08df558"
         }
       },
       "maths/assets/universe-layout-full.json": {
         "after": {
           "mode": 420,
-          "sha256": "5f973eaa41194ae6c2f0faba53f39ca351c0f3d4fb8b478a0759a65e403c97a9"
+          "sha256": "2934e031162fc06689831db87a715e9b1c6260b1522e989c639e238665850fea"
         },
         "before": {
           "mode": 420,
-          "sha256": "083e6778e308253bbc8a8269ba9de0f1a8203b2dd9c540af144e8dfc7d0f9a5e"
+          "sha256": "5f973eaa41194ae6c2f0faba53f39ca351c0f3d4fb8b478a0759a65e403c97a9"
         }
       },
       "maths/documents/formal-conjectures.html": {
         "after": {
           "mode": 420,
-          "sha256": "54354b25e9412a9ba7beba834589e9702b4d63f420a0ce4e36c21927f3fad39d"
+          "sha256": "cce5494f098980bd9d75eb7dfe477a1697055c8b3bcb0439384bfe1e7817ae02"
         },
         "before": {
           "mode": 420,
-          "sha256": "ad1527ee5fcec369b15e32529b10e0db8141bd3fe518caf8a407cfff24a03ff6"
+          "sha256": "54354b25e9412a9ba7beba834589e9702b4d63f420a0ce4e36c21927f3fad39d"
         }
       },
       "maths/documents/readme.html": {
         "after": {
           "mode": 420,
-          "sha256": "076225dafbb9c836e10f32e4a3c98ca955c74f0f832602f00a07320710aa606e"
+          "sha256": "cf0e10607cf934e3e1de1ecb57a2aff324288c25f58d8903505ddb69b9162c7a"
         },
         "before": {
           "mode": 420,
-          "sha256": "763e680bcb5d63e184086c12545ea521d946745d4aa926f6a3d736ca4561c52c"
+          "sha256": "076225dafbb9c836e10f32e4a3c98ca955c74f0f832602f00a07320710aa606e"
         }
       },
       "maths/index.html": {
         "after": {
           "mode": 420,
-          "sha256": "f956a3820648ef8a828f076ed9e8bbafb9b76b7ebb3b80a7fe8b65a7e512ddc1"
+          "sha256": "efddf895aafe5b3ad471e0c45d51d713abe284ef288e13f73f2515b34be4d92d"
         },
         "before": {
           "mode": 420,
-          "sha256": "02a2d32f89824c73f79a6726351127d22de83e86c979cc80735c7ebf19036412"
+          "sha256": "f956a3820648ef8a828f076ed9e8bbafb9b76b7ebb3b80a7fe8b65a7e512ddc1"
         }
       },
       "maths/problems/erdos_1041.html": {
         "after": {
           "mode": 420,
-          "sha256": "4aedee71c17414393c5e6a576da76f1dcae657884ed1ccced953555e69750f8d"
+          "sha256": "b043892bd4f2fc43695ed3c8b5fc8bc74d91e19001719ccb87d49af39c9d2e61"
         },
         "before": {
           "mode": 420,
-          "sha256": "3bb14ce7b5a9f918141cad94b2f707d29a6f136d84043a293068cbbebf5ef221"
+          "sha256": "4aedee71c17414393c5e6a576da76f1dcae657884ed1ccced953555e69750f8d"
         }
       },
       "maths/problems/erdos_1049.html": {
         "after": {
           "mode": 420,
-          "sha256": "9ae5eecc33623096b2d55f4e5b1d2aa11a41db8630c78f10f24929cdb5d2e545"
+          "sha256": "bac07e9118cfb77e29cfdcd1148864780fde02769d8fab1a88241d7c8097cf81"
         },
         "before": {
           "mode": 420,
-          "sha256": "34df31995c23443d14a0105626ef13ae7090f9e9cae9253a018f09e8e28814cd"
+          "sha256": "9ae5eecc33623096b2d55f4e5b1d2aa11a41db8630c78f10f24929cdb5d2e545"
         }
       },
       "maths/problems/erdos_243.html": {
         "after": {
           "mode": 420,
-          "sha256": "61f1d90fb5095a69dbf01ec1d93545a86b8235b5325beb655195575c897ba6f3"
+          "sha256": "a9794ed8a88723ab54c8d00816070d1dc608d1dcb6222289a5df37071a1cd666"
         },
         "before": {
           "mode": 420,
-          "sha256": "712c4039931ac8165bdf665a9402d8a6311527ed76558d7d6729974296868689"
+          "sha256": "61f1d90fb5095a69dbf01ec1d93545a86b8235b5325beb655195575c897ba6f3"
         }
       },
       "maths/problems/erdos_249.html": {
         "after": {
           "mode": 420,
-          "sha256": "eb26b5df5c114802223cd3ed30099728bd22aea85424f9f07191dbf75df8d11e"
+          "sha256": "264d4eade5119f157b5e208275f6040381bb823da086a24bb3194658e73ab396"
         },
         "before": {
           "mode": 420,
-          "sha256": "1367cb1387c7ce358af428ca3a4176fae080d8d12a3731aa091e7e74d429a208"
+          "sha256": "eb26b5df5c114802223cd3ed30099728bd22aea85424f9f07191dbf75df8d11e"
         }
       },
       "maths/problems/erdos_251.html": {
         "after": {
           "mode": 420,
-          "sha256": "2084cf1552904dd04f4ffc3dbd0d523d7a5db50d45f2f9fb0848469899c5339e"
+          "sha256": "ef049ab940e5bafe1d2faca71ce0399421b435f18d4fc11177c910bd3fb3ae3f"
         },
         "before": {
           "mode": 420,
-          "sha256": "6a60905ee8a75762cc0d19dce28fb2ddfd1bb3fc7d63b0ceb0f43fa67734c99d"
+          "sha256": "2084cf1552904dd04f4ffc3dbd0d523d7a5db50d45f2f9fb0848469899c5339e"
         }
       },
       "maths/problems/erdos_257.html": {
         "after": {
           "mode": 420,
-          "sha256": "324cce41627778f334e46987a18e6752d64144445941f973f2e41618cd8c556b"
+          "sha256": "3b5d854c342c242d9aa24b44461365e3ec5e972563fbb3fa6830bab2fd14952d"
         },
         "before": {
           "mode": 420,
-          "sha256": "65c8d642ad5d01c1dbedbcc9448f62a9d3e7ae6d09327355488af28a391d1723"
+          "sha256": "324cce41627778f334e46987a18e6752d64144445941f973f2e41618cd8c556b"
         }
       },
       "maths/problems/erdos_269.html": {
         "after": {
           "mode": 420,
-          "sha256": "e2dcc205ccdfbc3b92de955755592b1261c13d0873cd52ca2e63d331d98b9134"
+          "sha256": "66554a4f077909f193cd8224abb2b96e316866bc18485847a923938cf17caa9e"
         },
         "before": {
           "mode": 420,
-          "sha256": "590bb9f65cb92ff659726c8eb0c48a73194977c5f28d47f06ba629071c2103ec"
+          "sha256": "e2dcc205ccdfbc3b92de955755592b1261c13d0873cd52ca2e63d331d98b9134"
         }
       },
       "maths/problems/erdos_68.html": {
         "after": {
           "mode": 420,
-          "sha256": "d02577e34e42e808279ee0c5f2a24211b4d1b4cd4eee0a3d1feb5e1812ee5ff6"
+          "sha256": "e91171e06406bb32fa7c958da42fbe7816595fc5eae31af70fc66ed1426f6d25"
         },
         "before": {
           "mode": 420,
-          "sha256": "82c9d1c2bbebef2f8e245e8eacf168c056bef3c1580dd7a000554dfd4e8f2463"
+          "sha256": "d02577e34e42e808279ee0c5f2a24211b4d1b4cd4eee0a3d1feb5e1812ee5ff6"
         }
       },
       "maths/universe.html": {
         "after": {
           "mode": 420,
-          "sha256": "809905b2e122a3fdb86b6eca3f9c70b717478f1da6b5e6090f110f85d9d2481e"
+          "sha256": "2a607db981bbf94c3cac188069bcd90b99008e083f8c01c4a6f5460c5a360456"
         },
         "before": {
           "mode": 420,
-          "sha256": "ce14de0121fc072f9249dec46f5d9ba458614095bbd717160d88e23672e19c9b"
+          "sha256": "809905b2e122a3fdb86b6eca3f9c70b717478f1da6b5e6090f110f85d9d2481e"
         }
       }
     },
@@ -446,7 +446,7 @@
       "maths/universe.html"
     ],
     "generator_commit": "a60a5e5b0668e17a6476e50f12923d9cb97c0958",
-    "pages_base_commit": "190e1a234990135443db0844727e78342cff56ae",
+    "pages_base_commit": "dff2c6438c6100f2ed0f1e123717a585cc0935f3",
     "private_root_released": false,
     "protected_file_count": 608,
     "protected_products": "preserved Pages baseline bytes/modes; historical generation, not relabeled current",
@@ -470,7 +470,7 @@
       "repository": "wcook04/plectis"
     },
     "plectis-erdos": {
-      "commit": "1d1fb67175f7dfc1185020d746ed360de30d3d99",
+      "commit": "b4b28c42c75c7d5020f812c8d95293b946650a27",
       "ref": "main",
       "repository": "wcook04/plectis-erdos"
     }
