@@ -5,16 +5,6 @@ Plectis is a public Python toolkit with programs and worked examples for
 checking proofs, testing records of agent actions, comparing forecasts and
 keeping generated documents consistent with their sources.
 
-> **Looking for the mathematics?** Start with
-> [**Plectis Erdős →**](https://github.com/wcook04/plectis-erdos), the main research
-> repository for the Lean proofs, papers and open questions.
-> [Read the guide](https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md)
-> or [explore the mathematics map](https://wcook04.github.io/plectis/maths/universe.html).
-
-This repository contains the earlier software toolkit. You can run its examples
-independently, study how they work and adapt useful parts. The tools come from
-a larger research workbench built by Will Cook with AI coding agents.
-
 <a href="https://wcook04.github.io/plectis/docs/system-map.html">
   <img src="assets/system-map-dark.png" alt="Plectis system map in dark mode: seven families of software components surround the axioms, principles and failure modes they cite." width="100%">
 </a>
@@ -23,6 +13,15 @@ a larger research workbench built by Will Cook with AI coding agents.
 <br>
 <sub>Components around the rim; the doctrine they cite at the centre. Select a
 component or rule on the website to follow its connections.</sub>
+
+You can run the examples independently, study how they work and adapt useful parts.
+The tools come from a larger research workbench built by Will Cook with AI coding agents.
+
+> **Looking for the mathematics?** Start with
+> [**Plectis Erdős →**](https://github.com/wcook04/plectis-erdos), the main research
+> repository for the Lean proofs, papers and open questions.
+> [Read the guide](https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md)
+> or [explore the mathematics map](https://wcook04.github.io/plectis/maths/universe.html).
 
 [Worked examples](#see-it-work) · [Quickstart](QUICKSTART.md) ·
 [Documentation](docs/README.md) · [Contributing](CONTRIBUTING.md)
@@ -298,6 +297,20 @@ release records and check generated files. Edit their source and run the owning
 builder rather than changing generated maps or recorded results by hand.
 The [release review](RELEASE_REVIEW.md) records the candidate’s checks;
 [source status](SOURCE_STATUS.md) explains which source material is included.
+
+## Videos and related projects
+
+**Project introduction and toolkit walkthrough:** in preparation.
+The published [Erdős #257 explanation](https://youtu.be/3S1t-CvsQjI) and
+[CodeMap demonstration](https://youtu.be/1twvvQ-wteI) show the research and its
+working environment. CodeMap is a private workbench interface, not part of this clone.
+The [project films page](https://wcook04.github.io/plectis/#videos) collects these recordings.
+
+| Repository | What it contains | Website |
+|---|---|---|
+| [Plectis Erdős](https://github.com/wcook04/plectis-erdos) | Papers, Lean proofs and open research questions. | [Mathematics](https://wcook04.github.io/plectis/maths/) |
+| [Plectis Atlas](https://github.com/wcook04/plectis-atlas) | An independent reader for OpenAI's mathematics release. | [Atlas](https://wcook04.github.io/plectis-atlas/) |
+| [Safety Core](https://github.com/wcook04/safety-core) | Editable agent rules, selected runtime checks and a local rule map. | Local viewer included in the repository. |
 
 ## Name and history
 

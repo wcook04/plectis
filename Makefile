@@ -1,14 +1,18 @@
 PYTHON ?= python3
 TMPDIR ?= /tmp
-PYTEST_TMP_KEY ?= $(shell $(PYTHON) -c 'import hashlib, os; print(hashlib.sha256(os.getcwd().encode()).hexdigest()[:12])')
+PYTEST_TMP_KEY ?= $(shell "$(PYTHON)" -c 'import hashlib, os; print(hashlib.sha256(os.getcwd().encode()).hexdigest()[:12])')
 PYTEST_TMP_KEY := $(PYTEST_TMP_KEY)
 # Reusing a checkout must not silently reuse a different selected interpreter.
-PYTHON_ENV_KEY ?= $(shell $(PYTHON) -c 'import hashlib, sys; print(hashlib.sha256((sys.executable + sys.version).encode()).hexdigest()[:12])')
+PYTHON_ENV_KEY ?= $(shell "$(PYTHON)" -c 'import hashlib, sys; print(hashlib.sha256((sys.executable + sys.version).encode()).hexdigest()[:12])')
 PYTHON_ENV_KEY := $(PYTHON_ENV_KEY)
 VENV ?= $(TMPDIR)/microcosm-substrate-venv-$(PYTEST_TMP_KEY)-$(PYTHON_ENV_KEY)
 VENV_PYTHON ?= $(VENV)/bin/python
+# Make prerequisites need escaped spaces; shell recipes use the original path.
+empty :=
+space := $(empty) $(empty)
+VENV_PYTHON_TARGET = $(subst $(space),\$(space),$(VENV_PYTHON))
 PIP_CACHE_DIR ?= $(TMPDIR)/microcosm-substrate-pip-cache-$(PYTEST_TMP_KEY)
-PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)
+PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR="$(PIP_CACHE_DIR)"
 EXPORT_OUT ?= ../plectis-export
 SMOKE_OUT ?= .microcosm/smoke
 SMOKE_ENV ?= MICROCOSM_RUNTIME_RECEIPT_WRITES=0
@@ -19,13 +23,13 @@ RELEASE_CANDIDATE_PROOF_OUT ?= .microcosm/release-candidate-proof
 RELEASE_CANDIDATE_PROOF_VERIFY_DIR ?= $(RELEASE_CANDIDATE_PROOF_OUT)
 PUBLIC_SITE_PARITY_REF ?= origin/gh-pages
 PUBLIC_SITE_URL ?= https://wcook04.github.io/plectis/
-PUBLIC_SITE_PARITY_ARGS ?= --gh-pages-ref $(PUBLIC_SITE_PARITY_REF) --live-url $(PUBLIC_SITE_URL)
+PUBLIC_SITE_PARITY_ARGS ?= --gh-pages-ref "$(PUBLIC_SITE_PARITY_REF)" --live-url "$(PUBLIC_SITE_URL)"
 PYTEST_TMP_ROOT ?= $(TMPDIR)/microcosm-substrate-test-tmp-$(PYTEST_TMP_KEY)
-PYTEST_RUN_ID ?= $(shell $(PYTHON) -c 'import os, time; print("%s-%s" % (os.getpid(), time.time_ns()))')
+PYTEST_RUN_ID ?= $(shell "$(PYTHON)" -c 'import os, time; print("%s-%s" % (os.getpid(), time.time_ns()))')
 PYTEST_RUN_ID := $(PYTEST_RUN_ID)
 PYTEST_TMP ?= $(PYTEST_TMP_ROOT)/run-$(PYTEST_RUN_ID)
 PYTEST_BASETEMP ?= $(PYTEST_TMP)/pytest
-PYTEST_ENV ?= PYTHONPYCACHEPREFIX=$(PYTEST_TMP)/pycache TMPDIR=$(PYTEST_TMP)/tmp
+PYTEST_ENV ?= PYTHONPYCACHEPREFIX="$(PYTEST_TMP)/pycache" TMPDIR="$(PYTEST_TMP)/tmp"
 PYTEST_KEEP_TMP ?= 0
 PYTEST_ARGS ?=
 PACKAGE_SMOKE_TMP_ROOT ?= $(TMPDIR)/microcosm-substrate-package-smoke-$(PYTEST_TMP_KEY)
@@ -128,55 +132,55 @@ help:
 		"  make doctrine-lattice-entry-card write generated doctrine-lattice agent entry card" \
 		"  make clean               remove local build and cache files"
 
-$(VENV_PYTHON):
-	$(PYTHON) -m venv $(VENV)
+$(VENV_PYTHON_TARGET):
+	"$(PYTHON)" -m venv "$(VENV)"
 
-venv: $(VENV_PYTHON)
+venv: $(VENV_PYTHON_TARGET)
 
-install: $(VENV_PYTHON)
-	$(PIP_ENV) $(VENV_PYTHON) -m pip install --upgrade pip
-	$(PIP_ENV) $(VENV_PYTHON) -m pip install -e ".[test]"
+install: $(VENV_PYTHON_TARGET)
+	$(PIP_ENV) "$(VENV_PYTHON)" -m pip install --upgrade pip
+	$(PIP_ENV) "$(VENV_PYTHON)" -m pip install -e ".[test]"
 
 test: install
-	@mkdir -p $(PYTEST_TMP)/tmp $(PYTEST_TMP)/pycache
-	@status=0; PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PUBLIC_TESTS) $(PYTEST_ARGS) || status=$$?; if [ "$(PYTEST_KEEP_TMP)" != "1" ]; then rm -rf "$(PYTEST_TMP)"; fi; exit $$status
+	@mkdir -p "$(PYTEST_TMP)/tmp" "$(PYTEST_TMP)/pycache"
+	@status=0; PYTHONPATH=src $(PYTEST_ENV) "$(VENV_PYTHON)" -m pytest --basetemp="$(PYTEST_BASETEMP)" $(PUBLIC_TESTS) $(PYTEST_ARGS) || status=$$?; if [ "$(PYTEST_KEEP_TMP)" != "1" ]; then rm -rf "$(PYTEST_TMP)"; fi; exit $$status
 
 test-all: install
 	@printf '%s\n' "Note: make test-all is a broad macro-root drift-detection suite with tracked receipt writes blocked under pytest. Use make ci for the clean public verification floor."
-	@mkdir -p $(PYTEST_TMP)/tmp $(PYTEST_TMP)/pycache
-	@status=0; PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PYTEST_ARGS) || status=$$?; if [ "$(PYTEST_KEEP_TMP)" != "1" ]; then rm -rf "$(PYTEST_TMP)"; fi; exit $$status
+	@mkdir -p "$(PYTEST_TMP)/tmp" "$(PYTEST_TMP)/pycache"
+	@status=0; PYTHONPATH=src $(PYTEST_ENV) "$(VENV_PYTHON)" -m pytest --basetemp="$(PYTEST_BASETEMP)" $(PYTEST_ARGS) || status=$$?; if [ "$(PYTEST_KEEP_TMP)" != "1" ]; then rm -rf "$(PYTEST_TMP)"; fi; exit $$status
 
 smoke:
-	@mkdir -p $(SMOKE_OUT)
+	@mkdir -p "$(SMOKE_OUT)"
 	@# Only tour/status/authority may return a bounded diagnostic exit (1).
 	@# The checker validates those cards; command errors must still stop the run.
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core hello . > $(SMOKE_OUT)/hello.txt
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core first-screen --card . > $(SMOKE_OUT)/first-screen-card.json
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card . > $(SMOKE_OUT)/tour-card.json || test $$? -eq 1
-	@$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab > $(SMOKE_OUT)/proof-lab-card.json
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core status --card . > $(SMOKE_OUT)/status-card.json || test $$? -eq 1
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/check/served_status_smoke.py --root . --project . --out $(SMOKE_OUT)/served-status-card.json
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core authority --card > $(SMOKE_OUT)/authority-card.json || test $$? -eq 1
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core workingness --card > $(SMOKE_OUT)/workingness-card.json
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard > $(SMOKE_OUT)/legibility-scorecard.json
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core comprehend --first-action "where do I start with this clone?" > $(SMOKE_OUT)/first-action.json
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core --version > $(SMOKE_OUT)/version.txt
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard > $(SMOKE_OUT)/stripping-guard.json
-	@$(PYTHON) scripts/check/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core hello . > "$(SMOKE_OUT)/hello.txt"
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core first-screen --card . > "$(SMOKE_OUT)/first-screen-card.json"
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core tour --card . > "$(SMOKE_OUT)/tour-card.json" || test $$? -eq 1
+	@$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab > "$(SMOKE_OUT)/proof-lab-card.json"
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core status --card . > "$(SMOKE_OUT)/status-card.json" || test $$? -eq 1
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" scripts/check/served_status_smoke.py --root . --project . --out "$(SMOKE_OUT)/served-status-card.json"
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core authority --card > "$(SMOKE_OUT)/authority-card.json" || test $$? -eq 1
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core workingness --card > "$(SMOKE_OUT)/workingness-card.json"
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core legibility-scorecard > "$(SMOKE_OUT)/legibility-scorecard.json"
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core comprehend --first-action "where do I start with this clone?" > "$(SMOKE_OUT)/first-action.json"
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core --version > "$(SMOKE_OUT)/version.txt"
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core stripping-guard > "$(SMOKE_OUT)/stripping-guard.json"
+	@"$(PYTHON)" scripts/check/check_smoke_outputs.py --smoke-out "$(SMOKE_OUT)"
 
 flight-recorder:
-	@mkdir -p $(FLIGHT_RECORDER_OUT)
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release/skeptic_flight_recorder.py --root . --out $(FLIGHT_RECORDER_OUT) --python $(PYTHON)
+	@mkdir -p "$(FLIGHT_RECORDER_OUT)"
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" scripts/release/skeptic_flight_recorder.py --root . --out "$(FLIGHT_RECORDER_OUT)" --python "$(PYTHON)"
 
 flight-recorder-verify:
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release/skeptic_flight_recorder.py verify $(FLIGHT_RECORDER_VERIFY_DIR) --root .
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" scripts/release/skeptic_flight_recorder.py verify "$(FLIGHT_RECORDER_VERIFY_DIR)" --root .
 
 release-candidate-proof:
-	@mkdir -p $(RELEASE_CANDIDATE_PROOF_OUT)
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release/release_candidate_proof.py --root . --out $(RELEASE_CANDIDATE_PROOF_OUT) --python $(PYTHON)
+	@mkdir -p "$(RELEASE_CANDIDATE_PROOF_OUT)"
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" scripts/release/release_candidate_proof.py --root . --out "$(RELEASE_CANDIDATE_PROOF_OUT)" --python "$(PYTHON)"
 
 release-candidate-proof-verify:
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release/release_candidate_proof.py verify $(RELEASE_CANDIDATE_PROOF_VERIFY_DIR) --root .
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" scripts/release/release_candidate_proof.py verify "$(RELEASE_CANDIDATE_PROOF_VERIFY_DIR)" --root .
 
 # The one obvious cold-review command: regenerate the proof packet fresh
 # (transient work in an out-of-source temp root by default), then run the
@@ -186,41 +190,41 @@ release-candidate-proof-verify:
 release-review:
 	@$(MAKE) release-candidate-proof
 	@$(MAKE) release-candidate-proof-verify
-	@cat $(RELEASE_CANDIDATE_PROOF_VERIFY_DIR)/release-candidate-proof-card.md
+	@cat "$(RELEASE_CANDIDATE_PROOF_VERIFY_DIR)/release-candidate-proof-card.md"
 
 public-site-parity:
-	@PYTHONPATH=src $(PYTHON) -m microcosm_core public-site-parity --root . $(PUBLIC_SITE_PARITY_ARGS)
+	@PYTHONPATH=src "$(PYTHON)" -m microcosm_core public-site-parity --root . $(PUBLIC_SITE_PARITY_ARGS)
 
 package-smoke:
 	@# Preserve rejected paths and failed-run evidence; clean only a successful run.
-	@status=0; $(PYTHON) scripts/release/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON) || status=$$?; if [ "$$status" -eq 0 ] && [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status
+	@status=0; "$(PYTHON)" scripts/release/package_install_smoke.py --source-root . --work-dir "$(PACKAGE_SMOKE_TMP)" --python "$(PYTHON)" || status=$$?; if [ "$$status" -eq 0 ] && [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status
 
 ci: check test smoke package-smoke
 
 check preflight:
-	@$(PYTHON) scripts/check/check_repository_layout.py
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -c "from microcosm_core.runtime_shell import _load_evidence_class_registry; from pathlib import Path; _load_evidence_class_registry(Path('.'))"
-	@$(PYTHON) scripts/check/check_lean_proof_trust.py
+	@"$(PYTHON)" scripts/check/check_repository_layout.py
+	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -c "from microcosm_core.runtime_shell import _load_evidence_class_registry; from pathlib import Path; _load_evidence_class_registry(Path('.'))"
+	@"$(PYTHON)" scripts/check/check_lean_proof_trust.py
 	@printf '%s\n' "Plectis preflight: organ evidence-class registry loads cleanly."
 
 validate: ci doctrine-lattice-check
 
 artifact-budget:
-	@$(PYTHON) scripts/check/check_artifact_budget.py --report
-	@$(PYTHON) scripts/check/check_artifact_budget.py --check
+	@"$(PYTHON)" scripts/check/check_artifact_budget.py --report
+	@"$(PYTHON)" scripts/check/check_artifact_budget.py --check
 
 standalone-export: install
-	PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary
+	PYTHONPATH=src "$(VENV_PYTHON)" -m microcosm_core.release_export --root . --out "$(EXPORT_OUT)" --force --summary
 
 public-profile:
-	@$(PYTHON) scripts/check/public_repo_profile.py --root . --mode python_research_tool
+	@"$(PYTHON)" scripts/check/public_repo_profile.py --root . --mode python_research_tool
 
 doctrine-lattice-check:
-	PYTHONPATH=src $(PYTHON) -m microcosm_core doctrine-lattice check --root .
+	PYTHONPATH=src "$(PYTHON)" -m microcosm_core doctrine-lattice check --root .
 
 doctrine-lattice-entry-card:
-	PYTHONPATH=src $(PYTHON) -m microcosm_core doctrine-lattice write-entry-card --root .
+	PYTHONPATH=src "$(PYTHON)" -m microcosm_core doctrine-lattice write-entry-card --root .
 
 clean:
-	rm -rf $(SMOKE_OUT) $(PYTEST_TMP_ROOT) $(PACKAGE_SMOKE_TMP_ROOT) .microcosm/test-tmp .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info src/*.egg-info
+	rm -rf "$(SMOKE_OUT)" "$(PYTEST_TMP_ROOT)" "$(PACKAGE_SMOKE_TMP_ROOT)" .microcosm/test-tmp .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info src/*.egg-info
 	find . -type d -name __pycache__ -prune -exec rm -rf {} +
