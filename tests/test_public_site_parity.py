@@ -6,6 +6,8 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from microcosm_core import cli
 from microcosm_core import public_site_parity
 
@@ -153,6 +155,55 @@ def test_public_site_parity_blocks_malformed_download_packet(tmp_path: Path) -> 
 
     assert receipt["status"] == "blocked"
     assert any(error["code"] == "json_parse_failed" for error in receipt["errors"])
+
+
+def test_public_site_parity_accepts_research_landing_without_legacy_copy(
+    tmp_path: Path,
+) -> None:
+    site_dir = tmp_path / "site"
+    site_dir.mkdir()
+    _write_snapshot(site_dir)
+    landing = site_dir / "index.html"
+    landing.write_text(
+        landing.read_text().replace("no hosted service", "Research and software")
+        .replace("llms.txt", ""),
+        encoding="utf-8",
+    )
+    _rewrite_projection_hashes(site_dir)
+
+    receipt = public_site_parity.check_public_site_parity(root=ROOT, site_dir=site_dir)
+
+    assert receipt["status"] == "pass", receipt["errors"]
+
+
+def test_public_site_parity_still_requires_machine_readable_entry(tmp_path: Path) -> None:
+    site_dir = tmp_path / "site"
+    site_dir.mkdir()
+    _write_snapshot(site_dir)
+    (site_dir / "llms.txt").unlink()
+
+    with pytest.raises(RuntimeError, match="llms.txt"):
+        public_site_parity.check_public_site_parity(root=ROOT, site_dir=site_dir)
+
+
+def test_public_site_parity_still_rejects_backend_boundary_drift(tmp_path: Path) -> None:
+    site_dir = tmp_path / "site"
+    site_dir.mkdir()
+    _write_snapshot(site_dir)
+    packet = site_dir / "plectis-ai-reader-digest.json"
+    payload = json.loads(packet.read_text())
+    payload["site"]["runtime_backend"] = "hosted"
+    _write_json(packet, payload)
+    _rewrite_projection_hashes(site_dir)
+
+    receipt = public_site_parity.check_public_site_parity(root=ROOT, site_dir=site_dir)
+
+    assert receipt["status"] == "blocked"
+    assert any(
+        error["code"] == "packet_site_field_mismatch"
+        and error["field"] == "site.runtime_backend"
+        for error in receipt["errors"]
+    )
 
 
 def test_public_site_parity_blocks_legacy_packet_that_is_not_a_pointer(
