@@ -248,7 +248,7 @@ fixture replay and body-free receipts.
 
 Re-entry is exact for the remaining gap: after an accepted organ/card edge is
 admitted by the organ-atlas owner lane, regenerate the doctrine projections
-with `scripts/build_doctrine_projection.py --write-paper-module-corpus` and
+with `scripts/build/build_doctrine_projection.py --write-paper-module-corpus` and
 the doctrine-lattice builder, then verify the generated Atlas status leaves
 `blocked_until_organ_atlas_owner_lane_binds_edges`. Until that happens, this
 Markdown explains the proof boundary; it does not source Atlas cards,

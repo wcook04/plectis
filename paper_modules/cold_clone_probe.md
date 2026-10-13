@@ -244,7 +244,7 @@ while keeping the proof boundary to public source-root bootstrap mechanics.
 - resolving authority edge:
   `mechanism.cold_clone_probe.validates_public_source_root_bootstrap`.
 - refresh condition: rerun
-  `scripts/build_doctrine_projection.py --write-paper-module-corpus` after
+  `scripts/build/build_doctrine_projection.py --write-paper-module-corpus` after
   capsule or mechanism changes, then verify Mermaid and Atlas remain generated
   projections with no release or private-root authority.
 - authority ceiling: this Markdown and its generated projections describe

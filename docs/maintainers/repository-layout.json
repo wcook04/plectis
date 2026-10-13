@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "owner": "scripts/check/check_repository_layout.py",
+  "script_groups": {
+    "build": "Regenerate maps and documentation from owned sources",
+    "check": "Validate source, generated projections and release boundaries",
+    "release": "Package, export and verify distributions",
+    "inspect": "Print compact inspection cards",
+    "papers": "Maintain the publication corpus and its indexes"
+  },
+  "required_paths": [
+    "README.md",
+    "AGENTS.md",
+    "scripts/README.md",
+    "scripts/check/check_repository_layout.py",
+    "docs/maintainers/repository-layout.json",
+    "tests/test_repository_layout.py"
+  ],
+  "exceptions": {}
+}

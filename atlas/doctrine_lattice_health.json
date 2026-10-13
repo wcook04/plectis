@@ -37,7 +37,7 @@
         "authority_boundary": "derived_projection_node_from_source_edges_not_source_file_authority",
         "claim_ceiling": "path_existence_and_source_edge_routing_only_not_code_correctness_or_runtime_proof",
         "gap_count": 0,
-        "id": "scripts/first_screen_composition_card.py",
+        "id": "scripts/inspect/first_screen_composition_card.py",
         "inbound_edge_count": 2,
         "kind": "code_locus",
         "path_exists": true,
@@ -56,7 +56,7 @@
           "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].code_loci[1]"
         ],
         "support_status": "resolved_path_named_by_source_edges",
-        "title": "scripts/first_screen_composition_card.py"
+        "title": "scripts/inspect/first_screen_composition_card.py"
       },
       {
         "authority_boundary": "derived_projection_node_from_source_edges_not_source_file_authority",

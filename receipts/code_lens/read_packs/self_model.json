@@ -24,7 +24,7 @@
     "boundary": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority."
   },
   "budget": {
-    "actual_bytes": 28180,
+    "actual_bytes": 28162,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
@@ -86,7 +86,7 @@
       "missing": "theorem -> lemma -> tactic edges inside a proof organ",
       "missing_source_class": "lean_proof_term_graph_not_extracted",
       "next_packet": "math",
-      "owner_path": "scripts/build_code_lens_join_index.py",
+      "owner_path": "scripts/build/build_code_lens_join_index.py",
       "would_come_from": "a Lean-aware proof-graph builder feeding this join index"
     }
   ],

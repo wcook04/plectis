@@ -195,7 +195,7 @@ def test_generated_files_are_in_sync_with_substrate() -> None:
     assert result["status"] == "pass", result["blocking_reasons"]
     assert result["drift"] == [], (
         "generated atlas files drifted from substrate; run "
-        "`PYTHONPATH=src python3 scripts/build_organ_atlas.py --write`"
+        "`PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write`"
     )
     assert (MICROCOSM_ROOT / "ORGANS.md").is_file()
     assert (MICROCOSM_ROOT / "ARCHITECTURE.md").is_file()

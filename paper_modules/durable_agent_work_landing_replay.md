@@ -232,7 +232,7 @@ receipt or generated projection surfaces:
 
 ```bash
 ./repo-pytest microcosm-substrate/tests/test_durable_agent_work_landing_replay.py -q --basetemp=/tmp/microcosm_durable_agent_work_landing_replay_pytest
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Named Proof Consumers
@@ -254,7 +254,7 @@ receipt or generated projection surfaces:
   public body floor, HEAD-advance enforcement, and fresh command-card receipt
   reuse.
 - Corpus consumer:
-  `scripts/build_doctrine_projection.py --check-paper-module-corpus` verifies
+  `scripts/build/build_doctrine_projection.py --check-paper-module-corpus` verifies
   that this reader projection remains accepted by the paper-module corpus
   without treating generated Mermaid or Atlas rows as source authority.
 - Claim-ceiling consumer:

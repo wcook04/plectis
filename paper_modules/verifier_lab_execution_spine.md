@@ -207,7 +207,7 @@ PYTHONPATH=src ../repo-python -m microcosm_core.organs.verifier_lab_execution_sp
   --acceptance-out /tmp/microcosm-verifier-lab-execution-spine/bundle-acceptance.json \
   --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_verifier_lab_execution_spine.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 A green receipt proves only bounded execution-spine evidence: command intent, tool

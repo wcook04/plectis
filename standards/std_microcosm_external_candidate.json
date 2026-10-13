@@ -117,7 +117,7 @@
     ],
     "required_reentry": [
       "land each unresolved used_by_organs target as accepted_current_authority or remove/rename the target in this standard source",
-      "rerun scripts/build_doctrine_projection.py --check-standard-corpus",
+      "rerun scripts/build/build_doctrine_projection.py --check-standard-corpus",
       "refresh aggregate doctrine-lattice projections only through the builder owner after source admission or source cleanup lands"
     ],
     "non_laundering_rules": [
@@ -374,7 +374,7 @@
   "projections": {
     "markdown": {
       "generated": true,
-      "builder": "microcosm-substrate/scripts/build_doctrine_projection.py",
+      "builder": "microcosm-substrate/scripts/build/build_doctrine_projection.py",
       "path_pattern": "microcosm-substrate/standards/<standard_id>.md",
       "note": "human-readable projection; never source authority"
     },

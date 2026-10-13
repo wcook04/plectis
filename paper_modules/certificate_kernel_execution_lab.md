@@ -355,7 +355,7 @@ Then validate the reader projection and generated row:
 cd microcosm-substrate
 ../repo-pytest microcosm-substrate/tests/test_certificate_kernel_execution_lab.py -q
 cd ..
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Receipt Expectations

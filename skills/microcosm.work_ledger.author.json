@@ -111,7 +111,7 @@
     "mapping_basis": "This markdown binds Work Ledger authoring to std_microcosm_work_ledger, the work_ledger doctrine kind, and concurrency mission-control because Work Ledger rows coordinate claim/session authority and must preserve exact source-body boundaries, collision state, and authority ceilings without becoming live mutation authority.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "The agent can name the public-safe source refs, exact-copy body-floor boundary, claim scope, collision state, receipt refs, and forbidden live mutation claims without exporting private bodies."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

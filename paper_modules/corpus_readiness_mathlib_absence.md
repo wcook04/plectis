@@ -279,7 +279,7 @@ PYTHONPATH=src python3 -m microcosm_core.organs.corpus_readiness_mathlib_absence
 PYTHONPATH=src python3 -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run-projection-bundle \
   --input examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle \
   --out /tmp/microcosm-corpus-readiness-mathlib-absence-bundle-vrp
-PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 PYTHONPATH=src .venv/bin/python -m pytest -p no:cacheprovider --basetemp=/tmp/microcosm-corpus-readiness-mathlib-absence-tests -q tests/test_corpus_readiness_mathlib_absence_gate.py
 jq '{edge_count:(.relationships.edges|length), mermaid_status:.paper_module_payload.generated_projections.mermaid.status, atlas_status:.paper_module_payload.generated_projections.atlas_card.status, source_authority:.paper_module_payload.source_authority, unresolved_selective_relation_count:(.relationships.unpopulated_selective_relations|length)}' paper_modules/corpus_readiness_mathlib_absence_gate.json
 ```

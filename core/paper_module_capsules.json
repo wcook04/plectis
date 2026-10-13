@@ -7132,7 +7132,7 @@
           "resolution": "resolved"
         },
         {
-          "path": "scripts/first_screen_composition_card.py",
+          "path": "scripts/inspect/first_screen_composition_card.py",
           "symbols": [
             "build_parser",
             "main"

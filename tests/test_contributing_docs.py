@@ -38,7 +38,7 @@ def test_contributing_is_a_concise_community_contract() -> None:
 
     # Generated files are builder-owned.
     assert "Do not hand-edit" in text
-    assert "scripts/build_organ_atlas.py --write" in text
+    assert "scripts/build/build_organ_atlas.py --write" in text
 
     # PR expectations still route through the template guardrail.
     assert ".github/PULL_REQUEST_TEMPLATE.md" in text

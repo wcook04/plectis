@@ -296,7 +296,7 @@
   "projections": {
     "markdown": {
       "generated": true,
-      "builder": "microcosm-substrate/scripts/build_doctrine_projection.py",
+      "builder": "microcosm-substrate/scripts/build/build_doctrine_projection.py",
       "note": "human-readable projection; never source authority"
     },
     "coverage_health": {

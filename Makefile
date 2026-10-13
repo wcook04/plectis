@@ -71,6 +71,7 @@ PUBLIC_TESTS += tests/test_paper_corpus.py
 PUBLIC_TESTS += tests/test_agent_closeout_faithfulness_audit.py
 PUBLIC_TESTS += tests/test_voice_to_doctrine_self_improvement_loop.py
 PUBLIC_TESTS += tests/test_lean_proof_trust.py
+PUBLIC_TESTS += tests/test_repository_layout.py
 # First-contact guards. These belong on the floor rather than in the broad drift
 # suite: they are the only checks that speak for the reader who arrives with a
 # clone and no context, and while they sat outside `make ci` the front page
@@ -154,28 +155,28 @@ smoke:
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card . > $(SMOKE_OUT)/tour-card.json || test $$? -eq 1
 	@$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab > $(SMOKE_OUT)/proof-lab-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core status --card . > $(SMOKE_OUT)/status-card.json || test $$? -eq 1
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/served_status_smoke.py --root . --project . --out $(SMOKE_OUT)/served-status-card.json
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/check/served_status_smoke.py --root . --project . --out $(SMOKE_OUT)/served-status-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core authority --card > $(SMOKE_OUT)/authority-card.json || test $$? -eq 1
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core workingness --card > $(SMOKE_OUT)/workingness-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard > $(SMOKE_OUT)/legibility-scorecard.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core comprehend --first-action "where do I start with this clone?" > $(SMOKE_OUT)/first-action.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core --version > $(SMOKE_OUT)/version.txt
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard > $(SMOKE_OUT)/stripping-guard.json
-	@$(PYTHON) scripts/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)
+	@$(PYTHON) scripts/check/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)
 
 flight-recorder:
 	@mkdir -p $(FLIGHT_RECORDER_OUT)
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/skeptic_flight_recorder.py --root . --out $(FLIGHT_RECORDER_OUT) --python $(PYTHON)
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release/skeptic_flight_recorder.py --root . --out $(FLIGHT_RECORDER_OUT) --python $(PYTHON)
 
 flight-recorder-verify:
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/skeptic_flight_recorder.py verify $(FLIGHT_RECORDER_VERIFY_DIR) --root .
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release/skeptic_flight_recorder.py verify $(FLIGHT_RECORDER_VERIFY_DIR) --root .
 
 release-candidate-proof:
 	@mkdir -p $(RELEASE_CANDIDATE_PROOF_OUT)
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release_candidate_proof.py --root . --out $(RELEASE_CANDIDATE_PROOF_OUT) --python $(PYTHON)
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release/release_candidate_proof.py --root . --out $(RELEASE_CANDIDATE_PROOF_OUT) --python $(PYTHON)
 
 release-candidate-proof-verify:
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release_candidate_proof.py verify $(RELEASE_CANDIDATE_PROOF_VERIFY_DIR) --root .
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release/release_candidate_proof.py verify $(RELEASE_CANDIDATE_PROOF_VERIFY_DIR) --root .
 
 # The one obvious cold-review command: regenerate the proof packet fresh
 # (transient work in an out-of-source temp root by default), then run the
@@ -192,26 +193,27 @@ public-site-parity:
 
 package-smoke:
 	@# Preserve rejected paths and failed-run evidence; clean only a successful run.
-	@status=0; $(PYTHON) scripts/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON) || status=$$?; if [ "$$status" -eq 0 ] && [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status
+	@status=0; $(PYTHON) scripts/release/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON) || status=$$?; if [ "$$status" -eq 0 ] && [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status
 
 ci: check test smoke package-smoke
 
 check preflight:
+	@$(PYTHON) scripts/check/check_repository_layout.py
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -c "from microcosm_core.runtime_shell import _load_evidence_class_registry; from pathlib import Path; _load_evidence_class_registry(Path('.'))"
-	@$(PYTHON) scripts/check_lean_proof_trust.py
+	@$(PYTHON) scripts/check/check_lean_proof_trust.py
 	@printf '%s\n' "Plectis preflight: organ evidence-class registry loads cleanly."
 
 validate: ci doctrine-lattice-check
 
 artifact-budget:
-	@$(PYTHON) scripts/check_artifact_budget.py --report
-	@$(PYTHON) scripts/check_artifact_budget.py --check
+	@$(PYTHON) scripts/check/check_artifact_budget.py --report
+	@$(PYTHON) scripts/check/check_artifact_budget.py --check
 
 standalone-export: install
 	PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary
 
 public-profile:
-	@$(PYTHON) scripts/public_repo_profile.py --root . --mode python_research_tool
+	@$(PYTHON) scripts/check/public_repo_profile.py --root . --mode python_research_tool
 
 doctrine-lattice-check:
 	PYTHONPATH=src $(PYTHON) -m microcosm_core doctrine-lattice check --root .

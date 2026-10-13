@@ -11,7 +11,7 @@ import pytest
 
 @pytest.fixture
 def smoke_module():
-    script = Path(__file__).resolve().parents[1] / "scripts/package_install_smoke.py"
+    script = Path(__file__).resolve().parents[1] / "scripts/release/package_install_smoke.py"
     spec = importlib.util.spec_from_file_location("package_install_safety", script)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -79,14 +79,14 @@ def test_package_smoke_recreates_a_separate_existing_work_dir(
 def test_make_package_smoke_preserves_rejected_source_tree(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parents[1]
     source = tmp_path / "source"
-    (source / "scripts").mkdir(parents=True)
+    (source / "scripts/release").mkdir(parents=True)
     (source / "pyproject.toml").write_text("[project]\nname='fixture'\n")
     sentinel = source / "keep.txt"
     sentinel.write_text("source must survive wrapper cleanup")
     shutil.copy2(repo_root / "Makefile", source / "Makefile")
     shutil.copy2(
-        repo_root / "scripts/package_install_smoke.py",
-        source / "scripts/package_install_smoke.py",
+        repo_root / "scripts/release/package_install_smoke.py",
+        source / "scripts/release/package_install_smoke.py",
     )
 
     result = subprocess.run(
@@ -98,3 +98,16 @@ def test_make_package_smoke_preserves_rejected_source_tree(tmp_path: Path) -> No
     assert result.returncode != 0
     assert "must not overlap" in result.stderr
     assert sentinel.read_text() == "source must survive wrapper cleanup"
+
+
+def test_package_staging_keeps_maintained_builders_and_drops_generated_output(tmp_path, smoke_module):
+    source = tmp_path / "repo"
+    for relative in ("scripts/build/build_map.py", "build/generated.py",
+                     "scripts/build/__pycache__/build_map.pyc"):
+        path = source / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("fixture")
+    staged = smoke_module._stage_source_tree(source, tmp_path / "work")
+    assert (staged / "scripts/build/build_map.py").read_text() == "fixture"
+    assert not (staged / "build").exists()
+    assert not (staged / "scripts/build/__pycache__").exists()

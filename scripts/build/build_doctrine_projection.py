@@ -8,8 +8,8 @@ Generated markdown, mermaid, health, and atlas JSON remain projections below
 the governed JSON/source registry.
 
 Usage:
-  PYTHONPATH=src python3 scripts/build_doctrine_projection.py --write
-  PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check
+  PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --write
+  PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --check
 """
 
 from __future__ import annotations
@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any
 
 
-MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+MICROCOSM_ROOT = Path(__file__).resolve().parents[2]
 SRC_ROOT = MICROCOSM_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
@@ -146,12 +146,12 @@ def build_status_card(root: Path) -> dict[str, Any]:
         "schema_version": "microcosm_doctrine_projection_status_card_v1",
         "status": "available" if not missing_or_invalid else "blocked",
         "read_only": True,
-        "owner_surface": "./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --status-only",
+        "owner_surface": "./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --status-only",
         "replacement_for": [
             "python -c JSON probes over core/doctrine_lattice_coverage.json",
             "full build_doctrine_projection.py --check when only projection availability/counts are needed",
         ],
-        "full_validation_command": "./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check",
+        "full_validation_command": "./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check",
         "surface_count": len(rows),
         "missing_or_invalid": missing_or_invalid,
         "surfaces": rows,
@@ -160,7 +160,7 @@ def build_status_card(root: Path) -> dict[str, Any]:
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    Register CLI syntax for `scripts.build_doctrine_projection.build_parser`.
+    Register CLI syntax for `scripts.build.build_doctrine_projection.build_parser`.
 
     The function mutates the provided argparse object with this module's flags, subcommands,
     or defaults.
@@ -295,7 +295,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run the `scripts.build_doctrine_projection` command-line entry point.
+    Run the `scripts.build.build_doctrine_projection` command-line entry point.
 
     It parses argv, invokes the file-local builders or validators, and returns a
     process-style status code.
@@ -431,7 +431,7 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(result, ensure_ascii=True, indent=2, sort_keys=True))
         return 0 if result["status"] == "pass" else 1
     if args.write_aggregate_surfaces:
-        command = "python scripts/build_doctrine_projection.py --write-aggregate-surfaces"
+        command = "python scripts/build/build_doctrine_projection.py --write-aggregate-surfaces"
         projection = write_doctrine_projection(root, command=command)
         coverage = write_coverage_projection(
             root,

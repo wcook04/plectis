@@ -111,7 +111,7 @@
     "mapping_basis": "The standard JSON at standards/std_microcosm_durable_agent_work_landing_replay.json declares this refine_standard_and_propagate skill route for durable_agent_work_landing_replay, and core/organ_atlas.json::durable_agent_work_landing_replay names mechanism_refs=mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract and concept_refs=concept.work_landing_and_continuity_control_bundle. This source mapping binds the skill to those accepted organ neighbours without inferring from prose, generated projections, endpoint coverage, or release claims.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "A governed skill source row is needed before standard.owns_triad.skill can resolve without treating generated projections as authority."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

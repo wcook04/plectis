@@ -539,7 +539,7 @@ def _owner_build_route(organ_id: str) -> dict[str, Any]:
             f"core/organ_evidence_classes.json::organ_evidence_classes[organ_id={organ_id}]",
         ],
         "builder_check_commands": [
-            "PYTHONPATH=src python3 scripts/build_organ_atlas.py --check",
+            "PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --check",
             "PYTHONPATH=src python3 -m microcosm_core.projections.organ_surface_contract --root . --card",
             "PYTHONPATH=src python3 -m microcosm_core.projections.organ_discoverability_matrix --root . --check",
         ],

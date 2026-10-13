@@ -281,7 +281,7 @@ Run focused tests and paper-module corpus validation:
 PYTHONPATH=microcosm-substrate/src ./repo-pytest \
   microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py
 cd microcosm-substrate && PYTHONPATH=src python3 \
-  scripts/build_doctrine_projection.py --check-paper-module-corpus
+  scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 Expected local result: the fixture and exported-bundle validators pass on the

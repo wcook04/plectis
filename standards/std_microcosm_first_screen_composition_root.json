@@ -156,7 +156,7 @@
     ],
     "required_reentry": [
       "land each unresolved used_by_organs target as accepted_current_authority or remove/rename the target in this standard source",
-      "rerun scripts/build_doctrine_projection.py --check-standard-corpus",
+      "rerun scripts/build/build_doctrine_projection.py --check-standard-corpus",
       "refresh aggregate doctrine-lattice projections only through the builder owner after source admission or source cleanup lands"
     ],
     "non_laundering_rules": [
@@ -211,8 +211,8 @@
       "role": "package_card_contract_and_text_projection"
     },
     {
-      "field": "scripts/first_screen_composition_card.py",
-      "path": "scripts/first_screen_composition_card.py",
+      "field": "scripts/inspect/first_screen_composition_card.py",
+      "path": "scripts/inspect/first_screen_composition_card.py",
       "role": "public_card_emitter"
     },
     {
@@ -318,7 +318,7 @@
       "previous_source_schema_version": "public_microcosm_standard_v1",
       "previous_source_status": "active",
       "validator_refs": [
-        "scripts/first_screen_composition_card.py",
+        "scripts/inspect/first_screen_composition_card.py",
         "tests/test_first_screen_composition_card.py",
         "validator.microcosm.first_screen_composition_root"
       ],
@@ -388,7 +388,7 @@
   },
   "validator_refs": [
     {
-      "path": "scripts/first_screen_composition_card.py",
+      "path": "scripts/inspect/first_screen_composition_card.py",
       "role": "emits_and_self_validates_public_composition_card"
     },
     {
@@ -434,7 +434,7 @@
     "validator_id": "validator.microcosm.first_screen_composition_root",
     "receipt_id": "receipt.microcosm.first_screen_composition_root",
     "validator_refs": [
-      "scripts/first_screen_composition_card.py",
+      "scripts/inspect/first_screen_composition_card.py",
       "tests/test_first_screen_composition_card.py",
       "validator.microcosm.first_screen_composition_root"
     ],

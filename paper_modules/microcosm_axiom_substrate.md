@@ -233,7 +233,7 @@ with Markdown retained as the authored reader projection.
 - Current proof: axiom routing rows, the support-cover validator, and focused
   tests make the substrate inspectable to readers. They do not certify axioms,
   prove strong-gate closure, or authorize release.
-- Regeneration: `scripts/build_doctrine_projection.py
+- Regeneration: `scripts/build/build_doctrine_projection.py
   --write-paper-module-corpus` and aggregate doctrine-lattice builders own the
   generated JSON/Mermaid/Atlas projection updates.
 
@@ -392,8 +392,8 @@ owned and the public-site builder plus secret scan pass under claim.
 - resolving authority edge:
   `mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary`.
 - regeneration route: after source edits, run
-  `scripts/build_doctrine_projection.py --write-mechanism-corpus`,
-  `scripts/build_doctrine_projection.py --write-paper-module-corpus`, and the
+  `scripts/build/build_doctrine_projection.py --write-mechanism-corpus`,
+  `scripts/build/build_doctrine_projection.py --write-paper-module-corpus`, and the
   aggregate surface builder, then verify the readiness audit.
 - authority ceiling: this Markdown and its generated projections provide reader
   evidence only; they do not source axiom promotion, strong-gate certification,

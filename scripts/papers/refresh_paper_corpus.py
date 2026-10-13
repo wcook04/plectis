@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Refresh this clone's native paper text and indexes using Pandoc.
+"""Refresh paper text using Pandoc, or only the index from existing records.
 
 The companion papers retain their imported bytes and provenance. This command
 does not publish a revision, rebuild a PDF, or establish a mathematical claim.
@@ -60,12 +60,25 @@ def refresh_route(record: dict) -> None:
     route["unresolved_count"] = 0
 
 
-def refresh(root: Path, *, write: bool, paper_ids: list[str] | None = None) -> dict:
+def refresh(root: Path, *, write: bool, paper_ids: list[str] | None = None, index_only: bool = False) -> dict:
     root = root.resolve()
     corpus_path = safe_path(root, "docs/papers/corpus.json", suffix=".json")
     original = json.loads(corpus_path.read_text(encoding="utf-8"))
     corpus = copy.deepcopy(original)
     records = corpus["papers"]
+    if index_only:
+        if paper_ids:
+            raise ValueError("--index-only cannot select manuscripts with --paper")
+        output = safe_path(root, "docs/papers/README.md", suffix=".md")
+        payload = renderer._readme([r for r in records if r.get("title")],
+                                   corpus["this_repository"], root).encode()
+        changed = [] if output.is_file() and output.read_bytes() == payload else ["docs/papers/README.md"]
+        if write and changed:
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_bytes(payload)
+        return {"status": "written" if write else ("stale" if changed else "current"),
+                "index_only": True, "changed": changed,
+                "proof_or_pdf_rebuild_performed": False}
     native = {r["paper_id"] for r in records
               if r.get("relation_to_this_repository") == "native"}
     selected = set(paper_ids) if paper_ids else native
@@ -152,9 +165,10 @@ def main() -> int:
     mode.add_argument("--write", action="store_true")
     mode.add_argument("--check", action="store_true")
     parser.add_argument("--paper", action="append", help="refresh one existing native paper id")
+    parser.add_argument("--index-only", action="store_true", help="render only the paper index from existing corpus records, without Pandoc")
     args = parser.parse_args()
     try:
-        result = refresh(args.root, write=args.write, paper_ids=args.paper)
+        result = refresh(args.root, write=args.write, paper_ids=args.paper, index_only=args.index_only)
     except (OSError, ValueError, KeyError, RuntimeError) as error:
         parser.exit(2, f"paper refresh: {error}\n")
     print(json.dumps(result, indent=2))

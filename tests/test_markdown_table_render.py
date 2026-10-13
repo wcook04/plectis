@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-CHECKER = MICROCOSM_ROOT / "scripts" / "check_markdown_table_render.py"
+CHECKER = MICROCOSM_ROOT / "scripts/check" / "check_markdown_table_render.py"
 
 # Surfaces a reader actually opens, and which we own outright.
 GUARDED = [

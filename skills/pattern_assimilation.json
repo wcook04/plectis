@@ -141,7 +141,7 @@
     "mapping_basis": "The standard JSON at standards/std_microcosm_pattern_assimilation_step.json declares this skill route; relationships.used_by_organs=[\"mission_transaction_work_spine\", \"voice_to_doctrine_self_improvement_loop\"] names organ atlas rows whose mechanism_refs=[\"mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle\", \"mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop\"] and concept_refs=[\"concept.architecture_and_navigation_route_contract_bundle\", \"concept.work_landing_and_continuity_control_bundle\"] are the source basis for these selective skill edges. This binds only source-declared lattice neighbours and does not prove runtime correctness, release readiness, provider authority, private-body coverage, or whole-system completeness.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -177,8 +177,8 @@
     "A landed public organ needs a refinement or typed nothing_to_refine receipt."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

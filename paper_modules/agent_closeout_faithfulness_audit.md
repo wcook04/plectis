@@ -385,7 +385,7 @@ receipt or generated projection surfaces:
 
 ```bash
 ./repo-pytest microcosm-substrate/tests/test_agent_closeout_faithfulness_audit.py -q --basetemp=/tmp/microcosm_agent_closeout_faithfulness_audit_pytest
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 For the focused test, the receipt boundary is the asserted shape: three

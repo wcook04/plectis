@@ -124,7 +124,7 @@ and the runtime source locus
 The source atlas row carries the matching `paper_module_ref`, `mechanism_refs`,
 and `code_loci` entries. Generated atlas docs still remain builder-owned
 projections; refresh them with
-`PYTHONPATH=src python3 scripts/build_organ_atlas.py --write` instead of editing
+`PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write` instead of editing
 `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, or
 `atlas/agent_task_routes.json` by hand.
 
@@ -311,7 +311,7 @@ receipt or generated projection surfaces:
 
 ```bash
 ./repo-pytest --host-pressure-policy=warn microcosm-substrate/tests/test_bridge_phase_continuity_runtime.py -q --basetemp=/tmp/microcosm_bridge_phase_continuity_runtime_pytest
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Re-Entry Conditions

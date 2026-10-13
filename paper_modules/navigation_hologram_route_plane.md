@@ -332,7 +332,7 @@ temporary receipts:
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.navigation_hologram_route_plane run --input fixtures/first_wave/navigation_hologram_route_plane/input --out /tmp/microcosm-navigation-hologram-route-plane
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.navigation_hologram_route_plane validate-route-plane-bundle --input examples/navigation_hologram_route_plane/exported_route_plane_bundle --out /tmp/microcosm-navigation-hologram-route-plane-bundle
 ../repo-pytest microcosm-substrate/tests/test_navigation_hologram_route_plane.py
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 These checks validate the public fixture and exported route-plane bundle only;

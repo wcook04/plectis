@@ -27,9 +27,9 @@
     "used_by_organs": []
   },
   "validator_refs": [
-    "scripts/build_doctrine_enrichment_health.py --check",
-    "scripts/check_doctrine_formal_soundness.py --check",
-    "scripts/check_doctrine_reader_ladder.py --check"
+    "scripts/build/build_doctrine_enrichment_health.py --check",
+    "scripts/check/check_doctrine_formal_soundness.py --check",
+    "scripts/check/check_doctrine_reader_ladder.py --check"
   ],
   "receipt_refs": [
     "core/doctrine_enrichment_health.json"
@@ -73,16 +73,16 @@
       "role": "paper_module_readiness_projection_instances"
     },
     {
-      "field": "scripts/build_doctrine_enrichment_health.py",
-      "path": "scripts/build_doctrine_enrichment_health.py",
+      "field": "scripts/build/build_doctrine_enrichment_health.py",
+      "path": "scripts/build/build_doctrine_enrichment_health.py",
       "role": "health_projection_owner"
     }
   ],
   "consumed_by": [
     "tools/meta/dissemination/build_microcosm_public_site.py (doctrine_cards renderer)",
-    "microcosm-substrate/scripts/build_doctrine_enrichment_health.py (coverage projection)",
-    "microcosm-substrate/scripts/check_doctrine_formal_soundness.py (formal-statement soundness gate)",
-    "microcosm-substrate/scripts/check_doctrine_reader_ladder.py (reader-ladder accessibility gate)"
+    "microcosm-substrate/scripts/build/build_doctrine_enrichment_health.py (coverage projection)",
+    "microcosm-substrate/scripts/check/check_doctrine_formal_soundness.py (formal-statement soundness gate)",
+    "microcosm-substrate/scripts/check/check_doctrine_reader_ladder.py (reader-ladder accessibility gate)"
   ],
   "authority_boundary": "Enrichment is reader content, not law and not support evidence. The formal_clause source of record stays in core/axiom_organ_routing.json (axioms), PRINCIPLES.md (principles), and ANTI_PRINCIPLES.md (anti-principles); the latex here is a reviewed reader rendering of that clause. The concept and mechanism routing floors read governed JSON rows for source-backed relationship structure only. The paper-module readiness audit reads generated paper-module JSON instances as a projection over core/paper_module_capsules.json and legacy Markdown inventory; it is frontier visibility, not source authority and not permission to hand-edit generated paper-module rows. Neither an enrichment example, concept route, mechanism route, nor paper-module readiness route computes support, raises a claim ceiling, proves target correctness, proves runtime behavior, or becomes anti-axiom rejection. A generated page may expose this content but cannot raise the authority of the source it explains (P-15).",
   "authority_ceiling": {
@@ -115,8 +115,8 @@
   ],
   "validation_rules": [
     "require reader-enrichment rows to preserve id, kind, one_line, deep, formal, governs, requires, refuses, example, counterexample, enforced_in, does_not_prove, and reader_ladder fields",
-    "require formal statements to stay within the bounded source-clause grammar and pass scripts/check_doctrine_formal_soundness.py --check",
-    "require reader-ladder plain and analogy fields to pass scripts/check_doctrine_reader_ladder.py --check without using analogy as proof",
+    "require formal statements to stay within the bounded source-clause grammar and pass scripts/check/check_doctrine_formal_soundness.py --check",
+    "require reader-ladder plain and analogy fields to pass scripts/check/check_doctrine_reader_ladder.py --check without using analogy as proof",
     "require concept routing rows to expose source-backed resolved mechanism routes before counting the concept routing floor",
     "require mechanism routing rows to expose source-backed sibling concept routes and resolved existing code loci before counting the mechanism routing floor",
     "require paper-module readiness rows to remain a frontier audit until this standard explicitly promotes that section to a completion gate",
@@ -217,11 +217,11 @@
     "statement": "The reader ladder is a governed reader primitive, not decoration. Every object carries a plain reading and a bounded analogy. The analogy must preserve the object's core invariant (the maps make that inspectable) and must name its limit (the boundary). An analogy without a boundary is the same laundering failure the doctrine refuses: it lets a vivid metaphor stand in for doctrine the source never carried.",
     "ladder_order": ["plain", "analogy", "analogy.boundary", "expert reading (governs/requires/refuses + formal.reads)", "formal statement (latex/symbols)", "support/non-laundering boundary (does_not_prove)"],
     "accessibility_rules": "Lay fields use literal language first, short sentences, no jargon, no symbols, no public-vocab-banned visible terms, and make no proof/guarantee claim in the affirmative fields (plain, analogy.text, why_it_matters); a 'does not prove' disclaimer belongs in the boundary or potential_misread. The analogy is optional support for understanding, never the only explanation and never proof.",
-    "gate": "scripts/check_doctrine_reader_ladder.py (--check exits non-zero on any defect; consumed by build_doctrine_enrichment_health.py and tests/test_doctrine_reader_ladder.py)"
+    "gate": "scripts/check/check_doctrine_reader_ladder.py (--check exits non-zero on any defect; consumed by build_doctrine_enrichment_health.py and tests/test_doctrine_reader_ladder.py)"
   },
   "formal_soundness_invariant": {
     "statement": "A formal block is sound when the symbol table and the formula agree (no undefined symbol, no dangling symbol) and the formula does not assert more than the source clause. This is a reader-soundness property of symbol/formula agreement, NOT a proof of mathematical correctness or of axiom support; correctness is reviewed, soundness is gated.",
-    "gate": "scripts/check_doctrine_formal_soundness.py (--check exits non-zero on any defect; consumed by build_doctrine_enrichment_health.py and tests/test_doctrine_formal_soundness.py)",
+    "gate": "scripts/check/check_doctrine_formal_soundness.py (--check exits non-zero on any defect; consumed by build_doctrine_enrichment_health.py and tests/test_doctrine_formal_soundness.py)",
     "source_of_record_ceiling": "The latex may not exceed the formal_clause it renders (axiom_organ_routing.json for axioms, PRINCIPLES.md / ANTI_PRINCIPLES.md for principles / anti-principles). Necessity is rendered as implication; only a definitional criterion is rendered as a biconditional."
   },
   "routing_floor": {
@@ -259,7 +259,7 @@
         "residual selective relations counted separately, not used as support evidence or topology completeness"
       ]
     },
-    "gate": "scripts/build_doctrine_enrichment_health.py --check",
+    "gate": "scripts/build/build_doctrine_enrichment_health.py --check",
     "non_goal": "This is not concept taxonomy completeness, mechanism topology completeness, target mechanism correctness, runtime behavior proof, support evidence, release authority, or proof authority. Paper-module routing is audited separately as frontier readiness, not counted in this completion floor."
   },
   "paper_module_readiness_audit": {
@@ -287,7 +287,7 @@
       "required residual relations counted as blockers",
       "selective residual relations counted as frontier pressure"
     ],
-    "gate": "scripts/build_doctrine_enrichment_health.py --check",
+    "gate": "scripts/build/build_doctrine_enrichment_health.py --check",
     "non_goal": "This audit is not support evidence, proof authority, release readiness, runtime correctness, paper-module topology completeness, or authority to hand-edit generated paper-module JSON."
   },
   "health_projection_section_model": {

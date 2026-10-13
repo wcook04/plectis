@@ -676,7 +676,7 @@ def _encounter_argvs(python_executable: str) -> dict[str, list[str]]:
         ],
         "demo_check": [
             python_executable,
-            "scripts/build_first_action_demo.py",
+            "scripts/build/build_first_action_demo.py",
             "--check",
         ],
     }
@@ -708,7 +708,7 @@ def _run_encounter_context(
         ("assay", ["plectis", "comprehension-assay", "--first-action"]),
         (
             "demo_check",
-            ["python", "scripts/build_first_action_demo.py", "--check"],
+            ["python", "scripts/build/build_first_action_demo.py", "--check"],
         ),
     ):
         if step not in evidence:
@@ -855,7 +855,7 @@ def build_release_candidate_proof(
             command_id="fresh_install.package_smoke",
             display_argv=[
                 "python",
-                "scripts/package_install_smoke.py",
+                "scripts/release/package_install_smoke.py",
                 "--source-root",
                 ".",
                 "--work-dir",
@@ -863,7 +863,7 @@ def build_release_candidate_proof(
             ],
             actual_argv=[
                 python_executable,
-                "scripts/package_install_smoke.py",
+                "scripts/release/package_install_smoke.py",
                 "--source-root",
                 ".",
                 "--work-dir",
@@ -1173,7 +1173,7 @@ def _human_card(packet: dict[str, Any]) -> str:
         "",
         (
             "- `make release-candidate-proof-verify` (or `PYTHONPATH=src "
-            "python3 scripts/release_candidate_proof.py verify <packet-dir> "
+            "python3 scripts/release/release_candidate_proof.py verify <packet-dir> "
             "--root .`) re-derives every claim above from the digest-bound "
             "evidence without rerunning the substrate."
         ),

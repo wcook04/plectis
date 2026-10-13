@@ -279,8 +279,8 @@ PYTHONPATH=src ../repo-python -m microcosm_core.organs.batch7_macro_engines_caps
   --acceptance-out /tmp/microcosm-batch7-macro-engines-bundle-acceptance.json \
   --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider --basetemp=/tmp/microcosm-batch7-macro-engines-tests -q tests/test_batch7_macro_engines_capsule.py
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check
 ```
 
 The fixture command writes the Batch-7 macro-engine receipt and acceptance JSON.

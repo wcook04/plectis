@@ -302,15 +302,15 @@ root:
 ./repo-pytest microcosm-substrate/tests/test_mission_transaction_work_spine.py \
   -q \
   --basetemp=/tmp/microcosm_mission_transaction_work_spine_pytest
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 For a source, capsule, or projection landing, run the owner lane from
 `microcosm-substrate`:
 
 ```bash
-PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
-PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check
+PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --check
 ```
 
 Do not run `--write` from this Markdown-only lane. This pass owns only the

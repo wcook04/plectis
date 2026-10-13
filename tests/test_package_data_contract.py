@@ -173,7 +173,12 @@ def _contains_generated_data_dir(path: Path) -> bool:
 
 
 def _contains_generated_data_part(ref: str) -> bool:
-    return any(part in GENERATED_DATA_DIR_NAMES for part in PurePosixPath(ref).parts)
+    parts = PurePosixPath(ref).parts
+    if parts[:2] == ("share", "plectis"):
+        parts = parts[2:]
+    if parts[:2] == ("scripts", "build"):
+        parts = parts[2:]
+    return any(part in GENERATED_DATA_DIR_NAMES for part in parts)
 
 
 def _expected_public_data_files(top_level: str) -> dict[str, list[str]]:
@@ -317,7 +322,8 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
     assert data_files["share/plectis/paper_modules"] == [
         "paper_modules/*.md"
     ]
-    assert data_files["share/plectis/scripts"] == ["scripts/*.py"]
+    for group in ("build", "check", "inspect", "release", "papers"):
+        assert data_files[f"share/plectis/scripts/{group}"] == [f"scripts/{group}/*.py"]
     assert data_files["share/plectis/skills"] == ["skills/*.md"]
     assert data_files["share/plectis/standards"] == ["standards/*.json"]
     assert data_files["share/plectis/receipts/acceptance"] == [

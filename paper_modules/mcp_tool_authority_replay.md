@@ -257,7 +257,7 @@ authority.
   receipt paths, source-module digest mismatch failures, exact copied source
   bodies, public trace span coverage, and card omission behavior.
 - Corpus consumer:
-  `PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus`
+  `PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus`
   checks that the Markdown reader projection, JSON capsule, and generated
   paper-module sidecar remain in parity. This check does not authorize
   hand-editing generated projections; it is a read-only receipt for this
@@ -347,7 +347,7 @@ Then validate the reader projection and generated row:
 ```bash
 cd microcosm-substrate
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_mcp_tool_authority_replay.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Claim Ceiling

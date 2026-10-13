@@ -258,7 +258,7 @@ PYTHONPATH=src ../repo-python -m microcosm_core.organs.pattern_binding_contract 
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.pattern_binding_contract validate-substrate-bundle --input examples/pattern_binding_contract/exported_substrate_bundle --out /tmp/microcosm-pattern-binding-substrate-bundle
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.pattern_binding_contract validate-route-readiness-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-binding-route-readiness
 ../repo-pytest microcosm-substrate/tests/test_pattern_binding_contract.py
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 These checks validate public pattern-binding fixtures, substrate-bundle

@@ -43,6 +43,16 @@ changes also need `make package-smoke`: a source import alone cannot show
 whether a distribution contains its required files. The
 [validation runbook](validation.md) describes the wider release checks.
 
+## Maintenance program placement
+
+The [script guide](../../scripts/README.md) owns the role map: `build`, `check`,
+`release`, `inspect` and `papers`. Keep regression suites in `tests/` and paper
+text in `docs/papers/`. The [layout policy](repository-layout.json) and its
+[checker](../../scripts/check/check_repository_layout.py) reject misplaced
+programs and tests in `make check` and CI. Negative fixtures exercise staged
+additions, staged deletions and ignored output. This is a placement contract,
+not a file-count target. Published source bundles retain their original paths.
+
 ## Keep each document in its role
 
 Authored guides explain mechanisms, assumptions and decisions. Edit that
@@ -59,13 +69,13 @@ content and writers before considering a move.
 | `README.md`, `docs/overview.md` | Authored introduction and fuller project explanation. Keep runnable first contact in the README and background in the overview. |
 | `docs/guides/`, `docs/reference/`, `docs/maintainers/` | Worked examples, lookup material and maintenance instructions respectively. Each has a README index; add links there when adding a page. |
 | `examples/README.md`, `fixtures/README.md`, `receipts/README.md` | Authored directory guides. Explain inputs, test cases and recorded outputs without relocating source copies or historical data. |
-| `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, agent route JSON | [`organ_atlas.py`](../../src/microcosm_core/projections/organ_atlas.py), reading the component registries under `core/`; run `PYTHONPATH=src python3 scripts/build_organ_atlas.py --write`. |
-| `docs/reference/lean-companion.md` snapshot/release bullets | [`check_lean_companion_snapshot.py`](../../scripts/check_lean_companion_snapshot.py), using `docs/lean_companion_snapshot.json`. Preserve these managed bullets during reference-page edits; the checker owns refresh and validation. |
-| `FIRST_ACTION.md` | [`build_first_action_demo.py`](../../scripts/build_first_action_demo.py). |
-| `RELEASE_REVIEW.md` | [`build_release_review.py`](../../scripts/build_release_review.py), using the result contract in [`release_candidate_proof.py`](../../src/microcosm_core/release_candidate_proof.py). |
+| `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, agent route JSON | [`organ_atlas.py`](../../src/microcosm_core/projections/organ_atlas.py), reading the component registries under `core/`; run `PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write`. |
+| `docs/reference/lean-companion.md` snapshot/release bullets | [`check_lean_companion_snapshot.py`](../../scripts/check/check_lean_companion_snapshot.py), using `docs/lean_companion_snapshot.json`. Preserve these managed bullets during reference-page edits; the checker owns refresh and validation. |
+| `FIRST_ACTION.md` | [`build_first_action_demo.py`](../../scripts/build/build_first_action_demo.py). |
+| `RELEASE_REVIEW.md` | [`build_release_review.py`](../../scripts/build/build_release_review.py), using the result contract in [`release_candidate_proof.py`](../../src/microcosm_core/release_candidate_proof.py). |
 | `PRINCIPLES.md`, `ANTI_PRINCIPLES.md`, `AXIOMS.md` | Authored doctrine consumed by [`doctrine_lattice.py`](../../src/microcosm_core/doctrine_lattice.py) and `standards/`. Preserve the authored argument and regenerate its projections. |
 | `PROVENANCE.md`, `SOURCE_STATUS.md` | Authored source and attribution explanations governed by the [public boundary](../governance/public-boundary.md). |
-| Published source copies and their manifests | [`refresh_source_module_manifest.py`](../../scripts/refresh_source_module_manifest.py) and the [exporter](../../src/microcosm_core/release_export.py). Preserve source attribution, omissions and public replacements. |
+| Published source copies and their manifests | [`refresh_source_module_manifest.py`](../../scripts/release/refresh_source_module_manifest.py) and the [exporter](../../src/microcosm_core/release_export.py). Preserve source attribution, omissions and public replacements. |
 
 Do not rehash changed copies merely to make a check pass. Check their declared
 source or the export inventory, and report upstream currentness as unassessed
@@ -87,7 +97,7 @@ JSON references and public API. Update these owners as applicable:
   and hashes the first-action document.
 - **Navigation:** update the command outputs, agent instructions, entry
   validators, atlas links and source-reference fields that consume the path.
-  [`public_repo_profile.py`](../../scripts/public_repo_profile.py) checks the
+  [`public_repo_profile.py`](../../scripts/check/public_repo_profile.py) checks the
   root classification and requires each retained reference's owner to exist.
 - **Evidence:** changed input bytes invalidate affected current results.
   Regenerate through the recorded producer. Leave historical receipt payloads

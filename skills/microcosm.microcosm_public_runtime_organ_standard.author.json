@@ -111,7 +111,7 @@
     "mapping_basis": "These ten accepted standards all declare the same microcosm_public_runtime_organ_standard author skill id. The standards-meta-diagnostics standard is the representative class anchor; shared_standard_refs preserve the full declared source set so resolving the skill id is treated as route coverage, not per-standard completion proof.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "The standard can be written from public fixture evidence, copied non-secret body-floor manifests, validator receipts, paper-module capsule refs, mechanism refs, and standards-meta diagnostic evidence without exporting private bodies."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

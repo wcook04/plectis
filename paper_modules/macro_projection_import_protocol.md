@@ -407,7 +407,7 @@ PYTHONPATH=src ../repo-python -m microcosm_core.organs.macro_projection_import_p
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.macro_projection_import_protocol run-projection-bundle --input examples/macro_projection_import_protocol/exported_projection_import_bundle --out /tmp/microcosm-macro-projection-import-bundle
 ../repo-pytest microcosm-substrate/tests/test_macro_projection_import_protocol.py -q
 ../repo-pytest microcosm-substrate/tests/test_doctrine_lattice_runtime.py::test_macro_projection_import_protocol_population_has_capsule_and_mechanism_source -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 These checks validate public-safe projection cells, per-slice manifests,

@@ -216,7 +216,12 @@ plectis/
 ├── paper/                Toolkit paper source
 ├── receipts/             Recorded example results
 ├── assets/               README and social preview images
-└── scripts/              Builders, validation and release tools
+└── scripts/
+    ├── build/            Documentation and map generators
+    ├── check/            Source, projection and boundary checks
+    ├── release/          Packaging and release verification
+    ├── inspect/          Compact inspection cards
+    └── papers/           Publication corpus tools
 ```
 
 Start with the [examples](examples/README.md); use the
@@ -230,7 +235,9 @@ indexes. `AXIOMS.md`, `PRINCIPLES.md` and `ANTI_PRINCIPLES.md` contain the
 [doctrine shown in the map](docs/reference/README.md#the-doctrine-in-the-map).
 `Makefile` and `.github/workflows/` run the checks. The
 [maintainer architecture guide](docs/maintainers/architecture.md) identifies
-which files to edit and which builders to run.
+which files to edit and which builders to run. The [script guide](scripts/README.md)
+explains each maintenance role; `make check` enforces their placement in Git
+and CI.
 
 The [documentation index](docs/README.md) separates human guides, reference
 maps and maintainer instructions. Directory READMEs explain the examples and

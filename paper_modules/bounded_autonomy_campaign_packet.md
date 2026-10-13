@@ -225,8 +225,8 @@ tracked receipt outputs:
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.bounded_autonomy_campaign_packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out /tmp/microcosm-bounded-autonomy-campaign-packet/fixture --acceptance-out /tmp/microcosm-bounded-autonomy-campaign-packet/acceptance.json --card
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.bounded_autonomy_campaign_packet run-bounded-autonomy-bundle --input examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle --out /tmp/microcosm-bounded-autonomy-campaign-packet/bundle --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_bounded_autonomy_campaign_packet.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check
 ```
 
 If the fixture or bundle reports source-module digest drift, route that through

@@ -277,7 +277,7 @@ corpus parity check:
 
 ```bash
 PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_annex_knowledge_router.py -q
-cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 Passing these commands proves only that the public fixture behavior and JSON
@@ -370,7 +370,7 @@ boundary. Keep that boundary in three parts:
   admit an organ or prove the private annex corpus.
 - Re-entry: after organ admission or Atlas owner binding lands a broader
   resolved edge, regenerate with
-  `scripts/build_doctrine_projection.py --write-paper-module-corpus`, and keep
+  `scripts/build/build_doctrine_projection.py --write-paper-module-corpus`, and keep
   Markdown, Mermaid, Atlas, and site output as generated or reader projections
   rather than hand-authored source authority.
 
@@ -393,7 +393,7 @@ boundary. Keep that boundary in three parts:
   invent an organ subject.
 - re-entry condition: after organ admission or Atlas owner binding lands a
   broader edge, run
-  `scripts/build_doctrine_projection.py --write-paper-module-corpus`, and verify
+  `scripts/build/build_doctrine_projection.py --write-paper-module-corpus`, and verify
   the generated instance still reflects capsule authority without broadening the
   claim ceiling.
 - authority ceiling: this page can explain the staged public exercise and source

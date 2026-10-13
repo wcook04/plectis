@@ -1,7 +1,7 @@
 """The shipped distribution footprint stays under an explicit budget.
 
 Plectis presents as a small offline tool but ships a large evidence/research
-corpus via ``[tool.setuptools.data-files]``. ``scripts/check_artifact_budget.py``
+corpus via ``[tool.setuptools.data-files]``. ``scripts/check/check_artifact_budget.py``
 measures that footprint from the manifest (no build backend needed) and bounds
 it. These tests pin three things: the budget is set, the current artifact is
 within it, and the brake actually bites when the corpus grows past the ceiling.
@@ -16,7 +16,7 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = REPO_ROOT / "scripts" / "check_artifact_budget.py"
+SCRIPT = REPO_ROOT / "scripts/check" / "check_artifact_budget.py"
 
 
 def _load_budget_module():

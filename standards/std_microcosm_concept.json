@@ -380,7 +380,7 @@
   "projections": {
     "markdown": {
       "generated": true,
-      "builder": "microcosm-substrate/scripts/build_doctrine_projection.py (PLANNED)",
+      "builder": "microcosm-substrate/scripts/build/build_doctrine_projection.py (PLANNED)",
       "path_pattern": "microcosm-substrate/concepts/<id>.md",
       "note": "human-readable projection; never source"
     },

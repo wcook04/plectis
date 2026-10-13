@@ -262,7 +262,7 @@ PYTHONPATH=src ../repo-python -m microcosm_core.organs.mathematical_strategy_atl
   --out /tmp/microcosm-mathematical-strategy-atlas-hypothesis-scorer/bundle \
   --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_mathematical_strategy_atlas_hypothesis_scorer.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 A green receipt proves only pre-oracle strategy-hypothesis metadata, copied

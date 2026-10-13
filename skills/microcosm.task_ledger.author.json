@@ -111,7 +111,7 @@
     "mapping_basis": "This markdown binds task-ledger authoring to std_microcosm_task_ledger, the task_ledger doctrine kind, and mission-transaction work spine because task-ledger records must preserve source evidence, typed state, and re-entry conditions instead of becoming chat-only or markdown-only todos.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "The agent can name the capture source, subject id, acceptance or re-entry condition, evidence refs, public/private boundary, and projection visibility expectation from source evidence."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

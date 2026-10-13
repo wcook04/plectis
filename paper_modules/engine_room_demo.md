@@ -111,7 +111,7 @@ bounded organs, not an invitation to generalize beyond their receipts.
   negative case, receipt writer, public-relative fixture refs, and private-path
   redaction floor.
 - Corpus consumer:
-  `PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus`
+  `PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus`
   checks that this Markdown reader projection remains consistent with the
   generated paper-module sidecar and the capsule-backed corpus. It is a
   read-only receipt for the Markdown slice, not permission to hand-edit
@@ -293,7 +293,7 @@ Focused verification from the macro repo root:
 
 ```bash
 PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_demo.py microcosm-substrate/tests/test_engine_room_demo_organ.py -q --basetemp /tmp/microcosm-engine-room-demo
-cd microcosm-substrate && PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
+cd microcosm-substrate && PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Validation Receipt Path
@@ -303,7 +303,7 @@ receipt or generated projection surfaces:
 
 ```bash
 PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_demo.py microcosm-substrate/tests/test_engine_room_demo_organ.py -q --basetemp=/tmp/microcosm_engine_room_demo_pytest
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Receipt Expectations

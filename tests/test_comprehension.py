@@ -207,8 +207,8 @@ def _write_fixture(root: Path, *, leaky: bool = False, legacy_graph: bool = Fals
                     "edge_class": "proof_internal_structure",
                     "missing": "theorem -> lemma -> tactic edges inside a proof organ",
                     "missing_source_class": "lean_proof_term_graph_not_extracted",
-                    "owner_path": "scripts/build_code_lens_join_index.py",
-                    "re_entry_command": "PYTHONPATH=src python3 scripts/build_code_lens_join_index.py --help",
+                    "owner_path": "scripts/build/build_code_lens_join_index.py",
+                    "re_entry_command": "PYTHONPATH=src python3 scripts/build/build_code_lens_join_index.py --help",
                     "would_come_from": "a Lean-aware proof-graph builder feeding this join index",
                 }
             ],
@@ -683,7 +683,7 @@ def test_packets_redefer_honestly_on_legacy_join_index(tmp_path: Path) -> None:
     # Residuals are precise: missing-source class + owner + re-entry command.
     residual = deferred["claim_node_ontology"]
     assert residual["missing_source_class"]
-    assert residual["owner_path"] == "scripts/build_code_lens_join_index.py"
+    assert residual["owner_path"] == "scripts/build/build_code_lens_join_index.py"
     assert residual["re_entry_command"]
     claim = next(n for n in claim_pack["selected_nodes"] if n["kind"] == "claim")
     assert claim["graph_backed"] is False
@@ -831,7 +831,7 @@ def test_mutation_plan_without_target_returns_ranked_release_improvement_targets
     assert "validation_commands" in pack["selected_nodes"][0]
     assert "release approval" in pack["summary"]["what_not_to_trust"]
     body = json.dumps(pack)
-    assert "scripts/build_code_lens_join_index.py" in body
+    assert "scripts/build/build_code_lens_join_index.py" in body
     assert all(v is False for v in pack["authority_ceiling"].values())
     # The ranked list stays honest across its own lifecycle: with route/claim
     # topology resolved in the graph, rank 3 advances to the genuinely-remaining

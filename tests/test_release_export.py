@@ -407,7 +407,7 @@ where = ["src"]
     )
     _write(root / "fixtures/fixture.json", '{"fixture": true}\n')
     _write(root / "paper_modules/cold_clone_probe.md", "# Cold clone\n")
-    _write(root / "scripts/first_screen_composition_card.py", "print('ok')\n")
+    _write(root / "scripts/inspect/first_screen_composition_card.py", "print('ok')\n")
     _write(root / "skills/cold_start_navigation.md", "# Cold start\n")
     _write(root / "standards/std_microcosm_authority_boundary.json", "{}\n")
     _write(root / "tests/test_example.py", "def test_example():\n    assert True\n")
@@ -2260,3 +2260,11 @@ def test_command_receipt_row_exit_zero_requires_clean_exit() -> None:
     )
     assert ok["status"] == "pass"
     assert ok["assertion"] == "exit_zero"
+
+
+def test_export_keeps_role_owned_builders_without_exporting_build_output():
+    assert release_export._skip_reason(Path("scripts/build"), is_dir=True) is None
+    assert release_export._skip_reason(Path("scripts/build/build_map.py"), is_dir=False) is None
+    for ref in ("build/generated.py", "examples/build/output.py",
+                "scripts/build/__pycache__/build_map.pyc"):
+        assert release_export._skip_reason(Path(ref), is_dir=False) == "cache_or_build_directory"

@@ -81,7 +81,7 @@
           ]
         },
         {
-          "path": "scripts/first_screen_composition_card.py",
+          "path": "scripts/inspect/first_screen_composition_card.py",
           "resolution": "resolved",
           "role": "CLI projection locus for public JSON and terminal text first-screen cards.",
           "symbols": [
@@ -173,7 +173,7 @@
         ]
       },
       {
-        "path": "scripts/first_screen_composition_card.py",
+        "path": "scripts/inspect/first_screen_composition_card.py",
         "resolution": "resolved",
         "role": "CLI projection locus for public JSON and terminal text first-screen cards.",
         "symbols": [
@@ -445,7 +445,7 @@
         "relation_verb": "cites",
         "residual_pressure_ref": null,
         "reverse_verb": "cited_by",
-        "target_id": "scripts/first_screen_composition_card.py",
+        "target_id": "scripts/inspect/first_screen_composition_card.py",
         "target_kind": "code_locus",
         "target_status": "resolved_code_locus"
       }
@@ -497,6 +497,6 @@
   ],
   "title": "First-Screen Composition Root",
   "validator_refs": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]
 }

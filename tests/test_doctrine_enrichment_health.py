@@ -18,7 +18,7 @@ def _load(name: str, rel: str):
 
 HEALTH = _load(
     "build_doctrine_enrichment_health",
-    "scripts/build_doctrine_enrichment_health.py",
+    "scripts/build/build_doctrine_enrichment_health.py",
 )
 
 

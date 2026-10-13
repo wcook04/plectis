@@ -26,7 +26,7 @@ import sys
 import tomllib
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 PYPROJECT = REPO_ROOT / "pyproject.toml"
 RUNTIME_PACKAGE = REPO_ROOT / "src" / "microcosm_core"
 
@@ -49,7 +49,7 @@ ARTIFACT_BUDGET = {
 
 def _load_data_files() -> dict[str, list[str]]:
     """
-    Load load data files for `scripts.check_artifact_budget`.
+    Load load data files for `scripts.check.check_artifact_budget`.
 
     Input comes from the supplied source; malformed or missing data follows the exceptions
     and checks visible in the body.
@@ -60,7 +60,7 @@ def _load_data_files() -> dict[str, list[str]]:
 
 def _category(dest: str) -> str:
     """
-    Produce the category value used by `scripts.check_artifact_budget`.
+    Produce the category value used by `scripts.check.check_artifact_budget`.
 
     Inputs are `dest`; notable helpers are `startswith` and `split`.
     """
@@ -157,7 +157,7 @@ def _mib(byte_count: int) -> str:
 
 def _print_report(stats: dict[str, object]) -> None:
     """
-    Run print report for `scripts.check_artifact_budget`.
+    Run print report for `scripts.check.check_artifact_budget`.
 
     The function is a named boundary around the visible side effect or orchestration step in
     its body.
@@ -196,7 +196,7 @@ def _check(stats: dict[str, object]) -> list[str]:
     if not budget["max_total_bytes"]:
         failures.append(
             "artifact budget is unset (max_total_bytes=0); run --report and set "
-            "ARTIFACT_BUDGET in scripts/check_artifact_budget.py before enabling --check"
+            "ARTIFACT_BUDGET in scripts/check/check_artifact_budget.py before enabling --check"
         )
         return failures
     checks = (
@@ -218,7 +218,7 @@ def _check(stats: dict[str, object]) -> list[str]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run `scripts.check_artifact_budget` as a command-line entry point.
+    Run `scripts.check.check_artifact_budget` as a command-line entry point.
 
     The command parses argv, calls this module's builders or validators, and returns the
     status code used by the process wrapper.

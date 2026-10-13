@@ -198,7 +198,7 @@ receipt or generated projection surfaces:
 
 ```bash
 PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_finance_forecast_evaluation_spine.py -q --basetemp=/tmp/microcosm_finance_forecast_evaluation_spine_pytest
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Named Proof Consumers
@@ -219,7 +219,7 @@ PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_
   split, semantic-negative-case, standalone-bundle, and digest-mismatch tests
   green.
 - Corpus consumer:
-  `scripts/build_doctrine_projection.py --check-paper-module-corpus` must keep
+  `scripts/build/build_doctrine_projection.py --check-paper-module-corpus` must keep
   the 98-module Microcosm paper-module corpus valid without hand-editing the
   generated JSON instance.
 - Claim-ceiling consumer: any public or dissemination copy must preserve the

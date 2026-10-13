@@ -111,7 +111,7 @@
     "mapping_basis": "The accepted standard declares this exact propagate skill id, and the resolved mechanism proves the public live-source drift membrane through copied current source bodies, digest-refresh evidence, compile gates, negative cases, and body-free receipts without granting route or mutation authority.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "The change must propagate without granting route authority, ledger mutation, source mutation, mission-transaction execution, git operation authority, private runtime export, publication, release authority, or whole-system correctness."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

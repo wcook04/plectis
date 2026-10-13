@@ -291,7 +291,7 @@ capsule row.
 Re-entry is exact for any future expansion: after a new accepted organ or
 mechanism subject is admitted and any named code loci resolve, update the real
 row in `core/paper_module_capsules.json` and regenerate with
-`scripts/build_doctrine_projection.py --write-paper-module-corpus`. Until that
+`scripts/build/build_doctrine_projection.py --write-paper-module-corpus`. Until that
 happens, this Markdown explains the proof boundary; it does not source live Git
 mutation, Task Ledger or Work Ledger mutation authority, private-index commits,
 release claims, or aggregate doctrine-lattice coverage.
@@ -309,7 +309,7 @@ release claims, or aggregate doctrine-lattice coverage.
 - re-entry condition: after an additional organ or mechanism admission lands,
   update `paper_module.work_landing_control_spine` in
   `core/paper_module_capsules.json`, run
-  `scripts/build_doctrine_projection.py --write-paper-module-corpus`, and verify
+  `scripts/build/build_doctrine_projection.py --write-paper-module-corpus`, and verify
   Mermaid and Atlas statuses through generated outputs.
 - authority ceiling: this Markdown provides reader evidence only; it does not
   source live Git mutation, Task Ledger or Work Ledger mutation authority,
@@ -345,7 +345,7 @@ A valid future capsule admission or refresh should provide:
   line-count checks, live-mutation overclaim rejection, receipt body omission,
   streaming line-count behavior, and CLI argument order.
 - Corpus consumer:
-  `PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus`
+  `PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus`
   verifies that this Markdown remains consistent with the JSON sidecar and
   capsule-backed corpus. It is a read-only consistency receipt; it is not
   permission to hand-edit generated projections or shared capsule rows.

@@ -195,7 +195,7 @@ def test_first_action_release_candidate_proof_is_distribution_true() -> None:
     assert "tests/test_release_candidate_proof.py" in makefile
     assert "tests/test_skeptic_flight_recorder.py" in makefile
 
-    package_smoke = (MICROCOSM_ROOT / "scripts/package_install_smoke.py").read_text(
+    package_smoke = (MICROCOSM_ROOT / "scripts/release/package_install_smoke.py").read_text(
         encoding="utf-8"
     )
     assert FIRST_ACTION_HERO_GOAL in package_smoke
@@ -1090,7 +1090,7 @@ def test_package_install_smoke_build_lock_and_residue_clear(tmp_path: Path) -> N
 
     spec = importlib.util.spec_from_file_location(
         "package_install_smoke_lock",
-        MICROCOSM_ROOT / "scripts/package_install_smoke.py",
+        MICROCOSM_ROOT / "scripts/release/package_install_smoke.py",
     )
     smoke = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(smoke)
@@ -1122,7 +1122,7 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
 
     spec = importlib.util.spec_from_file_location(
         "package_install_smoke_staging",
-        MICROCOSM_ROOT / "scripts/package_install_smoke.py",
+        MICROCOSM_ROOT / "scripts/release/package_install_smoke.py",
     )
     smoke = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(smoke)
@@ -1286,7 +1286,7 @@ def test_package_install_smoke_normalizes_work_refs_before_marker_assert() -> No
 
     spec = importlib.util.spec_from_file_location(
         "package_install_smoke",
-        MICROCOSM_ROOT / "scripts/package_install_smoke.py",
+        MICROCOSM_ROOT / "scripts/release/package_install_smoke.py",
     )
     smoke = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(smoke)
@@ -1308,11 +1308,11 @@ def test_release_candidate_proof_is_publicly_discoverable() -> None:
 
     assert "RELEASE_CANDIDATE_PROOF_OUT ?= .microcosm/release-candidate-proof" in makefile
     assert (
-        "PYTHONPATH=src $(PYTHON) scripts/release_candidate_proof.py --root . "
+        "PYTHONPATH=src $(PYTHON) scripts/release/release_candidate_proof.py --root . "
         "--out $(RELEASE_CANDIDATE_PROOF_OUT) --python $(PYTHON)"
     ) in makefile
     assert (
-        "PYTHONPATH=src $(PYTHON) scripts/release_candidate_proof.py verify "
+        "PYTHONPATH=src $(PYTHON) scripts/release/release_candidate_proof.py verify "
         "$(RELEASE_CANDIDATE_PROOF_VERIFY_DIR) --root ."
     ) in makefile
 

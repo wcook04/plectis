@@ -24,7 +24,7 @@ def _load(name: str, rel: str):
     return mod
 
 
-SOUND = _load("check_doctrine_formal_soundness", "scripts/check_doctrine_formal_soundness.py")
+SOUND = _load("check_doctrine_formal_soundness", "scripts/check/check_doctrine_formal_soundness.py")
 
 
 def test_every_formal_statement_is_symbol_sound() -> None:
@@ -91,7 +91,7 @@ def test_gate_passes_a_well_formed_record() -> None:
 
 
 def test_health_projection_reports_and_gates_on_soundness() -> None:
-    health = _load("build_doctrine_enrichment_health", "scripts/build_doctrine_enrichment_health.py")
+    health = _load("build_doctrine_enrichment_health", "scripts/build/build_doctrine_enrichment_health.py")
     report = health.build_health(MICRO_ROOT)
     assert "formal_soundness" in report
     fs = report["formal_soundness"]

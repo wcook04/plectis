@@ -348,7 +348,7 @@ the claim ceiling the answer carries.
     ```
 
   - Focused proof consumer:
-    `scripts/build_doctrine_projection.py --check-paper-module-corpus`
+    `scripts/build/build_doctrine_projection.py --check-paper-module-corpus`
   - Claim ceiling: proves capsule/sidecar parity only; Markdown remains a reader
     projection.
 - **Does the replay recompute the attribution claim?**
@@ -467,7 +467,7 @@ runtime-shell validation shape.
 
 ```bash
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_mechanistic_interpretability_circuit_attribution_replay.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 The focused regression pins recomputation, stale-row rejection, graph and
@@ -565,7 +565,7 @@ Reader-verifiable commands, run from the `microcosm-substrate/` public root:
 
 ```bash
 PYTHONPATH=src python3 -m pytest tests/test_mechanistic_interpretability_circuit_attribution_replay.py -q
-PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 The focused test exercises this organ's fixture and bundle expectations; the corpus check confirms the capsule, generated Mermaid projection, Atlas card, and this Markdown projection stay mutually consistent. These are reader-verifiable evidence only and do not authorize release, provider dispatch, source mutation, or whole-system correctness.

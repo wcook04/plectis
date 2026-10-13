@@ -64,7 +64,7 @@ flowchart TD
   runtime["src/microcosm_core/organs/batch11_saturation_engines_capsule.py<br/>run, validate-bundle, result_card, AUTHORITY_CEILING"]
   fixture["fixtures/first_wave/batch11_saturation_engines_capsule/input<br/>public mechanism and negative-case probes"]
   bundle["examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle<br/>source_module_manifest.json: 12 copied/refactored public source modules"]
-  tests["tests/test_batch11_saturation_engines_capsule.py<br/>scripts/build_doctrine_projection.py --check-paper-module-corpus<br/>scripts/build_doctrine_projection.py --check"]
+  tests["tests/test_batch11_saturation_engines_capsule.py<br/>scripts/build/build_doctrine_projection.py --check-paper-module-corpus<br/>scripts/build/build_doctrine_projection.py --check"]
   receipts["receipts/first_wave/batch11_saturation_engines_capsule/*<br/>receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json<br/>status: pass; accepted: true; body_in_receipt: false"]
   atlas["atlas/doctrine_lattice_graph.mmd and doctrine_lattice_projection.json<br/>Mermaid: available_from_capsule_edges<br/>Atlas: linked_from_capsule_edges"]
   ceiling["Authority ceiling<br/>fixture-bound source-body import, source-faithful public ports,<br/>computed negative probes, body-free receipts only"]
@@ -210,8 +210,8 @@ PYTHONPATH=src ../repo-python -m microcosm_core.organs.batch11_saturation_engine
   --acceptance-out /tmp/microcosm-batch11-saturation-engines-bundle-acceptance.json \
   --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider --basetemp=/tmp/microcosm-batch11-saturation-engines-tests -q tests/test_batch11_saturation_engines_capsule.py
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check
 ```
 
 The fixture command writes the Batch-11 saturation-engine receipt and

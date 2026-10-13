@@ -16,7 +16,7 @@ from typing import Any
 
 def _load_snapshot(path: Path) -> dict[str, Any]:
     """
-    Load load snapshot for `scripts.build_code_lens_spine_attestation`.
+    Load load snapshot for `scripts.build.build_code_lens_spine_attestation`.
 
     Input comes from `path`; malformed or missing data follows the exceptions and checks
     visible in the body.
@@ -128,7 +128,7 @@ def build_attestation(
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run `scripts.build_code_lens_spine_attestation` as a command-line entry point.
+    Run `scripts.build.build_code_lens_spine_attestation` as a command-line entry point.
 
     The command parses argv, calls this module's builders or validators, and returns the
     status code used by the process wrapper.

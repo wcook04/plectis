@@ -28,7 +28,7 @@ from microcosm_core.release_candidate_proof import (
 from microcosm_core.skeptic_flight_recorder import FIRST_ACTION_HERO_GOAL
 
 _SCRIPT = (
-    Path(__file__).resolve().parents[1] / "scripts" / "build_release_review.py"
+    Path(__file__).resolve().parents[1] / "scripts/build" / "build_release_review.py"
 )
 _spec = importlib.util.spec_from_file_location("build_release_review", _SCRIPT)
 assert _spec and _spec.loader

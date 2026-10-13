@@ -199,11 +199,11 @@ def test_skeptic_flight_recorder_is_publicly_discoverable() -> None:
     assert "flight-recorder:" in makefile
     assert "flight-recorder-verify:" in makefile
     assert (
-        "PYTHONPATH=src $(PYTHON) scripts/skeptic_flight_recorder.py --root . "
+        "PYTHONPATH=src $(PYTHON) scripts/release/skeptic_flight_recorder.py --root . "
         "--out $(FLIGHT_RECORDER_OUT) --python $(PYTHON)"
     ) in makefile
     assert (
-        "PYTHONPATH=src $(PYTHON) scripts/skeptic_flight_recorder.py verify "
+        "PYTHONPATH=src $(PYTHON) scripts/release/skeptic_flight_recorder.py verify "
         "$(FLIGHT_RECORDER_VERIFY_DIR) --root ."
     ) in makefile
 

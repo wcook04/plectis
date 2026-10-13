@@ -476,7 +476,7 @@ def test_doctrine_projection_status_only_card_is_read_only_and_compact() -> None
     result = subprocess.run(
         [
             sys.executable,
-            "scripts/build_doctrine_projection.py",
+            "scripts/build/build_doctrine_projection.py",
             "--status-only",
         ],
         cwd=MICROCOSM_ROOT,
@@ -503,7 +503,7 @@ def test_doctrine_projection_builder_exposes_targeted_refresh_controls() -> None
     result = subprocess.run(
         [
             sys.executable,
-            "scripts/build_doctrine_projection.py",
+            "scripts/build/build_doctrine_projection.py",
             "--help",
         ],
         cwd=MICROCOSM_ROOT,

@@ -298,10 +298,10 @@ projections:
 
 ```bash
 cd microcosm-substrate
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
-This lane intentionally does not run `scripts/build_doctrine_projection.py
+This lane intentionally does not run `scripts/build/build_doctrine_projection.py
 --write`; generated projections, atlas cards, and shared capsule surfaces belong
 to their owner lanes.
 

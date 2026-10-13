@@ -10,17 +10,22 @@ Some papers may be available in the repository before they appear on the website
 
 This checkout contains 21 active papers.
 
-## Project papers
+## System and exposition papers
 
-- [Problem-Sized Lean Worlds](full-text/claim-faithful-publication-systems-paper.md)
-- [From a Cold Clone to a Proof Receipt](full-text/cold-clone-to-proof-receipt.md)
-- [From Spare Compute to Cumulative Mathematics](full-text/open-source-mathematics-strategy.md)
-- [Plectis: What a Stranger Can Check](full-text/plectis-public-system.md)
+- [Plectis: What a Stranger Can Check](full-text/plectis-public-system.md) — Evidence boundary
 
 The mathematical papers are listed below, [by Erdős problem number](#problem-portfolio).
 
 The links above open the full papers as text. The catalogue below
 also links to PDFs, LaTeX sources and individual sections.
+
+## Companion system papers
+
+These are companion copies; the named home repository owns each manuscript.
+
+- [Problem-Sized Lean Worlds](full-text/claim-faithful-publication-systems-paper.md) — companion copy from `plectis-erdos`
+- [From a Cold Clone to a Proof Receipt](full-text/cold-clone-to-proof-receipt.md) — companion copy from `plectis-erdos`
+- [From Spare Compute to Cumulative Mathematics](full-text/open-source-mathematics-strategy.md) — companion copy from `plectis-erdos`
 
 <a id="problem-portfolio"></a>
 
@@ -204,6 +209,9 @@ responsibility for proof verification, status and explanation as follows:
 
 > checked Lean source is proof authority; the claims registry owns public status and coordinates; methodology owns transition rules; the paper owns exposition.
 
+Each paper's evidence ceiling and publication state remain in
+[the corpus record](corpus.json), including `not_authority_for` and
+the source identity of every imported or archived edition.
 - `erdos-68-factorial-denominator-irrationality` is not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #68, which remains open.
 - `erdos68-factorial-reasoning-surface` is not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #68, which remains open.
 - `erdos-243-reciprocal-tail-rigidity` is not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #243, which remains open.
@@ -245,7 +253,7 @@ The `.tex` file is the original manuscript. If the generated text differs,
 consult that source and report the conversion error.
 
 After editing a native manuscript, install Pandoc and run
-`python3 docs/papers/refresh_paper_corpus.py --write` from the repository root.
+`python3 scripts/papers/refresh_paper_corpus.py --write` from the repository root.
 This refreshes the text, section maps and this index. Rebuild changed PDFs
 and run the repository release checks separately. Companion copies retain
 their imported source identities; local edits do not publish a new revision.

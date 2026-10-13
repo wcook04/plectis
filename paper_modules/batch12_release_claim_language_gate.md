@@ -315,7 +315,7 @@ of speech.
   omission.
 - Run fixture and bundle routes from `microcosm-substrate/`. The CLI supports
   `--card`, but it does not expose a `--json` flag.
-- Use `scripts/build_doctrine_projection.py --check-paper-module-corpus` to
+- Use `scripts/build/build_doctrine_projection.py --check-paper-module-corpus` to
   verify this Markdown projection still satisfies the shared paper-module
   coverage contract.
 

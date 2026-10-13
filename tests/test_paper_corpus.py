@@ -10,7 +10,7 @@ the failure that actually happens: someone edits a manuscript and the generated
 text silently keeps describing the previous one. ``corpus.json`` records the
 SHA-256 of every manuscript it was built from, so comparing hashes catches that.
 
-The shipped checker is ``docs/papers/check_paper_corpus.py``; it is copied into
+The shipped checker is ``scripts/papers/check_paper_corpus.py``; it is copied into
 this repository by the export, so this module invokes it rather than restating
 its logic.
 """
@@ -28,12 +28,12 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CORPUS_DIR = REPO_ROOT / "docs" / "papers"
 CORPUS = CORPUS_DIR / "corpus.json"
-CHECKER = CORPUS_DIR / "check_paper_corpus.py"
+CHECKER = REPO_ROOT / "scripts/papers/check_paper_corpus.py"
 
 
 def test_corpus_is_present() -> None:
     assert CORPUS.is_file(), "docs/papers/corpus.json is missing; re-run the export"
-    assert CHECKER.is_file(), "docs/papers/check_paper_corpus.py is missing"
+    assert CHECKER.is_file(), "scripts/papers/check_paper_corpus.py is missing"
 
 
 def test_shipped_checker_reports_the_corpus_is_current() -> None:

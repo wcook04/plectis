@@ -216,7 +216,7 @@ Read this module through the following source-to-proof route:
   mismatch blockers, exact copied-body imports, secret-exclusion receipt policy,
   and fresh-card reuse behavior.
 - Corpus consumer:
-  `PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus`
+  `PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus`
   checks that the Markdown reader projection, JSON capsule row, and generated
   sidecar stay in corpus parity. It is a read-only receipt for this Markdown
   slice, not permission to hand-edit generated projections.
@@ -306,8 +306,8 @@ without writing tracked receipts:
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.routing_anti_patterns_registry run --input fixtures/first_wave/routing_anti_patterns_registry/input --out /tmp/microcosm-routing-anti-patterns-registry/fixture --acceptance-out /tmp/microcosm-routing-anti-patterns-registry/acceptance.json --card
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.routing_anti_patterns_registry run-bundle --input examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle --out /tmp/microcosm-routing-anti-patterns-registry/bundle --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_routing_anti_patterns_registry.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check
 ```
 
 Passing validation proves the public anti-pattern registry fixture and

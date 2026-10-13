@@ -16,7 +16,7 @@ from pathlib import Path
 import pytest
 
 _SCRIPT = (
-    Path(__file__).resolve().parents[1] / "scripts" / "build_first_action_demo.py"
+    Path(__file__).resolve().parents[1] / "scripts/build" / "build_first_action_demo.py"
 )
 _spec = importlib.util.spec_from_file_location("build_first_action_demo", _SCRIPT)
 assert _spec and _spec.loader

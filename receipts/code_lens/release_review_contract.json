@@ -1,14 +1,14 @@
 {
   "artifact_subjects": [
     {
-      "bytes": 37905,
+      "bytes": 37929,
       "ref": "FIRST_ACTION.md",
-      "sha256": "1a2ed162ed77bd3971512d01fb2591a337e2d5fadd0b97d7e07a01fa1c46c3f1"
+      "sha256": "1f1e8bdd8c066c933fedaa68feb59671a7994d4ec09ed5561d9a39d16bb4c570"
     },
     {
-      "bytes": 58010,
+      "bytes": 58022,
       "ref": "receipts/code_lens/first_action_demo.json",
-      "sha256": "019482416e49e0a76b33bad1255d1b82730cb5aee3547858c377db250199ad20"
+      "sha256": "303a70f083e66c26bb056277f2a80e8cd747fb70becd07016b1ca0cf2cc9e14d"
     }
   ],
   "assay_requirements": [
@@ -19,7 +19,7 @@
   "commands": {
     "generate": [
       "make release-candidate-proof",
-      "PYTHONPATH=src python3 scripts/release_candidate_proof.py --root . --out .microcosm/release-candidate-proof"
+      "PYTHONPATH=src python3 scripts/release/release_candidate_proof.py --root . --out .microcosm/release-candidate-proof"
     ],
     "no_rerun_verify": "make release-candidate-proof-verify",
     "public_site_parity": "make public-site-parity",
@@ -27,7 +27,7 @@
     "review_alias_behavior": "generate_fresh_then_verify_then_print_card",
     "verify": [
       "make release-candidate-proof-verify",
-      "PYTHONPATH=src python3 scripts/release_candidate_proof.py verify .microcosm/release-candidate-proof --root ."
+      "PYTHONPATH=src python3 scripts/release/release_candidate_proof.py verify .microcosm/release-candidate-proof --root ."
     ]
   },
   "contexts": [
@@ -114,7 +114,7 @@
       "surface": "verify"
     }
   ],
-  "generated_by": "scripts/build_release_review.py",
+  "generated_by": "scripts/build/build_release_review.py",
   "hero_goal": "How do I evaluate the finance forecasting system?",
   "integrity_requirements": [
     "scan saved files for the source-root and home-directory strings and the patterns in `FORBIDDEN_OUTPUT_NEEDLES`; a match prevents a passing result",
@@ -146,6 +146,6 @@
   },
   "proof_boundary": "the generator compares the component ID and suggested command and validator returned for one question in a checkout, installed package, and export with the saved demonstration; command comparisons normalize whitespace and recognized invocation prefixes. It does not run the suggested finance command or validator. Verification compares recorded file hashes and recomputed results with the packet; it does not prove the run happened as recorded. Rerun generation to obtain results from your own run. A passing result does not establish forecast accuracy or whole-system correctness, and does not authorize release, publication, provider calls, or source mutation",
   "publication_binding": "publication_artifact_not_yet_bound",
-  "refresh_command": "PYTHONPATH=src python3 scripts/build_release_review.py --write",
+  "refresh_command": "PYTHONPATH=src python3 scripts/build/build_release_review.py --write",
   "schema_version": "microcosm_release_review_contract_v1"
 }

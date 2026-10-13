@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 SRC_ROOT = REPO_ROOT / "src"
@@ -74,7 +74,7 @@ PUBLIC_SAFE_NORMALIZABLE_RELATIONS = frozenset(
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    Produce the public root for path value used by `scripts.refresh_source_module_manifest`.
+    Produce the public root for path value used by `scripts.release.refresh_source_module_manifest`.
 
     Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
@@ -108,7 +108,7 @@ def _display(path: Path, *, public_root: Path) -> str:
 def _sha256_hex(path: Path) -> str:
     """
     Return the stable digest computed by
-    `scripts.refresh_source_module_manifest._sha256_hex`.
+    `scripts.release.refresh_source_module_manifest._sha256_hex`.
 
     The input is `path`; the body uses deterministic JSON encoding or chunked file reads
     before formatting the hash.
@@ -123,7 +123,7 @@ def _sha256_hex(path: Path) -> str:
 def _sha256_hex_bytes(data: bytes) -> str:
     """
     Return the stable digest computed by
-    `scripts.refresh_source_module_manifest._sha256_hex_bytes`.
+    `scripts.release.refresh_source_module_manifest._sha256_hex_bytes`.
 
     The input is `data`; the body uses deterministic JSON encoding or chunked file reads
     before formatting the hash.
@@ -156,7 +156,7 @@ def _styled_sha256(hex_digest: str, *, prefixed: bool) -> str:
 
 def _line_count(path: Path) -> int:
     """
-    Return line count for `scripts.refresh_source_module_manifest`.
+    Return line count for `scripts.release.refresh_source_module_manifest`.
 
     Inputs are `path`; notable helpers are `open`.
     """
@@ -260,7 +260,7 @@ def _inferred_module_id(row: dict[str, Any], *, source_ref: str) -> str:
 def _public_safety_transform_descriptions(transform: dict[str, Any]) -> list[str]:
     """
     Produce the public safety transform descriptions value used by
-    `scripts.refresh_source_module_manifest`.
+    `scripts.release.refresh_source_module_manifest`.
 
     Inputs are `transform`; notable helpers are `add`, `append`, and `get`.
     """
@@ -300,7 +300,7 @@ def _public_safety_transform_descriptions(transform: dict[str, Any]) -> list[str
 def _public_safe_ref_transform(ref: str) -> tuple[str, dict[str, Any]]:
     """
     Produce the public safe ref transform value used by
-    `scripts.refresh_source_module_manifest`.
+    `scripts.release.refresh_source_module_manifest`.
 
     Inputs are `ref`; notable helpers are `sanitize_public_reference_text` and
     `public_safe_transform_receipt`.
@@ -323,7 +323,7 @@ def _bundle_manifest_source_root_transform(
 ) -> dict[str, Any]:
     """
     Serialize
-    `scripts.refresh_source_module_manifest._bundle_manifest_source_root_transform` into the
+    `scripts.release.refresh_source_module_manifest._bundle_manifest_source_root_transform` into the
     payload shape expected by scripts refresh source module manifest.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -378,7 +378,7 @@ def refresh_manifest(
     target_metadata_only: bool = False,
 ) -> dict[str, Any]:
     """
-    Serialize `scripts.refresh_source_module_manifest.refresh_manifest` into the payload
+    Serialize `scripts.release.refresh_source_module_manifest.refresh_manifest` into the payload
     shape expected by scripts refresh source module manifest.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -823,7 +823,7 @@ def refresh_manifest(
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run `scripts.refresh_source_module_manifest` as a command-line entry point.
+    Run `scripts.release.refresh_source_module_manifest` as a command-line entry point.
 
     The command parses argv, calls this module's builders or validators, and returns the
     status code used by the process wrapper.

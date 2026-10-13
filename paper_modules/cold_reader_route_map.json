@@ -523,6 +523,6 @@
   ],
   "title": "Cold-Reader Route Map",
   "validator_refs": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]
 }

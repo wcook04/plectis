@@ -388,7 +388,7 @@ The focused regression test and corpus projection checks are:
 
 ```bash
 cd microcosm-substrate && ../repo-pytest microcosm-substrate/tests/test_belief_state_process_reward_replay.py
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 The receipt path proves body-free public belief-state process-reward replay

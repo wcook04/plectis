@@ -138,7 +138,7 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "workingness: clear",
         "served status: pass",
         ".microcosm/smoke/",
-        "scripts/check_smoke_outputs.py",
+        "scripts/check/check_smoke_outputs.py",
         "python3 -m plectis",
         "python3 -m microcosm_core` remains the compatibility spelling",
         "pip install -e '.[test]'",
@@ -237,7 +237,7 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "plectis authority --card",
         "plectis workingness --card",
         "plectis legibility-scorecard",
-        "scripts/check_smoke_outputs.py",
+        "scripts/check/check_smoke_outputs.py",
     ):
         assert " ".join(phrase.split()) in normalized_validation_runbook, phrase
 

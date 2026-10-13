@@ -246,7 +246,7 @@ corpus parity check:
 
 ```bash
 PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_public_projection_leak_gate.py -q --basetemp /tmp/microcosm-public-projection-leak-gate
-cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 Passing these commands proves only that the public fixture behavior and governed
@@ -310,7 +310,7 @@ not for an accepted organ. Its runnable source and tests make the staged
 mechanism inspectable and mark the proof boundary. Re-entry for the remaining
 organ/atlas slice is separate: after an organ-registry or atlas owner admits a
 resolving organ subject, refresh the capsule row and regenerate with
-`scripts/build_doctrine_projection.py --write-paper-module-corpus`, keeping
+`scripts/build/build_doctrine_projection.py --write-paper-module-corpus`, keeping
 Mermaid and Atlas as generated projections.
 
 ## Subject Admission Audit
@@ -353,7 +353,7 @@ regeneration.
 - re-entry condition: after an organ admission or atlas binding lands, refresh
   `paper_module.engine_room_public_projection_leak_gate` in
   `core/paper_module_capsules.json`, run
-  `scripts/build_doctrine_projection.py --write-paper-module-corpus`, and verify
+  `scripts/build/build_doctrine_projection.py --write-paper-module-corpus`, and verify
   the generated instance keeps capsule-backed Mermaid while binding Atlas through
   the admitted organ surface.
 - authority ceiling: this page can explain the staged public exercise and source

@@ -111,7 +111,7 @@
     "mapping_basis": "The standard JSON for std_microcosm_batch7_oracle_sibling_capsule declares this exact author skill id and governed kind batch7_oracle_sibling_capsule; the skill binds authoring to the standard-contract concept while source-naming accepted mechanism id mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule as a navigation/authoring neighbour; this does not claim runtime correctness, source-body equivalence, provider behavior, release readiness, publication readiness, private-root equivalence, or whole-system correctness.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "The batch7_oracle_sibling_capsule lane can be worked from its standard JSON, registry row, source refs, public fixtures or paper-module boundary, and explicit authority ceiling."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

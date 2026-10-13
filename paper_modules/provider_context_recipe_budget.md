@@ -184,7 +184,7 @@ PYTHONPATH=src ../repo-python -m microcosm_core.organs.provider_context_recipe_b
   --out /tmp/microcosm-provider-context-recipe-budget-policy/bundle \
   --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_provider_context_recipe_budget_policy.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 A green receipt proves only public context-recipe metadata, byte ceilings, omitted
@@ -213,7 +213,7 @@ validation, and acceptance receipts. Bundle mode must validate the exported
 runtime shape and write one body-free bundle validation result.
 
 The corpus proof consumer is
-`scripts/build_doctrine_projection.py --check-paper-module-corpus`. It proves
+`scripts/build/build_doctrine_projection.py --check-paper-module-corpus`. It proves
 that the Markdown/capsule-backed paper-module corpus remains reproducible after
 the reader projection changes; it does not refresh generated Mermaid, Atlas,
 site, verifier, or capsule state.
@@ -294,7 +294,7 @@ A complete local receipt includes:
 - focused pytest output for
   `tests/test_provider_context_recipe_budget_policy.py`;
 - paper-module corpus check output from
-  `scripts/build_doctrine_projection.py --check-paper-module-corpus`;
+  `scripts/build/build_doctrine_projection.py --check-paper-module-corpus`;
 - generated-row proof showing 19 relationship edges, Mermaid
   `available_from_capsule_edges`, Atlas `linked_from_capsule_edges`,
   `source_authority: json_capsule`, and no unpopulated selective relations.

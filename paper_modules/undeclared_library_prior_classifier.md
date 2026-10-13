@@ -230,7 +230,7 @@ The focused regression consumer is
 and bundle commands to public-relative receipts, source-module digest mismatch
 blocking, manifest and row-level `body_in_receipt` rejection, compact-card
 redaction, and fresh-card reuse. The corpus consumer is
-`scripts/build_doctrine_projection.py --check-paper-module-corpus`, which proves
+`scripts/build/build_doctrine_projection.py --check-paper-module-corpus`, which proves
 the Markdown remains part of the 98-module Microcosm paper-module corpus. That
 corpus check is routing and projection parity evidence only; it is not a
 runtime proof substitute.
@@ -392,7 +392,7 @@ PYTHONPATH=src ../repo-python -m microcosm_core.organs.undeclared_library_prior_
   --out /tmp/microcosm-undeclared-library-prior-symbol-classifier/bundle \
   --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_undeclared_library_prior_symbol_classifier.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 jq '{mermaid: .paper_module_payload.generated_projections.mermaid.status, atlas: .paper_module_payload.generated_projections.atlas_card.status, edge_count: (.relationships.edges | length)}' paper_modules/undeclared_library_prior_classifier.json
 ```
 

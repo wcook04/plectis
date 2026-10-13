@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from scripts.check_lean_proof_trust import NATIVE_DECIDE, first_violation, main
+from scripts.check.check_lean_proof_trust import NATIVE_DECIDE, first_violation, main
 
 
 def test_proof_trust_scanner_rejects_executable_shortcuts() -> None:
