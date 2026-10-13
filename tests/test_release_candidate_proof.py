@@ -1308,12 +1308,12 @@ def test_release_candidate_proof_is_publicly_discoverable() -> None:
 
     assert "RELEASE_CANDIDATE_PROOF_OUT ?= .microcosm/release-candidate-proof" in makefile
     assert (
-        "PYTHONPATH=src $(PYTHON) scripts/release_candidate_proof.py --root . "
-        "--out $(RELEASE_CANDIDATE_PROOF_OUT) --python $(PYTHON)"
+        'PYTHONPATH=src "$(PYTHON)" scripts/release_candidate_proof.py --root . '
+        '--out "$(RELEASE_CANDIDATE_PROOF_OUT)" --python "$(PYTHON)"'
     ) in makefile
     assert (
-        "PYTHONPATH=src $(PYTHON) scripts/release_candidate_proof.py verify "
-        "$(RELEASE_CANDIDATE_PROOF_VERIFY_DIR) --root ."
+        'PYTHONPATH=src "$(PYTHON)" scripts/release_candidate_proof.py verify '
+        '"$(RELEASE_CANDIDATE_PROOF_VERIFY_DIR)" --root .'
     ) in makefile
 
     # Follow the public review instructions from the README instead of
