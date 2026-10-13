@@ -564,13 +564,14 @@ def _check_snapshot(
             }
         )
 
+    # The landing's editorial copy may change as research takes prominence.
+    # Backend boundaries are checked in each packet's site fields above;
+    # llms.txt remains a required, hash-checked and live-compared artifact.
     required_html_phrases = (
         f'data-mc-fact="component_count">{source_counts["component_count"]}',
         SOURCE_OF_RECORD,
-        "no hosted service",
         "plectis-ai-reader-digest.json",
         "plectis-ai-review-packet.json",
-        "llms.txt",
     )
     lean_repo_url = "https://github.com/wcook04/plectis-erdos"
     front_door_html_phrases = (
