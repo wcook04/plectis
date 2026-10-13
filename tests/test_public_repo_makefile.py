@@ -13,8 +13,8 @@ import pytest
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 MAKEFILE = MICROCOSM_ROOT / "Makefile"
-CHECK_SMOKE_OUTPUTS = MICROCOSM_ROOT / "scripts" / "check_smoke_outputs.py"
-PACKAGE_INSTALL_SMOKE = MICROCOSM_ROOT / "scripts" / "package_install_smoke.py"
+CHECK_SMOKE_OUTPUTS = MICROCOSM_ROOT / "scripts/check" / "check_smoke_outputs.py"
+PACKAGE_INSTALL_SMOKE = MICROCOSM_ROOT / "scripts/release" / "package_install_smoke.py"
 
 
 def _accepted_organ_count(root: Path = MICROCOSM_ROOT) -> int:
