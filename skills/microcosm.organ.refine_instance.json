@@ -111,7 +111,7 @@
     "mapping_basis": "This markdown maps organ refinement to std_microcosm_organ, the organ doctrine kind, and the pattern-assimilation mechanism because refinement must land as bounded source-backed evidence or typed residual pressure.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "The refinement can be scoped without crossing another active owner claim."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

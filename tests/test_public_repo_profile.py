@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-PROFILE = MICROCOSM_ROOT / "scripts/public_repo_profile.py"
+PROFILE = MICROCOSM_ROOT / "scripts/check/public_repo_profile.py"
 
 
 def _run(*args: str, cwd: Path = MICROCOSM_ROOT) -> subprocess.CompletedProcess[str]:

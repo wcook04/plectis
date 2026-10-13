@@ -9,14 +9,14 @@ from pathlib import Path
 from typing import Any
 
 
-MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+MICROCOSM_ROOT = Path(__file__).resolve().parents[2]
 BOUNDED_BODY_FLOOR_BLOCKER = "macro_body_import_floor"
 BOUNDED_BODY_FLOOR_RUNTIME_MIRROR = "runtime_status"
 
 
 class SmokeCheckError(Exception):
     """
-    Raised when smoke Check Error fails inside `scripts.check_smoke_outputs`.
+    Raised when smoke Check Error fails inside `scripts.check.check_smoke_outputs`.
 
     The dedicated type lets callers catch that failure without masking the original message.
     """
@@ -24,7 +24,7 @@ class SmokeCheckError(Exception):
 
 def _read_json(path: Path) -> dict[str, Any]:
     """
-    Read read JSON for `scripts.check_smoke_outputs`.
+    Read read JSON for `scripts.check.check_smoke_outputs`.
 
     Input comes from `path`; malformed or missing data follows the exceptions and checks
     visible in the body.
@@ -47,7 +47,7 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 def _read_text(path: Path) -> str:
     """
-    Read read text for `scripts.check_smoke_outputs`.
+    Read read text for `scripts.check.check_smoke_outputs`.
 
     Input comes from `path`; malformed or missing data follows the exceptions and checks
     visible in the body.
@@ -62,7 +62,7 @@ def _read_text(path: Path) -> str:
 
 def _expect_status(payload: dict[str, Any], *, name: str, status: str = "pass") -> None:
     """
-    Run expect status for `scripts.check_smoke_outputs`.
+    Run expect status for `scripts.check.check_smoke_outputs`.
 
     The function is a named boundary around the visible side effect or orchestration step in
     its body.
@@ -314,7 +314,7 @@ def _expect_false(
     source: str | None = None,
 ) -> None:
     """
-    Run expect false for `scripts.check_smoke_outputs`.
+    Run expect false for `scripts.check.check_smoke_outputs`.
 
     The function is a named boundary around the visible side effect or orchestration step in
     its body.
@@ -333,7 +333,7 @@ def _expect_nested_false(
     key: str,
 ) -> None:
     """
-    Run expect nested false for `scripts.check_smoke_outputs`.
+    Run expect nested false for `scripts.check.check_smoke_outputs`.
 
     The function is a named boundary around the visible side effect or orchestration step in
     its body.
@@ -354,7 +354,7 @@ def _expect_authority_false(
     key: str,
 ) -> None:
     """
-    Run expect authority false for `scripts.check_smoke_outputs`.
+    Run expect authority false for `scripts.check.check_smoke_outputs`.
 
     The function is a named boundary around the visible side effect or orchestration step in
     its body.
@@ -376,7 +376,7 @@ def _expect_nonnegative_int(
     key: str,
 ) -> int:
     """
-    Produce the expect nonnegative int value used by `scripts.check_smoke_outputs`.
+    Produce the expect nonnegative int value used by `scripts.check.check_smoke_outputs`.
 
     Inputs are `payload`, `name`, and `key`; notable helpers are `get` and
     `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
@@ -419,7 +419,7 @@ def _expect_surface_count(
     expected: int,
 ) -> int:
     """
-    Produce the expect surface count value used by `scripts.check_smoke_outputs`.
+    Produce the expect surface count value used by `scripts.check.check_smoke_outputs`.
 
     Inputs are `payload`, `name`, `key`, and `expected`; notable helpers are `get` and
     `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
@@ -472,7 +472,7 @@ def _preview_count(payload: dict[str, Any], *, name: str, key: str) -> int:
 
 def _workingness_import_signature(payload: dict[str, Any], *, name: str) -> dict[str, Any]:
     """
-    Serialize `scripts.check_smoke_outputs._workingness_import_signature` into the payload
+    Serialize `scripts.check.check_smoke_outputs._workingness_import_signature` into the payload
     shape expected by scripts check smoke outputs.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -509,7 +509,7 @@ def _workingness_import_signature(payload: dict[str, Any], *, name: str) -> dict
 
 def _live_workingness_card(root: Path = MICROCOSM_ROOT) -> dict[str, Any]:
     """
-    Produce the live workingness card value used by `scripts.check_smoke_outputs`.
+    Produce the live workingness card value used by `scripts.check.check_smoke_outputs`.
 
     Inputs are `root`; notable helpers are `copy`, `run`, `join`, `SmokeCheckError`, and 3
     more; invalid cases raise from the explicit checks in the body.
@@ -577,7 +577,7 @@ def _expect_workingness_import_signature_fresh(workingness: dict[str, Any]) -> d
 def _expect_proof_lab_status_cache_bound(status: dict[str, Any]) -> str:
     """
     Produce the expect proof lab status cache bound value used by
-    `scripts.check_smoke_outputs`.
+    `scripts.check.check_smoke_outputs`.
 
     Inputs are `status`; notable helpers are `_expect_object`, `get`, and `SmokeCheckError`;
     invalid cases raise from the explicit checks in the body.
@@ -634,7 +634,7 @@ def _expect_served_observatory_bound(
     bounded_body_floor: bool = False,
 ) -> None:
     """
-    Run expect served observatory bound for `scripts.check_smoke_outputs`.
+    Run expect served observatory bound for `scripts.check.check_smoke_outputs`.
 
     The function is a named boundary around the visible side effect or orchestration step in
     its body.
@@ -725,7 +725,7 @@ def _expect_served_observatory_bound(
 
 def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
     """
-    Serialize `scripts.check_smoke_outputs.check_smoke_outputs` into the payload shape
+    Serialize `scripts.check.check_smoke_outputs.check_smoke_outputs` into the payload shape
     expected by scripts check smoke outputs.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -941,7 +941,7 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
 
 def print_summary(summary: dict[str, Any]) -> None:
     """
-    Run print summary for `scripts.check_smoke_outputs`.
+    Run print summary for `scripts.check.check_smoke_outputs`.
 
     The function is a named boundary around the visible side effect or orchestration step in
     its body.
@@ -981,7 +981,7 @@ def print_summary(summary: dict[str, Any]) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run `scripts.check_smoke_outputs` as a command-line entry point.
+    Run `scripts.check.check_smoke_outputs` as a command-line entry point.
 
     The command parses argv, calls this module's builders or validators, and returns the
     status code used by the process wrapper.

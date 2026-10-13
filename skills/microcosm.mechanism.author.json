@@ -111,7 +111,7 @@
     "mapping_basis": "This markdown binds mechanism authoring to std_microcosm_mechanism, the mechanism doctrine kind, and the executable doctrine grammar mechanism because mechanism admission must be computed from source rows rather than asserted from prose.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "The agent can name the mechanism source row, code locus or typed residual, host organ or typed residual, and claim ceiling boundary."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

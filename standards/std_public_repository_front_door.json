@@ -42,7 +42,7 @@
     }
   },
   "validation": {
-    "owner": "scripts/public_repo_profile.py",
+    "owner": "scripts/check/public_repo_profile.py",
     "required_report_section": "front_door_split",
     "focused_test": "tests/test_public_repo_profile.py",
     "agent_entry_max_bytes": 32768

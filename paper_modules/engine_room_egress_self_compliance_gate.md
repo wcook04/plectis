@@ -276,7 +276,7 @@ corpus parity check:
 
 ```bash
 PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_egress_self_compliance_gate.py -q
-cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 Passing these commands proves only that the public fixture behavior and JSON

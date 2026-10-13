@@ -562,7 +562,8 @@ def _skip_reason(rel: Path, *, is_dir: bool) -> str | None:
         return None
     if parts[0] in SKIPPED_ROOT_NAMES:
         return "root_local_or_nested_release_residue"
-    if any(part in SKIPPED_DIR_NAMES for part in parts):
+    checked_parts = parts[2:] if parts[:2] == ("scripts", "build") else parts
+    if any(part in SKIPPED_DIR_NAMES for part in checked_parts):
         return "cache_or_build_directory"
     if any(part.endswith(".egg-info") for part in parts):
         return "package_build_metadata"
@@ -3693,17 +3694,15 @@ def _run_install_smoke(
         tmp_root = Path(tmp)
         install_prefix = tmp_root / "install-prefix"
         smoke_artifact = tmp_root / ARTIFACT_DIR_NAME
-        shutil.copytree(
-            target,
-            smoke_artifact,
-            ignore=shutil.ignore_patterns(
-                "__pycache__",
-                "*.pyc",
-                "*.pyo",
-                "build",
-                "*.egg-info",
-            ),
-        )
+        def ignore_install_output(directory: str, names: list[str]) -> set[str]:
+            excluded = set(shutil.ignore_patterns(
+                "__pycache__", "*.pyc", "*.pyo", "build", "*.egg-info",
+            )(directory, names))
+            if Path(directory).resolve() == (target / "scripts").resolve():
+                excluded.discard("build")
+            return excluded
+
+        shutil.copytree(target, smoke_artifact, ignore=ignore_install_output)
         project = tmp_root / "scratch_project"
         project.mkdir()
         (project / "README.md").write_text("# Smoke Project\n", encoding="utf-8")

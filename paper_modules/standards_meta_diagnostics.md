@@ -271,7 +271,7 @@ A complete local receipt includes:
 - focused pytest output for
   `microcosm-substrate/tests/test_standards_meta_diagnostics.py`;
 - paper-module corpus check output from
-  `microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus`;
+  `microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus`;
 - generated-row proof from
   `microcosm-substrate/paper_modules/standards_meta_diagnostics.json`;
 - evidence that standards inventory refs, runtime contract refs, diagnostic
@@ -289,7 +289,7 @@ receipt or generated projection surfaces:
 ```bash
 ./repo-pytest microcosm-substrate/tests/test_standards_meta_diagnostics.py -q \
   --basetemp=/tmp/microcosm_standards_meta_diagnostics_pytest
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py \
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py \
   --check-paper-module-corpus
 ```
 

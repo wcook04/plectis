@@ -30,7 +30,7 @@ WSL. The [quickstart](../QUICKSTART.md#1-first-result) gives the clone command.
 This command needs no Python package installation:
 
 ```sh
-python3 scripts/check_public_system_paper.py
+python3 scripts/check/check_public_system_paper.py
 ```
 
 The script compares manuscript counts and references with files at the Git

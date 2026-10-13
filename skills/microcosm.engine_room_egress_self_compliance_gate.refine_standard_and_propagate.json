@@ -111,7 +111,7 @@
     "mapping_basis": "The standard JSON for std_microcosm_engine_room_egress_self_compliance_gate declares this exact refine_standard_and_propagate skill id and governed kind engine_room_egress_self_compliance_gate; core/mechanism_sources.json names accepted mechanism id mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate for the same governed kind. This source mapping binds the skill to that accepted mechanism neighbour without inferring from prose, generated projections, endpoint coverage, release claims, or acts_on_kind candidate pressure alone.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "The engine_room_egress_self_compliance_gate lane can be worked from its standard JSON, registry row, source refs, public fixtures or paper-module boundary, and explicit authority ceiling."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

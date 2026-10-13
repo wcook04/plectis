@@ -26,7 +26,7 @@ import sys
 import tomllib
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 PYPROJECT = REPO_ROOT / "pyproject.toml"
 RUNTIME_PACKAGE = REPO_ROOT / "src" / "microcosm_core"
 
@@ -40,16 +40,20 @@ RUNTIME_PACKAGE = REPO_ROOT / "src" / "microcosm_core"
 # reader pages and index/metadata files: 3,840 -> 3,859 files, with 371,996 net
 # added bytes. Raise only the file ceiling by that exact delta to preserve the
 # prior 10-file headroom. Both byte ceilings remain unchanged.
+# The 2026-10-13 role organization ships five previously source-only paper
+# programs plus the script guide, layout policy, checker and regression fixture.
+# The 24 moved programs replace their old entries, so the net increase is nine:
+# 3,863 -> 3,872. Preserve the existing six-file headroom and both byte ceilings.
 ARTIFACT_BUDGET = {
     "max_total_bytes": 134_217_728,  # 128 MiB
-    "max_total_files": 3_869,
+    "max_total_files": 3_878,
     "max_data_files_bytes": 120_000_000,  # ~114.4 MiB
 }
 
 
 def _load_data_files() -> dict[str, list[str]]:
     """
-    Load load data files for `scripts.check_artifact_budget`.
+    Load load data files for `scripts.check.check_artifact_budget`.
 
     Input comes from the supplied source; malformed or missing data follows the exceptions
     and checks visible in the body.
@@ -60,7 +64,7 @@ def _load_data_files() -> dict[str, list[str]]:
 
 def _category(dest: str) -> str:
     """
-    Produce the category value used by `scripts.check_artifact_budget`.
+    Produce the category value used by `scripts.check.check_artifact_budget`.
 
     Inputs are `dest`; notable helpers are `startswith` and `split`.
     """
@@ -157,7 +161,7 @@ def _mib(byte_count: int) -> str:
 
 def _print_report(stats: dict[str, object]) -> None:
     """
-    Run print report for `scripts.check_artifact_budget`.
+    Run print report for `scripts.check.check_artifact_budget`.
 
     The function is a named boundary around the visible side effect or orchestration step in
     its body.
@@ -196,7 +200,7 @@ def _check(stats: dict[str, object]) -> list[str]:
     if not budget["max_total_bytes"]:
         failures.append(
             "artifact budget is unset (max_total_bytes=0); run --report and set "
-            "ARTIFACT_BUDGET in scripts/check_artifact_budget.py before enabling --check"
+            "ARTIFACT_BUDGET in scripts/check/check_artifact_budget.py before enabling --check"
         )
         return failures
     checks = (
@@ -218,7 +222,7 @@ def _check(stats: dict[str, object]) -> list[str]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run `scripts.check_artifact_budget` as a command-line entry point.
+    Run `scripts.check.check_artifact_budget` as a command-line entry point.
 
     The command parses argv, calls this module's builders or validators, and returns the
     status code used by the process wrapper.

@@ -401,7 +401,7 @@ root:
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 PYTHONPYCACHEPREFIX=/tmp/mc_agent_monitor_pyc ./repo-pytest microcosm-substrate/tests/test_agent_monitor_redteam_falsification_replay.py -q -p no:cacheprovider --basetemp=/tmp/mc_agent_monitor_bt
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 The validation ceiling remains synthetic monitor falsification replay only.

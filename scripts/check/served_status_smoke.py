@@ -42,7 +42,7 @@ def _read_served_json(
     timeout_seconds: float,
 ) -> dict[str, Any]:
     """
-    Read read served JSON for `scripts.served_status_smoke`.
+    Read read served JSON for `scripts.check.served_status_smoke`.
 
     Input comes from `host`, `port`, `endpoint`, and `timeout_seconds`; malformed or missing
     data follows the exceptions and checks visible in the body.
@@ -110,7 +110,7 @@ def served_status_smoke(
     timeout_seconds: float = 90.0,
 ) -> dict[str, Any]:
     """
-    Produce the served status smoke value used by `scripts.served_status_smoke`.
+    Produce the served status smoke value used by `scripts.check.served_status_smoke`.
 
     Inputs are `public_root`, `project`, `out`, `host`, and `timeout_seconds`; notable
     helpers are `RuntimeShell`, `expanduser`, `resolve`, `serve`, and 13 more.
@@ -237,7 +237,7 @@ def served_status_smoke(
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run `scripts.served_status_smoke` as a command-line entry point.
+    Run `scripts.check.served_status_smoke` as a command-line entry point.
 
     The command parses argv, calls this module's builders or validators, and returns the
     status code used by the process wrapper.

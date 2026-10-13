@@ -9,14 +9,14 @@ reproduction. The counts describe the recorded revision.
 
 The snapshot data lives in [`lean_companion_snapshot.json`](../lean_companion_snapshot.json).
 The two source and release bullets are maintained by
-[`check_lean_companion_snapshot.py`](../../scripts/check_lean_companion_snapshot.py).
+[`check_lean_companion_snapshot.py`](../../scripts/check/check_lean_companion_snapshot.py).
 Run its check from the repository root:
 
 ```bash
-PYTHONPATH=src python3 scripts/check_lean_companion_snapshot.py
+PYTHONPATH=src python3 scripts/check/check_lean_companion_snapshot.py
 ```
 
-<!-- The two snapshot/release bullets are maintained by scripts/check_lean_companion_snapshot.py. -->
+<!-- The two snapshot/release bullets are maintained by scripts/check/check_lean_companion_snapshot.py. -->
 
 ## Companion project: eight Erdős problems in Lean 4
 

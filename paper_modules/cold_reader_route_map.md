@@ -187,7 +187,7 @@ runtime source locus `src/microcosm_core/organs/cold_reader_route_map.py`.
 
 The source atlas row carries the matching `paper_module_ref`, `mechanism_refs`,
 and `code_loci` entries. Generated atlas docs remain builder-owned projections:
-refresh them with `PYTHONPATH=src python3 scripts/build_organ_atlas.py --write`
+refresh them with `PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write`
 instead of editing `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, or
 `atlas/agent_task_routes.json` by hand.
 
@@ -339,7 +339,7 @@ temporary receipts:
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out /tmp/microcosm-cold-reader-route-map --acceptance-out /tmp/microcosm-cold-reader-route-map-acceptance.json
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.cold_reader_route_map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out /tmp/microcosm-cold-reader-route-map-bundle
 ../repo-pytest microcosm-substrate/tests/test_cold_reader_route_map.py
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 The focused pytest file is the proof consumer for this Markdown section. It

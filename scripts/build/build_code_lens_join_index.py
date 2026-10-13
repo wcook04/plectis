@@ -43,7 +43,7 @@ _PROOF_RESIDUAL: dict[str, str] = {
     "edge_class": EDGE_CLASS_PROOF,
     "missing": "theorem -> lemma -> tactic edges inside a proof organ",
     "missing_source_class": "lean_proof_term_graph_not_extracted",
-    "owner_path": "scripts/build_code_lens_join_index.py",
+    "owner_path": "scripts/build/build_code_lens_join_index.py",
     "blocked_on": "no Lean-aware proof-graph builder exists yet; see owner_path",
     "would_come_from": "a Lean-aware proof-graph builder feeding this join index",
 }
@@ -51,7 +51,7 @@ _PROOF_RESIDUAL: dict[str, str] = {
 
 def _load_json(path: Path, label: str) -> Any:
     """
-    Load load JSON for `scripts.build_code_lens_join_index`.
+    Load load JSON for `scripts.build.build_code_lens_join_index`.
 
     Input comes from `path` and `label`; malformed or missing data follows the exceptions
     and checks visible in the body.
@@ -66,7 +66,7 @@ def _load_json(path: Path, label: str) -> Any:
 
 def _capsule_rows(lens: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    Produce the capsule rows value used by `scripts.build_code_lens_join_index`.
+    Produce the capsule rows value used by `scripts.build.build_code_lens_join_index`.
 
     Inputs are `lens`; notable helpers are `get`.
     """
@@ -76,7 +76,7 @@ def _capsule_rows(lens: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _custody_basis(path: str) -> str:
     """
-    Produce the custody basis value used by `scripts.build_code_lens_join_index`.
+    Produce the custody basis value used by `scripts.build.build_code_lens_join_index`.
 
     Inputs are `path`.
     """
@@ -144,7 +144,7 @@ def _resolved_ref_strings(rows: Any) -> list[str]:
 
 def _screen_value(value: Any, guard: dict[str, int]) -> Any:
     """
-    Produce the screen value value used by `scripts.build_code_lens_join_index`.
+    Produce the screen value value used by `scripts.build.build_code_lens_join_index`.
 
     Inputs are `value` and `guard`; notable helpers are `search` and `get`.
     """
@@ -160,7 +160,7 @@ def _claim_node(
     organ: dict[str, Any], atlas_row: dict[str, Any], guard: dict[str, int]
 ) -> dict[str, Any]:
     """
-    Serialize `scripts.build_code_lens_join_index._claim_node` into the payload shape
+    Serialize `scripts.build.build_code_lens_join_index._claim_node` into the payload shape
     expected by scripts build code lens join index.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -183,7 +183,7 @@ def _claim_node(
 
 def _route_rows(routes_doc: Any) -> list[dict[str, Any]]:
     """
-    Produce the route rows value used by `scripts.build_code_lens_join_index`.
+    Produce the route rows value used by `scripts.build.build_code_lens_join_index`.
 
     Inputs are `routes_doc`; notable helpers are `get`.
     """
@@ -338,7 +338,7 @@ def build_join_index(
     routes: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    Serialize `scripts.build_code_lens_join_index.build_join_index` into the payload shape
+    Serialize `scripts.build.build_code_lens_join_index.build_join_index` into the payload shape
     expected by scripts build code lens join index.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -487,9 +487,9 @@ def build_join_index(
                 "edge_class": EDGE_CLASS_CLAIM,
                 "missing": "first-class claim nodes with asserts_claim/validated_by/proven_by edges",
                 "missing_source_class": "organ_registry_claim_fields_not_joined",
-                "owner_path": "scripts/build_code_lens_join_index.py",
+                "owner_path": "scripts/build/build_code_lens_join_index.py",
                 "re_entry_command": (
-                    "PYTHONPATH=src python3 scripts/build_code_lens_join_index.py"
+                    "PYTHONPATH=src python3 scripts/build/build_code_lens_join_index.py"
                     " --lens <python-lens --full snapshot>"
                 ),
                 "would_come_from": "rebuilding this join index with the organ registry plane",
@@ -503,9 +503,9 @@ def build_join_index(
                 "edge_class": EDGE_CLASS_ROUTE,
                 "missing": "route nodes fanning one task-class entry across organs",
                 "missing_source_class": "agent_task_routes_plane_absent_from_join_index",
-                "owner_path": "scripts/build_code_lens_join_index.py",
+                "owner_path": "scripts/build/build_code_lens_join_index.py",
                 "re_entry_command": (
-                    "PYTHONPATH=src python3 scripts/build_code_lens_join_index.py"
+                    "PYTHONPATH=src python3 scripts/build/build_code_lens_join_index.py"
                     " --lens <python-lens --full snapshot> --routes atlas/agent_task_routes.json"
                 ),
                 "would_come_from": "rebuilding this join index with atlas/agent_task_routes.json",
@@ -585,15 +585,30 @@ def build_join_index(
     }
 
 
+def refresh_navigation(index: dict[str, Any]) -> dict[str, Any]:
+    """Refresh this builder's route in a saved index without reasserting source evidence.
+
+    The original lens snapshot may be unavailable in a public clone. Only the
+    owned navigation pointer changes; graph edges and source evidence stay intact.
+    """
+    import copy
+
+    result = copy.deepcopy(index)
+    for row in result.get("graph", {}).get("deferred_edge_classes", []):
+        if row.get("owner_path") == "scripts/build_code_lens_join_index.py":
+            row["owner_path"] = "scripts/build/build_code_lens_join_index.py"
+    return result
+
+
 def main(argv: list[str] | None = None) -> int:
     """
-    Run `scripts.build_code_lens_join_index` as a command-line entry point.
+    Run `scripts.build.build_code_lens_join_index` as a command-line entry point.
 
     The command parses argv, calls this module's builders or validators, and returns the
     status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(description="Build the code-lens join index v2.")
-    parser.add_argument("--lens", required=True, type=Path, help="python-lens --full snapshot JSON")
+    parser.add_argument("--lens", type=Path, help="python-lens --full snapshot JSON")
     parser.add_argument(
         "--registry",
         type=Path,
@@ -617,7 +632,18 @@ def main(argv: list[str] | None = None) -> int:
         type=Path,
         default=Path("receipts/code_lens/code_lens_join_index_v0.json"),
     )
+    parser.add_argument("--refresh-navigation", action="store_true",
+                        help="refresh only owner navigation in the saved index; no lens evidence rebuild")
     args = parser.parse_args(argv)
+    if args.refresh_navigation:
+        if args.lens:
+            parser.error("--refresh-navigation does not accept a lens input")
+        index = _load_json(args.out, "saved join index")
+        args.out.write_text(json.dumps(refresh_navigation(index), indent=2, sort_keys=True) + "\n")
+        print(f"refreshed owner navigation only: {args.out}")
+        return 0
+    if not args.lens:
+        parser.error("--lens is required when rebuilding source evidence")
     lens = _load_json(args.lens, "lens snapshot")
     registry = _load_json(args.registry, "organ registry")
     if not isinstance(lens, dict) or not isinstance(registry, dict):

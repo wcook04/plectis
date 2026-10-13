@@ -111,7 +111,7 @@
     "mapping_basis": "This markdown maps receipt standard propagation to std_microcosm_receipt, the receipt doctrine kind, and standards-meta diagnostics because receipt-standard changes must be checked across generated corpora before they govern downstream support claims.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "Changing the receipt standard alters required payload fields, source-boundary semantics, omission receipts, validator refs, replay expectations, anti-claims, or authority ceilings across receipt artifacts."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

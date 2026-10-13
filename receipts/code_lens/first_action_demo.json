@@ -944,7 +944,7 @@
     }
   ],
   "doc": "FIRST_ACTION.md",
-  "generated_by": "scripts/build_first_action_demo.py",
+  "generated_by": "scripts/build/build_first_action_demo.py",
   "goal_count": 17,
   "non_goals": [
     "not release approval",
@@ -952,7 +952,7 @@
     "not whole-system correctness",
     "not a routing-quality guarantee beyond the committed assay"
   ],
-  "refresh_command": "PYTHONPATH=src python3 scripts/build_first_action_demo.py --write",
+  "refresh_command": "PYTHONPATH=src python3 scripts/build/build_first_action_demo.py --write",
   "schema_version": "microcosm_first_action_demo_v0",
   "sections": [
     {

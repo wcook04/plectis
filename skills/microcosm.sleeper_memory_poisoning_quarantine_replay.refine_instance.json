@@ -111,7 +111,7 @@
     "mapping_basis": "The standard declares this exact refine-instance skill id, and the resolved mechanism provides public sleeper memory poisoning quarantine replay evidence through synthetic fixtures, source-module manifests, validators, negative cases, and receipts.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "The correction can be bounded to synthetic fixtures and copied source-module manifests without claiming live memory security authority."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

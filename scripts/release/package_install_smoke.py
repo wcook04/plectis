@@ -76,11 +76,14 @@ def _stage_source_tree(source_root: Path, work_dir: Path) -> Path:
     staged_source = work_dir / "source"
     if staged_source.exists():
         shutil.rmtree(staged_source)
-    shutil.copytree(
-        source_root,
-        staged_source,
-        ignore=shutil.ignore_patterns(*SOURCE_STAGE_EXCLUDES),
-    )
+    def ignore(directory: str, names: list[str]) -> set[str]:
+        excluded = set(shutil.ignore_patterns(*SOURCE_STAGE_EXCLUDES)(directory, names))
+        # This is maintained source, not a package-build output directory.
+        if Path(directory).resolve() == (source_root / "scripts").resolve():
+            excluded.discard("build")
+        return excluded
+
+    shutil.copytree(source_root, staged_source, ignore=ignore)
     return staged_source
 
 
@@ -114,7 +117,7 @@ def _source_build_lock(source_root: Path):
 
 def _clear_stale_wheel_staging(source_root: Path) -> None:
     """
-    Run clear stale wheel staging for `scripts.package_install_smoke`.
+    Run clear stale wheel staging for `scripts.release.package_install_smoke`.
 
     The function is a named boundary around the visible side effect or orchestration step in
     its body.
@@ -125,7 +128,7 @@ def _clear_stale_wheel_staging(source_root: Path) -> None:
 
 def _bin_dir(venv_dir: Path) -> Path:
     """
-    Produce the bin dir value used by `scripts.package_install_smoke`.
+    Produce the bin dir value used by `scripts.release.package_install_smoke`.
 
     Inputs are `venv_dir`.
     """
@@ -177,7 +180,7 @@ def _run(
 
 def _json_payload(path: Path, *, label: str) -> dict[str, Any]:
     """
-    Produce the json payload value used by `scripts.package_install_smoke`.
+    Produce the json payload value used by `scripts.release.package_install_smoke`.
 
     Inputs are `path` and `label`; notable helpers are `loads`, `SystemExit`, and
     `read_text`; invalid cases raise from the explicit checks in the body.
@@ -193,7 +196,7 @@ def _json_payload(path: Path, *, label: str) -> dict[str, Any]:
 
 def _assert_no_private_markers(path: Path, *, label: str) -> None:
     """
-    Run assert no private markers for `scripts.package_install_smoke`.
+    Run assert no private markers for `scripts.release.package_install_smoke`.
 
     The function is a named boundary around the visible side effect or orchestration step in
     its body.
@@ -206,7 +209,7 @@ def _assert_no_private_markers(path: Path, *, label: str) -> None:
 
 def _assert_status_pass(payload: dict[str, Any], *, label: str) -> None:
     """
-    Run assert status pass for `scripts.package_install_smoke`.
+    Run assert status pass for `scripts.release.package_install_smoke`.
 
     The function is a named boundary around the visible side effect or orchestration step in
     its body.
@@ -483,7 +486,7 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run `scripts.package_install_smoke` as a command-line entry point.
+    Run `scripts.release.package_install_smoke` as a command-line entry point.
 
     The command parses argv, calls this module's builders or validators, and returns the
     status code used by the process wrapper.

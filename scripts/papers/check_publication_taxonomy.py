@@ -4,8 +4,8 @@
 The corpus is a public evidence surface. The failure that would matter here is
 not a stale hash -- ``check_paper_corpus.py`` already catches that -- but a
 field that quietly upgrades an author-released manuscript into a reviewed one,
-or hands it an archival identifier it was never given. Either would be read as
-a credential, and neither is true of anything in this corpus.
+or hands it an archival identifier it was never given. Versioned deposits are
+separate from mathematical review and from the current manuscript bytes.
 
 So this check refuses, for every paper:
 
@@ -19,7 +19,7 @@ So this check refuses, for every paper:
 It reads the corpus and nothing else, uses only the standard library, and can
 run in any CI job.
 
-    python3 docs/papers/check_publication_taxonomy.py
+    python3 scripts/papers/check_publication_taxonomy.py
 
 Exit status is 0 when the corpus is honest about its own standing, 1 when it is
 not, and 2 when the corpus is missing or unreadable.
@@ -32,15 +32,22 @@ import sys
 from pathlib import Path
 from typing import Any
 
+if __package__:
+    from .build_publication_taxonomy import archive_relation, archive_version_errors
+else:
+    from build_publication_taxonomy import archive_relation, archive_version_errors
+
 CORPUS_REL = "docs/papers/corpus.json"
-BUILDER_REL = "docs/papers/build_publication_taxonomy.py"
+BUILDER_REL = "scripts/papers/build_publication_taxonomy.py"
 
 PEER_REVIEW_STATE = "not_externally_reviewed"
 DOI_ABSENCE_REASON = "no_archival_deposit_yet"
+ARCHIVED_DOI_ABSENCE_REASON = "archival_identifier_is_not_a_doi"
 
 PUBLICATION_CLASSES = {
     "problem_paper",
     "reasoning_surface",
+    "expository_paper",
     "synthesis_paper",
     "methods_paper",
     "software_paper",
@@ -136,14 +143,25 @@ def _check_paper(paper: dict[str, Any]) -> list[str]:
 
     if paper["doi"] is not None:
         failures.append(
-            f"{paper_id}: doi is {paper['doi']!r}, but nothing in this corpus is "
-            "deposited in an archive that mints identifiers. A DOI here would be "
-            "fabricated."
+            f"{paper_id}: doi is {paper['doi']!r}, but no DOI is recorded in "
+            "the publication source. An archive identifier is not a DOI."
         )
-    if paper["doi_absence_reason"] != DOI_ABSENCE_REASON:
+    archives = paper.get("archived_versions", [])
+    expected_reason = ARCHIVED_DOI_ABSENCE_REASON if archives else DOI_ABSENCE_REASON
+    if not isinstance(archives, list):
+        failures.append(f"{paper_id}: archived_versions must be a list")
+        archives = []
+    for version in archives:
+        if not isinstance(version, dict):
+            failures.append(f"{paper_id}: archived version must be an object")
+            continue
+        failures.extend(f"{paper_id}: {error}" for error in archive_version_errors(version))
+        if version.get("relation_to_current_manuscript") != archive_relation(paper, version):
+            failures.append(f"{paper_id}: archived edition/current manuscript relation disagrees with digests")
+    if paper["doi_absence_reason"] != expected_reason:
         failures.append(
             f"{paper_id}: doi is null but doi_absence_reason is "
-            f"{paper['doi_absence_reason']!r}; it must be {DOI_ABSENCE_REASON!r} "
+            f"{paper['doi_absence_reason']!r}; it must be {expected_reason!r} "
             "so a missing identifier is never read as an oversight."
         )
 
@@ -261,13 +279,17 @@ def _check_summary(corpus: dict[str, Any], papers: list[dict[str, Any]]) -> list
         failures.append("publication_taxonomy.archival_deposit is missing")
     elif deposit.get("papers_with_doi") != 0 or deposit.get(
         "doi_absence_reason"
-    ) != DOI_ABSENCE_REASON:
+    ) != "no_doi_recorded":
         failures.append(
             "publication_taxonomy.archival_deposit must record 0 papers with a "
-            f"DOI and the reason {DOI_ABSENCE_REASON!r}; it records "
+            "DOI and the reason 'no_doi_recorded'; it records "
             f"{deposit.get('papers_with_doi')!r} and "
             f"{deposit.get('doi_absence_reason')!r}"
         )
+    if isinstance(deposit, dict) and deposit.get("papers_with_archived_versions") != sum(
+        bool(paper.get("archived_versions")) for paper in papers
+    ):
+        failures.append("publication_taxonomy.archival_deposit archive count disagrees with papers")
 
     # The new fields must not be readable as a change to what the corpus
     # establishes. The existing boundary keys stay, and the summary says so.
@@ -314,8 +336,8 @@ def main() -> int:
         for failure in failures:
             print(f"  {failure}", file=sys.stderr)
         print(
-            "\nEvery manuscript in this corpus is author-released and carries no "
-            "archival identifier.\nFix the source of the claim, then regenerate:\n"
+            "\nArchive identities must match their recorded edition; deposit is "
+            "not mathematical review.\nFix the source of the claim, then regenerate:\n"
             f"    python3 {BUILDER_REL}",
             file=sys.stderr,
         )

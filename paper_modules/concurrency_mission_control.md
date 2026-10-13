@@ -205,8 +205,8 @@ From `microcosm-substrate`, validate with throwaway receipt outputs first:
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.concurrency_mission_control run --input fixtures/first_wave/concurrency_mission_control/input --out /tmp/microcosm-concurrency-mission-control/fixture --acceptance-out /tmp/microcosm-concurrency-mission-control/acceptance.json --card
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.concurrency_mission_control run-concurrency-mission-control-bundle --input examples/concurrency_mission_control/exported_concurrency_mission_control_bundle --out /tmp/microcosm-concurrency-mission-control/bundle --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_concurrency_mission_control.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check
 ```
 
 A diagram view and navigation card are generated for this module from its

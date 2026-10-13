@@ -8,9 +8,9 @@ a projection of ``core/organ_registry.json`` + ``core/organ_families.json`` +
 own claim ceiling.
 
 Usage:
-  PYTHONPATH=src python3 scripts/build_organ_atlas.py            # status JSON
-  PYTHONPATH=src python3 scripts/build_organ_atlas.py --write    # write generated files
-  PYTHONPATH=src python3 scripts/build_organ_atlas.py --check    # fail on drift
+  PYTHONPATH=src python3 scripts/build/build_organ_atlas.py            # status JSON
+  PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write    # write generated files
+  PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --check    # fail on drift
 """
 
 from __future__ import annotations
@@ -22,7 +22,7 @@ from pathlib import Path
 from typing import Any
 
 
-MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+MICROCOSM_ROOT = Path(__file__).resolve().parents[2]
 SRC_ROOT = MICROCOSM_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
@@ -32,7 +32,7 @@ from microcosm_core.projections.organ_atlas import build  # noqa: E402
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    Register CLI syntax for `scripts.build_organ_atlas.build_parser`.
+    Register CLI syntax for `scripts.build.build_organ_atlas.build_parser`.
 
     The function mutates the provided argparse object with this module's flags, subcommands,
     or defaults.
@@ -55,7 +55,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run the `scripts.build_organ_atlas` command-line entry point.
+    Run the `scripts.build.build_organ_atlas` command-line entry point.
 
     It parses argv, invokes the file-local builders or validators, and returns a
     process-style status code.

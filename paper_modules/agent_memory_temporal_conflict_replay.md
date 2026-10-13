@@ -466,7 +466,7 @@ The focused regression test and corpus projection checks are:
 
 ```bash
 cd microcosm-substrate && ../repo-pytest microcosm-substrate/tests/test_agent_memory_temporal_conflict_replay.py
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Anti-Claim

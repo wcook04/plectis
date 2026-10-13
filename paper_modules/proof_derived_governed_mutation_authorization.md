@@ -302,7 +302,7 @@ authorization receipts into live mutation authority.
   public-relative redaction, and card receipt reuse.
 - Run the fixture or exported-bundle route from `microcosm-substrate/`. The CLI
   supports `--card`, but it does not expose a `--json` flag.
-- Use `scripts/build_doctrine_projection.py --check-paper-module-corpus` to
+- Use `scripts/build/build_doctrine_projection.py --check-paper-module-corpus` to
   verify this Markdown projection still satisfies the shared paper-module
   coverage contract.
 
@@ -328,7 +328,7 @@ receipt or generated projection surfaces:
 
 ```bash
 ./repo-pytest microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py -q --basetemp=/tmp/microcosm_proof_derived_governed_mutation_authorization_pytest
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Receipt Expectations

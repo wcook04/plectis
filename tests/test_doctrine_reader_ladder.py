@@ -22,7 +22,7 @@ def _load(name: str, rel: str):
     return mod
 
 
-GATE = _load("check_doctrine_reader_ladder", "scripts/check_doctrine_reader_ladder.py")
+GATE = _load("check_doctrine_reader_ladder", "scripts/check/check_doctrine_reader_ladder.py")
 
 
 def _well_formed() -> dict:
@@ -96,7 +96,7 @@ def test_gate_requires_a_mapping() -> None:
 
 
 def test_health_projection_reports_and_gates_on_reader_ladder() -> None:
-    health = _load("build_doctrine_enrichment_health", "scripts/build_doctrine_enrichment_health.py")
+    health = _load("build_doctrine_enrichment_health", "scripts/build/build_doctrine_enrichment_health.py")
     report = health.build_health(MICRO_ROOT)
     assert "reader_ladder" in report
     rl = report["reader_ladder"]

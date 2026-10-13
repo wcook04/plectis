@@ -164,7 +164,7 @@ rather than trusting declared benchmark language.
 PYTHONDONTWRITEBYTECODE=1 ./repo-pytest \
   microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py \
   -p no:cacheprovider
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py \
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py \
   --check-paper-module-corpus
 ```
 
@@ -392,7 +392,7 @@ The focused regression test and corpus projection checks are:
 
 ```bash
 cd microcosm-substrate && ../repo-pytest microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Anti-Claim

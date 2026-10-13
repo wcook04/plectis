@@ -186,7 +186,7 @@ corpus parity check:
 
 ```bash
 PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_bridge_campaign_dag.py -q
-cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 Passing these commands proves that the public fixture behavior and capsule JSON
@@ -210,7 +210,7 @@ synthesis path that never reaches a probe.
   provider ceiling rejection, dangling synthesis rejection, fixture-matrix
   receipt, and CLI JSON receipt.
 - Capsule/corpus parity:
-  `PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus`.
+  `PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus`.
   Expected proof shape: the generated JSON sidecar remains reproducible from the
   capsule and Markdown projection, with Mermaid available from capsule edges and
   Atlas honestly blocked behind the organ-atlas owner lane.

@@ -2,7 +2,7 @@
   "anti_claim": "Family labels, blurbs, and per-family counts are navigation metadata only. They do not encode evidence strength, score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority. Evidence strength stays in core/organ_evidence_classes.json; current-authority status stays in core/organ_registry.json.",
   "authority_boundary": "Navigation grouping over the accepted public runtime organ registry. Families are a reader-facing view that buckets organs by what they help you do; they are not a second taxonomy above the architecture kernel, organ registry, standards, or evidence classes.",
   "authority_ceiling": {
-    "coverage_rule": "Every accepted_current_authority organ in core/organ_registry.json maps to exactly one family; every organ_id listed here must exist in the registry. scripts/build_organ_atlas.py fails closed on any gap, extra, or duplicate.",
+    "coverage_rule": "Every accepted_current_authority organ in core/organ_registry.json maps to exactly one family; every organ_id listed here must exist in the registry. scripts/build/build_organ_atlas.py fails closed on any gap, extra, or duplicate.",
     "family_authority": "reader_navigation_grouping_only",
     "reader_action": "Use families to find the cluster of organs relevant to your question, then open the per-organ card in ORGANS.md and the organ's paper module / receipt for evidence. Do not read family membership or family size as maturity, completeness, or release signal."
   },

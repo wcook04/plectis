@@ -111,7 +111,7 @@
     "mapping_basis": "These three accepted standards all declare the same microcosm_runtime_organ author skill id. The target-shape tactic routing gate is the representative runtime-route anchor because it names a pre-execution organ, fixture manifest, paper module, validator contract, receipt contract, and public/private anti-claims; shared_standard_refs preserve the full accepted source set so resolving the skill id is route coverage, not per-organ runtime proof.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "The organ can be authored from public fixture evidence, copied non-secret source modules, source digests, validator contracts, receipt expectations, paper-module capsules, mechanism refs, and explicit public/private boundaries."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

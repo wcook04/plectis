@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from scripts import check_public_system_paper as paper_check
-from scripts.check_public_system_paper import PAPER, check_paper
+from scripts.check import check_public_system_paper as paper_check
+from scripts.check.check_public_system_paper import PAPER, check_paper
 
 
 def test_literal_mutation_sources_match_current_paper() -> None:

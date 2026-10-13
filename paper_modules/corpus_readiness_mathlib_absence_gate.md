@@ -76,7 +76,7 @@ The JSON-capsule-backed route is separate: the existing capsule registry already
 contains `paper_module.corpus_readiness_mathlib_absence_gate`, and that row's
 declared reader projection is `paper_modules/corpus_readiness_mathlib_absence.md`.
 A generated-projection owner pass must reconcile this filename split through
-`scripts/build_doctrine_projection.py`, not through hand edits to
+`scripts/build/build_doctrine_projection.py`, not through hand edits to
 `paper_modules/*.json`.
 
 ## Reader Proof Boundary
@@ -100,9 +100,9 @@ paper-module corpus owner lane:
   `paper_module.corpus_readiness_mathlib_absence_gate` to
   `core/paper_module_capsules.json` only through the owner lane, and do not
   duplicate the already-populated row;
-- run `PYTHONPATH=src python3 scripts/build_doctrine_projection.py --write-paper-module-corpus`
+- run `PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --write-paper-module-corpus`
   only after the owner lane is claimed;
-- verify `PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus`
+- verify `PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --check-paper-module-corpus`
   and inspect Mermaid and Atlas statuses plus aggregate doctrine-lattice
   coverage before treating the residual as closed.
 
@@ -255,7 +255,7 @@ PYTHONPATH=src PYTHONPYCACHEPREFIX=/tmp/mc_corpus_gate_pycache \
   --basetemp=/tmp/mc_corpus_gate_bt -q \
   tests/test_corpus_readiness_mathlib_absence_gate.py
 
-PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 For the filename/capsule boundary, inspect both rows:
@@ -361,7 +361,7 @@ Reader-verifiable commands, run from the `microcosm-substrate/` public root:
 
 ```bash
 PYTHONPATH=src python3 -m pytest tests/test_corpus_readiness_mathlib_absence_gate.py -q
-PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 The focused test exercises this organ's fixture and bundle expectations; the corpus check confirms the capsule, generated Mermaid projection, Atlas card, and this Markdown projection stay mutually consistent. These are reader-verifiable evidence only and do not authorize release, provider dispatch, source mutation, or whole-system correctness.

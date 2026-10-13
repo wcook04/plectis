@@ -170,8 +170,8 @@ PYTHONPATH=src ../repo-python -m microcosm_core.validators.acceptance \
   validate-assimilation-bundle \
   --input examples/pattern_assimilation_step/exported_assimilation_bundle \
   --out /tmp/microcosm-pattern-assimilation/bundle
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check
 ```
 
 The fixture and bundle receipts prove same-lane closeout-learning shape over

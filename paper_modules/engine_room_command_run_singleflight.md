@@ -276,7 +276,7 @@ corpus parity check:
 PYTHONPATH=microcosm-substrate/src ./repo-pytest \
   microcosm-substrate/tests/test_engine_room_command_run_singleflight.py \
   -q --basetemp /tmp/microcosm-command-run-singleflight
-cd microcosm-substrate && PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
+cd microcosm-substrate && PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 Passing these commands proves only that the public fixture behavior and
@@ -301,7 +301,7 @@ and reports `status`, `case_count`, `passed_case_count`, source refs,
 `source_faithful_public_refactor`, claim ceiling, and anti-claims.
 
 The projection proof consumer is
-`scripts/build_doctrine_projection.py --check-paper-module-corpus`, which keeps
+`scripts/build/build_doctrine_projection.py --check-paper-module-corpus`, which keeps
 the capsule-backed Markdown/JSON corpus reproducible while preserving the
 generated Mermaid status and the blocked Atlas-card boundary named in the JSON
 capsule.

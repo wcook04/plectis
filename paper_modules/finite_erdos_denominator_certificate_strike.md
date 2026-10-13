@@ -68,7 +68,7 @@ abides by axiom `AX-2` (a small checker decides claims over certificates) and
 principle `P-3` (prefer a small, rerunnable verifier over narrative confidence).
 
 Generated atlas docs remain builder-owned projections: refresh them with
-`PYTHONPATH=src python3 scripts/build_organ_atlas.py --write` instead of editing
+`PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write` instead of editing
 `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, or
 `atlas/agent_task_routes.json` by hand.
 

@@ -464,6 +464,6 @@
   ],
   "title": "Batch 4 Proof, Authority, and Runtime Capsule",
   "validator_refs": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]
 }

@@ -159,6 +159,15 @@ cold-reader comprehension check. These commands do not create release, hosting,
 proof, production, provider-call, source-mutation, or financial-advice
 authority.
 
+## Repository organization
+
+Use [scripts/README.md](scripts/README.md) and the
+[architecture guide](docs/maintainers/architecture.md) before moving files.
+Keep programs in `scripts/<role>/`, tests in `tests/`, and paper text in
+`docs/papers/`. Change producers, callers, imports, package destinations and
+generated navigation together. Stage intended files, then run `make check`;
+the index-based layout check is also required by CI.
+
 ## Default Reflexes
 
 These are passive defaults: you invoke them yourself the instant the trigger
@@ -321,7 +330,7 @@ Do not read organs from this index alone. The generated atlas is the contract:
   seven families sit on one shared spine.
 
 The atlas is regenerated from substrate with
-`PYTHONPATH=src python3 scripts/build_organ_atlas.py --write` and gated by
+`PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write` and gated by
 `tests/test_organ_atlas.py`; do not hand-edit `AGENT_ROUTES.md`,
 `ORGANS.md`, `ARCHITECTURE.md`, or `atlas/agent_task_routes.json`.
 Drilldown CLIs such as `plectis reveal` and `plectis spatial-simulation` are

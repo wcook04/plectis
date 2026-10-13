@@ -102,7 +102,7 @@
     "mapping_basis": "The standard JSON for std_microcosm_work_landing_control_spine declares this exact refine_instance skill id and governed kind work_landing_control_spine; the skill binds instance refinement to the standard-contract concept while leaving mechanism neighbours unclaimed until an accepted mechanism id is source-named.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -138,8 +138,8 @@
     "The work_landing_control_spine lane can be worked from its standard JSON, registry row, source refs, public fixtures or paper-module boundary, and explicit authority ceiling."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

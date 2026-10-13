@@ -161,8 +161,8 @@ PYTHONPATH=src ../repo-python -m microcosm_core.organs.batch6_unsurfaced_primiti
   --acceptance-out /tmp/microcosm-batch6-unsurfaced-primitives-bundle-acceptance.json \
   --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider --basetemp=/tmp/microcosm-batch6-unsurfaced-primitives-tests -q tests/test_batch6_unsurfaced_primitives_capsule.py
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check
 ```
 
 The fixture command writes the Batch-6 public primitive-import receipt and

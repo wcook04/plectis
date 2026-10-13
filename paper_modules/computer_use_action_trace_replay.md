@@ -193,7 +193,7 @@ readers, but it does not expand the authority ceiling beyond the capsule row.
 Re-entry is exact for any future expansion: after a new accepted organ or
 mechanism subject is admitted and any named code loci resolve, update the real
 row in `core/paper_module_capsules.json` and regenerate with
-`scripts/build_doctrine_projection.py --write-paper-module-corpus`. Until that
+`scripts/build/build_doctrine_projection.py --write-paper-module-corpus`. Until that
 happens, this Markdown explains the proof boundary; it does not source live
 browser or desktop control, account action, credential entry, external
 mutation, release claims, or aggregate doctrine-lattice coverage.
@@ -211,7 +211,7 @@ mutation, release claims, or aggregate doctrine-lattice coverage.
 - re-entry condition: after an additional organ or mechanism admission lands,
   update `paper_module.computer_use_action_trace_replay` in
   `core/paper_module_capsules.json`, run
-  `scripts/build_doctrine_projection.py --write-paper-module-corpus`, and verify
+  `scripts/build/build_doctrine_projection.py --write-paper-module-corpus`, and verify
   Mermaid and Atlas statuses through generated outputs.
 - authority ceiling: this Markdown provides reader evidence only; it does not
   source live browser or desktop control, account action, credential entry,

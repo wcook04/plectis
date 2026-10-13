@@ -142,7 +142,7 @@ standalone export and running that export's tests are documented in
 `RELEASE_REVIEW.md`, and generated atlas/registry JSON records are produced by
 the repository's build scripts. Change the source data and regenerate them
 (for the atlas:
-`PYTHONPATH=src python3 scripts/build_organ_atlas.py --write`). Tests compare
+`PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write`). Tests compare
 committed files with freshly generated files and fail if they differ.
 
 ## Documentation changes

@@ -111,7 +111,7 @@
     "mapping_basis": "This markdown maps runtime-organ instance refinement for the shared microcosm_runtime_organ triad to durable work-landing evidence because bounded organ corrections must be tied to source refs, fixtures, manifests, validator receipts, scoped commits, and explicit authority ceilings rather than status-board prose.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "The correction can be sourced from copied non-secret source modules, focused validator receipts, exact-copy/source-module manifests, paper-module capsules, mechanism evidence, durable work-landing receipts, and generated lattice health without changing the class expectation."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

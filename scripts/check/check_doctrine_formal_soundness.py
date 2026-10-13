@@ -33,9 +33,9 @@ tools/meta/dissemination/build_microcosm_public_site.py (_LATEX_SYMBOLS /
 _LATEX_TEXTOPS / _LATEX_DROP); keep them aligned if the renderer grammar grows.
 
 Usage:
-  python3 scripts/check_doctrine_formal_soundness.py --check     # exit 1 on any defect
-  python3 scripts/check_doctrine_formal_soundness.py --json      # machine report
-  python3 scripts/check_doctrine_formal_soundness.py --explain AX-3   # show atoms
+  python3 scripts/check/check_doctrine_formal_soundness.py --check     # exit 1 on any defect
+  python3 scripts/check/check_doctrine_formal_soundness.py --json      # machine report
+  python3 scripts/check/check_doctrine_formal_soundness.py --explain AX-3   # show atoms
 """
 from __future__ import annotations
 
@@ -45,7 +45,7 @@ import re
 import sys
 from pathlib import Path
 
-REPO_DEFAULT = Path(__file__).resolve().parents[1] / "core" / "doctrine_enrichment.json"
+REPO_DEFAULT = Path(__file__).resolve().parents[2] / "core" / "doctrine_enrichment.json"
 
 # --- macro classification (mirrors the bounded renderer grammar) ----------
 
@@ -115,7 +115,7 @@ _SPACE_MACRO_RE = re.compile(r"\\[,;:!]|\\quad|\\qquad|\\ ")
 
 def _normalize(s: str) -> str:
     """
-    Produce the normalize value used by `scripts.check_doctrine_formal_soundness`.
+    Produce the normalize value used by `scripts.check.check_doctrine_formal_soundness`.
 
     Inputs are `s`; notable helpers are `sub`.
     """
@@ -125,7 +125,7 @@ def _normalize(s: str) -> str:
 
 def atoms(latex: str) -> dict[str, set[str]]:
     """
-    Serialize `scripts.check_doctrine_formal_soundness.atoms` into the payload shape
+    Serialize `scripts.check.check_doctrine_formal_soundness.atoms` into the payload shape
     expected by scripts check doctrine formal soundness.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -141,7 +141,7 @@ def atoms(latex: str) -> dict[str, set[str]]:
 
     def read_group(k: int) -> tuple[str, int]:
         """
-        Read read group for `scripts.check_doctrine_formal_soundness`.
+        Read read group for `scripts.check.check_doctrine_formal_soundness`.
 
         Input comes from `k`; malformed or missing data follows the exceptions and checks
         visible in the body.
@@ -233,7 +233,7 @@ def atoms(latex: str) -> dict[str, set[str]]:
 
 def audit_record(rec: dict) -> dict:
     """
-    Serialize `scripts.check_doctrine_formal_soundness.audit_record` into the payload shape
+    Serialize `scripts.check.check_doctrine_formal_soundness.audit_record` into the payload shape
     expected by scripts check doctrine formal soundness.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -279,7 +279,7 @@ def audit_record(rec: dict) -> dict:
 
 def run(path: Path) -> dict:
     """
-    Serialize `scripts.check_doctrine_formal_soundness.run` into the payload shape expected
+    Serialize `scripts.check.check_doctrine_formal_soundness.run` into the payload shape expected
     by scripts check doctrine formal soundness.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -325,7 +325,7 @@ def _fmt(report: dict) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run `scripts.check_doctrine_formal_soundness` as a command-line entry point.
+    Run `scripts.check.check_doctrine_formal_soundness` as a command-line entry point.
 
     The command parses argv, calls this module's builders or validators, and returns the
     status code used by the process wrapper.

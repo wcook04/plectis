@@ -59,7 +59,7 @@ flowchart TD
     B --> C["Scan card against standard<br/>_standard_backed_first_screen_scan + _validation_checks"]
     C -->|all checks true| D["status: pass"]
     C -->|drift, rename, missing route| E["status: blocked<br/>failing check named"]
-    D --> F["Emit<br/>scripts/first_screen_composition_card.py --format json or text"]
+    D --> F["Emit<br/>scripts/inspect/first_screen_composition_card.py --format json or text"]
     E --> F
     F --> G["Reader output<br/>JSON contract or terminal text card, one screen"]
     A -.binds.-> H["JSON capsule row + mechanism subject<br/>core/paper_module_capsules.json"]
@@ -100,7 +100,7 @@ generated from that capsule row; it is not hand-authored truth. The capsule name
 the mechanism subject
 `mechanism.first_screen_composition_root.validates_public_first_screen_composition_root`
 and resolved code loci in `src/microcosm_core/first_screen_composition.py` and
-`scripts/first_screen_composition_card.py`.
+`scripts/inspect/first_screen_composition_card.py`.
 The generated Mermaid projection is
 `paper_module.first_screen_composition_root.mermaid`; the generated Atlas projection
 is linked as `organ_atlas.first_screen_composition_root`.
@@ -130,7 +130,7 @@ mutation authority.
   `src/microcosm_core/first_screen_composition.py` is public composition logic
   for first-screen cards and a resolved capsule code locus.
 - Card emitter:
-  `scripts/first_screen_composition_card.py` is a CLI projection for JSON/text
+  `scripts/inspect/first_screen_composition_card.py` is a CLI projection for JSON/text
   first-screen cards, bounded to public inputs and resolved as a capsule code
   locus.
 - Focused tests:
@@ -199,7 +199,7 @@ private payload bodies or inflate accounting fields into maturity scores.
   table. The useful question is whether one rerunnable local command, one
   shared proof card, and one branch route are enough to inspect the substrate
   without mistaking counts for maturity scores.
-- A peer developer starts with `scripts/first_screen_composition_card.py`, then
+- A peer developer starts with `scripts/inspect/first_screen_composition_card.py`, then
   reads `src/microcosm_core/first_screen_composition.py` and the focused
   tests. The useful question is whether the command/card projection is
   reproducible from public inputs without reading private runtime state.
@@ -239,13 +239,13 @@ serialized doctrine-projection regeneration.
 - current generated projection status: Mermaid and Atlas derive from capsule
   edges.
 - resolved code loci: `src/microcosm_core/first_screen_composition.py` and
-  `scripts/first_screen_composition_card.py`.
+  `scripts/inspect/first_screen_composition_card.py`.
 - missing authority edge: no accepted organ currently resolves
   `first_screen_composition_root`, so the capsule registry must not invent an
   organ subject.
 - re-entry condition: after a real organ admission or additional source-backed
   dependency relation lands, refresh the capsule row, run
-  `scripts/build_doctrine_projection.py --write-paper-module-corpus`, and verify
+  `scripts/build/build_doctrine_projection.py --write-paper-module-corpus`, and verify
   the generated sidecar remains honest.
 - authority ceiling: this Markdown provides mechanism-backed reader evidence
   only; it does not source publication readiness, release approval, provider
@@ -418,17 +418,17 @@ receipts, and the authority ceiling.
 
 ## Public Card Emitter
 
-`scripts/first_screen_composition_card.py` projects this contract into a
+`scripts/inspect/first_screen_composition_card.py` projects this contract into a
 public-root JSON card:
 
 ```bash
-python3 scripts/first_screen_composition_card.py --project-label <project>
+python3 scripts/inspect/first_screen_composition_card.py --project-label <project>
 ```
 
 It can also emit the terminal-sized first screen directly:
 
 ```bash
-python3 scripts/first_screen_composition_card.py --project-label <project> --format text
+python3 scripts/inspect/first_screen_composition_card.py --project-label <project> --format text
 ```
 
 The text projection can focus one reader branch while preserving the same
@@ -436,7 +436,7 @@ shared first command, evidence-count frame, omission receipt, and authority
 ceiling:
 
 ```bash
-python3 scripts/first_screen_composition_card.py --project-label <project> --format text --reader safety_evals_engineer
+python3 scripts/inspect/first_screen_composition_card.py --project-label <project> --format text --reader safety_evals_engineer
 ```
 
 `--reader all` remains the default. Focused reader projections are presentation
@@ -455,8 +455,8 @@ Reader-verifiable emitter commands, run from the `microcosm-substrate/` public
 root:
 
 ```bash
-PYTHONPATH=src ../repo-python scripts/first_screen_composition_card.py --project-label . --format json
-PYTHONPATH=src ../repo-python scripts/first_screen_composition_card.py \
+PYTHONPATH=src ../repo-python scripts/inspect/first_screen_composition_card.py --project-label . --format json
+PYTHONPATH=src ../repo-python scripts/inspect/first_screen_composition_card.py \
   --project-label . \
   --format text \
   --reader safety_evals_engineer

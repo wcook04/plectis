@@ -565,7 +565,7 @@ def command_plan(root: Path, out_dir: Path, python_executable: str) -> list[Comm
             "served_status_smoke",
             [
                 "python",
-                "scripts/served_status_smoke.py",
+                "scripts/check/served_status_smoke.py",
                 "--root",
                 ".",
                 "--project",
@@ -574,7 +574,7 @@ def command_plan(root: Path, out_dir: Path, python_executable: str) -> list[Comm
                 served_status_ref,
             ],
             script(
-                "scripts/served_status_smoke.py",
+                "scripts/check/served_status_smoke.py",
                 "--root",
                 ".",
                 "--project",
@@ -668,8 +668,8 @@ def command_plan(root: Path, out_dir: Path, python_executable: str) -> list[Comm
         ),
         CommandSpec(
             "check_smoke_outputs",
-            ["python", "scripts/check_smoke_outputs.py", "--smoke-out", smoke_ref],
-            script("scripts/check_smoke_outputs.py", "--smoke-out", smoke_ref),
+            ["python", "scripts/check/check_smoke_outputs.py", "--smoke-out", smoke_ref],
+            script("scripts/check/check_smoke_outputs.py", "--smoke-out", smoke_ref),
             "commands/check-smoke-outputs.stdout.txt",
             "commands/check-smoke-outputs.stderr.txt",
         ),

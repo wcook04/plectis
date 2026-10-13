@@ -298,7 +298,7 @@ Paper-module corpus validation:
 
 ```bash
 cd microcosm-substrate
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 Paper-module index validation from the repo root:

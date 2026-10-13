@@ -162,7 +162,7 @@ corpus parity check:
 
 ```bash
 PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_generated_projection_drift_gate.py -q --basetemp /tmp/microcosm-generated-projection-drift-gate
-cd microcosm-substrate && PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
+cd microcosm-substrate && PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 Passing these commands proves that the public fixture behavior and

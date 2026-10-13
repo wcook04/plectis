@@ -1635,7 +1635,7 @@ def test_coverage_legacy_rows_publish_cold_reader_boundary_markers() -> None:
         assert "Mermaid `blocked_required_subject_gap`" in markdown, row_id
         assert "Atlas `blocked_required_subject_gap`" in markdown, row_id
         assert "`core/paper_module_capsules.json`" in markdown, row_id
-        assert "scripts/build_doctrine_projection.py" in markdown, row_id
+        assert "scripts/build/build_doctrine_projection.py" in markdown, row_id
         assert "--write-paper-module-corpus" in markdown, row_id
         assert "must not invent a subject row yet" in compact_markdown, row_id
         assert "proof boundary" in compact_markdown, row_id
@@ -1656,7 +1656,7 @@ def test_legacy_paper_modules_explain_json_capsule_boundary() -> None:
         assert "legacy Markdown projection" in markdown, row["id"]
         assert "JSON-capsule-backed" in markdown, row["id"]
         assert "`core/paper_module_capsules.json`" in markdown, row["id"]
-        assert "scripts/build_doctrine_projection.py" in markdown, row["id"]
+        assert "scripts/build/build_doctrine_projection.py" in markdown, row["id"]
         assert "--write-paper-module-corpus" in markdown, row["id"]
         assert "Mermaid" in markdown, row["id"]
         assert "Atlas" in markdown, row["id"]

@@ -380,7 +380,7 @@ Focused runtime validation:
 Paper-module corpus validation:
 
 ```bash
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 The runtime commands behind the receipts are:

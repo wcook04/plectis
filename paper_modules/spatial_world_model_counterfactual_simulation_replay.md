@@ -281,7 +281,7 @@ PYTHONPATH=src ../repo-python -m microcosm_core.organs.spatial_world_model_count
   --out /tmp/microcosm-spatial-world-model-counterfactual-simulation-replay/bundle \
   --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_spatial_world_model_counterfactual_simulation_replay.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 jq '{mermaid: .paper_module_payload.generated_projections.mermaid.status, atlas: .paper_module_payload.generated_projections.atlas_card.status, edge_count: (.relationships.edges | length)}' paper_modules/spatial_world_model_counterfactual_simulation_replay.json
 ```
 

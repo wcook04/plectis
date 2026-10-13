@@ -294,13 +294,13 @@ Then validate the reader projection and generated row:
 cd microcosm-substrate
 ../repo-pytest microcosm-substrate/tests/test_cognitive_operator_registry.py -q
 cd ..
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 The source atlas row now carries the matching `paper_module_ref`,
 `mechanism_refs`, and `code_loci` entries. Generated atlas docs still remain
 builder-owned projections; refresh them with
-`PYTHONPATH=src python3 scripts/build_organ_atlas.py --write` instead of editing
+`PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write` instead of editing
 `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, or
 `atlas/agent_task_routes.json` by hand.
 

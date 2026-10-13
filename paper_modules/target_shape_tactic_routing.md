@@ -221,7 +221,7 @@ temporary receipts:
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.target_shape_tactic_routing_gate run --input fixtures/first_wave/target_shape_tactic_routing_gate/input --out /tmp/microcosm-target-shape-tactic-routing-gate --acceptance-out /tmp/microcosm-target-shape-tactic-routing-gate-acceptance.json
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.target_shape_tactic_routing_gate run-routing-bundle --input examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle --out /tmp/microcosm-target-shape-tactic-routing-bundle
 ../repo-pytest microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 These checks validate route-reference fixture and bundle receipts only; they do

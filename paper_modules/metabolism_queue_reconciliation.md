@@ -65,7 +65,7 @@ capsule `src/microcosm_core/engine_room/metabolism_runtime.py`. It abides by axi
 (prefer a small, rerunnable verifier over narrative confidence).
 
 Generated atlas docs remain builder-owned projections: refresh them with
-`PYTHONPATH=src python3 scripts/build_organ_atlas.py --write` instead of editing
+`PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write` instead of editing
 `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, or
 `atlas/agent_task_routes.json` by hand.
 

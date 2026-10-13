@@ -118,8 +118,8 @@ reader check does not churn tracked receipts:
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.doctrine_fact_claim_audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out /tmp/microcosm-doctrine-fact-claim-audit/fixture --acceptance-out /tmp/microcosm-doctrine-fact-claim-audit/acceptance.json --card
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.doctrine_fact_claim_audit run-doctrine-fact-bundle --input examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle --out /tmp/microcosm-doctrine-fact-claim-audit/bundle --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_doctrine_fact_claim_audit.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check
 ```
 
 A diagram view is generated for this module, and an atlas card links to it.
@@ -305,7 +305,7 @@ Runtime-shell receipt          receipts/runtime_shell/demo_project/organs/doctri
   locus, missing code locus, dead DAG ref, unbound numeric claim, semantic
   negative-case derivation, and exported-bundle route.
 - Corpus parity consumer:
-  `PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus`.
+  `PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus`.
   Expected proof shape: the generated JSON sidecar remains reproducible from
   the capsule and Markdown projection without hand-editing generated state.
 - Sidecar readback consumer:
@@ -332,7 +332,7 @@ Runtime-shell receipt          receipts/runtime_shell/demo_project/organs/doctri
 - Run the fixture or bundle route from the `microcosm-substrate` directory and
   inspect the written JSON files. The organ CLI exposes `--card`, but it does
   not expose a `--json` stdout mode.
-- Use `scripts/build_doctrine_projection.py --check-paper-module-corpus` to
+- Use `scripts/build/build_doctrine_projection.py --check-paper-module-corpus` to
   verify this paper-module projection stays inside the shared corpus contract.
 
 ## Reader Proof Boundary

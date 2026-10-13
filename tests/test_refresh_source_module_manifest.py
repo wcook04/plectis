@@ -11,7 +11,7 @@ import pytest
 
 
 SUBSTRATE_ROOT = Path(__file__).resolve().parents[1]
-SCRIPT_PATH = SUBSTRATE_ROOT / "scripts" / "refresh_source_module_manifest.py"
+SCRIPT_PATH = SUBSTRATE_ROOT / "scripts/release" / "refresh_source_module_manifest.py"
 
 
 def _load_refresh_module() -> ModuleType:

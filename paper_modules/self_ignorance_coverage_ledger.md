@@ -231,8 +231,8 @@ From `microcosm-substrate`, run:
 
 ```bash
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_self_ignorance_coverage_ledger.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check
 ```
 
 Use a throwaway receipt directory for manual bundle checks:

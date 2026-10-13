@@ -365,7 +365,7 @@ PYTHONPATH=src ../repo-python -m microcosm_core.organs.prediction_oracle_reconci
   --out /tmp/microcosm-prediction-oracle-reconciliation/bundle \
   --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_prediction_oracle_reconciliation.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 A passing run proves only synthetic target-universe reconciliation, CP1/CP2 accounting,

@@ -2,7 +2,7 @@
   "anti_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
   "authority_boundary": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority.",
   "generation": {
-    "do_not_hand_edit": "Glosses are curated substrate; refine deliberately. Rebuild ORGANS.md/ARCHITECTURE.md with: PYTHONPATH=src python3 scripts/build_organ_atlas.py --write",
+    "do_not_hand_edit": "Glosses are curated substrate; refine deliberately. Rebuild ORGANS.md/ARCHITECTURE.md with: PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write",
     "method": "distill_then_adversarial_verify_one_agent_per_organ",
     "verified_against": "each organ's paper module plus its registry claim ceiling"
   },

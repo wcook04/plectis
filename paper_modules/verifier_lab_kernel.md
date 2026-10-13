@@ -306,7 +306,7 @@ receipt or generated projection surfaces:
 
 ```bash
 ./repo-pytest microcosm-substrate/tests/test_verifier_lab_kernel.py -q --basetemp=/tmp/microcosm_verifier_lab_kernel_pytest
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Re-Entry Conditions

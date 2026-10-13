@@ -13,8 +13,8 @@ import pytest
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 MAKEFILE = MICROCOSM_ROOT / "Makefile"
-CHECK_SMOKE_OUTPUTS = MICROCOSM_ROOT / "scripts" / "check_smoke_outputs.py"
-PACKAGE_INSTALL_SMOKE = MICROCOSM_ROOT / "scripts" / "package_install_smoke.py"
+CHECK_SMOKE_OUTPUTS = MICROCOSM_ROOT / "scripts/check" / "check_smoke_outputs.py"
+PACKAGE_INSTALL_SMOKE = MICROCOSM_ROOT / "scripts/release" / "package_install_smoke.py"
 
 
 def _accepted_organ_count(root: Path = MICROCOSM_ROOT) -> int:
@@ -363,7 +363,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core tour --card .',
         '$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core status --card .',
-        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" scripts/served_status_smoke.py --root . --project . --out "$(SMOKE_OUT)/served-status-card.json"',
+        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" scripts/check/served_status_smoke.py --root . --project . --out "$(SMOKE_OUT)/served-status-card.json"',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core authority --card',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core workingness --card',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core legibility-scorecard',
@@ -376,14 +376,14 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         '> "$(SMOKE_OUT)/status-card.json"',
         '"$(SMOKE_OUT)/served-status-card.json"',
         '> "$(SMOKE_OUT)/stripping-guard.json"',
-        '"$(PYTHON)" scripts/check_smoke_outputs.py --smoke-out "$(SMOKE_OUT)"',
-        '"$(PYTHON)" scripts/package_install_smoke.py --source-root . --work-dir "$(PACKAGE_SMOKE_TMP)" --python "$(PYTHON)"',
+        '"$(PYTHON)" scripts/check/check_smoke_outputs.py --smoke-out "$(SMOKE_OUT)"',
+        '"$(PYTHON)" scripts/release/package_install_smoke.py --source-root . --work-dir "$(PACKAGE_SMOKE_TMP)" --python "$(PYTHON)"',
         'if [ "$$status" -eq 0 ] && [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi',
             "ci: check test smoke package-smoke",
         'PYTHONPATH=src "$(PYTHON)" -m microcosm_core public-site-parity --root . $(PUBLIC_SITE_PARITY_ARGS)',
         'PYTHONPATH=src "$(VENV_PYTHON)" -m microcosm_core.release_export --root . --out "$(EXPORT_OUT)" --force --summary',
-        '"$(PYTHON)" scripts/check_artifact_budget.py --report',
-        '"$(PYTHON)" scripts/check_artifact_budget.py --check',
+        '"$(PYTHON)" scripts/check/check_artifact_budget.py --report',
+        '"$(PYTHON)" scripts/check/check_artifact_budget.py --check',
         'rm -rf "$(SMOKE_OUT)" "$(PYTEST_TMP_ROOT)" "$(PACKAGE_SMOKE_TMP_ROOT)" .microcosm/test-tmp',
     ):
         assert required in text
@@ -431,7 +431,7 @@ def test_public_repo_makefile_smoke_target_writes_expected_artifacts() -> None:
         assert f'> "$(SMOKE_OUT)/{smoke_artifact}" || true' not in text
     assert text.count('--out "$(SMOKE_OUT)/served-status-card.json"') == 1
     assert '--out "$(SMOKE_OUT)/served-status-card.json" || true' not in text
-    assert text.count('scripts/check_smoke_outputs.py --smoke-out "$(SMOKE_OUT)"') == 1
+    assert text.count('scripts/check/check_smoke_outputs.py --smoke-out "$(SMOKE_OUT)"') == 1
     assert "The checker validates those cards; command errors must still stop the run." in text
     assert "Microcosm smoke receipts written to %s" not in text
 
@@ -441,7 +441,7 @@ def test_package_install_smoke_script_is_makefile_owned() -> None:
     script = PACKAGE_INSTALL_SMOKE.read_text(encoding="utf-8")
 
     assert PACKAGE_INSTALL_SMOKE.is_file()
-    assert "scripts/package_install_smoke.py --source-root ." in text
+    assert "scripts/release/package_install_smoke.py --source-root ." in text
     assert "PIP_DISABLE_PIP_VERSION_CHECK" in script
     assert "Microcosm package smoke: pass" in script
     assert "--no-deps" in script
@@ -862,4 +862,4 @@ def test_make_smoke_rejects_unexpected_process_exits_before_card_check(
     assert result.returncode != 0
     commands = [json.loads(line) for line in log_path.read_text().splitlines()]
     assert commands[-1][:3] == ["-m", "microcosm_core", command]
-    assert not any("scripts/check_smoke_outputs.py" in row for row in commands)
+    assert not any("scripts/check/check_smoke_outputs.py" in row for row in commands)

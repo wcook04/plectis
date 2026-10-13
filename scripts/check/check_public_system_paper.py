@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 PAPER = ROOT / "paper/plectis-public-system.tex"
 REGISTRY = ROOT / "core/organ_registry.json"
 FAMILIES = ROOT / "core/organ_families.json"

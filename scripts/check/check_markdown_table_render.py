@@ -27,7 +27,7 @@ the long token out of the table into a fenced block or a per-item section.
 
 Usage
 -----
-    python3 scripts/check_markdown_table_render.py PATH [PATH ...]
+    python3 scripts/check/check_markdown_table_render.py PATH [PATH ...]
     check_markdown_table_render.py --json PATH
     check_markdown_table_render.py --fail-on overflow PATH   # CI gate
 """

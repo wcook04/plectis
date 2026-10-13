@@ -60,8 +60,8 @@ PYTHON_TOOL_ALLOWED = {
 PYTHON_TOOL_REFERENCE_OWNERS = {
     **{name: "src/microcosm_core/projections/organ_atlas.py" for name in
        ("ORGANS.md", "ARCHITECTURE.md", "AGENT_ROUTES.md")},
-    "FIRST_ACTION.md": "scripts/build_first_action_demo.py",
-    "RELEASE_REVIEW.md": "scripts/build_release_review.py",
+    "FIRST_ACTION.md": "scripts/build/build_first_action_demo.py",
+    "RELEASE_REVIEW.md": "scripts/build/build_release_review.py",
     **{name: "src/microcosm_core/doctrine_lattice.py" for name in
        ("AXIOMS.md", "PRINCIPLES.md", "ANTI_PRINCIPLES.md")},
     "PROVENANCE.md": "docs/governance/public-boundary.md",

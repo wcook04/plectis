@@ -2748,7 +2748,7 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
             "microcosm_core.first_screen_composition.first_screen_text_card"
         ),
         "script_surface": (
-            f"python3 scripts/first_screen_composition_card.py --project-label {project_label}"
+            f"python3 scripts/inspect/first_screen_composition_card.py --project-label {project_label}"
         ),
         "consumer_rule": (
             "README, CLI, and observatory consumers should reuse this package contract and "

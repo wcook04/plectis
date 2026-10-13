@@ -199,7 +199,7 @@ PYTHONPATH=src ../repo-python -m microcosm_core.organs.voice_to_doctrine_self_im
   --out /tmp/microcosm-voice-to-doctrine-self-improvement-loop/bundle \
   --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_voice_to_doctrine_self_improvement_loop.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 A green fixture or bundle receipt proves only the public lesson-propagation boundary

@@ -33,9 +33,9 @@ This is reader content, never support evidence: like the formal gate it never
 reads or raises axiom support (P-15).
 
 Usage:
-  python3 scripts/check_doctrine_reader_ladder.py --check
-  python3 scripts/check_doctrine_reader_ladder.py --json
-  python3 scripts/check_doctrine_reader_ladder.py --explain AX-1
+  python3 scripts/check/check_doctrine_reader_ladder.py --check
+  python3 scripts/check/check_doctrine_reader_ladder.py --json
+  python3 scripts/check/check_doctrine_reader_ladder.py --explain AX-1
 """
 from __future__ import annotations
 
@@ -45,7 +45,7 @@ import re
 import sys
 from pathlib import Path
 
-REPO_DEFAULT = Path(__file__).resolve().parents[1] / "core" / "doctrine_enrichment.json"
+REPO_DEFAULT = Path(__file__).resolve().parents[2] / "core" / "doctrine_enrichment.json"
 
 # Mirror of BANNED_VISIBLE_TERMS in tools/meta/dissemination/build_microcosm_public_site.py.
 # Keep aligned with the public-site firewall; the lay layer is public-facing.
@@ -107,7 +107,7 @@ def _sentences(text: str) -> int:
 
 def audit_record(rec: dict) -> dict:
     """
-    Serialize `scripts.check_doctrine_reader_ladder.audit_record` into the payload shape
+    Serialize `scripts.check.check_doctrine_reader_ladder.audit_record` into the payload shape
     expected by scripts check doctrine reader ladder.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -181,7 +181,7 @@ def audit_record(rec: dict) -> dict:
 
 def run(path: Path) -> dict:
     """
-    Serialize `scripts.check_doctrine_reader_ladder.run` into the payload shape expected by
+    Serialize `scripts.check.check_doctrine_reader_ladder.run` into the payload shape expected by
     scripts check doctrine reader ladder.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -219,7 +219,7 @@ def _fmt(report: dict) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run `scripts.check_doctrine_reader_ladder` as a command-line entry point.
+    Run `scripts.check.check_doctrine_reader_ladder` as a command-line entry point.
 
     The command parses argv, calls this module's builders or validators, and returns the
     status code used by the process wrapper.

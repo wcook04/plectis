@@ -111,7 +111,7 @@
     "mapping_basis": "This markdown maps work-item standard propagation to std_microcosm_work_item, the work_item doctrine kind, and pattern binding because work-item standard changes must propagate through state, dependency, receipt, validator, and projection surfaces before they govern downstream closure claims.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "Changing the work-item standard alters governed work-item records, Task Ledger/Work Ledger linkage, receipt requirements, validator behavior, generated views, or doctrine-lattice claim ceilings."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

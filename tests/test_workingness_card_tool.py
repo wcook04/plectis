@@ -10,7 +10,7 @@ from microcosm_core.runtime_shell import RuntimeShell
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SCRIPT_PATH = MICROCOSM_ROOT / "scripts/workingness_card.py"
+SCRIPT_PATH = MICROCOSM_ROOT / "scripts/inspect/workingness_card.py"
 
 
 def _accepted_organ_count() -> int:

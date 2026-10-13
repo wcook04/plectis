@@ -10,7 +10,7 @@ read by an external referee or a venue, and nothing is deposited anywhere that
 mints a DOI. A field that said otherwise would be read as a credential, and
 would be worse than no field at all.
 
-The shipped guard is ``docs/papers/check_publication_taxonomy.py``; it lives in
+The shipped guard is ``scripts/papers/check_publication_taxonomy.py``; it lives in
 the corpus it guards so it runs in a bare clone. This module invokes it rather
 than restating its rules, and adds the checks a test can make more directly:
 that the projection is current, and that the classification of every paper is
@@ -27,14 +27,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CORPUS_DIR = REPO_ROOT / "docs" / "papers"
 CORPUS = CORPUS_DIR / "corpus.json"
-BUILDER = CORPUS_DIR / "build_publication_taxonomy.py"
-GUARD = CORPUS_DIR / "check_publication_taxonomy.py"
+BUILDER = REPO_ROOT / "scripts/papers/build_publication_taxonomy.py"
+GUARD = REPO_ROOT / "scripts/papers/check_publication_taxonomy.py"
 
 PUBLICATION_CLASSES = {
     "problem_paper",
     "reasoning_surface",
     "methods_paper",
     "software_paper",
+    "synthesis_paper",
+    "expository_paper",
 }
 
 
@@ -43,8 +45,8 @@ def _corpus() -> dict:
 
 
 def test_builder_and_guard_are_present() -> None:
-    assert BUILDER.is_file(), "docs/papers/build_publication_taxonomy.py is missing"
-    assert GUARD.is_file(), "docs/papers/check_publication_taxonomy.py is missing"
+    assert BUILDER.is_file(), "scripts/papers/build_publication_taxonomy.py is missing"
+    assert GUARD.is_file(), "scripts/papers/check_publication_taxonomy.py is missing"
 
 
 def test_shipped_guard_finds_no_claimed_review_or_identifier() -> None:
@@ -97,7 +99,9 @@ def test_every_classification_is_backed_by_the_text_that_decided_it() -> None:
         assert paper["publication_class"] in PUBLICATION_CLASSES
         basis = paper["publication_class_basis"]
         assert basis, f"{paper['paper_id']} has no publication_class_basis"
-        haystack = f"{paper['owns']} {paper['title']} {paper['home_repository']}".lower()
+        haystack = " ".join(str(paper.get(key, "")) for key in (
+            "subject_kind", "form", "owns", "title", "home_repository"
+        )).lower()
         quoted = [
             fragment
             for fragment in basis.split("'")[1::2]

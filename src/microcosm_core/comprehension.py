@@ -463,7 +463,7 @@ def compile_first_contact(inputs: dict[str, Any]) -> dict[str, Any]:
     pack["specificity_risks"] = [_substrate_specificity_note(join_organs)]
     if not inputs.get("join_index_present"):
         pack["summary"]["what_to_inspect_next"].append(
-            "join index absent: run scripts/build_code_lens_join_index.py to enrich"
+            "join index absent: run scripts/build/build_code_lens_join_index.py to enrich"
         )
     return pack
 
@@ -3317,7 +3317,7 @@ def _compile_first_action(
             "repository": LEAN_COMPANION_REPOSITORY["repository"],
         }
         pack["proof_path"] = {
-            "validation_commands": [command, "python3 docs/papers/check_paper_corpus.py"],
+            "validation_commands": [command, "python3 scripts/papers/check_paper_corpus.py"],
             "receipt_refs": ["docs/papers/corpus.json"],
             "note": (
                 "In the companion clone, run scripts/query_corpus.py before "
@@ -3542,7 +3542,7 @@ def _compile_first_action(
         }
         pack["proof_path"] = {
             "validation_commands": [
-                "python3 docs/papers/check_paper_corpus.py",
+                "python3 scripts/papers/check_paper_corpus.py",
                 (
                     "PYTHONPATH=src python3 -m microcosm_core comprehend "
                     "--slice papers --format json"
@@ -4099,12 +4099,12 @@ def _join_index_improvement_row(inputs: dict[str, Any]) -> dict[str, Any]:
     return {
         "rank": 3,
         "target_type": "builder",
-        "target": "scripts/build_code_lens_join_index.py",
+        "target": "scripts/build/build_code_lens_join_index.py",
         "title": title,
         "why": why,
         "expected_reader_visible_change": change,
         "validation_commands": [
-            "PYTHONPATH=src python3 scripts/build_code_lens_join_index.py --help",
+            "PYTHONPATH=src python3 scripts/build/build_code_lens_join_index.py --help",
             "PYTHONPATH=src python3 -m microcosm_core comprehend --self-model",
             "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system",
         ],
@@ -4292,7 +4292,7 @@ _EDGE_CLASS_RESIDUALS: dict[str, dict[str, str]] = {
         "edge_class": "proof_internal_structure",
         "missing": "theorem -> lemma -> tactic edges inside a proof organ",
         "missing_source_class": "lean_proof_term_graph_not_extracted",
-        "owner_path": "scripts/build_code_lens_join_index.py",
+        "owner_path": "scripts/build/build_code_lens_join_index.py",
         "blocked_on": "no Lean-aware proof-graph builder exists yet; see owner_path",
         "would_come_from": "a Lean-aware proof-graph builder feeding the join index",
         "next_packet": "math",
@@ -4301,9 +4301,9 @@ _EDGE_CLASS_RESIDUALS: dict[str, dict[str, str]] = {
         "edge_class": "cross_organ_route_topology",
         "missing": "route nodes fanning one task-class entry across organs",
         "missing_source_class": "agent_task_routes_plane_absent_from_join_index",
-        "owner_path": "scripts/build_code_lens_join_index.py",
+        "owner_path": "scripts/build/build_code_lens_join_index.py",
         "re_entry_command": (
-            "PYTHONPATH=src python3 scripts/build_code_lens_join_index.py"
+            "PYTHONPATH=src python3 scripts/build/build_code_lens_join_index.py"
             " --lens <python-lens --full snapshot> --routes atlas/agent_task_routes.json"
         ),
         "would_come_from": "rebuilding the join index with atlas/agent_task_routes.json",
@@ -4313,9 +4313,9 @@ _EDGE_CLASS_RESIDUALS: dict[str, dict[str, str]] = {
         "edge_class": "claim_node_ontology",
         "missing": "a first-class claim node distinct from the per-organ ceiling",
         "missing_source_class": "organ_registry_claim_fields_not_joined",
-        "owner_path": "scripts/build_code_lens_join_index.py",
+        "owner_path": "scripts/build/build_code_lens_join_index.py",
         "re_entry_command": (
-            "PYTHONPATH=src python3 scripts/build_code_lens_join_index.py"
+            "PYTHONPATH=src python3 scripts/build/build_code_lens_join_index.py"
             " --lens <python-lens --full snapshot>"
         ),
         "would_come_from": "rebuilding the join index with the organ registry plane",
@@ -4407,7 +4407,7 @@ def _graph_backed_block(
     else:
         block["source"] = (
             "join index predates the v2 graph block; rebuild via "
-            "scripts/build_code_lens_join_index.py"
+            "scripts/build/build_code_lens_join_index.py"
         )
     return block
 
@@ -4681,7 +4681,7 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
         pack["route_topology"] = {
             "route_node_count": 0,
             "note": "this clone's join index carries no route plane; rebuild it with "
-            "scripts/build_code_lens_join_index.py --routes atlas/agent_task_routes.json",
+            "scripts/build/build_code_lens_join_index.py --routes atlas/agent_task_routes.json",
         }
     pack["code_lens_health"] = health
     # Deduplicated on purpose: bands + ceiling already live verbatim on this pack

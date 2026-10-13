@@ -283,8 +283,8 @@ PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider \
 The projection checks for the broader paper-module corpus remain:
 
 ```bash
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check
 ```
 
 The direct runtime commands and focused pytest are the minimum useful
@@ -379,7 +379,7 @@ Reader-verifiable commands, run from the `microcosm-substrate/` public root:
 
 ```bash
 PYTHONPATH=src python3 -m pytest tests/test_batch4_proof_authority_runtime.py -q
-PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src python3 scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 The focused test exercises this organ's fixture and bundle expectations; the corpus check confirms the capsule, generated Mermaid projection, Atlas card, and this Markdown projection stay mutually consistent. These are reader-verifiable evidence only and do not authorize release, provider dispatch, source mutation, or whole-system correctness.

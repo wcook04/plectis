@@ -11,7 +11,7 @@ import pytest
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SCRIPT_PATH = MICROCOSM_ROOT / "scripts/first_screen_composition_card.py"
+SCRIPT_PATH = MICROCOSM_ROOT / "scripts/inspect/first_screen_composition_card.py"
 EXPECTED_READER_ROUTE_IDS = {
     "public_github_visitor",
     "safety_evals_engineer",
@@ -1509,7 +1509,7 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     result = subprocess.run(
         [
             sys.executable,
-            "scripts/first_screen_composition_card.py",
+            "scripts/inspect/first_screen_composition_card.py",
             "--project-label",
             ".",
         ],
@@ -1579,7 +1579,7 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "viewport_manifest_not_new_claim_or_renderer_authority"
     )
     assert card["entry_surface_contract"]["script_surface"] == (
-        "python3 scripts/first_screen_composition_card.py --project-label ."
+        "python3 scripts/inspect/first_screen_composition_card.py --project-label ."
     )
     assert card["doctrine_effect_frame"]["purpose"] == (
         "show_doctrine_as_mistake_prevention_not_ceremony"
@@ -2073,7 +2073,7 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     result = subprocess.run(
         [
             sys.executable,
-            "scripts/first_screen_composition_card.py",
+            "scripts/inspect/first_screen_composition_card.py",
             "--project-label",
             ".",
             "--format",
@@ -2109,7 +2109,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     result = subprocess.run(
         [
             sys.executable,
-            "scripts/first_screen_composition_card.py",
+            "scripts/inspect/first_screen_composition_card.py",
             "--project-label",
             ".",
             "--format",

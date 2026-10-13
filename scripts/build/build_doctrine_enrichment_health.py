@@ -22,8 +22,8 @@ completion gate without an explicit promotion in the governing standard
 ``paper_module_readiness_audit.completion_gate_policy``).
 
 Usage:
-  python3 scripts/build_doctrine_enrichment_health.py --write
-  python3 scripts/build_doctrine_enrichment_health.py --check
+  python3 scripts/build/build_doctrine_enrichment_health.py --write
+  python3 scripts/build/build_doctrine_enrichment_health.py --check
 """
 
 from __future__ import annotations
@@ -34,12 +34,12 @@ import sys
 from pathlib import Path
 from typing import Any
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "check"))
 from check_doctrine_formal_soundness import run as run_soundness  # noqa: E402
 from check_doctrine_reader_ladder import run as run_reader_ladder  # noqa: E402
 
 
-MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+MICROCOSM_ROOT = Path(__file__).resolve().parents[2]
 ENRICHMENT_REL = "core/doctrine_enrichment.json"
 HEALTH_REL = "core/doctrine_enrichment_health.json"
 KIND_DIRS = {
@@ -129,7 +129,7 @@ FRONTIER_AUDIT_SECTIONS = ("paper_module_readiness_audit",)
 
 def _section_model() -> dict[str, Any]:
     """
-    Serialize `scripts.build_doctrine_enrichment_health._section_model` into the payload
+    Serialize `scripts.build.build_doctrine_enrichment_health._section_model` into the payload
     shape expected by scripts build doctrine enrichment health.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -468,7 +468,7 @@ def _audit_mechanism_routing_record(root: Path, record: dict[str, Any]) -> list[
 
 def _source_planned_target_lookup(record: dict[str, Any]) -> dict[tuple[str, str, str], dict[str, Any]]:
     """
-    Serialize `scripts.build_doctrine_enrichment_health._source_planned_target_lookup` into
+    Serialize `scripts.build.build_doctrine_enrichment_health._source_planned_target_lookup` into
     the payload shape expected by scripts build doctrine enrichment health.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -506,7 +506,7 @@ def _source_planned_target_lookup(record: dict[str, Any]) -> dict[tuple[str, str
 
 def _mechanism_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    Serialize `scripts.build_doctrine_enrichment_health._mechanism_residual_summary` into
+    Serialize `scripts.build.build_doctrine_enrichment_health._mechanism_residual_summary` into
     the payload shape expected by scripts build doctrine enrichment health.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -737,7 +737,7 @@ def _audit_paper_module_readiness_record(root: Path, record: dict[str, Any]) -> 
 
 def _paper_module_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    Serialize `scripts.build_doctrine_enrichment_health._paper_module_residual_summary` into
+    Serialize `scripts.build.build_doctrine_enrichment_health._paper_module_residual_summary` into
     the payload shape expected by scripts build doctrine enrichment health.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -794,7 +794,7 @@ def _paper_module_residual_summary(records: list[dict[str, Any]]) -> dict[str, A
 
 def _build_paper_module_readiness_audit(root: Path) -> dict[str, Any]:
     """
-    Serialize `scripts.build_doctrine_enrichment_health._build_paper_module_readiness_audit`
+    Serialize `scripts.build.build_doctrine_enrichment_health._build_paper_module_readiness_audit`
     into the payload shape expected by scripts build doctrine enrichment health.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -838,7 +838,7 @@ def _build_paper_module_readiness_audit(root: Path) -> dict[str, Any]:
 
 def _build_routing_floor(root: Path) -> dict[str, Any]:
     """
-    Serialize `scripts.build_doctrine_enrichment_health._build_routing_floor` into the
+    Serialize `scripts.build.build_doctrine_enrichment_health._build_routing_floor` into the
     payload shape expected by scripts build doctrine enrichment health.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -894,7 +894,7 @@ def _build_routing_floor(root: Path) -> dict[str, Any]:
 
 def build_health(root: Path) -> dict[str, Any]:
     """
-    Serialize `scripts.build_doctrine_enrichment_health.build_health` into the payload shape
+    Serialize `scripts.build.build_doctrine_enrichment_health.build_health` into the payload shape
     expected by scripts build doctrine enrichment health.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
@@ -963,7 +963,7 @@ def build_health(root: Path) -> dict[str, Any]:
             for r in sound["results"]
             if not r["clean"]
         ],
-        "gate": "scripts/check_doctrine_formal_soundness.py",
+        "gate": "scripts/check/check_doctrine_formal_soundness.py",
         "note": "Symbol/formula agreement, not mathematical correctness; correctness is reviewed, not counted.",
     }
     # Reader-ladder accessibility: every object carries a plain reading and a
@@ -980,7 +980,7 @@ def build_health(root: Path) -> dict[str, Any]:
             for r in ladder["results"]
             if not r["clean"]
         ],
-        "gate": "scripts/check_doctrine_reader_ladder.py",
+        "gate": "scripts/check/check_doctrine_reader_ladder.py",
         "note": "Plain reading + bounded analogy present and laundering-free; analogy fidelity and boundary honesty are reviewed, not counted.",
     }
     # This expression folds EXACTLY the sections named in
@@ -1024,7 +1024,7 @@ def build_health(root: Path) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run `scripts.build_doctrine_enrichment_health` as a command-line entry point.
+    Run `scripts.build.build_doctrine_enrichment_health` as a command-line entry point.
 
     The command parses argv, calls this module's builders or validators, and returns the
     status code used by the process wrapper.

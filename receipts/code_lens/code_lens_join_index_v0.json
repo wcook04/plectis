@@ -17317,7 +17317,7 @@
         "edge_class": "proof_internal_structure",
         "missing": "theorem -> lemma -> tactic edges inside a proof organ",
         "missing_source_class": "lean_proof_term_graph_not_extracted",
-        "owner_path": "scripts/build_code_lens_join_index.py",
+        "owner_path": "scripts/build/build_code_lens_join_index.py",
         "would_come_from": "a Lean-aware proof-graph builder feeding this join index"
       }
     ],

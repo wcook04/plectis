@@ -126,7 +126,7 @@
     "mapping_basis": "The standard JSON at standards/std_microcosm_route_decision.json declares this skill route; relationships.used_by_organs=[\"navigation_hologram_route_plane\", \"pattern_binding_contract\"] names organ atlas rows whose mechanism_refs=[\"mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle\", \"mechanism.pattern_binding_contract.validates_public_pattern_bindings\"] and concept_refs=[\"concept.architecture_and_navigation_route_contract_bundle\"] are the source basis for these selective skill edges. This binds only source-declared lattice neighbours and does not prove runtime correctness, release readiness, provider authority, private-body coverage, or whole-system completeness.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -162,8 +162,8 @@
     "A governed skill source row is needed before standard.owns_triad.skill can resolve without treating generated projections as authority."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

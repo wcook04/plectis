@@ -111,7 +111,7 @@
     "mapping_basis": "This markdown maps task-ledger standard propagation to std_microcosm_task_ledger, the task_ledger doctrine kind, and pattern binding because task-ledger standard changes must propagate through event authority, generated views, and receipt-backed status surfaces before they govern downstream claims.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "Changing the task-ledger standard alters event fields, state transitions, dependency semantics, receipt requirements, projection visibility, capture-before-prose rules, or public/private boundaries across task-ledger artifacts."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

@@ -126,7 +126,7 @@ and the runtime source locus
 
 The source atlas row carries the matching `paper_module_ref`, `mechanism_refs`,
 and `code_loci` entries. Generated atlas docs remain builder-owned projections:
-refresh them with `PYTHONPATH=src python3 scripts/build_organ_atlas.py --write`
+refresh them with `PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write`
 instead of editing `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, or
 `atlas/agent_task_routes.json` by hand.
 
@@ -268,7 +268,7 @@ receipt or generated projection surfaces:
 
 ```bash
 ./repo-pytest microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py -q --basetemp=/tmp/microcosm_proof_diagnostic_evidence_spine_pytest
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Receipt Expectations

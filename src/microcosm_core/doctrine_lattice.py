@@ -1828,7 +1828,7 @@ def build_paper_module_instance_from_source_row(
             "unpopulated_selective_relations": residuals,
         },
         "validator_refs": [
-            "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+            "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
         ],
         "receipt_refs": _strings(row.get("receipt_refs")),
         "omission_receipt": {
@@ -2461,8 +2461,8 @@ def build_skill_instance_from_source_row(
         "mechanism_refs": mechanism_refs,
         "concept_refs": concept_refs,
         "validation": [
-            "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-            "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+            "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+            "microcosm-substrate/scripts/build/build_doctrine_projection.py --check",
         ],
         "status": "active",
         "created_at": AXIOM_MIGRATION_CREATED_AT,
@@ -2538,7 +2538,7 @@ def build_skill_instance_from_source_row(
             "migration_contract": {
                 "source_of_record": f"{SKILL_INSTANCE_DIR_REL}/*.md",
                 "authority_flip_status": "not_flipped",
-                "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+                "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
                 "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
             },
         },
@@ -5345,7 +5345,7 @@ def build_axiom_instance_from_routing_row(
             "migration_contract": {
                 "source_of_record": AXIOM_ROUTING_REL,
                 "authority_flip_status": "not_flipped",
-                "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+                "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check",
                 "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
             },
         },
@@ -6191,7 +6191,7 @@ def build_principle_instance_from_source_row(row: dict[str, Any]) -> dict[str, A
         },
         "validator_refs": [
             "validator.microcosm.principle",
-            "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+            "microcosm-substrate/scripts/build/build_doctrine_projection.py --check",
         ],
         "receipt_refs": [_doctrine_record_receipt_ref("principle", principle_id)],
         "omission_receipt": omission_receipt,
@@ -6274,7 +6274,7 @@ def build_principle_instance_from_source_row(row: dict[str, Any]) -> dict[str, A
             "migration_contract": {
                 "source_of_record": PRINCIPLES_REL,
                 "authority_flip_status": "not_flipped",
-                "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+                "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check",
                 "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
             },
         },
@@ -6392,7 +6392,7 @@ def build_anti_principle_instance_from_source_row(row: dict[str, Any]) -> dict[s
         },
         "validator_refs": [
             "validator.microcosm.anti_principle",
-            "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+            "microcosm-substrate/scripts/build/build_doctrine_projection.py --check",
         ],
         "receipt_refs": [_doctrine_record_receipt_ref("anti_principle", anti_principle_id)],
         "omission_receipt": omission_receipt,
@@ -6418,7 +6418,7 @@ def build_anti_principle_instance_from_source_row(row: dict[str, Any]) -> dict[s
             "migration_contract": {
                 "source_of_record": ANTI_PRINCIPLES_REL,
                 "authority_flip_status": "not_flipped",
-                "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+                "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check",
                 "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
             },
         },
@@ -7110,7 +7110,7 @@ def build_concept_instance_from_source_row(
             "migration_contract": {
                 "source_of_record": CONCEPT_ENTRY_PACKET_REL,
                 "authority_flip_status": "not_flipped",
-                "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+                "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check",
                 "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
             },
         },
@@ -7255,7 +7255,7 @@ def build_mechanism_instance_from_source_row(
             }
         )
     validator_refs = _strings(row.get("validator_refs")) or [
-        "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+        "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
     ]
     receipt_refs = _strings(row.get("receipt_refs")) or [
         CONCEPT_MECHANISM_RECORDS_POPULATION_RECEIPT_REL
@@ -7388,7 +7388,7 @@ def build_mechanism_instance_from_source_row(
             "migration_contract": {
                 "source_of_record": MECHANISM_REGISTRY_REL,
                 "authority_flip_status": "not_flipped",
-                "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+                "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check",
                 "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
             },
         },
@@ -8145,7 +8145,7 @@ def build_organ_instance_from_source_row(
         "activation_receipt_contract": _json(standard.get("activation_receipt_contract")),
         "validator_refs": [
             *(_strings([registry_payload.get("validator_command")]) if registry_payload.get("validator_command") else []),
-            "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus",
+            "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-organ-corpus",
         ],
         "receipt_refs": receipt_refs,
         "omission_receipt": {
@@ -8199,7 +8199,7 @@ def build_organ_instance_from_source_row(
             "migration_contract": {
                 "source_of_record": "core/organ_atlas.json + core/organ_registry.json",
                 "authority_flip_status": "not_flipped",
-                "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+                "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check",
                 "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
             },
         },
@@ -10021,7 +10021,7 @@ def build_doctrine_projection(
 def write_doctrine_projection(
     root: str | Path | None = None,
     *,
-    command: str = "python scripts/build_doctrine_projection.py --write",
+    command: str = "python scripts/build/build_doctrine_projection.py --write",
 ) -> dict[str, Any]:
     """
     Write write doctrine projection for the doctrine lattice flow.
@@ -10098,7 +10098,7 @@ def validate_doctrine_projection(root: str | Path | None = None) -> dict[str, An
     expected_projection = build_doctrine_projection(
         resolved,
         generated_at="check",
-        command="python scripts/build_doctrine_projection.py --write",
+        command="python scripts/build/build_doctrine_projection.py --write",
     )
     node_keys = {
         (str(node.get("kind") or ""), str(node.get("id") or ""))

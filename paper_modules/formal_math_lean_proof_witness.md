@@ -85,7 +85,7 @@ Concrete substrate bindings:
 - Exported bundle: `examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle`
 - Exported source-module manifest: `examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json`
 - Focused test surface: `tests/test_formal_math_lean_proof_witness.py`
-- Corpus validator: `scripts/build_doctrine_projection.py --check-paper-module-corpus`
+- Corpus validator: `scripts/build/build_doctrine_projection.py --check-paper-module-corpus`
 
 ## Governing Lattice Relation
 
@@ -209,7 +209,7 @@ receipt or generated projection surfaces:
 
 ```bash
 ./repo-pytest microcosm-substrate/tests/test_formal_math_lean_proof_witness.py -q --basetemp=/tmp/microcosm_formal_math_lean_proof_witness_pytest
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 jq '{edge_count:(.relationships.edges|length), mermaid_status:.paper_module_payload.generated_projections.mermaid.status, atlas_status:.paper_module_payload.generated_projections.atlas_card.status, source_authority:.relationships.source_authority, unresolved_selective_relation_count:(.relationships.unpopulated_selective_relations|length)}' microcosm-substrate/paper_modules/formal_math_lean_proof_witness.json
 ```
 

@@ -13,7 +13,7 @@ from microcosm_core.validators.lean_companion_snapshot import (
 )
 
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 def main() -> int:

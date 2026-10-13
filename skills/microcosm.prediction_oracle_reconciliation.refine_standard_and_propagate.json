@@ -111,7 +111,7 @@
     "mapping_basis": "The standard JSON at standards/std_microcosm_prediction_oracle_reconciliation.json declares this refine_standard_and_propagate skill route for prediction_oracle_reconciliation, and core/organ_atlas.json::prediction_oracle_reconciliation names mechanism_refs=mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation and concept_refs=concept.research_and_science_replay_evidence_bundle. This source mapping binds the skill to those accepted organ neighbours without inferring from prose, generated projections, endpoint coverage, or release claims.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "A governed skill source row is needed before standard.owns_triad.skill can resolve without treating generated projections as authority."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

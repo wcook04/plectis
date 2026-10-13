@@ -510,7 +510,7 @@ The focused regression test and corpus projection checks are:
 
 ```bash
 cd microcosm-substrate && PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_indirect_prompt_injection_information_flow_policy_replay.py -q
-cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 The receipt path proves synthetic information-flow replay and body omission,
@@ -542,7 +542,7 @@ bundle shape, source-module manifest, public trace spans, and body-free exported
 bundle receipt.
 
 The corpus proof consumer is
-`scripts/build_doctrine_projection.py --check-paper-module-corpus`. It checks
+`scripts/build/build_doctrine_projection.py --check-paper-module-corpus`. It checks
 that the Markdown/capsule-backed paper-module corpus remains reproducible after
 this reader projection edit. It is a corpus check only; it does not refresh
 generated Mermaid, Atlas, site, verifier, or capsule state.

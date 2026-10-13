@@ -16,7 +16,7 @@ commands. `python3 -m microcosm_core` remains the compatibility spelling.
 
 `make smoke` runs selected CLI commands and saves their output under
 `.microcosm/smoke/`, which Git ignores. A *card* is a JSON summary of a
-command's result. The Makefile then runs `scripts/check_smoke_outputs.py`,
+command's result. The Makefile then runs `scripts/check/check_smoke_outputs.py`,
 which reads those files and tests their required fields, statuses and
 references. It prints a summary instead of every JSON file.
 

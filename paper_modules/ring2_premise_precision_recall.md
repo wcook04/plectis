@@ -204,7 +204,7 @@ temporary receipts:
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness run --input fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input --out /tmp/microcosm-ring2-premise-precision-recall --acceptance-out /tmp/microcosm-ring2-premise-precision-recall-acceptance.json
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness run-precision-recall-bundle --input examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle --out /tmp/microcosm-ring2-premise-precision-recall-bundle
 ../repo-pytest microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 jq -r '[.id, (.relationships.edges | length), ((.relationships.unpopulated_selective_relations // []) | length), .paper_module_payload.generated_projections.mermaid.status, .paper_module_payload.generated_projections.atlas_card.status] | @tsv' paper_modules/ring2_premise_precision_recall.json
 ```
 

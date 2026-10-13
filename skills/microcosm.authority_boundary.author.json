@@ -111,7 +111,7 @@
     "mapping_basis": "The standard declares this exact author skill id, and its used-by organ rows include proof-diagnostic evidence that validates authority ceilings, provider/proof-body exclusion, stale-coupling visibility, and body-free receipts without upgrading diagnostics into proof authority.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
-      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
       "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "source_of_record": "skills/*.md"
     },
@@ -147,8 +147,8 @@
     "The instance can be authored from macro manifest ids, public schema fields, used-by organ rows, proof-diagnostic mechanisms, receipts, denied-authority fields, and anti-claims."
   ],
   "validation": [
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
-    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build/build_doctrine_projection.py --check"
   ],
   "validator_refs": [
     "validator.microcosm.skill"

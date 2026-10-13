@@ -139,6 +139,16 @@ repository. Papers are exposition, never proof or claim-status authority.
   and source mutation are separate authority decisions. A passing receipt does
   not authorize them.
 
+## Repository organization
+
+For tree changes, read [scripts/README.md](scripts/README.md) and
+[the architecture guide](docs/maintainers/architecture.md). Keep maintained
+programs in their role directories, regression tests in `tests/`, and paper
+text separate from programs. Update callers, package paths and generators
+together; stage the intended files and run the CI-bound `make check` layout
+gate. If an installed repository-organization skill is available, apply it
+with these local owners and validation contracts.
+
 ## Validation
 
 Use the smallest check that proves the selected change, then widen:

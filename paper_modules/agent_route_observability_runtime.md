@@ -412,7 +412,7 @@ PYTHONPATH=src ../repo-python \
 ../repo-pytest \
   microcosm-substrate/tests/test_agent_route_observability_runtime.py \
   microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 The focused regression file is the proof consumer for this receipt section. Its

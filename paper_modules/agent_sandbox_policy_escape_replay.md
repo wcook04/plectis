@@ -98,7 +98,7 @@ manifest instead of trusting declared labels.
 PYTHONDONTWRITEBYTECODE=1 ./repo-pytest \
   microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py \
   -p no:cacheprovider
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py \
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py \
   --check-paper-module-corpus
 ```
 
@@ -145,7 +145,7 @@ classes, body-in-receipt flags, count mismatches, missing target copies, and
 partial source or target digest drift block the result.
 
 The corpus proof consumer is
-`scripts/build_doctrine_projection.py --check-paper-module-corpus`. It proves
+`scripts/build/build_doctrine_projection.py --check-paper-module-corpus`. It proves
 only that this reader page remains aligned with the JSON capsule-backed
 paper-module corpus. It does not refresh generated Mermaid, Atlas, site, or
 verifier projections, and it does not raise the claim above public fixture and
@@ -158,7 +158,7 @@ runtime entry points `run` and `run_sandbox_bundle` load the fixture or exported
 bundle, then `_build_result` recomputes each claim from lower-level rows before
 any receipt is accepted. The named proof consumer is
 `tests/test_agent_sandbox_policy_escape_replay.py`, with the corpus-level
-projection consumer `scripts/build_doctrine_projection.py --check-paper-module-corpus`.
+projection consumer `scripts/build/build_doctrine_projection.py --check-paper-module-corpus`.
 
 The validator first establishes an input boundary. `_load_payloads` reads the
 projection protocol, sandbox policy, action requests, verdicts, side-effect
@@ -453,7 +453,7 @@ The focused regression test and corpus projection checks are:
 ```bash
 cd microcosm-substrate && ../repo-pytest \
   microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 The receipt path proves pre-execution policy replay over public refs, not live

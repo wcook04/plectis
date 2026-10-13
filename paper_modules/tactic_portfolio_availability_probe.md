@@ -83,7 +83,7 @@ paper-module corpus.
   `paper_module.tactic_portfolio_availability_probe` to
   `core/paper_module_capsules.json` with resolved subjects, resolved code loci,
   concept refs, and the same anti-claim ceiling, then regenerate with
-  `scripts/build_doctrine_projection.py --write-paper-module-corpus`.
+  `scripts/build/build_doctrine_projection.py --write-paper-module-corpus`.
 
 Until that exact re-entry condition lands, this Markdown explains the proof
 boundary without claiming JSON capsule authority. It must not invent a subject
@@ -340,7 +340,7 @@ From `microcosm-substrate/`, the focused validation route is:
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.tactic_portfolio_availability_probe run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out /tmp/microcosm-tactic-portfolio-availability-probe --acceptance-out /tmp/microcosm-tactic-portfolio-availability-probe-acceptance.json
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.tactic_portfolio_availability_probe run-availability-bundle --input examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle --out /tmp/microcosm-tactic-portfolio-availability-bundle
 ../repo-pytest microcosm-substrate/tests/test_tactic_portfolio_availability_probe.py
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Validation Receipt Path
@@ -350,7 +350,7 @@ The reader-verifiable receipt path is the same focused route above:
 ```bash
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.tactic_portfolio_availability_probe run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out /tmp/microcosm-tactic-portfolio-availability-probe --acceptance-out /tmp/microcosm-tactic-portfolio-availability-probe-acceptance.json
 PYTHONPATH=src ../repo-pytest tests/test_tactic_portfolio_availability_probe.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 For the generated capsule row, the current projection check is:

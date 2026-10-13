@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 
-MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+MICROCOSM_ROOT = Path(__file__).resolve().parents[2]
 MICROCOSM_SRC = MICROCOSM_ROOT / "src"
 if str(MICROCOSM_SRC) not in sys.path:
     sys.path.insert(0, str(MICROCOSM_SRC))
@@ -33,7 +33,7 @@ __all__ = (
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    Register CLI syntax for `scripts.first_screen_composition_card.build_parser`.
+    Register CLI syntax for `scripts.inspect.first_screen_composition_card.build_parser`.
 
     The function mutates the provided argparse object with this module's flags, subcommands,
     or defaults.
@@ -70,7 +70,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    Run the `scripts.first_screen_composition_card` command-line entry point.
+    Run the `scripts.inspect.first_screen_composition_card` command-line entry point.
 
     It parses argv, invokes the file-local builders or validators, and returns a
     process-style status code.

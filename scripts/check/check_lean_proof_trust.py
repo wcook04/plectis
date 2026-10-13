@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 NATIVE_DECIDE = "native_" + "decide"
 PROOF_TRUST_RE = re.compile(
     rf"\bsorry\b|\badmit\b|(?<![\w.])axiom\s+"

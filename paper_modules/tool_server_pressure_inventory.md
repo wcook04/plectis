@@ -252,7 +252,7 @@ The manifest binds source and target digests, declares
   organ and public refactor AST for process-control imports or `.kill(...)`,
   validates target-ref/digest parity, and checks compact card omission receipts.
 - Corpus consumer:
-  `scripts/build_doctrine_projection.py --check-paper-module-corpus` keeps this
+  `scripts/build/build_doctrine_projection.py --check-paper-module-corpus` keeps this
   reader projection inside the paper-module corpus without making generated
   Atlas or Mermaid projections the source authority.
 - Claim-ceiling consumer:
@@ -316,8 +316,8 @@ From `microcosm-substrate`, validate with receipts under `/tmp`:
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.tool_server_pressure_inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out /tmp/microcosm-tool-server-pressure-inventory/fixture --acceptance-out /tmp/microcosm-tool-server-pressure-inventory/acceptance.json --card
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.tool_server_pressure_inventory run-pressure-bundle --input examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle --out /tmp/microcosm-tool-server-pressure-inventory/bundle --card
 PYTHONPATH=src ../repo-python -m pytest -p no:cacheprovider tests/test_tool_server_pressure_inventory.py -q
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
-PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
+PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check
 ```
 
 Passing receipts prove synthetic inventory classification and source-manifest

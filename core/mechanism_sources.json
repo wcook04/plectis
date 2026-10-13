@@ -5662,7 +5662,7 @@
           "resolution": "resolved"
         },
         {
-          "path": "scripts/first_screen_composition_card.py",
+          "path": "scripts/inspect/first_screen_composition_card.py",
           "symbols": [
             "build_parser",
             "main"
@@ -5673,7 +5673,7 @@
       ],
       "input_refs": [
         "standards/std_microcosm_first_screen_composition_root.json",
-        "scripts/first_screen_composition_card.py",
+        "scripts/inspect/first_screen_composition_card.py",
         "tests/test_first_screen_composition_card.py",
         "tests/test_cli_hello_first_screen.py",
         "tests/test_readme_first_screen_entry.py",
@@ -5702,7 +5702,7 @@
       "resolution_evidence": {
         "authority_class": "source_assertion",
         "evidence_rank": 5,
-        "validator_command": "PYTHONPATH=src python3 scripts/first_screen_composition_card.py --project-label .",
+        "validator_command": "PYTHONPATH=src python3 scripts/inspect/first_screen_composition_card.py --project-label .",
         "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_first_screen_composition_card.py tests/test_cli_hello_first_screen.py tests/test_readme_first_screen_entry.py -q"
       },
       "upstream_of": [

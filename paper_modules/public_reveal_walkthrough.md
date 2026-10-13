@@ -243,7 +243,7 @@ receipt or generated projection surfaces:
 
 ```bash
 PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_public_reveal_walkthrough.py -q --basetemp=/tmp/microcosm_public_reveal_walkthrough_pytest --ignore-host-pressure
-./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus
+./repo-python microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus
 ```
 
 ## Receipt Expectations

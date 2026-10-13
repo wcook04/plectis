@@ -16,7 +16,7 @@ import pytest
 
 
 _SCRIPT = (
-    Path(__file__).resolve().parents[1] / "scripts" / "build_code_lens_join_index.py"
+    Path(__file__).resolve().parents[1] / "scripts/build" / "build_code_lens_join_index.py"
 )
 _spec = importlib.util.spec_from_file_location("build_code_lens_join_index", _SCRIPT)
 assert _spec and _spec.loader
@@ -277,7 +277,7 @@ def test_join_index_computes_resolved_and_deferred_edge_classes() -> None:
     # Residuals must be precise: missing-source class + owner + a re-entry surface
     # (a blocked_on statement is the honest form when no command can re-enter yet).
     assert residual["missing_source_class"] == "lean_proof_term_graph_not_extracted"
-    assert residual["owner_path"] == "scripts/build_code_lens_join_index.py"
+    assert residual["owner_path"] == "scripts/build/build_code_lens_join_index.py"
     assert residual["blocked_on"]
     assert "re_entry_command" not in residual
     assert graph["atlas_plane_present"] is True
@@ -322,3 +322,19 @@ def test_join_index_partial_plane_atlas_without_routes() -> None:
     assert graph["route_plane_present"] is False
     deferred = {d["edge_class"] for d in graph["deferred_edge_classes"]}
     assert "cross_organ_route_topology" in deferred
+
+
+def test_navigation_refresh_preserves_saved_evidence():
+    saved = {"graph": {"deferred_edge_classes": [
+        {"edge_class": "proof_internal_structure", "owner_path": "scripts/build_code_lens_join_index.py", "missing": "not extracted"},
+        {"edge_class": "unrelated", "owner_path": "some/other/owner.py"},
+    ]}, "edges": [{"kind": "historical evidence"}], "source_digest": "saved"}
+    updated = build_mod.refresh_navigation(saved)
+    assert updated["edges"] == saved["edges"]
+    assert updated["source_digest"] == saved["source_digest"]
+    assert updated["graph"]["deferred_edge_classes"][1] == saved["graph"]["deferred_edge_classes"][1]
+    assert updated["graph"]["deferred_edge_classes"][0] == {
+        **saved["graph"]["deferred_edge_classes"][0],
+        "owner_path": "scripts/build/build_code_lens_join_index.py",
+    }
+    assert saved["graph"]["deferred_edge_classes"][0]["owner_path"] == "scripts/build_code_lens_join_index.py"
