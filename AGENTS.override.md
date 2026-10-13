@@ -176,3 +176,7 @@ mutation class or authority question:
 - `Receipt Floor` and `Anti-Claim` before changing public evidence.
 
 Do not absorb the full file merely to discover the first action.
+
+For folder organisation and new file families, open
+[repository-organization](skills/repository-organization/SKILL.md) and run
+`python3 skills/repository-organization/scripts/check_layout.py --config docs/maintainers/repository-layout.json`.

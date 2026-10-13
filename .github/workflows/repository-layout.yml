@@ -1,0 +1,20 @@
+name: Repository layout
+on:
+  push:
+    branches: [main, 'codex/**']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  layout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Directory roles and agent routes
+        run: python3 skills/repository-organization/scripts/check_layout.py --config docs/maintainers/repository-layout.json
+      - name: Misplacement, staged contents and compatibility fixtures
+        run: python3 skills/repository-organization/scripts/test_check_layout.py
