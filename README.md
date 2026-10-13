@@ -347,3 +347,8 @@ python3 skills/repository-organization/scripts/test_check_layout.py
 
 After staging owned changes, add `--index` to the first command to check the staged
 policy and staged route contents. Ignored build outputs are outside this inventory.
+
+Custom folders are welcome: declare their purpose in `docs/maintainers/repository-layout.json`.
+Undeclared folders produce a warning; declared placement rules still apply.
+See the [organisation workflow](skills/repository-organization/SKILL.md) for adding
+folders and generalising useful local lessons.

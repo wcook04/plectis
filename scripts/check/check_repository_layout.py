@@ -26,6 +26,11 @@ def candidate_paths(root: Path) -> list[str]:
     return sorted(p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file())
 
 
+def required_paths(policy: dict) -> list[str]:
+    """One inventory in new policies; accept legacy callers during migration."""
+    return sorted(set(policy.get("required_files", []) + policy.get("required_paths", [])))
+
+
 def violations(paths: list[str], policy: dict) -> list[str]:
     failures = []
     groups = policy["script_groups"]
@@ -47,7 +52,7 @@ def violations(paths: list[str], policy: dict) -> list[str]:
                 failures.append(f"{raw}: builders belong in scripts/build/ or scripts/papers/")
             elif p.name.startswith("check_") and p.parts[1] not in {"check", "papers"}:
                 failures.append(f"{raw}: checks belong in scripts/check/ or scripts/papers/")
-    for required in policy["required_paths"]:
+    for required in required_paths(policy):
         if required not in paths:
             failures.append(f"{required}: missing required layout owner or entry")
     return failures
