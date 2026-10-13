@@ -40,9 +40,13 @@ RUNTIME_PACKAGE = REPO_ROOT / "src" / "microcosm_core"
 # reader pages and index/metadata files: 3,840 -> 3,859 files, with 371,996 net
 # added bytes. Raise only the file ceiling by that exact delta to preserve the
 # prior 10-file headroom. Both byte ceilings remain unchanged.
+# The 2026-10-13 role organization ships five previously source-only paper
+# programs plus the script guide, layout policy, checker and regression fixture.
+# The 24 moved programs replace their old entries, so the net increase is nine:
+# 3,863 -> 3,872. Preserve the existing six-file headroom and both byte ceilings.
 ARTIFACT_BUDGET = {
     "max_total_bytes": 134_217_728,  # 128 MiB
-    "max_total_files": 3_869,
+    "max_total_files": 3_878,
     "max_data_files_bytes": 120_000_000,  # ~114.4 MiB
 }
 
