@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import shlex
 import subprocess
 import sys
 from pathlib import Path
@@ -305,25 +306,25 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
     for required in (
         "PYTHON ?= python3",
         "TMPDIR ?= /tmp",
-        "PYTEST_TMP_KEY ?= $(shell $(PYTHON) -c 'import hashlib, os; print(hashlib.sha256(os.getcwd().encode()).hexdigest()[:12])')",
+        'PYTEST_TMP_KEY ?= $(shell "$(PYTHON)" -c \'import hashlib, os; print(hashlib.sha256(os.getcwd().encode()).hexdigest()[:12])\')',
         "PYTEST_TMP_KEY := $(PYTEST_TMP_KEY)",
         "PYTHON_ENV_KEY := $(PYTHON_ENV_KEY)",
         "VENV ?= $(TMPDIR)/microcosm-substrate-venv-$(PYTEST_TMP_KEY)-$(PYTHON_ENV_KEY)",
         "VENV_PYTHON ?= $(VENV)/bin/python",
         "PIP_CACHE_DIR ?= $(TMPDIR)/microcosm-substrate-pip-cache-$(PYTEST_TMP_KEY)",
-        "PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)",
+        'PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR="$(PIP_CACHE_DIR)"',
         "EXPORT_OUT ?= ../plectis-export",
         "SMOKE_OUT ?= .microcosm/smoke",
         "SMOKE_ENV ?= MICROCOSM_RUNTIME_RECEIPT_WRITES=0",
         "PUBLIC_SITE_PARITY_REF ?= origin/gh-pages",
         "PUBLIC_SITE_URL ?= https://wcook04.github.io/plectis/",
-        "PUBLIC_SITE_PARITY_ARGS ?= --gh-pages-ref $(PUBLIC_SITE_PARITY_REF) --live-url $(PUBLIC_SITE_URL)",
+        'PUBLIC_SITE_PARITY_ARGS ?= --gh-pages-ref "$(PUBLIC_SITE_PARITY_REF)" --live-url "$(PUBLIC_SITE_URL)"',
         "PYTEST_TMP_ROOT ?= $(TMPDIR)/microcosm-substrate-test-tmp-$(PYTEST_TMP_KEY)",
-        'PYTEST_RUN_ID ?= $(shell $(PYTHON) -c \'import os, time; print("%s-%s" % (os.getpid(), time.time_ns()))\')',
+        'PYTEST_RUN_ID ?= $(shell "$(PYTHON)" -c \'import os, time; print("%s-%s" % (os.getpid(), time.time_ns()))\')',
         "PYTEST_RUN_ID := $(PYTEST_RUN_ID)",
         "PYTEST_TMP ?= $(PYTEST_TMP_ROOT)/run-$(PYTEST_RUN_ID)",
         "PYTEST_BASETEMP ?= $(PYTEST_TMP)/pytest",
-        "PYTEST_ENV ?= PYTHONPYCACHEPREFIX=$(PYTEST_TMP)/pycache TMPDIR=$(PYTEST_TMP)/tmp",
+        'PYTEST_ENV ?= PYTHONPYCACHEPREFIX="$(PYTEST_TMP)/pycache" TMPDIR="$(PYTEST_TMP)/tmp"',
         "PYTEST_KEEP_TMP ?= 0",
         "PYTEST_ARGS ?=",
         "PACKAGE_SMOKE_TMP_ROOT ?= $(TMPDIR)/microcosm-substrate-package-smoke-$(PYTEST_TMP_KEY)",
@@ -349,43 +350,41 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "make ci                  run test, smoke, and package-smoke",
         "make standalone-export   export a release-gated standalone tree",
         "make clean               remove local build and cache files",
-        "$(PYTHON) -m venv $(VENV)",
-        "$(PIP_ENV) $(VENV_PYTHON) -m pip install --upgrade pip",
-        '$(PIP_ENV) $(VENV_PYTHON) -m pip install -e ".[test]"',
-        "@mkdir -p $(PYTEST_TMP)/tmp $(PYTEST_TMP)/pycache",
-        "PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PUBLIC_TESTS) $(PYTEST_ARGS)",
+        '"$(PYTHON)" -m venv "$(VENV)"',
+        '$(PIP_ENV) "$(VENV_PYTHON)" -m pip install --upgrade pip',
+        '$(PIP_ENV) "$(VENV_PYTHON)" -m pip install -e ".[test]"',
+        '@mkdir -p "$(PYTEST_TMP)/tmp" "$(PYTEST_TMP)/pycache"',
+        'PYTHONPATH=src $(PYTEST_ENV) "$(VENV_PYTHON)" -m pytest --basetemp="$(PYTEST_BASETEMP)" $(PUBLIC_TESTS) $(PYTEST_ARGS)',
         'if [ "$(PYTEST_KEEP_TMP)" != "1" ]; then rm -rf "$(PYTEST_TMP)"; fi',
         "Note: make test-all is a broad macro-root drift-detection suite with tracked receipt writes blocked under pytest. Use make ci for the clean public verification floor.",
-        "PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PYTEST_ARGS)",
-        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core hello .",
-        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core first-screen --card .",
-        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card .",
-        "$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab",
-        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core status --card .",
-        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/served_status_smoke.py "
-        "--root . --project . --out $(SMOKE_OUT)/served-status-card.json",
-        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core authority --card",
-        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core workingness --card",
-        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard",
-        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core --version",
-        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard",
-        '$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core comprehend '
-        '--first-action "where do I start with this clone?"',
-        "> $(SMOKE_OUT)/first-screen-card.json",
-        "> $(SMOKE_OUT)/tour-card.json",
-        "> $(SMOKE_OUT)/proof-lab-card.json",
-        "> $(SMOKE_OUT)/status-card.json",
-        "$(SMOKE_OUT)/served-status-card.json",
-        "> $(SMOKE_OUT)/stripping-guard.json",
-        "$(PYTHON) scripts/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)",
-        "$(PYTHON) scripts/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON)",
+        'PYTHONPATH=src $(PYTEST_ENV) "$(VENV_PYTHON)" -m pytest --basetemp="$(PYTEST_BASETEMP)" $(PYTEST_ARGS)',
+        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core hello .',
+        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core first-screen --card .',
+        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core tour --card .',
+        '$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab',
+        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core status --card .',
+        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" scripts/served_status_smoke.py --root . --project . --out "$(SMOKE_OUT)/served-status-card.json"',
+        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core authority --card',
+        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core workingness --card',
+        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core legibility-scorecard',
+        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core --version',
+        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core stripping-guard',
+        '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core comprehend --first-action "where do I start with this clone?"',
+        '> "$(SMOKE_OUT)/first-screen-card.json"',
+        '> "$(SMOKE_OUT)/tour-card.json"',
+        '> "$(SMOKE_OUT)/proof-lab-card.json"',
+        '> "$(SMOKE_OUT)/status-card.json"',
+        '"$(SMOKE_OUT)/served-status-card.json"',
+        '> "$(SMOKE_OUT)/stripping-guard.json"',
+        '"$(PYTHON)" scripts/check_smoke_outputs.py --smoke-out "$(SMOKE_OUT)"',
+        '"$(PYTHON)" scripts/package_install_smoke.py --source-root . --work-dir "$(PACKAGE_SMOKE_TMP)" --python "$(PYTHON)"',
         'if [ "$$status" -eq 0 ] && [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi',
             "ci: check test smoke package-smoke",
-        "PYTHONPATH=src $(PYTHON) -m microcosm_core public-site-parity --root . $(PUBLIC_SITE_PARITY_ARGS)",
-        "PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary",
-        "$(PYTHON) scripts/check_artifact_budget.py --report",
-        "$(PYTHON) scripts/check_artifact_budget.py --check",
-        "rm -rf $(SMOKE_OUT) $(PYTEST_TMP_ROOT) $(PACKAGE_SMOKE_TMP_ROOT) .microcosm/test-tmp",
+        'PYTHONPATH=src "$(PYTHON)" -m microcosm_core public-site-parity --root . $(PUBLIC_SITE_PARITY_ARGS)',
+        'PYTHONPATH=src "$(VENV_PYTHON)" -m microcosm_core.release_export --root . --out "$(EXPORT_OUT)" --force --summary',
+        '"$(PYTHON)" scripts/check_artifact_budget.py --report',
+        '"$(PYTHON)" scripts/check_artifact_budget.py --check',
+        'rm -rf "$(SMOKE_OUT)" "$(PYTEST_TMP_ROOT)" "$(PACKAGE_SMOKE_TMP_ROOT)" .microcosm/test-tmp',
     ):
         assert required in text
 
@@ -428,11 +427,11 @@ def test_public_repo_makefile_smoke_target_writes_expected_artifacts() -> None:
         "stripping-guard.json",
         "first-action.json",
     ):
-        assert text.count(f"> $(SMOKE_OUT)/{smoke_artifact}") == 1
-        assert f"> $(SMOKE_OUT)/{smoke_artifact} || true" not in text
-    assert text.count("--out $(SMOKE_OUT)/served-status-card.json") == 1
-    assert "--out $(SMOKE_OUT)/served-status-card.json || true" not in text
-    assert text.count("scripts/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)") == 1
+        assert text.count(f'> "$(SMOKE_OUT)/{smoke_artifact}"') == 1
+        assert f'> "$(SMOKE_OUT)/{smoke_artifact}" || true' not in text
+    assert text.count('--out "$(SMOKE_OUT)/served-status-card.json"') == 1
+    assert '--out "$(SMOKE_OUT)/served-status-card.json" || true' not in text
+    assert text.count('scripts/check_smoke_outputs.py --smoke-out "$(SMOKE_OUT)"') == 1
     assert "The checker validates those cards; command errors must still stop the run." in text
     assert "Microcosm smoke receipts written to %s" not in text
 
@@ -830,8 +829,8 @@ def test_make_smoke_rejects_unexpected_process_exits_before_card_check(
 ) -> None:
     log_path = tmp_path / "commands.jsonl"
     fake_python = tmp_path / "fake-python"
-    fake_python.write_text(
-        f"#!{sys.executable}\n"
+    payload_path = tmp_path / "fake-python.py"
+    payload_path.write_text(
         "import json, sys\n"
         "from pathlib import Path\n"
         f"with Path({str(log_path)!r}).open('a', encoding='utf-8') as log:\n"
@@ -839,6 +838,11 @@ def test_make_smoke_rejects_unexpected_process_exits_before_card_check(
         "print('{}')\n"
         f"if sys.argv[1:4] == ['-m', 'microcosm_core', {command!r}]:\n"
         f"    raise SystemExit({exit_code})\n",
+        encoding="utf-8",
+    )
+    fake_python.write_text(
+        "#!/bin/sh\n"
+        f"exec {shlex.quote(sys.executable)} {shlex.quote(str(payload_path))} \"$@\"\n",
         encoding="utf-8",
     )
     fake_python.chmod(0o755)
