@@ -11,12 +11,12 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "86e518d9539adfa58c6670be1d7114cb13d8ce7af5dd00c4fcf936e835a4d8d3",
+    "navigation_fingerprint": "d44bcbb1ffe5629d2c64a66285ea364f6b27a22138ef458f629652e569fec2c4",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "b5e6fa9ce3f33a6f397ab4a6e397d8c471f04d04ab87f44f9db3e00549e3fc34",
+    "source_sha256": "909c729158917dc6391c4921c5092916fd88e9ebaa5e206962f4b96fba7c272f",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "bf30207f9e7093e8",
@@ -31,8 +31,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "8b71b16835adc774e375b7ded57e8836ec3e0e4926495cca95e27c9b2aff23ed",
-    "html_exact_tex_sha256": "0a3b41ec409b3877e0f8bb4300cc087eb40b1c44e7e458d444f32d2a349344b5"
+    "html_mathml_sha256": "6972cedc4cc110082ea9c34c2e878a47015eb199ab07177660ea111cc0ee2f2d",
+    "html_exact_tex_sha256": "ec3507aad6c32d098be7fc92d76aff0b1c5b96f45fcfa35126439a4bc8f793e3"
   },
   "sections": [
     {

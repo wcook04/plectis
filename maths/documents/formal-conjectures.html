@@ -102,9 +102,9 @@ pinned statement comparison for the eight Erdős programmes. Contribution
 lifecycle and mathematical source identity have separate evidence.</p>
 <section id="contribution-activity" class="level2">
 <h2>Contribution activity</h2>
-<p>Observed <strong>2026-10-13T18:20:10Z</strong> from the linked public
-pull requests.</p>
-<p><strong>5 merged mathematical contributions · 9 open requests · 1
+<p>Observed <strong>2026-10-13T23:11:10.688524+00:00</strong> from the
+linked public pull requests.</p>
+<p><strong>5 merged mathematical contributions · 14 open requests · 1
 merged AUTHORS update.</strong></p>
 <p>A dated observation of public pull requests. Individual review,
 aggregate approval requirements and merge state are separate. A merge
@@ -112,7 +112,7 @@ accepts the scoped upstream change, not every mathematical claim in this
 repository. Maintenance of existing proof links is excluded from the
 merged mathematical contribution count. The earlier pinned statement
 comparisons below retain their original source identities.</p>
-<p>All fourteen receiving declarations listed here have successful
+<p>All nineteen receiving declarations listed here have successful
 author-hosted checks at the exact delivered heads. Each run exports the
 actual FC declaration before executing the confined candidate in Lean
 4.33.1 with FC’s <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a> pin
@@ -122,7 +122,13 @@ the axiom budget (<code>propext</code>, <code>Classical.choice</code>,
 <code>Quot.sound</code>) and positive/mismatch controls are checked. The
 eleven repaired adapters use source <code>d1fe386f</code>; the three
 earlier successful declarations retain their own immutable proof pins.
-These checks confer no independent human rerun or upstream merge.</p>
+The five additional statements retain proof pins <code>71a2bc9f</code>,
+<code>2cd19fba</code> and <code>01b23a6e</code>; <a
+href="https://github.com/wcook04/plectis-erdos-lean/pull/40" data-link-kind="exogenous" rel="external noopener">source
+PR40</a> and <a
+href="https://github.com/wcook04/plectis-erdos-lean/pull/41" data-link-kind="exogenous" rel="external noopener">source
+PR41</a> are merged. These checks confer no independent human rerun or
+upstream merge.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/38341643841" data-link-kind="exogenous" rel="external noopener">Source
 run 38341643841</a> separately compiled all ten receiving-adapter
@@ -390,6 +396,125 @@ required</strong>.</p>
 <p>Latest individual review: <a
 href="https://github.com/google-deepmind/formal-conjectures/pull/6780#pullrequestreview-5507342139" data-link-kind="exogenous" rel="external noopener">approved</a>
 on current head, 2026-10-13.</p>
+<p><strong><a
+href="https://github.com/google-deepmind/formal-conjectures/pull/7290" data-link-kind="exogenous" rel="external noopener">#7290
+· Add a noninteger regular-rate irrationality variant for Erdős
+243</a></strong></p>
+<p>For every real noninteger λ &gt; 1, a positive strictly increasing
+integer sequence with a(n)²/a(n+1) = 1 + λ/n + o(n^(-λ)), in the
+original index, has a convergent irrational <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">reciprocal sum</a>. Koizumi’s
+rational-tail argument is credited. The unrestricted
+eventual-Sylvester-recurrence problem #243 remains open.</p>
+<p><a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/38472730641" data-link-kind="exogenous" rel="external noopener">Receiving
+run 38472730641</a> compares the actual FC declaration at
+<code>c04dbfd6e3f93a9dda92b62048b2c076516aa989</code> with <a
+href="https://github.com/wcook04/plectis-erdos-lean/blob/71a2bc9f74f8650d7287581f799ba998fe26e60f/verification/FC243NonintegralRateCurrent/FCNonintegralRateSolutions.lean" data-link-kind="exogenous" rel="external noopener">proof
+source <code>71a2bc9f</code></a>. Statements and dependencies match;
+default Lean and NanoDa accept under <code>propext</code>,
+<code>Classical.choice</code> and <code>Quot.sound</code>, with positive
+and mismatch controls. The exact changed FC module passed a
+warning-clean build. This author-hosted check is distinct from
+independent human proof replay and upstream acceptance. Bo Cowgill
+approved this exact head after checking the little-o remainder,
+original-index finite-prefix adjustment and noninteger exclusion,
+relying on the linked author-hosted evidence; he explicitly did not
+independently rerun the proof. The request remains open with review
+required.</p>
+<p>Open; aggregate review decision: <strong>review
+required</strong>.</p>
+<p>Latest individual review: <a
+href="https://github.com/google-deepmind/formal-conjectures/pull/7290#pullrequestreview-5510880799" data-link-kind="exogenous" rel="external noopener">approved</a>
+on current head, 2026-10-13.</p>
+<p><strong><a
+href="https://github.com/google-deepmind/formal-conjectures/pull/7291" data-link-kind="exogenous" rel="external noopener">#7291
+· Add the mixed-modulus totient-observable
+classification</a></strong></p>
+<p>For a finite family of distinct positive dilations, base B ≥ 2 and
+rational tables modulo powers 2^k with k ≥ 1, a rational <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-linear-combination" data-term="linear_combination" data-term-auto="1">linear
+combination</a> of the dilated totient observables is rational exactly when
+every table is constant on its even classes. Odd classes contribute a
+finite prefix. This classification leaves the original binary
+totient-series problem #249 open.</p>
+<p><a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/38471271374" data-link-kind="exogenous" rel="external noopener">Receiving
+run 38471271374</a> compares the actual FC declaration at
+<code>c3d91b4f3a1c362db164595d5e114ac21202237f</code> with <a
+href="https://github.com/wcook04/plectis-erdos-lean/blob/2cd19fba5298bc4d8ca9fd469962b18ecfbbca31/verification/FC249MixedModuliCurrent/FC249MixedModuliSolution.lean" data-link-kind="exogenous" rel="external noopener">proof
+source <code>2cd19fba</code></a>. Statements and dependencies match;
+default Lean and NanoDa accept under <code>propext</code>,
+<code>Classical.choice</code> and <code>Quot.sound</code>, with positive
+and mismatch controls. The exact changed FC module passed a
+warning-clean build. This author-hosted check is distinct from
+independent human proof replay and upstream acceptance.</p>
+<p>Open; aggregate review decision: <strong>review
+required</strong>.</p>
+<p><strong><a
+href="https://github.com/google-deepmind/formal-conjectures/pull/7292" data-link-kind="exogenous" rel="external noopener">#7292
+· Add the infinite-rank three-prime running-LCM kernel
+theorem</a></strong></p>
+<p>The three-prime running-LCM kernel has nonsingular minors of every
+finite size uniformly across the third-coordinate layers, and therefore
+has no finite rational-valued separated representation. This structural
+theorem gives no rationality or irrationality conclusion for the scalar
+catalogue series in #269.</p>
+<p><a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/38471274558" data-link-kind="exogenous" rel="external noopener">Receiving
+run 38471274558</a> compares the actual FC declaration at
+<code>72f8836b29a5f9cc3f2ce04176d406e4a593a03e</code> with <a
+href="https://github.com/wcook04/plectis-erdos-lean/blob/2cd19fba5298bc4d8ca9fd469962b18ecfbbca31/verification/FC269UniformKernelCurrent/FC269UniformKernelSolution.lean" data-link-kind="exogenous" rel="external noopener">proof
+source <code>2cd19fba</code></a>. Statements and dependencies match;
+default Lean and NanoDa accept under <code>propext</code>,
+<code>Classical.choice</code> and <code>Quot.sound</code>, with positive
+and mismatch controls. The exact changed FC module passed a
+warning-clean build. This author-hosted check is distinct from
+independent human proof replay and upstream acceptance.</p>
+<p>Open; aggregate review decision: <strong>review
+required</strong>.</p>
+<p><strong><a
+href="https://github.com/google-deepmind/formal-conjectures/pull/7293" data-link-kind="exogenous" rel="external noopener">#7293
+· Add factorial-gap common-denominator growth</a></strong></p>
+<p>The common denominator L_N = lcm_{2≤n≤N}(n! − 1) satisfies <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit-inferior" data-term="limit_inferior" data-term-auto="1">liminf</a> log
+L_N/(N^(3/2) log N) ≥ 2√2/3. The theorem concerns the denominator before
+cancellation; it does not establish irrationality of the factorial-gap
+series in #68.</p>
+<p><a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/38472733409" data-link-kind="exogenous" rel="external noopener">Receiving
+run 38472733409</a> compares the actual FC declaration at
+<code>a4ea288bc7672535c3784d13130e9df95af0f7f7</code> with <a
+href="https://github.com/wcook04/plectis-erdos-lean/blob/71a2bc9f74f8650d7287581f799ba998fe26e60f/verification/FC68CommonDenominatorCurrent/FC68CommonDenominatorSolution.lean" data-link-kind="exogenous" rel="external noopener">proof
+source <code>71a2bc9f</code></a>. Statements and dependencies match;
+default Lean and NanoDa accept under <code>propext</code>,
+<code>Classical.choice</code> and <code>Quot.sound</code>, with positive
+and mismatch controls. The exact changed FC module passed a
+warning-clean build. This author-hosted check is distinct from
+independent human proof replay and upstream acceptance.</p>
+<p>Open; aggregate review decision: <strong>review
+required</strong>.</p>
+<p><strong><a
+href="https://github.com/google-deepmind/formal-conjectures/pull/7294" data-link-kind="exogenous" rel="external noopener">#7294
+· Add the exact initial term of normalized Hankel
+determinants</a></strong></p>
+<p>For every natural rank N, including zero, the normalized <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hankel-determinant" data-term="hankel_determinant" data-term-auto="1">Hankel
+determinant</a> has formal q-order E_N = N(N−1)(2N−1)/6 and coefficient
+2<sup>N[q</sup>E_N]H_N = (N!)²(N+1)!. Zudilin’s more general lower-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-asymptotic-bound" data-term="asymptotic_bound" data-term-auto="1">order
+bound</a> and normalized construction are credited. This fixed-rank formal
+initial term is distinct from #6780’s fixed-real-base large-rank
+asymptotic and gives no new rational-base irrationality region for
+#1049.</p>
+<p><a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/38478080939" data-link-kind="exogenous" rel="external noopener">Receiving
+run 38478080939</a> compares the actual FC declaration at
+<code>10c6001c65d3b78b6fee282f4e614a3bc93868d1</code> with <a
+href="https://github.com/wcook04/plectis-erdos-lean/blob/01b23a6e0ead0a80b89dd1b3dffed1e4356ad2ba/verification/FC1049OrderCoeffCurrent/FC1049OrderCoeffSolution.lean" data-link-kind="exogenous" rel="external noopener">proof
+source <code>01b23a6e</code></a>. Statements and dependencies match;
+default Lean and NanoDa accept under <code>propext</code>,
+<code>Classical.choice</code> and <code>Quot.sound</code>, with positive
+and mismatch controls. The exact changed FC module passed a
+warning-clean build. This author-hosted check is distinct from
+independent human proof replay and upstream acceptance.</p>
+<p>Open; aggregate review decision: <strong>review
+required</strong>.</p>
 </section>
 <section id="proof-link-maintenance" class="level3">
 <h3>Proof-link maintenance</h3>
@@ -626,7 +751,7 @@ lifecycle.</p></li>
 <section id="erdős-243" class="level3">
 <h3>Erdős #243</h3>
 <p>Local question: Under a rapid-growth hypothesis on an integer
-sequence, does rationality of its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">reciprocal sum</a> force the sequence to
+sequence, does rationality of its reciprocal sum force the sequence to
 satisfy the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-sylvester-sequence" data-term="sylvester_sequence" data-term-auto="1">Sylvester recurrence</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-eventual-property" data-term="eventual_property" data-term-auto="1">eventually</a>?</p>
 <ul>
 <li><p>Canonical local return route:
