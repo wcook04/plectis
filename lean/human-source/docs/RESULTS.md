@@ -349,7 +349,7 @@ has been formalised separately in Lean.
 The comparison identifies the added class and proof mechanism, but does not
 settle independent novelty or priority assessment. See the
 [short paper's theorem, example and sources](papers/full-text/erdos-257-mersenne-support-subseries.md#an-example-beyond-reciprocal-summability).
-[One host realises any finite monotone witness rule](papers/full-text/erdos257-mersenne-reasoning-surface.md#finite-rules-for-prime-witnesses),
+[One host realises any finite monotone witness rule](papers/full-text/erdos257-mersenne-reasoning-surface.md#prop%3A257-finite-witness-rule),
 checked in Lean as `finite_monotone_witness_rule_realised`. Given a finite
 set $E$ of primes and a nonconstant upward-closed rule on its subsets, a
 finite union of prime-cofactor blocks has divergent reciprocal sum, its
@@ -427,7 +427,7 @@ monic degree-`n` polynomials, `n≥3`, whose distinct zeros lie on a circle of
 radius `ρ` and satisfy `2ρ^n≤1`: two adjacent zeros have chord length at most
 `2ρ sin(π/n)<2`, and their straight chord lies in `{|f|<1}`. A repeated zero is
 an immediate short connection. The
-[reasoning record](papers/full-text/erdos1041-lemniscate-reasoning-surface.md#a-bounded-radius-concyclic-class)
+[reasoning record](papers/full-text/erdos1041-lemniscate-reasoning-surface.md#unformalised-remark-a-bounded-radius-concyclic-class)
 explains the alternation and chord argument. The proof is outside Lean; an
 [exact finite checker](../research_corpus/Erdos1041/scripts/check_erdos1041_concyclic_exact_witness.py)
 tests load-bearing identities and configurations, and the theorem does not yet

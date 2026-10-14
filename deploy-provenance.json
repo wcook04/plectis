@@ -13,424 +13,554 @@
   "generator_commit": "a60a5e5b0668e17a6476e50f12923d9cb97c0958",
   "last_scoped_release": {
     "changed_paths": {
-      "lean/experience/documents/architecture.json": {
+      "lean/RESULTS.md": {
         "after": {
           "mode": 420,
-          "sha256": "152dfe16931038bbd5f7043cb61d9ec83cd76d0f3c8d7dc24e93ddef38fb6c73"
+          "sha256": "4b2947142ea31b0a1aeb69a516296320d7d579cfd6ac739da4adc9a319bc934f"
         },
         "before": {
           "mode": 420,
-          "sha256": "df41c230664137ba1c99589542c0e432ea2f5fa560a247d0d00f135bb2a2e96f"
+          "sha256": "45d46df84010206304316771c8dbd46dc139a769ec712a58e60a005fa6815635"
+        }
+      },
+      "lean/experience/documents/architecture.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "efe71583c29e4274715b10bae2546a1ab12850ba6495f9d4ac1da9a8658a6b0c"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "152dfe16931038bbd5f7043cb61d9ec83cd76d0f3c8d7dc24e93ddef38fb6c73"
         }
       },
       "lean/experience/documents/comparator-1049.json": {
         "after": {
           "mode": 420,
-          "sha256": "e6d795fb703ad3799fb5a02e27c1c4e4e375740c3c5adb24d33e7343955c601f"
+          "sha256": "5e5ee3afb7bef521fd7cf55e23f7a8857fa573e51451e1eec80c3a412834239c"
         },
         "before": {
           "mode": 420,
-          "sha256": "28c0104f49d26c628c2305cd594250efdf81022a8fdd7ce8ef113bc518d12a6a"
+          "sha256": "e6d795fb703ad3799fb5a02e27c1c4e4e375740c3c5adb24d33e7343955c601f"
         }
       },
       "lean/experience/documents/documentation.json": {
         "after": {
           "mode": 420,
-          "sha256": "d43e12b6dbdcebff8d5be3b8714231802ebe888538be368602853b6cf7bd5f17"
+          "sha256": "1d49121897546ce9d401383a02e98ac2e9e1208ae07a5766c01a014931b477aa"
         },
         "before": {
           "mode": 420,
-          "sha256": "9c82f27601ddb447bd8b988de5dd97d6756db0ce2326011e198749b7ddad91b2"
+          "sha256": "d43e12b6dbdcebff8d5be3b8714231802ebe888538be368602853b6cf7bd5f17"
         }
       },
       "lean/experience/documents/external-verification.json": {
         "after": {
           "mode": 420,
-          "sha256": "dd60f753fb67d6e2deeb7d04d02a365ccd5126a9ae5c14ca39cb299c580e079d"
+          "sha256": "e44e914ae76f003eea57d92c159224898139b5ee67fa9760bf6e40fe1ffd4482"
         },
         "before": {
           "mode": 420,
-          "sha256": "485d3f35346b5cd8e2483c01d0b48e926ba363aa97076d87520b93ea7a2c56b4"
+          "sha256": "dd60f753fb67d6e2deeb7d04d02a365ccd5126a9ae5c14ca39cb299c580e079d"
         }
       },
       "lean/experience/documents/formal-conjectures.html": {
         "after": {
           "mode": 420,
-          "sha256": "3381493e4bd1436a245b265935f00c3d98563a5362d732b0ebf3713943a9c23d"
+          "sha256": "8b71b16835adc774e375b7ded57e8836ec3e0e4926495cca95e27c9b2aff23ed"
         },
         "before": {
           "mode": 420,
-          "sha256": "566ec0f46249e7d50f3dcc6a7648d2693739fd2dc6bc5ffc645ce35e07644ce2"
+          "sha256": "3381493e4bd1436a245b265935f00c3d98563a5362d732b0ebf3713943a9c23d"
         }
       },
       "lean/experience/documents/formal-conjectures.json": {
         "after": {
           "mode": 420,
-          "sha256": "1039f59d8b8f2a811cdb6ae74b31910c834716fc345669d22223134a8c8eabba"
+          "sha256": "d66952f36c469b765e1d0d02559c6ebadc481713bfbea189256ff3422320175f"
         },
         "before": {
           "mode": 420,
-          "sha256": "56289960ced59bf21470c21fd7d2e80e0c26cdee2a0952226ab0fba0e3d37ca7"
+          "sha256": "1039f59d8b8f2a811cdb6ae74b31910c834716fc345669d22223134a8c8eabba"
         }
       },
       "lean/experience/documents/formal-conjectures.mathjax.html": {
         "after": {
           "mode": 420,
-          "sha256": "5258d2bd85db32abc6b6408a16f90f9f2840d30b1ee820e82e720b256a729655"
+          "sha256": "0a3b41ec409b3877e0f8bb4300cc087eb40b1c44e7e458d444f32d2a349344b5"
         },
         "before": {
           "mode": 420,
-          "sha256": "6febadf25b4dfda88ceeb30b8a6fc2fa86d52611bef23a7373c15c8998a9b1a6"
+          "sha256": "5258d2bd85db32abc6b6408a16f90f9f2840d30b1ee820e82e720b256a729655"
         }
       },
       "lean/experience/documents/index.json": {
         "after": {
           "mode": 420,
-          "sha256": "fb3a3832c72645596cd11f12dd56e4a6b4b8108fa872b1f0f515d520ba746540"
+          "sha256": "2743ce9169f1cb6a741db2b6ef711e5292d870a8ad49a031f957bf6d541cf5b6"
         },
         "before": {
           "mode": 420,
-          "sha256": "6b3f2308c8db01e5b6c4699d9ed14bf448e83d6019978e438610bf94626c13e9"
+          "sha256": "fb3a3832c72645596cd11f12dd56e4a6b4b8108fa872b1f0f515d520ba746540"
         }
       },
       "lean/experience/documents/methodology.json": {
         "after": {
           "mode": 420,
-          "sha256": "dd72ff0f77e81638a0e4961cf015221b71d0baa5c4891581afc067db4409ae20"
+          "sha256": "27c44448c8faa7dd3dbf10441629c2c44c53aecffc291fe6278ed0a02b93a447"
         },
         "before": {
           "mode": 420,
-          "sha256": "32de8394497ff9ae933cf37b5a42e6771ffa37f3b8624b7d109c5cef4775679a"
+          "sha256": "dd72ff0f77e81638a0e4961cf015221b71d0baa5c4891581afc067db4409ae20"
         }
       },
       "lean/experience/documents/orientation.json": {
         "after": {
           "mode": 420,
-          "sha256": "543bdecc18f2e602b0f23a38b7422820bedb26e0f23f4f4755397a61aea34f00"
+          "sha256": "28a8b6ca97158c230b3020769498630262a41d8f6a302b06efa29d522c30ede5"
         },
         "before": {
           "mode": 420,
-          "sha256": "b715f5c747e2eaaf34b4ed1389e0577681db0d7d0ec0938471ecf5484b11bc6a"
+          "sha256": "543bdecc18f2e602b0f23a38b7422820bedb26e0f23f4f4755397a61aea34f00"
         }
       },
       "lean/experience/documents/paper-guide.json": {
         "after": {
           "mode": 420,
-          "sha256": "49b2c8394ead9a2e025b6cdc231df17b1078b8dcef401d620ff87656283d10fa"
+          "sha256": "140bf2d43ba4fe18701c2b1524fb2a4cce30df105f63e8721357bfe45e51d232"
         },
         "before": {
           "mode": 420,
-          "sha256": "4ff0fa4a3fd874ba9f4ff1d9fac3649dba938cef9122dd0a4b10bdd928bfec18"
+          "sha256": "49b2c8394ead9a2e025b6cdc231df17b1078b8dcef401d620ff87656283d10fa"
         }
       },
       "lean/experience/documents/prior-art.json": {
         "after": {
           "mode": 420,
-          "sha256": "b1f4bb6d5834c95df5e1b5ce8b4a4fd99e3c3359682980e0fca70c3cfb772bd2"
+          "sha256": "16e2a9b276b43660cd6126f5fb34c2d3ecc5925c7e52ec590abdb9d10d05311d"
         },
         "before": {
           "mode": 420,
-          "sha256": "7ae5e936848dd17402463f4d7955f6f2768e0abc2676e41bc78de5ad4146ac01"
+          "sha256": "b1f4bb6d5834c95df5e1b5ce8b4a4fd99e3c3359682980e0fca70c3cfb772bd2"
         }
       },
       "lean/experience/documents/reading-guide.json": {
         "after": {
           "mode": 420,
-          "sha256": "8101a7855f7a5fe65a025f8794782561570db1d377264f79dc4b0f9d5f2234e8"
+          "sha256": "742b02c7bc52f511bd7c7bb984bc7920492afd30988863e329f49723f5c5e514"
         },
         "before": {
           "mode": 420,
-          "sha256": "28c7716d5685af34e63fd21de8d99d4469116c42c54b4c8a415ae370984817cc"
+          "sha256": "8101a7855f7a5fe65a025f8794782561570db1d377264f79dc4b0f9d5f2234e8"
         }
       },
       "lean/experience/documents/readme.html": {
         "after": {
           "mode": 420,
-          "sha256": "97cef3fe375bfb104a342db69b1138a4d5d121b2e7bded9f89f737859ed5777d"
+          "sha256": "2809a4b04f23ca894947e5e50f3d13429688f03e257dedf3df7e035d5674b9eb"
         },
         "before": {
           "mode": 420,
-          "sha256": "05fd03606bf0d16872eb39d315c32c55f47ce833cc96e4bfa0142ea9d83cf246"
+          "sha256": "97cef3fe375bfb104a342db69b1138a4d5d121b2e7bded9f89f737859ed5777d"
         }
       },
       "lean/experience/documents/readme.json": {
         "after": {
           "mode": 420,
-          "sha256": "e9f3b125637449740c1db58f9f7074709ce0b3f576455b09dbf0295ee250b431"
+          "sha256": "fecc096f8dabb5e28a0596b60866a5c95af83e5f8b417ee4e51b3b7a776f978f"
         },
         "before": {
           "mode": 420,
-          "sha256": "a01d25302ee820bedd74c2c2bffa17dc2e987e11bdb5c56676376a6ef9592024"
+          "sha256": "e9f3b125637449740c1db58f9f7074709ce0b3f576455b09dbf0295ee250b431"
         }
       },
       "lean/experience/documents/readme.mathjax.html": {
         "after": {
           "mode": 420,
-          "sha256": "cd8d570bf018c0f8c7aa0ae9a9a5021c03081840a8a16fa4b605be0700194b7b"
+          "sha256": "81a9ae95bc6ab59c6e959b6d27dde0c77995d90851f459e6e684afe271719c22"
         },
         "before": {
           "mode": 420,
-          "sha256": "2282d26ca04a03301d88145e2da890daa174f270d505e27863cdcca3fb723f21"
+          "sha256": "cd8d570bf018c0f8c7aa0ae9a9a5021c03081840a8a16fa4b605be0700194b7b"
         }
       },
       "lean/experience/documents/related-problems.json": {
         "after": {
           "mode": 420,
-          "sha256": "cd0911abc83f28902f0b39b6d753e975386b84a748beb281f92815bd394a4647"
+          "sha256": "0a5882d2aa1538ec8de6096c3eea24d8451560951f61896895ce0ded858b715f"
         },
         "before": {
           "mode": 420,
-          "sha256": "da325876e1ece759859c161cafc63763467e60ec6f054165955744bc75f62dbd"
+          "sha256": "cd0911abc83f28902f0b39b6d753e975386b84a748beb281f92815bd394a4647"
         }
       },
       "lean/experience/documents/residual-progress.json": {
         "after": {
           "mode": 420,
-          "sha256": "e0beea88cd180bd8e5cccc954dd6b16eb23a52c9da94e038583550799ee265d1"
+          "sha256": "e0f8319f6c8ca880f322c146e24975f57e12fa299d496e991392e66d7fae8367"
         },
         "before": {
           "mode": 420,
-          "sha256": "dec8096187be5eae853581a646ae6305873d6ba6a1e7034d4baa20e0a02f2057"
+          "sha256": "e0beea88cd180bd8e5cccc954dd6b16eb23a52c9da94e038583550799ee265d1"
+        }
+      },
+      "lean/experience/documents/results.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "8790c862e45b5fb3c97bee92a0cb6bf0276c653e22f5e75a5011a512f34be850"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "805293d5d4628dc3843f46250bbc757a9de43972c984240805ee661c2bed1843"
         }
       },
       "lean/experience/documents/results.json": {
         "after": {
           "mode": 420,
-          "sha256": "f94108ef3bea6dc332e3b1c0a42fc2dfa3292b5cbcd46d52084769471ceb4e45"
+          "sha256": "6bd9cf83d7aacce4cfc9e85b13a3f8c78d69c8ef005dfca86b710b8399fe5147"
         },
         "before": {
           "mode": 420,
-          "sha256": "f028f6b6753b20e49f09b15f9fda119e5aaf4f3d05af05af52a5d002cda27db4"
+          "sha256": "f94108ef3bea6dc332e3b1c0a42fc2dfa3292b5cbcd46d52084769471ceb4e45"
+        }
+      },
+      "lean/experience/documents/results.mathjax.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "1c2c12541ca026034698f87198b78ad135ac6ca9a2739781032d783e6c2cba5c"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "5a07efb3382ddf2541c4ae9f27b4df2fdb1484447193c26140bffca23c801d76"
         }
       },
       "lean/experience/documents/scope.json": {
         "after": {
           "mode": 420,
-          "sha256": "1326620c5e5d0b0ae00a55d4802a4ad501aa3037ac4ef8d53d1aadc6d3a35042"
+          "sha256": "127c21415c16b30fffa86c8281f062e176fd1dd5681b67b4f2862b123ed13eff"
         },
         "before": {
           "mode": 420,
-          "sha256": "adb9684cc94be0ab76fd02c732b278bc9d7777ce57c3c10216cfaff3851ef246"
+          "sha256": "1326620c5e5d0b0ae00a55d4802a4ad501aa3037ac4ef8d53d1aadc6d3a35042"
         }
       },
       "lean/experience/documents/source-map.json": {
         "after": {
           "mode": 420,
-          "sha256": "0399c49981615c7b8613b4f59dc7c509002e54184f033c177739780bcab9946d"
+          "sha256": "a40b7acad97f1cac8fc1470b071c00ad5ecb1f136ca5acfdc6aa11ddb0a97fdd"
         },
         "before": {
           "mode": 420,
-          "sha256": "c3772ddb078b9ae0f8a8174b2ccf11a00751a26ce6371f0da8acea7256bada35"
+          "sha256": "0399c49981615c7b8613b4f59dc7c509002e54184f033c177739780bcab9946d"
         }
       },
       "lean/experience/documents/wave-index.json": {
         "after": {
           "mode": 420,
-          "sha256": "37f4b7ec4bc6a7719d0bb1175ce5e59a60daa116d25907dcdbc2f6779c7c14db"
+          "sha256": "2ddc4cdb28e7fd19e816abe2b2703fe0e5d801c7c3f6ac5f38c474a604d05779"
         },
         "before": {
           "mode": 420,
-          "sha256": "fe9adc42d42d7403ea461809380790d847f2012d8cfdf4ab07f057d87520d566"
+          "sha256": "37f4b7ec4bc6a7719d0bb1175ce5e59a60daa116d25907dcdbc2f6779c7c14db"
         }
       },
       "lean/experience/documents/weighted-257-task.json": {
         "after": {
           "mode": 420,
-          "sha256": "a9736ca91f610c96ef9ec7fc4e4f7b10c0825789f1351c1f5915731d101cd17e"
+          "sha256": "0969496b1dd14cd9282a80174f910a2dcea8811966a77c8aecd427042195eef1"
         },
         "before": {
           "mode": 420,
-          "sha256": "c53c2466eb74b0eab6388ae5de05e46159a4cb51d9de3c0f9fb519787cfe3d48"
+          "sha256": "a9736ca91f610c96ef9ec7fc4e4f7b10c0825789f1351c1f5915731d101cd17e"
         }
       },
       "lean/experience/manifest.json": {
         "after": {
           "mode": 420,
-          "sha256": "b3ce45117e9e8093b21530aadb27cddba9be94d78895ce1b249d3eed61f835ca"
+          "sha256": "c281e38cbde1789928cc7c4c4c8cecb921c8792dcf5bb7b88075dd9132f1c49c"
         },
         "before": {
           "mode": 420,
-          "sha256": "03f949df5791df152e2a42aeb0cf28f67fa10d62dfbde63af5c70d680af48010"
+          "sha256": "b3ce45117e9e8093b21530aadb27cddba9be94d78895ce1b249d3eed61f835ca"
+        }
+      },
+      "lean/experience/problems/erdos_1041.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "bfacafbba38761dc231f13846e8f2536e73b7e06a75786236a18f20237cadc1c"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "7463343718356033a99a28bd7c64228f39302d61ebf265e150d80625761513f8"
+        }
+      },
+      "lean/experience/problems/erdos_1049.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "822f0251222a0b44890018d61e548f2c4fd8389384fc70092482891d13677495"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "4c3050e4a83542d425c8f85a848ddf4d49b1c08f7e4e7e5b1d4dfae920bf62cf"
+        }
+      },
+      "lean/experience/problems/erdos_243.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "0e9565a29d1507085daaca92394fcb3467bab8c7294a730881158d7dc7f4db70"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "c3be90e250e32668efb09ef5fcfa566618bc77ecbd149668b71e82f846d224c7"
+        }
+      },
+      "lean/experience/problems/erdos_249.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "e64450c53e1f156d5edea615a4116f7c3f468daaa56ef8446cd690cc4379f620"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "1473841635b7dc1f70914e01da964495bcfa3b8c8b79b1cb844ca878ff0d8f38"
+        }
+      },
+      "lean/experience/problems/erdos_251.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "33ff4419b535398747b4d4aede5b08e473eb5b12219b40fea9c84666ccf808ab"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "1e3556f296e3365daff639eb2be595ba652561595e1f1f0420b5c8cc06ffc88c"
+        }
+      },
+      "lean/experience/problems/erdos_257.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "234e56b3525535d987d4892bde01a31bfd27357d8d53b2e09f8e3d5be181cbaa"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "28264e76709bafcbe47a6adb5d6abe26807f57c51c736cf3b98df79f8b18e2f9"
+        }
+      },
+      "lean/experience/problems/erdos_269.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "616f9699110014d424ba310c91ae6ef4df4d29567ef7eb83e396ff03f66ceb9e"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "79c5718acfb9a9bde701af1162bc34e90fa832e578fc1dd537f930c040b240c7"
+        }
+      },
+      "lean/experience/problems/erdos_68.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "1e39d11232814bd4da1bc351ad55308eafe0a4bef5ff9724c98e4f7251e7a0b9"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "b9f2200438f133875c80155e2298584aa2661587e3a4659e59ecd4fa625ac27a"
         }
       },
       "lean/experience/render-receipt.json": {
         "after": {
           "mode": 420,
-          "sha256": "8cbbad4d82c15666974dcf9b8b18764a01ca035e9503c5493ecc830e7748666f"
+          "sha256": "a15e1f4f859dae6cf220a740e632b4c1d141f2545941164a4ec94cb6553b7c1c"
         },
         "before": {
           "mode": 420,
-          "sha256": "39d65145e23c30f674635e81805937d342d1220630e7ad3f00271e7a20c51ff1"
+          "sha256": "8cbbad4d82c15666974dcf9b8b18764a01ca035e9503c5493ecc830e7748666f"
         }
       },
       "lean/human-source/README.md": {
         "after": {
           "mode": 420,
-          "sha256": "ba3d485df116d4b016bdeca2a7d698fa0eb515516566d4fce68d1f77def71748"
+          "sha256": "1119c17ce066fc57aa4602b14f08da708020857ad83c302a13e0cf54a738b0f8"
         },
         "before": {
           "mode": 420,
-          "sha256": "ac43397d5b32b36f3266eec099524f5e2d722fc2e45a23960840f369aef0ea4b"
+          "sha256": "ba3d485df116d4b016bdeca2a7d698fa0eb515516566d4fce68d1f77def71748"
+        }
+      },
+      "lean/human-source/docs/RESULTS.md": {
+        "after": {
+          "mode": 420,
+          "sha256": "4b2947142ea31b0a1aeb69a516296320d7d579cfd6ac739da4adc9a319bc934f"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "45d46df84010206304316771c8dbd46dc139a769ec712a58e60a005fa6815635"
         }
       },
       "lean/human-source/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md": {
         "after": {
           "mode": 420,
-          "sha256": "c8c5ada7ac81902a4c0954d15e8f50ad243f0ddec958209eeec185e3db343d63"
+          "sha256": "b5e6fa9ce3f33a6f397ab4a6e397d8c471f04d04ab87f44f9db3e00549e3fc34"
         },
         "before": {
           "mode": 420,
-          "sha256": "eed3713f958346f790666666263c081cd8bab4e5842cbf44f7d66bbdf9735b18"
+          "sha256": "c8c5ada7ac81902a4c0954d15e8f50ad243f0ddec958209eeec185e3db343d63"
         }
       },
       "lean/lean-source-manifest.json": {
         "after": {
           "mode": 420,
-          "sha256": "d8892263a42001a5ee3a7123e5805a4f68385f26cc230eef63cbbd27d520fa48"
+          "sha256": "85dffd3d751612fcf55f9272f8abbb6e3540d11a1cb442bf310a354e556c536e"
         },
         "before": {
           "mode": 420,
-          "sha256": "37365415a97a0c1ce3029c89802c4c335b4f4827b14c40a5e732e1b5e25aa055"
+          "sha256": "d8892263a42001a5ee3a7123e5805a4f68385f26cc230eef63cbbd27d520fa48"
         }
       },
       "maths/assets/universe-data.json": {
         "after": {
           "mode": 420,
-          "sha256": "d9f12b6bf2eef686d015b763d8062d037ae781fc092f47e74d1af66bff81d845"
+          "sha256": "4a78f520e8c5448bca654ae107461e40ba0980d969afd3d5844247e11d88b184"
         },
         "before": {
           "mode": 420,
-          "sha256": "cfd5dc7911e39e70623b3bc7e2fda83918e1b931de97108ea9fa3b1cb08df558"
+          "sha256": "d9f12b6bf2eef686d015b763d8062d037ae781fc092f47e74d1af66bff81d845"
         }
       },
       "maths/assets/universe-layout-full.json": {
         "after": {
           "mode": 420,
-          "sha256": "2934e031162fc06689831db87a715e9b1c6260b1522e989c639e238665850fea"
+          "sha256": "53ab738aec67c4ec73deddcc2b8829687507853f2603c7cc3ce30a9240ea8d8b"
         },
         "before": {
           "mode": 420,
-          "sha256": "5f973eaa41194ae6c2f0faba53f39ca351c0f3d4fb8b478a0759a65e403c97a9"
+          "sha256": "2934e031162fc06689831db87a715e9b1c6260b1522e989c639e238665850fea"
         }
       },
       "maths/documents/formal-conjectures.html": {
         "after": {
           "mode": 420,
-          "sha256": "cce5494f098980bd9d75eb7dfe477a1697055c8b3bcb0439384bfe1e7817ae02"
+          "sha256": "927dee2d0d5ae66ee899b9a49e9b0eb2d02242b104659813649ba6cbb45906ef"
         },
         "before": {
           "mode": 420,
-          "sha256": "54354b25e9412a9ba7beba834589e9702b4d63f420a0ce4e36c21927f3fad39d"
+          "sha256": "cce5494f098980bd9d75eb7dfe477a1697055c8b3bcb0439384bfe1e7817ae02"
         }
       },
       "maths/documents/readme.html": {
         "after": {
           "mode": 420,
-          "sha256": "cf0e10607cf934e3e1de1ecb57a2aff324288c25f58d8903505ddb69b9162c7a"
+          "sha256": "9fab4ccba0a8b2a0f1efdb4522ea4b6aaf826100fa722af3c51a6c648848b923"
         },
         "before": {
           "mode": 420,
-          "sha256": "076225dafbb9c836e10f32e4a3c98ca955c74f0f832602f00a07320710aa606e"
+          "sha256": "cf0e10607cf934e3e1de1ecb57a2aff324288c25f58d8903505ddb69b9162c7a"
+        }
+      },
+      "maths/documents/results.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "5c1436ad8f0df8270817dc713962d6631d7e3dad9c262311e334830366b88360"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "b2a61131a7789e1ece0f042bf729838b688a917d13733422b54d9211109d0d69"
         }
       },
       "maths/index.html": {
         "after": {
           "mode": 420,
-          "sha256": "efddf895aafe5b3ad471e0c45d51d713abe284ef288e13f73f2515b34be4d92d"
+          "sha256": "624ba186a8b6f610bbd598934ffa996ba4cb2e1c8b1a56609ef0e6fe1d4d892e"
         },
         "before": {
           "mode": 420,
-          "sha256": "f956a3820648ef8a828f076ed9e8bbafb9b76b7ebb3b80a7fe8b65a7e512ddc1"
+          "sha256": "efddf895aafe5b3ad471e0c45d51d713abe284ef288e13f73f2515b34be4d92d"
         }
       },
       "maths/problems/erdos_1041.html": {
         "after": {
           "mode": 420,
-          "sha256": "b043892bd4f2fc43695ed3c8b5fc8bc74d91e19001719ccb87d49af39c9d2e61"
+          "sha256": "488ed6bcb93e947c0f44539c18ca55e262e5f1558cc1b7fa55c40cb8b8352a54"
         },
         "before": {
           "mode": 420,
-          "sha256": "4aedee71c17414393c5e6a576da76f1dcae657884ed1ccced953555e69750f8d"
+          "sha256": "b043892bd4f2fc43695ed3c8b5fc8bc74d91e19001719ccb87d49af39c9d2e61"
         }
       },
       "maths/problems/erdos_1049.html": {
         "after": {
           "mode": 420,
-          "sha256": "bac07e9118cfb77e29cfdcd1148864780fde02769d8fab1a88241d7c8097cf81"
+          "sha256": "e6c9a18c7c57a1a13893f8720c1cc7f54ddf9f3a3a97dce88660966bfe1c0c51"
         },
         "before": {
           "mode": 420,
-          "sha256": "9ae5eecc33623096b2d55f4e5b1d2aa11a41db8630c78f10f24929cdb5d2e545"
+          "sha256": "bac07e9118cfb77e29cfdcd1148864780fde02769d8fab1a88241d7c8097cf81"
         }
       },
       "maths/problems/erdos_243.html": {
         "after": {
           "mode": 420,
-          "sha256": "a9794ed8a88723ab54c8d00816070d1dc608d1dcb6222289a5df37071a1cd666"
+          "sha256": "cd97ccb478d770095602566d034e59b6606ccd314d72fcb98fed6b4c84d52c62"
         },
         "before": {
           "mode": 420,
-          "sha256": "61f1d90fb5095a69dbf01ec1d93545a86b8235b5325beb655195575c897ba6f3"
+          "sha256": "a9794ed8a88723ab54c8d00816070d1dc608d1dcb6222289a5df37071a1cd666"
         }
       },
       "maths/problems/erdos_249.html": {
         "after": {
           "mode": 420,
-          "sha256": "264d4eade5119f157b5e208275f6040381bb823da086a24bb3194658e73ab396"
+          "sha256": "48d0acbe38f3ab0e3346d2c058a8a3ab90ab1400316f4ce9bd31250dfdc582df"
         },
         "before": {
           "mode": 420,
-          "sha256": "eb26b5df5c114802223cd3ed30099728bd22aea85424f9f07191dbf75df8d11e"
+          "sha256": "264d4eade5119f157b5e208275f6040381bb823da086a24bb3194658e73ab396"
         }
       },
       "maths/problems/erdos_251.html": {
         "after": {
           "mode": 420,
-          "sha256": "ef049ab940e5bafe1d2faca71ce0399421b435f18d4fc11177c910bd3fb3ae3f"
+          "sha256": "e906bf8921cbcc038da63400cd4bb4830020aab0f2f755fca8cf325a128c8799"
         },
         "before": {
           "mode": 420,
-          "sha256": "2084cf1552904dd04f4ffc3dbd0d523d7a5db50d45f2f9fb0848469899c5339e"
+          "sha256": "ef049ab940e5bafe1d2faca71ce0399421b435f18d4fc11177c910bd3fb3ae3f"
         }
       },
       "maths/problems/erdos_257.html": {
         "after": {
           "mode": 420,
-          "sha256": "3b5d854c342c242d9aa24b44461365e3ec5e972563fbb3fa6830bab2fd14952d"
+          "sha256": "ac07711fde33aa21ec27bafb69045748bd186f702ed317a359b09f6fabbe4137"
         },
         "before": {
           "mode": 420,
-          "sha256": "324cce41627778f334e46987a18e6752d64144445941f973f2e41618cd8c556b"
+          "sha256": "3b5d854c342c242d9aa24b44461365e3ec5e972563fbb3fa6830bab2fd14952d"
         }
       },
       "maths/problems/erdos_269.html": {
         "after": {
           "mode": 420,
-          "sha256": "66554a4f077909f193cd8224abb2b96e316866bc18485847a923938cf17caa9e"
+          "sha256": "9d46dd0a43e9783048ebf1bcb0aaa5b3f3277a4201efd3907785bfeefa870d55"
         },
         "before": {
           "mode": 420,
-          "sha256": "e2dcc205ccdfbc3b92de955755592b1261c13d0873cd52ca2e63d331d98b9134"
+          "sha256": "66554a4f077909f193cd8224abb2b96e316866bc18485847a923938cf17caa9e"
         }
       },
       "maths/problems/erdos_68.html": {
         "after": {
           "mode": 420,
-          "sha256": "e91171e06406bb32fa7c958da42fbe7816595fc5eae31af70fc66ed1426f6d25"
+          "sha256": "83e1a5d3c68bd2810b171e33cd8d604c3eca55646bca04b22a74d33efaa238c0"
         },
         "before": {
           "mode": 420,
-          "sha256": "d02577e34e42e808279ee0c5f2a24211b4d1b4cd4eee0a3d1feb5e1812ee5ff6"
+          "sha256": "e91171e06406bb32fa7c958da42fbe7816595fc5eae31af70fc66ed1426f6d25"
         }
       },
       "maths/universe.html": {
         "after": {
           "mode": 420,
-          "sha256": "2a607db981bbf94c3cac188069bcd90b99008e083f8c01c4a6f5460c5a360456"
+          "sha256": "50f1d18f09af528fb0c99b0ed4c359674b93520c3254bed28c5bfe461537ba57"
         },
         "before": {
           "mode": 420,
-          "sha256": "809905b2e122a3fdb86b6eca3f9c70b717478f1da6b5e6090f110f85d9d2481e"
+          "sha256": "2a607db981bbf94c3cac188069bcd90b99008e083f8c01c4a6f5460c5a360456"
         }
       }
     },
@@ -446,7 +576,7 @@
       "maths/universe.html"
     ],
     "generator_commit": "a60a5e5b0668e17a6476e50f12923d9cb97c0958",
-    "pages_base_commit": "dff2c6438c6100f2ed0f1e123717a585cc0935f3",
+    "pages_base_commit": "f23dfddc7a4ac9e7e209f2618a3c4f7508c9c546",
     "private_root_released": false,
     "protected_file_count": 608,
     "protected_products": "preserved Pages baseline bytes/modes; historical generation, not relabeled current",
@@ -470,7 +600,7 @@
       "repository": "wcook04/plectis"
     },
     "plectis-erdos": {
-      "commit": "b4b28c42c75c7d5020f812c8d95293b946650a27",
+      "commit": "d253557d422b6c2ef4dbd3573ba96167a4e0a23e",
       "ref": "main",
       "repository": "wcook04/plectis-erdos"
     }

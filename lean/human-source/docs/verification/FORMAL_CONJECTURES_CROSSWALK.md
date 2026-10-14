@@ -5,7 +5,7 @@ Follow the public Formal Conjectures contributions, then inspect the pinned stat
 
 ## Contribution activity
 
-Observed **2026-10-13T08:59:37.443457+00:00** from the linked public pull requests.
+Observed **2026-10-13T18:20:10Z** from the linked public pull requests.
 
 **5 merged mathematical contributions · 9 open requests · 1 merged AUTHORS update.**
 
@@ -141,9 +141,11 @@ Asymptotic for each fixed 0 < q < 1; no uniformity as q approaches one and no so
 
 Receiving verification for `GeometricMomentHankel.fixed_base_asymptotic`: [run 38358960367](https://github.com/wcook04/plectis-erdos-lean/actions/runs/38358960367) compares the actual FC declaration at `d194bd96` with [proof source `d1fe386f`](https://github.com/wcook04/plectis-erdos-lean/blob/d1fe386ff1d6f6ca49bbad2e8a309fea2b58cb85/verification/FC1049HankelCurrent/FC6780Solution.lean). Statements and dependencies match; default Lean and NanoDa accept under the three permitted core axioms, and positive/mismatch controls pass.
 
+On 13 October, Bo Cowgill approved `d194bd96`: the statement still matches Cook’s fixed-base theorem, and Zudilin’s equation (6) at x = z = 1 gives the moment summand; its zeroth Lambert term is zero. He said the actual-FC export-before-candidate order and consumed-export check resolve his earlier workspace concern. He relied on the author-hosted receiving receipt without independently rerunning the proof. The request remains open with review required.
+
 Open; aggregate review decision: **review required**.
 
-Latest individual review: [commented](https://github.com/google-deepmind/formal-conjectures/pull/6780#pullrequestreview-5446498053) on an earlier head, 2026-10-07.
+Latest individual review: [approved](https://github.com/google-deepmind/formal-conjectures/pull/6780#pullrequestreview-5507342139) on current head, 2026-10-13.
 
 ### Proof-link maintenance
 
@@ -169,7 +171,11 @@ Receiving verification for `Erdos1041.erdos_1041`: [run 38367503435](https://git
 
 Receiving verification for `Erdos257.erdos_257.variants.summable_reciprocal_support`: [run 38364924459](https://github.com/wcook04/plectis-erdos-lean/actions/runs/38364924459) compares the actual FC declaration at `49e83c34` with [proof source `d1fe386f`](https://github.com/wcook04/plectis-erdos-lean/blob/d1fe386ff1d6f6ca49bbad2e8a309fea2b58cb85/verification/FC257ReciprocalSupportCurrent/FC6529Solution.lean). Statements and dependencies match; default Lean and NanoDa accept under the three permitted core axioms, and positive/mismatch controls pass.
 
+On 13 October, [Bo Cowgill approved head `49e83c34`](https://github.com/google-deepmind/formal-conjectures/pull/7260#pullrequestreview-5507189340). He checked preservation of all five FC statements, including subtype summability, integer and shifted divisor-series indexing, and the #1041 Hausdorff measure definition. He checked the existing author-hosted receiving logs against this FC head and proof source `d1fe386f`; he did not independently rerun the external proofs. The approval is bound to this head and selected declaration set. The request remains open with review required; maintenance adds no mathematical result.
+
 Open; aggregate review decision: **review required**.
+
+Latest individual review: [approved](https://github.com/google-deepmind/formal-conjectures/pull/7260#pullrequestreview-5507189340) on current head, 2026-10-13.
 
 ### Authorship and closed requests
 
