@@ -311,8 +311,8 @@ The [release review](RELEASE_REVIEW.md) records the candidate’s checks;
 ## Videos and related projects
 
 **[Plectis introduction](https://www.youtube.com/watch?v=uO2lbstEH9M) is available.**
-The [project films page](https://wcook04.github.io/plectis/#videos) lists the
-published recordings and their subjects.
+The [project films page](https://wcook04.github.io/plectis/#videos) describes the
+recordings and their subjects.
 Some show the private research workbench; those interfaces are separate from
 this toolkit clone.
 
