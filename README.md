@@ -306,10 +306,11 @@ The [release review](RELEASE_REVIEW.md) records the candidate’s checks;
 
 ## Videos and related projects
 
-**Plectis introduction:** forthcoming.
+**[Plectis introduction](https://wcook04.github.io/plectis/#film-introduction): Coming soon.**
 The [project films page](https://wcook04.github.io/plectis/#videos) lists the
-published recordings and their subjects. Some show the private research
-workbench; those interfaces are separate from this toolkit clone.
+planned recordings and their subjects. Published links will be added there.
+Some show the private research workbench; those interfaces are separate from
+this toolkit clone.
 
 | Repository | What it contains | Website |
 |---|---|---|
