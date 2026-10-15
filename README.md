@@ -310,9 +310,19 @@ The [release review](RELEASE_REVIEW.md) records the candidate’s checks;
 
 ## Videos and related projects
 
-**[Plectis introduction](https://www.youtube.com/watch?v=uO2lbstEH9M) is available.**
 The [project films page](https://wcook04.github.io/plectis/#videos) describes the
 recordings and their subjects.
+
+| Film | Watch |
+|---|---|
+| Plectis introduction | [YouTube](https://www.youtube.com/watch?v=uO2lbstEH9M) |
+| A proof, step by step | [YouTube](https://www.youtube.com/watch?v=Ok5LkL1owjA) |
+| CodeMap | [YouTube](https://www.youtube.com/watch?v=6rP-pS8Ni4E) |
+| One Checkout | [YouTube](https://www.youtube.com/watch?v=HUciGvGo2ss) |
+| Mathematics overview | [YouTube](https://www.youtube.com/watch?v=4jObDlHmJRA) |
+| Plectis Atlas | [YouTube](https://www.youtube.com/watch?v=uLHWmBLsAHE) |
+| Safety Core | [YouTube](https://www.youtube.com/watch?v=CY4A1aEPCGc) |
+
 Some show the private research workbench; those interfaces are separate from
 this toolkit clone.
 
