@@ -322,7 +322,7 @@ Plectis is Will Cook’s programme of research and software built with AI agents
 | [Safety Core](https://github.com/wcook04/safety-core) | Editable agent rules, hooks and a local map of where checks apply. |
 | [One Checkout](https://github.com/wcook04/one-checkout) | Committing a reviewed patch while preserving other unfinished edits in the same checkout. |
 
-See the [programme directory](https://github.com/wcook04/plectis-erdos#the-wider-plectis-programme) for the full set of projects, or start at the [Plectis website](https://wcook04.github.io/plectis/).
+Explore the [research corpus](https://github.com/wcook04/plectis-erdos) and the [Plectis website](https://wcook04.github.io/plectis/).
 
 ## Name and history
 
