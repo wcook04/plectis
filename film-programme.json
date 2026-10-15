@@ -3,25 +3,100 @@
   "films": [
     {
       "id": "introduction",
-      "title": "Plectis: introduction",
-      "label": "Introduction",
-      "description": "I build tools with AI to make its work easier to understand. This introduction connects the projects’ code, mathematics, explanations and working rules.",
+      "title": "How the projects fit together",
+      "label": "How the projects fit together",
+      "description": "I go through the maths, the code map, how I make these videos, and the tools I use to manage the agents. Then some research into how the agents could improve their own way of working.",
       "role": "introduction",
       "links": [
         {
-          "label": "Explore the projects",
-          "href": "https://github.com/wcook04/plectis-erdos#the-wider-plectis-programme"
+          "label": "Plectis (my main website and maths map)",
+          "href": "https://wcook04.github.io/plectis/"
+        },
+        {
+          "label": "Plectis Atlas (OpenAI’s maths and outside assessments)",
+          "href": "https://wcook04.github.io/plectis-atlas/"
+        },
+        {
+          "label": "Zenith (research on improving AI investigations)",
+          "href": "https://github.com/wcook04/plectis-zenith"
+        },
+        {
+          "label": "GitHub (all my public repositories)",
+          "href": "https://github.com/wcook04"
+        },
+        {
+          "label": "Get in touch (email and collaboration)",
+          "href": "https://wcook04.github.io/plectis/docs/contact.html#get-in-touch"
+        },
+        {
+          "label": "X / Twitter (updates and discussion)",
+          "href": "https://x.com/cookie1234593"
         }
       ],
       "still_inset": null,
-      "poster": null,
-      "release": null
+      "poster": "assets/films/thumbnails-20261015/introduction.jpg",
+      "release": {
+        "edition_sha256": "6a79765fbc59a683b22065c1f6273b63519a8703233718763680b8981b82543e",
+        "approved_edition_sha256": "6a79765fbc59a683b22065c1f6273b63519a8703233718763680b8981b82543e",
+        "hosted_edition_sha256": "6a79765fbc59a683b22065c1f6273b63519a8703233718763680b8981b82543e",
+        "thumbnail_edition_sha256": "6a79765fbc59a683b22065c1f6273b63519a8703233718763680b8981b82543e",
+        "transcript_edition_sha256": "6a79765fbc59a683b22065c1f6273b63519a8703233718763680b8981b82543e",
+        "publication_authorized": true,
+        "url": "https://www.youtube.com/watch?v=uO2lbstEH9M",
+        "upload_date": "2026-10-15",
+        "duration_seconds": 484,
+        "thumbnail": "assets/films/thumbnails-20261015/introduction.jpg",
+        "thumbnail_sha256": "e8bbbfec3449f2b826170f4d196b6ee4dfd05938311f0258bcfee8eddba24461",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "I go through the maths, the code map, how I make these videos, and the tools I use to manage the agents. Then some research into how the agents could improve their own way of working.",
+          "sha256": "738a11df0640903a176c9abdda5b17070ec49fec847f4f05c0c843f64e5c622b"
+        },
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "Plectis Introduction"
+          },
+          {
+            "seconds": 21,
+            "title": "CodeMap"
+          },
+          {
+            "seconds": 94,
+            "title": "One Checkout"
+          },
+          {
+            "seconds": 117,
+            "title": "Mathematics"
+          },
+          {
+            "seconds": 226,
+            "title": "Plectis Atlas"
+          },
+          {
+            "seconds": 261,
+            "title": "Demo Take"
+          },
+          {
+            "seconds": 327,
+            "title": "Safety Core"
+          },
+          {
+            "seconds": 385,
+            "title": "Zenith"
+          }
+        ]
+      },
+      "category": "overview",
+      "preview_duration_seconds": 484,
+      "detail": "CodeMap and Demo Take are still part of my private system. The other project entries link to their public websites and code.",
+      "accepted_edition_sha256": "6a79765fbc59a683b22065c1f6273b63519a8703233718763680b8981b82543e"
     },
     {
       "id": "mathematics",
-      "title": "Erdős #257: the reciprocal-summability criterion",
-      "label": "Erdős #257",
-      "description": "The reciprocal-summability criterion for Erdős #257, with the paper and Lean proof. The unrestricted problem remains open.",
+      "title": "A proof, step by step",
+      "label": "A proof, step by step",
+      "description": "Could a sum made from 1, 1/3, 1/7, 1/15, … be a fraction? I explain a condition from Erdős that rules this out for certain selections; the full question is still open.",
       "role": "featured",
       "links": [
         {
@@ -31,101 +106,724 @@
         {
           "label": "The broader weighted criterion",
           "href": "maths/papers/erdos-257-mersenne-support-subseries.html#res:weighted-support"
+        },
+        {
+          "label": "Original question (Erdős Problems)",
+          "href": "https://www.erdosproblems.com/257"
+        },
+        {
+          "label": "Short paper (the precise results and arguments)",
+          "href": "https://wcook04.github.io/plectis/maths/papers/erdos-257-mersenne-support-subseries.html"
+        },
+        {
+          "label": "Long paper (the wider investigation and failed approaches)",
+          "href": "https://wcook04.github.io/plectis/maths/papers/erdos257-mersenne-reasoning-surface.html"
+        },
+        {
+          "label": "Maths map (find the statement and its proof)",
+          "href": "https://wcook04.github.io/plectis/maths/universe.html"
+        },
+        {
+          "label": "Research repository (papers and source)",
+          "href": "https://github.com/wcook04/plectis-erdos"
+        },
+        {
+          "label": "Lean proofs (formal statements and checks)",
+          "href": "https://github.com/wcook04/plectis-erdos-lean"
+        },
+        {
+          "label": "Formal Conjectures (merged contribution for this result)",
+          "href": "https://github.com/google-deepmind/formal-conjectures/pull/6529"
+        },
+        {
+          "label": "Independent replay (review of the linked proof revision)",
+          "href": "https://github.com/google-deepmind/formal-conjectures/pull/6529#pullrequestreview-5435090546"
         }
       ],
       "still_inset": null,
-      "poster": null,
-      "release": null
+      "poster": "assets/films/thumbnails-20261015/mathematics.jpg",
+      "release": {
+        "edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
+        "approved_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
+        "hosted_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
+        "thumbnail_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
+        "transcript_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
+        "publication_authorized": true,
+        "url": "https://www.youtube.com/watch?v=Ok5LkL1owjA",
+        "upload_date": "2026-10-15",
+        "duration_seconds": 1678,
+        "thumbnail": "assets/films/thumbnails-20261015/mathematics.jpg",
+        "thumbnail_sha256": "59d26c4a546dc6d2f8a99023dff8621b992836b6f0370c3047f1cef3dfe1edf5",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "Could a sum made from 1, 1/3, 1/7, 1/15, … be a fraction? I explain a condition from Erdős that rules this out for certain selections; the full question is still open.",
+          "sha256": "4160be21548c8db246f1bb4a791f0459b2ac7fd37a2f862b4e27c8bb14f05544"
+        },
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "Introduction"
+          },
+          {
+            "seconds": 94,
+            "title": "Erdős's question"
+          },
+          {
+            "seconds": 268,
+            "title": "What we prove"
+          },
+          {
+            "seconds": 395,
+            "title": "The test"
+          },
+          {
+            "seconds": 499,
+            "title": "Multiply and split"
+          },
+          {
+            "seconds": 649,
+            "title": "Which come out whole"
+          },
+          {
+            "seconds": 817,
+            "title": "One row's average"
+          },
+          {
+            "seconds": 951,
+            "title": "Many columns at once"
+          },
+          {
+            "seconds": 1205,
+            "title": "The contradiction"
+          },
+          {
+            "seconds": 1278,
+            "title": "Where this stops"
+          },
+          {
+            "seconds": 1352,
+            "title": "The proof in Lean"
+          },
+          {
+            "seconds": 1477,
+            "title": "Finding it on the map"
+          },
+          {
+            "seconds": 1566,
+            "title": "What this is for"
+          }
+        ]
+      },
+      "category": "maths",
+      "preview_duration_seconds": 1678,
+      "detail": "Start with 1, 1/3, 1/7, 1/15, ... and choose infinitely many of those terms. Could their total be a fraction? I try to explain one case of Erdős #257 through examples, then show where the argument appears in the paper and its computer-checked proof. The condition is that adding 1 divided by each chosen position in the original list gives a finite total. Erdős stated this condition, the full question about every infinite selection is still open. I'm not a mathematician, this is my attempt at making the argument easier to follow.",
+      "accepted_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb"
     },
     {
       "id": "codemap",
-      "title": "CodeMap: reading a codebase",
+      "title": "CodeMap",
       "label": "CodeMap",
-      "description": "Explore project files, their descriptions and connections through architecture, panorama and focus views. I use CodeMap, part of my private system, to investigate changes.",
+      "description": "Explore a codebase as a map of files and their connections. I follow one file to show how the map helps me understand what an agent is changing.",
       "role": "supporting",
-      "links": [],
+      "links": [
+        {
+          "label": "Plectis (my main website)",
+          "href": "https://wcook04.github.io/plectis/"
+        },
+        {
+          "label": "Public toolkit (separate tools from the same system)",
+          "href": "https://github.com/wcook04/plectis"
+        },
+        {
+          "label": "One Checkout (save selected changes)",
+          "href": "https://github.com/wcook04/one-checkout"
+        }
+      ],
       "still_inset": null,
-      "poster": null,
-      "release": null
+      "poster": "assets/films/thumbnails-20261015/codemap.jpg",
+      "release": {
+        "edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225",
+        "approved_edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225",
+        "hosted_edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225",
+        "thumbnail_edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225",
+        "transcript_edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225",
+        "publication_authorized": true,
+        "url": "https://www.youtube.com/watch?v=6rP-pS8Ni4E",
+        "upload_date": "2026-10-15",
+        "duration_seconds": 402,
+        "thumbnail": "assets/films/thumbnails-20261015/codemap.jpg",
+        "thumbnail_sha256": "df5cab12b040de56a12ffe2066b5a4cd1e958b3f4fe6fddef3bd00546889ec17",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "Explore a codebase as a map of files and their connections. I follow one file to show how the map helps me understand what an agent is changing.",
+          "sha256": "3dd233b7aebccd48794e144ef0b9e404f66d2be8b89ddc12d903b2a19f831a59"
+        },
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "Why a map"
+          },
+          {
+            "seconds": 70,
+            "title": "Descriptions kept with the code"
+          },
+          {
+            "seconds": 212,
+            "title": "Links between files"
+          },
+          {
+            "seconds": 253,
+            "title": "One source, two views"
+          },
+          {
+            "seconds": 328,
+            "title": "Choosing where to read"
+          }
+        ]
+      },
+      "category": "code",
+      "preview_duration_seconds": 402,
+      "detail": "When a codebase keeps growing, I want to be able to find out what a file does and what else depends on it before asking an agent to change it. CodeMap lets me explore that visually, from the broad areas of a project down to one file and its connections. In this video I follow a file that prepares the map itself, and explain how the agents get a text view of the same information stored in the code.",
+      "accepted_edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225"
     },
     {
       "id": "one-checkout",
-      "title": "One Checkout: commit the change you choose",
+      "title": "One Checkout",
       "label": "One Checkout",
-      "description": "Follow a patch from review to Git commit while other agents’ unfinished edits stay in the same working files.",
+      "description": "Choose one finished code change to save while other agents’ unfinished edits stay in place. I use a login fix as the example, and there is a small demo you can try yourself.",
       "role": "supporting",
       "links": [
         {
-          "label": "Try the disposable demo",
-          "href": "https://github.com/wcook04/one-checkout#try-it-before-installing"
+          "label": "One Checkout (source, installation and disposable demo)",
+          "href": "https://github.com/wcook04/one-checkout"
+        },
+        {
+          "label": "Safety Core (working rules and selected checks)",
+          "href": "https://github.com/wcook04/safety-core"
+        },
+        {
+          "label": "Plectis (my main website)",
+          "href": "https://wcook04.github.io/plectis/"
         }
       ],
       "still_inset": null,
-      "poster": null,
-      "release": null
+      "poster": "assets/films/thumbnails-20261015/one-checkout.jpg",
+      "release": {
+        "edition_sha256": "70adcdfa5ec0af18b48f7438c1a80cfb01fdf3357b5786aaa03eaaa47fd50ec4",
+        "approved_edition_sha256": "70adcdfa5ec0af18b48f7438c1a80cfb01fdf3357b5786aaa03eaaa47fd50ec4",
+        "hosted_edition_sha256": "70adcdfa5ec0af18b48f7438c1a80cfb01fdf3357b5786aaa03eaaa47fd50ec4",
+        "thumbnail_edition_sha256": "70adcdfa5ec0af18b48f7438c1a80cfb01fdf3357b5786aaa03eaaa47fd50ec4",
+        "transcript_edition_sha256": "70adcdfa5ec0af18b48f7438c1a80cfb01fdf3357b5786aaa03eaaa47fd50ec4",
+        "publication_authorized": true,
+        "url": "https://www.youtube.com/watch?v=HUciGvGo2ss",
+        "upload_date": "2026-10-15",
+        "duration_seconds": 93,
+        "thumbnail": "assets/films/thumbnails-20261015/one-checkout.jpg",
+        "thumbnail_sha256": "adac219de4bea33dd44607ac9e884a3ac3ec2f0e155c0fa41cee25061a33d6cc",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "Choose one finished code change to save while other agents’ unfinished edits stay in place. I use a login fix as the example, and there is a small demo you can try yourself.",
+          "sha256": "cdbb466700c176e91504c360f8b69690f57523fb099d84c1048f2a423618ea31"
+        },
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "One Checkout: the problem"
+          },
+          {
+            "seconds": 25,
+            "title": "One Checkout: how it works"
+          },
+          {
+            "seconds": 54,
+            "title": "One Checkout: try it"
+          }
+        ]
+      },
+      "category": "code",
+      "preview_duration_seconds": 93,
+      "detail": "If Claude Code and Codex are working in the same project, a finished fix can end up in the same file as somebody else's unfinished change. One Checkout lets you or your agent choose the exact changes to save as a Git commit, while the other edits stay where they are. This video uses a login fix as the example, the repo also has a disposable demo you can try without touching your own project.",
+      "accepted_edition_sha256": "70adcdfa5ec0af18b48f7438c1a80cfb01fdf3357b5786aaa03eaaa47fd50ec4",
+      "summary": "Two AI coding assistants can edit the same file at the same time. I show how to save just the finished login fix as a Git commit while the other assistant’s unfinished edits stay in place."
     },
     {
       "id": "mathematics-overview",
-      "title": "Plectis mathematics: from proofs to papers",
-      "label": "Mathematics overview",
-      "description": "How work on eight Erdős problems moves from Lean source and long working records to shorter papers and a website for human readers.",
+      "title": "My maths projects",
+      "label": "My maths projects",
+      "description": "How I’ve been investigating eight Erdős problems with AI, then trying to make that work understandable. Follow a result from its computer-checked proof through the papers and into the maths map.",
       "role": "supporting",
       "links": [
         {
-          "label": "Read the papers",
-          "href": "docs/papers.html"
+          "label": "Maths map (choose a problem, paper or proof)",
+          "href": "https://wcook04.github.io/plectis/maths/universe.html"
+        },
+        {
+          "label": "Papers (short explanations and longer investigations)",
+          "href": "https://wcook04.github.io/plectis/docs/papers.html"
+        },
+        {
+          "label": "Plectis Erdős (research repository)",
+          "href": "https://github.com/wcook04/plectis-erdos"
+        },
+        {
+          "label": "Lean proofs (formal statements and checks)",
+          "href": "https://github.com/wcook04/plectis-erdos-lean"
+        },
+        {
+          "label": "Formal Conjectures (which contributions were merged or remain open)",
+          "href": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md"
+        },
+        {
+          "label": "#257 contribution (a result accepted into Formal Conjectures)",
+          "href": "https://github.com/google-deepmind/formal-conjectures/pull/6529"
+        },
+        {
+          "label": "Palomar (registration and checks for selected results)",
+          "href": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-09-25-000009&version=1"
         }
       ],
       "still_inset": null,
-      "poster": null,
-      "release": null
+      "poster": "assets/films/thumbnails-20261015/mathematics-overview.jpg",
+      "release": {
+        "edition_sha256": "a7672473e8acd818ac88853693c959b7d81f7cf9b6d5d6c8b53737840ac2dcfe",
+        "approved_edition_sha256": "a7672473e8acd818ac88853693c959b7d81f7cf9b6d5d6c8b53737840ac2dcfe",
+        "hosted_edition_sha256": "a7672473e8acd818ac88853693c959b7d81f7cf9b6d5d6c8b53737840ac2dcfe",
+        "thumbnail_edition_sha256": "a7672473e8acd818ac88853693c959b7d81f7cf9b6d5d6c8b53737840ac2dcfe",
+        "transcript_edition_sha256": "a7672473e8acd818ac88853693c959b7d81f7cf9b6d5d6c8b53737840ac2dcfe",
+        "publication_authorized": true,
+        "url": "https://www.youtube.com/watch?v=4jObDlHmJRA",
+        "upload_date": "2026-10-15",
+        "duration_seconds": 531,
+        "thumbnail": "assets/films/thumbnails-20261015/mathematics-overview.jpg",
+        "thumbnail_sha256": "0f6dc57f1906eb210ad1729b8f71b5d4de3ea8a35a48c7905d5b53f18621bf6d",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "How I’ve been investigating eight Erdős problems with AI, then trying to make that work understandable. Follow a result from its computer-checked proof through the papers and into the maths map.",
+          "sha256": "313384b4c7ed608e421dc2a584cfb1e53afe10a035cf2976baa998f4fb7c5204"
+        },
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "Making AI mathematics readable"
+          },
+          {
+            "seconds": 99,
+            "title": "Reading layers"
+          },
+          {
+            "seconds": 259,
+            "title": "One result through the map"
+          },
+          {
+            "seconds": 408,
+            "title": "What could come next"
+          }
+        ]
+      },
+      "category": "maths",
+      "preview_duration_seconds": 531,
+      "detail": "I've been using AI to investigate eight Erdős problems, and then trying to make that work understandable to somebody who wasn't there for the investigation. This video goes from the computer-checked proofs to the long records of what worked and failed, the shorter papers and the maths map, where you can follow one result into its paper and proof. I'm not a mathematician, this is a prototype of the preparation and explanation I think we could do with mathematicians involved. The separate #257 film goes through one argument.",
+      "accepted_edition_sha256": "a7672473e8acd818ac88853693c959b7d81f7cf9b6d5d6c8b53737840ac2dcfe"
     },
     {
       "id": "atlas",
-      "title": "Plectis Atlas: read the sources together",
+      "title": "Plectis Atlas",
       "label": "Plectis Atlas",
-      "description": "Browse OpenAI’s mathematics release by subject, with papers, Lean statements and outside assessments. Authors and reviewers retain credit.",
+      "description": "Browse OpenAI’s maths papers alongside the reports checking them. I follow one result about pi to show why two reports can give different labels to the same omission.",
       "role": "supporting",
       "links": [
         {
-          "label": "Open Atlas",
+          "label": "Plectis Atlas (the website)",
           "href": "https://wcook04.github.io/plectis-atlas/"
         },
         {
-          "label": "Source and credits",
+          "label": "Atlas on GitHub (source and credits)",
           "href": "https://github.com/wcook04/plectis-atlas"
+        },
+        {
+          "label": "Plectis (my own maths programme and other projects)",
+          "href": "https://wcook04.github.io/plectis/"
         }
       ],
       "still_inset": null,
-      "poster": null,
-      "release": null
+      "poster": "assets/films/thumbnails-20261015/atlas.jpg",
+      "release": {
+        "edition_sha256": "e6d1c0cf9682313f979a307566c6afe14281749800ceddfb0904df01392dd935",
+        "approved_edition_sha256": "e6d1c0cf9682313f979a307566c6afe14281749800ceddfb0904df01392dd935",
+        "hosted_edition_sha256": "e6d1c0cf9682313f979a307566c6afe14281749800ceddfb0904df01392dd935",
+        "thumbnail_edition_sha256": "e6d1c0cf9682313f979a307566c6afe14281749800ceddfb0904df01392dd935",
+        "transcript_edition_sha256": "e6d1c0cf9682313f979a307566c6afe14281749800ceddfb0904df01392dd935",
+        "publication_authorized": true,
+        "url": "https://www.youtube.com/watch?v=uLHWmBLsAHE",
+        "upload_date": "2026-10-15",
+        "duration_seconds": 190,
+        "thumbnail": "assets/films/thumbnails-20261015/atlas.jpg",
+        "thumbnail_sha256": "684c5bf4f7e40bf231711255d2f64536bfe6095cef1ff88228ae0be16e0cec7f",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "Browse OpenAI’s maths papers alongside the reports checking them. I follow one result about pi to show why two reports can give different labels to the same omission.",
+          "sha256": "10a0d2572b81a7fe3c03a21115a801848f7b2e81e6e2145fdd5e8ce5962f2334"
+        },
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "Finding a result"
+          },
+          {
+            "seconds": 40,
+            "title": "Two claims, one Lean statement"
+          },
+          {
+            "seconds": 60,
+            "title": "Two readers, two headlines"
+          },
+          {
+            "seconds": 105,
+            "title": "Reported Lean re-runs"
+          },
+          {
+            "seconds": 127,
+            "title": "Explanations and sources"
+          },
+          {
+            "seconds": 143,
+            "title": "Contributing"
+          },
+          {
+            "seconds": 171,
+            "title": "A prototype"
+          }
+        ]
+      },
+      "category": "research",
+      "preview_duration_seconds": 190,
+      "detail": "If you're interested in a mathematical result, finding the paper and then finding what other people have checked can involve a lot of searching. Plectis Atlas brings those sources together for OpenAI's maths release. In this video I look at a result about how closely fractions can approximate pi, and why two reports can use different labels while pointing out the same missing statement. The reports keep their authors and links, so you can read their actual reasons yourself.",
+      "accepted_edition_sha256": "e6d1c0cf9682313f979a307566c6afe14281749800ceddfb0904df01392dd935"
     },
     {
       "id": "safety-core",
-      "title": "Safety Core: rules and the checks behind them",
+      "title": "Safety Core",
       "label": "Safety Core",
-      "description": "Follow an editable rule through its folders and guidance to the configured check. The map distinguishes agent guidance from checks that run.",
+      "description": "A rulebook for coding agents, with a map of where each rule applies and what checks it. I use a test publishing request to show the difference between asking for approval and blocking an action.",
       "role": "supporting",
       "links": [
         {
-          "label": "Explore Safety Core",
+          "label": "Safety Core (source, setup and examples)",
           "href": "https://github.com/wcook04/safety-core"
+        },
+        {
+          "label": "One Checkout (save selected code changes)",
+          "href": "https://github.com/wcook04/one-checkout"
+        },
+        {
+          "label": "Plectis (my main website)",
+          "href": "https://wcook04.github.io/plectis/"
         }
       ],
       "still_inset": null,
-      "poster": null,
-      "release": null
+      "poster": "assets/films/thumbnails-20261015/safety-core.jpg",
+      "release": {
+        "edition_sha256": "5eeeaa4c1ffe324246ffac412f29f448d20632b45318645e6031af461e6d2384",
+        "approved_edition_sha256": "5eeeaa4c1ffe324246ffac412f29f448d20632b45318645e6031af461e6d2384",
+        "hosted_edition_sha256": "5eeeaa4c1ffe324246ffac412f29f448d20632b45318645e6031af461e6d2384",
+        "thumbnail_edition_sha256": "5eeeaa4c1ffe324246ffac412f29f448d20632b45318645e6031af461e6d2384",
+        "transcript_edition_sha256": "5eeeaa4c1ffe324246ffac412f29f448d20632b45318645e6031af461e6d2384",
+        "publication_authorized": true,
+        "url": "https://www.youtube.com/watch?v=CY4A1aEPCGc",
+        "upload_date": "2026-10-15",
+        "duration_seconds": 267,
+        "thumbnail": "assets/films/thumbnails-20261015/safety-core.jpg",
+        "thumbnail_sha256": "1cb854b0cdcd2845962f5439b6cfb5526d91a0a399e1e6881c54b725a8f14fab",
+        "transcript": {
+          "scope": "route_summary",
+          "text": "A rulebook for coding agents, with a map of where each rule applies and what checks it. I use a test publishing request to show the difference between asking for approval and blocking an action.",
+          "sha256": "d86627949edb62f04dbd3318a8b72531e94b2a538de3306ba36a936c9dc431ba"
+        },
+        "chapters": [
+          {
+            "seconds": 0,
+            "title": "Rule, place and check"
+          },
+          {
+            "seconds": 46,
+            "title": "Routes and folder purposes"
+          },
+          {
+            "seconds": 84,
+            "title": "Guidance and labels"
+          },
+          {
+            "seconds": 108,
+            "title": "One saved hook test"
+          },
+          {
+            "seconds": 146,
+            "title": "What the checks cover"
+          },
+          {
+            "seconds": 174,
+            "title": "A hypothetical use"
+          },
+          {
+            "seconds": 237,
+            "title": "A prototype"
+          }
+        ]
+      },
+      "category": "safety",
+      "preview_duration_seconds": 267,
+      "detail": "Giving an agent a rule is only part of it, I also want to see where that rule applies and what actually checks it. Safety Core has an editable rulebook and a map connecting the rules to folders, instructions and configured checks. I show an example changing a publishing check from asking for approval to blocking the request, using a test request. It's still a prototype, the broader idea is to learn from failures and improve the environment the agents work in.",
+      "accepted_edition_sha256": "5eeeaa4c1ffe324246ffac412f29f448d20632b45318645e6031af461e6d2384"
+    }
+  ],
+  "presentation": {
+    "kind": "connected_film_map_v1",
+    "root": "introduction",
+    "categories": [
+      {
+        "id": "code",
+        "label": "Working with code"
+      },
+      {
+        "id": "maths",
+        "label": "My maths projects"
+      },
+      {
+        "id": "research",
+        "label": "OpenAI’s maths"
+      },
+      {
+        "id": "safety",
+        "label": "Agent rules"
+      }
+    ],
+    "edges": [
+      {
+        "from": "introduction",
+        "to": "codemap",
+        "label": "See the code",
+        "category": "code"
+      },
+      {
+        "from": "codemap",
+        "to": "one-checkout",
+        "label": "Make a change",
+        "category": "code"
+      },
+      {
+        "from": "introduction",
+        "to": "mathematics-overview",
+        "label": "Explore my research",
+        "category": "maths"
+      },
+      {
+        "from": "mathematics-overview",
+        "to": "mathematics",
+        "label": "Follow one argument",
+        "category": "maths"
+      },
+      {
+        "from": "introduction",
+        "to": "atlas",
+        "label": "Read OpenAI’s results",
+        "category": "research"
+      },
+      {
+        "from": "introduction",
+        "to": "safety-core",
+        "label": "Guide the agents",
+        "category": "safety"
+      }
+    ],
+    "introductory_copy": "Start with the introduction, then follow a branch into a project. Each connection names what the next video explores."
+  },
+  "home": {
+    "title": "Plectis: projects by Will Cook",
+    "description": "Tools and research by Will Cook for understanding the work AI produces. Explore the videos, code maps, mathematics, agent tools and their source.",
+    "heading": "Plectis",
+    "lede": "I'm Will Cook. These are the projects I've been building with AI.",
+    "orientation": "Start with the introduction, or choose a project to find out more.",
+    "why_title": "Why I'm building this",
+    "why": [
+      "As AI gets better, it can do more work, and more complicated work. I think it's important to use those improvements to help us understand what it generates, too.",
+      "I want to see the big picture, then open the bit I don't understand. With code, that means seeing what each file does and what else it affects. With maths, it means starting with an explanation and being able to follow it back to the paper and proof.",
+      "The agents editing my videos can read the papers and code the videos are about. I record, review the result and give feedback. I'd like to try this with researchers and lecturers who can judge the subject properly.",
+      "These videos show what I've learned to build. I'd love to put those skills to use on other problems. I'm looking for work, an internship, fellowship or funding, and I'm very open to working together. If there's a problem you think I should try, please let me know."
+    ],
+    "invitation": "If something doesn't make sense, or you spot a mistake, please let me know. If your feedback leads to a change, I'd be happy to credit you, with your permission.",
+    "contact": [
+      {
+        "label": "Email me",
+        "href": "mailto:williamwkcook@gmail.com"
+      },
+      {
+        "label": "University email",
+        "href": "mailto:gj23368@bristol.ac.uk"
+      },
+      {
+        "label": "GitHub (all my public repositories)",
+        "href": "https://github.com/wcook04"
+      },
+      {
+        "label": "X / Twitter",
+        "href": "https://x.com/cookie1234593"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "codemap",
+      "name": "CodeMap",
+      "purpose": "See how the files in a software project fit together.",
+      "detail": "In the video I follow a file that prepares the map itself, then look at the files that use it. The descriptions are kept with the code, where agents can read them too.",
+      "category": "code",
+      "film": "codemap",
+      "status": "Still in development in my private system. I'm in the process of open sourcing it.",
+      "links": []
     },
     {
-      "id": "introduction-alternate",
-      "title": "Plectis: an earlier introduction",
-      "label": "Earlier introduction",
-      "description": "An earlier recording of the introduction, kept as an alternative account of the projects.",
-      "role": "alternate",
-      "links": [],
-      "still_inset": null,
-      "poster": null,
-      "release": null
+      "id": "one-checkout",
+      "name": "One Checkout",
+      "purpose": "Save one AI assistant’s changes while others edit the same file.",
+      "detail": "The video separates a finished login fix from another assistant’s unfinished edits. Only the fix goes into the Git commit, a saved step in the project’s history. You can try a disposable demo.",
+      "category": "code",
+      "film": "one-checkout",
+      "links": [
+        {
+          "label": "Code, setup and demo",
+          "href": "https://github.com/wcook04/one-checkout",
+          "kind": "code"
+        }
+      ]
+    },
+    {
+      "id": "mathematics",
+      "name": "Plectis Mathematics",
+      "purpose": "Explore eight maths problems, with explanations, papers and proofs.",
+      "detail": "I follow one result from its computer-checked proof to the paper and maths map. The longer papers also keep the routes that failed, so you can see how the investigation developed.",
+      "category": "maths",
+      "film": "mathematics-overview",
+      "status": "Research on particular cases and related results. The original questions remain open where the problem pages say so.",
+      "links": [
+        {
+          "label": "Explore the maths map",
+          "href": "maths/universe.html",
+          "kind": "explore"
+        },
+        {
+          "label": "Read the papers",
+          "href": "docs/papers.html",
+          "kind": "read"
+        },
+        {
+          "label": "Research repository",
+          "href": "https://github.com/wcook04/plectis-erdos",
+          "kind": "code"
+        },
+        {
+          "label": "Lean proofs (computer-checked arguments)",
+          "href": "https://github.com/wcook04/plectis-erdos-lean",
+          "kind": "code"
+        },
+        {
+          "label": "Contributions to Formal Conjectures (merged and open)",
+          "href": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md",
+          "kind": "evidence"
+        },
+        {
+          "label": "Palomar (selected results and their recorded checks)",
+          "href": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-09-25-000009&version=1",
+          "kind": "evidence"
+        }
+      ]
+    },
+    {
+      "id": "atlas",
+      "name": "Plectis Atlas",
+      "purpose": "Explore OpenAI's maths results and what people have said about them.",
+      "detail": "Pick a subject, open a result, and find its papers and the reports checking it. The reports keep their authors and sources, so you can see where they agree and where they differ.",
+      "category": "research",
+      "film": "atlas",
+      "links": [
+        {
+          "label": "Explore Atlas",
+          "href": "https://wcook04.github.io/plectis-atlas/",
+          "kind": "explore"
+        },
+        {
+          "label": "Source and credits",
+          "href": "https://github.com/wcook04/plectis-atlas",
+          "kind": "code"
+        }
+      ]
+    },
+    {
+      "id": "safety-core",
+      "name": "Safety Core",
+      "purpose": "See where your AI assistant’s safety rules apply and what checks them.",
+      "detail": "I use a test publishing request to show a check asking for permission, then change it to block the request. The map links that check to its rule and instructions.",
+      "category": "safety",
+      "film": "safety-core",
+      "status": "A prototype. The automatic checks shown run through Claude Code. Codex can read the rules, but that alone does not activate those checks.",
+      "links": [
+        {
+          "label": "Code, setup and examples",
+          "href": "https://github.com/wcook04/safety-core",
+          "kind": "code"
+        }
+      ]
+    },
+    {
+      "id": "demo-take",
+      "name": "Demo Take",
+      "purpose": "Make videos from a spoken explanation, with pictures that help explain it.",
+      "detail": "This is what I used to make these films. I record and give feedback, and agents edit the recordings and make visuals while reading the underlying maths and code.",
+      "category": "code",
+      "film": "introduction",
+      "film_seconds": 261,
+      "status": "Still part of my private system. There isn't a standalone public repository yet.",
+      "links": []
+    },
+    {
+      "id": "zenith",
+      "name": "Zenith",
+      "purpose": "Test whether AI can learn a better way to tackle a problem.",
+      "detail": "Try a way of working, check what it produces, then test a change on the next attempt. I'm still investigating which changes, if any, help.",
+      "category": "research",
+      "film": "introduction",
+      "status": "Work in progress. The repository describes the current research prototype and its limits.",
+      "links": [
+        {
+          "label": "Read the studies and their results",
+          "href": "https://wcook04.github.io/plectis-zenith/",
+          "kind": "read"
+        },
+        {
+          "label": "Research programme and code",
+          "href": "https://github.com/wcook04/plectis-zenith",
+          "kind": "code"
+        }
+      ],
+      "film_seconds": 385
+    },
+    {
+      "id": "toolkit",
+      "name": "Earlier Plectis toolkit",
+      "purpose": "Browse the earlier public software from my research system.",
+      "detail": "The system map explains the released components and how they fit together. This is a separate earlier release, not a public copy of every interface shown in the films.",
+      "category": "code",
+      "links": [
+        {
+          "label": "Explore the system map",
+          "href": "docs/system-map.html",
+          "kind": "explore"
+        },
+        {
+          "label": "Software repository",
+          "href": "https://github.com/wcook04/plectis",
+          "kind": "code"
+        }
+      ]
     }
   ]
 }

@@ -254,9 +254,9 @@ using author-hosted verification, without an independent rerun.
 The request remains open with review required; the unreduced-totient problem remains open.
 
 Nineteen [receiving checks](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#contribution-activity) pass.
-Bo approved [PR7260](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#proof-link-maintenance), [PR6780](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#open-requests) and [PR7290](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#open-requests)
-using author-hosted receipts without independent proof reruns.
-All remain open; review required.
+Bo approved [PR7260](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#proof-link-maintenance), [PR6780](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#open-requests) and [PR7290–7294](docs/verification/FORMAL_CONJECTURES_CROSSWALK.md#open-requests)
+using author-hosted checks without independent proof replay.
+All seven await required reviews.
 
 Other checks: [Prove2Me #243/#257 packets](docs/research-commons/README.md#native-prove2me-theorems)
 and [plectis-erdos-lean](https://github.com/wcook04/plectis-erdos-lean).

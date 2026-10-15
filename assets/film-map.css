@@ -1,0 +1,820 @@
+/* ── The film map (15 October 2026) ─────────────────────────────────────────
+   The Videos band as a connected tree of films, drawn by
+   tools/meta/dissemination/plectis_film_map.py and run by assets/film-map.js.
+   The introduction stands at the top and largest; the longer introduction
+   hangs beside it, joined by "or", an alternative rather than a step; one
+   branch per category leaves the introduction, each connection named in
+   plain words in its category's ink, and each film shows its still, title
+   and summary on the map. A film's reading (the publication owner's own
+   entry, with its longer paragraph and reading links) opens in place of the
+   map inside the same band, with a way back to all the videos.
+
+   Adapted, not new: the stills are the film shelf's .film-poster frames
+   (style.css, "The film shelf"), the head and the subgrid placement are the
+   shelf's 5:7 layout, the overview/reading switch with its travelling still
+   is the results band's overview (landing.js, morph; style.css,
+   result-plate), the reading's columns are the shelf's 7/5, and the lines
+   take the system map's grammar: each ink one meaning, a choice lighting its
+   own path while the rest step back, lines that run out from their source
+   once and then rest (art.js, system-map.js). Everything here is scoped
+   under .film-map; the root .film rules are overridden only inside it.
+
+   Lines are CSS borders (never backgrounds, so forced colours keep them) on
+   a geometry fixed by the grid, so they need no script, never cross a
+   still or a word, and survive any reflow. */
+
+.film-map {
+  --fm-gap: clamp(28px, 3vw, 40px);
+  --fm-s: 1.5px;          /* stroke */
+  --fm-r: 10px;           /* the radius of a turn */
+  --fm-bus: 18px;         /* where a branch turns along its run */
+  --fm-wire: 78px;        /* the band between a film and the films it leads to */
+  --fm-ink: var(--ink-soft);
+  --fm-quiet: color-mix(in srgb, var(--ink) 34%, transparent);
+  --fm-teal: #0b6b5a;
+  --fm-move: cubic-bezier(0.2, 0, 0, 1);
+  padding-bottom: clamp(56px, 8vh, 104px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .film-map { --fm-teal: #3cbf9f; }
+}
+:root[data-theme="dark"] .film-map { --fm-teal: #3cbf9f; }
+
+/* One ink per category, each a reference to the site's own figure inks
+   (style.css): ember for working with code, the plait's azure for my
+   mathematics, the maths map's violet for the agents' rules, its teal (one
+   step deeper on paper, so a label clears 4.5:1) for OpenAI's mathematics.
+   Lines and labels share the text step, as the system map's lines do. */
+.film-map .film-map__ink--ember { --fm-ink: var(--home-ember); }
+.film-map .film-map__ink--ice { --fm-ink: var(--home-ice); }
+.film-map .film-map__ink--violet { --fm-ink: var(--u-paper-long); }
+.film-map .film-map__ink--teal { --fm-ink: var(--fm-teal); }
+
+.film-map__layout { display: grid; grid-template-columns: minmax(0, 1fr); }
+
+/* ── Head ─────────────────────────────────────────────────────────────── */
+.film-map__head { margin-bottom: 2rem; }
+.film-map .film-map__head p { max-width: 34rem; }
+.film-map__intro { margin: 0; color: var(--ink-soft); font-size: 1.02rem; line-height: 1.55; }
+.home main .film-map .film-map__head p.film-map__intro { text-wrap: pretty; }
+.film-map .film-map__head p.film-map__status { margin: 0.6rem 0 0; font-size: 0.9rem; line-height: 1.5; color: var(--muted); }
+/* The key names what each ink means, as a short rule in the ink beside its
+   words: the same mark a branch draws. */
+.film-map__key {
+  list-style: none; margin: 1.1rem 0 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 0.35rem 1.2rem;
+  font-family: var(--font-sans); font-size: 0.86rem; line-height: 1.35; color: var(--ink-soft);
+}
+.film-map__key > li { display: inline-flex; align-items: center; gap: 0.5rem; }
+.film-map__key > li::before {
+  content: ""; flex: none; width: 18px; height: 0;
+  border-top: 2px solid var(--fm-ink); border-radius: 1px;
+}
+
+/* ── The tree (outline, narrow screens and the default) ──────────────────
+   A trunk runs down the left from the introduction; each branch leaves it on
+   a rounded elbow in its ink, its label on the elbow's line and its film
+   under the label. A film's next film hangs one step further in, on a line
+   of the branch's ink. */
+.film-map__tree {
+  --fm-spine: 11px; --fm-indent: 32px; --fm-elbow: 13px;
+  list-style: none; margin: 0; padding: 0;
+}
+.film-map__node { position: relative; min-width: 0; padding-bottom: 30px; }
+.film-map__node--parent { padding-bottom: 0; }
+.film-map__node--alternate,
+.film-map__depth--1 { padding-left: var(--fm-indent); }
+.film-map__depth--2 { padding-left: calc(var(--fm-indent) * 2); }
+.film-map__node--root { display: flex; flex-direction: column; }
+.film-map__tail { position: relative; flex: 1 0 auto; min-height: 26px; }
+.film-map__node--root > .film-map__tail::before,
+.film-map__node--branch > .film-map__tail::before {
+  content: ""; position: absolute; top: 4px; bottom: 0;
+  left: calc(var(--fm-spine) - var(--fm-s) / 2);
+  border-left: var(--fm-s) solid var(--fm-quiet);
+}
+.film-map__node--branch > .film-map__tail::before { top: 0; border-left-color: var(--fm-ink); }
+.film-map__stem { display: none; }
+/* The trunk beside every film that has another branch below it. */
+.film-map__node--alternate::before,
+.film-map__depth--1:not(.film-map__node--last)::before,
+.film-map__node--through::before,
+.film-map__depth--1.film-map__node--last::before {
+  content: ""; position: absolute; top: 0; bottom: 0;
+  left: calc(var(--fm-spine) - var(--fm-s) / 2);
+  border-left: var(--fm-s) solid var(--fm-quiet);
+}
+.film-map__depth--1.film-map__node--last::before { bottom: auto; height: calc(var(--fm-elbow) - var(--fm-r) + 1px); }
+/* The elbow: a branch's own line leaving the trunk for its label. */
+.film-map__node--branch::after,
+.film-map__node--alternate::after {
+  content: ""; position: absolute;
+  top: calc(var(--fm-elbow) - var(--fm-r)); height: calc(var(--fm-r) + var(--fm-s) / 2);
+  left: calc(var(--fm-spine) - var(--fm-s) / 2);
+  width: calc(var(--fm-indent) - var(--fm-spine) - 7px);
+  border-left: var(--fm-s) solid var(--fm-ink); border-bottom: var(--fm-s) solid var(--fm-ink);
+  border-bottom-left-radius: var(--fm-r);
+}
+.film-map__depth--2::after {
+  top: 0; height: calc(var(--fm-elbow) + var(--fm-s) / 2);
+  left: calc(var(--fm-indent) + var(--fm-spine) - var(--fm-s) / 2);
+}
+/* The longer introduction needs no elbow: its italic "or" stands beside the
+   trunk (a dotted elbow this short read as a stray mark on a phone). */
+.film-map__node--alternate::after { content: none; }
+.film-map__wire { position: relative; margin: 0 0 0.6rem; }
+.film-map__edge {
+  margin: 0; font-family: var(--font-sans); font-size: 0.88rem; font-weight: 500;
+  line-height: calc(var(--fm-elbow) * 2); color: var(--fm-ink);
+}
+.film-map__tip { display: none; }
+
+/* "or": the longer introduction is an alternative to the first. */
+.film-map__or {
+  margin: 0; font-family: var(--font-serif); font-style: italic; font-size: 0.98rem;
+  line-height: calc(var(--fm-elbow) * 2); color: var(--muted);
+}
+.film-map__node--alternate .film-map__or { grid-area: or; margin-bottom: 0.6rem; }
+
+/* ── Cards ──────────────────────────────────────────────────────────────
+   A film on the map: its still (the shelf's .film-poster frame), its title in
+   the serif, its status and its summary. The title is the one link in the
+   Tab order; the still is its mouse-only twin and echoes its focus. */
+.film-map__card { min-width: 0; }
+/* A long word in a narrow column (a phone at 200% text) breaks rather than
+   pushing the page sideways. */
+.film-map__card :is(.film-map__title, .film-map__meta, .film-map__text),
+.film-map__edge, .film-map .film-map__reading :is(.film__title, .film__links, .film-map__detail, .film-map__note),
+.film-map__hop-text { overflow-wrap: anywhere; }
+.film-map .film-map__still { display: block; border-radius: 8px; color: inherit; }
+.film-map__node--root .film-map__still { border-radius: 10px; }
+.film-map__title {
+  margin: 0.8rem 0 0; font-family: var(--font-serif); font-weight: 400; color: var(--ink);
+  font-size: 1.2rem; line-height: 1.2; letter-spacing: -0.01em; text-wrap: balance;
+}
+.film-map__node--root .film-map__title { font-size: clamp(1.5rem, 1.02rem + 1.05vw, 2.05rem); line-height: 1.12; margin-top: 1rem; }
+.film-map__title a {
+  color: inherit; text-decoration-line: underline; text-decoration-thickness: 1px;
+  text-underline-offset: 0.17em; text-decoration-color: transparent;
+  transition: text-decoration-color var(--motion-fast) var(--ease-out);
+}
+.film-map__meta {
+  margin: 0.35rem 0 0; font-family: var(--font-sans); font-size: 0.84rem; line-height: 1.4;
+  color: var(--faint); font-variant-numeric: tabular-nums;
+}
+.film-map__watch { font-weight: 600; }
+.film-map__watch::after { content: "\00a0\2197"; font-weight: 400; }
+.film-map__text {
+  margin: 0.45rem 0 0; max-width: 54ch; font-size: 0.95rem; line-height: 1.55;
+  color: var(--ink-soft); text-wrap: pretty;
+}
+.film-map__node--root .film-map__text { font-size: 1.02rem; max-width: 50ch; }
+.film-map .film-map__still .home-video__duration {
+  position: absolute; right: 0.5rem; bottom: 0.5rem; padding: 0.05rem 0.4rem; border-radius: 4px;
+  font-size: 0.74rem; font-family: var(--font-sans); font-variant-numeric: tabular-nums;
+}
+@media (hover: hover) and (pointer: fine) {
+  .film-map__title a:hover,
+  .film-map__card:has(.film-map__still:hover) .film-map__title a { text-decoration-color: color-mix(in srgb, currentColor 55%, transparent); }
+  .film-map__card:has(.film-map__title a:hover) .film-map__still,
+  .film-map .film-map__still:hover { box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 38%, transparent); }
+  /* An entry without a still is its name's twin instead (film-map.js). */
+  .film-map--live .film-map__card--text { cursor: pointer; }
+  .film-map__card--text:hover .film-map__title a { text-decoration-color: color-mix(in srgb, currentColor 55%, transparent); }
+}
+.film-map__card:has(.film-map__title a:focus-visible) .film-map__still {
+  box-shadow: 0 0 0 1px var(--page), 0 0 0 2px var(--accent);
+}
+
+/* Narrow: a branch's film is a still beside its title, the summary under
+   both, so eight films stay in reach of a thumb. */
+.film-map__node--branch .film-map__card,
+.film-map__node--alternate .film-map__card {
+  display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-areas: "still title" "still meta" "text text";
+  grid-template-rows: auto 1fr auto; column-gap: 0.85rem;
+}
+/* "or" opens the longer introduction's entry, on its dotted elbow. */
+.film-map__node--alternate .film-map__card {
+  grid-template-areas: "or or" "still title" "still meta" "text text";
+  grid-template-rows: auto auto 1fr auto;
+}
+.film-map__node--branch .film-map__frame,
+.film-map__node--alternate .film-map__frame { grid-area: still; align-self: start; }
+.film-map__node--branch .film-map__title,
+.film-map__node--alternate .film-map__title { grid-area: title; margin-top: 0; font-size: 1.1rem; }
+.film-map__node--branch .film-map__meta,
+.film-map__node--alternate .film-map__meta { grid-area: meta; }
+.film-map__node--branch .film-map__text,
+.film-map__node--alternate .film-map__text { grid-area: text; margin-top: 0.6rem; }
+@media (min-width: 640px) {
+  .film-map__node--branch .film-map__card,
+  .film-map__node--alternate .film-map__card {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    grid-template-areas: "still title" "still meta" "still text";
+    grid-template-rows: auto auto 1fr; column-gap: 1.4rem;
+  }
+  .film-map__node--alternate .film-map__card {
+    grid-template-areas: "or or" "still title" "still meta" "still text";
+    grid-template-rows: auto auto auto 1fr;
+  }
+  .film-map__node--branch .film-map__text,
+  .film-map__node--alternate .film-map__text { margin-top: 0.45rem; }
+  .film-map__node--root .film-map__card { max-width: 46rem; }
+}
+
+/* ── The tree on a wide screen ───────────────────────────────────────────
+   Four columns. The head stands in the first beside the introduction, which
+   spans the middle two; the longer introduction hangs in the fourth at the
+   introduction's waist, joined by "or". Each row below holds one generation:
+   a film's line, its label and arrow fill a band of its own above it, so no
+   line ever crosses a still or a word. The two branches that go deeper
+   stand under the introduction and drop straight down; the outer two leave
+   it near its edges and turn out along a short run. */
+@media (min-width: 1120px) {
+  .film-map--pyramid .film-map__layout {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(4, auto);
+    column-gap: var(--fm-gap);
+  }
+  .film-map--pyramid .film-map__head { grid-column: 1; grid-row: 1; position: relative; z-index: 1; margin: 0; }
+  .film-map--pyramid .film-map__key { flex-direction: column; align-items: flex-start; }
+  .film-map--pyramid .film-map__tree {
+    grid-column: 1 / -1; grid-row: 1 / -1;
+    display: grid; grid-template-columns: subgrid; grid-template-rows: subgrid;
+  }
+  .film-map--pyramid .film-map__col--root { grid-column: 2 / 4; }
+  .film-map--pyramid .film-map__col--1 { grid-column: 1; }
+  .film-map--pyramid .film-map__col--2 { grid-column: 2; }
+  .film-map--pyramid .film-map__col--3 { grid-column: 3; }
+  .film-map--pyramid .film-map__col--4 { grid-column: 4; }
+  .film-map--pyramid .film-map__row--1 { grid-row: 1; }
+  .film-map--pyramid .film-map__row--2 { grid-row: 2; }
+  .film-map--pyramid .film-map__row--3 { grid-row: 3; }
+  .film-map--pyramid .film-map__row--4 { grid-row: 4; }
+  .film-map--pyramid .film-map__node { display: flex; flex-direction: column; padding: 0; }
+  .film-map--pyramid .film-map__node::before,
+  .film-map--pyramid .film-map__node::after { content: none; }
+  .film-map--pyramid .film-map__node--root > .film-map__tail::before { content: none; }
+  .film-map--pyramid .film-map__tail { flex: 1 0 auto; min-height: 18px; }
+  .film-map--pyramid .film-map__node--branch > .film-map__tail::before {
+    left: calc(50% - var(--fm-s) / 2); top: 0;
+  }
+
+  /* Cards: the still over its title, as on the film shelf. */
+  .film-map--pyramid .film-map__node--branch .film-map__card,
+  .film-map--pyramid .film-map__node--alternate .film-map__card { display: block; }
+  .film-map--pyramid .film-map__node--branch .film-map__title,
+  .film-map--pyramid .film-map__node--alternate .film-map__title { margin-top: 0.8rem; font-size: 1.2rem; }
+  .film-map--pyramid .film-map__node--branch .film-map__text { font-size: 0.93rem; }
+  .film-map--pyramid .film-map__node--root .film-map__card { max-width: none; }
+
+  /* The introduction's stems: one per branch, in its ink, from under the
+     introduction's words to the row below. Their places are the columns'
+     centres (the straight branches) or a fifth of a column in from the
+     introduction's edges (the outer two), as fractions of the introduction's
+     own width, which is two columns and a gap. */
+  .film-map--pyramid .film-map__stem {
+    display: block; position: absolute; top: 0; bottom: 0; width: 0;
+    border-left: var(--fm-s) solid var(--fm-ink);
+  }
+  .film-map--pyramid .film-map__stem--c1 { left: calc((100% - var(--fm-gap)) / 10 - var(--fm-s) / 2); }
+  .film-map--pyramid .film-map__stem--c2 { left: calc((100% - var(--fm-gap)) / 4 - var(--fm-s) / 2); }
+  .film-map--pyramid .film-map__stem--c3 { left: calc(100% - (100% - var(--fm-gap)) / 4 - var(--fm-s) / 2); }
+  .film-map--pyramid .film-map__stem--c4 { left: calc(100% - (100% - var(--fm-gap)) / 10 - var(--fm-s) / 2); }
+
+  /* A film's line and label stand in the band over it. */
+  .film-map--pyramid .film-map__wire { height: var(--fm-wire); margin: 0 0 6px; flex: none; }
+  .film-map--pyramid .film-map__row--3 .film-map__wire { height: calc(var(--fm-wire) - var(--fm-bus)); }
+  .film-map--pyramid .film-map__edge {
+    position: absolute; left: calc(50% + 12px); top: calc(var(--fm-bus) + 7px);
+    max-width: calc(50% - 12px + var(--fm-gap) * 0.75);
+    line-height: 1.3; text-wrap: balance;
+  }
+  .film-map--pyramid .film-map__row--3 .film-map__edge { top: 8px; }
+  .film-map--pyramid .film-map__col--4 .film-map__edge { max-width: calc(50% - 12px); }
+  .film-map--pyramid .film-map__tip {
+    display: block; position: absolute; left: 50%; bottom: 1px;
+    width: 7px; height: 7px; margin-left: -3.5px;
+    border-right: var(--fm-s) solid var(--fm-ink); border-bottom: var(--fm-s) solid var(--fm-ink);
+    transform: rotate(45deg);
+  }
+  .film-map--pyramid .film-map__wire::before,
+  .film-map--pyramid .film-map__wire::after { content: ""; position: absolute; box-sizing: border-box; }
+  /* Straight: down the column's centre into the arrow. */
+  .film-map--pyramid .film-map__wire--straight .film-map__wire::before {
+    left: calc(50% - var(--fm-s) / 2); top: 0; bottom: 1px; width: 0;
+    border-left: var(--fm-s) solid var(--fm-ink);
+  }
+  /* West: from the introduction's left stem, turn left along the run, turn
+     down into the first column. ::before is the first turn (under the stem),
+     ::after the run and the drop. The stem stands a fifth of a column inside
+     the second column: 120% of this column plus the gap from its left. */
+  .film-map--pyramid .film-map__wire--west .film-map__wire::before {
+    top: 0; height: calc(var(--fm-bus) + var(--fm-s) / 2); width: var(--fm-r);
+    left: calc(120% + var(--fm-gap) + var(--fm-s) / 2 - var(--fm-r));
+    border-right: var(--fm-s) solid var(--fm-ink); border-bottom: var(--fm-s) solid var(--fm-ink);
+    border-bottom-right-radius: var(--fm-r);
+  }
+  .film-map--pyramid .film-map__wire--west .film-map__wire::after {
+    top: calc(var(--fm-bus) - var(--fm-s) / 2); bottom: 1px;
+    left: calc(50% - var(--fm-s) / 2);
+    right: calc(var(--fm-r) - 20% - var(--fm-gap) - var(--fm-s) / 2);
+    border-top: var(--fm-s) solid var(--fm-ink); border-left: var(--fm-s) solid var(--fm-ink);
+    border-top-left-radius: var(--fm-r);
+  }
+  /* East: the mirror, from the introduction's right stem into the fourth. */
+  .film-map--pyramid .film-map__wire--east .film-map__wire::before {
+    top: 0; height: calc(var(--fm-bus) + var(--fm-s) / 2); width: var(--fm-r);
+    right: calc(120% + var(--fm-gap) + var(--fm-s) / 2 - var(--fm-r));
+    border-left: var(--fm-s) solid var(--fm-ink); border-bottom: var(--fm-s) solid var(--fm-ink);
+    border-bottom-left-radius: var(--fm-r);
+  }
+  .film-map--pyramid .film-map__wire--east .film-map__wire::after {
+    top: calc(var(--fm-bus) - var(--fm-s) / 2); bottom: 1px;
+    right: calc(50% - var(--fm-s) / 2);
+    left: calc(var(--fm-r) - 20% - var(--fm-gap) - var(--fm-s) / 2);
+    border-top: var(--fm-s) solid var(--fm-ink); border-right: var(--fm-s) solid var(--fm-ink);
+    border-top-right-radius: var(--fm-r);
+  }
+
+  /* The longer introduction: a smaller still, centred on the introduction's
+     still (its offset is the difference of the two heights, from widths:
+     the introduction is two columns and a gap, this still 84% of one), with
+     "or" on a dotted line across the space between them. */
+  .film-map--pyramid .film-map__node--alternate .film-map__card {
+    position: relative; margin-left: 16%;
+    margin-top: calc((116% + var(--fm-gap)) * 9 / 32);
+  }
+  /* Percentage margins resolve against the card's width, so the word sits at
+     the still's mid-height across the whole space between the two stills. */
+  .film-map--pyramid .film-map__node--alternate .film-map__or {
+    position: absolute; z-index: 1; top: 0; right: 100%;
+    width: calc(100% * 16 / 84 + var(--fm-gap)); margin: calc(100% * 9 / 32) 0 0;
+    transform: translateY(-50%); text-align: center; line-height: 1.6;
+  }
+  .film-map--pyramid .film-map__node--alternate .film-map__or > span[aria-hidden] {
+    padding: 0 0.45em; background: var(--page);
+  }
+  .film-map--pyramid .film-map__node--alternate .film-map__frame { position: relative; }
+  .film-map--pyramid .film-map__node--alternate .film-map__frame::before {
+    content: ""; position: absolute; top: 50%; right: 100%;
+    width: calc(100% * 16 / 84 + var(--fm-gap)); height: 0;
+    border-top: var(--fm-s) dotted var(--fm-quiet);
+  }
+  .film-map--pyramid .film-map__node--alternate .film-map__title { font-size: 1.12rem; }
+  .film-map--pyramid .film-map__node--alternate .film-map__text { font-size: 0.9rem; }
+}
+
+/* ── Tracing a path ─────────────────────────────────────────────────────
+   Pointing at a film (or focusing its title) lights the line from the
+   introduction to it and steps every other line and label back, so the
+   route and its words read as one sentence. Films never dim. */
+.film-map__wire, .film-map__tail, .film-map__stem { transition: opacity var(--motion-ui) var(--ease-out); }
+.film-map.is-tracing .film-map__wire,
+.film-map.is-tracing .film-map__tail,
+.film-map.is-tracing .film-map__stem,
+.film-map.is-tracing .film-map__node::before,
+.film-map.is-tracing .film-map__node::after { opacity: 0.3; }
+.film-map.is-tracing .film-map__node.is-lit > .film-map__wire,
+.film-map.is-tracing .film-map__node.is-lit::after,
+.film-map.is-tracing .film-map__node.is-lit-tail > .film-map__tail,
+.film-map.is-tracing .film-map__stem.is-lit { opacity: 1; }
+
+/* ── Drawing the lines, once ─────────────────────────────────────────────
+   When the map first comes into view (film-map.js arms it only if it starts
+   below the window), the lines run out from the introduction: the stems,
+   then each branch along its own route, its label and arrow arriving as it
+   lands, then the next generation. About eight tenths of a second, then
+   still. Reduced motion, or a map already on screen, shows them at once. */
+@media (min-width: 1120px) {
+  .film-map--pyramid.film-map--armed :is(.film-map__stem, .film-map__tail, .film-map__edge, .film-map__tip),
+  .film-map--pyramid.film-map--armed .film-map__wire::before,
+  .film-map--pyramid.film-map--armed .film-map__wire::after { opacity: 0; }
+}
+@keyframes fm-down { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes fm-run-west {
+  from { clip-path: inset(0 0 calc(100% - 3px) 100%); }
+  55% { clip-path: inset(0 0 calc(100% - var(--fm-r) - 2px) 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes fm-run-east {
+  from { clip-path: inset(0 100% calc(100% - 3px) 0); }
+  55% { clip-path: inset(0 0 calc(100% - var(--fm-r) - 2px) 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes fm-arrive { from { opacity: 0; } to { opacity: 1; } }
+.film-map--drawing .film-map__stem { animation: fm-down 200ms var(--fm-move) backwards; }
+.film-map--drawing .film-map__row--2 .film-map__wire::before { animation: fm-down 150ms 180ms var(--fm-move) backwards; }
+.film-map--drawing .film-map__wire--straight.film-map__row--2 .film-map__wire::before { animation: fm-down 300ms 180ms var(--fm-move) backwards; }
+.film-map--drawing .film-map__wire--west .film-map__wire::after { animation: fm-run-west 330ms 300ms var(--fm-move) backwards; }
+.film-map--drawing .film-map__wire--east .film-map__wire::after { animation: fm-run-east 330ms 300ms var(--fm-move) backwards; }
+.film-map--drawing .film-map__row--2 :is(.film-map__edge, .film-map__tip) { animation: fm-arrive 220ms 440ms var(--ease-out) backwards; }
+.film-map--drawing .film-map__row--2 > .film-map__tail { animation: fm-down 160ms 560ms var(--fm-move) backwards; }
+.film-map--drawing .film-map__row--3 .film-map__wire::before { animation: fm-down 220ms 680ms var(--fm-move) backwards; }
+.film-map--drawing .film-map__row--3 :is(.film-map__edge, .film-map__tip) { animation: fm-arrive 220ms 820ms var(--ease-out) backwards; }
+
+/* ── Readings ───────────────────────────────────────────────────────────
+   Each film's entry from the publication owner (still, title, status,
+   summary, reading links; a Watch link, chapters and transcript once
+   released), with its longer paragraph, its preview note and the films next
+   to it on the map. Without a script they stand in order under the map and
+   the map's titles jump to them; with one, each opens in place of the map. */
+.film-map__readings { margin-top: clamp(2.6rem, 5vw, 3.8rem); padding-top: 1.6rem; border-top: 1px solid var(--home-line-strong); }
+.film-map__readings-lead { margin: 0 0 1.4rem; font-family: var(--font-sans); font-size: 0.95rem; color: var(--muted); }
+.film-map__shelf { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(2.4rem, 4vw, 3.2rem); }
+.film-map .film-map__reading { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 1.1rem; scroll-margin-top: 24px; }
+/* The shelf's own placement of .film--introduction (column 2) and
+   .film--featured (column 1) on wide screens (style.css) would open a second
+   column in this list; inside the map every reading takes the full row. */
+.film-map .film-map__shelf > .film { grid-column: 1 / -1; grid-row: auto; }
+.film-map .film-map__reading:focus { outline: none; }
+.film-map .film-map__reading:focus-visible { outline: none; }
+.film-map__bar { display: flex; align-items: center; }
+.film-map__bar--end { padding-top: 0.4rem; }
+.film-map__back {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 34px;
+  padding: 0.3rem 0.85rem 0.3rem 0.7rem; border-radius: var(--r-pill);
+  font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--home-line-strong); text-decoration: none;
+  transition: background-color var(--motion-fast) var(--ease-out), transform 120ms var(--ease-out);
+}
+.film-map__back::before {
+  content: ""; width: 7px; height: 7px; margin-right: 0.1rem;
+  border-left: var(--fm-s) solid currentColor; border-bottom: var(--fm-s) solid currentColor;
+  transform: rotate(45deg);
+}
+.film-map__back:hover { text-decoration: none; background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.film-map__back:active { transform: scale(0.97); }
+.film-map__back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.film-map__media { min-width: 0; }
+.film-map .film-map__reading .film__poster { margin: 0; }
+.film-map__note { margin: 0.55rem 0 0; font-family: var(--font-sans); font-size: 0.84rem; line-height: 1.45; color: var(--faint); }
+.film-map .film-map__reading .film__body { min-width: 0; }
+.film-map__category {
+  margin: 0 0 0.45rem; font-family: var(--font-sans); font-size: 0.88rem; font-weight: 500; color: var(--fm-ink);
+}
+.film-map .film-map__reading .film__title { font-size: clamp(1.55rem, 1.05rem + 1.1vw, 2.15rem); line-height: 1.12; }
+.film-map .film-map__reading .film__meta { margin-top: 0.4rem; }
+.film-map .film-map__reading .film__text { font-size: 1.02rem; max-width: 60ch; margin-top: 0.75rem; }
+/* The longer paragraph replaces the summary the reader has just read on
+   the map; a film without one keeps its summary. */
+.film-map .film-map__reading--detailed .film__text { display: none; }
+.film-map__detail {
+  margin: 0.8rem 0 0; max-width: 60ch; font-family: var(--font-serif);
+  font-size: clamp(1.04rem, 1.2vw, 1.12rem); line-height: 1.62; color: var(--ink-soft); text-wrap: pretty;
+}
+.film-map .film-map__reading .film__support { margin-top: 1.3rem; padding-top: 1rem; border-top: 1px solid var(--home-line); }
+.film-map .film-map__reading .film__links { row-gap: 0.3rem; font-size: 0.95rem; }
+/* The films next to this one: where it came from and where it leads, each a
+   small still with its title, the connection's words in its ink. */
+.film-map__route { display: grid; gap: 1.1rem; }
+.film-map__route-label { margin: 0 0 0.5rem; font-family: var(--font-sans); font-size: 0.86rem; color: var(--muted); }
+.film-map__hops { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.film-map__hop {
+  display: grid; grid-template-columns: 96px minmax(0, 1fr); column-gap: 0.85rem; align-items: center;
+  color: var(--ink); text-decoration: none; border-radius: 6px;
+}
+.film-map__hop-still {
+  display: block; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 5px;
+  background: #0d0a12; box-shadow: 0 0 0 1px var(--home-line-strong);
+}
+.film-map__hop-still img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.film-map__hop-text { display: grid; row-gap: 0.1rem; min-width: 0; }
+.film-map__hop-edge { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; color: var(--fm-ink); }
+.film-map__hop-title {
+  font-family: var(--font-serif); font-size: 1.04rem; line-height: 1.25;
+  text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.17em;
+  text-decoration-color: transparent; transition: text-decoration-color var(--motion-fast) var(--ease-out);
+}
+.film-map__hop:hover { text-decoration: none; }
+.film-map__hop:hover .film-map__hop-title { text-decoration-color: color-mix(in srgb, currentColor 55%, transparent); }
+.film-map__hop:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (min-width: 760px) {
+  .film-map .film-map__reading {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--fm-gap);
+    grid-template-rows: auto auto 1fr; align-items: start;
+  }
+  .film-map__bar { grid-column: 1 / -1; }
+  .film-map__bar--end { display: none; }
+  .film-map .film-map__reading > .film-map__media { grid-column: 1; grid-row: 2; }
+  .film-map .film-map__reading > .film__body { grid-column: 2; grid-row: 2 / 4; }
+  .film-map .film-map__reading > .film-map__route { grid-column: 1; grid-row: 3; padding-top: 0.6rem; }
+  .film-map .film-map__reading:not(:has(> .film-map__media)) > .film__body { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* With the script: the map is the band's overview and one reading at a time
+   replaces it, inside the same band, under the same head. html.scripting is
+   stamped before the first paint, so nothing below the band moves when the
+   script arrives. Should the script fail, a reading still shows when its
+   title is followed (:target). */
+html.scripting .film-map__readings { display: none; }
+html.scripting .film-map:not(.film-map--live) .film-map__readings:has(:target) { display: block; }
+html.scripting .film-map:not(.film-map--live) .film-map__reading:not(:target):not(:has(:target)) { display: none; }
+html.scripting .film-map__readings-lead { display: none; }
+.film-map.is-reading .film-map__tree { display: none; }
+.film-map.is-reading .film-map__readings { display: block; margin-top: 0; padding-top: 0; border-top: 0; }
+.film-map.is-reading .film-map__reading:not(.is-open) { display: none; }
+@media (min-width: 1120px) {
+  .film-map--pyramid .film-map__readings { grid-column: 1 / -1; grid-row: 5; }
+  .film-map--pyramid.is-reading .film-map__readings { grid-column: 2 / -1; grid-row: 1 / -1; align-self: start; }
+  .film-map--pyramid.is-reading .film-map__head { align-self: start; }
+}
+
+/* The chosen still travels between the map and its reading, as a result's
+   plate does between the eight and the one (landing.js morph). */
+::view-transition-group(film-still) { animation-duration: 440ms; animation-timing-function: cubic-bezier(0.2, 0, 0, 1); }
+::view-transition-old(film-still), ::view-transition-new(film-still) {
+  animation-duration: 440ms; height: 100%; object-fit: cover;
+}
+
+/* ── The landing's explorer (15 October 2026) ────────────────────────────
+   With the programme's home and projects, this band is the landing's first
+   working surface: a short front strip (the hero) above it, then the map of
+   projects and videos beside one open reading, as the maths Atlas keeps its
+   map beside the selected object (openai-math-atlas universe.css,
+   .u-explorer / .u-panel / .u-stage; universe.js select). The reading is
+   the panel: the main introduction until the reader opens something else.
+   The map is the stage: the introduction on the left, a trunk to the four
+   branches, each connection named in its ink, the films a branch leads to
+   beyond it, and the projects the introduction shows under it. Under
+   1120px the band keeps the outline above and its readings in place of the
+   map (the Atlas's list and details), so nothing is cropped to fit. */
+
+/* The front strip: the masthead stays the largest type on the page, at the
+   height of a strip, so the explorer reaches a laptop's first screen. */
+.home .home-hero--strip { padding: clamp(14px, 2.6vh, 30px) 0 clamp(10px, 1.8vh, 18px); }
+.home .home-hero--strip .home-hero__title {
+  font-size: clamp(2.6rem, 1.7rem + 2.3vw, 3.9rem); line-height: 0.9; margin-bottom: 0.4rem;
+}
+.home .home-hero--strip .home-hero__lede { font-size: clamp(1.12rem, 0.92rem + 0.6vw, 1.38rem); max-width: none; }
+.home main .home-hero--strip .home-hero__lede { text-wrap: pretty; }
+.home .home-hero--strip .home-hero__why { margin-top: 0.3rem; max-width: none; font-size: 0.97rem; line-height: 1.5; }
+.home .home-hero--strip .home-hero__aside { margin: 0; }
+.home .home-hero--strip .home-hero__aside:not(:has(*)) { display: none; }
+.home-hero__repos { font-weight: 500; }
+/* The weave and the byline that names it, under the explorer. */
+.home-weave-row { position: relative; padding-top: clamp(4px, 1vh, 12px); }
+.home-weave-row .home-hero__by { margin: 0 auto; }
+
+.home-band.film-map--home { padding-top: clamp(2px, 0.8vh, 10px); padding-bottom: clamp(18px, 3vh, 36px); }
+.film-shelf.film-map--home { scroll-margin-top: 26px; }
+.film-map--home .film-map__head { margin-bottom: 1.1rem; }
+.film-map--home .film-map__head h2 { font-size: clamp(1.35rem, 1.1rem + 0.7vw, 1.75rem); margin: 0 0 0.4rem; }
+.film-map--home .film-map__head p.film-map__intro { font-size: 0.95rem; }
+/* Each film states its own running time or that it is in preparation; the
+   band's count stays for the screen reader. */
+.film-map--home .film-map__head p.film-map__status {
+  position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* A project's purpose: on the map one short line under its film's title, in
+   the reading the sentence that says what the project is for. */
+.film-map__purpose {
+  margin: 0.3rem 0 0; font-size: 0.88rem; line-height: 1.45; color: var(--ink-soft); text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+.film-map--home .film-map__card:has(.film-map__purpose) .film-map__text { display: none; }
+.film-map__node--branch .film-map__purpose { grid-area: text; }
+
+/* Projects without a film of their own: the two the introduction shows, then
+   the earlier release, each a name, where it is, and what it is for. */
+.film-map__node--project { padding-left: var(--fm-indent); }
+.film-map__group { margin: 0 0 0.55rem; font-family: var(--font-sans); font-size: 0.86rem; color: var(--muted); }
+.film-map__card--text .film-map__title { margin-top: 0; font-size: 1.1rem; }
+.film-map__node--separate .film-map__card { padding-top: 0.75rem; border-top: var(--fm-s) dashed var(--fm-quiet); }
+
+/* The reading's ways in: Watch from the release, then the project's own
+   destinations; source and records grouped under them in words. */
+.film-map__reading .film-map__purpose {
+  margin-top: 0.5rem; max-width: 46ch; font-family: var(--font-serif);
+  font-size: clamp(1.08rem, 0.98rem + 0.3vw, 1.22rem); line-height: 1.42; color: var(--ink);
+}
+.film-map__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.55rem; margin: 1rem 0 0; }
+/* The other introduction, beside Watch: a small still and two quiet lines. */
+.film-map__actions .film-map__or-row { margin: 0 0 0 0.8rem; }
+.film-map__or-row .film-map__hop { grid-template-columns: 76px minmax(0, 1fr); column-gap: 0.7rem; }
+.film-map__or-row .film-map__hop-edge { color: var(--muted); font-weight: 400; }
+.film-map__or-row .film-map__hop-title { font-size: 0.98rem; }
+/* On a phone the introduction's Watch is the page's first action. */
+.film-map--home .film-map__node--root .film-map__watch {
+  display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.3rem; padding: 0.5rem 1rem;
+  border-radius: var(--r-pill); background: var(--ink); color: var(--page); font-size: 0.94rem; text-decoration: none;
+}
+.film-map--home .film-map__node--root .film-map__watch:hover { background: var(--ink-press, var(--ink)); color: var(--page); text-decoration: none; }
+.film-map__act { padding: 0.56rem 1.05rem; border-radius: var(--r-pill); font-size: 0.94rem; line-height: 1.3; }
+.film-map__act-time { margin-left: 0.2rem; font-variant-numeric: tabular-nums; opacity: 0.7; }
+.film-map__sources { margin-top: 0.95rem; }
+.film-map__sources-label { margin: 0 0 0.2rem; font-family: var(--font-sans); font-size: 0.84rem; color: var(--muted); }
+.film-map__source-list {
+  list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.15rem 1.15rem;
+  font-size: 0.95rem; line-height: 1.55;
+}
+.film-map__source-list a { overflow-wrap: anywhere; }
+.film-map__availability {
+  margin: 0.95rem 0 0; max-width: 58ch; font-size: 0.92rem; line-height: 1.5; color: var(--muted);
+}
+.film-map .film-map__reading .film-map__sources .film__links { margin: 0; row-gap: 0.15rem; }
+.film-map__more { margin-top: 0.2rem; }
+.film-map .film-map__reading .film-map__more .film__links { margin-top: 0.5rem; }
+.film-map__reading--project .film__body { min-width: 0; }
+.film-map__reading--project .film__title { margin-top: 0; }
+
+/* Fewer layers of words (Will, 15 October: "the amount of information is
+   hard for a stranger to take in"). The front strip says where to start, so
+   the band's own sentence, its count and its colour key stay for the screen
+   reader; a branch's name and purpose say what its first connection said,
+   so that label is read aloud but not printed; the films a branch leads to
+   keep theirs ("Make a change"), which is the only place it explains why
+   two stills stand side by side. Each map entry's Watch link waits in its
+   reading. */
+.film-map--home .film-map__head p.film-map__intro,
+.film-map--home .film-map__key,
+.film-map--home .film-map__depth--1 > .film-map__wire .film-map__edge,
+.film-map--home .film-map__back-narrow,
+.film-map--home .film-map__depth--1 > .film-map__wire .sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+.film-map--home .film-map__node--branch .film-map__meta { display: none; }
+@media (max-width: 69.99em) {
+  .film-map--home .film-map__back-narrow { position: static; width: auto; height: auto; margin: 0; overflow: visible; clip: auto; white-space: normal; }
+  .film-map--home .film-map__back-wide { display: none; }
+}
+/* The reading: a film without a project keeps its own description as its one
+   sentence; a project's purpose replaces it. */
+.film-map--home .film-map__reading--film .film__text { display: block; }
+.film-map--home .film-map__reading--owned .film__text { display: none; }
+.film-map--home .film-map__reading .film__support:empty { display: none; }
+.film-map--home .film-map__reading .film__title a::after { content: none; }
+.film-map__where { margin: 0.3rem 0 0; font-family: var(--font-sans); font-size: 0.88rem; color: var(--muted); }
+.film-map--home .film-map__more { margin-top: 1.1rem; }
+.film-map__more-body > :first-child { margin-top: 0.6rem; }
+.film-map--home .film-map__reading .film-map__more .film-map__detail { font-size: 1rem; }
+/* The earlier toolkit is history, not a current project: one quiet line. */
+.film-map--home .film-map__node--separate .film-map__purpose { display: none; }
+.film-map--home .film-map__node--separate .film-map__card { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.6rem; border-top: 0; padding-top: 0.4rem; }
+.film-map--home .film-map__node--separate .film-map__title { order: 2; margin: 0; font-family: var(--font-sans); font-size: 0.9rem; }
+.film-map--home .film-map__node--separate .film-map__meta { order: 1; margin: 0; font-size: 0.9rem; }
+
+/* In em, so a reader's larger default text gets the outline, not crushed
+   columns (the breakpoint is 1120px at the usual 16px). */
+@media (min-width: 70em) {
+  /* The panel and the stage. The panel shows one thing; the stage shows
+     what else there is. The introduction is the panel's subject until the
+     reader opens another, so the stage does not show it twice: it holds
+     the seven current projects and the films they lead to. */
+  .film-map--home .film-map__layout {
+    position: relative;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: clamp(40px, 4vw, 64px); align-items: start;
+  }
+  .film-map--home .film-map__stage { grid-column: 2; grid-row: 1; min-width: 0; }
+  .film-map--home .film-map__readings { grid-column: 1; grid-row: 1; margin: 0; padding: 0; border: 0; min-width: 0; }
+  .film-map--home .film-map__head { margin: 0 0 1rem; }
+  .film-map--home .film-map__head h2 {
+    margin: 0; font-family: var(--font-sans); font-weight: 500; font-size: 0.95rem; letter-spacing: 0; color: var(--muted);
+  }
+  .film-map--home .film-map__head h2::before { content: none; }
+
+  /* With the script, the panel always holds one reading: the introduction
+     until another is opened, and the map stays beside it. */
+  html.scripting .film-map--home.film-map--live .film-map__readings { display: block; }
+  html.scripting .film-map--home.film-map--live:not(.is-reading) .film-map__reading:not([data-map-default]) { display: none; }
+  html.scripting .film-map--home.film-map--live:not(.is-reading) .film-map__reading[data-map-default] { display: grid; }
+  .film-map--home.is-reading .film-map__tree { display: grid; }
+  .film-map--home.film-map--live:not(.is-reading) [data-map-default] > .film-map__bar { display: none; }
+  .film-map--home.film-map--live .film-map__reading:not(.film-map__reading--project) > .film-map__route { display: none; }
+  .film-map--home.film-map--live .film-map__node--root,
+  .film-map--home.film-map--live .film-map__node--alternate { display: none; }
+
+  /* The reading in one column: still, then its words and ways in. */
+  .film-map--home .film-map__reading { grid-template-columns: minmax(0, 1fr); row-gap: 0.9rem; }
+  .film-map--home .film-map__reading > .film-map__media { grid-column: 1; grid-row: 2; }
+  .film-map--home .film-map__reading > .film__body { grid-column: 1; grid-row: 3; }
+  .film-map--home .film-map__reading > .film-map__route { grid-column: 1; grid-row: 4; padding-top: 0.4rem; }
+  /* A project with no still of its own has its words in the second row;
+     "Shown in" follows them directly, not after an empty row's gap. */
+  .film-map--home .film-map__reading:not(:has(> .film-map__media)) > .film-map__route { grid-row: 3; }
+  .film-map--home .film-map__reading .film__title { font-size: clamp(1.45rem, 1rem + 0.9vw, 1.95rem); }
+  .film-map--home .film-map__reading .film__text { margin-top: 0.5rem; }
+  .film-map--home .film-map__reading .film-map__media .film-map__note { display: none; }
+  /* The introduction's panel has no back row, so its still starts on the
+     stage's first line rather than one empty gap below it. */
+  .film-map--home.film-map--live:not(.is-reading) [data-map-default] > .film-map__media { grid-row: 1; }
+  .film-map--home.film-map--live:not(.is-reading) [data-map-default] > .film__body { grid-row: 2; }
+  /* On a short laptop screen the chosen reading's still gives way, so its
+     purpose and its Watch stay on the first screen beside the map. */
+  .film-map--home.is-reading .film-map__reading > .film-map__media { max-width: max(60%, calc((100vh - 438px) * 16 / 9)); }
+
+  /* The stage: one row per branch, the branch's project and the film it
+     leads to side by side, a quiet trunk in the channel on the left. */
+  .film-map--home .film-map__tree {
+    --fm-col: clamp(36px, 3vw, 48px);
+    --fm-thumb: clamp(124px, 9.6vw, 152px);
+    --fm-thumb-2: clamp(100px, 7.6vw, 120px);
+    --fm-row: 16px;
+    --fm-y: calc(var(--fm-thumb) * 9 / 32);
+    display: grid; align-items: start; padding-left: var(--fm-col);
+    grid-template-columns: minmax(0, 1.42fr) minmax(0, 1fr);
+    column-gap: var(--fm-col); row-gap: var(--fm-row);
+  }
+  .film-map--home .film-map__node { position: relative; padding: 0; min-width: 0; }
+  .film-map--home .film-map__node::before,
+  .film-map--home .film-map__node::after { content: none; height: auto; border: 0; border-radius: 0; }
+  .film-map--home .film-map__tail, .film-map--home .film-map__tip { display: none; }
+  .film-map--home .film-map__depth--1 { grid-column: 1; }
+  .film-map--home .film-map__depth--2 { grid-column: 2; }
+  .film-map--home .film-map__lane--1 { grid-row: 1; }
+  .film-map--home .film-map__lane--2 { grid-row: 2; }
+  .film-map--home .film-map__lane--3 { grid-row: 3; }
+  .film-map--home .film-map__lane--4 { grid-row: 4; }
+  .film-map--home .film-map__slot--1 { grid-column: 1; grid-row: 5; margin-top: 0.4rem; }
+  .film-map--home .film-map__slot--2 { grid-column: 2; grid-row: 5; margin-top: calc(0.4rem + 0.8rem * 1.45 + 0.35rem); }
+  .film-map--home .film-map__slot--3 { grid-column: 1; grid-row: 6; }
+  .film-map--home .film-map__node--separate { grid-column: 1 / -1; grid-row: 7; }
+
+  /* A project on the stage: its still, its name, what it is for. */
+  .film-map--home .film-map__node--branch {
+    display: grid; grid-template-columns: var(--fm-thumb) minmax(0, 1fr); column-gap: 0.9rem;
+    grid-template-areas: "still edge" "still title" "still text"; grid-template-rows: auto auto 1fr;
+  }
+  .film-map--home .film-map__node--branch > .film-map__card { display: contents; }
+  .film-map--home .film-map__node--branch .film-map__frame { grid-area: still; }
+  .film-map--home .film-map__node--branch > .film-map__wire { grid-area: edge; position: static; margin: 0; }
+  .film-map--home .film-map__node--branch .film-map__title { grid-area: title; }
+  .film-map--home .film-map__node--branch .film-map__purpose { grid-area: text; }
+  .film-map--home .film-map__node--branch.film-map__depth--2 { grid-template-columns: var(--fm-thumb-2) minmax(0, 1fr); column-gap: 0.8rem; }
+  .film-map--home .film-map__depth--2 .film-map__purpose { display: none; }
+  .film-map--home .film-map__depth--2 .film-map__edge { position: static; margin: 0 0 0.1rem; font-size: 0.8rem; line-height: 1.3; }
+  .film-map--home .film-map__node--branch .film-map__title,
+  .film-map--home .film-map__card--text .film-map__title { margin: 0; font-size: 1.08rem; line-height: 1.22; }
+  .film-map--home .film-map__node .film-map__purpose { margin-top: 0.25rem; font-size: 0.86rem; line-height: 1.42; }
+  .film-map--home .film-map__node--branch .film-map__text { display: none; }
+  .film-map--home .film-map__node .home-video__duration { right: 0.3rem; bottom: 0.3rem; padding: 0 0.3rem; font-size: 0.7rem; }
+  .film-map--home .film-map__card--text .film-map__meta { margin-top: 0.1rem; font-size: 0.82rem; }
+  .film-map--home .film-map__node--project { padding-left: 0; }
+  .film-map--home .film-map__group { margin: 0 0 0.35rem; font-size: 0.8rem; line-height: 1.45; }
+  /* The two projects the introduction shows have no still of their own: the
+     name with where it appears quietly beside it (the toolkit line's order
+     of words), then what the project is for, so a stranger knows what each
+     does before opening it. */
+  .film-map--home .film-map__node--shown .film-map__card {
+    display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0.6rem;
+  }
+  .film-map--home .film-map__node--shown .film-map__meta { margin: 0; font-size: 0.8rem; }
+  .film-map--home .film-map__node--shown .film-map__purpose { flex: 1 0 100%; max-width: 44ch; margin-top: 0.2rem; }
+  /* The right-hand one ends short of the page's glossary mark, which sits
+     over this corner of a laptop's first screen. */
+  .film-map--home .film-map__slot--2 .film-map__purpose { max-width: min(44ch, calc(100% - 2.6rem)); }
+
+  /* The lines are quiet until something is chosen: a trunk down the
+     channel, a short reach to each project, a reach on to the film it
+     leads to. The chosen route takes its branch's ink. No arrowheads: this
+     is a way to look around, not a chart of what runs first. */
+  .film-map--home .film-map__depth--1::before {
+    content: ""; position: absolute; top: 0; bottom: calc(var(--fm-row) * -1);
+    left: calc(var(--fm-col) / -2 - var(--fm-s) / 2); border-left: var(--fm-s) solid var(--fm-quiet);
+  }
+  .film-map--home .film-map__lane--1.film-map__depth--1::before { top: var(--fm-y); }
+  .film-map--home .film-map__depth--1.film-map__node--last::before { bottom: auto; height: var(--fm-y); }
+  .film-map--home .film-map__depth--1::after {
+    content: ""; position: absolute; top: var(--fm-y); left: calc(var(--fm-col) / -2);
+    width: calc(var(--fm-col) / 2 - 4px); height: 0; border-top: var(--fm-s) solid var(--fm-quiet);
+  }
+  .film-map--home .film-map__depth--2::after {
+    content: ""; position: absolute; top: calc(var(--fm-thumb-2) * 9 / 32 + 1.05rem); left: calc(var(--fm-col) * -1 + 4px);
+    width: calc(var(--fm-col) - 8px); height: 0; border-top: var(--fm-s) solid var(--fm-quiet);
+  }
+  .film-map--home .film-map__node.is-lit::after,
+  .film-map--home .film-map__node.is-current::after { border-top-color: var(--fm-ink); }
+  .film-map--home .film-map__node::before, .film-map--home .film-map__node::after { transition: border-color var(--motion-ui) var(--ease-out); }
+
+  /* The open reading's entry is marked: a ring in its ink round its still,
+     its name underlined. */
+  .film-map--home .film-map__node.is-current .film-map__still { box-shadow: 0 0 0 2px var(--page), 0 0 0 3.5px var(--fm-ink); }
+  .film-map--home .film-map__node.is-current .film-map__title a { text-decoration-color: currentColor; }
+  /* A project without a still takes a rule at its left, set outside its
+     words so they stay where they were. */
+  .film-map--home .film-map__node--project.is-current .film-map__card {
+    margin-left: calc(-0.6rem - 2px); padding-left: 0.6rem; border-left: 2px solid var(--ink);
+  }
+  .film-map--home.is-tracing .film-map__wire { opacity: 1; }
+
+  /* The one drawn connection: from the open reading's still to its place on
+     the map (assets/film-map.js measures it; see the notice there). */
+  .film-map__beam { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 0; }
+  .film-map__beam path { fill: none; stroke: var(--fm-quiet); stroke-width: var(--fm-s); stroke-linecap: round; }
+  .film-map__beam path.film-map__beam--chosen { stroke: var(--fm-ink); }
+}
+@media (max-width: 69.99em) { .film-map__beam { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .film-map__wire, .film-map__tail, .film-map__stem, .film-map__back { transition: none; }
+  .film-map--drawing *, .film-map--drawing *::before, .film-map--drawing *::after { animation: none !important; }
+  .film-map--home .film-map__node::before, .film-map--home .film-map__node::after { transition: none; }
+}
+@media (forced-colors: active) {
+  .film-map .film-map__ink--ember, .film-map .film-map__ink--ice,
+  .film-map .film-map__ink--violet, .film-map .film-map__ink--teal { --fm-ink: CanvasText; }
+  .film-map { --fm-quiet: GrayText; }
+}

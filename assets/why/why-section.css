@@ -1,0 +1,289 @@
+/* ── Why I'm building this (15 October 2026) ───────────────────────────────
+   Will's reasons beside one result opened four ways. The words are the
+   parent's homepage-copy-finesse.json why, invitation and contact: the first
+   paragraph stands as the band's proposition, the other three sit under
+   tabs so the band reads as a page rather than an essay, and every word stays
+   in the document (without script they simply stack).
+
+   Adapted, not new: the plait is the landing weave's grammar (assets/art.js:
+   a brick red and a steel blue cable crossing with real over and under
+   breaks, a crossing at each station, drawn once from the left and then
+   still); the film frame is the shelf's .film-poster with its play chip; the
+   heading, lead and running text are .home-about's measures; the frames'
+   ground, hairline and corner are the take-part card's (--home-card,
+   --home-line, 10px). Everything is scoped under .why-weave. */
+
+.why-weave {
+  --why-ember: var(--home-ember);
+  --why-ice: var(--home-ice);
+  --why-ground: var(--page);
+  --why-quiet: color-mix(in srgb, var(--ink) 30%, transparent);
+  --why-band: 62px;          /* the plait's band above the frames */
+  --why-move: cubic-bezier(0.2, 0, 0, 1);
+  --why-axis: x;
+  padding-bottom: clamp(56px, 8vh, 96px);
+}
+
+.why-weave__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  grid-template-areas:
+    "head reasons"
+    "figure figure"
+    "invite invite";
+  column-gap: clamp(36px, 5vw, 76px);
+  row-gap: clamp(16px, 2.6vh, 28px);
+  align-items: start;
+}
+
+/* ── The proposition ─────────────────────────────────────────────────── */
+.why-weave__head { grid-area: head; }
+.why-weave__head h2 { margin-bottom: 0.9rem; }
+.why-weave__lead {
+  margin: 0; max-width: 36rem;
+  font-family: var(--font-serif); font-weight: 400;
+  font-size: clamp(1.28rem, 1.75vw, 1.6rem); line-height: 1.34; letter-spacing: -0.006em;
+  color: var(--ink); text-wrap: pretty;
+}
+
+/* ── The three reasons ───────────────────────────────────────────────── */
+.why-weave__reasons { grid-area: reasons; padding-top: 0.35rem; }
+.why-weave__tabs {
+  display: flex; flex-wrap: wrap; gap: 0.15rem 1.25rem;
+  margin: 0 0 1rem; padding: 0;
+  border-bottom: 1px solid var(--home-line-strong);
+}
+.why-weave__tabs[hidden] { display: none; }
+.why-weave__tab {
+  position: relative; appearance: none; background: none; border: 0; cursor: pointer;
+  margin: 0; padding: 0.55rem 0 0.7rem; min-height: 44px;
+  font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; line-height: 1.2;
+  color: var(--muted); border-radius: 4px;
+  transition: color 160ms var(--why-move);
+}
+.why-weave__tab::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+  border-radius: 2px; background: var(--why-ember);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform 260ms var(--why-move);
+}
+.why-weave__tab:hover { color: var(--ink); }
+.why-weave__tab[aria-selected="true"] { color: var(--ink); }
+.why-weave__tab[aria-selected="true"]::after { transform: scaleX(1); }
+.why-weave__tab:focus-visible { outline-offset: 1px; box-shadow: 0 0 0 4px var(--why-ground); border-radius: 6px; padding-inline: 0.3rem; margin-inline: -0.3rem; }
+
+/* The panels share one cell, so the band keeps the height of the longest
+   paragraph and nothing beneath it moves when a tab changes. */
+.why-weave__panels { display: grid; }
+.why-weave__reason {
+  margin: 0; max-width: 34.5rem;
+  font-family: var(--font-serif); font-size: clamp(1.02rem, 1.15vw, 1.1rem); line-height: 1.62;
+  color: var(--ink-soft); text-wrap: pretty;
+}
+/* Without script every paragraph is shown in order. */
+.why-weave__reason + .why-weave__reason { margin-top: 0.9em; }
+.why-weave.is-live .why-weave__reason {
+  grid-area: 1 / 1; margin-top: 0;
+  transition: opacity 240ms var(--why-move), translate 240ms var(--why-move);
+}
+.why-weave.is-live .why-weave__reason:not(.is-current) {
+  opacity: 0; translate: 0 4px; visibility: hidden;
+  transition: opacity 160ms var(--why-move), translate 160ms var(--why-move), visibility 0s linear 160ms;
+}
+
+/* ── The figure: one result, four ways in ────────────────────────────── */
+.why-weave__figure { grid-area: figure; margin: 0; min-width: 0; }
+.why-weave__caption {
+  margin: 0; font-family: var(--font-sans); font-size: 0.9rem; line-height: 1.4; color: var(--muted);
+}
+.why-weave__stage { position: relative; padding-top: var(--why-band); }
+.why-weave__plait {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  overflow: visible; pointer-events: none;
+}
+.why-weave__ways {
+  position: relative; list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+}
+.why-way { min-width: 0; }
+.why-way__link {
+  display: grid; gap: 0.15rem; color: inherit; text-decoration: none; border-radius: 12px;
+}
+.why-way__frame {
+  position: relative; display: block; overflow: hidden;
+  aspect-ratio: 16 / 10; margin-bottom: 0.7rem;
+  border-radius: 10px; background: var(--surface-sunk);
+  box-shadow: 0 0 0 1px var(--home-line-strong);
+  transition: box-shadow 220ms var(--why-move), translate 220ms var(--why-move), opacity 260ms var(--why-move), filter 260ms var(--why-move);
+}
+.why-way__frame.film-poster { aspect-ratio: 16 / 10; --play: 36px; }
+.why-way__img, .why-way__frame > img {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  transition: scale 420ms var(--why-move);
+}
+.why-way__frame--map .why-way__img { object-position: 62% 58%; }
+.why-way__frame--shot .why-way__img--dark { display: none; }
+:root[data-theme="dark"] .why-way__frame--shot .why-way__img--light { display: none; }
+:root[data-theme="dark"] .why-way__frame--shot .why-way__img--dark { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .why-way__frame--shot .why-way__img--light { display: none; }
+  :root:not([data-theme]) .why-way__frame--shot .why-way__img--dark { display: block; }
+}
+
+/* The Lean frame is the statement itself, set as code. */
+.why-way__frame--code { background: var(--surface); padding: 0.85rem 0.95rem; }
+.why-way__code {
+  display: block; margin: 0; padding: 0; background: none;
+  font-family: var(--font-mono); font-size: 0.66rem; line-height: 1.55;
+  white-space: pre-wrap; overflow-wrap: anywhere; color: var(--ink-soft);
+}
+/* Monochrome: the selection ink stays the only accent on the band. */
+.why-way__kw { color: var(--muted); }
+.why-way__id { color: var(--ink); font-weight: 600; }
+.why-way__frame--code::after {
+  /* the statement runs to the frame's foot; a soft fade says the file goes on */
+  content: ""; position: absolute; inset: auto 0 0 0; height: 28%;
+  background: linear-gradient(to bottom, transparent, var(--surface));
+  pointer-events: none;
+}
+
+.why-way__name {
+  font-family: var(--font-sans); font-size: 0.98rem; font-weight: 600; line-height: 1.3; color: var(--ink);
+}
+/* The frame is the link, so the site's leaving-the-site arrow rides on the
+   label's last line instead of hanging under it on a line of its own. */
+.why-weave .why-way__link[data-link-kind="exogenous"] { color: inherit; }
+.why-weave .why-way__link[data-link-kind="exogenous"]::after { content: none; }
+
+.why-way__link:hover .why-way__frame,
+.why-way__link:focus-visible .why-way__frame {
+  translate: 0 -2px;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--why-ember) 60%, var(--home-line-strong)), 0 14px 28px -18px rgba(20, 12, 28, 0.55);
+}
+.why-way__link:hover .why-way__img, .why-way__link:hover .why-way__frame > img { scale: 1.025; }
+.why-way__link:hover .why-way__name { text-decoration-color: var(--why-ember); }
+.why-way__link:focus-visible { outline-offset: 4px; }
+
+/* A tab names the views its paragraph is about. The relation is carried by
+   the connector, a hairline border and an underline under the label; every
+   picture and label keeps full strength, so no view ever looks disabled. */
+.why-weave.is-live .why-way.is-chosen .why-way__frame {
+  box-shadow: 0 0 0 1.5px var(--why-ember);
+}
+/* A text underline, so a label that wraps is underlined line by line. */
+.why-way__name {
+  text-decoration: underline 1.5px transparent; text-underline-offset: 5px;
+  transition: text-decoration-color 220ms var(--why-move);
+}
+.why-weave.is-live .why-way.is-chosen .why-way__name { text-decoration-color: var(--why-ember); }
+
+/* ── The plait (drawn by why-section.js) ──────────────────────────────── */
+.why-plait__cable { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.why-plait__cable--ember { stroke: var(--why-ember); }
+.why-plait__cable--ice { stroke: var(--why-ice); }
+.why-plait__cable--fine { stroke-width: 0.7; opacity: 0.55; }
+.why-plait__cable--main { stroke-width: 1.7; }
+.why-plait__gap { fill: none; stroke: var(--why-ground); stroke-width: 6; stroke-linecap: round; }
+.why-plait__fray { fill: none; stroke-width: 0.8; stroke-linecap: round; opacity: 0.38; }
+.why-plait__fray--ember { stroke: var(--why-ember); }
+.why-plait__fray--ice { stroke: var(--why-ice); }
+/* Each view's thread. One ink means "chosen": the brick red of the tab's
+   underline. The rest stay a quiet grey, and step back further when a tab
+   is about other views. The change is a short fade of ink, never a move. */
+.why-plait__drop {
+  fill: none; stroke: var(--why-quiet); stroke-width: 1.2; stroke-linecap: round;
+  transition: stroke 220ms var(--why-move), stroke-width 220ms var(--why-move), opacity 220ms var(--why-move);
+}
+.why-plait__node {
+  fill: var(--why-ground); stroke: var(--why-quiet); stroke-width: 1.2;
+  transition: fill 220ms var(--why-move), stroke 220ms var(--why-move), opacity 220ms var(--why-move);
+}
+.why-plait__drop-group.is-chosen .why-plait__drop,
+.why-plait__drop-group.is-hot .why-plait__drop { stroke: var(--why-ember); stroke-width: 1.8; }
+.why-plait__drop-group.is-chosen .why-plait__node,
+.why-plait__drop-group.is-hot .why-plait__node { fill: var(--why-ember); stroke: var(--why-ember); }
+.why-plait__drop-group.is-quiet { opacity: 0.6; }
+
+/* ── Invitation and contact ──────────────────────────────────────────── */
+.why-weave__invite {
+  grid-area: invite;
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: clamp(36px, 5vw, 76px); row-gap: 1rem; align-items: center;
+  padding-top: clamp(16px, 2.4vh, 24px); border-top: 1px solid var(--home-line);
+}
+.why-weave__invitation {
+  margin: 0; max-width: 36rem;
+  font-family: var(--font-serif); font-style: italic; font-size: 1.04rem; line-height: 1.55; color: var(--ink-soft);
+}
+.why-weave__contact {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem;
+}
+/* .why-weave a. lifts these over the site's a[data-link-kind] colour. */
+.why-weave a.why-weave__contact-link {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0.5rem 0.95rem;
+  border-radius: var(--r-pill); text-decoration: none;
+  font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; line-height: 1.2;
+  color: var(--ink); background: var(--home-card); box-shadow: inset 0 0 0 1px var(--rule-control, var(--home-line-strong));
+  transition: background-color 160ms var(--why-move), box-shadow 160ms var(--why-move);
+}
+.why-weave a.why-weave__contact-link:hover { color: var(--ink); background: color-mix(in srgb, var(--why-ember) 10%, var(--surface)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--why-ember) 55%, transparent); }
+.why-weave a.why-weave__contact-link::after { color: var(--link-ext); }
+.why-weave a.why-weave__contact-link--primary,
+.why-weave a.why-weave__contact-link--primary:hover { color: #fffdf7; background: var(--why-ember); box-shadow: none; }
+.why-weave a.why-weave__contact-link--primary:hover { background: color-mix(in srgb, var(--why-ember) 86%, #000); }
+.why-weave a.why-weave__contact-link--primary::after { color: inherit; opacity: 0.8; }
+:root[data-theme="dark"] .why-weave a.why-weave__contact-link--primary,
+:root[data-theme="dark"] .why-weave a.why-weave__contact-link--primary:hover { color: #1c1526; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .why-weave a.why-weave__contact-link--primary,
+  :root:not([data-theme]) .why-weave a.why-weave__contact-link--primary:hover { color: #1c1526; }
+}
+
+/* ── Tablet: the reasons fall under the proposition ───────────────────── */
+@media (max-width: 960px) {
+  .why-weave__grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "head" "reasons" "figure" "invite";
+  }
+  .why-weave__ways { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.4rem; }
+  .why-weave__invite { grid-template-columns: minmax(0, 1fr); }
+  .why-weave__contact { justify-content: flex-start; }
+}
+
+/* ── Phone: the plait runs down the left, a frame and its words per row ── */
+@media (max-width: 640px) {
+  .why-weave { --why-axis: y; --why-band: 0px; }
+  /* The chosen paragraph comes before the four views, so a reader knows
+     what the example shows before scrolling through its pictures. */
+  .why-weave__grid { grid-template-areas: "head" "reasons" "figure" "invite"; }
+  .why-weave__stage { padding-top: 0.9rem; padding-left: 34px; }
+  .why-weave__ways { grid-template-columns: minmax(0, 1fr); row-gap: 0.9rem; }
+  .why-way__link {
+    grid-template-columns: minmax(0, 44%) minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr; column-gap: 0.85rem; align-items: start;
+  }
+  .why-way__frame { grid-row: 1 / span 3; margin-bottom: 0; }
+  .why-way__frame.film-poster { --play: 28px; }
+  .why-way__name { font-size: 0.95rem; padding-top: 0.1rem; }
+  .why-way__frame--code { padding: 0.5rem 0.55rem; }
+  .why-way__code { font-size: 0.5rem; line-height: 1.45; }
+  /* Three short columns, each label free to take two lines, so no tab
+     falls to a row of its own under the others. */
+  .why-weave__tabs { display: grid; grid-template-columns: repeat(3, minmax(0, auto)); justify-content: start; gap: 0 1.1rem; }
+  .why-weave__tabs[hidden] { display: none; }
+  .why-weave__tab { font-size: 0.86rem; text-align: left; padding: 0.45rem 0 0.6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .why-weave *, .why-weave *::after { transition: none !important; }
+  .why-weave.is-live .why-weave__reason:not(.is-current) { translate: none; }
+  .why-way__link:hover .why-way__frame, .why-way__link:focus-visible .why-way__frame { translate: none; }
+  .why-way__link:hover .why-way__img, .why-way__link:hover .why-way__frame > img { scale: none; }
+}
+@media (forced-colors: active) {
+  .why-plait__gap { stroke: Canvas; }
+  .why-plait__cable, .why-plait__drop, .why-plait__fray { stroke: CanvasText; }
+  .why-weave__tab[aria-selected="true"]::after { background: Highlight; }
+}

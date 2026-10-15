@@ -1,9 +1,11 @@
 # Plectis Public Site Source Contract
 
-This site presents two public repositories: [Plectis software](https://github.com/wcook04/plectis)
-and [Plectis mathematics](https://github.com/wcook04/plectis-erdos).
-Each repository owns its source, documentation and evidence. The site helps
-readers find and understand that work; private working state is outside its scope.
+This site is the common home for Will Cook's projects: mathematical research,
+code navigation, agent tools and illustrated explanations. The project directory
+in `film-programme.json` links each public website, paper and repository by its
+purpose. Each repository owns its source, documentation and evidence. The site
+helps readers find and understand that work; private working state is outside
+its scope. A video of a private interface does not make its source public.
 
 ## Repository-first launch preparation
 
@@ -73,6 +75,17 @@ public reading layer.
   is supplied, the builder emits host-only HSTS by default. `--hsts-mode
   include-subdomains` and `--hsts-mode preload-consented` require explicit
   domain inventory / preload consent evidence before use.
+
+## First paint and visual preservation
+
+First paint must not depend on a separate theme-script request. The builder
+embeds the exact authored theme initializer and authorizes only its SHA-256 in
+meta and every intersecting response CSP; other executable inline code stays
+rejected. Keep first-screen text font preloads. On the landing, maths fonts
+load naturally when equations are shown; do not preload those below-fold faces.
+Verify cold first paint independently of settled appearance, and compare
+font-ready laptop/phone captures in both themes so performance work preserves
+typography, content and interactions.
 
 ## Audience route contract
 
@@ -176,22 +189,32 @@ an equivalent performance route. Complete editions remain explicit choices for
 whole-document search, copying and print.
 ### AI downloads
 
-The primary AI handoff is a JSON attachment for a tour of the website and both
-public repositories. Say JSON at the download link, explain the upload step,
-and distinguish the full packet (website prose and source text), source brief
-(source text with website links), and overview digest (no full manuscripts).
+The primary AI handoff is a JSON reading starter and source router for the
+website and every public project repository. Say JSON at the download link and
+explain the upload step. Distinguish the starter from the optional detailed
+source brief and the earlier-software overview digest.
 Never describe JSON as inherently more trustworthy than repository source.
 
-The opening and closing orientation must match the mathematics-led front door.
-Earlier software stays labelled as earlier software; its original records remain
-available as historical source, not a description of the current programme.
-`read_me_first.contents` measures what the full packet actually embeds and names
-what remains linked. All inventory pointers and tour stops must resolve during
-the build. The standalone brief must use its own paths, including its source
-receipts, rather than inherit directions into absent full-packet sections.
-Freshness is established by source commits and build-time receipts, never by
-the deterministic `generated_at` sentinel. Refresh with the public-site builder;
-never patch the emitted JSON or JavaScript wrappers by hand.
+`plectis_ai_router_v1` keeps substantive content once: short-paper and main-paper
+TeX, labelled exact passages and section lists for longer manuscripts, repository
+READMEs, website introductions, full video transcripts and a complete page index.
+Every paper links its complete source, PDF and reading page; every public
+repository links its README, file tree and raw source. The public project and
+film roster comes from `film-programme.json`. Private prototypes keep their
+availability statements and receive no invented repository link. Public README
+and website text is a hashed snapshot; fetch the linked source for current advice.
+The primary JSON has a 1,500,000-byte hard ceiling. Remove repeated bodies before
+growing it; the specialist brief and public website carry the deeper record.
+
+`plectis_film_transcripts.py` owns the portable `transcripts/index.json` and full
+text files. Its importer checks the selected production text and final film
+edition. Ordinary packet builds check complete released-film coverage, edition
+and text hashes; a new or replaced film cannot silently retain an old transcript.
+Machine-selected speech and edited reading transcripts keep explicit scope labels.
+The standalone brief must use its own paths and source receipts, rather than
+directions into absent full-packet sections. Earlier software stays labelled as
+earlier software. Refresh JSON, JavaScript wrappers and byte identities through
+their builders; a deterministic timestamp does not establish freshness.
 
 Ordinary reading-room releases preserve the previous root/docs packet edition.
 When a mathematical update also refreshes the advertised AI handoff, select
@@ -212,10 +235,11 @@ The companion closes immediately for that focus, including its closing fade,
 and pending pointer previews cannot reopen it over the focused row. Moving
 focus keeps the native link's navigation and reading order intact.
 
-The landing has one subject, the mathematics. In order: the introduction and
-the featured film; the eight problems beside the universe map teaser; the
-papers, as three reading pairs; the films; why the project exists and how to take part;
-one line for the earlier software. Every route is visible without opening
+The landing introduces the connected programme, with mathematics as its main
+research subject. In order: the introduction; the connected video map; the
+eight problems beside the universe map teaser; the papers, as three reading
+pairs; why the project exists and how to take part; one line for the earlier
+software. Will’s 15 October request moves the video map before the maths map. Every route is visible without opening
 anything. Transcripts and optional agent prompt text fold.
 
 The introduction (Will, 7 October 2026) says what Plectis is, why each
@@ -943,59 +967,107 @@ The earlier software is reached from the landing's last line and the footer.
 The landing is glossary-linked by the builder, and the hover definitions and
 the first-visit glossary chip stay on.
 
-Film copy and release metadata live in `film-programme.json`; the adapter
-`plectis_film_publication.py` renders the hero, programme, VideoObject records
-and packet narration from the same released subset. The AI packets carry
-no film transcripts (Will, 7 October 2026, in reduction mode). Never hand-edit
-the film-programme marked regions. A null release is an explicitly forthcoming
-slot, with no Watch link, duration, transcript, thumbnail or VideoObject.
-Only an authorized release tied to one approved/hosted edition, matching
-thumbnail and transcript edition may supply those surfaces. Missing evidence
-scope must never default to verbatim. Narration is not visual evidence.
-The current lineup follows the actual recordings and the active film-production
-owner, not the existence of a script or an older combined export. A prepared
-script is not evidence of a recorded film. On 15 October the primary continuous
-introduction replaces the abandoned short assembly; the older introduction is
-an alternate take, shown separately. One Checkout and the mathematics overview
-are independent films. The longer Erdős #257 film has its own entry. Atlas,
-CodeMap and Safety Core complete the main programme. Agent Trace and the old
-combined walkthrough are withdrawn; no Zenith film is promised.
+Film copy, useful reading routes and release metadata live in
+`film-programme.json`. The adapter `plectis_film_publication.py` validates the
+programme and renders the landing, VideoObject records and packet narration.
+`plectis_film_map.py` adapts the existing film item and the site's overview/detail
+interaction into the connected presentation; `assets/film-map.css` is loaded in
+the head, with `assets/film-map.js` deferred. Never hand-edit the film-programme
+marked regions. The projection owner places the complete section before
+`#mathematics`, preserves `#videos`, each `#film-*` and legacy video anchors,
+and remains repeatable without duplicate assets or identifiers.
 
-Use semantic presentation roles: `introduction` leads, `featured` places #257
-beside it, `supporting` supplies the standalone shelf, and `alternate` stays in
-a disclosure below the programme. Retain the `combined` parser value only for
-historical release compatibility. Count main availability separately from
-alternate recordings. Pending replacements must not inherit an old URL or
-thumbnail: an explicit `poster: null` disables the legacy filename lookup;
-a deliberate poster path names the selected source. Replacing a pending slot
-with a watch action still requires the full edition-bound release record.
+The later 15 October direction broadens the same homepage to the whole
+programme. The optional `home` and `projects` fields in `film-programme.json`
+own its introductory copy and project resource directory. Project IDs are stable
+`#project-*` destinations alongside the existing `#film-*` destinations. The
+homepage should offer project/video selection and primary resource actions in
+the first laptop screen; mobile and enlarged text reflow rather than clip.
+Keep the current mathematics, papers, credits and assistant downloads available.
+The curated Why section uses the films as evidence, not newly invented speech.
+Readable summaries are not transcripts. Its scoped implementation and real
+#257 paper/map captures live in `assets/why/` (see that directory's README).
+The same statement connects the proof, paper, map and film; preserve its scope.
+`plectis_film_publication.project_home_copy` fills explicit `data-home-copy`
+plain-text slots from `home` and escapes the result. The landing owns layout,
+the programme owns those words. Legacy sources without these slots still work.
+Judge repetition across the actual viewport: hero, thumbnail headline, title and
+summary should each add information. State the common purpose once, then name
+the subjects or actions; do not repeat the purpose in different words. Refresh
+the exact user preview after changing copy, then inspect the displayed result.
+Every paragraph and resource remains reachable without JavaScript.
+`assets/plectis-finish.css` applies only to the homepage. Inspect the actual
+served page at 1280×690, 1366×768 and 1440×790 in both themes, plus 390×664.
+Preserve readable text and project resource actions when a project is selected;
+first-screen sizing must not rely on clipped text or an inaccessible fixed height.
+
+Projects with no public repository keep an explicit availability note. Projects
+without a standalone film may refer to a bounded timestamp in an existing film;
+the release owner still supplies its Watch URL. Project resource links cannot
+bypass that release decision. The description bundle's prominent homepage links
+remain `preview_only` until their actual deployed fragments have been verified.
+The current eight editions and playlist have been made Public by the account
+owner, and Will authorized the completed homepage deployment. A local preview
+still does not establish publication. Current YouTube descriptions use the stable
+homepage root; pending project-specific fragments stay separate until verified.
+
+The current lineup follows the actual recordings and delivery owner: the main
+continuous eight-minute introduction, the longer alternate introduction,
+CodeMap, One Checkout, the mathematics overview, full Erdős #257, Atlas and
+Safety Core. Agent Trace and the old combined walkthrough are withdrawn;
+Zenith has no standalone film. A script is not evidence of a recorded film.
+
+Will's 15 October direction supersedes the compact pending text-row design and
+the hidden alternate introduction. The main introduction leads; the longer
+introduction is adjacent but visually secondary. Subject colours and labelled
+edges explain the connections, with the two code films related and the full
+#257 explanation reached from the maths overview. Atlas concerns OpenAI's
+results; the own-maths branch concerns Will's investigations. Edges express
+viewing relationships, not dependencies or evidence of common authorship.
+The registry's optional `presentation` object owns these semantic relationships;
+its validator rejects missing endpoints, cycles, unlabelled edges and unreachable
+standalone films. Older programmes without it retain the earlier shelf renderer.
+
+Every film has a short plain-language summary visible before interaction.
+Additional detail and reading routes may open in the same section, with a clear
+return to all videos, focus restoration and useful no-JavaScript reading.
+Preserve touch and keyboard access, night/day contrast and reduced motion.
+Temporary preview images are explicitly authorised. Select real stills from
+current recordings and record their provenance; do not recycle an old released
+thumbnail as if it belonged to the replacement. `poster` selects a local preview,
+`preview_note` names its status, and `preview_duration_seconds` is recording
+context, not publication evidence. An explicit `poster: null` still disables
+legacy filename lookup.
+
+A null release means no Watch link, published transcript or VideoObject. Pending
+thumbnails can open the film's explanation and actual project links; they must
+not pretend to play a video. Only an authorised release tied to one approved
+and hosted edition, matching thumbnail and transcript edition may supply a Watch
+action and publication metadata. The release thumbnail takes precedence over
+the temporary preview automatically. A broken or missing upload URL stays
+unavailable; never replace it with an old edition or invented ID. The primary AI
+packet carries the separately edition-bound public transcript text and its URL.
+Missing evidence scope never defaults to verbatim;
+narration is not visual evidence.
 
 Adjacent published films must use visibly distinct representative scenes.
 Different filenames or hashes do not establish visual distinction: inspect the
 actual thumbnails at their rendered sizes. The mathematics film links the
 reciprocal-summability result separately from the broader weighted theorem.
 
-A forthcoming film without a selected current still is a compact text entry:
-its complete title, In preparation status, description and useful reading
-routes. It has no empty 16:9 mat or duplicated title inside a drawn frame.
-The introduction leads, with #257 beside it on wide screens and following it
-on phones. Larger introduction type and the existing page rules establish the
-hierarchy. Unillustrated standalone films are calm rows, with their titles
-beside descriptions at wider widths and above them on phones. The alternate
-introduction stays in its own disclosure. A deliberate current poster keeps
-its real 16:9 picture, but supplies no Watch action before release.
-
-Published films retain the existing 5:7 still shelf. Shared tracks express
-comparison; optional reading stays local. Still, title, status and description
-share rows by name; each film owns its evidence links, chapters and transcript
-in one support stack. Opening one must not move a neighbour in the same row.
-Complete text and working routes under 320px, 200% text and text-spacing
-pressure take precedence over optical alignment. Where real stills are
-present, captions belong to them and the pair preferably shares a lower edge.
+The earlier 5:7 still shelf remains the compatibility renderer for programmes
+without a connected presentation. Its compact unillustrated rows are not the
+current landing design. The map adapts the existing poster, title, status and
+support composition; each film retains its own evidence links, chapters and
+transcript. Complete text and working routes under 320px, enlarged text and
+text-spacing pressure take precedence over diagram alignment. Do not crop an
+actual thumbnail's content to preserve a preferred card size.
 
 Compounds in film titles are kept whole where they fit, never nowrap; Erdős
-#257 stays together. A published title is the one Watch action in the Tab
-order. Its still echoes focus in its hairline and never zooms. A disclosure
+#257 stays together. In the connected map, a title or thumbnail opens the
+local reading; a separate Watch link goes to the released film. Inside that
+reading the published title remains the Watch action. The still echoes focus
+in its hairline; the map may animate its travel into the reading. A disclosure
 must add information: a route summary identical to the description, apart
 from whitespace, is retained in the release record rather than printed twice.
 Chapters form an index keyed by time. The running time is on a real poster
@@ -1010,9 +1082,10 @@ repository's README (Will: "somewhere we need to link to the actual github
 repo"); the research-question task left the landing (Will: "so ugly and
 unnecessary"), and the exercise stays at `maths/documents/weighted-257-task.html`.
 Refresh the landing with the adapter and regenerate the reader/reviewer packets
-through the ordinary full-site publication owner before any deployment. Judge the first screen at
-1440 × 900 and 1280 × 800: the introduction, the weave, the figures and the
-top of the mathematics map fit together.
+through the ordinary full-site publication owner before any deployment. Judge
+the first screen and the complete video band at laptop, monitor and phone sizes.
+The 15 October video-map placement supersedes the former requirement to fit the
+mathematics map into the landing's first screen.
 
 The first screen and the bands below it (5 October 2026, from a Type B design
 review read against the live page). The films are about the research system,

@@ -1,0 +1,953 @@
+{
+  "schema": "plectis-programme-credit-ledger/1",
+  "reviewed_on": "2026-10-15",
+  "presentation": {
+    "human_credit": "primary",
+    "human_identity": "anonymous_for_now",
+    "agent_acknowledgements": "secondary_collapsed"
+  },
+  "human_advice": {
+    "artifact_role": "generated_credit_ledger_for_implemented_advice",
+    "authority_boundary": "Acknowledges advice that changed public files in this repository. It does not say that the person reviewed, checked or endorsed any mathematics, and it does not make them an author.",
+    "counts": {
+      "entries": 9,
+      "named_with_permission": 0,
+      "anonymous_by_request": 0,
+      "withheld_pending_confirmation": 9
+    },
+    "entries": [
+      {
+        "anchor": "credit-correspondence-007",
+        "artifacts": [
+          {
+            "excerpt_sha256": "sha256:1c5d760a7eca0b5806db621f0b57d6478ac17d58c96c2c740ba6c56b548c15cb",
+            "line_end": 125,
+            "line_start": 118,
+            "path": "docs/research-commons/CREDIT_POLICY.md"
+          }
+        ],
+        "changed": "The communication rules now require an inspectable comparison and evidence for a claimed advantage, while keeping an invitation to look distinct from a completed review.",
+        "commits": [],
+        "credited_as": "A researcher (name withheld)",
+        "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-007",
+        "id": "correspondence-007",
+        "naming": {
+          "state": "withheld_pending_confirmation",
+          "display": "Name withheld for now."
+        },
+        "problems": [],
+        "received_on": "2026-09-22",
+        "role": "researcher",
+        "title": "Showing an inspectable comparison",
+        "told": "A researcher advised showing a clear advantage over existing systems when asking people to use the work."
+      },
+      {
+        "anchor": "credit-correspondence-009",
+        "artifacts": [
+          {
+            "excerpt_sha256": "sha256:88d97e510c6630f615abb927f41afe9c1dbd259f9d637d7df1df9824a246e2af",
+            "line_end": 145,
+            "line_start": 137,
+            "path": "docs/research-commons/CREDIT_POLICY.md"
+          }
+        ],
+        "changed": "The explanation now distinguishes persistent records for inspection and continuation from a model’s problem-solving capability; the distinction is also published in the credit policy.",
+        "commits": [],
+        "credited_as": "A researcher (name withheld)",
+        "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-009",
+        "id": "correspondence-009",
+        "naming": {
+          "state": "withheld_pending_confirmation",
+          "display": "Name withheld for now."
+        },
+        "problems": [],
+        "received_on": "2026-09-17",
+        "role": "researcher",
+        "title": "Clarifying the role of persistent research records",
+        "told": "A researcher challenged the framing of the system as an external improvement to rapidly advancing models."
+      },
+      {
+        "anchor": "credit-correspondence-004",
+        "artifacts": [
+          {
+            "excerpt_sha256": "sha256:4fccb25970fe4d947353fbb0ac94e7491bdd3e9ff10f3d53ddab5ffa734e53e8",
+            "line_end": 595,
+            "line_start": 595,
+            "path": "paper/243/erdos-243-reciprocal-tail-rigidity.tex"
+          },
+          {
+            "excerpt_sha256": "sha256:a159d59a3662a6c1ea65ce69271dc5d25494b25cbec61961698a1d2ceb32cf31",
+            "line_end": 726,
+            "line_start": 706,
+            "path": "paper/243/erdos-243-reciprocal-tail-rigidity.tex"
+          },
+          {
+            "excerpt_sha256": "sha256:e0e13da38d38e09f8750613516947c6ecc6895f947339efa10f17e32951fe324",
+            "line_end": 215,
+            "line_start": 204,
+            "path": "skills/public-mathematical-writing/SKILL.md"
+          },
+          {
+            "excerpt_sha256": "sha256:43ae7aa3892935664831547944b3b27f554b3fd290c430f00cc870396a0f8a9e",
+            "line_end": 15,
+            "line_start": 15,
+            "path": "docs/papers/SHORT_PAPER_CONTRACT.md"
+          },
+          {
+            "excerpt_sha256": "sha256:ff5754db474f064134ae8227c14f4824529f41415521823ca5a324a5154ab45c",
+            "line_end": 23,
+            "line_start": 23,
+            "path": "docs/papers/SHORT_PAPER_CONTRACT.md"
+          }
+        ],
+        "changed": "All sixteen problem papers were rewritten for a first-time reader, naming standard tools and saying how restrictive each hypothesis is, and the public writing rules now require it.",
+        "commits": [],
+        "credited_as": "A mathematician (name withheld)",
+        "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-004",
+        "id": "correspondence-004",
+        "naming": {
+          "state": "withheld_pending_confirmation",
+          "display": "Name withheld for now."
+        },
+        "problems": [
+          "68",
+          "243",
+          "249",
+          "251",
+          "257",
+          "269",
+          "1041",
+          "1049"
+        ],
+        "received_on": "2026-09-17",
+        "role": "mathematician",
+        "title": "Writing for a first-time reader",
+        "told": "A mathematician said the #243 note used names that meant nothing on a first or second reading, defined notation it used once, and never said how restrictive its main hypothesis was."
+      },
+      {
+        "anchor": "credit-correspondence-005",
+        "artifacts": [
+          {
+            "excerpt_sha256": "sha256:1ab1c0d45ed163c3d6109bb69e7ef350daad697816ad030e33bac851a4b79ca4",
+            "line_end": 73,
+            "line_start": 68,
+            "path": "paper/251/erdos-251-prime-gap-dyadic-series.tex"
+          },
+          {
+            "excerpt_sha256": "sha256:25842c87b62e2854557a2e4add69568a3d3398b523afd982a2f0348cca448abf",
+            "line_end": 19,
+            "line_start": 19,
+            "path": "docs/papers/SHORT_PAPER_CONTRACT.md"
+          }
+        ],
+        "changed": "A literature review was run for each of the eight problems, and each paper now credits its sources at the point where they are used.",
+        "commits": [
+          {
+            "sha": "029c90d4144d6087ba62d08ffc8b3cee1a9a165e",
+            "url": "https://github.com/wcook04/plectis-erdos/commit/029c90d4144d6087ba62d08ffc8b3cee1a9a165e"
+          },
+          {
+            "sha": "7148c5ae4a4a2f3802cccdeed62c394f64593340",
+            "url": "https://github.com/wcook04/plectis-erdos/commit/7148c5ae4a4a2f3802cccdeed62c394f64593340"
+          }
+        ],
+        "credited_as": "A mathematician (name withheld)",
+        "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-005",
+        "id": "correspondence-005",
+        "naming": {
+          "state": "withheld_pending_confirmation",
+          "display": "Name withheld for now."
+        },
+        "problems": [
+          "68",
+          "243",
+          "249",
+          "251",
+          "257",
+          "269",
+          "1041",
+          "1049"
+        ],
+        "received_on": "2026-09-15",
+        "role": "mathematician",
+        "title": "Showing where methods and ideas come from",
+        "told": "A mathematician said the trouble with AI-assisted mathematics is that it rarely shows where its methods and ideas come from."
+      },
+      {
+        "anchor": "credit-correspondence-002",
+        "artifacts": [
+          {
+            "excerpt_sha256": "sha256:88b60a7e65dd8caa239cb470e4423911058629e75c0bb69c7656677329f9429a",
+            "line_end": 24,
+            "line_start": 22,
+            "path": "paper/249/erdos-249-binary-totient-series.tex"
+          },
+          {
+            "excerpt_sha256": "sha256:b6ce0fb599e9bf02898ae89ea89e3bf47a7a31efcaab7ffbe2a9e2aaaae8ab8c",
+            "line_end": 79,
+            "line_start": 79,
+            "path": "paper/249/erdos-249-binary-totient-series.tex"
+          },
+          {
+            "excerpt_sha256": "sha256:c1960cd50c0146b008839691c83ef53220ec6bdf251ce3c02d30ff006670e01a",
+            "line_end": 78,
+            "line_start": 78,
+            "path": "paper/249/erdos-249-binary-totient-series.tex"
+          },
+          {
+            "excerpt_sha256": "sha256:e4bbeef9407526e58653fc7ed307d51530c41af7bd6d225f36388486dc845a6e",
+            "line_end": 1145,
+            "line_start": 935,
+            "path": "lean/Erdos249257/TotientMahlerDefect.lean"
+          },
+          {
+            "excerpt_sha256": "sha256:b323e9a098414f61b29469d542453a446713a6650efbe384accb4d657f9a1e7e",
+            "line_end": 216,
+            "line_start": 159,
+            "path": "formalization.yaml"
+          },
+          {
+            "excerpt_sha256": "sha256:cb49ade0a57a20d0355d24a8ebc443b2be0b82e0f3c2bdd61f361abe2913a17b",
+            "line_end": 544,
+            "line_start": 534,
+            "path": "docs/EXTERNAL_VERIFICATION.md"
+          }
+        ],
+        "changed": "The #249 paper now opens with the exact rank and basis, compares the result with work of Allouche and Shallit, Coons and Martin, and links a minimal Lean entry; the irrationality question stays open.",
+        "commits": [],
+        "credited_as": "A mathematician (name withheld)",
+        "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-002",
+        "id": "correspondence-002",
+        "naming": {
+          "state": "withheld_pending_confirmation",
+          "display": "Name withheld for now."
+        },
+        "problems": [
+          "249"
+        ],
+        "received_on": "2026-08-06",
+        "role": "mathematician",
+        "title": "Leading the #249 paper with its exact theorem",
+        "told": "A mathematician advised leading the #249 paper with its exact finite-level theorem, explaining the mechanism behind it, and comparing it precisely with the existing literature on regular sequences."
+      },
+      {
+        "anchor": "credit-correspondence-001",
+        "artifacts": [
+          {
+            "excerpt_sha256": "sha256:301b260737a1b5176e64724b27eb990eaeda45fba3a6cb92b482ca3bfe6bfd0f",
+            "line_end": 60,
+            "line_start": 1,
+            "path": "formalization.yaml"
+          },
+          {
+            "excerpt_sha256": "sha256:8b08466c661aa5a0f1977d62d091fd0a355dd90ba5d7d74a51ca6c578639737f",
+            "line_end": 40,
+            "line_start": 1,
+            "path": "verification/comparator.json"
+          },
+          {
+            "excerpt_sha256": "sha256:43aca5f4da7f5f42baf826e53324c045e4fa11acd20ffd1743609e20b5084157",
+            "line_end": 13,
+            "line_start": 1,
+            "path": "verification/comparator-negative-mismatch.json"
+          },
+          {
+            "excerpt_sha256": "sha256:841f2dd16d4a52b7d08408468dd3f4f231b7d8aeb174d9ffad383abbde1acfe9",
+            "line_end": 14,
+            "line_start": 4,
+            "path": "docs/EXTERNAL_VERIFICATION.md"
+          }
+        ],
+        "changed": "formalization.yaml now lists the selected results this way, and Comparator checks them against separately written statements, including an altered statement that must be rejected.",
+        "commits": [
+          {
+            "sha": "e062d93809b6a394a067b4ea1bbdac7b228e0510",
+            "url": "https://github.com/wcook04/plectis-erdos/commit/e062d93809b6a394a067b4ea1bbdac7b228e0510"
+          }
+        ],
+        "credited_as": "A mathematician (name withheld)",
+        "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-001",
+        "id": "correspondence-001",
+        "naming": {
+          "state": "withheld_pending_confirmation",
+          "display": "Name withheld for now."
+        },
+        "problems": [
+          "68",
+          "243",
+          "249",
+          "251",
+          "257",
+          "269",
+          "1041",
+          "1049"
+        ],
+        "received_on": "2026-08-06",
+        "role": "mathematician",
+        "title": "Listing each checked result, with a cheap way to check it",
+        "told": "A mathematician advised listing each selected result with its exact statement, proof source, novelty status, axioms and limits, and giving reviewers a cheap way to check the statements themselves."
+      },
+      {
+        "anchor": "credit-correspondence-008",
+        "artifacts": [
+          {
+            "excerpt_sha256": "sha256:4b4e287db8c278bf0c90fdffa8c029c4615fa4ef95e800efb5115c3530a1d2dd",
+            "line_end": 135,
+            "line_start": 127,
+            "path": "docs/research-commons/CREDIT_POLICY.md"
+          }
+        ],
+        "changed": "That connection was removed from future correspondence unless new evidence supports it; the published credit policy records the same rule for correcting scope.",
+        "commits": [],
+        "credited_as": "A mathematician (name withheld)",
+        "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-008",
+        "id": "correspondence-008",
+        "naming": {
+          "state": "withheld_pending_confirmation",
+          "display": "Name withheld for now."
+        },
+        "problems": [],
+        "received_on": "2026-08-05",
+        "role": "mathematician",
+        "title": "Removing an unsupported specialist connection",
+        "told": "A mathematician saw no connection between their specialist methods and the question presented to them."
+      },
+      {
+        "anchor": "credit-correspondence-003",
+        "artifacts": [
+          {
+            "excerpt_sha256": "sha256:2dd1c6e867a779af56358ca64dc97076e8c0c4f4fe8db1128aed5624673e206b",
+            "line_end": 41,
+            "line_start": 1,
+            "path": "docs/primary-sources/reciprocal-tail/amdeberhan-zeilberger-1998-q-apery-source-closure.md"
+          },
+          {
+            "excerpt_sha256": "sha256:5e2e6c2c874886e16da148e50ad853ae95b8bd51917063f56898eede0c49e406",
+            "line_end": 878,
+            "line_start": 878,
+            "path": "paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex"
+          },
+          {
+            "excerpt_sha256": "sha256:c9f8d191bbf7d39a3e75436d9d7036604d3f396d1223d6f8d505668cafc4971e",
+            "line_end": 393,
+            "line_start": 389,
+            "path": "docs/PRIOR_ART.md"
+          },
+          {
+            "excerpt_sha256": "sha256:2869c3db2da5857a4c9fc56be272d52f5a7b1242f3633bd8ed0b01f0da016724",
+            "line_end": 100,
+            "line_start": 1,
+            "path": "lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean"
+          }
+        ],
+        "changed": "The comparison was carried out: a source note and a Lean module recording where the two methods part are public, and the #1049 record cites the paper where they meet.",
+        "commits": [
+          {
+            "sha": "f5342c683a321f752b6994423e1e9ec40979809f",
+            "url": "https://github.com/wcook04/plectis-erdos/commit/f5342c683a321f752b6994423e1e9ec40979809f"
+          }
+        ],
+        "credited_as": "A mathematician (name withheld)",
+        "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-003",
+        "id": "correspondence-003",
+        "naming": {
+          "state": "withheld_pending_confirmation",
+          "display": "Name withheld for now."
+        },
+        "problems": [
+          "1049"
+        ],
+        "received_on": "2026-08-05",
+        "role": "mathematician",
+        "title": "Earlier work on the #1049 Lambert value",
+        "told": "A mathematician suggested comparing the #1049 construction with an earlier irrationality paper."
+      },
+      {
+        "anchor": "credit-correspondence-006",
+        "artifacts": [
+          {
+            "excerpt_sha256": "sha256:191bdaa5c6a034f8f74163c139dd6774fc83d1c917ad107d0014d342c594d0f9",
+            "line_end": 116,
+            "line_start": 109,
+            "path": "docs/research-commons/CREDIT_POLICY.md"
+          }
+        ],
+        "changed": "The correspondence rules now require one concrete object, its purpose, a narrow request and a clear reading or time cost; those rules are also published in the credit policy.",
+        "commits": [],
+        "credited_as": "A reader (name withheld)",
+        "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-006",
+        "id": "correspondence-006",
+        "naming": {
+          "state": "withheld_pending_confirmation",
+          "display": "Name withheld for now."
+        },
+        "problems": [],
+        "received_on": "2026-06-30",
+        "role": "reader",
+        "title": "Explaining the purpose of the work",
+        "told": "A reader could not identify the system’s goal, the object being shown, or why its interface was useful."
+      }
+    ],
+    "generated_by": "scripts/build_source_attributions.py",
+    "naming_policy": "Every entry starts with the name withheld. A name appears only after that person confirms the public name they want, and an entry stays anonymous if they ask. Private messages stay outside this repository.",
+    "schema": "plectis-credit-ledger/1",
+    "source_registry": "docs/research-commons/source-attributions.json",
+    "source_registry_sha256": "sha256:1672720993467d5f4a9ca97bf2fdd17f493a4574db7fc3fc61e427221bdbc88a"
+  },
+  "agent_acknowledgements": [
+    {
+      "id": "safety-core-skitter-secret-reads",
+      "project": "safety-core",
+      "credited_as": "Skitter",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-14",
+      "contribution": "Requested approval for every secret-path read and clearer home/root deletion reasons.",
+      "changed": "Safety Core added an optional per-read approval check and clarified the deletion explanation.",
+      "limits": "A pinned disposable Linux replay; a live agent host was not tested.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/safety-core/blob/521f942e25a7e048636e1e2dc9b866b989ba053d/CONTRIBUTING.md#L61-L65",
+      "commits": [
+        {
+          "sha": "19dfe3fb509af2081b303a4cbfea667c5dcaafbf",
+          "url": "https://github.com/wcook04/safety-core/commit/19dfe3fb509af2081b303a4cbfea667c5dcaafbf"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/safety-core",
+        "revision": "521f942e25a7e048636e1e2dc9b866b989ba053d",
+        "path": "CONTRIBUTING.md",
+        "line_start": 61,
+        "line_end": 65,
+        "excerpt": "Thanks to [Skitter's public replay report](https://swarmmemo.com/e/b7b596e955f0949c4f93df6d8d929053)\nfor requesting approval on each secret-path read and clearer deletion reasons\nwhen a sandbox's home resolves to the filesystem root. The report covers a\npinned disposable Linux demo, without a live agent host; it is feedback credit,\nnot an endorsement.\n",
+        "excerpt_sha256": "sha256:9ba42eedf4dae49cf01e9af3f7af0639559bee01408bf9a5c93a5c15430b1ca9"
+      }
+    },
+    {
+      "id": "safety-core-glue72desk-task-coverage",
+      "project": "safety-core",
+      "credited_as": "glue72desk",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-14",
+      "contribution": "Shared a toy review whose draft obeyed prohibitions but omitted the billing complaint.",
+      "changed": "Safety Core added machine-readable coverage limits, a CLI disclosure and an incomplete-task regression.",
+      "limits": "A review of their own tool; no Safety Core trial or endorsement was reported.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/safety-core/blob/521f942e25a7e048636e1e2dc9b866b989ba053d/CONTRIBUTING.md#L67-L72",
+      "commits": [
+        {
+          "sha": "670790db42fe06649571b758c9d466ad864f746f",
+          "url": "https://github.com/wcook04/safety-core/commit/670790db42fe06649571b758c9d466ad864f746f"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/safety-core",
+        "revision": "521f942e25a7e048636e1e2dc9b866b989ba053d",
+        "path": "CONTRIBUTING.md",
+        "line_start": 67,
+        "line_end": 72,
+        "excerpt": "Thanks to [glue72desk's public toy-review return](https://www.moltbook.com/post/c83b9218-a6b3-4c4a-932b-b37c0d33910b)\n(comment `4be9ff7d-e3d9-40ab-af7e-69bf72c29599`) for exposing a useful boundary:\nthe draft passed its prohibitions checks but omitted the billing complaint.\nThat example prompted the machine-readable coverage scope, the CLI disclosure\nand an incomplete-task regression fixture here. It was a review of their tool,\nnot a reported Safety Core trial or endorsement.\n",
+        "excerpt_sha256": "sha256:b08092f187290884ea1ba33e36c92fd91d30239e9212fba082d5019bcbef908b"
+      }
+    },
+    {
+      "id": "safety-core-adctx-parser-audit",
+      "project": "safety-core",
+      "credited_as": "adctx",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-15",
+      "contribution": "Explained how a collected test corpus can miss malformed input types, then asked how to audit the checker.",
+      "changed": "A constructed route-path type regression and paired audit instructions were added.",
+      "limits": "Conceptual test-design and explanation input; no executed Safety Core defect report or code contribution.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/safety-core/blob/521f942e25a7e048636e1e2dc9b866b989ba053d/CONTRIBUTING.md#L74-L82",
+      "commits": [
+        {
+          "sha": "19f628a9884994197c0bb8d2b1f285a71ae94170",
+          "url": "https://github.com/wcook04/safety-core/commit/19f628a9884994197c0bb8d2b1f285a71ae94170"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/safety-core",
+        "revision": "521f942e25a7e048636e1e2dc9b866b989ba053d",
+        "path": "CONTRIBUTING.md",
+        "line_start": 74,
+        "line_end": 82,
+        "excerpt": "Thanks to [adctx's public checker discussion](https://www.moltbook.com/post/4cf2c39e-aa5a-49bc-a866-2d1c9e8b167a)\n(comments `333c9e64-39fd-40d0-976f-b2900a86d13d` and\n`4142f1f1-770d-4e3d-a4e8-bb0c679d8b3c`) for the conceptual testing lesson\nthat a collected corpus can miss malformed input types. That prompted a\nconstructed route-path type regression here. Their follow-up comment\n`415ab73c-455f-4410-a5e8-35beb8488675` prompted the paired audit instructions\nabove, reusing that existing regression. This credits test-design and\nexplanation input, not a Safety Core trial, executed defect report or code\ncontribution.\n",
+        "excerpt_sha256": "sha256:4addaad08851b71d503fd843270955463233fc80c05da94ffa4c685220d3ab1c"
+      }
+    },
+    {
+      "id": "one-checkout-penny-verification-cost",
+      "project": "one-checkout",
+      "credited_as": "Penny",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-15",
+      "contribution": "Asked how much verification costs.",
+      "changed": "The question prompted a paired runtime experiment; Will then requested safe optimisations, including combined private-index reads.",
+      "limits": "Credit for the measurement question; no performance-bug diagnosis, code contribution or outside trial.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/one-checkout/blob/27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c/CONTRIBUTING.md#L121-L126",
+      "commits": [
+        {
+          "sha": "c7d37dba4b9c46f17bd2665642803b4cb1f61a88",
+          "url": "https://github.com/wcook04/one-checkout/commit/c7d37dba4b9c46f17bd2665642803b4cb1f61a88"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/one-checkout",
+        "revision": "27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c",
+        "path": "CONTRIBUTING.md",
+        "line_start": 121,
+        "line_end": 126,
+        "excerpt": "[Penny’s verification-cost question on The Colony](https://thecolony.ai/post/64ff24a2-a9b1-4c54-af68-daacaad0fd7b)\nprompted us to measure the cost of verification. Will then asked us to investigate\nsafe optimisations. That led to the [paired runtime experiment](docs/performance.md)\nand combining the entry/flag reads of each private index snapshot. This credits\nthe question that inspired measurement, not a performance-bug diagnosis, code\ncontribution, outside trial or endorsement. Earlier contributor credits remain below.\n",
+        "excerpt_sha256": "sha256:18e1dd3f193b3eb1dee8009d017613ad5f514b2e6a4e20dde30710f8761982e9"
+      }
+    },
+    {
+      "id": "one-checkout-vina-staging-risk",
+      "project": "one-checkout",
+      "credited_as": "vina",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-15",
+      "contribution": "Pointed out the risk in retained staging after a selected commit.",
+      "changed": "The demo now checks its receipt warning and runs an ordinary follow-on commit that records the reversal of the selected change.",
+      "limits": "Discussion that improved a disposable demonstration; no new outside run or code authorship.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/one-checkout/blob/27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c/CONTRIBUTING.md#L128-L134",
+      "commits": [
+        {
+          "sha": "da977fe9284a8dc8d6329fae46fb405a18b2fab8",
+          "url": "https://github.com/wcook04/one-checkout/commit/da977fe9284a8dc8d6329fae46fb405a18b2fab8"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/one-checkout",
+        "revision": "27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c",
+        "path": "CONTRIBUTING.md",
+        "line_start": 128,
+        "line_end": 134,
+        "excerpt": "Thanks to [vina's later staging-risk observation](https://www.moltbook.com/post/cceb0260-7bbb-45e1-80bd-c7daf499ca84)\n(comment `51aa90c6-bf3e-4de8-b3ed-991f0f563c3f`) for prompting the demo's\nexecutable receipt-warning check and ordinary follow-on commit control. The\ncontrol now observes A being reverted in a separate disposable fixture and\nretains its two commit IDs and snapshots. This credits discussion that improved\nthe demonstration, not a new outside run, code authorship or endorsement.\nEarlier contributors and their distinct reports remain below.\n",
+        "excerpt_sha256": "sha256:36369305eb60c8d8f570072cd824027c7c1eb1f57a1295aec1afce2eaab91cdd"
+      }
+    },
+    {
+      "id": "one-checkout-tanod-native-git",
+      "project": "one-checkout",
+      "credited_as": "tanod",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-15",
+      "contribution": "Supplied a native Git workflow example.",
+      "changed": "The README explains post-commit staging, with disposable positive and adjacent-context examples.",
+      "limits": "Alternative-workflow and documentation feedback; no reported One Checkout trial.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/one-checkout/blob/27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c/CONTRIBUTING.md#L136-L141",
+      "commits": [
+        {
+          "sha": "de9e492476ca44685ebeb6a0b10ca7869d52dc3a",
+          "url": "https://github.com/wcook04/one-checkout/commit/de9e492476ca44685ebeb6a0b10ca7869d52dc3a"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/one-checkout",
+        "revision": "27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c",
+        "path": "CONTRIBUTING.md",
+        "line_start": 136,
+        "line_end": 141,
+        "excerpt": "Thanks to [tanod's native Git example](https://www.moltbook.com/post/ff8434cc-618d-4d88-a788-84e1da61078b)\n(comment `5a9e9d27-256e-4765-946c-0be42091722d`) for prompting the README's\npost-commit staging explanation. We adapted the existing disposable fixture into\na context-separated positive case and an adjacent-context case where the final\nstaged apply fails after A reaches the branch. This credits an alternative-workflow\nexample and resulting documentation, not a reported One Checkout trial or endorsement.\n",
+        "excerpt_sha256": "sha256:3ecc325140bba86f2767d16e66e7ba05914208afccf8e32ce98a7e8ae526e082"
+      }
+    },
+    {
+      "id": "one-checkout-vina-three-deltas",
+      "project": "one-checkout",
+      "credited_as": "vina",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-15",
+      "contribution": "Asked about staged and working differences after a selected commit.",
+      "changed": "The README and staging guide now compare all three differences and explain what must be reconciled.",
+      "limits": "Documentation feedback; no reported execution or code authorship.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/one-checkout/blob/27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c/CONTRIBUTING.md#L143-L147",
+      "commits": [
+        {
+          "sha": "eee46ab6c1f18ec2c2fde62d171fc20888702e32",
+          "url": "https://github.com/wcook04/one-checkout/commit/eee46ab6c1f18ec2c2fde62d171fc20888702e32"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/one-checkout",
+        "revision": "27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c",
+        "path": "CONTRIBUTING.md",
+        "line_start": 143,
+        "line_end": 147,
+        "excerpt": "Thanks to [vina's staged/working-diff question](https://www.moltbook.com/post/ff8434cc-618d-4d88-a788-84e1da61078b)\n(comment `3f5862cc-da1b-484a-825d-6f9b6f97f11e`) for prompting the explicit\nthree-delta comparison and reconciliation boundary in the README/staging guide.\nThis is documentation feedback credit, not a reported execution, code authorship\nor endorsement.\n",
+        "excerpt_sha256": "sha256:a4320c658dbdcd8bc3bd2341cff01b48b04ca8875a5e304f87b05f015f6b24d8"
+      }
+    },
+    {
+      "id": "one-checkout-lobsternigel-recovery",
+      "project": "one-checkout",
+      "credited_as": "lobsternigel",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-14",
+      "contribution": "Suggested a recovery comparison.",
+      "changed": "A runnable recovery demo distinguishes the candidate object, branch publication and index settlement, and checks the no-automatic-retry rule.",
+      "limits": "Example-design feedback; no outside tool trial or code authorship.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/one-checkout/blob/27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c/CONTRIBUTING.md#L150-L155",
+      "commits": [
+        {
+          "sha": "f34cdf8862fd7fe2bbc5214cdf1d69b1d3e70ac4",
+          "url": "https://github.com/wcook04/one-checkout/commit/f34cdf8862fd7fe2bbc5214cdf1d69b1d3e70ac4"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/one-checkout",
+        "revision": "27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c",
+        "path": "CONTRIBUTING.md",
+        "line_start": 150,
+        "line_end": 155,
+        "excerpt": "Thanks to [lobsternigel's recovery comparison suggestion](https://www.moltbook.com/post/42420abe-80ea-4677-854f-517860bbe826)\n(comment `c1978dbd-6197-40a4-9569-5bfc195cd3b9`) for prompting the executable\n`scripts/recovery_demo.py`. It separates the candidate object, observed branch\npublication and index settlement, and checks the no-automatic-retry contract.\nThis is example-design feedback credit; it does not establish a tool trial,\ncode authorship or endorsement.\n",
+        "excerpt_sha256": "sha256:9356479f0740e2958452c654142a8b2ceae048377713d2b16ed68297127ed4a6"
+      }
+    },
+    {
+      "id": "one-checkout-midearthguild-parent-lock",
+      "project": "one-checkout",
+      "credited_as": "midearthguild",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-14",
+      "contribution": "Asked about locking and the captured starting commit.",
+      "changed": "The README now answers the index-lock and captured-parent questions at entry.",
+      "limits": "Documentation feedback; no reported trial or code authorship.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/one-checkout/blob/27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c/CONTRIBUTING.md#L158-L161",
+      "commits": [
+        {
+          "sha": "783b32372fcba449663cfdf89792e521c6d00151",
+          "url": "https://github.com/wcook04/one-checkout/commit/783b32372fcba449663cfdf89792e521c6d00151"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/one-checkout",
+        "revision": "27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c",
+        "path": "CONTRIBUTING.md",
+        "line_start": 158,
+        "line_end": 161,
+        "excerpt": "Thanks to [midearthguild's implementation questions](https://www.moltbook.com/post/ff8434cc-618d-4d88-a788-84e1da61078b)\n(comment `294af9dd-0a68-474e-a7ac-e1ff837be83e`) for prompting the README's\nlocking and captured-parent answers. This is documentation feedback credit;\nit does not establish a trial, code authorship or endorsement.\n",
+        "excerpt_sha256": "sha256:b9ad5330881e21327ead059d8c625d39cb5c37aa5366bfc3563f479bfb9f7eaf"
+      }
+    },
+    {
+      "id": "one-checkout-skitter-staging-warning",
+      "project": "one-checkout",
+      "credited_as": "Skitter",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-14",
+      "contribution": "Reported a pinned disposable Linux replay and requested a more prominent staging warning.",
+      "changed": "The human demo now warns before showing the retained staged diff.",
+      "limits": "A disposable Linux run; live-agent adoption and concurrent-writer coverage were not established.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/one-checkout/blob/27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c/CONTRIBUTING.md#L163-L166",
+      "commits": [
+        {
+          "sha": "c03b7b0d0d94021fdcae6aca1d3f67c5204177cd",
+          "url": "https://github.com/wcook04/one-checkout/commit/c03b7b0d0d94021fdcae6aca1d3f67c5204177cd"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/one-checkout",
+        "revision": "27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c",
+        "path": "CONTRIBUTING.md",
+        "line_start": 163,
+        "line_end": 166,
+        "excerpt": "Thanks to [Skitter's public replay report](https://swarmmemo.com/e/b5317916e9b1f89044d352972fea24c8)\nfor prompting the prominent staging-handoff warning in the human demo.\nThe report covers a pinned disposable Linux run; it does not establish live-agent\nadoption, concurrency coverage or endorsement.\n",
+        "excerpt_sha256": "sha256:75a40ceca6d37cb9c6f5051ebc73e241fcd7c8e8b1e8310d263a58a7d41ba1bb"
+      }
+    },
+    {
+      "id": "one-checkout-skitter-next-action",
+      "project": "one-checkout",
+      "credited_as": "Skitter",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-15",
+      "contribution": "Repeated the disposable replay and requested a direct next-action pointer for the next staging owner.",
+      "changed": "The demo links the guide for reviewing the next patch against a chosen parent while retaining the earlier change.",
+      "limits": "Ten reported demo checks on Linux aarch64; no real repository, concurrent writers, macOS or live-agent session.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/one-checkout/blob/27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c/CONTRIBUTING.md#L168-L174",
+      "commits": [
+        {
+          "sha": "548c65d3332f74d0f2f77fea06796d6dffe7ea85",
+          "url": "https://github.com/wcook04/one-checkout/commit/548c65d3332f74d0f2f77fea06796d6dffe7ea85"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/one-checkout",
+        "revision": "27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c",
+        "path": "CONTRIBUTING.md",
+        "line_start": 168,
+        "line_end": 174,
+        "excerpt": "Skitter's [repeat disposable replay](https://swarmmemo.com/e/422da021a5439d906963b18f07840398)\nat `eee46ab6c1f18ec2c2fde62d171fc20888702e32` reported all ten demo checks\npassing on Linux aarch64 and requested a direct next-action pointer for B's owner.\nThe human demo now links the staging guide's \"Deliberate next action\" section,\nwhich explains reviewing B against a chosen new parent while preserving A.\nThis is demo-navigation feedback credit; the replay did not test a real repository,\nconcurrent writers, macOS or a live agent session.\n",
+        "excerpt_sha256": "sha256:742e8129604c34849e01b8cdda80ea63f863150ab758f7ed290930122b72af36"
+      }
+    },
+    {
+      "id": "one-checkout-skitter-pinned-guide",
+      "project": "one-checkout",
+      "credited_as": "Skitter",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-15",
+      "contribution": "Replayed the new guide pointer and observed that its main-branch URL could drift.",
+      "changed": "The demo now links a pinned compatible guide revision.",
+      "limits": "Disposable replay and link-stability feedback; no live-host adoption.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/one-checkout/blob/27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c/CONTRIBUTING.md#L176-L180",
+      "commits": [
+        {
+          "sha": "de9e492476ca44685ebeb6a0b10ca7869d52dc3a",
+          "url": "https://github.com/wcook04/one-checkout/commit/de9e492476ca44685ebeb6a0b10ca7869d52dc3a"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/one-checkout",
+        "revision": "27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c",
+        "path": "CONTRIBUTING.md",
+        "line_start": 176,
+        "line_end": 180,
+        "excerpt": "Skitter's [next pinned replay](https://swarmmemo.com/e/fab4e5d3a1e461862c73a0c15b6da103)\nat `548c65d3332f74d0f2f77fea06796d6dffe7ea85` reported the new pointer and ten\npassing checks, then noted that its `main` URL could drift. The demo now pins the\ncompatible guide revision; that guide's bytes are unchanged in this correction.\nThis remains disposable replay and link-stability feedback, not live-host adoption.\n",
+        "excerpt_sha256": "sha256:c16e2e1dd255614001dd1f720250b3f87977bce0c3ce30dafeb9925525ffb5f2"
+      }
+    },
+    {
+      "id": "one-checkout-dione-mixed-note",
+      "project": "one-checkout",
+      "credited_as": "Dione",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-10-14",
+      "contribution": "Described two writers changing one note without separately retained patches.",
+      "changed": "The README now explains that ownership must first be established and the candidate reviewed separately.",
+      "limits": "Concrete workflow feedback; selecting a patch still needs a review of who owns each change.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/one-checkout/blob/27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c/CONTRIBUTING.md#L182-L184",
+      "commits": [
+        {
+          "sha": "c03b7b0d0d94021fdcae6aca1d3f67c5204177cd",
+          "url": "https://github.com/wcook04/one-checkout/commit/c03b7b0d0d94021fdcae6aca1d3f67c5204177cd"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/one-checkout",
+        "revision": "27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c",
+        "path": "CONTRIBUTING.md",
+        "line_start": 182,
+        "line_end": 184,
+        "excerpt": "Thanks also to [Dione's shared-checkout feedback](https://www.moltbook.com/post/c293570d-d312-4108-ac25-18cb19af23d3)\nfor the concrete mixed-note example now in the README: when neither writer has\na separate reviewed patch, selecting ownership remains an earlier workflow step.\n",
+        "excerpt_sha256": "sha256:67e7fcdc581e6c5b54ec338796008651a37d7ca9619f3865cd3e230425a175bc"
+      }
+    },
+    {
+      "id": "plectis-erdos-codex-return-routing",
+      "project": "plectis-erdos",
+      "credited_as": "OpenAI Codex",
+      "contributor_kind": "agent",
+      "recorded_on": "2026-09-23",
+      "contribution": "Returned a repair to the public contribution-return routing and architecture packaging.",
+      "changed": "The public acceptance receipt credits software and validation for the routing repair.",
+      "limits": "An accepted architecture contribution; it does not confer mathematical authorship or independent proof review.",
+      "credit_basis": "accepted_public_contribution_receipt",
+      "credit_url": "https://github.com/wcook04/plectis-erdos/blob/ad39faddd0efa2d3ab43e98b37448d9c2b1b44b3/docs/research-commons/returns/rr-public-return-routing-20260923.json",
+      "commits": [
+        {
+          "sha": "8cec1bb66576a7582fb8dc076cbbced166ed196b",
+          "url": "https://github.com/wcook04/plectis-erdos/commit/8cec1bb66576a7582fb8dc076cbbced166ed196b"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/plectis-erdos",
+        "revision": "ad39faddd0efa2d3ab43e98b37448d9c2b1b44b3",
+        "path": "docs/research-commons/contributions.json",
+        "line_start": 1,
+        "line_end": 28,
+        "excerpt": "{\n  \"artifact_role\": \"generated_accepted_artifact_attribution_view\",\n  \"authority_boundary\": \"Receipt-derived attribution evidence only; Lean, docs/claims.json, methodology review, GitHub delivery history, core promotion, and tagged releases retain their own authority.\",\n  \"chronological\": [\n    {\n      \"accepted_at\": \"2026-09-23T07:36:38Z\",\n      \"attribution\": {\n        \"artifact_credit\": [\n          {\n            \"artifact_paths\": [\n              \"scripts/continue_research.py\",\n              \"scripts/test_agent_entry.py\",\n              \"scripts/test_continue_research.py\",\n              \"skills/registry.json\"\n            ],\n            \"contribution_roles\": [\n              \"software\",\n              \"validation\"\n            ],\n            \"name\": \"OpenAI Codex\"\n          }\n        ],\n        \"existing_corpus_authorship_preserved\": true,\n        \"requested_display\": \"OpenAI Codex — public contribution return routing and validated architecture packaging\"\n      },\n      \"evidence\": [\n        {\n          \"artifacts\": [\n",
+        "excerpt_sha256": "sha256:6389f8461832e52bdc63f0085bd1a53bb715cd95252b8c9a89a46112a5abf655"
+      }
+    },
+    {
+      "id": "plectis-zenith-progress-return-02",
+      "project": "plectis-zenith",
+      "credited_as": "Zenith progress return 02",
+      "contributor_kind": "research_return",
+      "recorded_on": "2026-10-15",
+      "contribution": "Supplied the rational-linear learner and selector used as a research-return implementation source.",
+      "changed": "Zenith adapted the learner, selector and deterministic demo/tests in research/continuation_learning.py.",
+      "limits": "The public NOTICE credits the implemented portions and retains Apache-2.0 attribution. It does not identify an individual author or republish the private return.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/plectis-zenith/blob/73dd5f3d21f5a2f8d81667373e2924a65cd011d4/NOTICE#L14-L33",
+      "commits": [
+        {
+          "sha": "73dd5f3d21f5a2f8d81667373e2924a65cd011d4",
+          "url": "https://github.com/wcook04/plectis-zenith/commit/73dd5f3d21f5a2f8d81667373e2924a65cd011d4"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/plectis-zenith",
+        "revision": "73dd5f3d21f5a2f8d81667373e2924a65cd011d4",
+        "path": "NOTICE",
+        "line_start": 14,
+        "line_end": 33,
+        "excerpt": "- `research/continuation_learning.py` and its deterministic demo/tests are a\n  maintained, modified adaptation of the witness-preserving rational-linear\n  learner and selector in Zenith progress return 02, not a copy of that return's\n  research results. Source archive:\n  `ZENITH_PROGRESS_RETURN_02-selecting-questions-that-pay.zip`, SHA-256\n  `5fe705df566a41de013242664f62a23e63b7d0e8eebf796856ebc85b4f148926`.\n  The return retains its Apache-2.0 `LICENSE` and attribution in `NOTICE.md`.\n- `research/direct_investigation.py` adapts the bounded direct-query interface\n  proposed in Zenith progress return 17; the live implementation adds strict\n  delivery, accounting and replay integration. Source archive:\n  `ZENITH_PROGRESS_RETURN_17-using-the-models-capabilities-properly.zip`,\n  SHA-256 `2c7ce604160b47b91b9e031273fb35e180022682e4ceb2665270ca96bccb899a`.\n  The return retains its Apache-2.0 `LICENSE` and `ATTRIBUTION.md`.\n- `research/native_conformance_tasks.py::authored_fixed_queries` adapts the\n  standards-informed UTF-8 boundary probe pack from Zenith progress return 16\n  as an authored fixed rival. It is not an acquired investigation policy.\n  Source archive:\n  `ZENITH_PROGRESS_RETURN_16-strong-rivals-and-independent-challenges.zip`,\n  SHA-256 `2f4d83895fbe8f925d2d4853317fc9b08f0cd0bfccb2106aac0f87b1dd4993ee`.\n  The return's `NOTICE.md` and `vendor/LICENSE` retain Apache-2.0 terms.\n",
+        "excerpt_sha256": "sha256:b5ada88d8f243a25551d598d24dcf90315badfe29dc89b50812314dbd61ed06e"
+      }
+    },
+    {
+      "id": "plectis-zenith-progress-return-17",
+      "project": "plectis-zenith",
+      "credited_as": "Zenith progress return 17",
+      "contributor_kind": "research_return",
+      "recorded_on": "2026-10-15",
+      "contribution": "Proposed a bounded direct-query interface.",
+      "changed": "Zenith adapted the interface in research/direct_investigation.py and added delivery, accounting and replay integration.",
+      "limits": "The public NOTICE credits the implemented portions and retains Apache-2.0 attribution. It does not identify an individual author or republish the private return.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/plectis-zenith/blob/73dd5f3d21f5a2f8d81667373e2924a65cd011d4/NOTICE#L21-L33",
+      "commits": [
+        {
+          "sha": "73dd5f3d21f5a2f8d81667373e2924a65cd011d4",
+          "url": "https://github.com/wcook04/plectis-zenith/commit/73dd5f3d21f5a2f8d81667373e2924a65cd011d4"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/plectis-zenith",
+        "revision": "73dd5f3d21f5a2f8d81667373e2924a65cd011d4",
+        "path": "NOTICE",
+        "line_start": 21,
+        "line_end": 33,
+        "excerpt": "- `research/direct_investigation.py` adapts the bounded direct-query interface\n  proposed in Zenith progress return 17; the live implementation adds strict\n  delivery, accounting and replay integration. Source archive:\n  `ZENITH_PROGRESS_RETURN_17-using-the-models-capabilities-properly.zip`,\n  SHA-256 `2c7ce604160b47b91b9e031273fb35e180022682e4ceb2665270ca96bccb899a`.\n  The return retains its Apache-2.0 `LICENSE` and `ATTRIBUTION.md`.\n- `research/native_conformance_tasks.py::authored_fixed_queries` adapts the\n  standards-informed UTF-8 boundary probe pack from Zenith progress return 16\n  as an authored fixed rival. It is not an acquired investigation policy.\n  Source archive:\n  `ZENITH_PROGRESS_RETURN_16-strong-rivals-and-independent-challenges.zip`,\n  SHA-256 `2f4d83895fbe8f925d2d4853317fc9b08f0cd0bfccb2106aac0f87b1dd4993ee`.\n  The return's `NOTICE.md` and `vendor/LICENSE` retain Apache-2.0 terms.\n",
+        "excerpt_sha256": "sha256:78b9975d53f57ddecb406461d8ca0f31b65adb99f88e5bbd48f32572610c5781"
+      }
+    },
+    {
+      "id": "plectis-zenith-progress-return-16",
+      "project": "plectis-zenith",
+      "credited_as": "Zenith progress return 16",
+      "contributor_kind": "research_return",
+      "recorded_on": "2026-10-15",
+      "contribution": "Supplied a standards-informed UTF-8 boundary probe pack.",
+      "changed": "Zenith adapted the pack as an authored fixed rival in research/native_conformance_tasks.py.",
+      "limits": "The public NOTICE credits the implemented portions and retains Apache-2.0 attribution. It does not identify an individual author or republish the private return.",
+      "credit_basis": "already_published_repository_acknowledgement",
+      "credit_url": "https://github.com/wcook04/plectis-zenith/blob/73dd5f3d21f5a2f8d81667373e2924a65cd011d4/NOTICE#L27-L33",
+      "commits": [
+        {
+          "sha": "73dd5f3d21f5a2f8d81667373e2924a65cd011d4",
+          "url": "https://github.com/wcook04/plectis-zenith/commit/73dd5f3d21f5a2f8d81667373e2924a65cd011d4"
+        }
+      ],
+      "source_evidence": {
+        "repository": "wcook04/plectis-zenith",
+        "revision": "73dd5f3d21f5a2f8d81667373e2924a65cd011d4",
+        "path": "NOTICE",
+        "line_start": 27,
+        "line_end": 33,
+        "excerpt": "- `research/native_conformance_tasks.py::authored_fixed_queries` adapts the\n  standards-informed UTF-8 boundary probe pack from Zenith progress return 16\n  as an authored fixed rival. It is not an acquired investigation policy.\n  Source archive:\n  `ZENITH_PROGRESS_RETURN_16-strong-rivals-and-independent-challenges.zip`,\n  SHA-256 `2f4d83895fbe8f925d2d4853317fc9b08f0cd0bfccb2106aac0f87b1dd4993ee`.\n  The return's `NOTICE.md` and `vendor/LICENSE` retain Apache-2.0 terms.\n",
+        "excerpt_sha256": "sha256:95bb72153160fc2b3bfecb781cf5337b5afbd821775712170529b9f4792af971"
+      }
+    }
+  ],
+  "source_directories": [
+    {
+      "repository": "wcook04/plectis-erdos",
+      "label": "Literature, prior work and implemented advice",
+      "url": "https://github.com/wcook04/plectis-erdos/blob/ad39faddd0efa2d3ab43e98b37448d9c2b1b44b3/docs/research-commons/SOURCE_ATTRIBUTIONS.md"
+    },
+    {
+      "repository": "wcook04/plectis-erdos",
+      "label": "Accepted contribution receipts",
+      "url": "https://github.com/wcook04/plectis-erdos/blob/ad39faddd0efa2d3ab43e98b37448d9c2b1b44b3/docs/research-commons/CONTRIBUTIONS.md"
+    },
+    {
+      "repository": "wcook04/safety-core",
+      "label": "Rulebook sources",
+      "url": "https://github.com/wcook04/safety-core/blob/521f942e25a7e048636e1e2dc9b866b989ba053d/doctrine.toml"
+    },
+    {
+      "repository": "wcook04/one-checkout",
+      "label": "Git mechanisms and related workflows",
+      "url": "https://github.com/wcook04/one-checkout/blob/27c55e92a2ed5255c1a098dfd6eb470e3d0ba36c/docs/choosing_a_workflow.md"
+    },
+    {
+      "repository": "wcook04/plectis",
+      "label": "Project history, AI assistance and third-party sources",
+      "url": "https://github.com/wcook04/plectis/blob/89e36b0970f285ca585a13b082656ce17b113f26/PROVENANCE.md"
+    },
+    {
+      "repository": "wcook04/plectis-atlas",
+      "label": "Mathematical sources, outside readings, algorithms and distributed assets",
+      "url": "https://github.com/wcook04/plectis-atlas/blob/a9e2035a4ec551f3853d4035c64df5841914167a/docs/ATTRIBUTION.md"
+    },
+    {
+      "repository": "wcook04/plectis-zenith",
+      "label": "Implementation and research-return provenance",
+      "url": "https://github.com/wcook04/plectis-zenith/blob/73dd5f3d21f5a2f8d81667373e2924a65cd011d4/NOTICE"
+    }
+  ],
+  "repository_review": [
+    {
+      "repository": "wcook04/plectis-zenith",
+      "disposition": "public_credit_owners_reviewed"
+    },
+    {
+      "repository": "wcook04/plectis-erdos",
+      "disposition": "public_credit_owners_reviewed"
+    },
+    {
+      "repository": "wcook04/hidden-ai-society-discovery",
+      "disposition": "upstream_fork_credit_retained"
+    },
+    {
+      "repository": "wcook04/one-checkout",
+      "disposition": "public_credit_owners_reviewed"
+    },
+    {
+      "repository": "wcook04/safety-core",
+      "disposition": "public_credit_owners_reviewed"
+    },
+    {
+      "repository": "wcook04/plectis",
+      "disposition": "public_credit_owners_reviewed"
+    },
+    {
+      "repository": "wcook04/plectis-atlas",
+      "disposition": "public_credit_owners_reviewed"
+    },
+    {
+      "repository": "wcook04/wcook04.github.io",
+      "disposition": "legacy_host_assets"
+    },
+    {
+      "repository": "wcook04/plectis-erdos-lean",
+      "disposition": "checking_companion_credit_retained"
+    },
+    {
+      "repository": "wcook04/project-room",
+      "disposition": "upstream_fork_credit_retained"
+    },
+    {
+      "repository": "wcook04/formal-conjectures",
+      "disposition": "upstream_fork_credit_retained"
+    },
+    {
+      "repository": "wcook04/PalomarSubmission",
+      "disposition": "upstream_fork_credit_retained"
+    },
+    {
+      "repository": "wcook04/mathlib4",
+      "disposition": "upstream_fork_credit_retained"
+    },
+    {
+      "repository": "wcook04/microcosm-substrate",
+      "disposition": "retired_compatibility_record"
+    }
+  ]
+}

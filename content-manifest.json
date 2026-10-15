@@ -1471,7 +1471,7 @@
     "manifest_path": "legacy-route-manifest.json",
     "mode_counts": {
       "byte_compatible_alias": 24,
-      "html_redirect": 221,
+      "html_redirect": 222,
       "legacy_404": 1,
       "legacy_projection_status": 1,
       "legacy_security_txt": 2
@@ -1537,7 +1537,7 @@
         "machine_readable": false,
         "mode": "html_redirect",
         "policy": "HTML routes show the transition and may forward to the canonical route; they are not used for machine-readable assets.",
-        "route_count": 221,
+        "route_count": 222,
         "sample_paths": [
           "index.html",
           "docs/index.html",
@@ -1562,18 +1562,18 @@
         ]
       }
     ],
-    "route_count": 249,
+    "route_count": 250,
     "schema": "plectis_legacy_compatibility_summary_v0"
   },
   "page_identity": {
-    "canonical_page_object_count": 220,
+    "canonical_page_object_count": 221,
     "compatibility_route_count": 1,
     "count_semantics": {
       "canonical_page_object_count": "Page objects with route_role=canonical_page.",
       "emitted_route_count": "All emitted HTML routes, including compatibility aliases.",
       "route_alias_count": "Compatibility routes that resolve to a canonical page object."
     },
-    "emitted_route_count": 221,
+    "emitted_route_count": 222,
     "route_alias_count": 1,
     "route_aliases": [
       {
@@ -5440,6 +5440,21 @@
         "microcosm-substrate/README.md"
       ],
       "title": "Vulnerability disclosure"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:credit-ledger",
+      "generated": true,
+      "nav_group": "About",
+      "output_path": "docs/credit-ledger.html",
+      "public_label": "Credit ledger",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "docs/dissemination/public_credit_ledger.json",
+        "lean/credit-ledger.json"
+      ],
+      "title": "Credit ledger"
     }
   ],
   "public_base_url": "https://wcook04.github.io/plectis/",
@@ -5519,6 +5534,7 @@
   },
   "source_hashes": {
     "codex/doctrine/system_vocabulary/term_registry.json": "sha256:b17e183b3fc7c704ac4fe59e25a4a457ae91c36f66777b5cfb1b603561adb298",
+    "docs/dissemination/public_credit_ledger.json": "sha256:48ddba6a8e954b45618a8abd297de711207911718dfe1e3300b2c7ff9b780cf5",
     "microcosm-substrate/ARCHITECTURE.md": "sha256:20c276640a08f1d5e981f4bf99912e7b742560a74f3362a017a21f91b8e90554",
     "microcosm-substrate/LICENSE": "sha256:5f73f0aafc768cc7c7f5da786dc7614296ee891a456faf175ab07456d3c35046",
     "microcosm-substrate/NOTICE": "sha256:4eca37f8f77d9a61a8009f6c67a2b6bc1c1639d8d99f85cc7c5abd2375d906a3",
@@ -5809,7 +5825,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:6b6e6a74d45b28f26483b5565e57db709d262460514ed82c5a735102a769f18e",
     "microcosm-substrate/principles/P-8.json": "sha256:d34bf18ebb5b77e46fe85d144cf8a501e21fd5e03b2e9f97da34c950138cc482",
     "microcosm-substrate/principles/P-9.json": "sha256:87d9fc90506c49029bd2bf63fc8d2e4888b944850a0703714b2cf6cd08abaaaa",
-    "sites/microcosm/index.html": "sha256:3ddabab6d38f2669aedf8984fbe7ff188dfa156ceab05fdd0bbfa5eee010e5ac",
+    "sites/microcosm/index.html": "sha256:290e09b7c9da96e98c7eb2cd3766f16027444cf97fbd0f8f281f31dc1b9ae5d1",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:648992d8d9ef884abe50483a42ef158a4a142c08ddb889bef04b3b1167b73724"
   },
   "source_of_truth_contract": {

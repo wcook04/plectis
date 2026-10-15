@@ -5,7 +5,7 @@ Follow the public Formal Conjectures contributions, then inspect the pinned stat
 
 ## Contribution activity
 
-Observed **2026-10-13T23:11:10.688524+00:00** from the linked public pull requests.
+Observed **2026-10-14T11:24:16.859470+00:00** from the linked public pull requests.
 
 **5 merged mathematical contributions · 14 open requests · 1 merged AUTHORS update.**
 
@@ -161,33 +161,41 @@ Latest individual review: [approved](https://github.com/google-deepmind/formal-c
 
 For a finite family of distinct positive dilations, base B ≥ 2 and rational tables modulo powers 2^k with k ≥ 1, a rational linear combination of the dilated totient observables is rational exactly when every table is constant on its even classes. Odd classes contribute a finite prefix. This classification leaves the original binary totient-series problem #249 open.
 
-[Receiving run 38471271374](https://github.com/wcook04/plectis-erdos-lean/actions/runs/38471271374) compares the actual FC declaration at `c3d91b4f3a1c362db164595d5e114ac21202237f` with [proof source `2cd19fba`](https://github.com/wcook04/plectis-erdos-lean/blob/2cd19fba5298bc4d8ca9fd469962b18ecfbbca31/verification/FC249MixedModuliCurrent/FC249MixedModuliSolution.lean). Statements and dependencies match; default Lean and NanoDa accept under `propext`, `Classical.choice` and `Quot.sound`, with positive and mismatch controls. The exact changed FC module passed a warning-clean build. This author-hosted check is distinct from independent human proof replay and upstream acceptance.
+[Receiving run 38471271374](https://github.com/wcook04/plectis-erdos-lean/actions/runs/38471271374) compares the actual FC declaration at `c3d91b4f3a1c362db164595d5e114ac21202237f` with [proof source `2cd19fba`](https://github.com/wcook04/plectis-erdos-lean/blob/2cd19fba5298bc4d8ca9fd469962b18ecfbbca31/verification/FC249MixedModuliCurrent/FC249MixedModuliSolution.lean). Statements and dependencies match; default Lean and NanoDa accept under `propext`, `Classical.choice` and `Quot.sound`, with positive and mismatch controls. The exact changed FC module passed a warning-clean build. This author-hosted check is distinct from independent human proof replay and upstream acceptance. Bo Cowgill approved this exact head after checking the finite mixed-modulus statement, original indexing and even residue classes. He inspected the existing author-hosted receiving check without independently rerunning it. The request remains open with review required.
 
 Open; aggregate review decision: **review required**.
+
+Latest individual review: [approved](https://github.com/google-deepmind/formal-conjectures/pull/7291#pullrequestreview-5517046311) on current head, 2026-10-14.
 
 **[#7292 · Add the infinite-rank three-prime running-LCM kernel theorem](https://github.com/google-deepmind/formal-conjectures/pull/7292)**
 
 The three-prime running-LCM kernel has nonsingular minors of every finite size uniformly across the third-coordinate layers, and therefore has no finite rational-valued separated representation. This structural theorem gives no rationality or irrationality conclusion for the scalar catalogue series in #269.
 
-[Receiving run 38471274558](https://github.com/wcook04/plectis-erdos-lean/actions/runs/38471274558) compares the actual FC declaration at `72f8836b29a5f9cc3f2ce04176d406e4a593a03e` with [proof source `2cd19fba`](https://github.com/wcook04/plectis-erdos-lean/blob/2cd19fba5298bc4d8ca9fd469962b18ecfbbca31/verification/FC269UniformKernelCurrent/FC269UniformKernelSolution.lean). Statements and dependencies match; default Lean and NanoDa accept under `propext`, `Classical.choice` and `Quot.sound`, with positive and mismatch controls. The exact changed FC module passed a warning-clean build. This author-hosted check is distinct from independent human proof replay and upstream acceptance.
+[Receiving run 38471274558](https://github.com/wcook04/plectis-erdos-lean/actions/runs/38471274558) compares the actual FC declaration at `72f8836b29a5f9cc3f2ce04176d406e4a593a03e` with [proof source `2cd19fba`](https://github.com/wcook04/plectis-erdos-lean/blob/2cd19fba5298bc4d8ca9fd469962b18ecfbbca31/verification/FC269UniformKernelCurrent/FC269UniformKernelSolution.lean). Statements and dependencies match; default Lean and NanoDa accept under `propext`, `Classical.choice` and `Quot.sound`, with positive and mismatch controls. The exact changed FC module passed a warning-clean build. This author-hosted check is distinct from independent human proof replay and upstream acceptance. Bo Cowgill approved this exact head after checking the uniform indices across all layers and the pinned kernel definitions. He inspected existing receiving evidence without independently rerunning the external proof. His separate description-rendering request was resolved with a whitespace-only edit, leaving the equation and FC head unchanged. The request remains open with review required.
 
 Open; aggregate review decision: **review required**.
+
+Latest individual review: [approved](https://github.com/google-deepmind/formal-conjectures/pull/7292#pullrequestreview-5517029228) on current head, 2026-10-14.
 
 **[#7293 · Add factorial-gap common-denominator growth](https://github.com/google-deepmind/formal-conjectures/pull/7293)**
 
 The common denominator L_N = lcm_{2≤n≤N}(n! − 1) satisfies liminf log L_N/(N^(3/2) log N) ≥ 2√2/3. The theorem concerns the denominator before cancellation; it does not establish irrationality of the factorial-gap series in #68.
 
-[Receiving run 38472733409](https://github.com/wcook04/plectis-erdos-lean/actions/runs/38472733409) compares the actual FC declaration at `a4ea288bc7672535c3784d13130e9df95af0f7f7` with [proof source `71a2bc9f`](https://github.com/wcook04/plectis-erdos-lean/blob/71a2bc9f74f8650d7287581f799ba998fe26e60f/verification/FC68CommonDenominatorCurrent/FC68CommonDenominatorSolution.lean). Statements and dependencies match; default Lean and NanoDa accept under `propext`, `Classical.choice` and `Quot.sound`, with positive and mismatch controls. The exact changed FC module passed a warning-clean build. This author-hosted check is distinct from independent human proof replay and upstream acceptance.
+[Receiving run 38472733409](https://github.com/wcook04/plectis-erdos-lean/actions/runs/38472733409) compares the actual FC declaration at `a4ea288bc7672535c3784d13130e9df95af0f7f7` with [proof source `71a2bc9f`](https://github.com/wcook04/plectis-erdos-lean/blob/71a2bc9f74f8650d7287581f799ba998fe26e60f/verification/FC68CommonDenominatorCurrent/FC68CommonDenominatorSolution.lean). Statements and dependencies match; default Lean and NanoDa accept under `propext`, `Classical.choice` and `Quot.sound`, with positive and mismatch controls. The exact changed FC module passed a warning-clean build. This author-hosted check is distinct from independent human proof replay and upstream acceptance. Bo Cowgill approved this exact head after checking the common-denominator lower limit, harmless empty prefixes and shifted-factorial source arguments. He inspected the author-hosted receiving workflow and logs without independently rerunning the proof. The request remains open with review required.
 
 Open; aggregate review decision: **review required**.
+
+Latest individual review: [approved](https://github.com/google-deepmind/formal-conjectures/pull/7293#pullrequestreview-5517055691) on current head, 2026-10-14.
 
 **[#7294 · Add the exact initial term of normalized Hankel determinants](https://github.com/google-deepmind/formal-conjectures/pull/7294)**
 
 For every natural rank N, including zero, the normalized Hankel determinant has formal q-order E_N = N(N−1)(2N−1)/6 and coefficient 2^N[q^E_N]H_N = (N!)²(N+1)!. Zudilin’s more general lower-order bound and normalized construction are credited. This fixed-rank formal initial term is distinct from #6780’s fixed-real-base large-rank asymptotic and gives no new rational-base irrationality region for #1049.
 
-[Receiving run 38478080939](https://github.com/wcook04/plectis-erdos-lean/actions/runs/38478080939) compares the actual FC declaration at `10c6001c65d3b78b6fee282f4e614a3bc93868d1` with [proof source `01b23a6e`](https://github.com/wcook04/plectis-erdos-lean/blob/01b23a6e0ead0a80b89dd1b3dffed1e4356ad2ba/verification/FC1049OrderCoeffCurrent/FC1049OrderCoeffSolution.lean). Statements and dependencies match; default Lean and NanoDa accept under `propext`, `Classical.choice` and `Quot.sound`, with positive and mismatch controls. The exact changed FC module passed a warning-clean build. This author-hosted check is distinct from independent human proof replay and upstream acceptance.
+[Receiving run 38478080939](https://github.com/wcook04/plectis-erdos-lean/actions/runs/38478080939) compares the actual FC declaration at `10c6001c65d3b78b6fee282f4e614a3bc93868d1` with [proof source `01b23a6e`](https://github.com/wcook04/plectis-erdos-lean/blob/01b23a6e0ead0a80b89dd1b3dffed1e4356ad2ba/verification/FC1049OrderCoeffCurrent/FC1049OrderCoeffSolution.lean). Statements and dependencies match; default Lean and NanoDa accept under `propext`, `Classical.choice` and `Quot.sound`, with positive and mismatch controls. The exact changed FC module passed a warning-clean build. This author-hosted check is distinct from independent human proof replay and upstream acceptance. Bo Cowgill approved this exact head after checking the coefficientwise moment definition, division-free initial coefficient equality and empty determinant at N = 0. He reused the author-hosted receiving evidence without independently rerunning the proof. The request remains open with review required.
 
 Open; aggregate review decision: **review required**.
+
+Latest individual review: [approved](https://github.com/google-deepmind/formal-conjectures/pull/7294#pullrequestreview-5517057220) on current head, 2026-10-14.
 
 ### Proof-link maintenance
 

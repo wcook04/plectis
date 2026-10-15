@@ -1,0 +1,83 @@
+{
+  "schema": "plectis_film_transcript_index_v1",
+  "source_snapshot_sha256": "4e101760212d6318154fbcc5bee3503ef65b9ef1c5037ac44789edaea2c40489",
+  "films": [
+    {
+      "film_id": "introduction",
+      "title": "How the projects fit together",
+      "url": "https://www.youtube.com/watch?v=uO2lbstEH9M",
+      "edition_sha256": "6a79765fbc59a683b22065c1f6273b63519a8703233718763680b8981b82543e",
+      "scope": "selected_source_machine_transcript",
+      "path": "transcripts/introduction.txt",
+      "sha256": "4ca630a5a8e30d9f4dd9a7e30b8193089a3719d39932883d22d62c3c13db98b4",
+      "word_count": 1443,
+      "scope_note": "Complete selected speech from the recorded source, in the released cut's playback order. Machine recognition errors are retained. This is not a fresh transcription or a human acoustic audit of the final encode. Narration does not independently verify mathematical or software claims."
+    },
+    {
+      "film_id": "codemap",
+      "title": "CodeMap",
+      "url": "https://www.youtube.com/watch?v=6rP-pS8Ni4E",
+      "edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225",
+      "scope": "selected_source_machine_transcript",
+      "path": "transcripts/codemap.txt",
+      "sha256": "0c8799532deb24c1d2d4e8ef1a3d34a97a6bf5e540d5f7b3aec768f89a762de9",
+      "word_count": 1238,
+      "scope_note": "Complete selected speech from the recorded source, in the released cut's playback order. Machine recognition errors are retained. This is not a fresh transcription or a human acoustic audit of the final encode. Narration does not independently verify mathematical or software claims."
+    },
+    {
+      "film_id": "one-checkout",
+      "title": "One Checkout",
+      "url": "https://www.youtube.com/watch?v=HUciGvGo2ss",
+      "edition_sha256": "70adcdfa5ec0af18b48f7438c1a80cfb01fdf3357b5786aaa03eaaa47fd50ec4",
+      "scope": "selected_source_machine_transcript",
+      "path": "transcripts/one-checkout.txt",
+      "sha256": "a3f5499c71d23739e2149494b3c4263c438a621dc726d7278c5c1569f68e1d2b",
+      "word_count": 311,
+      "scope_note": "Complete selected speech from the recorded source, in the released cut's playback order. Machine recognition errors are retained. This is not a fresh transcription or a human acoustic audit of the final encode. Narration does not independently verify mathematical or software claims."
+    },
+    {
+      "film_id": "mathematics-overview",
+      "title": "My maths projects",
+      "url": "https://www.youtube.com/watch?v=4jObDlHmJRA",
+      "edition_sha256": "a7672473e8acd818ac88853693c959b7d81f7cf9b6d5d6c8b53737840ac2dcfe",
+      "scope": "selected_source_machine_transcript",
+      "path": "transcripts/mathematics-overview.txt",
+      "sha256": "4a2108470b79413535287236fbc31098cbec9058118bddf9a1e283a3690a506e",
+      "word_count": 1361,
+      "scope_note": "Complete selected speech from the recorded source, in the released cut's playback order. Machine recognition errors are retained. This is not a fresh transcription or a human acoustic audit of the final encode. Narration does not independently verify mathematical or software claims."
+    },
+    {
+      "film_id": "atlas",
+      "title": "Plectis Atlas",
+      "url": "https://www.youtube.com/watch?v=uLHWmBLsAHE",
+      "edition_sha256": "e6d1c0cf9682313f979a307566c6afe14281749800ceddfb0904df01392dd935",
+      "scope": "selected_source_machine_transcript",
+      "path": "transcripts/atlas.txt",
+      "sha256": "6fc7f82e983e8e1e9e4c202a388dc3b4c17f6510a5cff707c299ad58f96a98fb",
+      "word_count": 599,
+      "scope_note": "Complete selected speech from the recorded source, in the released cut's playback order. Machine recognition errors are retained. This is not a fresh transcription or a human acoustic audit of the final encode. Narration does not independently verify mathematical or software claims."
+    },
+    {
+      "film_id": "safety-core",
+      "title": "Safety Core",
+      "url": "https://www.youtube.com/watch?v=CY4A1aEPCGc",
+      "edition_sha256": "5eeeaa4c1ffe324246ffac412f29f448d20632b45318645e6031af461e6d2384",
+      "scope": "selected_source_machine_transcript",
+      "path": "transcripts/safety-core.txt",
+      "sha256": "826c9ecadb911dc309c07233c25bf8016aba336b400a6419ee52c42c84c22323",
+      "word_count": 725,
+      "scope_note": "Complete selected speech from the recorded source, in the released cut's playback order. Machine recognition errors are retained. This is not a fresh transcription or a human acoustic audit of the final encode. Narration does not independently verify mathematical or software claims."
+    },
+    {
+      "film_id": "mathematics",
+      "title": "A proof, step by step",
+      "url": "https://www.youtube.com/watch?v=Ok5LkL1owjA",
+      "edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
+      "scope": "edited_reading_transcript",
+      "path": "transcripts/mathematics.txt",
+      "sha256": "34456b021072bdd56abd44166426968a506d9b1841f1f49c81878485d037a075",
+      "word_count": 4217,
+      "scope_note": "Edited reading transcript bound to this released film's final clock. This is not a fresh whole-film machine transcription or a human acoustic audit. Narration does not independently verify mathematical claims."
+    }
+  ]
+}

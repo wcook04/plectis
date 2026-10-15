@@ -1,0 +1,58 @@
+/* ── Homepage finish (15 October 2026) ─────────────────────────────────────
+   One scoped sheet, loaded after the homepage's existing stylesheets
+   (style.css, film-map.css, why/why-section.css). It changes spacing and
+   sizing only: no copy, no markup, no new colours, components or motion.
+   Every rule is scoped to the homepage (body.home) so the other pages that
+   share style.css keep their own rhythm.
+
+   1. Laptop first screen. On a short laptop (1120px and wider, at most
+      860px tall: 1280x690, 1366x768, 1440x790) the introduction's still
+      scales with the screen's height, so its title, description and Watch
+      action stand clear on the first screen beside the map of projects.
+      The still keeps its 16:9 frame and the map keeps its size.
+   2. Phone rhythm. Under 640px the bands keep the same order and the same
+      dividers, with the gaps between them closer to the page's own line
+      rhythm, so a phone screen holds a heading and its first content
+      rather than an empty block. */
+
+/* 1 ── Laptop first screen ───────────────────────────────────────────── */
+@media (min-width: 70em) and (max-height: 860px) {
+  /* The masthead strip already scales for laptops (film-map.css, "The
+     front strip"); this only bounds the introduction's still on the
+     panel: as wide as the column allows, but never so tall that its words
+     and Watch fall below the first screen. 446px is the header, the strip
+     and the title, description and actions the still sits above. */
+  body.home .film-map--home.film-map--live:not(.is-reading) [data-map-default] > .film-map__media {
+    max-width: max(64%, calc((100vh - 446px) * 16 / 9));
+  }
+  body.home .film-map--home .film-map__reading { row-gap: 0.7rem; }
+  body.home .film-map--home .film-map__reading .film__title { font-size: clamp(1.4rem, 0.9rem + 0.9vw, 1.8rem); }
+  /* A chosen reading's example is a few sentences, longer than the
+     one-line purpose its still was sized for. It keeps the serif at the
+     phone's size on a wider measure, so it reads in three lines under its
+     title rather than four lines nearly the title's size, and the still
+     gives way, so Watch and the project's code (or the line saying where
+     its code is) stay on the first screen with the example. 516px is the
+     header, the strip, the back row and the words, actions and code line
+     under the still; longer notes and "More" may follow below the fold. */
+  body.home .film-map--home .film-map__reading .film-map__purpose { max-width: 54ch; font-size: 1.08rem; line-height: 1.45; }
+  body.home .film-map--home.is-reading .film-map__reading > .film-map__media { max-width: max(50%, calc((100vh - 516px) * 16 / 9)); }
+  /* Three ways in (the maths: watch, the map, the papers) keep one row in
+     the narrow column: the same text, a little less padding at each side. */
+  body.home .film-map--home .film-map__reading .film-map__actions:has(> :nth-child(3)) { column-gap: 0.45rem; }
+  body.home .film-map--home .film-map__reading .film-map__actions:has(> :nth-child(3)) > .btn { padding-inline: 0.8rem; }
+}
+
+/* 2 ── Phone rhythm ──────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* The full-width bands (Why, and Explore the work) open a step closer. */
+  body.home main > .home-band:not(.film-map--home):not(.home-maths) { padding-top: clamp(44px, 7vh, 60px); }
+  /* The results and the papers bands open on the same step. */
+  body.home .home-results,
+  body.home .home-papers { padding-top: clamp(40px, 6vh, 56px); }
+  body.home .home-results__inner { padding-top: 1.4rem; }
+  /* The weave between the Why band and the mathematics holds its drawing
+     with less air above and below it. */
+  body.home .home-weave { height: 64px; margin-top: 6px; }
+  body.home .why-weave { padding-bottom: 36px; }
+}

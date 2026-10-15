@@ -704,8 +704,12 @@
      its mark, which still opens it, and a short first scroll that brings a
      drawing under it folds it too. A drawing in the slide the switch has
      put away is hidden and does not count. Landing only: the docs pages
-     have no band or maps, so docs.js's copy needs no twin of this check. */
-  var drawings = document.querySelectorAll('[data-plait-band], .home-universe, .home-system');
+     have no band or maps, so docs.js's copy needs no twin of this check.
+     The map of projects and videos counts as a drawing (15 October 2026):
+     at 1440x790 the open chip covered Safety Core, so on the home page it
+     starts as its mark while the explorer is under it; the mark still opens
+     it. */
+  var drawings = document.querySelectorAll('[data-plait-band], .home-universe, .home-system, [data-film-map-tree]');
   function overDrawing() {
     var chipBox = hint.getBoundingClientRect();
     return Array.prototype.some.call(drawings, function (drawing) {
