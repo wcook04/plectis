@@ -16,6 +16,7 @@ component or rule on the website to follow its connections.</sub>
 
 You can run the examples independently, study how they work and adapt useful parts.
 The tools come from a larger research workbench built by Will Cook with AI coding agents.
+[Authorship, third-party sources and licensing](#name-and-history) are recorded below.
 
 > **Looking for the mathematics?** Start with
 > [**Plectis Erdős →**](https://github.com/wcook04/plectis-erdos), the main research
@@ -25,6 +26,11 @@ The tools come from a larger research workbench built by Will Cook with AI codin
 
 [Worked examples](#see-it-work) · [Quickstart](QUICKSTART.md) ·
 [Documentation](docs/README.md) · [Contributing](CONTRIBUTING.md)
+
+Browse the live [component pages](https://wcook04.github.io/plectis/docs/components.html),
+[papers](https://wcook04.github.io/plectis/#papers) and
+[films](https://wcook04.github.io/plectis/#videos) on the
+[Plectis website](https://wcook04.github.io/plectis/).
 
 For a first look in a terminal, run the repository tour. Two commands, no
 install, Python 3.11 or newer:
@@ -300,11 +306,10 @@ The [release review](RELEASE_REVIEW.md) records the candidate’s checks;
 
 ## Videos and related projects
 
-**Project introduction and toolkit walkthrough:** in preparation.
-The published [Erdős #257 explanation](https://youtu.be/3S1t-CvsQjI) and
-[CodeMap demonstration](https://youtu.be/1twvvQ-wteI) show the research and its
-working environment. CodeMap is a private workbench interface, not part of this clone.
-The [project films page](https://wcook04.github.io/plectis/#videos) collects these recordings.
+**Plectis introduction:** forthcoming.
+The [project films page](https://wcook04.github.io/plectis/#videos) lists the
+published recordings and their subjects. Some show the private research
+workbench; those interfaces are separate from this toolkit clone.
 
 | Repository | What it contains | Website |
 |---|---|---|
