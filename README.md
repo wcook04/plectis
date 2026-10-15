@@ -312,11 +312,17 @@ planned recordings and their subjects. Published links will be added there.
 Some show the private research workbench; those interfaces are separate from
 this toolkit clone.
 
-| Repository | What it contains | Website |
-|---|---|---|
-| [Plectis Erdős](https://github.com/wcook04/plectis-erdos) | Papers, Lean proofs and open research questions. | [Mathematics](https://wcook04.github.io/plectis/maths/) |
-| [Plectis Atlas](https://github.com/wcook04/plectis-atlas) | An independent reader for OpenAI's mathematics release. | [Atlas](https://wcook04.github.io/plectis-atlas/) |
-| [Safety Core](https://github.com/wcook04/safety-core) | Editable agent rules, selected runtime checks and a local rule map. | Local viewer included in the repository. |
+### Where this toolkit fits
+
+Plectis is Will Cook’s programme of research and software built with AI agents. The aim is to make the resulting work understandable enough for other people to inspect, question and build on. This repository is the earlier public toolkit, with Python components and worked examples from that work.
+
+| Related project | Start there for |
+|---|---|
+| [Plectis Erdős](https://github.com/wcook04/plectis-erdos) · [research website](https://wcook04.github.io/plectis/maths/) | The current mathematical papers, Lean proofs and open questions. |
+| [Safety Core](https://github.com/wcook04/safety-core) | Editable agent rules, hooks and a local map of where checks apply. |
+| [One Checkout](https://github.com/wcook04/one-checkout) | Committing a reviewed patch while preserving other unfinished edits in the same checkout. |
+
+See the [programme directory](https://github.com/wcook04/plectis-erdos#the-wider-plectis-programme) for the full set of projects, or start at the [Plectis website](https://wcook04.github.io/plectis/).
 
 ## Name and history
 
