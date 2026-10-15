@@ -131414,7 +131414,7 @@
             "page": "paper-modules.html"
           },
           {
-            "count": 46,
+            "count": 45,
             "page": "doctrine.html"
           },
           {
@@ -131530,7 +131530,7 @@
             "page": "area-formal-math.html"
           }
         ],
-        "total_occurrences": 1525
+        "total_occurrences": 1524
       },
       "visible_text_byte_count": 1308
     },
@@ -131712,7 +131712,7 @@
       "status": "active",
       "term_kind": "artifact",
       "used_in": {
-        "page_count": 213,
+        "page_count": 154,
         "top_page": "rules-and-ideas.html",
         "top_pages": [
           {
@@ -131720,7 +131720,7 @@
             "page": "rules-and-ideas.html"
           },
           {
-            "count": 160,
+            "count": 161,
             "page": "doctrine.html"
           },
           {
@@ -131740,7 +131740,7 @@
             "page": "paper-module-navigation-hologram-route-plane.html"
           }
         ],
-        "total_occurrences": 2022
+        "total_occurrences": 1934
       },
       "visible_text_byte_count": 1174
     },
@@ -133219,10 +133219,10 @@
           },
           {
             "count": 25,
-            "page": "coding-agents.html"
+            "page": "paper-module-agent-route-observability-runtime.html"
           }
         ],
-        "total_occurrences": 764
+        "total_occurrences": 762
       },
       "visible_text_byte_count": 770
     },
@@ -135390,7 +135390,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 155,
+        "page_count": 154,
         "top_page": "rules-and-ideas.html",
         "top_pages": [
           {
@@ -135418,7 +135418,7 @@
             "page": "components.html"
           }
         ],
-        "total_occurrences": 1272
+        "total_occurrences": 1271
       },
       "visible_text_byte_count": 866
     },
@@ -136593,7 +136593,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 152,
+        "page_count": 151,
         "top_page": "rules-and-ideas.html",
         "top_pages": [
           {
@@ -136621,7 +136621,7 @@
             "page": "paper-module-batch8-compliance-pipeline-capsule.html"
           }
         ],
-        "total_occurrences": 847
+        "total_occurrences": 846
       },
       "visible_text_byte_count": 786
     },
@@ -137940,7 +137940,7 @@
         "top_page": "doctrine.html",
         "top_pages": [
           {
-            "count": 155,
+            "count": 154,
             "page": "doctrine.html"
           },
           {
@@ -137964,7 +137964,7 @@
             "page": "paper-module-generated-projection-drift-runtime.html"
           }
         ],
-        "total_occurrences": 2159
+        "total_occurrences": 2158
       },
       "visible_text_byte_count": 754
     },
@@ -138213,7 +138213,7 @@
             "page": "paper-module-doctrine-fact-claim-audit.html"
           }
         ],
-        "total_occurrences": 2091
+        "total_occurrences": 2089
       },
       "visible_text_byte_count": 853
     },
@@ -144204,7 +144204,7 @@
         "top_page": "doctrine.html",
         "top_pages": [
           {
-            "count": 4,
+            "count": 1,
             "page": "doctrine.html"
           },
           {
@@ -144216,7 +144216,7 @@
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 6
+        "total_occurrences": 3
       },
       "visible_text_byte_count": 1056
     },
@@ -145010,7 +145010,7 @@
             "page": "rules-and-ideas.html"
           },
           {
-            "count": 79,
+            "count": 78,
             "page": "doctrine.html"
           },
           {
@@ -145030,7 +145030,7 @@
             "page": "reference.html"
           }
         ],
-        "total_occurrences": 504
+        "total_occurrences": 503
       },
       "visible_text_byte_count": 1354
     },
@@ -146906,7 +146906,7 @@
             "page": "components.html"
           },
           {
-            "count": 181,
+            "count": 182,
             "page": "doctrine.html"
           },
           {
@@ -146926,7 +146926,7 @@
             "page": "area-formal-math.html"
           }
         ],
-        "total_occurrences": 2259
+        "total_occurrences": 2084
       },
       "visible_text_byte_count": 814
     },
@@ -149549,11 +149549,11 @@
             "page": "rules-and-ideas.html"
           },
           {
-            "count": 1,
-            "page": "architecture.html"
+            "count": 2,
+            "page": "tour.html"
           }
         ],
-        "total_occurrences": 26
+        "total_occurrences": 27
       },
       "visible_text_byte_count": 895
     },
@@ -151136,7 +151136,7 @@
             "page": "rules-and-ideas.html"
           },
           {
-            "count": 121,
+            "count": 120,
             "page": "doctrine.html"
           },
           {
@@ -151156,7 +151156,7 @@
             "page": "component-batch10-governance-compilers-capsule.html"
           }
         ],
-        "total_occurrences": 536
+        "total_occurrences": 535
       },
       "visible_text_byte_count": 799
     },
@@ -152743,7 +152743,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 23,
+        "page_count": 24,
         "top_page": "paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
         "top_pages": [
           {
@@ -152771,7 +152771,7 @@
             "page": "area-formal-math.html"
           }
         ],
-        "total_occurrences": 51
+        "total_occurrences": 52
       },
       "visible_text_byte_count": 816
     },
@@ -155952,7 +155952,7 @@
             "page": "paper-module-formal-math-lean-proof-witness.html"
           }
         ],
-        "total_occurrences": 924
+        "total_occurrences": 925
       },
       "visible_text_byte_count": 839
     },
@@ -156472,11 +156472,11 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 49,
+        "page_count": 126,
         "top_page": "doctrine.html",
         "top_pages": [
           {
-            "count": 28,
+            "count": 26,
             "page": "doctrine.html"
           },
           {
@@ -156497,10 +156497,10 @@
           },
           {
             "count": 3,
-            "page": "paper-module-mission-transaction-work-spine.html"
+            "page": "component-agent-route-observability-runtime.html"
           }
         ],
-        "total_occurrences": 113
+        "total_occurrences": 199
       },
       "visible_text_byte_count": 858
     },
@@ -158405,11 +158405,11 @@
             "page": "paper-module-batch4-proof-authority-runtime.html"
           },
           {
-            "count": 19,
+            "count": 18,
             "page": "doctrine.html"
           }
         ],
-        "total_occurrences": 800
+        "total_occurrences": 799
       },
       "visible_text_byte_count": 1118
     },
@@ -159366,7 +159366,7 @@
             "page": "paper-module-batch12-market-dashboard-read-model-capsule.html"
           }
         ],
-        "total_occurrences": 1043
+        "total_occurrences": 1044
       },
       "visible_text_byte_count": 816
     },
@@ -160495,7 +160495,7 @@
       "status": "active",
       "term_kind": "navigation",
       "used_in": {
-        "page_count": 64,
+        "page_count": 63,
         "top_page": "rules-and-ideas.html",
         "top_pages": [
           {
@@ -160523,7 +160523,7 @@
             "page": "paper-module-navigation-fitness-benchmark.html"
           }
         ],
-        "total_occurrences": 324
+        "total_occurrences": 323
       },
       "visible_text_byte_count": 1321
     },
@@ -162751,7 +162751,7 @@
             "page": "paper-modules.html"
           }
         ],
-        "total_occurrences": 294
+        "total_occurrences": 293
       },
       "visible_text_byte_count": 802
     },
@@ -163026,7 +163026,7 @@
             "page": "components.html"
           },
           {
-            "count": 39,
+            "count": 38,
             "page": "doctrine.html"
           },
           {
@@ -163038,7 +163038,7 @@
             "page": "area-import-drift.html"
           }
         ],
-        "total_occurrences": 1371
+        "total_occurrences": 1194
       },
       "visible_text_byte_count": 1205
     },
@@ -164926,7 +164926,7 @@
             "page": "paper-module-lean-std-premise-index.html"
           }
         ],
-        "total_occurrences": 419
+        "total_occurrences": 418
       },
       "visible_text_byte_count": 841
     },
@@ -166052,11 +166052,11 @@
         "top_page": "doctrine.html",
         "top_pages": [
           {
-            "count": 10,
+            "count": 11,
             "page": "doctrine.html"
           },
           {
-            "count": 9,
+            "count": 11,
             "page": "tour.html"
           },
           {
@@ -166076,7 +166076,7 @@
             "page": "area-formal-math.html"
           }
         ],
-        "total_occurrences": 33
+        "total_occurrences": 36
       },
       "visible_text_byte_count": 827
     },
@@ -169121,7 +169121,7 @@
             "page": "paper-module-annex-knowledge-routing.html"
           }
         ],
-        "total_occurrences": 854
+        "total_occurrences": 853
       },
       "visible_text_byte_count": 758
     },
@@ -173256,14 +173256,14 @@
           },
           {
             "count": 3,
-            "page": "paper-module-generated-projection-drift-runtime.html"
+            "page": "component-generated-projection-drift-runtime.html"
           },
           {
             "count": 3,
-            "page": "paper-module-metabolism-queue-reconciliation.html"
+            "page": "paper-module-generated-projection-drift-runtime.html"
           }
         ],
-        "total_occurrences": 253
+        "total_occurrences": 343
       },
       "visible_text_byte_count": 789
     },
@@ -173390,7 +173390,7 @@
             "page": "paper-module-world-model-projection-drift-control-room.html"
           }
         ],
-        "total_occurrences": 5339
+        "total_occurrences": 5426
       },
       "visible_text_byte_count": 1152
     },
@@ -173511,7 +173511,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 59,
+        "page_count": 138,
         "top_page": "components.html",
         "top_pages": [
           {
@@ -173539,7 +173539,7 @@
             "page": "area-formal-math.html"
           }
         ],
-        "total_occurrences": 106
+        "total_occurrences": 196
       },
       "visible_text_byte_count": 938
     },
@@ -175793,7 +175793,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 88,
+        "page_count": 174,
         "top_page": "paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
         "top_pages": [
           {
@@ -175821,7 +175821,7 @@
             "page": "paper-module-engine-room-command-run-singleflight.html"
           }
         ],
-        "total_occurrences": 186
+        "total_occurrences": 274
       },
       "visible_text_byte_count": 1091
     },
@@ -175862,7 +175862,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 52,
+        "page_count": 53,
         "top_page": "components.html",
         "top_pages": [
           {
@@ -175890,7 +175890,7 @@
             "page": "paper-module-lean-proof-search-lab-runtime.html"
           }
         ],
-        "total_occurrences": 295
+        "total_occurrences": 297
       },
       "visible_text_byte_count": 913
     },
@@ -280052,7 +280052,7 @@
         "area-architecture.html": 5,
         "area-continuity.html": 4,
         "area-entry.html": 1,
-        "coding-agents.html": 25,
+        "coding-agents.html": 24,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 8,
         "component-agent-closeout-faithfulness-audit.html": 6,
         "component-agent-memory-temporal-conflict-replay.html": 8,
@@ -280149,12 +280149,12 @@
         "papers.html": 7,
         "reference.html": 21,
         "rules-and-ideas.html": 112,
-        "tour.html": 4,
+        "tour.html": 3,
         "vulnerability-disclosure.html": 1
       },
       "page_count": 104,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 764
+      "total_occurrences": 762
     },
     "agent_reliability": {
       "by_page": {
@@ -280523,7 +280523,6 @@
         "area-formal-math.html": 6,
         "area-import-drift.html": 10,
         "area-research.html": 1,
-        "coding-agents.html": 1,
         "component-agent-monitor-redteam-falsification-replay.html": 1,
         "component-agent-route-observability-runtime.html": 3,
         "component-agent-sabotage-scheming-monitor-replay.html": 1,
@@ -280672,9 +280671,9 @@
         "rules-and-ideas.html": 203,
         "source.html": 1
       },
-      "page_count": 155,
+      "page_count": 154,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 1272
+      "total_occurrences": 1271
     },
     "authorization": {
       "by_page": {
@@ -281019,7 +281018,6 @@
         "area-formal-math.html": 14,
         "area-import-drift.html": 11,
         "area-research.html": 5,
-        "coding-agents.html": 1,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 1,
         "component-agent-monitor-redteam-falsification-replay.html": 1,
         "component-agent-route-observability-runtime.html": 2,
@@ -281164,9 +281162,9 @@
         "reference.html": 8,
         "rules-and-ideas.html": 155
       },
-      "page_count": 152,
+      "page_count": 151,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 847
+      "total_occurrences": 846
     },
     "bridge": {
       "by_page": {
@@ -281657,7 +281655,7 @@
         "component-verifier-lab-kernel.html": 1,
         "components.html": 52,
         "contact.html": 4,
-        "doctrine.html": 155,
+        "doctrine.html": 154,
         "evidence.html": 16,
         "index.html": 2,
         "introduction.html": 7,
@@ -281778,7 +281776,7 @@
       },
       "page_count": 182,
       "top_page": "doctrine.html",
-      "total_occurrences": 2159
+      "total_occurrences": 2158
     },
     "checker": {
       "by_page": {
@@ -281937,7 +281935,7 @@
         "area-formal-math.html": 22,
         "area-import-drift.html": 10,
         "area-research.html": 15,
-        "coding-agents.html": 9,
+        "coding-agents.html": 7,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 2,
         "component-agent-closeout-faithfulness-audit.html": 4,
         "component-agent-memory-temporal-conflict-replay.html": 1,
@@ -282119,7 +282117,7 @@
       },
       "page_count": 187,
       "top_page": "doctrine.html",
-      "total_occurrences": 2091
+      "total_occurrences": 2089
     },
     "claim_registry": {
       "by_page": {
@@ -282683,9 +282681,9 @@
         "component-voice-to-doctrine-self-improvement-loop.html": 5,
         "component-world-model-projection-drift-control-room.html": 6,
         "components.html": 97,
-        "doctrine.html": 46,
+        "doctrine.html": 45,
         "evidence.html": 12,
-        "field-guide.html": 1,
+        "field-guide.html": 2,
         "index.html": 5,
         "open-questions.html": 4,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 10,
@@ -283666,13 +283664,13 @@
     },
     "dimension": {
       "by_page": {
-        "doctrine.html": 4,
+        "doctrine.html": 1,
         "open-questions.html": 1,
         "papers.html": 1
       },
       "page_count": 3,
       "top_page": "doctrine.html",
-      "total_occurrences": 6
+      "total_occurrences": 3
     },
     "dirichlet_theorem_arithmetic_progressions": {
       "by_page": {
@@ -283763,7 +283761,7 @@
         "component-world-model-projection-drift-control-room.html": 1,
         "components.html": 16,
         "contact.html": 1,
-        "doctrine.html": 79,
+        "doctrine.html": 78,
         "evidence.html": 3,
         "field-guide.html": 1,
         "introduction.html": 1,
@@ -283808,7 +283806,7 @@
       },
       "page_count": 64,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 504
+      "total_occurrences": 503
     },
     "domain_expert": {
       "by_page": {
@@ -284466,97 +284464,97 @@
         "area-import-drift.html": 42,
         "area-research.html": 26,
         "coding-agents.html": 5,
-        "component-agent-benchmark-integrity-anti-gaming-replay.html": 3,
-        "component-agent-closeout-faithfulness-audit.html": 6,
-        "component-agent-memory-temporal-conflict-replay.html": 4,
-        "component-agent-monitor-redteam-falsification-replay.html": 8,
-        "component-agent-route-observability-runtime.html": 5,
-        "component-agent-sabotage-scheming-monitor-replay.html": 4,
-        "component-agent-sandbox-policy-escape-replay.html": 3,
-        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 7,
-        "component-annex-knowledge-routing.html": 3,
-        "component-batch10-cold-eval-honesty-capsule.html": 4,
-        "component-batch10-governance-compilers-capsule.html": 5,
-        "component-batch10-live-source-drift-capsule.html": 3,
-        "component-batch11-saturation-engines-capsule.html": 5,
-        "component-batch12-market-dashboard-read-model-capsule.html": 4,
-        "component-batch12-prediction-market-board-capsule.html": 4,
-        "component-batch12-release-claim-language-gate.html": 4,
-        "component-batch4-proof-authority-runtime.html": 6,
-        "component-batch5-authority-systems-capsule.html": 4,
-        "component-batch6-unsurfaced-primitives-capsule.html": 4,
-        "component-batch7-demo-take-console-capsule.html": 3,
-        "component-batch7-macro-engines-capsule.html": 3,
-        "component-batch7-oracle-sibling-capsule.html": 4,
-        "component-batch7-secondary-runtime-capsule.html": 3,
-        "component-batch8-audio-level-rms-port.html": 3,
-        "component-batch8-compliance-pipeline-capsule.html": 3,
-        "component-batch8-policy-engines-capsule.html": 3,
-        "component-batch8-structural-theses-capsule.html": 3,
-        "component-batch8-tools-tail-primitives-capsule.html": 3,
-        "component-batch8-validator-checker-capsule.html": 3,
-        "component-batch9-macro-engines-capsule.html": 4,
-        "component-belief-state-process-reward-replay.html": 3,
-        "component-bounded-autonomy-campaign-packet.html": 3,
-        "component-bridge-campaign-dag-validation.html": 3,
-        "component-bridge-phase-continuity-runtime.html": 3,
-        "component-certificate-kernel-execution-lab.html": 5,
-        "component-cognitive-operator-registry.html": 4,
-        "component-cold-reader-route-map.html": 5,
-        "component-concurrency-mission-control.html": 3,
-        "component-corpus-readiness-mathlib-absence-gate.html": 3,
-        "component-derived-fact-provider-runtime.html": 3,
-        "component-doctrine-fact-claim-audit.html": 3,
-        "component-durable-agent-work-landing-replay.html": 6,
-        "component-egress-self-compliance-audit.html": 3,
-        "component-engine-room-demo.html": 3,
-        "component-executable-doctrine-grammar.html": 3,
-        "component-finance-forecast-evaluation-spine.html": 3,
-        "component-finite-erdos-denominator-certificate-strike.html": 3,
-        "component-formal-evidence-cell-anchor-resolver.html": 16,
-        "component-formal-math-lean-proof-witness.html": 4,
-        "component-formal-math-premise-retrieval.html": 3,
-        "component-formal-math-readiness-gate.html": 3,
-        "component-formal-math-verifier-trace-repair-loop.html": 5,
-        "component-generated-projection-drift-runtime.html": 3,
-        "component-indirect-prompt-injection-information-flow-policy-replay.html": 3,
-        "component-lean-proof-search-lab-runtime.html": 3,
-        "component-lean-std-premise-index.html": 3,
-        "component-macro-projection-import-protocol.html": 3,
-        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 3,
-        "component-mathematical-strategy-atlas-hypothesis-scorer.html": 3,
-        "component-mcp-tool-authority-replay.html": 4,
-        "component-mechanistic-interpretability-circuit-attribution-replay.html": 6,
-        "component-metabolism-queue-reconciliation.html": 3,
-        "component-mission-transaction-work-spine.html": 3,
-        "component-navigation-fitness-benchmark.html": 3,
-        "component-navigation-hologram-route-plane.html": 3,
-        "component-pattern-assimilation-step.html": 3,
-        "component-pattern-binding-contract.html": 3,
-        "component-prediction-oracle-reconciliation.html": 4,
-        "component-proof-derived-governed-mutation-authorization.html": 4,
-        "component-proof-diagnostic-evidence-spine.html": 13,
-        "component-provider-context-recipe-budget-policy.html": 3,
-        "component-public-reveal-walkthrough.html": 7,
-        "component-research-replication-rubric-artifact-replay.html": 5,
-        "component-ring2-premise-retrieval-precision-recall-harness.html": 3,
-        "component-routing-anti-patterns-registry.html": 3,
-        "component-self-ignorance-coverage-ledger.html": 3,
-        "component-semantic-singleflight-dedup-runtime.html": 3,
-        "component-sleeper-memory-poisoning-quarantine-replay.html": 3,
-        "component-spatial-world-model-counterfactual-simulation-replay.html": 4,
-        "component-standards-meta-diagnostics.html": 3,
-        "component-tactic-portfolio-availability-probe.html": 3,
-        "component-target-shape-tactic-routing-gate.html": 6,
-        "component-tool-server-pressure-inventory.html": 3,
-        "component-undeclared-library-prior-symbol-classifier.html": 3,
-        "component-verifier-lab-execution-spine.html": 3,
-        "component-verifier-lab-kernel.html": 4,
-        "component-voice-to-doctrine-self-improvement-loop.html": 5,
-        "component-world-model-projection-drift-control-room.html": 3,
+        "component-agent-benchmark-integrity-anti-gaming-replay.html": 1,
+        "component-agent-closeout-faithfulness-audit.html": 4,
+        "component-agent-memory-temporal-conflict-replay.html": 2,
+        "component-agent-monitor-redteam-falsification-replay.html": 6,
+        "component-agent-route-observability-runtime.html": 3,
+        "component-agent-sabotage-scheming-monitor-replay.html": 2,
+        "component-agent-sandbox-policy-escape-replay.html": 1,
+        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 5,
+        "component-annex-knowledge-routing.html": 1,
+        "component-batch10-cold-eval-honesty-capsule.html": 2,
+        "component-batch10-governance-compilers-capsule.html": 3,
+        "component-batch10-live-source-drift-capsule.html": 1,
+        "component-batch11-saturation-engines-capsule.html": 3,
+        "component-batch12-market-dashboard-read-model-capsule.html": 2,
+        "component-batch12-prediction-market-board-capsule.html": 2,
+        "component-batch12-release-claim-language-gate.html": 2,
+        "component-batch4-proof-authority-runtime.html": 4,
+        "component-batch5-authority-systems-capsule.html": 2,
+        "component-batch6-unsurfaced-primitives-capsule.html": 2,
+        "component-batch7-demo-take-console-capsule.html": 1,
+        "component-batch7-macro-engines-capsule.html": 1,
+        "component-batch7-oracle-sibling-capsule.html": 2,
+        "component-batch7-secondary-runtime-capsule.html": 1,
+        "component-batch8-audio-level-rms-port.html": 1,
+        "component-batch8-compliance-pipeline-capsule.html": 1,
+        "component-batch8-policy-engines-capsule.html": 1,
+        "component-batch8-structural-theses-capsule.html": 1,
+        "component-batch8-tools-tail-primitives-capsule.html": 1,
+        "component-batch8-validator-checker-capsule.html": 1,
+        "component-batch9-macro-engines-capsule.html": 2,
+        "component-belief-state-process-reward-replay.html": 1,
+        "component-bounded-autonomy-campaign-packet.html": 1,
+        "component-bridge-campaign-dag-validation.html": 1,
+        "component-bridge-phase-continuity-runtime.html": 1,
+        "component-certificate-kernel-execution-lab.html": 3,
+        "component-cognitive-operator-registry.html": 2,
+        "component-cold-reader-route-map.html": 3,
+        "component-concurrency-mission-control.html": 1,
+        "component-corpus-readiness-mathlib-absence-gate.html": 1,
+        "component-derived-fact-provider-runtime.html": 1,
+        "component-doctrine-fact-claim-audit.html": 1,
+        "component-durable-agent-work-landing-replay.html": 4,
+        "component-egress-self-compliance-audit.html": 1,
+        "component-engine-room-demo.html": 1,
+        "component-executable-doctrine-grammar.html": 1,
+        "component-finance-forecast-evaluation-spine.html": 1,
+        "component-finite-erdos-denominator-certificate-strike.html": 1,
+        "component-formal-evidence-cell-anchor-resolver.html": 14,
+        "component-formal-math-lean-proof-witness.html": 2,
+        "component-formal-math-premise-retrieval.html": 1,
+        "component-formal-math-readiness-gate.html": 1,
+        "component-formal-math-verifier-trace-repair-loop.html": 3,
+        "component-generated-projection-drift-runtime.html": 1,
+        "component-indirect-prompt-injection-information-flow-policy-replay.html": 1,
+        "component-lean-proof-search-lab-runtime.html": 1,
+        "component-lean-std-premise-index.html": 1,
+        "component-macro-projection-import-protocol.html": 1,
+        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 1,
+        "component-mathematical-strategy-atlas-hypothesis-scorer.html": 1,
+        "component-mcp-tool-authority-replay.html": 2,
+        "component-mechanistic-interpretability-circuit-attribution-replay.html": 4,
+        "component-metabolism-queue-reconciliation.html": 1,
+        "component-mission-transaction-work-spine.html": 1,
+        "component-navigation-fitness-benchmark.html": 1,
+        "component-navigation-hologram-route-plane.html": 1,
+        "component-pattern-assimilation-step.html": 1,
+        "component-pattern-binding-contract.html": 1,
+        "component-prediction-oracle-reconciliation.html": 2,
+        "component-proof-derived-governed-mutation-authorization.html": 2,
+        "component-proof-diagnostic-evidence-spine.html": 11,
+        "component-provider-context-recipe-budget-policy.html": 1,
+        "component-public-reveal-walkthrough.html": 5,
+        "component-research-replication-rubric-artifact-replay.html": 3,
+        "component-ring2-premise-retrieval-precision-recall-harness.html": 1,
+        "component-routing-anti-patterns-registry.html": 1,
+        "component-self-ignorance-coverage-ledger.html": 1,
+        "component-semantic-singleflight-dedup-runtime.html": 1,
+        "component-sleeper-memory-poisoning-quarantine-replay.html": 1,
+        "component-spatial-world-model-counterfactual-simulation-replay.html": 2,
+        "component-standards-meta-diagnostics.html": 1,
+        "component-tactic-portfolio-availability-probe.html": 1,
+        "component-target-shape-tactic-routing-gate.html": 4,
+        "component-tool-server-pressure-inventory.html": 1,
+        "component-undeclared-library-prior-symbol-classifier.html": 1,
+        "component-verifier-lab-execution-spine.html": 1,
+        "component-verifier-lab-kernel.html": 2,
+        "component-voice-to-doctrine-self-improvement-loop.html": 3,
+        "component-world-model-projection-drift-control-room.html": 1,
         "components.html": 212,
         "contact.html": 2,
-        "doctrine.html": 181,
+        "doctrine.html": 182,
         "evidence.html": 7,
         "open-questions.html": 27,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 12,
@@ -284672,7 +284670,7 @@
       },
       "page_count": 212,
       "top_page": "components.html",
-      "total_occurrences": 2259
+      "total_occurrences": 2084
     },
     "evidence_band": {
       "by_page": {
@@ -285594,11 +285592,11 @@
         "paper-module-proof-diagnostic-evidence-spine.html": 5,
         "paper-modules.html": 6,
         "rules-and-ideas.html": 2,
-        "tour.html": 1
+        "tour.html": 2
       },
       "page_count": 13,
       "top_page": "paper-modules.html",
-      "total_occurrences": 26
+      "total_occurrences": 27
     },
     "formal_verification": {
       "by_page": {
@@ -285906,7 +285904,7 @@
         "component-macro-projection-import-protocol.html": 2,
         "component-proof-derived-governed-mutation-authorization.html": 6,
         "components.html": 9,
-        "doctrine.html": 121,
+        "doctrine.html": 120,
         "evidence.html": 3,
         "open-questions.html": 1,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 1,
@@ -286017,7 +286015,7 @@
       },
       "page_count": 120,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 536
+      "total_occurrences": 535
     },
     "gradient": {
       "by_page": {
@@ -286335,11 +286333,12 @@
         "paper-modules.html": 1,
         "papers.html": 1,
         "reference.html": 2,
-        "rules-and-ideas.html": 8
+        "rules-and-ideas.html": 8,
+        "tour.html": 1
       },
-      "page_count": 23,
+      "page_count": 24,
       "top_page": "paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
-      "total_occurrences": 51
+      "total_occurrences": 52
     },
     "idempotency": {
       "by_page": {
@@ -287557,11 +287556,11 @@
         "reference.html": 17,
         "rules-and-ideas.html": 88,
         "source.html": 4,
-        "tour.html": 4
+        "tour.html": 5
       },
       "page_count": 76,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 924
+      "total_occurrences": 925
     },
     "lean_kernel": {
       "by_page": {
@@ -287619,20 +287618,97 @@
     "limit": {
       "by_page": {
         "area-import-drift.html": 2,
-        "component-agent-route-observability-runtime.html": 2,
-        "component-bridge-campaign-dag-validation.html": 1,
-        "component-egress-self-compliance-audit.html": 1,
-        "component-engine-room-demo.html": 1,
-        "component-formal-math-lean-proof-witness.html": 1,
-        "component-formal-math-readiness-gate.html": 1,
-        "component-macro-projection-import-protocol.html": 1,
-        "component-mechanistic-interpretability-circuit-attribution-replay.html": 1,
-        "component-navigation-fitness-benchmark.html": 1,
-        "component-provider-context-recipe-budget-policy.html": 1,
-        "component-spatial-world-model-counterfactual-simulation-replay.html": 1,
+        "component-agent-benchmark-integrity-anti-gaming-replay.html": 1,
+        "component-agent-closeout-faithfulness-audit.html": 1,
+        "component-agent-memory-temporal-conflict-replay.html": 1,
+        "component-agent-monitor-redteam-falsification-replay.html": 1,
+        "component-agent-route-observability-runtime.html": 3,
+        "component-agent-sabotage-scheming-monitor-replay.html": 1,
+        "component-agent-sandbox-policy-escape-replay.html": 1,
+        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 1,
+        "component-annex-knowledge-routing.html": 1,
+        "component-batch10-cold-eval-honesty-capsule.html": 1,
+        "component-batch10-governance-compilers-capsule.html": 1,
+        "component-batch10-live-source-drift-capsule.html": 1,
+        "component-batch11-saturation-engines-capsule.html": 1,
+        "component-batch12-market-dashboard-read-model-capsule.html": 1,
+        "component-batch12-prediction-market-board-capsule.html": 1,
+        "component-batch12-release-claim-language-gate.html": 1,
+        "component-batch4-proof-authority-runtime.html": 1,
+        "component-batch5-authority-systems-capsule.html": 1,
+        "component-batch6-unsurfaced-primitives-capsule.html": 1,
+        "component-batch7-demo-take-console-capsule.html": 1,
+        "component-batch7-macro-engines-capsule.html": 1,
+        "component-batch7-oracle-sibling-capsule.html": 1,
+        "component-batch7-secondary-runtime-capsule.html": 1,
+        "component-batch8-audio-level-rms-port.html": 1,
+        "component-batch8-compliance-pipeline-capsule.html": 1,
+        "component-batch8-policy-engines-capsule.html": 1,
+        "component-batch8-structural-theses-capsule.html": 1,
+        "component-batch8-tools-tail-primitives-capsule.html": 1,
+        "component-batch8-validator-checker-capsule.html": 1,
+        "component-batch9-macro-engines-capsule.html": 1,
+        "component-belief-state-process-reward-replay.html": 1,
+        "component-bounded-autonomy-campaign-packet.html": 1,
+        "component-bridge-campaign-dag-validation.html": 2,
+        "component-bridge-phase-continuity-runtime.html": 1,
+        "component-certificate-kernel-execution-lab.html": 1,
+        "component-cognitive-operator-registry.html": 1,
+        "component-cold-reader-route-map.html": 1,
+        "component-concurrency-mission-control.html": 1,
+        "component-corpus-readiness-mathlib-absence-gate.html": 1,
+        "component-derived-fact-provider-runtime.html": 1,
+        "component-doctrine-fact-claim-audit.html": 1,
+        "component-durable-agent-work-landing-replay.html": 1,
+        "component-egress-self-compliance-audit.html": 2,
+        "component-engine-room-demo.html": 2,
+        "component-executable-doctrine-grammar.html": 1,
+        "component-finance-forecast-evaluation-spine.html": 1,
+        "component-finite-erdos-denominator-certificate-strike.html": 1,
+        "component-formal-evidence-cell-anchor-resolver.html": 1,
+        "component-formal-math-lean-proof-witness.html": 2,
+        "component-formal-math-premise-retrieval.html": 1,
+        "component-formal-math-readiness-gate.html": 2,
+        "component-formal-math-verifier-trace-repair-loop.html": 1,
+        "component-generated-projection-drift-runtime.html": 1,
+        "component-indirect-prompt-injection-information-flow-policy-replay.html": 1,
+        "component-lean-proof-search-lab-runtime.html": 1,
+        "component-lean-std-premise-index.html": 1,
+        "component-macro-projection-import-protocol.html": 2,
+        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 1,
+        "component-mathematical-strategy-atlas-hypothesis-scorer.html": 1,
+        "component-mcp-tool-authority-replay.html": 1,
+        "component-mechanistic-interpretability-circuit-attribution-replay.html": 2,
+        "component-metabolism-queue-reconciliation.html": 1,
+        "component-mission-transaction-work-spine.html": 1,
+        "component-navigation-fitness-benchmark.html": 2,
+        "component-navigation-hologram-route-plane.html": 1,
+        "component-pattern-assimilation-step.html": 1,
+        "component-pattern-binding-contract.html": 1,
+        "component-prediction-oracle-reconciliation.html": 1,
+        "component-proof-derived-governed-mutation-authorization.html": 1,
+        "component-proof-diagnostic-evidence-spine.html": 1,
+        "component-provider-context-recipe-budget-policy.html": 2,
+        "component-public-reveal-walkthrough.html": 1,
+        "component-research-replication-rubric-artifact-replay.html": 1,
+        "component-ring2-premise-retrieval-precision-recall-harness.html": 1,
+        "component-routing-anti-patterns-registry.html": 1,
+        "component-self-ignorance-coverage-ledger.html": 1,
+        "component-semantic-singleflight-dedup-runtime.html": 1,
+        "component-sleeper-memory-poisoning-quarantine-replay.html": 1,
+        "component-spatial-world-model-counterfactual-simulation-replay.html": 2,
+        "component-standards-meta-diagnostics.html": 1,
+        "component-tactic-portfolio-availability-probe.html": 1,
+        "component-target-shape-tactic-routing-gate.html": 1,
+        "component-tool-server-pressure-inventory.html": 1,
+        "component-undeclared-library-prior-symbol-classifier.html": 1,
+        "component-verifier-lab-execution-spine.html": 1,
+        "component-verifier-lab-kernel.html": 1,
+        "component-voice-to-doctrine-self-improvement-loop.html": 1,
+        "component-world-model-projection-drift-control-room.html": 1,
         "components.html": 2,
         "contact.html": 1,
-        "doctrine.html": 28,
+        "doctrine.html": 26,
         "evidence.html": 1,
         "introduction.html": 1,
         "paper-module-agent-route-observability-runtime.html": 5,
@@ -287668,9 +287744,9 @@
         "quickstart.html": 1,
         "rules-and-ideas.html": 5
       },
-      "page_count": 49,
+      "page_count": 126,
       "top_page": "doctrine.html",
-      "total_occurrences": 113
+      "total_occurrences": 199
     },
     "limit_inferior": {
       "by_page": {
@@ -288257,7 +288333,7 @@
         "component-macro-projection-import-protocol.html": 1,
         "components.html": 1,
         "contact.html": 1,
-        "doctrine.html": 19,
+        "doctrine.html": 18,
         "evidence.html": 1,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 4,
         "paper-module-agent-closeout-faithfulness-audit.html": 4,
@@ -288368,7 +288444,7 @@
       },
       "page_count": 120,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 800
+      "total_occurrences": 799
     },
     "mersenne_number": {
       "by_page": {
@@ -288831,12 +288907,12 @@
         "quickstart.html": 1,
         "reference.html": 9,
         "rules-and-ideas.html": 112,
-        "tour.html": 2,
+        "tour.html": 3,
         "vulnerability-disclosure.html": 1
       },
       "page_count": 157,
       "top_page": "open-questions.html",
-      "total_occurrences": 1043
+      "total_occurrences": 1044
     },
     "module": {
       "by_page": {
@@ -289100,7 +289176,6 @@
         "components.html": 24,
         "doctrine.html": 4,
         "evidence.html": 2,
-        "field-guide.html": 1,
         "paper-module-agent-route-observability-runtime.html": 1,
         "paper-module-annex-knowledge-routing.html": 1,
         "paper-module-batch10-cold-eval-honesty-capsule.html": 6,
@@ -289138,9 +289213,9 @@
         "system-map.html": 1,
         "tour.html": 1
       },
-      "page_count": 64,
+      "page_count": 63,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 324
+      "total_occurrences": 323
     },
     "negative_case": {
       "by_page": {
@@ -289440,7 +289515,7 @@
         "area-architecture.html": 1,
         "area-formal-math.html": 1,
         "area-research.html": 1,
-        "coding-agents.html": 2,
+        "coding-agents.html": 1,
         "component-agent-route-observability-runtime.html": 1,
         "component-bounded-autonomy-campaign-packet.html": 8,
         "component-bridge-phase-continuity-runtime.html": 1,
@@ -289481,7 +289556,7 @@
       },
       "page_count": 43,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 294
+      "total_occurrences": 293
     },
     "paper": {
       "by_page": {
@@ -289574,96 +289649,96 @@
         "area-import-drift.html": 21,
         "area-research.html": 9,
         "coding-agents.html": 1,
-        "component-agent-benchmark-integrity-anti-gaming-replay.html": 4,
-        "component-agent-closeout-faithfulness-audit.html": 4,
-        "component-agent-memory-temporal-conflict-replay.html": 4,
-        "component-agent-monitor-redteam-falsification-replay.html": 4,
-        "component-agent-route-observability-runtime.html": 6,
-        "component-agent-sabotage-scheming-monitor-replay.html": 4,
-        "component-agent-sandbox-policy-escape-replay.html": 4,
-        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 4,
-        "component-annex-knowledge-routing.html": 4,
-        "component-batch10-cold-eval-honesty-capsule.html": 4,
-        "component-batch10-governance-compilers-capsule.html": 4,
-        "component-batch10-live-source-drift-capsule.html": 4,
-        "component-batch11-saturation-engines-capsule.html": 4,
-        "component-batch12-market-dashboard-read-model-capsule.html": 4,
-        "component-batch12-prediction-market-board-capsule.html": 4,
-        "component-batch12-release-claim-language-gate.html": 4,
-        "component-batch4-proof-authority-runtime.html": 4,
-        "component-batch5-authority-systems-capsule.html": 4,
-        "component-batch6-unsurfaced-primitives-capsule.html": 4,
-        "component-batch7-demo-take-console-capsule.html": 4,
-        "component-batch7-macro-engines-capsule.html": 4,
-        "component-batch7-oracle-sibling-capsule.html": 4,
-        "component-batch7-secondary-runtime-capsule.html": 4,
-        "component-batch8-audio-level-rms-port.html": 4,
-        "component-batch8-compliance-pipeline-capsule.html": 4,
-        "component-batch8-policy-engines-capsule.html": 4,
-        "component-batch8-structural-theses-capsule.html": 4,
-        "component-batch8-tools-tail-primitives-capsule.html": 4,
-        "component-batch8-validator-checker-capsule.html": 4,
-        "component-batch9-macro-engines-capsule.html": 4,
-        "component-belief-state-process-reward-replay.html": 4,
-        "component-bounded-autonomy-campaign-packet.html": 4,
-        "component-bridge-campaign-dag-validation.html": 4,
-        "component-bridge-phase-continuity-runtime.html": 4,
-        "component-certificate-kernel-execution-lab.html": 4,
-        "component-cognitive-operator-registry.html": 4,
-        "component-cold-reader-route-map.html": 4,
-        "component-concurrency-mission-control.html": 4,
-        "component-corpus-readiness-mathlib-absence-gate.html": 4,
-        "component-derived-fact-provider-runtime.html": 4,
-        "component-doctrine-fact-claim-audit.html": 4,
-        "component-durable-agent-work-landing-replay.html": 4,
-        "component-egress-self-compliance-audit.html": 4,
-        "component-engine-room-demo.html": 4,
-        "component-executable-doctrine-grammar.html": 4,
-        "component-finance-forecast-evaluation-spine.html": 4,
-        "component-finite-erdos-denominator-certificate-strike.html": 4,
-        "component-formal-evidence-cell-anchor-resolver.html": 4,
-        "component-formal-math-lean-proof-witness.html": 4,
-        "component-formal-math-premise-retrieval.html": 4,
-        "component-formal-math-readiness-gate.html": 4,
-        "component-formal-math-verifier-trace-repair-loop.html": 4,
-        "component-generated-projection-drift-runtime.html": 4,
-        "component-indirect-prompt-injection-information-flow-policy-replay.html": 4,
-        "component-lean-proof-search-lab-runtime.html": 4,
-        "component-lean-std-premise-index.html": 4,
-        "component-macro-projection-import-protocol.html": 6,
-        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 4,
-        "component-mathematical-strategy-atlas-hypothesis-scorer.html": 4,
-        "component-mcp-tool-authority-replay.html": 4,
-        "component-mechanistic-interpretability-circuit-attribution-replay.html": 4,
-        "component-metabolism-queue-reconciliation.html": 4,
-        "component-mission-transaction-work-spine.html": 4,
-        "component-navigation-fitness-benchmark.html": 4,
-        "component-navigation-hologram-route-plane.html": 4,
-        "component-pattern-assimilation-step.html": 4,
-        "component-pattern-binding-contract.html": 4,
-        "component-prediction-oracle-reconciliation.html": 4,
-        "component-proof-derived-governed-mutation-authorization.html": 4,
-        "component-proof-diagnostic-evidence-spine.html": 4,
-        "component-provider-context-recipe-budget-policy.html": 4,
-        "component-public-reveal-walkthrough.html": 4,
-        "component-research-replication-rubric-artifact-replay.html": 4,
-        "component-ring2-premise-retrieval-precision-recall-harness.html": 4,
-        "component-routing-anti-patterns-registry.html": 4,
-        "component-self-ignorance-coverage-ledger.html": 4,
-        "component-semantic-singleflight-dedup-runtime.html": 4,
-        "component-sleeper-memory-poisoning-quarantine-replay.html": 4,
-        "component-spatial-world-model-counterfactual-simulation-replay.html": 4,
-        "component-standards-meta-diagnostics.html": 4,
-        "component-tactic-portfolio-availability-probe.html": 4,
-        "component-target-shape-tactic-routing-gate.html": 4,
-        "component-tool-server-pressure-inventory.html": 4,
-        "component-undeclared-library-prior-symbol-classifier.html": 4,
-        "component-verifier-lab-execution-spine.html": 4,
-        "component-verifier-lab-kernel.html": 4,
-        "component-voice-to-doctrine-self-improvement-loop.html": 4,
-        "component-world-model-projection-drift-control-room.html": 4,
+        "component-agent-benchmark-integrity-anti-gaming-replay.html": 2,
+        "component-agent-closeout-faithfulness-audit.html": 2,
+        "component-agent-memory-temporal-conflict-replay.html": 2,
+        "component-agent-monitor-redteam-falsification-replay.html": 2,
+        "component-agent-route-observability-runtime.html": 4,
+        "component-agent-sabotage-scheming-monitor-replay.html": 2,
+        "component-agent-sandbox-policy-escape-replay.html": 2,
+        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 2,
+        "component-annex-knowledge-routing.html": 2,
+        "component-batch10-cold-eval-honesty-capsule.html": 2,
+        "component-batch10-governance-compilers-capsule.html": 2,
+        "component-batch10-live-source-drift-capsule.html": 2,
+        "component-batch11-saturation-engines-capsule.html": 2,
+        "component-batch12-market-dashboard-read-model-capsule.html": 2,
+        "component-batch12-prediction-market-board-capsule.html": 2,
+        "component-batch12-release-claim-language-gate.html": 2,
+        "component-batch4-proof-authority-runtime.html": 2,
+        "component-batch5-authority-systems-capsule.html": 2,
+        "component-batch6-unsurfaced-primitives-capsule.html": 2,
+        "component-batch7-demo-take-console-capsule.html": 2,
+        "component-batch7-macro-engines-capsule.html": 2,
+        "component-batch7-oracle-sibling-capsule.html": 2,
+        "component-batch7-secondary-runtime-capsule.html": 2,
+        "component-batch8-audio-level-rms-port.html": 2,
+        "component-batch8-compliance-pipeline-capsule.html": 2,
+        "component-batch8-policy-engines-capsule.html": 2,
+        "component-batch8-structural-theses-capsule.html": 2,
+        "component-batch8-tools-tail-primitives-capsule.html": 2,
+        "component-batch8-validator-checker-capsule.html": 2,
+        "component-batch9-macro-engines-capsule.html": 2,
+        "component-belief-state-process-reward-replay.html": 2,
+        "component-bounded-autonomy-campaign-packet.html": 2,
+        "component-bridge-campaign-dag-validation.html": 2,
+        "component-bridge-phase-continuity-runtime.html": 2,
+        "component-certificate-kernel-execution-lab.html": 2,
+        "component-cognitive-operator-registry.html": 2,
+        "component-cold-reader-route-map.html": 2,
+        "component-concurrency-mission-control.html": 2,
+        "component-corpus-readiness-mathlib-absence-gate.html": 2,
+        "component-derived-fact-provider-runtime.html": 2,
+        "component-doctrine-fact-claim-audit.html": 2,
+        "component-durable-agent-work-landing-replay.html": 2,
+        "component-egress-self-compliance-audit.html": 2,
+        "component-engine-room-demo.html": 2,
+        "component-executable-doctrine-grammar.html": 2,
+        "component-finance-forecast-evaluation-spine.html": 2,
+        "component-finite-erdos-denominator-certificate-strike.html": 2,
+        "component-formal-evidence-cell-anchor-resolver.html": 2,
+        "component-formal-math-lean-proof-witness.html": 2,
+        "component-formal-math-premise-retrieval.html": 2,
+        "component-formal-math-readiness-gate.html": 2,
+        "component-formal-math-verifier-trace-repair-loop.html": 2,
+        "component-generated-projection-drift-runtime.html": 2,
+        "component-indirect-prompt-injection-information-flow-policy-replay.html": 2,
+        "component-lean-proof-search-lab-runtime.html": 2,
+        "component-lean-std-premise-index.html": 2,
+        "component-macro-projection-import-protocol.html": 4,
+        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 2,
+        "component-mathematical-strategy-atlas-hypothesis-scorer.html": 2,
+        "component-mcp-tool-authority-replay.html": 2,
+        "component-mechanistic-interpretability-circuit-attribution-replay.html": 2,
+        "component-metabolism-queue-reconciliation.html": 2,
+        "component-mission-transaction-work-spine.html": 2,
+        "component-navigation-fitness-benchmark.html": 2,
+        "component-navigation-hologram-route-plane.html": 2,
+        "component-pattern-assimilation-step.html": 2,
+        "component-pattern-binding-contract.html": 2,
+        "component-prediction-oracle-reconciliation.html": 2,
+        "component-proof-derived-governed-mutation-authorization.html": 2,
+        "component-proof-diagnostic-evidence-spine.html": 2,
+        "component-provider-context-recipe-budget-policy.html": 2,
+        "component-public-reveal-walkthrough.html": 2,
+        "component-research-replication-rubric-artifact-replay.html": 2,
+        "component-ring2-premise-retrieval-precision-recall-harness.html": 2,
+        "component-routing-anti-patterns-registry.html": 2,
+        "component-self-ignorance-coverage-ledger.html": 2,
+        "component-semantic-singleflight-dedup-runtime.html": 2,
+        "component-sleeper-memory-poisoning-quarantine-replay.html": 2,
+        "component-spatial-world-model-counterfactual-simulation-replay.html": 2,
+        "component-standards-meta-diagnostics.html": 2,
+        "component-tactic-portfolio-availability-probe.html": 2,
+        "component-target-shape-tactic-routing-gate.html": 2,
+        "component-tool-server-pressure-inventory.html": 2,
+        "component-undeclared-library-prior-symbol-classifier.html": 2,
+        "component-verifier-lab-execution-spine.html": 2,
+        "component-verifier-lab-kernel.html": 2,
+        "component-voice-to-doctrine-self-improvement-loop.html": 2,
+        "component-world-model-projection-drift-control-room.html": 2,
         "components.html": 90,
-        "doctrine.html": 39,
+        "doctrine.html": 38,
         "evidence.html": 1,
         "field-guide.html": 1,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 5,
@@ -289776,7 +289851,7 @@
       },
       "page_count": 207,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 1371
+      "total_occurrences": 1194
     },
     "parser": {
       "by_page": {
@@ -290096,11 +290171,11 @@
         "papers.html": 2,
         "reference.html": 14,
         "rules-and-ideas.html": 65,
-        "tour.html": 2
+        "tour.html": 1
       },
       "page_count": 33,
       "top_page": "paper-module-formal-math-premise-retrieval.html",
-      "total_occurrences": 419
+      "total_occurrences": 418
     },
     "prime": {
       "by_page": {
@@ -290420,15 +290495,15 @@
         "area-formal-math.html": 1,
         "component-formal-math-lean-proof-witness.html": 1,
         "components.html": 1,
-        "doctrine.html": 10,
+        "doctrine.html": 11,
         "evidence.html": 3,
         "paper-module-executable-doctrine-grammar.html": 4,
-        "tour.html": 9,
+        "tour.html": 11,
         "vulnerability-disclosure.html": 1
       },
       "page_count": 9,
       "top_page": "doctrine.html",
-      "total_occurrences": 33
+      "total_occurrences": 36
     },
     "projection": {
       "by_page": {
@@ -291611,98 +291686,39 @@
         "area-architecture.html": 4,
         "area-formal-math.html": 11,
         "area-research.html": 8,
-        "coding-agents.html": 6,
-        "component-agent-benchmark-integrity-anti-gaming-replay.html": 2,
-        "component-agent-closeout-faithfulness-audit.html": 1,
-        "component-agent-memory-temporal-conflict-replay.html": 3,
-        "component-agent-monitor-redteam-falsification-replay.html": 1,
-        "component-agent-route-observability-runtime.html": 4,
-        "component-agent-sabotage-scheming-monitor-replay.html": 1,
-        "component-agent-sandbox-policy-escape-replay.html": 3,
-        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 1,
-        "component-annex-knowledge-routing.html": 1,
-        "component-batch10-cold-eval-honesty-capsule.html": 1,
-        "component-batch10-governance-compilers-capsule.html": 1,
-        "component-batch10-live-source-drift-capsule.html": 1,
-        "component-batch11-saturation-engines-capsule.html": 1,
-        "component-batch12-market-dashboard-read-model-capsule.html": 1,
-        "component-batch12-prediction-market-board-capsule.html": 1,
-        "component-batch12-release-claim-language-gate.html": 1,
-        "component-batch4-proof-authority-runtime.html": 1,
-        "component-batch5-authority-systems-capsule.html": 1,
-        "component-batch6-unsurfaced-primitives-capsule.html": 1,
-        "component-batch7-demo-take-console-capsule.html": 1,
-        "component-batch7-macro-engines-capsule.html": 1,
-        "component-batch7-oracle-sibling-capsule.html": 1,
-        "component-batch7-secondary-runtime-capsule.html": 1,
-        "component-batch8-audio-level-rms-port.html": 1,
-        "component-batch8-compliance-pipeline-capsule.html": 1,
-        "component-batch8-policy-engines-capsule.html": 1,
-        "component-batch8-structural-theses-capsule.html": 1,
-        "component-batch8-tools-tail-primitives-capsule.html": 1,
-        "component-batch8-validator-checker-capsule.html": 1,
-        "component-batch9-macro-engines-capsule.html": 1,
-        "component-belief-state-process-reward-replay.html": 1,
-        "component-bounded-autonomy-campaign-packet.html": 2,
-        "component-bridge-campaign-dag-validation.html": 1,
-        "component-bridge-phase-continuity-runtime.html": 2,
-        "component-certificate-kernel-execution-lab.html": 1,
-        "component-cognitive-operator-registry.html": 1,
-        "component-cold-reader-route-map.html": 1,
-        "component-concurrency-mission-control.html": 1,
-        "component-corpus-readiness-mathlib-absence-gate.html": 1,
-        "component-derived-fact-provider-runtime.html": 2,
-        "component-doctrine-fact-claim-audit.html": 1,
-        "component-durable-agent-work-landing-replay.html": 2,
-        "component-egress-self-compliance-audit.html": 1,
-        "component-engine-room-demo.html": 1,
-        "component-executable-doctrine-grammar.html": 3,
-        "component-finance-forecast-evaluation-spine.html": 3,
-        "component-finite-erdos-denominator-certificate-strike.html": 1,
-        "component-formal-evidence-cell-anchor-resolver.html": 2,
-        "component-formal-math-lean-proof-witness.html": 3,
-        "component-formal-math-premise-retrieval.html": 1,
-        "component-formal-math-readiness-gate.html": 1,
-        "component-formal-math-verifier-trace-repair-loop.html": 1,
-        "component-generated-projection-drift-runtime.html": 2,
-        "component-indirect-prompt-injection-information-flow-policy-replay.html": 2,
-        "component-lean-proof-search-lab-runtime.html": 1,
-        "component-lean-std-premise-index.html": 1,
-        "component-macro-projection-import-protocol.html": 3,
-        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 3,
-        "component-mathematical-strategy-atlas-hypothesis-scorer.html": 1,
-        "component-mcp-tool-authority-replay.html": 1,
-        "component-mechanistic-interpretability-circuit-attribution-replay.html": 5,
-        "component-metabolism-queue-reconciliation.html": 2,
-        "component-mission-transaction-work-spine.html": 1,
-        "component-navigation-fitness-benchmark.html": 1,
-        "component-navigation-hologram-route-plane.html": 1,
-        "component-pattern-assimilation-step.html": 3,
-        "component-pattern-binding-contract.html": 2,
-        "component-prediction-oracle-reconciliation.html": 5,
-        "component-proof-derived-governed-mutation-authorization.html": 3,
-        "component-proof-diagnostic-evidence-spine.html": 5,
-        "component-provider-context-recipe-budget-policy.html": 2,
-        "component-public-reveal-walkthrough.html": 1,
-        "component-research-replication-rubric-artifact-replay.html": 1,
-        "component-ring2-premise-retrieval-precision-recall-harness.html": 3,
-        "component-routing-anti-patterns-registry.html": 1,
-        "component-self-ignorance-coverage-ledger.html": 1,
-        "component-semantic-singleflight-dedup-runtime.html": 1,
-        "component-sleeper-memory-poisoning-quarantine-replay.html": 2,
-        "component-spatial-world-model-counterfactual-simulation-replay.html": 1,
-        "component-standards-meta-diagnostics.html": 1,
-        "component-tactic-portfolio-availability-probe.html": 1,
-        "component-target-shape-tactic-routing-gate.html": 5,
-        "component-tool-server-pressure-inventory.html": 1,
-        "component-undeclared-library-prior-symbol-classifier.html": 2,
-        "component-verifier-lab-execution-spine.html": 2,
-        "component-verifier-lab-kernel.html": 1,
-        "component-voice-to-doctrine-self-improvement-loop.html": 1,
-        "component-world-model-projection-drift-control-room.html": 1,
+        "coding-agents.html": 5,
+        "component-agent-benchmark-integrity-anti-gaming-replay.html": 1,
+        "component-agent-memory-temporal-conflict-replay.html": 2,
+        "component-agent-route-observability-runtime.html": 3,
+        "component-agent-sandbox-policy-escape-replay.html": 2,
+        "component-bounded-autonomy-campaign-packet.html": 1,
+        "component-bridge-phase-continuity-runtime.html": 1,
+        "component-derived-fact-provider-runtime.html": 1,
+        "component-durable-agent-work-landing-replay.html": 1,
+        "component-executable-doctrine-grammar.html": 2,
+        "component-finance-forecast-evaluation-spine.html": 2,
+        "component-formal-evidence-cell-anchor-resolver.html": 1,
+        "component-formal-math-lean-proof-witness.html": 2,
+        "component-generated-projection-drift-runtime.html": 1,
+        "component-indirect-prompt-injection-information-flow-policy-replay.html": 1,
+        "component-macro-projection-import-protocol.html": 2,
+        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 2,
+        "component-mechanistic-interpretability-circuit-attribution-replay.html": 4,
+        "component-metabolism-queue-reconciliation.html": 1,
+        "component-pattern-assimilation-step.html": 2,
+        "component-pattern-binding-contract.html": 1,
+        "component-prediction-oracle-reconciliation.html": 4,
+        "component-proof-derived-governed-mutation-authorization.html": 2,
+        "component-proof-diagnostic-evidence-spine.html": 4,
+        "component-provider-context-recipe-budget-policy.html": 1,
+        "component-ring2-premise-retrieval-precision-recall-harness.html": 2,
+        "component-sleeper-memory-poisoning-quarantine-replay.html": 1,
+        "component-target-shape-tactic-routing-gate.html": 4,
+        "component-undeclared-library-prior-symbol-classifier.html": 1,
+        "component-verifier-lab-execution-spine.html": 1,
         "components.html": 25,
         "contact.html": 3,
-        "doctrine.html": 160,
+        "doctrine.html": 161,
         "evidence.html": 1,
         "introduction.html": 2,
         "lineage.html": 2,
@@ -291820,9 +291836,9 @@
         "updates.html": 1,
         "vulnerability-disclosure.html": 1
       },
-      "page_count": 213,
+      "page_count": 154,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 2022
+      "total_occurrences": 1934
     },
     "recurrence": {
       "by_page": {
@@ -291939,7 +291955,7 @@
         "components.html": 11,
         "doctrine.html": 21,
         "evidence.html": 2,
-        "field-guide.html": 7,
+        "field-guide.html": 6,
         "introduction.html": 1,
         "lineage.html": 2,
         "open-questions.html": 1,
@@ -292054,7 +292070,7 @@
       },
       "page_count": 208,
       "top_page": "paper-modules.html",
-      "total_occurrences": 854
+      "total_occurrences": 853
     },
     "reformulation": {
       "by_page": {
@@ -293179,7 +293195,7 @@
         "area-formal-math.html": 21,
         "area-import-drift.html": 21,
         "area-research.html": 10,
-        "coding-agents.html": 2,
+        "coding-agents.html": 1,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 1,
         "component-agent-closeout-faithfulness-audit.html": 1,
         "component-agent-memory-temporal-conflict-replay.html": 1,
@@ -293381,7 +293397,7 @@
       },
       "page_count": 206,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 1525
+      "total_occurrences": 1524
     },
     "sequence": {
       "by_page": {
@@ -293566,99 +293582,99 @@
         "area-import-drift.html": 1,
         "area-research.html": 1,
         "coding-agents.html": 4,
-        "component-agent-benchmark-integrity-anti-gaming-replay.html": 1,
-        "component-agent-closeout-faithfulness-audit.html": 1,
-        "component-agent-memory-temporal-conflict-replay.html": 1,
-        "component-agent-monitor-redteam-falsification-replay.html": 1,
-        "component-agent-route-observability-runtime.html": 1,
-        "component-agent-sabotage-scheming-monitor-replay.html": 1,
-        "component-agent-sandbox-policy-escape-replay.html": 1,
-        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 1,
-        "component-annex-knowledge-routing.html": 1,
-        "component-batch10-cold-eval-honesty-capsule.html": 1,
-        "component-batch10-governance-compilers-capsule.html": 1,
-        "component-batch10-live-source-drift-capsule.html": 1,
-        "component-batch11-saturation-engines-capsule.html": 1,
-        "component-batch12-market-dashboard-read-model-capsule.html": 1,
-        "component-batch12-prediction-market-board-capsule.html": 1,
-        "component-batch12-release-claim-language-gate.html": 1,
-        "component-batch4-proof-authority-runtime.html": 1,
-        "component-batch5-authority-systems-capsule.html": 1,
-        "component-batch6-unsurfaced-primitives-capsule.html": 1,
-        "component-batch7-demo-take-console-capsule.html": 1,
-        "component-batch7-macro-engines-capsule.html": 1,
-        "component-batch7-oracle-sibling-capsule.html": 1,
-        "component-batch7-secondary-runtime-capsule.html": 1,
-        "component-batch8-audio-level-rms-port.html": 1,
-        "component-batch8-compliance-pipeline-capsule.html": 1,
-        "component-batch8-policy-engines-capsule.html": 1,
-        "component-batch8-structural-theses-capsule.html": 1,
-        "component-batch8-tools-tail-primitives-capsule.html": 1,
-        "component-batch8-validator-checker-capsule.html": 1,
-        "component-batch9-macro-engines-capsule.html": 1,
-        "component-belief-state-process-reward-replay.html": 1,
-        "component-bounded-autonomy-campaign-packet.html": 1,
-        "component-bridge-campaign-dag-validation.html": 1,
-        "component-bridge-phase-continuity-runtime.html": 1,
-        "component-certificate-kernel-execution-lab.html": 1,
-        "component-cognitive-operator-registry.html": 1,
-        "component-cold-reader-route-map.html": 1,
-        "component-concurrency-mission-control.html": 1,
-        "component-corpus-readiness-mathlib-absence-gate.html": 1,
-        "component-derived-fact-provider-runtime.html": 1,
-        "component-doctrine-fact-claim-audit.html": 1,
-        "component-durable-agent-work-landing-replay.html": 1,
-        "component-egress-self-compliance-audit.html": 1,
-        "component-engine-room-demo.html": 1,
-        "component-executable-doctrine-grammar.html": 1,
-        "component-finance-forecast-evaluation-spine.html": 1,
-        "component-finite-erdos-denominator-certificate-strike.html": 1,
-        "component-formal-evidence-cell-anchor-resolver.html": 1,
-        "component-formal-math-lean-proof-witness.html": 1,
-        "component-formal-math-premise-retrieval.html": 1,
-        "component-formal-math-readiness-gate.html": 1,
-        "component-formal-math-verifier-trace-repair-loop.html": 1,
-        "component-generated-projection-drift-runtime.html": 2,
-        "component-indirect-prompt-injection-information-flow-policy-replay.html": 1,
-        "component-lean-proof-search-lab-runtime.html": 1,
-        "component-lean-std-premise-index.html": 1,
-        "component-macro-projection-import-protocol.html": 1,
-        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 1,
-        "component-mathematical-strategy-atlas-hypothesis-scorer.html": 1,
-        "component-mcp-tool-authority-replay.html": 1,
-        "component-mechanistic-interpretability-circuit-attribution-replay.html": 1,
-        "component-metabolism-queue-reconciliation.html": 1,
-        "component-mission-transaction-work-spine.html": 1,
-        "component-navigation-fitness-benchmark.html": 1,
-        "component-navigation-hologram-route-plane.html": 1,
-        "component-pattern-assimilation-step.html": 1,
-        "component-pattern-binding-contract.html": 1,
-        "component-prediction-oracle-reconciliation.html": 1,
-        "component-proof-derived-governed-mutation-authorization.html": 1,
-        "component-proof-diagnostic-evidence-spine.html": 1,
-        "component-provider-context-recipe-budget-policy.html": 1,
-        "component-public-reveal-walkthrough.html": 1,
-        "component-research-replication-rubric-artifact-replay.html": 1,
-        "component-ring2-premise-retrieval-precision-recall-harness.html": 1,
-        "component-routing-anti-patterns-registry.html": 1,
-        "component-self-ignorance-coverage-ledger.html": 1,
-        "component-semantic-singleflight-dedup-runtime.html": 1,
-        "component-sleeper-memory-poisoning-quarantine-replay.html": 1,
-        "component-spatial-world-model-counterfactual-simulation-replay.html": 1,
-        "component-standards-meta-diagnostics.html": 1,
-        "component-tactic-portfolio-availability-probe.html": 1,
-        "component-target-shape-tactic-routing-gate.html": 1,
-        "component-tool-server-pressure-inventory.html": 1,
-        "component-undeclared-library-prior-symbol-classifier.html": 1,
-        "component-verifier-lab-execution-spine.html": 1,
-        "component-verifier-lab-kernel.html": 1,
-        "component-voice-to-doctrine-self-improvement-loop.html": 1,
-        "component-world-model-projection-drift-control-room.html": 1,
+        "component-agent-benchmark-integrity-anti-gaming-replay.html": 2,
+        "component-agent-closeout-faithfulness-audit.html": 2,
+        "component-agent-memory-temporal-conflict-replay.html": 2,
+        "component-agent-monitor-redteam-falsification-replay.html": 2,
+        "component-agent-route-observability-runtime.html": 2,
+        "component-agent-sabotage-scheming-monitor-replay.html": 2,
+        "component-agent-sandbox-policy-escape-replay.html": 2,
+        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 2,
+        "component-annex-knowledge-routing.html": 2,
+        "component-batch10-cold-eval-honesty-capsule.html": 2,
+        "component-batch10-governance-compilers-capsule.html": 2,
+        "component-batch10-live-source-drift-capsule.html": 2,
+        "component-batch11-saturation-engines-capsule.html": 2,
+        "component-batch12-market-dashboard-read-model-capsule.html": 2,
+        "component-batch12-prediction-market-board-capsule.html": 2,
+        "component-batch12-release-claim-language-gate.html": 2,
+        "component-batch4-proof-authority-runtime.html": 2,
+        "component-batch5-authority-systems-capsule.html": 2,
+        "component-batch6-unsurfaced-primitives-capsule.html": 2,
+        "component-batch7-demo-take-console-capsule.html": 2,
+        "component-batch7-macro-engines-capsule.html": 2,
+        "component-batch7-oracle-sibling-capsule.html": 2,
+        "component-batch7-secondary-runtime-capsule.html": 2,
+        "component-batch8-audio-level-rms-port.html": 2,
+        "component-batch8-compliance-pipeline-capsule.html": 2,
+        "component-batch8-policy-engines-capsule.html": 2,
+        "component-batch8-structural-theses-capsule.html": 2,
+        "component-batch8-tools-tail-primitives-capsule.html": 2,
+        "component-batch8-validator-checker-capsule.html": 2,
+        "component-batch9-macro-engines-capsule.html": 2,
+        "component-belief-state-process-reward-replay.html": 2,
+        "component-bounded-autonomy-campaign-packet.html": 2,
+        "component-bridge-campaign-dag-validation.html": 2,
+        "component-bridge-phase-continuity-runtime.html": 2,
+        "component-certificate-kernel-execution-lab.html": 2,
+        "component-cognitive-operator-registry.html": 2,
+        "component-cold-reader-route-map.html": 2,
+        "component-concurrency-mission-control.html": 2,
+        "component-corpus-readiness-mathlib-absence-gate.html": 2,
+        "component-derived-fact-provider-runtime.html": 2,
+        "component-doctrine-fact-claim-audit.html": 2,
+        "component-durable-agent-work-landing-replay.html": 2,
+        "component-egress-self-compliance-audit.html": 2,
+        "component-engine-room-demo.html": 2,
+        "component-executable-doctrine-grammar.html": 2,
+        "component-finance-forecast-evaluation-spine.html": 2,
+        "component-finite-erdos-denominator-certificate-strike.html": 2,
+        "component-formal-evidence-cell-anchor-resolver.html": 2,
+        "component-formal-math-lean-proof-witness.html": 2,
+        "component-formal-math-premise-retrieval.html": 2,
+        "component-formal-math-readiness-gate.html": 2,
+        "component-formal-math-verifier-trace-repair-loop.html": 2,
+        "component-generated-projection-drift-runtime.html": 3,
+        "component-indirect-prompt-injection-information-flow-policy-replay.html": 2,
+        "component-lean-proof-search-lab-runtime.html": 2,
+        "component-lean-std-premise-index.html": 2,
+        "component-macro-projection-import-protocol.html": 2,
+        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 2,
+        "component-mathematical-strategy-atlas-hypothesis-scorer.html": 2,
+        "component-mcp-tool-authority-replay.html": 2,
+        "component-mechanistic-interpretability-circuit-attribution-replay.html": 2,
+        "component-metabolism-queue-reconciliation.html": 2,
+        "component-mission-transaction-work-spine.html": 2,
+        "component-navigation-fitness-benchmark.html": 2,
+        "component-navigation-hologram-route-plane.html": 2,
+        "component-pattern-assimilation-step.html": 2,
+        "component-pattern-binding-contract.html": 2,
+        "component-prediction-oracle-reconciliation.html": 2,
+        "component-proof-derived-governed-mutation-authorization.html": 2,
+        "component-proof-diagnostic-evidence-spine.html": 2,
+        "component-provider-context-recipe-budget-policy.html": 2,
+        "component-public-reveal-walkthrough.html": 2,
+        "component-research-replication-rubric-artifact-replay.html": 2,
+        "component-ring2-premise-retrieval-precision-recall-harness.html": 2,
+        "component-routing-anti-patterns-registry.html": 2,
+        "component-self-ignorance-coverage-ledger.html": 2,
+        "component-semantic-singleflight-dedup-runtime.html": 2,
+        "component-sleeper-memory-poisoning-quarantine-replay.html": 2,
+        "component-spatial-world-model-counterfactual-simulation-replay.html": 2,
+        "component-standards-meta-diagnostics.html": 2,
+        "component-tactic-portfolio-availability-probe.html": 2,
+        "component-target-shape-tactic-routing-gate.html": 2,
+        "component-tool-server-pressure-inventory.html": 2,
+        "component-undeclared-library-prior-symbol-classifier.html": 2,
+        "component-verifier-lab-execution-spine.html": 2,
+        "component-verifier-lab-kernel.html": 2,
+        "component-voice-to-doctrine-self-improvement-loop.html": 2,
+        "component-world-model-projection-drift-control-room.html": 2,
         "components.html": 1,
         "contact.html": 1,
         "doctrine.html": 1,
         "evidence.html": 2,
-        "field-guide.html": 1,
+        "field-guide.html": 2,
         "index.html": 1,
         "introduction.html": 4,
         "lineage.html": 1,
@@ -293773,12 +293789,12 @@
         "rules-and-ideas.html": 1,
         "source.html": 4,
         "system-map.html": 2,
-        "tour.html": 2,
+        "tour.html": 3,
         "updates.html": 1
       },
       "page_count": 218,
       "top_page": "coding-agents.html",
-      "total_occurrences": 253
+      "total_occurrences": 343
     },
     "source": {
       "by_page": {
@@ -293790,95 +293806,95 @@
         "area-formal-math.html": 47,
         "area-import-drift.html": 82,
         "area-research.html": 18,
-        "coding-agents.html": 5,
-        "component-agent-benchmark-integrity-anti-gaming-replay.html": 8,
-        "component-agent-closeout-faithfulness-audit.html": 3,
-        "component-agent-memory-temporal-conflict-replay.html": 4,
-        "component-agent-monitor-redteam-falsification-replay.html": 7,
-        "component-agent-route-observability-runtime.html": 6,
-        "component-agent-sabotage-scheming-monitor-replay.html": 7,
-        "component-agent-sandbox-policy-escape-replay.html": 6,
-        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 5,
-        "component-annex-knowledge-routing.html": 3,
-        "component-batch10-cold-eval-honesty-capsule.html": 6,
-        "component-batch10-governance-compilers-capsule.html": 12,
-        "component-batch10-live-source-drift-capsule.html": 14,
-        "component-batch11-saturation-engines-capsule.html": 12,
-        "component-batch12-market-dashboard-read-model-capsule.html": 6,
-        "component-batch12-prediction-market-board-capsule.html": 6,
-        "component-batch12-release-claim-language-gate.html": 7,
-        "component-batch4-proof-authority-runtime.html": 7,
-        "component-batch5-authority-systems-capsule.html": 10,
-        "component-batch6-unsurfaced-primitives-capsule.html": 13,
-        "component-batch7-demo-take-console-capsule.html": 10,
-        "component-batch7-macro-engines-capsule.html": 12,
-        "component-batch7-oracle-sibling-capsule.html": 9,
-        "component-batch7-secondary-runtime-capsule.html": 7,
-        "component-batch8-audio-level-rms-port.html": 5,
-        "component-batch8-compliance-pipeline-capsule.html": 8,
-        "component-batch8-policy-engines-capsule.html": 6,
-        "component-batch8-structural-theses-capsule.html": 5,
-        "component-batch8-tools-tail-primitives-capsule.html": 5,
-        "component-batch8-validator-checker-capsule.html": 6,
-        "component-batch9-macro-engines-capsule.html": 13,
-        "component-belief-state-process-reward-replay.html": 5,
-        "component-bounded-autonomy-campaign-packet.html": 7,
-        "component-bridge-campaign-dag-validation.html": 3,
-        "component-bridge-phase-continuity-runtime.html": 3,
-        "component-certificate-kernel-execution-lab.html": 4,
-        "component-cognitive-operator-registry.html": 4,
-        "component-cold-reader-route-map.html": 5,
-        "component-concurrency-mission-control.html": 5,
-        "component-corpus-readiness-mathlib-absence-gate.html": 4,
-        "component-derived-fact-provider-runtime.html": 3,
-        "component-doctrine-fact-claim-audit.html": 3,
-        "component-durable-agent-work-landing-replay.html": 5,
-        "component-egress-self-compliance-audit.html": 3,
-        "component-engine-room-demo.html": 4,
-        "component-executable-doctrine-grammar.html": 5,
-        "component-finance-forecast-evaluation-spine.html": 3,
-        "component-finite-erdos-denominator-certificate-strike.html": 3,
-        "component-formal-evidence-cell-anchor-resolver.html": 10,
-        "component-formal-math-lean-proof-witness.html": 4,
-        "component-formal-math-premise-retrieval.html": 4,
-        "component-formal-math-readiness-gate.html": 6,
-        "component-formal-math-verifier-trace-repair-loop.html": 5,
-        "component-generated-projection-drift-runtime.html": 10,
-        "component-indirect-prompt-injection-information-flow-policy-replay.html": 6,
-        "component-lean-proof-search-lab-runtime.html": 5,
-        "component-lean-std-premise-index.html": 6,
-        "component-macro-projection-import-protocol.html": 22,
-        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 4,
-        "component-mathematical-strategy-atlas-hypothesis-scorer.html": 4,
-        "component-mcp-tool-authority-replay.html": 6,
-        "component-mechanistic-interpretability-circuit-attribution-replay.html": 3,
-        "component-metabolism-queue-reconciliation.html": 3,
-        "component-mission-transaction-work-spine.html": 7,
-        "component-navigation-fitness-benchmark.html": 3,
-        "component-navigation-hologram-route-plane.html": 10,
-        "component-pattern-assimilation-step.html": 3,
-        "component-pattern-binding-contract.html": 6,
-        "component-prediction-oracle-reconciliation.html": 4,
-        "component-proof-derived-governed-mutation-authorization.html": 5,
-        "component-proof-diagnostic-evidence-spine.html": 4,
-        "component-provider-context-recipe-budget-policy.html": 4,
-        "component-public-reveal-walkthrough.html": 6,
-        "component-research-replication-rubric-artifact-replay.html": 5,
-        "component-ring2-premise-retrieval-precision-recall-harness.html": 4,
-        "component-routing-anti-patterns-registry.html": 3,
-        "component-self-ignorance-coverage-ledger.html": 4,
-        "component-semantic-singleflight-dedup-runtime.html": 3,
-        "component-sleeper-memory-poisoning-quarantine-replay.html": 5,
-        "component-spatial-world-model-counterfactual-simulation-replay.html": 3,
-        "component-standards-meta-diagnostics.html": 4,
-        "component-tactic-portfolio-availability-probe.html": 4,
-        "component-target-shape-tactic-routing-gate.html": 4,
-        "component-tool-server-pressure-inventory.html": 5,
-        "component-undeclared-library-prior-symbol-classifier.html": 5,
-        "component-verifier-lab-execution-spine.html": 3,
-        "component-verifier-lab-kernel.html": 4,
-        "component-voice-to-doctrine-self-improvement-loop.html": 6,
-        "component-world-model-projection-drift-control-room.html": 11,
+        "coding-agents.html": 4,
+        "component-agent-benchmark-integrity-anti-gaming-replay.html": 9,
+        "component-agent-closeout-faithfulness-audit.html": 4,
+        "component-agent-memory-temporal-conflict-replay.html": 5,
+        "component-agent-monitor-redteam-falsification-replay.html": 8,
+        "component-agent-route-observability-runtime.html": 7,
+        "component-agent-sabotage-scheming-monitor-replay.html": 8,
+        "component-agent-sandbox-policy-escape-replay.html": 7,
+        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 6,
+        "component-annex-knowledge-routing.html": 4,
+        "component-batch10-cold-eval-honesty-capsule.html": 7,
+        "component-batch10-governance-compilers-capsule.html": 13,
+        "component-batch10-live-source-drift-capsule.html": 15,
+        "component-batch11-saturation-engines-capsule.html": 13,
+        "component-batch12-market-dashboard-read-model-capsule.html": 7,
+        "component-batch12-prediction-market-board-capsule.html": 7,
+        "component-batch12-release-claim-language-gate.html": 8,
+        "component-batch4-proof-authority-runtime.html": 8,
+        "component-batch5-authority-systems-capsule.html": 11,
+        "component-batch6-unsurfaced-primitives-capsule.html": 14,
+        "component-batch7-demo-take-console-capsule.html": 11,
+        "component-batch7-macro-engines-capsule.html": 13,
+        "component-batch7-oracle-sibling-capsule.html": 10,
+        "component-batch7-secondary-runtime-capsule.html": 8,
+        "component-batch8-audio-level-rms-port.html": 6,
+        "component-batch8-compliance-pipeline-capsule.html": 9,
+        "component-batch8-policy-engines-capsule.html": 7,
+        "component-batch8-structural-theses-capsule.html": 6,
+        "component-batch8-tools-tail-primitives-capsule.html": 6,
+        "component-batch8-validator-checker-capsule.html": 7,
+        "component-batch9-macro-engines-capsule.html": 14,
+        "component-belief-state-process-reward-replay.html": 6,
+        "component-bounded-autonomy-campaign-packet.html": 8,
+        "component-bridge-campaign-dag-validation.html": 4,
+        "component-bridge-phase-continuity-runtime.html": 4,
+        "component-certificate-kernel-execution-lab.html": 5,
+        "component-cognitive-operator-registry.html": 5,
+        "component-cold-reader-route-map.html": 6,
+        "component-concurrency-mission-control.html": 6,
+        "component-corpus-readiness-mathlib-absence-gate.html": 5,
+        "component-derived-fact-provider-runtime.html": 4,
+        "component-doctrine-fact-claim-audit.html": 4,
+        "component-durable-agent-work-landing-replay.html": 6,
+        "component-egress-self-compliance-audit.html": 4,
+        "component-engine-room-demo.html": 5,
+        "component-executable-doctrine-grammar.html": 6,
+        "component-finance-forecast-evaluation-spine.html": 4,
+        "component-finite-erdos-denominator-certificate-strike.html": 4,
+        "component-formal-evidence-cell-anchor-resolver.html": 11,
+        "component-formal-math-lean-proof-witness.html": 5,
+        "component-formal-math-premise-retrieval.html": 5,
+        "component-formal-math-readiness-gate.html": 7,
+        "component-formal-math-verifier-trace-repair-loop.html": 6,
+        "component-generated-projection-drift-runtime.html": 11,
+        "component-indirect-prompt-injection-information-flow-policy-replay.html": 7,
+        "component-lean-proof-search-lab-runtime.html": 6,
+        "component-lean-std-premise-index.html": 7,
+        "component-macro-projection-import-protocol.html": 23,
+        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 5,
+        "component-mathematical-strategy-atlas-hypothesis-scorer.html": 5,
+        "component-mcp-tool-authority-replay.html": 7,
+        "component-mechanistic-interpretability-circuit-attribution-replay.html": 4,
+        "component-metabolism-queue-reconciliation.html": 4,
+        "component-mission-transaction-work-spine.html": 8,
+        "component-navigation-fitness-benchmark.html": 4,
+        "component-navigation-hologram-route-plane.html": 11,
+        "component-pattern-assimilation-step.html": 4,
+        "component-pattern-binding-contract.html": 7,
+        "component-prediction-oracle-reconciliation.html": 5,
+        "component-proof-derived-governed-mutation-authorization.html": 6,
+        "component-proof-diagnostic-evidence-spine.html": 5,
+        "component-provider-context-recipe-budget-policy.html": 5,
+        "component-public-reveal-walkthrough.html": 7,
+        "component-research-replication-rubric-artifact-replay.html": 6,
+        "component-ring2-premise-retrieval-precision-recall-harness.html": 5,
+        "component-routing-anti-patterns-registry.html": 4,
+        "component-self-ignorance-coverage-ledger.html": 5,
+        "component-semantic-singleflight-dedup-runtime.html": 4,
+        "component-sleeper-memory-poisoning-quarantine-replay.html": 6,
+        "component-spatial-world-model-counterfactual-simulation-replay.html": 4,
+        "component-standards-meta-diagnostics.html": 5,
+        "component-tactic-portfolio-availability-probe.html": 5,
+        "component-target-shape-tactic-routing-gate.html": 5,
+        "component-tool-server-pressure-inventory.html": 6,
+        "component-undeclared-library-prior-symbol-classifier.html": 6,
+        "component-verifier-lab-execution-spine.html": 4,
+        "component-verifier-lab-kernel.html": 5,
+        "component-voice-to-doctrine-self-improvement-loop.html": 7,
+        "component-world-model-projection-drift-control-room.html": 12,
         "components.html": 220,
         "contact.html": 6,
         "doctrine.html": 238,
@@ -294001,7 +294017,7 @@
       },
       "page_count": 216,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 5339
+      "total_occurrences": 5426
     },
     "source_authority": {
       "by_page": {
@@ -294209,20 +294225,99 @@
         "area-continuity.html": 1,
         "area-formal-math.html": 3,
         "area-import-drift.html": 5,
-        "component-agent-memory-temporal-conflict-replay.html": 1,
-        "component-batch5-authority-systems-capsule.html": 1,
-        "component-batch7-demo-take-console-capsule.html": 1,
-        "component-batch7-oracle-sibling-capsule.html": 1,
-        "component-batch8-compliance-pipeline-capsule.html": 1,
-        "component-bridge-phase-continuity-runtime.html": 1,
-        "component-certificate-kernel-execution-lab.html": 1,
-        "component-corpus-readiness-mathlib-absence-gate.html": 1,
-        "component-formal-math-lean-proof-witness.html": 1,
-        "component-verifier-lab-execution-spine.html": 2,
-        "component-verifier-lab-kernel.html": 1,
+        "coding-agents.html": 1,
+        "component-agent-benchmark-integrity-anti-gaming-replay.html": 1,
+        "component-agent-closeout-faithfulness-audit.html": 1,
+        "component-agent-memory-temporal-conflict-replay.html": 2,
+        "component-agent-monitor-redteam-falsification-replay.html": 1,
+        "component-agent-route-observability-runtime.html": 1,
+        "component-agent-sabotage-scheming-monitor-replay.html": 1,
+        "component-agent-sandbox-policy-escape-replay.html": 1,
+        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 1,
+        "component-annex-knowledge-routing.html": 1,
+        "component-batch10-cold-eval-honesty-capsule.html": 1,
+        "component-batch10-governance-compilers-capsule.html": 1,
+        "component-batch10-live-source-drift-capsule.html": 1,
+        "component-batch11-saturation-engines-capsule.html": 1,
+        "component-batch12-market-dashboard-read-model-capsule.html": 1,
+        "component-batch12-prediction-market-board-capsule.html": 1,
+        "component-batch12-release-claim-language-gate.html": 1,
+        "component-batch4-proof-authority-runtime.html": 1,
+        "component-batch5-authority-systems-capsule.html": 2,
+        "component-batch6-unsurfaced-primitives-capsule.html": 1,
+        "component-batch7-demo-take-console-capsule.html": 2,
+        "component-batch7-macro-engines-capsule.html": 1,
+        "component-batch7-oracle-sibling-capsule.html": 2,
+        "component-batch7-secondary-runtime-capsule.html": 1,
+        "component-batch8-audio-level-rms-port.html": 1,
+        "component-batch8-compliance-pipeline-capsule.html": 2,
+        "component-batch8-policy-engines-capsule.html": 1,
+        "component-batch8-structural-theses-capsule.html": 1,
+        "component-batch8-tools-tail-primitives-capsule.html": 1,
+        "component-batch8-validator-checker-capsule.html": 1,
+        "component-batch9-macro-engines-capsule.html": 1,
+        "component-belief-state-process-reward-replay.html": 1,
+        "component-bounded-autonomy-campaign-packet.html": 1,
+        "component-bridge-campaign-dag-validation.html": 1,
+        "component-bridge-phase-continuity-runtime.html": 2,
+        "component-certificate-kernel-execution-lab.html": 2,
+        "component-cognitive-operator-registry.html": 1,
+        "component-cold-reader-route-map.html": 1,
+        "component-concurrency-mission-control.html": 1,
+        "component-corpus-readiness-mathlib-absence-gate.html": 2,
+        "component-derived-fact-provider-runtime.html": 1,
+        "component-doctrine-fact-claim-audit.html": 1,
+        "component-durable-agent-work-landing-replay.html": 1,
+        "component-egress-self-compliance-audit.html": 1,
+        "component-engine-room-demo.html": 1,
+        "component-executable-doctrine-grammar.html": 1,
+        "component-finance-forecast-evaluation-spine.html": 1,
+        "component-finite-erdos-denominator-certificate-strike.html": 1,
+        "component-formal-evidence-cell-anchor-resolver.html": 1,
+        "component-formal-math-lean-proof-witness.html": 2,
+        "component-formal-math-premise-retrieval.html": 1,
+        "component-formal-math-readiness-gate.html": 1,
+        "component-formal-math-verifier-trace-repair-loop.html": 1,
+        "component-generated-projection-drift-runtime.html": 1,
+        "component-indirect-prompt-injection-information-flow-policy-replay.html": 1,
+        "component-lean-proof-search-lab-runtime.html": 1,
+        "component-lean-std-premise-index.html": 1,
+        "component-macro-projection-import-protocol.html": 1,
+        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 1,
+        "component-mathematical-strategy-atlas-hypothesis-scorer.html": 1,
+        "component-mcp-tool-authority-replay.html": 1,
+        "component-mechanistic-interpretability-circuit-attribution-replay.html": 1,
+        "component-metabolism-queue-reconciliation.html": 1,
+        "component-mission-transaction-work-spine.html": 1,
+        "component-navigation-fitness-benchmark.html": 1,
+        "component-navigation-hologram-route-plane.html": 1,
+        "component-pattern-assimilation-step.html": 1,
+        "component-pattern-binding-contract.html": 1,
+        "component-prediction-oracle-reconciliation.html": 1,
+        "component-proof-derived-governed-mutation-authorization.html": 1,
+        "component-proof-diagnostic-evidence-spine.html": 1,
+        "component-provider-context-recipe-budget-policy.html": 1,
+        "component-public-reveal-walkthrough.html": 1,
+        "component-research-replication-rubric-artifact-replay.html": 1,
+        "component-ring2-premise-retrieval-precision-recall-harness.html": 1,
+        "component-routing-anti-patterns-registry.html": 1,
+        "component-self-ignorance-coverage-ledger.html": 1,
+        "component-semantic-singleflight-dedup-runtime.html": 1,
+        "component-sleeper-memory-poisoning-quarantine-replay.html": 1,
+        "component-spatial-world-model-counterfactual-simulation-replay.html": 1,
+        "component-standards-meta-diagnostics.html": 1,
+        "component-tactic-portfolio-availability-probe.html": 1,
+        "component-target-shape-tactic-routing-gate.html": 1,
+        "component-tool-server-pressure-inventory.html": 1,
+        "component-undeclared-library-prior-symbol-classifier.html": 1,
+        "component-verifier-lab-execution-spine.html": 3,
+        "component-verifier-lab-kernel.html": 2,
+        "component-voice-to-doctrine-self-improvement-loop.html": 1,
+        "component-world-model-projection-drift-control-room.html": 1,
         "components.html": 10,
         "contact.html": 1,
         "doctrine.html": 3,
+        "field-guide.html": 1,
         "index.html": 1,
         "paper-module-agent-closeout-faithfulness-audit.html": 1,
         "paper-module-agent-memory-temporal-conflict-replay.html": 2,
@@ -294264,9 +294359,9 @@
         "tour.html": 3,
         "updates.html": 1
       },
-      "page_count": 59,
+      "page_count": 138,
       "top_page": "components.html",
-      "total_occurrences": 106
+      "total_occurrences": 196
     },
     "span": {
       "by_page": {
@@ -294894,8 +294989,94 @@
     "test": {
       "by_page": {
         "area-research.html": 2,
-        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 1,
-        "component-finance-forecast-evaluation-spine.html": 1,
+        "component-agent-benchmark-integrity-anti-gaming-replay.html": 1,
+        "component-agent-closeout-faithfulness-audit.html": 1,
+        "component-agent-memory-temporal-conflict-replay.html": 1,
+        "component-agent-monitor-redteam-falsification-replay.html": 1,
+        "component-agent-route-observability-runtime.html": 1,
+        "component-agent-sabotage-scheming-monitor-replay.html": 1,
+        "component-agent-sandbox-policy-escape-replay.html": 1,
+        "component-agentic-vulnerability-discovery-patch-proof-replay.html": 2,
+        "component-annex-knowledge-routing.html": 1,
+        "component-batch10-cold-eval-honesty-capsule.html": 1,
+        "component-batch10-governance-compilers-capsule.html": 1,
+        "component-batch10-live-source-drift-capsule.html": 1,
+        "component-batch11-saturation-engines-capsule.html": 1,
+        "component-batch12-market-dashboard-read-model-capsule.html": 1,
+        "component-batch12-prediction-market-board-capsule.html": 1,
+        "component-batch12-release-claim-language-gate.html": 1,
+        "component-batch4-proof-authority-runtime.html": 1,
+        "component-batch5-authority-systems-capsule.html": 1,
+        "component-batch6-unsurfaced-primitives-capsule.html": 1,
+        "component-batch7-demo-take-console-capsule.html": 1,
+        "component-batch7-macro-engines-capsule.html": 1,
+        "component-batch7-oracle-sibling-capsule.html": 1,
+        "component-batch7-secondary-runtime-capsule.html": 1,
+        "component-batch8-audio-level-rms-port.html": 1,
+        "component-batch8-compliance-pipeline-capsule.html": 1,
+        "component-batch8-policy-engines-capsule.html": 1,
+        "component-batch8-structural-theses-capsule.html": 1,
+        "component-batch8-tools-tail-primitives-capsule.html": 1,
+        "component-batch8-validator-checker-capsule.html": 1,
+        "component-batch9-macro-engines-capsule.html": 1,
+        "component-belief-state-process-reward-replay.html": 1,
+        "component-bounded-autonomy-campaign-packet.html": 1,
+        "component-bridge-campaign-dag-validation.html": 1,
+        "component-bridge-phase-continuity-runtime.html": 1,
+        "component-certificate-kernel-execution-lab.html": 1,
+        "component-cognitive-operator-registry.html": 1,
+        "component-cold-reader-route-map.html": 1,
+        "component-concurrency-mission-control.html": 1,
+        "component-corpus-readiness-mathlib-absence-gate.html": 1,
+        "component-derived-fact-provider-runtime.html": 1,
+        "component-doctrine-fact-claim-audit.html": 1,
+        "component-durable-agent-work-landing-replay.html": 1,
+        "component-egress-self-compliance-audit.html": 1,
+        "component-engine-room-demo.html": 1,
+        "component-executable-doctrine-grammar.html": 1,
+        "component-finance-forecast-evaluation-spine.html": 2,
+        "component-finite-erdos-denominator-certificate-strike.html": 1,
+        "component-formal-evidence-cell-anchor-resolver.html": 1,
+        "component-formal-math-lean-proof-witness.html": 1,
+        "component-formal-math-premise-retrieval.html": 1,
+        "component-formal-math-readiness-gate.html": 1,
+        "component-formal-math-verifier-trace-repair-loop.html": 1,
+        "component-generated-projection-drift-runtime.html": 1,
+        "component-indirect-prompt-injection-information-flow-policy-replay.html": 1,
+        "component-lean-proof-search-lab-runtime.html": 1,
+        "component-lean-std-premise-index.html": 1,
+        "component-macro-projection-import-protocol.html": 1,
+        "component-materials-chemistry-closed-loop-lab-safety-replay.html": 1,
+        "component-mathematical-strategy-atlas-hypothesis-scorer.html": 1,
+        "component-mcp-tool-authority-replay.html": 1,
+        "component-mechanistic-interpretability-circuit-attribution-replay.html": 1,
+        "component-metabolism-queue-reconciliation.html": 1,
+        "component-mission-transaction-work-spine.html": 1,
+        "component-navigation-fitness-benchmark.html": 1,
+        "component-navigation-hologram-route-plane.html": 1,
+        "component-pattern-assimilation-step.html": 1,
+        "component-pattern-binding-contract.html": 1,
+        "component-prediction-oracle-reconciliation.html": 1,
+        "component-proof-derived-governed-mutation-authorization.html": 1,
+        "component-proof-diagnostic-evidence-spine.html": 1,
+        "component-provider-context-recipe-budget-policy.html": 1,
+        "component-public-reveal-walkthrough.html": 1,
+        "component-research-replication-rubric-artifact-replay.html": 1,
+        "component-ring2-premise-retrieval-precision-recall-harness.html": 1,
+        "component-routing-anti-patterns-registry.html": 1,
+        "component-self-ignorance-coverage-ledger.html": 1,
+        "component-semantic-singleflight-dedup-runtime.html": 1,
+        "component-sleeper-memory-poisoning-quarantine-replay.html": 1,
+        "component-spatial-world-model-counterfactual-simulation-replay.html": 1,
+        "component-standards-meta-diagnostics.html": 1,
+        "component-tactic-portfolio-availability-probe.html": 1,
+        "component-target-shape-tactic-routing-gate.html": 1,
+        "component-tool-server-pressure-inventory.html": 1,
+        "component-undeclared-library-prior-symbol-classifier.html": 1,
+        "component-verifier-lab-execution-spine.html": 1,
+        "component-verifier-lab-kernel.html": 1,
+        "component-voice-to-doctrine-self-improvement-loop.html": 1,
+        "component-world-model-projection-drift-control-room.html": 1,
         "components.html": 2,
         "doctrine.html": 4,
         "index.html": 1,
@@ -294982,9 +295163,9 @@
         "tour.html": 1,
         "vulnerability-disclosure.html": 1
       },
-      "page_count": 88,
+      "page_count": 174,
       "top_page": "paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
-      "total_occurrences": 186
+      "total_occurrences": 274
     },
     "theorem": {
       "by_page": {
@@ -295039,11 +295220,12 @@
         "paper-modules.html": 26,
         "papers.html": 12,
         "rules-and-ideas.html": 17,
+        "tour.html": 2,
         "updates.html": 1
       },
-      "page_count": 52,
+      "page_count": 53,
       "top_page": "components.html",
-      "total_occurrences": 295
+      "total_occurrences": 297
     },
     "threshold": {
       "by_page": {
@@ -295608,7 +295790,6 @@
         "area-formal-math.html": 2,
         "area-import-drift.html": 17,
         "area-research.html": 2,
-        "coding-agents.html": 1,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 1,
         "component-agent-closeout-faithfulness-audit.html": 1,
         "component-agent-monitor-redteam-falsification-replay.html": 1,
@@ -295715,7 +295896,8 @@
         "paper-modules.html": 9,
         "quickstart.html": 1,
         "reference.html": 10,
-        "rules-and-ideas.html": 20
+        "rules-and-ideas.html": 20,
+        "tour.html": 1
       },
       "page_count": 115,
       "top_page": "components.html",

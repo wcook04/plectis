@@ -555,8 +555,10 @@ reaches the window's lower right corner, and the open chip never stands on
 a drawing: where it would (the mathematics map on the first screen at 1512
 and 1920), it starts folded to its mark, and a short first scroll that
 brings a drawing under it folds it too.
-landing.js loads the system drawing's script on the first sign of intent and
-prefetches it when the band nears the viewport, and `plectis:atlas`
+`landing.js` loads the mathematics drawing when its stage enters the viewport
+and the system drawing on the first sign of reader intent. `docs.js` loads
+the full glossary preview payload on glossary intent. The system drawing is
+not prefetched as the band approaches. The `plectis:atlas` event
 `{view, previous, phase, instant}` tells both drawings when the band moves.
 Both cards wear the same four corner registration marks. Without JavaScript
 the band is a strip that scrolls and snaps. The earlier software keeps its

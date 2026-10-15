@@ -2,42 +2,20 @@
   "asset_transforms": {
     "assets/style.css": {
       "preserved_comment_count": 36,
-      "published_bytes": 426846,
-      "published_sha256": "011ad150224758327f7a9a60c57ed7d390bea8d6a105c70afc182ebd2cd99028",
-      "removed_comment_count": 768,
-      "source_bytes": 611931,
-      "source_sha256": "c548b90b4349f02020796dfee67a0570a55a5865bf0c6f9900287b9ec6837917",
+      "published_bytes": 428999,
+      "published_sha256": "4cc19812bd3bf283e7b113d38743852a1f07c42beacf9b8ac69353c0b53c4413",
+      "removed_comment_count": 769,
+      "source_bytes": 614082,
+      "source_sha256": "f28a6c37a6e456378eda2d827fab55ba76373d8ad6ab99c3ff2f06287879acf3",
       "transform": "isolated-css-comments-v1"
     }
   },
-  "generator_commit": "26f58907e5d759acf4108b77356263cecd567e59",
-  "last_scoped_release": {
-    "cache_key_pages": 1105,
-    "generator_commit": "055fba33e8cfd066c8dbd19803c78a70686e6c53",
-    "not_run": [
-      "paper sync",
-      "Lean sync",
-      "site experience",
-      "maths render",
-      "reader packets",
-      "glossary"
-    ],
-    "protected_products": "every other byte is the full generation's, not regenerated or relabeled current",
-    "published_assets": {
-      "assets/style.css": {
-        "after": "011ad150224758327f7a9a60c57ed7d390bea8d6a105c70afc182ebd2cd99028",
-        "before": "fe99a60a54b414a84fcbb16a2c31a1d0c20fecda546ac8cc41c3d1917a3be3eb"
-      }
-    },
-    "retained_content_changes": 0,
-    "retained_full_generation": "26f58907e5d759acf4108b77356263cecd567e59",
-    "scope": "presentation"
-  },
+  "generator_commit": "1cb59b4145e47b939c9e40a99151826c449f2da0",
   "note": "Public source commits this deploy was generated from. The next deploy reads this file and refuses to publish a build whose sources do not contain these commits, unless it is run with --allow-older-than-live.",
   "schema": "plectis_site_deploy_provenance_v1",
   "sources": {
     "plectis": {
-      "commit": "bff58d6e9695d7663c0c5b10669d5df588196b6a",
+      "commit": "89e36b0970f285ca585a13b082656ce17b113f26",
       "ref": "main",
       "repository": "wcook04/plectis"
     },

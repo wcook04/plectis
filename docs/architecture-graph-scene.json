@@ -2211,7 +2211,7 @@
     "schema": "microcosm_public_architecture_detail_coverage_v1",
     "wiring_endpoint_component_count": 58
   },
-  "detail_fingerprint": "add3b60d9d3ae9fb1de4a913fdecb024",
+  "detail_fingerprint": "15a939dcdf8df316416e25a3b40465bf",
   "edge_semantics": {
     "area_relation": "binds_to_shared_path",
     "explicit_wire_relation": "derived_from_code",
@@ -19652,7 +19652,7 @@
         "source_refs": [
           "microcosm-substrate/core/architecture_kernel.json"
         ],
-        "summary": "Shared records and commands every public component binds to, in 10 steps: Project \u2192 Catalog \u2192 Pattern \u2192 Standard \u2192 Route \u2192 Work \u2192 Event \u2192 Evidence \u2192 Explanation \u2192 Assimilation.",
+        "summary": "Records and commands each public software component uses to describe a task, carry it out and save what happened, in 10 steps: Project \u2192 Catalog \u2192 Pattern \u2192 Standard \u2192 Route \u2192 Work \u2192 Event \u2192 Evidence \u2192 Explanation \u2192 Assimilation.",
         "title": "Shared path"
       }
     },
@@ -20582,10 +20582,10 @@
         "public_page": "docs/architecture.html",
         "source": "microcosm-substrate/core/organ_atlas.json"
       },
-      "revision": "gsc_aabc53c2c601bf8c7778",
+      "revision": "gsc_a2c066f1faacd17e8acc",
       "scene_id": "microcosm_public_architecture",
       "schema": "graph_scene_manifest_v1",
-      "source_fingerprint": "ed63c10194fb8143fd515655e22aee63",
+      "source_fingerprint": "07d234e77b0c13a1790b0256f54eed96",
       "source_ref": "microcosm-substrate/core/organ_families.json",
       "source_schema": "microcosm_public_architecture_graph_source_v1"
     },
@@ -20610,7 +20610,7 @@
         },
         "row_id": null,
         "state": "active",
-        "summary": "Shared records and commands every public component binds to, in 10 steps: Project \u2192 Catalog \u2192 Pattern \u2192 Standard \u2192 Route \u2192 Work \u2192 Event \u2192 Evidence \u2192 Explanation \u2192 Assimilation."
+        "summary": "Records and commands each public software component uses to describe a task, carry it out and save what happened, in 10 steps: Project \u2192 Catalog \u2192 Pattern \u2192 Standard \u2192 Route \u2192 Work \u2192 Event \u2192 Evidence \u2192 Explanation \u2192 Assimilation."
       },
       {
         "attention_score": 0.98,
@@ -22893,7 +22893,7 @@
       "public_page": "docs/architecture.html",
       "source": "microcosm-substrate/core/organ_atlas.json"
     },
-    "revision": "gsc_aabc53c2c601bf8c7778",
+    "revision": "gsc_a2c066f1faacd17e8acc",
     "rows": [],
     "scene_id": "microcosm_public_architecture",
     "schema": "graph_scene_v1",
@@ -22963,7 +22963,7 @@
       "source_edge_count": 100,
       "source_node_count": 106
     },
-    "source_fingerprint": "ed63c10194fb8143fd515655e22aee63",
+    "source_fingerprint": "07d234e77b0c13a1790b0256f54eed96",
     "source_ref": "microcosm-substrate/core/organ_families.json",
     "source_schema": "microcosm_public_architecture_graph_source_v1",
     "type_registry": {

@@ -2,7 +2,21 @@
 
 > Mathematical research with Lean proofs, papers, failed approaches and open questions. Start with a problem and its short paper, then follow the source and recorded checks. The earlier software is a separate public record. For that software: Read order: mechanisms -> evidence discipline -> local runtime. The mechanisms are the public artifact; evidence records and local result records are the accountability layer, not the product.
 
-Every map below is a generated projection of content-graph.json (the canonical object kernel); none of it is separately authored.
+## Navigate the maps without JavaScript
+
+This website is agent-navigable through ordinary HTTP GET requests. Start with the small indexes below; fetch the complete graph only when your question needs it. These are the same public records used by the visual maps, with source links and claim boundaries. Reading a record does not rerun its checks.
+
+- [Mathematics entry manifest](lean/experience/manifest.json): source identity, counts, authority model and routes. Resolve its route values relative to this manifest URL, not the host root.
+- [Mathematics overview graph](lean/experience/graph/index.json): compact selection of nodes and directed edges. For complete coverage follow the manifest's `routes.graph_full` to [the complete graph](lean/experience/graph.json). Join `edges[].source` and `edges[].target` to `nodes[].id`; `relation` names the direction. Follow each node's `source_github` and an edge's `href` when present to inspect the original evidence.
+- [Mathematics map contract and display data](maths/assets/universe-data.json): `contract[0]` documents coverage, deferred kinds, relation meanings and source hashes. Resolve its `source_artifacts` hrefs from `maths/`, the map page's directory, not from `maths/assets/`. Its compact edge triples index the `nodes` and `relations` arrays; use the experience graph above for named endpoints. A visual selection is `maths/universe.html#o=` followed by the percent-encoded stable node ID.
+- [System map graph](docs/architecture-graph-scene.json): join `scene.edges[].source` and `.target` to `scene.nodes[].id`. Use a node ID to look up `node_routes` and `adjacency`; use the node's `inspector_ref` to look up `scene.inspectors` (inspector keys have their own prefix). Resolve `node_routes[id].site_primary_reader_href` and `site_map_href` from the site root; the unprefixed reader/map hrefs are relative to `docs/`. Read `edge_semantics`, `membership` and inspector evidence before interpreting an edge. Group membership is not a dependency.
+- [Source and claim records](lean/claims.json): check the exact formulation, status and remaining obligations before describing a result. [Paper source manifest](papers/papers-source-manifest.json) binds hosted manuscripts to their public source editions.
+
+Research recipe: choose a problem in the manifest's `routes.problems`, locate its stable ID in the graph, follow a labelled outgoing or incoming edge, then cite the linked source and its recorded status. Prefer these indexes to downloading the complete AI packet for a single lookup.
+
+Relative links in this guide resolve from https://wcook04.github.io/plectis/. The [host directory](https://wcook04.github.io/llms.txt), [Atlas guide](https://wcook04.github.io/plectis-atlas/llms.txt) and [Zenith guide](https://wcook04.github.io/plectis-zenith/llms.txt) cover the other public sites.
+
+The software object inventory below is a generated projection of content-graph.json (the software object kernel). The mathematics graph has its own source manifest above.
 
 ## Earlier software: first local command
 

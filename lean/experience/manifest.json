@@ -92,8 +92,9 @@
     "palomar_release_receipt": "b6876a4a0207ddca8b498ea213784e4bc3ea7a01c3701355c9a1863bb9f29c3a"
   },
   "frontend_handoff": {
-    "status": "backend_complete_frontend_unimplemented",
+    "status": "implemented",
     "default_entry": "manifest.json",
+    "human_map": "../../maths/universe.html",
     "paper_math_preference": "exact TeX/MathJax with native MathML fallback artifact",
     "navigation_model": "universe -> problem -> result/module/paper/review overlay"
   },

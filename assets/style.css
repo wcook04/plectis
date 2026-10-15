@@ -8483,8 +8483,15 @@ html.vt-theme .theme-toggle__ico {
 }
 .home-result-plate__intuitive { font-size: clamp(1.06rem, 0.62rem + 0.62vw, 1.24rem); }
 .home-result-plate__technical { font-size: clamp(0.98rem, 0.68rem + 0.42vw, 1.1rem); line-height: 1.6; }
-.home-result-plate__technical > p { margin: 0; }
-.home-result-plate__technical > p + p { margin-top: 0.85em; }
+.home-result-plate__technical p { margin: 0; }
+.home-result-plate__technical p + p { margin-top: 0.85em; }
+.home-result-plate__lead, .home-result-plate__continuation { display: block; }
+.home-result-plate__continuation { margin-top: 0.85em; }
+.home-result-plate__hint { display: none; }
+.home-results.is-live .home-result-plate__hint {
+  display: block; margin-bottom: 0.8rem;
+  font-family: var(--font-sans); font-size: 0.85rem; color: var(--muted);
+}
 .home-results:not(.is-live) .home-result-plate__technical { margin-top: 0.85rem; }
 .home-results.is-live:not([data-results-mode="technical"]) .home-result-plate__technical,
 .home-results.is-live[data-results-mode="technical"] .home-result-plate__intuitive { display: none; }
@@ -8661,19 +8668,28 @@ html.vt-theme .theme-toggle__ico {
     display: grid; max-width: none;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-template-areas:
-      "problem  problem  problem  problem  problem  crux    crux    crux    crux    crux    crux    crux"
-      "headline headline headline headline headline crux    crux    crux    crux    crux    crux    crux"
-      "explain  explain  explain  explain  explain  crux    crux    crux    crux    crux    crux    crux"
+      "problem  problem  problem  problem  problem  diagram diagram diagram diagram diagram diagram diagram"
+      "explain  explain  explain  explain  explain  diagram diagram diagram diagram diagram diagram diagram"
+      "crux     crux     crux     crux     crux     crux    crux    crux    crux    crux    crux    crux"
       "openres  openres  openres  openres  openres  openres openres openres openres openres openres openres"
       "result   result   result   result   result   result  result  result  result  result  result  result";
-    grid-template-rows: auto auto 1fr auto auto;
+    grid-template-rows: auto 1fr auto auto auto;
     column-gap: var(--result-gutter);
   }
   .home-result-slide__problem { grid-area: problem; }
-  .home-result-slide__headline { grid-area: headline; align-self: start; margin: 0; max-width: 21ch; }
   .home-explainer { grid-area: explain; }
-  .home-explainer-crux { grid-area: crux; align-self: start; justify-self: end; width: min(100%, calc(60vh * 1.44)); max-width: none; }
-  .home-explainer-crux .home-explainer-plate { margin: 0; width: 100%; }
+  .home-explainer-crux { display: contents; }
+  .home-explainer-crux .home-explainer-plate {
+    grid-area: diagram; align-self: start; justify-self: end;
+    margin: 0; width: min(100%, calc(60vh * 1.44)); max-width: none;
+  }
+  .home-explainer-crux > .home-explainer__part--crux { grid-area: crux; margin-top: 0.75rem; }
+  .home-explainer__crux {
+    max-width: none; columns: 2; column-gap: var(--result-gutter);
+    font-size: 1.06rem;
+  }
+  .home-explainer__crux > p:not(:only-child) { break-inside: avoid; }
+  .home-explainer__part--crux .home-explainer__full-body { max-width: 78ch; }
   .home-result-slide__open-result { grid-area: openres; }
   .home-result-slide__result { grid-area: result; }
   
@@ -8699,6 +8715,28 @@ html.vt-theme .theme-toggle__ico {
   .home-result-plate__words { grid-area: words; margin-top: clamp(1.1rem, 2.2vw, 1.7rem); }
   .home-result-slide__more { grid-area: more; align-self: end; }
   .home-result-slide__theorem { grid-area: theorem; }
+  
+  .home-results.is-live .home-result-slide__result-body {
+    grid-template-areas:
+      "kicker kicker kicker kicker kicker plate plate plate plate plate plate plate"
+      "title title title title title plate plate plate plate plate plate plate"
+      "words words words words words plate plate plate plate plate plate plate"
+      "continuation continuation continuation continuation continuation continuation continuation continuation continuation continuation continuation continuation"
+      "replay replay replay replay replay replay replay replay replay replay replay replay"
+      "more more more more more more more more more more more more"
+      "theorem theorem theorem theorem theorem theorem theorem theorem theorem theorem theorem theorem";
+    grid-template-rows: auto auto 1fr auto auto auto auto;
+  }
+  .home-results.is-live .home-result-plate__words,
+  .home-results.is-live:not([data-results-mode="technical"]) .home-result-plate__intuitive,
+  .home-results.is-live[data-results-mode="technical"] .home-result-plate__technical { display: contents; }
+  .home-results.is-live .home-result-plate__lead { grid-area: words; margin-top: 1.1rem; }
+  .home-results.is-live .home-result-plate__continuation {
+    grid-area: continuation; columns: 2; column-gap: var(--result-gutter);
+    margin-top: 1.2rem; max-width: none;
+  }
+  .home-results.is-live .home-result-plate__continuation > * { break-inside: avoid; }
+  .home-results.is-live .home-result-plate__replay { grid-area: replay; justify-self: start; }
   .home-result-slide__theorem-body {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));

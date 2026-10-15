@@ -560,7 +560,7 @@ test('the key is one row in plain words, and every other mark is named behind it
   page.press(more);
   assert.equal(rows().length, 2);
   const all = page.textOf(page.keySlot);
-  ['Runs a real tool', 'One step for each rule its paper module cites', 'A rule’s card says it is enforced here', 'Rests on', 'Threatens',
+  ['Runs a real tool', 'One step for each rule its paper module cites', 'A rule’s description names it here', 'Rests on', 'Threatens',
    'Where a red line and an azure line cross, one passes over the other']
     .forEach(w => assert.match(all, new RegExp(w)));
   assert.equal(page.keySlot.querySelector('.sm-key__more').getAttribute('aria-expanded'), 'true');
@@ -659,7 +659,7 @@ test('a component lights its links, the rules its paper module cites and the axi
   assert.match(col, new RegExp('Listed as related · ' + others.size));
   assert.doesNotMatch(col, /Names · |Named by · /);
   assert.match(col, /Listed in a component’s own record, not read from the code\./);
-  assert.match(s.caption, /^Red lines to the components listed as related, azure lines to the rules its paper module cites\.$/);
+  assert.match(s.caption, /^Red lines to the components listed as related, blue lines to rules cited in its research notes\.$/);
 });
 
 /* ---- Code connections --------------------------------------------------------- */
@@ -716,7 +716,7 @@ test('typed code connections: each kind in its own texture, named in plain words
   assert.match(col, page.panel().querySelector('.sc__code') ? /Each is derived from the code; Code opens the file that makes it\./ :
     /Each connection is derived from the code\./);
   assert.doesNotMatch(col + page.map.snapshot().caption, /works with|Listed as related/);
-  assert.match(page.map.snapshot().caption, /^Red lines for its code connections, azure lines to the rules its paper module cites\.$/);
+  assert.match(page.map.snapshot().caption, /^Red lines for its code connections, blue lines to rules cited in its research notes\.$/);
   page.root.querySelectorAll('.sm-route').forEach(w => assert.match(w.getAttribute('class'), /sm-route--(?:runs|reads|checks)/));
   // Its lit lines are woven with the rule lines and the pieces at rest that
   // are not lit (a ribbon is one strand, its parting fibres one each).
@@ -726,8 +726,8 @@ test('typed code connections: each kind in its own texture, named in plain words
   // A component with none says so plainly.
   const none = compNodes(scene).map(n => n.id).find(x => !tally[x]);
   page.map.select(none);
-  assert.match(page.textOf(page.panel()), /No code connections\. Its code does not run, read or check another component, and no other component’s code runs, reads or checks it\./);
-  assert.match(page.map.snapshot().caption, /^No code connections to other components; azure lines to the rules its paper module cites\.$/);
+  assert.match(page.textOf(page.panel()), /No code connections\. Its code does not run another component, read another’s saved results or check another’s copied files\. No other component’s code does any of these to it\./);
+  assert.match(page.map.snapshot().caption, /^No code connections to other components; blue lines to rules cited in its research notes\.$/);
   assert.ok(c.links.length > 90, 'the published scene of named links is too many to show at rest');
 });
 
@@ -752,7 +752,7 @@ test('a component with no links says so, in the caption and the column', async (
   page.map.select(id);
   // The published scene's relations are the ones a record lists, so a
   // component with none says that, in those terms.
-  assert.match(page.map.snapshot().caption, /^Its record lists no related components; azure lines to the rules its paper module cites\.$/);
+  assert.match(page.map.snapshot().caption, /^Its record lists no related components; blue lines to rules cited in its research notes\.$/);
   assert.match(page.textOf(page.panel()), /Its record lists no related components\./);
   assert.equal(page.root.querySelectorAll('.sm-route').length, 0);
 });
@@ -769,7 +769,7 @@ test('the doctrine view lights every rule and every span, and sends no line to t
   assert.equal(page.root.querySelectorAll('.sm-rline').length, 0);
   assert.match(s.caption, /^Twelve axioms on a ring\. A rule tied to one axiom sits just outside it; a rule tied to several stands between them\.$/);
   const col = page.textOf(page.panel());
-  assert.match(col, /Each rule’s doctrine card names the components where it is enforced\./);
+  assert.match(col, /Each rule’s description names the components intended to enforce it\./);
 });
 
 test('a principle lights its axioms and a line out to every component whose paper module cites it; its card names where it is enforced', async () => {
@@ -790,12 +790,12 @@ test('a principle lights its axioms and a line out to every component whose pape
   const col = page.textOf(page.panel());
   assert.match(col, /What concentrate trust in small checkers asks, in plain words\./);
   assert.match(col, /Rests on/);
-  assert.match(col, /Enforced in/);
+  assert.match(col, /Named as enforcing in/);
   assert.match(col, new RegExp('Cited by the paper modules of ' + citing.length + ' of ' + compNodes(scene).length + ' components'));
-  const card = page.panel().querySelectorAll('a').find(a => /Read its doctrine card/.test(a.textContent));
+  const card = page.panel().querySelectorAll('a').find(a => /Read the rule’s description/.test(a.textContent));
   assert.equal(card.getAttribute('href'), 'docs/doctrine.html#dcard-p-3');
   assert.doesNotMatch(col, RULE_ID);
-  assert.match(page.textOf(page.keySlot), /Enforced here, by its card/);
+  assert.match(page.textOf(page.keySlot), /Named as enforcing here/);
 });
 
 test('an axiom lights everything tied to it; a failure mode lights its axioms and only the components its card names', async () => {
@@ -811,7 +811,7 @@ test('an axiom lights everything tied to it; a failure mode lights its axioms an
   const f = doctrine.anti_principles[3];
   assert.deepEqual(page.root.querySelectorAll('.sm-span.is-lit').map(spanKey).sort(), f.guards.map(a => 'AP-4>' + a).sort());
   assert.deepEqual(page.root.querySelectorAll('.sm-rline').map(w => w.getAttribute('data-to').slice(5)).sort(), f.enforced_in.slice().sort());
-  assert.match(page.map.snapshot().caption, /^Lit with the axioms it threatens and the components its card names as enforcing it\.$/);
+  assert.match(page.map.snapshot().caption, /^Highlighted with the axioms \(basic design assumptions\) it threatens and the components named in its description as enforcing it\.$/);
 });
 
 /* ---- Words ---------------------------------------------------------------------- */
@@ -1260,7 +1260,7 @@ test('a choice in the explorer: a compact head, its ways out by weight, then one
   assert.match(page.textOf(rules.querySelector('.sc__section-title')), new RegExp('^Rules its paper module cites · ' + cited + '$'));
   assert.equal(rules.querySelectorAll('.sc__list--rules .sc__item--rule').length, cited);
   assert.equal(rules.querySelectorAll('.sc__item').filter(b => !b.classList.contains('sc__item--rule')).length, 0, 'no component among the rules');
-  rules.querySelectorAll('.sc__held').forEach(t => assert.match(page.textOf(t), /^(Enforced here|Partly checked here)$/));
+  rules.querySelectorAll('.sc__held').forEach(t => assert.match(page.textOf(t), /^(Tested here|Partly tested here|Named as enforcing)$/));
   // In the manifest's order: its principles, then its axioms.
   const order = [...doctrine.principles, ...doctrine.axioms].map(r => r.id);
   const ids = rules.querySelectorAll('.sc__list--rules .sc__item--rule').map(ruleKey);
@@ -1448,14 +1448,14 @@ test('a rule’s evidence: enforced, partly checked and cited are three lists th
   page.map.select('doctrine:P-3');
   const pg = page.panel();
   const sections = pg.querySelectorAll('.sc__section').map(s => page.textOf(s.querySelector('.sc__section-title')));
-  assert.deepEqual(sections, ['Foundations and threats', 'Evidence in components', 'Citation reach'], 'meaning, ties, evidence, reach, in that order');
+  assert.deepEqual(sections, ['Foundations and threats', 'Tests for this rule', 'Citation reach'], 'meaning, ties, evidence, reach, in that order');
   const ties = pg.querySelector('.sc__section--ties');
   assert.match(page.textOf(ties), /Rests on · \d/);
   const ev = pg.querySelector('.sc__section--evidence');
   const block = label => ev.querySelectorAll('.sc__block').find(b => page.textOf(b.querySelector('.sc__label')).startsWith(label));
-  assert.deepEqual(block('Enforced in').querySelectorAll('.sc__item').map(keyOf), ['comp:' + full]);
-  assert.deepEqual(block('Partly checked in').querySelectorAll('.sc__item').map(keyOf), ['comp:' + part]);
-  ev.querySelectorAll('.sc__code').forEach(a => { assert.equal(a.textContent, 'Evidence record'); assert.match(a.getAttribute('href'), /#evidence$/); });
+  assert.deepEqual(block('Tested in').querySelectorAll('.sc__item').map(keyOf), ['comp:' + full]);
+  assert.deepEqual(block('Partly tested in').querySelectorAll('.sc__item').map(keyOf), ['comp:' + part]);
+  ev.querySelectorAll('.sc__code').forEach(a => { assert.equal(a.textContent, 'Test method and limits'); assert.match(a.getAttribute('href'), /#evidence$/); });
   const reach = pg.querySelector('.sc__section--reach');
   assert.match(page.textOf(reach), new RegExp('Cited by the paper modules of ' + citers.length + ' of ' + compNodes(scene).length + ' components'));
   assert.doesNotMatch(page.textOf(pg), /cited only|cited-only|without a test: \d/i, 'no count read off the others');
@@ -1467,17 +1467,17 @@ test('a rule’s evidence: enforced, partly checked and cited are three lists th
     const t = row && row.querySelector('.sc__held');
     return t ? t.textContent : null;
   };
-  assert.equal(held(full), 'Enforced here');
-  assert.equal(held(part), 'Partly checked here');
+  assert.equal(held(full), 'Tested here');
+  assert.equal(held(part), 'Partly tested here');
   assert.equal(held(other), null, 'citing it is no mark of a check');
   // And the drawing says the same when the rule is pointed at in a component's view.
   page.map.select(other);
   const rp = showView(page, 'rules');
   rp.querySelectorAll('.sc__item--rule').find(b => ruleKey(b) === 'P-3').fire('pointerenter');
-  assert.match(page.root.querySelector('.sm-readout').textContent, /Its paper module cites this rule\. No test marks it here\./);
+  assert.match(page.root.querySelector('.sm-readout').textContent, /Its paper module cites this rule\. No test of this rule is listed here\./);
   page.map.select(full);
   showView(page, 'rules').querySelectorAll('.sc__item--rule').find(b => ruleKey(b) === 'P-3').fire('pointerenter');
-  assert.match(page.root.querySelector('.sm-readout').textContent, /Its paper module cites this rule\. Enforced here: a test shows the rule’s core requirement in this component\./);
+  assert.match(page.root.querySelector('.sm-readout').textContent, /Its paper module cites this rule\. Tested here: a test demonstrates the rule’s core requirement for this component\./);
 });
 
 test('the explorer’s panel folds away from a control of its own in the stage', async () => {
@@ -1775,17 +1775,17 @@ test('enforcement from tests: a strong frame where a test shows the rule, an ope
   const lines = page.root.querySelectorAll('.sm-rline').map(w => w.getAttribute('data-to').slice(5));
   assert.deepEqual(lines.sort(), [...new Set([...citing, full, part])].sort(), 'a name only on the card is never drawn');
   const col = page.textOf(page.panel());
-  assert.match(col, /Enforced in · 1/);
-  assert.match(col, /Partly checked in · 1/);
-  assert.match(col, /Named in its doctrine card, not yet demonstrated by a test · 1/);
+  assert.match(col, /Tested in · 1/);
+  assert.match(col, /Partly tested in · 1/);
+  assert.match(col, /Named in the rule’s description, not yet demonstrated by a test · 1/);
   const key = page.textOf(page.keySlot);
-  assert.match(key, /Enforced here/);
-  assert.match(key, /Partly checked here/);
+  assert.match(key, /Tested here/);
+  assert.match(key, /Partly tested here/);
   assert.doesNotMatch(key, /by its card/);
   page.map.select(card);
-  assert.doesNotMatch(page.textOf(page.panel()), /Enforced here|Partly checked here|Named in its doctrine card/, 'the card’s name is listed only with the rule');
+  assert.doesNotMatch(page.textOf(page.panel()), /Tested here|Partly tested here|Named in the rule’s description/, 'the description’s name is listed only with the rule');
   page.map.select('doctrine');
-  assert.match(page.textOf(page.panel()), /A rule is marked enforced in a component only where a test shows it\./);
+  assert.match(page.textOf(page.panel()), /A test marker means a test demonstrates the rule for that component\./);
 });
 
 /* ---- The column fits ----------------------------------------------------------------- */
@@ -1929,8 +1929,8 @@ test('a component with no code connection says so plainly; each code connection 
   const page = await mount({ scene, doctrine: doctrineFor(scene) });
   const lone = compNodes(scene).map(n => n.id).find(id => !edges.some(e => e.source === id || e.target === id));
   page.map.select(lone);
-  assert.match(page.map.snapshot().caption, /^No code connections to other components; azure lines to the rules its paper module cites\.$/);
-  assert.match(page.textOf(page.panel()), /No code connections\. Its code does not run, read or check another component, and no other component’s code runs, reads or checks it\./);
+  assert.match(page.map.snapshot().caption, /^No code connections to other components; blue lines to rules cited in its research notes\.$/);
+  assert.match(page.textOf(page.panel()), /No code connections\. Its code does not run another component, read another’s saved results or check another’s copied files\. No other component’s code does any of these to it\./);
   const fan = widestFan(scene);
   page.map.select(fan.hub);
   const links = page.panel().querySelectorAll('.sc__code');

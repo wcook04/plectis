@@ -149,10 +149,10 @@
       }
       if (t && t.results) {
         var line = '<span class="uc-mark uc-mark--replayed" aria-hidden="true"></span>' +
-          esc(t.replayed + ' of ' + count(t.results, 'result') + ' in its papers replayed by Comparator');
+          esc(t.replayed + ' of ' + count(t.results, 'result') + ' in its papers with recorded proof-comparison tests');
         var rest = [];
-        if (t.lean) rest.push(t.lean + ' exact in Lean with no replay recorded');
-        if (t.modulo) rest.push(t.modulo + ' in Lean under named inputs');
+        if (t.lean) rest.push(t.lean + ' stated in Lean without a recorded comparison test');
+        if (t.modulo) rest.push(t.modulo + ' stated in Lean with additional assumptions');
         if (t.none) rest.push(count(t.none, 'without a Lean statement', 'without a Lean statement'));
         if (rest.length) line += esc('; ' + rest.join(', '));
         parts.push('<span class="uc__tally-line">' + line + '.</span>');
@@ -189,14 +189,14 @@
     }
 
     function leanSentence(s) {
-      var how = s.lean_status === 'exact_or_stronger' ? 'Lean states it or something stronger' : 'Lean states it exactly';
-      if (s.tier === 'replayed') return how + ', and Comparator has replayed it.';
+      var how = s.lean_status === 'exact_or_stronger' ? 'The Lean proof files state this result or a stronger result' : 'The Lean proof files state this exact result';
+      if (s.tier === 'replayed') return how + ', and Comparator has tested its proof against a separately supplied theorem statement.';
       if (s.tier === 'lean') {
         return how + (s.comparator_status === 'pending' && s.comparator_queued_at
-          ? '; its Comparator replay is queued since ' + s.comparator_queued_at + '.'
-          : '; no Comparator replay is recorded for this paper result.');
+          ? '; its proof-comparison test is queued since ' + s.comparator_queued_at + '.'
+          : '; no test of its proof against a separate statement is recorded.');
       }
-      if (s.tier === 'modulo') return 'Lean states it under named inputs.';
+      if (s.tier === 'modulo') return 'The Lean statement requires additional assumptions that this proof does not establish.';
       return 'No Lean statement is recorded for it yet.';
     }
 

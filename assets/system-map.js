@@ -42,7 +42,7 @@
    results another saved, or checks the files copied from another), each in
    its own texture; an older scene's red lines are the relations a
    component's own record lists, and say so. An azure line is a citation by
-   a component's paper module. "Enforced in" is where a test shows a rule
+   a component's paper module. "Tested in" is where a test shows a rule
    holding (until that manifest exists, what the rule's card names). No line
    ever stands for anything else.
 
@@ -2397,8 +2397,8 @@
       return null;
     }
     function openWords(key) {
-      if (key === 'doctrine') return 'Click again to open the doctrine';
-      if (key.indexOf('rule:') === 0) return 'Click again to read its card';
+      if (key === 'doctrine') return 'Click again to read the system’s rules';
+      if (key.indexOf('rule:') === 0) return 'Click again to read the rule’s description';
       if (key.indexOf('fam:') === 0) return 'Click again to open the family’s page';
       return 'Click again to open its page';
     }
@@ -3399,8 +3399,8 @@
     // there by a test, a narrower part of it checked there by a test. The
     // three never stand for one another.
     var HELD_WORDS = {
-      full: 'Enforced here: a test shows the rule’s core requirement in this component.',
-      part: 'Partly checked here: a test shows a narrower part of the rule in this component.'
+      full: 'Tested here: a test demonstrates the rule’s core requirement for this component.',
+      part: 'Partly tested here: a test demonstrates part of the rule for this component.'
     };
     function heldIn(ci, id) {
       var info = D && D.comp[ci];
@@ -3438,9 +3438,9 @@
       }
       if (at.level === 'component') {
         var c = model.comps[at.comp];
-        var rules = D ? ', azure lines to the rules its paper module cites.' : '.';
+        var rules = D ? ', blue lines to rules cited in its research notes.' : '.';
         if (!c.out.length && !c.inc.length) return [c.label, (onlyNamed() ? 'its record lists no related components' : 'no code connections to other components') +
-          (D ? '; azure lines to the rules its paper module cites.' : '.')];
+          (D ? '; blue lines to rules cited in its research notes.' : '.')];
         if (onlyNamed()) return [c.label, 'red lines to the components listed as related' + rules];
         return [c.label, 'red lines for its code connections' + rules];
       }
@@ -3449,10 +3449,10 @@
       }
       if (at.level === 'rule') {
         var r = D.rules[at.rule];
-        if (r.kind === 'failure') return [r.title, 'lit with the axioms it threatens and the components ' + (D.enforcedBy === 'tests' ?
-          'where a test shows it enforced' + (r.partly.length ? ' or checks part of it' : '') + '.' : 'its card names as enforcing it.')];
-        var into = r.kind === 'axiom' ? 'the principles and failure modes tied to it' : 'the axioms it rests on';
-        return [r.title, 'lit with ' + into + ', and azure lines out to the components whose paper modules cite it.'];
+        if (r.kind === 'failure') return [r.title, 'highlighted with the axioms (basic design assumptions) it threatens and the components ' + (D.enforcedBy === 'tests' ?
+          'with a listed test for this failure mode' + (r.partly.length ? ', including tests of only part of it' : '') + '.' : 'named in its description as enforcing it.')];
+        var into = r.kind === 'axiom' ? 'the principles based on it and the failure modes that threaten it' : 'the axioms (basic design assumptions) it rests on';
+        return [r.title, 'highlighted with ' + into + '. Blue lines connect to software components whose research notes cite it. A citation alone does not show that code enforces it.'];
       }
       var none = unconnected();
       return [null, n + ' components round the rim in ' + numberWord(model.families.length) + ' families' +
@@ -3526,8 +3526,8 @@
         if (at.level === 'doctrine') items.push({ line: 'span', text: 'Rests on' }, { line: 'threat', text: 'Threatens' });
         if (at.level === 'rule') {
           var r = D.rules[at.rule];
-          if (r.enforced.length) items.push({ reticle: 'full', text: byTests() ? 'Enforced here' : 'Enforced here, by its card' });
-          if (r.partly.length) items.push({ reticle: 'part', text: 'Partly checked here' });
+          if (r.enforced.length) items.push({ reticle: 'full', text: byTests() ? 'Tested here' : 'Named as enforcing here' });
+          if (r.partly.length) items.push({ reticle: 'part', text: 'Partly tested here' });
         }
       }
       // The explorer's key on the stage is this one row; every other mark is
@@ -3560,8 +3560,8 @@
       if (D) {
         var full = D.comp.some(function (info) { return info.enforces.length > 0; }), part = D.comp.some(function (info) { return info.partly.length > 0; });
         rest.appendChild(keyItem({ bar: true, text: 'One step for each rule its paper module cites' }));
-        if (full) rest.appendChild(keyItem({ cap: 'full', text: byTests() ? 'A test shows a rule enforced here' : 'A rule’s card says it is enforced here' }));
-        if (part) rest.appendChild(keyItem({ cap: 'part', text: 'A test checks part of a rule here' }));
+        if (full) rest.appendChild(keyItem({ cap: 'full', text: byTests() ? 'A test demonstrates a rule here' : 'A rule’s description names it here' }));
+        if (part) rest.appendChild(keyItem({ cap: 'part', text: 'A test demonstrates part of a rule here' }));
         rest.appendChild(keyItem({ line: 'span', text: 'Rests on' }));
         rest.appendChild(keyItem({ line: 'threat', text: 'Threatens' }));
         rest.appendChild(keyItem({ weave: true, text: 'Where a red line and an azure line cross, one passes over the other' }));
@@ -3590,8 +3590,8 @@
         all.push({ doctrine: 'axiom', text: 'Axiom' }, { doctrine: 'principle', text: 'Principle' }, { doctrine: 'failure', text: 'Failure mode' });
         all.push({ line: 'span', text: 'Rests on' }, { line: 'threat', text: 'Threatens' });
         all.push({ bar: true, text: 'One step for each rule its paper module cites' });
-        if (full) all.push({ cap: 'full', text: byTests() ? 'A test shows a rule enforced here' : 'A rule’s card says it is enforced here' });
-        if (part) all.push({ cap: 'part', text: 'A test checks part of a rule here' });
+        if (full) all.push({ cap: 'full', text: byTests() ? 'A test demonstrates a rule here' : 'A rule’s description names it here' });
+        if (part) all.push({ cap: 'part', text: 'A test demonstrates part of a rule here' });
         all.push({ weave: true, text: 'Where a red line and an azure line cross, one passes over the other' });
       }
       all.forEach(function (it) { list.appendChild(keyItem(it)); });
@@ -5931,8 +5931,8 @@
       if (ci2 < 0 || !id || !D.rules[id]) return null;
       var words = [], held = heldIn(ci2, id), r = D.rules[id];
       if (r.kind !== 'failure') words.push(citesRule(ci2, id) ? 'Its paper module cites this rule.' : 'Its paper module does not cite this rule.');
-      if (held) words.push(HELD_WORDS[held]);
-      else if (r.kind !== 'failure' && D.enforcedBy === 'tests') words.push('No test marks it here.');
+      if (held) words.push(byTests() ? HELD_WORDS[held] : 'The rule’s description names this component as enforcing it.');
+      else if (r.kind !== 'failure' && D.enforcedBy === 'tests') words.push('No test of this rule is listed here.');
       return words.join(' ');
     }
     function tipText(key, rel) {
@@ -6123,7 +6123,7 @@
         // Where a test shows the rule holding here: a small frame at the
         // row's end, solid where it is enforced, broken where a part of it
         // is checked, as the map frames its glyph.
-        if (opts.held) b.appendChild(h('span', 'sc__held sc__held--' + opts.held, opts.held === 'full' ? 'Enforced here' : 'Partly checked here'));
+        if (opts.held) b.appendChild(h('span', 'sc__held sc__held--' + opts.held, opts.held === 'full' ? (byTests() ? 'Tested here' : 'Named as enforcing') : 'Partly tested here'));
         b.addEventListener('click', function (e) { onPress(e); });
         b.addEventListener('pointerenter', function () { pulse(key, opts.rel); });
         b.addEventListener('pointerleave', function () { unpulse(key); });
@@ -6498,6 +6498,7 @@
         ]);
         if (act) node.appendChild(act);
         var flow = scroller(node);
+        if (c.reader || info) flow.appendChild(line('sc__note', 'A paper module contains a component’s research notes: what it does, why it exists and which rules it cites.'));
         var groups = relationGroups(ci), total = 0;
         groups.forEach(function (g) { total += g.rels.length; });
         var cited = citedOf(info), source = lowerFirst(info && info.source || 'paper module');
@@ -6521,8 +6522,8 @@
           groups.map(function (g) { return RELATION_WORDS[g.kind][g.dir] + ' ' + countFigure(g.rels.length, 'component', 'components'); }));
         if (info) {
           sumRow('rules', capital(countFigure(cited.length, 'rule', 'rules')) + ' its ' + source + ' cites', [
-            info.enforces.length ? 'Enforced here by a test: ' + countFigure(info.enforces.length, 'rule', 'rules') : null,
-            info.partly.length ? 'Partly checked here by a test: ' + countFigure(info.partly.length, 'rule', 'rules') : null
+            info.enforces.length ? (byTests() ? 'Core requirement tested: ' : 'Named as enforcing: ') + countFigure(info.enforces.length, 'rule', 'rules') : null,
+            info.partly.length ? 'Part of requirement tested: ' + countFigure(info.partly.length, 'rule', 'rules') : null
           ]);
         }
         ov.appendChild(sum);
@@ -6602,7 +6603,7 @@
         if (info) {
           var rp = strip.panels.rules, rrows = [];
           rp.appendChild(h('h3', 'sc__section-title sc__rules-title', 'Rules its ' + source + ' cites' + (cited.length ? ' · ' + cited.length : '')));
-          if (cited.length) rp.appendChild(line('sc__onmap', 'On the map: an azure line to each. A frame round a rule’s mark is a test showing it here: four corners where it is enforced, two where a part of it is checked.'));
+          if (cited.length) rp.appendChild(line('sc__onmap', byTests() ? 'Blue lines connect this component to the rules its article cites. Four corners around a rule mark a test of its core requirement; two corners mark a test of part of the requirement.' : 'Blue lines connect this component to the rules its article cites. A frame marks a component named in the rule’s description.'));
           var rf = cited.length >= 10 ? finder('Filter these rules', selKey + '|rules', function (q) {
             var shown = 0;
             rrows.forEach(function (r) { var on = !q || findText(D.rules[r.id].title).indexOf(q) >= 0; r.li.hidden = !on; if (on) shown++; });
@@ -6621,7 +6622,7 @@
             blk.appendChild(ul2);
             rp.appendChild(blk);
           } else rp.appendChild(line('sc__note', 'Its ' + source + ' cites no rule.'));
-          [['enforces', 'Also enforced here'], ['partly', 'Also partly checked here']].forEach(function (pair) {
+          [['enforces', byTests() ? 'Also tested here' : 'Also named as enforcing'], ['partly', 'Also partly tested here']].forEach(function (pair) {
             var extra = info[pair[0]].filter(function (id) { return cited.indexOf(id) < 0; });
             if (extra.length) rp.appendChild(list(pair[1], inListed(extra).map(function (id) {
               return ruleItem(id, KIND_WORDS[D.rules[id].kind]);
@@ -6632,15 +6633,15 @@
             var note = h('div', 'sc__heldnote');
             if (info.enforces.length) note.appendChild(line('sc__note', HELD_WORDS.full));
             if (info.partly.length) note.appendChild(line('sc__note', HELD_WORDS.part));
-            note.appendChild(line('sc__note', held ? 'A citation is what its ' + source + ' refers to; only a test marks a rule enforced or partly checked here.' :
-              'No test marks any rule here. A citation is what its ' + source + ' refers to.'));
+            note.appendChild(line('sc__note', held ? 'A citation is what its ' + source + ' refers to; a test marker means the requirement was demonstrated for this component.' :
+              'No test of a rule is listed here. A citation is what its ' + source + ' refers to.'));
             if (held && c.page) {
               var rec = h('p', 'sc__note sc__note--go');
-              rec.appendChild(goLink(c.page.replace(/#.*$/, '') + '#evidence', 'Its evidence record', 'quiet'));
+              rec.appendChild(goLink(c.page.replace(/#.*$/, '') + '#evidence', 'Its test method and limits', 'quiet'));
               note.appendChild(rec);
             }
             rp.appendChild(note);
-          } else rp.appendChild(line('sc__note', 'Where a rule is enforced is what its doctrine card names.'));
+          } else rp.appendChild(line('sc__note', 'The rule’s description names the components intended to enforce it.'));
           if (rf) rf.run();
         }
         renarrow(ci);
@@ -6699,7 +6700,7 @@
         how.appendChild(sum);
         how.appendChild(line('sc__body', capital(countWords(D.axioms.length, 'axiom', 'axioms')) + ' stand on a ring at the centre. A rule tied to one axiom sits just outside it; a rule tied to several stands on the ring between them. ' +
           'A fine line joins a principle to each axiom it rests on, and a dotted line joins a failure mode to each axiom it threatens. The components round the rim stay as they are.'));
-        how.appendChild(line('sc__body', byTests() ? 'A rule is marked enforced in a component only where a test shows it.' : 'Each rule’s doctrine card names the components where it is enforced.'));
+        how.appendChild(line('sc__body', byTests() ? 'A test marker means a test demonstrates the rule for that component.' : 'Each rule’s description names the components intended to enforce it.'));
         flow.appendChild(how);
         f.run();
         return node;
@@ -6712,9 +6713,9 @@
         var li = compItem(ci, null), c = model.comps[ci];
         if (c.page) {
           if (li.classList) li.classList.add('sc__li--code');
-          var a = h('a', 'sc__code', 'Evidence record');
+          var a = h('a', 'sc__code', 'Test method and limits');
           a.setAttribute('href', c.page.replace(/#.*$/, '') + '#evidence');
-          a.setAttribute('aria-label', 'Evidence record of ' + c.label);
+          a.setAttribute('aria-label', 'Test method and limits of ' + c.label);
           li.appendChild(a);
         }
         return li;
@@ -6782,7 +6783,7 @@
         headEl.appendChild(titleOf(r.title));
         if (r.plain) headEl.appendChild(line('sc__lede', r.plain));
         node.appendChild(headEl);
-        var act = actions([r.doctrine ? goLink(r.doctrine, 'Read its doctrine card', true) : null]);
+        var act = actions([r.doctrine ? goLink(r.doctrine, 'Read the rule’s description', true) : null]);
         if (act) node.appendChild(act);
         var flow = scroller(node);
         onMap(flow);
@@ -6798,15 +6799,15 @@
           if (r.negates.length) ties.appendChild(list('Principles', inListed(r.negates).map(function (x) { return ruleItem(x); }), null));
         }
         flow.appendChild(ties);
-        var ev = partOf('evidence', 'Evidence in components');
+        var ev = partOf('evidence', byTests() ? 'Tests for this rule' : 'Components named for this rule');
         if (byTests()) {
-          if (r.enforced.length) ev.appendChild(list('Enforced in', byFamily(r.enforced).map(evidenceRow), null));
-          if (r.partly.length) ev.appendChild(list('Partly checked in', byFamily(r.partly).map(evidenceRow), null));
-          if (!r.enforced.length && !r.partly.length) ev.appendChild(line('sc__note', 'No test marks this rule in any component.'));
-          else ev.appendChild(line('sc__note', 'Enforced: a test shows the rule’s core requirement in that component. Partly checked: a test shows a narrower part of it there. Each mark holds for that component alone.'));
-        } else if (r.enforced.length) ev.appendChild(list('Enforced in, by its card', byFamily(r.enforced).map(function (x) { return compItem(x); }), null));
+          if (r.enforced.length) ev.appendChild(list('Tested in', byFamily(r.enforced).map(evidenceRow), null));
+          if (r.partly.length) ev.appendChild(list('Partly tested in', byFamily(r.partly).map(evidenceRow), null));
+          if (!r.enforced.length && !r.partly.length) ev.appendChild(line('sc__note', 'No component has a listed test for this rule.'));
+          else ev.appendChild(line('sc__note', 'Tested: a test demonstrates the rule’s core requirement for that component. Partly tested: it demonstrates part of the requirement. Each marker applies only to the named component and the conditions of its test.'));
+        } else if (r.enforced.length) ev.appendChild(list('Named as enforcing in', byFamily(r.enforced).map(function (x) { return compItem(x); }), null));
         if (r.namedOnly.length) {
-          var quiet = list('Named in its doctrine card, not yet demonstrated by a test', byFamily(r.namedOnly).map(function (x) { return compItem(x); }), null);
+          var quiet = list('Named in the rule’s description, not yet demonstrated by a test', byFamily(r.namedOnly).map(function (x) { return compItem(x); }), null);
           if (quiet.classList) quiet.classList.add('sc__block--quiet');
           ev.appendChild(quiet);
         }
@@ -6814,7 +6815,7 @@
         if (r.kind !== 'failure') {
           var reach = partOf('reach', 'Citation reach');
           reach.appendChild(citeReach(id));
-          reach.appendChild(line('sc__note', 'A citation is what a paper module refers to; it carries no test.'));
+          reach.appendChild(line('sc__note', 'A paper module contains a component’s research notes. Citing a rule in those notes does not establish that the code enforces it.'));
           flow.appendChild(reach);
         }
         return node;
@@ -6849,6 +6850,7 @@
         ]);
         if (act) node.appendChild(act);
         var sc = scroller(node);
+        if (c.reader || info) sc.appendChild(line('sc__note', 'A paper module contains a component’s research notes: what it does, why it exists and which rules it cites.'));
         if (info) {
           var held = function (id) { return info.enforces.indexOf(id) >= 0 ? 'full' : info.partly.indexOf(id) >= 0 ? 'part' : null; };
           var noted = function (ids) { return ids.some(function (id) { return !!held(id); }); };
@@ -6860,7 +6862,7 @@
             'cites:' + ci, undefined, !noted(cited) && shortNames(cited)));
           // Rules shown holding here that its paper module does not cite (the
           // failure modes it guards against, for the most part).
-          [['enforces', 'Enforced here'], ['partly', 'Partly checked here']].forEach(function (pair) {
+          [['enforces', byTests() ? 'Tested here' : 'Named as enforcing'], ['partly', 'Partly tested here']].forEach(function (pair) {
             var extra = info[pair[0]].filter(function (id) {
               var r = D.rules[id];
               return r.kind === 'failure' || (r.kind === 'principle' && info.gov.indexOf(id) < 0) || (r.kind === 'axiom' && info.abide.indexOf(id) < 0);
@@ -6887,7 +6889,7 @@
         });
         if (others.length) sc.appendChild(list('Code connections', byFamily(others).map(function (x) { return codeItem(ci, x, ways[x].join(' · ')); }), 'code:' + ci));
         if (!c.out.length && !c.inc.length) sc.appendChild(line('sc__note', onlyNamed() ? 'Its record lists no related components.' :
-          'No code connections. Its code does not run, read or check another component, and no other component’s code runs, reads or checks it.'));
+          'No code connections. Its code does not run another component, read another’s saved results or check another’s copied files. No other component’s code does any of these to it.'));
         else sc.appendChild(line('sc__note', linkNote()));
         return node;
       }
@@ -6899,8 +6901,8 @@
         headEl.appendChild(titleOf('The doctrine'));
         headEl.appendChild(line('sc__lede', 'The rules the system is built on. A principle rests on axioms and a failure mode threatens them. ' +
           'Tied to one axiom, it sits just outside it; tied to several, it stands on the ring between them. ' +
-          (D.enforcedBy === 'tests' ? 'A rule is marked enforced in a component only where a test shows it.' :
-            'Each rule’s doctrine card names the components where it is enforced.')));
+          (D.enforcedBy === 'tests' ? 'A test marker means a test demonstrates the rule for that component.' :
+            'Each rule’s description names the components intended to enforce it.')));
         node.appendChild(headEl);
         var sc = scroller(node);
         sc.appendChild(list('Axioms', ordered(D.axioms, D.axioms).map(function (id) { return ruleItem(id); }), 'all:axioms', undefined, shortNames(D.axioms)));
@@ -6917,7 +6919,7 @@
         headEl.appendChild(titleOf(r.title));
         if (r.plain) headEl.appendChild(line('sc__lede', r.plain));
         node.appendChild(headEl);
-        var act = actions([r.doctrine ? goLink(r.doctrine, 'Read its doctrine card', true) : null]);
+        var act = actions([r.doctrine ? goLink(r.doctrine, 'Read the rule’s description', true) : null]);
         if (act) node.appendChild(act);
         var sc = scroller(node);
         onMap(sc);
@@ -6931,12 +6933,12 @@
           if (r.guards.length) sc.appendChild(list('Threatens these axioms', ordered(r.guards, D.axioms).map(function (x) { return ruleItem(x); }), null, undefined, shortNames(r.guards)));
           if (r.negates.length) sc.appendChild(list('Threatens these principles', ordered(r.negates, D.principles).map(function (x) { return ruleItem(x); }), 'neg:' + id));
         }
-        if (r.enforced.length) sc.appendChild(list('Enforced in', byFamily(r.enforced).map(function (x) { return compItem(x); }), 'enf:' + id));
-        if (r.partly.length) sc.appendChild(list('Partly checked in', byFamily(r.partly).map(function (x) { return compItem(x); }), 'part:' + id));
+        if (r.enforced.length) sc.appendChild(list(byTests() ? 'Tested in' : 'Named as enforcing in', byFamily(r.enforced).map(function (x) { return compItem(x); }), 'enf:' + id));
+        if (r.partly.length) sc.appendChild(list('Partly tested in', byFamily(r.partly).map(function (x) { return compItem(x); }), 'part:' + id));
         // What the card names that no test shows yet: listed quietly, here
         // only, and never drawn in the map.
         if (r.namedOnly.length) {
-          var quiet = list('Named in its doctrine card, not yet demonstrated by a test', byFamily(r.namedOnly).map(function (x) { return compItem(x); }), 'card:' + id);
+          var quiet = list('Named in the rule’s description, not yet demonstrated by a test', byFamily(r.namedOnly).map(function (x) { return compItem(x); }), 'card:' + id);
           if (quiet.classList) quiet.classList.add('sc__block--quiet');
           sc.appendChild(quiet);
         }
@@ -6982,6 +6984,7 @@
             groups.appendChild(li);
           });
           if (!folded) wrap.appendChild(groups);
+          wrap.appendChild(line('sc__note', 'A paper module contains a component’s research notes. Citing a rule in those notes does not establish that the code enforces it.'));
           sc.appendChild(wrap);
         }
         return node;

@@ -102,28 +102,28 @@
      (ring); no Lean statement (faint ring). */
   var EVIDENCE_ORDER = ['replayed', 'lean', 'modulo', 'none'];
   var EVIDENCE_TEXT = {
-    replayed: 'replayed by Comparator',
-    lean: 'exact Lean, replay not recorded',
-    modulo: 'Lean modulo named inputs',
+    replayed: 'proof tested against a separate statement',
+    lean: 'stated in Lean; separate comparison not recorded',
+    modulo: 'stated in Lean with additional assumptions',
     none: 'no Lean statement'
   };
   /* Card rows read "Lean: states it exactly", "Comparator: replayed". */
   var LEAN_STATUS_TEXT = {
     exact: 'states it exactly',
     exact_or_stronger: 'states it or something stronger',
-    modulo_named_input: 'states it under named inputs',
+    modulo_named_input: 'states it with additional assumptions',
     none: 'no statement recorded'
   };
   var COMPARATOR_STATUS_TEXT = {
-    compared: 'replayed',
-    pending: 'replay pending',
-    not_applicable: 'nothing to replay without an exact Lean statement'
+    compared: 'proof accepted against the separate statement',
+    pending: 'statement-comparison test pending',
+    not_applicable: 'no exact Lean statement available for comparison'
   };
   function comparatorReplayText(node) {
     if (node.comparator_status === 'pending' && node.comparator_queued_at) {
-      return 'Its replay is queued since ' + node.comparator_queued_at + '.';
+      return 'A test of the proof against a separate statement has been queued since ' + node.comparator_queued_at + '.';
     }
-    return 'No Comparator replay is recorded for this paper result.';
+    return 'No Comparator test of the proof against a separate statement is recorded for this paper result.';
   }
   function evidenceOf(node) {
     var lean = node.lean_status || 'none';
@@ -4425,8 +4425,8 @@
       });
       return '<p class="universe-summary">' + fmtCount(s.statements) + ' results from ' + countWords(paperCount) +
         ' papers on ' + countWords(problems) + ' problems. Lean states ' + fmtCount(s.lean_exact) +
-        ' of them exactly, in ' + fmtCount(s.lean_declarations) + ' declarations, and Comparator has replayed ' +
-        fmtCount((s.comparator || {}).compared || 0) + '.</p>';
+        ' of them exactly, in ' + fmtCount(s.lean_declarations) + ' named definitions or theorems. Comparator has tested proofs against separate statements for ' +
+        fmtCount((s.comparator || {}).compared || 0) + ' results.</p>';
     }
     var COUNT_WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
       'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
@@ -4447,9 +4447,9 @@
     function tallySentence(t) {
       if (!t.total) return 'None of its results is shown with these filters.';
       var parts = [(t.replayed === t.total ? (t.total === 1 ? 'Its one result is' : 'All ' + t.total + ' of its results are') :
-        t.replayed + ' of its ' + t.total + ' results ' + (t.replayed === 1 ? 'is' : 'are')) + ' replayed by Comparator'];
-      if (t.lean) parts.push(t.lean + ' more ' + (t.lean === 1 ? 'is' : 'are') + ' exact in Lean with no replay recorded');
-      if (t.modulo) parts.push(t.modulo + ' ' + (t.modulo === 1 ? 'is' : 'are') + ' stated in Lean under named inputs');
+        t.replayed + ' of its ' + t.total + ' results ' + (t.replayed === 1 ? 'is' : 'are')) + ' tested against separate statements by Comparator'];
+      if (t.lean) parts.push(t.lean + ' more ' + (t.lean === 1 ? 'is' : 'are') + ' stated in Lean without a recorded comparison test');
+      if (t.modulo) parts.push(t.modulo + ' ' + (t.modulo === 1 ? 'is' : 'are') + ' stated in Lean with additional assumptions');
       if (t.none) parts.push(t.none + ' ' + (t.none === 1 ? 'has' : 'have') + ' no Lean statement yet');
       return parts.join('; ') + '.';
     }
@@ -4486,7 +4486,7 @@
       });
       return '<p class="universe-scope-line"><span class="universe-scope-line__lead">' + fmtCount(problems) + ' problems, ' +
         fmtCount(paperCount) + ' problem papers</span><span class="universe-scope-line__totals">' + fmtCount(s.statements) +
-        ' paper results, ' + fmtCount((s.comparator || {}).compared || 0) + ' replayed by Comparator.</span>' +
+        ' paper results, ' + fmtCount((s.comparator || {}).compared || 0) + ' with recorded proof-comparison tests.</span>' +
         (explorerRoot ? '<button type="button" class="universe-scope-line__go" data-universe-view-go="about" data-universe-view-at="evidence">The evidence in full</button>' : '') +
         '</p>';
     }
@@ -4542,7 +4542,7 @@
       var s = statementMeta && statementMeta.summary;
       if (s) {
         parts.push('<p class="universe-inspector__note">' + fmtCount(s.lean_declarations) +
-          ' Lean declarations in ' + fmtCount(s.lean_files) + ' files state these results. Source: the ' +
+          ' named Lean theorems or definitions in ' + fmtCount(s.lean_files) + ' files state these results. Source: the ' +
           (statementMeta.ledger ? '<a href="' + escapeHtml(statementMeta.ledger) + '" data-link-kind="exogenous" rel="external noopener" target="_blank">coverage ledger</a>' : 'coverage ledger') +
           '.</p>');
       }
@@ -5017,10 +5017,10 @@
       var how = n.lean_status === 'exact_or_stronger' ? 'Lean states it or something stronger' : 'Lean states it exactly';
       var text;
       if (n.lean_status === 'exact' || n.lean_status === 'exact_or_stronger') {
-        text = n.comparator_status === 'compared' ? how + ', and Comparator has replayed that statement.' :
+        text = n.comparator_status === 'compared' ? how + ', and Comparator has tested the proof against a separately supplied statement.' :
           how + '. ' + comparatorReplayText(n);
       } else if (n.lean_status === 'modulo_named_input') {
-        text = 'Lean states it under named inputs.';
+        text = 'The Lean statement assumes additional named hypotheses; the proof does not establish those hypotheses.';
       } else {
         text = 'No Lean statement is recorded for it yet.';
       }
@@ -5075,24 +5075,24 @@
           fmtCount(s.comparator_entries) + ' corpus entries' +
           (s.corpus_commit ? ' at commit <code>' + escapeHtml(String(s.corpus_commit).slice(0, 7)) + '</code>' : '') +
           '. For each entry a Challenge file restates the Lean statements with no proofs, and Comparator checks that the Solution proves exactly those statements' +
-          (axioms.length ? ' using no axioms beyond ' + (axioms.length > 1 ?
+          (axioms.length ? ' using no unproved assumptions beyond the permitted axioms ' + (axioms.length > 1 ?
             axioms.slice(0, -1).join(', ') + ' and ' + axioms[axioms.length - 1] : axioms[0]) : '') +
-          ', with the Lean kernel and nanoda both accepting it.' +
+          ', with both the Lean proof verifier and a second verifier, nanoda, accepting the proof.' +
           (cmp.pending ? ' ' + fmtCount(cmp.pending) + ' more exact Lean statements are queued for the next replay.' : '') +
           '</p>' +
           '<p class="universe-inspector__note">Selecting Comparator lights every result it reaches. ' +
-          (s.receipts_href ? extLink(s.receipts_href, 'The receipts') + ' and the ' : 'The ') +
+          (s.receipts_href ? extLink(s.receipts_href, 'The saved test results') + ' and the ' : 'The ') +
           (repo ? extLink(repo, 'Comparator corpus') : 'corpus') + ' are public.</p>';
       }
       if (n.id === 'integration:palomar') {
         return '<p class="universe-inspector__body">' + fmtCount(pal.prepared) +
-          ' replayed paper results sit in a prepare-only Palomar corpus. Preparation is not submission, review, registration or acceptance.</p>';
+          ' results have proof files prepared for Palomar, an external registry for formally verified results. Their proofs passed comparison tests. This preparation record does not report submission, review, registration or acceptance.</p>';
       }
       if (n.kind === 'universe') {
-        return '<p class="universe-inspector__body">' + fmtCount(s.lean_declarations) + ' Lean declarations in ' +
+        return '<p class="universe-inspector__body">' + fmtCount(s.lean_declarations) + ' named Lean theorems or definitions in ' +
           fmtCount(s.lean_files) + ' files state ' + fmtCount(s.lean_exact) + ' of the ' + fmtCount(s.statements) +
           ' paper results exactly; ' + fmtCount((s.lean || {}).modulo_named_input || 0) +
-          ' more are stated under named inputs.</p>';
+          ' more require additional assumptions.</p>';
       }
       return '';
     }
@@ -5397,15 +5397,15 @@
         var runHref = replay.href || (statementMeta && statementMeta.summary && statementMeta.summary.replay_href);
         var entries = n.comparator_entries || [];
         // A receipt is per corpus entry, so the acceptance is the entry's.
-        var said = 'It replayed this result: from the Lean statement alone (the challenge) it checked that the proof ' +
-          '(the solution) proves exactly that statement.';
+        var said = 'Comparator ran a test using two files: a theorem statement (the challenge) and a proof (the solution). ' +
+          'The proof was accepted as proving that exact statement under its stated assumptions.';
         var run = runId ? (runHref ? extLink(runHref, 'run ' + escapeHtml(runId)) : 'run ' + escapeHtml(runId)) : '';
         if (entries.length) {
           said += (run ? ' In ' + run + ' its' : ' Its') + ' corpus entr' + (entries.length > 1 ? 'ies ' : 'y ') +
-            entries.map(escapeHtml).join(' and ') + ' passed, the Lean kernel and nanoda ' +
+            entries.map(escapeHtml).join(' and ') + ' passed, with the Lean proof verifier and a second verifier, nanoda, ' +
             (entries.length > 1 ? 'accepting each.' : 'both accepting it.');
         } else if (run) {
-          said += ' It passed in ' + run + ', the Lean kernel and nanoda both accepting its corpus entry.';
+          said += ' It passed in ' + run + ', with both the Lean proof verifier and a second verifier, nanoda, accepting the theorem and proof.';
         }
         var cmpMore = '';
         if (more && (more.checks || []).length) {
@@ -5415,9 +5415,9 @@
           });
           cmpMore = '<p class="universe-check__links">' + order.map(function (entry) {
             var check = byEntry[entry], links = [];
-            if (check.receipt) links.push(extLink(check.receipt, 'Receipt', 'universe-go universe-go--small'));
-            if (check.challenge) links.push(extLink(check.challenge, 'Challenge', 'universe-go universe-go--small'));
-            if (check.solution) links.push(extLink(check.solution, 'Solution', 'universe-go universe-go--small'));
+            if (check.receipt) links.push(extLink(check.receipt, 'Saved test result', 'universe-go universe-go--small'));
+            if (check.challenge) links.push(extLink(check.challenge, 'Theorem statement', 'universe-go universe-go--small'));
+            if (check.solution) links.push(extLink(check.solution, 'Proof file', 'universe-go universe-go--small'));
             return (order.length > 1 ? '<span class="universe-check__entry">' + escapeHtml(entry) + '</span>' : '') + links.join('');
           }).join('') + '</p>';
           if (more.checks.some(function (check) { return !check.same_as_lean; })) {
@@ -5429,18 +5429,18 @@
         rows.push(checkHtml(n.comparator_status === 'pending' && n.comparator_queued_at ? 'queued' : 'none', 'Comparator', escapeHtml(comparatorReplayText(n)), '',
           pinned ? hubAttr(n, 'integration:comparator') : ''));
       } else {
-        rows.push(checkHtml('none', 'Comparator', 'Nothing to replay until Lean states it exactly.'));
+        rows.push(checkHtml('none', 'Comparator', 'A comparison test requires an exact Lean statement; none is recorded here.'));
       }
       // Palomar: a prepared corpus; nothing has been submitted.
       if (n.palomar_status === 'prepared') {
-        rows.push(checkHtml('ready', 'Palomar', 'It is in the corpus prepared for Palomar. Nothing has been submitted.', '',
+        rows.push(checkHtml('ready', 'Palomar', 'Its proof files are prepared for Palomar, an external registry for formally verified results. This record does not report a submission.', '',
           pinned ? hubAttr(n, 'integration:palomar') : ''));
       } else if (n.palomar_status === 'pending') {
-        rows.push(checkHtml('none', 'Palomar', 'It joins the prepared corpus once Comparator has replayed it.'));
+        rows.push(checkHtml('none', 'Palomar', 'Its proof files can be prepared for Palomar after a successful Comparator statement-comparison test.'));
       } else {
-        rows.push(checkHtml('none', 'Palomar', 'It is not in the prepared corpus.'));
+        rows.push(checkHtml('none', 'Palomar', 'Its proof files are not listed as prepared for the Palomar registry.'));
       }
-      var html = '<h3 class="universe-inspector__sub">How it is checked</h3><ol class="universe-checks">' + rows.join('') + '</ol>';
+      var html = '<h3 class="universe-inspector__sub">What the proof records establish</h3><p class="universe-inspector__body">Lean is software that verifies proofs against precisely written statements and assumptions. The records below concern this result, not every claim in its paper.</p><ol class="universe-checks">' + rows.join('') + '</ol>';
       if (more && more.record) {
         html += '<p class="universe-check__record">' + extLink(more.record, 'The evidence record for this result', 'universe-go universe-go--small') + '</p>';
       }
@@ -6091,7 +6091,7 @@
        "Theorem 6.32 on #257, replayed by Comparator", "#249: The binary
        totient series", "Comparator: 616 of 689 replayed". */
     var CAPTION_EVIDENCE = {
-      replayed: 'replayed by Comparator',
+      replayed: 'proof tested against a separate statement',
       lean: 'exact in Lean, replay not recorded',
       modulo: 'in Lean under named inputs',
       none: 'not yet stated in Lean'
@@ -6350,7 +6350,7 @@
       var replayed = census && census.comparator && census.comparator.compared;
       if (replaySummary && census && typeof census.statements === 'number' && typeof replayed === 'number') {
         replaySummary.innerHTML = '<span class="home-universe__specimen">' + fmtCount(replayed) + ' of ' +
-          fmtCount(census.statements) + '</span> paper results replayed by Comparator.';
+          fmtCount(census.statements) + '</span> paper results with recorded tests of proofs against separate statements.';
       }
       if (data.companion) companionSpec = data.companion;
       if (data.bands) bands = data.bands;
