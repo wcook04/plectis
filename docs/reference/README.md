@@ -29,6 +29,9 @@ links three kinds of document:
 - [Principles](../../PRINCIPLES.md): rules for designing and checking the tools.
 - [Failure modes](../../ANTI_PRINCIPLES.md): mistakes those rules are intended to prevent.
 
+The website is also agent-readable: its [navigation guide](https://wcook04.github.io/plectis/llms.txt)
+points to structured map data and text indexes.
+
 The [generated diagram](../../atlas/doctrine_lattice_graph.mmd) and
 [machine-readable connections](../../atlas/doctrine_lattice_projection.json)
 record these relationships. A citation connects an explanation to a rule; it
