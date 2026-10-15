@@ -7,6 +7,8 @@ This directory contains the papers as searchable text, with links to
 PDFs and LaTeX source. Both public repositories include the active papers.
 Older, retired papers are kept only in the repository that published them.
 Some papers may be available in the repository before they appear on the website.
+The website is agent-readable through its [navigation guide](https://wcook04.github.io/plectis/llms.txt)
+and [maths map manifest](https://wcook04.github.io/plectis/lean/experience/manifest.json).
 
 This checkout contains 21 active papers.
 

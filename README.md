@@ -32,6 +32,10 @@ Browse the live [component pages](https://wcook04.github.io/plectis/docs/compone
 [films](https://wcook04.github.io/plectis/#videos) on the
 [Plectis website](https://wcook04.github.io/plectis/).
 
+The website and its maps are agent-readable. Start with the
+[agent navigation guide](https://wcook04.github.io/plectis/llms.txt)
+for text indexes, graph data and source links without running the visual maps.
+
 For a first look in a terminal, run the repository tour. Two commands, no
 install, Python 3.11 or newer:
 

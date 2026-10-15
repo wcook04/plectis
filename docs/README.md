@@ -54,6 +54,10 @@ paths so existing tools and links continue to work.
 
 ## Use your own coding agent
 
+To research the agent-readable website without a clone, use its
+[navigation guide](https://wcook04.github.io/plectis/llms.txt).
+It links text indexes and the data behind the visual maps.
+
 Open a clone in a coding agent that can read files and run shell commands.
 Ask it to read `AGENTS.override.md`, then give it a concrete question or change.
 The [agent quickstart](../QUICKSTART.md#use-your-own-coding-agent) includes a
