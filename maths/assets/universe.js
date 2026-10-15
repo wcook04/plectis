@@ -2489,11 +2489,15 @@
         items.push({ band: b, base: base, mid: mid, side: sideOf(mid), count: count, title: title });
       }
       // Each label's half-width as an angle at its radius; a level title
-      // takes its height along the ring instead.
+      // takes its height along the ring instead. The six relaxation passes
+      // change angles, not widths or radii: measure each item once here.
+      // This cache lasts one layout, so camera, font and filter changes
+      // always start with fresh native metrics.
       function halfSpan(item) {
+        if (item.halfSpan !== undefined) return item.halfSpan;
         if (item.side) {
           var tall = (item.title ? TYPE.rowGap : 0) + (TYPE.title + TYPE.count) / 2;
-          return (tall / 2 + 4) / item.base;
+          return (item.halfSpan = (tall / 2 + 4) / item.base);
         }
         ctx.font = item.count.font;
         var width = ctx.measureText(item.count.text).width;
@@ -2501,7 +2505,7 @@
           ctx.font = item.title.font;
           width = Math.max(width, ctx.measureText(item.title.text).width);
         }
-        return width / (2 * (item.base + TYPE.rowGap)) + 0.02;
+        return (item.halfSpan = width / (2 * (item.base + TYPE.rowGap)) + 0.02);
       }
       items.sort(function (a, b) { return a.mid - b.mid; });
       // Relax overlaps into the gaps between bands before giving anything up.
@@ -2522,6 +2526,7 @@
         var prevMid = prev.mid - (m === 0 ? Math.PI * 2 : 0);
         if (cur.title && items.length > 1 && (cur.mid - halfSpan(cur)) < (prevMid + halfSpan(prev))) {
           cur.title.text = cur.title.text.split(' ')[0];
+          delete cur.halfSpan;
         }
       }
       return items.map(function (item) {
@@ -7874,6 +7879,16 @@
     function repaint() {
       readPalette();
       draw();
+    }
+    // A downloaded face can replace fallback metrics without a box resize.
+    // Discard every text-derived cache together before fitting and painting.
+    if (document.fonts && typeof document.fonts.addEventListener === 'function') {
+      document.fonts.addEventListener('loadingdone', function () {
+        arcPlaces = {}; plateBreaks = {}; chromeCache = null;
+        pinnedPlate = null;
+        if (viewIsFitted) fit();
+        draw();
+      });
     }
     document.addEventListener('plectis:theme', repaint);
     // The system scheme can change under a page that follows it.

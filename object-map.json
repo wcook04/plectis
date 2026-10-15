@@ -31729,7 +31729,7 @@
       ]
     }
   ],
-  "fingerprint": "7df1d17a5ca1da4df9f569b2ccb2a18b",
+  "fingerprint": "89a79dc365b2367a9b2c763205975e03",
   "kind_counts": {
     "anti_principle": 17,
     "area": 7,
@@ -146457,9 +146457,9 @@
               "relation": "grounded in",
               "relation_id": "",
               "source_ref": "",
-              "target_id": "scripts/first_screen_composition_card.py",
+              "target_id": "scripts/inspect/first_screen_composition_card.py",
               "target_kind": "source path",
-              "target_label": "scripts/first screen composition card py",
+              "target_label": "scripts/inspect/first screen composition card py",
               "url": ""
             }
           ],
@@ -146520,9 +146520,9 @@
             "relation": "grounded in",
             "relation_id": "",
             "source_ref": "",
-            "target_id": "scripts/first_screen_composition_card.py",
+            "target_id": "scripts/inspect/first_screen_composition_card.py",
             "target_kind": "source path",
-            "target_label": "scripts/first screen composition card py",
+            "target_label": "scripts/inspect/first screen composition card py",
             "url": ""
           },
           {

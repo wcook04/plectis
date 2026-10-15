@@ -69,20 +69,6 @@
     doc.head.appendChild(link);
   }
 
-  /* A prefetch, not a preload, for a runtime the reader may never ask for:
-     a preload that goes unused logs a console warning, and the system
-     drawing's script runs only once the reader moves the map band. */
-  var prefetched = {};
-  function addPrefetch(name) {
-    if (!refs[name] || prefetched[name] || states[name] !== 'staged') return;
-    prefetched[name] = true;
-    var link = doc.createElement('link');
-    link.rel = 'prefetch';
-    link.as = 'script';
-    link.href = refs[name];
-    doc.head.appendChild(link);
-  }
-
   function flush(name) {
     var queued = callbacks[name].slice();
     callbacks[name] = [];
@@ -140,8 +126,9 @@
     }
   }
 
-  /* The universe map teaser fetches about 300KB of map data, so it starts
-     only when the mathematics band comes within a screen of the viewport. */
+  /* The teaser and its data exceed a megabyte decoded. Start only when its
+     band enters the viewport; the former 700px lead fetched the whole map on
+     a laptop's first screen while the drawing was still below the fold. */
   function queueUniverse() {
     var stage = doc.querySelector('[data-universe-stage]');
     if (!stage || !refs.universe) { mark('universe', 'skipped'); return; }
@@ -155,13 +142,10 @@
         if (entries[n].isIntersecting) {
           watcher.disconnect();
           run();
-          // The band's second drawing is one click away from here, so its
-          // script is fetched into the cache now, at the lowest priority.
-          addPrefetch('system');
           return;
         }
       }
-    }, { rootMargin: '700px 0px' });
+    }, { rootMargin: '0px' });
     watcher.observe(stage);
   }
 

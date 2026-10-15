@@ -2211,7 +2211,7 @@
     "schema": "microcosm_public_architecture_detail_coverage_v1",
     "wiring_endpoint_component_count": 58
   },
-  "detail_fingerprint": "275f7a47152b878e9f6dffb75f57bf15",
+  "detail_fingerprint": "add3b60d9d3ae9fb1de4a913fdecb024",
   "edge_semantics": {
     "area_relation": "binds_to_shared_path",
     "explicit_wire_relation": "derived_from_code",
@@ -2221,7 +2221,7 @@
       "runs": "runs"
     },
     "spine_relation": "spine_sequence",
-    "typing_policy": "Component-to-component edges are derived from the code by microcosm-substrate/scripts/derive_code_wiring.py: each carries the file and line where one component runs another, reads its saved results, or checks its copied files. organ_atlas.json wires_to is navigation metadata and is not drawn as an edge."
+    "typing_policy": "Component-to-component edges are derived from the code by microcosm-substrate/scripts/build/derive_code_wiring.py: each carries the file and line where one component runs another, reads its saved results, or checks its copied files. organ_atlas.json wires_to is navigation metadata and is not drawn as an edge."
   },
   "long_description": "This map shows 7 public areas, 88 components, and the shared path they bind to. Read from the code, 84 pairs of components are connected. In 18 of them one component runs the other, in 52 it reads the other's saved results and in 15 it checks the other's copied files; a pair can be connected in more than one way. Each connection carries the file and line where the code does it.",
   "membership": {
@@ -4161,7 +4161,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4221,7 +4221,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4281,7 +4281,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4341,7 +4341,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4401,7 +4401,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4452,7 +4452,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4503,7 +4503,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4554,7 +4554,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4605,7 +4605,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4656,7 +4656,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4707,7 +4707,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4758,7 +4758,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4809,7 +4809,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4860,7 +4860,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4920,7 +4920,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -4962,7 +4962,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5022,7 +5022,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5082,7 +5082,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5142,7 +5142,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5202,7 +5202,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5262,7 +5262,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5322,7 +5322,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5382,7 +5382,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5442,7 +5442,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5502,7 +5502,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5562,7 +5562,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5622,7 +5622,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5682,7 +5682,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5742,7 +5742,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5802,7 +5802,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5862,7 +5862,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5922,7 +5922,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -5982,7 +5982,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6042,7 +6042,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6102,7 +6102,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6162,7 +6162,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6222,7 +6222,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6282,7 +6282,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6342,7 +6342,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6402,7 +6402,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6462,7 +6462,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6522,7 +6522,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6582,7 +6582,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6642,7 +6642,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6702,7 +6702,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6762,7 +6762,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6822,7 +6822,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6882,7 +6882,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -6942,7 +6942,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7002,7 +7002,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7062,7 +7062,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7122,7 +7122,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7182,7 +7182,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7242,7 +7242,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7302,7 +7302,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7362,7 +7362,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7422,7 +7422,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7482,7 +7482,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7542,7 +7542,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7602,7 +7602,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7662,7 +7662,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7722,7 +7722,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7782,7 +7782,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7842,7 +7842,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7902,7 +7902,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -7962,7 +7962,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8022,7 +8022,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8082,7 +8082,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8142,7 +8142,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8202,7 +8202,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8262,7 +8262,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8322,7 +8322,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8382,7 +8382,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8442,7 +8442,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8502,7 +8502,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8553,7 +8553,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8673,7 +8673,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8725,7 +8725,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8776,7 +8776,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8827,7 +8827,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8878,7 +8878,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8929,7 +8929,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -8980,7 +8980,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -9031,7 +9031,7 @@
           "bundle_id": "bundle:explicit_wiring"
         },
         "provenance": {
-          "derived_by": "microcosm-substrate/scripts/derive_code_wiring.py",
+          "derived_by": "microcosm-substrate/scripts/build/derive_code_wiring.py",
           "source_field": "edges",
           "source_ref": "microcosm-substrate/core/organ_code_wiring.json"
         },
@@ -20582,10 +20582,10 @@
         "public_page": "docs/architecture.html",
         "source": "microcosm-substrate/core/organ_atlas.json"
       },
-      "revision": "gsc_8ba51d939cce5f04d390",
+      "revision": "gsc_aabc53c2c601bf8c7778",
       "scene_id": "microcosm_public_architecture",
       "schema": "graph_scene_manifest_v1",
-      "source_fingerprint": "2a56617886b08eb6dd98d71c9ffc4af1",
+      "source_fingerprint": "ed63c10194fb8143fd515655e22aee63",
       "source_ref": "microcosm-substrate/core/organ_families.json",
       "source_schema": "microcosm_public_architecture_graph_source_v1"
     },
@@ -22893,7 +22893,7 @@
       "public_page": "docs/architecture.html",
       "source": "microcosm-substrate/core/organ_atlas.json"
     },
-    "revision": "gsc_8ba51d939cce5f04d390",
+    "revision": "gsc_aabc53c2c601bf8c7778",
     "rows": [],
     "scene_id": "microcosm_public_architecture",
     "schema": "graph_scene_v1",
@@ -22963,7 +22963,7 @@
       "source_edge_count": 100,
       "source_node_count": 106
     },
-    "source_fingerprint": "2a56617886b08eb6dd98d71c9ffc4af1",
+    "source_fingerprint": "ed63c10194fb8143fd515655e22aee63",
     "source_ref": "microcosm-substrate/core/organ_families.json",
     "source_schema": "microcosm_public_architecture_graph_source_v1",
     "type_registry": {

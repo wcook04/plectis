@@ -5,10 +5,16 @@
       "id": "introduction",
       "title": "Plectis: introduction",
       "label": "Introduction",
-      "description": "I introduce Plectis and show the papers, map and software I use for mathematical research with AI agents.",
+      "description": "I build tools with AI to make its work easier to understand. This introduction connects the projects’ code, mathematics, explanations and working rules.",
       "role": "introduction",
-      "links": [],
-      "still_inset": "bottom-right",
+      "links": [
+        {
+          "label": "Explore the projects",
+          "href": "https://github.com/wcook04"
+        }
+      ],
+      "still_inset": null,
+      "poster": null,
       "release": null
     },
     {
@@ -27,151 +33,98 @@
           "href": "maths/papers/erdos-257-mersenne-support-subseries.html#res:weighted-support"
         }
       ],
-      "still_inset": "bottom-right",
-      "release": {
-        "edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
-        "approved_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
-        "hosted_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
-        "thumbnail_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
-        "transcript_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
-        "publication_authorized": true,
-        "url": "https://youtu.be/3S1t-CvsQjI",
-        "upload_date": "2026-10-12",
-        "duration_seconds": 1678,
-        "thumbnail": "assets/films/mathematics-b78835654ca7.jpg",
-        "thumbnail_sha256": "d947f14695c2315720f3cd50ab8f4d8dde3b86fa1115fbd15fa45a31d793123a",
-        "transcript": {
-          "scope": "route_summary",
-          "text": "The reciprocal-summability criterion for Erdős #257, with the paper and Lean proof. The unrestricted problem remains open.",
-          "sha256": "f18aaffe0bea53e8017ecb21ae2c30164604c67346e7033f7a6c0a4519c86bd9"
-        },
-        "chapters": [
-          {
-            "seconds": 0,
-            "title": "Introduction"
-          },
-          {
-            "seconds": 94,
-            "title": "Erdős's question"
-          },
-          {
-            "seconds": 268,
-            "title": "What we prove"
-          },
-          {
-            "seconds": 395,
-            "title": "The test"
-          },
-          {
-            "seconds": 499,
-            "title": "Multiply and split"
-          },
-          {
-            "seconds": 649,
-            "title": "Which come out whole"
-          },
-          {
-            "seconds": 817,
-            "title": "One row's average"
-          },
-          {
-            "seconds": 951,
-            "title": "Many columns at once"
-          },
-          {
-            "seconds": 1205,
-            "title": "The contradiction"
-          },
-          {
-            "seconds": 1278,
-            "title": "Where this stops"
-          },
-          {
-            "seconds": 1352,
-            "title": "The proof in Lean"
-          },
-          {
-            "seconds": 1477,
-            "title": "Finding it on the map"
-          },
-          {
-            "seconds": 1566,
-            "title": "What this is for"
-          }
-        ]
-      }
-    },
-    {
-      "id": "codemap",
-      "title": "CodeMap demonstration",
-      "label": "CodeMap",
-      "description": "I use CodeMap to view Python files, their descriptions and connections in my private research system.",
-      "role": "supporting",
-      "links": [],
-      "still_inset": "bottom-right",
-      "release": {
-        "edition_sha256": "89c054b52c871f306f0808aeb043e7a525c1910a509deb91d85d6fd9742f281a",
-        "approved_edition_sha256": "89c054b52c871f306f0808aeb043e7a525c1910a509deb91d85d6fd9742f281a",
-        "hosted_edition_sha256": "89c054b52c871f306f0808aeb043e7a525c1910a509deb91d85d6fd9742f281a",
-        "thumbnail_edition_sha256": "89c054b52c871f306f0808aeb043e7a525c1910a509deb91d85d6fd9742f281a",
-        "transcript_edition_sha256": "89c054b52c871f306f0808aeb043e7a525c1910a509deb91d85d6fd9742f281a",
-        "publication_authorized": true,
-        "url": "https://youtu.be/1twvvQ-wteI",
-        "upload_date": "2026-10-12",
-        "duration_seconds": 259,
-        "thumbnail": "assets/films/codemap-f9d2b4e93039.jpg",
-        "thumbnail_sha256": "15ace8535b895c9f913fed5f44af0dc6f43c6fa7e6563eb0a3fee43da96c82ff",
-        "transcript": {
-          "scope": "route_summary",
-          "text": "I use CodeMap to view Python files, their descriptions and connections in my private research system.",
-          "sha256": "1baf1e1a67cb197e58f6c8e9a3dc79cce7deb996a37a04eb81492671dedbdcde"
-        },
-        "chapters": [
-          {
-            "seconds": 0,
-            "title": "CodeMap"
-          },
-          {
-            "seconds": 21,
-            "title": "Finding a file"
-          },
-          {
-            "seconds": 54,
-            "title": "The description"
-          },
-          {
-            "seconds": 109,
-            "title": "Each function"
-          },
-          {
-            "seconds": 150,
-            "title": "Blast"
-          },
-          {
-            "seconds": 204,
-            "title": "Two readers"
-          }
-        ]
-      }
-    },
-    {
-      "id": "agent-trace",
-      "title": "Agent Trace demonstration",
-      "label": "Agent Trace",
-      "description": "I follow live agent activity, compare a saved Codex answer with ChatGPT given a ZIP packet and thread trace, and show compact and detailed copy options. Agent Trace is a private prototype.",
-      "role": "supporting",
-      "links": [],
-      "still_inset": "bottom-right",
+      "still_inset": null,
+      "poster": null,
       "release": null
     },
     {
-      "id": "combined",
-      "title": "Plectis: mathematics and software",
-      "label": "Combined walkthrough",
-      "description": "The mathematics and software in Plectis. Includes material from the separate films.",
-      "role": "combined",
+      "id": "codemap",
+      "title": "CodeMap: reading a codebase",
+      "label": "CodeMap",
+      "description": "Explore project files, their descriptions and connections through architecture, panorama and focus views. I use CodeMap, part of my private system, to investigate changes.",
+      "role": "supporting",
       "links": [],
       "still_inset": null,
+      "poster": null,
+      "release": null
+    },
+    {
+      "id": "one-checkout",
+      "title": "One Checkout: commit the change you choose",
+      "label": "One Checkout",
+      "description": "Follow a patch from review to Git commit while other agents’ unfinished edits stay in the same working files.",
+      "role": "supporting",
+      "links": [
+        {
+          "label": "Try the disposable demo",
+          "href": "https://github.com/wcook04/one-checkout#try-it-before-installing"
+        }
+      ],
+      "still_inset": null,
+      "poster": null,
+      "release": null
+    },
+    {
+      "id": "mathematics-overview",
+      "title": "Plectis mathematics: from proofs to papers",
+      "label": "Mathematics overview",
+      "description": "How work on eight Erdős problems moves from Lean source and long working records to shorter papers and a website for human readers.",
+      "role": "supporting",
+      "links": [
+        {
+          "label": "Read the papers",
+          "href": "docs/papers.html"
+        }
+      ],
+      "still_inset": null,
+      "poster": null,
+      "release": null
+    },
+    {
+      "id": "atlas",
+      "title": "Plectis Atlas: read the sources together",
+      "label": "Plectis Atlas",
+      "description": "Browse OpenAI’s mathematics release by subject, with papers, Lean statements and outside assessments. Authors and reviewers retain credit.",
+      "role": "supporting",
+      "links": [
+        {
+          "label": "Open Atlas",
+          "href": "https://wcook04.github.io/plectis-atlas/"
+        },
+        {
+          "label": "Source and credits",
+          "href": "https://github.com/wcook04/plectis-atlas"
+        }
+      ],
+      "still_inset": null,
+      "poster": null,
+      "release": null
+    },
+    {
+      "id": "safety-core",
+      "title": "Safety Core: rules and the checks behind them",
+      "label": "Safety Core",
+      "description": "Follow an editable rule through its folders and guidance to the configured check. The map distinguishes agent guidance from checks that run.",
+      "role": "supporting",
+      "links": [
+        {
+          "label": "Explore Safety Core",
+          "href": "https://github.com/wcook04/safety-core"
+        }
+      ],
+      "still_inset": null,
+      "poster": null,
+      "release": null
+    },
+    {
+      "id": "introduction-alternate",
+      "title": "Plectis: an earlier introduction",
+      "label": "Earlier introduction",
+      "description": "An earlier recording of the introduction, kept as an alternative account of the projects.",
+      "role": "alternate",
+      "links": [],
+      "still_inset": null,
+      "poster": null,
       "release": null
     }
   ]

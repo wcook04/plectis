@@ -950,57 +950,60 @@ slot, with no Watch link, duration, transcript, thumbnail or VideoObject.
 Only an authorized release tied to one approved/hosted edition, matching
 thumbnail and transcript edition may supply those surfaces. Missing evidence
 scope must never default to verbatim. Narration is not visual evidence.
-Adjacent films must use visibly distinct representative scenes. Different filenames
-or hashes do not establish visual distinction: compare the actual thumbnails
-at their rendered card sizes before release, especially Introduction and Combined.
-Use semantic presentation roles, not positional selectors: introduction,
-featured Mathematics, CodeMap, Agent Trace, overlapping Combined. The mathematics
-film links the reciprocal-summability result separately from the broader
-weighted theorem. Derive availability language from the released subset.
-The band is a shelf (Will, 7 October 2026: "the short video, then ... a
-combined one, and then ... standalone"): the heading and the Combined
-walkthrough in the left five columns, the introduction large in the right
-seven, and the standalone films on one shelf under both, their rows shared
-so titles, status and text line up.
-Shared tracks express comparison; optional reading stays local (9 October
-2026, from two Type B reviews read against the source). Still, title, status
-and description share rows by name; a film's evidence links, chapters or
-transcript are one `film__support` stack under its description, so opening
-one moves no neighbour's still, title or text. The band's failure order:
-required, complete text and working routes under 320px, 200% text and
-text-spacing overrides; strong, captions belong to their stills and local
-reading stays local; preferred, on wide screens the 5:7 pair's stills end on
-one shelf line with their captions hanging from it; optical, the
-introduction's top meeting the heading's capitals at 1440, which drifts at
-narrower widths by design. Compounds in film titles and the lede's phrases
-are inline blocks, kept whole where they fit and never nowrap; the title is
-the one watch action in the Tab order, its still echoing focus in its
-hairline, and the stills never zoom. A disclosure must add information: a route
-summary equal to the description (whitespace aside) is not folded, though
-the release record keeps it; chapters are an index keyed by time. The running
-time is on the poster and spoken in the watch link, never printed twice. The
-play mark and running time are one dark chip in both themes, the running time
-solid, in the bottom corner the presenter's webcam leaves free: each film
-records its still's `still_inset` corner in `film-programme.json`, a fact about
-the image rather than a selector per film. In film titles an article joins its
-kept compound only where the title's measure absorbs it (19em), so a narrower
-column keeps two lines instead of spending a third; "Erdős #257" never splits. The band's first
-line is its contents ("A three-minute introduction, a twenty-minute
-walk-through and three films on one subject each."), broken only between
-phrases, instead of role labels over the stills. A jump to `#videos` lands
-the heading 44px under the header at every width; the band draws no focus
-ring round itself, and its heading takes a short accent rule instead. Every film has a 16:9 frame: a released
-film's own still with its play mark and running time; before release, a
-frame taken from the film and dropped in as `assets/films/<id>.jpg` (or
-`.png`, `.webp`); until then a placeholder, the empty frame with the film's
-short `label` in the page's own tone. No drawn posters ("no need for svg").
-An empty frame wears the maps' registration marks, drawn the same way in
-CSS (8 October 2026): in print they show where an image will be laid down,
-which is what the frame is, so five films in preparation read as frames
-held for them rather than five grey tiles; the short name stays the only
-word inside.
-Until the introduction has a frame, the hero offers the films as a plain
-link. The hero's second action is **Read the README**, the public
+The current lineup follows the actual recordings and the active film-production
+owner, not the existence of a script or an older combined export. A prepared
+script is not evidence of a recorded film. On 15 October the primary continuous
+introduction replaces the abandoned short assembly; the older introduction is
+an alternate take, shown separately. One Checkout and the mathematics overview
+are independent films. The longer Erdős #257 film has its own entry. Atlas,
+CodeMap and Safety Core complete the main programme. Agent Trace and the old
+combined walkthrough are withdrawn; no Zenith film is promised.
+
+Use semantic presentation roles: `introduction` leads, `featured` places #257
+beside it, `supporting` supplies the standalone shelf, and `alternate` stays in
+a disclosure below the programme. Retain the `combined` parser value only for
+historical release compatibility. Count main availability separately from
+alternate recordings. Pending replacements must not inherit an old URL or
+thumbnail: an explicit `poster: null` disables the legacy filename lookup;
+a deliberate poster path names the selected source. Replacing a pending slot
+with a watch action still requires the full edition-bound release record.
+
+Adjacent published films must use visibly distinct representative scenes.
+Different filenames or hashes do not establish visual distinction: inspect the
+actual thumbnails at their rendered sizes. The mathematics film links the
+reciprocal-summability result separately from the broader weighted theorem.
+
+A forthcoming film without a selected current still is a compact text entry:
+its complete title, In preparation status, description and useful reading
+routes. It has no empty 16:9 mat or duplicated title inside a drawn frame.
+The introduction leads, with #257 beside it on wide screens and following it
+on phones. Larger introduction type and the existing page rules establish the
+hierarchy. Unillustrated standalone films are calm rows, with their titles
+beside descriptions at wider widths and above them on phones. The alternate
+introduction stays in its own disclosure. A deliberate current poster keeps
+its real 16:9 picture, but supplies no Watch action before release.
+
+Published films retain the existing 5:7 still shelf. Shared tracks express
+comparison; optional reading stays local. Still, title, status and description
+share rows by name; each film owns its evidence links, chapters and transcript
+in one support stack. Opening one must not move a neighbour in the same row.
+Complete text and working routes under 320px, 200% text and text-spacing
+pressure take precedence over optical alignment. Where real stills are
+present, captions belong to them and the pair preferably shares a lower edge.
+
+Compounds in film titles are kept whole where they fit, never nowrap; Erdős
+#257 stays together. A published title is the one Watch action in the Tab
+order. Its still echoes focus in its hairline and never zooms. A disclosure
+must add information: a route summary identical to the description, apart
+from whitespace, is retained in the release record rather than printed twice.
+Chapters form an index keyed by time. The running time is on a real poster
+and spoken in its Watch link. Its badge avoids the presenter inset declared
+by still_inset. The availability line counts the main programme separately
+from the alternate introduction. A jump to #videos clears the site header;
+the band takes no focus ring, and its heading shows the short accent rule.
+Until the introduction has a selected current frame, its hero slot stays
+empty; the main Videos navigation links to the programme. The hero's second
+action is **Read the README**, the public
 repository's README (Will: "somewhere we need to link to the actual github
 repo"); the research-question task left the landing (Will: "so ugly and
 unnecessary"), and the exercise stays at `maths/documents/weighted-257-task.html`.
