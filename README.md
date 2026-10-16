@@ -316,7 +316,7 @@ recordings and their subjects.
 | Film | Watch |
 |---|---|
 | Plectis introduction | [YouTube](https://www.youtube.com/watch?v=uO2lbstEH9M) |
-| CodeMap | [YouTube](https://www.youtube.com/watch?v=knEkDuA4L14) |
+| CodeMap | [YouTube](https://www.youtube.com/watch?v=WPkN7m67zvI) |
 | One Checkout | [YouTube](https://www.youtube.com/watch?v=HUciGvGo2ss) |
 | Safety Core | [YouTube](https://www.youtube.com/watch?v=CY4A1aEPCGc) |
 
