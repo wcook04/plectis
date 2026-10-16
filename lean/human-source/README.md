@@ -84,10 +84,9 @@ through the [contribution guide](#contribute).
 
 ## Watch the videos
 
-- [Erdős #257: the reciprocal-summability criterion](https://youtu.be/3S1t-CvsQjI): follow an argument through the map, paper and formal statement.
-- [CodeMap demonstration](https://youtu.be/1twvvQ-wteI): inspect source files, their purposes and dependencies.
-
-CodeMap demonstrates a private interface in the research environment. This repository publishes the mathematical research and its tools.
+- [Plectis introduction](https://www.youtube.com/watch?v=uO2lbstEH9M): the wider project and tools for understanding AI-produced work.
+- [Mathematics overview](https://www.youtube.com/watch?v=4jObDlHmJRA): papers, proofs and the mathematics map.
+- [Erdős #257 explanation](https://www.youtube.com/watch?v=Ok5LkL1owjA): Erdős's reciprocal-summability condition; the unrestricted problem remains open.
 
 <a id="about-the-project"></a>
 

@@ -242,15 +242,15 @@
       "still_inset": null,
       "poster": "assets/films/thumbnails-20261015/codemap.jpg",
       "release": {
-        "edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225",
-        "approved_edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225",
-        "hosted_edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225",
-        "thumbnail_edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225",
-        "transcript_edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225",
+        "edition_sha256": "7317963724f59114d3b2e3309352fff2fc94ca1caf023dd6c4ab23bc0e0ced4b",
+        "approved_edition_sha256": "7317963724f59114d3b2e3309352fff2fc94ca1caf023dd6c4ab23bc0e0ced4b",
+        "hosted_edition_sha256": "7317963724f59114d3b2e3309352fff2fc94ca1caf023dd6c4ab23bc0e0ced4b",
+        "thumbnail_edition_sha256": "7317963724f59114d3b2e3309352fff2fc94ca1caf023dd6c4ab23bc0e0ced4b",
+        "transcript_edition_sha256": "7317963724f59114d3b2e3309352fff2fc94ca1caf023dd6c4ab23bc0e0ced4b",
         "publication_authorized": true,
-        "url": "https://www.youtube.com/watch?v=6rP-pS8Ni4E",
-        "upload_date": "2026-10-15",
-        "duration_seconds": 402,
+        "url": "https://www.youtube.com/watch?v=WPkN7m67zvI",
+        "upload_date": "2026-10-16",
+        "duration_seconds": 366,
         "thumbnail": "assets/films/thumbnails-20261015/codemap.jpg",
         "thumbnail_sha256": "df5cab12b040de56a12ffe2066b5a4cd1e958b3f4fe6fddef3bd00546889ec17",
         "transcript": {
@@ -264,27 +264,39 @@
             "title": "Why a map"
           },
           {
-            "seconds": 70,
-            "title": "Descriptions kept with the code"
+            "seconds": 53,
+            "title": "Descriptions and the bookshop comparison"
           },
           {
-            "seconds": 212,
-            "title": "Links between files"
+            "seconds": 109,
+            "title": "Keep the explanation with the code"
           },
           {
-            "seconds": 253,
-            "title": "One source, two views"
+            "seconds": 142,
+            "title": "Functions and their descriptions"
           },
           {
-            "seconds": 328,
-            "title": "Choosing where to read"
+            "seconds": 187,
+            "title": "Connections and Blast"
+          },
+          {
+            "seconds": 217,
+            "title": "One source, two interfaces"
+          },
+          {
+            "seconds": 261,
+            "title": "Choosing which code to read"
+          },
+          {
+            "seconds": 323,
+            "title": "Feedback and next steps"
           }
         ]
       },
       "category": "code",
-      "preview_duration_seconds": 402,
+      "preview_duration_seconds": 366,
       "detail": "When a codebase keeps growing, I want to be able to find out what a file does and what else depends on it before asking an agent to change it. CodeMap lets me explore that visually, from the broad areas of a project down to one file and its connections. In this video I follow a file that prepares the map itself, and explain how the agents get a text view of the same information stored in the code.",
-      "accepted_edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225"
+      "accepted_edition_sha256": "7317963724f59114d3b2e3309352fff2fc94ca1caf023dd6c4ab23bc0e0ced4b"
     },
     {
       "id": "one-checkout",

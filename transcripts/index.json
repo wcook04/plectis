@@ -1,6 +1,6 @@
 {
   "schema": "plectis_film_transcript_index_v1",
-  "source_snapshot_sha256": "4e101760212d6318154fbcc5bee3503ef65b9ef1c5037ac44789edaea2c40489",
+  "source_snapshot_sha256": "6df06b5c930b7af211836c2a154b78d90ffca0575c0fab6c3410e3a4da4f1071",
   "films": [
     {
       "film_id": "introduction",
@@ -16,12 +16,12 @@
     {
       "film_id": "codemap",
       "title": "CodeMap",
-      "url": "https://www.youtube.com/watch?v=6rP-pS8Ni4E",
-      "edition_sha256": "b42d4e752c0e1f0d77a6c63175a5fac1a57f118b2e348bc600397ee07be6b225",
+      "url": "https://www.youtube.com/watch?v=WPkN7m67zvI",
+      "edition_sha256": "7317963724f59114d3b2e3309352fff2fc94ca1caf023dd6c4ab23bc0e0ced4b",
       "scope": "selected_source_machine_transcript",
       "path": "transcripts/codemap.txt",
-      "sha256": "0c8799532deb24c1d2d4e8ef1a3d34a97a6bf5e540d5f7b3aec768f89a762de9",
-      "word_count": 1238,
+      "sha256": "9fc3968deed251d8a85a6f0ebdfc1d6a4fc6b19d1b087b8c9b3739e7089b6d66",
+      "word_count": 1207,
       "scope_note": "Complete selected speech from the recorded source, in the released cut's playback order. Machine recognition errors are retained. This is not a fresh transcription or a human acoustic audit of the final encode. Narration does not independently verify mathematical or software claims."
     },
     {
