@@ -37,6 +37,10 @@ earlier Plectis toolkit. The films also show private interfaces, not included he
 
 ## For a first look: #257
 
+Start with the [introductory paper](paper/257/erdos257-expository-sums-never-fractions.pdf):
+examples, figures and a complete proof. Or
+[watch the #257 video](https://youtu.be/y8s3t_pwIGM).
+
 [Problem 257](https://www.erdosproblems.com/257) asks whether the series
 
 $$\sum_{a\in A} \frac{1}{2^a-1}$$
@@ -49,11 +53,8 @@ Lean-checked prime-weighted criterion that works at every integer base at
 least two. Cancellation removes a finite batch of terms; averaging controls
 what the remaining terms leave behind.
 
-[Read the argument](paper/257/erdos-257-mersenne-support-subseries.pdf),
-[try three changed hypotheses](docs/reading-edition/weighted-257-task.md), or
+[Try three changed hypotheses](docs/reading-edition/weighted-257-task.md), or
 [follow the Lean declaration](lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120).
-The [longer record](paper/257/erdos257-mersenne-reasoning-surface.pdf) preserves
-other approaches and where they stop.
 
 ## Results and their limits
 
@@ -76,9 +77,8 @@ its assumptions, earlier work and remaining questions.
 
 [Read a paper](paper/README.md), [follow one claim](docs/REPRODUCIBILITY.md#try-one-claim-without-lean),
 or [work with your own agent](docs/agents/README.md#start-with-current-public-work).
-The [reading edition](docs/reading-edition/README.md) gathers the paper openings
-for reading or sharing with an AI. Return an argument, correction or question
-through the [contribution guide](#contribute).
+The [reading edition](docs/reading-edition/README.md) gathers the paper openings.
+Return ideas through the [contribution guide](#contribute).
 
 <a id="videos"></a>
 
@@ -115,7 +115,7 @@ with its assumptions, limits and sources.
 | [#243](https://www.erdosproblems.com/243) | [Cubic-rate irrationality and reciprocal tails](https://wcook04.github.io/plectis/maths/problems/erdos_243.html) | [short paper](paper/243/erdos-243-reciprocal-tail-rigidity.pdf) · [longer paper](paper/243/erdos243-reciprocal-tail-reasoning-surface.pdf) |
 | [#249](https://www.erdosproblems.com/249) | [Binary totient series](https://wcook04.github.io/plectis/maths/problems/erdos_249.html) | [short paper](paper/249/erdos-249-binary-totient-series.pdf) · [longer paper](paper/249/erdos249-totient-reasoning-surface.pdf) |
 | [#251](https://www.erdosproblems.com/251) | [Prime-gap dyadic series](https://wcook04.github.io/plectis/maths/problems/erdos_251.html) | [short paper](paper/251/erdos-251-prime-gap-dyadic-series.pdf) · [longer paper](paper/251/erdos251-prime-gap-reasoning-surface.pdf) |
-| [#257](https://www.erdosproblems.com/257) | [Mersenne-support subseries](https://wcook04.github.io/plectis/maths/problems/erdos_257.html) | [short paper](paper/257/erdos-257-mersenne-support-subseries.pdf) · [longer paper](paper/257/erdos257-mersenne-reasoning-surface.pdf) |
+| [#257](https://www.erdosproblems.com/257) | [Mersenne-support subseries](https://wcook04.github.io/plectis/maths/problems/erdos_257.html) | [introductory paper](paper/257/erdos257-expository-sums-never-fractions.pdf) · [short paper](paper/257/erdos-257-mersenne-support-subseries.pdf) · [longer paper](paper/257/erdos257-mersenne-reasoning-surface.pdf) |
 | [#269](https://www.erdosproblems.com/269) | [Three-prime running LCM](https://wcook04.github.io/plectis/maths/problems/erdos_269.html) | [short paper](paper/269/erdos-269-three-prime-running-lcm.pdf) · [longer paper](paper/269/erdos269-running-lcm-reasoning-surface.pdf) |
 | [#1041](https://www.erdosproblems.com/1041) | [Lemniscates and Newton flow](https://wcook04.github.io/plectis/maths/problems/erdos_1041.html) | [short paper](paper/1041/erdos-1041-lemniscate-newton-flow.pdf) · [longer paper](paper/1041/erdos1041-lemniscate-reasoning-surface.pdf) |
 | [#1049](https://www.erdosproblems.com/1049) | [Rational-base Lambert series](https://wcook04.github.io/plectis/maths/problems/erdos_1049.html) | [short paper](paper/1049/erdos-1049-rational-base-lambert.pdf) · [longer paper](paper/1049/erdos1049-rational-base-lambert-reasoning-surface.pdf) |

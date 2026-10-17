@@ -2,7 +2,7 @@
   "schema": "plectis_lean_experience_manifest_v1",
   "experience_version": "plectis_lean_experience_v1",
   "generated_by": "tools/meta/dissemination/build_plectis_lean_experience.py",
-  "source_fingerprint": "4274f1a05c6827012897a589686f4f1572f6d84a466a24a50b23e9fc637e7328",
+  "source_fingerprint": "facffa5940d9e0e5dd6dbf14dee5ff3a029dc855337a3fb7b7f3aebe9d3f12ba",
   "publication_state": "published_source",
   "public_parity": true,
   "authority_model": {
@@ -30,10 +30,10 @@
   },
   "counts": {
     "problems": 8,
-    "papers": 21,
+    "papers": 22,
     "human_documents": 18,
-    "graph_nodes": 2906,
-    "graph_edges": 9144
+    "graph_nodes": 2907,
+    "graph_edges": 9145
   },
   "paper_statements": {
     "source": "../paper-lean-coverage.json",
@@ -79,12 +79,12 @@
     ]
   },
   "source_identity": {
-    "human_document_navigation": "fcfaa6133f3a09248d285c35676d09a213b4ede2d1cf91a2eb81cfe0aa586496",
-    "lean_manifest": "b694dd9f59e0b990035bbbe3ab9e72a291574950c5a41d9f29929a60cca86544",
-    "paper_manifest": "eceb8f66413c1c1bc637d512847fa02507e7a00e2816d7804f4626b81ff521fb",
+    "human_document_navigation": "30ba2183d683cab0667af34802c3d94c2c3358588ecbceeddd0b5eaf40c1cfbb",
+    "lean_manifest": "3e38edc49ce31bbcb3cc527db67e7a142f2f8cf3176fd9e3166e13abc39ca9af",
+    "paper_manifest": "120361354189783d72f6d1040507fbc178e84c39e90198d1ef1e3c03f6d2e473",
     "claims": "b92af9f98a8743f48cf40c399d0c03eee322b7195e48c96eb14721ecb92fce9a",
     "problems": "131d897d99eb4de075e7e4c4269f3431005638e6028519a813944b13dcb8d904",
-    "problem_library": "61b823432c64d47cf01de4e832e89fd1e97517e9ccad42b8bfcb63a9f3cb0aa7",
+    "problem_library": "c5dfe78dfa4d5d1f478a458a55a4e65868d60fb827c8e5184aee32a0079f2b8f",
     "paper_lean_coverage": "633921ae2018e3e674609382150b4733ae6f071793a1589a1ab7f0b4985878a9",
     "paper_evidence": "8c7de6f8f5e082fa91698d0c8314620207603080c348a526aa31fa250042b423",
     "palomar_registry_status": "9b78da156e77f20b6aab43c5019c1883ac184418f510e6e3eb5d9cfd5ce0a47a",
@@ -106,8 +106,8 @@
     "progressive_graph": {
       "first_screen": "graph/index.json",
       "complete_universe": "graph.json",
-      "first_screen_nodes": 899,
-      "complete_nodes": 2906
+      "first_screen_nodes": 900,
+      "complete_nodes": 2907
     }
   }
 }

@@ -1,0 +1,232 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "erdos257-expository-sums-never-fractions",
+  "title": "Why certain sums of 1/(2^n-1) are irrational",
+  "subject": "Erdős #257",
+  "subject_kind": "problem",
+  "form": "Expository paper",
+  "pages": 16,
+  "question": "Why do the fractions 1/(2^n−1) over an infinite set of exponents n add up to an irrational number whenever 1/n, added up over the same exponents, is finite?",
+  "precis": "Erdős asked whether infinitely many of the fractions 1, 1/3, 1/7, 1/15, …, each of the form 1/(2^n−1) and each used at most once, can ever add up to a fraction. The paper proves that the chosen fractions add up to an irrational number whenever 1/n, added up over the chosen exponents n, is finite; for the exponents 2, 4, 8, 16, … this makes 1/3+1/15+1/255+1/65535+… irrational. Sections 1 to 8 explain the proof with examples; Appendix A supplies supporting details and formal-proof correspondence. The finite reconstruction here is an ordinary proof; the linked Lean and Comparator receipts establish the formal theorem and its own proof. For an arbitrary infinite choice the question is still open.",
+  "owns": "an account of Theorem A.1 of the #257 short paper at base 2 for a reader new to the problem: a guided proof through worked examples, with supporting details, exercises and the formal-proof correspondence in appendices",
+  "not_authority_for": "the validity of the Lean theorem it quotes, which belongs to the cited kernel-checked source, or a solution to Erdős #257, which remains open",
+  "problem_id": "erdos_257",
+  "routes": {
+    "html_mathml": "papers/erdos257-expository-sums-never-fractions.html",
+    "html_exact_tex": "papers/erdos257-expository-sums-never-fractions.mathjax.html",
+    "pdf": "../../papers/erdos257-expository-sums-never-fractions.pdf",
+    "latex": "../../papers/source/plectis-erdos/paper/257/erdos257-expository-sums-never-fractions.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-expository-sums-never-fractions.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos257-expository-sums-never-fractions.tex"
+  },
+  "render_contract": {
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "native MathML",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 35,
+    "renderer_fingerprint": "82eae77fe334791f",
+    "source_sha256": "5efdc16fe9917b634a2af0068bab9ce0e17127b58d5e82e6ab3e412c1e791352",
+    "source_manifest_match": true,
+    "publication_manifest_match": true,
+    "mathml_node_count": 929,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "4b4c8a3691ad6211bdb713e86df76f2acf10325b6e3ed57e4f6d234b39860ec6",
+    "html_exact_tex_sha256": "982813c77af4c46868a770ac751e0b1faf2bd1866677ea4b669f258c8fd2f97f"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": "sec:intro",
+      "label": "The question: which infinite sums are irrational?"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:problem",
+      "label": "Erdős’s question and the theorem"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:test",
+      "label": "A rational number has a fixed positive gap"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:split",
+      "label": "Multiplying the series and retaining fractional parts"
+    },
+    {
+      "level": 5,
+      "anchor": "the-remainder-can-be-read-from-the-exponents.",
+      "label": "The remainder can be read from the exponents."
+    },
+    {
+      "level": 5,
+      "anchor": "what-happens-to-the-entire-sum.",
+      "label": "What happens to the entire sum."
+    },
+    {
+      "level": 2,
+      "anchor": "sec:doubling",
+      "label": "A complete example: the doubling exponents"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:general",
+      "label": "Why averaging works"
+    },
+    {
+      "level": 5,
+      "anchor": "larger-multipliers-need-not-help.",
+      "label": "Larger multipliers need not help."
+    },
+    {
+      "level": 3,
+      "anchor": "one-table-many-attempts",
+      "label": "One table, many attempts"
+    },
+    {
+      "level": 5,
+      "anchor": "average-complete-attempts.",
+      "label": "Average complete attempts."
+    },
+    {
+      "level": 5,
+      "anchor": "what-the-two-estimates-will-do.",
+      "label": "What the two estimates will do."
+    },
+    {
+      "level": 3,
+      "anchor": "sec:cycles",
+      "label": "Complete cycles give small averages"
+    },
+    {
+      "level": 5,
+      "anchor": "keep-the-required-spacing.",
+      "label": "Keep the required spacing."
+    },
+    {
+      "level": 5,
+      "anchor": "compare-means-without-calculating-a-new-formula.",
+      "label": "Compare means without calculating a new formula."
+    },
+    {
+      "level": 3,
+      "anchor": "sec:unfinished",
+      "label": "A bound that also covers unfinished cycles"
+    },
+    {
+      "level": 5,
+      "anchor": "first-bound-all-the-consecutive-entries.",
+      "label": "First bound all the consecutive entries."
+    },
+    {
+      "level": 5,
+      "anchor": "keep-only-the-sampled-entries.",
+      "label": "Keep only the sampled entries."
+    },
+    {
+      "level": 2,
+      "anchor": "sec:proof",
+      "label": "Combining the estimates"
+    },
+    {
+      "level": 3,
+      "anchor": "app:numbers",
+      "label": "The construction with actual numbers"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:allchoices",
+      "label": "The same choices for any admissible set"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:limits",
+      "label": "Consequences and limits"
+    },
+    {
+      "level": 2,
+      "anchor": "app:full",
+      "label": "Supporting details and formal-proof correspondence"
+    },
+    {
+      "level": 3,
+      "anchor": "app:sums",
+      "label": "Convergence and tails"
+    },
+    {
+      "level": 3,
+      "anchor": "app:split",
+      "label": "Passing to the full transformed sum"
+    },
+    {
+      "level": 3,
+      "anchor": "app:cycle",
+      "label": "Why the sampled remainders form a cycle"
+    },
+    {
+      "level": 3,
+      "anchor": "app:proof",
+      "label": "Adding the row averages"
+    },
+    {
+      "level": 3,
+      "anchor": "app:bases",
+      "label": "Other bases"
+    },
+    {
+      "level": 3,
+      "anchor": "app:lean",
+      "label": "Formal verification and its scope"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:exercises",
+      "label": "Questions and exercises"
+    },
+    {
+      "level": 2,
+      "anchor": "app:answers",
+      "label": "Answers"
+    },
+    {
+      "level": 2,
+      "anchor": "references",
+      "label": "References"
+    }
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "sec:intro",
+        "title": "The question: which infinite sums are irrational?",
+        "level": 2
+      },
+      {
+        "id": "sec:test",
+        "title": "A rational number has a fixed positive gap",
+        "level": 2
+      },
+      {
+        "id": "sec:doubling",
+        "title": "A complete example: the doubling exponents",
+        "level": 2
+      },
+      {
+        "id": "sec:proof",
+        "title": "Combining the estimates",
+        "level": 2
+      }
+    ]
+  }
+}

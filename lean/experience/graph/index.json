@@ -4,8 +4,8 @@
   "root_node_id": "universe:plectis-lean",
   "full_graph": "graph.json",
   "counts": {
-    "nodes": 899,
-    "edges": 2244,
+    "nodes": 900,
+    "edges": 2245,
     "deferred_node_kinds": {
       "lean_module": 1902,
       "mathematical_object": 105
@@ -1414,6 +1414,15 @@
       "form": "Reasoning surface",
       "href": "papers/erdos251-prime-gap-reasoning-surface.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.tex"
+    },
+    {
+      "id": "paper:erdos257-expository-sums-never-fractions",
+      "kind": "paper",
+      "label": "Why certain sums of 1/(2^n-1) are irrational",
+      "subject": "Erdős #257",
+      "form": "Expository paper",
+      "href": "papers/erdos257-expository-sums-never-fractions.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-expository-sums-never-fractions.tex"
     },
     {
       "id": "paper:erdos257-mersenne-reasoning-surface",
@@ -15924,6 +15933,11 @@
       "source": "problem:erdos_257",
       "relation": "explained_by",
       "target": "paper:erdos-257-mersenne-support-subseries"
+    },
+    {
+      "source": "problem:erdos_257",
+      "relation": "explained_by",
+      "target": "paper:erdos257-expository-sums-never-fractions"
     },
     {
       "source": "problem:erdos_257",

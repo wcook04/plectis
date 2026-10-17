@@ -9,7 +9,10 @@ computations, and accounts of approaches that stopped. Plectis keeps the work
 open to further insight. The website brings the collection together; you do
 not need Lean to read it.
 
-Start with the [#257 paper](../paper/257/erdos-257-mersenne-support-subseries.pdf):
+Start with the [#257 introductory paper](../paper/257/erdos257-expository-sums-never-fractions.pdf)
+for examples and a full proof, or [watch the video](https://youtu.be/y8s3t_pwIGM).
+
+Continue with the [#257 short paper](../paper/257/erdos-257-mersenne-support-subseries.pdf):
 its checked finite-prime weighted criterion proves irrationality for some
 infinite supports with divergent reciprocal sum, while arbitrary infinite
 support remains open. Then read [#1049](../paper/1049/erdos-1049-rational-base-lambert.pdf):
@@ -99,10 +102,7 @@ formalisation and remaining questions.
 
 The [cross-problem paper, Reading Eight Erdős Problems Together](../paper/synthesis/optimal-sparse-perturbations.pdf)
 joins the capacity criterion, Lambert subsums across bases, method
-limits, exact computations and unsuccessful approaches in one account. This
-is a central use of the collection: read the papers and Lean corpus together,
-find constructions or obstructions that survive in a more general setting,
-and develop the mathematics they suggest. The
+limits, exact computations and unsuccessful approaches in one account. The
 [synthesis guide](../paper/synthesis/README.md) gives ways to begin.
 
 ## How to read the evidence

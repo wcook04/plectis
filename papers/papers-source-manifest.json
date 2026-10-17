@@ -137,6 +137,19 @@
       "tex_bytes": 495052
     },
     {
+      "hosted_path": "papers/erdos257-expository-sums-never-fractions.pdf",
+      "source_repo": "plectis-erdos",
+      "source_ref": "main",
+      "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-expository-sums-never-fractions.pdf",
+      "source_sha256": "5ba7e503be74eb70e221696882eb7e8b3d71543a716903b2dfe8de97db10698d",
+      "bytes": 133914,
+      "source_tex_path": "paper/257/erdos257-expository-sums-never-fractions.tex",
+      "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos257-expository-sums-never-fractions.tex",
+      "hosted_tex_path": "papers/source/plectis-erdos/paper/257/erdos257-expository-sums-never-fractions.tex",
+      "hosted_tex_sha256": "5efdc16fe9917b634a2af0068bab9ce0e17127b58d5e82e6ab3e412c1e791352",
+      "tex_bytes": 53432
+    },
+    {
       "hosted_path": "papers/erdos269-running-lcm-reasoning-surface.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
@@ -258,12 +271,12 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.pdf",
-      "source_sha256": "4d0de95387eb33c6507ef557b0c52fa86a3753dee236feb82e39347053f4d325",
-      "bytes": 180168,
+      "source_sha256": "e33907a44e75ab51f2e62fb4e92067669ac748f195853df6bbc072bc91eef2b7",
+      "bytes": 180196,
       "source_tex_path": "paper/systems/claim-faithful-publication-systems-paper.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/claim-faithful-publication-systems-paper.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex",
-      "hosted_tex_sha256": "d268dd185b92190b2c0c4556608387070cfc58660bff0f5c468e9f2bf10bafbc",
+      "hosted_tex_sha256": "b6c54d522ad39c0c9d59efdaeb12aa892ff6493d2fe4ccc2a3f9d8e6cdcb3f8f",
       "tex_bytes": 105065
     },
     {

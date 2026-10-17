@@ -8,6 +8,8 @@
 [Read without a clone](../docs/reading-edition/README.md)
 
 Each problem has a short first-read paper and a longer complete reasoning record.
+For an introduction with worked examples, start with the
+[#257 introductory paper](257/erdos257-expository-sums-never-fractions.pdf).
 The collection has five complementary roles:
 
 - **[Eight short papers](#problem-papers)** introduce selected results, their
@@ -79,6 +81,11 @@ and the research process, go to the [project papers](#project-papers).
 [Prime-Gap Dyadic Series: Perturbations, Exact Criteria and Certificates](251/erdos251-prime-gap-reasoning-surface.pdf) ([source](251/erdos251-prime-gap-reasoning-surface.tex))
 
 ### Erdős #257
+
+**Introductory paper.**
+[Why certain sums of 1/(2ⁿ−1) are irrational](257/erdos257-expository-sums-never-fractions.pdf) ([source](257/erdos257-expository-sums-never-fractions.tex)).
+Worked examples lead through a complete proof; an appendix gives supporting details, exercises and the link to the formal proof.
+[Watch the #257 video](https://youtu.be/y8s3t_pwIGM).
 
 **Short paper**<br>
 [Irrationality criteria for Lambert subseries](257/erdos-257-mersenne-support-subseries.pdf) ([source](257/erdos-257-mersenne-support-subseries.tex))

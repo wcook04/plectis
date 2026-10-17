@@ -87,6 +87,45 @@ Verify cold first paint independently of settled appearance, and compare
 font-ready laptop/phone captures in both themes so performance work preserves
 typography, content and interactions.
 
+## Search discovery contract
+
+The landing introduces the project and its author; the maths overview helps
+readers choose a problem; each problem page states the question, checked results
+and open boundary; the paper catalogue selects a manuscript; paper entries
+introduce that exact work; the glossary defines terms; About explains authorship
+and method. Keep each purpose distinct in its title, summary and native links.
+Do not add generic keyword pages or promote the retired toolkit for traffic.
+
+`tools/meta/dissemination/plectis_search_metadata.py` owns WebPage and
+BreadcrumbList JSON-LD for the docs and maths shells. Breadcrumb items come from
+the visible trail; unlinked grouping labels do not acquire fictional URLs.
+The full release validator explicitly enables `require_search_metadata` after
+all maths/docs producers run. Partial-generation checks report this audit
+without treating retained legacy metadata as newly generated output. It
+consumes canonical, metadata and H1 checks, and
+reports duplicate metadata and HTML-link reachability for editorial review.
+Run its `--site-root <built-site>` CLI against the assembled release, never a
+stale projection seed, when reviewing orphans. Existing link and fragment gates
+remain the broken-link authority.
+
+Main reader URLs remain stable. Complete manuscript editions keep their parent
+paper canonical. Content-hash chapter and section views are convenience copies:
+`noindex, follow`, no conflicting canonical, and native links to contents/full
+text. Narrow releases preserve a pre-migration reader only when its bytes
+exactly reproduce the previous producer from the retained complete edition;
+a body-only or metadata-stripped comparison is insufficient. Newly built
+views stay usable and crawlable but are omitted from the sitemap; canonical
+URLs never carry fragments. A DocPage compatibility alias uses its declared
+`route_alias_for` canonical and stays out of the sitemap; retain the old URL
+for incoming links instead of manufacturing navigation to an obsolete page.
+Local unpublished previews stay noindex. Do not
+truncate exact paper names to meet a mechanical character budget.
+
+Search status and performance are observations, not markup properties. Record
+Search Console report dates, actual exclusions and sitemap status. No field
+Core Web Vitals data means unknown, even if phone/desktop lab checks pass.
+Use the public-web-design skill's search-visibility procedure for new pages.
+
 ## Audience route contract
 
 ### Map data contracts
@@ -457,6 +496,7 @@ that proposal checked against its paper and redrawn, and the words were
 rewritten because the drafts read "like a salesperson" (Will): intuitive,
 from first principles, interesting to a mathematician, with the ideas
 left to speak for themselves.
+
 Each original problem must also stand on its own for a mathematician encountering it for the first time (11 October 2026). The always-visible opening defines the objects and notation, works a small example, and says exactly what is being asked before introducing proof machinery or quoting the formal statement. Essential definitions must not live only behind “Explain in full”. Keep paragraph breaks in both opening summaries and result explanations, and state how the featured result bears on the original question without promoting a restricted theorem or method obstruction to a solution.
 
 The expanded result explanations (11 October 2026) give each drawing stage

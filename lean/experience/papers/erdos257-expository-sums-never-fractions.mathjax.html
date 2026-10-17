@@ -1,0 +1,1908 @@
+<article class="lean-paper" data-paper-id="erdos257-expository-sums-never-fractions" data-math-mode="mathjax">
+  <header class="lean-paper__header">
+    <p class="lean-paper__eyebrow">Expository paper</p>
+    <h1>Why certain sums of 1/(2^n-1) are irrational</h1>
+    <p class="lean-paper__subject">Erdős #257</p>
+  </header>
+  <div class="lean-paper__body" data-source="../../../paper/257/erdos257-expository-sums-never-fractions.tex">
+<section id="sec:intro" class="level2">
+<h2>The question: which infinite sums are irrational?</h2>
+<p>Every finite sum of fractions is a fraction. An infinite sum can be
+one too:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac12+\frac14+\frac18+\dots=1.\]</span></div>
+<p>Now
+consider</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[S=\frac13+\frac1{15}+\frac1{255}+\frac1{65535}+\dots,\]</span></div>
+<p class="display-continue">where the denominators are <span
+class="math inline" data-term-auto="off">\(2^2-1,2^4-1,2^8-1,2^{16}-1,\dots\)</span>. The
+exponents double at each step. We will prove that this sum cannot equal
+any fraction.</p>
+<p>Multiply by <span class="math inline" data-term-auto="off">\(255\)</span>, the third
+denominator:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{aligned}
+255S&amp;=85+17+1+\frac{255}{65535}+\dots\\
+     &amp;=103+\frac1{257}+\dots.
+\end{aligned}\]</span></div>
+<p>The first three terms have become the integer
+<span class="math inline" data-term-auto="off">\(103\)</span>, leaving a positive remainder.
+If <span class="math inline" data-term-auto="off">\(S=p/q\)</span>, with integers <span
+class="math inline" data-term-auto="off">\(p,q\)</span> and <span
+class="math inline" data-term-auto="off">\(q&gt;0\)</span>, multiplying by an integer and
+subtracting an integer leaves an integer multiple of <span
+class="math inline" data-term-auto="off">\(1/q\)</span>. A positive remainder must therefore
+be at least <span class="math inline" data-term-auto="off">\(1/q\)</span>. We will repeat the
+construction to make the <em>whole</em> remainder smaller than this
+fixed gap, whatever denominator <span class="math inline" data-term-auto="off">\(q\)</span>
+is proposed.</p>
+<p>This example belongs to a larger family. Its fractions are obtained
+by taking a power of <span class="math inline" data-term-auto="off">\(2\)</span>, subtracting
+<span class="math inline" data-term-auto="off">\(1\)</span>, and taking the reciprocal:</p>
+<div class="center">
+<table>
+<tbody>
+<tr>
+<td class="ta-l"><p>exponent <span
+class="math inline" data-term-auto="off">\(n\)</span></p></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(1\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(2\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(3\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(4\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(5\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(6\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\dots\)</span></td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(2^n\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(2\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(4\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(8\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(16\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(32\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(64\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\dots\)</span></td>
+</tr>
+<tr>
+<td class="ta-l">denominator <span
+class="math inline" data-term-auto="off">\(2^n-1\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(1\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(3\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(7\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(15\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(31\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(63\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\dots\)</span></td>
+</tr>
+<tr>
+<td class="ta-l">term <span
+class="math inline" data-term-auto="off">\(1/(2^n-1)\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(1\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(\tfrac13\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(\tfrac17\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(\tfrac1{15}\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(\tfrac1{31}\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(\tfrac1{63}\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\dots\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Choose infinitely many of these terms, each at most once, and add
+them. Choosing the terms is equivalent to choosing a set <span
+class="math inline" data-term-auto="off">\(A\)</span> of positive integer exponents. The
+opening example uses <span
+class="math inline" data-term-auto="off">\(A=\{2,4,8,16,\dots\}\)</span>; choosing all even
+exponents instead gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[A=\{2,4,6,8,\dots\}:\qquad
+\frac13+\frac1{15}+\frac1{63}+\frac1{255}+\dots.\]</span></div>
+<p>The exponent
+<span class="math inline" data-term-auto="off">\(0\)</span> is excluded, since <span
+class="math inline" data-term-auto="off">\(2^0-1=0\)</span>. We write</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[S_A=\sum_{n\in A}\frac1{2^n-1}.\]</span></div>
+<p>The
+symbol <span class="math inline" data-term-auto="off">\(\sum_{n\in A}\)</span> means that we
+add the terms whose exponents belong to <span
+class="math inline" data-term-auto="off">\(A\)</span>, taking those exponents in increasing
+order. A <em>partial sum</em> stops after finitely many selected terms.
+Here <em>irrational</em> means that <span
+class="math inline" data-term-auto="off">\(S_A\)</span> cannot equal <span
+class="math inline" data-term-auto="off">\(p/q\)</span> for integers <span
+class="math inline" data-term-auto="off">\(p,q\)</span> with <span
+class="math inline" data-term-auto="off">\(q&gt;0\)</span>.</p>
+<p>For the geometric series at the start, the partial sums are</p>
+<div class="center">
+<table>
+<tbody>
+<tr>
+<td class="ta-l"><p>number of terms <span
+class="math inline" data-term-auto="off">\(N\)</span></p></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(2\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(3\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(4\)</span></td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(\tfrac12+\dots+\tfrac1{2^N}\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac12\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac34\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac78\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac{15}{16}\)</span></td>
+</tr>
+<tr>
+<td class="ta-l">gap to <span
+class="math inline" data-term-auto="off">\(1\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac12\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac14\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac18\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac1{16}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In general the partial sum is <span
+class="math inline" data-term-auto="off">\(1-2^{-N}\)</span>. Its gap to <span
+class="math inline" data-term-auto="off">\(1\)</span> tends to zero, which is precisely the
+assertion <span
+class="math inline" data-term-auto="off">\(\tfrac12+\tfrac14+\tfrac18+\dots=1\)</span>.</p>
+<p>Every series <span class="math inline" data-term-auto="off">\(S_A\)</span> converges: for
+<span class="math inline" data-term-auto="off">\(n\ge1\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[0&lt;\frac1{2^n-1}\le\frac1{2^{n-1}},\qquad
+\sum_{n=1}^{\infty}\frac1{2^{n-1}}=2.\]</span></div>
+<p>The inequality follows
+from <span class="math inline" data-term-auto="off">\(2^n-1\ge2^{n-1}\)</span>. Consequently
+the partial sums of <span class="math inline" data-term-auto="off">\(S_A\)</span> increase
+and are bounded by <span class="math inline" data-term-auto="off">\(2\)</span>. A basic
+property of real numbers says that an increasing, bounded sequence has a
+finite limit (Appendix <a class="math-ref" href="#app:sums">A.1</a>). The issue is whether
+this limit is rational.</p>
+</section>
+<section id="sec:problem" class="level2">
+<h2>Erdős’s question and the theorem</h2>
+<p>In a 1988 account, Erdős wrote <span class="citation"
+data-cites="erdos1988"><a href="#ref-3">[3]</a></span> (excerpt):</p>
+<blockquote>
+<p>“let <span class="math inline" data-term-auto="off">\(n_1&lt;n_2&lt;\dots\)</span>. Is it
+then true that <span class="math inline" data-term-auto="off">\(\sum
+\frac{1}{2^{n_k}-1}\)</span> is irrational, …”</p>
+</blockquote>
+<p>The indices <span class="math inline" data-term-auto="off">\(k=1,2,\dots\)</span> count
+the chosen exponents <span class="math inline" data-term-auto="off">\(n_k\)</span>. In these
+terms, we prove:</p>
+<div class="theorem" id="thm:main">
+<p><strong>Theorem 1</strong>. <em> Let <span
+class="math inline" data-term-auto="off">\(n_1&lt;n_2&lt;\dots\)</span> be an infinite
+sequence of positive integers. If <span
+class="math inline" data-term-auto="off">\(\sum_{k=1}^{\infty}1/n_k&lt;\infty\)</span>, then
+</em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{k=1}^{\infty}\frac1{2^{n_k}-1}\]</span></div>
+<p class="display-continue"><em> is
+irrational.</em></p>
+</div>
+<p>Taking <span class="math inline" data-term-auto="off">\(A=\{n_1,n_2,\dots\}\)</span>, this
+series is exactly <span class="math inline" data-term-auto="off">\(S_A\)</span>, and the
+additional hypothesis is exactly <span class="math inline" data-term-auto="off">\(\sum_{n\in
+A}1/n&lt;\infty\)</span>. The question for arbitrary infinite <span
+class="math inline" data-term-auto="off">\(A\)</span> remains open <span class="citation"
+data-cites="erdosproblems257"><a href="#ref-4">[4]</a></span>.</p>
+<p>The condition concerns the reciprocals of the <em>exponents</em>. The
+conclusion concerns the fractions with denominators <span
+class="math inline" data-term-auto="off">\(2^n-1\)</span>. For the doubling exponents, the
+distinction is visible in one table:</p>
+<div class="center">
+<table>
+<tbody>
+<tr>
+<td class="ta-l"><p>chosen exponent <span
+class="math inline" data-term-auto="off">\(n\)</span></p></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(2\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(4\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(8\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(16\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\dots\)</span></td>
+</tr>
+<tr>
+<td class="ta-l">term in the hypothesis, <span
+class="math inline" data-term-auto="off">\(1/n\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac12\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac14\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac18\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac1{16}\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\dots\)</span></td>
+</tr>
+<tr>
+<td class="ta-l">term in <span
+class="math inline" data-term-auto="off">\(S_A\)</span>, <span
+class="math inline" data-term-auto="off">\(1/(2^n-1)\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac13\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac1{15}\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac1{255}\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\tfrac1{65535}\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\dots\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The second row sums to <span class="math inline" data-term-auto="off">\(1\)</span>. The
+theorem therefore says that the third row sums to an irrational number.
+The hypothesis is an additional restriction on <span
+class="math inline" data-term-auto="off">\(A\)</span>; it is not needed merely to make <span
+class="math inline" data-term-auto="off">\(S_A\)</span> converge.</p>
+<p>We will use the hypothesis in this form: beyond a sufficiently large
+exponent, the remaining reciprocals <span
+class="math inline" data-term-auto="off">\(1/n\)</span> together add up to less than any
+positive target we specify. This remaining sum is called a
+<em>tail</em>.</p>
+<p>The square exponents <span
+class="math inline" data-term-auto="off">\(A=\{1,4,9,16,\dots\}\)</span> also satisfy the
+condition. Indeed, for <span class="math inline" data-term-auto="off">\(m\ge2\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac1{m^2}&lt;\frac1{m(m-1)}=\frac1{m-1}-\frac1m,\]</span></div>
+<p class="display-continue">so the comparison sum cancels:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[(1-\tfrac12)+(\tfrac12-\tfrac13)+(\tfrac13-\tfrac14)
++\dots+(\tfrac1{N-1}-\tfrac1N)=1-\tfrac1N&lt;1.\]</span></div>
+<p>Thus <span
+class="math inline" data-term-auto="off">\(\sum_{m=2}^{N}1/m^2&lt;1\)</span>. Hence <span
+class="math inline" data-term-auto="off">\(\sum_{m=1}^{\infty}1/m^2\)</span> converges, and
+the theorem proves that <span
+class="math inline" data-term-auto="off">\(1+\tfrac1{15}+\tfrac1{511}+\tfrac1{65535}+\dots\)</span>
+is irrational.</p>
+<p>By contrast, choosing every positive integer gives the divergent
+harmonic series in the hypothesis. Group its terms as <span
+class="math inline" data-term-auto="off">\(1\)</span>; <span
+class="math inline" data-term-auto="off">\(1/2\)</span>; <span
+class="math inline" data-term-auto="off">\(1/3+1/4\)</span>; <span
+class="math inline" data-term-auto="off">\(1/5+1/6+1/7+1/8\)</span>; and so on. For example,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac15+\frac16+\frac17+\frac18\ge4\cdot\frac18=\frac12.\]</span></div>
+<p>Every subsequent block doubles the number of terms and halves their
+smallest value, so again contributes at least <span
+class="math inline" data-term-auto="off">\(1/2\)</span>. These repeated contributions make
+the partial sums unbounded. Even exponents also fail the condition,
+since their reciprocal sum is half the harmonic series. The theorem
+makes no assertion for these choices. Infinitude is essential too: <span
+class="math inline" data-term-auto="off">\(A=\{2,4\}\)</span> has a finite reciprocal sum,
+but <span
+class="math inline" data-term-auto="off">\(S_A=\tfrac13+\tfrac1{15}=\tfrac25\)</span>.
+(Question <a class="math-ref" href="#chk:hypotheses">1</a>.)</p>
+<p>Erdős proved the theorem in 1968 under the extra assumption that no
+two chosen exponents share a divisor greater than <span
+class="math inline" data-term-auto="off">\(1\)</span>, and stated that this assumption could
+be removed without supplying the details <span class="citation"
+data-cites="erdos1968"><a href="#ref-2">[2]</a></span>. We explain a proof without that
+assumption.</p>
+<p>The proof has three stages. First, rationality forces a fixed lower
+bound on certain positive remainders. Next, the denominators <span
+class="math inline" data-term-auto="off">\(2^n-1\)</span> let us calculate those remainders
+explicitly. Finally, a small average guarantees at least one choice
+whose <em>total</em> remainder is below that lower bound. The doubling
+exponents show the construction at work before the averaging is needed.
+The main proof ends in Section <a class="math-ref" href="#sec:allchoices">7.2</a>. Appendices <a class="math-ref" href="#app:sums">A.1</a>–<a class="math-ref" href="#app:proof">A.4</a> justify the supporting
+infinite-sum and divisibility facts; they can be read as needed or after
+the main proof. The other-base extension and formal-proof correspondence
+are further reading.</p>
+</section>
+<section id="sec:test" class="level2">
+<h2>A rational number has a fixed positive gap</h2>
+<p>Start with <span class="math inline" data-term-auto="off">\(2/5\)</span>. Multiplying it
+by an integer and subtracting an integer always gives an integer
+multiple of <span class="math inline" data-term-auto="off">\(1/5\)</span>:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[3\cdot\frac25-1=\frac15,\quad
+4\cdot\frac25-1=\frac35,\quad
+5\cdot\frac25-2=0,\quad
+1\cdot\frac25-1=-\frac35.\]</span></div>
+<p>There is no such value strictly
+between <span class="math inline" data-term-auto="off">\(0\)</span> and <span
+class="math inline" data-term-auto="off">\(1/5\)</span>. The denominator fixes a smallest
+possible positive result.</p>
+<p>The same reasoning applies to any fraction. From now on write <span
+class="math inline" data-term-auto="off">\(S=S_A\)</span> for the series belonging to our
+chosen set <span class="math inline" data-term-auto="off">\(A\)</span>, and suppose <span
+class="math inline" data-term-auto="off">\(S=p/q\)</span>, where <span
+class="math inline" data-term-auto="off">\(p\in\mathbb Z\)</span> and <span
+class="math inline" data-term-auto="off">\(q\)</span> is a positive integer. For integers
+<span class="math inline" data-term-auto="off">\(u,j\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[uS-j=\frac{up-jq}{q}.\]</span></div>
+<p>Its numerator is
+an integer. If <span class="math inline" data-term-auto="off">\(uS-j&gt;0\)</span>, then
+<span class="math inline" data-term-auto="off">\(up-jq\ge1\)</span>, and therefore</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[uS-j\ge\frac1q.\]</span></div>
+<p>Positivity is necessary:
+zero and negative values do not contradict rationality.</p>
+<p>To prove our sum irrational, we will therefore suppose that <span
+class="math inline" data-term-auto="off">\(S=p/q\)</span> and construct integers <span
+class="math inline" data-term-auto="off">\(u,j\)</span>, which may depend on <span
+class="math inline" data-term-auto="off">\(q\)</span>, satisfying</p>
+<div class="math-display" id="eq:goal" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:goal}
+0&lt;uS-j&lt;\frac1q.
+\end{equation}\]</span></div>
+</section>
+<section id="sec:split" class="level2">
+<h2>Multiplying the series and retaining fractional parts</h2>
+<p>We want a multiplier that makes some terms integers. Choose a
+positive integer <span class="math inline" data-term-auto="off">\(k\)</span> and consider
+<span class="math inline" data-term-auto="off">\(2^k-1\)</span>. Here <span
+class="math inline" data-term-auto="off">\(k\)</span> is the multiplier exponent; it no
+longer indexes the list <span
+class="math inline" data-term-auto="off">\(n_1,n_2,\dots\)</span>. For example, <span
+class="math inline" data-term-auto="off">\(15=2^4-1\)</span> is divisible by <span
+class="math inline" data-term-auto="off">\(3=2^2-1\)</span>. Let us first see exactly what
+multiplying by <span class="math inline" data-term-auto="off">\(15\)</span> does:</p>
+<div class="center">
+<table>
+<tbody>
+<tr>
+<td class="ta-c"><p>exponent <span
+class="math inline" data-term-auto="off">\(n\)</span></p></td>
+<td class="ta-c">original term</td>
+<td class="ta-c">multiplied term</td>
+<td class="ta-c">integer part</td>
+<td class="ta-c">fractional part</td>
+</tr>
+<tr>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(2\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1/3\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(15/3=5\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(5\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+</tr>
+<tr>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(3\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1/7\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(15/7=2+1/7\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(2\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1/7\)</span></td>
+</tr>
+<tr>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(4\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1/15\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(15/15=1\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+</tr>
+<tr>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(5\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1/31\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(15/31\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(15/31\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These rows illustrate the operation; in the chosen series we retain
+only rows with <span class="math inline" data-term-auto="off">\(n\in A\)</span>. For <span
+class="math inline" data-term-auto="off">\(x\ge0\)</span>, its integer part <span
+class="math inline" data-term-auto="off">\(\lfloor x\rfloor\)</span> is the greatest integer
+at most <span class="math inline" data-term-auto="off">\(x\)</span>. Subtracting it leaves
+the fractional part <span class="math inline" data-term-auto="off">\(\{x\}=x-\lfloor
+x\rfloor\in[0,1)\)</span>. For example, <span
+class="math inline" data-term-auto="off">\(2\le15/7&lt;3\)</span>, so we subtract <span
+class="math inline" data-term-auto="off">\(2\)</span> and retain <span
+class="math inline" data-term-auto="off">\(1/7\)</span>. This choice keeps every contribution
+nonnegative.</p>
+<section id="the-remainder-can-be-read-from-the-exponents."
+class="level5">
+<h5>The remainder can be read from the exponents.</h5>
+<p>Keep the denominator <span class="math inline" data-term-auto="off">\(2^n-1\)</span> fixed
+and add <span class="math inline" data-term-auto="off">\(n\)</span> to <span
+class="math inline" data-term-auto="off">\(k\)</span>. The identity</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[2^{k+n}-1=2^k(2^n-1)+(2^k-1)\]</span></div>
+<p class="display-continue">gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{2^{k+n}-1}{2^n-1}=2^k+\frac{2^k-1}{2^n-1}.\]</span></div>
+<p>The added term <span class="math inline" data-term-auto="off">\(2^k\)</span> is an integer,
+so the fractional part is unchanged. Write <span
+class="math inline" data-term-auto="off">\(k=an+r\)</span> with <span
+class="math inline" data-term-auto="off">\(0\le r&lt;n\)</span>. Repeatedly subtracting <span
+class="math inline" data-term-auto="off">\(n\)</span> from the exponent reduces the
+calculation to <span class="math inline" data-term-auto="off">\(r\)</span>. Since <span
+class="math inline" data-term-auto="off">\(0\le2^r-1&lt;2^n-1\)</span>,</p>
+<div class="math-display" id="eq:fracpart-main" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:fracpart-main}
+\ell_n(k):=\left\{\frac{2^k-1}{2^n-1}\right\}
+=\frac{2^{k\bmod n}-1}{2^n-1}.
+\end{equation}\]</span></div>
+<p>Here <span class="math inline" data-term-auto="off">\(k\bmod
+n\)</span> denotes the integer remainder <span
+class="math inline" data-term-auto="off">\(r\)</span> in division by <span
+class="math inline" data-term-auto="off">\(n\)</span>. It lies between <span
+class="math inline" data-term-auto="off">\(0\)</span> and <span
+class="math inline" data-term-auto="off">\(n-1\)</span>; <span
+class="math inline" data-term-auto="off">\(\ell_n(k)\)</span> is the fractional part
+calculated from it. We will sum these fractional parts to obtain <span
+class="math inline" data-term-auto="off">\(R(k)\)</span>. For example, <span
+class="math inline" data-term-auto="off">\(8=2\cdot3+2\)</span>, so <span
+class="math inline" data-term-auto="off">\(\{255/7\}=(2^2-1)/7=3/7\)</span>. The fractional
+part is zero exactly when <span class="math inline" data-term-auto="off">\(n\)</span> divides
+<span class="math inline" data-term-auto="off">\(k\)</span>. Thus the multiplier <span
+class="math inline" data-term-auto="off">\(2^k-1\)</span> turns a selected term into an
+integer exactly when its exponent divides <span
+class="math inline" data-term-auto="off">\(k\)</span>. This is why we chose this multiplier:
+we can make selected contributions vanish by choosing <span
+class="math inline" data-term-auto="off">\(k\)</span> divisible by their exponents.</p>
+</section>
+<section id="what-happens-to-the-entire-sum." class="level5">
+<h5>What happens to the entire sum.</h5>
+<p>Apply the same multiplier to every selected term, subtract each
+integer part, and sum the fractional parts:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[R(k)=\sum_{n\in A}\ell_n(k),\qquad
+J(k)=\sum_{\substack{n\in A\\ n\le k}}
+       \left\lfloor\frac{2^k-1}{2^n-1}\right\rfloor.\]</span></div>
+<p>Only
+exponents <span class="math inline" data-term-auto="off">\(n\le k\)</span> contribute to
+<span class="math inline" data-term-auto="off">\(J(k)\)</span>: when <span
+class="math inline" data-term-auto="off">\(n&gt;k\)</span>, the multiplied term is already
+less than <span class="math inline" data-term-auto="off">\(1\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(J(k)\)</span> is a finite sum of integers.
+Splitting the terms gives</p>
+<div class="math-display" id="eq:split-main" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:split-main}
+(2^k-1)S=J(k)+R(k).
+\end{equation}\]</span></div>
+<p>The series defining <span
+class="math inline" data-term-auto="off">\(R(k)\)</span> converges by comparison with <span
+class="math inline" data-term-auto="off">\((2^k-1)S\)</span>; Appendix <a class="math-ref" href="#app:split">A.2</a> justifies the identity
+using partial sums.</p>
+<p>The sum <span class="math inline" data-term-auto="off">\(R(k)\)</span> need not itself be
+a fractional part. For the three exponents <span
+class="math inline" data-term-auto="off">\(2,3,6\)</span> and <span
+class="math inline" data-term-auto="off">\(k=5\)</span>, the separate fractional parts sum to</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\left\{\frac{31}3\right\}+\left\{\frac{31}7\right\}
++\left\{\frac{31}{63}\right\}
+=\frac13+\frac37+\frac{31}{63}=\frac{79}{63}&gt;1.\]</span></div>
+<p>The
+fractional part of the whole product is instead <span
+class="math inline" data-term-auto="off">\(16/63\)</span>. We retain the separate
+contributions because each has the explicit formula <a class="math-ref" data-equation-ref="true" href="#eq:fracpart-main">eq:fracpart-main</a>; their sum still
+has the required form <span class="math inline" data-term-auto="off">\(uS-j\)</span>.</p>
+<p>Finally, if <span class="math inline" data-term-auto="off">\(A\)</span> is infinite, there
+is always a selected exponent <span
+class="math inline" data-term-auto="off">\(n&gt;k\)</span>. Its multiplied term is positive
+and less than <span class="math inline" data-term-auto="off">\(1\)</span>, so it contributes
+positively to <span class="math inline" data-term-auto="off">\(R(k)\)</span>; all other
+contributions are nonnegative. Therefore</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[S=p/q\quad\Longrightarrow\quad
+R(k)=(2^k-1)S-J(k)\ge\frac1q\quad\hbox{for every }k\ge1.\]</span></div>
+<p>Our
+task is now to find <em>one</em> <span class="math inline" data-term-auto="off">\(k\)</span>
+with <span class="math inline" data-term-auto="off">\(R(k)&lt;1/q\)</span>. (Question <a class="math-ref" href="#chk:positive">2</a>.)</p>
+</section>
+</section>
+<section id="sec:doubling" class="level2">
+<h2>A complete example: the doubling exponents</h2>
+<p>Return to the opening example, <span
+class="math inline" data-term-auto="off">\(A=\{2,4,8,16,\dots\}\)</span>. We now know why
+<span class="math inline" data-term-auto="off">\(255\)</span> cleared its first three terms:
+it is <span class="math inline" data-term-auto="off">\(2^8-1\)</span>, and the exponents
+<span class="math inline" data-term-auto="off">\(2,4,8\)</span> all divide <span
+class="math inline" data-term-auto="off">\(8\)</span>. In our new notation that calculation
+is</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[255S=103+R(8),\qquad
+R(8)=\frac1{257}+\frac1{16843009}+\dots&gt;0.\]</span></div>
+<p>One small
+remainder rules out only some denominators. To rule out every <span
+class="math inline" data-term-auto="off">\(q\)</span>, we need remainders as small as we
+please. For any doubling exponent <span
+class="math inline" data-term-auto="off">\(k\)</span>, all selected <span
+class="math inline" data-term-auto="off">\(n\le k\)</span> divide <span
+class="math inline" data-term-auto="off">\(k\)</span> and contribute zero. Every later
+selected exponent is at least <span class="math inline" data-term-auto="off">\(2k\)</span>,
+and</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[0&lt;\ell_n(k)=\frac{2^k-1}{2^n-1}
+&lt;\frac{2^k}{2^{n-1}}=\frac2{2^{n-k}}.\]</span></div>
+<p>For <span
+class="math inline" data-term-auto="off">\(k=8\)</span>, the gaps <span
+class="math inline" data-term-auto="off">\(n-k\)</span> are <span
+class="math inline" data-term-auto="off">\(8,24,56,\dots\)</span>. In general they are
+distinct integers at least <span class="math inline" data-term-auto="off">\(k\)</span>.
+Insert the missing positive terms so that the gaps run through
+<em>all</em> integers <span
+class="math inline" data-term-auto="off">\(k,k+1,k+2,\dots\)</span>; this can only increase
+the upper bound:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[0&lt;R(k)&lt;\sum_{e=k}^{\infty}\frac2{2^e}=\frac4{2^k}.\]</span></div>
+<p>The last equality is the geometric-series formula: the first term is
+<span class="math inline" data-term-auto="off">\(2/2^k\)</span> and each successive term is
+half its predecessor.</p>
+<p>For <span class="math inline" data-term-auto="off">\(k=8\)</span> this gives <span
+class="math inline" data-term-auto="off">\(R(8)&lt;1/64\)</span>, ruling out every
+denominator <span class="math inline" data-term-auto="off">\(q\le64\)</span>: such a
+denominator would force <span
+class="math inline" data-term-auto="off">\(R(8)\ge1/q\ge1/64\)</span>. For <span
+class="math inline" data-term-auto="off">\(k=16\)</span> the bound is <span
+class="math inline" data-term-auto="off">\(R(16)&lt;1/16384\)</span>. Given any proposed
+denominator <span class="math inline" data-term-auto="off">\(q\)</span>, choose a doubling
+exponent <span class="math inline" data-term-auto="off">\(k\)</span> with <span
+class="math inline" data-term-auto="off">\(2^k&gt;4q\)</span>. Then <span
+class="math inline" data-term-auto="off">\(0&lt;R(k)&lt;1/q\)</span>, contradicting
+rationality. This completes the proof for the doubling exponents.</p>
+<p>The special feature was that <span class="math inline" data-term-auto="off">\(k\)</span>
+both eliminated all earlier terms and left the next exponent at least
+<span class="math inline" data-term-auto="off">\(2k\)</span>. A general set <span
+class="math inline" data-term-auto="off">\(A\)</span> need not have that spacing. The next
+section explains how averaging replaces it.</p>
+</section>
+<section id="sec:general" class="level2">
+<h2>Why averaging works</h2>
+<section id="larger-multipliers-need-not-help." class="level5">
+<h5>Larger multipliers need not help.</h5>
+<p>For the square exponents <span
+class="math inline" data-term-auto="off">\(A=\{1,4,9,16,\dots\}\)</span>, both <span
+class="math inline" data-term-auto="off">\(k=4\)</span> and <span
+class="math inline" data-term-auto="off">\(k=8\)</span> are divisible by the first two
+selected exponents <span class="math inline" data-term-auto="off">\(1,4\)</span>. All later
+selected exponents exceed <span class="math inline" data-term-auto="off">\(8\)</span>, so
+their integer parts vanish for both multipliers. Consequently</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[R(4)=15\left(\frac1{511}+\frac1{65535}+\dots\right),\qquad
+R(8)=255\left(\frac1{511}+\frac1{65535}+\dots\right)=17R(4).\]</span></div>
+<p>In
+fact <span class="math inline" data-term-auto="off">\(R(4)\approx0.0296\)</span> and <span
+class="math inline" data-term-auto="off">\(R(8)\approx0.503\)</span>. Increasing <span
+class="math inline" data-term-auto="off">\(k\)</span> while preserving the same zero
+contributions has enlarged the remaining terms. Even eliminating longer
+initial groups need not suffice: in Exercise <a class="math-ref" href="#ex:6">5</a>, the next selected exponent is
+<span class="math inline" data-term-auto="off">\(k+1\)</span>, leaving <span
+class="math inline" data-term-auto="off">\((2^k-1)/(2^{k+1}-1)\)</span>, which approaches
+<span class="math inline" data-term-auto="off">\(1/2\)</span>. The choices of <span
+class="math inline" data-term-auto="off">\(k\)</span> matter, not just how many initial rows
+they make zero.</p>
+</section>
+<section id="one-table-many-attempts" class="level3">
+<h3>One table, many attempts</h3>
+<p>Keep <span class="math inline" data-term-auto="off">\(A\)</span>, and hence the original
+number <span class="math inline" data-term-auto="off">\(S\)</span>, fixed. For each new
+choice of <span class="math inline" data-term-auto="off">\(k\)</span>, repeat the whole
+calculation: multiply every selected term by <span
+class="math inline" data-term-auto="off">\(2^k-1\)</span>, subtract its integer part, and add
+what remains to obtain <span class="math inline" data-term-auto="off">\(R(k)\)</span>.
+<em>Each column below is one entire attempt to obtain the
+contradiction.</em> Each row follows the contribution from one original
+term across the attempts. We need one column whose total is less than
+<span class="math inline" data-term-auto="off">\(1/q\)</span>.</p>
+<p>Choose candidate exponents spaced <span
+class="math inline" data-term-auto="off">\(Q\)</span> apart: <span
+class="math inline" data-term-auto="off">\(k=Q,2Q,\dots,MQ\)</span>. Here <span
+class="math inline" data-term-auto="off">\(Q\)</span> is the spacing, <span
+class="math inline" data-term-auto="off">\(M\)</span> is the number of attempts, and <span
+class="math inline" data-term-auto="off">\(m\)</span> labels the attempt <span
+class="math inline" data-term-auto="off">\(k=mQ\)</span>; the actual multiplier is <span
+class="math inline" data-term-auto="off">\(2^{mQ}-1\)</span>. Neither <span
+class="math inline" data-term-auto="off">\(Q\)</span> nor <span
+class="math inline" data-term-auto="off">\(k\)</span> has to belong to <span
+class="math inline" data-term-auto="off">\(A\)</span>. We choose <span
+class="math inline" data-term-auto="off">\(Q\)</span> divisible by an initial group of
+selected exponents so those rows stay zero in every column. For the
+square exponents, <span class="math inline" data-term-auto="off">\(Q=4\)</span> gives:</p>
+<div class="center">
+<table>
+<tbody>
+<tr>
+<td class="ta-c"><p>selected exponent <span
+class="math inline" data-term-auto="off">\(n\)</span></p></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(k=4\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(k=8\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(k=12\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(k=16\)</span></td>
+</tr>
+<tr>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+</tr>
+<tr>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(4\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+</tr>
+<tr>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(9\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(15/511\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(255/511\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(7/511\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(127/511\)</span></td>
+</tr>
+<tr>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(16\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(15/65535\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(255/65535\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(4095/65535\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+</tr>
+<tr>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\vdots\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\vdots\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\vdots\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\vdots\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(\vdots\)</span></td>
+</tr>
+<tr>
+<td class="ta-c">column total</td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(R(4)\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(R(8)\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(R(12)\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(R(16)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Every entry is a fractional part <span
+class="math inline" data-term-auto="off">\(\ell_n(k)\)</span>. For example, the cell <span
+class="math inline" data-term-auto="off">\(n=9,k=12\)</span> uses <span
+class="math inline" data-term-auto="off">\(12=1\cdot9+3\)</span>, so <span
+class="math inline" data-term-auto="off">\(\ell_9(12)=(2^3-1)/(2^9-1)=7/511\)</span>. Each
+column uses the same multiplier throughout, including in the rows not
+displayed. (Question <a class="math-ref" href="#chk:columns">3</a>.)</p>
+<section id="average-complete-attempts." class="level5">
+<h5>Average complete attempts.</h5>
+<p>Different rows may be small in different columns; choosing a separate
+column for each row would not give one multiplier for the original
+series. Instead average <em>every row across the same columns</em>, then
+add those row averages. This gives the average of the complete column
+totals: both calculations add the same entries and divide by the same
+number <span class="math inline" data-term-auto="off">\(M\)</span>. In symbols,</p>
+<div class="math-display" id="eq:average-main" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:average-main}
+\frac1M\sum_{m=1}^{M}R(mQ)
+=\sum_{n\in A}\frac1M\sum_{m=1}^{M}\ell_n(mQ).
+\end{equation}\]</span></div>
+<p>For infinitely many rows we first use finite portions and then let
+them grow; convergence preserves the equality (Appendix <a class="math-ref" href="#app:proof">A.4</a>). If this average is
+below <span class="math inline" data-term-auto="off">\(1/q\)</span>, at least one whole
+column has total below <span class="math inline" data-term-auto="off">\(1/q\)</span>.
+Otherwise every column total would be at least <span
+class="math inline" data-term-auto="off">\(1/q\)</span>, making their average at least <span
+class="math inline" data-term-auto="off">\(1/q\)</span> too.</p>
+</section>
+<section id="what-the-two-estimates-will-do." class="level5">
+<h5>What the two estimates will do.</h5>
+<p>We will divide the rows into three groups. An initial finite group
+stays zero. A further finite group can complete its cycles if we choose
+<span class="math inline" data-term-auto="off">\(M\)</span> appropriately; we will bound each
+such row’s average by <span class="math inline" data-term-auto="off">\(1/n\)</span>. For the
+infinitely many remaining rows, we need a bound valid for every <span
+class="math inline" data-term-auto="off">\(M\)</span>: we will prove <span
+class="math inline" data-term-auto="off">\(2Q/n\)</span>. Once <span
+class="math inline" data-term-auto="off">\(Q\)</span> is fixed, we can make the sum of these
+bounds as small as needed by moving far enough down the rows: the
+remaining reciprocals <span class="math inline" data-term-auto="off">\(1/n\)</span> have
+arbitrarily small total. Section <a class="math-ref" href="#sec:proof">7</a> will choose the two row
+cutoffs and then <span class="math inline" data-term-auto="off">\(M\)</span> so that both
+nonzero groups have small total averages.</p>
+</section>
+</section>
+<section id="sec:cycles" class="level3">
+<h3>Complete cycles give small averages</h3>
+<p>To derive a rule for any row, use <span
+class="math inline" data-term-auto="off">\(n=3\)</span> and <span
+class="math inline" data-term-auto="off">\(n=6\)</span>, which are not exponents of the
+square series. Start with <span class="math inline" data-term-auto="off">\(n=3\)</span> and
+consecutive <span class="math inline" data-term-auto="off">\(k\)</span>:</p>
+<div class="center">
+<table>
+<tbody>
+<tr>
+<td class="ta-l"><p><span
+class="math inline" data-term-auto="off">\(k\)</span></p></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(2\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(3\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(4\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(5\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(6\)</span></td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(k\bmod3\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(2\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(2\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(\ell_3(k)\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1/7\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(3/7\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1/7\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(3/7\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>One repeating block, or <em>cycle</em>, has sum <span
+class="math inline" data-term-auto="off">\(4/7&lt;1\)</span> and average <span
+class="math inline" data-term-auto="off">\(4/21&lt;1/3\)</span>. This bounds the average, not
+every entry: <span class="math inline" data-term-auto="off">\(3/7&gt;1/3\)</span>. For
+general <span class="math inline" data-term-auto="off">\(n\)</span>, a consecutive cycle has
+remainders <span class="math inline" data-term-auto="off">\(0,1,\dots,n-1\)</span>. The
+powers <span class="math inline" data-term-auto="off">\(2^0,2^1,\dots,2^{n-1}\)</span> add up
+to <span class="math inline" data-term-auto="off">\(2^n-1\)</span>, exactly the denominator.
+Each actual numerator is one less than the corresponding power, so the
+cycle’s total is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{(2^0-1)+(2^1-1)+\dots+(2^{n-1}-1)}{2^n-1}
+&lt;\frac{2^0+2^1+\dots+2^{n-1}}{2^n-1}=1.\]</span></div>
+<p>Dividing by its
+<span class="math inline" data-term-auto="off">\(n\)</span> entries gives a cycle average
+below <span class="math inline" data-term-auto="off">\(1/n\)</span>. These reciprocals bound
+the row averages, which is why the hypothesis controls their sum.</p>
+<section id="keep-the-required-spacing." class="level5">
+<h5>Keep the required spacing.</h5>
+<p>Our candidates use steps of <span class="math inline" data-term-auto="off">\(Q\)</span>,
+not necessarily <span class="math inline" data-term-auto="off">\(1\)</span>, because <span
+class="math inline" data-term-auto="off">\(Q\)</span> preserves the initial zero rows. With
+<span class="math inline" data-term-auto="off">\(n=6\)</span> and <span
+class="math inline" data-term-auto="off">\(Q=4\)</span>:</p>
+<div class="center">
+<table>
+<tbody>
+<tr>
+<td class="ta-l"><p>sample number <span
+class="math inline" data-term-auto="off">\(m\)</span></p></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(1\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(2\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(3\)</span></td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(k=4m\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(4\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(8\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(12\)</span></td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(k\bmod6\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(4\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(2\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(\ell_6(k)\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(15/63\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(3/63\)</span></td>
+<td class="ta-c"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The last two rows repeat every three samples. Only the even
+remainders occur, and the average is <span
+class="math inline" data-term-auto="off">\((15+3+0)/(3\cdot63)=2/21&lt;1/6\)</span>.</p>
+<p>Let <span class="math inline" data-term-auto="off">\(g=\gcd(n,Q)\)</span> be the
+<em>greatest common divisor</em>, the largest positive integer dividing
+both <span class="math inline" data-term-auto="off">\(n\)</span> and <span
+class="math inline" data-term-auto="off">\(Q\)</span>, and put <span
+class="math inline" data-term-auto="off">\(c=n/g\)</span>. In the example <span
+class="math inline" data-term-auto="off">\(n=6,Q=4\)</span>, these are <span
+class="math inline" data-term-auto="off">\(g=2,c=3\)</span>. We will show that one cycle has
+exactly <span class="math inline" data-term-auto="off">\(c\)</span> samples, visiting <span
+class="math inline" data-term-auto="off">\(0,g,2g,\dots,n-g\)</span> once each, in some
+order. Knowing which remainders occur will let us compare the sampled
+mean with the mean over all remainders. Here are the four steps.</p>
+<p><em>Possible remainders.</em> Each remainder is a multiple of <span
+class="math inline" data-term-auto="off">\(g\)</span>: it is <span
+class="math inline" data-term-auto="off">\(mQ\)</span> minus a multiple of <span
+class="math inline" data-term-auto="off">\(n\)</span>, and both are divisible by <span
+class="math inline" data-term-auto="off">\(g\)</span>. Between <span
+class="math inline" data-term-auto="off">\(0\)</span> and <span
+class="math inline" data-term-auto="off">\(n-1\)</span> there are exactly <span
+class="math inline" data-term-auto="off">\(c\)</span> possibilities, <span
+class="math inline" data-term-auto="off">\(0,g,2g,\dots,n-g\)</span>.</p>
+<p><em>A return after <span class="math inline" data-term-auto="off">\(c\)</span> steps.</em>
+Since</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[cQ=\frac ng Q=n\frac Qg,\]</span></div>
+<p class="display-continue">taking another <span class="math inline" data-term-auto="off">\(c\)</span> steps adds a
+multiple of <span class="math inline" data-term-auto="off">\(n\)</span> and leaves the
+remainder unchanged. So <span class="math inline" data-term-auto="off">\(c\)</span> is a
+period; we still have to exclude earlier repetition.</p>
+<p><em>No earlier repetition.</em> Two integers have the same remainder
+on division by <span class="math inline" data-term-auto="off">\(n\)</span> exactly when their
+difference is a multiple of <span class="math inline" data-term-auto="off">\(n\)</span>. For
+samples <span class="math inline" data-term-auto="off">\(m_1&lt;m_2\)</span>, that difference
+is <span class="math inline" data-term-auto="off">\(m_2Q-m_1Q=(m_2-m_1)Q\)</span>. Dividing
+out <span class="math inline" data-term-auto="off">\(g\)</span>, equal remainders therefore
+mean that <span class="math inline" data-term-auto="off">\(n/g\)</span> divides <span
+class="math inline" data-term-auto="off">\((m_2-m_1)(Q/g)\)</span>. The integers <span
+class="math inline" data-term-auto="off">\(n/g\)</span> and <span
+class="math inline" data-term-auto="off">\(Q/g\)</span> have no common divisor greater than
+<span class="math inline" data-term-auto="off">\(1\)</span>; they are called
+<em>coprime</em>. This lets us cancel <span
+class="math inline" data-term-auto="off">\(Q/g\)</span>: <span
+class="math inline" data-term-auto="off">\(c=n/g\)</span> must divide <span
+class="math inline" data-term-auto="off">\(m_2-m_1\)</span>. In the example <span
+class="math inline" data-term-auto="off">\(n=6,Q=4\)</span>, write <span
+class="math inline" data-term-auto="off">\(d=m_2-m_1\)</span>: if <span
+class="math inline" data-term-auto="off">\(3\)</span> divides <span
+class="math inline" data-term-auto="off">\(2d\)</span>, it also divides <span
+class="math inline" data-term-auto="off">\(d=2(2d)-3d\)</span>, since both terms on the right
+are multiples of <span class="math inline" data-term-auto="off">\(3\)</span>. Appendix <a class="math-ref" href="#app:cycle">A.3</a> proves the general
+cancellation fact. Thus samples fewer than <span
+class="math inline" data-term-auto="off">\(c\)</span> steps apart cannot have the same
+remainder.</p>
+<p><em>All possibilities are visited.</em> The first <span
+class="math inline" data-term-auto="off">\(c\)</span> remainders are distinct and there are
+only <span class="math inline" data-term-auto="off">\(c\)</span> possible values. Hence every
+possible remainder occurs exactly once per cycle.</p>
+</section>
+<section id="compare-means-without-calculating-a-new-formula."
+class="level5">
+<h5>Compare means without calculating a new formula.</h5>
+<p>Sort the sampled remainders <span
+class="math inline" data-term-auto="off">\(4,2,0\)</span> as <span
+class="math inline" data-term-auto="off">\(0,2,4\)</span>, preserving the sampled mean. These
+start the pairs <span class="math inline" data-term-auto="off">\((0,1)\)</span>, <span
+class="math inline" data-term-auto="off">\((2,3)\)</span>, <span
+class="math inline" data-term-auto="off">\((4,5)\)</span>. Since increases with <span
+class="math inline" data-term-auto="off">\(r\)</span>, each pair’s first remainder gives its
+smaller fractional part. Copy each sampled value twice to compare with
+all six consecutive-cycle values.</p>
+<div class="center">
+<p></p>
+</div>
+<p>In general, each group has <span class="math inline" data-term-auto="off">\(g\)</span>
+consecutive remainders, and the sample selects its first: <span
+class="math inline" data-term-auto="off">\(0,g,\dots,n-g\)</span>. Repeating each selected
+value <span class="math inline" data-term-auto="off">\(g\)</span> times gives a sum no larger
+than the sum over all <span class="math inline" data-term-auto="off">\(n\)</span> remainders.
+Divide by <span class="math inline" data-term-auto="off">\(n\)</span>: the copied list
+retains the mean of the <span class="math inline" data-term-auto="off">\(c\)</span> samples,
+while the consecutive-cycle mean is below <span
+class="math inline" data-term-auto="off">\(1/n\)</span>. Thus, whenever <span
+class="math inline" data-term-auto="off">\(M\)</span> is a positive multiple of <span
+class="math inline" data-term-auto="off">\(c\)</span>,</p>
+<div class="math-display" id="eq:cycle-main" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:cycle-main}
+\frac1M\sum_{m=1}^{M}\ell_n(mQ)&lt;\frac1n.
+\end{equation}\]</span></div>
+<p>The bound <span
+class="math inline" data-term-auto="off">\(1/n\)</span> does not grow with <span
+class="math inline" data-term-auto="off">\(Q\)</span>: making the initial rows zero can
+require a large spacing without worsening this bound, provided <span
+class="math inline" data-term-auto="off">\(M\)</span> completes the cycles. If <span
+class="math inline" data-term-auto="off">\(n\)</span> divides <span
+class="math inline" data-term-auto="off">\(Q\)</span>, the cycle has one entry, zero, which
+also satisfies the bound.</p>
+</section>
+</section>
+<section id="sec:unfinished" class="level3">
+<h3>A bound that also covers unfinished cycles</h3>
+<p>An unfinished cycle can miss its final zero. For <span
+class="math inline" data-term-auto="off">\(n=5\)</span> and consecutive candidates (<span
+class="math inline" data-term-auto="off">\(Q=1\)</span>), one cycle is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac1{31},\quad\frac3{31},\quad\frac7{31},\quad\frac{15}{31},\quad0.\]</span></div>
+<p>The first four entries average <span
+class="math inline" data-term-auto="off">\(26/(4\cdot31)=13/62&gt;1/5\)</span>; all five
+average <span
+class="math inline" data-term-auto="off">\(26/(5\cdot31)=26/155&lt;1/5\)</span>. The
+increasing positive list and the full cycle therefore have different
+average bounds. (Question <a class="math-ref" href="#chk:partial">4</a> gives a spaced
+example.)</p>
+<p>Nor can finitely many columns complete infinitely many rows: if <span
+class="math inline" data-term-auto="off">\(n&gt;MQ\)</span>, the last sample has not even
+reached the first positive multiple of <span
+class="math inline" data-term-auto="off">\(n\)</span>.</p>
+<p>We need another estimate, valid for <em>every</em> positive <span
+class="math inline" data-term-auto="off">\(M\)</span>:</p>
+<div class="math-display" id="eq:uniform-main" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:uniform-main}
+\frac1M\sum_{m=1}^{M}\ell_n(mQ)\le\frac{2Q}{n}.
+\end{equation}\]</span></div>
+<p>For fixed <span
+class="math inline" data-term-auto="off">\(Q\)</span>, this bound holds for every <span
+class="math inline" data-term-auto="off">\(M\)</span>, so choosing the number of columns
+later cannot invalidate it. We prove it using the same cycles.</p>
+<section id="first-bound-all-the-consecutive-entries." class="level5">
+<h5>First bound all the consecutive entries.</h5>
+<p>The <span class="math inline" data-term-auto="off">\(M\)</span> sampled exponents <span
+class="math inline" data-term-auto="off">\(Q,2Q,\dots,MQ\)</span> lie among the first <span
+class="math inline" data-term-auto="off">\(MQ\)</span> positive integers. We first bound the
+sum over all <span class="math inline" data-term-auto="off">\(MQ\)</span> entries. For <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span>, consecutive entries beginning at
+<span class="math inline" data-term-auto="off">\(k=1\)</span> repeat the block</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\underbrace{\frac1{2^n-1},\frac3{2^n-1},\dots,
+\frac{2^{n-1}-1}{2^n-1}}_{n-1\text{ positive entries, increasing}},\quad
+0.\]</span></div>
+<p>For <span class="math inline" data-term-auto="off">\(n=2\)</span>, the positive list
+consists only of <span class="math inline" data-term-auto="off">\(1/3\)</span>. The positive
+entries sum to less than <span class="math inline" data-term-auto="off">\(1\)</span>, as the
+complete-cycle calculation showed. Their average is therefore less than
+<span class="math inline" data-term-auto="off">\(1/(n-1)\)</span>. Any beginning portion of
+this <em>positive</em> list has no larger average: each omitted entry is
+at least every included entry, so appending the omitted entries cannot
+lower the average. Thus a nonempty beginning portion has average at most
+<span class="math inline" data-term-auto="off">\(2/n\)</span>, since <span
+class="math inline" data-term-auto="off">\(1/(n-1)\le2/n\)</span> for <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span>. We excluded the final zero for
+this comparison; the whole block including zero already has the stronger
+bound <span class="math inline" data-term-auto="off">\(1/n\)</span>.</p>
+<p>The first <span class="math inline" data-term-auto="off">\(MQ\)</span> entries consist of
+complete blocks followed, possibly, by a beginning portion of the
+positive list. For example, the first seven entries when <span
+class="math inline" data-term-auto="off">\(n=5\)</span> have numerators <span
+class="math inline" data-term-auto="off">\((1,3,7,15,0)\)</span> followed by <span
+class="math inline" data-term-auto="off">\((1,3)\)</span>, all over <span
+class="math inline" data-term-auto="off">\(31\)</span>. Each piece has sum at most its number
+of entries times <span class="math inline" data-term-auto="off">\(2/n\)</span>. The pieces
+contain <span class="math inline" data-term-auto="off">\(MQ\)</span> entries altogether, so
+their total is at most <span class="math inline" data-term-auto="off">\(2MQ/n\)</span>. For
+<span class="math inline" data-term-auto="off">\(n=1\)</span>, all entries are zero and the
+bound still holds.</p>
+</section>
+<section id="keep-only-the-sampled-entries." class="level5">
+<h5>Keep only the sampled entries.</h5>
+<p>Removing nonnegative entries cannot increase the sum. Hence</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{m=1}^{M}\ell_n(mQ)
+\le\sum_{k=1}^{MQ}\ell_n(k)\le\frac{2MQ}{n}.\]</span></div>
+<p>Divide by the
+number <span class="math inline" data-term-auto="off">\(M\)</span> of actual candidates to
+obtain <a class="math-ref" data-equation-ref="true" href="#eq:uniform-main">eq:uniform-main</a>.
+This explains the factor <span class="math inline" data-term-auto="off">\(Q\)</span>: we
+bounded <span class="math inline" data-term-auto="off">\(M\)</span> sampled entries by
+including all <span class="math inline" data-term-auto="off">\(MQ\)</span> consecutive
+entries. We have not changed our candidates or assumed that their
+sampled values are increasing.</p>
+</section>
+</section>
+</section>
+<section id="sec:proof" class="level2">
+<h2>Combining the estimates</h2>
+<p>Suppose <span class="math inline" data-term-auto="off">\(S=p/q\)</span>. Every column
+total <span class="math inline" data-term-auto="off">\(R(k)\)</span> is then at least <span
+class="math inline" data-term-auto="off">\(1/q\)</span>. We will contradict this by making a
+finite average of column totals less than <span
+class="math inline" data-term-auto="off">\(1/q\)</span>.</p>
+<section id="app:numbers" class="level3">
+<h3>The construction with actual numbers</h3>
+<p>Use the doubling exponents again, this time to see the general method
+at work. We already have a shorter proof for them. Assume the proposed
+denominator is <span class="math inline" data-term-auto="off">\(q=5\)</span>. It is enough to
+make the average of the column totals less than <span
+class="math inline" data-term-auto="off">\(1/5\)</span>; allow less than <span
+class="math inline" data-term-auto="off">\(1/10\)</span> from each of the two nonzero
+groups.</p>
+<p>Beyond a doubling exponent <span class="math inline" data-term-auto="off">\(2^h\)</span>,
+the reciprocal tail is <span
+class="math inline" data-term-auto="off">\(1/2^{h+1}+1/2^{h+2}+\dots=1/2^h\)</span>.</p>
+<ol>
+<li><p><em>Decide which early rows to make zero.</em> Set the first
+cutoff at exponent <span class="math inline" data-term-auto="off">\(t=16\)</span>. The
+reciprocal sum of all later rows is <span
+class="math inline" data-term-auto="off">\(1/16&lt;1/10\)</span>, so any middle group will
+have enough room in its bound. The earlier cutoff <span
+class="math inline" data-term-auto="off">\(8\)</span> would give <span
+class="math inline" data-term-auto="off">\(1/8&gt;1/10\)</span>.</p></li>
+<li><p><em>Preserve those zeros in every attempt.</em> Choose <span
+class="math inline" data-term-auto="off">\(Q=16\)</span>, divisible by <span
+class="math inline" data-term-auto="off">\(2,4,8,16\)</span>. Every candidate <span
+class="math inline" data-term-auto="off">\(k=16m\)</span> therefore gives zero in these four
+rows.</p></li>
+<li><p><em>Make the infinite far group small despite the factor <span
+class="math inline" data-term-auto="off">\(2Q\)</span>.</em> Applying <span
+class="math inline" data-term-auto="off">\(2Q/n\)</span> to every row beyond <span
+class="math inline" data-term-auto="off">\(t=16\)</span> would bound the sum of their
+averages by <span class="math inline" data-term-auto="off">\(32/16=2\)</span>. Increasing a
+doubling cutoff <span class="math inline" data-term-auto="off">\(t\)</span> together with
+<span class="math inline" data-term-auto="off">\(Q=t\)</span> still gives <span
+class="math inline" data-term-auto="off">\(2Q/t=2\)</span>. This shows a limitation of the
+estimate, not a lower bound on <span
+class="math inline" data-term-auto="off">\(R(k)\)</span>. Instead keep <span
+class="math inline" data-term-auto="off">\(Q=16\)</span> and put the second cutoff at <span
+class="math inline" data-term-auto="off">\(T=512\)</span>. The remaining rows have exponents
+<span class="math inline" data-term-auto="off">\(1024,2048,\dots\)</span>. Adding the bounds
+<span class="math inline" data-term-auto="off">\(32/n\)</span> on their averages gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[32\left(\frac1{1024}+\frac1{2048}+\dots\right)
+  =\frac{32}{512}&lt;\frac1{10}.\]</span></div>
+<p>A cutoff of <span
+class="math inline" data-term-auto="off">\(256\)</span> would leave <span
+class="math inline" data-term-auto="off">\(32/256=1/8\)</span>, above the reserved <span
+class="math inline" data-term-auto="off">\(1/10\)</span>.</p></li>
+<li><p><em>Complete all cycles between the cutoffs.</em> The middle
+exponents <span class="math inline" data-term-auto="off">\(32,64,128,256,512\)</span> have
+cycle lengths <span class="math inline" data-term-auto="off">\(2,4,8,16,32\)</span>. Choose
+<span class="math inline" data-term-auto="off">\(M=64\)</span>, a common multiple of these
+lengths. Every middle row completes its cycles, and the far bound is
+still valid because it holds for every <span
+class="math inline" data-term-auto="off">\(M\)</span>.</p></li>
+</ol>
+<p>Here <span class="math inline" data-term-auto="off">\(t\)</span> and <span
+class="math inline" data-term-auto="off">\(T\)</span> are cutoffs on <em>exponent
+values</em>, not counts of terms. The last candidate is <span
+class="math inline" data-term-auto="off">\(MQ=1024\)</span>, whereas the second cutoff is
+<span class="math inline" data-term-auto="off">\(T=512\)</span>: the number of columns and
+the division into groups of rows have different jobs. <span
+class="math inline" data-term-auto="off">\(M=32\)</span> would also work; choosing <span
+class="math inline" data-term-auto="off">\(64\)</span> shows that we may use more columns
+without changing either cutoff.</p>
+<p>The initial rows contribute zero. The middle row averages together
+are less than</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac1{32}+\frac1{64}+\frac1{128}+\frac1{256}+\frac1{512}
+=\frac{31}{512}.\]</span></div>
+<p>The far row averages add up to at most <span
+class="math inline" data-term-auto="off">\(2Q/T=32/512\)</span>. Hence</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac1{64}\sum_{m=1}^{64}R(16m)
+&lt;\frac{31}{512}+\frac{32}{512}=\frac{63}{512}&lt;\frac15.\]</span></div>
+<p>At
+least one of the 64 complete attempts has <span
+class="math inline" data-term-auto="off">\(0&lt;R(k)&lt;1/5\)</span>, contradicting <span
+class="math inline" data-term-auto="off">\(S=p/5\)</span>. We have proved that a candidate
+works without identifying which one. That existence is enough for the
+contradiction.</p>
+<p>The first cutoff determines which rows <span
+class="math inline" data-term-auto="off">\(Q\)</span> must keep zero; the second is chosen
+after <span class="math inline" data-term-auto="off">\(Q\)</span> is fixed, to compensate for
+the factor <span class="math inline" data-term-auto="off">\(2Q\)</span>. Only then do we
+choose how many columns to use. (For a change of <span
+class="math inline" data-term-auto="off">\(Q\)</span>, see Question <a class="math-ref" href="#chk:order">5</a>.)</p>
+</section>
+<section id="sec:allchoices" class="level3">
+<h3>The same choices for any admissible set</h3>
+<p>Let <span class="math inline" data-term-auto="off">\(A\)</span> satisfy the theorem’s
+hypotheses, and suppose <span class="math inline" data-term-auto="off">\(S_A=p/q\)</span>,
+where <span class="math inline" data-term-auto="off">\(q\)</span> is a positive integer.
+Since only finitely many positive integers lie below any fixed bound,
+the infinite set <span class="math inline" data-term-auto="off">\(A\)</span> has arbitrarily
+large elements. Moving a cutoff farther out can only decrease a
+reciprocal tail. We may therefore choose cutoffs <span
+class="math inline" data-term-auto="off">\(t,T\in A\)</span>, with <span
+class="math inline" data-term-auto="off">\(T&gt;t\)</span>: the initial group then contains
+<span class="math inline" data-term-auto="off">\(t\)</span>, and the middle group contains
+<span class="math inline" data-term-auto="off">\(T\)</span>. Make the choices in this order:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[t\ \longrightarrow\ Q\ \longrightarrow\ T\
+\longrightarrow\ M.\]</span></div>
+<ol>
+<li><p>Choose <span class="math inline" data-term-auto="off">\(t\in A\)</span> so that <span
+class="math inline" data-term-auto="off">\(\sum_{n\in A,\,n&gt;t}1/n&lt;1/(2q)\)</span>. This
+is possible because the reciprocal tails tend to zero.</p></li>
+<li><p>Choose a positive common multiple <span
+class="math inline" data-term-auto="off">\(Q\)</span> of the selected exponents <span
+class="math inline" data-term-auto="off">\(n\le t\)</span>. Their product works. These
+exponents divide every candidate <span
+class="math inline" data-term-auto="off">\(mQ\)</span>, so their rows are zero.</p></li>
+<li><p>With <span class="math inline" data-term-auto="off">\(Q\)</span> fixed, choose <span
+class="math inline" data-term-auto="off">\(T\in A\)</span>, with <span
+class="math inline" data-term-auto="off">\(T&gt;t\)</span>, so that <span
+class="math inline" data-term-auto="off">\(2Q\sum_{n\in A,\,n&gt;T}1/n&lt;1/(2q)\)</span>.
+The tails again tend to zero, now with a fixed coefficient <span
+class="math inline" data-term-auto="off">\(2Q\)</span>.</p></li>
+<li><p>For the finitely many selected <span
+class="math inline" data-term-auto="off">\(t&lt;n\le T\)</span>, choose <span
+class="math inline" data-term-auto="off">\(M\)</span> to be a positive common multiple of
+their cycle lengths <span class="math inline" data-term-auto="off">\(n/\gcd(n,Q)\)</span>.
+Their product works. The far-tail bound remains valid for this final
+choice of <span class="math inline" data-term-auto="off">\(M\)</span>.</p></li>
+</ol>
+<p>Add the row averages over these same <span
+class="math inline" data-term-auto="off">\(M\)</span> columns:</p>
+<div class="center">
+<table>
+<tbody>
+<tr>
+<td class="ta-l"><p>selected exponents</p></td>
+<td class="ta-l">reason for the bound</td>
+<td class="ta-l">total contribution</td>
+</tr>
+<tr>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(n\le
+t\)</span></td>
+<td class="ta-l">each <span
+class="math inline" data-term-auto="off">\(n\)</span> divides <span
+class="math inline" data-term-auto="off">\(Q\)</span></td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(0\)</span></td>
+</tr>
+<tr>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(t&lt;n\le
+T\)</span></td>
+<td class="ta-l">complete cycles; row average below <span
+class="math inline" data-term-auto="off">\(1/n\)</span></td>
+<td class="ta-l">below <span
+class="math inline" data-term-auto="off">\(\sum_{n\in A,\,n&gt;t}1/n&lt;1/(2q)\)</span></td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(n&gt;T\)</span></td>
+<td class="ta-l">bound <span
+class="math inline" data-term-auto="off">\(2Q/n\)</span> for every <span
+class="math inline" data-term-auto="off">\(M\)</span></td>
+<td class="ta-l">at most <span
+class="math inline" data-term-auto="off">\(2Q\sum_{n\in
+A,\,n&gt;T}1/n&lt;1/(2q)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>By <a class="math-ref" data-equation-ref="true" href="#eq:average-main">eq:average-main</a>, the
+average of the column totals is therefore</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac1M\sum_{m=1}^{M}R(mQ)&lt;0+\frac1{2q}+\frac1{2q}=\frac1q.\]</span></div>
+<p>At least one total is below <span class="math inline" data-term-auto="off">\(1/q\)</span>,
+contradicting the rationality lower bound for every column. This proves
+Theorem <a class="math-ref" href="#thm:main">1</a>.</p>
+<p>Infinitude supplied positivity; rationality supplied the fixed gap;
+reciprocal convergence supplied both small tails. The order of choices
+ensured that all bounds apply to the same finite collection of complete
+attempts.</p>
+</section>
+</section>
+<section id="sec:limits" class="level2">
+<h2>Consequences and limits</h2>
+<p>For every integer <span class="math inline" data-term-auto="off">\(b\ge2\)</span>, the
+same method proves</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[A\text{
+infinite},\quad\sum_{n\in A}\frac1n&lt;\infty
+\quad\Longrightarrow\quad
+\sum_{n\in A}\frac1{b^n-1}\text{ is irrational}.\]</span></div>
+<p>Replace the
+multiplier by <span class="math inline" data-term-auto="off">\(b^k-1\)</span>. The fractional
+parts are <span class="math inline" data-term-auto="off">\((b^{k\bmod n}-1)/(b^n-1)\)</span>,
+and their cycle averages are still below <span
+class="math inline" data-term-auto="off">\(1/n\)</span>. Appendix <a class="math-ref" href="#app:bases">A.5</a> checks both
+estimates.</p>
+<p>The theorem covers arbitrary selections from the square-exponent
+series <span
+class="math inline" data-term-auto="off">\(1+\tfrac1{15}+\tfrac1{511}+\dots\)</span>. If
+infinitely many remain, their sum is irrational: deleting terms cannot
+increase the reciprocal-exponent sum <span
+class="math inline" data-term-auto="off">\(\sum_{m\ge1}1/m^2&lt;\infty\)</span>, so
+Theorem <a class="math-ref" href="#thm:main">1</a> still
+applies. If only finitely many remain, their sum is rational. Thus a
+selection from this series has rational sum exactly when it is finite;
+no pattern in the retained exponents is required. Replacing <span
+class="math inline" data-term-auto="off">\(2\)</span> by any integer <span
+class="math inline" data-term-auto="off">\(b\ge2\)</span> gives the same conclusion for the
+same retained exponents.</p>
+<p>The reciprocal-sum condition is sufficient, not necessary. These
+particular remainders <span class="math inline" data-term-auto="off">\(R(k)\)</span> need not
+become arbitrarily small for every infinite <span
+class="math inline" data-term-auto="off">\(A\)</span>. When every positive exponent is
+selected, the terms with <span class="math inline" data-term-auto="off">\(n&gt;k\)</span>
+alone give</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[R(k)\ge\sum_{n&gt;k}\frac{2^k-1}{2^n-1}
+&gt;\sum_{n&gt;k}\frac{2^k-1}{2^n}
+=1-2^{-k}\ge\frac12.\]</span></div>
+<p>Thus these remainders can never be
+arbitrarily small. Nevertheless, Erdős proved that the full sum is
+irrational in 1948 <span class="citation"
+data-cites="erdos1948"><a href="#ref-1">[1]</a></span>. Failure of our method does not imply
+rationality. Tao and Teräväinen proved irrationality for the prime
+exponents <span class="citation" data-cites="taoteravainen2025"><a href="#ref-5">[5]</a></span>,
+another case with divergent reciprocal sum. The short paper <span
+class="citation" data-cites="shortpaper"><a href="#ref-6">[6]</a></span> gives further
+sufficient conditions; the long record <span class="citation"
+data-cites="longrecord"><a href="#ref-7">[7]</a></span> develops the proofs and the obstructions
+to extending them. The question for every infinite set <span
+class="math inline" data-term-auto="off">\(A\)</span> remains open.</p>
+<p>Appendix <a class="math-ref" href="#app:lean">A.6</a>
+identifies the Lean-checked theorem and explains how its proof differs
+from the finite-average proof given here.</p>
+</section>
+<section id="app:full" class="level2">
+<h2>Supporting details and formal-proof correspondence</h2>
+<p>This appendix supplies convergence and limit details, the
+divisibility argument for sampled cycles, the other-base estimates, and
+an optional account of formal verification.</p>
+<section id="app:sums" class="level3">
+<h3>Convergence and tails</h3>
+<p>For nonnegative terms <span class="math inline" data-term-auto="off">\(a_n\)</span>, the
+partial sums <span class="math inline" data-term-auto="off">\(\sum_{n=1}^{N}a_n\)</span>
+increase. If they are bounded above, let <span
+class="math inline" data-term-auto="off">\(L\)</span> be their least upper bound: the
+smallest real number at least every partial sum. For every <span
+class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>, some partial sum
+exceeds <span class="math inline" data-term-auto="off">\(L-\varepsilon\)</span>; otherwise
+<span class="math inline" data-term-auto="off">\(L-\varepsilon\)</span> would be a smaller
+upper bound. Every later partial sum then lies in <span
+class="math inline" data-term-auto="off">\((L-\varepsilon,L]\)</span>, so the series
+converges to <span class="math inline" data-term-auto="off">\(L\)</span>. Its tail after
+<span class="math inline" data-term-auto="off">\(N\)</span> equals <span
+class="math inline" data-term-auto="off">\(L-\sum_{n=1}^{N}a_n\)</span> and tends to zero.
+This is the property used twice when choosing the cutoffs in
+Section <a class="math-ref" href="#sec:proof">7</a>.</p>
+<p>Comparison follows by comparing partial sums. In particular, <span
+class="math inline" data-term-auto="off">\(0\le a_n\le b_n\)</span> and <span
+class="math inline" data-term-auto="off">\(\sum b_n&lt;\infty\)</span> imply <span
+class="math inline" data-term-auto="off">\(\sum a_n\le\sum b_n&lt;\infty\)</span>. If one
+term is strictly smaller, the sums differ by at least that positive
+difference. Restricting a nonnegative series to a subset of its indices
+can only decrease its sum.</p>
+<p>For <span class="math inline" data-term-auto="off">\(0&lt;x&lt;1\)</span>, multiplication
+and subtraction of the finite geometric sum give</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[(1-x)(1+x+\dots+x^{N-1})=1-x^N.\]</span></div>
+<p>Letting
+<span class="math inline" data-term-auto="off">\(N\to\infty\)</span> yields <span
+class="math inline" data-term-auto="off">\(\sum_{j=0}^{\infty}x^j=1/(1-x)\)</span>. At <span
+class="math inline" data-term-auto="off">\(x=1/2\)</span>, this gives <span
+class="math inline" data-term-auto="off">\(\sum_{j=1}^{\infty}2^{-j}=1\)</span> and, by
+scaling, <span
+class="math inline" data-term-auto="off">\(\sum_{j=h}^{\infty}2^{-j}=2^{1-h}\)</span>.
+Consequently <span class="math inline" data-term-auto="off">\(1/(2^n-1)\le2^{1-n}\)</span>
+proves convergence of <span class="math inline" data-term-auto="off">\(S_A\)</span> for every
+set <span class="math inline" data-term-auto="off">\(A\)</span>, irrespective of whether
+<span class="math inline" data-term-auto="off">\(\sum_{n\in A}1/n\)</span> converges.</p>
+</section>
+<section id="app:split" class="level3">
+<h3>Passing to the full transformed sum</h3>
+<p>Fix <span class="math inline" data-term-auto="off">\(k\)</span>. Each <span
+class="math inline" data-term-auto="off">\(\ell_n(k)\)</span> is nonnegative and at most
+<span class="math inline" data-term-auto="off">\((2^k-1)/(2^n-1)\)</span>, so <span
+class="math inline" data-term-auto="off">\(R(k)\)</span> converges by comparison with <span
+class="math inline" data-term-auto="off">\((2^k-1)S\)</span>. Only selected exponents <span
+class="math inline" data-term-auto="off">\(n\le k\)</span> have nonzero integer parts. For
+any integer <span class="math inline" data-term-auto="off">\(L\ge k\)</span>, splitting the
+finitely many terms up to <span class="math inline" data-term-auto="off">\(L\)</span> gives</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[(2^k-1)\sum_{\substack{n\in A\\n\le
+L}}\frac1{2^n-1}
+=J(k)+\sum_{\substack{n\in A\\n\le L}}\ell_n(k).\]</span></div>
+<p>As <span
+class="math inline" data-term-auto="off">\(L\)</span> grows, <span
+class="math inline" data-term-auto="off">\(J(k)\)</span> stays fixed and the two convergent
+partial sums tend to <span class="math inline" data-term-auto="off">\(S\)</span> and <span
+class="math inline" data-term-auto="off">\(R(k)\)</span>. This proves <a class="math-ref" data-equation-ref="true" href="#eq:split-main">eq:split-main</a>.</p>
+</section>
+<section id="app:cycle" class="level3">
+<h3>Why the sampled remainders form a cycle</h3>
+<p>The elementary cancellation fact is: if positive integers <span
+class="math inline" data-term-auto="off">\(c,u\)</span> are coprime and <span
+class="math inline" data-term-auto="off">\(c\)</span> divides <span
+class="math inline" data-term-auto="off">\(du\)</span>, then <span
+class="math inline" data-term-auto="off">\(c\)</span> divides <span
+class="math inline" data-term-auto="off">\(d\)</span>. The example in Section <a class="math-ref" href="#sec:cycles">6.2</a> used <span
+class="math inline" data-term-auto="off">\(c=3,u=2\)</span>. For general coprime <span
+class="math inline" data-term-auto="off">\(c,u\)</span>, the same argument uses integers
+<span class="math inline" data-term-auto="off">\(a,b\)</span> with <span
+class="math inline" data-term-auto="off">\(au+bc=1\)</span>. Here is why they exist. Among
+the positive values <span class="math inline" data-term-auto="off">\(au+bc\)</span>, allowing
+<span class="math inline" data-term-auto="off">\(a,b\)</span> to be any integers, choose the
+smallest, <span class="math inline" data-term-auto="off">\(v\)</span>; there is at least one
+since <span class="math inline" data-term-auto="off">\(u=1\cdot u+0\cdot c\)</span> is such a
+combination. Write <span class="math inline" data-term-auto="off">\(v=au+bc\)</span> for
+coefficients attaining this minimum. Division gives <span
+class="math inline" data-term-auto="off">\(u=sv+r\)</span> with <span
+class="math inline" data-term-auto="off">\(0\le r&lt;v\)</span>, so</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[r=u-sv=(1-sa)u-sbc.\]</span></div>
+<p>Thus <span
+class="math inline" data-term-auto="off">\(r\)</span> is another integer combination of <span
+class="math inline" data-term-auto="off">\(u,c\)</span>. If it were positive, it would
+contradict the choice of <span class="math inline" data-term-auto="off">\(v\)</span> as the
+smallest positive combination. Hence <span
+class="math inline" data-term-auto="off">\(r=0\)</span>, so <span
+class="math inline" data-term-auto="off">\(v\)</span> divides <span
+class="math inline" data-term-auto="off">\(u\)</span>. The same reasoning with <span
+class="math inline" data-term-auto="off">\(c\)</span> shows that <span
+class="math inline" data-term-auto="off">\(v\)</span> divides <span
+class="math inline" data-term-auto="off">\(c\)</span> too. Since <span
+class="math inline" data-term-auto="off">\(u,c\)</span> are coprime, <span
+class="math inline" data-term-auto="off">\(v=1\)</span>. Now <span
+class="math inline" data-term-auto="off">\(d=a(du)+b(dc)\)</span> proves cancellation.</p>
+<p>Return to <span class="math inline" data-term-auto="off">\(g=\gcd(n,Q)\)</span>, <span
+class="math inline" data-term-auto="off">\(c=n/g\)</span> and <span
+class="math inline" data-term-auto="off">\(u=Q/g\)</span>. The integers <span
+class="math inline" data-term-auto="off">\(c,u\)</span> are coprime: a larger common divisor
+would give a common divisor of <span class="math inline" data-term-auto="off">\(n,Q\)</span>
+larger than <span class="math inline" data-term-auto="off">\(g\)</span>. Write <span
+class="math inline" data-term-auto="off">\(x\mid y\)</span> to mean that <span
+class="math inline" data-term-auto="off">\(x\)</span> divides <span
+class="math inline" data-term-auto="off">\(y\)</span>. Two sampled exponents <span
+class="math inline" data-term-auto="off">\(m_1Q\)</span> and <span
+class="math inline" data-term-auto="off">\(m_2Q\)</span> have equal remainders exactly when
+their difference is divisible by <span class="math inline" data-term-auto="off">\(n\)</span>,
+that is,</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[n\mid(m_2-m_1)Q
+\quad\Longleftrightarrow\quad
+c\mid(m_2-m_1)u
+\quad\Longleftrightarrow\quad
+c\mid m_2-m_1.\]</span></div>
+<p>Thus the first <span
+class="math inline" data-term-auto="off">\(c\)</span> sampled remainders are distinct and
+repeat after <span class="math inline" data-term-auto="off">\(c\)</span> steps. Every
+remainder is divisible by <span class="math inline" data-term-auto="off">\(g\)</span>, since
+both <span class="math inline" data-term-auto="off">\(mQ\)</span> and <span
+class="math inline" data-term-auto="off">\(n\)</span> are. There are exactly <span
+class="math inline" data-term-auto="off">\(c\)</span> possibilities <span
+class="math inline" data-term-auto="off">\(0,g,\dots,n-g\)</span>, so each occurs once. This
+supplies the remainder rule used in Section <a class="math-ref" href="#sec:cycles">6.2</a>.</p>
+</section>
+<section id="app:proof" class="level3">
+<h3>Adding the row averages</h3>
+<p>For finitely many rows <span class="math inline" data-term-auto="off">\(n\le H\)</span>,
+adding the row averages equals averaging the column totals: both
+operations add the same entries and divide by <span
+class="math inline" data-term-auto="off">\(M\)</span>. Keep <span
+class="math inline" data-term-auto="off">\(Q\)</span> and <span
+class="math inline" data-term-auto="off">\(M\)</span> fixed. Given any positive target <span
+class="math inline" data-term-auto="off">\(\varepsilon\)</span>, each of the <span
+class="math inline" data-term-auto="off">\(M\)</span> convergent column sums <span
+class="math inline" data-term-auto="off">\(R(mQ)\)</span> has tail less than <span
+class="math inline" data-term-auto="off">\(\varepsilon\)</span> beyond some row cutoff. Take
+the largest of these finitely many cutoffs. All column tails, and
+therefore their average, are less than <span
+class="math inline" data-term-auto="off">\(\varepsilon\)</span> beyond it. Consequently the
+finite sums of row averages tend to the average of the full column
+totals. This proves <a class="math-ref" data-equation-ref="true" href="#eq:average-main">eq:average-main</a>; no interchange
+of two infinite sums is needed.</p>
+</section>
+<section id="app:bases" class="level3">
+<h3>Other bases</h3>
+<p>Let <span class="math inline" data-term-auto="off">\(b\ge2\)</span> be an integer. For
+<span class="math inline" data-term-auto="off">\(b=3\)</span>, exponents <span
+class="math inline" data-term-auto="off">\(2,4,8,\dots\)</span> give <span
+class="math inline" data-term-auto="off">\(1/8+1/80+1/6560+\dots\)</span>. Convergence and
+the fractional-part formula carry over because <span
+class="math inline" data-term-auto="off">\(b^n-1\ge2^{n-1}\)</span> and <span
+class="math inline" data-term-auto="off">\(b^{k+n}-1=b^k(b^n-1)+(b^k-1)\)</span>.</p>
+<p>For a consecutive cycle, the sum of the fractional parts is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{(b^0-1)+\dots+(b^{n-1}-1)}{b^n-1}
+&lt;\frac{b^0+b^1+\dots+b^{n-1}}{b^n-1}
+=\frac1{b-1}\le1.\]</span></div>
+<p>Here we used <span
+class="math inline" data-term-auto="off">\(1+b+\dots+b^{n-1}=(b^n-1)/(b-1)\)</span> and <span
+class="math inline" data-term-auto="off">\(b\ge2\)</span>. The fractional parts still
+increase with the remainder, so the equal-group comparison bounds a
+complete sampled-cycle average by the consecutive-cycle average, which
+is below <span class="math inline" data-term-auto="off">\(1/n\)</span>.</p>
+<p>For <span class="math inline" data-term-auto="off">\(n\ge2\)</span> the <span
+class="math inline" data-term-auto="off">\(n-1\)</span> positive entries are still increasing
+and have total less than <span class="math inline" data-term-auto="off">\(1\)</span>. The
+beginning-portion argument in Section <a class="math-ref" href="#sec:unfinished">6.3</a> therefore gives the
+same <span class="math inline" data-term-auto="off">\(2/n\)</span> bound for consecutive
+entries starting at <span class="math inline" data-term-auto="off">\(k=1\)</span>. Keeping
+only the sampled entries then gives the bound <span
+class="math inline" data-term-auto="off">\(2Q/n\)</span> for any sampled length <span
+class="math inline" data-term-auto="off">\(M\)</span>. For <span
+class="math inline" data-term-auto="off">\(n=1\)</span> the fractional parts are all zero:
+<span class="math inline" data-term-auto="off">\((b^k-1)/(b-1)\)</span> is an integer. Both
+estimates required for the three groups remain valid. With the same
+choices of <span class="math inline" data-term-auto="off">\(t,Q,T,M\)</span>, the proof
+establishes irrationality of <span class="math inline" data-term-auto="off">\(\sum_{n\in
+A}1/(b^n-1)\)</span> whenever <span class="math inline" data-term-auto="off">\(A\)</span> is
+infinite and <span class="math inline" data-term-auto="off">\(\sum_{n\in
+A}1/n&lt;\infty\)</span> <span class="citation"
+data-cites="shortpaper"><a href="#ref-6">[6]</a></span>.</p>
+</section>
+<section id="app:lean" class="level3">
+<h3>Formal verification and its scope</h3>
+<div class="center">
+<div class="minipage">
+<p>theorem irrational_erdosSupportSeries_of_summable_reciprocal<br />
+(b : <span class="math inline" data-term-auto="off">\(\mathbb{N}\)</span>) (A : Set <span
+class="math inline" data-term-auto="off">\(\mathbb{N}\)</span>) (hb : 2 <span
+class="math inline" data-term-auto="off">\(\le\)</span> b) (hA : A.Infinite)<br />
+(hsum : Summable (reciprocalSupportTerm A)) :<br />
+Irrational (erdosSupportSeries b A)</p>
+</div>
+</div>
+<p>Line by line: <span class="math inline" data-term-auto="off">\(b\)</span> is a nonnegative
+integer and <code>hb</code> assumes <span
+class="math inline" data-term-auto="off">\(b\ge2\)</span>; <span
+class="math inline" data-term-auto="off">\(A\)</span> is a set of nonnegative integers and
+<code>hA</code> assumes it is infinite;
+<code>reciprocalSupportTerm A</code> is a sequence indexed by <span
+class="math inline" data-term-auto="off">\(n=0,1,\dots\)</span>, with entry <span
+class="math inline" data-term-auto="off">\(1/n\)</span> when <span
+class="math inline" data-term-auto="off">\(n\)</span> is in <span
+class="math inline" data-term-auto="off">\(A\)</span> and <span
+class="math inline" data-term-auto="off">\(0\)</span> otherwise, and <code>hsum</code>
+assumes its sum is finite; the conclusion says that
+<code>erdosSupportSeries b A</code>, the sum of <span
+class="math inline" data-term-auto="off">\(1/(b^n-1)\)</span> over <span
+class="math inline" data-term-auto="off">\(A\)</span>, is irrational. Lean’s nonnegative
+integers start at <span class="math inline" data-term-auto="off">\(0\)</span>, and in Lean
+dividing by <span class="math inline" data-term-auto="off">\(0\)</span> gives <span
+class="math inline" data-term-auto="off">\(0\)</span>, so the exponent <span
+class="math inline" data-term-auto="off">\(0\)</span> counts as <span
+class="math inline" data-term-auto="off">\(0\)</span> in both sums; removing it changes
+neither sum and leaves an infinite set infinite. So for <span
+class="math inline" data-term-auto="off">\(b=2\)</span> the statement says the same as
+Theorem <a class="math-ref" href="#thm:main">1</a>. It is the
+formal version of <span class="citation"
+data-cites="shortpaper"><a href="#ref-6">[6]</a></span>.</p>
+<p>The <a
+href="https://github.com/wcook04/plectis-erdos/blob/436f55ebdafa67e4af0fff79f621c13f2ded12bf/lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean#L395">Lean
+source at a fixed commit</a> contains this statement and its proof. The
+Lean kernel, a small program, has checked every step of that proof.
+Comparator checked that the proof establishes a separately written
+formal statement. Its <a
+href="https://github.com/wcook04/plectis-erdos/blob/0064fc9b2a2693de97aebc8abec26090c3cd1095/evidence/comparator/replay-35935225572/receipt-E257_47.json">verification
+receipt</a> records acceptance by Lean’s kernel and by a second,
+independent kernel checker. At base <span
+class="math inline" data-term-auto="off">\(2\)</span> the Lean proof follows <span
+class="citation" data-cites="shortpaper"><a href="#ref-6">[6]</a></span>, which takes limits of
+averages; it reaches the other bases by comparing each base-<span
+class="math inline" data-term-auto="off">\(b\)</span> fractional part with twice the
+base-<span class="math inline" data-term-auto="off">\(2\)</span> one, a different route from
+Appendix <a class="math-ref" href="#app:bases">A.5</a>.</p>
+<p>With exponent <span class="math inline" data-term-auto="off">\(0\)</span> omitted as
+above, the shifted quantity used in Lean is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{n\in A}\frac{2^{k\bmod
+n}}{2^n-1}=S_A+R(k).\]</span></div>
+<p>Its value at <span
+class="math inline" data-term-auto="off">\(k=0\)</span> is <span
+class="math inline" data-term-auto="off">\(S_A\)</span>. A value strictly between <span
+class="math inline" data-term-auto="off">\(S_A\)</span> and <span
+class="math inline" data-term-auto="off">\(S_A+\varepsilon\)</span> therefore means exactly
+<span class="math inline" data-term-auto="off">\(0&lt;R(k)&lt;\varepsilon\)</span>, the
+target of our proof. Subtracting <span
+class="math inline" data-term-auto="off">\(S_A\)</span>, we can describe the two limits in
+terms of our fractional parts.</p>
+<p>First fix <span class="math inline" data-term-auto="off">\(Q\)</span> and let the
+averaging length tend to infinity. Each row’s average tends to its cycle
+mean: complete cycles have that mean, and the unfinished last cycle has
+bounded length, so its weight in the average tends to zero. Throughout
+this limit the row averages are bounded by <span
+class="math inline" data-term-auto="off">\(2(Q+1)/n\)</span>.</p>
+<p>To pass from the row limits to the whole sum, choose a row cutoff so
+far out that the sum of these bounds beyond it is small. This is
+possible because <span class="math inline" data-term-auto="off">\(Q\)</span> is fixed and
+<span class="math inline" data-term-auto="off">\(\sum_{n\in A}1/n\)</span> converges. The
+same bound holds for each row’s limit, so it controls both the tails
+before taking the limit and the tail of the limiting row averages. Only
+finitely many earlier rows remain, and their limits can be taken one at
+a time. Combining that finite part with the two small tails justifies
+passing the limit through the sum.</p>
+<p>Next consider <span
+class="math inline" data-term-auto="off">\(Q=\operatorname{lcm}(1,\dots,t)\)</span>. For
+every <span class="math inline" data-term-auto="off">\(n\le t\)</span>, the limiting row
+average is zero, because <span class="math inline" data-term-auto="off">\(n\)</span> divides
+<span class="math inline" data-term-auto="off">\(Q\)</span>. All remaining limiting row
+averages are bounded by <span class="math inline" data-term-auto="off">\(1/n\)</span>,
+independently of <span class="math inline" data-term-auto="off">\(t\)</span>. Their total is
+therefore at most <span class="math inline" data-term-auto="off">\(\sum_{n\in
+A,\,n&gt;t}1/n\)</span>, which tends to zero. This is the second use of
+small reciprocal tails. The averaging length tends to infinity with
+<span class="math inline" data-term-auto="off">\(Q\)</span> fixed before <span
+class="math inline" data-term-auto="off">\(t\)</span> varies. To obtain one witness, the
+proof chooses a suitable <span class="math inline" data-term-auto="off">\(Q\)</span> first
+and a sufficiently long average second.</p>
+<p>Our cutoffs <span class="math inline" data-term-auto="off">\(t,T\)</span> and number <span
+class="math inline" data-term-auto="off">\(M\)</span> of candidate columns make those choices
+explicit, using the separately proved estimate <span
+class="math inline" data-term-auto="off">\(2Q/n\)</span>. Under the rationality assumption,
+both arguments make the integer <span
+class="math inline" data-term-auto="off">\(qR(k)\)</span> strictly between <span
+class="math inline" data-term-auto="off">\(0\)</span> and <span
+class="math inline" data-term-auto="off">\(1\)</span>. The finite reconstruction and its
+estimates are ordinary proofs provided here; the historical Lean and
+Comparator receipts establish the linked formal theorem and its own
+proof.</p>
+</section>
+</section>
+<section id="sec:exercises" class="level2">
+<h2>Questions and exercises</h2>
+<div class="readercheck" id="chk:hypotheses">
+<p><strong>Question 1</strong>. Which of <span
+class="math inline" data-term-auto="off">\(\{2,4\}\)</span>, <span
+class="math inline" data-term-auto="off">\(\{2,4,8,16,\dots\}\)</span> and <span
+class="math inline" data-term-auto="off">\(\{2,4,6,8,\dots\}\)</span> does Theorem <a class="math-ref" href="#thm:main">1</a> apply to?</p>
+</div>
+<div class="readercheck" id="chk:positive">
+<p><strong>Question 2</strong>. Suppose <span
+class="math inline" data-term-auto="off">\(S=p/q\)</span>. Why would <span
+class="math inline" data-term-auto="off">\(0&lt;R(k)&lt;1/q\)</span> be impossible, even if
+<span class="math inline" data-term-auto="off">\(k\)</span> was chosen using <span
+class="math inline" data-term-auto="off">\(q\)</span>? Why do we need <span
+class="math inline" data-term-auto="off">\(R(k)&gt;0\)</span>, and where does infinitude of
+<span class="math inline" data-term-auto="off">\(A\)</span> supply it?</p>
+</div>
+<div class="readercheck" id="chk:columns">
+<p><strong>Question 3</strong>. In the square-exponent table, what stays
+fixed and what changes when we move from <span
+class="math inline" data-term-auto="off">\(k=4\)</span> to <span
+class="math inline" data-term-auto="off">\(k=8\)</span>? Why can we not choose the smallest
+entry in each row and regard their sum as one successful attempt?</p>
+</div>
+<div class="readercheck" id="chk:partial">
+<p><strong>Question 4</strong>. Why is the mean over a complete
+consecutive cycle below <span class="math inline" data-term-auto="off">\(1/n\)</span>? Why
+does the same bound hold for a complete sampled cycle, which may have
+fewer than <span class="math inline" data-term-auto="off">\(n\)</span> entries? For <span
+class="math inline" data-term-auto="off">\(n=6\)</span> and <span
+class="math inline" data-term-auto="off">\(Q=4\)</span>, the full cycle averages <span
+class="math inline" data-term-auto="off">\(\tfrac2{21}&lt;\tfrac16\)</span>. Is the first
+value alone also below <span
+class="math inline" data-term-auto="off">\(\tfrac16\)</span>?</p>
+</div>
+<div class="readercheck" id="chk:order">
+<p><strong>Question 5</strong>. In Section <a class="math-ref" href="#app:numbers">7.1</a>, replace <span
+class="math inline" data-term-auto="off">\(Q=16\)</span> by <span
+class="math inline" data-term-auto="off">\(Q&#39;=64\)</span> and keep <span
+class="math inline" data-term-auto="off">\(T=512\)</span>. Does the far bound still give less
+than <span class="math inline" data-term-auto="off">\(\tfrac1{10}\)</span>? What must be
+chosen again?</p>
+</div>
+<div class="exercise" id="ex:2">
+<p><strong>Exercise 1</strong>. For <span
+class="math inline" data-term-auto="off">\(n=5\)</span> and <span
+class="math inline" data-term-auto="off">\(Q=1\)</span>, calculate the mean of the first
+seven entries. Separate them into a complete cycle and a beginning
+portion of the next. Why is the mean of all seven not simply half the
+sum of the two piece-means?</p>
+</div>
+<div class="exercise" id="ex:3">
+<p><strong>Exercise 2</strong>. Use the fractional-part formula <a class="math-ref" data-equation-ref="true" href="#eq:fracpart-main">eq:fracpart-main</a> to show that
+<span class="math inline" data-term-auto="off">\(2^{12}-1\)</span> is divisible by <span
+class="math inline" data-term-auto="off">\(7\)</span> and by <span
+class="math inline" data-term-auto="off">\(63\)</span>, and find its remainder on division by
+<span class="math inline" data-term-auto="off">\(2^5-1=31\)</span>.</p>
+</div>
+<div class="exercise" id="ex:4">
+<p><strong>Exercise 3</strong>. Adapt the proof in Section <a class="math-ref" href="#sec:doubling">5</a> to the exponents <span
+class="math inline" data-term-auto="off">\(3,9,27,81,\dots\)</span>, using <span
+class="math inline" data-term-auto="off">\(k=3^j\)</span>.</p>
+</div>
+<div class="exercise" id="ex:5">
+<p><strong>Exercise 4</strong>. Show that <span
+class="math inline" data-term-auto="off">\(5\sqrt2-7=(\sqrt2-1)^3\)</span>, and that
+multiplying a number <span class="math inline" data-term-auto="off">\(a\sqrt2-c\)</span>,
+where <span class="math inline" data-term-auto="off">\(a,c\)</span> are nonnegative integers,
+by <span class="math inline" data-term-auto="off">\(3-2\sqrt2\)</span> gives another number
+<span class="math inline" data-term-auto="off">\(a&#39;\sqrt2-c&#39;\)</span>, where <span
+class="math inline" data-term-auto="off">\(a&#39;,c&#39;\)</span> are nonnegative integers.
+Use the test of Section <a class="math-ref" href="#sec:test">3</a> to show that <span
+class="math inline" data-term-auto="off">\(\sqrt2\)</span> is irrational.</p>
+</div>
+<div class="exercise" id="ex:6">
+<p><strong>Exercise 5</strong>. Let <span
+class="math inline" data-term-auto="off">\(a_1=2\)</span> and let each later exponent be one
+more than the product of the earlier ones, giving <span
+class="math inline" data-term-auto="off">\(2,3,7,43,1807,\dots\)</span>. Set <span
+class="math inline" data-term-auto="off">\(A=\{a_1,a_2,\dots\}\)</span> and write <span
+class="math inline" data-term-auto="off">\(P_j=a_1a_2\cdots a_j\)</span>. (a) Show that <span
+class="math inline" data-term-auto="off">\(\tfrac1{a_1}+\dots+\tfrac1{a_j}=1-\tfrac1{P_j}\)</span>.
+(b) Show that with <span class="math inline" data-term-auto="off">\(k=P_j\)</span> the first
+<span class="math inline" data-term-auto="off">\(j\)</span> exponents leave <span
+class="math inline" data-term-auto="off">\(0\)</span> but the exponent <span
+class="math inline" data-term-auto="off">\(P_j+1\)</span> leaves at least <span
+class="math inline" data-term-auto="off">\(\tfrac37\)</span>, so <span
+class="math inline" data-term-auto="off">\(R(P_j)\ge\tfrac37\)</span> for every <span
+class="math inline" data-term-auto="off">\(j\)</span>.</p>
+</div>
+</section>
+<section id="app:answers" class="level2">
+<h2>Answers</h2>
+<p><em>Question <a class="math-ref" href="#chk:hypotheses">1</a>.</em> Only <span
+class="math inline" data-term-auto="off">\(\{2,4,8,16,\dots\}\)</span>: <span
+class="math inline" data-term-auto="off">\(\{2,4\}\)</span> is finite (its sum <span
+class="math inline" data-term-auto="off">\(\tfrac25\)</span> is rational), and for <span
+class="math inline" data-term-auto="off">\(\{2,4,6,\dots\}\)</span> the sum <span
+class="math inline" data-term-auto="off">\(\tfrac12+\tfrac14+\tfrac16+\dots\)</span> is half
+of <span class="math inline" data-term-auto="off">\(1+\tfrac12+\tfrac13+\dots\)</span>, which
+diverges.</p>
+<p><em>Question <a class="math-ref" href="#chk:positive">2</a>.</em> The identity
+<span class="math inline" data-term-auto="off">\(R(k)=((2^k-1)p-qJ(k))/q\)</span> has an
+integer numerator. If positive, that numerator is at least <span
+class="math inline" data-term-auto="off">\(1\)</span>, so <span
+class="math inline" data-term-auto="off">\(R(k)\ge1/q\)</span>. Choosing <span
+class="math inline" data-term-auto="off">\(k\)</span> using <span
+class="math inline" data-term-auto="off">\(q\)</span> does not change this argument: <span
+class="math inline" data-term-auto="off">\(2^k-1\)</span> and <span
+class="math inline" data-term-auto="off">\(J(k)\)</span> remain integers. Zero would give no
+contradiction. Infinitude supplies a selected <span
+class="math inline" data-term-auto="off">\(n&gt;k\)</span>, whose multiplied term is positive
+and less than <span class="math inline" data-term-auto="off">\(1\)</span>; all of it
+contributes to <span class="math inline" data-term-auto="off">\(R(k)\)</span>, and the other
+contributions are nonnegative.</p>
+<p><em>Question <a class="math-ref" href="#chk:columns">3</a>.</em> The exponents
+<span class="math inline" data-term-auto="off">\(A\)</span> and the original sum <span
+class="math inline" data-term-auto="off">\(S\)</span> stay fixed. The multiplier changes from
+<span class="math inline" data-term-auto="off">\(15\)</span> to <span
+class="math inline" data-term-auto="off">\(255\)</span>, and every selected term is
+transformed using that same multiplier within its column. Separate row
+minima may come from different columns and need not describe any one
+multiplier applied to <span class="math inline" data-term-auto="off">\(S\)</span>.</p>
+<p><em>Question <a class="math-ref" href="#chk:partial">4</a>.</em> A consecutive
+cycle has total below <span class="math inline" data-term-auto="off">\(1\)</span> and <span
+class="math inline" data-term-auto="off">\(n\)</span> entries, hence mean below <span
+class="math inline" data-term-auto="off">\(1/n\)</span>. A sampled cycle selects the smallest
+remainder from each equal-sized group. Since the fractional parts
+increase with the remainder, its mean is no larger, even when it has
+fewer entries. The first value alone, however, is <span
+class="math inline" data-term-auto="off">\(\tfrac{15}{63}=\tfrac5{21}=\tfrac{10}{42}\)</span>,
+more than <span class="math inline" data-term-auto="off">\(\tfrac16=\tfrac7{42}\)</span>. The
+complete-cycle bound need not hold for a beginning portion; the separate
+bound <a class="math-ref" data-equation-ref="true" href="#eq:uniform-main">eq:uniform-main</a>
+covers these too.</p>
+<p><em>Question <a class="math-ref" href="#chk:order">5</a>.</em> No: <span
+class="math inline" data-term-auto="off">\(2Q&#39;/T=128/512=1/4&gt;1/10\)</span>. Choose
+<span class="math inline" data-term-auto="off">\(T\)</span> again: <span
+class="math inline" data-term-auto="off">\(T&#39;=1024\)</span> still fails, but <span
+class="math inline" data-term-auto="off">\(T&#39;=2048\)</span> works, since <span
+class="math inline" data-term-auto="off">\(128/2048=1/16&lt;1/10\)</span>. The middle
+exponents <span class="math inline" data-term-auto="off">\(32,64,\dots,2048\)</span> now have
+cycle lengths <span class="math inline" data-term-auto="off">\(1,1,2,4,8,16,32\)</span>, so
+<span class="math inline" data-term-auto="off">\(M=64\)</span> still works. Its validity had
+to be rechecked, even though its value did not change. This is why <span
+class="math inline" data-term-auto="off">\(Q\)</span> is fixed before <span
+class="math inline" data-term-auto="off">\(T\)</span>.</p>
+<p><em>Exercise <a class="math-ref" href="#ex:2">1</a>.</em>
+The first five entries sum to <span
+class="math inline" data-term-auto="off">\(26/31\)</span>; the next two sum to <span
+class="math inline" data-term-auto="off">\(4/31\)</span>. All seven therefore average <span
+class="math inline" data-term-auto="off">\(30/217\)</span>. The two piece-means, <span
+class="math inline" data-term-auto="off">\(26/155\)</span> and <span
+class="math inline" data-term-auto="off">\(2/31\)</span>, must be weighted by their lengths:
+<span
+class="math inline" data-term-auto="off">\(\bigl(5\cdot\tfrac{26}{155}+2\cdot\tfrac2{31}\bigr)/7=30/217\)</span>.
+Giving the two pieces equal weight would give each entry in the shorter
+piece more weight than each entry in the longer one.</p>
+<p><em>Exercise <a class="math-ref" href="#ex:3">2</a>.</em>
+<span class="math inline" data-term-auto="off">\(3\)</span> and <span
+class="math inline" data-term-auto="off">\(6\)</span> divide <span
+class="math inline" data-term-auto="off">\(12\)</span>, so <span
+class="math inline" data-term-auto="off">\(7\)</span> and <span
+class="math inline" data-term-auto="off">\(63\)</span> divide <span
+class="math inline" data-term-auto="off">\(2^{12}-1=4095\)</span>. The remainder of <span
+class="math inline" data-term-auto="off">\(12\)</span> divided by <span
+class="math inline" data-term-auto="off">\(5\)</span> is <span
+class="math inline" data-term-auto="off">\(2\)</span>, so the remainder on division by <span
+class="math inline" data-term-auto="off">\(31\)</span> is <span
+class="math inline" data-term-auto="off">\(2^2-1=3\)</span>: indeed <span
+class="math inline" data-term-auto="off">\(4095=31\times132+3\)</span>.</p>
+<p><em>Exercise <a class="math-ref" href="#ex:4">3</a>.</em>
+For <span class="math inline" data-term-auto="off">\(k=3^j\)</span>, exponents <span
+class="math inline" data-term-auto="off">\(3^i\)</span> with <span class="math inline" data-term-auto="off">\(i\le
+j\)</span> divide <span class="math inline" data-term-auto="off">\(k\)</span> and leave
+nothing. Later exponents <span class="math inline" data-term-auto="off">\(n=3^i\)</span>
+leave less than <span class="math inline" data-term-auto="off">\(\tfrac2{2^{n-k}}\)</span>,
+and the gaps <span class="math inline" data-term-auto="off">\(3^i-3^j\)</span> are different
+and at least <span class="math inline" data-term-auto="off">\(2\times3^j\)</span>, so <span
+class="math inline" data-term-auto="off">\(R(3^j)&lt;\sum_{e\ge2\times3^j}\tfrac2{2^e}=\tfrac4{2^{2\times3^j}}\)</span>,
+which is below <span class="math inline" data-term-auto="off">\(\tfrac1q\)</span> for large
+<span class="math inline" data-term-auto="off">\(j\)</span>.</p>
+<p><em>Exercise <a class="math-ref" href="#ex:5">4</a>.</em>
+<span class="math inline" data-term-auto="off">\((\sqrt2-1)^2=3-2\sqrt2\)</span> and <span
+class="math inline" data-term-auto="off">\((\sqrt2-1)(3-2\sqrt2)=5\sqrt2-7\)</span>. Also
+<span
+class="math inline" data-term-auto="off">\((a\sqrt2-c)(3-2\sqrt2)=(3a+2c)\sqrt2-(4a+3c)\)</span>.
+Start with <span class="math inline" data-term-auto="off">\(\sqrt2-1=1\sqrt2-1\)</span>. The
+displayed recurrence preserves nonnegative integer values of <span
+class="math inline" data-term-auto="off">\(a\)</span> and <span
+class="math inline" data-term-auto="off">\(c\)</span>, so every odd power <span
+class="math inline" data-term-auto="off">\((\sqrt2-1)^{2i+1}\)</span> is <span
+class="math inline" data-term-auto="off">\(m\sqrt2-j\)</span> for nonnegative integers <span
+class="math inline" data-term-auto="off">\(m\)</span> and <span
+class="math inline" data-term-auto="off">\(j\)</span>, and it is positive. Since <span
+class="math inline" data-term-auto="off">\(1^2&lt;2&lt;(3/2)^2\)</span>, we have <span
+class="math inline" data-term-auto="off">\(0&lt;\sqrt2-1&lt;\tfrac12\)</span>. Hence <span
+class="math inline" data-term-auto="off">\(0&lt;(\sqrt2-1)^{2i+1}&lt;\tfrac1{2\cdot4^i}\)</span>,
+which is below <span class="math inline" data-term-auto="off">\(\tfrac1q\)</span> once <span
+class="math inline" data-term-auto="off">\(2\cdot4^i&gt;q\)</span>. By the test, <span
+class="math inline" data-term-auto="off">\(\sqrt2\)</span> is irrational.</p>
+<p><em>Exercise <a class="math-ref" href="#ex:6">5</a>.</em>
+(a) With <span class="math inline" data-term-auto="off">\(P_0=1\)</span>, <span
+class="math inline" data-term-auto="off">\(a_j=P_{j-1}+1\)</span> and <span
+class="math inline" data-term-auto="off">\(P_j=P_{j-1}a_j\)</span>, so <span
+class="math inline" data-term-auto="off">\(\tfrac1{P_{j-1}}-\tfrac1{P_j}=\tfrac{a_j-1}{P_j}=\tfrac1{a_j}\)</span>,
+and adding these for <span class="math inline" data-term-auto="off">\(1,\dots,j\)</span>
+leaves <span class="math inline" data-term-auto="off">\(1-\tfrac1{P_j}\)</span>. Since <span
+class="math inline" data-term-auto="off">\(P_j\ge2^j\)</span>, these partial sums tend to
+<span class="math inline" data-term-auto="off">\(1\)</span>. The set <span
+class="math inline" data-term-auto="off">\(A\)</span> is infinite and satisfies the theorem’s
+reciprocal-sum hypothesis. (b) The first <span
+class="math inline" data-term-auto="off">\(j\)</span> exponents divide <span
+class="math inline" data-term-auto="off">\(P_j\)</span>. The exponent <span
+class="math inline" data-term-auto="off">\(P_j+1\)</span> is bigger than <span
+class="math inline" data-term-auto="off">\(k=P_j\)</span>, so it leaves <span
+class="math inline" data-term-auto="off">\(\tfrac{2^{P_j}-1}{2^{P_j+1}-1}\)</span>, which is
+at least <span class="math inline" data-term-auto="off">\(\tfrac37\)</span> because <span
+class="math inline" data-term-auto="off">\(7(2^{P_j}-1)-3(2^{P_j+1}-1)=2^{P_j}-4\ge0\)</span>.
+Thus the particular choices <span class="math inline" data-term-auto="off">\(k=P_j\)</span>
+fail to make the remainders small. Other multiples of <span
+class="math inline" data-term-auto="off">\(P_j\)</span> preserve the same initial zeros;
+averaging lets us search among those choices.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<ol>
+<li id="ref-1"><p>P. Erdős, <em>On arithmetical properties of Lambert series</em>,
+J. Indian Math. Soc. 12 (1948), 63–66.</p></li>
+<li id="ref-2"><p>P. Erdős, <a
+href="https://users.renyi.hu/~p_erdos/1969-09.pdf"><em>On the
+irrationality of certain series</em></a>, Math. Student 36 (1968),
+222–226 (issued 1969).</p></li>
+<li id="ref-3"><p>P. Erdős, <a
+href="https://users.renyi.hu/~p_erdos/1988-22.pdf"><em>On the
+irrationality of certain series: problems and results</em></a>, in
+A. Baker (ed.), <em>New Advances in Transcendence Theory</em>, Cambridge
+University Press, 1988, 102–109.</p></li>
+<li id="ref-4"><p>T. F. Bloom, <em>Erdős Problem #257</em>, <a
+href="https://www.erdosproblems.com/257"
+class="uri">https://www.erdosproblems.com/257</a>; the statement is
+quoted in the Formal Conjectures file
+<code>FormalConjectures/ErdosProblems/257.lean</code>.</p></li>
+<li id="ref-5"><p>T. Tao and J. Teräväinen, <a
+href="https://arxiv.org/abs/2512.01739v2"><em>Quantitative correlations
+and some problems on prime factors of consecutive integers</em></a>,
+arXiv:2512.01739v2 (submitted December 2025, revised April
+2026).</p></li>
+<li id="ref-6"><p>W. Cook, <a
+href="https://github.com/wcook04/plectis-erdos/blob/0064fc9b2a2693de97aebc8abec26090c3cd1095/paper/257/erdos-257-mersenne-support-subseries.pdf"><em>Irrationality
+criteria for Lambert subseries</em></a>, 30 September 2026.</p></li>
+<li id="ref-7"><p>W. Cook, <a
+href="https://github.com/wcook04/plectis-erdos/blob/0064fc9b2a2693de97aebc8abec26090c3cd1095/paper/257/erdos257-mersenne-reasoning-surface.pdf"><em>Reciprocal
+Mersenne subseries: support criteria, finite arithmetic and conditional
+orbit problems</em></a>, 30 September 2026.</p></li>
+</ol>
+</section>
+  </div>
+</article>
