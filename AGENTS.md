@@ -524,3 +524,10 @@ This public agent entry file gives bounded public-root navigation only. It does
 not authorize Lean/Lake beyond the bounded public witness fixture, trading or
 financial advice, hosted deployment, publication, recipient work, credentialed
 provider calls, secret export, or whole-system correctness.
+
+## Folder organisation
+
+For tree changes, new file families or file placement, read
+[repository-organization](skills/repository-organization/SKILL.md) and the
+[local directory roles](docs/maintainers/repository-layout.json). Preserve source owners and
+public interfaces; run the layout gate on the worktree and on staged contents.

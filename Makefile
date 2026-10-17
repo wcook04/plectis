@@ -202,6 +202,8 @@ package-smoke:
 ci: check test smoke package-smoke
 
 check preflight:
+	@if test -e .git; then python3 skills/repository-organization/scripts/check_layout.py --config docs/maintainers/repository-layout.json; fi
+	@python3 skills/repository-organization/scripts/test_check_layout.py
 	@"$(PYTHON)" scripts/check/check_repository_layout.py
 	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -c "from microcosm_core.runtime_shell import _load_evidence_class_registry; from pathlib import Path; _load_evidence_class_registry(Path('.'))"
 	@"$(PYTHON)" scripts/check/check_lean_proof_trust.py

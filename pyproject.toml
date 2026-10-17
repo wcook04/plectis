@@ -769,6 +769,9 @@ where = ["src"]
 "share/plectis/examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle/source_modules/src/microcosm_core/organs" = ["examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle/source_modules/src/microcosm_core/organs/*.py"]
 "share/plectis/fixtures/first_wave/lean_proof_search_lab_runtime/input" = ["fixtures/first_wave/lean_proof_search_lab_runtime/input/*.json"]
 
+"share/plectis/skills/repository-organization" = ["skills/repository-organization/SKILL.md"]
+"share/plectis/skills/repository-organization/scripts" = ["skills/repository-organization/scripts/*.py"]
+
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]

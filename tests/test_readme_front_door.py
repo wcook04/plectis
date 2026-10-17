@@ -44,6 +44,8 @@ _LINKED_SIBLINGS = (
     "docs/UNDERSTANDING_PLECTIS.md",
     "docs/maintainers/validation.md",
     "docs/maintainers/architecture.md",
+    "docs/maintainers/repository-layout.json",
+    "skills/repository-organization/SKILL.md",
     "ORGANS.md",
     "AGENTS.md",
     "AGENTS.override.md",
