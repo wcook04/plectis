@@ -1,9 +1,17 @@
 # Plectis
 
 **Tools for making AI-assisted research easier to inspect and continue.**
-Plectis is a public Python toolkit with programs and worked examples for
-checking proofs, testing records of agent actions, comparing forecasts and
-keeping generated documents consistent with their sources.
+Plectis is a public research prototype: a Python toolkit of individually
+runnable or adaptable components for checking proofs, testing records of agent
+actions, comparing forecasts and keeping generated documents consistent with
+their sources. It is for researchers and developers who want to inspect a
+mechanism, rerun a prepared experiment or adapt it to a specific task.
+
+For example, an agent says “I committed the fix and the tests passed.” The
+[completion-checking example](docs/guides/checking-agent-completion.md) checks
+three supplied claims against a disposable Git repository and an actual pytest
+run, and rejects four deliberately incorrect claims. It is a worked experiment,
+not a general audit of your agent or project.
 
 <a href="https://wcook04.github.io/plectis/docs/system-map.html">
   <img src="assets/system-map-dark.png" alt="Plectis system map in dark mode: seven families of software components surround the axioms, principles and failure modes they cite." width="100%">
@@ -15,7 +23,8 @@ keeping generated documents consistent with their sources.
 component or rule on the website to follow its connections.</sub>
 
 You can run the examples independently, study how they work and adapt useful parts.
-The tools come from a larger research workbench built by Will Cook with AI coding agents.
+The tools come from a larger private research workbench built by Will Cook
+with AI coding agents; this clone publishes selected components and experiments.
 [Authorship, third-party sources and licensing](#name-and-history) are recorded below.
 
 > **Looking for the mathematics?** Start with
@@ -48,6 +57,25 @@ This lists project files, suggests a starting task and saves a local run record.
 It makes no model calls and leaves your source unchanged. The examples below
 show what the individual tools do; the tour itself does not run your tests or
 carry out the suggested task.
+
+## Can I use it today?
+
+Yes, for the documented local commands and selected examples. Start with the
+[quickstart](QUICKSTART.md) or the [worked guides](docs/guides/README.md), then
+check the chosen component's inputs, dependencies and stated limits before
+adapting it to your own project.
+
+| Status | What that means here |
+|---|---|
+| **Usable today** | Project inventory, suggested routes and selected examples, with component-specific prerequisites. |
+| **Tested** | Named inputs and failure cases; the completion example includes Git and pytest subprocesses. |
+| **Experimental or unverified** | New project adaptations and end-to-end research automation need separate validation. |
+
+The 88-component catalogue does not establish an integrated public research
+platform, execution availability in every environment or external use of every
+component. The public prototype and the larger private workbench are separate. The
+[overview](docs/overview.md#the-public-workflow) follows one input through a
+selected command to its output and explains the boundary.
 
 ## Why this exists
 

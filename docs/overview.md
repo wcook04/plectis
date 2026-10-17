@@ -1,9 +1,15 @@
 # How Plectis fits together
 
-Plectis is an independent experiment in research with AI. This page explains
-why its tools belong together and how the public software relates to the
-mathematical work. For setup, start with the [quickstart](../QUICKSTART.md);
-for a program you can inspect, choose a [worked guide](guides/README.md).
+Plectis is a public research prototype containing individually runnable or
+adaptable tools for AI-assisted research. Researchers and developers can use
+it to inspect a mechanism, rerun a selected prepared experiment or adapt a
+component to a task they can validate. For example, the
+[completion-checking guide](guides/checking-agent-completion.md) checks supplied
+claims against Git and pytest in a disposable project; it does not turn an
+arbitrary agent report into a verified result.
+
+This page explains how those tools fit together and where the public software
+stops. For setup, start with the [quickstart](../QUICKSTART.md).
 
 ## Why this exists
 
@@ -41,6 +47,45 @@ That is why apparently different tools appear in one repository:
 This describes the design the tools explore. The public collection is a
 research prototype: its examples exercise individual parts of that process,
 and many use prepared data. It does not run an entire research programme for you.
+
+## The public workflow
+
+A run has a concrete path: **source or prepared input → selected CLI command
+and component → saved result or output**. The component decides which checks
+run. Its output records those checks and their limits; it does not inherit the
+capabilities of the other components in the catalogue.
+
+In the completion example, the supplied claims and tiny project are the
+inputs. The `agent-closeout-faithfulness-audit` command runs its component,
+which creates a temporary Git repository and invokes pytest. It writes a JSON
+result under the output directory you select. That result distinguishes the
+three checked claims from four rejected negative cases. The
+[guide](guides/checking-agent-completion.md#inspect-the-check) links the input,
+implementation and tests so you can inspect the same path yourself. This is a
+prepared experiment, not an adapter for any repository or agent transcript.
+
+The project tour is a different path: it inventories the folder you point it
+at, proposes a route and saves a simulated task record under ignored
+`.microcosm/` state. It does not execute that task or your test suite.
+[Quickstart](../QUICKSTART.md) gives both the source and installed CLI forms.
+
+Shared command handling and file formats connect these operations to the
+[component registry](../core/organ_registry.json), which names 88 components
+and supplies the maps and documentation. The
+[seven-family map](../README.md#what-is-in-the-toolkit) keeps the collection
+browsable; it is not a pipeline that runs all 88 components together.
+
+| Status | Public scope |
+|---|---|
+| **Usable today** | Documented local commands and selected examples with their stated dependencies. |
+| **Tested** | Named inputs, checks and failure cases; a saved record alone is not independent verification. |
+| **Experimental or unverified** | New project adaptations, end-to-end automation and external use need separate evidence. |
+
+The larger private workbench is where these ideas developed. This public
+collection does not reconstruct that environment or install an integrated
+version of it. The [implementation map](maintainers/architecture.md#implementation-map)
+identifies the public code owners; the following table distinguishes the
+other parts of the project.
 
 ## How the project fits together
 
