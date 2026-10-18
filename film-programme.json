@@ -295,7 +295,7 @@
       },
       "category": "code",
       "preview_duration_seconds": 366,
-      "detail": "When a codebase keeps growing, I want to be able to find out what a file does and what else depends on it before asking an agent to change it. CodeMap lets me explore that visually, from the broad areas of a project down to one file and its connections. In this video I follow a file that prepares the map itself, and explain how the agents get a text view of the same information stored in the code.",
+      "detail": "When a codebase keeps growing, I want a way to choose where to read before asking an agent to change it. CodeMap puts saved descriptions beside recorded connections, from broad areas of a project down to a file. In this video I follow a file that prepares the map itself. The visual and agent-facing views use the same underlying code and descriptions, with different scope and detail; the connections can be incomplete.",
       "accepted_edition_sha256": "7317963724f59114d3b2e3309352fff2fc94ca1caf023dd6c4ab23bc0e0ced4b"
     },
     {
@@ -516,7 +516,7 @@
       "id": "safety-core",
       "title": "Safety Core",
       "label": "Safety Core",
-      "description": "A rulebook for coding agents, with a map of where each rule applies and what checks it. I use a test publishing request to show the difference between asking for approval and blocking an action.",
+      "description": "A rulebook for coding agents, with a map of where each rule applies and what checks it. A saved test of a publishing request shows the checking program returning ask, then deny after one setting changes.",
       "role": "supporting",
       "links": [
         {
@@ -548,8 +548,8 @@
         "thumbnail_sha256": "1cb854b0cdcd2845962f5439b6cfb5526d91a0a399e1e6881c54b725a8f14fab",
         "transcript": {
           "scope": "route_summary",
-          "text": "A rulebook for coding agents, with a map of where each rule applies and what checks it. I use a test publishing request to show the difference between asking for approval and blocking an action.",
-          "sha256": "d86627949edb62f04dbd3318a8b72531e94b2a538de3306ba36a936c9dc431ba"
+          "text": "A rulebook for coding agents, with a map of where each rule applies and what checks it. A saved test of a publishing request shows the checking program returning ask, then deny after one setting changes.",
+          "sha256": "c80b953169c1d14933c5d20428574d2c4e5a1c0cbfe62cb9ffdb6244f2744012"
         },
         "chapters": [
           {
@@ -584,7 +584,7 @@
       },
       "category": "safety",
       "preview_duration_seconds": 267,
-      "detail": "Giving an agent a rule is only part of it, I also want to see where that rule applies and what actually checks it. Safety Core has an editable rulebook and a map connecting the rules to folders, instructions and configured checks. I show an example changing a publishing check from asking for approval to blocking the request, using a test request. It's still a prototype, the broader idea is to learn from failures and improve the environment the agents work in.",
+      "detail": "Giving an agent a rule is only part of it. I also want to see where that rule applies and what checks it. Safety Core has an editable rulebook and a map connecting the rules to folders, instructions and configured checks. The saved test sends a publishing request directly to the checking program and compares its ask and deny responses. It does not run a publishing action through Claude Code. It is still a prototype.",
       "accepted_edition_sha256": "5eeeaa4c1ffe324246ffac412f29f448d20632b45318645e6031af461e6d2384"
     }
   ],
@@ -658,7 +658,7 @@
     "why_title": "Why I'm building this",
     "why": [
       "As AI gets better, it can do more work, and more complicated work. I think it's important to use those improvements to help us understand what it generates, too.",
-      "I want to see the big picture, then open the bit I don't understand. With code, that means seeing what each file does and what else it affects. With maths, it means starting with an explanation and being able to follow it back to the paper and proof.",
+      "I want to see the big picture, then open the bit I don't understand. With code, that means reading a file's description and following its recorded connections back to the code. With maths, it means starting with an explanation and being able to follow it back to the paper and proof.",
       "The agents editing my videos can read the papers and code the videos are about. I record, review the result and give feedback. I'd like to try this with researchers and lecturers who can judge the subject properly.",
       "These videos show what I've learned to build. I'd love to put those skills to use on other problems. I'm looking for work, an internship, fellowship or funding, and I'm very open to working together. If there's a problem you think I should try, please let me know."
     ],
@@ -687,7 +687,7 @@
       "id": "codemap",
       "name": "CodeMap",
       "purpose": "See how the files in a software project fit together.",
-      "detail": "In the video I follow a file that prepares the map itself, then look at the files that use it. The descriptions are kept with the code, where agents can read them too.",
+      "detail": "In the video I follow a file that prepares the map itself, then look at its recorded connections. These connections and the descriptions kept with the code help me choose where to read next. They can be incomplete.",
       "category": "code",
       "film": "codemap",
       "status": "Still in development in my private system. I'm in the process of open sourcing it.",
@@ -773,10 +773,10 @@
       "id": "safety-core",
       "name": "Safety Core",
       "purpose": "See where your AI assistant’s safety rules apply and what checks them.",
-      "detail": "I use a test publishing request to show a check asking for permission, then change it to block the request. The map links that check to its rule and instructions.",
+      "detail": "A recorded test sends a publishing request directly to the checking program. Changing one setting changes its answer from ask to deny. The map links that check to the written rule.",
       "category": "safety",
       "film": "safety-core",
-      "status": "A prototype. The automatic checks shown run through Claude Code. Codex can read the rules, but that alone does not activate those checks.",
+      "status": "A prototype. The saved test does not run Claude Code or publish anything. For these checks to affect an action, the coding tool must call them and handle their answers.",
       "links": [
         {
           "label": "Code, setup and examples",
@@ -799,11 +799,11 @@
     {
       "id": "zenith",
       "name": "Zenith",
-      "purpose": "Test whether AI can learn a better way to tackle a problem.",
-      "detail": "Try a way of working, check what it produces, then test a change on the next attempt. I'm still investigating which changes, if any, help.",
+      "purpose": "Test whether AI-written tests and extra test answers help find and fix program errors.",
+      "detail": "One study tries AI-written tests on small programs with deliberately planted mistakes. A separate study asks whether extra test answers help an AI repair a program, then scores the selected code on later test inputs. The studies keep unsuccessful attempts as well as improvements.",
       "category": "research",
       "film": "introduction",
-      "status": "Work in progress. The repository describes the current research prototype and its limits.",
+      "status": "Small research studies, with limits described in the repository. The linked introduction shows an earlier version of the project; the studies report the current experiments.",
       "links": [
         {
           "label": "Read the studies and their results",
