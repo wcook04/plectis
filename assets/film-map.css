@@ -1005,3 +1005,39 @@ html.scripting .film-map__readings-lead { display: none; }
    on a phone): a long word ("independently") never runs off the page. */
 @media (max-width: 22em) { .home-routes { grid-template-columns: minmax(0, 1fr); } }
 .home-routes__item > * { overflow-wrap: anywhere; }
+
+/* Repository buttons (19 October 2026 evening). Will: each film with a
+   GitHub repository gets "a nice little button ... with the GitHub logo",
+   not a text link. A quiet pill: GitHub's mark, then the repository's name;
+   the branch's ink takes the hairline on hover and focus. The mark says the
+   link leaves the site, so it carries no off-site arrow. */
+.repo-btn {
+  display: inline-flex; align-items: center; gap: 0.45rem; width: fit-content; max-width: 100%;
+  margin-top: 0.55rem; padding: 0.3rem 0.75rem 0.3rem 0.55rem; border-radius: 999px;
+  font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; line-height: 1.2;
+  color: var(--ink); text-decoration: none;
+  background: color-mix(in srgb, var(--surface) 80%, var(--page));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 18%, transparent);
+  transition: box-shadow 140ms var(--fm-move), transform 120ms var(--fm-move);
+}
+a.repo-btn[data-link-kind="exogenous"]::after { content: none; }
+.repo-btn__mark { width: 15px; height: 15px; flex: none; }
+.repo-btn__name { min-width: 0; overflow-wrap: anywhere; }
+.repo-btn:focus-visible { outline: 2px solid var(--fm-ink); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) {
+  .repo-btn:hover { text-decoration: none; box-shadow: inset 0 0 0 1px var(--fm-ink); }
+}
+.repo-btn:active { transform: scale(0.97); }
+.film-map__node--root .repo-btn { margin-top: 0.9rem; }
+/* The button keeps the page's ink; the link colour is for running text. */
+.film-map a.repo-btn, .film-map a.repo-btn:visited { color: var(--ink); }
+.film-map a.repo-btn .repo-btn__mark { color: var(--ink-soft); }
+@media (min-width: 640px) {
+  /* On the stage the button sits under the card's text, in the text column,
+     so the still and the lines keep their places. */
+  .film-map--home .film-map__node--branch {
+    grid-template-areas: "still edge" "still title" "still text" ". repo";
+    grid-template-rows: auto auto 1fr auto;
+  }
+  .film-map--home .film-map__node--branch .repo-btn { grid-area: repo; margin-top: 0.45rem; }
+}

@@ -97,6 +97,10 @@
         "description": "The idea that connects my maths and software projects: using AI to make its own work easier for people to understand. Then what each video covers, and where to start.",
         "status": "in_preparation",
         "recorded": "2026-10-19"
+      },
+      "repo": {
+        "href": "https://github.com/wcook04",
+        "label": "All my repositories"
       }
     },
     {
@@ -232,6 +236,9 @@
         "status": "in_preparation",
         "recorded": "2026-10-19",
         "detail": "Erdős asked whether every sum made by choosing infinitely many of 1, 1/3, 1/7, 1/15, … must be irrational. The film states the question from scratch, then proves one known case step by step."
+      },
+      "repo": {
+        "href": "https://github.com/wcook04/plectis-erdos"
       }
     },
     {
@@ -385,6 +392,9 @@
         "description": "Save one agent’s finished login fix while another agent’s unfinished edit stays in the same file. Then the catch with Git’s staging area, and a demo you can run.",
         "status": "in_preparation",
         "recorded": "2026-10-19"
+      },
+      "repo": {
+        "href": "https://github.com/wcook04/one-checkout"
       }
     },
     {
@@ -471,6 +481,9 @@
         "description": "A tour of the maths map, using problem 257: from checked results to a long record, a short paper, an explanation paper and a video, each for a wider reader.",
         "status": "in_preparation",
         "recorded": "2026-10-19"
+      },
+      "repo": {
+        "href": "https://github.com/wcook04/plectis-erdos"
       }
     },
     {
@@ -553,6 +566,9 @@
         "description": "OpenAI’s maths papers beside their checking reports. One paper about pi gets two coverage labels, and reading both reports shows the groups agree about what is missing.",
         "status": "in_preparation",
         "recorded": "2026-10-19"
+      },
+      "repo": {
+        "href": "https://github.com/wcook04/plectis-atlas"
       }
     },
     {
@@ -635,6 +651,9 @@
         "description": "An agent made up a setting to pass a failing test in ten out of ten runs. A written rule changed what it reported; with Safety Core’s check running, none committed.",
         "status": "in_preparation",
         "recorded": "2026-10-19"
+      },
+      "repo": {
+        "href": "https://github.com/wcook04/safety-core"
       }
     },
     {
@@ -659,7 +678,10 @@
       "poster": null,
       "release": null,
       "in_preparation": true,
-      "detail": "Zenith asks whether AI can learn from its own work. The note follows one experiment: a model practises testing small programs, the bugs it missed are kept as a record, and the film asks whether that record helps it on new problems."
+      "detail": "Zenith asks whether AI can learn from its own work. The note follows one experiment: a model practises testing small programs, the bugs it missed are kept as a record, and the film asks whether that record helps it on new problems.",
+      "repo": {
+        "href": "https://github.com/wcook04/plectis-zenith"
+      }
     }
   ],
   "presentation": {
@@ -766,7 +788,7 @@
     {
       "id": "codemap",
       "name": "Code Map",
-      "purpose": "Find and inspect the code AI has produced, with descriptions a person and an agent can both use.",
+      "purpose": "Shows each file in my software as a box with its saved description, so I can follow code that AI wrote.",
       "detail": "The film asks which code runs when I type into Find. It reads the saved description at the top of one file, finds the search function and the file that calls it, then shows an agent reading the same words. The links come from inspecting the code and can leave connections out.",
       "category": "code",
       "film": "codemap",
@@ -776,7 +798,7 @@
     {
       "id": "one-checkout",
       "name": "One Checkout",
-      "purpose": "Save one agent’s finished change in Git while another agent’s unfinished work stays in place.",
+      "purpose": "When two AI agents edit the same file, it commits one agent’s finished change and leaves the other’s unfinished edits in place.",
       "detail": "Two assistants edit the same file. Only Claude’s finished login fix goes into the commit, and Codex’s unfinished change stays in the file. The demo runs in a temporary project, so you can try it without touching your own.",
       "category": "code",
       "film": "one-checkout",
@@ -791,7 +813,7 @@
     {
       "id": "mathematics",
       "name": "Plectis Mathematics",
-      "purpose": "I used AI to research eight Erdős problems, and many of the results are checked by a computer.",
+      "purpose": "Eight Erdős problems I researched with AI, with the papers, computer-checked proofs of partial results and the approaches that failed.",
       "detail": "The film follows problem 257 from its checked results to a long research record of hundreds of pages, a short paper of twenty-odd pages, an explanation paper and a video. Each step is written for a wider reader, and the long record keeps the approaches that failed.",
       "category": "maths",
       "film": "mathematics-overview",
@@ -832,7 +854,7 @@
     {
       "id": "atlas",
       "name": "Plectis Atlas",
-      "purpose": "Brings OpenAI’s maths papers and their original checking reports together, so you can follow one result.",
+      "purpose": "OpenAI’s maths papers next to the reports outside groups wrote checking them, so you can see what each check covered.",
       "detail": "The film follows one paper about pi. Two groups label its coverage differently, and reading both reports shows they agree about what the formal statement leaves out. Atlas links their reports and has not repeated the checks itself.",
       "category": "research",
       "film": "atlas",
@@ -852,7 +874,7 @@
     {
       "id": "safety-core",
       "name": "Safety Core",
-      "purpose": "Keeps the rules I give coding agents in one file and shows which ones a program enforces.",
+      "purpose": "Keeps the rules I give coding agents in one file. In my test, only the program that enforces a rule stopped a bad commit.",
       "detail": "I asked an agent to fix a one-word typo and save it while one test always failed. In ten out of ten runs it made up a setting so the test would pass. With the rule written in its instructions, six of ten still committed; with Safety Core’s check running, none did.",
       "category": "safety",
       "film": "safety-core",
@@ -868,7 +890,7 @@
     {
       "id": "demo-take",
       "name": "Demo Take",
-      "purpose": "I edit my videos with AI that reads what I said and the maths underneath, so the pictures match.",
+      "purpose": "I record an explanation, and AI edits the video by reading my transcript and the maths behind it, so the picture shows the step I’m describing.",
       "detail": "I record an explanation, and the AI reads the transcript to find the step I am explaining. Then it reads the papers and proof files to find the calculation, so that when I describe an operation the picture shows it happening.",
       "category": "code",
       "film": "introduction",
@@ -879,7 +901,7 @@
     {
       "id": "zenith",
       "name": "Zenith",
-      "purpose": "Research on whether AI can learn from its own work, with replayable experiments on testing and repairing code.",
+      "purpose": "Can an AI model that tests and repairs code learn from its earlier attempts? Small experiments you can rerun, with their costs.",
       "detail": "The paper “Zenith: programs, experiments and useful memory” (15 October) reports small studies of AI models that test and repair programs. In one study, a repair call alone raised correct later answers from 259/576 to 365/576.",
       "category": "research",
       "film": "zenith",

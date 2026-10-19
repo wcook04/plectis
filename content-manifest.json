@@ -5825,7 +5825,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:6b6e6a74d45b28f26483b5565e57db709d262460514ed82c5a735102a769f18e",
     "microcosm-substrate/principles/P-8.json": "sha256:d34bf18ebb5b77e46fe85d144cf8a501e21fd5e03b2e9f97da34c950138cc482",
     "microcosm-substrate/principles/P-9.json": "sha256:87d9fc90506c49029bd2bf63fc8d2e4888b944850a0703714b2cf6cd08abaaaa",
-    "sites/microcosm/index.html": "sha256:cbd6e5ed135cf28bf5b23520548351d2e9dcb6a2233bc6ea69b5f6f0ed3c59b7",
+    "sites/microcosm/index.html": "sha256:a3a1ed684c51552f0af9c5e130d79064e18872919f2fdede3f9919d886cf219f",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:648992d8d9ef884abe50483a42ef158a4a142c08ddb889bef04b3b1167b73724"
   },
   "source_of_truth_contract": {
