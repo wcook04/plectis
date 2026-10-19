@@ -90,7 +90,14 @@
       "category": "overview",
       "preview_duration_seconds": 484,
       "detail": "CodeMap and Demo Take are still part of my private system. The other project entries link to their public websites and code.",
-      "accepted_edition_sha256": "6a79765fbc59a683b22065c1f6273b63519a8703233718763680b8981b82543e"
+      "accepted_edition_sha256": "6a79765fbc59a683b22065c1f6273b63519a8703233718763680b8981b82543e",
+      "next_cut": {
+        "title": "Making AI’s work understandable",
+        "short": "Introduction",
+        "description": "The idea that connects my maths and software projects: using AI to make its own work easier for people to understand. Then what each video covers, and where to start.",
+        "status": "in_preparation",
+        "recorded": "2026-10-19"
+      }
     },
     {
       "id": "mathematics",
@@ -217,7 +224,15 @@
       "category": "maths",
       "preview_duration_seconds": 1678,
       "detail": "Start with 1, 1/3, 1/7, 1/15, ... and choose infinitely many of those terms. Could their total be a fraction? I try to explain one case of Erdős #257 through examples, then show where the argument appears in the paper and its computer-checked proof. The condition is that adding 1 divided by each chosen position in the original list gives a finite total. Erdős stated this condition, the full question about every infinite selection is still open. I'm not a mathematician, this is my attempt at making the argument easier to follow.",
-      "accepted_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb"
+      "accepted_edition_sha256": "b78835654ca7aa1f455abd58d5a68613c03e877f5d0b7a31faa2571db97ac8fb",
+      "next_cut": {
+        "title": "Erdős’s infinite sum",
+        "short": "Erdős #257",
+        "description": "Must a sum chosen from 1, 1/3, 1/7, 1/15, … always be irrational? The general question is still open. I give a complete proof of one known case, from first principles.",
+        "status": "in_preparation",
+        "recorded": "2026-10-19",
+        "detail": "Erdős asked whether every sum made by choosing infinitely many of 1, 1/3, 1/7, 1/15, … must be irrational. The film states the question from scratch, then proves one known case step by step."
+      }
     },
     {
       "id": "codemap",
@@ -296,7 +311,14 @@
       "category": "code",
       "preview_duration_seconds": 366,
       "detail": "When a codebase keeps growing, I want a way to choose where to read before asking an agent to change it. CodeMap puts saved descriptions beside recorded connections, from broad areas of a project down to a file. In this video I follow a file that prepares the map itself. The visual and agent-facing views use the same underlying code and descriptions, with different scope and detail; the connections can be incomplete.",
-      "accepted_edition_sha256": "7317963724f59114d3b2e3309352fff2fc94ca1caf023dd6c4ab23bc0e0ced4b"
+      "accepted_edition_sha256": "7317963724f59114d3b2e3309352fff2fc94ca1caf023dd6c4ab23bc0e0ced4b",
+      "next_cut": {
+        "title": "Code Map",
+        "short": "Code Map",
+        "description": "One question through Code Map: which code runs when I type into Find? I read saved descriptions, follow a call between files, and show an agent reading the same words.",
+        "status": "in_preparation",
+        "recorded": "2026-10-19"
+      }
     },
     {
       "id": "one-checkout",
@@ -356,7 +378,14 @@
       "preview_duration_seconds": 93,
       "detail": "If Claude Code and Codex are working in the same project, a finished fix can end up in the same file as somebody else's unfinished change. One Checkout lets you or your agent choose the exact changes to save as a Git commit, while the other edits stay where they are. This video uses a login fix as the example, the repo also has a disposable demo you can try without touching your own project.",
       "accepted_edition_sha256": "70adcdfa5ec0af18b48f7438c1a80cfb01fdf3357b5786aaa03eaaa47fd50ec4",
-      "summary": "Two AI coding assistants can edit the same file at the same time. I show how to save just the finished login fix as a Git commit while the other assistant’s unfinished edits stay in place."
+      "summary": "Two AI coding assistants can edit the same file at the same time. I show how to save just the finished login fix as a Git commit while the other assistant’s unfinished edits stay in place.",
+      "next_cut": {
+        "title": "One Checkout",
+        "short": "One Checkout",
+        "description": "Save one agent’s finished login fix while another agent’s unfinished edit stays in the same file. Then the catch with Git’s staging area, and a demo you can run.",
+        "status": "in_preparation",
+        "recorded": "2026-10-19"
+      }
     },
     {
       "id": "mathematics-overview",
@@ -435,7 +464,14 @@
       "category": "maths",
       "preview_duration_seconds": 531,
       "detail": "I've been using AI to investigate eight Erdős problems, and then trying to make that work understandable to somebody who wasn't there for the investigation. This video goes from the computer-checked proofs to the long records of what worked and failed, the shorter papers and the maths map, where you can follow one result into its paper and proof. I'm not a mathematician, this is a prototype of the preparation and explanation I think we could do with mathematicians involved. The separate #257 film goes through one argument.",
-      "accepted_edition_sha256": "a7672473e8acd818ac88853693c959b7d81f7cf9b6d5d6c8b53737840ac2dcfe"
+      "accepted_edition_sha256": "a7672473e8acd818ac88853693c959b7d81f7cf9b6d5d6c8b53737840ac2dcfe",
+      "next_cut": {
+        "title": "The maths map",
+        "short": "The maths map",
+        "description": "A tour of the maths map, using problem 257: from checked results to a long record, a short paper, an explanation paper and a video, each for a wider reader.",
+        "status": "in_preparation",
+        "recorded": "2026-10-19"
+      }
     },
     {
       "id": "atlas",
@@ -510,7 +546,14 @@
       "category": "research",
       "preview_duration_seconds": 190,
       "detail": "If you're interested in a mathematical result, finding the paper and then finding what other people have checked can involve a lot of searching. Plectis Atlas brings those sources together for OpenAI's maths release. In this video I look at a result about how closely fractions can approximate pi, and why two reports can use different labels while pointing out the same missing statement. The reports keep their authors and links, so you can read their actual reasons yourself.",
-      "accepted_edition_sha256": "e6d1c0cf9682313f979a307566c6afe14281749800ceddfb0904df01392dd935"
+      "accepted_edition_sha256": "e6d1c0cf9682313f979a307566c6afe14281749800ceddfb0904df01392dd935",
+      "next_cut": {
+        "title": "Plectis Atlas",
+        "short": "Plectis Atlas",
+        "description": "OpenAI’s maths papers beside their checking reports. One paper about pi gets two coverage labels, and reading both reports shows the groups agree about what is missing.",
+        "status": "in_preparation",
+        "recorded": "2026-10-19"
+      }
     },
     {
       "id": "safety-core",
@@ -585,7 +628,38 @@
       "category": "safety",
       "preview_duration_seconds": 267,
       "detail": "Giving an agent a rule is only part of it. I also want to see where that rule applies and what checks it. Safety Core has an editable rulebook and a map connecting the rules to folders, instructions and configured checks. The saved test sends a publishing request directly to the checking program and compares its ask and deny responses. It does not run a publishing action through Claude Code. It is still a prototype.",
-      "accepted_edition_sha256": "5eeeaa4c1ffe324246ffac412f29f448d20632b45318645e6031af461e6d2384"
+      "accepted_edition_sha256": "5eeeaa4c1ffe324246ffac412f29f448d20632b45318645e6031af461e6d2384",
+      "next_cut": {
+        "title": "Safety Core",
+        "short": "Safety Core",
+        "description": "An agent made up a setting to pass a failing test in ten out of ten runs. A written rule changed what it reported; with Safety Core’s check running, none committed.",
+        "status": "in_preparation",
+        "recorded": "2026-10-19"
+      }
+    },
+    {
+      "id": "zenith",
+      "title": "Zenith",
+      "label": "Zenith",
+      "short": "Zenith",
+      "description": "A short note on one experiment from Zenith, my research project on AI models that test code: can a model learn from the bugs it missed?",
+      "role": "supporting",
+      "category": "safety",
+      "links": [
+        {
+          "label": "Zenith studies and results",
+          "href": "https://wcook04.github.io/plectis-zenith/"
+        },
+        {
+          "label": "Zenith repository",
+          "href": "https://github.com/wcook04/plectis-zenith"
+        }
+      ],
+      "still_inset": null,
+      "poster": null,
+      "release": null,
+      "in_preparation": true,
+      "detail": "Zenith asks whether AI can learn from its own work. The note follows one experiment: a model practises testing small programs, the bugs it missed are kept as a record, and the film asks whether that record helps it on new problems."
     }
   ],
   "presentation": {
@@ -606,7 +680,7 @@
       },
       {
         "id": "safety",
-        "label": "Agent rules"
+        "label": "AI agents"
       }
     ],
     "edges": [
@@ -645,6 +719,12 @@
         "to": "safety-core",
         "label": "Guide the agents",
         "category": "safety"
+      },
+      {
+        "from": "safety-core",
+        "to": "zenith",
+        "label": "Can AI learn from its work?",
+        "category": "safety"
       }
     ],
     "introductory_copy": "Start with the introduction, then follow a branch into a project. Each connection names what the next video explores."
@@ -653,16 +733,16 @@
     "title": "Plectis: projects by Will Cook",
     "description": "Tools and research by Will Cook for understanding the work AI produces. Explore the videos, code maps, mathematics, agent tools and their source.",
     "heading": "Plectis",
-    "lede": "I’m Will Cook. I use AI to research Erdős problems and build software, and I make tools that help people follow its work.",
+    "lede": "I’m Will Cook. I use AI to research Erdős problems, questions posed by the mathematician Paul Erdős, and I build tools that help people follow what AI produces.",
     "orientation": "Start with the introduction, or choose a project to find out more.",
-    "why_title": "Why I'm building this",
+    "why_title": "Why I’m building this",
     "why": [
-      "As AI gets better, it can do more work, and more complicated work. I think it's important to use those improvements to help us understand what it generates, too.",
-      "I want to see the big picture, then open the bit I don't understand. With code, that means reading a file's description and following its recorded connections back to the code. With maths, it means starting with an explanation and being able to follow it back to the paper and proof.",
-      "The agents editing my videos can read the papers and code the videos are about. I record, review the result and give feedback. I'd like to try this with researchers and lecturers who can judge the subject properly.",
-      "These videos show what I've learned to build. I'd love to put those skills to use on other problems. I'm looking for work, an internship, fellowship or funding, and I'm very open to working together. If there's a problem you think I should try, please let me know."
+      "As AI gets better, it can do more work, and more complicated work. I think it’s important to use those improvements to help us understand what it generates, too.",
+      "I want to see the big picture, then open the bit I don’t understand. With code, that means reading a file’s description and following its recorded connections back to the code. With maths, it means starting with an explanation and being able to follow it back to the paper and proof.",
+      "The agents editing my videos can read the papers and code the videos are about. I record, review the result and give feedback. I’d like to try this with researchers and lecturers who can judge the subject properly.",
+      "These videos show what I’ve learned to build. I’d love to put those skills to use on other problems. I’m looking for work, an internship, fellowship or funding, and I’m very open to working together. If there’s a problem you think I should try, please let me know."
     ],
-    "invitation": "If something doesn't make sense, or you spot a mistake, please let me know. If your feedback leads to a change, I'd be happy to credit you, with your permission.",
+    "invitation": "If something doesn’t make sense, or you spot a mistake, please let me know. If your feedback leads to a change, I’d be happy to credit you, with your permission.",
     "contact": [
       {
         "label": "Email me",
@@ -685,9 +765,9 @@
   "projects": [
     {
       "id": "codemap",
-      "name": "CodeMap",
-      "purpose": "See how the files in a software project fit together.",
-      "detail": "In the video I follow a file that prepares the map itself, then look at its recorded connections. These connections and the descriptions kept with the code help me choose where to read next. They can be incomplete.",
+      "name": "Code Map",
+      "purpose": "Find and inspect the code AI has produced, with descriptions a person and an agent can both use.",
+      "detail": "The film asks which code runs when I type into Find. It reads the saved description at the top of one file, finds the search function and the file that calls it, then shows an agent reading the same words. The links come from inspecting the code and can leave connections out.",
       "category": "code",
       "film": "codemap",
       "status": "Still in development in my private system. I'm in the process of open sourcing it.",
@@ -696,8 +776,8 @@
     {
       "id": "one-checkout",
       "name": "One Checkout",
-      "purpose": "Save one AI assistant’s changes while others edit the same file.",
-      "detail": "The video separates a finished login fix from another assistant’s unfinished edits. Only the fix goes into the Git commit, a saved step in the project’s history. You can try a disposable demo.",
+      "purpose": "Save one agent’s finished change in Git while another agent’s unfinished work stays in place.",
+      "detail": "Two assistants edit the same file. Only Claude’s finished login fix goes into the commit, and Codex’s unfinished change stays in the file. The demo runs in a temporary project, so you can try it without touching your own.",
       "category": "code",
       "film": "one-checkout",
       "links": [
@@ -711,8 +791,8 @@
     {
       "id": "mathematics",
       "name": "Plectis Mathematics",
-      "purpose": "Explore eight maths problems, with explanations, papers and proofs.",
-      "detail": "I follow one result from its computer-checked proof to the paper and maths map. The longer papers also keep the routes that failed, so you can see how the investigation developed.",
+      "purpose": "I used AI to research eight Erdős problems, and many of the results are checked by a computer.",
+      "detail": "The film follows problem 257 from its checked results to a long research record of hundreds of pages, a short paper of twenty-odd pages, an explanation paper and a video. Each step is written for a wider reader, and the long record keeps the approaches that failed.",
       "category": "maths",
       "film": "mathematics-overview",
       "status": "Research on particular cases and related results. The original questions remain open where the problem pages say so.",
@@ -752,8 +832,8 @@
     {
       "id": "atlas",
       "name": "Plectis Atlas",
-      "purpose": "Explore OpenAI's maths results and what people have said about them.",
-      "detail": "Pick a subject, open a result, and find its papers and the reports checking it. The reports keep their authors and sources, so you can see where they agree and where they differ.",
+      "purpose": "Brings OpenAI’s maths papers and their original checking reports together, so you can follow one result.",
+      "detail": "The film follows one paper about pi. Two groups label its coverage differently, and reading both reports shows they agree about what the formal statement leaves out. Atlas links their reports and has not repeated the checks itself.",
       "category": "research",
       "film": "atlas",
       "links": [
@@ -772,8 +852,8 @@
     {
       "id": "safety-core",
       "name": "Safety Core",
-      "purpose": "See where your AI assistant’s safety rules apply and what checks them.",
-      "detail": "A recorded test sends a publishing request directly to the checking program. Changing one setting changes its answer from ask to deny. The map links that check to the written rule.",
+      "purpose": "Keeps the rules I give coding agents in one file and shows which ones a program enforces.",
+      "detail": "I asked an agent to fix a one-word typo and save it while one test always failed. In ten out of ten runs it made up a setting so the test would pass. With the rule written in its instructions, six of ten still committed; with Safety Core’s check running, none did.",
       "category": "safety",
       "film": "safety-core",
       "status": "A prototype. The saved test does not run Claude Code or publish anything. For these checks to affect an action, the coding tool must call them and handle their answers.",
@@ -788,8 +868,8 @@
     {
       "id": "demo-take",
       "name": "Demo Take",
-      "purpose": "Make videos from a spoken explanation, with pictures that help explain it.",
-      "detail": "This is what I used to make these films. I record and give feedback, and agents edit the recordings and make visuals while reading the underlying maths and code.",
+      "purpose": "I edit my videos with AI that reads what I said and the maths underneath, so the pictures match.",
+      "detail": "I record an explanation, and the AI reads the transcript to find the step I am explaining. Then it reads the papers and proof files to find the calculation, so that when I describe an operation the picture shows it happening.",
       "category": "code",
       "film": "introduction",
       "film_seconds": 261,
@@ -799,11 +879,11 @@
     {
       "id": "zenith",
       "name": "Zenith",
-      "purpose": "Research on AI models that test and repair code, with replayable experiments and their costs.",
-      "detail": "One study tries AI-written tests on small programs with deliberately planted mistakes. A separate study asks whether extra test answers help an AI repair a program, then scores the selected code on later test inputs. The studies keep unsuccessful attempts as well as improvements.",
+      "purpose": "Research on whether AI can learn from its own work, with replayable experiments on testing and repairing code.",
+      "detail": "The paper “Zenith: programs, experiments and useful memory” (15 October) reports small studies of AI models that test and repair programs. In one study, a repair call alone raised correct later answers from 259/576 to 365/576.",
       "category": "research",
-      "film": "introduction",
-      "status": "Small research studies, with limits described in the repository. The linked introduction shows an earlier version of the project; the studies report the current experiments.",
+      "film": "zenith",
+      "status": "Small research studies, with limits described in the repository. The film is in preparation.",
       "links": [
         {
           "label": "Read the studies and their results",
@@ -811,12 +891,16 @@
           "kind": "read"
         },
         {
+          "label": "Paper (PDF, 3 pages)",
+          "href": "https://github.com/wcook04/plectis-zenith/blob/main/paper/zenith.pdf",
+          "kind": "read"
+        },
+        {
           "label": "Research programme and code",
           "href": "https://github.com/wcook04/plectis-zenith",
           "kind": "code"
         }
-      ],
-      "film_seconds": 385
+      ]
     },
     {
       "id": "toolkit",

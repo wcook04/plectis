@@ -6366,8 +6366,11 @@
       var census = statementMeta && statementMeta.summary;
       var replayed = census && census.comparator && census.comparator.compared;
       if (replaySummary && census && typeof census.statements === 'number' && typeof replayed === 'number') {
-        replaySummary.innerHTML = '<span class="home-universe__specimen">' + fmtCount(replayed) + ' of ' +
-          fmtCount(census.statements) + '</span> paper results with recorded tests of proofs against separate statements.';
+        // Plain words for a first-time reader (19 October 2026 cold-reader test):
+        // what a dot is, and what the red count means.
+        replaySummary.innerHTML = 'Each dot is a result stated in one of the papers. <span class="home-universe__specimen">' +
+          fmtCount(replayed) + ' of ' + fmtCount(census.statements) +
+          '</span> have a Lean proof that a separate program re-checked against an independently written statement.';
       }
       if (data.companion) companionSpec = data.companion;
       if (data.bands) bands = data.bands;

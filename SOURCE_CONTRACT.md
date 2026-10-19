@@ -298,6 +298,23 @@ repository linked, Atlas easy to reach, grounded in the films):
   the plectis-zenith repository (`ExternalLandingPaper`). When plectis-zenith
   PR 13 (the kept-experience study) merges, point `ZENITH_LANDING_PAPER` at
   its paper and rerun `build_landing_paper_sheets.py`.
+- Second pass the same evening (Will: "where's Zenith", "placeholder
+  thumbnails ... it's not the current videos we have out", "link to the Atlas
+  website fairly clearly, that's the sibling website"): each film carries a
+  `next_cut` for the 19 October re-record, and the landing projection
+  (`preparation_view`) shows that cut with a held frame (`film-pending`) and
+  no Watch link until its own release replaces the old one; remove `next_cut`
+  when the new release is recorded. Zenith is its own film under Safety Core.
+  Plectis Atlas has a sibling-site band (`#atlas`, a real capture of its
+  subject map in `assets/siblings/`, recaptured when Atlas changes) and asks
+  Atlas to link back.
+- The film map draws one line per branch in its ink from the introduction
+  (laptop widths), draws them out once on a reader's first visit
+  (`plectis.filmMap.drawn` in localStorage, off under reduced motion), lights
+  the pointed film's route and sends one short light along it (never for
+  keyboard focus, reduced motion, Save-Data or a hidden tab), and moves
+  between films with the arrow keys. Design notes:
+  side-session note `film_map_interaction_notes.md` (19 October 2026).
 - Film stills are served as 640 and 1280 px WebP copies through `srcset`
   (`plectis_thumbnail_cards.py web`, then `plectis_film_publication.still_img`).
   The 1920x1080 JPEG stays the upload and structured-data thumbnail; it cost
