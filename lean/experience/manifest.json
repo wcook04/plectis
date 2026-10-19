@@ -61,6 +61,15 @@
     },
     "comparator_entries": 127,
     "comparator_runs": 1,
+    "replays": [
+      {
+        "run_id": "35935225572",
+        "href": "https://github.com/wcook04/plectis-erdos-lean/actions/runs/35935225572",
+        "repository": "https://github.com/wcook04/plectis-erdos-lean",
+        "commit": "cc7e541cf2081c6fef5a5e377d52e365e33b01eb",
+        "checked_at": null
+      }
+    ],
     "lean_declarations": 1506,
     "lean_files": 376,
     "status_rule": {

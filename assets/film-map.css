@@ -818,3 +818,31 @@ html.scripting .film-map__readings-lead { display: none; }
   .film-map .film-map__ink--violet, .film-map .film-map__ink--teal { --fm-ink: CanvasText; }
   .film-map { --fm-quiet: GrayText; }
 }
+
+/* Every project, with its code (19 October 2026). One row per project under
+   the map: its name, what it does, then its routes (site, GitHub, video).
+   A two-column grid at laptop width keeps all seven inside one screen. */
+.film-map__directory { margin-top: clamp(2rem, 1.4rem + 1.6vw, 3rem); scroll-margin-top: 5rem; }
+.film-map__dir-title {
+  margin: 0 0 0.9rem; font-family: var(--font-serif); font-weight: 400;
+  font-size: clamp(1.3rem, 1.05rem + 0.6vw, 1.6rem); line-height: 1.2; color: var(--ink);
+}
+.film-map__dir-list {
+  list-style: none; margin: 0; padding: 0; display: grid; gap: 0 2.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+}
+@media (min-width: 900px) { .film-map__dir-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.film-map__dir-row {
+  display: grid; grid-template-columns: minmax(7.5rem, 9.5rem) minmax(0, 1fr); gap: 0.15rem 1rem;
+  align-content: start; padding: 0.8rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+}
+.film-map__dir-name {
+  grid-row: span 2; margin: 0; font-family: var(--font-serif); font-size: 1.08rem; line-height: 1.3; color: var(--ink);
+}
+.film-map__dir-purpose { margin: 0; font-size: 0.94rem; line-height: 1.45; color: var(--ink-soft); text-wrap: pretty; }
+.film-map__dir-routes {
+  margin: 0.2rem 0 0; display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem;
+  font-family: var(--font-sans); font-size: 0.88rem; line-height: 1.45;
+}
+.film-map__dir-routes a { display: inline-block; }
+.film-map__dir-private { color: var(--muted); }

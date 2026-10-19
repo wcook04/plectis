@@ -653,7 +653,7 @@
     "title": "Plectis: projects by Will Cook",
     "description": "Tools and research by Will Cook for understanding the work AI produces. Explore the videos, code maps, mathematics, agent tools and their source.",
     "heading": "Plectis",
-    "lede": "I'm Will Cook. These are the projects I've been building with AI.",
+    "lede": "I’m Will Cook. I use AI to research Erdős problems and build software, and I make tools that help people follow its work.",
     "orientation": "Start with the introduction, or choose a project to find out more.",
     "why_title": "Why I'm building this",
     "why": [
@@ -799,7 +799,7 @@
     {
       "id": "zenith",
       "name": "Zenith",
-      "purpose": "Test whether AI-written tests and extra test answers help find and fix program errors.",
+      "purpose": "Research on AI models that test and repair code, with replayable experiments and their costs.",
       "detail": "One study tries AI-written tests on small programs with deliberately planted mistakes. A separate study asks whether extra test answers help an AI repair a program, then scores the selected code on later test inputs. The studies keep unsuccessful attempts as well as improvements.",
       "category": "research",
       "film": "introduction",

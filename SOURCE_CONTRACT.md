@@ -281,6 +281,28 @@ pairs; why the project exists and how to take part; one line for the earlier
 software. Will’s 15 October request moves the video map before the maths map. Every route is visible without opening
 anything. Transcripts and optional agent prompt text fold.
 
+Will, 19 October 2026 (faster loading, better papers, each project's
+repository linked, Atlas easy to reach, grounded in the films):
+- The hero names one route per reader in the introduction film's words
+  (chapter 10 of the 19 October recording): the introduction for a newcomer,
+  the maths map for maths, Safety Core for AI safety, Plectis Atlas for
+  OpenAI's maths results. Atlas is also in the shared header
+  (`SITE_PRIMARY_NAV`), marked as leaving the site.
+- Under the video map, "Every project, with its code" lists each project once
+  with one site link and its GitHub repositories, rendered by
+  `plectis_film_map._directory` from the same `film-programme.json` project
+  rows the map reads. Videos stay in the map; the earlier toolkit keeps its
+  own quiet row.
+- The papers band leads with the #257 explanation paper (the research paper
+  beside it), then the system paper, then the Zenith paper, which lives in
+  the plectis-zenith repository (`ExternalLandingPaper`). When plectis-zenith
+  PR 13 (the kept-experience study) merges, point `ZENITH_LANDING_PAPER` at
+  its paper and rerun `build_landing_paper_sheets.py`.
+- Film stills are served as 640 and 1280 px WebP copies through `srcset`
+  (`plectis_thumbnail_cards.py web`, then `plectis_film_publication.still_img`).
+  The 1920x1080 JPEG stays the upload and structured-data thumbnail; it cost
+  the landing about 1.2 MB when pages used it directly.
+
 The introduction (Will, 7 October 2026) says what Plectis is, why each
 problem is set out the way it is, and who built it, with the reason taken from
 Will's own films: models now write mathematics faster than mathematicians can

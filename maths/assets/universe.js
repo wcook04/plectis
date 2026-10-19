@@ -125,6 +125,17 @@
     }
     return 'No Comparator test of the proof against a separate statement is recorded for this paper result.';
   }
+  function statementReplay(node, more, detail, summary) {
+    var wanted = (node.comparator_runs || [])[0];
+    summary = summary || {};
+    var candidates = [more && more.replay].concat(summary.replays || [], [detail && detail.replay]);
+    for (var i = 0; i < candidates.length; i++) {
+      var candidate = candidates[i];
+      if (candidate && candidate.run_id && (!wanted || String(candidate.run_id) === String(wanted))) return candidate;
+    }
+    var run = wanted || summary.replay_run;
+    return {run_id: run, href: String(run) === String(summary.replay_run) ? summary.replay_href : null};
+  }
   function evidenceOf(node) {
     var lean = node.lean_status || 'none';
     if (lean === 'exact' || lean === 'exact_or_stronger') {
@@ -5025,7 +5036,7 @@
         text = 'No Lean statement is recorded for it yet.';
       }
       if (n.palomar_status === 'prepared') text += ' It is in the corpus prepared for Palomar; nothing has been submitted.';
-      else if (n.palomar_status === 'pending') text += ' It joins the Palomar corpus once Comparator has replayed it.';
+      else if (n.palomar_status === 'pending') text += ' Preparation for Palomar is pending.';
       return text;
     }
 
@@ -5070,10 +5081,14 @@
       if (n.id === 'integration:comparator') {
         var axioms = (s.permitted_axioms || []).map(function (a) { return '<code>' + escapeHtml(a) + '</code>'; });
         var runText = s.replay_href ? extLink(s.replay_href, 'run ' + escapeHtml(s.replay_run)) : 'one replay';
+        var multipleRuns = (s.replays || []).length > 1;
+        if (multipleRuns) runText = s.replays.map(function (r) {
+          return r.href ? extLink(r.href, 'run ' + escapeHtml(r.run_id)) : 'run ' + escapeHtml(r.run_id);
+        }).join(' and ');
         return '<p class="universe-inspector__body">Comparator has checked ' + fmtCount(cmp.compared) +
           ' of the ' + fmtCount(s.statements) + ' paper results, in ' + runText + ' over ' +
           fmtCount(s.comparator_entries) + ' corpus entries' +
-          (s.corpus_commit ? ' at commit <code>' + escapeHtml(String(s.corpus_commit).slice(0, 7)) + '</code>' : '') +
+          (!multipleRuns && s.corpus_commit ? ' at commit <code>' + escapeHtml(String(s.corpus_commit).slice(0, 7)) + '</code>' : '') +
           '. For each entry a Challenge file restates the Lean statements with no proofs, and Comparator checks that the Solution proves exactly those statements' +
           (axioms.length ? ' using no unproved assumptions beyond the permitted axioms ' + (axioms.length > 1 ?
             axioms.slice(0, -1).join(', ') + ' and ' + axioms[axioms.length - 1] : axioms[0]) : '') +
@@ -5081,8 +5096,9 @@
           (cmp.pending ? ' ' + fmtCount(cmp.pending) + ' more exact Lean statements are queued for the next replay.' : '') +
           '</p>' +
           '<p class="universe-inspector__note">Selecting Comparator lights every result it reaches. ' +
-          (s.receipts_href ? extLink(s.receipts_href, 'The saved test results') + ' and the ' : 'The ') +
-          (repo ? extLink(repo, 'Comparator corpus') : 'corpus') + ' are public.</p>';
+          (multipleRuns ? 'Each result links its checked source and saved test result.' :
+            (s.receipts_href ? extLink(s.receipts_href, 'The saved test results') + ' and the ' : 'The ') +
+            (repo ? extLink(repo, 'Comparator corpus') : 'corpus') + ' are public.') + '</p>';
       }
       if (n.id === 'integration:palomar') {
         return '<p class="universe-inspector__body">' + fmtCount(pal.prepared) +
@@ -5392,9 +5408,9 @@
       }
       // Comparator: the replay of the Lean statement, with its files.
       if (n.comparator_status === 'compared') {
-        var replay = (detail && detail.replay) || {};
-        var runId = replay.run_id || (n.comparator_runs || [])[0] || (statementMeta && statementMeta.summary && statementMeta.summary.replay_run);
-        var runHref = replay.href || (statementMeta && statementMeta.summary && statementMeta.summary.replay_href);
+        var replay = statementReplay(n, more, detail, statementMeta && statementMeta.summary);
+        var runId = replay.run_id;
+        var runHref = replay.href;
         var entries = n.comparator_entries || [];
         // A receipt is per corpus entry, so the acceptance is the entry's.
         var said = 'Comparator ran a test using two files: a theorem statement (the challenge) and a proof (the solution). ' +
@@ -5408,6 +5424,7 @@
           said += ' It passed in ' + run + ', with both the Lean proof verifier and a second verifier, nanoda, accepting the theorem and proof.';
         }
         var cmpMore = '';
+        if (replay.checked_at) said += ' Checked on ' + escapeHtml(String(replay.checked_at).slice(0, 10)) + '.';
         if (more && (more.checks || []).length) {
           var byEntry = {}, order = [];
           more.checks.forEach(function (check) {
@@ -5436,7 +5453,7 @@
         rows.push(checkHtml('ready', 'Palomar', 'Its proof files are prepared for Palomar, an external registry for formally verified results. This record does not report a submission.', '',
           pinned ? hubAttr(n, 'integration:palomar') : ''));
       } else if (n.palomar_status === 'pending') {
-        rows.push(checkHtml('none', 'Palomar', 'Its proof files can be prepared for Palomar after a successful Comparator statement-comparison test.'));
+        rows.push(checkHtml('none', 'Palomar', 'Preparation for Palomar is pending. No submission or acceptance is recorded.'));
       } else {
         rows.push(checkHtml('none', 'Palomar', 'Its proof files are not listed as prepared for the Palomar registry.'));
       }
