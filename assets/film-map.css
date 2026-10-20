@@ -1041,3 +1041,14 @@ a.repo-btn[data-link-kind="exogenous"]::after { content: none; }
   }
   .film-map--home .film-map__node--branch .repo-btn { grid-area: repo; margin-top: 0.45rem; }
 }
+
+/* First paint (20 October 2026). With script on, the landing's map waits,
+   invisible but holding its room, until film-map.js makes it live, so a slow
+   load never shows the script-free arrangement (the introduction in the
+   wrong column, no lines) and then rearranges it. If the script never runs,
+   the hold ends after 2.5s and the script-free map shows as before. A link
+   into the map (#film-…) is never held: its reading shows at once. */
+html.scripting .film-map--home:not(.film-map--live):not(:has(:target)) :is(.film-map__tree, .film-map__readings) {
+  animation: fm-hold 0s 2.5s both;
+}
+@keyframes fm-hold { from { visibility: hidden; } to { visibility: visible; } }

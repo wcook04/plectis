@@ -9460,3 +9460,10 @@ a.glossary-letters__link:focus-visible { outline: 2px solid var(--accent); outli
 }
 
 a.home-sibling__shot[data-link-kind="exogenous"]::after { content: none; }
+
+
+.home-film-note { margin-top: clamp(0.5rem, 1.5vh, 1rem); }
+.home-film-note p {
+  margin: 0; max-width: 68ch; font-size: 0.92rem; line-height: 1.6;
+  color: var(--muted); text-wrap: pretty;
+}
