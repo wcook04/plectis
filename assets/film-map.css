@@ -1034,10 +1034,13 @@ a.repo-btn[data-link-kind="exogenous"]::after { content: none; }
 .film-map a.repo-btn .repo-btn__mark { color: var(--ink-soft); }
 @media (min-width: 640px) {
   /* On the stage the button sits under the card's text, in the text column,
-     so the still and the lines keep their places. */
+     so the still and the lines keep their places. It follows the card's last
+     line on every card (20 October 2026): the still's spare height goes to
+     an empty last row, so a card whose description is hidden (the outer
+     column) no longer drops its button below the still, far from its name. */
   .film-map--home .film-map__node--branch {
-    grid-template-areas: "still edge" "still title" "still text" ". repo";
-    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: "still edge" "still title" "still text" "still repo" "still .";
+    grid-template-rows: auto auto auto auto 1fr;
   }
   .film-map--home .film-map__node--branch .repo-btn { grid-area: repo; margin-top: 0.45rem; }
 }
