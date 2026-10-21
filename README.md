@@ -343,10 +343,10 @@ recordings and their subjects.
 
 | Film | Watch |
 |---|---|
-| Plectis introduction | [YouTube](https://www.youtube.com/watch?v=uO2lbstEH9M) |
-| CodeMap | [YouTube](https://www.youtube.com/watch?v=WPkN7m67zvI) |
-| One Checkout | [YouTube](https://www.youtube.com/watch?v=HUciGvGo2ss) |
-| Safety Core | [YouTube](https://www.youtube.com/watch?v=CY4A1aEPCGc) |
+| Plectis introduction (v2) | [YouTube](https://www.youtube.com/watch?v=Ut9068O-HGU) |
+| CodeMap | [YouTube](https://www.youtube.com/watch?v=5wBXPesej5M) |
+| One Checkout | [YouTube](https://www.youtube.com/watch?v=u79CJQYyduQ) |
+| Safety Core | [YouTube](https://www.youtube.com/watch?v=qCq4_YLYJbE) |
 
 Some show the private research workbench; those interfaces are separate from
 this toolkit clone.
