@@ -153,6 +153,7 @@
       "title": "Why some infinite sums cannot be fractions: Erdős #257",
       "label": "A proof, step by step",
       "description": "Erdős problem 257 asks what happens when you choose infinitely many different entries from 1, 1/3, 1/7, 1/15, and so on, and add them. Must the total be irrational, meaning it cannot equal a fraction of two whole numbers? The full question is still open; in this video I explain a known partial result.",
+      "map_line": "Explains a known partial result. The full question is still open.",
       "role": "featured",
       "links": [
         {

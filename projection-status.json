@@ -1214,9 +1214,9 @@
         "term_markup_neutral_byte_count": 16416
       },
       "index.html": {
-        "byte_count": 1731838,
-        "sha256": "sha256:928edec288fff1c617ba8160512a15dd79b4397b85f5e1bb80fa12dffdc0e4b4",
-        "term_markup_neutral_byte_count": 1715329
+        "byte_count": 1732705,
+        "sha256": "sha256:cc4773d96370c56196c7b723709f9f1b94437e476fbedf1db33c05c711b6fa01",
+        "term_markup_neutral_byte_count": 1716196
       },
       "legacy-route-manifest.json": {
         "byte_count": 188639,
