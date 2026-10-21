@@ -1,17 +1,38 @@
 # Plectis
 
-**Tools for making AI-assisted research easier to inspect and continue.**
-Plectis is a public research prototype: a Python toolkit of individually
-runnable or adaptable components for checking proofs, testing records of agent
-actions, comparing forecasts and keeping generated documents consistent with
-their sources. It is for researchers and developers who want to inspect a
-mechanism, rerun a prepared experiment or adapt it to a specific task.
+**Run and inspect experiments in AI-assisted research.**
+
+Plectis is a public Python toolkit. You can run an example, inspect how it
+checks its result, and adapt the useful parts. The tools cover different jobs: checking proofs and agent completion
+claims, comparing forecasts, and keeping generated documents consistent with
+their sources. This repository is a public research prototype, with selected
+components from Will Cook's larger private workbench.
+
+[Start in a terminal](#try-the-repository-tour) · [Worked examples](#see-it-work) ·
+[Plectis introduction](https://www.youtube.com/watch?v=Ut9068O-HGU) ·
+[Plectis website](https://wcook04.github.io/plectis/) · [Documentation](docs/README.md)
 
 For example, an agent says “I committed the fix and the tests passed.” The
 [completion-checking example](docs/guides/checking-agent-completion.md) checks
 three supplied claims against a disposable Git repository and an actual pytest
 run, and rejects four deliberately incorrect claims. It is a worked experiment,
 not a general audit of your agent or project.
+
+### Try the repository tour
+
+For a first look, run the tour with Python 3.11 or newer. No installation or
+model account is needed:
+
+```bash
+git clone https://github.com/wcook04/plectis
+cd plectis
+PYTHONPATH=src python3 -m plectis tour --format text .
+```
+
+This lists project files, suggests a starting task and saves a local run record.
+It makes no model calls and leaves your source unchanged. The examples below
+show what the individual tools do; the tour itself does not run your tests or
+carry out the suggested task.
 
 <a href="https://wcook04.github.io/plectis/docs/system-map.html">
   <img src="assets/system-map-dark.png" alt="Plectis system map in dark mode: seven families of software components surround the axioms, principles and failure modes they cite." width="100%">
@@ -22,9 +43,7 @@ not a general audit of your agent or project.
 <sub>Components around the rim; the doctrine they cite at the centre. Select a
 component or rule on the website to follow its connections.</sub>
 
-You can run the examples independently, study how they work and adapt useful parts.
-The tools come from a larger private research workbench built by Will Cook
-with AI coding agents; this clone publishes selected components and experiments.
+The tools were built with AI coding agents.
 [Authorship, third-party sources and licensing](#name-and-history) are recorded below.
 
 > **Looking for the mathematics?** Start with
@@ -44,19 +63,6 @@ Browse the live [component pages](https://wcook04.github.io/plectis/docs/compone
 The website and its maps are agent-readable. Start with the
 [agent navigation guide](https://wcook04.github.io/plectis/llms.txt)
 for text indexes, graph data and source links without running the visual maps.
-
-For a first look in a terminal, run the repository tour. Two commands, no
-install, Python 3.11 or newer:
-
-```bash
-git clone https://github.com/wcook04/plectis && cd plectis
-PYTHONPATH=src python3 -m plectis tour --format text .
-```
-
-This lists project files, suggests a starting task and saves a local run record.
-It makes no model calls and leaves your source unchanged. The examples below
-show what the individual tools do; the tour itself does not run your tests or
-carry out the suggested task.
 
 ## Can I use it today?
 
@@ -341,19 +347,18 @@ The [release review](RELEASE_REVIEW.md) records the candidate’s checks;
 The [project videos page](https://wcook04.github.io/plectis/#videos) describes the
 recordings and their subjects.
 
-| Film | Watch |
+| Film | What it shows |
 |---|---|
-| Plectis introduction (v2) | [YouTube](https://www.youtube.com/watch?v=Ut9068O-HGU) |
-| CodeMap | [YouTube](https://www.youtube.com/watch?v=5wBXPesej5M) |
-| One Checkout | [YouTube](https://www.youtube.com/watch?v=u79CJQYyduQ) |
-| Safety Core | [YouTube](https://www.youtube.com/watch?v=qCq4_YLYJbE) |
-
-Some show the private research workbench; those interfaces are separate from
-this toolkit clone.
+| [Plectis introduction](https://www.youtube.com/watch?v=Ut9068O-HGU) | The research programme and why its results need to be inspectable by other people. |
+| [Code Map](https://www.youtube.com/watch?v=5wBXPesej5M) | A private interface for exploring saved source descriptions and code connections. Cloning this toolkit does not install that interface. |
+| [One Checkout](https://www.youtube.com/watch?v=u79CJQYyduQ) | A selected patch committed while other edits stay in the shared folder. The standalone tool has its [own repository](https://github.com/wcook04/one-checkout). |
+| [Safety Core](https://www.youtube.com/watch?v=qCq4_YLYJbE) | Editable agent rules and a narrow check tested against an invented-setting workaround. The rulebook toolkit has its [own repository](https://github.com/wcook04/safety-core). |
 
 ### Where this toolkit fits
 
-Plectis is Will Cook’s programme of research and software built with AI agents. The aim is to make the resulting work understandable enough for other people to inspect, question and build on. This repository is the earlier public toolkit, with Python components and worked examples from that work.
+The Python components and experiments in this clone are one part of Plectis.
+Use the repositories below for the current mathematics and the two standalone
+agent tools; each has its own setup instructions and limits.
 
 | Related project | Start there for |
 |---|---|
