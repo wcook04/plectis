@@ -1,1 +1,45 @@
-If you use claw code and codex in the same project folder, then the edits can get mixed together, which can get a little bit annoying. So imagine if claw did fix like a login bug or something, and then codex is halfway through some other change in the same file. Then you want to save the fix now without including the unfinished change. And that saved version is called a git commit. So basically selecting the whole file can end up those changes. So one checkout lets you make that commit from just the edits that you choose. So you or your agent first prepare a patch, so like a list of the exact changes to save, and then you review it, and then one checkout commits that patch. So the unfinished edits stay in your working files, so nobody has to clear them out first. If an older version is still queued for the next commit, it warns you to review that, and then you could otherwise undo the fix, and you still decide which edits belong in the patch. So I've packaged this as just a small tool with a skillful claw code and codex. The repository has the installation instructions and the disposable demo. You can try it out without touching your own project and if you'd like it, bring it into yours. So hopefully it's just a useful little tool. I just got it refactored from what I have inside my codebase So if there's any bugs with this, this is my first time really trying to make a standalone small little tool. I'd love to hear any problems, well I wouldn't love that there are problems, but I'd love to be able to fix any problems, which there are, that you might encounter when trying this. So thanks for your time, please check it out.
+Say two AI coding assistants, Claude and Codex, are working in the same project folder on your computer. A coding assistant is an AI that can read and change files as well as run commands on your computer. And that folder that they live in contains the code files and each is a document containing parts of the software's instructions.
+
+Now Claude has fixed a login bug and Codex is halfway through changing what a user is allowed to do after logging in. Their edits are in the same file
+
+Now you want to save the finished fix without saving the unfinished change. Here, saving means adding a version to the project's history in Git, and each saved version is called a commit.
+
+If the agent puts the whole edited file into that commit, both changes go in. But removing Codex's work first would change the file Codex is still using. One Checkout is a small tool for making that commit while leaving the unfinished work in place.
+
+I'll explain how it saves just the fix, what happens afterwards, and when separate project folders would make more sense. First, Claude supplies a patch. That's a list of the exact edits to include in the commit.
+
+In this example, it contains only the login fix. The tool doesn't recognize Claude's work and choose it automatically. Claude has to select the right edits. Now look at the last saved version.
+
+One Checkout takes that version and adds just the patch, so the new version contains the login fix with the permissions code still as it was before Codex started.
+
+It hasn't copied the whole file the agents are currently editing.
+
+Claude needs to test that proposed version. Testing the shared file would test Codex's unfinished changes as well. When those checks pass, Claude can use one checkout to make the commit. The history now contains the login fix. The file the agents are working in still contains both edits. Nobody had to clear Codex's work out of the way.
+
+Git can already do the underlying operations.
+
+One checkout packages them with checks on which files the patch changes and which saved version it was prepared from. It also comes with instructions for agents so that they can prepare the patch and use the tool themselves.
+
+There's one important catch. Before Codex saves its work, Git can hold a prepared copy of a file for the next commit. That's its staging area. Earlier, before Claude fixed the login bug, Codex had already prepared a copy of its files there, with some of its permission changes and the old login code. Claude's fix then went into the working file and into the new saved version, but that prepared copy didn't change, so it still has the old login code.
+
+If Codex makes an ordinary commit from that old copy, Git adds a new saved version made from it. The newest saved version then has the old login code again, while the working file and the earlier saved version still had the fix. One checkout warns about this, but it doesn't rewrite the copy Codex prepared and so we have to rely on agents following the right procedure there and preserving somebody else's work doesn't mean it's been updated either to include the next fix
+
+so when Codex finishes it needs to prepare its changes from the new saved version which already includes Claude's fix and one checkout's warning reminds it to do that
+
+then Codex can check its change and save it so the next saved version has both completed changes.
+
+The agents still need to coordinate and the tools don't prevent them from overwriting each other's edits.
+
+So why share a folder at all when Git Worktrees gives the agents separate copies of the project files? And my response is that that's useful when they need to work independently. If Codex needs Claude's fix, that change must be brought across then tested with Codex's work. In a shared folder, Codex can read Claude's latest edit when it reads the file again, but that also exposes it to unfinished changes. One checkout is for the case where the agents are already sharing those files.
+
+It doesn't make that arrangement better for every task but it works quite well and when you have lots of agents working quite aggressively especially when the agent can communicate with only one within one provider so Claude can't speak to Codex and Codex can't speak to Claude it's quite useful
+
+and it also turns off Git hooks, programs that Git normally runs at particular steps such as checks when making a commit and the agents must arrange the projects required checks separately and if they can't then this workflow is not suitable.
+
+So there's a demo link below that you can download from GitHub and run on your own computer or you can just check out the readme of that repo
+
+but this is all just sort of a prototype of what I have inside my own system and from my own experience it works quite well when you hate work trees and how they accumulate it's just easier to just use this tool for me personally
+
+and so it shows the selected change being saved the other edits staying in place and the problem with the old stage copy so that's the behavior that the tool has been tested for it doesn't actually empirically establish how reliably agents would use it on a real project outside of my own testimony saying that it works. The link and the installation instructions are in the description.
+
+so hopefully this explanation was clear enough and if it wasn't if you're confused in any way if you have any questions I'd be happy to answer in the comments below or revise the video and give you credit for any feedback either on the tool or even on this video itself so if you're interested you can take a look at the github which is linked below or you can have a look at my other videos I've a fair few each tackling various different interesting problems so yeah thank you for watching and have a great day

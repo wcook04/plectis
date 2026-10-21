@@ -78,8 +78,8 @@
       "source_ref": "main",
       "source_path": "README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/README.md",
-      "source_sha256": "619733b97cac79b72c209cfd3dc54c4ebb51b20963ccfe89b847d20de1c90203",
-      "bytes": 17971
+      "source_sha256": "7b2f0c39faebf8b4b0e9b206a5091da22ade09cf367a99d4a72b633a6b5609e4",
+      "bytes": 17903
     },
     {
       "hosted_path": "lean/human-source/docs/READING_GUIDE.md",
@@ -87,8 +87,8 @@
       "source_ref": "main",
       "source_path": "docs/READING_GUIDE.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md",
-      "source_sha256": "46a5462e28bce7ee57cd46172c23ec761360fd7a76ccaef56db9620dd5564d05",
-      "bytes": 8891
+      "source_sha256": "b47a7c804d1dd82e32b7f09e75c8a792f23369cd298f90fc8836aa8391bbd0a5",
+      "bytes": 8906
     },
     {
       "hosted_path": "lean/human-source/docs/reading-edition/weighted-257-task.md",
@@ -105,8 +105,8 @@
       "source_ref": "main",
       "source_path": "paper/README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/README.md",
-      "source_sha256": "51f3a094f52a1caed77bf5f5bc798f6f4d83f6bec46df08e91b9bc63d28dccb3",
-      "bytes": 16332
+      "source_sha256": "e953fee6e57b53e7d55bb7d031deabd05b715b948cbc166e881ffea4832ff795",
+      "bytes": 16347
     },
     {
       "hosted_path": "lean/human-source/docs/README.md",

@@ -1,0 +1,45 @@
+Hi, I'm Will Cook, and this is a short video about one experiment from Zenith, my research project on AI models that test code. When you ask an AI model to test a program, it usually only sees the program's description, So a bug it missed on an earlier program doesn't help it with the next one.
+
+And so I wanted to know something quite simple. If you show the model the bugs it missed before, does it get better at catching bugs in new programs that it hasn't seen? And I'll explain the test first, then the experiment, and then what the results mean.
+
+So the setup is quite simple. The model is DeepSeek V4.1 Flash, and I don't touch the weights or anything. I don't retrain it. the only thing I do change is the prompt which is the text I give it before it starts answering a question and also telling it to answer that question and its job is to test a short piece of code
+
+that has a bug in it and a bug is a mistake that gives the wrong answer for some inputs but the model can't actually see the code it only sees a description of what the code is supposed to do
+
+so the model gets five guesses and each guess is an input and I run it through the faulty code and through a correct version and if they give different answers or the faulty one crashes then the bug is caught there's also a time limit and the correct version answers almost straight away so if the faulty one is still running after a second that counts as caught too
+
+the faulty code is real and it was written by other AI models ChatGPT, CodeGen, and InCoder for a standard set of coding problems and it passes those problems own tests researchers behind a project called EvalPlus later found extra inputs that break it
+
+so here's one the code should sort the numbers at every other position in a list and the description says the list can be empty the version CodeGen wrote crashes on an empty list so the only way to catch it is to think of trying an empty list first
+
+the model practiced on 28 problems and every bug it missed went into a record the faulty code and an input that would have caught it then I gave it 58 new problems that it had never seen twice with the record added.
+
+It's a little bit like revising for an exam. So the record is like your marked past papers, the questions you basically got wrong, with the right answer next to them.
+
+So I also tried the revision tips version. I had the model write its own list of rules from its mistakes, and I tried a paragraph of general testing advice.
+
+And I saved the whole plan with a timestamp before running any of the 58, so anyone can check that I didn't move the goalposts afterwards.
+
+With the past papers, the model caught more bugs. Out of the 58 new problems, it did better on 20, worse on 6, and the same on the rest. On average, it went from catching about 69% of the bugs to about 77%.
+
+To check whether that could just be luck, I reshuffled the results many times, and the improvement held up in almost every reshuffle, so it seems to be real, although it isn't very big.
+
+The revision tips didn't do that. None of them made a clear difference, so the model did better when it saw the actual bugs it had missed, and turning those bugs into rules didn't help.
+
+You can see it on the empty list problem. Without the record, the model never tried an empty list, and with the record it did both times.
+
+But I want to be honest about where the improvement comes from because some of it seems to be fairly crude in this small-scale empirical experiment. After seeing its past misses, the model tried much bigger numbers, which made slow code run past the time limit and it more often wrote its inputs in the right format.
+
+If I only count the cleanest catches, the wrong answers and crashes, the record is still ahead so there's still an improvement but by less and that much could be luck.
+
+There's one more pattern that seems to be interesting. When the model read the rules it spent less time thinking about it before it answered and when it read the past misses it thought for longer. And when I switched its thinking off the record didn't help at all.
+
+So the guess is, and it seems to just be inference here, there's no empirical test yet, is that the record works by giving the model real code to think through, and a list of rules just gets followed.
+
+This is a small first experiment, and it's only tested on one model, on short pieces of code, and the whole thing costs under $6, so it says nothing yet about any real world sort of extrapolation of this to any sort of inference.
+
+And next, Next I'd build a record from many more problems test it on code written outside this benchmark.
+
+And to sort of sum things up, what I've sort of taken away from this is that showing the model the bugs it had missed helped it catch somewhat more bugs in new code, partly in fairly crude ways, and turning those misses into rules did not help.
+
+The paper and every prompt and reply are linked below if you want to reproduce it, and I'd really like to hear about stronger comparisons or any critiques of the methodology of this experiment as well as any ideas for future versions. I'm always open to these and I'd be happy to collaborate with anybody who's interested. Thank you very much for watching!

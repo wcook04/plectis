@@ -11,10 +11,10 @@
 <section id="mathematical-research-and-the-system-behind-it"
 class="level3">
 <h3>Mathematical research and the system behind it</h3>
-<p>Eight Erdős problem programmes connect papers, Lean proofs,
-experiments, failed approaches and open questions. The system paper,
-writing guides and recorded demonstrations explain how this research is
-produced and inspected.</p>
+<p>Plectis collects research on eight problems posed by Paul Erdős:
+papers, Lean proofs of selected statements, experiments and failed
+approaches. The aim is to make AI-assisted research easier to
+understand, check and continue.</p>
 <p><strong><a href="#problem-papers">Explore the research</a></strong> ·
 <strong><a
 href="../../../papers/claim-faithful-publication-systems-paper.pdf">Read
@@ -26,13 +26,15 @@ maths map</a></strong></p>
 <p><sub>The maths map on 9 October 2026. Open the image to explore the
 current edition.</sub></p>
 <p>Plectis is an independent, AI-assisted prototype built and maintained
-by Will Cook. Start with <a href="reading-guide.mathjax.html">A reader’s way
-in</a> or the <a
-href="https://wcook04.github.io/plectis/docs/glossary.html">glossary</a>.</p>
+by Will Cook. <a href="reading-guide.mathjax.html">A reader’s way in</a>
+introduces the mathematics without requiring Lean. The <a
+href="https://wcook04.github.io/plectis/docs/glossary.html">glossary</a>
+explains project terminology.</p>
 <hr />
+<p><a id="choose-a-way-in"></a></p>
 </section>
-<section id="choose-a-way-in" class="level2">
-<h2>Choose a way in</h2>
+<section id="papers-tools-and-explanations" class="level2">
+<h2>Papers, tools and explanations</h2>
 <ul>
 <li><strong>Mathematics:</strong> <a href="#problem-papers">eight short
 papers and longer research records</a>.</li>
@@ -41,32 +43,31 @@ href="../../../papers/claim-faithful-publication-systems-paper.pdf">A
 Repository-Based System for Research and Publication</a>.</li>
 <li><strong>Writing and revision:</strong> <a
 href="../../../papers/writing-a-good-mathematical-paper.pdf">writing
-guide</a> and <a
-href="../../../papers/writing-mathematics-from-reviewed-revisions.pdf">method</a>.</li>
-<li><strong>Reader feedback:</strong> <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_LEDGER.md#credit-correspondence-004">paper
-revisions</a>.</li>
+guide</a>, <a
+href="../../../papers/writing-mathematics-from-reviewed-revisions.pdf">method</a>
+and <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_LEDGER.md#credit-correspondence-004">changes
+prompted by readers</a>.</li>
 <li><strong>Connections between problems:</strong> <a
 href="../../../papers/optimal-sparse-perturbations.pdf">cross-problem
 paper</a>.</li>
 <li><strong>Formal evidence:</strong> <a href="source-map.mathjax.html">Lean
 source</a> and <a href="external-verification.mathjax.html">Comparator
 checks</a>.</li>
-<li><strong>Working environment:</strong> <a href="#videos">mathematics
-and CodeMap films</a>.</li>
 </ul>
-<p>This repository is the public research workspace. The <a
-href="https://wcook04.github.io/plectis/">website</a> provides reading
-and map views. Its 88-component software map describes the earlier
-Plectis toolkit. The films also show private interfaces, not included
-here.</p>
+<p>The <a href="https://wcook04.github.io/plectis/maths/">mathematics
+website</a> connects each problem’s papers, results and sources. The
+films also show private interfaces. Do not infer results from private or
+unreleased work.</p>
 </section>
 <section id="for-a-first-look-257" class="level2">
 <h2>For a first look: #257</h2>
 <p>Start with the <a
 href="../../../papers/erdos257-expository-sums-never-fractions.pdf">introductory
-paper</a>: examples, figures and a complete proof. Or <a
-href="https://youtu.be/y8s3t_pwIGM">watch the #257 video</a>.</p>
+paper</a> or <a href="https://www.youtube.com/watch?v=crpv9N4R7qw">#257
+video</a>: examples followed by a proof for infinite choices of
+exponents whose reciprocals have a finite sum. Erdős stated this result
+in 1968.</p>
 <p><a href="https://www.erdosproblems.com/257">Problem 257</a> asks
 whether the series</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{a\in A}
@@ -78,8 +79,9 @@ universal question remains open.</p>
 href="../../../papers/erdos-257-mersenne-support-subseries.pdf">short
 paper</a> proves sufficient conditions for particular infinite sets,
 including a Lean-checked prime-weighted criterion that works at every
-integer base at least two. Cancellation removes a finite batch of terms;
-averaging controls what the remaining terms leave behind.</p>
+integer base at least two. The proof cancels finitely many terms, then
+uses averaging to find a small positive remainder that rules out
+rationality.</p>
 <p><a href="weighted-257-task.mathjax.html">Try three changed
 hypotheses</a>, or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120">follow
@@ -104,29 +106,21 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/case-studies/forma
 study</a>. <a href="results.mathjax.html">Results and limits</a> keeps each
 programme’s statements beside its assumptions, earlier work and
 remaining questions.</p>
-</section>
-<section id="read-inspect-or-continue" class="level2">
-<h2>Read, inspect or continue</h2>
-<p><a href="paper-guide.mathjax.html">Read a paper</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md#try-one-claim-without-lean">follow one
-claim</a>, or <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work">work with
-your own agent</a>. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">reading
-edition</a> gathers the paper openings. Return ideas through the <a
-href="#contribute">contribution guide</a>.</p>
 <p><a id="videos"></a></p>
 </section>
 <section id="watch-the-videos" class="level2">
 <h2>Watch the videos</h2>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=uO2lbstEH9M">Plectis
-introduction</a>: the wider project and tools for understanding
-AI-produced work.</li>
-<li><a href="https://www.youtube.com/watch?v=4jObDlHmJRA">Mathematics
-overview</a>: papers, proofs and the mathematics map.</li>
-<li><a href="https://www.youtube.com/watch?v=Ok5LkL1owjA">Erdős #257
-explanation</a>: Erdős’s reciprocal-summability condition; the
-unrestricted problem remains open.</li>
+<li><a href="https://www.youtube.com/watch?v=Ut9068O-HGU">Plectis
+introduction (v2)</a>: why I use AI to explain its research and
+software.</li>
+<li><a href="https://www.youtube.com/watch?v=4QGO80qDDc4">The maths
+map</a>: a tour from checked statements through research records and
+papers to explanations.</li>
+<li><a href="https://www.youtube.com/watch?v=crpv9N4R7qw">Erdős #257
+explanation</a>: examples and a proof under Erdős’s
+reciprocal-summability condition; the unrestricted problem remains
+open.</li>
 </ul>
 <p><a id="about-the-project"></a></p>
 </section>
@@ -148,9 +142,12 @@ and credits contributors.</p>
 </section>
 <section id="problem-papers" class="level2">
 <h2>Problem papers</h2>
-<p>The <a href="results.mathjax.html#problem-by-problem-guide">results
-guide</a> lists each result with its assumptions, limits and
-sources.</p>
+<p>The short papers present results and arguments; longer records
+include calculations, failed approaches and unresolved steps. The <a
+href="results.mathjax.html#problem-by-problem-guide">results guide</a> lists
+assumptions and sources. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">reading edition</a> collects paper
+openings.</p>
 <table>
 <colgroup>
 <col />
@@ -307,16 +304,17 @@ the argument, evidence, limits and next question.</li>
 <p><a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">CONTRIBUTING</a> explains returns without a
 clone. Accepted contributions receive a public evidence and credit
 record under the <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md">credit
-policy</a>. Credit for your solution is yours; cite any result here that
-helped.</p>
+policy</a>.</p>
+<p><a id="read-inspect-or-continue"></a></p>
 </section>
 <section id="read-or-verify-locally" class="level2">
 <h2>Read or verify locally</h2>
-<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">REPRODUCIBILITY</a> gives
-installation and build instructions. <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md#try-one-claim-without-lean">Follow one
-claim without Lean</a>. Instructions for coding agents are in <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md">AGENTS.md</a> and the <a
+<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">REPRODUCIBILITY</a> starts with Git
+and Python 3.11+, then explains how to install Lean and check a proof.
+Its <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md#try-one-claim-without-lean">claim
+check</a> inspects source links without compiling the proof. For <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work">research
+with an agent</a>, see <a href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md">AGENTS.md</a> and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKBENCH.md">agent workbench</a>.</p>
 <section id="repository-map" class="level3">
 <h3>Repository map</h3>
@@ -496,9 +494,7 @@ not establish acceptance.</p>
 versioned aiXiv editions; the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/README.md">verification guides</a> explain
 submission and registry records. An archived edition may differ from the
-current paper. This main checkout contains the mathematics and tools
-needed to work with the corpus. Do not infer results from private or
-unreleased work.</p>
+current paper.</p>
 </section>
 <section id="reading-routes" class="level2">
 <h2>Reading routes</h2>

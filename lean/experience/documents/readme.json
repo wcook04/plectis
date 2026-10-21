@@ -11,12 +11,12 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/README.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "30ba2183d683cab0667af34802c3d94c2c3358588ecbceeddd0b5eaf40c1cfbb",
+    "navigation_fingerprint": "c393f7120038e44679fb23dc743439129a4ef34672ea96c431fe28bbf4664c47",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "619733b97cac79b72c209cfd3dc54c4ebb51b20963ccfe89b847d20de1c90203",
+    "source_sha256": "7b2f0c39faebf8b4b0e9b206a5091da22ade09cf367a99d4a72b633a6b5609e4",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "7d92a620c0a6f310",
@@ -31,8 +31,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "b6326d0269922c27954509f10a63e5a9b020109b697d3ee086bf221cc72cf46b",
-    "html_exact_tex_sha256": "d585ed6c043f9618202343e002c528d1272dc322954632d607ce24976b16a131"
+    "html_mathml_sha256": "28587cd67ec18efdd9643fbd0c9fdc9041dc50824cb76accc6cf5fb16bf34b71",
+    "html_exact_tex_sha256": "bbd0d2d8186a7c9fe5afc4a4c1c728b0210989005ea280c34d9becc6ea4066eb"
   },
   "sections": [
     {
@@ -42,8 +42,8 @@
     },
     {
       "level": 2,
-      "anchor": "choose-a-way-in",
-      "label": "Choose a way in"
+      "anchor": "papers-tools-and-explanations",
+      "label": "Papers, tools and explanations"
     },
     {
       "level": 2,
@@ -54,11 +54,6 @@
       "level": 2,
       "anchor": "results-and-their-limits",
       "label": "Results and their limits"
-    },
-    {
-      "level": 2,
-      "anchor": "read-inspect-or-continue",
-      "label": "Read, inspect or continue"
     },
     {
       "level": 2,

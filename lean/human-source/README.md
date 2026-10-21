@@ -5,9 +5,9 @@
 
 ### Mathematical research and the system behind it
 
-Eight Erdős problem programmes connect papers, Lean proofs, experiments,
-failed approaches and open questions. The system paper, writing guides and
-recorded demonstrations explain how this research is produced and inspected.
+Plectis collects research on eight problems posed by Paul Erdős: papers,
+Lean proofs of selected statements, experiments and failed approaches.
+The aim is to make AI-assisted research easier to understand, check and continue.
 
 **[Explore the research](#problem-papers)** · **[Read the system paper](paper/systems/claim-faithful-publication-systems-paper.pdf)** · **[Watch the videos](#videos)** · **[Open the maths map](https://wcook04.github.io/plectis/maths/universe.html)**
 
@@ -16,30 +16,32 @@ recorded demonstrations explain how this research is produced and inspected.
 <sub>The maths map on 9 October 2026. Open the image to explore the current edition.</sub>
 
 Plectis is an independent, AI-assisted prototype built and maintained by Will Cook.
-Start with [A reader's way in](docs/READING_GUIDE.md)
-or the [glossary](https://wcook04.github.io/plectis/docs/glossary.html).
+[A reader's way in](docs/READING_GUIDE.md) introduces the mathematics without
+requiring Lean. The [glossary](https://wcook04.github.io/plectis/docs/glossary.html)
+explains project terminology.
 
 ---
 
-## Choose a way in
+<a id="choose-a-way-in"></a>
+
+## Papers, tools and explanations
 
 - **Mathematics:** [eight short papers and longer research records](#problem-papers).
 - **Research system:** [A Repository-Based System for Research and Publication](paper/systems/claim-faithful-publication-systems-paper.pdf).
-- **Writing and revision:** [writing guide](paper/exposition/writing-a-good-mathematical-paper.pdf) and [method](paper/exposition/writing-mathematics-from-reviewed-revisions.pdf).
-- **Reader feedback:** [paper revisions](docs/research-commons/CREDIT_LEDGER.md#credit-correspondence-004).
+- **Writing and revision:** [writing guide](paper/exposition/writing-a-good-mathematical-paper.pdf), [method](paper/exposition/writing-mathematics-from-reviewed-revisions.pdf) and [changes prompted by readers](docs/research-commons/CREDIT_LEDGER.md#credit-correspondence-004).
 - **Connections between problems:** [cross-problem paper](paper/synthesis/optimal-sparse-perturbations.pdf).
 - **Formal evidence:** [Lean source](docs/SOURCE_MAP.md) and [Comparator checks](docs/EXTERNAL_VERIFICATION.md).
-- **Working environment:** [mathematics and CodeMap films](#videos).
 
-This repository is the public research workspace. The [website](https://wcook04.github.io/plectis/)
-provides reading and map views. Its 88-component software map describes the
-earlier Plectis toolkit. The films also show private interfaces, not included here.
+The [mathematics website](https://wcook04.github.io/plectis/maths/) connects each
+problem's papers, results and sources. The films also show private interfaces.
+Do not infer results from private or unreleased work.
 
 ## For a first look: #257
 
-Start with the [introductory paper](paper/257/erdos257-expository-sums-never-fractions.pdf):
-examples, figures and a complete proof. Or
-[watch the #257 video](https://youtu.be/y8s3t_pwIGM).
+Start with the [introductory paper](paper/257/erdos257-expository-sums-never-fractions.pdf)
+or [#257 video](https://www.youtube.com/watch?v=crpv9N4R7qw): examples followed by
+a proof for infinite choices of exponents whose reciprocals have a finite sum.
+Erdős stated this result in 1968.
 
 [Problem 257](https://www.erdosproblems.com/257) asks whether the series
 
@@ -50,8 +52,8 @@ question remains open.
 
 The [short paper](paper/257/erdos-257-mersenne-support-subseries.pdf) proves sufficient conditions for particular infinite sets, including a
 Lean-checked prime-weighted criterion that works at every integer base at
-least two. Cancellation removes a finite batch of terms; averaging controls
-what the remaining terms leave behind.
+least two. The proof cancels finitely many terms, then uses averaging to find a
+small positive remainder that rules out rationality.
 
 [Try three changed hypotheses](docs/reading-edition/weighted-257-task.md), or
 [follow the Lean declaration](lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120).
@@ -73,20 +75,13 @@ is credited in the [#1041 case study](docs/case-studies/formal-conjectures-1041.
 [Results and limits](docs/RESULTS.md) keeps each programme's statements beside
 its assumptions, earlier work and remaining questions.
 
-## Read, inspect or continue
-
-[Read a paper](paper/README.md), [follow one claim](docs/REPRODUCIBILITY.md#try-one-claim-without-lean),
-or [work with your own agent](docs/agents/README.md#start-with-current-public-work).
-The [reading edition](docs/reading-edition/README.md) gathers the paper openings.
-Return ideas through the [contribution guide](#contribute).
-
 <a id="videos"></a>
 
 ## Watch the videos
 
-- [Plectis introduction](https://www.youtube.com/watch?v=uO2lbstEH9M): the wider project and tools for understanding AI-produced work.
-- [Mathematics overview](https://www.youtube.com/watch?v=4jObDlHmJRA): papers, proofs and the mathematics map.
-- [Erdős #257 explanation](https://www.youtube.com/watch?v=Ok5LkL1owjA): Erdős's reciprocal-summability condition; the unrestricted problem remains open.
+- [Plectis introduction (v2)](https://www.youtube.com/watch?v=Ut9068O-HGU): why I use AI to explain its research and software.
+- [The maths map](https://www.youtube.com/watch?v=4QGO80qDDc4): a tour from checked statements through research records and papers to explanations.
+- [Erdős #257 explanation](https://www.youtube.com/watch?v=crpv9N4R7qw): examples and a proof under Erdős's reciprocal-summability condition; the unrestricted problem remains open.
 
 <a id="about-the-project"></a>
 
@@ -106,8 +101,10 @@ explains how the repository records results and corrections and credits contribu
 
 ## Problem papers
 
-The [results guide](docs/RESULTS.md#problem-by-problem-guide) lists each result
-with its assumptions, limits and sources.
+The short papers present results and arguments; longer records include
+calculations, failed approaches and unresolved steps. The
+[results guide](docs/RESULTS.md#problem-by-problem-guide) lists assumptions and sources.
+The [reading edition](docs/reading-edition/README.md) collects paper openings.
 
 | Problem | Topic | Papers |
 |---|---|---|
@@ -165,14 +162,18 @@ welcome. You need not solve a problem or write Lean.
 
 [CONTRIBUTING](CONTRIBUTING.md) explains returns without a clone.
 Accepted contributions receive a public evidence and credit record under the
-[credit policy](docs/research-commons/CREDIT_POLICY.md). Credit for your solution
-is yours; cite any result here that helped.
+[credit policy](docs/research-commons/CREDIT_POLICY.md).
+
+<a id="read-inspect-or-continue"></a>
 
 ## Read or verify locally
 
-[REPRODUCIBILITY](docs/REPRODUCIBILITY.md) gives installation and build instructions.
-[Follow one claim without Lean](docs/REPRODUCIBILITY.md#try-one-claim-without-lean).
-Instructions for coding agents are in [AGENTS.md](AGENTS.md) and the
+[REPRODUCIBILITY](docs/REPRODUCIBILITY.md) starts with Git and Python 3.11+, then
+explains how to install Lean and check a proof. Its
+[claim check](docs/REPRODUCIBILITY.md#try-one-claim-without-lean) inspects
+source links without compiling the proof.
+For [research with an agent](docs/agents/README.md#start-with-current-public-work),
+see [AGENTS.md](AGENTS.md) and the
 [agent workbench](docs/agents/AGENT_WORKBENCH.md).
 
 ### Repository map
@@ -269,8 +270,6 @@ preparation checks; passing those checks alone does not establish acceptance.
 The [paper catalogue](docs/papers/README.md) links versioned aiXiv editions;
 the [verification guides](docs/verification/README.md) explain submission and
 registry records. An archived edition may differ from the current paper.
-This main checkout contains the mathematics and tools needed to work with the corpus.
-Do not infer results from private or unreleased work.
 
 ## Reading routes
 

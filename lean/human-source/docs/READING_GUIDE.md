@@ -10,7 +10,7 @@ open to further insight. The website brings the collection together; you do
 not need Lean to read it.
 
 Start with the [#257 introductory paper](../paper/257/erdos257-expository-sums-never-fractions.pdf)
-for examples and a full proof, or [watch the video](https://youtu.be/y8s3t_pwIGM).
+for examples and a full proof, or [watch the video](https://www.youtube.com/watch?v=crpv9N4R7qw).
 
 Continue with the [#257 short paper](../paper/257/erdos-257-mersenne-support-subseries.pdf):
 its checked finite-prime weighted criterion proves irrationality for some
