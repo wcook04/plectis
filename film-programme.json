@@ -46,7 +46,7 @@
         "upload_date": "2026-10-21",
         "duration_seconds": 344,
         "thumbnail": "assets/films/thumbnails-20261021/introduction.png",
-        "thumbnail_sha256": "c61a178d3e3b30ab2573fae3ab8ca83a08676d06b98b56bdfc911734bd40a494",
+        "thumbnail_sha256": "bff8b9106980aed3830644d481130e27a2835c0a233fa46943120d0c93d3c9fd",
         "transcript": {
           "scope": "route_summary",
           "text": "I've been using AI to do maths research and build software, but as it produces more complicated work, I also want to make that work easier for other people to understand. In this video I introduce the projects and explain how they fit together, from computer-checked proofs and papers to maps and videos you can follow yourself.",
@@ -376,7 +376,7 @@
         "upload_date": "2026-10-21",
         "duration_seconds": 400,
         "thumbnail": "assets/films/thumbnails-20261021/codemap.png",
-        "thumbnail_sha256": "5f27aa9c076e460b25eb369c80836b63acc3a8a36c43e0a5447cac9f063d2510",
+        "thumbnail_sha256": "8a280e4ce79b80f1127f238e4da3806fc85325d2693b2c505b9a38e59ab24a2b",
         "transcript": {
           "scope": "route_summary",
           "text": "AI wrote most of the software I use for my research, and I want to be able to understand it without having to ask a coding agent to explain it each time. In this video I go through Code Map, an interface where I can read saved descriptions of the files and follow their connections.",
