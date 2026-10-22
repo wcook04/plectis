@@ -2,17 +2,18 @@
 
 **Run and inspect experiments in AI-assisted research.**
 
-This Plectis repository is a public Python toolkit. You can run an example,
-inspect how it checks its result, and adapt the useful parts. The tools cover
-different jobs: checking proofs and agent completion
-claims, comparing forecasts, and keeping generated documents consistent with
-their sources. This repository is a public research prototype, with selected
-components from Will Cook's larger private workbench.
+Plectis is a public Python toolkit for running experiments and checking their
+results. It is a research prototype, with selected components from Will Cook's
+larger private workbench.
 
 [Start in a terminal](#try-the-repository-tour) · [Worked examples](#see-it-work) ·
 [Plectis introduction](https://www.youtube.com/watch?v=U1z2-XaLe_w) ·
 [Documentation](docs/README.md) · [Source map](#repository-layout) ·
 [Related projects](#where-this-toolkit-fits)
+
+Run an example, inspect how it checks its result, and adapt the useful parts.
+The tools cover checking proofs and agent completion claims, comparing
+forecasts, and keeping generated documents consistent with their sources.
 
 For example, an agent says “I committed the fix and the tests passed.” The
 [completion-checking example](docs/guides/checking-agent-completion.md) checks
