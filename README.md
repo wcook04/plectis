@@ -2,15 +2,17 @@
 
 **Run and inspect experiments in AI-assisted research.**
 
-Plectis is a public Python toolkit. You can run an example, inspect how it
-checks its result, and adapt the useful parts. The tools cover different jobs: checking proofs and agent completion
+This Plectis repository is a public Python toolkit. You can run an example,
+inspect how it checks its result, and adapt the useful parts. The tools cover
+different jobs: checking proofs and agent completion
 claims, comparing forecasts, and keeping generated documents consistent with
 their sources. This repository is a public research prototype, with selected
 components from Will Cook's larger private workbench.
 
 [Start in a terminal](#try-the-repository-tour) · [Worked examples](#see-it-work) ·
 [Plectis introduction](https://www.youtube.com/watch?v=U1z2-XaLe_w) ·
-[Plectis website](https://wcook04.github.io/plectis/) · [Documentation](docs/README.md)
+[Documentation](docs/README.md) · [Source map](#repository-layout) ·
+[Related projects](#where-this-toolkit-fits)
 
 For example, an agent says “I committed the fix and the tests passed.” The
 [completion-checking example](docs/guides/checking-agent-completion.md) checks
@@ -51,9 +53,6 @@ The tools were built with AI coding agents.
 > repository for the Lean proofs, papers and open questions.
 > [Read the guide](https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md)
 > or [explore the mathematics map](https://wcook04.github.io/plectis/maths/universe.html).
-
-[Worked examples](#see-it-work) · [Quickstart](QUICKSTART.md) ·
-[Documentation](docs/README.md) · [Contributing](CONTRIBUTING.md)
 
 Browse the live [component pages](https://wcook04.github.io/plectis/docs/components.html),
 [papers](https://wcook04.github.io/plectis/#papers) and
@@ -345,7 +344,10 @@ The [release review](RELEASE_REVIEW.md) records the candidate’s checks;
 ## Videos and related projects
 
 The [project videos page](https://wcook04.github.io/plectis/#videos) describes the
-recordings and their subjects.
+recordings and their subjects. In the introduction, Will explains the wider
+programme: AI produces much of the research and code, and he uses it to prepare
+papers, maps and explanations that other people can inspect. The toolkit in
+this clone is one part of that work.
 
 | Film | What it shows |
 |---|---|
@@ -357,16 +359,21 @@ recordings and their subjects.
 ### Where this toolkit fits
 
 The Python components and experiments in this clone are one part of Plectis.
-Use the repositories below for the current mathematics and the two standalone
-agent tools; each has its own setup instructions and limits.
+The related repositories have different jobs, with their own setup instructions
+and evidence. Follow the project that matches what you want to read or run.
 
 | Related project | Start there for |
 |---|---|
 | [Plectis Erdős](https://github.com/wcook04/plectis-erdos) · [research website](https://wcook04.github.io/plectis/maths/) | The current mathematical papers, Lean proofs and open questions. |
+| [Plectis Erdős Lean](https://github.com/wcook04/plectis-erdos-lean) | Selected checking entries that pair a separately written statement with its proof. |
+| [Plectis Atlas](https://github.com/wcook04/plectis-atlas) · [website](https://wcook04.github.io/plectis-atlas/) | Read OpenAI's maths papers alongside attributed outside assessments and proof-checking reports. |
 | [Safety Core](https://github.com/wcook04/safety-core) | Editable agent rules, hooks and a local map of where checks apply. |
 | [One Checkout](https://github.com/wcook04/one-checkout) | Committing a reviewed patch while preserving other unfinished edits in the same checkout. |
+| [Plectis Zenith](https://github.com/wcook04/plectis-zenith) | Experiments on AI testers, earlier mistakes and code repair, with saved results and replay instructions. |
 
-Explore the [research corpus](https://github.com/wcook04/plectis-erdos) and the [Plectis website](https://wcook04.github.io/plectis/).
+Code Map and Demo Take, also shown in the films, are private tools. The
+[Plectis website](https://wcook04.github.io/plectis/) links the public projects
+and demonstrations; this clone does not install the private workbench.
 
 ## Name and history
 
