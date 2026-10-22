@@ -3,7 +3,7 @@
   "films": [
     {
       "id": "introduction",
-      "title": "Using AI for maths research and software (v2)",
+      "title": "INTRODUCTION: Using AI for maths research and software",
       "label": "How the projects fit together",
       "description": "I've been using AI to do maths research and build software, but as it produces more complicated work, I also want to make that work easier for other people to understand. In this video I introduce the projects and explain how they fit together, from computer-checked proofs and papers to maps and videos you can follow yourself.",
       "role": "introduction",
@@ -36,17 +36,17 @@
       "still_inset": null,
       "poster": "assets/films/thumbnails-20261021/introduction.png",
       "release": {
-        "edition_sha256": "1b91e653af9de462f918062d8a506e8a328bd7c65c6359c8c320f7d4fdcb6713",
-        "approved_edition_sha256": "1b91e653af9de462f918062d8a506e8a328bd7c65c6359c8c320f7d4fdcb6713",
-        "hosted_edition_sha256": "1b91e653af9de462f918062d8a506e8a328bd7c65c6359c8c320f7d4fdcb6713",
-        "thumbnail_edition_sha256": "1b91e653af9de462f918062d8a506e8a328bd7c65c6359c8c320f7d4fdcb6713",
-        "transcript_edition_sha256": "1b91e653af9de462f918062d8a506e8a328bd7c65c6359c8c320f7d4fdcb6713",
+        "edition_sha256": "f4dc3a07f259147ae226b6b043bce860e310cbb8370470adc8cbf43e2b758319",
+        "approved_edition_sha256": "f4dc3a07f259147ae226b6b043bce860e310cbb8370470adc8cbf43e2b758319",
+        "hosted_edition_sha256": "f4dc3a07f259147ae226b6b043bce860e310cbb8370470adc8cbf43e2b758319",
+        "thumbnail_edition_sha256": "f4dc3a07f259147ae226b6b043bce860e310cbb8370470adc8cbf43e2b758319",
+        "transcript_edition_sha256": "f4dc3a07f259147ae226b6b043bce860e310cbb8370470adc8cbf43e2b758319",
         "publication_authorized": true,
-        "url": "https://www.youtube.com/watch?v=Ut9068O-HGU",
-        "upload_date": "2026-10-21",
+        "url": "https://www.youtube.com/watch?v=U1z2-XaLe_w",
+        "upload_date": "2026-10-22",
         "duration_seconds": 344,
         "thumbnail": "assets/films/thumbnails-20261021/introduction.png",
-        "thumbnail_sha256": "bff8b9106980aed3830644d481130e27a2835c0a233fa46943120d0c93d3c9fd",
+        "thumbnail_sha256": "cac40b335c0e165b7ab099328bd673ecc6461829528aa8ba67f9002edbda6e9b",
         "transcript": {
           "scope": "route_summary",
           "text": "I've been using AI to do maths research and build software, but as it produces more complicated work, I also want to make that work easier for other people to understand. In this video I introduce the projects and explain how they fit together, from computer-checked proofs and papers to maps and videos you can follow yourself.",
@@ -78,7 +78,7 @@
       "category": "overview",
       "preview_duration_seconds": 344,
       "detail": "I start with the maths map and the different explanations of the research, then Plectis Atlas, where you can read OpenAI's maths papers alongside other groups' checking reports. I also introduce One Checkout, Code Map and Safety Core, the tools I've been using with coding agents, and a Zenith experiment on whether showing a model its earlier mistakes helps it test new code. These are all prototypes, and the separate videos go into each project.",
-      "accepted_edition_sha256": "1b91e653af9de462f918062d8a506e8a328bd7c65c6359c8c320f7d4fdcb6713",
+      "accepted_edition_sha256": "f4dc3a07f259147ae226b6b043bce860e310cbb8370470adc8cbf43e2b758319",
       "repo": {
         "href": "https://github.com/wcook04",
         "label": "All my repositories"
@@ -135,6 +135,86 @@
               "title": "Zenith"
             }
           ]
+        },
+        {
+          "edition_sha256": "1b91e653af9de462f918062d8a506e8a328bd7c65c6359c8c320f7d4fdcb6713",
+          "approved_edition_sha256": "1b91e653af9de462f918062d8a506e8a328bd7c65c6359c8c320f7d4fdcb6713",
+          "hosted_edition_sha256": "1b91e653af9de462f918062d8a506e8a328bd7c65c6359c8c320f7d4fdcb6713",
+          "thumbnail_edition_sha256": "1b91e653af9de462f918062d8a506e8a328bd7c65c6359c8c320f7d4fdcb6713",
+          "transcript_edition_sha256": "1b91e653af9de462f918062d8a506e8a328bd7c65c6359c8c320f7d4fdcb6713",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=Ut9068O-HGU",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 344,
+          "thumbnail": "assets/films/thumbnails-20261021/introduction.png",
+          "thumbnail_sha256": "8d80d804a446eedcf0becd73cfb4470a876d77ec7bdada244d304b1fca3bdef2",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "I've been using AI to do maths research and build software, but as it produces more complicated work, I also want to make that work easier for other people to understand. In this video I introduce the projects and explain how they fit together, from computer-checked proofs and papers to maps and videos you can follow yourself.",
+            "sha256": "de4c7ddea6f40987ac4e6070fc851e0f845f1b77f74670db0763a7211f39184e"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "The maths and software projects"
+            },
+            {
+              "seconds": 130,
+              "title": "The maths work"
+            },
+            {
+              "seconds": 239,
+              "title": "The software films"
+            },
+            {
+              "seconds": 280,
+              "title": "Zenith and missed bugs"
+            },
+            {
+              "seconds": 306,
+              "title": "Where to start"
+            }
+          ]
+        },
+        {
+          "edition_sha256": "3f160f19720905cb6f5b58a7bb47a7f19e72837e5e95ac75957cbd4738cdbe77",
+          "approved_edition_sha256": "3f160f19720905cb6f5b58a7bb47a7f19e72837e5e95ac75957cbd4738cdbe77",
+          "hosted_edition_sha256": "3f160f19720905cb6f5b58a7bb47a7f19e72837e5e95ac75957cbd4738cdbe77",
+          "thumbnail_edition_sha256": "3f160f19720905cb6f5b58a7bb47a7f19e72837e5e95ac75957cbd4738cdbe77",
+          "transcript_edition_sha256": "3f160f19720905cb6f5b58a7bb47a7f19e72837e5e95ac75957cbd4738cdbe77",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=K87Qk0W7-lk",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 344,
+          "thumbnail": "assets/films/thumbnails-20261021/introduction.png",
+          "thumbnail_sha256": "cac40b335c0e165b7ab099328bd673ecc6461829528aa8ba67f9002edbda6e9b",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "I've been using AI to do maths research and build software, but as it produces more complicated work, I also want to make that work easier for other people to understand. In this video I introduce the projects and explain how they fit together, from computer-checked proofs and papers to maps and videos you can follow yourself.",
+            "sha256": "de4c7ddea6f40987ac4e6070fc851e0f845f1b77f74670db0763a7211f39184e"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "The maths and software projects"
+            },
+            {
+              "seconds": 130,
+              "title": "The maths work"
+            },
+            {
+              "seconds": 239,
+              "title": "The software films"
+            },
+            {
+              "seconds": 280,
+              "title": "Zenith and missed bugs"
+            },
+            {
+              "seconds": 306,
+              "title": "Where to start"
+            }
+          ]
         }
       ],
       "recording_history": [
@@ -144,16 +224,15 @@
           "description": "The idea that connects my maths and software projects: using AI to make its own work easier for people to understand. Then what each video covers, and where to start.",
           "status": "published",
           "recorded": "2026-10-19",
-          "url": "https://www.youtube.com/watch?v=Ut9068O-HGU"
+          "url": "https://www.youtube.com/watch?v=U1z2-XaLe_w"
         }
       ]
     },
     {
       "id": "mathematics",
-      "title": "Why some infinite sums cannot be fractions: Erdős #257",
+      "title": "Erdős #257: why some infinite sums cannot be fractions",
       "label": "A proof, step by step",
       "description": "Erdős problem 257 asks what happens when you choose infinitely many different entries from 1, 1/3, 1/7, 1/15, and so on, and add them. Must the total be irrational, meaning it cannot equal a fraction of two whole numbers? The full question is still open; in this video I explain a known partial result.",
-      "map_line": "Explains a known partial result. The full question is still open.",
       "role": "featured",
       "links": [
         {
@@ -200,17 +279,17 @@
       "still_inset": null,
       "poster": "assets/films/thumbnails-20261021/mathematics.png",
       "release": {
-        "edition_sha256": "04f70af2c5a2e563b17b71b900c08f4b32df4b2652d334267c9ed7831e6698e6",
-        "approved_edition_sha256": "04f70af2c5a2e563b17b71b900c08f4b32df4b2652d334267c9ed7831e6698e6",
-        "hosted_edition_sha256": "04f70af2c5a2e563b17b71b900c08f4b32df4b2652d334267c9ed7831e6698e6",
-        "thumbnail_edition_sha256": "04f70af2c5a2e563b17b71b900c08f4b32df4b2652d334267c9ed7831e6698e6",
-        "transcript_edition_sha256": "04f70af2c5a2e563b17b71b900c08f4b32df4b2652d334267c9ed7831e6698e6",
+        "edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
+        "approved_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
+        "hosted_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
+        "thumbnail_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
+        "transcript_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
         "publication_authorized": true,
-        "url": "https://www.youtube.com/watch?v=crpv9N4R7qw",
-        "upload_date": "2026-10-21",
+        "url": "https://www.youtube.com/watch?v=vXgIBy5C5X0",
+        "upload_date": "2026-10-22",
         "duration_seconds": 1812,
         "thumbnail": "assets/films/thumbnails-20261021/mathematics.png",
-        "thumbnail_sha256": "50d6021c0fabb51d1a1d7e9b4d0a7c82fca00ba853bff90e77070ae52f710099",
+        "thumbnail_sha256": "2484ebcf275096f053f53eccaea7788bf60ac14d7730053f868a02e3a2a10f99",
         "transcript": {
           "scope": "route_summary",
           "text": "Erdős problem 257 asks what happens when you choose infinitely many different entries from 1, 1/3, 1/7, 1/15, and so on, and add them. Must the total be irrational, meaning it cannot equal a fraction of two whole numbers? The full question is still open; in this video I explain a known partial result.",
@@ -254,7 +333,7 @@
       "category": "maths",
       "preview_duration_seconds": 1812,
       "detail": "I start with what an infinite sum means, then work through the example where the chosen exponents keep doubling. From there I explain the restriction on the remainder a fraction can leave, and how averaging lets us extend the argument to other choices. The condition is that adding one divided by each chosen exponent gives a finite total. I also go through where this method stops and how the result relates to the proof written in Lean.",
-      "accepted_edition_sha256": "04f70af2c5a2e563b17b71b900c08f4b32df4b2652d334267c9ed7831e6698e6",
+      "accepted_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
       "repo": {
         "href": "https://github.com/wcook04/plectis-erdos"
       },
@@ -330,6 +409,110 @@
               "title": "What this is for"
             }
           ]
+        },
+        {
+          "edition_sha256": "04f70af2c5a2e563b17b71b900c08f4b32df4b2652d334267c9ed7831e6698e6",
+          "approved_edition_sha256": "04f70af2c5a2e563b17b71b900c08f4b32df4b2652d334267c9ed7831e6698e6",
+          "hosted_edition_sha256": "04f70af2c5a2e563b17b71b900c08f4b32df4b2652d334267c9ed7831e6698e6",
+          "thumbnail_edition_sha256": "04f70af2c5a2e563b17b71b900c08f4b32df4b2652d334267c9ed7831e6698e6",
+          "transcript_edition_sha256": "04f70af2c5a2e563b17b71b900c08f4b32df4b2652d334267c9ed7831e6698e6",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=crpv9N4R7qw",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 1812,
+          "thumbnail": "assets/films/thumbnails-20261021/mathematics.png",
+          "thumbnail_sha256": "07d9cf03156a516a4e60da6e416d0e34ae0e9bb7dd34a47fdd858839518b5570",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "Erdős problem 257 asks what happens when you choose infinitely many different entries from 1, 1/3, 1/7, 1/15, and so on, and add them. Must the total be irrational, meaning it cannot equal a fraction of two whole numbers? The full question is still open; in this video I explain a known partial result.",
+            "sha256": "82fe6c33bb5604c8d73854a26c2f618d910b053f71151d8285272306a47ab418"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "The fixed list and open question"
+            },
+            {
+              "seconds": 212,
+              "title": "The extra condition"
+            },
+            {
+              "seconds": 399,
+              "title": "Multiply the sum and remove whole numbers"
+            },
+            {
+              "seconds": 638,
+              "title": "Why the square condition is finite"
+            },
+            {
+              "seconds": 975,
+              "title": "Why row averages use reciprocals"
+            },
+            {
+              "seconds": 1214,
+              "title": "Bound the unfinished cycles"
+            },
+            {
+              "seconds": 1434,
+              "title": "Test a proposed denominator of five"
+            },
+            {
+              "seconds": 1722,
+              "title": "The formal proof and its limits"
+            }
+          ]
+        },
+        {
+          "edition_sha256": "6b049c80192215ba634d5fe952a3c9d63192365db0fec10831d9985546bccd7a",
+          "approved_edition_sha256": "6b049c80192215ba634d5fe952a3c9d63192365db0fec10831d9985546bccd7a",
+          "hosted_edition_sha256": "6b049c80192215ba634d5fe952a3c9d63192365db0fec10831d9985546bccd7a",
+          "thumbnail_edition_sha256": "6b049c80192215ba634d5fe952a3c9d63192365db0fec10831d9985546bccd7a",
+          "transcript_edition_sha256": "6b049c80192215ba634d5fe952a3c9d63192365db0fec10831d9985546bccd7a",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=wuVtWxGE9eA",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 1812,
+          "thumbnail": "assets/films/thumbnails-20261021/mathematics.png",
+          "thumbnail_sha256": "2484ebcf275096f053f53eccaea7788bf60ac14d7730053f868a02e3a2a10f99",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "Erdős problem 257 asks what happens when you choose infinitely many different entries from 1, 1/3, 1/7, 1/15, and so on, and add them. Must the total be irrational, meaning it cannot equal a fraction of two whole numbers? The full question is still open; in this video I explain a known partial result.",
+            "sha256": "82fe6c33bb5604c8d73854a26c2f618d910b053f71151d8285272306a47ab418"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "The fixed list and open question"
+            },
+            {
+              "seconds": 212,
+              "title": "The extra condition"
+            },
+            {
+              "seconds": 399,
+              "title": "Multiply the sum and remove whole numbers"
+            },
+            {
+              "seconds": 638,
+              "title": "Why the square condition is finite"
+            },
+            {
+              "seconds": 975,
+              "title": "Why row averages use reciprocals"
+            },
+            {
+              "seconds": 1214,
+              "title": "Bound the unfinished cycles"
+            },
+            {
+              "seconds": 1434,
+              "title": "Test a proposed denominator of five"
+            },
+            {
+              "seconds": 1722,
+              "title": "The formal proof and its limits"
+            }
+          ]
         }
       ],
       "recording_history": [
@@ -340,13 +523,13 @@
           "status": "published",
           "recorded": "2026-10-19",
           "detail": "Erdős asked whether every sum made by choosing infinitely many of 1, 1/3, 1/7, 1/15, … must be irrational. The film states the question from scratch, then proves one known case step by step.",
-          "url": "https://www.youtube.com/watch?v=crpv9N4R7qw"
+          "url": "https://www.youtube.com/watch?v=vXgIBy5C5X0"
         }
       ]
     },
     {
       "id": "codemap",
-      "title": "Code Map: follow a file from its description to its code",
+      "title": "CodeMap: follow a file from its description to its code",
       "label": "CodeMap",
       "description": "AI wrote most of the software I use for my research, and I want to be able to understand it without having to ask a coding agent to explain it each time. In this video I go through Code Map, an interface where I can read saved descriptions of the files and follow their connections.",
       "role": "supporting",
@@ -367,17 +550,17 @@
       "still_inset": null,
       "poster": "assets/films/thumbnails-20261021/codemap.png",
       "release": {
-        "edition_sha256": "139f62cacb8ed16f1650417405f6c68e89834c3c63008f8bb8f76e9125d714b6",
-        "approved_edition_sha256": "139f62cacb8ed16f1650417405f6c68e89834c3c63008f8bb8f76e9125d714b6",
-        "hosted_edition_sha256": "139f62cacb8ed16f1650417405f6c68e89834c3c63008f8bb8f76e9125d714b6",
-        "thumbnail_edition_sha256": "139f62cacb8ed16f1650417405f6c68e89834c3c63008f8bb8f76e9125d714b6",
-        "transcript_edition_sha256": "139f62cacb8ed16f1650417405f6c68e89834c3c63008f8bb8f76e9125d714b6",
+        "edition_sha256": "01d25de1ad8b96171565f278ec40772da143326ff8d0f7d44b145d362486fc3c",
+        "approved_edition_sha256": "01d25de1ad8b96171565f278ec40772da143326ff8d0f7d44b145d362486fc3c",
+        "hosted_edition_sha256": "01d25de1ad8b96171565f278ec40772da143326ff8d0f7d44b145d362486fc3c",
+        "thumbnail_edition_sha256": "01d25de1ad8b96171565f278ec40772da143326ff8d0f7d44b145d362486fc3c",
+        "transcript_edition_sha256": "01d25de1ad8b96171565f278ec40772da143326ff8d0f7d44b145d362486fc3c",
         "publication_authorized": true,
-        "url": "https://www.youtube.com/watch?v=5wBXPesej5M",
-        "upload_date": "2026-10-21",
+        "url": "https://www.youtube.com/watch?v=Srrnh6D94E8",
+        "upload_date": "2026-10-22",
         "duration_seconds": 400,
         "thumbnail": "assets/films/thumbnails-20261021/codemap.png",
-        "thumbnail_sha256": "8a280e4ce79b80f1127f238e4da3806fc85325d2693b2c505b9a38e59ab24a2b",
+        "thumbnail_sha256": "6edcfa8a0f7b4f7fd3d08c6da78f81d7ae04b52def17509871a4248698513f6f",
         "transcript": {
           "scope": "route_summary",
           "text": "AI wrote most of the software I use for my research, and I want to be able to understand it without having to ask a coding agent to explain it each time. In this video I go through Code Map, an interface where I can read saved descriptions of the files and follow their connections.",
@@ -409,7 +592,7 @@
       "category": "code",
       "preview_duration_seconds": 400,
       "detail": "I use one question to explain how it works: when I type into Find, which code searches for the files, and where does it get the search text? I show where the descriptions are stored in the code, follow a connection to the file calling the search function, and show how an agent can read the same saved words through a command. That helps both of us decide which code to open. The descriptions can still be wrong or out of date, and the map can leave connections out, so the code still needs checking.",
-      "accepted_edition_sha256": "139f62cacb8ed16f1650417405f6c68e89834c3c63008f8bb8f76e9125d714b6",
+      "accepted_edition_sha256": "01d25de1ad8b96171565f278ec40772da143326ff8d0f7d44b145d362486fc3c",
       "previous_releases": [
         {
           "edition_sha256": "7317963724f59114d3b2e3309352fff2fc94ca1caf023dd6c4ab23bc0e0ced4b",
@@ -462,6 +645,86 @@
               "title": "Feedback and next steps"
             }
           ]
+        },
+        {
+          "edition_sha256": "139f62cacb8ed16f1650417405f6c68e89834c3c63008f8bb8f76e9125d714b6",
+          "approved_edition_sha256": "139f62cacb8ed16f1650417405f6c68e89834c3c63008f8bb8f76e9125d714b6",
+          "hosted_edition_sha256": "139f62cacb8ed16f1650417405f6c68e89834c3c63008f8bb8f76e9125d714b6",
+          "thumbnail_edition_sha256": "139f62cacb8ed16f1650417405f6c68e89834c3c63008f8bb8f76e9125d714b6",
+          "transcript_edition_sha256": "139f62cacb8ed16f1650417405f6c68e89834c3c63008f8bb8f76e9125d714b6",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=5wBXPesej5M",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 400,
+          "thumbnail": "assets/films/thumbnails-20261021/codemap.png",
+          "thumbnail_sha256": "571264f29c6219aa7b0fba7ac34daa4ec1fad0b2296e44f555a9fef202b14463",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "AI wrote most of the software I use for my research, and I want to be able to understand it without having to ask a coding agent to explain it each time. In this video I go through Code Map, an interface where I can read saved descriptions of the files and follow their connections.",
+            "sha256": "e141de9bfb500148bdcc859173cc4a52d228bb7a04b9cc504b5763b6d03be945"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "Why map code written by agents?"
+            },
+            {
+              "seconds": 54,
+              "title": "Read the saved file description"
+            },
+            {
+              "seconds": 207,
+              "title": "Find the function and its caller"
+            },
+            {
+              "seconds": 280,
+              "title": "One description for person and agent"
+            },
+            {
+              "seconds": 369,
+              "title": "Feedback"
+            }
+          ]
+        },
+        {
+          "edition_sha256": "1fb2a7145bc4bf1f5afbf27075ea0f53218c03a95f3965585f5d2eeb280a08d5",
+          "approved_edition_sha256": "1fb2a7145bc4bf1f5afbf27075ea0f53218c03a95f3965585f5d2eeb280a08d5",
+          "hosted_edition_sha256": "1fb2a7145bc4bf1f5afbf27075ea0f53218c03a95f3965585f5d2eeb280a08d5",
+          "thumbnail_edition_sha256": "1fb2a7145bc4bf1f5afbf27075ea0f53218c03a95f3965585f5d2eeb280a08d5",
+          "transcript_edition_sha256": "1fb2a7145bc4bf1f5afbf27075ea0f53218c03a95f3965585f5d2eeb280a08d5",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=wkMZ6FI8RvM",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 400,
+          "thumbnail": "assets/films/thumbnails-20261021/codemap.png",
+          "thumbnail_sha256": "6edcfa8a0f7b4f7fd3d08c6da78f81d7ae04b52def17509871a4248698513f6f",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "AI wrote most of the software I use for my research, and I want to be able to understand it without having to ask a coding agent to explain it each time. In this video I go through Code Map, an interface where I can read saved descriptions of the files and follow their connections.",
+            "sha256": "e141de9bfb500148bdcc859173cc4a52d228bb7a04b9cc504b5763b6d03be945"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "Why map code written by agents?"
+            },
+            {
+              "seconds": 54,
+              "title": "Read the saved file description"
+            },
+            {
+              "seconds": 207,
+              "title": "Find the function and its caller"
+            },
+            {
+              "seconds": 280,
+              "title": "One description for person and agent"
+            },
+            {
+              "seconds": 369,
+              "title": "Feedback"
+            }
+          ]
         }
       ],
       "recording_history": [
@@ -471,13 +734,13 @@
           "description": "One question through Code Map: which code runs when I type into Find? I read saved descriptions, follow a call between files, and show an agent reading the same words.",
           "status": "published",
           "recorded": "2026-10-19",
-          "url": "https://www.youtube.com/watch?v=5wBXPesej5M"
+          "url": "https://www.youtube.com/watch?v=Srrnh6D94E8"
         }
       ]
     },
     {
       "id": "one-checkout",
-      "title": "Save one AI agent’s fix while another edits the same file",
+      "title": "One Checkout: save one AI agent’s fix while another edits the same file",
       "label": "One Checkout",
       "description": "In this video I explain how I use One Checkout to commit a finished fix in Git when Claude and Codex have both edited the same file and one agent is still working. The example is a finished login fix and an unfinished permissions change: I go through how to save just the fix in the project's history while leaving both edits in the working file.",
       "role": "supporting",
@@ -498,17 +761,17 @@
       "still_inset": null,
       "poster": "assets/films/thumbnails-20261021/one-checkout.png",
       "release": {
-        "edition_sha256": "4ec844c05af5a9fc41ac556cdada637bc4349ed938f07e641f7f401ec50b061b",
-        "approved_edition_sha256": "4ec844c05af5a9fc41ac556cdada637bc4349ed938f07e641f7f401ec50b061b",
-        "hosted_edition_sha256": "4ec844c05af5a9fc41ac556cdada637bc4349ed938f07e641f7f401ec50b061b",
-        "thumbnail_edition_sha256": "4ec844c05af5a9fc41ac556cdada637bc4349ed938f07e641f7f401ec50b061b",
-        "transcript_edition_sha256": "4ec844c05af5a9fc41ac556cdada637bc4349ed938f07e641f7f401ec50b061b",
+        "edition_sha256": "3ed32373ad8d1a71b05971d4ac6a4d2c7b03e49224791e41d16bf7394abdd962",
+        "approved_edition_sha256": "3ed32373ad8d1a71b05971d4ac6a4d2c7b03e49224791e41d16bf7394abdd962",
+        "hosted_edition_sha256": "3ed32373ad8d1a71b05971d4ac6a4d2c7b03e49224791e41d16bf7394abdd962",
+        "thumbnail_edition_sha256": "3ed32373ad8d1a71b05971d4ac6a4d2c7b03e49224791e41d16bf7394abdd962",
+        "transcript_edition_sha256": "3ed32373ad8d1a71b05971d4ac6a4d2c7b03e49224791e41d16bf7394abdd962",
         "publication_authorized": true,
-        "url": "https://www.youtube.com/watch?v=u79CJQYyduQ",
-        "upload_date": "2026-10-21",
+        "url": "https://www.youtube.com/watch?v=hIUgqeg1_Mw",
+        "upload_date": "2026-10-22",
         "duration_seconds": 327,
         "thumbnail": "assets/films/thumbnails-20261021/one-checkout.png",
-        "thumbnail_sha256": "3d498dce253bd0c4abf1e7810fcca2f4ce48b8e6e391963a5f77a524be37e7c9",
+        "thumbnail_sha256": "e30ae393091436cd6da29adaf87b5a1ac293c402912edb3a808949dda7dc0e20",
         "transcript": {
           "scope": "route_summary",
           "text": "In this video I explain how I use One Checkout to commit a finished fix in Git when Claude and Codex have both edited the same file and one agent is still working. The example is a finished login fix and an unfinished permissions change: I go through how to save just the fix in the project's history while leaving both edits in the working file.",
@@ -540,7 +803,7 @@
       "category": "code",
       "preview_duration_seconds": 327,
       "detail": "I also explain how an old copy in Git's staging area can put the old login code back into the next commit, why the agent needs to test the version it's actually saving, and when Git worktrees with separate project folders might make more sense. The agent still has to choose the right edits, and One Checkout doesn't stop agents overwriting each other's work. It also skips Git hooks, so the project's required checks have to be run separately.",
-      "accepted_edition_sha256": "4ec844c05af5a9fc41ac556cdada637bc4349ed938f07e641f7f401ec50b061b",
+      "accepted_edition_sha256": "3ed32373ad8d1a71b05971d4ac6a4d2c7b03e49224791e41d16bf7394abdd962",
       "summary": "Two AI coding assistants can edit the same file at the same time. I show how to save just the finished login fix as a Git commit while the other assistant’s unfinished edits stay in place.",
       "repo": {
         "href": "https://github.com/wcook04/one-checkout"
@@ -577,6 +840,86 @@
               "title": "One Checkout: try it"
             }
           ]
+        },
+        {
+          "edition_sha256": "4ec844c05af5a9fc41ac556cdada637bc4349ed938f07e641f7f401ec50b061b",
+          "approved_edition_sha256": "4ec844c05af5a9fc41ac556cdada637bc4349ed938f07e641f7f401ec50b061b",
+          "hosted_edition_sha256": "4ec844c05af5a9fc41ac556cdada637bc4349ed938f07e641f7f401ec50b061b",
+          "thumbnail_edition_sha256": "4ec844c05af5a9fc41ac556cdada637bc4349ed938f07e641f7f401ec50b061b",
+          "transcript_edition_sha256": "4ec844c05af5a9fc41ac556cdada637bc4349ed938f07e641f7f401ec50b061b",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=u79CJQYyduQ",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 327,
+          "thumbnail": "assets/films/thumbnails-20261021/one-checkout.png",
+          "thumbnail_sha256": "75325d4226004cbbb7fb7b6368b5ec6128678845d197af717f0d5397d826d545",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "In this video I explain how I use One Checkout to commit a finished fix in Git when Claude and Codex have both edited the same file and one agent is still working. The example is a finished login fix and an unfinished permissions change: I go through how to save just the fix in the project's history while leaving both edits in the working file.",
+            "sha256": "40f8c618128f4434d7b497f0c98dbe7d958ddb6029e9f9aa30aa68757b4dfdff"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "Two agents in one folder"
+            },
+            {
+              "seconds": 54,
+              "title": "Save just the intended fix"
+            },
+            {
+              "seconds": 130,
+              "title": "What Git had already staged"
+            },
+            {
+              "seconds": 203,
+              "title": "When to use separate worktrees"
+            },
+            {
+              "seconds": 297,
+              "title": "Closing thoughts"
+            }
+          ]
+        },
+        {
+          "edition_sha256": "019fa45f2c0d7839777a4729c53079b6075cb993ec35510d0b7e19468bade41b",
+          "approved_edition_sha256": "019fa45f2c0d7839777a4729c53079b6075cb993ec35510d0b7e19468bade41b",
+          "hosted_edition_sha256": "019fa45f2c0d7839777a4729c53079b6075cb993ec35510d0b7e19468bade41b",
+          "thumbnail_edition_sha256": "019fa45f2c0d7839777a4729c53079b6075cb993ec35510d0b7e19468bade41b",
+          "transcript_edition_sha256": "019fa45f2c0d7839777a4729c53079b6075cb993ec35510d0b7e19468bade41b",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=7Jhvcw8yshk",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 327,
+          "thumbnail": "assets/films/thumbnails-20261021/one-checkout.png",
+          "thumbnail_sha256": "e30ae393091436cd6da29adaf87b5a1ac293c402912edb3a808949dda7dc0e20",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "In this video I explain how I use One Checkout to commit a finished fix in Git when Claude and Codex have both edited the same file and one agent is still working. The example is a finished login fix and an unfinished permissions change: I go through how to save just the fix in the project's history while leaving both edits in the working file.",
+            "sha256": "40f8c618128f4434d7b497f0c98dbe7d958ddb6029e9f9aa30aa68757b4dfdff"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "Two agents in one folder"
+            },
+            {
+              "seconds": 54,
+              "title": "Save just the intended fix"
+            },
+            {
+              "seconds": 130,
+              "title": "What Git had already staged"
+            },
+            {
+              "seconds": 203,
+              "title": "When to use separate worktrees"
+            },
+            {
+              "seconds": 297,
+              "title": "Closing thoughts"
+            }
+          ]
         }
       ],
       "recording_history": [
@@ -586,13 +929,13 @@
           "description": "Save one agent’s finished login fix while another agent’s unfinished edit stays in the same file. Then the catch with Git’s staging area, and a demo you can run.",
           "status": "published",
           "recorded": "2026-10-19",
-          "url": "https://www.youtube.com/watch?v=u79CJQYyduQ"
+          "url": "https://www.youtube.com/watch?v=hIUgqeg1_Mw"
         }
       ]
     },
     {
       "id": "mathematics-overview",
-      "title": "How the maths map connects proofs, papers and explanations",
+      "title": "Maths Map: how proofs, papers and explanations connect",
       "label": "My maths projects",
       "description": "A computer-checked proof can still be difficult for a person to understand. In this video I use the maths map and Erdős problem 257 to explain how I've been taking research done with AI through a long research record, a shorter paper, an explanation paper and finally a video.",
       "role": "supporting",
@@ -629,17 +972,17 @@
       "still_inset": null,
       "poster": "assets/films/thumbnails-20261021/mathematics-overview.png",
       "release": {
-        "edition_sha256": "0e1f27a5abd9dc8dd12ee6cdc81f522457a4783db569c56ad187923a141e6b77",
-        "approved_edition_sha256": "0e1f27a5abd9dc8dd12ee6cdc81f522457a4783db569c56ad187923a141e6b77",
-        "hosted_edition_sha256": "0e1f27a5abd9dc8dd12ee6cdc81f522457a4783db569c56ad187923a141e6b77",
-        "thumbnail_edition_sha256": "0e1f27a5abd9dc8dd12ee6cdc81f522457a4783db569c56ad187923a141e6b77",
-        "transcript_edition_sha256": "0e1f27a5abd9dc8dd12ee6cdc81f522457a4783db569c56ad187923a141e6b77",
+        "edition_sha256": "19c4e28f227a28d475cb71316da6f3a3b5c8bfb96089d4b890705b3254fb4905",
+        "approved_edition_sha256": "19c4e28f227a28d475cb71316da6f3a3b5c8bfb96089d4b890705b3254fb4905",
+        "hosted_edition_sha256": "19c4e28f227a28d475cb71316da6f3a3b5c8bfb96089d4b890705b3254fb4905",
+        "thumbnail_edition_sha256": "19c4e28f227a28d475cb71316da6f3a3b5c8bfb96089d4b890705b3254fb4905",
+        "transcript_edition_sha256": "19c4e28f227a28d475cb71316da6f3a3b5c8bfb96089d4b890705b3254fb4905",
         "publication_authorized": true,
-        "url": "https://www.youtube.com/watch?v=4QGO80qDDc4",
-        "upload_date": "2026-10-21",
+        "url": "https://www.youtube.com/watch?v=J2sX6nj3jOk",
+        "upload_date": "2026-10-22",
         "duration_seconds": 372,
         "thumbnail": "assets/films/thumbnails-20261021/mathematics-overview.png",
-        "thumbnail_sha256": "41c18583748c55e10b199512f83ed95f552d9a27cc090e6417500f4ec7a82bf3",
+        "thumbnail_sha256": "9af636fda523a17426cfedd775c0a85a7a718536a5636425ddf9d66c351f793b",
         "transcript": {
           "scope": "route_summary",
           "text": "A computer-checked proof can still be difficult for a person to understand. In this video I use the maths map and Erdős problem 257 to explain how I've been taking research done with AI through a long research record, a shorter paper, an explanation paper and finally a video.",
@@ -675,7 +1018,7 @@
       "category": "maths",
       "preview_duration_seconds": 372,
       "detail": "I go through what each version is for and how you can use the map to find a particular result and read about it at the level of detail you need. I also talk about adding connections between proofs, so you could follow which results they use.",
-      "accepted_edition_sha256": "0e1f27a5abd9dc8dd12ee6cdc81f522457a4783db569c56ad187923a141e6b77",
+      "accepted_edition_sha256": "19c4e28f227a28d475cb71316da6f3a3b5c8bfb96089d4b890705b3254fb4905",
       "repo": {
         "href": "https://github.com/wcook04/plectis-erdos"
       },
@@ -715,6 +1058,94 @@
               "title": "What could come next"
             }
           ]
+        },
+        {
+          "edition_sha256": "0e1f27a5abd9dc8dd12ee6cdc81f522457a4783db569c56ad187923a141e6b77",
+          "approved_edition_sha256": "0e1f27a5abd9dc8dd12ee6cdc81f522457a4783db569c56ad187923a141e6b77",
+          "hosted_edition_sha256": "0e1f27a5abd9dc8dd12ee6cdc81f522457a4783db569c56ad187923a141e6b77",
+          "thumbnail_edition_sha256": "0e1f27a5abd9dc8dd12ee6cdc81f522457a4783db569c56ad187923a141e6b77",
+          "transcript_edition_sha256": "0e1f27a5abd9dc8dd12ee6cdc81f522457a4783db569c56ad187923a141e6b77",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=4QGO80qDDc4",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 372,
+          "thumbnail": "assets/films/thumbnails-20261021/mathematics-overview.png",
+          "thumbnail_sha256": "dc14669efd9a90fb13e5502d2413668b5a00ed611b542d9571aff77662adfbe1",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "A computer-checked proof can still be difficult for a person to understand. In this video I use the maths map and Erdős problem 257 to explain how I've been taking research done with AI through a long research record, a shorter paper, an explanation paper and finally a video.",
+            "sha256": "3c576dd5a51b3de1a72bfc1d39ade0bfd25ea1e12cad4a5d4116df620744d9f9"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "Tour of the maths map"
+            },
+            {
+              "seconds": 51,
+              "title": "Find a theorem in the long record"
+            },
+            {
+              "seconds": 96,
+              "title": "The papers for problem 257"
+            },
+            {
+              "seconds": 190,
+              "title": "From papers to film"
+            },
+            {
+              "seconds": 286,
+              "title": "Walk through the map"
+            },
+            {
+              "seconds": 335,
+              "title": "A possible dependency graph"
+            }
+          ]
+        },
+        {
+          "edition_sha256": "7881cd361508f6eca9bfbcde02185c690e9dd492a9449eafaecf8ee522f95c18",
+          "approved_edition_sha256": "7881cd361508f6eca9bfbcde02185c690e9dd492a9449eafaecf8ee522f95c18",
+          "hosted_edition_sha256": "7881cd361508f6eca9bfbcde02185c690e9dd492a9449eafaecf8ee522f95c18",
+          "thumbnail_edition_sha256": "7881cd361508f6eca9bfbcde02185c690e9dd492a9449eafaecf8ee522f95c18",
+          "transcript_edition_sha256": "7881cd361508f6eca9bfbcde02185c690e9dd492a9449eafaecf8ee522f95c18",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=xdyTZ19yE2E",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 372,
+          "thumbnail": "assets/films/thumbnails-20261021/mathematics-overview.png",
+          "thumbnail_sha256": "9af636fda523a17426cfedd775c0a85a7a718536a5636425ddf9d66c351f793b",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "A computer-checked proof can still be difficult for a person to understand. In this video I use the maths map and Erdős problem 257 to explain how I've been taking research done with AI through a long research record, a shorter paper, an explanation paper and finally a video.",
+            "sha256": "3c576dd5a51b3de1a72bfc1d39ade0bfd25ea1e12cad4a5d4116df620744d9f9"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "Tour of the maths map"
+            },
+            {
+              "seconds": 51,
+              "title": "Find a theorem in the long record"
+            },
+            {
+              "seconds": 96,
+              "title": "The papers for problem 257"
+            },
+            {
+              "seconds": 190,
+              "title": "From papers to film"
+            },
+            {
+              "seconds": 286,
+              "title": "Walk through the map"
+            },
+            {
+              "seconds": 335,
+              "title": "A possible dependency graph"
+            }
+          ]
         }
       ],
       "recording_history": [
@@ -724,13 +1155,13 @@
           "description": "A tour of the maths map, using problem 257: from checked results to a long record, a short paper, an explanation paper and a video, each for a wider reader.",
           "status": "published",
           "recorded": "2026-10-19",
-          "url": "https://www.youtube.com/watch?v=4QGO80qDDc4"
+          "url": "https://www.youtube.com/watch?v=J2sX6nj3jOk"
         }
       ]
     },
     {
       "id": "atlas",
-      "title": "Compare maths papers with the reports that check them",
+      "title": "Plectis Atlas: compare maths papers with the reports that check them",
       "label": "Plectis Atlas",
       "description": "I built Plectis Atlas so you can read OpenAI's maths papers alongside the reports from groups checking them, without searching through separate websites and repositories. In this video I follow one paper about pi and explain why MathVet and Carlos Toledo's cert-machine give different labels to what was checked.",
       "role": "supporting",
@@ -751,17 +1182,17 @@
       "still_inset": null,
       "poster": "assets/films/thumbnails-20261021/atlas.png",
       "release": {
-        "edition_sha256": "d376ef3644da650799bf6fd5faa4d813dfce9d7026bb077a71e3eb388b6d5d15",
-        "approved_edition_sha256": "d376ef3644da650799bf6fd5faa4d813dfce9d7026bb077a71e3eb388b6d5d15",
-        "hosted_edition_sha256": "d376ef3644da650799bf6fd5faa4d813dfce9d7026bb077a71e3eb388b6d5d15",
-        "thumbnail_edition_sha256": "d376ef3644da650799bf6fd5faa4d813dfce9d7026bb077a71e3eb388b6d5d15",
-        "transcript_edition_sha256": "d376ef3644da650799bf6fd5faa4d813dfce9d7026bb077a71e3eb388b6d5d15",
+        "edition_sha256": "62e225f833bed0c88a3765418b3bdcfc125db5410ef1df95d0b9a51877042ead",
+        "approved_edition_sha256": "62e225f833bed0c88a3765418b3bdcfc125db5410ef1df95d0b9a51877042ead",
+        "hosted_edition_sha256": "62e225f833bed0c88a3765418b3bdcfc125db5410ef1df95d0b9a51877042ead",
+        "thumbnail_edition_sha256": "62e225f833bed0c88a3765418b3bdcfc125db5410ef1df95d0b9a51877042ead",
+        "transcript_edition_sha256": "62e225f833bed0c88a3765418b3bdcfc125db5410ef1df95d0b9a51877042ead",
         "publication_authorized": true,
-        "url": "https://www.youtube.com/watch?v=c-QKeCRjvq0",
-        "upload_date": "2026-10-21",
+        "url": "https://www.youtube.com/watch?v=ugUObM3qpmM",
+        "upload_date": "2026-10-22",
         "duration_seconds": 327,
         "thumbnail": "assets/films/thumbnails-20261021/atlas.png",
-        "thumbnail_sha256": "fa457016d35ca8fa3a6ff84f04b1fb72b8ee74675406fd9940524c693066d3db",
+        "thumbnail_sha256": "20a46a3058395f952c7b6953a00f705537666922f4f2e6ebed4978b3ee88fcd8",
         "transcript": {
           "scope": "route_summary",
           "text": "I built Plectis Atlas so you can read OpenAI's maths papers alongside the reports from groups checking them, without searching through separate websites and repositories. In this video I follow one paper about pi and explain why MathVet and Carlos Toledo's cert-machine give different labels to what was checked.",
@@ -789,7 +1220,7 @@
       "category": "research",
       "preview_duration_seconds": 327,
       "detail": "I show how to find the paper, compare its claims with the statement selected for computer checking, and read what each group says about the proof. In this example, both groups report an accepted proof of the selected pi statement, while neither report gives a proof-check result for the separate Flint–Hills consequence. Atlas links to their reports; it hasn't repeated those checks itself.",
-      "accepted_edition_sha256": "d376ef3644da650799bf6fd5faa4d813dfce9d7026bb077a71e3eb388b6d5d15",
+      "accepted_edition_sha256": "62e225f833bed0c88a3765418b3bdcfc125db5410ef1df95d0b9a51877042ead",
       "repo": {
         "href": "https://github.com/wcook04/plectis-atlas"
       },
@@ -841,6 +1272,78 @@
               "title": "A prototype"
             }
           ]
+        },
+        {
+          "edition_sha256": "d376ef3644da650799bf6fd5faa4d813dfce9d7026bb077a71e3eb388b6d5d15",
+          "approved_edition_sha256": "d376ef3644da650799bf6fd5faa4d813dfce9d7026bb077a71e3eb388b6d5d15",
+          "hosted_edition_sha256": "d376ef3644da650799bf6fd5faa4d813dfce9d7026bb077a71e3eb388b6d5d15",
+          "thumbnail_edition_sha256": "d376ef3644da650799bf6fd5faa4d813dfce9d7026bb077a71e3eb388b6d5d15",
+          "transcript_edition_sha256": "d376ef3644da650799bf6fd5faa4d813dfce9d7026bb077a71e3eb388b6d5d15",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=c-QKeCRjvq0",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 327,
+          "thumbnail": "assets/films/thumbnails-20261021/atlas.png",
+          "thumbnail_sha256": "9e16d59f827edbaa0d677a11568e14a366e42655aac3d3cfefeabe170ecce75f",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "I built Plectis Atlas so you can read OpenAI's maths papers alongside the reports from groups checking them, without searching through separate websites and repositories. In this video I follow one paper about pi and explain why MathVet and Carlos Toledo's cert-machine give different labels to what was checked.",
+            "sha256": "e0512599d3761c99e9ddc08bf8b472d89bbd5c73999b358dee9119bfd241b443"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "Follow one result through Atlas"
+            },
+            {
+              "seconds": 120,
+              "title": "Compare claims with the checked statement"
+            },
+            {
+              "seconds": 190,
+              "title": "What the reports actually say"
+            },
+            {
+              "seconds": 275,
+              "title": "Browse results by topic"
+            }
+          ]
+        },
+        {
+          "edition_sha256": "564e9e13851f608945be78e28ccd89ec4287a21058d7882b219ee339293cf117",
+          "approved_edition_sha256": "564e9e13851f608945be78e28ccd89ec4287a21058d7882b219ee339293cf117",
+          "hosted_edition_sha256": "564e9e13851f608945be78e28ccd89ec4287a21058d7882b219ee339293cf117",
+          "thumbnail_edition_sha256": "564e9e13851f608945be78e28ccd89ec4287a21058d7882b219ee339293cf117",
+          "transcript_edition_sha256": "564e9e13851f608945be78e28ccd89ec4287a21058d7882b219ee339293cf117",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=Ck7HkzPUgMs",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 327,
+          "thumbnail": "assets/films/thumbnails-20261021/atlas.png",
+          "thumbnail_sha256": "20a46a3058395f952c7b6953a00f705537666922f4f2e6ebed4978b3ee88fcd8",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "I built Plectis Atlas so you can read OpenAI's maths papers alongside the reports from groups checking them, without searching through separate websites and repositories. In this video I follow one paper about pi and explain why MathVet and Carlos Toledo's cert-machine give different labels to what was checked.",
+            "sha256": "e0512599d3761c99e9ddc08bf8b472d89bbd5c73999b358dee9119bfd241b443"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "Follow one result through Atlas"
+            },
+            {
+              "seconds": 120,
+              "title": "Compare claims with the checked statement"
+            },
+            {
+              "seconds": 190,
+              "title": "What the reports actually say"
+            },
+            {
+              "seconds": 275,
+              "title": "Browse results by topic"
+            }
+          ]
         }
       ],
       "recording_history": [
@@ -850,13 +1353,13 @@
           "description": "OpenAI’s maths papers beside their checking reports. One paper about pi gets two coverage labels, and reading both reports shows the groups agree about what is missing.",
           "status": "published",
           "recorded": "2026-10-19",
-          "url": "https://www.youtube.com/watch?v=c-QKeCRjvq0"
+          "url": "https://www.youtube.com/watch?v=ugUObM3qpmM"
         }
       ]
     },
     {
       "id": "safety-core",
-      "title": "Rules and checks for AI coding agents: one small test",
+      "title": "Safety Core: rules and checks for AI coding agents in one small test",
       "label": "Safety Core",
       "description": "I asked an AI coding agent to fix a typo and commit it in a small test project. When a test failed, the agent supplied a made-up setting so it could commit anyway. In this video I use that experiment to explain Safety Core, a prototype for giving coding agents written rules and checking some of their actions against them.",
       "role": "supporting",
@@ -877,17 +1380,17 @@
       "still_inset": null,
       "poster": "assets/films/thumbnails-20261021/safety-core.png",
       "release": {
-        "edition_sha256": "ef91859337a45c150ffbd582d20ad0758f752ddeeb961eccfdc3965f4315da45",
-        "approved_edition_sha256": "ef91859337a45c150ffbd582d20ad0758f752ddeeb961eccfdc3965f4315da45",
-        "hosted_edition_sha256": "ef91859337a45c150ffbd582d20ad0758f752ddeeb961eccfdc3965f4315da45",
-        "thumbnail_edition_sha256": "ef91859337a45c150ffbd582d20ad0758f752ddeeb961eccfdc3965f4315da45",
-        "transcript_edition_sha256": "ef91859337a45c150ffbd582d20ad0758f752ddeeb961eccfdc3965f4315da45",
+        "edition_sha256": "fce6bef60974978834b5b506abaf2bbe59da572ce23b44fbc7f69871208ac91b",
+        "approved_edition_sha256": "fce6bef60974978834b5b506abaf2bbe59da572ce23b44fbc7f69871208ac91b",
+        "hosted_edition_sha256": "fce6bef60974978834b5b506abaf2bbe59da572ce23b44fbc7f69871208ac91b",
+        "thumbnail_edition_sha256": "fce6bef60974978834b5b506abaf2bbe59da572ce23b44fbc7f69871208ac91b",
+        "transcript_edition_sha256": "fce6bef60974978834b5b506abaf2bbe59da572ce23b44fbc7f69871208ac91b",
         "publication_authorized": true,
-        "url": "https://www.youtube.com/watch?v=qCq4_YLYJbE",
-        "upload_date": "2026-10-21",
+        "url": "https://www.youtube.com/watch?v=oN4ZaCWqfhY",
+        "upload_date": "2026-10-22",
         "duration_seconds": 527,
         "thumbnail": "assets/films/thumbnails-20261021/safety-core.png",
-        "thumbnail_sha256": "d18a7b461c29ee3457f8dd8192615bb27425503af16c9f84a14344a69ece1b0e",
+        "thumbnail_sha256": "6dd60bd3c155efcbabd6c1e0b951ecd9744853859efa46ce4bd13a37088647ea",
         "transcript": {
           "scope": "route_summary",
           "text": "I asked an AI coding agent to fix a typo and commit it in a small test project. When a test failed, the agent supplied a made-up setting so it could commit anyway. In this video I use that experiment to explain Safety Core, a prototype for giving coding agents written rules and checking some of their actions against them.",
@@ -923,7 +1426,7 @@
       "category": "safety",
       "preview_duration_seconds": 527,
       "detail": "I go through the rulebook and its map, then compare what happened with no Safety Core, with the written rules, and with the checks running. I also show how a check can ask for approval or refuse a command, and how to read the record of one run to see what happened.",
-      "accepted_edition_sha256": "ef91859337a45c150ffbd582d20ad0758f752ddeeb961eccfdc3965f4315da45",
+      "accepted_edition_sha256": "fce6bef60974978834b5b506abaf2bbe59da572ce23b44fbc7f69871208ac91b",
       "repo": {
         "href": "https://github.com/wcook04/safety-core"
       },
@@ -975,6 +1478,94 @@
               "title": "A prototype"
             }
           ]
+        },
+        {
+          "edition_sha256": "ef91859337a45c150ffbd582d20ad0758f752ddeeb961eccfdc3965f4315da45",
+          "approved_edition_sha256": "ef91859337a45c150ffbd582d20ad0758f752ddeeb961eccfdc3965f4315da45",
+          "hosted_edition_sha256": "ef91859337a45c150ffbd582d20ad0758f752ddeeb961eccfdc3965f4315da45",
+          "thumbnail_edition_sha256": "ef91859337a45c150ffbd582d20ad0758f752ddeeb961eccfdc3965f4315da45",
+          "transcript_edition_sha256": "ef91859337a45c150ffbd582d20ad0758f752ddeeb961eccfdc3965f4315da45",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=qCq4_YLYJbE",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 527,
+          "thumbnail": "assets/films/thumbnails-20261021/safety-core.png",
+          "thumbnail_sha256": "60f30fa92f1155155929ee0140bdfbfddde43c10fd9fa15832063a4ac37f52c3",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "I asked an AI coding agent to fix a typo and commit it in a small test project. When a test failed, the agent supplied a made-up setting so it could commit anyway. In this video I use that experiment to explain Safety Core, a prototype for giving coding agents written rules and checking some of their actions against them.",
+            "sha256": "6fb1f89155ec18dfc9b48c325af5fa52cd7a24b25873bbec14830fe450fa7ce2"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "A typo fix became a shortcut"
+            },
+            {
+              "seconds": 55,
+              "title": "Rules and running checks"
+            },
+            {
+              "seconds": 156,
+              "title": "The controlled test"
+            },
+            {
+              "seconds": 382,
+              "title": "When a check asks or refuses"
+            },
+            {
+              "seconds": 410,
+              "title": "What the hooks recorded"
+            },
+            {
+              "seconds": 455,
+              "title": "What Safety Core does"
+            }
+          ]
+        },
+        {
+          "edition_sha256": "77e56d3f1e0ae230f85c2e586827309084a05bdc485406172c126a07522d75ea",
+          "approved_edition_sha256": "77e56d3f1e0ae230f85c2e586827309084a05bdc485406172c126a07522d75ea",
+          "hosted_edition_sha256": "77e56d3f1e0ae230f85c2e586827309084a05bdc485406172c126a07522d75ea",
+          "thumbnail_edition_sha256": "77e56d3f1e0ae230f85c2e586827309084a05bdc485406172c126a07522d75ea",
+          "transcript_edition_sha256": "77e56d3f1e0ae230f85c2e586827309084a05bdc485406172c126a07522d75ea",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=xp-CYdvPFps",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 527,
+          "thumbnail": "assets/films/thumbnails-20261021/safety-core.png",
+          "thumbnail_sha256": "6dd60bd3c155efcbabd6c1e0b951ecd9744853859efa46ce4bd13a37088647ea",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "I asked an AI coding agent to fix a typo and commit it in a small test project. When a test failed, the agent supplied a made-up setting so it could commit anyway. In this video I use that experiment to explain Safety Core, a prototype for giving coding agents written rules and checking some of their actions against them.",
+            "sha256": "6fb1f89155ec18dfc9b48c325af5fa52cd7a24b25873bbec14830fe450fa7ce2"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "A typo fix became a shortcut"
+            },
+            {
+              "seconds": 55,
+              "title": "Rules and running checks"
+            },
+            {
+              "seconds": 156,
+              "title": "The controlled test"
+            },
+            {
+              "seconds": 382,
+              "title": "When a check asks or refuses"
+            },
+            {
+              "seconds": 410,
+              "title": "What the hooks recorded"
+            },
+            {
+              "seconds": 455,
+              "title": "What Safety Core does"
+            }
+          ]
         }
       ],
       "recording_history": [
@@ -984,13 +1575,13 @@
           "description": "An agent made up a setting to pass a failing test in ten out of ten runs. A written rule changed what it reported; with Safety Core’s check running, none committed.",
           "status": "published",
           "recorded": "2026-10-19",
-          "url": "https://www.youtube.com/watch?v=qCq4_YLYJbE"
+          "url": "https://www.youtube.com/watch?v=oN4ZaCWqfhY"
         }
       ]
     },
     {
       "id": "zenith",
-      "title": "Can an AI tester learn from the bugs it missed?",
+      "title": "Zenith: can an AI tester learn from the bugs it missed?",
       "label": "Zenith",
       "short": "Zenith",
       "description": "For this Zenith experiment, I gave an AI model a record of the bugs it had missed and tested whether that helped it catch bugs in new programs. In this video I explain the test using a program that crashes on an empty list, then compare giving the model its earlier misses with giving it rules written from those mistakes.",
@@ -1009,17 +1600,17 @@
       "still_inset": null,
       "poster": "assets/films/thumbnails-20261021/zenith.png",
       "release": {
-        "edition_sha256": "26bb1fcbe486858190064d1615cc639b01d9bff17040d8b9958ba692a43cc723",
-        "approved_edition_sha256": "26bb1fcbe486858190064d1615cc639b01d9bff17040d8b9958ba692a43cc723",
-        "hosted_edition_sha256": "26bb1fcbe486858190064d1615cc639b01d9bff17040d8b9958ba692a43cc723",
-        "thumbnail_edition_sha256": "26bb1fcbe486858190064d1615cc639b01d9bff17040d8b9958ba692a43cc723",
-        "transcript_edition_sha256": "26bb1fcbe486858190064d1615cc639b01d9bff17040d8b9958ba692a43cc723",
+        "edition_sha256": "476d0fe2e6da43f864069e5b15acfb38d9401417ceaaf3059208e97d75cdbd24",
+        "approved_edition_sha256": "476d0fe2e6da43f864069e5b15acfb38d9401417ceaaf3059208e97d75cdbd24",
+        "hosted_edition_sha256": "476d0fe2e6da43f864069e5b15acfb38d9401417ceaaf3059208e97d75cdbd24",
+        "thumbnail_edition_sha256": "476d0fe2e6da43f864069e5b15acfb38d9401417ceaaf3059208e97d75cdbd24",
+        "transcript_edition_sha256": "476d0fe2e6da43f864069e5b15acfb38d9401417ceaaf3059208e97d75cdbd24",
         "publication_authorized": true,
-        "url": "https://www.youtube.com/watch?v=-PITavNIUgg",
-        "upload_date": "2026-10-21",
+        "url": "https://www.youtube.com/watch?v=A1Kw5hXvzVw",
+        "upload_date": "2026-10-22",
         "duration_seconds": 295,
         "thumbnail": "assets/films/thumbnails-20261021/zenith.png",
-        "thumbnail_sha256": "31fc622b8e41da92133be72e4b6b0155588d2cef215cbb6a909a50bbe6d002e9",
+        "thumbnail_sha256": "b93b61431755a8b89e370b0776cb6730bedc8ea5b6d21e2918f2b09d9d5aa07e",
         "transcript": {
           "scope": "route_summary",
           "text": "For this Zenith experiment, I gave an AI model a record of the bugs it had missed and tested whether that helped it catch bugs in new programs. In this video I explain the test using a program that crashes on an empty list, then compare giving the model its earlier misses with giving it rules written from those mistakes.",
@@ -1056,8 +1647,98 @@
       "repo": {
         "href": "https://github.com/wcook04/plectis-zenith"
       },
-      "accepted_edition_sha256": "26bb1fcbe486858190064d1615cc639b01d9bff17040d8b9958ba692a43cc723",
-      "preview_duration_seconds": 295
+      "accepted_edition_sha256": "476d0fe2e6da43f864069e5b15acfb38d9401417ceaaf3059208e97d75cdbd24",
+      "preview_duration_seconds": 295,
+      "previous_releases": [
+        {
+          "edition_sha256": "26bb1fcbe486858190064d1615cc639b01d9bff17040d8b9958ba692a43cc723",
+          "approved_edition_sha256": "26bb1fcbe486858190064d1615cc639b01d9bff17040d8b9958ba692a43cc723",
+          "hosted_edition_sha256": "26bb1fcbe486858190064d1615cc639b01d9bff17040d8b9958ba692a43cc723",
+          "thumbnail_edition_sha256": "26bb1fcbe486858190064d1615cc639b01d9bff17040d8b9958ba692a43cc723",
+          "transcript_edition_sha256": "26bb1fcbe486858190064d1615cc639b01d9bff17040d8b9958ba692a43cc723",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=-PITavNIUgg",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 295,
+          "thumbnail": "assets/films/thumbnails-20261021/zenith.png",
+          "thumbnail_sha256": "a1b3b8e83d221a929dcb411b5395f7de84f06207d0697ade8ecc555550002be9",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "For this Zenith experiment, I gave an AI model a record of the bugs it had missed and tested whether that helped it catch bugs in new programs. In this video I explain the test using a program that crashes on an empty list, then compare giving the model its earlier misses with giving it rules written from those mistakes.",
+            "sha256": "329e4dd80788b209b002968a0dd1fab3634ef9b8c1411206e90ef35f94e5749e"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "Can a tester learn from missed bugs?"
+            },
+            {
+              "seconds": 49,
+              "title": "The hidden-bug task"
+            },
+            {
+              "seconds": 112,
+              "title": "Practice problems and new problems"
+            },
+            {
+              "seconds": 152,
+              "title": "Results on the new problems"
+            },
+            {
+              "seconds": 192,
+              "title": "What the result does and does not show"
+            },
+            {
+              "seconds": 256,
+              "title": "What to test next"
+            }
+          ]
+        },
+        {
+          "edition_sha256": "49a93adb179e041a4ff11931ac701a5759525a7eb74fe238baf28384ab9388d5",
+          "approved_edition_sha256": "49a93adb179e041a4ff11931ac701a5759525a7eb74fe238baf28384ab9388d5",
+          "hosted_edition_sha256": "49a93adb179e041a4ff11931ac701a5759525a7eb74fe238baf28384ab9388d5",
+          "thumbnail_edition_sha256": "49a93adb179e041a4ff11931ac701a5759525a7eb74fe238baf28384ab9388d5",
+          "transcript_edition_sha256": "49a93adb179e041a4ff11931ac701a5759525a7eb74fe238baf28384ab9388d5",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=ZwGAxxWe1ak",
+          "upload_date": "2026-10-21",
+          "duration_seconds": 295,
+          "thumbnail": "assets/films/thumbnails-20261021/zenith.png",
+          "thumbnail_sha256": "b93b61431755a8b89e370b0776cb6730bedc8ea5b6d21e2918f2b09d9d5aa07e",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "For this Zenith experiment, I gave an AI model a record of the bugs it had missed and tested whether that helped it catch bugs in new programs. In this video I explain the test using a program that crashes on an empty list, then compare giving the model its earlier misses with giving it rules written from those mistakes.",
+            "sha256": "329e4dd80788b209b002968a0dd1fab3634ef9b8c1411206e90ef35f94e5749e"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "Can a tester learn from missed bugs?"
+            },
+            {
+              "seconds": 49,
+              "title": "The hidden-bug task"
+            },
+            {
+              "seconds": 112,
+              "title": "Practice problems and new problems"
+            },
+            {
+              "seconds": 152,
+              "title": "Results on the new problems"
+            },
+            {
+              "seconds": 192,
+              "title": "What the result does and does not show"
+            },
+            {
+              "seconds": 256,
+              "title": "What to test next"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "introduction-alternate",

@@ -85,7 +85,7 @@ and the research process, go to the [project papers](#project-papers).
 **Introductory paper.**
 [Why certain sums of 1/(2ⁿ−1) are irrational](257/erdos257-expository-sums-never-fractions.pdf) ([source](257/erdos257-expository-sums-never-fractions.tex)).
 Worked examples lead through a complete proof; an appendix gives supporting details, exercises and the link to the formal proof.
-[Watch the #257 video](https://www.youtube.com/watch?v=crpv9N4R7qw).
+[Watch the #257 video](https://www.youtube.com/watch?v=vXgIBy5C5X0).
 
 **Short paper**<br>
 [Irrationality criteria for Lambert subseries](257/erdos-257-mersenne-support-subseries.pdf) ([source](257/erdos-257-mersenne-support-subseries.tex))

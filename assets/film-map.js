@@ -313,15 +313,13 @@
 
   /* The cables (19 October 2026). Beside a reading, the map draws how the
      series is joined: from the introduction one cable per branch, each in its
-     branch's ink, then a short reach in the same ink from a branch to the
-     film it leads to. Since 21 October 2026 the introduction's still is the
-     map's hub: each branch's thread leaves its own place along the still's
-     edge, top branch highest, and falls in one easy curve to its film, so
-     the four fan out like a plait's strands opening (art.js) and never
-     cross, instead of running down one channel as a bundle. With another
-     film open, they leave that film's still in the panel the same way.
-     Pointing at a film lights its cable and steps the others back; a light
-     runs once along it from the
+     branch's ink, run as a ribbon out of the introduction's frame and peeled
+     off to its branch the way the plait's cables close in (art.js), then a
+     short reach in the same ink from a branch to the film it leads to. A
+     dotted quiet cable reaches the projects the introduction shows. With
+     another film open, the ribbon leaves the panel beside "Back to the
+     introduction", the words that name its source. Pointing at a film lights
+     its cable and steps the others back; a light runs once along it from the
      introduction (the maths map's bead, universe.js drawPulse). On a first
      visit the cables draw out from the introduction once.
      The geometry is adapted from Magic UI's AnimatedBeam (MIT License,
@@ -329,8 +327,8 @@
      apps/www/registry/magicui/animated-beam.tsx): an SVG laid over the
      container, each path measured from two elements' boxes relative to the
      container and measured again by a ResizeObserver. Changed: plain DOM
-     instead of React state and Motion; one curve per thread from its own
-     place on the source, rather than between centres; one draw on a first visit and one
+     instead of React state and Motion; routed ribbons with rounded turns
+     instead of one curve between centres; one draw on a first visit and one
      light per pointing, in place of the endless gradient sweep; none with
      reduced motion. Without this script the stylesheet's own lines stand. */
   var layout = map.querySelector('.film-map__layout');
@@ -340,7 +338,9 @@
   var cableLayer = null;
   var beadLayer = null;
   var shape = null;       // the geometry the drawing was made for
-  var SP = 5;             // between threads leaving the way back
+  var SP = 4;             // between the ribbon's strands
+  var VS = 7;             // between the strands' turns
+  var R = 10;             // the radius of a turn
   function quietMotion() {
     if (reducedMotion()) return true;
     try { if (navigator.connection && navigator.connection.saveData) return true; } catch (e) {}
@@ -364,24 +364,19 @@
     }
     return cables;
   }
-  // Where the threads leave the panel: along the still the panel shows (its
-  // middle three fifths), the introduction's or the open film's, so they
-  // never cross the band's heading; beside the way back for a reading
-  // without a still.
+  // Where the ribbon leaves the panel: the introduction's frame, or the way
+  // back to it when another reading is open.
   function cableSource(box) {
     var key = open || fallback;
     var reading = readings[key];
     if (!reading) return null;
-    var frame = reading.querySelector('.film-map__media .film-poster');
-    var back = frame ? null : reading.querySelector('.film-map__back');
+    var frame = key === fallback ? reading.querySelector('.film-map__media .film-poster') : null;
+    var back = key !== fallback ? reading.querySelector('.film-map__back') : null;
     var el = frame || back;
     if (!el || !el.getClientRects().length) return null;
     var r = el.getBoundingClientRect();
     var panel = shelf.getBoundingClientRect();
-    var mid = r.top + r.height / 2 - box.top;
-    return { x: (frame ? r.right : Math.max(r.right, panel.right)) - box.left,
-             top: frame ? r.top + r.height * 0.2 - box.top : mid,
-             bottom: frame ? r.top + r.height * 0.8 - box.top : mid,
+    return { x: (frame ? r.right : Math.max(r.right, panel.right)) - box.left, y: r.top + r.height / 2 - box.top,
              lead: back ? r.right - box.left + 8 : null };
   }
   function entry(node, box) {
@@ -391,24 +386,26 @@
     var r = el.getBoundingClientRect();
     return { x: r.left - box.left, y: r.top + Math.min(r.height / 2, still ? r.height / 2 : 12) - box.top, left: r.left - box.left };
   }
-  // One thread: level out of its source, one easy curve, level into its
-  // film's frame.
-  function thread(x0, y0, ex, ey) {
-    var k = (ex - x0) * 0.55;
-    return 'M ' + x0 + ' ' + y0 + ' C ' + (x0 + k) + ' ' + y0 + ' ' + (ex - k) + ' ' + ey + ' ' + ex + ' ' + ey;
+  function arc(x, y, sweep) { return ' A ' + R + ' ' + R + ' 0 0 ' + sweep + ' ' + x + ' ' + y; }
+  // One strand: along the ribbon, a turn, down (or up) its own run, a turn,
+  // and into its film's frame. A strand whose film is level with it runs on
+  // in one easy curve.
+  function strand(x0, y0, turn, ex, ey) {
+    var dy = ey - y0;
+    if (Math.abs(dy) < 2 * R + 1) {
+      var k = (ex - x0) / 2;
+      return 'M ' + x0 + ' ' + y0 + ' C ' + (x0 + k) + ' ' + y0 + ' ' + (ex - k) + ' ' + ey + ' ' + ex + ' ' + ey;
+    }
+    var down = dy > 0, s = down ? 1 : -1;
+    return 'M ' + x0 + ' ' + y0 + ' H ' + (turn - R) + arc(turn, y0 + s * R, down ? 1 : 0) +
+      ' V ' + (ey - s * R) + arc(turn + R, ey, down ? 0 : 1) + ' H ' + ex;
   }
-  function add(key, d, cls, end, start) {
+  function add(key, d, cls, end) {
     var g = doc.createElementNS(NS, 'g');
     g.setAttribute('class', cls);
     var path = doc.createElementNS(NS, 'path');
     path.setAttribute('d', d);
     g.appendChild(path);
-    if (start) {
-      var socket = doc.createElementNS(NS, 'circle');
-      socket.setAttribute('class', 'film-map__socket');
-      socket.setAttribute('cx', start.x); socket.setAttribute('cy', start.y); socket.setAttribute('r', '2');
-      g.appendChild(socket);
-    }
     var dot = null;
     if (end) {
       dot = doc.createElementNS(NS, 'circle');
@@ -429,34 +426,45 @@
     cableRoot().removeAttribute('hidden');
     map.classList.add('film-map--wired');
     // A notice that moved nothing keeps the drawing (and any drawing-out).
-    var sig = [Math.round(src.x), Math.round(src.top), Math.round(src.bottom), Math.round(box.width)].concat(
-      Array.prototype.map.call(tree.querySelectorAll('.film-map__still'), function (el) {
+    var sig = [Math.round(src.x), Math.round(src.y), Math.round(box.width)].concat(
+      Array.prototype.map.call(tree.querySelectorAll('.film-map__still, .film-map__node--shown .film-map__title'), function (el) {
         var r = el.getBoundingClientRect();
         return Math.round(r.left - box.left) + ',' + Math.round(r.top - box.top) + ',' + Math.round(r.height);
       })).join(' ');
     if (sig === shape) return;
     while (cableLayer.firstChild) cableLayer.removeChild(cableLayer.firstChild);
     cableOf = {};
-    // The introduction's threads, one per branch, in the branches' order.
+    // The introduction's strands: its branches and the projects it shows.
     var targets = [];
-    Array.prototype.forEach.call(tree.querySelectorAll('.film-map__depth--1'), function (node) {
+    Array.prototype.forEach.call(tree.querySelectorAll('.film-map__depth--1, .film-map__node--shown'), function (node) {
       var end = entry(node, box);
-      if (end) targets.push({ key: node.getAttribute('data-map-node'), end: end, ink: inkOf(node) });
+      if (!end) return;
+      var shown = node.classList.contains('film-map__node--shown');
+      targets.push({ key: node.getAttribute('data-map-node'), end: end, ink: shown ? '' : inkOf(node), shown: shown });
     });
     if (!targets.length) return;
     targets.sort(function (a, b) { return a.end.y - b.end.y; });
     var n = targets.length;
+    // The turns stand in the open channel between the panel and the map's
+    // column, clear of the map's own words.
+    var reach = Math.min(Math.min.apply(null, targets.map(function (t) { return t.end.x; })) - 8,
+                         tree.getBoundingClientRect().left - box.left - 4);
     var x0 = src.x + 1;
+    // The turns stand in the open channel between the panel and the frames;
+    // the lowest strand turns first, so no strand crosses another.
+    var ups = targets.filter(function (t, i) { t.y0 = src.y + (i - (n - 1) / 2) * SP; return t.end.y < t.y0 - 2 * R; });
+    var downs = targets.filter(function (t) { return t.end.y > t.y0 + 2 * R; }).reverse();
+    var room = Math.max(ups.length, downs.length);
+    var first = Math.max(x0 + R + 6, (x0 + reach) / 2 - (room - 1) * VS / 2);
+    ups.forEach(function (t, i) { t.turn = first + i * VS; });
+    downs.forEach(function (t, i) { t.turn = first + i * VS; });
     if (src.lead !== null && src.lead < x0) {
-      add('lead', 'M ' + src.lead + ' ' + (src.top + src.bottom) / 2 + ' H ' + x0, 'film-map__cable film-map__cable--lead');
+      add('lead', 'M ' + src.lead + ' ' + src.y + ' H ' + x0, 'film-map__cable film-map__cable--lead');
     }
-    var spread = src.bottom - src.top;
-    targets.forEach(function (t, i) {
-      var y0 = spread > 0 ? src.top + (n > 1 ? spread * i / (n - 1) : spread / 2)
-                          : src.top + (i - (n - 1) / 2) * SP;
+    targets.forEach(function (t) {
       var ex = t.end.x - 6;
-      add(t.key, thread(x0 + 3, y0, ex, t.end.y), 'film-map__cable ' + t.ink, { x: ex, y: t.end.y },
-          spread > 0 ? { x: x0 + 3, y: y0 } : null);
+      add(t.key, strand(x0, t.y0, t.turn || first, ex, t.end.y),
+          'film-map__cable' + (t.shown ? ' film-map__cable--quiet' : ' ' + t.ink), t.shown ? null : { x: ex, y: t.end.y });
     });
     // A branch's reach to the film it leads to, across the gap between them.
     var gap = parseFloat(window.getComputedStyle(tree).columnGap) || 40;
@@ -580,6 +588,18 @@
     });
     tree.addEventListener('pointerleave', function () { pointed = null; stopBead(); trace(null); rest(); });
   }
+  // A project without a still: its name is the link in the Tab order; the
+  // rest of its entry is that link's mouse-only twin, as a film's still is.
+  tree.addEventListener('click', function (event) {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    var t = event.target;
+    if (!t || !t.closest || t.closest('a[href]')) return;
+    var card = t.closest('.film-map__card--text');
+    var link = card ? card.querySelector('.film-map__title a') : null;
+    if (!link) return;
+    try { if (String(window.getSelection())) return; } catch (e) {}
+    link.click();
+  });
   /* Arrow keys move between the map's entries: up and down through the
      branches (and the projects under them), right from a branch to the film
      it leads to, left back; Home and End to the first and last. Tab keeps

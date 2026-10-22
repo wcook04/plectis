@@ -39,7 +39,7 @@ Do not infer results from private or unreleased work.
 ## For a first look: #257
 
 Start with the [introductory paper](paper/257/erdos257-expository-sums-never-fractions.pdf)
-or [#257 video](https://www.youtube.com/watch?v=crpv9N4R7qw): examples followed by
+or [#257 video](https://www.youtube.com/watch?v=vXgIBy5C5X0): examples followed by
 a proof for infinite choices of exponents whose reciprocals have a finite sum.
 Erdős stated this result in 1968.
 
@@ -79,9 +79,9 @@ its assumptions, earlier work and remaining questions.
 
 ## Watch the videos
 
-- [Plectis introduction (v2)](https://www.youtube.com/watch?v=Ut9068O-HGU): why I use AI to explain its research and software.
-- [The maths map](https://www.youtube.com/watch?v=4QGO80qDDc4): a tour from checked statements through research records and papers to explanations.
-- [Erdős #257 explanation](https://www.youtube.com/watch?v=crpv9N4R7qw): examples and a proof under Erdős's reciprocal-summability condition; the unrestricted problem remains open.
+- [Plectis introduction](https://www.youtube.com/watch?v=U1z2-XaLe_w): why I use AI to explain its research and software.
+- [The maths map](https://www.youtube.com/watch?v=J2sX6nj3jOk): a tour from checked statements through research records and papers to explanations.
+- [Erdős #257 explanation](https://www.youtube.com/watch?v=vXgIBy5C5X0): examples and a proof under Erdős's reciprocal-summability condition; the unrestricted problem remains open.
 
 <a id="about-the-project"></a>
 
