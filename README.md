@@ -21,7 +21,7 @@ three supplied claims against a disposable Git repository and an actual pytest
 run, and rejects four deliberately incorrect claims. It is a worked experiment,
 not a general audit of your agent or project.
 
-## Try the repository tour
+### Try the repository tour
 
 For a first look, run the tour with Python 3.11 or newer. No installation or
 model account is needed:
