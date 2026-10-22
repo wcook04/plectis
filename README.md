@@ -9,7 +9,7 @@ their sources. This repository is a public research prototype, with selected
 components from Will Cook's larger private workbench.
 
 [Start in a terminal](#try-the-repository-tour) · [Worked examples](#see-it-work) ·
-[Plectis introduction](https://www.youtube.com/watch?v=K87Qk0W7-lk) ·
+[Plectis introduction](https://www.youtube.com/watch?v=U1z2-XaLe_w) ·
 [Plectis website](https://wcook04.github.io/plectis/) · [Documentation](docs/README.md)
 
 For example, an agent says “I committed the fix and the tests passed.” The
@@ -349,10 +349,10 @@ recordings and their subjects.
 
 | Film | What it shows |
 |---|---|
-| [Plectis introduction](https://www.youtube.com/watch?v=K87Qk0W7-lk) | The research programme and why its results need to be inspectable by other people. |
-| [Code Map](https://www.youtube.com/watch?v=wkMZ6FI8RvM) | A private interface for exploring saved source descriptions and code connections. Cloning this toolkit does not install that interface. |
-| [One Checkout](https://www.youtube.com/watch?v=7Jhvcw8yshk) | A selected patch committed while other edits stay in the shared folder. The standalone tool has its [own repository](https://github.com/wcook04/one-checkout). |
-| [Safety Core](https://www.youtube.com/watch?v=xp-CYdvPFps) | Editable agent rules and a narrow check tested against an invented-setting workaround. The rulebook toolkit has its [own repository](https://github.com/wcook04/safety-core). |
+| [Plectis introduction](https://www.youtube.com/watch?v=U1z2-XaLe_w) | The research programme and why its results need to be inspectable by other people. |
+| [Code Map](https://www.youtube.com/watch?v=Srrnh6D94E8) | A private interface for exploring saved source descriptions and code connections. Cloning this toolkit does not install that interface. |
+| [One Checkout](https://www.youtube.com/watch?v=hIUgqeg1_Mw) | A selected patch committed while other edits stay in the shared folder. The standalone tool has its [own repository](https://github.com/wcook04/one-checkout). |
+| [Safety Core](https://www.youtube.com/watch?v=oN4ZaCWqfhY) | Editable agent rules and a narrow check tested against an invented-setting workaround. The rulebook toolkit has its [own repository](https://github.com/wcook04/safety-core). |
 
 ### Where this toolkit fits
 
