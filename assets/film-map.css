@@ -149,8 +149,9 @@
 .film-map .film-map__still { display: block; border-radius: 8px; color: inherit; }
 .film-map__node--root .film-map__still { border-radius: 10px; }
 .film-map__title {
+  text-align: left;
   margin: 0.8rem 0 0; font-family: var(--font-serif); font-weight: 400; color: var(--ink);
-  font-size: 1.2rem; line-height: 1.2; letter-spacing: -0.01em; text-wrap: balance;
+  font-size: 1.2rem; line-height: 1.2; letter-spacing: -0.01em; text-wrap: wrap;
 }
 .film-map__node--root .film-map__title { font-size: clamp(1.5rem, 1.02rem + 1.05vw, 2.05rem); line-height: 1.12; margin-top: 1rem; }
 .film-map__title a {
@@ -194,15 +195,15 @@
   grid-template-areas: "still title" "still meta" "text text";
   grid-template-rows: auto 1fr auto; column-gap: 0.85rem;
 }
-/* "or" opens the longer introduction's entry, on its dotted elbow. */
-.film-map__node--alternate .film-map__card {
-  grid-template-areas: "or or" "still title" "still meta" "text text";
-  grid-template-rows: auto auto 1fr auto;
+/* Keep the original introduction available as a quiet text link. */
+.film-map__node--alternate .film-map__card { display: block; }
+.film-map__node--alternate .film-map__card .film-map__title {
+  font-family: var(--font-sans); font-size: 0.94rem; font-weight: 400;
 }
 .film-map__node--branch .film-map__frame,
 .film-map__node--alternate .film-map__frame { grid-area: still; align-self: start; }
 .film-map__node--branch .film-map__title,
-.film-map__node--alternate .film-map__title { grid-area: title; margin-top: 0; font-size: 1.1rem; }
+.film-map__node--alternate .film-map__title { grid-area: title; margin-top: 0; font-size: 1.1rem; text-wrap: wrap; }
 .film-map__node--branch .film-map__meta,
 .film-map__node--alternate .film-map__meta { grid-area: meta; }
 .film-map__node--branch .film-map__text,
@@ -671,8 +672,8 @@ html.scripting .film-map__readings-lead { display: none; }
      the seven current projects and the films they lead to. */
   .film-map--home .film-map__layout {
     position: relative;
-    grid-template-columns: minmax(0, 4.6fr) minmax(0, 7.4fr);
-    column-gap: clamp(40px, 4vw, 64px); align-items: start;
+    grid-template-columns: minmax(0, 4.2fr) minmax(0, 7.8fr);
+    column-gap: clamp(32px, 3vw, 48px); align-items: start;
   }
   .film-map--home .film-map__stage { grid-column: 2; grid-row: 1; min-width: 0; }
   .film-map--home .film-map__readings { grid-column: 1; grid-row: 1; margin: 0; padding: 0; border: 0; min-width: 0; }
@@ -735,13 +736,13 @@ html.scripting .film-map__readings-lead { display: none; }
   /* The stage: one row per branch, the branch's project and the film it
      leads to side by side, a quiet trunk in the channel on the left. */
   .film-map--home .film-map__tree {
-    --fm-col: clamp(36px, 3vw, 48px);
-    --fm-thumb: clamp(120px, 9.4vw, 142px);
-    --fm-thumb-2: clamp(96px, 7.2vw, 110px);
+    --fm-col: clamp(24px, 2vw, 32px);
+    --fm-thumb: clamp(112px, 8.4vw, 128px);
+    --fm-thumb-2: var(--fm-thumb);
     --fm-row: 16px;
     --fm-y: calc(var(--fm-thumb) * 9 / 32);
     display: grid; align-items: start; padding-left: var(--fm-col);
-    grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: var(--fm-col); row-gap: var(--fm-row);
   }
   .film-map--home .film-map__node { position: relative; padding: 0; min-width: 0; }
@@ -769,11 +770,11 @@ html.scripting .film-map__readings-lead { display: none; }
   .film-map--home .film-map__node--branch > .film-map__wire { grid-area: edge; position: static; margin: 0; }
   .film-map--home .film-map__node--branch .film-map__title { grid-area: title; }
   .film-map--home .film-map__node--branch .film-map__purpose { grid-area: text; }
-  .film-map--home .film-map__node--branch.film-map__depth--2 { grid-template-columns: var(--fm-thumb-2) minmax(0, 1fr); column-gap: 0.8rem; }
+  .film-map--home .film-map__node--branch.film-map__depth--2 { grid-template-columns: var(--fm-thumb-2) minmax(0, 1fr); column-gap: 0.9rem; }
   .film-map--home .film-map__depth--2 .film-map__purpose { display: none; }
   .film-map--home .film-map__depth--2 .film-map__edge { position: static; margin: 0 0 0.1rem; font-size: 0.8rem; line-height: 1.3; }
   .film-map--home .film-map__node--branch .film-map__title,
-  .film-map--home .film-map__card--text .film-map__title { margin: 0; font-size: 1.08rem; line-height: 1.22; }
+  .film-map--home .film-map__card--text .film-map__title { margin: 0; font-size: 1.08rem; line-height: 1.22; text-align: left; align-self: center; }
   .film-map--home .film-map__node .film-map__purpose { margin-top: 0.25rem; font-size: 0.86rem; line-height: 1.42; }
   .film-map--home .film-map__node--branch .film-map__text { display: none; }
   .film-map--home .film-map__node .home-video__duration { right: 0.3rem; bottom: 0.3rem; padding: 0 0.3rem; font-size: 0.7rem; }
