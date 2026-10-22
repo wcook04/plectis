@@ -279,15 +279,15 @@
       "still_inset": null,
       "poster": "assets/films/thumbnails-20261021/mathematics.png",
       "release": {
-        "edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
-        "approved_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
-        "hosted_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
-        "thumbnail_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
-        "transcript_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
+        "edition_sha256": "c828e5b9f2bdec213df53ae1908c6849235577987b7cb7414794048d3697e06b",
+        "approved_edition_sha256": "c828e5b9f2bdec213df53ae1908c6849235577987b7cb7414794048d3697e06b",
+        "hosted_edition_sha256": "c828e5b9f2bdec213df53ae1908c6849235577987b7cb7414794048d3697e06b",
+        "thumbnail_edition_sha256": "c828e5b9f2bdec213df53ae1908c6849235577987b7cb7414794048d3697e06b",
+        "transcript_edition_sha256": "c828e5b9f2bdec213df53ae1908c6849235577987b7cb7414794048d3697e06b",
         "publication_authorized": true,
         "url": "https://www.youtube.com/watch?v=vXgIBy5C5X0",
         "upload_date": "2026-10-22",
-        "duration_seconds": 1812,
+        "duration_seconds": 1800,
         "thumbnail": "assets/films/thumbnails-20261021/mathematics.png",
         "thumbnail_sha256": "2484ebcf275096f053f53eccaea7788bf60ac14d7730053f868a02e3a2a10f99",
         "transcript": {
@@ -313,27 +313,27 @@
             "title": "Why the square condition is finite"
           },
           {
-            "seconds": 975,
+            "seconds": 970,
             "title": "Why row averages use reciprocals"
           },
           {
-            "seconds": 1214,
+            "seconds": 1209,
             "title": "Bound the unfinished cycles"
           },
           {
-            "seconds": 1434,
+            "seconds": 1429,
             "title": "Test a proposed denominator of five"
           },
           {
-            "seconds": 1722,
+            "seconds": 1710,
             "title": "The formal proof and its limits"
           }
         ]
       },
       "category": "maths",
-      "preview_duration_seconds": 1812,
+      "preview_duration_seconds": 1800,
       "detail": "I start with what an infinite sum means, then work through the example where the chosen exponents keep doubling. From there I explain the restriction on the remainder a fraction can leave, and how averaging lets us extend the argument to other choices. The condition is that adding one divided by each chosen exponent gives a finite total. I also go through where this method stops and how the result relates to the proof written in Lean.",
-      "accepted_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
+      "accepted_edition_sha256": "c828e5b9f2bdec213df53ae1908c6849235577987b7cb7414794048d3697e06b",
       "repo": {
         "href": "https://github.com/wcook04/plectis-erdos"
       },
@@ -471,6 +471,58 @@
           "publication_authorized": true,
           "url": "https://www.youtube.com/watch?v=wuVtWxGE9eA",
           "upload_date": "2026-10-21",
+          "duration_seconds": 1812,
+          "thumbnail": "assets/films/thumbnails-20261021/mathematics.png",
+          "thumbnail_sha256": "2484ebcf275096f053f53eccaea7788bf60ac14d7730053f868a02e3a2a10f99",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "Erdős problem 257 asks what happens when you choose infinitely many different entries from 1, 1/3, 1/7, 1/15, and so on, and add them. Must the total be irrational, meaning it cannot equal a fraction of two whole numbers? The full question is still open; in this video I explain a known partial result.",
+            "sha256": "82fe6c33bb5604c8d73854a26c2f618d910b053f71151d8285272306a47ab418"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "The fixed list and open question"
+            },
+            {
+              "seconds": 212,
+              "title": "The extra condition"
+            },
+            {
+              "seconds": 399,
+              "title": "Multiply the sum and remove whole numbers"
+            },
+            {
+              "seconds": 638,
+              "title": "Why the square condition is finite"
+            },
+            {
+              "seconds": 975,
+              "title": "Why row averages use reciprocals"
+            },
+            {
+              "seconds": 1214,
+              "title": "Bound the unfinished cycles"
+            },
+            {
+              "seconds": 1434,
+              "title": "Test a proposed denominator of five"
+            },
+            {
+              "seconds": 1722,
+              "title": "The formal proof and its limits"
+            }
+          ]
+        },
+        {
+          "edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
+          "approved_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
+          "hosted_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
+          "thumbnail_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
+          "transcript_edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=vXgIBy5C5X0",
+          "upload_date": "2026-10-22",
           "duration_seconds": 1812,
           "thumbnail": "assets/films/thumbnails-20261021/mathematics.png",
           "thumbnail_sha256": "2484ebcf275096f053f53eccaea7788bf60ac14d7730053f868a02e3a2a10f99",

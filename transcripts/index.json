@@ -1,6 +1,6 @@
 {
   "schema": "plectis_film_transcript_index_v1",
-  "source_snapshot_sha256": "1ffd2dce523078ff9e321f813b3312f3a796e1d36f68460cb71e9fd9e2b986bf",
+  "source_snapshot_sha256": "bc56710ce078a515dec6dc3f6eac757d9204fe4d53e0d2a46b62623abad65eab",
   "films": [
     {
       "film_id": "introduction",
@@ -83,7 +83,7 @@
       "film_id": "mathematics",
       "title": "Erdős #257: why some infinite sums cannot be fractions",
       "url": "https://www.youtube.com/watch?v=vXgIBy5C5X0",
-      "edition_sha256": "1b39988f253e1b45782c6b8bb4a020eece99cd45999a20c12eff3d0ab08958b6",
+      "edition_sha256": "c828e5b9f2bdec213df53ae1908c6849235577987b7cb7414794048d3697e06b",
       "scope": "edited_reading_transcript",
       "path": "transcripts/mathematics.txt",
       "sha256": "d1803f9596425e576a0cbc2fd09977c6f541ebdf096b78685c2ed4cea5cbe80f",
