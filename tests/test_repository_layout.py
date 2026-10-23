@@ -21,11 +21,11 @@ POLICY = json.loads((ROOT / layout.POLICY).read_text())
     "src/example.pyc",
 ])
 def test_rejects_misplaced_program(path):
-    assert layout.violations(POLICY["required_paths"] + [path], POLICY)
+    assert layout.violations(layout.required_paths(POLICY) + [path], POLICY)
 
 
 def test_roles_and_historical_source_copies_remain_valid():
-    paths = POLICY["required_paths"] + [
+    paths = layout.required_paths(POLICY) + [
         "scripts/build/build_map.py", "scripts/check/check_map.py",
         "scripts/release/package.py", "scripts/inspect/card.py",
         "scripts/papers/build_index.py", "tests/test_gate.py",
@@ -48,7 +48,7 @@ def test_index_sees_staged_additions_and_deletions_ignores_local_output(tmp_path
     git("add", ".gitignore", "scripts/misplaced.py")
     paths = layout.candidate_paths(tmp_path)
     assert paths == [".gitignore", "scripts/misplaced.py"]
-    assert layout.violations(POLICY["required_paths"] + paths, POLICY)
+    assert layout.violations(layout.required_paths(POLICY) + paths, POLICY)
     git("rm", "--cached", "scripts/misplaced.py")
     assert "scripts/misplaced.py" not in layout.candidate_paths(tmp_path)
 
@@ -72,3 +72,8 @@ def test_build_ignore_does_not_hide_maintained_builders(tmp_path):
             capture_output=True,
         )
         assert result.returncode == expected, (relative, result.stdout, result.stderr)
+
+
+def test_legacy_and_composed_required_paths():
+    assert layout.required_paths({"required_paths": ["README.md"]}) == ["README.md"]
+    assert layout.required_paths({"required_files": ["README.md"], "required_paths": ["README.md", "AGENTS.md"]}) == ["AGENTS.md", "README.md"]

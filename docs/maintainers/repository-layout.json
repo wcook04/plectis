@@ -8,13 +8,137 @@
     "inspect": "Print compact inspection cards",
     "papers": "Maintain the publication corpus and its indexes"
   },
-  "required_paths": [
-    "README.md",
+  "exceptions": {},
+  "schema": "repository_layout@2",
+  "root_files": [
+    ".gitignore",
     "AGENTS.md",
+    "AGENTS.override.md",
+    "AGENT_ROUTES.md",
+    "ANTI_PRINCIPLES.md",
+    "ARCHITECTURE.md",
+    "AXIOMS.md",
+    "CHANGELOG.md",
+    "CITATION.cff",
+    "CLAUDE.md",
+    "CONTRIBUTING.md",
+    "FIRST_ACTION.md",
+    "GEMINI.md",
+    "LICENSE",
+    "MANIFEST.in",
+    "Makefile",
+    "NOTICE",
+    "ORGANS.md",
+    "PRINCIPLES.md",
+    "PROVENANCE.md",
+    "QUICKSTART.md",
+    "README.md",
+    "RELEASE_REVIEW.md",
+    "SECURITY.md",
+    "SOURCE_STATUS.md",
+    "bootstrap.sh",
+    "plectis-public-system.pdf",
+    "pyproject.toml"
+  ],
+  "directories": {
+    ".github": {
+      "purpose": "CI workflows and contributor templates"
+    },
+    "assets": {
+      "purpose": "documentation illustrations and provenance"
+    },
+    "atlas": {
+      "purpose": "generated runtime navigation and indexes"
+    },
+    "core": {
+      "purpose": "component inventory and runtime contracts"
+    },
+    "docs": {
+      "purpose": "authored documentation, checked indexes and publication records",
+      "suffixes": [
+        ".md",
+        ".json",
+        ".jsonl",
+        ".pdf",
+        ".tex",
+        ".png",
+        ".jpg",
+        ".svg",
+        ".yaml"
+      ]
+    },
+    "examples": {
+      "purpose": "runnable and synthetic examples"
+    },
+    "fixtures": {
+      "purpose": "bounded executable specimens"
+    },
+    "paper": {
+      "purpose": "manuscript sources and reviewed publication artifacts",
+      "suffixes": [
+        ".md",
+        ".json",
+        ".pdf",
+        ".tex",
+        ".sty"
+      ]
+    },
+    "paper_modules": {
+      "purpose": "authored mechanism exposition and its indexes"
+    },
+    "receipts": {
+      "purpose": "checked runtime and publication evidence"
+    },
+    "scripts": {
+      "purpose": "developer maintenance commands and their fixtures",
+      "suffixes": [
+        ".py",
+        ".js",
+        ".mjs",
+        ".sh",
+        ".md"
+      ]
+    },
+    "skills": {
+      "purpose": "self-contained agent workflows and their executable helpers"
+    },
+    "src": {
+      "purpose": "installed Python runtime and library modules"
+    },
+    "standards": {
+      "purpose": "machine-readable component contracts"
+    },
+    "tests": {
+      "purpose": "behavior and integration tests",
+      "suffixes": [
+        ".py"
+      ]
+    }
+  },
+  "required_files": [
+    ".github/workflows/repository-layout.yml",
+    "AGENTS.md",
+    "README.md",
+    "docs/maintainers/repository-layout.json",
     "scripts/README.md",
     "scripts/check/check_repository_layout.py",
-    "docs/maintainers/repository-layout.json",
+    "skills/repository-organization/SKILL.md",
+    "skills/repository-organization/scripts/check_layout.py",
+    "skills/repository-organization/scripts/test_check_layout.py",
     "tests/test_repository_layout.py"
   ],
-  "exceptions": {}
+  "content_routes": {
+    "AGENTS.md": [
+      "skills/repository-organization/SKILL.md"
+    ],
+    "README.md": [
+      "docs/maintainers/repository-layout.json",
+      "python3 skills/repository-organization/scripts/check_layout.py --config docs/maintainers/repository-layout.json"
+    ],
+    ".github/workflows/repository-layout.yml": [
+      "python3 skills/repository-organization/scripts/check_layout.py --config docs/maintainers/repository-layout.json",
+      "python3 skills/repository-organization/scripts/test_check_layout.py"
+    ]
+  },
+  "undeclared_directories": "warn"
 }

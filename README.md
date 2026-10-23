@@ -396,3 +396,23 @@ licensed under Apache 2.0, with details in [LICENSE](LICENSE) and [NOTICE](NOTIC
 The companion's [current results guide](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md)
 owns its mathematical claims. This toolkit's recorded source and release links
 are preserved in the [companion reference](docs/reference/lean-companion.md).
+
+## Maintaining the tree
+
+The [directory role policy](docs/maintainers/repository-layout.json) preserves root interfaces,
+source homes and documented compatibility exceptions. The
+[organisation skill](skills/repository-organization/SKILL.md) explains changes;
+CI checks placements and required agent/validation routes. From the repository root:
+
+```sh
+python3 skills/repository-organization/scripts/check_layout.py --config docs/maintainers/repository-layout.json
+python3 skills/repository-organization/scripts/test_check_layout.py
+```
+
+After staging owned changes, add `--index` to the first command to check the staged
+policy and staged route contents. Ignored build outputs are outside this inventory.
+
+Custom folders are welcome: declare their purpose in `docs/maintainers/repository-layout.json`.
+Undeclared folders produce a warning; declared placement rules still apply.
+See the [organisation workflow](skills/repository-organization/SKILL.md) for adding
+folders and generalising useful local lessons.
