@@ -804,12 +804,18 @@ def test_make_venv_reuse_is_bound_to_the_selected_python(tmp_path: Path) -> None
     )
 
     def selected_venv(python: Path) -> str:
+        # This probe tests default selection, not an outer `make test VENV=...`
+        # override propagated to recursive make through MAKEFLAGS.
+        env = {key: value for key, value in os.environ.items()
+               if key not in {"MAKEFLAGS", "MAKEOVERRIDES", "MFLAGS", "VENV",
+                              "VENV_PYTHON", "PYTHON_ENV_KEY", "PYTEST_TMP_KEY"}}
         result = subprocess.run(
             [
                 "make", "--no-print-directory", "-s", "-f", str(probe_makefile),
                 "print-selected-venv", f"PYTHON={python}", f"TMPDIR={tmp_path}",
             ],
             cwd=MICROCOSM_ROOT,
+            env=env,
             check=True,
             capture_output=True,
             text=True,

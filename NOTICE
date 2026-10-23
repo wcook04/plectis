@@ -5,3 +5,8 @@ This product includes software developed by William Cook.
 This project was developed with AI-assisted coding and research tools.
 No endorsement by OpenAI, Anthropic, Anysphere/Cursor, the University of
 Bristol, or any other third-party tool or institution is implied.
+
+The generated Repair and Compatibility support runtimes include Dafny code.
+Dafny is MIT licensed; the upstream copyright and full licence are retained in
+src/plectis/repair/_generated/Dafny-LICENSE.txt and
+src/plectis/compatibility/_generated/Dafny-LICENSE.txt.

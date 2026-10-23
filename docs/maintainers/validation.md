@@ -231,3 +231,12 @@ make ci
 
 A successful run establishes that those commands worked in that exported
 copy. It does not authorize release.
+
+## Isolate checks of build defaults
+
+A nested `make` inherits command-line overrides through `MAKEFLAGS`. Tests of
+its default interpreter or environment selection must clear those inherited
+flags and the specific override they are measuring. An explicit outer
+`make test VENV=...` is valid usage and must not silently choose the nested
+probe's answer. Keep this isolation local to the probe rather than disabling
+resource or environment guards for the whole suite.

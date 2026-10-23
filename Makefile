@@ -1,4 +1,5 @@
 PYTHON ?= python3
+DAFNY ?= dafny
 TMPDIR ?= /tmp
 PYTEST_TMP_KEY ?= $(shell "$(PYTHON)" -c 'import hashlib, os; print(hashlib.sha256(os.getcwd().encode()).hexdigest()[:12])')
 PYTEST_TMP_KEY := $(PYTEST_TMP_KEY)
@@ -57,6 +58,8 @@ PUBLIC_TESTS ?= \
 	tests/test_release_candidate_proof.py \
 	tests/test_release_review_contract.py \
 	tests/test_public_site_parity.py
+OPERATIONS_TESTS = tests/test_repair.py tests/test_repair_api.py tests/test_publish.py tests/test_compatibility.py tests/test_operations_integration.py tests/test_operations_boundaries.py tests/test_operations_portability.py
+PUBLIC_TESTS += $(OPERATIONS_TESTS)
 PUBLIC_TESTS += tests/test_public_system_paper.py
 PUBLIC_TESTS += tests/test_hypothesis_handoff.py
 PUBLIC_TESTS += tests/test_substrate_substitution_ledger.py
@@ -103,6 +106,7 @@ PUBLIC_TESTS += tests/test_runtime_shell.py tests/test_cli.py tests/test_bridge_
 PUBLIC_TESTS += tests/test_crown_jewel_common.py tests/test_source_module_boundary.py tests/test_runtime_demo_freshness.py
 PUBLIC_TESTS += tests/test_mission_transaction_work_spine.py::test_public_omitted_runtime_reports_unavailable_without_execution
 
+.PHONY: operations-demo operations-test verify-operations
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card
 .PHONY: flight-recorder flight-recorder-verify
@@ -112,6 +116,9 @@ PUBLIC_TESTS += tests/test_mission_transaction_work_spine.py::test_public_omitte
 help:
 	@printf '%s\n' \
 		"Plectis commands:" \
+		"  make operations-demo     run the local workflow-change experiment" \
+		"  make operations-test     test the portable operation APIs" \
+		"  make verify-operations   recheck proofs with DAFNY=/path/to/dafny" \
 		"  make install             create temp venv and install test extras" \
 		"  make test                run public entry and safety tests" \
 		"  make test-all            run full suite with pytest receipt writes blocked" \
@@ -199,9 +206,21 @@ package-smoke:
 	@# Preserve rejected paths and failed-run evidence; clean only a successful run.
 	@status=0; "$(PYTHON)" scripts/release/package_install_smoke.py --source-root . --work-dir "$(PACKAGE_SMOKE_TMP)" --python "$(PYTHON)" || status=$$?; if [ "$$status" -eq 0 ] && [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status
 
+operations-demo:
+	@PYTHONPATH=src "$(PYTHON)" examples/operations/evaluation.py --format text
+
+operations-test: install
+	@PYTHONPATH=src "$(VENV_PYTHON)" -m pytest $(OPERATIONS_TESTS) $(PYTEST_ARGS)
+
+verify-operations:
+	@"$(PYTHON)" scripts/check/check_repair_kernel.py --dafny "$(DAFNY)"
+	@"$(PYTHON)" scripts/check/check_compatibility_kernel.py --dafny "$(DAFNY)"
+
 ci: check test smoke package-smoke
 
 check preflight:
+	@"$(PYTHON)" scripts/check/check_repair_kernel.py
+	@"$(PYTHON)" scripts/check/check_compatibility_kernel.py
 	@"$(PYTHON)" scripts/check/check_repository_layout.py
 	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -c "from microcosm_core.runtime_shell import _load_evidence_class_registry; from pathlib import Path; _load_evidence_class_registry(Path('.'))"
 	@"$(PYTHON)" scripts/check/check_lean_proof_trust.py

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "source": "Compatibility.dfy",
+  "source_sha256": "5080b4f26ea23740dbf64f885abd789c18b9099dab40bf5cab0518401bd1d138",
+  "negative_source": "negative/CompatibilityOutputMutant.dfy",
+  "negative_source_sha256": "178be130b1a8410030ed7eef660701f8cecb0918620a2b3a1151381eaf28a5dd",
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "verified_tasks": 14,
+  "negative_verified_tasks": 13,
+  "negative_errors": 1,
+  "generated_python": {
+    "Compatibility.py": "5b39607089e206ad9889526c828dc12a749eba75a735f7572a7da5e99b2bed1c",
+    "module_.py": "09391ec34a11762f7125a8b95ecc1614e0f610dc65a11622cc842aea38f7e742",
+    "__main__.py": "f5727b2c424d02daa2c788aab4c7f6195adafe246daa598a58863f517d5f20c2",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf"
+  },
+  "origin": "Plectis mechanisation of standard deterministic forward simulation and portable adapter, 23 October 2026; informed by supplied p12 and p15 research returns. No general novelty claim.",
+  "toolchain": "https://github.com/dafny-lang/dafny/releases/tag/v4.11.0",
+  "runtime_license": "MIT (Dafny); licence retained beside generated files",
+  "trust": "Dafny/Boogie/Z3, compiler, runtime, parser/encoding and concrete-model correspondence remain trusted.",
+  "research_returns": [
+    {
+      "return": "p12",
+      "date": "2026-10-23",
+      "source": "p12-return/FORMAL_MODEL.md",
+      "sha256": "a6e95fbb6f01b1a249b726ef70984ad7f9631dd5c293ade26402c714b475d9b4",
+      "role": "research return informing interface, theorem obligation and tests; not external proof acceptance"
+    },
+    {
+      "return": "p15",
+      "date": "2026-10-23",
+      "source": "p15-return/artifact/SPECIFICATION.md",
+      "sha256": "584e8c82f452c11c674e450f727ff29f23ef9a9b2fe07050f979a95f2a6dc8ac",
+      "role": "research return informing interface, theorem obligation and tests; not external proof acceptance"
+    },
+    {
+      "return": "p12",
+      "date": "2026-10-23",
+      "source": "p12-return/artifacts/refinement/refine.py",
+      "sha256": "3ca150922f047b819c30732d137776fbb05d788cdb97f8bd00bb750544a23d49",
+      "role": "research source adapted for interface/search or strict input checks; not deployed as the certificate acceptance kernel"
+    },
+    {
+      "return": "p12",
+      "date": "2026-10-23",
+      "source": "p12-return/artifacts/refinement/check_certificate.py",
+      "sha256": "80a8776115b264a636a4d2d387ce7067599f27808bc805c3bcd18b75330709a1",
+      "role": "research source adapted for interface/search or strict input checks; not deployed as the certificate acceptance kernel"
+    },
+    {
+      "return": "p15",
+      "date": "2026-10-23",
+      "source": "p15-return/artifact/review_transfer.py",
+      "sha256": "8353daf9614652086a85be89df6a421ea4289796380735f4ffb395c7020d01f8",
+      "role": "research source adapted for interface/search or strict input checks; not deployed as the certificate acceptance kernel"
+    }
+  ]
+}

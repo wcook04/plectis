@@ -24,6 +24,15 @@ instance inputs are not included in this distribution; do not overwrite it
 with a zero-instance report from a standalone checkout.
 See the [maintenance guide](../docs/maintainers/architecture.md).
 
+## Formal operations
+
+`make verify-operations DAFNY=/path/to/dafny` runs both proof checkers in
+`check/`, regenerates the executable Python and compares its bytes, and requires
+negative specifications to fail. Without `--dafny`, those scripts only check
+recorded hashes. `release/verify_operations_install.py` exercises the APIs from
+an installed interpreter in isolated mode; `make package-smoke` includes it.
+See [formal/README.md](../formal/README.md) for assumptions and reproduction.
+
 ## Earlier command paths
 
 The following maintenance programs moved on 13 October 2026. Historical papers

@@ -406,6 +406,10 @@ where = ["src"]
         '{"intentional": true}\n',
     )
     _write(root / "fixtures/fixture.json", '{"fixture": true}\n')
+    _write(
+        root / "formal/fixture/Identity.dfy",
+        "lemma Identity(value: int)\n  ensures value == value\n{\n}\n",
+    )
     _write(root / "paper_modules/cold_clone_probe.md", "# Cold clone\n")
     _write(root / "scripts/inspect/first_screen_composition_card.py", "print('ok')\n")
     _write(root / "skills/cold_start_navigation.md", "# Cold start\n")
@@ -631,6 +635,9 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert (target / "ORGANS.md").is_file()
     assert (target / "NOTICE").is_file()
     assert (target / "PROVENANCE.md").is_file()
+    assert (target / "formal/fixture/Identity.dfy").read_bytes() == (
+        root / "formal/fixture/Identity.dfy"
+    ).read_bytes()
     assert (target / "Makefile").is_file()
     assert (target / ".github/workflows/ci.yml").is_file()
     assert (target / "CONTRIBUTING.md").is_file()

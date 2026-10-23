@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "Repair.dfy",
+  "source_sha256": "4dadd7f96a92c38151371a0314ea38960f8f53aceb2f7ab2946d4b159834679a",
+  "negative_source": "negative/RepairPropagationMutant.dfy",
+  "negative_source_sha256": "8312df60037a2174b5b1e25a533ba99629b2e86657edac606b9aefaa5ac753b9",
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "verified_tasks": 21,
+  "negative_verified_tasks": 19,
+  "negative_errors": 3,
+  "generated_python": {
+    "Repair.py": "5d1c9d083f291a1519096607c42dfa1b555396fcdf4cefbe5cfde21b76a604d3",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "__main__.py": "7532757333607d66e4e2380985daa3ac8d6626fd8105e257e40ab0ec3729f669",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "fd795be0c3d27b2ad1d76be29607df6485db97662a935b4e792c575956ba49f4"
+  },
+  "origin": "Original Plectis Repair research prototype, 23 October 2026, adapted into the portable public API. Formal source and generated Python bytes retained unchanged.",
+  "toolchain": "https://github.com/dafny-lang/dafny/releases/tag/v4.11.0",
+  "runtime_license": "MIT (Dafny); retain src/plectis/repair/_generated/Dafny-LICENSE.txt",
+  "trust": "Dafny/Boogie/Z3, Python compiler/runtime and host interpretation remain trusted; host is not formally verified."
+}

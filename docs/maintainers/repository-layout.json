@@ -14,7 +14,10 @@
     "scripts/README.md",
     "scripts/check/check_repository_layout.py",
     "docs/maintainers/repository-layout.json",
-    "tests/test_repository_layout.py"
+    "tests/test_repository_layout.py",
+    "formal/README.md",
+    "docs/guides/verification-study.md",
+    "examples/operations/README.md"
   ],
   "exceptions": {}
 }

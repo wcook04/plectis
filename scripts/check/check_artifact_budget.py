@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Measure and bound the shipped public distribution footprint.
 
-Plectis ships a small runtime package (``src/microcosm_core``) *plus* a large
+Plectis ships runtime packages (``src/microcosm_core`` and ``src/plectis``),
+including their declared package data, *plus* a large
 evidence and research corpus — fixtures, exported example bundles, receipts,
 standards, doctrine — declared in ``[tool.setuptools.data-files]`` of
 ``pyproject.toml``. That corpus is the conformance library and reference
@@ -28,7 +29,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PYPROJECT = REPO_ROOT / "pyproject.toml"
-RUNTIME_PACKAGE = REPO_ROOT / "src" / "microcosm_core"
+RUNTIME_PACKAGES = ("microcosm_core", "plectis")
 
 # --- Budget ----------------------------------------------------------------
 # Explicit ceiling for the shipped public distribution. See module docstring:
@@ -44,9 +45,14 @@ RUNTIME_PACKAGE = REPO_ROOT / "src" / "microcosm_core"
 # programs plus the script guide, layout policy, checker and regression fixture.
 # The 24 moved programs replace their old entries, so the net increase is nine:
 # 3,863 -> 3,872. Preserve the existing six-file headroom and both byte ceilings.
+# The 2026-10-23 formal operations add 20 manifest files (3,872 -> 3,892).
+# Correcting the omitted src/plectis package adds 26 shipped files: 22 Python
+# modules (including the three existing aliases) and four declared JSON/TXT
+# resources, 99,822 bytes total. The corrected footprint is 3,918 files; raise
+# only this ceiling by 46 to retain six-file headroom. Byte ceilings stay fixed.
 ARTIFACT_BUDGET = {
     "max_total_bytes": 134_217_728,  # 128 MiB
-    "max_total_files": 3_878,
+    "max_total_files": 3_924,
     "max_data_files_bytes": 120_000_000,  # ~114.4 MiB
 }
 
@@ -100,20 +106,27 @@ def _resolve_data_files() -> tuple[dict[Path, int], dict[str, dict[str, int]]]:
 
 
 def _resolve_runtime_package() -> dict[Path, int]:
-    """
-    Compute resolve runtime package from the caller-supplied state.
-
-    Notable helpers are `rglob`, `is_dir`, `is_file`, and `stat`.
-    """
+    """Count shipped Python modules and manifest-declared package resources."""
     files: dict[Path, int] = {}
-    if not RUNTIME_PACKAGE.is_dir():
-        return files
-    for path in RUNTIME_PACKAGE.rglob("*"):
-        if not path.is_file():
+    roots = [REPO_ROOT / "src" / name for name in RUNTIME_PACKAGES]
+
+    def include(path: Path) -> None:
+        if (path.is_file() and "__pycache__" not in path.parts
+                and path.suffix != ".pyc"):
+            files[path] = path.stat().st_size
+
+    for root in roots:
+        for path in root.rglob("*.py"):
+            include(path)
+    payload = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
+    package_data = payload["tool"]["setuptools"].get("package-data", {})
+    for package, patterns in package_data.items():
+        package_root = REPO_ROOT / "src" / package.replace(".", "/")
+        if not any(package_root.is_relative_to(root) for root in roots):
             continue
-        if "__pycache__" in path.parts or path.suffix == ".pyc":
-            continue
-        files[path] = path.stat().st_size
+        for pattern in patterns:
+            for path in package_root.glob(pattern):
+                include(path)
     return files
 
 

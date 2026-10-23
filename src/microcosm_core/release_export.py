@@ -79,6 +79,7 @@ DEFAULT_INCLUDE_REFS = (
     "docs",
     "examples",
     "fixtures",
+    "formal",
     "paper",
     "paper_modules",
     "plectis-public-system.pdf",

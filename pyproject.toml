@@ -48,7 +48,17 @@ microcosm = "microcosm_core.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+"plectis.repair._generated" = ["*.json", "*.txt"]
+"plectis.compatibility._generated" = ["*.json", "*.txt"]
+
 [tool.setuptools.data-files]
+"share/plectis/formal" = ["formal/README.md"]
+"share/plectis/formal/repair" = ["formal/repair/*.dfy", "formal/repair/*.json", "formal/repair/*.md"]
+"share/plectis/formal/repair/negative" = ["formal/repair/negative/*.dfy"]
+"share/plectis/formal/compatibility" = ["formal/compatibility/*.dfy", "formal/compatibility/*.json", "formal/compatibility/*.md"]
+"share/plectis/formal/compatibility/negative" = ["formal/compatibility/negative/*.dfy"]
+"share/plectis/examples/operations" = ["examples/operations/*.py", "examples/operations/*.md"]
 "share/plectis" = [
   ".gitignore",
   "AGENTS.md",

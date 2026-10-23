@@ -21,6 +21,12 @@ MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 # README link destinations that must exist relative to the README directory.
 _LINKED_SIBLINGS = (
+    "docs/guides/verification-study.md",
+    "docs/guides/repair.md",
+    "docs/guides/publish.md",
+    "docs/guides/compatibility.md",
+    "formal/README.md",
+    "examples/operations/README.md",
     "scripts/README.md",
     "assets/system-map-dark.png",
     "plectis-public-system.pdf",

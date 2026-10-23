@@ -1,17 +1,43 @@
 # Plectis
 
-**Tools for making AI-assisted research easier to inspect and continue.**
+**Small, checkable operations for changing AI-assisted workflows.**
 Plectis is a public research prototype: a Python toolkit of individually
 runnable or adaptable components for checking proofs, testing records of agent
 actions, comparing forecasts and keeping generated documents consistent with
 their sources. It is for researchers and developers who want to inspect a
 mechanism, rerun a prepared experiment or adapt it to a specific task.
 
-For example, an agent says “I committed the fix and the tests passed.” The
-[completion-checking example](docs/guides/checking-agent-completion.md) checks
-three supplied claims against a disposable Git repository and an actual pytest
-run, and rejects four deliberately incorrect claims. It is a worked experiment,
-not a general audit of your agent or project.
+The current experiment asks a simple question: **“I changed this workflow.
+Which results can I keep, and what must run again?”** With Python 3.11+, try:
+
+```bash
+git clone https://github.com/wcook04/plectis && cd plectis
+PYTHONPATH=src python3 examples/operations/evaluation.py --format text
+```
+
+The example changes a scoring rule: eight results are reused, three tasks rerun,
+and one external action stays blocked. An old worker cannot publish over the new
+result. Everything runs locally in a temporary directory, without model calls.
+[Read the walkthrough](docs/guides/verification-study.md), then import the
+operations you need:
+
+| Operation | Question it answers | Evidence |
+|---|---|---|
+| [`plectis.repair`](docs/guides/repair.md) | What can I reuse after a declared change? | Formally verified graph planner and checker; tested Python host. |
+| [`plectis.publish`](docs/guides/publish.md) | Can this worker still publish this result? | SQLite transactions tested against stale workers, retries and failures. |
+| [`plectis.compatibility`](docs/guides/compatibility.md) | Does this replacement preserve the caller's allowed actions and outputs? | Formally verified checker for explicit finite transition models. |
+
+These are independently importable research prototypes. The proofs cover the
+stated graph and transition-model properties; they do not prove arbitrary Python
+callbacks, database implementations or external services correct. The ordinary
+cache baseline makes the same reuse decisions in this example. The experiment
+is about checkable guarantees during change, with usefulness still to evaluate.
+[Proof sources and trust boundaries](formal/README.md) ·
+[Copying and installing the operations](examples/operations/README.md).
+
+The existing reference collection remains available below. For another small
+experiment, the [completion-checking guide](docs/guides/checking-agent-completion.md)
+checks an agent's supplied claims against real Git and pytest runs.
 
 <a href="https://wcook04.github.io/plectis/docs/system-map.html">
   <img src="assets/system-map-dark.png" alt="Plectis system map in dark mode: seven families of software components surround the axioms, principles and failure modes they cite." width="100%">
@@ -339,29 +365,36 @@ The [release review](RELEASE_REVIEW.md) records the candidate’s checks;
 ## Videos and related projects
 
 The [project videos page](https://wcook04.github.io/plectis/#videos) describes the
-recordings and their subjects.
+recordings and their subjects. In the introduction, Will explains the wider
+programme: AI produces much of the research and code, and he uses it to prepare
+papers, maps and explanations that other people can inspect. The toolkit in
+this clone is one part of that work.
 
-| Film | Watch |
+| Film | What it shows |
 |---|---|
-| Plectis introduction | [YouTube](https://www.youtube.com/watch?v=uO2lbstEH9M) |
-| CodeMap | [YouTube](https://www.youtube.com/watch?v=WPkN7m67zvI) |
-| One Checkout | [YouTube](https://www.youtube.com/watch?v=HUciGvGo2ss) |
-| Safety Core | [YouTube](https://www.youtube.com/watch?v=CY4A1aEPCGc) |
-
-Some show the private research workbench; those interfaces are separate from
-this toolkit clone.
+| [Plectis introduction](https://www.youtube.com/watch?v=U1z2-XaLe_w) | The research programme and why its results need to be inspectable by other people. |
+| [Code Map](https://www.youtube.com/watch?v=Srrnh6D94E8) | A private interface for exploring saved source descriptions and code connections. Cloning this toolkit does not install that interface. |
+| [One Checkout](https://www.youtube.com/watch?v=hIUgqeg1_Mw) | A selected patch committed while other edits stay in the shared folder. The standalone tool has its [own repository](https://github.com/wcook04/one-checkout). |
+| [Safety Core](https://www.youtube.com/watch?v=oN4ZaCWqfhY) | Editable agent rules and a narrow check tested against an invented-setting workaround. The rulebook toolkit has its [own repository](https://github.com/wcook04/safety-core). |
 
 ### Where this toolkit fits
 
-Plectis is Will Cook’s programme of research and software built with AI agents. The aim is to make the resulting work understandable enough for other people to inspect, question and build on. This repository is the earlier public toolkit, with Python components and worked examples from that work.
+The Python components and experiments in this clone are one part of Plectis.
+The related repositories have different jobs, with their own setup instructions
+and evidence. Follow the project that matches what you want to read or run.
 
 | Related project | Start there for |
 |---|---|
 | [Plectis Erdős](https://github.com/wcook04/plectis-erdos) · [research website](https://wcook04.github.io/plectis/maths/) | The current mathematical papers, Lean proofs and open questions. |
+| [Plectis Erdős Lean](https://github.com/wcook04/plectis-erdos-lean) | Selected checking entries that pair a separately written statement with its proof. |
+| [Plectis Atlas](https://github.com/wcook04/plectis-atlas) · [website](https://wcook04.github.io/plectis-atlas/) | Read OpenAI's maths papers alongside attributed outside assessments and proof-checking reports. |
 | [Safety Core](https://github.com/wcook04/safety-core) | Editable agent rules, hooks and a local map of where checks apply. |
 | [One Checkout](https://github.com/wcook04/one-checkout) | Committing a reviewed patch while preserving other unfinished edits in the same checkout. |
+| [Plectis Zenith](https://github.com/wcook04/plectis-zenith) | Experiments on AI testers, earlier mistakes and code repair, with saved results and replay instructions. |
 
-Explore the [research corpus](https://github.com/wcook04/plectis-erdos) and the [Plectis website](https://wcook04.github.io/plectis/).
+Code Map and Demo Take, also shown in the films, are private tools. The
+[Plectis website](https://wcook04.github.io/plectis/) links the public projects
+and demonstrations; this clone does not install the private workbench.
 
 ## Name and history
 

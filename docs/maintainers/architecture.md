@@ -6,12 +6,16 @@ what to edit and which consumers must move with it.
 
 ## Implementation map
 
-The public package is one Python runtime with component modules and a shipped
-data tree. There is no private service to start or model account to configure.
+The public package contains portable operation modules and the existing
+reference toolkit with its shipped data tree. There is no private service to start or model account to configure.
 Individual components can invoke optional external tools; their example
 instructions state those requirements.
 
 ```text
+plectis.repair -> Python host -> isolated worker -> generated Dafny planner/checker
+plectis.compatibility -> model adapter -> isolated worker -> generated Dafny checker
+plectis.publish -> guarded SQLite transactions
+
 plectis / python -m plectis / plectis.cli:main
   -> microcosm_core.cli (shared entry, argument parsing and command dispatch)
        -> runtime_shell + project_substrate (project inventory and local state)
@@ -24,6 +28,7 @@ receipts + schemas -> JSON output and input validation
 
 | Change | Start here | Keep working |
 |---|---|---|
+| Portable operations and formal claims | [`formal/README.md`](../../formal/README.md), [`verification study`](../guides/verification-study.md) | Small APIs, exact proof/runtime boundary, negative cases and isolated installation. |
 | Command arguments, aliases or exit behavior | [`cli.py`](../../src/microcosm_core/cli.py) | Both public and compatibility command names; see the refactoring contract below. |
 | Project inventory, proposed tasks or local state | [`project_substrate.py`](../../src/microcosm_core/project_substrate.py), [`runtime_shell.py`](../../src/microcosm_core/runtime_shell.py) | User source stays separate from ignored `.microcosm/` output. |
 | One component's behavior | Its module under [`organs/`](../../src/microcosm_core/organs/), selected through `ORGANS.md` | Example inputs, failure cases and the component's stated limits. |
@@ -32,8 +37,15 @@ receipts + schemas -> JSON output and input validation
 | Installed resources or distributions | [`resource_root.py`](../../src/microcosm_core/resource_root.py), `pyproject.toml`, `MANIFEST.in` | Installed commands must work outside the checkout with their shipped inputs. |
 | Local verification or CI | `Makefile`, `.github/workflows/ci.yml` | The same public checks must be reproducible locally. |
 
-`src/plectis/` is intentionally a thin public alias. Keep common behavior in
-`microcosm_core` rather than implementing a second runtime under the new name.
+`src/plectis/repair`, `src/plectis/compatibility` and `src/plectis/publish.py`
+are independently importable experiments. They use no catalogue, provider or
+private-workbench state. Their formal sources live under `formal/`; generated
+code is retained with exact hashes and its upstream licence. Keep the model
+adapter, proved algorithm and persistence host distinct. The integration example
+composes operations explicitly; there is no second orchestration framework.
+
+The command-line aliases in `src/plectis/` still delegate to `microcosm_core`.
+Common catalogue behavior belongs there.
 New command handlers should call reusable functions in their owning module;
 argument parsing should stay separate from computation and file writes.
 

@@ -9,6 +9,7 @@ result; browsing a bundle alone does not execute it.
 
 | What you want to try | Start here | Example files |
 | --- | --- | --- |
+| Change a workflow and preserve its declared guarantees | [Verification study](../docs/guides/verification-study.md) | [Portable operations](operations/README.md) |
 | Check an agent's claim that it committed work and ran a test | [Checking agent completion](../docs/guides/checking-agent-completion.md) | [Claims, ledger and tiny test project](agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/) |
 | Give untrusted text instruction authority and see the check reject it | [Prompt-injection walkthrough](../docs/guides/prompt-injection.md) | [Source documents and flow records](indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/) |
 | Turn a tentative answer into a question an expert can evaluate | [Hypothesis handoffs](../docs/guides/hypothesis-handoffs.md) | [An independent-evaluation question](hypothesis_handoff/independent_evaluation.json) |
