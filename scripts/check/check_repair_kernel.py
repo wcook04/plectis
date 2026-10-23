@@ -12,6 +12,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import runpy
 import shutil
 import subprocess
 import tempfile
@@ -45,6 +46,10 @@ def check_binding(root: Path, generated: Path) -> dict:
             raise ValueError("generated Python identity changed: " + name)
     if not (generated / "Dafny-LICENSE.txt").is_file():
         raise ValueError("Dafny runtime licence is missing")
+    # Check the whole importable inventory and the loader's reviewed byte pins.
+    # Hashing the named .py files alone misses a same-named package shadow.
+    loader = runpy.run_path(str(ROOT / "src/plectis/_sealed_kernel.py"))
+    loader["read_kernel_snapshot"](generated, "Repair")
     return {"source_sha256": metadata["source_sha256"],
             "negative_source_sha256": metadata["negative_source_sha256"],
             "generated_python": manifest}

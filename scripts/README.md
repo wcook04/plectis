@@ -26,10 +26,11 @@ See the [maintenance guide](../docs/maintainers/architecture.md).
 
 ## Formal operations
 
-`make verify-operations DAFNY=/path/to/dafny` runs both proof checkers in
+`make verify-operations DAFNY=/path/to/dafny` runs the Repair, Compatibility and
+public-view proof checkers in
 `check/`, regenerates the executable Python and compares its bytes, and requires
 negative specifications to fail. Without `--dafny`, those scripts only check
-recorded hashes. `release/verify_operations_install.py` exercises the APIs from
+recorded hashes and the generated source inventories. `release/verify_operations_install.py` exercises the APIs from
 an installed interpreter in isolated mode; `make package-smoke` includes it.
 See [formal/README.md](../formal/README.md) for assumptions and reproduction.
 

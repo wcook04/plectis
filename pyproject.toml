@@ -51,14 +51,18 @@ where = ["src"]
 [tool.setuptools.package-data]
 "plectis.repair._generated" = ["*.json", "*.txt"]
 "plectis.compatibility._generated" = ["*.json", "*.txt"]
+"plectis.views._generated" = ["*.json", "*.txt"]
 
 [tool.setuptools.data-files]
-"share/plectis/formal" = ["formal/README.md"]
+"share/plectis/formal" = ["formal/README.md", "formal/round2-integration.json"]
 "share/plectis/formal/repair" = ["formal/repair/*.dfy", "formal/repair/*.json", "formal/repair/*.md"]
 "share/plectis/formal/repair/negative" = ["formal/repair/negative/*.dfy"]
 "share/plectis/formal/compatibility" = ["formal/compatibility/*.dfy", "formal/compatibility/*.json", "formal/compatibility/*.md"]
 "share/plectis/formal/compatibility/negative" = ["formal/compatibility/negative/*.dfy"]
+"share/plectis/formal/views" = ["formal/views/*.dfy", "formal/views/*.json", "formal/views/*.md"]
+"share/plectis/formal/views/negative" = ["formal/views/negative/*.dfy"]
 "share/plectis/examples/operations" = ["examples/operations/*.py", "examples/operations/*.md"]
+"share/plectis/examples/operations/public_views" = ["examples/operations/public_views/*.json"]
 "share/plectis" = [
   ".gitignore",
   "AGENTS.md",

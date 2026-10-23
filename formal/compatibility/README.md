@@ -14,12 +14,21 @@ The deployed checker is the unchanged output of official Dafny 4.11.0:
 python3 scripts/check/check_compatibility_kernel.py --dafny /path/to/dafny
 ```
 
-The script verifies 14 tasks, compares regenerated Python byte-for-byte with
-the packaged implementation, and requires the negative source to fail with
-13 verified tasks and one error. The negative source changes only the
+The script verifies 33 tasks in `Replay.dfy` including the unchanged
+`Compatibility.dfy`, and compares all six regenerated Python files byte-for-byte
+with the packaged implementation. The original output mutant must fail with
+13 verified tasks and one error. That negative source changes only the
 output-equality obligation in `Check`. Its failed assertion shows that the
 trace proof depends on matching outputs. Default invocation without `--dafny`
 checks hashes and reports `hash_binding_only`; it does not rerun a proof.
+
+`Replay.dfy` adds executable negative-word checking. Its bad-prefix soundness
+statement connects an accepted mismatch to a concrete approved-admissible prefix
+where the candidate lacks a transition or returns a different observation.
+It also proves consistency with the positive relation checker and supplies
+non-vacuous examples. The stale-input mutant must fail with 30 verified tasks
+and seven errors. The generated positive checker remains byte-identical to the
+earlier core; the import bridge now includes the generated replay module.
 
 `metadata.json` binds the exact formal sources and generated Python files.
 `src/plectis/compatibility/_generated/GENERATED_SHA256.json` repeats the generated
@@ -61,3 +70,9 @@ differencing. The formal source mechanises that argument in Plectis. The adapter
 adapts p12's model/search interface, using parent pointers and a generated
 acceptance checker; p15 informs the strict input and non-vacuity checks. Copied
 compiler/runtime output retains its upstream licence.
+
+Round-two **r2-p14** contributes the executable replay checker and the pattern
+of independently checking a negative search result. Its executable `Mismatch`
+is retained; local independent bad-prefix and useful-case lemmas strengthen its
+proof. No hint-retention service or replay-based learning platform is imported.
+Exact source identities appear in the updated metadata.

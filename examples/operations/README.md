@@ -46,6 +46,20 @@ assert blocked == (False, False, True)
   history. Import `from plectis.publish import PublishStore`.
 - [Compatibility API](../../docs/guides/compatibility.md): compare declared
   transition models. Import `from plectis.compatibility import compare`.
+- [Public views API](../../docs/guides/public-views.md): derive a public-only
+  report from a fixed mixed recipe. Import `from plectis.views import compile_public, run_public`.
+
+The report examples are independent of the workflow demo:
+
+```sh
+PYTHONPATH=src python3 examples/operations/public_views_recipe_change.py
+PYTHONPATH=src python3 examples/operations/public_views_sqlite.py
+```
+
+The first uses synthetic private data only in a separate development reference
+runner to compare mixed and public traces after a recipe change. The public API
+accepts public fields only. The second exercises a real local SQLite reader and
+a competent handwritten renderer; both produce the same expected public output.
 
 For source reuse you may copy `src/plectis` with its generated subpackages and
 licence files, plus the root `LICENSE` and `NOTICE`; it needs neither

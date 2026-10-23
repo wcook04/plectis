@@ -50,9 +50,12 @@ RUNTIME_PACKAGES = ("microcosm_core", "plectis")
 # modules (including the three existing aliases) and four declared JSON/TXT
 # resources, 99,822 bytes total. The corrected footprint is 3,918 files; raise
 # only this ceiling by 46 to retain six-file headroom. Byte ceilings stay fixed.
+# Round-two integration adds 28 files (3,918 -> 3,946): the public-view core,
+# replay checker, shared loader, examples and their formal/reader provenance.
+# Preserve the same six-file headroom; both byte ceilings remain unchanged.
 ARTIFACT_BUDGET = {
     "max_total_bytes": 134_217_728,  # 128 MiB
-    "max_total_files": 3_924,
+    "max_total_files": 3_952,
     "max_data_files_bytes": 120_000_000,  # ~114.4 MiB
 }
 

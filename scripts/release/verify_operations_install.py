@@ -3,7 +3,7 @@
 
 Run from any directory with an installed interpreter, for example::
 
-    /path/to/venv/bin/python -I /path/to/verify_operations_install.py --require-compatibility
+    /path/to/venv/bin/python -I /path/to/verify_operations_install.py --require-compatibility --require-views
 
 This check never adds the checkout to Python's import path. Its temporary
 checkpoint, journal and SQLite database are removed when the check finishes.
@@ -39,6 +39,28 @@ def check_import_locations() -> dict[str, str]:
                     f"{name} resolved outside this Python installation: {origin}")
             origins[name] = str(origin)
     return origins
+
+
+def check_generated_locations(modules: list[str]) -> dict[str, str]:
+    """Locate the installed sources exercised by the isolated kernel workers.
+
+    Workers execute sealed temporary copies of these sources. They do not add
+    the generated modules to this parent process's module namespace.
+    """
+    libraries = {Path(sysconfig.get_path(key)).resolve() for key in ("purelib", "platlib")}
+    sources = {}
+    for component, kernel in (("plectis.repair", "Repair"),
+                              ("plectis.compatibility", "Compatibility"),
+                              ("plectis.compatibility", "Replay"),
+                              ("plectis.views", "Release")):
+        if component not in modules:
+            continue
+        source = (Path(sys.modules[component].__file__).resolve().parent
+                  / "_generated" / f"{kernel}.py").resolve()
+        require(source.is_file() and any(source.is_relative_to(path) for path in libraries),
+                f"generated kernel source is not installed: {source}")
+        sources[f"{component}._generated.{kernel}"] = str(source)
+    return sources
 
 
 def repair_example(directory: Path) -> dict:
@@ -116,7 +138,7 @@ def publish_example(directory: Path) -> dict:
 
 
 def compatibility_example() -> dict:
-    from plectis.compatibility import check_certificate, compare
+    from plectis.compatibility import check_certificate, check_counterexample, compare
 
     approved = {"name": "approved", "initial": "ready", "inputs": ["read"],
                 "states": {"ready": {"read": {"next": "ready", "output": "ok"}}}}
@@ -134,20 +156,93 @@ def compatibility_example() -> dict:
     require(rejected["accepted"] is False and rejected["continuation"] == ["read"]
             and rejected["reason"] == "output_mismatch",
             "compatibility did not expose the changed observable output")
+    require(check_counterexample(approved, broken, rejected["continuation"]) is True,
+            "compatibility did not independently check its counterexample")
+    require(check_counterexample(approved, candidate, rejected["continuation"]) is False,
+            "compatibility accepted a stale counterexample after the discrepancy was removed")
+    for word in ([], ["unknown"]):
+        require(check_counterexample(approved, broken, word) is False,
+                "compatibility accepted a word without an observable discrepancy")
+    missing = {**candidate, "states": {"ready": {}}}
+    require(check_counterexample(approved, missing, ["read"]) is True,
+            "compatibility did not check a missing required input")
     return {"matching_behaviour": "accepted", "certificate_identity_bound": True,
-            "changed_output": "rejected", "continuation": rejected["continuation"]}
+            "changed_output": "rejected", "continuation": rejected["continuation"],
+            "counterexample_checked": True, "stale_counterexample_rejected": True,
+            "missing_required_input_checked": True}
+
+
+def views_example() -> dict:
+    from plectis.views import InvalidInput, RejectedPlan, compile_public, run_public, run_public_batch
+
+    schema = {"version": 1, "fields": [
+        {"name": "title", "type": "text", "visibility": "public"},
+        {"name": "approved", "type": "flag", "visibility": "public"},
+        {"name": "private_note", "type": "text", "visibility": "private"},
+        {"name": "embargo", "type": "flag", "visibility": "private"},
+    ]}
+
+    def emit(value: dict, channel: str = "public") -> dict:
+        return {"emit": {"channel": channel, "value": value}}
+
+    plan = {"seq": [emit({"input": "title"}), {"seq": [
+        {"if": {"condition": {"input": "embargo"},
+                "then": emit({"input": "private_note"}, "internal"),
+                "else": {"skip": True}}},
+        {"if": {"condition": {"input": "approved"},
+                "then": emit({"literal": "approved"}),
+                "else": emit({"literal": "needs review"})}},
+    ]}]}
+    compiled = compile_public(plan, schema)
+    require(compiled.public_fields == ("title", "approved")
+            and compiled.read_fields == ("title", "approved"),
+            "views did not retain exactly the declared public reads")
+    public_plan = json.dumps(compiled.public_plan)
+    require("private_note" not in public_plan and "embargo" not in public_plan,
+            "views retained a private read in its public plan")
+    row = {"title": "Report A", "approved": True}
+    trace = run_public(compiled, row)
+    require(trace == ("Report A", "approved"), "views changed the public report output")
+    require(run_public_batch(compiled, [row, {"title": "Report B", "approved": False}])
+            == (("Report A", "approved"), ("Report B", "needs review")),
+            "views did not preserve the public batch order and conditional output")
+    unsafe_plans = (
+        emit({"input": "private_note"}),
+        {"if": {"condition": {"input": "embargo"},
+                "then": emit({"literal": "visible"}), "else": {"skip": True}}},
+    )
+    for unsafe in unsafe_plans:
+        try:
+            compile_public(unsafe, schema)
+        except RejectedPlan:
+            pass
+        else:
+            raise RuntimeError("views accepted public output dependent on private data")
+    try:
+        run_public(compiled, {**row, "private_note": "synthetic private value"})
+    except InvalidInput:
+        pass
+    else:
+        raise RuntimeError("views accepted private record values at its public-only boundary")
+    return {"public_trace": list(trace), "private_reads_removed": True,
+            "explicit_flow": "rejected", "private_control": "rejected",
+            "private_record_values": "rejected"}
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--require-compatibility", action="store_true",
                         help="also require and exercise the installed compatibility component")
+    parser.add_argument("--require-views", action="store_true",
+                        help="also require and exercise the installed public views component")
     args = parser.parse_args(argv)
     try:
         require(bool(sys.flags.isolated), "run this check with python -I")
         modules = ["plectis.repair", "plectis.publish"]
         if args.require_compatibility:
             modules.append("plectis.compatibility")
+        if args.require_views:
+            modules.append("plectis.views")
         for module in modules:
             importlib.import_module(module)
         check_import_locations()
@@ -157,7 +252,10 @@ def main(argv: list[str] | None = None) -> int:
                       "publish": publish_example(directory)}
             if args.require_compatibility:
                 result["compatibility"] = compatibility_example()
+            if args.require_views:
+                result["views"] = views_example()
         result["installed_modules"] = check_import_locations()
+        result["generated_sources"] = check_generated_locations(modules)
     except Exception as error:
         print(f"operations install check failed: {error}", file=sys.stderr)
         return 1

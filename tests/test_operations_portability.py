@@ -64,7 +64,7 @@ def test_components_work_as_the_only_copied_package(isolated_python):
         cwd=working, capture_output=True, text=True, timeout=15,
     )
     assert probe.returncode == 0, probe.stderr
-    completed = run_smoke(python, working, "--require-compatibility")
+    completed = run_smoke(python, working, "--require-compatibility", "--require-views")
     assert completed.returncode == 0, completed.stderr
     result = json.loads(completed.stdout)
     assert result["status"] == "passed"
@@ -73,8 +73,23 @@ def test_components_work_as_the_only_copied_package(isolated_python):
     assert result["publish"]["stale_worker"] == "rejected"
     assert result["publish"]["historical_retry"] == "replayed"
     assert result["compatibility"]["continuation"] == ["read"]
+    assert result["compatibility"]["counterexample_checked"] is True
+    assert result["compatibility"]["stale_counterexample_rejected"] is True
+    assert result["compatibility"]["missing_required_input_checked"] is True
+    assert result["views"] == {
+        "public_trace": ["Report A", "approved"], "private_reads_removed": True,
+        "explicit_flow": "rejected", "private_control": "rejected",
+        "private_record_values": "rejected",
+    }
     assert all(Path(origin).is_relative_to(library)
                for origin in result["installed_modules"].values())
+    assert result["generated_sources"] == {
+        f"plectis.{component}._generated.{kernel}":
+            str((library / "plectis" / component / "_generated" / f"{kernel}.py").resolve())
+        for component, kernel in (("repair", "Repair"), ("compatibility", "Compatibility"),
+                                  ("compatibility", "Replay"),
+                                  ("views", "Release"))
+    }
     assert list(working.iterdir()) == []
 
 
@@ -82,7 +97,7 @@ def test_missing_install_cannot_use_inherited_pythonpath_or_working_directory(is
     python, _, working = isolated_python
     # Both common shadowing routes are present; -I must ignore both.
     shutil.copytree(ROOT / "src/plectis", working / "plectis")
-    completed = run_smoke(python, working, "--require-compatibility")
+    completed = run_smoke(python, working, "--require-compatibility", "--require-views")
     assert completed.returncode != 0
     assert "No module named 'plectis'" in completed.stderr
     assert not completed.stdout
@@ -98,13 +113,22 @@ def test_editable_checkout_import_is_rejected(isolated_python):
     assert list(working.iterdir()) == []
 
 
-def test_missing_generated_repair_kernel_fails_the_smoke(isolated_python):
+@pytest.mark.parametrize(("component", "kernel", "arguments", "diagnostic"), [
+    ("repair", "Repair", (), "kernel"),
+    ("compatibility", "Compatibility", ("--require-compatibility",),
+     "generated compatibility checker"),
+    ("compatibility", "Replay", ("--require-compatibility",),
+     "generated compatibility checker"),
+    ("views", "Release", ("--require-views",), "generated-core worker"),
+])
+def test_missing_generated_kernel_fails_the_smoke(
+        isolated_python, component, kernel, arguments, diagnostic):
     python, library, working = isolated_python
     copy_components(library)
-    (library / "plectis/repair/_generated/Repair.py").unlink()
-    completed = run_smoke(python, working)
+    (library / "plectis" / component / "_generated" / f"{kernel}.py").unlink()
+    completed = run_smoke(python, working, *arguments)
     assert completed.returncode != 0
-    assert "kernel" in completed.stderr
+    assert diagnostic in completed.stderr
     assert not completed.stdout
 
 
@@ -116,6 +140,33 @@ def test_missing_compatibility_is_rejected_when_required(isolated_python):
     assert completed.returncode != 0
     assert "plectis.compatibility" in completed.stderr
     assert not completed.stdout
+
+
+def test_views_are_optional_unless_required(isolated_python):
+    python, library, working = isolated_python
+    copy_components(library)
+    shutil.rmtree(library / "plectis/views")
+    ordinary = run_smoke(python, working)
+    assert ordinary.returncode == 0, ordinary.stderr
+    assert "views" not in json.loads(ordinary.stdout)
+    completed = run_smoke(python, working, "--require-views")
+    assert completed.returncode != 0
+    assert "plectis.views" in completed.stderr
+    assert not completed.stdout
+
+
+def test_views_requirement_is_independent_of_compatibility(isolated_python):
+    python, library, working = isolated_python
+    copy_components(library)
+    shutil.rmtree(library / "plectis/compatibility")
+    completed = run_smoke(python, working, "--require-views")
+    assert completed.returncode == 0, completed.stderr
+    result = json.loads(completed.stdout)
+    assert result["views"]["public_trace"] == ["Report A", "approved"]
+    assert "compatibility" not in result
+    assert "plectis.compatibility._generated.Compatibility" not in result["generated_sources"]
+    assert "plectis.compatibility._generated.Replay" not in result["generated_sources"]
+    assert "plectis.views._generated.Release" in result["generated_sources"]
 
 
 def test_smoke_explains_required_isolation(isolated_python):

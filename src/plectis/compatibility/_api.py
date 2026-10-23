@@ -2,8 +2,10 @@
 
 Adapted from supplied research return p12's artifacts/refinement/refine.py and
 check_certificate.py (23 October 2026); p15's artifact/review_transfer.py and
-SPECIFICATION.md informed strict input and non-vacuity checks. The independent
-certificate acceptance decision here uses the generated Dafny checker.
+SPECIFICATION.md informed strict input and non-vacuity checks. Round-two p14's
+Replay.dfy and preflight.py inform independent negative-witness checking.
+Both certificate acceptance and counterexample confirmation use generated
+Dafny checkers; Python search and explanation remain unproved.
 """
 
 from collections import deque
@@ -132,7 +134,7 @@ def _encode(approved, candidate, pairs):
             "inputs": len(actions), "relation": relation}
 
 
-def _generated_check(request):
+def _generated_check(request, *, result_field="accepted"):
     worker = Path(__file__).with_name("_worker.py")
     try:
         result = subprocess.run([sys.executable, "-I", "-B", str(worker)],
@@ -142,10 +144,10 @@ def _generated_check(request):
         response = _object(result.stdout)
     except (OSError, ValueError, subprocess.TimeoutExpired) as error:
         raise RuntimeError("generated compatibility checker failed") from error
-    if (result.returncode or set(response) != {"accepted"}
-            or type(response["accepted"]) is not bool):
+    if (result.returncode or set(response) != {result_field}
+            or type(response[result_field]) is not bool):
         raise RuntimeError("generated compatibility checker returned invalid output")
-    return response["accepted"]
+    return response[result_field]
 
 
 def check_certificate(approved, candidate, certificate):
@@ -185,6 +187,36 @@ def check_certificate(approved, candidate, certificate):
     return _generated_check(_encode(approved, candidate, pairs))
 
 
+def check_counterexample(approved, candidate, word):
+    """Confirm a proposed discrepancy against both current finite models.
+
+    True means an approved-admissible prefix of the supplied input word has
+    a missing candidate transition or a different observation. Empty, stale,
+    disabled or unknown inputs are not evidence unless an earlier prefix
+    already differed. False does not establish compatibility.
+
+    Malformed models or words return False. Words must be lists of nonempty
+    string input labels. Models may also be strict JSON object text. Tooling
+    failure raises RuntimeError; it never becomes a counterexample verdict.
+    """
+    try:
+        approved, candidate = _machine(approved), _machine(candidate)
+        if (type(word) is not list
+                or any(type(action) is not str or not action for action in word)):
+            return False
+        # Detach the caller's list before encoding. Unknown labels remain stale
+        # inputs in the executable checker, including after a valid bad prefix.
+        word = list(word)
+        request = _encode(approved, candidate, set())
+        request.pop("relation")
+        alphabet = sorted(set(approved["inputs"]) | set(candidate["inputs"]))
+        indices = {action: index for index, action in enumerate(alphabet)}
+        request["word"] = [indices.get(action, -1) for action in word]
+    except (ValueError, TypeError, KeyError, OverflowError):
+        return False
+    return _generated_check(request, result_field="mismatch")
+
+
 def _continuation(parents, pair, action):
     word = [action]
     while parents[pair] is not None:
@@ -210,7 +242,9 @@ def compare(approved, candidate):
     Every approved-enabled transition is an obligation, including transitions
     labelled error or unknown. Candidate additions are allowed. Search visits
     the finite reachable product, with no user-supplied depth cutoff. Ties use
-    sorted input names. Search correctness is tested, not formally proved.
+    sorted input names. Every negative word is independently checked by the
+    generated replay kernel. Search, shortestness and explanatory observations
+    are tested, not formally proved.
     """
     approved, candidate = _machine(approved), _machine(candidate)
     initial = (approved["initial"], candidate["initial"])
@@ -227,6 +261,8 @@ def compare(approved, candidate):
                 reason = "output_mismatch"
             if reason:
                 word = _continuation(parents, pair, action)
+                if not check_counterexample(approved, candidate, word):
+                    raise RuntimeError("generated checker rejected the searched counterexample")
                 return {"accepted": False, "continuation": word, "reason": reason,
                         "approved_outputs": _observations(approved, word),
                         "candidate_outputs": _observations(candidate, word)}

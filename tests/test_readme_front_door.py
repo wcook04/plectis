@@ -25,6 +25,7 @@ _LINKED_SIBLINGS = (
     "docs/guides/repair.md",
     "docs/guides/publish.md",
     "docs/guides/compatibility.md",
+    "docs/guides/public-views.md",
     "formal/README.md",
     "examples/operations/README.md",
     "scripts/README.md",

@@ -13,7 +13,7 @@ errors, and externally visible state changes, provided each observation is
 represented by an output label.
 
 ```python
-from plectis.compatibility import compare, check_certificate
+from plectis.compatibility import compare, check_certificate, check_counterexample
 
 approved = {
     "name": "reviewed read interface",
@@ -37,6 +37,7 @@ assert check_certificate(approved, candidate, result["certificate"])
 candidate["states"]["waiting"]["read"]["output"] = "broken"
 rejected = compare(approved, candidate)
 assert rejected["continuation"] == ["read"]
+assert check_counterexample(approved, candidate, rejected["continuation"])
 assert not check_certificate(approved, candidate, result["certificate"])
 ```
 
@@ -91,6 +92,15 @@ Model hashes identify canonical parsed objects, rather than raw JSON text or
 deployed program bytes; changing a name also changes the binding. Merely
 rehashing an incompatible model does not make its relation pass. Checker
 execution failure raises `RuntimeError`; no alternative checker accepts it.
+
+`check_counterexample(approved, candidate, word)` returns whether the proposed
+input word exposes a missing candidate transition or a differing observation
+on an approved-admissible prefix. It rechecks against these current models;
+changing either model can make a retained word useless. Malformed models or
+words return `False`; a checker execution failure raises `RuntimeError`.
+`compare` independently confirms every negative search result this way before
+returning it. The generated replay checker, not a cached example, decides.
+The search's shortest-word choice remains tested Python behavior.
 
 ## Exact proof boundary
 

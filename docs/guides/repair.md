@@ -62,8 +62,14 @@ automatically. Explicit resolution uses `begin_effect(task_id)`,
 [runnable repair example](../../examples/operations/repair.py). Unknown actions
 remain unsettled even if their task is removed from the graph. A matching
 confirmed journal entry also prevents redispatch if its checkpoint save failed.
-That case fails closed; the API does not automatically reconstruct the missing
-checkpoint or promise an atomic commit across the two files.
+That case fails closed. `session.recover_confirmed(attempt)` explicitly restores
+the exact retained confirmed output to a missing checkpoint record, without
+calling the effect or appending another journal event. It validates the recorded
+task descriptor, dependency identities and retained output before restoration;
+a conflict is refused. It returns `True` when restored and `False` for an
+already identical record. The ordinary planner still decides whether that result
+is current. This is tested recovery for one cooperative writer, not an atomic
+commit across the two files or permission to redispatch an unknown action.
 
 A stale plan raises `StalePlan`; rejected or malformed plans raise `InvalidPlan`.
 The combined [evaluation example](../../examples/operations/evaluation.py) shows

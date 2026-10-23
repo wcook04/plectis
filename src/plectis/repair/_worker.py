@@ -4,6 +4,7 @@ Run with ``python -I -B _worker.py``. This module has no fallback planner.
 """
 import json
 from pathlib import Path
+import runpy
 import sys
 
 
@@ -57,29 +58,30 @@ def main():
         request = decode(sys.stdin.read())
         # Imports are isolated to this short-lived process. The caller's
         # modules named Repair, module_ and _dafny are never changed.
-        sys.path.insert(0, str(Path(__file__).resolve().parent / "_generated"))
-        import _dafny
-        import Repair
-        seq = _dafny.Seq
-        deps = seq([seq(parents) for parents in request["deps"]])
-        roots = seq(request["roots"])
-        effects = seq(request["effects"])
-        kernel = Repair.default__
-        if not kernel.ValidInputs(deps, roots, effects):
-            raise ValueError("generated ValidInputs rejected request")
-        if request["op"] == "make":
-            dirty, blocked = kernel.MakePlan(deps, roots, effects)
-            # Always check the producer's result using the generated checker.
-            accepted = kernel.CheckPlan(deps, roots, effects, dirty, blocked)
-            result = {"accepted": bool(accepted), "dirty": list(dirty),
-                      "blocked": list(blocked)}
-        else:
-            accepted = kernel.CheckPlan(deps, roots, effects,
-                                        seq(request["dirty"]),
-                                        seq(request["blocked"]))
-            result = {"accepted": bool(accepted)}
-        print(json.dumps(result, allow_nan=False, separators=(",", ":")))
-    except (ValueError, TypeError, KeyError) as error:
+        loader = runpy.run_path(str(Path(__file__).resolve().parents[1] / "_sealed_kernel.py"))
+        with loader["sealed_kernel"](Path(__file__).resolve().parent / "_generated", "Repair"):
+            import _dafny
+            import Repair
+            seq = _dafny.Seq
+            deps = seq([seq(parents) for parents in request["deps"]])
+            roots = seq(request["roots"])
+            effects = seq(request["effects"])
+            kernel = Repair.default__
+            if not kernel.ValidInputs(deps, roots, effects):
+                raise ValueError("generated ValidInputs rejected request")
+            if request["op"] == "make":
+                dirty, blocked = kernel.MakePlan(deps, roots, effects)
+                # Always check the producer's result using the generated checker.
+                accepted = kernel.CheckPlan(deps, roots, effects, dirty, blocked)
+                result = {"accepted": bool(accepted), "dirty": list(dirty),
+                          "blocked": list(blocked)}
+            else:
+                accepted = kernel.CheckPlan(deps, roots, effects,
+                                            seq(request["dirty"]),
+                                            seq(request["blocked"]))
+                result = {"accepted": bool(accepted)}
+            print(json.dumps(result, allow_nan=False, separators=(",", ":")))
+    except (ValueError, TypeError, KeyError, OSError) as error:
         print(json.dumps({"error": str(error)}))
         return 2
     return 0

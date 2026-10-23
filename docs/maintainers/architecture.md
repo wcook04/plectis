@@ -37,12 +37,16 @@ receipts + schemas -> JSON output and input validation
 | Installed resources or distributions | [`resource_root.py`](../../src/microcosm_core/resource_root.py), `pyproject.toml`, `MANIFEST.in` | Installed commands must work outside the checkout with their shipped inputs. |
 | Local verification or CI | `Makefile`, `.github/workflows/ci.yml` | The same public checks must be reproducible locally. |
 
-`src/plectis/repair`, `src/plectis/compatibility` and `src/plectis/publish.py`
+`src/plectis/repair`, `src/plectis/compatibility`, `src/plectis/views` and `src/plectis/publish.py`
 are independently importable experiments. They use no catalogue, provider or
 private-workbench state. Their formal sources live under `formal/`; generated
 code is retained with exact hashes and its upstream licence. Keep the model
 adapter, proved algorithm and persistence host distinct. The integration example
 composes operations explicitly; there is no second orchestration framework.
+The shared `_sealed_kernel.py` owns captured-source loading for generated
+workers. Update its explicit inventory and manifest pin only after reviewing
+and regenerating the corresponding formal core. Public views is an optional
+pure report transformation, with no dependency on the workflow or storage APIs.
 
 The command-line aliases in `src/plectis/` still delegate to `microcosm_core`.
 Common catalogue behavior belongs there.

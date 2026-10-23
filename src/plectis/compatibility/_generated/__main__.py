@@ -1,4 +1,4 @@
-# Dafny program Compatibility.dfy compiled into Python
+# Dafny program Replay.dfy compiled into Python
 import sys
 from typing import Callable, Any, TypeVar, NamedTuple
 from math import floor

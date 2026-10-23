@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23",
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "verified_tasks": 30,
+  "errors": 0,
+  "sources": {
+    "Release.dfy": "7250135c7599061ecc0e61b8361860183b402b054b5cca5ac9ad0a186f65d92d",
+    "negative/IgnoreControl.dfy": "c34dd82af59285ac1d5d03826a4c16518f7a31ab2a890f4f309789238774aa32",
+    "negative/RetainPrivateRead.dfy": "96106196b744e2297f474c3ea2452ab1a2da0d61a164527f7edc2274c32f567e"
+  },
+  "generated_python": {
+    "Release.py": "45440b88c51a216271feaa4f07e09ef25fec63ff3e0b01f962c00cf51218e433",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "__main__.py": "66a37c6b64cc4db0ff9bd7ca70629aab2b2ea2ee46bf5e0e7ee9b11fdd18b26e",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "288a492425d22532e867d3c781618da23ba863e0480b2a3d76791f5b54971104"
+  },
+  "negative_controls": {
+    "IgnoreControl": {
+      "verified_tasks": 29,
+      "errors": 1,
+      "exit_code": 4
+    },
+    "RetainPrivateRead": {
+      "verified_tasks": 29,
+      "errors": 1,
+      "exit_code": 4
+    }
+  },
+  "proof_scope": "Total finite Text/Flag AST, ordered public trace, fixed program and schema; unbounded datatype theorem, no fixed plan-size or string-length bound.",
+  "checked_results": [
+    "Expression type preservation",
+    "Two-run public trace noninterference",
+    "Public projection of full mixed trace equals reference public trace",
+    "Public slicing preserves trace",
+    "Checked public slices contain no private input slots",
+    "Checked slice remains checked",
+    "CheckAndRun returns reference trace on accepted typed inputs"
+  ],
+  "not_proved": [
+    "Dafny/Boogie/Z3 encoding and solver soundness",
+    "Dafny compiler and Python runtime correctness",
+    "Host parser and schema classification",
+    "Plan independence from secret data",
+    "OS, memory/resource limits, timing or I/O effects",
+    "Application utility or complete security"
+  ],
+  "runtime_license": "MIT, copied from supplied Dafny runtime licence; see Dafny-LICENSE.txt",
+  "origin": "Original authored formal source for r2-p15; standard information-flow and program-slicing ideas, no invention claim."
+}

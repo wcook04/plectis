@@ -6,7 +6,10 @@ Plectis can answer that question for a declared dependency graph using a
 planner and checker verified with Dafny, a program verifier. It also has a
 verified checker for whether one finite state-machine model preserves another
 model's required interactions.
-Both run their generated Python implementation. The surrounding Python hosts,
+The optional [public-view compiler](public-views.md) adds a different kind of
+example: a mixed report is transformed into a public-only program that preserves
+its public output and reads no private input slots. The checker, transformation
+and interpreter themselves run as generated Python. The surrounding Python hosts,
 storage and correspondence between a model and a real application have separate,
 weaker evidence.
 
@@ -160,8 +163,9 @@ python3 scripts/check/check_compatibility_kernel.py --dafny /path/to/dafny
 ```
 
 The recorded Repair build has 21 verified tasks and zero errors; the
-Compatibility build has 14 verified tasks and zero errors. These are prover
-tasks for two defined cores, not counts of verified applications. Hashes bind
+Compatibility and counterexample build has 33 verified tasks and zero errors;
+the public-view build has 30. These are prover
+tasks for defined cores, not counts of verified applications. Hashes bind
 retained bytes; they do not prove those bytes correct. The verification is
 SMT-backed through Dafny, Boogie and Z3. Their encoding, the compiler, generated
 runtime, CPython and execution platform remain trusted; this is not a separately
@@ -222,7 +226,7 @@ examples cannot decide those questions.
 
 ## Research provenance and selection
 
-This study draws on fifteen research returns reviewed on 23 October 2026.
+The first implementation draws on fifteen research returns reviewed on 23 October 2026.
 They share source material and a common brief, so agreement is not fifteen
 independent votes. Selection follows reproduced mechanisms, useful counterexamples
 and explicit limits. The less frequent replacement, migration and recovery ideas
@@ -247,6 +251,56 @@ artifacts to their origins and evidence. The retained Dafny runtime has its MIT
 licence beside the generated code. The fifteen returns are research inputs;
 their models, finite tests and informal arguments do not combine into an
 end-to-end proof.
+
+### Second-round assimilation
+
+A further fifteen returns were compared against the actual first-round code.
+Five reviewers covered all fifteen; the synthesis selects distinct mechanisms
+and checks ordinary alternatives. It does not interpret repeated recommendations
+as independent votes. Three contributions improve existing operations:
+
+- **p01:** explicit restoration of a confirmed effect result from the retained
+  journal when the separately written checkpoint lost it. Recovery does not
+  execute the effect again or make an obsolete result current.
+- **p09:** bind the Python code actually imported to captured, checked source
+  bytes. Tests reproduce source-package and sourceless-package shadowing,
+  poisoned bytecode, modified manifests and malformed worker responses. The
+  loader is trusted/tested host code, not a verified Python environment.
+- **p14:** independently check a proposed distinguishing word with a generated
+  negative-witness checker before reporting incompatibility. An old example is
+  a proposal to recheck, not authority for a new pair of models.
+
+**p15** supplies the one new optional experiment, the public-view compiler.
+Its finite report language is the actual executed program, so its transformation
+proof has a short path to a useful caller. The
+[changed-recipe example](../../examples/operations/public_views_recipe_change.py)
+compares two revisions with fixed expected outputs and generated full-reference
+execution. A normal public-only renderer matches both when updated. The
+experiment therefore establishes preservation in this language, not superiority
+over normal rendering, measured maintenance savings or demand for a new DSL.
+
+Other returns remain valuable without another installed API. P05's actual
+SQLite rollback/savepoint continuations sharpen Compatibility's consumer
+contract. P02 and p12 exhibit insufficient specifications; p03's fresh audit
+found that a positive currentness requirement could be weakened while the
+original proof suite still passed. An independently stated requirement rejected
+both new mutants. These are specification-adequacy results, not refutations of
+proof soundness or demonstrations that the original implementation is wrong.
+
+P04's recover-or-cancel settlement is the strongest next stateful candidate if
+a receiving caller needs it. P07 offers settle-or-replace, p10 current-policy
+meaning, p03 an executed publication transition, and p13 a useful disjoint-work
+frame property. Their semantics are different. Adding them all would multiply
+state lifecycles and obscure the current API. P06/p11 migration preserves exact
+outstanding obligations but needs a real migration consumer; p08's dependency
+evaluator needs a workload where reuse beats reevaluation. P09's independent
+Lean certificate route remains optional research, not a default runtime cost.
+
+The [round-two implementation record](../../formal/round2-integration.json)
+identifies imported source archives and changed owners. The older 88-component
+catalogue remains a reference collection, not a count of verified components.
+The next decision is whether a real caller benefits enough from one operation
+to justify continuing it; neither proof counts nor this authored demo answer that.
 
 This guide is a reproducible study record. The canonical system paper remains
 `claim-faithful-publication-systems` in the

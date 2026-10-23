@@ -11,7 +11,7 @@ The current experiment asks a simple question: **“I changed this workflow.
 Which results can I keep, and what must run again?”** With Python 3.11+, try:
 
 ```bash
-git clone https://github.com/wcook04/plectis && cd plectis
+git clone --depth 1 https://github.com/wcook04/plectis && cd plectis
 PYTHONPATH=src python3 examples/operations/evaluation.py --format text
 ```
 
@@ -26,14 +26,23 @@ operations you need:
 | [`plectis.repair`](docs/guides/repair.md) | What can I reuse after a declared change? | Formally verified graph planner and checker; tested Python host. |
 | [`plectis.publish`](docs/guides/publish.md) | Can this worker still publish this result? | SQLite transactions tested against stale workers, retries and failures. |
 | [`plectis.compatibility`](docs/guides/compatibility.md) | Does this replacement preserve the caller's allowed actions and outputs? | Formally verified checker for explicit finite transition models. |
+| [`plectis.views`](docs/guides/public-views.md) | Can this mixed report become a public-only job with the same public output? | Verified checker, transformation and interpreter for a small text/Boolean language. |
 
 These are independently importable research prototypes. The proofs cover the
-stated graph and transition-model properties; they do not prove arbitrary Python
+stated graph, transition-model and report-language properties; they do not prove arbitrary Python
 callbacks, database implementations or external services correct. The ordinary
 cache baseline makes the same reuse decisions in this example. The experiment
 is about checkable guarantees during change, with usefulness still to evaluate.
 [Proof sources and trust boundaries](formal/README.md) ·
 [Copying and installing the operations](examples/operations/README.md).
+
+For a second, self-contained experiment, run
+`PYTHONPATH=src python3 examples/operations/public_views_recipe_change.py`.
+Change one mixed report recipe; derive its public version and run it without
+private fields. A private condition controlling whether a public line appears
+is refused. An ordinary public-only renderer produces the same output; the
+research question is whether maintaining one checked recipe makes later changes
+easier. [Try the report compiler](docs/guides/public-views.md).
 
 The existing reference collection remains available below. For another small
 experiment, the [completion-checking guide](docs/guides/checking-agent-completion.md)
@@ -75,7 +84,7 @@ For a first look in a terminal, run the repository tour. Two commands, no
 install, Python 3.11 or newer:
 
 ```bash
-git clone https://github.com/wcook04/plectis && cd plectis
+git clone --depth 1 https://github.com/wcook04/plectis && cd plectis
 PYTHONPATH=src python3 -m plectis tour --format text .
 ```
 

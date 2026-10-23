@@ -187,8 +187,14 @@ def make_plan(deps, roots, effects):
     """
     result = kernel_request({"op": "make", "deps": deps,
                              "roots": roots, "effects": effects})
-    if result.get("accepted") is not True:
+    if (set(result) != {"accepted", "dirty", "blocked"}
+            or result.get("accepted") is not True):
         raise InvalidPlan("generated checker rejected generated plan")
+    for name in ("dirty", "blocked"):
+        mask = result[name]
+        if (type(mask) is not list or len(mask) != len(deps)
+                or any(type(flag) is not bool for flag in mask)):
+            raise InvalidPlan("kernel process returned an invalid plan mask")
     return tuple(result["dirty"]), tuple(result["blocked"])
 
 
@@ -203,7 +209,7 @@ def check_plan(deps, roots, effects, dirty, blocked):
                              "effects": effects, "dirty": dirty,
                              "blocked": blocked})
     accepted = result.get("accepted")
-    if type(accepted) is not bool:
+    if set(result) != {"accepted"} or type(accepted) is not bool:
         raise InvalidPlan("kernel process returned an invalid verdict")
     return accepted
 
@@ -567,3 +573,71 @@ class RepairSession:
         self.journal.append("confirmed", attempt, output_json=text, output_digest=digest(text))
         self._records[start["task"]] = record
         self._save()
+
+    def recover_confirmed(self, attempt):
+        """Restore an absent checkpoint record from already confirmed history.
+
+        Return True after materialising the exact historical result, or False
+        when that same record is already present. Refuse unknown/unconfirmed
+        attempts, malformed history and every conflicting checkpoint record.
+        This never dispatches a callback or claims that old work is current:
+        the original descriptor and dependency identities remain unchanged,
+        and normal planning decides whether the restored result can be reused.
+
+        Like the rest of this host, this requires one cooperative writer. The
+        journal/checkpoint adapter and this recovery method are not proved.
+        """
+        if type(attempt) is not str or not attempt:
+            raise ValueError("attempt must be a nonempty string")
+        self._refresh()
+        attempts = self.journal.refresh()
+        if attempt not in attempts or attempts[attempt][1]["kind"] != "confirmed":
+            raise ValueError("attempt must be confirmed")
+        start, latest = attempts[attempt]
+        try:
+            # Revalidate the material being recovered; a valid hash chain is
+            # only evidence of byte consistency, not of a well-formed result.
+            descriptor_text = start["descriptor_json"]
+            if type(descriptor_text) is not str:
+                raise ValueError("descriptor must be text")
+            descriptor = parse(descriptor_text)
+            fields = {"id", "code_id", "version", "deps", "inputs", "contract",
+                      "environment", "freshness", "replayable"}
+            if type(descriptor) is not dict or set(descriptor) != fields:
+                raise ValueError("invalid descriptor fields")
+            # Task validates the original descriptor using the same rules as
+            # ordinary construction. The placeholder is never executed.
+            original = Task(**descriptor, fn=(lambda *_: None)
+                            if descriptor["replayable"] is True else None)
+            if (original.descriptor_json != descriptor_text
+                    or start["task"] != original.id
+                    or start["signature"] != original.signature):
+                raise ValueError("invalid descriptor binding")
+            dependencies = start["dependency_digests"]
+            if (type(dependencies) is not list
+                    or len(dependencies) != len(original.deps)):
+                raise ValueError("invalid dependency identities")
+            for parent, entry in zip(original.deps, dependencies):
+                if (type(entry) is not list or len(entry) != 2
+                        or entry[0] != parent or type(entry[1]) is not str
+                        or len(entry[1]) != 64
+                        or any(c not in "0123456789abcdef" for c in entry[1])):
+                    raise ValueError("invalid dependency identity")
+            text = latest["output_json"]
+            if (type(text) is not str or json_snapshot(parse(text)) != text
+                    or latest["output_digest"] != digest(text)):
+                raise ValueError("invalid confirmed output")
+            record = {key: start[key] for key in
+                      ("descriptor_json", "signature", "dependency_digests")}
+            record.update(status="complete", output_json=text,
+                          output_digest=digest(text), effect_attempt=attempt)
+        except (KeyError, TypeError, ValueError, OverflowError) as error:
+            raise ValueError("malformed confirmed effect history") from error
+        task_id = original.id
+        if task_id in self._records:
+            if canonical(self._records[task_id]) == canonical(record):
+                return False
+            raise ValueError("conflicting checkpoint record; recovery would overwrite it")
+        self._records[task_id] = record
+        self._save()
+        return True

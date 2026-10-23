@@ -1,21 +1,22 @@
 {
   "schema_version": 1,
-  "source": "Compatibility.dfy",
-  "source_sha256": "5080b4f26ea23740dbf64f885abd789c18b9099dab40bf5cab0518401bd1d138",
+  "source": "Replay.dfy",
+  "source_sha256": "73e78c3eed8ff25edf624be4f178eb773310965e04ded6e7c1a1c30d3b23ac9b",
   "negative_source": "negative/CompatibilityOutputMutant.dfy",
   "negative_source_sha256": "178be130b1a8410030ed7eef660701f8cecb0918620a2b3a1151381eaf28a5dd",
   "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
-  "verified_tasks": 14,
+  "verified_tasks": 33,
   "negative_verified_tasks": 13,
   "negative_errors": 1,
   "generated_python": {
     "Compatibility.py": "5b39607089e206ad9889526c828dc12a749eba75a735f7572a7da5e99b2bed1c",
-    "module_.py": "09391ec34a11762f7125a8b95ecc1614e0f610dc65a11622cc842aea38f7e742",
-    "__main__.py": "f5727b2c424d02daa2c788aab4c7f6195adafe246daa598a58863f517d5f20c2",
-    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
-    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf"
+    "Replay.py": "b86a2e240acbfcf5d399c405a810701b71fb22685e6371b80647088db89104f6",
+    "module_.py": "c262e12ec0d93fb6daef0330022a609ebb0b75d983f3e86ba7aec11c6ec4d67b",
+    "__main__.py": "8dc72fb5e85a8dc9b4560d8402f11196d47819a8807e25fbab7ee8ab81c3562c",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a"
   },
-  "origin": "Plectis mechanisation of standard deterministic forward simulation and portable adapter, 23 October 2026; informed by supplied p12 and p15 research returns. No general novelty claim.",
+  "origin": "Plectis mechanisation of standard deterministic forward simulation and portable adapter, 23 October 2026; informed by supplied p12 and p15 research returns. No general novelty claim. Round-two p14 supplies checked negative witnesses; local bad-prefix soundness and non-vacuity lemmas strengthen the imported replay proof.",
   "toolchain": "https://github.com/dafny-lang/dafny/releases/tag/v4.11.0",
   "runtime_license": "MIT (Dafny); licence retained beside generated files",
   "trust": "Dafny/Boogie/Z3, compiler, runtime, parser/encoding and concrete-model correspondence remain trusted.",
@@ -54,6 +55,26 @@
       "source": "p15-return/artifact/review_transfer.py",
       "sha256": "8353daf9614652086a85be89df6a421ea4289796380735f4ffb395c7020d01f8",
       "role": "research source adapted for interface/search or strict input checks; not deployed as the certificate acceptance kernel"
+    },
+    {
+      "return": "r2-p14",
+      "date": "2026-10-23",
+      "source": "r2-p14-return/formal/Replay.dfy",
+      "sha256": "faab7be79bb2a3ea771a41f20521e9c884bbc40550122e3e157eb6b251f3a702",
+      "role": "executable negative-witness checker and relation-consistency proof; local independent bad-prefix soundness added"
+    },
+    {
+      "return": "r2-p14",
+      "date": "2026-10-23",
+      "source": "r2-p14-return/artifacts/model/preflight.py",
+      "sha256": "adf6ed3f847a5de10922844a426ac72f4df04504b22a8961f33ee62d95e95e36",
+      "role": "host negative-confirmation pattern; no hint retention service imported"
     }
-  ]
+  ],
+  "dependency_source": "Compatibility.dfy",
+  "dependency_source_sha256": "5080b4f26ea23740dbf64f885abd789c18b9099dab40bf5cab0518401bd1d138",
+  "replay_negative_source": "negative/ReplayStaleInputMutant.dfy",
+  "replay_negative_source_sha256": "91fdf19073e3b015a7036019908cc97b70a0a17c8b72c514cc3e492c81d7a473",
+  "replay_negative_verified_tasks": 30,
+  "replay_negative_errors": 7
 }

@@ -1,0 +1,17 @@
+{
+  "seq": [
+    {"emit": {"channel": "public", "value": {"concat": [{"input": "run_id"}, {"concat": [{"literal": ": "}, {"input": "score"}]}]}}},
+    {"seq": [
+      {"if": {
+        "condition": {"input": "embargo"},
+        "then": {"emit": {"channel": "internal", "value": {"concat": [{"literal": "Embargo: "}, {"input": "private_note"}]}}},
+        "else": {"emit": {"channel": "internal", "value": {"input": "private_note"}}}
+      }},
+      {"if": {
+        "condition": {"input": "passed"},
+        "then": {"emit": {"channel": "public", "value": {"literal": "passed"}}},
+        "else": {"emit": {"channel": "public", "value": {"literal": "needs review"}}}
+      }}
+    ]}
+  ]
+}
