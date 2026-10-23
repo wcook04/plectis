@@ -361,7 +361,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core hello .',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core first-screen --card .',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core tour --card .',
-        '$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab',
+        '$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core proof-lab --out "$(TMPDIR)/microcosm-proof-lab"',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core status --card .',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" scripts/check/served_status_smoke.py --root . --project . --out "$(SMOKE_OUT)/served-status-card.json"',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core authority --card',

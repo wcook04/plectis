@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import Counter
 import hashlib
 import json
+import os
 import shutil
 import threading
 from copy import deepcopy
@@ -14,6 +15,8 @@ import pytest
 from microcosm_core import cli
 from microcosm_core import project_substrate
 from microcosm_core import runtime_shell
+from microcosm_core.organs import macro_projection_import_protocol
+from microcosm_core.schemas import DuplicateJsonKeyError
 from microcosm_core.public_payload_boundary import omitted_payload_schema_term_hits
 from microcosm_core.runtime_shell import (
     LOCAL_FIRST_SCREEN_ROUTE_ID,
@@ -234,6 +237,192 @@ def test_runtime_shell_sha256_file_digest_streams_macro_body_targets(
     assert runtime_shell._sha256_file_digest(target) == (
         "sha256:" + hashlib.sha256(body).hexdigest()
     )
+
+
+def _macro_body_digest_fixture(root: Path) -> list[Path]:
+    targets = [root / "copied/tool.py", root / "copied/proof.txt"]
+    rows = []
+    for target, material_class in zip(
+        targets, ("public_macro_tool_body", "public_macro_proof_body")
+    ):
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes((target.stem + " public fixture\n").encode())
+        digest = "sha256:" + hashlib.sha256(target.read_bytes()).hexdigest()
+        rows.append({
+            "material_id": target.stem,
+            "material_class": material_class,
+            "target_ref": target.relative_to(root).as_posix(),
+            "body_copied": True,
+            "body_in_receipt": False,
+            "body_digest": digest,
+            "body_import_verification": {
+                "verification_status": "verified",
+                "verification_mode": "exact_source_digest_match",
+                "target_body_digest": digest,
+            },
+        })
+    protocol = root / runtime_shell.MACRO_PROJECTION_PROTOCOL_REF
+    protocol.parent.mkdir(parents=True)
+    protocol.write_text(json.dumps({"copied_material": rows}), encoding="utf-8")
+    return targets
+
+
+def test_macro_body_floor_overlaps_reads_and_rechecks_tampered_bytes(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    targets = _macro_body_digest_fixture(tmp_path)
+    original = runtime_shell._sha256_file_digest
+    barrier = threading.Barrier(2)
+    checked: list[Path] = []
+
+    def concurrent_digest(path: Path) -> str:
+        # Independent slow reads must be in flight together. A serial verifier
+        # fails at this barrier instead of hiding behind warm filesystem data.
+        barrier.wait(timeout=2)
+        checked.append(path)
+        return original(path)
+
+    monkeypatch.setattr(runtime_shell, "_sha256_file_digest", concurrent_digest)
+    floor = runtime_shell._macro_projection_body_import_floor(tmp_path)
+    assert floor["status"] == "pass"
+    assert set(checked) == set(targets)
+    assert [row["material_id"] for row in floor["body_imports"]] == ["tool", "proof"]
+
+    before = targets[0].stat()
+    body = targets[0].read_bytes()
+    targets[0].write_bytes(b"X" + body[1:])
+    os.utime(targets[0], ns=(before.st_atime_ns, before.st_mtime_ns))
+    checked.clear()
+    changed = runtime_shell._macro_projection_body_import_floor(tmp_path)
+    assert set(checked) == set(targets)
+    assert changed["status"] == "blocked"
+    assert changed["defect_count"] == 1
+    assert changed["defects"][0]["target_ref"] == "copied/tool.py"
+    assert "body_digest_mismatch" in changed["defects"][0]["defect_codes"]
+    assert changed["body_imports"][1]["target_digest_matches"] is True
+
+
+def test_macro_body_floor_propagates_target_read_failure(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    targets = _macro_body_digest_fixture(tmp_path)
+    original = runtime_shell._sha256_file_digest
+
+    def unreadable_target(path: Path) -> str:
+        if path == targets[0]:
+            raise PermissionError("unreadable fixture")
+        return original(path)
+
+    monkeypatch.setattr(runtime_shell, "_sha256_file_digest", unreadable_target)
+    with pytest.raises(PermissionError, match="unreadable fixture"):
+        runtime_shell._macro_projection_body_import_floor(tmp_path)
+
+
+def test_macro_body_floor_rejects_invalid_manifest_in_parallel_read(
+    tmp_path: Path,
+) -> None:
+    _macro_body_digest_fixture(tmp_path)
+    manifest = tmp_path / "examples/extra/source_module_manifest.json"
+    manifest.parent.mkdir()
+    manifest.write_text('{"modules": [], "modules": []}', encoding="utf-8")
+    with pytest.raises(DuplicateJsonKeyError):
+        runtime_shell._macro_projection_body_import_floor(tmp_path)
+
+
+def _projection_target_fixture(root: Path) -> tuple[dict, dict, list[Path]]:
+    protocol = json.loads(
+        (MICROCOSM_ROOT / runtime_shell.MACRO_PROJECTION_PROTOCOL_REF).read_text()
+    )
+    rows = [
+        row for row in protocol["copied_material"]
+        if row.get("body_import_verification", {}).get("verification_mode")
+        == "verified_light_edit_recipe"
+    ][:2]
+    assert len(rows) == 2
+    protocol["copied_material"] = rows
+    targets = []
+    for row in rows:
+        relative = Path(macro_projection_import_protocol._normalize_runtime_root_ref(
+            row["target_ref"].split("::", 1)[0]
+        ))
+        assert not relative.is_absolute() and ".." not in relative.parts
+        target = root / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(MICROCOSM_ROOT / relative, target)
+        targets.append(target)
+    policy = json.loads(
+        (MICROCOSM_ROOT / "core/private_state_forbidden_classes.json").read_text()
+    )
+    return protocol, policy, targets
+
+
+def test_projection_target_checks_overlap_and_keep_tamper_findings_ordered(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    protocol, policy, targets = _projection_target_fixture(tmp_path)
+    original = macro_projection_import_protocol._sha256_digest
+    barrier = threading.Barrier(2)
+    checked: list[Path] = []
+
+    def concurrent_digest(path: Path) -> str:
+        barrier.wait(timeout=2)
+        checked.append(path)
+        return original(path)
+
+    monkeypatch.setattr(macro_projection_import_protocol, "_sha256_digest", concurrent_digest)
+    result = macro_projection_import_protocol.validate_projection_protocol(
+        protocol, import_policy=policy, public_root=tmp_path,
+    )
+    assert result["status"] == "pass"
+    assert set(checked) == set(targets)
+    for target in targets:
+        before = target.stat()
+        body = target.read_bytes()
+        target.write_bytes(b"X" + body[1:])
+        os.utime(target, ns=(before.st_atime_ns, before.st_mtime_ns))
+    changed = macro_projection_import_protocol.validate_projection_protocol(
+        protocol, import_policy=policy, public_root=tmp_path,
+    )
+    assert changed["status"] == "blocked"
+    assert [
+        row["subject_id"] for row in changed["findings"]
+        if row["error_code"] == "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH"
+    ] == [row["target_ref"] for row in protocol["copied_material"]]
+
+
+def test_projection_target_checks_propagate_errors_and_reject_unsafe_paths(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    protocol, policy, targets = _projection_target_fixture(tmp_path)
+    original = macro_projection_import_protocol._sha256_digest
+
+    def unreadable_target(path: Path) -> str:
+        if path == targets[0]:
+            raise PermissionError("unreadable projection fixture")
+        return original(path)
+
+    monkeypatch.setattr(macro_projection_import_protocol, "_sha256_digest", unreadable_target)
+    with pytest.raises(PermissionError, match="unreadable projection fixture"):
+        macro_projection_import_protocol.validate_projection_protocol(
+            protocol, import_policy=policy, public_root=tmp_path,
+        )
+    protocol["copied_material"][0]["target_ref"] = str(targets[0])
+    checked = []
+
+    def guarded_digest(path: Path) -> str:
+        assert path == targets[1], "Unsafe target must be rejected before a read"
+        checked.append(path)
+        return original(path)
+
+    monkeypatch.setattr(macro_projection_import_protocol, "_sha256_digest", guarded_digest)
+    result = macro_projection_import_protocol.validate_projection_protocol(
+        protocol, import_policy=policy, public_root=tmp_path,
+    )
+    assert result["status"] == "blocked"
+    assert "MACRO_PROJECTION_PUBLIC_SAFE_BODY_TARGET_REF_UNSAFE" in {
+        row["error_code"] for row in result["findings"]
+    }
+    assert checked == [targets[1]]
 
 
 WORK_LANDING_CONTROL_BODY_MATERIAL_IDS = [
