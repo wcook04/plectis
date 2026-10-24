@@ -26,10 +26,19 @@ from pathlib import Path
 from typing import Any
 
 from . import secret_exclusion_scan
-from .organs import macro_projection_import_protocol
 from .receipts import utc_now, write_json_atomic
 from .schemas import StrictJsonError, read_json_strict
 from .validators.evidence_truth_floor import audit_evidence_truth_floor
+
+
+def __getattr__(name: str) -> Any:
+    """Retain lazy access to the projection executor for existing callers."""
+    if name == "macro_projection_import_protocol":
+        from .organs import macro_projection_import_protocol
+
+        globals()[name] = macro_projection_import_protocol
+        return macro_projection_import_protocol
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
 ARTIFACT_DIR_NAME = "plectis"
@@ -2591,6 +2600,8 @@ def _projection_freshness(
     )
     runtime_shape: dict[str, Any]
     if bundle_dir.is_dir():
+        from .organs import macro_projection_import_protocol
+
         with tempfile.TemporaryDirectory(prefix="microcosm-projection-freshness-") as tmp:
             temp_root = Path(tmp)
             validation = macro_projection_import_protocol.run_projection_bundle(

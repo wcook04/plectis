@@ -21612,6 +21612,43 @@ class RuntimeShell:
         )
         lenses = precomputed_lenses if isinstance(precomputed_lenses, dict) else {}
 
+        if not persist_receipt:
+            # These read-model lenses are independent. Preserve the caller's
+            # thread-local receipt policy when overlapping their cold I/O.
+            writes_enabled = _runtime_receipt_writes_enabled()
+            factories = {
+                "intake": self.intake,
+                "reveal": lambda: self.reveal(persist_receipt=False),
+                "market_boundary": self.market_boundary,
+                "trace_lens": self.trace_lens,
+                "repair_loop": self.repair_loop,
+                "evidence_cells": self.evidence_cells,
+                "proof_loop_depth": self.proof_loop_depth,
+                "landing_replay": self.landing_replay,
+                "view_quality": self.view_quality,
+                "projection_safety": self.projection_safety,
+                "projection_drift": self.projection_drift,
+                "route_cleanup": self.route_cleanup,
+                "projection_import_map": self.projection_import_map,
+                "import_projector": self.import_projector,
+                "option_surface": self.option_surface_lens,
+                "stripping_guard": self.stripping_guard,
+                "standards_control": self.standards_control,
+                "hook_coverage": self.hook_coverage,
+                "replay_gauntlet": self.replay_gauntlet,
+                "benchmark_lab": self.benchmark_lab,
+                "legibility_scorecard": self.legibility_scorecard,
+            }
+            missing = [name for name in factories if not isinstance(lenses.get(name), dict)]
+
+            def read_lens(name: str) -> dict[str, Any]:
+                with _runtime_receipt_write_override(writes_enabled):
+                    return factories[name]()
+
+            with ThreadPoolExecutor(max_workers=_SOURCE_READ_WORKERS) as workers:
+                values = list(workers.map(read_lens, missing))
+            lenses = {**lenses, **dict(zip(missing, values))}
+
         def lens_payload(
             lens_id: str,
             factory: Callable[[], dict[str, Any]],

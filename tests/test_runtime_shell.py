@@ -329,15 +329,29 @@ def test_macro_body_floor_rejects_invalid_manifest_in_parallel_read(
         runtime_shell._macro_projection_body_import_floor(tmp_path)
 
 
-def _projection_target_fixture(root: Path) -> tuple[dict, dict, list[Path]]:
+def _projection_target_fixture(
+    root: Path, verification_mode: str = "verified_light_edit_recipe",
+) -> tuple[dict, dict, list[Path]]:
     protocol = json.loads(
         (MICROCOSM_ROOT / runtime_shell.MACRO_PROJECTION_PROTOCOL_REF).read_text()
     )
     rows = [
         row for row in protocol["copied_material"]
         if row.get("body_import_verification", {}).get("verification_mode")
-        == "verified_light_edit_recipe"
-    ][:2]
+        == verification_mode
+    ]
+    if verification_mode == "exact_source_digest_match":
+        rows = [
+            row for row in rows
+            if (source := macro_projection_import_protocol._first_existing_source_ref(
+                [row["body_import_verification"].get("source_ref")],
+                public_root=MICROCOSM_ROOT,
+            )) is not None
+            and source[1] == MICROCOSM_ROOT / macro_projection_import_protocol._normalize_runtime_root_ref(
+                row["target_ref"].split("::", 1)[0]
+            )
+        ]
+    rows = rows[:2]
     assert len(rows) == 2
     protocol["copied_material"] = rows
     targets = []
@@ -354,6 +368,107 @@ def _projection_target_fixture(root: Path) -> tuple[dict, dict, list[Path]]:
         (MICROCOSM_ROOT / "core/private_state_forbidden_classes.json").read_text()
     )
     return protocol, policy, targets
+
+
+def test_projection_alias_uses_one_live_read_and_rechecks_next_call(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    protocol, policy, targets = _projection_target_fixture(
+        tmp_path, "exact_source_digest_match",
+    )
+    original = macro_projection_import_protocol._sha256_digest
+    checked: list[Path] = []
+
+    def track_read(path: Path) -> str:
+        checked.append(path)
+        return original(path)
+
+    monkeypatch.setattr(macro_projection_import_protocol, "_sha256_digest", track_read)
+    result = macro_projection_import_protocol.validate_projection_protocol(
+        protocol, import_policy=policy, public_root=tmp_path,
+    )
+    assert result["status"] == "pass"
+    assert sorted(checked) == sorted(targets)
+
+    before = targets[0].stat()
+    body = targets[0].read_bytes()
+    targets[0].write_bytes(b"X" + body[1:])
+    os.utime(targets[0], ns=(before.st_atime_ns, before.st_mtime_ns))
+    checked.clear()
+    changed = macro_projection_import_protocol.validate_projection_protocol(
+        protocol, import_policy=policy, public_root=tmp_path,
+    )
+    assert sorted(checked) == sorted(targets)
+    assert changed["status"] == "blocked"
+    assert any(row["error_code"] == "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH"
+               for row in changed["findings"])
+
+    # A distinct source is still read independently, including live drift.
+    targets[0].write_bytes(body)
+    source = tmp_path / "separate_source.py"
+    source.write_bytes(b"X" + body[1:])
+    row = protocol["copied_material"][0]
+    row["source_ref"] = "separate_source.py"
+    row["source_refs"] = ["separate_source.py"]
+    row["body_import_verification"]["source_ref"] = "separate_source.py"
+    checked.clear()
+    distinct = macro_projection_import_protocol.validate_projection_protocol(
+        protocol, import_policy=policy, public_root=tmp_path,
+    )
+    assert sorted(checked) == sorted([*targets, source])
+    assert distinct["live_source_drift_count"] == 1
+
+
+def test_observatory_parallel_reads_preserve_write_policy_and_precomputed_lenses(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    shell = RuntimeShell(tmp_path)
+    names = (
+        "intake", "reveal", "market_boundary", "trace_lens", "repair_loop",
+        "evidence_cells", "proof_loop_depth", "landing_replay", "view_quality",
+        "projection_safety", "projection_drift", "route_cleanup", "projection_import_map",
+        "import_projector", "option_surface", "stripping_guard", "standards_control",
+        "hook_coverage", "replay_gauntlet", "benchmark_lab", "legibility_scorecard",
+    )
+    precomputed = {name: {"status": "pass"} for name in names if name not in {"intake", "reveal"}}
+    barrier = threading.Barrier(2)
+    policies: list[bool] = []
+
+    def intake() -> dict:
+        barrier.wait(timeout=2)
+        policies.append(runtime_shell._runtime_receipt_writes_enabled())
+        runtime_shell.write_json_atomic(tmp_path / "must-not-be-written.json", {})
+        return {"status": "pass", "cell_status": []}
+
+    def reveal(*, persist_receipt: bool) -> dict:
+        assert persist_receipt is False
+        barrier.wait(timeout=2)
+        policies.append(runtime_shell._runtime_receipt_writes_enabled())
+        return {"status": "pass"}
+
+    def must_reuse() -> dict:
+        raise AssertionError("precomputed lens must be reused")
+
+    monkeypatch.setattr(shell, "intake", intake)
+    monkeypatch.setattr(shell, "reveal", reveal)
+    monkeypatch.setattr(shell, "market_boundary", must_reuse)
+    with runtime_shell._runtime_receipt_write_override(False):
+        result = shell.observatory_intake_bridge(
+            persist_receipt=False, precomputed_lenses=precomputed,
+        )
+    assert result["status"] == "pass"
+    assert policies == [False, False]
+    assert not (tmp_path / "must-not-be-written.json").exists()
+
+    def unreadable() -> dict:
+        raise PermissionError("unreadable intake")
+
+    monkeypatch.setattr(shell, "intake", unreadable)
+    with pytest.raises(PermissionError, match="unreadable intake"):
+        shell.observatory_intake_bridge(
+            persist_receipt=False,
+            precomputed_lenses={**precomputed, "reveal": {"status": "pass"}},
+        )
 
 
 def test_projection_target_checks_overlap_and_keep_tamper_findings_ordered(

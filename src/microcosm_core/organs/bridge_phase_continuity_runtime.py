@@ -15,7 +15,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-from microcosm_core import release_export
 from microcosm_core.private_state_scan import (
     PASS,
     load_forbidden_classes,
@@ -1146,6 +1145,10 @@ def _validate_fixture_contract(
                 }
             )
             continue
+        # Ordinary source-body fixtures do not use release substitutions.
+        # Load their owner only when an omission row requires that contract.
+        from microcosm_core import release_export
+
         raw_target_ref = row.get("path")
         target_ref = raw_target_ref if isinstance(raw_target_ref, str) else ""
         substitution = row.get("release_substitution")

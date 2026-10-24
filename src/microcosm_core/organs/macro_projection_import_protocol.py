@@ -43,7 +43,7 @@ from microcosm_core.validators.source_module_boundary import (
 ORGAN_ID = "macro_projection_import_protocol"
 FIXTURE_ID = "first_wave.macro_projection_import_protocol"
 VALIDATOR_ID = "validator.microcosm.organs.macro_projection_import_protocol"
-_BODY_VERIFICATION_WORKERS = 4
+_BODY_VERIFICATION_WORKERS = 8
 
 RESULT_NAME = "macro_projection_import_protocol_result.json"
 BOARD_NAME = "projection_import_board.json"
@@ -5346,6 +5346,7 @@ def _body_import_verification_findings(
     material_id: str,
     declared_digest: str,
     public_root: Path | None,
+    target_digest_read: tuple[Path, str] | None = None,
 ) -> list[dict[str, Any]]:
     """
     Build a structured finding row for body import verification findings.
@@ -5476,7 +5477,15 @@ def _body_import_verification_findings(
         else:
             existing_source = _first_existing_source_ref(source_refs, public_root=public_root)
             if existing_source is not None:
-                actual_source_digest = _sha256_digest(existing_source[1])
+                # An exact public copy may name the very same file as source
+                # and target. Use the live byte witness already read in this
+                # row check; a later validation always reads it again.
+                actual_source_digest = (
+                    target_digest_read[1]
+                    if target_digest_read is not None
+                    and existing_source[1] == target_digest_read[0]
+                    else _sha256_digest(existing_source[1])
+                )
                 if actual_source_digest != source_digest:
                     target_ref = verification.get("target_ref") or row.get("target_ref")
                     row["_live_source_drift"] = {
@@ -5596,7 +5605,9 @@ def _public_safe_body_target_findings(
 
     resolved_target = public_root / target_path
     declared_digest = str(row.get("body_digest") or "")
-    if not resolved_target.is_file():
+    target_exists = resolved_target.is_file()
+    target_digest_read = None
+    if not target_exists:
         findings.append(
             _finding(
                 "MACRO_PROJECTION_PUBLIC_SAFE_BODY_TARGET_MISSING",
@@ -5616,22 +5627,26 @@ def _public_safe_body_target_findings(
                 subject_kind="copied_material",
             )
         )
-    elif resolved_target.is_file() and declared_digest != _sha256_digest(resolved_target):
-        findings.append(
-            _finding(
-                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
-                "body_copied verified macro material digest must match the target_ref file.",
-                case_id="public_safe_body_import_floor",
-                subject_id=target_ref,
-                subject_kind="copied_material",
+    elif target_exists:
+        actual_digest = _sha256_digest(resolved_target)
+        target_digest_read = (resolved_target, actual_digest)
+        if declared_digest != actual_digest:
+            findings.append(
+                _finding(
+                    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
+                    "body_copied verified macro material digest must match the target_ref file.",
+                    case_id="public_safe_body_import_floor",
+                    subject_id=target_ref,
+                    subject_kind="copied_material",
+                )
             )
-        )
     findings.extend(
         _body_import_verification_findings(
             row,
             material_id=material_id,
             declared_digest=declared_digest,
             public_root=public_root,
+            target_digest_read=target_digest_read,
         )
     )
     return findings
