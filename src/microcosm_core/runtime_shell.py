@@ -24808,6 +24808,7 @@ class RuntimeShell:
         workingness_cache_lock = threading.Lock()
         runtime_lens_cache_lock = threading.Lock()
         project_view_cache_lock = threading.Lock()
+        request_count_lock = threading.Lock()
 
         def ensure_project_first_screen_state() -> dict[str, Any]:
             """
@@ -25831,6 +25832,12 @@ class RuntimeShell:
             daemon_threads = True
             block_on_close = False
 
+            def handle_error(self, request: Any, client_address: tuple[str, int]) -> None:
+                """Treat peer disconnects as abandoned responses; report other errors."""
+                if isinstance(sys.exc_info()[1], (BrokenPipeError, ConnectionResetError)):
+                    return
+                super().handle_error(request, client_address)
+
             def serve_forever(
                 self,
                 poll_interval: float = RUNTIME_SHELL_SERVE_FOREVER_POLL_INTERVAL,
@@ -25862,6 +25869,9 @@ class RuntimeShell:
                 """
                 try:
                     super().finish()
+                except OSError:
+                    self._response_delivered = False
+                    raise
                 finally:
                     self._mark_request_complete()
 
@@ -25873,15 +25883,18 @@ class RuntimeShell:
                 orchestration step in its body.
                 """
                 limit = getattr(self.server, "microcosm_max_requests", None)
-                if not isinstance(limit, int):
+                if not isinstance(limit, int) or not getattr(self, "_response_delivered", False):
                     return
-                count = int(getattr(self.server, "microcosm_request_count", 0)) + 1
-                setattr(self.server, "microcosm_request_count", count)
-                if count < limit:
-                    return
-                if bool(getattr(self.server, "microcosm_shutdown_started", False)):
-                    return
-                setattr(self.server, "microcosm_shutdown_started", True)
+                # A disconnected readiness probe did not receive a response.
+                # Do not spend the caller's bounded serving budget on it.
+                with request_count_lock:
+                    count = int(getattr(self.server, "microcosm_request_count", 0)) + 1
+                    setattr(self.server, "microcosm_request_count", count)
+                    if count < limit:
+                        return
+                    if bool(getattr(self.server, "microcosm_shutdown_started", False)):
+                        return
+                    setattr(self.server, "microcosm_shutdown_started", True)
                 threading.Thread(target=self.server.shutdown, daemon=True).start()
 
             def _client_prefers_html_json_view(self) -> bool:
@@ -25957,6 +25970,7 @@ class RuntimeShell:
                 self.send_header("Content-Length", str(len(encoded)))
                 self.end_headers()
                 self.wfile.write(encoded)
+                self._response_delivered = True
 
             def _send(self, status_code: int, payload: dict[str, Any] | list[dict[str, Any]]) -> None:
                 """
@@ -25975,6 +25989,7 @@ class RuntimeShell:
                 self.send_header("Content-Length", str(len(encoded)))
                 self.end_headers()
                 self.wfile.write(encoded)
+                self._response_delivered = True
 
             def _send_html(self, status_code: int, body: str) -> None:
                 """
@@ -25989,6 +26004,7 @@ class RuntimeShell:
                 self.send_header("Content-Length", str(len(encoded)))
                 self.end_headers()
                 self.wfile.write(encoded)
+                self._response_delivered = True
 
             def _send_empty(self, status_code: int) -> None:
                 """
@@ -26000,6 +26016,7 @@ class RuntimeShell:
                 self.send_response(status_code)
                 self.send_header("Content-Length", "0")
                 self.end_headers()
+                self._response_delivered = True
 
             def log_message(self, format: str, *args: Any) -> None:
                 """

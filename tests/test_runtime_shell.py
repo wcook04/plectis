@@ -5367,6 +5367,70 @@ def test_runtime_shell_route_and_evidence_drilldowns(tmp_path: Path) -> None:
     assert work_demo["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
 
 
+def test_server_budget_counts_delivered_responses_after_client_disconnect(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    shell = RuntimeShell(MICROCOSM_ROOT)
+    monkeypatch.setattr(shell, "patterns", lambda: [{"pattern_id": "bounded"}])
+    server = shell.serve("127.0.0.1", 0, max_requests=1)
+    handler = server.RequestHandlerClass
+    original_send = handler._send
+    original_finish = handler.finish
+    original_handle_error = server.handle_error
+    completed = threading.Event()
+    error_handled = threading.Event()
+    failed_once = False
+
+    def send(self, code, payload):
+        nonlocal failed_once
+        if not failed_once:
+            failed_once = True
+            raise BrokenPipeError("readiness client disconnected")
+        return original_send(self, code, payload)
+
+    def finish(self):
+        try:
+            return original_finish(self)
+        finally:
+            completed.set()
+
+    def handle_error(request, address):
+        try:
+            return original_handle_error(request, address)
+        finally:
+            error_handled.set()
+
+    monkeypatch.setattr(handler, "_send", send)
+    monkeypatch.setattr(handler, "finish", finish)
+    monkeypatch.setattr(server, "handle_error", handle_error)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    host, port = server.server_address
+    try:
+        with pytest.raises(OSError):
+            urlopen(f"http://{host}:{port}/patterns", timeout=2)
+        assert completed.wait(timeout=2)
+        assert error_handled.wait(timeout=2)
+        assert getattr(server, "microcosm_request_count", 0) == 0
+        assert getattr(server, "microcosm_shutdown_started", False) is False
+        assert capsys.readouterr().err == ""
+        with urlopen(f"http://{host}:{port}/patterns", timeout=2) as response:
+            assert json.loads(response.read())["patterns"] == [{"pattern_id": "bounded"}]
+        thread.join(timeout=2)
+        assert not thread.is_alive()
+        assert server.microcosm_request_count == 1
+        try:
+            raise RuntimeError("unexpected handler fixture")
+        except RuntimeError:
+            original_handle_error(None, (host, port))
+        assert "unexpected handler fixture" in capsys.readouterr().err
+    finally:
+        server.shutdown()
+        thread.join(timeout=2)
+        server.server_close()
+
+
 def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
