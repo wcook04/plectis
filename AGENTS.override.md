@@ -18,10 +18,11 @@ Neither repository gives access to private state or makes claims about it.
 
 ## Portable operations and formal verification
 
-For workflow repair, guarded publication, or behavior-preserving replacement,
+For workflow repair, guarded publication, behavior-preserving replacement or
+public-only report compilation,
 start with [the runnable study](docs/guides/verification-study.md) and
 [formal sources](formal/README.md). Run `make operations-demo`; use the relevant
-`plectis.repair`, `plectis.publish` or `plectis.compatibility` module directly.
+`plectis.repair`, `plectis.publish`, `plectis.compatibility` or `plectis.views` module directly.
 These experiments do not require the component catalogue. Formal claims concern
 the supplied models and generated decision kernels; Python persistence hosts
 are separately tested. `make verify-operations DAFNY=/path/to/dafny` rechecks the

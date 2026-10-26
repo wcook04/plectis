@@ -14,6 +14,7 @@ instructions state those requirements.
 ```text
 plectis.repair -> Python host -> isolated worker -> generated Dafny planner/checker
 plectis.compatibility -> model adapter -> isolated worker -> generated Dafny checker
+plectis.views -> report adapter -> isolated worker -> generated Dafny compiler/interpreter
 plectis.publish -> guarded SQLite transactions
 
 plectis / python -m plectis / plectis.cli:main

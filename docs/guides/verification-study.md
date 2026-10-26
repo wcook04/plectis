@@ -23,6 +23,27 @@ caller can use independently, then asks which promises survive a change.
 This is an experimental study begun on 23 October 2026. It does not establish
 verification of the older 88-component catalogue or an integrated agent platform.
 
+## What this study contributes
+
+The contribution is a set of small decision APIs for changing workflows:
+identify affected results without automatically repeating uncertain actions,
+check a replacement against the interactions a caller was promised, and compile
+a report that can run with public inputs alone. The Python APIs execute the
+generated cores whose source is verified. The examples connect those decisions
+to concrete changes, rejected candidates and separately tested host behavior.
+
+Dependency closure, refinement, information-flow analysis, code generation and
+formal verification are established techniques. This release studies their
+application at these workflow boundaries; it does not establish a new formal
+method or practical superiority over ordinary implementations. Its stronger
+specification test is concrete: a checker that misses a differing interaction
+can satisfy the old one-way theorem but fails the new completeness requirement.
+
+The next useful evidence is a real caller with independently fixed requirements,
+a competent baseline, and measurements of missed regressions, unnecessary reruns
+and integration effort. The authored examples and proof counts cannot establish
+that value or predict a research lab's interest.
+
 ## Run the changed-evaluation example
 
 From the repository root, with Python 3.11 or newer:
@@ -228,6 +249,10 @@ examples cannot decide those questions.
 
 ## Research provenance and selection
 
+<details>
+<summary>Original research returns and implementation decisions</summary>
+
+
 The first implementation draws on fifteen research returns reviewed on 23 October 2026.
 They share source material and a common brief, so agreement is not fifteen
 independent votes. Selection follows reproduced mechanisms, useful counterexamples
@@ -304,6 +329,8 @@ catalogue remains a reference collection, not a count of verified components.
 The next decision is whether a real caller benefits enough from one operation
 to justify continuing it; neither proof counts nor this authored demo answer that.
 
+</details>
+
 ## Checking the claim as well as the implementation
 
 A proof establishes its stated property under its stated assumptions. It does
@@ -325,6 +352,26 @@ component audit distinguishes those evidence classes from the three formal
 cores. Restored source snapshots retain their original identities, while their
 new replays describe the current public execution. Synthetic numeric examples
 are fixture data, not measurements or claims about physical experiments.
+
+### Patterns from other verified software repositories
+
+A useful verification repository makes the property, proof, executable and
+reproduction command easy to follow together. We reviewed the following source
+revisions on 26 October 2026. This was a source comparison, not a reproduction
+of their proofs or an exhaustive novelty search; no external code was copied.
+
+| Project | Pattern to learn from | Application here |
+|---|---|---|
+| [Cedar specification, `301bdd2`](https://github.com/cedar-policy/cedar-spec/tree/301bdd22df134786a8a1312e24138afcd3f8bffe) | Names the Lean definitions and theorems, then separately tests its production Rust implementation against the executable model. | The proof and Python-host boundary stay explicit. A differential study with a real caller is the next proposed experiment, not a completed equivalence proof. |
+| [Verified IronKV, `7e35ed0`](https://github.com/verus-lang/verified-ironkv/tree/7e35ed097c4089b9fbda483ea2629a0033f4d874) | States up front that its Verus port verifies the host program and does not reproduce IronFleet's distributed refinement proof. | The README links each decision core to its generated code and states what remains outside its proof. The catalogue cannot inherit those guarantees. |
+| [Theorem OSS Verify, `2730445`](https://github.com/theorem-labs/oss-verify/blob/273044531e6ea0841351fe1ca3f009a7f2d37a31/docs/what-gets-proven.md) | Defines claims for exact compiled binaries, input conditions and process semantics. | Keep exact source/generated-byte binding, pinned tools and replay commands. Plectis proves Dafny source properties; it does not claim Theorem's binary-level guarantees. |
+
+These comparisons support a presentation and validation practice, not a claim
+that Plectis invented those techniques. A reviewer can start at the
+[README's operation table](../../README.md#formally-checked-workflow-operations),
+open the specification and generated implementation, then run
+`make verify-operations DAFNY=/path/to/dafny`. The
+[formal index](../../formal/README.md) names the trusted tools and unproved hosts.
 
 ### Research reviewed on 26 October 2026
 
