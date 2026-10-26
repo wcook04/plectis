@@ -607,6 +607,59 @@ def test_release_export_detects_hidden_source_bytes(
     assert decision["release_authorization_allowed_now"] is False
 
 
+def test_source_modules_contamination_prunes_excluded_ancestors_before_descent(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root = tmp_path / "source"
+    first = root / "examples/first/source_modules/module.py"
+    second = root / "examples/deeper/second/source_modules/nested/module.py"
+    artifact = root / "examples/first/source_modules/package/.git/config"
+    _write(first, 'HOME = "/Users/release-fixture/data"\n')
+    _write(second, 'HOME = "/home/release-fixture/data"\n')
+    _write(artifact, "copied Git metadata is build residue\n")
+    _git(root, "init")
+    excluded = [root / name for name in (".git", "nested/.git", ".venv", "venv")]
+    for directory in excluded:
+        _write(directory / "objects/volatile/source_modules/hidden.py", first.read_text())
+    original_scandir = release_export.os.scandir
+
+    def guarded_scandir(path):
+        if isinstance(path, int):
+            return original_scandir(path)
+        candidate = Path(path)
+        assert not any(candidate == directory or directory in candidate.parents
+                       for directory in excluded), "discovery entered an excluded ancestor"
+        return original_scandir(path)
+
+    monkeypatch.setattr(release_export.os, "scandir", guarded_scandir)
+    rows = release_export.scan_source_modules_contamination(root, compare_private_bodies=False)
+
+    assert {(row["path"], row["contamination_class"]) for row in rows} == {
+        (first.relative_to(root).as_posix(), "host_private_path"),
+        (second.relative_to(root).as_posix(), "host_private_path"),
+        (artifact.relative_to(root).as_posix(), "build_artifact_directory"),
+    }
+
+
+def test_source_modules_contamination_preserves_public_tree_discovery_errors(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root = tmp_path / "source"
+    _write(root / "examples/basic/source_modules/module.py", "SAFE = True\n")
+    original_scandir = release_export.os.scandir
+
+    def disappearing_source(path):
+        if isinstance(path, int):
+            return original_scandir(path)
+        if Path(path) == root / "examples":
+            raise FileNotFoundError("public source disappeared during discovery")
+        return original_scandir(path)
+
+    monkeypatch.setattr(release_export.os, "scandir", disappearing_source)
+    with pytest.raises(FileNotFoundError, match="public source disappeared"):
+        release_export.scan_source_modules_contamination(root, compare_private_bodies=False)
+
+
 def test_source_identity_detects_mode_drift_hidden_by_git_config(tmp_path: Path) -> None:
     root = tmp_path / "source"
     root.mkdir()

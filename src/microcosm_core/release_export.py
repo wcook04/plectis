@@ -1647,15 +1647,22 @@ def scan_source_modules_contamination(
         ".venv",
         "venv",
     }
-    source_module_roots = sorted(
-        path
-        for path in public_root.rglob("source_modules")
-        if path.is_dir()
-        and not (
-            set(path.relative_to(public_root).parts[:-1])
-            & skipped_source_module_ancestors
+
+    def discovery_error(error: OSError) -> None:
+        raise error
+
+    source_module_roots: list[Path] = []
+    for directory, names, _files in os.walk(
+        public_root, topdown=True, onerror=discovery_error, followlinks=False
+    ):
+        # Prune before descending: Git maintenance can remove object
+        # directories while discovery runs. Filtering rglob results is too late.
+        names[:] = sorted(
+            name for name in names if name not in skipped_source_module_ancestors
         )
-    )
+        if "source_modules" in names:
+            source_module_roots.append(Path(directory) / "source_modules")
+    source_module_roots.sort()
     for modules_root in source_module_roots:
         bundle_ref = modules_root.parent.relative_to(public_root).as_posix()
         for path in sorted(modules_root.rglob("*")):
