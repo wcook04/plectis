@@ -65,6 +65,11 @@ INPUT_NAMES = (
 )
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 VIEW_QUALITY_GEOMETRY_PROBE_NAME = "view_quality_geometry_probe.json"
+# Reviewed source body shipped by the world-model bundle. Manifest hashes in a
+# caller-supplied bundle cannot authorize Python execution on their own.
+TRUSTED_VIEW_QUALITY_SOURCE_SHA256 = (
+    "9af792fa6a611715f76bf31c3c2f995e13a29014e1b12c8e0dc5dcfeab9b4ee3"
+)
 NEGATIVE_INPUT_NAMES = (
     "drift_row_without_source_ref.json",
     "repair_route_without_validation_ref.json",
@@ -323,7 +328,7 @@ def _source_module_target_path(
     *,
     input_dir: Path,
     public_root: Path,
-) -> Path:
+) -> Path | None:
     """
     Return source module target path for the organs world model projection drift control
     room flow.
@@ -332,9 +337,22 @@ def _source_module_target_path(
     `removeprefix` and `startswith`.
     """
     normalized = target_ref.removeprefix("microcosm-substrate/")
-    if normalized.startswith("source_modules/"):
-        return input_dir / normalized
-    return public_root / normalized
+    relative = Path(normalized)
+    if relative.is_absolute():
+        return None
+    candidate = (
+        input_dir / relative
+        if normalized.startswith("source_modules/")
+        else public_root / relative
+    )
+    try:
+        source_root = (input_dir / "source_modules").resolve(strict=False)
+        resolved = candidate.resolve(strict=False)
+    except (OSError, RuntimeError):
+        return None
+    if not resolved.is_relative_to(source_root):
+        return None
+    return resolved
 
 
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
@@ -356,13 +374,13 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     for row in _rows(manifest, "modules"):
         target_ref = str(row.get("target_ref") or "")
         if target_ref:
-            paths.append(
-                _source_module_target_path(
-                    target_ref,
-                    input_dir=input_dir,
-                    public_root=public_root,
-                )
+            target = _source_module_target_path(
+                target_ref,
+                input_dir=input_dir,
+                public_root=public_root,
             )
+            if target is not None:
+                paths.append(target)
     return paths
 
 
@@ -1172,6 +1190,17 @@ def _source_module_manifest_result(
             input_dir=input_dir,
             public_root=public_root,
         )
+        if target is None:
+            findings.append(
+                _finding(
+                    "DRIFT_SOURCE_MODULE_TARGET_OUTSIDE_BUNDLE",
+                    "source module target must stay inside this bundle's source_modules",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+            continue
         if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
             findings.append(
                 _finding(
@@ -1201,6 +1230,19 @@ def _source_module_manifest_result(
                 _finding(
                     "DRIFT_SOURCE_MODULE_DIGEST_MISMATCH",
                     "source module digest declarations must match the copied target body",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if (
+            source_ref == "tools/meta/observability/view_quality_census.py"
+            and actual != f"sha256:{TRUSTED_VIEW_QUALITY_SOURCE_SHA256}"
+        ):
+            findings.append(
+                _finding(
+                    "DRIFT_VIEW_QUALITY_SOURCE_BODY_UNTRUSTED",
+                    "view-quality grader must match the independently reviewed source body",
                     case_id="source_module_manifest",
                     subject_id=module_id,
                     subject_kind="source_module",
@@ -1279,6 +1321,9 @@ def _load_view_quality_source_module(path: Path) -> Any:
     Input comes from `path`; malformed or missing data follows the exceptions and checks
     visible in the body.
     """
+    source_bytes = path.read_bytes()
+    if hashlib.sha256(source_bytes).hexdigest() != TRUSTED_VIEW_QUALITY_SOURCE_SHA256:
+        raise ValueError("view-quality source body differs from the reviewed Plectis copy")
     spec = importlib.util.spec_from_file_location(
         "_microcosm_world_model_projection_drift_view_quality_census",
         path,
@@ -1286,7 +1331,7 @@ def _load_view_quality_source_module(path: Path) -> Any:
     if spec is None or spec.loader is None:
         raise ImportError(f"could not import copied view-quality source module: {path}")
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    exec(compile(source_bytes, str(path), "exec"), module.__dict__)
     return module
 
 

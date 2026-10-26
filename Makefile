@@ -108,6 +108,7 @@ PUBLIC_TESTS += tests/test_crown_jewel_common.py tests/test_source_module_bounda
 PUBLIC_TESTS += tests/test_mission_transaction_work_spine.py
 PUBLIC_TESTS += tests/test_component_replays.py tests/test_export_contamination_gate.py
 PUBLIC_TESTS += tests/test_cognitive_operator_registry.py tests/test_proof_derived_governed_mutation_authorization.py
+PUBLIC_TESTS += tests/test_world_model_projection_drift_control_room.py
 
 .PHONY: operations-demo operations-test verify-operations
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean

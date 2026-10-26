@@ -1406,24 +1406,34 @@ def _private_body_match_row(
     return None
 
 
+def _discover_source_module_roots(
+    public_root: Path, *, skipped_ancestors: set[str]
+) -> list[Path]:
+    """Find source bundles without entering excluded or transient directories."""
+    def discovery_error(error: OSError) -> None:
+        raise error
+
+    roots: list[Path] = []
+    for directory, names, _files in os.walk(
+        public_root, topdown=True, onerror=discovery_error, followlinks=False
+    ):
+        names[:] = sorted(name for name in names if name not in skipped_ancestors)
+        if "source_modules" in names:
+            roots.append(Path(directory) / "source_modules")
+    return sorted(roots)
+
+
 def _restricted_source_module_substitution_rows(public_root: Path) -> list[dict[str, Any]]:
     """
     Derive restricted source module substitution rows without touching module import state.
 
-    Inputs are `public_root`; notable helpers are `as_posix`, `rglob`, `is_dir`,
-    `_restricted_private_source_match`, and 3 more.
+    Inputs are `public_root`; discovery prunes excluded ancestors before descent.
     """
     skipped_source_module_ancestors = SKIPPED_DIR_NAMES | SKIPPED_ROOT_NAMES | {
-        "__pycache__",
+        "venv",
     }
-    source_module_roots = sorted(
-        path
-        for path in public_root.rglob("source_modules")
-        if path.is_dir()
-        and not (
-            set(path.relative_to(public_root).parts)
-            & skipped_source_module_ancestors
-        )
+    source_module_roots = _discover_source_module_roots(
+        public_root, skipped_ancestors=skipped_source_module_ancestors
     )
     rows: list[dict[str, Any]] = []
     for modules_root in source_module_roots:
@@ -1648,21 +1658,9 @@ def scan_source_modules_contamination(
         "venv",
     }
 
-    def discovery_error(error: OSError) -> None:
-        raise error
-
-    source_module_roots: list[Path] = []
-    for directory, names, _files in os.walk(
-        public_root, topdown=True, onerror=discovery_error, followlinks=False
-    ):
-        # Prune before descending: Git maintenance can remove object
-        # directories while discovery runs. Filtering rglob results is too late.
-        names[:] = sorted(
-            name for name in names if name not in skipped_source_module_ancestors
-        )
-        if "source_modules" in names:
-            source_module_roots.append(Path(directory) / "source_modules")
-    source_module_roots.sort()
+    source_module_roots = _discover_source_module_roots(
+        public_root, skipped_ancestors=skipped_source_module_ancestors
+    )
     for modules_root in source_module_roots:
         bundle_ref = modules_root.parent.relative_to(public_root).as_posix()
         for path in sorted(modules_root.rglob("*")):

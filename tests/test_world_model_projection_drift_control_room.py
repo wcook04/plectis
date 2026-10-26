@@ -225,6 +225,24 @@ def _write_view_quality_geometry_probe(
     return path
 
 
+def _copied_drift_bundle(tmp_path: Path) -> tuple[Path, Path]:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_runtime_drift_receipt(public_root)
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
+        public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
+    )
+    bundle = (
+        public_root
+        / "examples/world_model_projection_drift_control_room/"
+        "exported_projection_drift_control_bundle"
+    )
+    _write_view_quality_geometry_probe(bundle)
+    return public_root, bundle
+
+
 def test_world_model_projection_drift_control_observes_negative_cases(
     tmp_path: Path,
 ) -> None:
@@ -1473,3 +1491,115 @@ def test_world_model_source_manifest_shape_cannot_replace_coverage(tmp_path, mut
         tmp_path, public_root=MICROCOSM_ROOT, required=True)
     assert result["status"] == "blocked"
     assert expected in {row["error_code"] for row in result["findings"]}
+
+
+@pytest.mark.parametrize("escape", ["absolute", "traversal", "symlink"])
+def test_world_model_source_manifest_cannot_read_outside_bundle(
+    tmp_path: Path, escape: str, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _, bundle = _copied_drift_bundle(tmp_path)
+    outside = bundle.parent / "outside.py"
+    marker = tmp_path / "outside_imported"
+    monkeypatch.setenv("PLECTIS_TEST_IMPORT_MARKER", str(marker))
+    outside.write_text(
+        "from pathlib import Path\n"
+        "import os\n"
+        "Path(os.environ['PLECTIS_TEST_IMPORT_MARKER']).write_text('seen')\n",
+        encoding="utf-8",
+    )
+    if escape == "absolute":
+        target_ref = str(outside)
+    elif escape == "traversal":
+        target_ref = "source_modules/../../outside.py"
+    else:
+        (bundle / "source_modules/escape.py").symlink_to(outside)
+        target_ref = "source_modules/escape.py"
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    grader = next(
+        row for row in manifest["modules"]
+        if row["source_ref"] == "tools/meta/observability/view_quality_census.py"
+    )
+    digest = hashlib.sha256(outside.read_bytes()).hexdigest()
+    grader.update(
+        target_ref=target_ref,
+        source_sha256=digest,
+        target_sha256=digest,
+        required_anchors=[],
+    )
+    _write_json(manifest_path, manifest)
+
+    result = run_drift_control_bundle(bundle, tmp_path / "result", command="pytest")
+
+    assert result["source_module_summary"]["status"] == "blocked"
+    assert "DRIFT_SOURCE_MODULE_TARGET_OUTSIDE_BUNDLE" in {
+        row["error_code"] for row in result["source_module_summary"]["findings"]
+    }
+    assert result["view_quality_geometry_grade"]["status"] == "blocked"
+    assert not marker.exists()
+
+
+def test_world_model_self_hashed_substitute_cannot_execute(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _, bundle = _copied_drift_bundle(tmp_path)
+    marker = tmp_path / "substitute_imported"
+    monkeypatch.setenv("PLECTIS_TEST_IMPORT_MARKER", str(marker))
+    grader_path = bundle / "source_modules/tools/meta/observability/view_quality_census.py"
+    grader_path.write_text(
+        "from pathlib import Path\n"
+        "import os\n"
+        "Path(os.environ['PLECTIS_TEST_IMPORT_MARKER']).write_text('seen')\n",
+        encoding="utf-8",
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    grader = next(
+        row for row in manifest["modules"]
+        if row["source_ref"] == "tools/meta/observability/view_quality_census.py"
+    )
+    digest = hashlib.sha256(grader_path.read_bytes()).hexdigest()
+    grader.update(
+        source_sha256=digest,
+        target_sha256=digest,
+        required_anchors=["PLECTIS_TEST_IMPORT_MARKER"],
+    )
+    _write_json(manifest_path, manifest)
+
+    result = run_drift_control_bundle(bundle, tmp_path / "result", command="pytest")
+
+    assert result["source_module_summary"]["status"] == "blocked"
+    assert "DRIFT_VIEW_QUALITY_SOURCE_BODY_UNTRUSTED" in {
+        row["error_code"] for row in result["source_module_summary"]["findings"]
+    }
+    assert result["view_quality_geometry_grade"]["status"] == "blocked"
+    assert not marker.exists()
+
+
+def test_world_model_grader_executes_captured_checked_bytes(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _, bundle = _copied_drift_bundle(tmp_path)
+    grader_path = bundle / "source_modules/tools/meta/observability/view_quality_census.py"
+    marker = tmp_path / "swapped_imported"
+    monkeypatch.setenv("PLECTIS_TEST_IMPORT_MARKER", str(marker))
+    original_read_bytes = Path.read_bytes
+
+    def swap_after_read(path: Path) -> bytes:
+        captured = original_read_bytes(path)
+        if path == grader_path:
+            path.write_text(
+                "from pathlib import Path\n"
+                "import os\n"
+                "Path(os.environ['PLECTIS_TEST_IMPORT_MARKER']).write_text('seen')\n",
+                encoding="utf-8",
+            )
+        return captured
+
+    monkeypatch.setattr(Path, "read_bytes", swap_after_read)
+    module = world_model_projection_drift_control_room._load_view_quality_source_module(
+        grader_path
+    )
+
+    assert callable(module._geometry_vector_from_summary)
+    assert not marker.exists()

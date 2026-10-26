@@ -660,6 +660,48 @@ def test_source_modules_contamination_preserves_public_tree_discovery_errors(
         release_export.scan_source_modules_contamination(root, compare_private_bodies=False)
 
 
+def test_restricted_source_discovery_prunes_git_before_descent(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root = tmp_path / "source"
+    _write(root / "examples/basic/source_modules/module.py", "SAFE = True\n")
+    _git(root, "init")
+    excluded = [root / name for name in (".git", "nested/.git", ".venv", "venv")]
+    for directory in excluded:
+        _write(directory / "objects/volatile/source_modules/hidden.py", "ignored\n")
+    original_scandir = release_export.os.scandir
+
+    def guarded_scandir(path):
+        if isinstance(path, int):
+            return original_scandir(path)
+        candidate = Path(path)
+        assert not any(candidate == directory or directory in candidate.parents
+                       for directory in excluded), "restricted discovery entered an excluded ancestor"
+        return original_scandir(path)
+
+    monkeypatch.setattr(release_export.os, "scandir", guarded_scandir)
+    assert release_export._restricted_source_module_substitution_rows(root) == []
+
+
+def test_restricted_source_discovery_preserves_public_tree_errors(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root = tmp_path / "source"
+    _write(root / "examples/basic/source_modules/module.py", "SAFE = True\n")
+    original_scandir = release_export.os.scandir
+
+    def disappearing_source(path):
+        if isinstance(path, int):
+            return original_scandir(path)
+        if Path(path) == root / "examples":
+            raise FileNotFoundError("public source disappeared during discovery")
+        return original_scandir(path)
+
+    monkeypatch.setattr(release_export.os, "scandir", disappearing_source)
+    with pytest.raises(FileNotFoundError, match="public source disappeared"):
+        release_export._restricted_source_module_substitution_rows(root)
+
+
 def test_source_identity_detects_mode_drift_hidden_by_git_config(tmp_path: Path) -> None:
     root = tmp_path / "source"
     root.mkdir()
