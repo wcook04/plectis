@@ -77,6 +77,9 @@ def replay_steps(root: Path, out: Path, steps) -> list[dict]:
                 raise ValueError("declared receipt status does not match the runner result")
             if "organ_id" in recorded and recorded["organ_id"] != step.organ_id:
                 raise ValueError("declared receipt names another component")
+            if (replay_verdict(step, result) == "pass"
+                    and replay_verdict(step, recorded) != "pass"):
+                raise ValueError("declared receipt lacks the runner's native execution witness")
             after_hash = input_tree_hash(root / step.example_rel)
             if input_hash != after_hash:
                 raise ValueError("component replay changed its supplied input bytes or executable modes")
@@ -85,6 +88,8 @@ def replay_steps(root: Path, out: Path, steps) -> list[dict]:
                    "execution_witness_mode": result.get("execution_witness_mode"),
                    "verification_performed": result.get("verification_performed"),
                    "tool_state": result.get("tool_state"),
+                   "real_runtime_receipt": result.get("real_runtime_receipt"),
+                   "not_a_live_run": result.get("not_a_live_run"),
                    "input_tree_sha256": input_hash,
                    "receipt_sha256": hashlib.sha256(receipt.read_bytes()).hexdigest(),
                    "receipt_ref": str(receipt.relative_to(root))}

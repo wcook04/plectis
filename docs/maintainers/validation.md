@@ -14,10 +14,12 @@ commands. `python3 -m microcosm_core` remains the compatibility spelling.
 
 ## Fresh component replays
 
-`make component-replays` runs every implemented component through the same
-runner and supplied input named by the runtime registry. It installs `.[test]`
+`make component-replays` runs every implemented component with its registered
+public input. For the Lean components, the gate selects the live fixture
+runner so a saved compatibility bundle cannot stand in for a new proof run.
+It installs `.[test]`
 in the Makefile's virtual environment. The native witnesses also require Git,
-Swift on macOS, and Lean/Lake; CI uses Lean `leanprover/lean4:v4.29.1` and the
+Swift 6+ on macOS, and Lean/Lake; CI uses Lean `leanprover/lean4:v4.29.1` and the
 macOS 15 runner. Set `ELAN_TOOLCHAIN=leanprover/lean4:v4.29.1` when reproducing
 that lane locally. A missing tool or blocked component fails the gate.
 

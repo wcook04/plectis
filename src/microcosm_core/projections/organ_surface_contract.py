@@ -1759,14 +1759,20 @@ def _claim_assurance(
 
 
 def native_replay_step(step: Any) -> Any:
-    """Select the existing live Lean lab for explicit assurance replays only."""
-    if step.organ_id != "lean_proof_search_lab_runtime":
-        return step
-    from microcosm_core.organs import lean_proof_search_lab_runtime as lab
+    """Select existing live Lean runners for explicit assurance replays only."""
+    if step.organ_id == "lean_proof_search_lab_runtime":
+        from microcosm_core.organs import lean_proof_search_lab_runtime as lab
 
-    return replace(step, example_rel="fixtures/first_wave/lean_proof_search_lab_runtime/input",
-                   input_mode="lean_proof_search_lab_fixture_cases",
-                   runner=lab.run, receipt_name=lab.RESULT_NAME)
+        return replace(step, example_rel="fixtures/first_wave/lean_proof_search_lab_runtime/input",
+                       input_mode="lean_proof_search_lab_fixture_cases",
+                       runner=lab.run, receipt_name=lab.RESULT_NAME)
+    if step.organ_id == "formal_math_lean_proof_witness":
+        from microcosm_core.organs import formal_math_lean_proof_witness as witness
+
+        return replace(step, example_rel="fixtures/first_wave/formal_math_lean_proof_witness/input",
+                       input_mode="first_wave_fixture",
+                       runner=witness.run, receipt_name=witness.RESULT_NAME)
+    return step
 
 
 def replay_verdict(step: Any, result: dict[str, Any]) -> str:
@@ -1779,6 +1785,30 @@ def replay_verdict(step: Any, result: dict[str, Any]) -> str:
                 or result.get("verification_performed") is not True
                 or result.get("tool_state") != lab.TOOL_PRESENT_AND_VERIFIED):
             return "missing_native_lean_witness"
+    if step.organ_id == "formal_math_lean_proof_witness" and status == "pass":
+        from microcosm_core.organs import formal_math_lean_proof_witness as witness
+
+        tools = result.get("tool_versions")
+        build = result.get("lake_build")
+        observed = result.get("observed_negative_cases")
+        declarations = result.get("compiled_declaration_count")
+        if (result.get("execution_witness_mode") != "live_lean_lake_execution"
+                or result.get("synthetic_contract") is True
+                or result.get("not_a_live_run") is True
+                or result.get("real_runtime_receipt") is False
+                or not isinstance(tools, dict)
+                or tools.get("lean_available") is not True
+                or tools.get("lake_available") is not True
+                or not isinstance(build, dict)
+                or type(build.get("return_code")) is not int
+                or build.get("return_code") != 0
+                or build.get("timed_out") is not False
+                or build.get("skipped")
+                or type(declarations) is not int or declarations < 1
+                or not isinstance(observed, dict)
+                or not set(witness.EXPECTED_NEGATIVE_CASES).issubset(observed)
+                or result.get("missing_negative_cases") != []):
+            return "missing_native_lean_lake_witness"
     return status
 
 
@@ -1818,6 +1848,9 @@ def replay_organ_surfaces(
                     raise ValueError("replay receipt verdict differs from the runner result")
                 if "organ_id" in recorded and recorded["organ_id"] != organ_id:
                     raise ValueError("replay receipt names a different component")
+                if (replay_verdict(step, result) == "pass"
+                        and replay_verdict(step, recorded) != "pass"):
+                    raise ValueError("replay receipt lacks the runner's native execution witness")
                 receipt_status = recorded.get("status")
             exercise = result.get("exercise", {})
             replay = {
@@ -1834,6 +1867,8 @@ def replay_organ_surfaces(
                 "verification_performed": result.get("verification_performed"),
                 "lean_executed": result.get("lean_executed"),
                 "tool_state": result.get("tool_state"),
+                "real_runtime_receipt": result.get("real_runtime_receipt"),
+                "not_a_live_run": result.get("not_a_live_run"),
             }
             if replay["status"] == "pass" and not replay["receipt_written"]:
                 replay["status"] = "missing_replay_receipt"

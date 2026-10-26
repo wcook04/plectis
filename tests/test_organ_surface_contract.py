@@ -126,6 +126,20 @@ def test_native_replay_selects_live_lean_lab_without_changing_compatibility_defa
     assert organ_surface_contract.replay_verdict(native, {"status": "pass"}) == "missing_native_lean_witness"
 
 
+def test_native_replay_selects_live_lake_witness_without_changing_compatibility_default():
+    from microcosm_core import runtime_shell
+    from microcosm_core.organs import formal_math_lean_proof_witness as witness
+
+    declared = next(step for step in runtime_shell.RUNTIME_STEPS if step.organ_id == witness.ORGAN_ID)
+    native = organ_surface_contract.native_replay_step(declared)
+    assert native.runner is witness.run
+    assert native.receipt_name == witness.RESULT_NAME
+    assert native.example_rel == "fixtures/first_wave/formal_math_lean_proof_witness/input"
+    assert declared.runner.__name__ == witness.run_witness_bundle.__name__
+    assert declared.example_rel.startswith("examples/")
+    assert organ_surface_contract.replay_verdict(native, {"status": "pass"}) == "missing_native_lean_lake_witness"
+
+
 @pytest.mark.parametrize("mutation", ["blocked", "wrong_component", "missing_identity", "null_identity"])
 def test_current_receipt_invalid_status_or_identity_blocks_surface_audit(monkeypatch, mutation):
     registry = json.loads((MICROCOSM_ROOT / "core/organ_registry.json").read_text())

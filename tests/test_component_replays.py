@@ -131,3 +131,50 @@ def test_replay_gate_selects_native_lab_and_requires_its_execution_witness(tmp_p
     assert rows[0]["input_ref"] == fixture_ref
     assert rows[0]["status"] == ("pass" if live else "missing_native_lean_witness")
     assert rows[0]["verification_performed"] is live
+
+
+@pytest.mark.parametrize("mode", ["live", "contract", "relabelled_skipped_build", "written_contract"])
+def test_replay_gate_requires_live_lake_witness_in_returned_and_fresh_receipt(tmp_path, monkeypatch, mode):
+    from microcosm_core import runtime_shell
+    from microcosm_core.organs import formal_math_lean_proof_witness as witness
+
+    gate = _gate()
+    fixture_ref = "fixtures/first_wave/formal_math_lean_proof_witness/input"
+    (tmp_path / fixture_ref).mkdir(parents=True)
+    (tmp_path / fixture_ref / "public.json").write_text("{}")
+    declared = next(step for step in runtime_shell.RUNTIME_STEPS if step.organ_id == witness.ORGAN_ID)
+    compatibility_runner = declared.runner
+
+    def run(source, out, command):
+        assert source == tmp_path / fixture_ref
+        result = {
+            "status": "pass", "organ_id": witness.ORGAN_ID,
+            "execution_witness_mode": "live_lean_lake_execution",
+            "real_runtime_receipt": True, "synthetic_contract": False, "not_a_live_run": False,
+            "tool_versions": {"lean_available": True, "lake_available": True},
+            "lake_build": {"return_code": 0, "timed_out": False},
+            "compiled_declaration_count": 1,
+            "observed_negative_cases": witness.EXPECTED_NEGATIVE_CASES,
+            "missing_negative_cases": [],
+        }
+        if mode in {"contract", "relabelled_skipped_build"}:
+            result["lake_build"] = witness._standalone_exported_lake_build({})
+        if mode == "contract":
+            result.update(execution_witness_mode="standalone_exported_witness_contract",
+                          real_runtime_receipt=False, synthetic_contract=True, not_a_live_run=True)
+        recorded = dict(result)
+        if mode == "written_contract":
+            recorded["execution_witness_mode"] = "standalone_exported_witness_contract"
+        out.mkdir(parents=True)
+        (out / witness.RESULT_NAME).write_text(json.dumps(recorded))
+        return result
+
+    monkeypatch.setattr(witness, "run", run)
+    rows = gate.replay_steps(tmp_path, tmp_path / ".microcosm/run", [declared])
+    assert rows[0]["input_ref"] == fixture_ref
+    assert rows[0]["status"] == (
+        "pass" if mode == "live" else "error" if mode == "written_contract"
+        else "missing_native_lean_lake_witness"
+    )
+    assert declared.runner is compatibility_runner
+    assert declared.runner.__name__ == witness.run_witness_bundle.__name__
