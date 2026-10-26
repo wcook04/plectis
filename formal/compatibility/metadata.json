@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "source": "Replay.dfy",
-  "source_sha256": "73e78c3eed8ff25edf624be4f178eb773310965e04ded6e7c1a1c30d3b23ac9b",
+  "source_sha256": "f9f4384a5d7668c67f93bf34285a52dce6ec295ce2223d3883cde5c85b7839f9",
   "negative_source": "negative/CompatibilityOutputMutant.dfy",
   "negative_source_sha256": "178be130b1a8410030ed7eef660701f8cecb0918620a2b3a1151381eaf28a5dd",
   "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
-  "verified_tasks": 33,
+  "verified_tasks": 41,
   "negative_verified_tasks": 13,
   "negative_errors": 1,
   "generated_python": {
@@ -16,7 +16,7 @@
     "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
     "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a"
   },
-  "origin": "Plectis mechanisation of standard deterministic forward simulation and portable adapter, 23 October 2026; informed by supplied p12 and p15 research returns. No general novelty claim. Round-two p14 supplies checked negative witnesses; local bad-prefix soundness and non-vacuity lemmas strengthen the imported replay proof.",
+  "origin": "Plectis mechanisation of standard deterministic forward simulation and portable adapter, 23 October 2026; informed by supplied p12 and p15 research returns. No general novelty claim. Round-two p14 supplies checked negative witnesses; local bad-prefix soundness and non-vacuity lemmas strengthen the imported replay proof. On 26 October 2026 local completeness and suffix-persistence lemmas establish an exact bad-prefix characterization; generated executable bytes remain unchanged.",
   "toolchain": "https://github.com/dafny-lang/dafny/releases/tag/v4.11.0",
   "runtime_license": "MIT (Dafny); licence retained beside generated files",
   "trust": "Dafny/Boogie/Z3, compiler, runtime, parser/encoding and concrete-model correspondence remain trusted.",
@@ -74,7 +74,11 @@
   "dependency_source": "Compatibility.dfy",
   "dependency_source_sha256": "5080b4f26ea23740dbf64f885abd789c18b9099dab40bf5cab0518401bd1d138",
   "replay_negative_source": "negative/ReplayStaleInputMutant.dfy",
-  "replay_negative_source_sha256": "91fdf19073e3b015a7036019908cc97b70a0a17c8b72c514cc3e492c81d7a473",
-  "replay_negative_verified_tasks": 30,
-  "replay_negative_errors": 7
+  "replay_negative_source_sha256": "fccaa6f39a60c1e03b18ee192445d5b68856c1e48abd322f39341a3feaaa08f0",
+  "replay_negative_verified_tasks": 37,
+  "replay_negative_errors": 9,
+  "completeness_negative_source": "negative/ReplayMissedDifferenceMutant.dfy",
+  "completeness_negative_source_sha256": "4dc032b8fefe3a4c8901a5c0a6cba29c6581da97ba04d5273266dcce02367997",
+  "completeness_negative_verified_tasks": 40,
+  "completeness_negative_errors": 1
 }

@@ -6,7 +6,7 @@ is the code called by the public APIs, not a separate handwritten simulation.
 | Core | What is established for valid supplied inputs | What is outside the proof |
 |---|---|---|
 | [Repair](repair/README.md) | The producer terminates; the accepted plan is the unique least propagation of invalid inputs and blocked effects through any finite topologically ordered DAG. | Dependency discovery, callback behavior, persistence and external effects. |
-| [Compatibility](compatibility/README.md) | An accepted state relation preserves every finite allowed input sequence and its outputs in the supplied deterministic transition models. | Whether a model faithfully describes a Python program, SQLite or the intended policy. |
+| [Compatibility](compatibility/README.md) | An accepted state relation preserves every finite allowed input sequence and its outputs in the supplied deterministic transition models; the replay checker detects exactly the words with a differing allowed prefix. | Whether a model faithfully describes a Python program, SQLite or the intended policy. |
 | [Public views](views/README.md) | A checked mixed report compiles to a public-only program preserving its exact ordered public trace; the slice reads no private input slot. | Policy correctness, secret-dependent plan construction, row selection, host decoding and side channels. |
 
 These are SMT-backed Dafny proofs. Dafny's verification encoding, Boogie, Z3,

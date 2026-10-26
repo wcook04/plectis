@@ -223,4 +223,123 @@ module Replay {
     ensures Mismatch(Model([[0]], [[1]], 0, 1), Model([[0]], [[2]], 0, 1), [0])
     ensures Mismatch(Model([[0]], [[1]], 0, 1), Model([[-1]], [[1]], 0, 1), [0])
   { }
+  // Completeness as well as soundness on every finite approved-admissible word.
+  // No candidate transition/output discrepancy can be missed by the replay core.
+  lemma AdmittedWordMismatchIsExact(approved: Model, candidate: Model,
+                                     s: int, t: int, word: seq<int>)
+    requires ValidPair(approved, candidate)
+    requires 0 <= s < |approved.next| && 0 <= t < |candidate.next|
+    requires C.Admissible(approved.next, approved.output, approved.inputs, s, word)
+    ensures MismatchFrom(approved, candidate, s, t, word) ==
+      (!C.Admissible(candidate.next, candidate.output, candidate.inputs, t, word) ||
+       C.Outputs(approved.next, approved.output, approved.inputs, s, word) !=
+       C.Outputs(candidate.next, candidate.output, candidate.inputs, t, word))
+    decreases |word|
+  {
+    if |word| > 0 {
+      var a := word[0];
+      if candidate.next[t][a] >= 0 {
+        if approved.output[s][a] == candidate.output[t][a] {
+          AdmittedWordMismatchIsExact(approved, candidate,
+            approved.next[s][a], candidate.next[t][a], word[1..]);
+          if C.Admissible(candidate.next, candidate.output, candidate.inputs, t, word) {
+            var oldWhole := C.Outputs(approved.next, approved.output, approved.inputs, s, word);
+            var newWhole := C.Outputs(candidate.next, candidate.output, candidate.inputs, t, word);
+            var oldTail := C.Outputs(approved.next, approved.output, approved.inputs,
+                                     approved.next[s][a], word[1..]);
+            var newTail := C.Outputs(candidate.next, candidate.output, candidate.inputs,
+                                     candidate.next[t][a], word[1..]);
+            assert oldWhole == [approved.output[s][a]] + oldTail;
+            assert newWhole == [candidate.output[t][a]] + newTail;
+            assert oldWhole[1..] == oldTail && newWhole[1..] == newTail;
+            assert (oldWhole == newWhole) == (oldTail == newTail);
+          }
+        } else if C.Admissible(candidate.next, candidate.output, candidate.inputs, t, word) {
+          assert C.Outputs(approved.next, approved.output, approved.inputs, s, word)[0] ==
+                 approved.output[s][a];
+          assert C.Outputs(candidate.next, candidate.output, candidate.inputs, t, word)[0] ==
+                 candidate.output[t][a];
+        }
+      }
+    }
+  }
+
+  lemma AdmittedCounterexampleCheckIsExact(approved: Model, candidate: Model,
+                                           word: seq<int>)
+    requires ValidPair(approved, candidate)
+    requires C.Admissible(approved.next, approved.output, approved.inputs,
+                          approved.initial, word)
+    ensures Mismatch(approved, candidate, word) ==
+      (!C.Admissible(candidate.next, candidate.output, candidate.inputs,
+                     candidate.initial, word) ||
+       C.Outputs(approved.next, approved.output, approved.inputs, approved.initial, word) !=
+       C.Outputs(candidate.next, candidate.output, candidate.inputs, candidate.initial, word))
+  {
+    AdmittedWordMismatchIsExact(approved, candidate,
+      approved.initial, candidate.initial, word);
+  }
+
+  // Once an admitted prefix differs, an obsolete suffix cannot erase it.
+  lemma MismatchFromSurvivesSuffix(approved: Model, candidate: Model,
+                                    s: int, t: int, prefix: seq<int>, suffix: seq<int>)
+    requires ValidPair(approved, candidate)
+    requires 0 <= s < |approved.next| && 0 <= t < |candidate.next|
+    requires MismatchFrom(approved, candidate, s, t, prefix)
+    ensures MismatchFrom(approved, candidate, s, t, prefix + suffix)
+    decreases |prefix|
+  {
+    var a := prefix[0];
+    if candidate.next[t][a] >= 0 &&
+       approved.output[s][a] == candidate.output[t][a] {
+      MismatchFromSurvivesSuffix(approved, candidate,
+        approved.next[s][a], candidate.next[t][a], prefix[1..], suffix);
+      assert (prefix + suffix)[1..] == prefix[1..] + suffix;
+    }
+  }
+
+  // The executable decision is equivalent to an independently stated observable
+  // failure, even for words containing out-of-domain or obsolete suffix inputs.
+  lemma CounterexampleCheckIsExact(approved: Model, candidate: Model, word: seq<int>)
+    requires ValidPair(approved, candidate)
+    ensures Mismatch(approved, candidate, word) ==
+      (exists length ::
+        1 <= length <= |word| &&
+        C.Admissible(approved.next, approved.output, approved.inputs,
+                     approved.initial, word[..length]) &&
+        (!C.Admissible(candidate.next, candidate.output, candidate.inputs,
+                       candidate.initial, word[..length]) ||
+         C.Outputs(approved.next, approved.output, approved.inputs,
+                    approved.initial, word[..length]) !=
+         C.Outputs(candidate.next, candidate.output, candidate.inputs,
+                    candidate.initial, word[..length])))
+  {
+    if Mismatch(approved, candidate, word) {
+      CheckedCounterexampleHasBadPrefix(approved, candidate, word);
+    } else if exists length ::
+      1 <= length <= |word| &&
+      C.Admissible(approved.next, approved.output, approved.inputs,
+                   approved.initial, word[..length]) &&
+      (!C.Admissible(candidate.next, candidate.output, candidate.inputs,
+                     candidate.initial, word[..length]) ||
+       C.Outputs(approved.next, approved.output, approved.inputs,
+                  approved.initial, word[..length]) !=
+       C.Outputs(candidate.next, candidate.output, candidate.inputs,
+                  candidate.initial, word[..length])) {
+      var length :|
+        1 <= length <= |word| &&
+        C.Admissible(approved.next, approved.output, approved.inputs,
+                     approved.initial, word[..length]) &&
+        (!C.Admissible(candidate.next, candidate.output, candidate.inputs,
+                       candidate.initial, word[..length]) ||
+         C.Outputs(approved.next, approved.output, approved.inputs,
+                    approved.initial, word[..length]) !=
+         C.Outputs(candidate.next, candidate.output, candidate.inputs,
+                    candidate.initial, word[..length]));
+      AdmittedCounterexampleCheckIsExact(approved, candidate, word[..length]);
+      MismatchFromSurvivesSuffix(approved, candidate,
+        approved.initial, candidate.initial, word[..length], word[length..]);
+      assert word[..length] + word[length..] == word;
+    }
+  }
+
 }

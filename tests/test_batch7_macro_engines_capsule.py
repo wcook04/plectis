@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 import tomllib
 from pathlib import Path
 from typing import Any
@@ -9,7 +10,7 @@ from typing import Any
 import pytest
 
 import microcosm_core.organs.batch7_macro_engines_capsule as batch7
-from microcosm_core.organs._crown_jewel_common import validate_negative_cases
+from microcosm_core.organs._crown_jewel_common import imported_source_modules, validate_negative_cases
 from microcosm_core.organs.batch7_macro_engines_capsule import (
     AUTHORITY_CEILING,
     EXPECTED_ENGINES,
@@ -198,10 +199,10 @@ def test_batch7_macro_engines_source_modules_are_exact_macro_body_imports() -> N
     for row in manifest["modules"]:
         source = SOURCE_ROOT / row["source_ref"]
         target = EXPORTED_BUNDLE / row["path"]
-        assert source.is_file(), row["source_ref"]
         assert target.is_file(), row["path"]
-        assert source.read_bytes() == target.read_bytes(), row["source_ref"]
-        assert row["sha256"] == _sha256(source)
+        if source.is_file():
+            assert source.read_bytes() == target.read_bytes(), row["source_ref"]
+        assert row["sha256"] == _sha256(target)
         assert row["source_sha256"] == row["sha256"]
         assert row["target_sha256"] == row["sha256"]
         assert row["sha256_match"] is True
@@ -293,3 +294,17 @@ def test_batch7_numeric_dependencies_are_declared() -> None:
 
     assert any(dep.startswith("numpy") for dep in test_deps)
     assert any(dep.startswith("pandas") for dep in test_deps)
+
+
+def test_copied_selector_missed_fallback_changes_witness(tmp_path):
+    bundle = tmp_path / "examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle"
+    shutil.copytree(EXPORTED_BUNDLE, bundle)
+    source = bundle / "source_modules/tools/meta/testing/select_impacted_tests.py"
+    text = source.read_text()
+    needle = "fallback_tests = list(bundles[name])"
+    assert needle in text
+    source.write_text(text.replace(needle, "fallback_tests = []", 1))
+    with imported_source_modules(bundle / "source_modules"):
+        result = batch7._regression_selection_exercise(tmp_path)
+    assert result["status"] == "blocked"
+    assert result["fallback_test_count"] == 0

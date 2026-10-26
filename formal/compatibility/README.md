@@ -14,7 +14,7 @@ The deployed checker is the unchanged output of official Dafny 4.11.0:
 python3 scripts/check/check_compatibility_kernel.py --dafny /path/to/dafny
 ```
 
-The script verifies 33 tasks in `Replay.dfy` including the unchanged
+The script verifies 41 tasks in `Replay.dfy` including the unchanged
 `Compatibility.dfy`, and compares all six regenerated Python files byte-for-byte
 with the packaged implementation. The original output mutant must fail with
 13 verified tasks and one error. That negative source changes only the
@@ -25,10 +25,23 @@ checks hashes and reports `hash_binding_only`; it does not rerun a proof.
 `Replay.dfy` adds executable negative-word checking. Its bad-prefix soundness
 statement connects an accepted mismatch to a concrete approved-admissible prefix
 where the candidate lacks a transition or returns a different observation.
-It also proves consistency with the positive relation checker and supplies
-non-vacuous examples. The stale-input mutant must fail with 30 verified tasks
-and seven errors. The generated positive checker remains byte-identical to the
+`CounterexampleCheckIsExact` proves the converse too: the executable check
+reports a mismatch exactly when such a prefix exists. It covers arbitrary
+finite words, including words with out-of-domain or obsolete suffix inputs.
+`AdmittedCounterexampleCheckIsExact` specialises this to approved-admissible
+words, and `MismatchFromSurvivesSuffix` proves that a later stale input cannot
+erase an earlier discrepancy. These lemmas change no generated runtime bytes.
+The replay core also proves consistency with the positive relation checker and supplies
+non-vacuous examples. The stale-input mutant must fail with 37 verified tasks
+and nine errors. The generated positive checker remains byte-identical to the
 earlier core; the import bridge now includes the generated replay module.
+
+`ReplayMissedDifferenceMutant` reports a real discrepancy only while the
+candidate is in its initial state. The original one-way soundness theorem and
+single-state examples still verify, but `AdmittedWordMismatchIsExact` fails
+because the mutant misses later-state discrepancies. This mutant must fail with
+40 verified tasks and one error. Every negative fixture is checked to differ
+from the current source by exactly its declared decision change.
 
 `metadata.json` binds the exact formal sources and generated Python files.
 `src/plectis/compatibility/_generated/GENERATED_SHA256.json` repeats the generated

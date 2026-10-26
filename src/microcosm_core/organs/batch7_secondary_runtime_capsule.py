@@ -20,6 +20,7 @@ from microcosm_core.organs._crown_jewel_common import (
     CrownJewelSpec,
     card_for_result,
     finding,
+    imported_source_modules,
     public_root_for_path,
     run_crown_jewel_organ,
 )
@@ -134,7 +135,8 @@ def _repo_root(public_root: Path) -> Path:
 
     Inputs are `public_root`.
     """
-    return public_root.parent
+    return (public_root / "examples/batch7_secondary_runtime_capsule/"
+            "exported_batch7_secondary_runtime_capsule_bundle/source_modules")
 
 
 def _copied_source(public_root: Path, source_ref: str) -> Path:
@@ -392,14 +394,15 @@ def _semantic_runtime_exercises(input_ref: str) -> Mapping[str, Any]:
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = public_root_for_path(Path(input_ref))
-    return {
-        "negative_exercises": {
-            "stockgrid_extreme_momentum": _stockgrid_extreme_momentum_negative(public_root),
-            "polymarket_sorted_book_trap": _polymarket_sorted_book_trap_negative(public_root),
-            "polymarket_resolved_market": _polymarket_resolved_market_negative(public_root),
-        },
-        "body_in_receipt": False,
-    }
+    with imported_source_modules(_repo_root(public_root)):
+        return {
+            "negative_exercises": {
+                "stockgrid_extreme_momentum": _stockgrid_extreme_momentum_negative(public_root),
+                "polymarket_sorted_book_trap": _polymarket_sorted_book_trap_negative(public_root),
+                "polymarket_resolved_market": _polymarket_resolved_market_negative(public_root),
+            },
+            "body_in_receipt": False,
+        }
 
 
 def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str, Any]:
@@ -480,44 +483,45 @@ def _evaluate(
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
-    findings: list[dict[str, Any]] = []
-    exercises = [
-        _stockgrid_exercise(public_root),
-        _polymarket_clob_exercise(public_root),
-        _polymarket_score_exercise(public_root),
-    ]
-    for exercise in exercises:
-        if exercise.get("status") != "pass":
+    with imported_source_modules(_repo_root(public_root)):
+        findings: list[dict[str, Any]] = []
+        exercises = [
+            _stockgrid_exercise(public_root),
+            _polymarket_clob_exercise(public_root),
+            _polymarket_score_exercise(public_root),
+        ]
+        for exercise in exercises:
+            if exercise.get("status") != "pass":
+                findings.append(
+                    finding(
+                        "BATCH7_SECONDARY_ENGINE_EXERCISE_BLOCKED",
+                        "A Batch-7 secondary engine exercise did not pass.",
+                        subject_id=str(exercise.get("engine_id")),
+                        observed=exercise.get("status"),
+                    )
+                )
+        observed = {str(row.get("engine_id")) for row in exercises}
+        missing = sorted(set(EXPECTED_ENGINES) - observed)
+        if missing:
             findings.append(
                 finding(
-                    "BATCH7_SECONDARY_ENGINE_EXERCISE_BLOCKED",
-                    "A Batch-7 secondary engine exercise did not pass.",
-                    subject_id=str(exercise.get("engine_id")),
-                    observed=exercise.get("status"),
+                    "BATCH7_SECONDARY_ENGINE_EXERCISE_MISSING",
+                    "A Batch-7 secondary engine is missing from the exercise result.",
+                    observed=missing,
                 )
             )
-    observed = {str(row.get("engine_id")) for row in exercises}
-    missing = sorted(set(EXPECTED_ENGINES) - observed)
-    if missing:
-        findings.append(
-            finding(
-                "BATCH7_SECONDARY_ENGINE_EXERCISE_MISSING",
-                "A Batch-7 secondary engine is missing from the exercise result.",
-                observed=missing,
-            )
-        )
-    return {
-        "status": "pass" if not findings else "blocked",
-        "engine_count": len(exercises),
-        "engine_ids": sorted(observed),
-        "copied_macro_source_module_count": source_manifest.get("module_count", 0),
-        "engines": exercises,
-        "error_codes": [
-            str(row["error_code"]) for row in findings if row.get("error_code")
-        ],
-        "body_in_receipt": False,
-        "findings": findings,
-    }
+        return {
+            "status": "pass" if not findings else "blocked",
+            "engine_count": len(exercises),
+            "engine_ids": sorted(observed),
+            "copied_macro_source_module_count": source_manifest.get("module_count", 0),
+            "engines": exercises,
+            "error_codes": [
+                str(row["error_code"]) for row in findings if row.get("error_code")
+            ],
+            "body_in_receipt": False,
+            "findings": findings,
+        }
 
 
 def run(

@@ -3,7 +3,7 @@
 
 The default checks retained source/generated hashes only. Supply --dafny to
 verify the relation and witness proofs, regenerate and compare the deployed
-Python, then reject both negative proof fixtures. No prover is needed to use
+Python, then reject all three negative proof fixtures. No prover is needed to use
 the installed Compatibility operation.
 """
 from __future__ import annotations
@@ -39,19 +39,23 @@ def check_binding(root: Path, generated: Path) -> dict:
             or metadata["dependency_source"] != "Compatibility.dfy"
             or metadata["negative_source"] != "negative/CompatibilityOutputMutant.dfy"
             or metadata["replay_negative_source"] != "negative/ReplayStaleInputMutant.dfy"
+            or metadata["completeness_negative_source"] != "negative/ReplayMissedDifferenceMutant.dfy"
             or metadata["dafny_version"] != VERSION
-            or metadata["verified_tasks"] != 33
+            or metadata["verified_tasks"] != 41
             or metadata["negative_verified_tasks"] != 13
             or metadata["negative_errors"] != 1
-            or metadata["replay_negative_verified_tasks"] != 30
-            or metadata["replay_negative_errors"] != 7
+            or metadata["replay_negative_verified_tasks"] != 37
+            or metadata["replay_negative_errors"] != 9
+            or metadata["completeness_negative_verified_tasks"] != 40
+            or metadata["completeness_negative_errors"] != 1
             or set(manifest) != GENERATED_FILES
             or metadata["generated_python"] != manifest):
         raise ValueError("unexpected toolchain or generated-file manifest")
     for name, key in (("Replay.dfy", "source_sha256"),
                       ("Compatibility.dfy", "dependency_source_sha256"),
                       ("negative/CompatibilityOutputMutant.dfy", "negative_source_sha256"),
-                      ("negative/ReplayStaleInputMutant.dfy", "replay_negative_source_sha256")):
+                      ("negative/ReplayStaleInputMutant.dfy", "replay_negative_source_sha256"),
+                      ("negative/ReplayMissedDifferenceMutant.dfy", "completeness_negative_source_sha256")):
         if digest(formal / name) != metadata[key]:
             raise ValueError("formal source identity changed: " + name)
     for name, expected in manifest.items():
@@ -74,6 +78,16 @@ def check_binding(root: Path, generated: Path) -> dict:
     if (expected_replay_mutant == replay or expected_replay_mutant
             != (formal / "negative/ReplayStaleInputMutant.dfy").read_text()):
         raise ValueError("negative replay fixture must change only the stale-input decision")
+    difference_decision = ("approved.output[s][word[0]] != candidate.output[t][word[0]]\n"
+                           "      then true")
+    if replay.count(difference_decision) != 1:
+        raise ValueError("expected one replay discrepancy decision")
+    expected_completeness_mutant = replay.replace(
+        'include "Compatibility.dfy"', 'include "../Compatibility.dfy"').replace(
+        difference_decision, difference_decision.removesuffix("true") + "t == candidate.initial", 1)
+    if (expected_completeness_mutant == replay or expected_completeness_mutant
+            != (formal / "negative/ReplayMissedDifferenceMutant.dfy").read_text()):
+        raise ValueError("negative completeness fixture must change only the discrepancy decision")
     if not (generated / "Dafny-LICENSE.txt").is_file():
         raise ValueError("Dafny runtime licence is missing")
     # Check the whole importable inventory and the loader's reviewed byte pins.
@@ -84,6 +98,7 @@ def check_binding(root: Path, generated: Path) -> dict:
             "dependency_source_sha256": metadata["dependency_source_sha256"],
             "negative_source_sha256": metadata["negative_source_sha256"],
             "replay_negative_source_sha256": metadata["replay_negative_source_sha256"],
+            "completeness_negative_source_sha256": metadata["completeness_negative_source_sha256"],
             "generated_python": manifest}
 
 
@@ -114,7 +129,7 @@ def reprove(root: Path, generated: Path, executable: str) -> dict:
                      str(work / "Replay.dfy"),
                      "--verification-time-limit", "30", "--cores", "1"],
                     cwd=work, env=env)
-        if build.returncode or "33 verified, 0 errors" not in build.stdout:
+        if build.returncode or "41 verified, 0 errors" not in build.stdout:
             raise ValueError("complete clean proof/build failed")
         rebuilt = work / "Replay-py"
         files = {p.relative_to(rebuilt).as_posix() for p in rebuilt.rglob("*.py")}
@@ -138,10 +153,20 @@ def reprove(root: Path, generated: Path, executable: str) -> dict:
                    + str(metadata["replay_negative_errors"]) + " errors")
         if replay_mutation.returncode != 4 or summary not in replay_mutation.stdout:
             raise ValueError("negative witness fixture did not fail as expected")
-    return {"dafny_version": VERSION, "clean_verified_tasks": 33, "clean_errors": 0,
+        completeness_mutation = run([dafny, "verify", "--verify-included-files",
+                                     str(formal / "negative/ReplayMissedDifferenceMutant.dfy"),
+                                     "--verification-time-limit", "30", "--cores", "1"],
+                                    cwd=work, env=env)
+        if (completeness_mutation.returncode != 4
+                or "40 verified, 1 error" not in completeness_mutation.stdout
+                or "a postcondition could not be proved" not in completeness_mutation.stdout):
+            raise ValueError("negative completeness fixture did not fail as expected")
+    return {"dafny_version": VERSION, "clean_verified_tasks": 41, "clean_errors": 0,
             "negative_verified_tasks": 13, "negative_errors": 1,
             "replay_negative_verified_tasks": metadata["replay_negative_verified_tasks"],
             "replay_negative_errors": metadata["replay_negative_errors"],
+            "completeness_negative_verified_tasks": 40,
+            "completeness_negative_errors": 1,
             "regenerated_python_byte_identical": True}
 
 
@@ -162,7 +187,7 @@ def main() -> int:
     print(json.dumps({"status": "pass", "mode": "formal_replay" if proof else "hash_binding_only",
                       **binding, **proof,
                       "authority_ceiling": "supplied finite deterministic partial Mealy tables",
-                      "anti_claim": "Accepted relations preserve all finite old-admissible traces; checked counterexamples have a differing approved-admissible prefix. No proof of parser, search, shortestness, encoding, concrete-program correspondence, liveness or external effects.",
+                      "anti_claim": "Accepted relations preserve all finite old-admissible traces; the replay checker detects exactly the words with a differing approved-admissible prefix. No proof of parser, search, shortestness, encoding, concrete-program correspondence, liveness or external effects.",
                       "secret_exclusion_scan": "not_performed_by_this_checker",
                       "receipt_paths": []}, indent=2))
     return 0

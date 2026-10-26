@@ -1,14 +1,20 @@
 from __future__ import annotations
 
 import hashlib
+import importlib
 import json
 import shutil
+import sys
+from types import ModuleType
 from pathlib import Path
+
+import pytest
 
 from microcosm_core.organs._crown_jewel_common import (
     SOURCE_IMPORT_CLASS,
     CrownJewelSpec,
     file_line_count,
+    imported_source_modules,
     run_crown_jewel_organ,
     validate_negative_cases,
     validate_source_manifest,
@@ -16,6 +22,51 @@ from microcosm_core.organs._crown_jewel_common import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_copied_import_scope_selects_each_bundle_and_restores_caller(tmp_path, monkeypatch):
+    caller = ModuleType("copied_scope_probe")
+    caller.value = "caller"
+    monkeypatch.setitem(sys.modules, "copied_scope_probe", caller)
+    previous_path = sys.path[:]
+    for name in ("first", "second"):
+        root = tmp_path / name
+        package = root / "copied_scope_probe"
+        package.mkdir(parents=True)
+        (package / "__init__.py").write_text(f'value = {name!r}\n')
+        (package / "child.py").write_text(f'value = {name!r}\n')
+        with imported_source_modules(root):
+            loaded = importlib.import_module("copied_scope_probe.child")
+            assert loaded.value == name
+            assert Path(loaded.__file__).is_relative_to(root)
+        assert sys.modules["copied_scope_probe"] is caller
+        assert "copied_scope_probe.child" not in sys.modules
+        assert sys.path == previous_path
+
+
+def test_copied_import_scope_restores_state_after_import_failure(tmp_path):
+    package = tmp_path / "copied_failure_probe"
+    package.mkdir()
+    (package / "__init__.py").write_text('raise RuntimeError("broken import")\n')
+    previous_path = sys.path[:]
+    with pytest.raises(RuntimeError, match="broken import"):
+        with imported_source_modules(tmp_path):
+            importlib.import_module("copied_failure_probe")
+    assert "copied_failure_probe" not in sys.modules
+    assert sys.path == previous_path
+
+
+def test_copied_import_scope_removes_file_loaded_aliases(tmp_path):
+    path = tmp_path / "implementation.py"
+    path.write_text("value = 7\n")
+    alias = "_copied_scope_generated_alias"
+    with imported_source_modules(tmp_path):
+        spec = importlib.util.spec_from_file_location(alias, path)
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[alias] = module
+        spec.loader.exec_module(module)
+        assert module.value == 7
+    assert alias not in sys.modules
 
 
 def _write_json(path: Path, payload: object) -> None:

@@ -17,14 +17,14 @@
   "body_in_receipt": false,
   "digest_drift_rows": [
     {
-      "current_sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd",
+      "current_sha256": "9f3c0aba630738990bacd1ceebc5ee625a8d7e0dd90150c8630aca3140f1d2cb",
       "material_id": "navigation_route_plane_option_surface_source_body_import",
       "source_ref": "system/lib/standard_option_surface.py",
       "stale_recorded_sha256": "0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
       "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/standard_option_surface.py"
     },
     {
-      "current_sha256": "2ffe0e715a120c1fccd20093f14c8ecb6ec5aa0682ebdaabc9e7c3a79d63f54c",
+      "current_sha256": "03cd20f7acaf492227e50d83eb90866a6f7b4669244f0685d64b0744c5855ce8",
       "material_id": "mission_transaction_landing_preflight_body_import",
       "source_ref": "system/lib/mission_transaction_landing_preflight.py",
       "stale_recorded_sha256": "8eb0eadb66404e445ef704b613c8d36a1dfa519618a76c31622bfa6e5f6c4c08",
@@ -38,7 +38,7 @@
       "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/control/work_landing.py"
     },
     {
-      "current_sha256": "2677ae4fd1db8eb662848be4159a09596431d0d7e891347d1a65cb8b4091dc97",
+      "current_sha256": "77df614db4e3b746198f024d2345b67f6757e875e3a93971d93bc41dcfc914e6",
       "material_id": "work_ledger_tool_body_import",
       "source_ref": "tools/meta/factory/work_ledger.py",
       "stale_recorded_sha256": "0267a2779faa5bde64434183e6ec458fb2f4a492ccbd411445c84e554241e594",

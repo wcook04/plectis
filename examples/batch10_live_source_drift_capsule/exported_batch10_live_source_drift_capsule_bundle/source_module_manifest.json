@@ -1,55 +1,112 @@
 {
   "body_in_receipt": false,
-  "module_count": 0,
-  "modules": [],
-  "release_substitution_omissions": [
+  "module_count": 4,
+  "modules": [
     {
-      "body_in_receipt": false,
+      "body_copied": true,
+      "byte_count": 786792,
+      "line_count": 17955,
+      "material_class": "public_macro_tool_body",
       "module_id": "standard_option_surface_source",
       "path": "source_modules/system/lib/standard_option_surface.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_near_verbatim",
-        "matched_private_ref": "system/lib/standard_option_surface.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/standard_option_surface.py"
+      "required_anchors": [
+        "standard_owned_option_surface",
+        "def build_option_surface",
+        "authority_posture",
+        "governing_standard",
+        "surface_role",
+        "cluster_flag",
+        "def build_task_ledger_option_surface",
+        "option_surface_lens_packet_v0"
+      ],
+      "sha256": "9f3c0aba630738990bacd1ceebc5ee625a8d7e0dd90150c8630aca3140f1d2cb",
+      "sha256_match": true,
+      "source_ref": "system/lib/standard_option_surface.py",
+      "source_role": "Standard-owned option-surface router and task-ledger browse adapter.",
+      "source_sha256": "9f3c0aba630738990bacd1ceebc5ee625a8d7e0dd90150c8630aca3140f1d2cb",
+      "source_target_sha256_match": true,
+      "source_to_target_relation": "exact_copy",
+      "target_expected_digest_match": true,
+      "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/standard_option_surface.py",
+      "target_sha256": "9f3c0aba630738990bacd1ceebc5ee625a8d7e0dd90150c8630aca3140f1d2cb"
     },
     {
-      "body_in_receipt": false,
+      "body_copied": true,
+      "byte_count": 505486,
+      "line_count": 11928,
+      "material_class": "public_macro_tool_body",
       "module_id": "mission_transaction_landing_preflight_source",
       "path": "source_modules/system/lib/mission_transaction_landing_preflight.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_near_verbatim",
-        "matched_private_ref": "system/lib/mission_transaction_landing_preflight.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/mission_transaction_landing_preflight.py"
+      "required_anchors": [
+        "mission_transaction_landing_preflight_v0",
+        "def build_mission_transaction_landing_preflight",
+        "dirty_tree_classification",
+        "landing_decision",
+        "work_ledger_session_id",
+        "claim_requirements"
+      ],
+      "sha256": "03cd20f7acaf492227e50d83eb90866a6f7b4669244f0685d64b0744c5855ce8",
+      "sha256_match": true,
+      "source_ref": "system/lib/mission_transaction_landing_preflight.py",
+      "source_role": "Mission transaction preflight and scoped landing decision model.",
+      "source_sha256": "03cd20f7acaf492227e50d83eb90866a6f7b4669244f0685d64b0744c5855ce8",
+      "source_target_sha256_match": true,
+      "source_to_target_relation": "exact_copy",
+      "target_expected_digest_match": true,
+      "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+      "target_sha256": "03cd20f7acaf492227e50d83eb90866a6f7b4669244f0685d64b0744c5855ce8"
     },
     {
-      "body_in_receipt": false,
+      "body_copied": true,
+      "byte_count": 13619,
+      "line_count": 376,
+      "material_class": "public_macro_tool_body",
       "module_id": "work_landing_tool_source",
       "path": "source_modules/tools/meta/control/work_landing.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "tools/meta/control/work_landing.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "tools/meta/control/work_landing.py"
+      "required_anchors": [
+        "def build_parser",
+        "admission-check",
+        "status",
+        "reconcile",
+        "begin",
+        "build_work_landing_attempt_binding",
+        "build_work_landing_reconcile_plan"
+      ],
+      "sha256": "03c661cb123d128efac7641baee00b868205ced546bac88528cbfcbce2bf79da",
+      "sha256_match": true,
+      "source_ref": "tools/meta/control/work_landing.py",
+      "source_role": "WorkItem landing controller CLI for status, reconcile, begin, and admission checks.",
+      "source_sha256": "03c661cb123d128efac7641baee00b868205ced546bac88528cbfcbce2bf79da",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/control/work_landing.py",
+      "target_sha256": "03c661cb123d128efac7641baee00b868205ced546bac88528cbfcbce2bf79da"
     },
     {
-      "body_in_receipt": false,
+      "body_copied": true,
+      "byte_count": 391924,
+      "line_count": 9744,
+      "material_class": "public_macro_tool_body",
       "module_id": "work_ledger_tool_source",
       "path": "source_modules/tools/meta/factory/work_ledger.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_near_verbatim",
-        "matched_private_ref": "tools/meta/factory/work_ledger.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "tools/meta/factory/work_ledger.py"
+      "required_anchors": [
+        "Mutation ordering",
+        "session-preflight",
+        "session-finalize",
+        "session-heartbeat",
+        "read_receipt_id",
+        "def cmd_session_finalize",
+        "def cmd_session_claims"
+      ],
+      "sha256": "77df614db4e3b746198f024d2345b67f6757e875e3a93971d93bc41dcfc914e6",
+      "sha256_match": true,
+      "source_ref": "tools/meta/factory/work_ledger.py",
+      "source_role": "Work Ledger lifecycle, claim, heartbeat, and closeout controller CLI.",
+      "source_sha256": "77df614db4e3b746198f024d2345b67f6757e875e3a93971d93bc41dcfc914e6",
+      "source_target_sha256_match": true,
+      "source_to_target_relation": "exact_copy",
+      "target_expected_digest_match": true,
+      "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/factory/work_ledger.py",
+      "target_sha256": "77df614db4e3b746198f024d2345b67f6757e875e3a93971d93bc41dcfc914e6"
     }
   ],
   "schema_version": "source_module_manifest_v1",
