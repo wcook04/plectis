@@ -8,6 +8,8 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from microcosm_core.organs import world_model_projection_drift_control_room
 from microcosm_core.organs.world_model_projection_drift_control_room import (
     CARD_SCHEMA_VERSION,
@@ -1399,3 +1401,75 @@ def test_world_model_projection_drift_fixture_manifest_exports_body_floor_summar
     assert body_imports["body_text_exported_in_receipts"] is False
     assert body_imports["body_text_exported_in_workingness"] is False
     assert manifest["body_copied_material_count"] == len(SOURCE_MODULE_IDS)
+
+
+def test_world_model_required_module_bindings_match_standard() -> None:
+    standard = json.loads((MICROCOSM_ROOT / "standards/std_microcosm_world_model_projection_drift_control_room.json").read_text())
+    contract = standard["source_module_manifest_contract"]
+    bindings = world_model_projection_drift_control_room.REQUIRED_SOURCE_MODULE_BINDINGS
+    assert set(bindings) == set(contract["required_module_ids"])
+    assert len(bindings) == contract["module_count"]
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+    assert {row["module_id"]: row["source_ref"] for row in manifest["modules"]} == bindings
+
+
+@pytest.mark.parametrize("mutation, expected", [
+    ("partial_manifest", "DRIFT_SOURCE_MODULE_REQUIRED_MISSING"),
+    ("missing_body", "DRIFT_SOURCE_MODULE_TARGET_MISSING"),
+    ("missing_manifest", "DRIFT_SOURCE_MODULE_MANIFEST_REQUIRED"),
+])
+def test_world_model_export_cannot_omit_required_source(tmp_path, mutation, expected):
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
+                    public_root / "examples/world_model_projection_drift_control_room")
+    _copy_runtime_drift_receipt(public_root)
+    bundle = public_root / BUNDLE_INPUT.relative_to(MICROCOSM_ROOT)
+    path = bundle / "source_module_manifest.json"
+    manifest = json.loads(path.read_text())
+    if mutation == "partial_manifest":
+        manifest["modules"] = [row for row in manifest["modules"]
+                               if row["source_ref"] == "tools/meta/observability/view_quality_census.py"]
+        manifest["module_count"] = 1
+        _write_json(path, manifest)
+    elif mutation == "missing_body":
+        row = manifest["modules"][0]
+        (public_root / row["target_ref"].removeprefix("microcosm-substrate/")).unlink()
+    else:
+        path.unlink()
+        (bundle / world_model_projection_drift_control_room.VIEW_QUALITY_GEOMETRY_PROBE_NAME).unlink(missing_ok=True)
+    result = run_drift_control_bundle(bundle, public_root / "receipts/review", command="pytest")
+    assert result["status"] == "blocked"
+    assert result["source_module_import_status"] == "blocked"
+    codes = {row["error_code"] for row in result["source_module_summary"]["findings"]}
+    assert expected in codes
+
+
+@pytest.mark.parametrize("mutation, expected", [
+    ("boolean_count", "DRIFT_SOURCE_MODULE_COUNT_MISMATCH"),
+    ("wrong_count", "DRIFT_SOURCE_MODULE_COUNT_MISMATCH"),
+    ("duplicate_id", "DRIFT_SOURCE_MODULE_ID_DUPLICATE"),
+    ("duplicate_ref", "DRIFT_SOURCE_MODULE_SOURCE_REF_DUPLICATE"),
+    ("swapped_ids", "DRIFT_SOURCE_MODULE_BINDING_MISMATCH"),
+    ("malformed_rows", "DRIFT_SOURCE_MODULE_ROWS_INVALID"),
+])
+def test_world_model_source_manifest_shape_cannot_replace_coverage(tmp_path, mutation, expected):
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+    if mutation == "boolean_count":
+        manifest["module_count"] = True
+    elif mutation == "wrong_count":
+        manifest["module_count"] = 3
+    elif mutation == "duplicate_id":
+        manifest["modules"][1]["module_id"] = manifest["modules"][0]["module_id"]
+    elif mutation == "duplicate_ref":
+        manifest["modules"][1]["source_ref"] = manifest["modules"][0]["source_ref"]
+    elif mutation == "swapped_ids":
+        a, b = manifest["modules"][:2]
+        a["module_id"], b["module_id"] = b["module_id"], a["module_id"]
+    else:
+        manifest["modules"].append(7)
+    _write_json(tmp_path / "source_module_manifest.json", manifest)
+    result = world_model_projection_drift_control_room._source_module_manifest_result(
+        tmp_path, public_root=MICROCOSM_ROOT, required=True)
+    assert result["status"] == "blocked"
+    assert expected in {row["error_code"] for row in result["findings"]}

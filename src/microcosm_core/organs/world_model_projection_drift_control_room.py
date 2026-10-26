@@ -202,12 +202,13 @@ SUPPORTED_DRIFT_SOURCE_REFS = {
 for _alias in ("view-quality::action_rows", "projection-safety::projection_rows"):
     SUPPORTED_DRIFT_SOURCE_REFS["plectis " + _alias] = SUPPORTED_DRIFT_SOURCE_REFS["microcosm " + _alias]
 
-SUPPORTED_SOURCE_MODULE_SOURCE_REFS = {
-    "system/server/world_model.py",
-    "system/server/main.py",
-    "tools/meta/observability/view_quality_census.py",
-    "system/server/tests/test_view_quality_census.py",
+REQUIRED_SOURCE_MODULE_BINDINGS = {
+    "world_model_drift_aggregate_source_body_import": "system/server/world_model.py",
+    "world_model_drift_endpoint_source_body_import": "system/server/main.py",
+    "view_quality_action_map_source_body_import": "tools/meta/observability/view_quality_census.py",
+    "view_quality_action_map_test_body_import": "system/server/tests/test_view_quality_census.py",
 }
+SUPPORTED_SOURCE_MODULE_SOURCE_REFS = set(REQUIRED_SOURCE_MODULE_BINDINGS.values())
 RUNTIME_DRIFT_RECEIPT_REFS = (
     "receipts/runtime_shell/public_projection_drift_control_lens.json",
 )
@@ -1081,7 +1082,9 @@ def _source_state_diff_result(
     }
 
 
-def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dict[str, Any]:
+def _source_module_manifest_result(
+    input_dir: Path, *, public_root: Path, required: bool = False
+) -> dict[str, Any]:
     """
     Serialize
     `microcosm_core.organs.world_model_projection_drift_control_room._source_module_manifest_result`
@@ -1092,14 +1095,18 @@ def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dic
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
         return {
-            "status": "not_present",
-            "source_module_import_status": "not_present",
+            "status": "blocked" if required else "not_present",
+            "source_module_import_status": "blocked" if required else "not_present",
             "source_module_manifest_ref": None,
             "module_count": 0,
             "module_ids": [],
             "material_classes": [],
             "body_in_receipt": False,
-            "findings": [],
+            "findings": ([_finding(
+                "DRIFT_SOURCE_MODULE_MANIFEST_REQUIRED",
+                "exported drift-control bundles require the source module manifest",
+                case_id="source_module_manifest", subject_id="source_module_manifest.json",
+                subject_kind="source_module_manifest")] if required else []),
         }
 
     manifest = read_json_strict(manifest_path)
@@ -1107,12 +1114,48 @@ def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dic
     module_ids: list[str] = []
     material_classes: set[str] = set()
     verified_count = 0
-    for row in _rows(manifest, "modules"):
+    rows = _rows(manifest, "modules")
+    raw_rows = manifest.get("modules")
+    if not isinstance(raw_rows, list) or len(raw_rows) != len(rows):
+        findings.append(_finding(
+            "DRIFT_SOURCE_MODULE_ROWS_INVALID", "source module rows must be objects in a list",
+            case_id="source_module_manifest", subject_id="modules",
+            subject_kind="source_module_manifest"))
+    if (type(manifest.get("module_count")) is not int
+            or manifest["module_count"] != len(rows)
+            or len(rows) != len(REQUIRED_SOURCE_MODULE_BINDINGS)):
+        findings.append(_finding(
+            "DRIFT_SOURCE_MODULE_COUNT_MISMATCH",
+            "declared and observed source counts must match the four required module bindings",
+            case_id="source_module_manifest", subject_id="module_count",
+            subject_kind="source_module_manifest"))
+    ids = [str(row.get("module_id") or "") for row in rows]
+    refs = [str(row.get("source_ref") or "") for row in rows]
+    for missing in sorted(set(REQUIRED_SOURCE_MODULE_BINDINGS) - set(ids)):
+        findings.append(_finding(
+            "DRIFT_SOURCE_MODULE_REQUIRED_MISSING", "required copied source module is missing",
+            case_id="source_module_manifest", subject_id=missing, subject_kind="source_module"))
+    for value in sorted({value for value in ids if ids.count(value) > 1}):
+        findings.append(_finding(
+            "DRIFT_SOURCE_MODULE_ID_DUPLICATE", "copied source module ids must be unique",
+            case_id="source_module_manifest", subject_id=value, subject_kind="source_module"))
+    for value in sorted({value for value in refs if refs.count(value) > 1}):
+        findings.append(_finding(
+            "DRIFT_SOURCE_MODULE_SOURCE_REF_DUPLICATE", "copied source refs must be unique",
+            case_id="source_module_manifest", subject_id=value, subject_kind="source_ref"))
+    for row in rows:
         module_id = str(row.get("module_id") or "source_module")
         module_ids.append(module_id)
         if row.get("material_class"):
             material_classes.add(str(row["material_class"]))
         source_ref = str(row.get("source_ref") or "")
+        if (source_ref in SUPPORTED_SOURCE_MODULE_SOURCE_REFS
+                and REQUIRED_SOURCE_MODULE_BINDINGS.get(module_id) != source_ref):
+            findings.append(_finding(
+                "DRIFT_SOURCE_MODULE_BINDING_MISMATCH",
+                "module id and source ref must match the required copied-source binding",
+                case_id="source_module_manifest", subject_id=module_id,
+                subject_kind="source_module"))
         if source_ref not in SUPPORTED_SOURCE_MODULE_SOURCE_REFS:
             findings.append(
                 _finding(
@@ -1992,6 +2035,7 @@ def _build_result(
     source_module_result = _source_module_manifest_result(
         input_dir,
         public_root=public_root,
+        required=input_mode == "exported_projection_drift_control_bundle",
     )
     source_open_body_imports = _source_open_body_import_summary(source_module_result)
     view_quality_geometry_grade = _view_quality_geometry_grade_result(
