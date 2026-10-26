@@ -5,6 +5,8 @@ import importlib.util
 import json
 from pathlib import Path
 
+import pytest
+
 MICRO_ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -20,6 +22,63 @@ HEALTH = _load(
     "build_doctrine_enrichment_health",
     "scripts/build/build_doctrine_enrichment_health.py",
 )
+
+
+def _health_source_root(root: Path) -> None:
+    (root / "core").mkdir()
+    (root / HEALTH.ENRICHMENT_REL).write_text('{"records": []}\n', encoding="utf-8")
+    for directory, _ in (
+        *HEALTH.KIND_DIRS.values(),
+        *HEALTH.ROUTING_KIND_DIRS.values(),
+        HEALTH.PAPER_MODULE_DIR,
+    ):
+        (root / directory).mkdir()
+
+
+@pytest.mark.parametrize("operation", ["--write", "--check"])
+def test_mutation_and_completeness_require_source_corpora(
+    tmp_path: Path, capsys, operation: str
+) -> None:
+    (tmp_path / "core").mkdir()
+    (tmp_path / HEALTH.ENRICHMENT_REL).write_text('{"records": []}\n', encoding="utf-8")
+    saved = tmp_path / HEALTH.HEALTH_REL
+    saved.write_bytes(b'{"historical_snapshot": true}\n')
+
+    with pytest.raises(SystemExit) as error:
+        HEALTH.main(["--root", str(tmp_path), operation])
+
+    assert error.value.code == 2
+    assert "axioms/" in capsys.readouterr().err
+    assert saved.read_bytes() == b'{"historical_snapshot": true}\n'
+
+
+def test_write_accepts_explicit_empty_corpora(tmp_path: Path) -> None:
+    _health_source_root(tmp_path)
+
+    assert HEALTH.main(["--root", str(tmp_path), "--write"]) == 0
+
+    health = json.loads((tmp_path / HEALTH.HEALTH_REL).read_text(encoding="utf-8"))
+    assert health["total_objects"] == 0
+    assert health["routing_floor"]["total_objects"] == 0
+
+
+def test_check_accepts_explicit_empty_corpora(tmp_path: Path, capsys) -> None:
+    _health_source_root(tmp_path)
+
+    assert HEALTH.main(["--root", str(tmp_path), "--check"]) == 0
+
+    assert json.loads(capsys.readouterr().out)["status"] == "complete"
+    assert not (tmp_path / HEALTH.HEALTH_REL).exists()
+
+
+def test_report_remains_available_without_source_corpora(tmp_path: Path, capsys) -> None:
+    (tmp_path / "core").mkdir()
+    (tmp_path / HEALTH.ENRICHMENT_REL).write_text('{"records": []}\n', encoding="utf-8")
+
+    assert HEALTH.main(["--root", str(tmp_path)]) == 0
+
+    assert json.loads(capsys.readouterr().out)["total_objects"] == 0
+    assert not (tmp_path / HEALTH.HEALTH_REL).exists()
 
 
 def _mechanism_record(code_path: str = "src/microcosm_core/organs/example.py") -> dict:
@@ -131,89 +190,100 @@ def _paper_module_record(code_path: str = "src/microcosm_core/organs/example.py"
     }
 
 
-def test_health_projection_counts_doctrine_routing_floor() -> None:
-    report = HEALTH.build_health(MICRO_ROOT)
+def test_health_projection_counts_doctrine_routing_floor(tmp_path: Path) -> None:
+    _health_source_root(tmp_path)
+    enrichment = json.loads((MICRO_ROOT / HEALTH.ENRICHMENT_REL).read_text(encoding="utf-8"))
+    axiom = next(row for row in enrichment["records"] if row["kind"] == "axiom")
+    (tmp_path / HEALTH.ENRICHMENT_REL).write_text(
+        json.dumps({"records": [axiom]}), encoding="utf-8"
+    )
+    (tmp_path / "axioms" / f"{axiom['id']}.json").write_text(
+        json.dumps({"id": axiom["id"]}), encoding="utf-8"
+    )
+    concept = {
+        "id": "concept.test",
+        "kind": "concept",
+        "authority_boundary": "test_boundary",
+        "source_refs": ["source"],
+        "validator_refs": ["validator"],
+        "receipt_refs": ["receipt"],
+        "anti_claims": ["not authority"],
+        "entry_surface_contract": {"required": True},
+        "cluster_flag": {"concept_id": "concept.test"},
+        "relationships": {
+            "unpopulated_selective_relations": [],
+            "edges": [{
+                "relation_id": "concept.instantiated_by.mechanism",
+                "relation_verb": "instantiated_by",
+                "reverse_verb": "instantiates",
+                "target_id": "mechanism.test.validates_example",
+                "target_kind": "mechanism",
+                "target_status": "resolved_json_instance",
+                "justification": {"source_ref": "source", "summary": "Test mechanism."},
+            }],
+        },
+    }
+    (tmp_path / "concepts/concept.test.json").write_text(json.dumps(concept), encoding="utf-8")
+    (tmp_path / "example.py").write_text("def run(): pass\n", encoding="utf-8")
+    mechanism = _mechanism_record("example.py")
+    planned_target = {
+        "target_kind": "organ",
+        "target_id": "example_host",
+        "target_status": "planned_registry_or_atlas_target",
+        "residual_pressure_ref": "test_residual",
+        "reentry_condition": "Admit the example host through its registry owner.",
+        "authority_boundary": "planned_target_marker_not_resolved_organ_authority",
+    }
+    mechanism["mechanism_payload"]["source_registry_row"] = {
+        "planned_targets": [planned_target]
+    }
+    mechanism["relationships"]["source_registry_row_ref"] = "source::mechanism"
+    mechanism["relationships"]["edges"].append({
+        "relation_id": "mechanism.runs_in.organ",
+        "relation_verb": "runs_in",
+        "reverse_verb": "hosts",
+        **{key: planned_target[key] for key in ("target_kind", "target_id", "target_status")},
+        "justification": {"source_ref": "source::host", "summary": "Planned host."},
+    })
+    (tmp_path / "mechanisms/mechanism.test.json").write_text(
+        json.dumps(mechanism), encoding="utf-8"
+    )
+    (tmp_path / "paper_modules/example.json").write_text(
+        json.dumps(_paper_module_record("example.py")), encoding="utf-8"
+    )
+
+    report = HEALTH.build_health(tmp_path)
     routing = report["routing_floor"]
-    concept = routing["kinds"]["concept"]
-    mechanism = routing["kinds"]["mechanism"]
+    mechanism_summary = routing["kinds"]["mechanism"]
     paper_modules = report["paper_module_readiness_audit"]
 
-    assert report["reader_enrichment_total_objects"] == 49
-    assert report["governed_floor_total_objects"] == 160
+    assert report["reader_enrichment_total_objects"] == 1
+    assert report["governed_floor_total_objects"] == 3
     assert routing["status"] == "complete"
     assert routing["covered_kinds"] == ["concept", "mechanism"]
-    assert concept["total"] == 11
-    assert concept["routed"] == 11
-    assert concept["incomplete_ids"] == []
-    assert concept["issue_rows"] == []
-    assert mechanism["total"] == 100
-    assert mechanism["routed"] == 100
-    assert mechanism["incomplete_ids"] == []
-    assert mechanism["issue_rows"] == []
-    assert mechanism["known_residual_selective_relation_row_count"] == 27
-    assert mechanism["known_residual_selective_relation_count"] == 27
-    assert mechanism["planned_edge_row_count"] == 2
-    assert mechanism["planned_edge_count"] == 2
-    assert mechanism["planned_edge_detail_count"] == 2
-    assert mechanism["planned_edge_counts_by_target_kind"] == {"organ": 2}
-    assert mechanism["planned_edge_counts_by_target_status"] == {
-        "planned_registry_or_atlas_target": 2
+    for kind in ("concept", "mechanism"):
+        assert routing["kinds"][kind]["total"] == 1
+        assert routing["kinds"][kind]["routed"] == 1
+        assert routing["kinds"][kind]["incomplete_ids"] == []
+    assert mechanism_summary["known_residual_selective_relation_row_count"] == 1
+    assert mechanism_summary["known_residual_selective_relation_count"] == 1
+    assert mechanism_summary["planned_edge_detail_count"] == 1
+    assert mechanism_summary["planned_edge_counts_by_target_kind"] == {"organ": 1}
+    assert mechanism_summary["planned_edge_counts_by_target_status"] == {
+        "planned_registry_or_atlas_target": 1
     }
-    planned_details = {
-        row["id"]: row for row in mechanism["planned_edge_details"]
-    }
-    assert (
-        "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
-        not in planned_details
-    )
-    assert (
-        "mechanism.cold_clone_probe.validates_public_source_root_bootstrap"
-        not in planned_details
-    )
-    axiom_host = planned_details[
-        "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
-    ]
-    assert axiom_host == {
-        "id": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary",
-        "relation_id": "mechanism.runs_in.organ",
-        "target_kind": "organ",
-        "target_id": "microcosm_axiom_substrate",
-        "target_status": "planned_registry_or_atlas_target",
-        "source_ref": (
-            "core/mechanism_sources.json::mechanisms[99:"
-            "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary].runs_in"
-        ),
-        "summary": "Mechanism registry row names this organ as the runtime host.",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "next_safe_mutation_route": "organ_owner_admission_or_runs_in_source_remap",
-        "reentry_condition": (
-            "Controller or organ-owner lane admits the organ into core/organ_atlas.json "
-            "or remaps this mechanism to a resolved public organ host; do not synthesize "
-            "reverse success while planned."
-        ),
-        "authority_boundary": (
-            "planned_edge_visibility_only_not_target_admission_"
-            "support_evidence_or_release_authority"
-        ),
-        "planned_target_source_ref": (
-            "core/mechanism_sources.json::mechanisms[99:"
-            "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary]"
-            ".planned_targets[0]"
-        ),
-        "planned_target_authority_boundary": "planned_target_marker_not_resolved_organ_authority",
-    }
+    detail = mechanism_summary["planned_edge_details"][0]
+    assert detail["id"] == mechanism["id"]
+    assert detail["residual_pressure_ref"] == "test_residual"
+    assert detail["reentry_condition"] == planned_target["reentry_condition"]
+    assert detail["planned_target_source_ref"] == "source::mechanism.planned_targets[0]"
+    assert detail["planned_target_authority_boundary"] == planned_target["authority_boundary"]
+    assert detail["next_safe_mutation_route"] == "organ_owner_admission_or_runs_in_source_remap"
     assert paper_modules["status"] == "complete"
-    assert paper_modules["readiness_complete"] is True
-    assert paper_modules["total_objects"] == 98
-    assert paper_modules["ready_objects"] == 98
-    assert paper_modules["source_authority_counts"] == {
-        "json_capsule": 98,
-    }
-    assert paper_modules["required_residual_relation_count"] == 0
-    assert paper_modules["selective_residual_relation_count"] == 0
-    assert paper_modules["residual_relation_count"] == 0
+    assert paper_modules["total_objects"] == 1
+    assert paper_modules["ready_objects"] == 1
+    assert paper_modules["source_authority_counts"] == {"json_capsule": 1}
     assert paper_modules["required_gap_ids"] == []
-    assert paper_modules["incomplete_ids"] == []
     assert report["status"] == "complete"
 
 
@@ -335,7 +405,7 @@ def test_paper_module_readiness_audit_accepts_resolved_routes(tmp_path: Path) ->
 # --- section-model boundary tests -----------------------------------------
 # These are count-independent: they pin the projection's gate composition,
 # plane, and authority grammar, so they must survive the day the paper-module
-# blockers close and the count-pinned assertions above get rewritten.
+# corpus changes; the integration case above supplies its own source rows.
 
 
 def test_section_model_keeps_frontier_audit_out_of_completion_gate() -> None:
@@ -400,8 +470,9 @@ def test_authority_boundary_names_what_it_does_not_prove() -> None:
         assert "release" in does_not_prove, name
 
 
-def test_sources_of_record_resolve_inside_microcosm_root() -> None:
-    report = HEALTH.build_health(MICRO_ROOT)
+def test_sources_of_record_resolve_inside_supplied_source_root(tmp_path: Path) -> None:
+    _health_source_root(tmp_path)
+    report = HEALTH.build_health(tmp_path)
 
     declared = [report["source_of_record"]]
     for section in report["sections"].values():
@@ -417,7 +488,7 @@ def test_sources_of_record_resolve_inside_microcosm_root() -> None:
                 break
             base_parts.append(part)
         assert base_parts, source
-        assert (MICRO_ROOT / Path(*base_parts)).exists(), source
+        assert (tmp_path / Path(*base_parts)).exists(), source
 
 
 def test_projection_declares_role_and_plane_beyond_enrichment() -> None:

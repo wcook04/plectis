@@ -25,7 +25,6 @@ from microcosm_core.organs.batch8_compliance_pipeline_capsule import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/batch8_compliance_pipeline_capsule/input"
 EXPORTED_BUNDLE = (
     MICROCOSM_ROOT
@@ -130,14 +129,16 @@ def test_batch8_compliance_pipeline_capsule_runs_all_engines(
     assert all(row["status"] == "pass" for row in exercise["engines"])
 
     by_engine = {row["engine_id"]: row for row in exercise["engines"]}
-    assert by_engine["compliance_registry_runtime_witness"]["adapter_count"] >= 190
+    registry = by_engine["compliance_registry_runtime_witness"]
+    assert registry["witness_mode"] == "standalone_copied_source_contract"
+    assert registry["registry_contract_present"] is True
+    assert registry["repo_witness_available"] is False
     bounded_check = by_engine["compliance_coverage_bounded_check"]
     assert bounded_check["check_status"] in {"ok", "failed"}
     assert bounded_check["wrote_ledger"] is False
-    assert bounded_check["bounded_check_partial"] is True
+    assert bounded_check["original_witness"]["repo_witness_available"] is False
     assert bounded_check["partial_projection"] is True
-    assert bounded_check["scanner_depth_ratchet_status"] == "ready_next_row"
-    assert bounded_check["ratchet_next_command"]
+    assert bounded_check["scanner_depth_ratchet_status"] == "standalone_copied_source_contract"
     if bounded_check["check_status"] == "failed":
         assert bounded_check["error_findings"] > 0
         assert bounded_check["check_failure_reasons"] == ["error_findings"]
@@ -284,15 +285,17 @@ def test_batch8_compliance_pipeline_source_modules_are_exact_macro_body_imports(
     assert manifest["module_count"] >= 11
 
     for row in manifest["modules"]:
-        source = SOURCE_ROOT / row["source_ref"]
         target = EXPORTED_BUNDLE / row["path"]
-        assert source.is_file(), row["source_ref"]
         assert target.is_file(), row["path"]
-        assert source.read_bytes() == target.read_bytes(), row["source_ref"]
-        assert row["sha256"] == _sha256(source)
-        assert row["source_sha256"] == row["sha256"]
+        assert row["sha256"] == _sha256(target)
         assert row["target_sha256"] == row["sha256"]
-        assert row["sha256_match"] is True
+        if row["source_to_target_relation"] == "exact_copy":
+            assert row["source_sha256"] == row["sha256"]
+            assert row["sha256_match"] is True
+        else:
+            assert row["source_sha256"]
+            assert row["public_safe_transform"]["public_safe"] is True
+            assert row["public_safe_transform"]["blocker_count"] == 0
         text = target.read_text(encoding="utf-8")
         assert all(anchor in text for anchor in row["required_anchors"])
 
@@ -406,3 +409,20 @@ def test_batch8_compliance_semantic_negative_cases_move_with_runtime_evidence(
     )
     assert result["status"] == "blocked"
     assert moved_case in result["missing_negative_cases"]
+
+
+def test_compile_helper_witness_moves_with_the_copied_function(tmp_path: Path) -> None:
+    source_root = (
+        tmp_path / "examples/batch8_compliance_pipeline_capsule/"
+        "exported_batch8_compliance_pipeline_capsule_bundle/source_modules"
+    )
+    shutil.copytree(EXPORTED_BUNDLE / "source_modules", source_root)
+    source = source_root / "system/lib/pipeline/stage_compile.py"
+    original = source.read_text(encoding="utf-8")
+    assert "return _dedupe_strings(matches)" in original
+    source.write_text(original.replace("return _dedupe_strings(matches)", "return []", 1), encoding="utf-8")
+
+    witness = capsule_module._pipeline_observe_compile_helpers(tmp_path, standalone_only=True)
+
+    assert witness["status"] == "blocked"
+    assert witness["mentioned_files"] == []

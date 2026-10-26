@@ -10,7 +10,10 @@ structures while keeping private substrate bodies out of the payload.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -167,7 +170,7 @@ def _repo_root(public_root: Path) -> Path:
 
     Inputs are `public_root`.
     """
-    return public_root.parent
+    return _copied_source(public_root, "")
 
 
 def _copied_source(public_root: Path, source_ref: str) -> Path:
@@ -271,7 +274,9 @@ def _run_public_witness(
         "returncode": completed.returncode,
         "stdout_byte_count": len(completed.stdout.encode("utf-8")),
         "stderr_byte_count": len(completed.stderr.encode("utf-8")),
-        "observed_build_complete_marker": "Build complete!" in combined,
+        "observed_build_complete_marker": bool(
+            re.search(r"Build (?:of product '[^']+' )?complete!", combined)
+        ),
         "body_in_receipt": False,
     }
 
@@ -349,7 +354,7 @@ def _start_without_screen_negative(public_root: Path) -> dict[str, Any]:
         public_root,
         case_id="start_without_screen",
         source_ref="apps/demo-take-console/Sources/DemoTakeConsoleApp/RecorderStore.swift",
-        old='blockers.append("Select at least one display")',
+        old='blockers.append("Select at least one recording source")',
         new='statusMessages.append("Screen selection optional")',
         engine=_recorder_store_capture_fsm,
         observed_flag="start_gate_requires_screen_and_disk",
@@ -528,8 +533,21 @@ def evaluate_negative_case(
     }
 
 
+def _swift_source_binding(package: Path) -> str:
+    """Bind the witness cache to the package inputs SwiftPM actually reads."""
+    paths = [package / "Package.swift", package / "Package.resolved"]
+    paths.extend((package / "Sources").rglob("*.swift"))
+    paths.extend((package / "Tests").rglob("*.swift"))
+    digest = hashlib.sha256()
+    for path in sorted(path for path in paths if path.is_file()):
+        digest.update(path.relative_to(package).as_posix().encode("utf-8") + b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
 @lru_cache(maxsize=4)
-def _cached_swiftpm_build_witness(repo_root: str) -> tuple[tuple[str, Any], ...]:
+def _cached_swiftpm_build_witness(repo_root: str, source_binding: str) -> tuple[tuple[str, Any], ...]:
     """
     Return cached swiftpm build witness for the organs batch7 demo take console capsule
     flow.
@@ -537,11 +555,18 @@ def _cached_swiftpm_build_witness(repo_root: str) -> tuple[tuple[str, Any], ...]
     Inputs are `repo_root`; notable helpers are `lru_cache`, `_run_public_witness`, `items`,
     and `Path`.
     """
+    package = Path(repo_root) / "apps/demo-take-console"
+    cache_key = hashlib.sha256(str(package.resolve()).encode("utf-8")).hexdigest()[:16]
+    build_root = Path(os.environ.get("PLECTIS_SWIFT_BUILD_ROOT", tempfile.gettempdir()))
+    scratch = build_root / f"plectis-demo-take-{cache_key}"
     witness = _run_public_witness(
-        ["swift", "build", "--product", "DemoTakeConsoleApp"],
-        cwd=Path(repo_root) / "apps/demo-take-console",
-        timeout=240,
+        ["swift", "build", "--scratch-path", str(scratch),
+         "--cache-path", str(build_root / "plectis-swift-cache"), "--jobs", "2",
+         "--product", "DemoTakeConsoleApp"],
+        cwd=package,
+        timeout=900,
     )
+    witness["source_binding_sha256"] = source_binding
     return tuple(sorted(witness.items()))
 
 
@@ -553,11 +578,13 @@ def _swiftpm_build_witness(public_root: Path) -> dict[str, Any]:
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
-    witness = dict(_cached_swiftpm_build_witness(str(_repo_root(public_root))))
+    repo_root = _repo_root(public_root)
+    source_binding = _swift_source_binding(repo_root / "apps/demo-take-console")
+    witness = dict(_cached_swiftpm_build_witness(str(repo_root), source_binding))
     return {
         "status": witness["status"],
         "engine_id": "demo_take_swiftpm_build_witness",
-        "command": "swift build --product DemoTakeConsoleApp",
+        "command": "swift build --scratch-path <external-build-root> --jobs 2 --product DemoTakeConsoleApp",
         "original_witness": witness,
         "claim_ceiling": "SwiftPM build of the app target only; no app launch or capture permissions.",
     }
@@ -695,8 +722,10 @@ def _recorder_store_capture_fsm(public_root: Path) -> dict[str, Any]:
         token in store
         for token in (
             "state = startBlockers.isEmpty ? .ready : .setupNeeded",
-            "return startBlockers.isEmpty",
-            'blockers.append("Select at least one display")',
+            "canManageTakes && !nativeCaptureWritersActive && startBlockers.isEmpty",
+            "selectedScreens.isEmpty && selectedAudio == nil && selectedWebcam == nil",
+            'blockers.append("Select at least one recording source")',
+            "permissions.disk == .low",
             "minimumStartDiskBytes",
         )
     )
@@ -722,10 +751,11 @@ def _recorder_store_capture_fsm(public_root: Path) -> dict[str, Any]:
     stop_review_path = all(
         token in store
         for token in (
-            "CaptureHelperClient.finalize(takeRoot: stoppedTakeURL)",
-            "loadPlaybackAsset(from: stoppedTakeURL)",
+            "func prepareActiveTakeReview() async",
+            "CaptureHelperClient.finalize(takeRoot: targetTakeURL)",
+            "loadPlaybackAsset(from: targetTakeURL)",
             "state = hasReviewVideo ? .reviewReady : .packageFailed",
-            'appendStatus("Capture finalized for \\(stoppedTakeID).',
+            'appendStatus("Review prepared for \\(takeID).',
         )
     )
     screen_prompt_guard = (
@@ -738,9 +768,11 @@ def _recorder_store_capture_fsm(public_root: Path) -> dict[str, Any]:
         else "blocked",
         "engine_id": "recorder_store_capture_fsm",
         "start_gate_requires_screen_and_disk": start_gate,
+        "start_gate_requires_recording_source_and_disk": start_gate,
         "start_path_transitions_to_recording": start_path,
         "pause_resume_path_present": pause_resume_path,
         "stop_path_moves_to_review": stop_review_path,
+        "review_preparation_moves_to_review": stop_review_path,
         "screen_prompt_guard_present": screen_prompt_guard,
         "claim_ceiling": "RecorderStore state-machine source contract only; no capture process is started.",
     }

@@ -53,6 +53,14 @@ Common catalogue behavior belongs there.
 New command handlers should call reusable functions in their owning module;
 argument parsing should stay separate from computation and file writes.
 
+Reference capsules execute the source copies declared by their bundle
+manifests. Keep their imports scoped to that bundle; a sibling private checkout
+must not supply missing modules. The Oracle capsule's original pytest witness
+uses the selected interpreter and the package's test extras. The Demo Take
+Swift witness requires macOS and Swift 6 and builds the copied app without
+launching it. Build output stays outside the source tree; set
+`PLECTIS_SWIFT_BUILD_ROOT` to choose its cache volume.
+
 Use `make check` for the fast registry/source gate, focused pytest files for
 the changed behavior, and `make ci` for the integrated public check. Packaging
 changes also need `make package-smoke`: a source import alone cannot show
@@ -76,6 +84,18 @@ explanation directly. Generate component inventories, commands, counts and
 source identities from their code or JSON owners. Preserve dated experiment
 records as history; a saved result does not become current when it is copied.
 
+Retire a one-off producer when its experiment is complete and no current
+command or validator consumes it. Keep the resulting evidence at its published
+path. For example, the saved code-lens spine attestation records a completed
+release-wave comparison; its unused writer was removed. Current code-lens
+navigation comes from `build_code_lens_join_index.py`, and current review
+packets come from `make release-review`.
+
+The shipped doctrine-enrichment health is a saved snapshot. Its full instance
+corpora are not distributed here, so its builder permits local inspection but
+rejects `--write` and `--check` when a declared source directory is missing.
+Restore the source tree before regenerating or checking that snapshot.
+
 The root reference paths are intentional public interfaces. Their generators,
 package metadata and incoming links already use them. Consolidate their
 content and writers before considering a move.
@@ -97,6 +117,12 @@ Do not rehash changed copies merely to make a check pass. Check their declared
 source or the export inventory, and report upstream currentness as unassessed
 when those upstream bytes are unavailable. Copy identity, successful execution,
 mathematical meaning and publication status answer separate questions.
+
+When restoring an omitted snapshot, first match its saved digest. Recover
+missing support files from the same source revision when possible; mixing a
+recorded module with today's dependencies can change the experiment. Record
+new dependency revisions and any public reference normalization in the bundle
+manifest, then exercise the surviving public entry point.
 
 ## Change producers and consumers together
 

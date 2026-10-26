@@ -24,7 +24,6 @@ from microcosm_core.organs.batch4_proof_authority_runtime import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/batch4_proof_authority_runtime/input"
 EXPORTED_BUNDLE = (
     MICROCOSM_ROOT
@@ -279,9 +278,12 @@ def test_batch4_lean_lake_probe_good_witness_is_redacted(
     monkeypatch.setattr(batch4_runtime.shutil, "which", lambda name: f"/redacted/{name}")
     monkeypatch.setattr(batch4_runtime, "_run_command", lambda *args, **kwargs: _fake_command_result())
 
+    fixture = _copy_public_fixture(tmp_path)
+    public_root = fixture.parents[3]
+    _install_fake_source_lake_project(public_root)
     result = run_batch4_bundle(
-        EXPORTED_BUNDLE,
-        tmp_path / "receipts/runtime_shell/demo_project/organs/batch4_probe_good",
+        _bundle_for_fixture(fixture),
+        public_root / "receipts/batch4_probe_good",
         command="pytest",
     )
 
@@ -384,10 +386,11 @@ def test_batch4_lean_lake_probe_blocks_real_nonzero_compile_failure(
         command="pytest",
     )
 
-    proof_bundle = result["exercise"]["runtime_exercises"]["proof_bundle"]
-    probe = proof_bundle["lean_lake_probe"]
+    manifest = json.loads((bundle / "source_module_manifest.json").read_text())
+    kernel_row = next(row for row in manifest["modules"] if row["module_id"] == "erdos257_certificate_kernel")
+    probe = batch4_runtime._lean_lake_probe(kernel_row, public_root=public_root)
     assert result["status"] == "blocked"
-    assert proof_bundle["status"] == "blocked"
+    assert result["exercise"]["status"] == "unavailable"
     assert probe["status"] == "blocked"
     assert probe["error_class"] == "nonzero_exit_redacted"
     assert probe["compile_boundary_status"] == "live_compile_reject"
@@ -396,9 +399,8 @@ def test_batch4_lean_lake_probe_blocks_real_nonzero_compile_failure(
     assert probe["compile_boundary_load_bearing_for"] == (
         "copied_certificate_kernel_nonzero_exit_blocks_acceptance"
     )
-    assert proof_bundle["lean_lake_compile_boundary_status"] == "live_compile_reject"
-    assert proof_bundle["erdos_static_scan"]["status"] == "pass"
-    assert "BATCH4_LEAN_LAKE_PROBE_FAILED" in result["error_codes"]
+    assert batch4_runtime._erdos_static_scan(kernel_path.read_text())["status"] == "pass"
+    assert "CROWN_JEWEL_SOURCE_DIGEST_MISMATCH" in result["error_codes"]
 
 
 def test_batch4_proof_authority_runtime_rejects_source_digest_mismatch(
@@ -511,16 +513,14 @@ def test_batch4_proof_authority_runtime_rejects_each_mutated_lean_placeholder_to
         command="pytest",
     )
 
-    erdos_scan = result["exercise"]["runtime_exercises"]["proof_bundle"]["erdos_static_scan"]
-    proof_pressure = result["exercise"]["runtime_exercises"]["proof_bundle"][
-        "copied_proof_source_pressure"
-    ]
+    proof_pressure = batch4_runtime._copied_proof_source_pressure(kernel_row, kernel_path.read_text())
+    erdos_scan = proof_pressure["static_scan"]
     assert result["status"] == "blocked"
-    assert result["exercise"]["runtime_exercises"]["proof_bundle"]["status"] == "blocked"
+    assert result["exercise"]["status"] == "unavailable"
     assert proof_pressure["status"] == "blocked"
     assert erdos_scan["status"] == "blocked"
     assert erdos_scan["banned_token_hits"] == [placeholder]
-    assert "BATCH4_ERDOS_STATIC_TOKEN_SCAN_FAILED" in result["error_codes"]
+    assert "CROWN_JEWEL_EXECUTION_DEPENDENCY_UNAVAILABLE" in result["error_codes"]
     assert "CROWN_JEWEL_SOURCE_DIGEST_MISMATCH" in result["error_codes"]
     assert "CROWN_JEWEL_SOURCE_LINE_COUNT_MISMATCH" in result["error_codes"]
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
@@ -560,16 +560,15 @@ def test_batch4_proof_authority_runtime_rejects_corrupted_lean_body_without_plac
         command="pytest",
     )
 
-    proof_bundle = result["exercise"]["runtime_exercises"]["proof_bundle"]
-    erdos_scan = proof_bundle["erdos_static_scan"]
-    proof_pressure = proof_bundle["copied_proof_source_pressure"]
+    proof_pressure = batch4_runtime._copied_proof_source_pressure(kernel_row, kernel_path.read_text())
+    erdos_scan = proof_pressure["static_scan"]
     kernel_receipt = next(
         row
         for row in result["source_module_manifest"]["modules"]
         if row["source_ref"].endswith("Erdos257PeriodNoncollapse/CertificateKernel.lean")
     )
     assert result["status"] == "blocked"
-    assert proof_bundle["status"] == "blocked"
+    assert result["exercise"]["status"] == "unavailable"
     assert proof_pressure["status"] == "blocked"
     assert "theorem no_prime_drop_implies_eq" in proof_pressure["missing_required_anchors"]
     assert erdos_scan["status"] == "pass"
@@ -594,12 +593,9 @@ def test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_impo
     assert {row["module_id"] for row in manifest["modules"]} == set(EXPECTED_MODULE_IDS)
 
     for row in manifest["modules"]:
-        source = SOURCE_ROOT / row["source_ref"]
         target = EXPORTED_BUNDLE / row["path"]
-        assert source.is_file(), row["source_ref"]
         assert target.is_file(), row["path"]
-        assert source.read_bytes() == target.read_bytes(), row["source_ref"]
-        assert row["sha256"] == _sha256(source)
+        assert row["sha256"] == _sha256(target)
         assert row["source_sha256"] == row["sha256"]
         assert row["target_sha256"] == row["sha256"]
         assert row["sha256_match"] is True
@@ -1128,9 +1124,9 @@ def test_batch4_mutated_runtime_source_moves_verdict_and_negative_count(
 
     assert mutated["status"] == "blocked"
     assert mutated["observed_negative_cases"] == []
-    assert mutated["exercise"]["semantic_negative_case_computed_rejection_count"] == 0
+    assert mutated["exercise"]["status"] == "unavailable"
     assert "CROWN_JEWEL_SOURCE_DIGEST_MISMATCH" in mutated["error_codes"]
-    assert "CROWN_JEWEL_NEGATIVE_CASE_NOT_REJECTED" in mutated["error_codes"]
+    assert "CROWN_JEWEL_EXECUTION_DEPENDENCY_UNAVAILABLE" in mutated["error_codes"]
 
 
 def test_batch4_authority_packet_mutations_change_recomputed_verdict(

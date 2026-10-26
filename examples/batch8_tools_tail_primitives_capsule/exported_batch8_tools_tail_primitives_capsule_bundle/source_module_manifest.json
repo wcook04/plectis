@@ -3,8 +3,35 @@
   "body_copied_material_count": 4,
   "body_in_receipt": false,
   "body_text_in_receipt": false,
-  "module_count": 3,
+  "module_count": 4,
   "modules": [
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 7897,
+      "line_count": 193,
+      "material_class": "public_macro_tool_body",
+      "module_id": "observer_diff_kernel",
+      "path": "source_modules/system/lib/observer_diff.py",
+      "required_anchors": [
+        "class EvidenceDiffResult",
+        "def diff_evidence(",
+        "def diff_predictions("
+      ],
+      "sha256": "38bcfeca4ad321133ff09b4aba8fe8452d655af66f0b817fa1ab1ba476ac75ca",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/observer_diff.py",
+      "source_sha256": "38bcfeca4ad321133ff09b4aba8fe8452d655af66f0b817fa1ab1ba476ac75ca",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/system/lib/observer_diff.py",
+      "target_sha256": "38bcfeca4ad321133ff09b4aba8fe8452d655af66f0b817fa1ab1ba476ac75ca",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch8_tools_tail_primitives_capsule.py::test_batch8_tools_tail_source_modules_are_exact_macro_body_imports"
+      ]
+    },
     {
       "anchor_count": 3,
       "body_copied": true,
@@ -87,19 +114,6 @@
       ]
     }
   ],
-  "release_substitution_omissions": [
-    {
-      "body_in_receipt": false,
-      "module_id": "observer_diff_kernel",
-      "path": "source_modules/system/lib/observer_diff.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/lib/observer_diff.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/observer_diff.py"
-    }
-  ],
+  "release_substitution_omissions": [],
   "source_import_class": "copied_non_secret_macro_body"
 }

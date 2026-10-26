@@ -20,7 +20,6 @@ from microcosm_core.organs.batch8_tools_tail_primitives_capsule import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 ORGAN_ID = "batch8_tools_tail_primitives_capsule"
 FIXTURE_INPUT = MICROCOSM_ROOT / f"fixtures/first_wave/{ORGAN_ID}/input"
 EXPORTED_BUNDLE = MICROCOSM_ROOT / f"examples/{ORGAN_ID}/exported_{ORGAN_ID}_bundle"
@@ -136,12 +135,9 @@ def test_batch8_tools_tail_source_modules_are_exact_macro_body_imports() -> None
     assert {row["module_id"] for row in manifest["modules"]} == set(EXPECTED_MODULE_IDS)
 
     for row in manifest["modules"]:
-        source = SOURCE_ROOT / row["source_ref"]
         target = EXPORTED_BUNDLE / row["path"]
-        assert source.is_file(), row["source_ref"]
         assert target.is_file(), row["path"]
-        assert source.read_bytes() == target.read_bytes(), row["source_ref"]
-        assert row["sha256"] == _sha256(source)
+        assert row["sha256"] == _sha256(target)
         assert row["source_sha256"] == row["sha256"]
         assert row["target_sha256"] == row["sha256"]
         assert row["sha256_match"] is True

@@ -25,6 +25,7 @@ from microcosm_core.organs._crown_jewel_common import (
     CrownJewelSpec,
     card_for_result,
     finding,
+    imported_source_modules,
     public_root_for_path,
     run_crown_jewel_organ,
 )
@@ -177,13 +178,6 @@ SPEC = CrownJewelSpec(
 )
 
 
-def _repo_root(public_root: Path) -> Path:
-    """
-    Return repo root for `microcosm_core.organs.batch8_compliance_pipeline_capsule`.
-
-    Inputs are `public_root`.
-    """
-    return public_root.parent
 
 
 def _copied_source(public_root: Path, source_ref: str) -> Path:
@@ -616,51 +610,22 @@ def _compliance_registry_runtime_witness(
             "_choose_next_missing_registered_standard",
         )
     )
-    if standalone_only:
-        return {
-            "status": "pass"
-            if registry_contract_present
-            and coverage_self_audit_present
-            and bounded_builder_present
-            else "blocked",
-            "engine_id": "compliance_registry_runtime_witness",
-            "witness_mode": "standalone_copied_source_contract",
-            "repo_witness_available": False,
-            "registry_contract_present": registry_contract_present,
-            "coverage_self_audit_present": coverage_self_audit_present,
-            "bounded_builder_present": bounded_builder_present,
-            "claim_ceiling": (
-                "Copied-source registry shape witness only; not a live adapter "
-                "registry count or full compliance-ledger freshness claim."
-            ),
-        }
-
-    from system.lib.compliance import (
-        ADAPTERS,
-        BASELINE_ADAPTER_STANDARD_IDS,
-        DOMAIN_ADAPTER_STANDARD_IDS,
-    )
-
-    adapter_count = len(ADAPTERS)
-    domain_count = len(set(DOMAIN_ADAPTER_STANDARD_IDS))
-    baseline_count = len(set(BASELINE_ADAPTER_STANDARD_IDS))
     return {
         "status": "pass"
-        if adapter_count >= 190
-        and domain_count >= 45
-        and baseline_count >= 100
-        and registry_contract_present
+        if registry_contract_present
         and coverage_self_audit_present
         and bounded_builder_present
         else "blocked",
         "engine_id": "compliance_registry_runtime_witness",
-        "adapter_count": adapter_count,
-        "domain_adapter_count": domain_count,
-        "baseline_adapter_count": baseline_count,
+        "witness_mode": "standalone_copied_source_contract",
+        "repo_witness_available": False,
         "registry_contract_present": registry_contract_present,
         "coverage_self_audit_present": coverage_self_audit_present,
         "bounded_builder_present": bounded_builder_present,
-        "claim_ceiling": "Registry and scanner shape witness only; not a full compliance-ledger freshness claim.",
+        "claim_ceiling": (
+            "Copied-source registry shape witness only; not a live adapter "
+            "registry count or full compliance-ledger freshness claim."
+        ),
     }
 
 
@@ -721,77 +686,7 @@ def _compliance_coverage_bounded_check(
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
-    repo_root = _repo_root(public_root)
-    command = [
-        "./repo-python",
-        "tools/meta/factory/build_compliance_ledger.py",
-        "--check",
-        "--report",
-        "--standard-id",
-        "std_compliance_coverage",
-        "--standard-id",
-        "std_microcosm",
-    ]
-    repo_witness_available = (
-        (repo_root / "repo-python").is_file()
-        and (repo_root / "tools/meta/factory/build_compliance_ledger.py").is_file()
-    )
-    if standalone_only or not repo_witness_available:
-        return _standalone_compliance_coverage_contract(public_root)
-
-    witness = _run_public_witness(
-        command,
-        cwd=repo_root,
-        timeout=120,
-    )
-    parsed = witness.get("parsed_summary") if isinstance(witness.get("parsed_summary"), dict) else {}
-    refreshed_ids = set(parsed.get("refreshed_standard_ids") or [])
-    failure_reasons = parsed.get("check_failure_reasons") or []
-    check_status = parsed.get("check_status")
-    error_findings = int(parsed.get("error_findings") or 0)
-    bounded_no_write_projection = (
-        parsed.get("wrote_ledger") is False
-        and {"std_compliance_coverage", "std_microcosm"}.issubset(refreshed_ids)
-        and parsed.get("bounded_check_partial") is True
-        and parsed.get("partial_projection") is True
-        and parsed.get("scanner_depth_ratchet_status") == "ready_next_row"
-        and bool(parsed.get("ratchet_next_standard_id"))
-        and bool(parsed.get("ratchet_next_command"))
-    )
-    check_truthful = (
-        check_status == "ok"
-        and witness.get("status") == "pass"
-        and error_findings == 0
-    ) or (
-        check_status == "failed"
-        and witness.get("status") == "blocked"
-        and error_findings > 0
-        and failure_reasons == ["error_findings"]
-    )
-    return {
-        "status": "pass" if bounded_no_write_projection and check_truthful else "blocked",
-        "engine_id": "compliance_coverage_bounded_check",
-        "command": (
-            "./repo-python tools/meta/factory/build_compliance_ledger.py "
-            "--check --report --standard-id std_compliance_coverage --standard-id std_microcosm"
-        ),
-        "original_witness": {
-            key: value
-            for key, value in witness.items()
-            if key != "parsed_summary"
-        },
-        "check_status": check_status,
-        "error_findings": error_findings,
-        "check_failure_reasons": failure_reasons,
-        "wrote_ledger": parsed.get("wrote_ledger"),
-        "refreshed_standard_ids": sorted(refreshed_ids),
-        "bounded_check_partial": parsed.get("bounded_check_partial"),
-        "scanner_depth_ratchet_status": parsed.get("scanner_depth_ratchet_status"),
-        "ratchet_next_standard_id": parsed.get("ratchet_next_standard_id"),
-        "ratchet_next_command": parsed.get("ratchet_next_command"),
-        "partial_projection": parsed.get("partial_projection"),
-        "claim_ceiling": "Bounded no-write compliance check only; stale unselected ledger rows remain outside this claim.",
-    }
+    return _standalone_compliance_coverage_contract(public_root)
 
 
 def _baseline_companion_scanner_contract(
@@ -808,100 +703,40 @@ def _baseline_companion_scanner_contract(
     """
     baseline_text = _read(public_root, "system/lib/compliance/standard_baseline_adapter.py")
     coverage_text = _read(public_root, "system/lib/compliance/compliance_coverage_adapter.py")
-    if standalone_only:
-        baseline_contract_present = all(
-            token in baseline_text
-            for token in (
-                "baseline_inventory_only",
-                "baseline_standard_file_only",
-                "missing_domain_specific_adapter",
-                "baseline_companion",
-            )
-        )
-        coverage_contract_present = all(
-            token in coverage_text
-            for token in (
-                "_baseline_companion_finding",
-                "domain_scanner_coverage",
-                "baseline_adapter",
-            )
-        )
-        return {
-            "status": "pass"
-            if baseline_contract_present and coverage_contract_present
-            else "blocked",
-            "engine_id": "baseline_companion_scanner_contract",
-            "scan_input_mode": "standalone_copied_source_contract",
-            "coverage_row_kind": "baseline_inventory_only",
-            "coverage_depth": "baseline_standard_file_only",
-            "domain_scanner_status": "missing_domain_specific_adapter",
-            "standard_file_status": "json_parseable",
-            "baseline_companion": True,
-            "baseline_contract_present": baseline_contract_present,
-            "coverage_contract_present": coverage_contract_present,
-            "claim_ceiling": (
-                "Copied-source baseline scanner shape witness only; not a live "
-                "repo standard inventory scan."
-            ),
-        }
-
-    from system.lib.compliance.standard_baseline_adapter import scan_standard_baseline
-
-    repo_root = _repo_root(public_root)
-    sample_standard_id = "std_apply"
-    if (repo_root / "codex/standards/std_apply.json").is_file():
-        row = scan_standard_baseline(repo_root, sample_standard_id)
-        scan_input_mode = "parent_repo_standard_inventory"
-    else:
-        with tempfile.TemporaryDirectory() as tmp:
-            scratch_root = Path(tmp)
-            standards_dir = scratch_root / "codex/standards"
-            standards_dir.mkdir(parents=True)
-            standards_dir.joinpath("std_apply.json").write_text(
-                json.dumps(
-                    {
-                        "id": sample_standard_id,
-                        "schema_version": "batch8_standalone_baseline_fixture_v1",
-                        "purpose": (
-                            "Standalone public fixture for exercising the copied "
-                            "baseline scanner contract without the parent repo."
-                        ),
-                    },
-                    sort_keys=True,
-                ),
-                encoding="utf-8",
-            )
-            row = scan_standard_baseline(scratch_root, sample_standard_id)
-        scan_input_mode = "standalone_public_standard_fixture"
-    baseline_row_truthful = all(
-        (
-            row.get("coverage_row_kind") == "baseline_inventory_only",
-            row.get("coverage_depth") == "baseline_standard_file_only",
-            row.get("domain_scanner_status") == "missing_domain_specific_adapter",
-            row.get("standard_file_status") == "json_parseable",
-            row.get("baseline_companion") is True,
-        )
-    )
-    source_contract_present = all(
+    baseline_contract_present = all(
         token in baseline_text
         for token in (
-            "compliance_claim_status",
-            "no_compliance_claim",
+            "baseline_inventory_only",
             "baseline_standard_file_only",
+            "missing_domain_specific_adapter",
+            "baseline_companion",
         )
-    ) and "baseline_companion_only" in coverage_text
+    )
+    coverage_contract_present = all(
+        token in coverage_text
+        for token in (
+            "_baseline_companion_finding",
+            "domain_scanner_coverage",
+            "baseline_adapter",
+        )
+    )
     return {
-        "status": "pass" if baseline_row_truthful and source_contract_present else "blocked",
+        "status": "pass"
+        if baseline_contract_present and coverage_contract_present
+        else "blocked",
         "engine_id": "baseline_companion_scanner_contract",
-        "sample_standard_id": "std_apply",
-        "scan_input_mode": scan_input_mode,
-        "coverage_path": row.get("coverage_path"),
-        "coverage_row_kind": row.get("coverage_row_kind"),
-        "domain_scanner_status": row.get("domain_scanner_status"),
-        "standard_file_status": row.get("standard_file_status"),
-        "source_contract_present": source_contract_present,
-        "finding_count": len(row.get("findings") or []),
-        "claim_ceiling": "Baseline companion scanner only; does not validate std_apply governed artifacts.",
+        "scan_input_mode": "standalone_copied_source_contract",
+        "coverage_row_kind": "baseline_inventory_only",
+        "coverage_depth": "baseline_standard_file_only",
+        "domain_scanner_status": "missing_domain_specific_adapter",
+        "standard_file_status": "json_parseable",
+        "baseline_companion": True,
+        "baseline_contract_present": baseline_contract_present,
+        "coverage_contract_present": coverage_contract_present,
+        "claim_ceiling": (
+            "Copied-source baseline scanner shape witness only; not a live "
+            "repo standard inventory scan."
+        ),
     }
 
 
@@ -913,71 +748,72 @@ def _pipeline_digest_and_shard_normalization(public_root: Path) -> dict[str, Any
     The input is `public_root`; the body uses deterministic JSON encoding or chunked file
     reads before formatting the hash.
     """
-    stage_extract = _load_copied_source_module(
-        public_root,
-        "system/lib/pipeline/stage_extract.py",
-    )
-
-    raw_seed = "\n".join(
-        [
-            "# Phase Seed",
-            "ordinary narrative line",
-            "need to preserve this directive before bridge extraction",
-            *("low-signal line" for _ in range(80)),
-        ]
-    )
-    digest = stage_extract.digest_raw_seed(raw_seed, max_chars=240)
-    shards_data, changed = stage_extract._normalize_shards_payload(
-        {
-            "shards": [
-                {"id": "s1", "status": "weird", "concept_group": "alpha"},
-                {"id": "s2", "status": "selected", "concept_group": "alpha"},
-                {"id": "s3", "status": "pending", "concept_group": "beta"},
-                {"id": "s4", "status": "pending", "concept_group": "beta"},
-                {"id": "s5", "status": "pending", "concept_group": "gamma"},
-            ]
-        }
-    )
-    group_counts: dict[str, int] = {}
-    selected_ids: set[str] = set()
-    chosen = stage_extract._pick_diverse_shards(
-        shards_data["shards"],
-        count=4,
-        group_counts=group_counts,
-        selected_ids=selected_ids,
-    )
-    directive_preserved = "need to preserve this directive" in digest
-    status_normalized = shards_data["shards"][0]["status"] == "pending"
-    variant_preserved = shards_data["shards"][0].get("status_variant") == "weird"
-    diversity_cap_applied = group_counts.get("alpha") == 2 and len(chosen) == 4
-    copied_source_anchors = all(
-        token in _read(public_root, "system/lib/pipeline/stage_extract.py")
-        for token in (
-            "MAX_PROBE_TARGET_FILES",
-            "NEW_SHARD_EXISTING_SIMILARITY",
-            "_extract_synthesis_json",
+    with imported_source_modules(_copied_source(public_root, "")):
+        stage_extract = _load_copied_source_module(
+            public_root,
+            "system/lib/pipeline/stage_extract.py",
         )
-    )
-    return {
-        "status": "pass"
-        if directive_preserved
-        and changed
-        and status_normalized
-        and variant_preserved
-        and diversity_cap_applied
-        and copied_source_anchors
-        else "blocked",
-        "engine_id": "pipeline_digest_and_shard_normalization",
-        "digest_char_count": len(digest),
-        "directive_preserved": directive_preserved,
-        "normalization_changed": changed,
-        "status_normalized": status_normalized,
-        "status_variant_preserved": variant_preserved,
-        "chosen_shard_count": len(chosen),
-        "group_counts": dict(group_counts),
-        "copied_source_anchors_present": copied_source_anchors,
-        "claim_ceiling": "Pure helper exercise only; no raw seed or shard ledger writes.",
-    }
+
+        raw_seed = "\n".join(
+            [
+                "# Phase Seed",
+                "ordinary narrative line",
+                "need to preserve this directive before bridge extraction",
+                *("low-signal line" for _ in range(80)),
+            ]
+        )
+        digest = stage_extract.digest_raw_seed(raw_seed, max_chars=240)
+        shards_data, changed = stage_extract._normalize_shards_payload(
+            {
+                "shards": [
+                    {"id": "s1", "status": "weird", "concept_group": "alpha"},
+                    {"id": "s2", "status": "selected", "concept_group": "alpha"},
+                    {"id": "s3", "status": "pending", "concept_group": "beta"},
+                    {"id": "s4", "status": "pending", "concept_group": "beta"},
+                    {"id": "s5", "status": "pending", "concept_group": "gamma"},
+                ]
+            }
+        )
+        group_counts: dict[str, int] = {}
+        selected_ids: set[str] = set()
+        chosen = stage_extract._pick_diverse_shards(
+            shards_data["shards"],
+            count=4,
+            group_counts=group_counts,
+            selected_ids=selected_ids,
+        )
+        directive_preserved = "need to preserve this directive" in digest
+        status_normalized = shards_data["shards"][0]["status"] == "pending"
+        variant_preserved = shards_data["shards"][0].get("status_variant") == "weird"
+        diversity_cap_applied = group_counts.get("alpha") == 2 and len(chosen) == 4
+        copied_source_anchors = all(
+            token in _read(public_root, "system/lib/pipeline/stage_extract.py")
+            for token in (
+                "MAX_PROBE_TARGET_FILES",
+                "NEW_SHARD_EXISTING_SIMILARITY",
+                "_extract_synthesis_json",
+            )
+        )
+        return {
+            "status": "pass"
+            if directive_preserved
+            and changed
+            and status_normalized
+            and variant_preserved
+            and diversity_cap_applied
+            and copied_source_anchors
+            else "blocked",
+            "engine_id": "pipeline_digest_and_shard_normalization",
+            "digest_char_count": len(digest),
+            "directive_preserved": directive_preserved,
+            "normalization_changed": changed,
+            "status_normalized": status_normalized,
+            "status_variant_preserved": variant_preserved,
+            "chosen_shard_count": len(chosen),
+            "group_counts": dict(group_counts),
+            "copied_source_anchors_present": copied_source_anchors,
+            "claim_ceiling": "Pure helper exercise only; no raw seed or shard ledger writes.",
+        }
 
 
 def _pipeline_observe_compile_helpers(
@@ -992,181 +828,72 @@ def _pipeline_observe_compile_helpers(
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
-    if standalone_only:
-        def _dedupe_strings(values: list[str]) -> list[str]:
-            """
-            Return dedupe strings for the organs batch8 compliance pipeline capsule flow.
-
-            Inputs are `values`; notable helpers are `fromkeys`.
-            """
-            return list(dict.fromkeys(values))
-
-        def _flatten_text_entries(values: Any) -> list[str]:
-            """
-            Return flatten text entries for the organs batch8 compliance pipeline capsule
-            flow.
-
-            Inputs are `values`; notable helpers are `_dedupe_strings`, `strip`, `append`,
-            and `get`.
-            """
-            output: list[str] = []
-            for item in values if isinstance(values, list) else []:
-                if isinstance(item, Mapping):
-                    text = str(item.get("text") or item.get("summary") or "").strip()
-                else:
-                    text = str(item or "").strip()
-                if text:
-                    output.append(text)
-            return _dedupe_strings(output)
-
-        def _extract_known_file_mentions(
-            texts: list[str],
-            known_files: list[str],
-        ) -> list[str]:
-            """
-            Derive extract known file mentions without touching module import state.
-
-            Inputs are `texts` and `known_files`; notable helpers are `_dedupe_strings`,
-            `lower`, and `strip`.
-            """
-            normalized_texts = [
-                str(text or "").strip().lower()
-                for text in texts
-                if str(text or "").strip()
+    with imported_source_modules(_copied_source(public_root, "")):
+        module = _load_copied_source_module(public_root, "system/lib/pipeline/stage_compile.py")
+        _extract_known_file_mentions = module._extract_known_file_mentions
+        _flatten_text_entries = module._flatten_text_entries
+        _priority_followup_files = module._priority_followup_files
+        _probe_questions_for_plan_path = module._probe_questions_for_plan_path
+        texts = _flatten_text_entries(
+            [
+                {"summary": "Inspect system/lib/pipeline/stage_compile.py next."},
+                "Then confirm system/lib/compliance/__init__.py registry wiring.",
             ]
-            normalized_known = _dedupe_strings(
-                [str(path or "").strip() for path in known_files if str(path or "").strip()]
-            )
-            return _dedupe_strings(
-                [
-                    path
-                    for text in normalized_texts
-                    for path in sorted(normalized_known, key=len, reverse=True)
-                    if path.lower() in text
-                ]
-            )
-
-        def _priority_followup_files(
-            *,
-            known_files: list[str],
-            active_scope_files: list[str],
-            missing_evidence: Any = None,
-        ) -> list[str]:
-            """
-            Compute priority followup files from `known_files`, `active_scope_files`, and
-            `missing_evidence`.
-
-            Inputs are `known_files`, `active_scope_files`, and `missing_evidence`; notable
-            helpers are `_dedupe_strings`, `_extract_known_file_mentions`,
-            `_flatten_text_entries`, and `strip`.
-            """
-            known = _dedupe_strings(
-                [str(path).strip() for path in known_files if str(path).strip()]
-            )
-            active_scope = set(
-                _dedupe_strings(
-                    [
-                        str(path).strip()
-                        for path in active_scope_files
-                        if str(path).strip()
-                    ]
-                )
-            )
-            mentioned = _extract_known_file_mentions(
-                _flatten_text_entries(missing_evidence),
-                known,
-            )
-            outside_active = [path for path in mentioned if path not in active_scope]
-            inside_active = [path for path in mentioned if path in active_scope]
-            return _dedupe_strings([*outside_active, *inside_active])
-
-        def _probe_questions_for_plan_path(plan_path: Path | None) -> list[str]:
-            """
-            Produce the probe questions for plan path value used by
-            `microcosm_core.organs.batch8_compliance_pipeline_capsule`.
-
-            Inputs are `plan_path`; notable helpers are `loads`, `get`, `_dedupe_strings`,
-            `read_text`, and 4 more.
-            """
-            if plan_path is None or not plan_path.exists():
-                return []
-            plan = json.loads(plan_path.read_text(encoding="utf-8"))
-            questions: list[str] = []
-            for group in plan.get("groups", []):
-                if not isinstance(group, Mapping):
-                    continue
-                role = str(group.get("role") or "probe").strip().lower() or "probe"
-                question = str(group.get("question") or "").strip()
-                if question and role not in {"synthesis", "summary"}:
-                    questions.append(question)
-            return _dedupe_strings(questions)
-    else:
-        from system.lib.pipeline.stage_compile import (
-            _extract_known_file_mentions,
-            _flatten_text_entries,
-            _priority_followup_files,
-            _probe_questions_for_plan_path,
         )
-    texts = _flatten_text_entries(
-        [
-            {"summary": "Inspect system/lib/pipeline/stage_compile.py next."},
-            "Then confirm system/lib/compliance/__init__.py registry wiring.",
+        known_files = [
+            "system/lib/pipeline/stage_compile.py",
+            "system/lib/compliance/__init__.py",
+            "system/lib/pipeline/stage_execute.py",
         ]
-    )
-    known_files = [
-        "system/lib/pipeline/stage_compile.py",
-        "system/lib/compliance/__init__.py",
-        "system/lib/pipeline/stage_execute.py",
-    ]
-    mentions = _extract_known_file_mentions(texts, known_files)
-    priority = _priority_followup_files(
-        known_files=known_files,
-        active_scope_files=["system/lib/pipeline/stage_execute.py"],
-        missing_evidence=texts,
-    )
-    with tempfile.TemporaryDirectory() as tmp:
-        plan_path = Path(tmp) / "observe_plan.json"
-        plan_path.write_text(
-            json.dumps(
-                {
-                    "groups": [
-                        {"role": "probe", "question": "What pipeline helper is next?"},
-                        {"role": "synthesis", "question": "Ignored"},
-                        {"role": "advisory", "question": "Which compliance scanner is missing?"},
-                    ]
-                }
-            ),
-            encoding="utf-8",
+        mentions = _extract_known_file_mentions(texts, known_files)
+        priority = _priority_followup_files(
+            known_files=known_files,
+            active_scope_files=["system/lib/pipeline/stage_execute.py"],
+            missing_evidence=texts,
         )
-        questions = _probe_questions_for_plan_path(plan_path)
-    source_contract_present = all(
-        token in _read(public_root, "system/lib/pipeline/stage_compile.py")
-        for token in (
-            "compile_observe_plan",
-            "_bounded_target_specs",
-            "_sanitize_synthesis_payload",
-            "resolve_observe_apply_standards_bundle",
+        with tempfile.TemporaryDirectory() as tmp:
+            plan_path = Path(tmp) / "observe_plan.json"
+            plan_path.write_text(
+                json.dumps(
+                    {
+                        "groups": [
+                            {"role": "probe", "question": "What pipeline helper is next?"},
+                            {"role": "synthesis", "question": "Ignored"},
+                            {"role": "advisory", "question": "Which compliance scanner is missing?"},
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            questions = _probe_questions_for_plan_path(plan_path)
+        source_contract_present = all(
+            token in _read(public_root, "system/lib/pipeline/stage_compile.py")
+            for token in (
+                "compile_observe_plan",
+                "_bounded_target_specs",
+                "_sanitize_synthesis_payload",
+                "resolve_observe_apply_standards_bundle",
+            )
         )
-    )
-    return {
-        "status": "pass"
-        if len(texts) == 2
-        and set(mentions) == set(known_files[:2])
-        and priority[:2] == known_files[:2]
-        and questions == [
-            "What pipeline helper is next?",
-            "Which compliance scanner is missing?",
-        ]
-        and source_contract_present
-        else "blocked",
-        "engine_id": "pipeline_observe_compile_helpers",
-        "flattened_text_count": len(texts),
-        "mentioned_files": mentions,
-        "priority_files": priority,
-        "probe_questions": questions,
-        "source_contract_present": source_contract_present,
-        "claim_ceiling": "Compile helper exercise only; no observe plan is dispatched.",
-    }
+        return {
+            "status": "pass"
+            if len(texts) == 2
+            and set(mentions) == set(known_files[:2])
+            and priority[:2] == known_files[:2]
+            and questions == [
+                "What pipeline helper is next?",
+                "Which compliance scanner is missing?",
+            ]
+            and source_contract_present
+            else "blocked",
+            "engine_id": "pipeline_observe_compile_helpers",
+            "flattened_text_count": len(texts),
+            "mentioned_files": mentions,
+            "priority_files": priority,
+            "probe_questions": questions,
+            "source_contract_present": source_contract_present,
+            "claim_ceiling": "Compile helper exercise only; no observe plan is dispatched.",
+        }
 
 
 def _pipeline_dispatch_process_boundary_contract(
@@ -1181,96 +908,63 @@ def _pipeline_dispatch_process_boundary_contract(
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
-    if standalone_only:
-        def _receipt_selection_meta(
-            phase: str,
-            group: dict[str, Any] | None,
-            source: str,
-        ) -> tuple[str, dict[str, Any]]:
-            """
-            Return receipt selection meta for the organs batch8 compliance pipeline capsule
-            flow.
-
-            Inputs are `phase`, `group`, and `source`; notable helpers are `strip`, `lower`,
-            and `get`.
-            """
-            label = str((group or {}).get("label") or "").strip()
-            role = str((group or {}).get("role") or "").strip().lower() or ""
-            if phase == "scope":
-                selection_kind = "scope"
-            elif phase == "plan":
-                selection_kind = "plan"
-            elif label == "router" or role in {"synthesis", "evaluation"}:
-                selection_kind = "router"
-            else:
-                selection_kind = "probe_fallback"
-            normalized_source = (
-                f"{selection_kind}_{source}" if source not in {"", "none"} else "none"
+    with imported_source_modules(_copied_source(public_root, "")):
+        module = _load_copied_source_module(public_root, "system/lib/pipeline/stage_process.py")
+        _receipt_selection_meta = module._receipt_selection_meta
+        source, meta = _receipt_selection_meta(
+            "scope",
+            {"label": "router", "role": "synthesis"},
+            "typed_receipt",
+        )
+        execute_text = _read(public_root, "system/lib/pipeline/stage_execute.py")
+        process_text = _read(public_root, "system/lib/pipeline/stage_process.py")
+        select_text = _read(public_root, "system/lib/pipeline/stage_select.py")
+        emit_text = _read(public_root, "system/lib/pipeline/stage_emit.py")
+        dispatch_boundary_present = all(
+            token in execute_text
+            for token in (
+                "observe_dispatch_skipped",
+                "observe_dispatch_started",
+                "save_state_if_not_stale",
             )
-            return normalized_source, {
-                "selected_group_label": label or None,
-                "selected_group_role": role or None,
-                "selection_kind": selection_kind,
-                "is_fallback": selection_kind == "probe_fallback",
-                "source": normalized_source,
-            }
-    else:
-        from system.lib.pipeline.stage_process import _receipt_selection_meta
-
-    source, meta = _receipt_selection_meta(
-        "scope",
-        {"label": "router", "role": "synthesis"},
-        "typed_receipt",
-    )
-    execute_text = _read(public_root, "system/lib/pipeline/stage_execute.py")
-    process_text = _read(public_root, "system/lib/pipeline/stage_process.py")
-    select_text = _read(public_root, "system/lib/pipeline/stage_select.py")
-    emit_text = _read(public_root, "system/lib/pipeline/stage_emit.py")
-    dispatch_boundary_present = all(
-        token in execute_text
-        for token in (
-            "observe_dispatch_skipped",
-            "observe_dispatch_started",
-            "save_state_if_not_stale",
         )
-    )
-    processing_boundary_present = all(
-        token in process_text
-        for token in (
-            "_select_primary_receipt",
-            "_apply_synthesis_updates_to_shards",
-            "carry_forward_context",
-            "cycle_assimilation",
+        processing_boundary_present = all(
+            token in process_text
+            for token in (
+                "_select_primary_receipt",
+                "_apply_synthesis_updates_to_shards",
+                "carry_forward_context",
+                "cycle_assimilation",
+            )
         )
-    )
-    select_emit_boundary_present = all(
-        (
-            "constrain_shard_candidates" in select_text,
-            "write_controller_artifacts" in select_text,
-            "write_controller_artifacts" in emit_text,
-            "synth_seed_emitted" in emit_text,
+        select_emit_boundary_present = all(
+            (
+                "constrain_shard_candidates" in select_text,
+                "write_controller_artifacts" in select_text,
+                "write_controller_artifacts" in emit_text,
+                "synth_seed_emitted" in emit_text,
+            )
         )
-    )
-    receipt_meta_truthful = (
-        source == "scope_typed_receipt"
-        and meta.get("selection_kind") == "scope"
-        and meta.get("is_fallback") is False
-    )
-    return {
-        "status": "pass"
-        if dispatch_boundary_present
-        and processing_boundary_present
-        and select_emit_boundary_present
-        and receipt_meta_truthful
-        else "blocked",
-        "engine_id": "pipeline_dispatch_process_boundary_contract",
-        "dispatch_boundary_present": dispatch_boundary_present,
-        "processing_boundary_present": processing_boundary_present,
-        "select_emit_boundary_present": select_emit_boundary_present,
-        "receipt_selection_source": source,
-        "receipt_selection_kind": meta.get("selection_kind"),
-        "claim_ceiling": "Static and pure process-boundary exercise only; bridge dispatch stays disabled.",
-    }
+        receipt_meta_truthful = (
+            source == "scope_typed_receipt"
+            and meta.get("selection_kind") == "scope"
+            and meta.get("is_fallback") is False
+        )
+        return {
+            "status": "pass"
+            if dispatch_boundary_present
+            and processing_boundary_present
+            and select_emit_boundary_present
+            and receipt_meta_truthful
+            else "blocked",
+            "engine_id": "pipeline_dispatch_process_boundary_contract",
+            "dispatch_boundary_present": dispatch_boundary_present,
+            "processing_boundary_present": processing_boundary_present,
+            "select_emit_boundary_present": select_emit_boundary_present,
+            "receipt_selection_source": source,
+            "receipt_selection_kind": meta.get("selection_kind"),
+            "claim_ceiling": "Static and pure process-boundary exercise only; bridge dispatch stays disabled.",
+        }
 
 
 def _evaluate(
@@ -1284,31 +978,29 @@ def _evaluate(
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
-    exported_bundle_input = (
-        (input_path / "source_module_manifest.json").is_file()
-        and (input_path / "source_modules").is_dir()
-    )
+    # Both fixture and exported-bundle entry points consume the same public
+    # snapshot. An input pathname never grants access to the private runtime.
     engines = [
         _compliance_registry_runtime_witness(
             public_root,
-            standalone_only=exported_bundle_input,
+            standalone_only=True,
         ),
         _compliance_coverage_bounded_check(
             public_root,
-            standalone_only=exported_bundle_input,
+            standalone_only=True,
         ),
         _baseline_companion_scanner_contract(
             public_root,
-            standalone_only=exported_bundle_input,
+            standalone_only=True,
         ),
         _pipeline_digest_and_shard_normalization(public_root),
         _pipeline_observe_compile_helpers(
             public_root,
-            standalone_only=exported_bundle_input,
+            standalone_only=True,
         ),
         _pipeline_dispatch_process_boundary_contract(
             public_root,
-            standalone_only=exported_bundle_input,
+            standalone_only=True,
         ),
     ]
     findings: list[dict[str, Any]] = []

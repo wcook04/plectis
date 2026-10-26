@@ -24,6 +24,10 @@ completion gate without an explicit promotion in the governing standard
 Usage:
   python3 scripts/build/build_doctrine_enrichment_health.py --write
   python3 scripts/build/build_doctrine_enrichment_health.py --check
+
+Writing or checking completeness requires the declared source directories,
+even when they are empty. Standalone distributions that omit those corpora
+may inspect a local report, but must preserve the shipped health snapshot.
 """
 
 from __future__ import annotations
@@ -1032,9 +1036,30 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="build_doctrine_enrichment_health")
     parser.add_argument("--root", type=Path, default=MICROCOSM_ROOT)
     parser.add_argument("--write", action="store_true", help="write the health projection")
-    parser.add_argument("--check", action="store_true", help="fail if coverage is incomplete")
+    parser.add_argument("--check", action="store_true", help="fail if source inputs are absent or coverage is incomplete")
     args = parser.parse_args(argv)
     root = args.root.resolve()
+    if args.write or args.check:
+        missing_sources = []
+        if not (root / ENRICHMENT_REL).is_file():
+            missing_sources.append(ENRICHMENT_REL)
+        source_directories = {
+            directory
+            for directory, _ in (*KIND_DIRS.values(), *ROUTING_KIND_DIRS.values(), PAPER_MODULE_DIR)
+        }
+        missing_sources.extend(
+            f"{directory}/"
+            for directory in sorted(source_directories)
+            if not (root / directory).is_dir()
+        )
+        if missing_sources:
+            parser.error(
+                "cannot " + ("write" if args.write else "check")
+                + " the health projection without its source inputs: "
+                + ", ".join(missing_sources)
+                + ". The saved snapshot has not been changed. "
+                "Omit --write and --check to inspect the available inputs."
+            )
     health = build_health(root)
     if args.write:
         (root / HEALTH_REL).write_text(
