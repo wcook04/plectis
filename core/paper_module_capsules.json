@@ -4513,7 +4513,7 @@
       "legacy_markdown_projection": "paper_modules/batch8_audio_level_rms_port.md",
       "compression": {
         "one_line": "A Python port computes a normalized RMS level for audio samples.",
-        "card": "Reference float and int16 buffers check the formula; separate tests exercise generated WAV bytes.",
+        "card": "`normalized_level` is a Python port of a Swift audio-level calculation. Given float32 samples or int16 samples, it calculates the root mean square, multiplies it by eight and clamps the result to 0–1. Int16 values are divided by 32767. An empty buffer returns zero; an unsupported format raises `ValueError`.",
         "authority_ceiling": "This checks the Python calculation on the supplied cases; it does not establish sample-buffer parity on a device, microphone permissions, session behavior or audio capture."
       },
       "subjects": [

@@ -568,6 +568,12 @@ def refresh_manifest(
         if public_safe_normalize:
             if relation not in PUBLIC_SAFE_NORMALIZABLE_RELATIONS:
                 row_findings.append("source_to_target_relation_not_public_safe_normalizable")
+        elif relation == "public_package_body_exercised_directly":
+            # A direct public body has no separate upstream-copy claim. Admit
+            # only the existing public file named by both refs; never import a
+            # differing source under this relation.
+            if source != target or not source.is_relative_to(public_root):
+                row_findings.append("public_package_body_requires_public_self_reference")
         elif relation not in {"exact_copy", "public_replacement_source_body"}:
             row_findings.append("source_to_target_relation_not_refreshable")
         if relation == "public_replacement_source_body" and not target.is_file():

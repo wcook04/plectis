@@ -135979,7 +135979,7 @@
   ],
   "generation": {
     "command": "python scripts/build/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-10-26T22:20:17.796902Z",
+    "generated_at": "2026-10-26T23:44:38.068723Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_doctrine_projection"
   },
   "mechanism_instance_corpus": {
@@ -179898,7 +179898,7 @@
       "core/mechanism_sources.json": "ee6492f04e5be95eda1ae5bfbf8de419aefdfdd1f40258a266181853e8093d26",
       "core/organ_atlas.json": "621330f48fbd7356b341dfb7f947eb7e41f4a3f929f75d3e263e06be90dcd23c",
       "core/organ_registry.json": "89e6e97bb5e26dfcb64de5db77e42940b076dd7a7a304d8ed78d9970e6550e1c",
-      "core/paper_module_capsules.json": "619646bab133a8c13744b9a87b51bceaff3d9ec81e4f1e3cedc6cfb15f13dc4e",
+      "core/paper_module_capsules.json": "8c898acfde751ebb21feb460f4794b0c029f6ef4fbfe33b13194233da843e259",
       "core/public_surface_manifest.json": "8f1077f8f96170758cb7c274a345f084d5c1ce2d70fd81ace16cac325f0cd957",
       "core/standards_registry.json": "1376ae5629bb3e0728e57bb70d0820046a215a3064b8b69f27a9e67327c04374",
       "paper_modules/agent_benchmark_integrity_anti_gaming_replay.json": "2a6474400681d4fe2cf5a65342698ad2e8b658f9ed4579fda2df05fd6fa926b6",
@@ -179924,7 +179924,7 @@
       "paper_modules/batch7_macro_engines_capsule.json": "594810206bb9a3be5a90019d879ce98c75559a45d01120bfc6698abb918661de",
       "paper_modules/batch7_oracle_sibling_capsule.json": "b8a548488c72fb607f06721e380a80b7de71fe4113aae3b78a3184dcb7996892",
       "paper_modules/batch7_secondary_runtime_capsule.json": "c7821d8e0894c595e64fc40cc864ae006e9971b0f848e6e527af0d749cedf52f",
-      "paper_modules/batch8_audio_level_rms_port.json": "fa449ea72c44687f3cae71f4bba27764cdb0a3dd9c7bc100b02a9cae0e548119",
+      "paper_modules/batch8_audio_level_rms_port.json": "1838aca252bad41e8f582a503a8e2d419561746cb996a1ac99fe8d32f5e29975",
       "paper_modules/batch8_compliance_pipeline_capsule.json": "041fcf528fd818256cfa5c6d948612418864333e91ad3d574d89c7d61fec40ae",
       "paper_modules/batch8_policy_engines_capsule.json": "476ad27b933ea7872d861d26decd931724c7a504a2ba7fb7976fcbed7cc173e4",
       "paper_modules/batch8_structural_theses_capsule.json": "5fa41182b9bf5402db976a9864d36e44eab52f061c51d1d905148814d1e45539",
