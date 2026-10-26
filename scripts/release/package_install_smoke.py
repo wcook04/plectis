@@ -314,7 +314,7 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     _run(
         [str(venv_python), "-I",
          str(work_dir / "source-after-install" / "scripts/release/verify_operations_install.py"),
-         "--require-compatibility", "--require-views"],
+         "--require-compatibility", "--require-views", "--require-replay"],
         cwd=project_dir,
         env=env,
     )

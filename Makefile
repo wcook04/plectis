@@ -60,6 +60,7 @@ PUBLIC_TESTS ?= \
 	tests/test_public_site_parity.py
 OPERATIONS_TESTS = tests/test_repair.py tests/test_repair_api.py tests/test_publish.py tests/test_compatibility.py tests/test_operations_integration.py tests/test_operations_boundaries.py tests/test_operations_portability.py
 OPERATIONS_TESTS += tests/test_operations_recovery.py tests/test_sealed_kernel.py tests/test_compatibility_witness.py tests/test_public_views.py tests/test_public_views_recipe_change.py
+OPERATIONS_TESTS += tests/test_replay_kernel.py
 PUBLIC_TESTS += $(OPERATIONS_TESTS)
 PUBLIC_TESTS += tests/test_public_system_paper.py
 PUBLIC_TESTS += tests/test_hypothesis_handoff.py
@@ -222,6 +223,7 @@ verify-operations:
 	@"$(PYTHON)" scripts/check/check_repair_kernel.py --dafny "$(DAFNY)"
 	@"$(PYTHON)" scripts/check/check_compatibility_kernel.py --dafny "$(DAFNY)"
 	@"$(PYTHON)" scripts/check/check_views_kernel.py --dafny "$(DAFNY)"
+	@"$(PYTHON)" scripts/check/check_replay_kernel.py --dafny "$(DAFNY)"
 
 ci: check test smoke package-smoke
 
@@ -232,6 +234,7 @@ check preflight:
 	@"$(PYTHON)" scripts/check/check_repair_kernel.py
 	@"$(PYTHON)" scripts/check/check_compatibility_kernel.py
 	@"$(PYTHON)" scripts/check/check_views_kernel.py
+	@"$(PYTHON)" scripts/check/check_replay_kernel.py
 	@"$(PYTHON)" scripts/check/check_repository_layout.py
 	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -c "from microcosm_core.runtime_shell import _load_evidence_class_registry; from pathlib import Path; _load_evidence_class_registry(Path('.'))"
 	@"$(PYTHON)" scripts/check/check_lean_proof_trust.py

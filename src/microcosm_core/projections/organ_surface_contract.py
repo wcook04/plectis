@@ -14,7 +14,6 @@ import ast
 import hashlib
 import json
 import shlex
-import tempfile
 import time
 from collections import Counter
 from dataclasses import replace
@@ -1758,134 +1757,46 @@ def _claim_assurance(
     }
 
 
-def native_replay_step(step: Any) -> Any:
-    """Select existing live Lean runners for explicit assurance replays only."""
-    if step.organ_id == "lean_proof_search_lab_runtime":
-        from microcosm_core.organs import lean_proof_search_lab_runtime as lab
-
-        return replace(step, example_rel="fixtures/first_wave/lean_proof_search_lab_runtime/input",
-                       input_mode="lean_proof_search_lab_fixture_cases",
-                       runner=lab.run, receipt_name=lab.RESULT_NAME)
-    if step.organ_id == "formal_math_lean_proof_witness":
-        from microcosm_core.organs import formal_math_lean_proof_witness as witness
-
-        return replace(step, example_rel="fixtures/first_wave/formal_math_lean_proof_witness/input",
-                       input_mode="first_wave_fixture",
-                       runner=witness.run, receipt_name=witness.RESULT_NAME)
-    return step
-
-
-def replay_verdict(step: Any, result: dict[str, Any]) -> str:
-    """A compatibility-only receipt cannot satisfy the explicit live Lean replay."""
-    status = str(result.get("status") or "missing_verdict")
-    if step.organ_id == "lean_proof_search_lab_runtime" and status == "pass":
-        from microcosm_core.organs import lean_proof_search_lab_runtime as lab
-
-        if (result.get("execution_witness_mode") != lab.EXECUTION_LIVE
-                or result.get("verification_performed") is not True
-                or result.get("tool_state") != lab.TOOL_PRESENT_AND_VERIFIED):
-            return "missing_native_lean_witness"
-    if step.organ_id == "formal_math_lean_proof_witness" and status == "pass":
-        from microcosm_core.organs import formal_math_lean_proof_witness as witness
-
-        tools = result.get("tool_versions")
-        build = result.get("lake_build")
-        observed = result.get("observed_negative_cases")
-        declarations = result.get("compiled_declaration_count")
-        if (result.get("execution_witness_mode") != "live_lean_lake_execution"
-                or result.get("synthetic_contract") is True
-                or result.get("not_a_live_run") is True
-                or result.get("real_runtime_receipt") is False
-                or not isinstance(tools, dict)
-                or tools.get("lean_available") is not True
-                or tools.get("lake_available") is not True
-                or not isinstance(build, dict)
-                or type(build.get("return_code")) is not int
-                or build.get("return_code") != 0
-                or build.get("timed_out") is not False
-                or build.get("skipped")
-                or type(declarations) is not int or declarations < 1
-                or not isinstance(observed, dict)
-                or not set(witness.EXPECTED_NEGATIVE_CASES).issubset(observed)
-                or result.get("missing_negative_cases") != []):
-            return "missing_native_lean_lake_witness"
-    return status
+from microcosm_core.component_replay import native_replay_step, replay_verdict
 
 
 def replay_organ_surfaces(
     root: Path, out: Path, rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """Exercise every selected native runtime step without refreshing shipped evidence."""
-    from microcosm_core.runtime_shell import RUNTIME_STEPS
+    """Replay selected components through the same admission host as the CI gate."""
+    from microcosm_core import runtime_shell
+    from microcosm_core.component_replay import new_replay_directory, replay_components
 
-    root, out = root.resolve(), out.resolve()
-    if out.is_relative_to(root) and not out.is_relative_to(root / ".microcosm"):
-        raise ValueError("replay output inside the checkout must be under .microcosm")
-    # An external output root must not contain the checkout either.
-    if root.is_relative_to(out):
-        raise ValueError("replay output must not contain the checkout")
-    steps = {step.organ_id: native_replay_step(step) for step in RUNTIME_STEPS}
-    out.mkdir(parents=True, exist_ok=True)
-    run_out = Path(tempfile.mkdtemp(prefix="run-", dir=out))
-    for row in rows:
-        organ_id = row["organ_id"]
-        step = steps.get(organ_id)
-        if step is None:
-            row["claim_assurance"]["replay"] = {"status": "missing_runtime_step"}
-            continue
-        started = time.monotonic()
-        try:
-            component_out = run_out / organ_id
-            result = step.runner(root / step.example_rel, component_out,
-                                 "plectis organ-surface-contract --replay-out")
-            receipt_path = component_out / step.receipt_name
-            receipt_status = None
-            if receipt_path.is_file():
-                if receipt_path.is_symlink():
-                    raise ValueError("replay receipt must be a newly written regular file")
-                recorded = read_json_strict(receipt_path)
-                if not isinstance(recorded, dict) or recorded.get("status") != result.get("status"):
-                    raise ValueError("replay receipt verdict differs from the runner result")
-                if "organ_id" in recorded and recorded["organ_id"] != organ_id:
-                    raise ValueError("replay receipt names a different component")
-                if (replay_verdict(step, result) == "pass"
-                        and replay_verdict(step, recorded) != "pass"):
-                    raise ValueError("replay receipt lacks the runner's native execution witness")
-                receipt_status = recorded.get("status")
-            exercise = result.get("exercise", {})
-            replay = {
-                "status": replay_verdict(step, result),
-                "input_ref": step.example_rel,
-                "execution_status": result.get("execution_status") or (
-                    exercise.get("status") if isinstance(exercise, dict) else None
-                ),
-                "error_codes": result.get("error_codes", []),
-                "receipt_ref": str(receipt_path),
-                "receipt_written": receipt_path.is_file(),
-                "receipt_status": receipt_status,
-                "execution_witness_mode": result.get("execution_witness_mode"),
-                "verification_performed": result.get("verification_performed"),
-                "lean_executed": result.get("lean_executed"),
-                "tool_state": result.get("tool_state"),
-                "real_runtime_receipt": result.get("real_runtime_receipt"),
-                "not_a_live_run": result.get("not_a_live_run"),
-            }
-            if replay["status"] == "pass" and not replay["receipt_written"]:
-                replay["status"] = "missing_replay_receipt"
-        except Exception as exc:
-            # A broken component must not suppress the remaining coverage. Do not
-            # put exception text (possibly host paths or input bodies) in a receipt.
-            replay = {"status": "exception", "exception_type": type(exc).__name__}
-        replay["elapsed_seconds"] = round(time.monotonic() - started, 3)
+    root = root.resolve()
+    run_out = new_replay_directory(root, out)
+    by_id = {step.organ_id: step for step in runtime_shell.RUNTIME_STEPS}
+
+    def missing_runner(*args):
+        raise LookupError("missing runtime step")
+
+    selected = [by_id.get(row["organ_id"]) or runtime_shell.RuntimeStep(
+        row["organ_id"], "missing", "missing_runtime_step", "__missing_runtime_step__",
+        missing_runner, "missing.json") for row in rows]
+    registry_path = root / "core/organ_registry.json"
+    registry = read_json_strict(registry_path)["implemented_organs"] if registry_path.is_file() else []
+    result = replay_components(root, run_out, selected, registry_rows=registry,
+                               route_provider=lambda: runtime_shell.RUNTIME_STEPS,
+                               command="plectis organ-surface-contract --replay-out")
+    for row, replay in zip(rows, result["results"]):
+        if replay["status"] == "error":
+            if replay.get("error") == "FileNotFoundError":
+                replay = {"status": "missing_replay_receipt", "receipt_ref": replay.get("receipt_ref"),
+                          "elapsed_seconds": replay["elapsed_seconds"]}
+            else:
+                replay = {"status": "exception", "exception_type": replay.get("error", "ValueError"),
+                          "elapsed_seconds": replay["elapsed_seconds"]}
         row["claim_assurance"]["replay"] = replay
     counts = Counter(row["claim_assurance"]["replay"]["status"] for row in rows)
-    return {
-        "status": "pass" if counts.get("pass", 0) == len(rows) else "blocked",
-        "component_count": len(rows),
-        "status_counts": dict(sorted(counts.items())),
-        "out": str(run_out),
-        "anti_claim": "Fresh bounded bundle replays are tests of the declared claims, not formal proofs of component correctness.",
-    }
+    return {"status": result["status"], "component_count": len(rows),
+            "status_counts": dict(sorted(counts.items())), "out": str(run_out),
+            "source_identity": result["source_identity"], "source": result["source"],
+            "source_after": result["source_after"], "admission": result["admission"],
+            "anti_claim": "Fresh bounded bundle replays test declared claims; component semantics and host observations remain trusted, not formally proved."}
 
 
 def build_organ_surface_contract(root: str | Path | None = None) -> dict[str, Any]:

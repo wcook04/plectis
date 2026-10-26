@@ -27,6 +27,7 @@ _LINKED_SIBLINGS = (
     "docs/guides/compatibility.md",
     "docs/guides/public-views.md",
     "formal/README.md",
+    "formal/replay/README.md",
     "formal/repair/Repair.dfy",
     "formal/compatibility/Compatibility.dfy",
     "formal/views/Release.dfy",
@@ -132,6 +133,7 @@ def test_real_readme_satisfies_front_door_contract() -> None:
     assert findings["hero_banned_terms"] == []
     assert findings["hero_first_run_block_present"] is True
     assert findings["hero_unisolated_install_present"] is False
+    assert "assets/system-map-dark.png" in findings["image_sources"]
     assert findings["registry_component_count"] >= 80
     assert findings["registry_component_count_bound_in_front_door"] is True
     assert findings["front_door_required_context_missing"] == []
@@ -293,6 +295,31 @@ def test_banner_is_optional_but_gated_when_present(tmp_path: Path) -> None:
     receipt = validate_readme_front_door(root)
     assert "README_BANNER_ALT_EM_DASH" in receipt["blocking_codes"]
     assert "README_BANNER_FILE_UNRESOLVED" in receipt["blocking_codes"]
+
+
+def test_nonhero_system_map_image_is_required_and_checked(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    readme = root / "README.md"
+    text = readme.read_text(encoding="utf-8")
+    hero, _, body = text.partition("\n## ")
+    assert "assets/system-map-dark.png" not in hero
+    assert "assets/system-map-dark.png" in body
+
+    missing = re.sub(r"<img\b[^>]*system-map-dark\.png[^>]*>", "", text)
+    readme.write_text(missing, encoding="utf-8")
+    receipt = validate_readme_front_door(root)
+    assert "README_SYSTEM_MAP_IMAGE_MISSING" in receipt["blocking_codes"]
+
+    image = re.search(r"<img\b[^>]*system-map-dark\.png[^>]*>", text)
+    assert image is not None
+    damaged = image.group(0).replace(
+        'src="assets/system-map-dark.png"', 'src="assets/missing.png"'
+    )
+    damaged = re.sub(r'\balt\s*=\s*"[^"]*"', 'alt=""', damaged)
+    readme.write_text(text.replace(image.group(0), damaged), encoding="utf-8")
+    receipt = validate_readme_front_door(root)
+    assert "README_IMAGE_FILE_UNRESOLVED" in receipt["blocking_codes"]
+    assert "README_IMAGE_ALT_MISSING" in receipt["blocking_codes"]
 
 
 def test_blocks_json_only_witness(tmp_path: Path) -> None:

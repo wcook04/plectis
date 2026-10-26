@@ -1,6 +1,7 @@
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 from types import SimpleNamespace
+import hashlib
 import json
 
 import pytest
@@ -28,7 +29,7 @@ def test_replay_gate_keeps_failures_exceptions_and_later_results(tmp_path):
     def recorded(status):
         def run(source, out, command):
             out.mkdir(parents=True)
-            result = {"status": status, "error_codes": ["BOUNDARY_FAILED"] if status == "blocked" else []}
+            result = {"status": status, "organ_id": out.name, "error_codes": ["BOUNDARY_FAILED"] if status == "blocked" else []}
             (out / "result.json").write_text(json.dumps(result))
             return result
         return run
@@ -97,7 +98,7 @@ def test_replay_gate_rejects_unbound_written_receipt(tmp_path, recorded):
     def run(source, out, command):
         out.mkdir(parents=True)
         (out / "result.json").write_text(json.dumps(recorded))
-        return {"status": "pass"}
+        return {"status": "pass", "organ_id": "probe"}
 
     step = SimpleNamespace(organ_id="probe", example_rel="input", receipt_name="result.json", runner=run)
     rows = gate.replay_steps(tmp_path, tmp_path / ".microcosm/run", [step])
@@ -178,3 +179,240 @@ def test_replay_gate_requires_live_lake_witness_in_returned_and_fresh_receipt(tm
     )
     assert declared.runner is compatibility_runner
     assert declared.runner.__name__ == witness.run_witness_bundle.__name__
+
+
+def _shared_step(runner, name="probe", input_ref="input"):
+    return SimpleNamespace(organ_id=name, runner=runner, example_rel=input_ref,
+                           receipt_name="result.json")
+
+
+def _write_result(out, result):
+    out.mkdir(parents=True)
+    (out / "result.json").write_text(json.dumps(result))
+    return result
+
+
+@pytest.mark.parametrize("mutation", ["missing_both_ids", "wrong_return_id", "nested_payload", "execution"])
+def test_shared_host_rejects_unbound_or_contradictory_payloads(tmp_path, mutation):
+    from microcosm_core.component_replay import replay_components
+    (tmp_path / "input").mkdir()
+
+    def runner(source, out, command):
+        result = {"status": "pass", "organ_id": "probe", "detail": {"value": "original"}}
+        if mutation == "missing_both_ids":
+            result.pop("organ_id")
+        if mutation == "execution":
+            result["exercise"] = {"status": "blocked"}
+        _write_result(out, result)
+        if mutation == "wrong_return_id":
+            result["organ_id"] = "another"
+        if mutation == "nested_payload":
+            result["detail"]["value"] = "different"
+        return result
+
+    result = replay_components(tmp_path, tmp_path / ".microcosm/run", [_shared_step(runner)])
+    assert result["status"] == "blocked"
+    assert result["admission"]["accepted"] is False
+
+
+def test_shared_host_compares_full_public_normalized_payload(tmp_path):
+    from microcosm_core.component_replay import replay_components
+    from microcosm_core.receipts import normalize_public_receipt_paths
+    (tmp_path / "input").mkdir()
+
+    def runner(source, out, command):
+        result = {"status": "pass", "organ_id": "probe", "detail": {"path": "/tmp/a-fixture/result.json"}}
+        _write_result(out, normalize_public_receipt_paths(result))
+        return result
+
+    result = replay_components(tmp_path, tmp_path / ".microcosm/run", [_shared_step(runner)])
+    assert result["status"] == "pass"
+    observation = result["admission"]["observations"][0]
+    assert observation["runner_payload_digest"] == observation["receipt_payload_digest"]
+    assert result["admission"]["run_nonce"]
+
+
+def test_shared_host_rejects_symlinked_output_ancestor_and_stale_file(tmp_path):
+    from microcosm_core.component_replay import replay_components
+    (tmp_path / "input").mkdir()
+    external = tmp_path / "external"
+    old = {"status": "pass", "organ_id": "probe", "created_at": "2000-01-01T00:00:00Z"}
+    _write_result(external, old)
+
+    def runner(source, out, command):
+        out.symlink_to(external, target_is_directory=True)
+        return old
+
+    result = replay_components(tmp_path, tmp_path / ".microcosm/run", [_shared_step(runner)])
+    assert result["status"] == "blocked"
+    assert result["results"][0]["error"] == "UnsupportedInputSymlink"
+    assert json.loads((external / "result.json").read_text()) == old
+
+
+def test_shared_host_refuses_preexisting_component_output(tmp_path):
+    from microcosm_core.component_replay import replay_components
+    (tmp_path / "input").mkdir()
+    out = tmp_path / ".microcosm/run"
+    _write_result(out / "probe", {"status": "pass", "organ_id": "probe"})
+
+    def runner(*args):
+        pytest.fail("a stale output reached the runner")
+
+    result = replay_components(tmp_path, out, [_shared_step(runner)])
+    assert result["status"] == "blocked"
+    assert result["results"][0]["error"] == "FileExistsError"
+
+
+@pytest.mark.parametrize("owner", ["src", "core", "standards"])
+def test_shared_host_rejects_mutated_source_registry_or_policy(tmp_path, owner):
+    from microcosm_core.component_replay import replay_components
+    (tmp_path / "input").mkdir()
+    (tmp_path / owner).mkdir()
+    target = tmp_path / owner / "owned.txt"
+    target.write_text("original")
+
+    def runner(source, out, command):
+        target.write_text("changed")
+        return _write_result(out, {"status": "pass", "organ_id": "probe"})
+
+    result = replay_components(tmp_path, tmp_path / ".microcosm/run", [_shared_step(runner)])
+    assert result["status"] == "blocked"
+    assert result["results"][0]["status"] == "source_changed"
+    observation = result["admission"]["observations"][0]
+    assert observation["source_before"] != observation["source_after"]
+
+
+def test_shared_host_snapshots_all_inputs_before_any_runner(tmp_path):
+    from microcosm_core.component_replay import replay_components
+    for directory in ("first", "second"):
+        (tmp_path / directory).mkdir()
+        (tmp_path / directory / "data").write_text("original")
+
+    def first(source, out, command):
+        (tmp_path / "second/data").write_text("changed by first")
+        return _write_result(out, {"status": "pass", "organ_id": "first"})
+
+    def second(source, out, command):
+        return _write_result(out, {"status": "pass", "organ_id": "second"})
+
+    result = replay_components(tmp_path, tmp_path / ".microcosm/run", [
+        _shared_step(first, "first", "first"), _shared_step(second, "second", "second")])
+    assert result["status"] == "blocked"
+    assert [r["status"] for r in result["results"]] == ["pass", "input_changed"]
+
+
+@pytest.mark.parametrize("mutation", ["remove_empty_directory", "directory_mode", "file_mode"])
+def test_shared_input_snapshot_captures_empty_directories_and_full_modes(tmp_path, mutation):
+    from microcosm_core.component_replay import input_tree_hash
+    source = tmp_path / "input"
+    source.mkdir()
+    directory = source / "empty"
+    directory.mkdir()
+    file = source / "data"
+    file.write_text("same bytes")
+    directory.chmod(0o755)
+    file.chmod(0o755)
+    before = input_tree_hash(source)
+    if mutation == "remove_empty_directory":
+        directory.rmdir()
+    elif mutation == "directory_mode":
+        directory.chmod(0o700)
+    else:
+        file.chmod(0o744)
+    assert input_tree_hash(source) != before
+
+
+def test_shared_host_hashes_the_same_receipt_bytes_it_parses(tmp_path, monkeypatch):
+    from microcosm_core import component_replay
+    (tmp_path / "input").mkdir()
+    original = {"status": "pass", "organ_id": "probe"}
+    receipt_path = tmp_path / ".microcosm/run/probe/result.json"
+
+    def runner(source, out, command):
+        return _write_result(out, original)
+
+    real_parse = component_replay.loads_json_strict
+
+    def parse_then_concurrent_replace(data, source):
+        parsed = real_parse(data, source)
+        receipt_path.write_text('{"status":"blocked","organ_id":"another"}')
+        return parsed
+
+    monkeypatch.setattr(component_replay, "loads_json_strict", parse_then_concurrent_replace)
+    result = component_replay.replay_components(tmp_path, tmp_path / ".microcosm/run", [_shared_step(runner)])
+    assert result["status"] == "blocked"
+    assert result["results"][0]["status"] == "receipt_changed"
+    captured_digest = result["admission"]["observations"][0]["receipt_digest"]
+    assert captured_digest == hashlib.sha256(json.dumps(original).encode()).hexdigest()
+    assert captured_digest != hashlib.sha256(receipt_path.read_bytes()).hexdigest()
+
+
+def test_shared_host_uses_generated_admission_even_when_every_row_passes(tmp_path, monkeypatch):
+    from microcosm_core.component_replay import replay_components
+    import plectis.replay
+    (tmp_path / "input").mkdir()
+    called = []
+
+    def reject(*args):
+        called.append(args)
+        return False
+
+    monkeypatch.setattr(plectis.replay, "accept", reject)
+
+    def runner(source, out, command):
+        return _write_result(out, {"status": "pass", "organ_id": "probe"})
+
+    result = replay_components(tmp_path, tmp_path / ".microcosm/run", [_shared_step(runner)])
+    assert called and result["results"][0]["status"] == "pass"
+    assert result["status"] == "blocked"
+
+
+def test_shared_host_rejects_empty_or_duplicate_selection(tmp_path):
+    from microcosm_core.component_replay import replay_components
+    (tmp_path / "input").mkdir()
+
+    def runner(source, out, command):
+        return _write_result(out, {"status": "pass", "organ_id": "probe"})
+
+    assert replay_components(tmp_path, tmp_path / ".microcosm/empty", [])["status"] == "blocked"
+    route = _shared_step(runner)
+    result = replay_components(tmp_path, tmp_path / ".microcosm/duplicates", [route, route])
+    assert result["status"] == "blocked"
+
+
+def test_distinct_original_private_paths_do_not_collapse_payload_binding():
+    from microcosm_core.component_replay import payload_digest
+    from microcosm_core.receipts import normalize_public_receipt_paths
+    left = {"status": "pass", "organ_id": "probe", "witness_path": "/Users/alice/a"}
+    right = {"status": "pass", "organ_id": "probe", "witness_path": "/Users/bob/b"}
+    assert payload_digest(left) != payload_digest(right)
+    saved = normalize_public_receipt_paths(left)
+    assert payload_digest(left) == payload_digest(saved, persisted=True)
+    assert payload_digest(saved) == payload_digest(saved, persisted=True)
+
+
+def test_cli_records_source_material_that_recomputes_to_its_identity(tmp_path, monkeypatch):
+    from microcosm_core.component_replay import _json_digest
+    gate = _gate()
+    (tmp_path / "input").mkdir()
+    (tmp_path / "core").mkdir()
+    (tmp_path / "core/organ_registry.json").write_text(json.dumps({"implemented_organs": [{
+        "organ_id": "probe", "evidence_class": "semantic_validator", "claim_ceiling": "fixture only"}]}))
+
+    def runner(source, out, command):
+        return _write_result(out, {"status": "pass", "organ_id": "probe"})
+
+    monkeypatch.setattr(gate, "RUNTIME_STEPS", (_shared_step(runner),))
+    assert gate.main(["--root", str(tmp_path), "--out", str(tmp_path / ".microcosm/out")]) == 0
+    summary = json.loads(next((tmp_path / ".microcosm/out").glob("run-*/component-replays.json")).read_text())
+    assert _json_digest(summary["source"]) == summary["source_identity"]
+    assert summary["source"] == summary["source_identity_material"]
+    assert "git_identity" not in summary["source"]
+    assert "git_identity" in summary
+
+
+@pytest.mark.parametrize("target", [".", "src", "receipts"])
+def test_shared_host_rejects_checkout_output_paths(tmp_path, target):
+    from microcosm_core.component_replay import replay_components
+    with pytest.raises(ValueError, match="output"):
+        replay_components(tmp_path, tmp_path / target, [])

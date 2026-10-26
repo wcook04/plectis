@@ -3,7 +3,7 @@
 
 Run from any directory with an installed interpreter, for example::
 
-    /path/to/venv/bin/python -I /path/to/verify_operations_install.py --require-compatibility --require-views
+    /path/to/venv/bin/python -I /path/to/verify_operations_install.py --require-compatibility --require-views --require-replay
 
 This check never adds the checkout to Python's import path. Its temporary
 checkpoint, journal and SQLite database are removed when the check finishes.
@@ -52,7 +52,8 @@ def check_generated_locations(modules: list[str]) -> dict[str, str]:
     for component, kernel in (("plectis.repair", "Repair"),
                               ("plectis.compatibility", "Compatibility"),
                               ("plectis.compatibility", "Replay"),
-                              ("plectis.views", "Release")):
+                              ("plectis.views", "Release"),
+                              ("plectis.replay", "ReplayAdmission")):
         if component not in modules:
             continue
         source = (Path(sys.modules[component].__file__).resolve().parent
@@ -229,12 +230,45 @@ def views_example() -> dict:
             "private_record_values": "rejected"}
 
 
+def replay_example() -> dict:
+    """Exercise installed admission on explicit observations and adverse changes."""
+    from plectis.replay import accept
+    from hashlib import sha256
+
+    def digest(label):
+        return sha256(label.encode()).hexdigest()
+
+    spec = {"component_id": "component", "input_ref": "input.json",
+            "evidence_class": "bounded_check", "claim_digest": digest("claim-v1"), "native_kind": 0}
+    observation = {"component_id": "component", "runner_component_id": "component",
+                   "receipt_component_id": "component", "input_ref": "input.json",
+                   "evidence_class": "bounded_check", "claim_digest": digest("claim-v1"),
+                   "source_before": digest("source-v1"), "source_after": digest("source-v1"),
+                   "input_before": digest("input-v1"), "input_after": digest("input-v1"),
+                   "runner_payload_digest": digest("payload-v1"), "receipt_payload_digest": digest("payload-v1"),
+                   "receipt_digest": digest("receipt-v1"), "runner_status": "pass",
+                   "receipt_status": "pass", "runner_verdict": "pass", "receipt_verdict": "pass",
+                   "runner_native_kind": 0, "receipt_native_kind": 0, "receipt_present": True}
+    require(accept([spec], digest("source-v1"), [observation]), "replay rejected matching observations")
+    require(not accept([spec], digest("source-v1"), []), "replay accepted missing coverage")
+    require(not accept([spec], digest("source-v1"), [observation, observation]),
+            "replay accepted duplicate observations")
+    for field in ("receipt_component_id", "claim_digest", "source_after", "input_after",
+                  "receipt_payload_digest"):
+        require(not accept([spec], digest("source-v1"), [{**observation, field: digest("different")}]),
+                "replay accepted changed " + field)
+    return {"matching_observations": "accepted", "missing_or_duplicate": "rejected",
+            "changed_identity_claim_source_input_payload": "rejected"}
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--require-compatibility", action="store_true",
                         help="also require and exercise the installed compatibility component")
     parser.add_argument("--require-views", action="store_true",
                         help="also require and exercise the installed public views component")
+    parser.add_argument("--require-replay", action="store_true",
+                        help="also require and exercise the installed replay admission core")
     args = parser.parse_args(argv)
     try:
         require(bool(sys.flags.isolated), "run this check with python -I")
@@ -243,6 +277,8 @@ def main(argv: list[str] | None = None) -> int:
             modules.append("plectis.compatibility")
         if args.require_views:
             modules.append("plectis.views")
+        if args.require_replay:
+            modules.append("plectis.replay")
         for module in modules:
             importlib.import_module(module)
         check_import_locations()
@@ -254,6 +290,8 @@ def main(argv: list[str] | None = None) -> int:
                 result["compatibility"] = compatibility_example()
             if args.require_views:
                 result["views"] = views_example()
+        if args.require_replay:
+            result["replay"] = replay_example()
         result["installed_modules"] = check_import_locations()
         result["generated_sources"] = check_generated_locations(modules)
     except Exception as error:

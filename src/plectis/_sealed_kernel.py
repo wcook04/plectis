@@ -18,6 +18,7 @@ import tempfile
 # These pins and inventories belong to the reviewed loader release. Updating
 # a generated kernel requires reviewing both, alongside its formal metadata.
 MANIFEST_SHA256 = {
+    "ReplayAdmission": "5dd5df3801369bb3cd65b9872bf7ee82979e5c10fa02c608402c14a20a45f63e",
     "Repair": "0326579506855699890187cc2d1bbd16033852078adb74e59c723063cb3e079f",
     "Compatibility": "20d97d3b10cb23e52f41e71c63a15a5a9d135c1c6e4622e1c56a5ea29259c473",
     "Release": "0db832da07984ff777a3c113be472b05135ab8ee18818e19e6addaa1a0ec6b0b",
@@ -25,6 +26,7 @@ MANIFEST_SHA256 = {
 SUPPORT_FILES = frozenset({"module_.py", "__main__.py", "System_/__init__.py",
                            "_dafny/__init__.py"})
 KERNEL_SOURCE_FILES = {
+    "ReplayAdmission": SUPPORT_FILES | {"ReplayAdmission.py"},
     "Repair": SUPPORT_FILES | {"Repair.py"},
     "Compatibility": SUPPORT_FILES | {"Compatibility.py", "Replay.py"},
     "Release": SUPPORT_FILES | {"Release.py"},

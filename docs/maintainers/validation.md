@@ -26,13 +26,22 @@ that lane locally. A missing tool or blocked component fails the gate.
 Each run writes a fresh directory under `.microcosm/component-replays/`.
 `component-replays.json` records the source revision and working-tree state,
 runtime source hash, each input hash and the hash of its actual parsed receipt.
-The gate checks that receipt status agrees with the runner and that the run
-preserved its inputs. It continues after failures so the summary covers the
-complete registry. The dedicated CI job retains these files as an artifact,
+The shared host captures every selected input before any runner starts and
+rechecks all inputs and source identities after the run. It parses and hashes
+one captured receipt buffer, requires matching component identities and
+normalized result payloads, and rejects linked or pre-existing output paths.
+It continues after failures so the summary covers the complete registry.
+The generated [replay admission core](../../formal/replay/README.md) decides the
+aggregate verdict from those observations: every declared component must occur
+exactly once and satisfy its identity, claim-policy, stability and witness checks.
+The theorem applies to any finite nonempty supplied registry; component count
+comes from the current registry, not a constant in the proof. The dedicated CI job retains these files as an artifact,
 including failed runs. The Python-version matrix continues to run `make ci`;
 the more expensive native component replay runs once in its own job.
 
 These results establish the named checks on the supplied public inputs.
+The admission proof checks the consistency and coverage of observed evidence;
+it does not authenticate a runner or prove the semantics of all components.
 They do not prove arbitrary application behavior. `make verify-operations`
 separately rechecks the formal decision kernels and their deliberately broken
 specifications. The governed-mutation example's portable Git-object witness

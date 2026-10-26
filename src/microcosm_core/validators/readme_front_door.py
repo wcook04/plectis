@@ -337,6 +337,29 @@ def validate_readme_front_door(
         if alt and "—" in alt:
             blocking.append("README_BANNER_ALT_EM_DASH")
 
+    # The system map now follows the component families, after the hero. Keep
+    # checking every HTML image where it is shown, and require the real map
+    # rather than allowing its removal to bypass the former banner check.
+    image_sources: list[str] = []
+    for image in re.findall(r"<img\b[^>]*>", text, flags=re.IGNORECASE | re.DOTALL):
+        src_match = re.search(r'\bsrc\s*=\s*"([^"]+)"', image, flags=re.IGNORECASE)
+        alt_match = re.search(r'\balt\s*=\s*"([^"]*)"', image, flags=re.IGNORECASE)
+        src = src_match.group(1) if src_match else ""
+        alt_text = alt_match.group(1).strip() if alt_match else ""
+        image_sources.append(src)
+        if not src:
+            blocking.append("README_IMAGE_SRC_MISSING")
+        elif not src.startswith(("http://", "https://")):
+            if not (readme_path.parent / src).is_file():
+                blocking.append("README_IMAGE_FILE_UNRESOLVED")
+        if not alt_text:
+            blocking.append("README_IMAGE_ALT_MISSING")
+        elif "—" in alt_text:
+            blocking.append("README_IMAGE_ALT_EM_DASH")
+    findings["image_sources"] = image_sources
+    if "assets/system-map-dark.png" not in image_sources:
+        blocking.append("README_SYSTEM_MAP_IMAGE_MISSING")
+
     # --- 2b. the hero closes with a block that gets a stranger to a result
     # before any taxonomy.
     #

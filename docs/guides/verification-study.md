@@ -172,6 +172,7 @@ The recheckers verify retained source and generated-file hashes:
 python3 scripts/check/check_repair_kernel.py
 python3 scripts/check/check_compatibility_kernel.py
 python3 scripts/check/check_views_kernel.py
+python3 scripts/check/check_replay_kernel.py
 ```
 
 These quick checks do not invoke a prover. With the official Dafny 4.11.0
@@ -183,11 +184,12 @@ and output-matching mutants to fail:
 python3 scripts/check/check_repair_kernel.py --dafny /path/to/dafny
 python3 scripts/check/check_compatibility_kernel.py --dafny /path/to/dafny
 python3 scripts/check/check_views_kernel.py --dafny /path/to/dafny
+python3 scripts/check/check_replay_kernel.py --dafny /path/to/dafny
 ```
 
 The recorded Repair build has 21 verified tasks and zero errors; the
 Compatibility and counterexample build has 41 verified tasks and zero errors;
-the public-view build has 30. These are prover
+the public-view build has 30 and replay admission has 16. These are prover
 tasks for defined cores, not counts of verified applications. Hashes bind
 retained bytes; they do not prove those bytes correct. The verification is
 SMT-backed through Dafny, Boogie and Z3. Their encoding, the compiler, generated
@@ -348,10 +350,52 @@ The catalogue's evidence is a separate layer. A source hash establishes which
 bytes were replayed; an execution receipt reports what happened for particular
 inputs; a deliberate bad case checks that a gate can reject a particular defect.
 These do not turn all 88 components into formally verified programs. The current
-component audit distinguishes those evidence classes from the three formal
+component audit distinguishes those evidence classes from the four formal
 cores. Restored source snapshots retain their original identities, while their
 new replays describe the current public execution. Synthetic numeric examples
 are fixture data, not measurements or claims about physical experiments.
+
+### Checking the component replay itself
+
+The component catalogue uses one shared replay host and a fourth executable
+Dafny core, [Replay admission](../../formal/replay/README.md). The host captures
+the selected source, input and claim-policy identities, runs each declared
+checker, and captures the returned result and saved receipt. The generated core
+accepts the batch exactly when every declared component has one matching
+observation, with no extra or duplicate components, changed identities,
+disagreeing payloads or missing required execution evidence.
+
+This addresses concrete errors in the earlier hosts: a linked output directory
+could supply an old receipt; separate parsing and hashing could observe different
+receipt versions; one runner could change a later component's input before its
+first snapshot; and the two replay commands did not enforce the same checks.
+The shared host snapshots all inputs before any runner starts, rechecks them and
+the source after execution, and parses and hashes the same captured receipt bytes.
+Host regressions exercise these cases separately from the Dafny proof.
+
+Run `make component-replays` for the current catalogue, or
+`make verify-operations DAFNY=/path/to/dafny` to recheck all four decision cores.
+The [validation runbook](../maintainers/validation.md#fresh-component-replays)
+lists the native-tool requirements and output locations. Historical receipts
+are preserved; new runs produce new evidence.
+
+There are two different questions here. A component's own checker decides its
+bounded domain claim; replay admission checks whether the observed evidence
+satisfies the declared batch contract. The proof does not establish that a
+runner is honest, that a hash identifies executed machine code, or that a
+checker captures the right scientific question. The input model excludes the
+listed build/cache outputs, and a source change restored before the final
+capture can escape a before/after comparison. Python capture, decoding, hashing
+and filesystem behavior remain tested assumptions.
+
+The observation envelope follows established provenance ideas: the
+[in-toto Statement v1](https://github.com/in-toto/attestation/blob/50bf01716982189898823e90586075f37cd9bb7d/spec/v1/statement.md)
+binds a typed statement to identified subjects, and
+[SLSA provenance](https://slsa.dev/spec/v1.2/build-provenance) separates a build's
+inputs, process and producer. Plectis applies those ideas locally without
+claiming signed attestations or authenticated execution. The contribution here
+is the verified decision in the existing replay path, with concrete
+counterexamples and host repairs; it is not a new provenance scheme.
 
 ### Patterns from other verified software repositories
 
