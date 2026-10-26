@@ -7,6 +7,7 @@ from types import SimpleNamespace
 import pytest
 
 from microcosm_core import cli
+from microcosm_core.receipts import write_json_atomic
 from microcosm_core.projections import organ_surface_contract
 
 
@@ -40,7 +41,7 @@ def test_replay_preserves_failures_and_continues_to_every_component(tmp_path: Pa
 
     def passing(input_dir, out, command):
         out.mkdir(parents=True)
-        (out / "result.json").write_text(json.dumps({"status":"pass", "organ_id":out.name}))
+        write_json_atomic(out / "result.json", {"status":"pass", "organ_id":out.name})
         return {"status": "pass", "organ_id": out.name}
 
     def blocked(input_dir, out, command):
@@ -96,7 +97,7 @@ def test_replay_cannot_reuse_a_previous_receipt_as_fresh_output(tmp_path, monkey
 
     def write(source, out, command):
         out.mkdir(parents=True)
-        (out / "result.json").write_text(json.dumps({"status":"pass", "organ_id":out.name}))
+        write_json_atomic(out / "result.json", {"status":"pass", "organ_id":out.name})
         return {"status": "pass", "organ_id": out.name}
 
     step = SimpleNamespace(organ_id="probe", example_rel="input", receipt_name="result.json", runner=write)
@@ -124,7 +125,7 @@ def test_surface_replay_uses_shared_input_mutation_admission(tmp_path, monkeypat
         (input_dir / "data").write_text("changed")
         out.mkdir(parents=True)
         result = {"status": "pass", "organ_id": "probe"}
-        (out / "result.json").write_text(json.dumps(result))
+        write_json_atomic(out / "result.json", result)
         return result
 
     monkeypatch.setattr(runtime_shell, "RUNTIME_STEPS", (

@@ -92,9 +92,10 @@ separate from this clone.
 
 A component runs its checker on supplied inputs and saves a receipt. The shared
 replay host captures source and input identities, the declared claim policy,
-and the actual returned result and receipt. A [Dafny-verified admission rule](formal/replay/README.md)
+the returned result, the public payload sent to the receipt writer, and the saved
+receipt. A [Dafny-verified admission rule](formal/replay/README.md)
 then requires exactly one matching result for every selected component, with no
-missing or duplicate rows, changed identities, disagreeing payloads or missing
+missing or duplicate rows, changed identities, altered public payloads or missing
 required execution evidence. Both replay commands call its generated Python.
 
 ```bash
@@ -107,9 +108,9 @@ Lean/Lake and Swift. The [replay guide](docs/maintainers/validation.md#fresh-com
 lists prerequisites and the [study](docs/guides/verification-study.md#checking-the-component-replay-itself)
 shows the failure cases behind the design.
 
-**The common admission decision is proved; each component's own claim remains
-its checker's responsibility.** Hashing, file capture and execution are tested
-Python boundaries. A replay cannot inherit a proof of component correctness
+**The common admission decision is proved; each component's own claim and choice
+of public receipt fields remain its checker's responsibility.** Hashing, file
+capture and execution are tested Python boundaries. A replay cannot inherit a proof of component correctness
 from another core or from the number of components that passed.
 
 ## Why this exists

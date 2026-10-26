@@ -8,8 +8,9 @@ duplicate and unknown routes. The check also requires the selected route,
 runner and receipt component IDs to agree; the input route, evidence class and
 claim-contract identity to match the specification; source and input identities
 to remain stable; a parsed receipt with a nonzero byte digest; runner and receipt
-statuses and verdicts to be `pass`; normalized result/receipt claim payload
-digests to agree; and the exact declared native witness kind to appear in both.
+statuses and verdicts to be `pass`; the producer's public payload digest and the
+persisted receipt payload digest to agree; and the exact declared native witness
+kind to appear in both returned result and receipt.
 
 `AdmissionExact` proves soundness and completeness of the executable decision
 against the independent quantified `Admission` relation for every finite
@@ -20,8 +21,16 @@ mutants in `negative/` weaken the executable decision; the proof checker
 requires both to fail. No axiom, assumption or external theorem is used.
 
 The host creates the observation sequence, runs the component, hashes source
-and input trees, captures receipt bytes, strictly parses them and normalizes
-the public claim payload. The claim and evidence identifiers bind the host
+and input trees, captures receipt bytes and strictly parses them. A scoped
+observer captures the producer's public payload at the shared writer after its
+normalization and timestamp handling. The host requires one write to the selected
+receipt path and compares that captured payload with the separately read file.
+It also checks the raw returned result's identity, status and native evidence,
+and records its digest for audit. Some existing producers deliberately project a
+smaller public receipt from a larger API result. Payload equality establishes
+writer-intent agreement with the saved receipt; it does not prove that projection
+preserves every raw result field or correctly expresses the component's claim.
+The claim and evidence identifiers bind the host
 envelope to the declared registry policy; legacy component receipts do not
 independently carry those identifiers. A nonzero digest says only that the host
 supplied an identity. The host must use a fresh confined output location and

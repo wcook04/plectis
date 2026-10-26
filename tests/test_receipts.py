@@ -16,6 +16,60 @@ from microcosm_core.receipts import (
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_writer_observation_commits_normalized_intent_and_stays_scoped(tmp_path):
+    target = tmp_path / "receipt.json"
+    raw = {"status": "pass", "path": "/Users/fixture-user/project/file.txt"}
+    events = []
+    with receipts.observe_receipt_writes(events.append):
+        write_json_atomic(target, raw)
+    write_json_atomic(tmp_path / "outside.json", {"status": "pass"})
+    assert len(events) == 1
+    assert events[0].target == target.resolve()
+    expected = receipts.normalize_public_receipt_paths(raw)
+    assert events[0].payload_sha256 == receipts.receipt_payload_digest(expected)
+    assert json.loads(target.read_text())["public_path_sanitization"]["replacement_count"]
+
+
+def test_writer_observation_is_before_io_not_file_readback(tmp_path, monkeypatch):
+    target = tmp_path / "receipt.json"
+    original = {"status": "pass", "detail": {"value": "original"}}
+    real_replace = receipts.os.replace
+
+    def corrupt_before_replace(source, destination):
+        Path(source).write_text('{"status":"blocked"}')
+        real_replace(source, destination)
+
+    monkeypatch.setattr(receipts.os, "replace", corrupt_before_replace)
+    events = []
+    with receipts.observe_receipt_writes(events.append):
+        write_json_atomic(target, original)
+    assert events[0].payload_sha256 == receipts.receipt_payload_digest(original)
+    assert events[0].payload_sha256 != receipts.receipt_payload_digest(json.loads(target.read_text()))
+
+
+def test_failed_replace_does_not_publish_writer_intent(tmp_path, monkeypatch):
+    def fail(*args):
+        raise OSError("synthetic replace failure")
+
+    monkeypatch.setattr(receipts.os, "replace", fail)
+    events = []
+    with receipts.observe_receipt_writes(events.append), pytest.raises(OSError):
+        write_json_atomic(tmp_path / "receipt.json", {"status": "pass"})
+    assert events == []
+
+
+def test_writer_observer_respects_explicit_empty_context_in_other_thread(tmp_path):
+    from contextvars import Context
+    from threading import Thread
+    events = []
+    with receipts.observe_receipt_writes(events.append):
+        thread = Thread(target=lambda: Context().run(write_json_atomic, tmp_path / "thread.json", {"status": "pass"}))
+        thread.start()
+        thread.join()
+    assert (tmp_path / "thread.json").is_file()
+    assert events == []
+
+
 def test_normalized_public_receipt_string_matches_persisted_command_shape() -> None:
     command = (
         "python -m microcosm_core demo "

@@ -20,7 +20,7 @@ import tempfile
 import time
 from typing import Any, Callable, Sequence
 
-from microcosm_core.receipts import normalize_public_receipt_paths
+from microcosm_core.receipts import normalize_public_receipt_paths, observe_receipt_writes, receipt_payload_digest
 from microcosm_core.schemas import loads_json_strict, read_json_strict
 
 CLAIM_CEILING = "Fresh named runner results over supplied public inputs; no broader correctness or release authority."
@@ -181,22 +181,26 @@ def _route_policy(step: Any, registry: dict[str, Any]) -> dict[str, Any]:
             "input_mode": getattr(step, "input_mode", "supplied_public_input"),
             "span": getattr(step, "span", ""), "receipt_name": step.receipt_name,
             "runner": _runner_identity(step.runner)[0],
+            "receipt_representation": "observed_common_writer_public_payload_v1",
             "registry_policy": registry}
 
 
-def _source_snapshot(root: Path, routes: Sequence[Any], policies: list[dict[str, Any]]) -> dict[str, Any]:
+def _source_snapshot(root: Path, routes: Sequence[Any], policies: list[dict[str, Any]], selected_steps: Sequence[Any]) -> dict[str, Any]:
     sources = {}
-    selected = {policy["component_id"] for policy in policies}
-    for step in routes:
-        if step.organ_id not in selected:
-            continue
+    for step in selected_steps:
         reference, source = _runner_identity(step.runner)
         if source:
             sources[reference] = _digest(source.read_bytes())
     registry = root / "core/organ_registry.json"
     head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, capture_output=True, text=True, check=False)
-    return {"runtime_source_tree_sha256": input_tree_hash(CODE_ROOT),
-            "declared_source_tree_sha256": input_tree_hash(root / "src") if (root / "src").exists() else None,
+    runtime_hash = input_tree_hash(CODE_ROOT)
+    declared_source = root / "src"
+    if declared_source.is_symlink():
+        raise UnsupportedInputSymlink
+    declared_hash = (runtime_hash if declared_source.resolve() == CODE_ROOT.resolve()
+                     else input_tree_hash(declared_source)) if declared_source.exists() else None
+    return {"runtime_source_tree_sha256": runtime_hash,
+            "declared_source_tree_sha256": declared_hash,
             "registry_sha256": _digest(registry.read_bytes()) if registry.exists() else None,
             "core_policy_tree_sha256": input_tree_hash(root / "core") if (root / "core").exists() else None,
             "standards_tree_sha256": input_tree_hash(root / "standards") if (root / "standards").exists() else None,
@@ -221,7 +225,7 @@ def replay_components(root: Path, out: Path, declared_steps: Sequence[Any], *,
     by_id = {row["organ_id"]: row for row in registry_rows}
     policies = [_route_policy(step, by_id.get(step.organ_id, {})) for step in steps]
     get_routes = route_provider or (lambda: declared_steps)
-    source_before = _source_snapshot(root, [native_replay_step(s) for s in get_routes()], policies)
+    source_before = _source_snapshot(root, get_routes(), policies, steps)
     source_identity = _json_digest(source_before)
     before, input_errors = {}, {}
     for index, step in enumerate(steps):
@@ -230,7 +234,7 @@ def replay_components(root: Path, out: Path, declared_steps: Sequence[Any], *,
             before[index] = input_tree_hash(root / step.example_rel)
         except Exception as exc:
             before[index], input_errors[index] = "", type(exc).__name__
-    specs, observations, results, receipts = [], [], [], {}
+    specs, observations, results, receipts, writer_events = [], [], [], {}, {}
     for index, step in enumerate(steps):
         started = time.monotonic()
         evidence_class = str(by_id.get(step.organ_id, {}).get("evidence_class")
@@ -258,12 +262,24 @@ def replay_components(root: Path, out: Path, declared_steps: Sequence[Any], *,
             _confined(component_out, out)
             if component_out.exists():
                 raise FileExistsError("component output must be fresh")
-            result = step.runner(root / step.example_rel, component_out, command)
+            receipt = component_out / step.receipt_name
+            expected_target = receipt.resolve()
+            writes = []
+            writer_events[index] = writes
+
+            def capture_write(event, expected_target=expected_target, writes=writes):
+                if event.target == expected_target:
+                    writes.append(event)
+
+            with observe_receipt_writes(capture_write):
+                result = step.runner(root / step.example_rel, component_out, command)
             if not isinstance(result, dict):
                 raise ValueError("runner must return an object")
             observation.update(runner_component_id=result.get("organ_id"), runner_status=result.get("status"),
                                runner_verdict=replay_verdict(step, result), runner_native_kind=_native_kind(step, result),
-                               runner_payload_digest=payload_digest(result))
+                               runner_payload_digest=writes[0].payload_sha256 if len(writes) == 1 else "")
+            row["raw_runner_payload_sha256"] = _json_digest(result)
+            row["primary_receipt_write_count"] = len(writes)
             exercise = result.get("exercise")
             row.update(status=observation["runner_verdict"], error_codes=result.get("error_codes", []),
                        execution_status=result.get("execution_status") or (
@@ -271,9 +287,8 @@ def replay_components(root: Path, out: Path, declared_steps: Sequence[Any], *,
             for key in ("execution_witness_mode", "verification_performed", "lean_executed", "tool_state",
                         "real_runtime_receipt", "not_a_live_run"):
                 row[key] = result.get(key)
-            receipt = component_out / step.receipt_name
             row.update(receipt_ref=str(receipt), receipt_written=False)
-            data = _receipt_bytes(receipt, out)
+            data = _receipt_bytes(receipt, component_out)
             recorded = loads_json_strict(data.decode("utf-8"), "component replay receipt")
             if not isinstance(recorded, dict):
                 raise ValueError("receipt must contain an object")
@@ -281,14 +296,20 @@ def replay_components(root: Path, out: Path, declared_steps: Sequence[Any], *,
             observation.update(receipt_present=True, receipt_digest=digest,
                                receipt_component_id=recorded.get("organ_id"), receipt_status=recorded.get("status"),
                                receipt_verdict=replay_verdict(step, recorded),
-                               receipt_native_kind=_native_kind(step, recorded), receipt_payload_digest=payload_digest(recorded, persisted=True))
+                               receipt_native_kind=_native_kind(step, recorded), receipt_payload_digest=receipt_payload_digest(recorded))
             row.update(receipt_written=True, receipt_status=recorded.get("status"), receipt_sha256=digest,
                        input_tree_sha256=before[index])
-            receipts[index] = (receipt, digest)
+            receipts[index] = (receipt, digest, component_out)
+            if len(writes) != 1:
+                row["error_code"] = "missing_producer_write" if not writes else "duplicate_primary_receipt_write"
+                raise ValueError("exactly one primary producer write required")
             if (observation["runner_component_id"] != step.organ_id or observation["receipt_component_id"] != step.organ_id
-                    or observation["runner_status"] != observation["receipt_status"]
-                    or observation["runner_payload_digest"] != observation["receipt_payload_digest"]):
-                raise ValueError("runner and receipt identity or payload mismatch")
+                    or observation["runner_status"] != observation["receipt_status"]):
+                row["error_code"] = "runner_receipt_identity_or_status_mismatch"
+                raise ValueError("runner and receipt identity or status mismatch")
+            if observation["runner_payload_digest"] != observation["receipt_payload_digest"]:
+                row["error_code"] = "producer_public_payload_mismatch"
+                raise ValueError("producer intent and saved receipt differ")
             if row["status"] == "pass" and observation["receipt_verdict"] != "pass":
                 raise ValueError("receipt execution verdict differs")
         except Exception as exc:
@@ -302,20 +323,26 @@ def replay_components(root: Path, out: Path, declared_steps: Sequence[Any], *,
         results.append(row)
         observations.append(observation)
     try:
-        source_after = _source_snapshot(root, [native_replay_step(s) for s in get_routes()], policies)
+        source_after = _source_snapshot(root, get_routes(), policies, steps)
         after_identity = _json_digest(source_after)
     except Exception:
         source_after, after_identity = {}, ""
     for index, (step, row, observation) in enumerate(zip(steps, results, observations)):
         observation["source_after"] = after_identity
         try:
+            if index in writer_events:
+                row["primary_receipt_write_count"] = len(writer_events[index])
+                if len(writer_events[index]) != 1 and row["status"] == "pass":
+                    row.update(status="error", error="ValueError", error_code="duplicate_primary_receipt_write"
+                               if writer_events[index] else "missing_producer_write")
+                    observation["runner_payload_digest"] = ""
             _confined(root / step.example_rel, root)
             observation["input_after"] = input_tree_hash(root / step.example_rel)
             if observation["input_before"] != observation["input_after"]:
                 row.update(status="input_changed", error="InputMutation")
             if index in receipts:
-                path, digest = receipts[index]
-                if _digest(_receipt_bytes(path, out)) != digest:
+                path, digest, parent = receipts[index]
+                if _digest(_receipt_bytes(path, parent)) != digest:
                     row.update(status="receipt_changed", error="ReceiptMutation")
             if source_identity != after_identity:
                 row.update(status="source_changed", error="SourceMutation")
@@ -331,6 +358,7 @@ def replay_components(root: Path, out: Path, declared_steps: Sequence[Any], *,
             "source": dict(source_before), "source_identity_material": source_before,
             "source_after": source_after, "source_identity": source_identity,
             "input_digest_scheme": "tree_type_path_bytes_posix_mode_v2",
+            "payload_binding": "producer_public_representation_not_all_raw_api_fields",
             "input_digest_exclusions": [".git", ".microcosm", ".build", "__pycache__", ".venv", ".pytest_cache", "*.pyc", "*.pyo"],
             "admission": {"kernel": "plectis.replay.accept", "accepted": admitted,
                           "run_nonce": run_nonce, "run_id": out.name,

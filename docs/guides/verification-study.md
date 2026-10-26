@@ -360,10 +360,11 @@ are fixture data, not measurements or claims about physical experiments.
 The component catalogue uses one shared replay host and a fourth executable
 Dafny core, [Replay admission](../../formal/replay/README.md). The host captures
 the selected source, input and claim-policy identities, runs each declared
-checker, and captures the returned result and saved receipt. The generated core
+checker, and captures the returned result, producer's public receipt payload and
+saved receipt. The generated core
 accepts the batch exactly when every declared component has one matching
 observation, with no extra or duplicate components, changed identities,
-disagreeing payloads or missing required execution evidence.
+altered public payloads or missing required execution evidence.
 
 This addresses concrete errors in the earlier hosts: a linked output directory
 could supply an old receipt; separate parsing and hashing could observe different
@@ -372,6 +373,17 @@ first snapshot; and the two replay commands did not enforce the same checks.
 The shared host snapshots all inputs before any runner starts, rechecks them and
 the source after execution, and parses and hashes the same captured receipt bytes.
 Host regressions exercise these cases separately from the Dafny proof.
+
+Some older components return a detailed API result but save a smaller public
+receipt. A strict comparison of those different representations rejected 26
+otherwise passing component runs during integration. The host therefore captures
+the actual producer payload at the common receipt writer, after normalization
+and timestamp handling, then compares it with the independently read file. It
+requires one write to the selected receipt path and separately checks the raw
+return's identity, status and native evidence. Its raw-result digest is audit
+data: it does not prove that the producer's public projection preserves every
+field or states the right claim. That projection remains part of the trusted
+component implementation.
 
 Run `make component-replays` for the current catalogue, or
 `make verify-operations DAFNY=/path/to/dafny` to recheck all four decision cores.

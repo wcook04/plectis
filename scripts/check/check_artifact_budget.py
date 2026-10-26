@@ -57,8 +57,11 @@ ARTIFACT_BUDGET = {
     "max_total_bytes": 134_217_728,  # 128 MiB
     # Reviewed source restoration, native witness dependencies and portable Git
     # evidence add 204 files to the round-two footprint (3,946 -> 4,150).
-    # Keep six-file headroom and retain both existing byte ceilings.
-    "max_total_files": 4_156,
+    # Shared component replay admission adds 18 shipped files: five formal
+    # sources/metadata, eleven replay package modules/resources, one shared
+    # component runtime and one proof checker (4,150 -> 4,168). Its new test is
+    # not packaged. Keep six-file headroom; both byte ceilings stay unchanged.
+    "max_total_files": 4_174,
     "max_data_files_bytes": 120_000_000,  # ~114.4 MiB
 }
 

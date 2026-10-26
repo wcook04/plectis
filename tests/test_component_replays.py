@@ -6,6 +6,8 @@ import json
 
 import pytest
 
+from microcosm_core.receipts import write_json_atomic
+
 
 def _gate():
     source = Path(__file__).resolve().parents[1] / "scripts/check/check_component_replays.py"
@@ -30,7 +32,7 @@ def test_replay_gate_keeps_failures_exceptions_and_later_results(tmp_path):
         def run(source, out, command):
             out.mkdir(parents=True)
             result = {"status": status, "organ_id": out.name, "error_codes": ["BOUNDARY_FAILED"] if status == "blocked" else []}
-            (out / "result.json").write_text(json.dumps(result))
+            write_json_atomic(out / "result.json", result)
             return result
         return run
 
@@ -97,7 +99,7 @@ def test_replay_gate_rejects_unbound_written_receipt(tmp_path, recorded):
 
     def run(source, out, command):
         out.mkdir(parents=True)
-        (out / "result.json").write_text(json.dumps(recorded))
+        write_json_atomic(out / "result.json", recorded)
         return {"status": "pass", "organ_id": "probe"}
 
     step = SimpleNamespace(organ_id="probe", example_rel="input", receipt_name="result.json", runner=run)
@@ -123,7 +125,7 @@ def test_replay_gate_selects_native_lab_and_requires_its_execution_witness(tmp_p
                   "verification_performed": live,
                   "tool_state": lab.TOOL_PRESENT_AND_VERIFIED if live else "not_executed"}
         out.mkdir(parents=True)
-        (out / lab.RESULT_NAME).write_text(json.dumps(result))
+        write_json_atomic(out / lab.RESULT_NAME, result)
         return result
 
     monkeypatch.setattr(lab, "run", run)
@@ -167,7 +169,7 @@ def test_replay_gate_requires_live_lake_witness_in_returned_and_fresh_receipt(tm
         if mode == "written_contract":
             recorded["execution_witness_mode"] = "standalone_exported_witness_contract"
         out.mkdir(parents=True)
-        (out / witness.RESULT_NAME).write_text(json.dumps(recorded))
+        write_json_atomic(out / witness.RESULT_NAME, recorded)
         return result
 
     monkeypatch.setattr(witness, "run", run)
@@ -188,7 +190,7 @@ def _shared_step(runner, name="probe", input_ref="input"):
 
 def _write_result(out, result):
     out.mkdir(parents=True)
-    (out / "result.json").write_text(json.dumps(result))
+    write_json_atomic(out / "result.json", result)
     return result
 
 
@@ -208,6 +210,7 @@ def test_shared_host_rejects_unbound_or_contradictory_payloads(tmp_path, mutatio
             result["organ_id"] = "another"
         if mutation == "nested_payload":
             result["detail"]["value"] = "different"
+            (out / "result.json").write_text(json.dumps(result))
         return result
 
     result = replay_components(tmp_path, tmp_path / ".microcosm/run", [_shared_step(runner)])
@@ -222,7 +225,7 @@ def test_shared_host_compares_full_public_normalized_payload(tmp_path):
 
     def runner(source, out, command):
         result = {"status": "pass", "organ_id": "probe", "detail": {"path": "/tmp/a-fixture/result.json"}}
-        _write_result(out, normalize_public_receipt_paths(result))
+        _write_result(out, result)
         return result
 
     result = replay_components(tmp_path, tmp_path / ".microcosm/run", [_shared_step(runner)])
@@ -326,10 +329,13 @@ def test_shared_host_hashes_the_same_receipt_bytes_it_parses(tmp_path, monkeypat
     from microcosm_core import component_replay
     (tmp_path / "input").mkdir()
     original = {"status": "pass", "organ_id": "probe"}
+    original_bytes = []
     receipt_path = tmp_path / ".microcosm/run/probe/result.json"
 
     def runner(source, out, command):
-        return _write_result(out, original)
+        _write_result(out, original)
+        original_bytes.append((out / "result.json").read_bytes())
+        return original
 
     real_parse = component_replay.loads_json_strict
 
@@ -343,7 +349,7 @@ def test_shared_host_hashes_the_same_receipt_bytes_it_parses(tmp_path, monkeypat
     assert result["status"] == "blocked"
     assert result["results"][0]["status"] == "receipt_changed"
     captured_digest = result["admission"]["observations"][0]["receipt_digest"]
-    assert captured_digest == hashlib.sha256(json.dumps(original).encode()).hexdigest()
+    assert captured_digest == hashlib.sha256(original_bytes[0]).hexdigest()
     assert captured_digest != hashlib.sha256(receipt_path.read_bytes()).hexdigest()
 
 
@@ -416,3 +422,113 @@ def test_shared_host_rejects_checkout_output_paths(tmp_path, target):
     from microcosm_core.component_replay import replay_components
     with pytest.raises(ValueError, match="output"):
         replay_components(tmp_path, tmp_path / target, [])
+
+
+def test_public_projection_is_bound_while_raw_diagnostics_are_only_audited(tmp_path):
+    from microcosm_core.component_replay import replay_components, _json_digest
+    (tmp_path / "input").mkdir()
+    raw = {"status": "pass", "organ_id": "probe", "internal_diagnostic": "synthetic omitted private detail"}
+    public = {"status": "pass", "organ_id": "probe", "schema_version": "public_projection_v1"}
+
+    def runner(source, out, command):
+        _write_result(out, public)
+        return raw
+
+    result = replay_components(tmp_path, tmp_path / ".microcosm/run", [_shared_step(runner)])
+    assert result["status"] == "pass"
+    observation = result["admission"]["observations"][0]
+    assert observation["runner_payload_digest"] == observation["receipt_payload_digest"]
+    assert result["results"][0]["raw_runner_payload_sha256"] == _json_digest(raw)
+    assert _json_digest(raw) != observation["runner_payload_digest"]
+    assert result["payload_binding"] == "producer_public_representation_not_all_raw_api_fields"
+    assert raw["internal_diagnostic"] not in json.dumps(result)
+
+
+@pytest.mark.parametrize("mode", ["bypass", "duplicate", "outside_context", "auxiliary"])
+def test_primary_producer_write_must_be_unique_and_in_context(tmp_path, mode):
+    from contextvars import Context
+    from microcosm_core.component_replay import replay_components
+    (tmp_path / "input").mkdir()
+    payload = {"status": "pass", "organ_id": "probe"}
+
+    def runner(source, out, command):
+        out.mkdir(parents=True)
+        target = out / "result.json"
+        if mode == "bypass":
+            target.write_text(json.dumps(payload))
+        elif mode == "outside_context":
+            Context().run(write_json_atomic, target, payload)
+        else:
+            if mode == "auxiliary":
+                write_json_atomic(out / "auxiliary.json", {"unrelated": True})
+            write_json_atomic(target, payload)
+            if mode == "duplicate":
+                write_json_atomic(target, payload)
+        return payload
+
+    result = replay_components(tmp_path, tmp_path / ".microcosm/run", [_shared_step(runner)])
+    assert result["status"] == ("pass" if mode == "auxiliary" else "blocked")
+    if mode != "auxiliary":
+        assert result["results"][0]["error_code"] == (
+            "duplicate_primary_receipt_write" if mode == "duplicate" else "missing_producer_write")
+
+
+def test_saved_private_path_provenance_cannot_substitute_another_writer_intent(tmp_path):
+    from microcosm_core.component_replay import replay_components
+    from microcosm_core.receipts import normalize_public_receipt_paths
+    (tmp_path / "input").mkdir()
+
+    def runner(source, out, command):
+        raw = {"status": "pass", "organ_id": "probe", "witness_path": "/Users/alice/a"}
+        _write_result(out, raw)
+        replacement = normalize_public_receipt_paths({**raw, "witness_path": "/Users/bob/b"})
+        (out / "result.json").write_text(json.dumps(replacement))
+        return raw
+
+    result = replay_components(tmp_path, tmp_path / ".microcosm/run", [_shared_step(runner)])
+    assert result["status"] == "blocked"
+    assert result["results"][0]["error_code"] == "producer_public_payload_mismatch"
+
+
+def test_unselected_native_routes_are_not_loaded_or_executed_for_source_inventory(tmp_path, monkeypatch):
+    from microcosm_core import component_replay
+    (tmp_path / "input").mkdir()
+
+    def runner(source, out, command):
+        return _write_result(out, {"status": "pass", "organ_id": "probe"})
+
+    selected = _shared_step(runner)
+    unselected = _shared_step(runner, "formal_math_lean_proof_witness", "unused")
+    real_select = component_replay.native_replay_step
+
+    def select(step):
+        assert step.organ_id == "probe", "unselected native tool route was activated"
+        return real_select(step)
+
+    monkeypatch.setattr(component_replay, "native_replay_step", select)
+    result = component_replay.replay_components(tmp_path, tmp_path / ".microcosm/run", [selected],
+                                                route_provider=lambda: [selected, unselected])
+    assert result["status"] == "pass"
+
+
+def test_late_write_in_copied_context_stays_with_its_original_component(tmp_path):
+    from contextvars import copy_context
+    from microcosm_core.component_replay import replay_components
+    (tmp_path / "input").mkdir()
+    previous = {}
+
+    def first(source, out, command):
+        result = _write_result(out, {"status": "pass", "organ_id": "first"})
+        previous.update(context=copy_context(), target=out / "result.json", payload=result)
+        return result
+
+    def second(source, out, command):
+        previous["context"].run(write_json_atomic, previous["target"], previous["payload"])
+        return _write_result(out, {"status": "pass", "organ_id": "second"})
+
+    result = replay_components(tmp_path, tmp_path / ".microcosm/run", [
+        _shared_step(first, "first"), _shared_step(second, "second")])
+    assert result["status"] == "blocked"
+    assert [row["primary_receipt_write_count"] for row in result["results"]] == [2, 1]
+    assert result["results"][0]["error_code"] == "duplicate_primary_receipt_write"
+    assert result["results"][1]["status"] == "pass"

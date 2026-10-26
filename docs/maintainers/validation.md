@@ -28,8 +28,11 @@ Each run writes a fresh directory under `.microcosm/component-replays/`.
 runtime source hash, each input hash and the hash of its actual parsed receipt.
 The shared host captures every selected input before any runner starts and
 rechecks all inputs and source identities after the run. It parses and hashes
-one captured receipt buffer, requires matching component identities and
-normalized result payloads, and rejects linked or pre-existing output paths.
+one captured receipt buffer, requires matching component identities and native
+evidence, and compares the saved payload with the public payload captured at the
+shared writer. Missing or ambiguous writes and linked or pre-existing output
+paths are rejected. The raw API result's digest is retained separately; the
+producer's choice of public fields remains outside the admission proof.
 It continues after failures so the summary covers the complete registry.
 The generated [replay admission core](../../formal/replay/README.md) decides the
 aggregate verdict from those observations: every declared component must occur
