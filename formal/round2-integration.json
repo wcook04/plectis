@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23",
+  "baseline_commit": "593449b981fe7d28a31cb226b34ba5d1ce33ee91",
+  "source_status": "Operator-supplied AI-assisted research returns; source identities, not external endorsement or adoption.",
+  "returns": [
+    {
+      "packet_id": "r2-p01",
+      "archive_sha256": "5db6c894944cb99ebeea8dd1ea57e6c5effce8ef38ca6c52ed0a334e1195cbce",
+      "disposition": "adopt_recovery_defer_new_store",
+      "reason": "Confirmed journal output can repair a missing checkpoint without executing again.",
+      "implemented_owner": "src/plectis/repair/_host.py"
+    },
+    {
+      "packet_id": "r2-p02",
+      "archive_sha256": "e17d8b0fb162a96c85b1a6df57e0f247e27d4db14792fc64c627c0d02509cb2d",
+      "disposition": "retain_specification_falsifier",
+      "reason": "A gate can admit a candidate against weakened tests while independent expected behavior is wrong. Keep One Checkout as Git owner.",
+      "implemented_owner": null
+    },
+    {
+      "packet_id": "r2-p03",
+      "archive_sha256": "1b2f30cde4a08f3b01b53e65ae2f3ba853d5d31710c034257515ca44c036c1d0",
+      "disposition": "retain_transition_and_strengthened_specification",
+      "reason": "Generated state transition has a strong runtime connection; new positive-currentness requirements expose two proof-passing specification mutants. Defer a second publication store.",
+      "implemented_owner": null
+    },
+    {
+      "packet_id": "r2-p04",
+      "archive_sha256": "daed9623b13aa6e20a4534c357f02baa7beaf81326b6987ea5bc4a7fa11cf009",
+      "disposition": "next_stateful_candidate",
+      "reason": "Terminal settle recovers accepted history or prevents this request from committing later. Needs deliberate cancellation result and schema/mixed-writer compatibility.",
+      "implemented_owner": null
+    },
+    {
+      "packet_id": "r2-p05",
+      "archive_sha256": "d695a920d1a135d01cd1d39d01d16f2c569cef1ce25b8b75d2254bedbff18d49",
+      "disposition": "retain_consumer_continuations",
+      "reason": "Real SQLite rollback and savepoint continuations discriminate transaction-stealing implementations despite equal immediate results.",
+      "implemented_owner": null
+    },
+    {
+      "packet_id": "r2-p06",
+      "archive_sha256": "711c52f6d9713a1e286704a7a8e0e739f4d10a85d3a0b5406303559b21569068",
+      "disposition": "defer_until_real_migration",
+      "reason": "Validate actual stored target and exact outstanding fields inside activation transaction; stable ledger/views are a simpler alternative.",
+      "implemented_owner": null
+    },
+    {
+      "packet_id": "r2-p07",
+      "archive_sha256": "a8a950859e2bc0b1f6cbb39e1c2559c9f9db268ef8928be2aa88413feee94507",
+      "disposition": "retain_recovery_semantics",
+      "reason": "Receiver-owned settle-or-replace preserves one logical effect slot; distinct from terminal cancellation. Do not import another lifecycle.",
+      "implemented_owner": null
+    },
+    {
+      "packet_id": "r2-p08",
+      "archive_sha256": "a2951842eea480029cc28032e255a026048ea8c020edb7130164487d72e9ec1e",
+      "disposition": "defer_until_reuse_workload",
+      "reason": "Closed evaluator derives complete observed dependencies; reevaluation is the competent baseline and cheaper in the tiny workload.",
+      "implemented_owner": null
+    },
+    {
+      "packet_id": "r2-p09",
+      "archive_sha256": "0136fecfbcd938878554e7da57f1f7e17169f10fcc7a1480704551ede30f4727",
+      "disposition": "adopt_loader_defer_optional_lean_route",
+      "reason": "Capture verified source bytes and import only private copies with pinned inventory. Optional exact-byte Lean certificate has distinct trust/cost tradeoffs.",
+      "implemented_owner": "src/plectis/_sealed_kernel.py"
+    },
+    {
+      "packet_id": "r2-p10",
+      "archive_sha256": "113307d3ee508d5fdd8765655ce96bcf2a5b85d9dd13843c24de4aa94bdecac8",
+      "disposition": "retain_current_policy_distinction",
+      "reason": "Re-evaluate policy at effect transaction; reallowing policy differs from permanent cancellation of that grant/generation. The task/resource can receive a newer grant.",
+      "implemented_owner": null
+    },
+    {
+      "packet_id": "r2-p11",
+      "archive_sha256": "2ed6410d811ca9906ae04280ae9613f0dffabdb196d39952e754f1b237c6ea49",
+      "disposition": "retain_migration_contract",
+      "reason": "Fixed V1-to-V2 cutover preserves exact obligations and unknown phases. Complete canonical equality is an ordinary competing implementation.",
+      "implemented_owner": null
+    },
+    {
+      "packet_id": "r2-p12",
+      "archive_sha256": "801e599012f2ce4f7602b5f832c5df7055adde6f08a1b4aa8aaf2d6c0f5daa53",
+      "disposition": "retain_occurrence_counterexample",
+      "reason": "Byte equality alone misses selected occurrence; preserve frame/coordinates and the live with/without-selection pair. Native staging/worktrees satisfy snapshot/current-view goals on 11 fixtures but do not produce the same counterfactual view; general superiority is unestablished.",
+      "implemented_owner": null
+    },
+    {
+      "packet_id": "r2-p13",
+      "archive_sha256": "0a3ca4bac7c686172a6c025a45101205041b499c777edea0f67a8a6b8074cdbd",
+      "disposition": "retain_parallel_work_frame",
+      "reason": "Disjoint observed-key updates preserve eligibility over arbitrary finite prefixes. Ghost frame model is not SQL serializability or fairness.",
+      "implemented_owner": null
+    },
+    {
+      "packet_id": "r2-p14",
+      "archive_sha256": "913370b168f7733d6390126bedf727e7803f4c0b936eb09ffb0aa648eaa3d2ed",
+      "disposition": "adopt_checked_negative_witness",
+      "reason": "Recheck a proposed bad word against current finite models using generated code before emitting a negative verdict.",
+      "implemented_owner": "src/plectis/compatibility"
+    },
+    {
+      "packet_id": "r2-p15",
+      "archive_sha256": "9e1feef785454f829f2ad350ecd9cef252d349a32003acf4e349e91d4a9c2e35",
+      "disposition": "adopt_one_optional_deep_experiment",
+      "reason": "Actual generated report transformation preserves public trace and has no private reads. Test changed-recipe benefit against ordinary public-only rendering.",
+      "implemented_owner": "src/plectis/views"
+    }
+  ],
+  "views_imports": [
+    {
+      "source": "src/plectis_release/__init__.py",
+      "target": "src/plectis/views/__init__.py",
+      "source_sha256": "3202d5307868d13f0a958f6797ff3867e4279ba363d56f52147c6591e498357d",
+      "mode": "adapted",
+      "target_sha256": "31fdb2aafb740e5cee24bd4877eceecb59f37b3f7e8e991321e74be762d360e2"
+    },
+    {
+      "source": "src/plectis_release/_api.py",
+      "target": "src/plectis/views/_api.py",
+      "source_sha256": "143b1d98bbb3ad7298588142cbe2b77c49dfe0640551f091bc1d298e6f83d5c8",
+      "mode": "adapted",
+      "target_sha256": "ba4214fffe06be18d346bd6cf35173eec05b1ae57828fa85150a62c795990287"
+    },
+    {
+      "source": "src/plectis_release/_worker.py",
+      "target": "src/plectis/views/_worker.py",
+      "source_sha256": "1e7bbff2269d496dae9824c8ca2302d6f22615040a7c165722b1801cf409a455",
+      "mode": "adapted",
+      "target_sha256": "9c56dc5d32e8612b01353cc35decb8501cb30589a081f052468507f311b427d0"
+    },
+    {
+      "source": "src/plectis_release/_generated/Release.py",
+      "target": "src/plectis/views/_generated/Release.py",
+      "source_sha256": "45440b88c51a216271feaa4f07e09ef25fec63ff3e0b01f962c00cf51218e433",
+      "mode": "verbatim",
+      "target_sha256": "45440b88c51a216271feaa4f07e09ef25fec63ff3e0b01f962c00cf51218e433"
+    },
+    {
+      "source": "src/plectis_release/_generated/module_.py",
+      "target": "src/plectis/views/_generated/module_.py",
+      "source_sha256": "288a492425d22532e867d3c781618da23ba863e0480b2a3d76791f5b54971104",
+      "mode": "verbatim",
+      "target_sha256": "288a492425d22532e867d3c781618da23ba863e0480b2a3d76791f5b54971104"
+    },
+    {
+      "source": "src/plectis_release/_generated/__main__.py",
+      "target": "src/plectis/views/_generated/__main__.py",
+      "source_sha256": "66a37c6b64cc4db0ff9bd7ca70629aab2b2ea2ee46bf5e0e7ee9b11fdd18b26e",
+      "mode": "verbatim",
+      "target_sha256": "66a37c6b64cc4db0ff9bd7ca70629aab2b2ea2ee46bf5e0e7ee9b11fdd18b26e"
+    },
+    {
+      "source": "src/plectis_release/_generated/System_/__init__.py",
+      "target": "src/plectis/views/_generated/System_/__init__.py",
+      "source_sha256": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+      "mode": "verbatim",
+      "target_sha256": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf"
+    },
+    {
+      "source": "src/plectis_release/_generated/_dafny/__init__.py",
+      "target": "src/plectis/views/_generated/_dafny/__init__.py",
+      "source_sha256": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+      "mode": "verbatim",
+      "target_sha256": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a"
+    },
+    {
+      "source": "src/plectis_release/_generated/Dafny-LICENSE.txt",
+      "target": "src/plectis/views/_generated/Dafny-LICENSE.txt",
+      "source_sha256": "41074082c804bcef709b8908b1ba0cab48381a2f8d33bf34635744b1fe60e2a5",
+      "mode": "verbatim",
+      "target_sha256": "41074082c804bcef709b8908b1ba0cab48381a2f8d33bf34635744b1fe60e2a5"
+    },
+    {
+      "source": "formal/Release.dfy",
+      "target": "formal/views/Release.dfy",
+      "source_sha256": "7250135c7599061ecc0e61b8361860183b402b054b5cca5ac9ad0a186f65d92d",
+      "mode": "verbatim",
+      "target_sha256": "7250135c7599061ecc0e61b8361860183b402b054b5cca5ac9ad0a186f65d92d"
+    },
+    {
+      "source": "formal/negative/IgnoreControl.dfy",
+      "target": "formal/views/negative/IgnoreControl.dfy",
+      "source_sha256": "c34dd82af59285ac1d5d03826a4c16518f7a31ab2a890f4f309789238774aa32",
+      "mode": "verbatim",
+      "target_sha256": "c34dd82af59285ac1d5d03826a4c16518f7a31ab2a890f4f309789238774aa32"
+    },
+    {
+      "source": "formal/negative/RetainPrivateRead.dfy",
+      "target": "formal/views/negative/RetainPrivateRead.dfy",
+      "source_sha256": "96106196b744e2297f474c3ea2452ab1a2da0d61a164527f7edc2274c32f567e",
+      "mode": "verbatim",
+      "target_sha256": "96106196b744e2297f474c3ea2452ab1a2da0d61a164527f7edc2274c32f567e"
+    },
+    {
+      "source": "formal/metadata.json",
+      "target": "formal/views/metadata.json",
+      "source_sha256": "098da9da026168f39eea79de4294ea390c45c46e8b6ff684a4110bf917a962a1",
+      "mode": "verbatim",
+      "target_sha256": "098da9da026168f39eea79de4294ea390c45c46e8b6ff684a4110bf917a962a1"
+    },
+    {
+      "source": "formal/recheck.py",
+      "target": "scripts/check/check_views_kernel.py",
+      "source_sha256": "811699762686c817fe6b753e8530cd6ae8cf9003b50339b33c2c15f0193f057e",
+      "mode": "adapted",
+      "target_sha256": "44c8c780ef6379b82938cc5bade99d6d2b574f7628f3bbe46c446d3ae211d497"
+    },
+    {
+      "source": "examples/mixed_report.json",
+      "target": "examples/operations/public_views/mixed_report.json",
+      "source_sha256": "0c94006b63368f99e69740e667a191504184d3b4f46c4c2cd184990d802920d3",
+      "mode": "verbatim",
+      "target_sha256": "0c94006b63368f99e69740e667a191504184d3b4f46c4c2cd184990d802920d3"
+    },
+    {
+      "source": "examples/schema.json",
+      "target": "examples/operations/public_views/schema.json",
+      "source_sha256": "060eb7ad536d2c68077e8c859bed8707834a146eaa5d943d6a6bd89873d1dc3a",
+      "mode": "verbatim",
+      "target_sha256": "060eb7ad536d2c68077e8c859bed8707834a146eaa5d943d6a6bd89873d1dc3a"
+    },
+    {
+      "source": "examples/implicit_leak.json",
+      "target": "examples/operations/public_views/implicit_leak.json",
+      "source_sha256": "3426f7085e38648e3ad52824de36423aa558a4456c8aa17a2a84a1122d2be463",
+      "mode": "verbatim",
+      "target_sha256": "3426f7085e38648e3ad52824de36423aa558a4456c8aa17a2a84a1122d2be463"
+    },
+    {
+      "source": "examples/outside_sqlite.py",
+      "target": "examples/operations/public_views_sqlite.py",
+      "source_sha256": "56eb3deb48e1601ac99d98e0d242b2f0a5446b8a90015590eb4c57302fd22f7d",
+      "mode": "adapted",
+      "target_sha256": "1b7cb324ab8060850449b5354caf5839f628b0ee3966ab59175efa9012c22a6f"
+    },
+    {
+      "source": "tests/test_release.py",
+      "target": "tests/test_public_views.py",
+      "source_sha256": "4f2380ab5822479d9568a1cc3ad56fd59618c03885c5e2d7b55a170d24cf8f21",
+      "mode": "adapted",
+      "target_sha256": "1a5c660434bf97d19d5f3d1d0b34c81cf746d5ebc5d6b252e2ef75c3cbb82a61"
+    },
+    {
+      "source": "docs/ADOPTER_GUIDE.md",
+      "target": "docs/guides/public-views.md",
+      "source_sha256": "c13346c867f5e5d93542322bfe14e338ea66e5157c35edc44b346cc3d62e3b76",
+      "mode": "adapted",
+      "target_sha256": "87123798687dd385694f9810c16ab1951a0d32808676313505bec5b789a8a7ea"
+    }
+  ],
+  "formal_boundary": "Dafny SMT-backed cores; tested Python hosts. No whole-system or arbitrary-program verification.",
+  "licensing": "Research adaptations under repository Apache-2.0; retained generated Dafny runtime MIT licence beside each core."
+}

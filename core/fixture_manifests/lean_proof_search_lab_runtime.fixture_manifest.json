@@ -1,0 +1,22 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "organ_id": "lean_proof_search_lab_runtime",
+  "fixture_id": "first_wave.lean_proof_search_lab_runtime",
+  "input_root": "examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle",
+  "inputs": [
+    {
+      "path": "examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle",
+      "kind": "native_runtime_bundle"
+    }
+  ],
+  "validator_command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+  "expected_receipts": [
+    "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json",
+    "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json",
+    "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_validation_receipt.json",
+    "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
+  ],
+  "claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
+  "generated_from": "core/organ_registry.json + microcosm_core.runtime_shell.RUNTIME_STEPS",
+  "anti_claim": "This manifest declares the shipped native replay input; input presence is not a passing replay or a formal proof."
+}

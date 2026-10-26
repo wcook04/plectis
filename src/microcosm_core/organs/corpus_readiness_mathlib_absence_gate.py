@@ -14,7 +14,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import shutil
+import signal
 import subprocess
 import tempfile
 import re
@@ -607,20 +609,32 @@ def _command_result_card(
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     try:
-        completed = subprocess.run(
+        process = subprocess.Popen(
             argv,
             cwd=cwd,
             text=True,
-            capture_output=True,
-            timeout=timeout_seconds,
-            check=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            start_new_session=(os.name == "posix"),
         )
-        stdout = completed.stdout or ""
-        stderr = completed.stderr or ""
+        try:
+            stdout, stderr = process.communicate(timeout=timeout_seconds)
+        except BaseException:
+            # Lake launches Lean as a child. Killing only Lake leaves the
+            # compiler running after timeout or caller cancellation.
+            if os.name == "posix":
+                try:
+                    os.killpg(process.pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+            else:
+                process.kill()
+            process.communicate()
+            raise
         return {
             "argv": [Path(argv[0]).name, *argv[1:]],
             "cwd_name": cwd.name,
-            "return_code": completed.returncode,
+            "return_code": process.returncode,
             "stdout_line_count": len(stdout.splitlines()),
             "stderr_line_count": len(stderr.splitlines()),
             "stdout_has_unknown_mathlib": "unknown module prefix 'Mathlib'" in stdout,
@@ -860,15 +874,24 @@ def runtime_lean_import_probe(
             timeout_seconds=LEAN_IMPORT_PROBE_TIMEOUT_SECONDS,
         )
 
-    std_passed = std_run.get("return_code") == 0
+    std_passed = (std_run.get("return_code") == 0
+                  and not std_run.get("timed_out")
+                  and not std_run.get("error_class"))
+    mathlib_completed = (
+        type(mathlib_run.get("return_code")) is int
+        and 0 <= mathlib_run["return_code"] < 128
+        and not mathlib_run.get("timed_out")
+        and not mathlib_run.get("error_class")
+        and not mathlib_run.get("skipped")
+    )
     mathlib_rejected = (
-        mathlib_run.get("return_code") not in (0, None)
+        mathlib_completed and mathlib_run["return_code"] != 0
         and (
             mathlib_run.get("stdout_has_unknown_mathlib") is True
             or mathlib_run.get("stderr_has_unknown_mathlib") is True
         )
     )
-    lake_execution_verified = std_passed and mathlib_run.get("return_code") is not None
+    lake_execution_verified = std_passed and mathlib_completed
     return {
         "schema_version": LEAN_IMPORT_PROBE_SCHEMA_VERSION,
         "status": (

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "fields": [
+    {"name": "run_id", "type": "text", "visibility": "public"},
+    {"name": "score", "type": "text", "visibility": "public"},
+    {"name": "passed", "type": "flag", "visibility": "public"},
+    {"name": "private_note", "type": "text", "visibility": "private"},
+    {"name": "embargo", "type": "flag", "visibility": "private"}
+  ]
+}

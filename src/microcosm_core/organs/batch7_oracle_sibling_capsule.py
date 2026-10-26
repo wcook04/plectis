@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -23,6 +24,7 @@ from microcosm_core.organs._crown_jewel_common import (
     CrownJewelSpec,
     card_for_result,
     finding,
+    imported_source_modules,
     public_root_for_path,
     run_crown_jewel_organ,
 )
@@ -153,7 +155,7 @@ def _repo_root(public_root: Path) -> Path:
 
     Inputs are `public_root`.
     """
-    return public_root.parent
+    return _copied_source(public_root, "")
 
 
 def _copied_source(public_root: Path, source_ref: str) -> Path:
@@ -177,13 +179,11 @@ def _load_oracle_modules(repo_root: Path) -> dict[str, Any]:
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
-    repo_ref = str(repo_root)
-    if repo_ref not in sys.path:
-        sys.path.insert(0, repo_ref)
-    from tools.oracle import run_quartet
-    from tools.oracle import subject_index
-    from tools.oracle import subject_snapshot
-    from tools.oracle import truth_diff_macro
+    with imported_source_modules(repo_root):
+        from tools.oracle import run_quartet
+        from tools.oracle import subject_index
+        from tools.oracle import subject_snapshot
+        from tools.oracle import truth_diff_macro
 
     return {
         "run_quartet": run_quartet,
@@ -675,7 +675,7 @@ def _run_original_pytest_witness(repo_root: Path) -> dict[str, Any]:
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     command = [
-        "./repo-python",
+        sys.executable,
         "-m",
         "pytest",
         "-q",
@@ -690,14 +690,21 @@ def _run_original_pytest_witness(repo_root: Path) -> dict[str, Any]:
         ),
     ]
     try:
-        completed = subprocess.run(
-            command,
-            cwd=repo_root,
-            text=True,
-            capture_output=True,
-            check=False,
-            timeout=120,
-        )
+        with tempfile.TemporaryDirectory(prefix="plectis_oracle_witness_") as tmp:
+            config = Path(tmp) / "pytest.ini"
+            config.write_text("[pytest]\n", encoding="utf-8")
+            env = os.environ.copy()
+            env.update(PYTHONPATH=str(repo_root), PYTHONDONTWRITEBYTECODE="1", PYTEST_ADDOPTS="")
+            completed = subprocess.run(
+                command + ["-c", str(config), "--noconftest", "-p", "no:cacheprovider",
+                           "--basetemp", str(Path(tmp) / "pytest")],
+                cwd=repo_root,
+                env=env,
+                text=True,
+                capture_output=True,
+                check=False,
+                timeout=120,
+            )
     except FileNotFoundError as exc:
         return {
             "status": "blocked",

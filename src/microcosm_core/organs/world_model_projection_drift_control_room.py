@@ -65,6 +65,11 @@ INPUT_NAMES = (
 )
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 VIEW_QUALITY_GEOMETRY_PROBE_NAME = "view_quality_geometry_probe.json"
+# Reviewed source body shipped by the world-model bundle. Manifest hashes in a
+# caller-supplied bundle cannot authorize Python execution on their own.
+TRUSTED_VIEW_QUALITY_SOURCE_SHA256 = (
+    "9af792fa6a611715f76bf31c3c2f995e13a29014e1b12c8e0dc5dcfeab9b4ee3"
+)
 NEGATIVE_INPUT_NAMES = (
     "drift_row_without_source_ref.json",
     "repair_route_without_validation_ref.json",
@@ -159,6 +164,11 @@ SOURCE_REFS = [
     "microcosm-substrate/receipts/runtime_shell/public_projection_safety_audit_lens.json",
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
 ]
+PUBLIC_PATTERN_SNAPSHOT_REF = (
+    "examples/world_model_projection_drift_control_room/"
+    "exported_projection_drift_control_bundle/source_artifacts/"
+    "extracted_patterns_ledger.jsonl"
+)
 SUPPORTED_DRIFT_SOURCE_REFS = {
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::world_model_projection_drift_control_room": {
         "evidence_kind": "portfolio_pattern_row",
@@ -193,12 +203,17 @@ SUPPORTED_DRIFT_SOURCE_REFS = {
         "artifact_ref": "kernel.py",
     },
 }
-SUPPORTED_SOURCE_MODULE_SOURCE_REFS = {
-    "system/server/world_model.py",
-    "system/server/main.py",
-    "tools/meta/observability/view_quality_census.py",
-    "system/server/tests/test_view_quality_census.py",
+# Preserve historical CLI aliases while accepting the public product name.
+for _alias in ("view-quality::action_rows", "projection-safety::projection_rows"):
+    SUPPORTED_DRIFT_SOURCE_REFS["plectis " + _alias] = SUPPORTED_DRIFT_SOURCE_REFS["microcosm " + _alias]
+
+REQUIRED_SOURCE_MODULE_BINDINGS = {
+    "world_model_drift_aggregate_source_body_import": "system/server/world_model.py",
+    "world_model_drift_endpoint_source_body_import": "system/server/main.py",
+    "view_quality_action_map_source_body_import": "tools/meta/observability/view_quality_census.py",
+    "view_quality_action_map_test_body_import": "system/server/tests/test_view_quality_census.py",
 }
+SUPPORTED_SOURCE_MODULE_SOURCE_REFS = set(REQUIRED_SOURCE_MODULE_BINDINGS.values())
 RUNTIME_DRIFT_RECEIPT_REFS = (
     "receipts/runtime_shell/public_projection_drift_control_lens.json",
 )
@@ -313,7 +328,7 @@ def _source_module_target_path(
     *,
     input_dir: Path,
     public_root: Path,
-) -> Path:
+) -> Path | None:
     """
     Return source module target path for the organs world model projection drift control
     room flow.
@@ -322,9 +337,22 @@ def _source_module_target_path(
     `removeprefix` and `startswith`.
     """
     normalized = target_ref.removeprefix("microcosm-substrate/")
-    if normalized.startswith("source_modules/"):
-        return input_dir / normalized
-    return public_root / normalized
+    relative = Path(normalized)
+    if relative.is_absolute():
+        return None
+    candidate = (
+        input_dir / relative
+        if normalized.startswith("source_modules/")
+        else public_root / relative
+    )
+    try:
+        source_root = (input_dir / "source_modules").resolve(strict=False)
+        resolved = candidate.resolve(strict=False)
+    except (OSError, RuntimeError):
+        return None
+    if not resolved.is_relative_to(source_root):
+        return None
+    return resolved
 
 
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
@@ -346,13 +374,13 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     for row in _rows(manifest, "modules"):
         target_ref = str(row.get("target_ref") or "")
         if target_ref:
-            paths.append(
-                _source_module_target_path(
-                    target_ref,
-                    input_dir=input_dir,
-                    public_root=public_root,
-                )
+            target = _source_module_target_path(
+                target_ref,
+                input_dir=input_dir,
+                public_root=public_root,
             )
+            if target is not None:
+                paths.append(target)
     return paths
 
 
@@ -803,6 +831,10 @@ def _resolve_source_artifact_path(artifact_ref: str, *, public_root: Path) -> Pa
     Inputs are `artifact_ref` and `public_root`; notable helpers are
     `_source_root_for_public_root` and `startswith`.
     """
+    # Compare a frozen, selected source row without depending on a private
+    # checkout adjacent to the public clone.
+    if artifact_ref == "state/microcosm_portfolio/extracted_patterns_ledger.jsonl":
+        return public_root / PUBLIC_PATTERN_SNAPSHOT_REF
     source_root = _source_root_for_public_root(public_root)
     if artifact_ref.startswith(("receipts/", "examples/", "fixtures/", "core/")):
         return public_root / artifact_ref
@@ -1059,14 +1091,18 @@ def _source_state_diff_result(
     return {
         "schema_version": "world_model_projection_drift_source_state_diff_v1",
         "status": PASS if evidence_rows and not findings else "blocked",
-        "basis": "recomputed_public_projection_rows + real_source_state_artifacts",
+        "basis": "recomputed_public_projection_rows + published_source_state_artifacts",
+        "source_snapshot_ref": PUBLIC_PATTERN_SNAPSHOT_REF,
+        "source_snapshot_scope": "frozen_selected_source_row_not_current_private_state",
         "source_row_count": len(evidence_rows),
         "evidence_rows": evidence_rows,
         "findings": findings,
     }
 
 
-def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dict[str, Any]:
+def _source_module_manifest_result(
+    input_dir: Path, *, public_root: Path, required: bool = False
+) -> dict[str, Any]:
     """
     Serialize
     `microcosm_core.organs.world_model_projection_drift_control_room._source_module_manifest_result`
@@ -1077,14 +1113,18 @@ def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dic
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
         return {
-            "status": "not_present",
-            "source_module_import_status": "not_present",
+            "status": "blocked" if required else "not_present",
+            "source_module_import_status": "blocked" if required else "not_present",
             "source_module_manifest_ref": None,
             "module_count": 0,
             "module_ids": [],
             "material_classes": [],
             "body_in_receipt": False,
-            "findings": [],
+            "findings": ([_finding(
+                "DRIFT_SOURCE_MODULE_MANIFEST_REQUIRED",
+                "exported drift-control bundles require the source module manifest",
+                case_id="source_module_manifest", subject_id="source_module_manifest.json",
+                subject_kind="source_module_manifest")] if required else []),
         }
 
     manifest = read_json_strict(manifest_path)
@@ -1092,12 +1132,48 @@ def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dic
     module_ids: list[str] = []
     material_classes: set[str] = set()
     verified_count = 0
-    for row in _rows(manifest, "modules"):
+    rows = _rows(manifest, "modules")
+    raw_rows = manifest.get("modules")
+    if not isinstance(raw_rows, list) or len(raw_rows) != len(rows):
+        findings.append(_finding(
+            "DRIFT_SOURCE_MODULE_ROWS_INVALID", "source module rows must be objects in a list",
+            case_id="source_module_manifest", subject_id="modules",
+            subject_kind="source_module_manifest"))
+    if (type(manifest.get("module_count")) is not int
+            or manifest["module_count"] != len(rows)
+            or len(rows) != len(REQUIRED_SOURCE_MODULE_BINDINGS)):
+        findings.append(_finding(
+            "DRIFT_SOURCE_MODULE_COUNT_MISMATCH",
+            "declared and observed source counts must match the four required module bindings",
+            case_id="source_module_manifest", subject_id="module_count",
+            subject_kind="source_module_manifest"))
+    ids = [str(row.get("module_id") or "") for row in rows]
+    refs = [str(row.get("source_ref") or "") for row in rows]
+    for missing in sorted(set(REQUIRED_SOURCE_MODULE_BINDINGS) - set(ids)):
+        findings.append(_finding(
+            "DRIFT_SOURCE_MODULE_REQUIRED_MISSING", "required copied source module is missing",
+            case_id="source_module_manifest", subject_id=missing, subject_kind="source_module"))
+    for value in sorted({value for value in ids if ids.count(value) > 1}):
+        findings.append(_finding(
+            "DRIFT_SOURCE_MODULE_ID_DUPLICATE", "copied source module ids must be unique",
+            case_id="source_module_manifest", subject_id=value, subject_kind="source_module"))
+    for value in sorted({value for value in refs if refs.count(value) > 1}):
+        findings.append(_finding(
+            "DRIFT_SOURCE_MODULE_SOURCE_REF_DUPLICATE", "copied source refs must be unique",
+            case_id="source_module_manifest", subject_id=value, subject_kind="source_ref"))
+    for row in rows:
         module_id = str(row.get("module_id") or "source_module")
         module_ids.append(module_id)
         if row.get("material_class"):
             material_classes.add(str(row["material_class"]))
         source_ref = str(row.get("source_ref") or "")
+        if (source_ref in SUPPORTED_SOURCE_MODULE_SOURCE_REFS
+                and REQUIRED_SOURCE_MODULE_BINDINGS.get(module_id) != source_ref):
+            findings.append(_finding(
+                "DRIFT_SOURCE_MODULE_BINDING_MISMATCH",
+                "module id and source ref must match the required copied-source binding",
+                case_id="source_module_manifest", subject_id=module_id,
+                subject_kind="source_module"))
         if source_ref not in SUPPORTED_SOURCE_MODULE_SOURCE_REFS:
             findings.append(
                 _finding(
@@ -1114,6 +1190,17 @@ def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dic
             input_dir=input_dir,
             public_root=public_root,
         )
+        if target is None:
+            findings.append(
+                _finding(
+                    "DRIFT_SOURCE_MODULE_TARGET_OUTSIDE_BUNDLE",
+                    "source module target must stay inside this bundle's source_modules",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+            continue
         if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
             findings.append(
                 _finding(
@@ -1143,6 +1230,19 @@ def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dic
                 _finding(
                     "DRIFT_SOURCE_MODULE_DIGEST_MISMATCH",
                     "source module digest declarations must match the copied target body",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if (
+            source_ref == "tools/meta/observability/view_quality_census.py"
+            and actual != f"sha256:{TRUSTED_VIEW_QUALITY_SOURCE_SHA256}"
+        ):
+            findings.append(
+                _finding(
+                    "DRIFT_VIEW_QUALITY_SOURCE_BODY_UNTRUSTED",
+                    "view-quality grader must match the independently reviewed source body",
                     case_id="source_module_manifest",
                     subject_id=module_id,
                     subject_kind="source_module",
@@ -1221,6 +1321,9 @@ def _load_view_quality_source_module(path: Path) -> Any:
     Input comes from `path`; malformed or missing data follows the exceptions and checks
     visible in the body.
     """
+    source_bytes = path.read_bytes()
+    if hashlib.sha256(source_bytes).hexdigest() != TRUSTED_VIEW_QUALITY_SOURCE_SHA256:
+        raise ValueError("view-quality source body differs from the reviewed Plectis copy")
     spec = importlib.util.spec_from_file_location(
         "_microcosm_world_model_projection_drift_view_quality_census",
         path,
@@ -1228,7 +1331,7 @@ def _load_view_quality_source_module(path: Path) -> Any:
     if spec is None or spec.loader is None:
         raise ImportError(f"could not import copied view-quality source module: {path}")
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    exec(compile(source_bytes, str(path), "exec"), module.__dict__)
     return module
 
 
@@ -1977,6 +2080,7 @@ def _build_result(
     source_module_result = _source_module_manifest_result(
         input_dir,
         public_root=public_root,
+        required=input_mode == "exported_projection_drift_control_bundle",
     )
     source_open_body_imports = _source_open_body_import_summary(source_module_result)
     view_quality_geometry_grade = _view_quality_geometry_grade_result(

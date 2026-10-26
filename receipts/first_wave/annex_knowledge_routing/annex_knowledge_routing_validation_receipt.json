@@ -1,0 +1,57 @@
+{
+  "anti_claim": "The annex knowledge routing organ ranks a sanitized fixture catalog over public fixture inputs only. It does not implement BM25, TF-IDF, embeddings, or semantic search; it does not clone third-party repositories, ship the private annex corpus, export private macro state, credentials, or raw operator threads; it does not call providers or external solvers, does not adjudicate licenses or provenance, and does not authorize release or publication. An unroutable problem cannot pass because the retriever recomputes the per-tier token scores and emits no_match whenever no candidate clears a positive score or a domain/cluster filter removes every candidate.",
+  "authority_ceiling": {
+    "clones_repositories": false,
+    "license_authority": false,
+    "oracle_or_prover": false,
+    "production_ready": false,
+    "provider_call": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "semantic_search": false,
+    "ships_private_corpus": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.annex_knowledge_routing",
+  "organ_id": "annex_knowledge_routing",
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 3,
+    "replacements": [
+      {
+        "field_path": "receipt_paths.result",
+        "original_sha256": "sha256:e433d9991ab38a2ccd9b2645e39879eb1bc01236eeb5ea343b5b946be4f6c8f6",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "receipt_paths.board",
+        "original_sha256": "sha256:df0535e9108741e83875c95b1b39f54bb36a3b60d7bad900ddc76fb35395fba2",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "receipt_paths.validation",
+        "original_sha256": "sha256:905750620271e446cc72faa50ec5774540f75c5aeace17e7861ea4e21fad9ed2",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "private_home_path_transform"
+    ]
+  },
+  "receipt_paths": {
+    "board": "<private-home-path>",
+    "result": "<private-home-path>",
+    "validation": "<private-home-path>"
+  },
+  "schema_version": "annex_knowledge_routing_validation_receipt_v1",
+  "status": "pass"
+}

@@ -14,7 +14,10 @@ import ast
 import hashlib
 import json
 import shlex
+import tempfile
+import time
 from collections import Counter
+from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
@@ -473,6 +476,8 @@ def _source_module_refs(root: Path, organ_id: str) -> list[str]:
                 continue
             relative = path.relative_to(root)
             if "source_modules" not in relative.parts:
+                continue
+            if "__pycache__" in relative.parts or path.suffix == ".pyc":
                 continue
             refs.add(relative.as_posix())
     for manifest_ref in _source_module_manifest_refs(root, organ_id):
@@ -1625,6 +1630,264 @@ def _global_doctrine_surfaces(root: Path) -> dict[str, Any]:
     }
 
 
+def refresh_acceptance_evidence(root: Path) -> list[str]:
+    """Refresh the current acceptance index from the evidence-class authority.
+
+    Historical receipts and acceptance commands remain unchanged. Unknown or
+    duplicate evidence rows fail before a write rather than selecting a default.
+    """
+    evidence = read_json_strict(root / "core/organ_evidence_classes.json")
+    profiles = evidence["class_profiles"]
+    rows = evidence["organ_evidence_classes"]
+    by_id = {row["organ_id"]: row for row in rows}
+    if len(by_id) != len(rows):
+        raise ValueError("duplicate organ evidence-class rows")
+    path = root / ACCEPTANCE_PLAN_REF
+    acceptance = read_json_strict(path)
+    changed = []
+    for row in acceptance["accepted_current_authority_organs"]:
+        organ_id = row["organ_id"]
+        evidence_class = by_id[organ_id]["evidence_class"]
+        profile = profiles[evidence_class]
+        expected = {
+            "evidence_class": evidence_class,
+            "counts_as_real_substrate_progress": profile["counts_as_real_substrate_progress"],
+            "truth_accounting_bucket": profile["truth_accounting_bucket"],
+        }
+        if any(row.get(key) != value for key, value in expected.items()):
+            row.update(expected)
+            changed.append(organ_id)
+    if changed:
+        # This is a maintained current index, not a validator's historical receipt.
+        path.write_text(json.dumps(acceptance, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return changed
+
+
+def refresh_public_runtime_index(root: Path) -> dict[str, list[str]]:
+    """Bind current catalogue rows to shipped inputs and public receipts.
+
+    Missing manifests are projections of existing native runtime declarations.
+    Existing manifests and every historical receipt remain untouched.
+    """
+    from microcosm_core.runtime_shell import RUNTIME_STEPS
+
+    path = root / "core/organ_registry.json"
+    registry = read_json_strict(path)
+    steps = {step.organ_id: step for step in RUNTIME_STEPS}
+    created, rebound = [], []
+    for row in _accepted_registry_rows(registry):
+        organ_id = row["organ_id"]
+        step = steps.get(organ_id)
+        manifest = root / f"core/fixture_manifests/{organ_id}.fixture_manifest.json"
+        if not manifest.exists() and step is not None and (root / step.example_rel).is_dir():
+            manifest.write_text(json.dumps({
+                "schema_version": "microcosm_fixture_manifest_v1",
+                "organ_id": organ_id,
+                "fixture_id": f"first_wave.{organ_id}",
+                "input_root": step.example_rel,
+                "inputs": [{"path": step.example_rel, "kind": "native_runtime_bundle"}],
+                "validator_command": row["validator_command"],
+                "expected_receipts": row.get("generated_receipts", []),
+                "claim_ceiling": row.get("claim_ceiling"),
+                "generated_from": "core/organ_registry.json + microcosm_core.runtime_shell.RUNTIME_STEPS",
+                "anti_claim": "This manifest declares the shipped native replay input; input presence is not a passing replay or a formal proof.",
+            }, indent=2) + "\n", encoding="utf-8")
+            created.append(organ_id)
+        current = str(row.get("current_authority_receipt") or "")
+        if current and (root / current).is_file():
+            receipt = read_json_strict(root / current)
+            if (isinstance(receipt, dict) and receipt.get("status") == "pass"
+                    and receipt.get("organ_id") == organ_id):
+                continue
+        candidates = list(_as_list(row.get("generated_receipts")))
+        runtime_receipt = (
+            f"receipts/first_wave/{organ_id}/{step.receipt_name}"
+            if step is not None and getattr(step, "receipt_name", "") else ""
+        )
+        if runtime_receipt and runtime_receipt not in candidates:
+            candidates.append(runtime_receipt)
+        for ref in candidates:
+            candidate = root / str(ref)
+            if not candidate.is_file():
+                continue
+            receipt = read_json_strict(candidate)
+            if not isinstance(receipt, dict) or receipt.get("status") != "pass":
+                continue
+            if receipt.get("organ_id") != organ_id:
+                continue
+            row.setdefault("historical_source_authority_receipt", current)
+            row["current_authority_receipt"] = str(ref)
+            if ref == runtime_receipt:
+                row["current_evidence_scope"] = step.input_mode
+            rebound.append(organ_id)
+            break
+    if rebound:
+        path.write_text(json.dumps(registry, indent=2) + "\n", encoding="utf-8")
+    return {"created_fixture_manifests": created, "rebound_public_receipt_refs": rebound}
+
+
+def _claim_assurance(
+    root: Path, registry_row: dict[str, Any], runtime_step: Any,
+) -> dict[str, Any]:
+    """Keep input availability, recorded evidence and proof authority separate."""
+    input_ref = runtime_step.example_rel if runtime_step is not None else ""
+    evidence = []
+    refs = list(_as_list(registry_row.get("generated_receipts")))
+    current_ref = registry_row.get("current_authority_receipt")
+    if current_ref and current_ref not in refs:
+        refs.append(current_ref)
+    for ref in refs:
+        path = root / str(ref)
+        status = "missing"
+        if path.is_file():
+            try:
+                payload = read_json_strict(path)
+                status = str(payload.get("status", "no_verdict")) if isinstance(payload, dict) else "invalid"
+            except (OSError, ValueError):
+                status = "invalid"
+        evidence.append({"ref": str(ref), "recorded_status": status})
+    return {
+        "evidence_class": registry_row.get("evidence_class"),
+        "claim_ceiling": registry_row.get("claim_ceiling"),
+        "runtime_input_ref": input_ref,
+        "runtime_input_status": "present" if input_ref and (root / input_ref).is_dir() else "missing",
+        "recorded_evidence": evidence,
+        "recorded_evidence_freshness": "not_checked",
+        "replay": {"status": "not_run"},
+        "formal_proof_of_component_correctness": "not_established_by_this_audit",
+    }
+
+
+def native_replay_step(step: Any) -> Any:
+    """Select existing live Lean runners for explicit assurance replays only."""
+    if step.organ_id == "lean_proof_search_lab_runtime":
+        from microcosm_core.organs import lean_proof_search_lab_runtime as lab
+
+        return replace(step, example_rel="fixtures/first_wave/lean_proof_search_lab_runtime/input",
+                       input_mode="lean_proof_search_lab_fixture_cases",
+                       runner=lab.run, receipt_name=lab.RESULT_NAME)
+    if step.organ_id == "formal_math_lean_proof_witness":
+        from microcosm_core.organs import formal_math_lean_proof_witness as witness
+
+        return replace(step, example_rel="fixtures/first_wave/formal_math_lean_proof_witness/input",
+                       input_mode="first_wave_fixture",
+                       runner=witness.run, receipt_name=witness.RESULT_NAME)
+    return step
+
+
+def replay_verdict(step: Any, result: dict[str, Any]) -> str:
+    """A compatibility-only receipt cannot satisfy the explicit live Lean replay."""
+    status = str(result.get("status") or "missing_verdict")
+    if step.organ_id == "lean_proof_search_lab_runtime" and status == "pass":
+        from microcosm_core.organs import lean_proof_search_lab_runtime as lab
+
+        if (result.get("execution_witness_mode") != lab.EXECUTION_LIVE
+                or result.get("verification_performed") is not True
+                or result.get("tool_state") != lab.TOOL_PRESENT_AND_VERIFIED):
+            return "missing_native_lean_witness"
+    if step.organ_id == "formal_math_lean_proof_witness" and status == "pass":
+        from microcosm_core.organs import formal_math_lean_proof_witness as witness
+
+        tools = result.get("tool_versions")
+        build = result.get("lake_build")
+        observed = result.get("observed_negative_cases")
+        declarations = result.get("compiled_declaration_count")
+        if (result.get("execution_witness_mode") != "live_lean_lake_execution"
+                or result.get("synthetic_contract") is True
+                or result.get("not_a_live_run") is True
+                or result.get("real_runtime_receipt") is False
+                or not isinstance(tools, dict)
+                or tools.get("lean_available") is not True
+                or tools.get("lake_available") is not True
+                or not isinstance(build, dict)
+                or type(build.get("return_code")) is not int
+                or build.get("return_code") != 0
+                or build.get("timed_out") is not False
+                or build.get("skipped")
+                or type(declarations) is not int or declarations < 1
+                or not isinstance(observed, dict)
+                or not set(witness.EXPECTED_NEGATIVE_CASES).issubset(observed)
+                or result.get("missing_negative_cases") != []):
+            return "missing_native_lean_lake_witness"
+    return status
+
+
+def replay_organ_surfaces(
+    root: Path, out: Path, rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Exercise every selected native runtime step without refreshing shipped evidence."""
+    from microcosm_core.runtime_shell import RUNTIME_STEPS
+
+    root, out = root.resolve(), out.resolve()
+    if out.is_relative_to(root) and not out.is_relative_to(root / ".microcosm"):
+        raise ValueError("replay output inside the checkout must be under .microcosm")
+    # An external output root must not contain the checkout either.
+    if root.is_relative_to(out):
+        raise ValueError("replay output must not contain the checkout")
+    steps = {step.organ_id: native_replay_step(step) for step in RUNTIME_STEPS}
+    out.mkdir(parents=True, exist_ok=True)
+    run_out = Path(tempfile.mkdtemp(prefix="run-", dir=out))
+    for row in rows:
+        organ_id = row["organ_id"]
+        step = steps.get(organ_id)
+        if step is None:
+            row["claim_assurance"]["replay"] = {"status": "missing_runtime_step"}
+            continue
+        started = time.monotonic()
+        try:
+            component_out = run_out / organ_id
+            result = step.runner(root / step.example_rel, component_out,
+                                 "plectis organ-surface-contract --replay-out")
+            receipt_path = component_out / step.receipt_name
+            receipt_status = None
+            if receipt_path.is_file():
+                if receipt_path.is_symlink():
+                    raise ValueError("replay receipt must be a newly written regular file")
+                recorded = read_json_strict(receipt_path)
+                if not isinstance(recorded, dict) or recorded.get("status") != result.get("status"):
+                    raise ValueError("replay receipt verdict differs from the runner result")
+                if "organ_id" in recorded and recorded["organ_id"] != organ_id:
+                    raise ValueError("replay receipt names a different component")
+                if (replay_verdict(step, result) == "pass"
+                        and replay_verdict(step, recorded) != "pass"):
+                    raise ValueError("replay receipt lacks the runner's native execution witness")
+                receipt_status = recorded.get("status")
+            exercise = result.get("exercise", {})
+            replay = {
+                "status": replay_verdict(step, result),
+                "input_ref": step.example_rel,
+                "execution_status": result.get("execution_status") or (
+                    exercise.get("status") if isinstance(exercise, dict) else None
+                ),
+                "error_codes": result.get("error_codes", []),
+                "receipt_ref": str(receipt_path),
+                "receipt_written": receipt_path.is_file(),
+                "receipt_status": receipt_status,
+                "execution_witness_mode": result.get("execution_witness_mode"),
+                "verification_performed": result.get("verification_performed"),
+                "lean_executed": result.get("lean_executed"),
+                "tool_state": result.get("tool_state"),
+                "real_runtime_receipt": result.get("real_runtime_receipt"),
+                "not_a_live_run": result.get("not_a_live_run"),
+            }
+            if replay["status"] == "pass" and not replay["receipt_written"]:
+                replay["status"] = "missing_replay_receipt"
+        except Exception as exc:
+            # A broken component must not suppress the remaining coverage. Do not
+            # put exception text (possibly host paths or input bodies) in a receipt.
+            replay = {"status": "exception", "exception_type": type(exc).__name__}
+        replay["elapsed_seconds"] = round(time.monotonic() - started, 3)
+        row["claim_assurance"]["replay"] = replay
+    counts = Counter(row["claim_assurance"]["replay"]["status"] for row in rows)
+    return {
+        "status": "pass" if counts.get("pass", 0) == len(rows) else "blocked",
+        "component_count": len(rows),
+        "status_counts": dict(sorted(counts.items())),
+        "out": str(run_out),
+        "anti_claim": "Fresh bounded bundle replays are tests of the declared claims, not formal proofs of component correctness.",
+    }
+
+
 def build_organ_surface_contract(root: str | Path | None = None) -> dict[str, Any]:
     """
     Serialize
@@ -1655,6 +1918,9 @@ def build_organ_surface_contract(root: str | Path | None = None) -> dict[str, An
         if isinstance(row, dict) and row.get("organ_id")
     }
     runtime_step_ids = _runtime_step_ids()
+    from microcosm_core.runtime_shell import RUNTIME_STEPS
+
+    runtime_steps = {step.organ_id: step for step in RUNTIME_STEPS}
     cli_command_names = _cli_command_names(root)
     global_doctrine_surfaces = _global_doctrine_surfaces(root)
 
@@ -1686,6 +1952,15 @@ def build_organ_surface_contract(root: str | Path | None = None) -> dict[str, An
         current_authority_receipt_present = bool(
             current_authority_receipt_ref
         ) and _resolve_ref(root, current_authority_receipt_ref).is_file()
+        current_authority_receipt_status = "missing"
+        if current_authority_receipt_present:
+            try:
+                receipt = read_json_strict(_resolve_ref(root, current_authority_receipt_ref))
+                current_authority_receipt_status = str(receipt.get("status") or "no_verdict")
+                if receipt.get("organ_id") != organ_id:
+                    current_authority_receipt_status = "wrong_component"
+            except (OSError, ValueError, AttributeError):
+                current_authority_receipt_status = "invalid"
         acceptance_plan_row = acceptance_plan_by_id.get(organ_id, {})
         acceptance_plan_row_present = (
             bool(acceptance_plan_row)
@@ -1736,7 +2011,7 @@ def build_organ_surface_contract(root: str | Path | None = None) -> dict[str, An
         checks = {
             "runner_source_file": runner_source_present,
             "validator_command": validator_command_ok,
-            "current_authority_receipt": current_authority_receipt_present,
+            "current_authority_receipt": current_authority_receipt_status == "pass",
             "acceptance_plan_row": acceptance_plan_row_present,
             "acceptance_metadata": acceptance_metadata_audit["ok"],
             "synthetic_acceptance_disposition": disposition_audit["ok"],
@@ -1755,7 +2030,7 @@ def build_organ_surface_contract(root: str | Path | None = None) -> dict[str, An
             missing["runner_source_files"].append(organ_id)
         if not validator_command_ok:
             missing["validator_commands"].append(organ_id)
-        if not current_authority_receipt_present:
+        if current_authority_receipt_status != "pass":
             missing["current_authority_receipts"].append(organ_id)
         if not acceptance_plan_row_present:
             missing["acceptance_plan_rows"].append(organ_id)
@@ -1807,6 +2082,7 @@ def build_organ_surface_contract(root: str | Path | None = None) -> dict[str, An
                 "runner": runner,
                 "runner_source_ref": runner_source_ref,
                 "validator_command": validator_command,
+                "claim_assurance": _claim_assurance(root, registry_row, runtime_steps.get(organ_id)),
                 "real_substrate_disposition": disposition_audit[
                     "real_substrate_disposition"
                 ],
@@ -1816,6 +2092,7 @@ def build_organ_surface_contract(root: str | Path | None = None) -> dict[str, An
                 "disposition_audit": disposition_audit,
                 "acceptance_metadata_audit": acceptance_metadata_audit,
                 "current_authority_receipt_ref": current_authority_receipt_ref,
+                "current_authority_receipt_status": current_authority_receipt_status,
                 "acceptance_plan_ref": (
                     f"{ACCEPTANCE_PLAN_REF}::accepted_current_authority_organs"
                     f"[organ_id={organ_id}]"
@@ -1947,6 +2224,14 @@ def build_organ_surface_contract(root: str | Path | None = None) -> dict[str, An
         "authority_posture": AUTHORITY_POSTURE,
         "root": str(root),
         "accepted_organ_count": len(registry_rows),
+        "claim_assurance": {
+            "component_count": len(rows),
+            "runtime_input_present_count": sum(row["claim_assurance"]["runtime_input_status"] == "present" for row in rows),
+            "evidence_class_counts": dict(sorted(Counter(str(row["claim_assurance"]["evidence_class"]) for row in rows).items())),
+            "missing_recorded_evidence_count": sum(e["recorded_status"] == "missing" for row in rows for e in row["claim_assurance"]["recorded_evidence"]),
+            "replay_status": "not_run",
+            "formal_proof_of_component_correctness": "not_established_by_this_audit",
+        },
         "surface_contract": {
             "source": "core/organ_registry.json::implemented_organs[status=accepted_current_authority]",
             "required_per_organ_surfaces": [
@@ -2095,6 +2380,7 @@ def build_card(payload: dict[str, Any]) -> dict[str, Any]:
         "status": payload["status"],
         "authority_posture": payload["authority_posture"],
         "accepted_organ_count": payload["accepted_organ_count"],
+        "claim_assurance": payload["claim_assurance"],
         "missing_surface_counts": {
             key: len(values) for key, values in missing.items() if values
         },
@@ -2400,6 +2686,16 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--out", help="optional JSON output path")
     parser.add_argument(
+        "--refresh-acceptance-evidence", action="store_true",
+        help="refresh only current acceptance evidence classifications from core/organ_evidence_classes.json",
+    )
+    parser.add_argument("--refresh-public-runtime-index", action="store_true",
+                        help="generate absent native input manifests and bind missing current receipt refs to shipped public evidence")
+    parser.add_argument(
+        "--replay-out",
+        help="explicitly replay every native component into this output directory; checkout outputs must be under .microcosm",
+    )
+    parser.add_argument(
         "--card",
         action="store_true",
         help="emit compact counts instead of the full per-organ rows",
@@ -2442,7 +2738,21 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
+    if args.refresh_acceptance_evidence:
+        refresh_acceptance_evidence(Path(args.root))
+    if args.refresh_public_runtime_index:
+        refresh_public_runtime_index(Path(args.root))
     payload = build_organ_surface_contract(args.root)
+    if args.replay_out:
+        try:
+            replay = replay_organ_surfaces(Path(args.root), Path(args.replay_out), payload["rows"])
+        except ValueError as exc:
+            parser.error(str(exc))
+        payload["claim_assurance"]["replay_status"] = replay["status"]
+        payload["claim_assurance"]["replay"] = replay
+        if replay["status"] != "pass":
+            payload["status"] = "blocked"
+        write_json_atomic(Path(args.replay_out) / "organ_surface_contract.json", payload)
     if (
         args.topology
         or args.organ

@@ -13,9 +13,11 @@ out of the payload.
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
 import subprocess
+import tempfile
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -91,6 +93,7 @@ PUBLIC_SAFE_REAL_RECORD_CLASSES = frozenset(
         "real_repo_mission_transaction_record",
         "real_repo_work_landing_record",
         "real_repo_task_ledger_record",
+        "real_public_source_change_record",
     }
 )
 REAL_RECORD_REQUIRED_COMMIT_PATH_SUFFIXES = (
@@ -98,6 +101,8 @@ REAL_RECORD_REQUIRED_COMMIT_PATH_SUFFIXES = (
     "proof_derived_governed_mutation_authorization.py",
     "microcosm-substrate/tests/"
     "test_proof_derived_governed_mutation_authorization.py",
+    "src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+    "tests/test_proof_derived_governed_mutation_authorization.py",
 )
 
 INPUT_NAMES = (
@@ -383,6 +388,8 @@ def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Pa
     return [
         *_input_paths(input_dir, include_negative=include_negative),
         *_source_module_paths(input_dir, public_root=public_root),
+        *([input_dir / "public_commit_witness.json"]
+          if (input_dir / "public_commit_witness.json").is_file() else []),
     ]
 
 
@@ -399,6 +406,8 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     return [
         *_input_paths(source, include_negative=include_negative),
         *_source_module_paths(source, public_root=public_root),
+        *([source / "public_commit_witness.json"]
+          if (source / "public_commit_witness.json").is_file() else []),
         Path(__file__).resolve(),
         public_root / "core/private_state_forbidden_classes.json",
     ]
@@ -1260,7 +1269,147 @@ def _git_output(repo_root: Path, args: list[str]) -> str | None:
     return proc.stdout.rstrip("\n")
 
 
-def _git_commit_evidence(commit_ref: str, *, public_root: Path) -> dict[str, Any]:
+def build_public_commit_witness(repo_root: Path, commit_ref: str) -> dict[str, Any]:
+    """Export Git commit/tree objects needed to check changed public source paths.
+
+    File bodies and unrelated history are omitted. The verifier checks every
+    object hash and follows the commit's tree, rather than trusting saved labels.
+    """
+    full_ref = _git_output(repo_root, ["rev-parse", "--verify", f"{commit_ref}^{{commit}}"])
+    if not full_ref:
+        raise ValueError("commit does not resolve")
+    changed = _git_output(repo_root, ["show", "--name-only", "--format=", full_ref]) or ""
+    paths = [p for p in changed.splitlines()
+             if any(p.endswith(s) for s in REAL_RECORD_REQUIRED_COMMIT_PATH_SUFFIXES)]
+    if not paths:
+        raise ValueError("commit does not change a governed-mutation source or test")
+    parent = _git_output(repo_root, ["rev-parse", f"{full_ref}^"])
+    if not parent:
+        raise ValueError("commit needs a parent to prove changed paths")
+    objects: dict[str, dict[str, str]] = {}
+    for revision in (full_ref, parent):
+        refs = [(revision, "commit")]
+        for path in paths:
+            refs.append((f"{revision}^{{tree}}", "tree"))
+            for directory in Path(path).parents:
+                if directory.as_posix() != ".":
+                    refs.append((f"{revision}:{directory.as_posix()}", "tree"))
+        for ref, kind in refs:
+            oid = _git_output(repo_root, ["rev-parse", "--verify", ref])
+            if not oid or oid in objects:
+                continue
+            data = subprocess.check_output(["git", "-C", str(repo_root), "cat-file", kind, oid], timeout=5)
+            objects[oid] = {"oid": oid, "kind": kind,
+                            "data_base64": base64.b64encode(data).decode("ascii")}
+    return {"schema_version": "public_git_commit_scope_witness_v1",
+            "commit_ref": full_ref, "paths": paths, "objects": list(objects.values()),
+            "claim_ceiling": "Git object identity and changed source paths; no mutation execution claim."}
+
+
+def _portable_commit_evidence(commit_ref: str, path: Path) -> dict[str, Any] | None:
+    """Reconstruct a bounded, body-free Git object witness in an isolated store."""
+    try:
+        if path.stat().st_size > 2_000_000:
+            return None
+        payload = read_json_strict(path)
+        if not isinstance(payload, dict) or payload.get("schema_version") != "public_git_commit_scope_witness_v1":
+            return None
+        full_ref = str(payload["commit_ref"])
+        if not full_ref.startswith(commit_ref) or len(full_ref) != 40:
+            return None
+        objects = payload["objects"]
+        paths = payload["paths"]
+        if not isinstance(objects, list) or not 1 <= len(objects) <= 64:
+            return None
+        if not isinstance(paths, list) or not 1 <= len(paths) <= 16:
+            return None
+        with tempfile.TemporaryDirectory(prefix="plectis-commit-witness-") as scratch:
+            repo = Path(scratch)
+            subprocess.run(["git", "init", "--bare", "-q", str(repo)], check=True,
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=5)
+            for row in objects:
+                if row["kind"] not in {"commit", "tree"}:
+                    return None
+                data = base64.b64decode(row["data_base64"], validate=True)
+                if len(data) > 262_144:
+                    return None
+                digest = hashlib.sha1(f"{row['kind']} {len(data)}\0".encode() + data).hexdigest()
+                if digest != row["oid"]:
+                    return None
+                proc = subprocess.run(["git", "-C", str(repo), "hash-object", "-t", row["kind"], "-w", "--stdin"],
+                                      input=data, capture_output=True, check=True, timeout=5)
+                if proc.stdout.decode().strip() != digest:
+                    return None
+            commit_text = _git_output(repo, ["cat-file", "commit", full_ref])
+            subject = (
+                " ".join(commit_text.split("\n\n", 1)[1].split("\n\n", 1)[0].splitlines())
+                if commit_text and "\n\n" in commit_text else None
+            )
+            parent = _git_output(repo, ["rev-parse", f"{full_ref}^"])
+            if subject is None or not parent:
+                return None
+            matched = []
+            for relative in paths:
+                if not isinstance(relative, str) or relative.startswith("/") or ".." in Path(relative).parts:
+                    return None
+                before = _git_output(repo, ["ls-tree", "-r", parent, "--", relative])
+                after = _git_output(repo, ["ls-tree", "-r", full_ref, "--", relative])
+                if before is None or after is None:
+                    return None
+                if after and before != after and any(relative.endswith(s) for s in REAL_RECORD_REQUIRED_COMMIT_PATH_SUFFIXES):
+                    matched.append(relative)
+            if not matched:
+                return None
+            return {"status": PASS, "verified": True, "commit_ref": full_ref,
+                    "commit_subject": subject, "repo_root_ref": "public_commit_witness",
+                    "touched_paths": matched, "matched_required_paths": matched,
+                    "scope_verified": True, "evidence_basis": "verified_git_object_witness",
+                    "evidence_digest": "sha256:" + hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()}
+    except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError):
+        return None
+
+
+def refresh_public_record_identity(input_dir: Path, repo_root: Path, commit_ref: str) -> None:
+    """Bind public example records to a verifiable public source change.
+
+    Earlier upstream identifiers remain historical metadata. This does not
+    turn a source change into evidence that the simulated proposals ran.
+    """
+    witness = build_public_commit_witness(repo_root, commit_ref)
+    witness_path = input_dir / "public_commit_witness.json"
+    write_json_atomic(witness_path, witness)
+    evidence = _portable_commit_evidence(witness["commit_ref"], witness_path)
+    if evidence is None:
+        raise ValueError("generated public commit witness did not verify")
+    path = input_dir / GOVERNED_MUTATION_RECORDS_NAME
+    payload = read_json_strict(path)
+    for row in payload["governed_mutation_records"]:
+        previous = str(row.get("commit_ref") or "")
+        if previous != evidence["commit_ref"]:
+            row.setdefault("historical_upstream_identity", {
+                "commit_ref": previous, "commit_subject": row.get("commit_subject"),
+                "verification_status": "not_available_in_public_history",
+            })
+        row["commit_ref"] = evidence["commit_ref"]
+        historical = row.setdefault("historical_upstream_identity", {})
+        historical.setdefault("source_record_class", row.get("source_record_class"))
+        historical.setdefault("record_role", row.get("record_role"))
+        historical.setdefault("source_refs", [ref for ref in _strings(row.get("source_refs"))
+                                               if not ref.startswith(("git:", "commit:"))
+                                               and ref != "public_commit_witness.json"])
+        row["commit_subject"] = evidence["commit_subject"]
+        row["record_id"] = "public_source_record." + str(row["proposal_id"]) + "." + evidence["commit_ref"][:10]
+        row["source_record_class"] = "real_public_source_change_record"
+        row["record_role"] = "public_source_change_supporting_symbolic_proposal"
+        row["source_refs"] = ["git:" + evidence["commit_ref"], "public_commit_witness.json",
+                              *evidence["matched_required_paths"]]
+        row["claim_ceiling"] = "Real public source-change record supporting this symbolic proposal; no live mutation execution claim."
+    write_json_atomic(path, payload)
+
+
+def _git_commit_evidence(
+    commit_ref: str, *, public_root: Path, witness_path: Path | None = None,
+) -> dict[str, Any]:
     """
     Serialize
     `microcosm_core.organs.proof_derived_governed_mutation_authorization._git_commit_evidence`
@@ -1310,6 +1459,10 @@ def _git_commit_evidence(commit_ref: str, *, public_root: Path) -> dict[str, Any
             "scope_verified": bool(matched_paths),
             "evidence_digest": f"sha256:{evidence_digest}",
         }
+    if witness_path is not None:
+        portable = _portable_commit_evidence(commit_ref, witness_path)
+        if portable is not None:
+            return portable
     return {
         "status": "blocked",
         "verified": False,
@@ -2251,7 +2404,10 @@ def validate_governed_mutation_records(
             proposal_id,
         )
         commit_ref = str(row.get("commit_ref") or "")
-        commit_evidence = _git_commit_evidence(commit_ref, public_root=public_root)
+        commit_evidence = _git_commit_evidence(
+            commit_ref, public_root=public_root,
+            witness_path=input_dir / "public_commit_witness.json",
+        )
         reasons: list[str] = []
         rollback_refs_match = True
         proof_record_digests = {
@@ -2389,7 +2545,14 @@ def validate_governed_mutation_records(
                     record_id=record_id,
                     subject_kind="commit_scope",
                 )
-        if (
+        public_source_refs_complete = (
+            record_class == "real_public_source_change_record"
+            and row.get("record_role") == "public_source_change_supporting_symbolic_proposal"
+            and any(ref.startswith(("git:", "commit:")) for ref in source_refs)
+            and "public_commit_witness.json" in source_refs
+            and bool(set(source_refs) & set(commit_evidence.get("matched_required_paths", [])))
+        )
+        if not public_source_refs_complete and (
             len(source_refs) < 4
             or not any(ref.startswith(("git:", "commit:")) for ref in source_refs)
             or not any("mission_transaction" in ref for ref in source_refs)

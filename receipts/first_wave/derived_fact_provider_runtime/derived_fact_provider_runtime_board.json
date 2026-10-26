@@ -1,0 +1,10 @@
+{
+  "anti_claim": "The derived fact provider runtime organ evaluates authored fact registries over public fixture roots only. It does not audit whether prose claims are true, does not export the full macro fact registry, does not perform semantic claim validation, does not export private macro state, credentials, or raw operator threads, and it does not authorize release or publication. A clean provider receipt means the registered facts resolved against the supplied root, not that any downstream claim is true. A malformed registry cannot pass because the provider recomputes each row and records the planted defect as an error-as-data row with the expected error_class.",
+  "case_count": 4,
+  "claim_ceiling": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
+  "negative_case_count": 2,
+  "organ_id": "derived_fact_provider_runtime",
+  "positive_case_count": 2,
+  "schema_version": "derived_fact_provider_runtime_board_v1",
+  "status": "pass"
+}

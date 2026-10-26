@@ -1,0 +1,54 @@
+{
+  "anti_claim": "The Lean proof-search lab runtime organ searches and Lean-checks bounded public toy theorems only. It is not neural theorem proving, does not solve open problems, does not forward an oracle proof body or oracle-needed premise ids, and does not export private macro state, credentials, provider state, or raw operator threads; it does not call providers and does not authorize release or publication. When Lean is installed, a candidate that leaks a forward oracle field, depends on sorry, or only works because it memorised the problem id cannot pass, because the capsule recomputes the search, the firewall, the axiom audit, and the problem-id ablation. When Lean is absent, the organ is locked and asserts no verification at all.",
+  "body_in_receipt": false,
+  "claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
+  "fixture_id": "first_wave.lean_proof_search_lab_runtime",
+  "generated_receipts": [
+    "<private-home-path>",
+    "<private-home-path>",
+    "<private-home-path>",
+    "<private-home-path>"
+  ],
+  "lean_available": true,
+  "organ_id": "lean_proof_search_lab_runtime",
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 4,
+    "replacements": [
+      {
+        "field_path": "generated_receipts[0]",
+        "original_sha256": "sha256:632c9f9eb5cd47fb265dcccee45a9346e05403b39193d58be2653ace0d133bf3",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[1]",
+        "original_sha256": "sha256:82ff48dd51601f357dcf022effa95b36dc1a40e78af23a2424b39e168b98b548",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[2]",
+        "original_sha256": "sha256:777d1f9a878abb910b7b920963388d5c3b4e81a9f7e6b30554e6597be175eb5e",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[3]",
+        "original_sha256": "sha256:392be3ddaad69102d6b9964c12c4542a057b7b8d42f46eea8bf5f3322fc10c2f",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "private_home_path_transform"
+    ]
+  },
+  "real_substrate_disposition": "real_substrate_capsule",
+  "schema_version": "lean_proof_search_lab_runtime_acceptance_receipt_v1",
+  "status": "pass",
+  "tool_state": "tool_present_and_verified"
+}

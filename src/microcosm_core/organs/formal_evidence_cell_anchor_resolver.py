@@ -298,6 +298,12 @@ def _public_ref_candidates(path_ref: str, *, public_root: Path) -> list[Path]:
     else:
         candidates.append(public_root / path_ref)
         candidates.append(repo_root / path_ref)
+    if path_ref.startswith("state/runs/"):
+        relative_run = path_ref.removeprefix("state/runs/")
+        candidates.extend([
+            public_root / "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_modules/ring2_runs" / relative_run,
+            public_root / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs" / relative_run,
+        ])
     deduped: list[Path] = []
     seen: set[Path] = set()
     for candidate in candidates:
@@ -552,6 +558,25 @@ def _live_source_path_from_module(public_root: Path, row: dict[str, Any]) -> Pat
     if candidate.is_absolute():
         return candidate
     return _repo_root_for_public_root(public_root) / candidate
+
+
+def _shipped_source_digests() -> dict[str, str]:
+    """The package's pinned import manifest is provenance for standalone replays.
+
+    A supplied bundle cannot redefine its own source hash. Live-source checking
+    remains stronger when the named source is available; this fallback speaks
+    only for the recorded snapshot distributed with this package.
+    """
+    from microcosm_core.resource_root import microcosm_root
+
+    manifest = microcosm_root() / SOURCE_MODULE_MANIFEST_REF
+    if not manifest.is_file():
+        return {}
+    payload = read_json_strict(manifest)
+    return {
+        str(row.get("module_id")): str(row.get("source_sha256") or "").removeprefix("sha256:")
+        for row in _rows(payload, "modules")
+    }
 
 
 def _source_module_scan_paths(input_dir: Path) -> list[Path]:
@@ -972,6 +997,7 @@ def validate_source_module_manifest(
     module_results: list[dict[str, Any]] = []
     verified_ids: list[str] = []
     material_classes: set[str] = set()
+    shipped_source_digests = _shipped_source_digests()
     for row in modules:
         source_ref = str(row.get("source_ref") or "")
         material_id = str(row.get("module_id") or source_ref or "source_module")
@@ -1004,6 +1030,10 @@ def validate_source_module_manifest(
             and source_authority_exists
             and actual_source_digest == expected_source_digest
             and actual_digest == actual_source_digest
+        )
+        snapshot_digest = shipped_source_digests.get(material_id, "")
+        snapshot_digest_matches = bool(snapshot_digest) and (
+            actual_digest == expected_source_digest == snapshot_digest
         )
         line_count_matches = (
             isinstance(expected_line_count, int)
@@ -1061,7 +1091,17 @@ def validate_source_module_manifest(
                     subject_kind="source_module",
                 )
             )
-        elif not source_authority_exists:
+        elif not digest_matches:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Copied evidence-cell anchor source module digest differs from the manifest.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif not source_authority_exists and not snapshot_digest:
             findings.append(
                 _finding(
                     "EVIDENCE_CELL_SOURCE_MODULE_SOURCE_AUTHORITY_MISSING",
@@ -1071,21 +1111,11 @@ def validate_source_module_manifest(
                     subject_kind="source_module",
                 )
             )
-        elif not source_authority_digest_matches:
+        elif not (source_authority_digest_matches if source_authority_exists else snapshot_digest_matches):
             findings.append(
                 _finding(
                     "EVIDENCE_CELL_SOURCE_MODULE_SOURCE_AUTHORITY_DIGEST_MISMATCH",
                     "Copied evidence-cell anchor source module must match the live source_ref authority digest, not only bundle-local manifest hashes.",
-                    case_id="source_module_manifest_floor",
-                    subject_id=material_id,
-                    subject_kind="source_module",
-                )
-            )
-        elif not digest_matches:
-            findings.append(
-                _finding(
-                    "EVIDENCE_CELL_SOURCE_MODULE_DIGEST_MISMATCH",
-                    "Copied evidence-cell anchor source module digest differs from the manifest.",
                     case_id="source_module_manifest_floor",
                     subject_id=material_id,
                     subject_kind="source_module",
@@ -1140,6 +1170,8 @@ def validate_source_module_manifest(
                     f"sha256:{actual_source_digest}" if actual_source_digest else ""
                 ),
                 "source_authority_digest_matches": source_authority_digest_matches,
+                "shipped_snapshot_digest_matches": snapshot_digest_matches,
+                "source_authority_basis": "live_source" if source_authority_exists else "shipped_pinned_snapshot",
                 "line_count": actual_line_count,
                 "line_count_matches": line_count_matches,
                 "byte_count": actual_byte_count,
@@ -1174,7 +1206,8 @@ def validate_source_module_manifest(
             "lean_lake_execution_authorized": False,
             "formal_proof_authority": False,
             "theorem_correctness_authority": False,
-            "source_body_bound_to_live_source_authority": status == PASS,
+            "source_body_bound_to_live_source_authority": status == PASS and all(row["source_authority_digest_matches"] for row in module_results),
+            "source_body_bound_to_shipped_snapshot": status == PASS and all(row["shipped_snapshot_digest_matches"] for row in module_results),
             "release_authorized": False,
         },
     }

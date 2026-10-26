@@ -8,6 +8,9 @@ project, walks through examples and records how to maintain the software.
 
 ## Start here
 
+Start with the [workflow-change experiment](guides/verification-study.md) for
+the portable operations and their formal verification boundaries.
+
 1. Read the [project overview](overview.md) to understand why these tools exist
    and how they relate to the mathematics and website.
 2. Run the [quickstart](../QUICKSTART.md) from a clone. No package installation

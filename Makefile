@@ -1,4 +1,5 @@
 PYTHON ?= python3
+DAFNY ?= dafny
 TMPDIR ?= /tmp
 PYTEST_TMP_KEY ?= $(shell "$(PYTHON)" -c 'import hashlib, os; print(hashlib.sha256(os.getcwd().encode()).hexdigest()[:12])')
 PYTEST_TMP_KEY := $(PYTEST_TMP_KEY)
@@ -57,6 +58,9 @@ PUBLIC_TESTS ?= \
 	tests/test_release_candidate_proof.py \
 	tests/test_release_review_contract.py \
 	tests/test_public_site_parity.py
+OPERATIONS_TESTS = tests/test_repair.py tests/test_repair_api.py tests/test_publish.py tests/test_compatibility.py tests/test_operations_integration.py tests/test_operations_boundaries.py tests/test_operations_portability.py
+OPERATIONS_TESTS += tests/test_operations_recovery.py tests/test_sealed_kernel.py tests/test_compatibility_witness.py tests/test_public_views.py tests/test_public_views_recipe_change.py
+PUBLIC_TESTS += $(OPERATIONS_TESTS)
 PUBLIC_TESTS += tests/test_public_system_paper.py
 PUBLIC_TESTS += tests/test_hypothesis_handoff.py
 PUBLIC_TESTS += tests/test_substrate_substitution_ledger.py
@@ -101,17 +105,25 @@ PUBLIC_TESTS += tests/test_cli.py::test_root_doc_command_spans_include_microcosm
 # Exercise the complete public shell and CLI, including command naming and export boundaries.
 PUBLIC_TESTS += tests/test_runtime_shell.py tests/test_cli.py tests/test_bridge_phase_continuity_runtime.py
 PUBLIC_TESTS += tests/test_crown_jewel_common.py tests/test_source_module_boundary.py tests/test_runtime_demo_freshness.py
-PUBLIC_TESTS += tests/test_mission_transaction_work_spine.py::test_public_omitted_runtime_reports_unavailable_without_execution
+PUBLIC_TESTS += tests/test_mission_transaction_work_spine.py
+PUBLIC_TESTS += tests/test_component_replays.py tests/test_export_contamination_gate.py
+PUBLIC_TESTS += tests/test_cognitive_operator_registry.py tests/test_proof_derived_governed_mutation_authorization.py
+PUBLIC_TESTS += tests/test_world_model_projection_drift_control_room.py
 
+.PHONY: operations-demo operations-test verify-operations
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card
 .PHONY: flight-recorder flight-recorder-verify
 .PHONY: release-candidate-proof release-candidate-proof-verify release-review public-site-parity
 .PHONY: check preflight validate artifact-budget public-profile
+.PHONY: component-replays
 
 help:
 	@printf '%s\n' \
 		"Plectis commands:" \
+		"  make operations-demo     run the local workflow-change experiment" \
+		"  make operations-test     test the portable operation APIs" \
+		"  make verify-operations   recheck proofs with DAFNY=/path/to/dafny" \
 		"  make install             create temp venv and install test extras" \
 		"  make test                run public entry and safety tests" \
 		"  make test-all            run full suite with pytest receipt writes blocked" \
@@ -124,6 +136,7 @@ help:
 		"  make public-site-parity  verify gh-pages/live downloadable packet parity with this source tree" \
 		"  make package-smoke       install local package in a fresh venv and run console cards" \
 		"  make ci                  run test, smoke, and package-smoke" \
+		"  make component-replays   freshly replay every registered component (Lean, Swift and test extras required)" \
 		"  make check               fast preflight: evidence registry + Lean proof-trust floor" \
 		"  make validate            full pre-commit floor: ci + doctrine-lattice drift check" \
 		"  make artifact-budget     report and bound the shipped distribution footprint" \
@@ -157,7 +170,7 @@ smoke:
 	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core hello . > "$(SMOKE_OUT)/hello.txt"
 	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core first-screen --card . > "$(SMOKE_OUT)/first-screen-card.json"
 	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core tour --card . > "$(SMOKE_OUT)/tour-card.json" || test $$? -eq 1
-	@$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab > "$(SMOKE_OUT)/proof-lab-card.json"
+	@$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core proof-lab --out "$(TMPDIR)/microcosm-proof-lab" > "$(SMOKE_OUT)/proof-lab-card.json"
 	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core status --card . > "$(SMOKE_OUT)/status-card.json" || test $$? -eq 1
 	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" scripts/check/served_status_smoke.py --root . --project . --out "$(SMOKE_OUT)/served-status-card.json"
 	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core authority --card > "$(SMOKE_OUT)/authority-card.json" || test $$? -eq 1
@@ -199,9 +212,26 @@ package-smoke:
 	@# Preserve rejected paths and failed-run evidence; clean only a successful run.
 	@status=0; "$(PYTHON)" scripts/release/package_install_smoke.py --source-root . --work-dir "$(PACKAGE_SMOKE_TMP)" --python "$(PYTHON)" || status=$$?; if [ "$$status" -eq 0 ] && [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status
 
+operations-demo:
+	@PYTHONPATH=src "$(PYTHON)" examples/operations/evaluation.py --format text
+
+operations-test: install
+	@PYTHONPATH=src "$(VENV_PYTHON)" -m pytest $(OPERATIONS_TESTS) $(PYTEST_ARGS)
+
+verify-operations:
+	@"$(PYTHON)" scripts/check/check_repair_kernel.py --dafny "$(DAFNY)"
+	@"$(PYTHON)" scripts/check/check_compatibility_kernel.py --dafny "$(DAFNY)"
+	@"$(PYTHON)" scripts/check/check_views_kernel.py --dafny "$(DAFNY)"
+
 ci: check test smoke package-smoke
 
+component-replays: install
+	@MICROCOSM_TRACKED_RECEIPT_WRITES=0 PYTHONPATH=src "$(VENV_PYTHON)" scripts/check/check_component_replays.py
+
 check preflight:
+	@"$(PYTHON)" scripts/check/check_repair_kernel.py
+	@"$(PYTHON)" scripts/check/check_compatibility_kernel.py
+	@"$(PYTHON)" scripts/check/check_views_kernel.py
 	@"$(PYTHON)" scripts/check/check_repository_layout.py
 	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -c "from microcosm_core.runtime_shell import _load_evidence_class_registry; from pathlib import Path; _load_evidence_class_registry(Path('.'))"
 	@"$(PYTHON)" scripts/check/check_lean_proof_trust.py

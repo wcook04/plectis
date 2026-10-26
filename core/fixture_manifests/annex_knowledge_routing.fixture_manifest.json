@@ -1,0 +1,22 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "organ_id": "annex_knowledge_routing",
+  "fixture_id": "first_wave.annex_knowledge_routing",
+  "input_root": "fixtures/first_wave/annex_knowledge_routing/input",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/annex_knowledge_routing/input",
+      "kind": "native_runtime_bundle"
+    }
+  ],
+  "validator_command": "python -m microcosm_core.organs.annex_knowledge_routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+  "expected_receipts": [
+    "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_result.json",
+    "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_board.json",
+    "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_validation_receipt.json",
+    "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json"
+  ],
+  "claim_ceiling": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
+  "generated_from": "core/organ_registry.json + microcosm_core.runtime_shell.RUNTIME_STEPS",
+  "anti_claim": "This manifest declares the shipped native replay input; input presence is not a passing replay or a formal proof."
+}

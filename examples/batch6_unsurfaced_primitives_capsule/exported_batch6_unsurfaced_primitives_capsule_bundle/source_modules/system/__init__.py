@@ -1,15 +1,22 @@
-"""Public Plectis compatibility stub for a withheld private source module.
-
-The original control-plane body is intentionally not part of the public slice.
-Matched private ref: system/__init__.py
-Boundary class: private_body_exact_match
 """
+[PURPOSE]
+- Teleology: Mark `system` as an importable package boundary for runtime, control, and server modules in this repository.
+- Mechanism: Package marker only; concrete behavior lives in subpackages and leaf modules.
 
-PUBLIC_MICROCOSM_STUB = True
-WITHHELD_PRIVATE_SOURCE_REF = 'system/__init__.py'
+[INTERFACE]
+- Exports: None.
+- Reads: None.
+- Writes: None.
 
+[FLOW]
+- When-needed: Open when a route or import resolves to `system.*` and you need the package boundary before choosing a concrete subsystem file.
+- Escalates-to: system/control/documentation_route_focus.py
+- Navigation-group: python_misc_runtime.
 
-def unavailable(*_args, **_kwargs):
-    raise RuntimeError(
-        "This private control-plane body is withheld from the public Plectis release."
-    )
+[DEPENDENCIES]
+- Required: None.
+
+[CONSTRAINTS]
+- Guarantee: Importing `system` adds no runtime behavior beyond standard package initialization.
+- Non-goal: This file does not re-export or summarize the full `system` tree.
+"""

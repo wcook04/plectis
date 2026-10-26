@@ -1,0 +1,10 @@
+{
+  "anti_claim": "The egress self-compliance audit organ checks agent-output text over public fixture inputs only. It is a substring/phrase-membership policy, not a taint analyzer, not a prompt-injection defense, not a sandbox, and not an information-flow proof. It does not understand semantics, paraphrase, or adversarial evasion; a violation worded outside the known phrase tables is not detected, and benign text that happens to contain a tripwire phrase can be flagged. It does not export private state, credentials, or raw operator threads; it does not call providers or external solvers, and it does not authorize release or publication. A planted policy-violating text cannot pass because the gate recomputes the detector rows and flags any text whose tripwire fires without its legitimiser.",
+  "case_count": 4,
+  "claim_ceiling": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication.",
+  "negative_case_count": 2,
+  "organ_id": "egress_self_compliance_audit",
+  "positive_case_count": 2,
+  "schema_version": "egress_self_compliance_audit_board_v1",
+  "status": "pass"
+}

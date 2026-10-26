@@ -1,0 +1,24 @@
+{
+  "schema_version": "public_source_fixture_rewrite_recipe_v1",
+  "source_ref": "tools/agent_trace_structurer/parser.test.mjs",
+  "recorded_source_sha256": "sha256:5b31140c9ac3e70f461994d1cf500bea365a775b46d8b8d3ef920554b0be1d96",
+  "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
+  "target_sha256": "sha256:34f6658e48b1ba087348cb0404f68911d3842327b2f0ae3a2614bc8912fa77f0",
+  "source_to_target_relation": "source_faithful_public_safe_normalized_copy",
+  "changed_test": "extracts Codex final assistant message before trailing edit review cards",
+  "reason": "Replace an operational assistant closeout excerpt with synthetic regression text before source publication.",
+  "preserved_contract": [
+    "same parser invocation and assertion structure",
+    "more than 2000 characters of final-message body",
+    "MIDDLE_REQUIRED_CLOSEOUT_DETAIL sentinel",
+    "residual marker",
+    "trailing Edited 5 files and clock terminators excluded"
+  ],
+  "excluded_material": [
+    "real commit identifiers",
+    "historical artifact digest",
+    "project-specific operational closeout details"
+  ],
+  "body_in_receipt": false,
+  "anti_claim": "This is a declared fixture refactor, not an exact-copy source claim or evidence of the synthetic events having happened."
+}

@@ -31,10 +31,11 @@
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_real_substrate_adapter_receipt_v1.json",
+      "landing_receipt_ref": "receipts/first_wave/agent_route_observability_runtime/exported_observability_bundle_validation_result.json",
       "live_learning_authority": false,
       "organ_id": "agent_route_observability_runtime",
-      "projection_not_authority": true
+      "projection_not_authority": true,
+      "landing_receipt_basis": "shipped_public_fixture_validation_receipt"
     },
     {
       "adapter_status": "accepted_adapter_backed_runtime_organ",
@@ -85,10 +86,11 @@
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "standard_refined",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_real_substrate_adapter_receipt_v1.json",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json",
       "live_learning_authority": false,
       "organ_id": "executable_doctrine_grammar",
-      "projection_not_authority": true
+      "projection_not_authority": true,
+      "landing_receipt_basis": "shipped_public_fixture_validation_receipt"
     },
     {
       "adapter_status": "accepted_adapter_backed_runtime_organ",
@@ -184,28 +186,31 @@
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "nothing_to_refine",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_real_substrate_adapter_receipt_v1.json",
+      "landing_receipt_ref": "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
       "live_learning_authority": false,
       "organ_id": "mission_transaction_work_spine",
-      "projection_not_authority": true
+      "projection_not_authority": true,
+      "landing_receipt_basis": "shipped_public_fixture_validation_receipt"
     },
     {
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_real_substrate_adapter_receipt_v1.json",
+      "landing_receipt_ref": "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
       "live_learning_authority": false,
       "organ_id": "navigation_hologram_route_plane",
-      "projection_not_authority": true
+      "projection_not_authority": true,
+      "landing_receipt_basis": "shipped_public_fixture_validation_receipt"
     },
     {
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
+      "landing_receipt_ref": "receipts/first_wave/pattern_assimilation_step/pattern_assimilation_receipt.json",
       "live_learning_authority": false,
       "organ_id": "pattern_assimilation_step",
-      "projection_not_authority": true
+      "projection_not_authority": true,
+      "landing_receipt_basis": "shipped_public_fixture_validation_receipt"
     },
     {
       "adapter_status": "accepted_adapter_backed_runtime_organ",
@@ -238,10 +243,11 @@
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "nothing_to_refine",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_real_substrate_adapter_receipt_v1.json",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json",
       "live_learning_authority": false,
       "organ_id": "proof_diagnostic_evidence_spine",
-      "projection_not_authority": true
+      "projection_not_authority": true,
+      "landing_receipt_basis": "shipped_public_fixture_validation_receipt"
     },
     {
       "adapter_status": "accepted_adapter_backed_runtime_organ",

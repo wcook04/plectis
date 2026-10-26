@@ -1,0 +1,57 @@
+{
+  "anti_claim": "The metabolism queue reconciliation organ runs against a per-case synthetic temp SQLite store seeded from public fixtures only. It is not the live private metabolism runtime, does not export the production queue database, scheduler daemon, provider state, credentials, or raw operator threads; it does not dispatch agents, call providers, or auto-repair ambiguous runtime state, and it does not authorize release or publication. A planted inconsistency cannot pass because the capsule's reconciler recomputes the job/run/log relationship and emits the matching review rule.",
+  "authority_ceiling": {
+    "auto_repairs_ambiguous_state": false,
+    "calls_providers": false,
+    "dispatches_agents": false,
+    "distributed_database": false,
+    "exports_live_queue_database": false,
+    "oracle_or_prover": false,
+    "production_ready": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.metabolism_queue_reconciliation",
+  "organ_id": "metabolism_queue_reconciliation",
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 3,
+    "replacements": [
+      {
+        "field_path": "receipt_paths.result",
+        "original_sha256": "sha256:bd5be9336f239ef338a78613248018c1358022c958cbcba6297f4f2ca664d502",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "receipt_paths.board",
+        "original_sha256": "sha256:cd2efa69f7ca5d01c3f429bff04531ae64969459c58887080a5062214bd9dcde",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "receipt_paths.validation",
+        "original_sha256": "sha256:5ee79b0033264da801c0dd1376e6aea31c09a52c96704a695b804246a984d952",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "private_home_path_transform"
+    ]
+  },
+  "receipt_paths": {
+    "board": "<private-home-path>",
+    "result": "<private-home-path>",
+    "validation": "<private-home-path>"
+  },
+  "schema_version": "metabolism_queue_reconciliation_validation_receipt_v1",
+  "status": "pass"
+}

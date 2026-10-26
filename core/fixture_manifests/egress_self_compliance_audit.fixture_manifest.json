@@ -1,0 +1,22 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "organ_id": "egress_self_compliance_audit",
+  "fixture_id": "first_wave.egress_self_compliance_audit",
+  "input_root": "fixtures/first_wave/egress_self_compliance_audit/input",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/egress_self_compliance_audit/input",
+      "kind": "native_runtime_bundle"
+    }
+  ],
+  "validator_command": "python -m microcosm_core.organs.egress_self_compliance_audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+  "expected_receipts": [
+    "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_result.json",
+    "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_board.json",
+    "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_validation_receipt.json",
+    "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json"
+  ],
+  "claim_ceiling": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication.",
+  "generated_from": "core/organ_registry.json + microcosm_core.runtime_shell.RUNTIME_STEPS",
+  "anti_claim": "This manifest declares the shipped native replay input; input presence is not a passing replay or a formal proof."
+}

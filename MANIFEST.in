@@ -40,6 +40,7 @@ graft core
 graft docs
 graft examples
 graft fixtures
+graft formal
 graft paper
 graft paper_modules
 graft receipts

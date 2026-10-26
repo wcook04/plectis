@@ -3,8 +3,8 @@ Implements organs batch7 macro engines capsule for the public Plectis package.
 
 Callers enter through `evaluate_negative_case`, `run`, `run_batch7_bundle`, `result_card`,
 and `main`; constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and
-13 more pin local fixture names; dependencies include `argparse`, `ast`, `json`, `socket`,
-and 6 more. It builds public fixture, result, card, or verdict structures while keeping
+13 more pin local fixture names; dependencies include `argparse`, `ast`, `json`,
+`subprocess`, and copied-source import isolation. It builds public fixture, result, card, or verdict structures while keeping
 private substrate bodies out of the payload.
 """
 from __future__ import annotations
@@ -12,7 +12,7 @@ from __future__ import annotations
 import argparse
 import ast
 import json
-import socket
+import tempfile
 import subprocess
 import sys
 from functools import lru_cache
@@ -23,6 +23,7 @@ from microcosm_core.organs._crown_jewel_common import (
     CrownJewelSpec,
     card_for_result,
     finding,
+    imported_source_modules,
     public_root_for_path,
     run_crown_jewel_organ,
 )
@@ -206,23 +207,9 @@ SPEC = CrownJewelSpec(
 
 
 def _repo_root(public_root: Path) -> Path:
-    """
-    Produce the repo root value used by
-    `microcosm_core.organs.batch7_macro_engines_capsule`.
-
-    Inputs are `public_root`; notable helpers are `is_file` and `is_dir`.
-    """
-    live_repo = public_root.parent
-    if (live_repo / "repo-python").is_file():
-        return live_repo
-    copied_source_modules = (
-        public_root
-        / "examples/batch7_macro_engines_capsule/"
-        "exported_batch7_macro_engines_capsule_bundle/source_modules"
-    )
-    if copied_source_modules.is_dir():
-        return copied_source_modules
-    return live_repo
+    """Return the copied package tree rather than resolving a private sibling."""
+    return (public_root / "examples/batch7_macro_engines_capsule/"
+            "exported_batch7_macro_engines_capsule_bundle/source_modules")
 
 
 def _run_public_witness(
@@ -387,13 +374,18 @@ def _release_root_exercise(public_root: Path) -> dict[str, Any]:
         node.name for node in ast.walk(tree) if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
     )
     required = {"build_std_python_report", "build_release_root_compiler"}
-    missing_ref_reported = "missing_ref_count" in source.read_text(encoding="utf-8")
+    module = _load_module("_plectis_release_root_witness", source)
+    with tempfile.TemporaryDirectory(prefix="plectis-release-refs-") as temporary:
+        root = Path(temporary)
+        (root / "present.json").write_text("{}")
+        missing_ref_reported = module._missing_refs(root, ["present.json", "absent.json"]) == ["absent.json"]
     return {
         "status": "pass" if required.issubset(functions) and missing_ref_reported else "blocked",
         "engine_id": "release_root_compiler",
         "function_count": len(functions),
         "required_functions_present": sorted(required.intersection(functions)),
         "bad_ref_negative_covered": missing_ref_reported,
+        "execution_mode": "copied_source_missing_ref_check",
         "claim_ceiling": "AST/source indexing and authority-banded navigation only; not release approval",
     }
 
@@ -442,52 +434,27 @@ def _source_surgeon_exercise(public_root: Path) -> dict[str, Any]:
     }
 
 
-def _clean_clone_exercise() -> dict[str, Any]:
-    """
-    Serialize `microcosm_core.organs.batch7_macro_engines_capsule._clean_clone_exercise`
-    into the payload shape expected by organs batch7 macro engines capsule.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
-    """
-    old_create_connection = socket.create_connection
-    old_socket = socket.socket
-
-    class NetworkDisabled(RuntimeError):
-        """
-        Raised when network Disabled fails inside
-        `microcosm_core.organs.batch7_macro_engines_capsule`.
-
-        The dedicated type lets callers catch that failure without masking the original
-        message.
-        """
-        pass
-
-    def blocked(*_args: Any, **_kwargs: Any) -> None:
-        """
-        Run blocked for `microcosm_core.organs.batch7_macro_engines_capsule`.
-
-        The function is a named boundary around the visible side effect or orchestration
-        step in its body.
-        """
-        raise NetworkDisabled("network disabled by batch7 clean-clone capsule")
-
-    socket.create_connection = blocked  # type: ignore[assignment]
-    socket.socket = blocked  # type: ignore[assignment]
-    network_blocked = False
-    try:
-        socket.create_connection(("example.com", 80), timeout=0.01)
-    except NetworkDisabled:
-        network_blocked = True
-    finally:
-        socket.create_connection = old_create_connection  # type: ignore[assignment]
-        socket.socket = old_socket  # type: ignore[assignment]
-    return {
-        "status": "pass" if network_blocked else "blocked",
-        "engine_id": "hermetic_clean_clone",
-        "network_blocked": network_blocked,
-        "private_marker_policy": "source module carries public redaction scan logic; receipt does not include scanned bodies",
-        "claim_ceiling": "public-fixture hermetic baseline, not complete sandboxing",
-    }
+def _clean_clone_exercise(public_root: Path) -> dict[str, Any]:
+    """Run the copied clean-clone network guard in a fresh local interpreter."""
+    source = _copied_source(public_root,
+        "self-indexing-cognitive-substrate/src/idea_microcosm/clean_clone.py")
+    module = _load_module("_plectis_clean_clone_witness", source)
+    with tempfile.TemporaryDirectory(prefix="plectis-network-guard-") as temporary:
+        guard = Path(temporary)
+        module._write_network_guard(guard)
+        code = ("import runpy,sys; runpy.run_path(sys.argv[1]); import socket\n"
+                "try: socket.create_connection(('127.0.0.1', 1), timeout=0.01)\n"
+                "except RuntimeError: pass\n"
+                "else: raise AssertionError('network guard did not refuse')\n")
+        witness = _run_public_witness(
+            [sys.executable, "-I", "-B", "-c", code, str(guard / "sitecustomize.py")],
+            cwd=guard)
+    return {"status": witness["status"], "engine_id": "hermetic_clean_clone",
+            "network_blocked": witness["status"] == "pass",
+            "execution_mode": "copied_source_guard_subprocess",
+            "private_marker_policy": "source module carries redaction scan logic; this witness executes its network guard only",
+            "body_in_receipt": False,
+            "claim_ceiling": "copied network-guard primitive only; not complete sandboxing"}
 
 
 def _calculator_exercise(public_root: Path) -> dict[str, Any]:
@@ -552,74 +519,35 @@ def _pagerank_exercise(public_root: Path) -> dict[str, Any]:
 
 
 def _regression_selection_exercise(public_root: Path) -> dict[str, Any]:
-    """
-    Serialize
-    `microcosm_core.organs.batch7_macro_engines_capsule._regression_selection_exercise` into
-    the payload shape expected by organs batch7 macro engines capsule.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
-    """
-    repo = _repo_root(public_root)
-    repo_python = repo / "repo-python"
-    copied_selector_candidates = [
-        public_root
-        / "examples/batch7_macro_engines_capsule/"
-        "exported_batch7_macro_engines_capsule_bundle/source_modules/"
-        "tools/meta/testing/select_impacted_tests.py",
-        repo
-        / "examples/batch7_macro_engines_capsule/"
-        "exported_batch7_macro_engines_capsule_bundle/source_modules/"
-        "tools/meta/testing/select_impacted_tests.py",
-    ]
-    copied_selector = next(
-        (path for path in copied_selector_candidates if path.is_file()), None
-    )
-    if not repo_python.is_file() and copied_selector is not None:
-        selector_text = copied_selector.read_text(encoding="utf-8")
-        fallback_declared = (
-            "Never returns empty" in selector_text
-            and "fallback bundle" in selector_text
-            and "fallback_tests" in selector_text
-        )
-        return {
-            "status": "pass" if fallback_declared else "blocked",
-            "engine_id": "regression_test_selection",
-            "returncode": None,
-            "execution_mode": "source_open_static_bundle_fallback",
-            "fallback_used": fallback_declared,
-            "fallback_test_count": 1 if fallback_declared else 0,
-            "inventory_freshness_status": "not_available_in_source_open_bundle",
+    """Execute the copied selector against an explicit public fallback policy."""
+    source = _copied_source(public_root, "tools/meta/testing/select_impacted_tests.py")
+    sys.path.insert(0, str(source.parent))
+    module = _load_module("_plectis_test_selector_witness", source)
+    with tempfile.TemporaryDirectory(prefix="plectis-test-selection-") as temporary:
+        root = Path(temporary)
+        module.REPO_ROOT = root
+        for attribute, relative in {
+            "GRAPH_PATH": "state/lattice/graph.json",
+            "INVENTORY_PATH": "state/testing/inventory.json",
+            "IMPACT_MAP_PATH": "codex/testing/impact.json",
+            "REGISTRY_PATH": "codex/standards/registry.json",
+            "FORBIDDEN_LEGACY_IMPACT_MAP": "state/testing/test_impact_map.json",
+        }.items():
+            setattr(module, attribute, root / relative)
+        module.REGISTRY_PATH.parent.mkdir(parents=True)
+        expected = ["tests/test_public_fixture.py::test_required"]
+        module.REGISTRY_PATH.write_text(json.dumps({
+            "fallback_test_bundles": {"unknown_doctrine_change": expected}}))
+        result = module.select([])
+    passed = result.get("fallback_used") is True and result.get("fallback_tests") == expected
+    return {"status": "pass" if passed else "blocked",
+            "engine_id": "regression_test_selection", "returncode": 0,
+            "execution_mode": "copied_source_selector",
+            "fallback_used": result.get("fallback_used") is True,
+            "fallback_test_count": len(result.get("fallback_tests", [])),
+            "inventory_freshness_status": result.get("inventory_freshness", {}).get("status"),
             "body_in_receipt": False,
-            "claim_ceiling": "test prioritization helper source contract only; not proof selected tests are sufficient",
-        }
-    command = [
-        str(repo_python),
-        "tools/meta/testing/select_impacted_tests.py",
-        "--json",
-    ]
-    completed = subprocess.run(
-        command,
-        cwd=repo,
-        text=True,
-        capture_output=True,
-        check=False,
-        timeout=20,
-    )
-    payload: dict[str, Any] = {}
-    if completed.returncode == 0:
-        payload = json.loads(completed.stdout)
-    fallback_tests = payload.get("fallback_tests") if isinstance(payload, Mapping) else []
-    inventory = payload.get("inventory_freshness") if isinstance(payload, Mapping) else {}
-    return {
-        "status": "pass" if completed.returncode == 0 and fallback_tests else "blocked",
-        "engine_id": "regression_test_selection",
-        "returncode": completed.returncode,
-        "fallback_used": bool(payload.get("fallback_used")) if payload else False,
-        "fallback_test_count": len(fallback_tests) if isinstance(fallback_tests, list) else 0,
-        "inventory_freshness_status": inventory.get("status") if isinstance(inventory, Mapping) else None,
-        "body_in_receipt": False,
-        "claim_ceiling": "test prioritization helper only; not proof selected tests are sufficient",
-    }
+            "claim_ceiling": "test selection over a declared public policy; not proof selected tests are sufficient"}
 
 
 def _safe_engine(engine_id: str, runner: Any) -> dict[str, Any]:
@@ -653,39 +581,40 @@ def _semantic_runtime_exercises(input_ref: str) -> dict[str, dict[str, Any]]:
     """
     input_path = Path(input_ref)
     public_root = public_root_for_path(input_path)
-    exercises = [
-        _safe_engine(
-            "agent_trace_ir_compiler",
-            lambda: _agent_trace_exercise(public_root),
-        ),
-        _safe_engine("constitutional_dag_kernel", lambda: _dag_exercise(public_root)),
-        _safe_engine(
-            "release_root_compiler",
-            lambda: _release_root_exercise(public_root),
-        ),
-        _safe_engine(
-            "source_surgeon_patch",
-            lambda: _source_surgeon_exercise(public_root),
-        ),
-        _safe_engine("hermetic_clean_clone", _clean_clone_exercise),
-        _safe_engine(
-            "calculator_standard_actor",
-            lambda: _calculator_exercise(public_root),
-        ),
-        _safe_engine(
-            "personalized_pagerank_ranker",
-            lambda: _pagerank_exercise(public_root),
-        ),
-        _safe_engine(
-            "regression_test_selection",
-            lambda: _regression_selection_exercise(public_root),
-        ),
-    ]
-    return {
-        str(row.get("engine_id")): row
-        for row in exercises
-        if isinstance(row, Mapping) and row.get("engine_id")
-    }
+    with imported_source_modules(_repo_root(public_root)):
+        exercises = [
+            _safe_engine(
+                "agent_trace_ir_compiler",
+                lambda: _agent_trace_exercise(public_root),
+            ),
+            _safe_engine("constitutional_dag_kernel", lambda: _dag_exercise(public_root)),
+            _safe_engine(
+                "release_root_compiler",
+                lambda: _release_root_exercise(public_root),
+            ),
+            _safe_engine(
+                "source_surgeon_patch",
+                lambda: _source_surgeon_exercise(public_root),
+            ),
+            _safe_engine("hermetic_clean_clone", lambda: _clean_clone_exercise(public_root)),
+            _safe_engine(
+                "calculator_standard_actor",
+                lambda: _calculator_exercise(public_root),
+            ),
+            _safe_engine(
+                "personalized_pagerank_ranker",
+                lambda: _pagerank_exercise(public_root),
+            ),
+            _safe_engine(
+                "regression_test_selection",
+                lambda: _regression_selection_exercise(public_root),
+            ),
+        ]
+        return {
+            str(row.get("engine_id")): row
+            for row in exercises
+            if isinstance(row, Mapping) and row.get("engine_id")
+        }
 
 
 def _observed_negative_case(
@@ -744,34 +673,6 @@ def evaluate_negative_case(
     }
 
 
-def _source_open_bundle_exercises(source_manifest: Mapping[str, Any]) -> list[dict[str, Any]]:
-    """
-    Produce the source open bundle exercises value used by
-    `microcosm_core.organs.batch7_macro_engines_capsule`.
-
-    Inputs are `source_manifest`; notable helpers are `get`.
-    """
-    module_count = source_manifest.get("module_count", 0)
-    manifest_verified = (
-        source_manifest.get("all_expected_digests_matched") is True
-        and source_manifest.get("all_required_anchors_present") is True
-    )
-    return [
-        {
-            "status": "pass" if manifest_verified else "blocked",
-            "engine_id": engine_id,
-            "execution_mode": "source_open_manifest_verified_bundle",
-            "copied_macro_source_module_count": module_count,
-            "body_in_receipt": False,
-            "claim_ceiling": (
-                "copied source manifest verification only; not live private-root "
-                "execution, release authority, or complete semantic proof"
-            ),
-        }
-        for engine_id in EXPECTED_ENGINES
-    ]
-
-
 def _evaluate(
     input_path: Path,
     public_root: Path,
@@ -784,20 +685,7 @@ def _evaluate(
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
-    source_open_bundle = input_path.name == "exported_batch7_macro_engines_capsule_bundle"
-    if source_open_bundle:
-        exercises = _source_open_bundle_exercises(source_manifest)
-    else:
-        exercises = [
-            _agent_trace_exercise(public_root),
-            _dag_exercise(public_root),
-            _release_root_exercise(public_root),
-            _source_surgeon_exercise(public_root),
-            _clean_clone_exercise(),
-            _calculator_exercise(public_root),
-            _pagerank_exercise(public_root),
-            _regression_selection_exercise(public_root),
-        ]
+    exercises = list(_semantic_runtime_exercises(str(input_path.resolve())).values())
     for exercise in exercises:
         if exercise.get("status") != "pass":
             findings.append(

@@ -18,7 +18,6 @@ import json
 import math
 import re
 import sys
-import types
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -32,6 +31,7 @@ from microcosm_core.organs._crown_jewel_common import (
     file_line_count,
     file_sha256,
     finding,
+    imported_source_modules,
     load_json_object,
     public_root_for_path,
     scan_receipt_payload_for_bodies,
@@ -374,69 +374,6 @@ def _ok(mechanism_id: str, **payload: Any) -> dict[str, Any]:
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {"mechanism_id": mechanism_id, "status": "pass", **payload, "body_in_receipt": False}
-
-
-def _module_for_import_stub(name: str) -> types.ModuleType:
-    """
-    Produce the module for import stub value used by
-    `microcosm_core.organs.batch11_saturation_engines_capsule`.
-
-    Inputs are `name`; notable helpers are `get` and `ModuleType`.
-    """
-    module = sys.modules.get(name)
-    if isinstance(module, types.ModuleType):
-        return module
-    module = types.ModuleType(name)
-    sys.modules[name] = module
-    return module
-
-
-def _install_quant_presentation_import_stubs() -> None:
-    """
-    Run install quant presentation import stubs for the organs batch11 saturation engines
-    capsule flow.
-
-    The side effect is the explicit file, receipt, parser, print, or instance-state update
-    performed in this function.
-    """
-    system_module = _module_for_import_stub("system")
-    lib_module = _module_for_import_stub("system.lib")
-    setattr(system_module, "lib", lib_module)
-
-    market_feed = _module_for_import_stub("system.lib.market_feed_run_evidence")
-    setattr(lib_module, "market_feed_run_evidence", market_feed)
-    market_feed.FEED_NODE_IDS = getattr(market_feed, "FEED_NODE_IDS", ())
-    market_feed.build_market_feed_run_evidence_card = getattr(
-        market_feed,
-        "build_market_feed_run_evidence_card",
-        lambda *_args, **_kwargs: {"status": "stubbed_for_microcosm_public_fixture"},
-    )
-    market_feed.feed_source_manifest = getattr(
-        market_feed,
-        "feed_source_manifest",
-        lambda *_args, **_kwargs: {},
-    )
-    market_feed.resolve_feed_run_dir = getattr(
-        market_feed,
-        "resolve_feed_run_dir",
-        lambda *_args, **_kwargs: Path("."),
-    )
-
-    readiness = _module_for_import_stub("system.lib.market_fusion_readiness")
-    setattr(lib_module, "market_fusion_readiness", readiness)
-    readiness.build_readiness_gate = getattr(
-        readiness,
-        "build_readiness_gate",
-        lambda *_args, **_kwargs: {"status": "stubbed_for_microcosm_public_fixture"},
-    )
-
-    numeric = _module_for_import_stub("system.lib.finance_numeric_assurance")
-    setattr(lib_module, "finance_numeric_assurance", numeric)
-    numeric.blocking_numeric_contract_errors = getattr(
-        numeric,
-        "blocking_numeric_contract_errors",
-        lambda *_args, **_kwargs: [],
-    )
 
 
 def _et_clock_minutes(epoch_seconds: float) -> int:
@@ -1530,7 +1467,6 @@ def _load_quant_presentation_mart_module(source_manifest: Mapping[str, Any]) -> 
     source_path = _quant_presentation_mart_source_path(source_manifest)
     if source_path is None or not source_path.is_file():
         return None, "", "quant_presentation_mart_source_missing"
-    _install_quant_presentation_import_stubs()
     digest = hashlib.sha256(source_path.read_bytes()).hexdigest()[:12]
     module_name = f"_microcosm_batch11_quant_presentation_mart_{digest}"
     spec = importlib.util.spec_from_file_location(module_name, source_path)
@@ -1539,7 +1475,10 @@ def _load_quant_presentation_mart_module(source_manifest: Mapping[str, Any]) -> 
     module = importlib.util.module_from_spec(spec)
     sys.modules[module_name] = module
     try:
-        spec.loader.exec_module(module)
+        copied_root = next(parent for parent in source_path.parents
+                           if parent.name == "ai_workflow" and parent.parent.name == "source_modules")
+        with imported_source_modules(copied_root):
+            spec.loader.exec_module(module)
     except Exception as exc:  # pragma: no cover - import diagnostics vary by host.
         return None, str(source_path), f"quant_presentation_mart_import_failed:{type(exc).__name__}"
     return module, str(source_path), None
@@ -2308,6 +2247,7 @@ def _augment_source_manifest_with_public_refactors(
         if isinstance(row, Mapping)
     ]
     source_artifact_paths: list[Path] = []
+    verified_refactor_sources: set[str] = set()
     for ref in source_manifest.get("source_artifact_paths", []):
         if isinstance(ref, str):
             source_artifact_paths.append(public_root / strip_microcosm_prefix(ref))
@@ -2332,6 +2272,8 @@ def _augment_source_manifest_with_public_refactors(
             and (source_sha == expected_source_sha or (not source_ref_required and source_sha is None))
         )
         line_count_match = target_line_count == expected_line_count
+        if digest_match and line_count_match and not missing_anchors and row.get("rewrite_recipe"):
+            verified_refactor_sources.add(source_ref)
         modules.append(
             {
                 "source_ref": source_ref,
@@ -2422,6 +2364,14 @@ def _augment_source_manifest_with_public_refactors(
             )
         )
 
+    # The common checker sees exact-copy rows first; these additional bodies
+    # satisfy its required-source obligation only after independent verification.
+    findings = [row for row in findings
+                if not (row.get("error_code") == "CROWN_JEWEL_REQUIRED_SOURCE_MODULE_MISSING"
+                        and row.get("subject_id") in verified_refactor_sources)]
+    augmented["execution_dependency_omissions"] = [
+        ref for ref in source_manifest.get("execution_dependency_omissions", [])
+        if ref not in verified_refactor_sources]
     augmented["modules"] = modules
     augmented["module_count"] = len(modules)
     augmented["findings"] = findings
@@ -2680,13 +2630,14 @@ def _evaluate(
                     observed=mechanism.get("status"),
                 )
             )
-    if source_manifest.get("module_count", 0) != len(EXPECTED_MODULE_IDS):
+    declared_module_ids = {row.get("module_id") for row in source_manifest.get("modules", [])}
+    if not set(EXPECTED_MODULE_IDS).issubset(declared_module_ids):
         findings.append(
             finding(
                 "BATCH11_SOURCE_MODULE_COUNT_INVALID",
                 "Batch-11 capsule must carry all copied non-secret source modules.",
-                expected=len(EXPECTED_MODULE_IDS),
-                observed=source_manifest.get("module_count"),
+                expected=list(EXPECTED_MODULE_IDS),
+                observed=sorted(str(value) for value in declared_module_ids),
             )
         )
     if integrity["summary"]["fixture_verdict_echo_risk_count"]:
@@ -2795,7 +2746,7 @@ def _run_batch11_crown_jewel_organ(
     input_mode: str = "fixture_input",
 ) -> dict[str, Any]:
     """
-    Derive run batch11 crown jewel organ without touching module import state.
+    Run the capsule against verified copied bodies and public fixtures.
 
     Inputs are `input_dir`, `out_dir`, `command`, `acceptance_out`, and `input_mode`;
     notable helpers are `Path`, `public_root_for_path`,

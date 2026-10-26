@@ -333,6 +333,7 @@ def test_package_metadata_describes_runtime_spine() -> None:
     assert project["optional-dependencies"]["test"] == [
         "numpy>=2,<3",
         "pandas>=3,<4",
+        "pydantic>=2,<3",
         "pytest>=8,<9",
         "requests>=2,<3",
     ]

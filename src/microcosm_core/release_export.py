@@ -16,6 +16,7 @@ import json
 import os
 import re
 import shutil
+import stat as stat_module
 import subprocess
 import sys
 import tempfile
@@ -26,10 +27,19 @@ from pathlib import Path
 from typing import Any
 
 from . import secret_exclusion_scan
-from .organs import macro_projection_import_protocol
 from .receipts import utc_now, write_json_atomic
 from .schemas import StrictJsonError, read_json_strict
 from .validators.evidence_truth_floor import audit_evidence_truth_floor
+
+
+def __getattr__(name: str) -> Any:
+    """Retain lazy access to the projection executor for existing callers."""
+    if name == "macro_projection_import_protocol":
+        from .organs import macro_projection_import_protocol
+
+        globals()[name] = macro_projection_import_protocol
+        return macro_projection_import_protocol
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
 ARTIFACT_DIR_NAME = "plectis"
@@ -79,6 +89,7 @@ DEFAULT_INCLUDE_REFS = (
     "docs",
     "examples",
     "fixtures",
+    "formal",
     "paper",
     "paper_modules",
     "plectis-public-system.pdf",
@@ -756,6 +767,7 @@ def _copy_allowed_files(
     root: Path,
     target: Path,
     private_body_substitutions: dict[str, dict[str, Any]] | None = None,
+    source_capture: dict[str, dict[str, str]] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
     """
     Produce the copy allowed files value used by `microcosm_core.release_export`.
@@ -769,6 +781,16 @@ def _copy_allowed_files(
     substitutions = private_body_substitutions or {}
     for source in files:
         rel = source.relative_to(root).as_posix()
+        with source.open("rb") as handle:
+            source_stat = os.fstat(handle.fileno())
+            payload = handle.read()
+        mode = "100755" if source_stat.st_mode & 0o111 else "100644"
+        if source_capture is not None:
+            header = f"blob {len(payload)}\0".encode("ascii")
+            source_capture[rel] = {"mode": mode, **{
+                algorithm: hashlib.new(algorithm, header + payload).hexdigest()
+                for algorithm in ("sha1", "sha256")
+            }}
         destination = target / rel
         destination.parent.mkdir(parents=True, exist_ok=True)
         substitution_row = substitutions.get(rel)
@@ -792,7 +814,12 @@ def _copy_allowed_files(
                 }
             )
         else:
-            text = _read_text_if_small(source)
+            text = None
+            if source.suffix in TEXT_SUFFIXES and len(payload) <= 2_000_000:
+                try:
+                    text = payload.decode("utf-8").replace("\r\n", "\n").replace("\r", "\n")
+                except UnicodeDecodeError:
+                    pass
             if text is not None and "source_modules" in Path(rel).parts:
                 redacted_text, redaction_count = CONCRETE_HOME_PATH_RE.subn(
                     PUBLIC_EXAMPLE_HOME,
@@ -810,7 +837,9 @@ def _copy_allowed_files(
                         }
                     )
             else:
-                shutil.copy2(source, destination)
+                destination.write_bytes(payload)
+                shutil.copystat(source, destination)
+        destination.chmod(stat_module.S_IMODE(source_stat.st_mode))
         stat = destination.stat()
         inventory.append(
             {
@@ -818,6 +847,7 @@ def _copy_allowed_files(
                 "role": _public_role(rel),
                 "size_bytes": stat.st_size,
                 "sha256": _sha256_file(destination),
+                "git_mode": mode,
             }
         )
     return (
@@ -856,6 +886,7 @@ def _artifact_inventory_for_paths(target: Path, paths: list[str]) -> list[dict[s
                 "role": _public_role(rel),
                 "size_bytes": stat.st_size,
                 "sha256": _sha256_file(path),
+                "git_mode": "100755" if stat.st_mode & 0o111 else "100644",
             }
         )
     return sorted(inventory, key=lambda row: row["path"])
@@ -1224,6 +1255,74 @@ def _normalized_private_body_text(text: str) -> str:
     return "\n".join(line.strip() for line in text.splitlines() if line.strip())
 
 
+def _reviewed_source_copy(path: Path, public_root: Path) -> bool:
+    """Recognize only the exact bytes and target of a separately reviewed copy.
+
+    Refresh grants alone never authorize publication. These exceptions do not
+    bypass host-path, secret, build-output or other artifact checks.
+    """
+    try:
+        policy = read_json_strict(public_root / "core/source_module_refresh_policy_v0.json")
+        if not isinstance(policy, dict):
+            return False
+        review = policy.get("reviewed_publication", {})
+        if (not isinstance(review, dict)
+                or review.get("operation") != "publish_reviewed_source_copy"
+                or review.get("review_status") != "approved"
+                or not review.get("authority_ref")):
+            return False
+        relative = path.relative_to(public_root).as_posix()
+        if not isinstance(review.get("copies"), dict):
+            return False
+        row = review["copies"].get(relative, {})
+        return (isinstance(row, dict) and bool(row.get("source_ref")) and bool(row.get("manifest_ref"))
+                and bool(row.get("material_id")) and row.get("sha256") == _sha256_file(path))
+    except (OSError, ValueError, KeyError, TypeError):
+        return False
+
+
+def record_reviewed_source_publication(
+    public_root: Path, manifest_paths: list[Path], *, authority_ref: str,
+) -> dict[str, Any]:
+    """Record explicitly reviewed source snapshots by exact target and digest.
+
+    The caller supplies the operator's publication decision; this producer does
+    not infer approval from an import, an exact match, or a validator pass.
+    """
+    if not authority_ref:
+        raise ValueError("a separate publication review authority is required")
+    policy_path = public_root / "core/source_module_refresh_policy_v0.json"
+    policy = read_json_strict(policy_path)
+    copies = dict(policy.get("reviewed_publication", {}).get("copies", {}))
+    for manifest_path in manifest_paths:
+        manifest = read_json_strict(manifest_path)
+        for row in manifest.get("modules", []):
+            if row.get("body_copied") is not True:
+                continue
+            refs = row.get("target_refs") or [row.get("target_ref") or row.get("path")]
+            for ref in refs:
+                if not isinstance(ref, str):
+                    continue
+                ref = ref.removeprefix("microcosm-substrate/")
+                path = public_root / ref
+                if not path.is_file():
+                    path = manifest_path.parent / ref
+                relative = path.resolve().relative_to(public_root.resolve()).as_posix()
+                if not path.is_file() or not row.get("source_ref"):
+                    raise ValueError(f"reviewed copy is missing its source or target: {relative}")
+                copies[relative] = {
+                    "sha256": _sha256_file(path), "source_ref": row["source_ref"],
+                    "manifest_ref": manifest_path.relative_to(public_root).as_posix(),
+                    "material_id": row.get("material_id") or row.get("module_id"),
+                }
+    review = {"operation": "publish_reviewed_source_copy", "review_status": "approved",
+              "authority_ref": authority_ref, "copies": dict(sorted(copies.items())),
+              "claim_ceiling": "Only the listed public-safe bytes and targets; no blanket private-source permission."}
+    policy["reviewed_publication"] = review
+    write_json_atomic(policy_path, policy)
+    return review
+
+
 def _private_body_match_row(
     path: Path,
     *,
@@ -1244,6 +1343,8 @@ def _private_body_match_row(
     source_modules_tail = path.relative_to(modules_root).as_posix()
     restriction = _restricted_private_source_match(source_modules_tail)
     if not restriction:
+        return None
+    if _reviewed_source_copy(path, public_root):
         return None
 
     for private_ref, private_path in _private_body_source_candidates(
@@ -1305,24 +1406,34 @@ def _private_body_match_row(
     return None
 
 
+def _discover_source_module_roots(
+    public_root: Path, *, skipped_ancestors: set[str]
+) -> list[Path]:
+    """Find source bundles without entering excluded or transient directories."""
+    def discovery_error(error: OSError) -> None:
+        raise error
+
+    roots: list[Path] = []
+    for directory, names, _files in os.walk(
+        public_root, topdown=True, onerror=discovery_error, followlinks=False
+    ):
+        names[:] = sorted(name for name in names if name not in skipped_ancestors)
+        if "source_modules" in names:
+            roots.append(Path(directory) / "source_modules")
+    return sorted(roots)
+
+
 def _restricted_source_module_substitution_rows(public_root: Path) -> list[dict[str, Any]]:
     """
     Derive restricted source module substitution rows without touching module import state.
 
-    Inputs are `public_root`; notable helpers are `as_posix`, `rglob`, `is_dir`,
-    `_restricted_private_source_match`, and 3 more.
+    Inputs are `public_root`; discovery prunes excluded ancestors before descent.
     """
     skipped_source_module_ancestors = SKIPPED_DIR_NAMES | SKIPPED_ROOT_NAMES | {
-        "__pycache__",
+        "venv",
     }
-    source_module_roots = sorted(
-        path
-        for path in public_root.rglob("source_modules")
-        if path.is_dir()
-        and not (
-            set(path.relative_to(public_root).parts)
-            & skipped_source_module_ancestors
-        )
+    source_module_roots = _discover_source_module_roots(
+        public_root, skipped_ancestors=skipped_source_module_ancestors
     )
     rows: list[dict[str, Any]] = []
     for modules_root in source_module_roots:
@@ -1336,6 +1447,8 @@ def _restricted_source_module_substitution_rows(public_root: Path) -> list[dict[
             source_modules_tail = path.relative_to(modules_root).as_posix()
             restriction = _restricted_private_source_match(source_modules_tail)
             if not restriction:
+                continue
+            if _reviewed_source_copy(path, public_root):
                 continue
             rows.append(
                 {
@@ -1544,14 +1657,9 @@ def scan_source_modules_contamination(
         ".venv",
         "venv",
     }
-    source_module_roots = sorted(
-        path
-        for path in public_root.rglob("source_modules")
-        if path.is_dir()
-        and not (
-            set(path.relative_to(public_root).parts[:-1])
-            & skipped_source_module_ancestors
-        )
+
+    source_module_roots = _discover_source_module_roots(
+        public_root, skipped_ancestors=skipped_source_module_ancestors
     )
     for modules_root in source_module_roots:
         bundle_ref = modules_root.parent.relative_to(public_root).as_posix()
@@ -2590,6 +2698,8 @@ def _projection_freshness(
     )
     runtime_shape: dict[str, Any]
     if bundle_dir.is_dir():
+        from .organs import macro_projection_import_protocol
+
         with tempfile.TemporaryDirectory(prefix="microcosm-projection-freshness-") as tmp:
             temp_root = Path(tmp)
             validation = macro_projection_import_protocol.run_projection_bundle(
@@ -2841,7 +2951,72 @@ def _git_success(root: Path, args: list[str]) -> bool:
     return completed.returncode == 0
 
 
-def _source_identity(root: Path) -> dict[str, Any]:
+def _tracked_source_delta(
+    root: Path, git_root: Path, head: str,
+    source_capture: dict[str, dict[str, str]] | None = None,
+) -> list[str] | None:
+    """Compare tracked source bytes and modes without trusting Git's stat cache.
+
+    ``status`` may hide content behind assume-unchanged/skip-worktree flags and
+    executable changes behind core.filemode=false. Neither is a commit identity.
+    """
+    tree = _git_output(
+        git_root, ["ls-tree", "-r", "-z", "--full-tree", head, "--", str(root)]
+    )
+    if tree is None:
+        return None
+    changed: list[str] = []
+    captured_seen: set[str] = set()
+    try:
+        for entry in tree.split("\0"):
+            if not entry:
+                continue
+            metadata, relative = entry.split("\t", 1)
+            mode, kind, expected = metadata.split()
+            path = git_root / relative
+            if kind != "blob":
+                # A submodule needs its own source receipt; do not attest its
+                # checkout by treating a directory as a committed file.
+                return None
+            capture_ref = path.relative_to(root).as_posix()
+            captured = (source_capture or {}).get(capture_ref)
+            if captured is not None:
+                captured_seen.add(capture_ref)
+                algorithm = "sha256" if len(expected) == 64 else "sha1"
+                if captured["mode"] != mode or captured[algorithm] != expected:
+                    changed.append(relative)
+                continue
+            try:
+                file_stat = path.lstat()
+                if stat_module.S_ISLNK(file_stat.st_mode):
+                    actual_mode = "120000"
+                    payload = os.fsencode(os.readlink(path))
+                elif stat_module.S_ISREG(file_stat.st_mode):
+                    actual_mode = "100755" if file_stat.st_mode & 0o111 else "100644"
+                    payload = path.read_bytes()
+                else:
+                    changed.append(relative)
+                    continue
+            except OSError:
+                changed.append(relative)
+                continue
+            digest = hashlib.new("sha256" if len(expected) == 64 else "sha1")
+            digest.update(f"blob {len(payload)}\0".encode("ascii"))
+            digest.update(payload)
+            if actual_mode != mode or digest.hexdigest() != expected:
+                changed.append(relative)
+    except (OSError, ValueError):
+        return None
+    # Git status omits ignored files, but an included ignored file still
+    # changes the exported payload. Bind every captured path to the commit.
+    for relative in set(source_capture or {}) - captured_seen:
+        changed.append((root.relative_to(git_root) / relative).as_posix())
+    return changed
+
+
+def _source_identity(
+    root: Path, source_capture: dict[str, dict[str, str]] | None = None,
+) -> dict[str, Any]:
     """
     Serialize `microcosm_core.release_export._source_identity` into the payload shape
     expected by release export.
@@ -2862,7 +3037,7 @@ def _source_identity(root: Path) -> dict[str, Any]:
             "body_in_receipt": False,
         }
 
-    git_root = Path(git_root_text)
+    git_root = Path(git_root_text).resolve()
     try:
         source_root_ref = root.relative_to(git_root).as_posix()
     except ValueError:
@@ -2878,17 +3053,24 @@ def _source_identity(root: Path) -> dict[str, Any]:
             else:
                 path_text = line
             dirty_paths.append(path_text.strip())
-    dirty_paths = sorted(path for path in dirty_paths if path)
+    tracked_delta = _tracked_source_delta(root, git_root, head, source_capture)
+    comparison_available = status_text is not None and tracked_delta is not None
+    dirty_paths = sorted({path for path in dirty_paths if path} | set(tracked_delta or []))
     return {
-        "status": "available",
+        "status": "available" if comparison_available else "unavailable",
         "source_root_ref": source_root_ref,
         "source_tree_state_kind": (
+            "git_source_comparison_unavailable" if not comparison_available else
             "git_head_clean" if not dirty_paths else "git_head_with_worktree_delta"
         ),
         "git_head": head,
         "dirty_source_path_count": len(dirty_paths),
         "dirty_source_path_sample": dirty_paths[:20],
         "dirty_source_path_overflow_count": max(0, len(dirty_paths) - 20),
+        "source_capture_hash_sha256": (
+            _sha256_bytes(json.dumps(source_capture, sort_keys=True).encode("utf-8"))
+            if source_capture is not None else None
+        ),
         "body_in_receipt": False,
     }
 
@@ -3395,6 +3577,7 @@ def _release_candidate_packet(
     projection_freshness_receipt: dict[str, Any],
     release_assurance_receipt: dict[str, Any],
     blocking_codes: list[str],
+    source_capture: dict[str, dict[str, str]] | None = None,
 ) -> dict[str, Any]:
     """
     Produce the release candidate packet value used by `microcosm_core.release_export`.
@@ -3404,7 +3587,7 @@ def _release_candidate_packet(
     `_release_candidate_warning_rows`, `_release_authorization_gate`,
     `_release_authorization_gate_decision`, and 2 more.
     """
-    source = _source_identity(source_root)
+    source = _source_identity(source_root, source_capture)
     warning_rows = _release_candidate_warning_rows(source)
     release_blocking_warning_count = sum(
         1 for row in warning_rows if row.get("release_blocking") is True
@@ -4172,11 +4355,13 @@ def build_release_export(
     private_body_substitutions.update(
         {str(row["path"]): row for row in source_private_body_rows}
     )
+    source_capture: dict[str, dict[str, str]] = {}
     inventory, home_redaction_rows, private_body_substitution_rows = _copy_allowed_files(
         allowed_files,
         root=source_root,
         target=target,
         private_body_substitutions=private_body_substitutions,
+        source_capture=source_capture,
     )
     private_body_stub_metadata_rows = _rewrite_private_body_stub_metadata(
         target,
@@ -4463,6 +4648,7 @@ def build_release_export(
         projection_freshness_receipt=receipt["projection_freshness_receipt"],
         release_assurance_receipt=receipt["release_assurance_v2"],
         blocking_codes=blocking_codes,
+        source_capture=source_capture,
     )
     write_json_atomic(target / RELEASE_RECEIPT_REF, receipt)
     return receipt

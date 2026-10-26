@@ -1,0 +1,90 @@
+{
+  "anti_claim": "The bridge campaign DAG validation organ checks campaign specs over public fixture inputs only. It is not a dispatcher, does not run multi-agent execution, does not prove provider safety, does not export private macro state, credentials, provider state, or raw operator threads; it does not call providers or external solvers, and it does not authorize release or publication. A malformed campaign cannot pass because the validator recomputes the graph structure and rejects any spec that breaks a rule.",
+  "authority_ceiling": {
+    "dispatches_agents": false,
+    "executes_campaigns": false,
+    "oracle_or_prover": false,
+    "production_ready": false,
+    "provider_call": false,
+    "provider_safety_proof": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "case_count": 4,
+  "cases": [
+    {
+      "case_id": "cycle_rejected",
+      "case_type": "negative",
+      "expectation_met": true,
+      "expected_ok": false,
+      "observed_ok": true,
+      "observed_valid": false,
+      "provider": "chatgpt",
+      "reject_rule_ids": [
+        "CR012"
+      ],
+      "workers": 1
+    },
+    {
+      "case_id": "fan_in_ok",
+      "case_type": "positive",
+      "expectation_met": true,
+      "expected_ok": true,
+      "observed_ok": true,
+      "observed_valid": true,
+      "provider": "claude",
+      "reject_rule_ids": [],
+      "workers": 2
+    },
+    {
+      "case_id": "linear_chain_ok",
+      "case_type": "positive",
+      "expectation_met": true,
+      "expected_ok": true,
+      "observed_ok": true,
+      "observed_valid": true,
+      "provider": "chatgpt",
+      "reject_rule_ids": [],
+      "workers": 2
+    },
+    {
+      "case_id": "two_synthesis_rejected",
+      "case_type": "negative",
+      "expectation_met": true,
+      "expected_ok": false,
+      "observed_ok": true,
+      "observed_valid": false,
+      "provider": "chatgpt",
+      "reject_rule_ids": [
+        "CR013",
+        "CR006"
+      ],
+      "workers": 1
+    }
+  ],
+  "claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures: schema and identity fields, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node that reaches a probe, barrier alignment, and the provider safe-parallelism ceiling. It rejects malformed campaigns by recomputation. It does not dispatch agents, execute campaigns, prove provider correctness, authorize release, or claim full private-root equivalence.",
+  "command": "native public fixture replay with installed Lean 4.29.1 when required",
+  "created_at": "2026-10-26T12:01:50+00:00",
+  "expected_negative_cases": {
+    "cycle_rejected": [
+      "CR012"
+    ],
+    "two_synthesis_rejected": [
+      "CR013"
+    ]
+  },
+  "fixture_id": "first_wave.bridge_campaign_dag_validation",
+  "input_mode": "bridge_campaign_dag_fixture_cases",
+  "negative_case_count": 2,
+  "observed_negative_case_count": 2,
+  "organ_id": "bridge_campaign_dag_validation",
+  "passed_positive_case_count": 2,
+  "positive_case_count": 2,
+  "schema_version": "bridge_campaign_dag_validation_organ_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.bridge_campaign_dag_validation"
+}

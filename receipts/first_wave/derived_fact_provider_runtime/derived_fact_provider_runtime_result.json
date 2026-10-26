@@ -1,0 +1,135 @@
+{
+  "anti_claim": "The derived fact provider runtime organ evaluates authored fact registries over public fixture roots only. It does not audit whether prose claims are true, does not export the full macro fact registry, does not perform semantic claim validation, does not export private macro state, credentials, or raw operator threads, and it does not authorize release or publication. A clean provider receipt means the registered facts resolved against the supplied root, not that any downstream claim is true. A malformed registry cannot pass because the provider recomputes each row and records the planted defect as an error-as-data row with the expected error_class.",
+  "authority_ceiling": {
+    "doctrine_truth_auditor": false,
+    "full_macro_registry_export": false,
+    "oracle_or_prover": false,
+    "production_ready": false,
+    "provider_call": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "semantic_claim_validation": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "case_count": 4,
+  "cases": [
+    {
+      "case_id": "git_callable_and_pointer_index_clean",
+      "case_type": "positive",
+      "error_checks": [],
+      "expectation_met": true,
+      "expected_error_class": null,
+      "expected_ok": true,
+      "observed_error_class": null,
+      "observed_ok": true,
+      "observed_status": "ok",
+      "unexpected_error_ids": [],
+      "value_checks": [
+        {
+          "expected": 2,
+          "fact_id": "demo.tracked_files",
+          "observed": 2,
+          "ok": true
+        },
+        {
+          "expected": 1,
+          "fact_id": "demo.tracked_python",
+          "observed": 1,
+          "ok": true
+        },
+        {
+          "expected": "beta",
+          "fact_id": "demo.second_entry",
+          "observed": "beta",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "case_id": "json_pointer_glob_clean",
+      "case_type": "positive",
+      "error_checks": [],
+      "expectation_met": true,
+      "expected_error_class": null,
+      "expected_ok": true,
+      "observed_error_class": null,
+      "observed_ok": true,
+      "observed_status": "ok",
+      "unexpected_error_ids": [],
+      "value_checks": [
+        {
+          "expected": 7,
+          "fact_id": "demo.summary_count",
+          "observed": 7,
+          "ok": true
+        },
+        {
+          "expected": 2,
+          "fact_id": "demo.markdown_count",
+          "observed": 2,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "case_id": "missing_source_path_rejected",
+      "case_type": "negative",
+      "error_checks": [
+        {
+          "error_class": "FileNotFoundError",
+          "fact_id": "demo.missing_source",
+          "ok": true,
+          "provider_status": "error"
+        }
+      ],
+      "expectation_met": true,
+      "expected_error_class": "FileNotFoundError",
+      "expected_ok": false,
+      "observed_error_class": "FileNotFoundError",
+      "observed_ok": true,
+      "observed_status": "degraded",
+      "unexpected_error_ids": [],
+      "value_checks": []
+    },
+    {
+      "case_id": "unknown_provider_type_rejected",
+      "case_type": "negative",
+      "error_checks": [
+        {
+          "error_class": "ValueError",
+          "fact_id": "demo.unknown_provider",
+          "ok": true,
+          "provider_status": "error"
+        }
+      ],
+      "expectation_met": true,
+      "expected_error_class": "ValueError",
+      "expected_ok": false,
+      "observed_error_class": "ValueError",
+      "observed_ok": true,
+      "observed_status": "degraded",
+      "unexpected_error_ids": [],
+      "value_checks": []
+    }
+  ],
+  "claim_ceiling": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
+  "command": "native public fixture replay with installed Lean 4.29.1 when required",
+  "created_at": "2026-10-26T12:01:51+00:00",
+  "expected_negative_cases": {
+    "missing_source_path_rejected": "FileNotFoundError",
+    "unknown_provider_type_rejected": "ValueError"
+  },
+  "fixture_id": "first_wave.derived_fact_provider_runtime",
+  "input_mode": "derived_fact_provider_registry_fixture_cases",
+  "negative_case_count": 2,
+  "observed_negative_case_count": 2,
+  "organ_id": "derived_fact_provider_runtime",
+  "passed_positive_case_count": 2,
+  "positive_case_count": 2,
+  "schema_version": "derived_fact_provider_runtime_organ_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.derived_fact_provider_runtime"
+}

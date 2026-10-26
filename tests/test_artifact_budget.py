@@ -47,6 +47,49 @@ def test_current_footprint_is_within_budget() -> None:
     assert stats["runtime_package_files"] > 0
 
 
+def test_measure_counts_both_packages_and_declared_resources_without_bytecode(
+    tmp_path: Path, monkeypatch,
+) -> None:
+    module = _load_budget_module()
+    runtime = {
+        "src/microcosm_core/__init__.py": "# original package\n",
+        "src/microcosm_core/nested/module.py": "value = 1\n",
+        "src/plectis/__init__.py": "# public package\n",
+        "src/plectis/repair/__init__.py": "# repair API\n",
+        "src/plectis/repair/_generated/Repair.py": "# generated checker\n",
+        "src/plectis/repair/_generated/GENERATED_SHA256.json": '{}\n',
+        "src/plectis/repair/_generated/Dafny-LICENSE.txt": "MIT\n",
+    }
+    ignored = {
+        "src/microcosm_core/__pycache__/cached.py": "cache directory\n",
+        "src/plectis/__pycache__/cached.pyc": "bytecode\n",
+        "src/plectis/stale.pyc": "bytecode\n",
+        "src/plectis/repair/_generated/translation.dtr": "not package data\n",
+    }
+    for relative, text in {**runtime, **ignored, "docs/guide.md": "Guide\n"}.items():
+        path = tmp_path / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+    manifest = tmp_path / "pyproject.toml"
+    manifest.write_text(
+        '[tool.setuptools.data-files]\n'
+        '"share/plectis/docs" = ["docs/*.md"]\n'
+        '[tool.setuptools.package-data]\n'
+        '"plectis.repair._generated" = ["*.json", "*.txt"]\n',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(module, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(module, "PYPROJECT", manifest)
+
+    stats = module.measure()
+
+    assert stats["runtime_package_files"] == len(runtime)
+    assert stats["runtime_package_bytes"] == sum(len(text.encode()) for text in runtime.values())
+    assert stats["data_files_count"] == 1
+    assert stats["total_files"] == len(runtime) + 1
+    assert stats["total_bytes"] == stats["runtime_package_bytes"] + len("Guide\n")
+
+
 def test_check_cli_passes_at_current_footprint() -> None:
     result = subprocess.run(
         [sys.executable, str(SCRIPT), "--check"],

@@ -1,0 +1,58 @@
+{
+  "anti_claim": "The egress self-compliance audit organ checks agent-output text over public fixture inputs only. It is a substring/phrase-membership policy, not a taint analyzer, not a prompt-injection defense, not a sandbox, and not an information-flow proof. It does not understand semantics, paraphrase, or adversarial evasion; a violation worded outside the known phrase tables is not detected, and benign text that happens to contain a tripwire phrase can be flagged. It does not export private state, credentials, or raw operator threads; it does not call providers or external solvers, and it does not authorize release or publication. A planted policy-violating text cannot pass because the gate recomputes the detector rows and flags any text whose tripwire fires without its legitimiser.",
+  "authority_ceiling": {
+    "information_flow_control": false,
+    "oracle_or_prover": false,
+    "production_ready": false,
+    "prompt_injection_defense": false,
+    "provider_call": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "sandboxing": false,
+    "semantic_understanding": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "taint_analysis": false
+  },
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.egress_self_compliance_audit",
+  "organ_id": "egress_self_compliance_audit",
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 3,
+    "replacements": [
+      {
+        "field_path": "receipt_paths.result",
+        "original_sha256": "sha256:d6e516706d6bf8a5ff104621bbd3bcb88b2cb795e501836b66a33e9c4c3ecc29",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "receipt_paths.board",
+        "original_sha256": "sha256:9749b708609b4f1c5ecc3f3e60293ec7544290f942c68ecc87429e5a2297c298",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "receipt_paths.validation",
+        "original_sha256": "sha256:b628aaa98388c1907c4b286769bc3beed744acd44b5a4b4d4a35de39f9eece24",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "private_home_path_transform"
+    ]
+  },
+  "receipt_paths": {
+    "board": "<private-home-path>",
+    "result": "<private-home-path>",
+    "validation": "<private-home-path>"
+  },
+  "schema_version": "egress_self_compliance_audit_validation_receipt_v1",
+  "status": "pass"
+}

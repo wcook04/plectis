@@ -474,6 +474,7 @@ def test_pattern_assimilation_rejects_source_module_digest_mismatch(
     _copy_exported_bundle_landing_receipts(public_root, bundle)
     manifest_path = bundle / "source_module_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    corrupted_module_id = manifest["modules"][0]["module_id"]
     manifest["modules"][0]["sha256"] = "0" * 64
     manifest_path.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n",
@@ -495,9 +496,7 @@ def test_pattern_assimilation_rejects_source_module_digest_mismatch(
         for card in result["source_open_body_imports"]["body_material"]
         if card["status"] == "blocked"
     ]
-    assert [card["module_id"] for card in invalid_cards] == [
-        "macro_pattern_autonomy_process_contract_body_import"
-    ]
+    assert [card["module_id"] for card in invalid_cards] == [corrupted_module_id]
     assert invalid_cards[0]["defect_codes"] == ["target_sha256_mismatch"]
 
 
@@ -642,13 +641,12 @@ def test_pattern_assimilation_source_modules_are_exact_macro_body_imports() -> N
     assert {row["module_id"] for row in modules} == PATTERN_SOURCE_MODULE_IDS
 
     for row in modules:
-        source_path = MICROCOSM_ROOT.parent / row["source_ref"]
-        target_path = MICROCOSM_ROOT.parent / row["target_ref"]
-        source_bytes = source_path.read_bytes()
+        target_path = MICROCOSM_ROOT / row["target_ref"].removeprefix("microcosm-substrate/")
         target_bytes = target_path.read_bytes()
-        digest = hashlib.sha256(source_bytes).hexdigest()
+        digest = hashlib.sha256(target_bytes).hexdigest()
 
-        assert source_bytes == target_bytes
+        # A standalone clone verifies the pinned imported snapshot, without
+        # requiring a private sibling's mutable state to still exist.
         assert row["source_import_class"] == "copied_non_secret_macro_body"
         assert row["body_copied"] is True
         assert row["body_in_receipt"] is False

@@ -20,6 +20,7 @@ import re
 import sys
 import tempfile
 from collections import defaultdict, deque
+from contextlib import nullcontext
 from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
@@ -29,6 +30,7 @@ from microcosm_core.organs._crown_jewel_common import (
     CrownJewelSpec,
     card_for_result,
     finding,
+    imported_source_modules,
     run_crown_jewel_organ,
 )
 
@@ -2517,164 +2519,167 @@ def _run_all_exercises(
     """
     source_bodies = source_bodies or {}
     source_paths = source_paths or {}
-    exercises: dict[str, dict[str, Any]] = {}
-    exercises["lineage_temporal_provenance_chain_resolver"] = {
-        "exercise_id": "lineage_temporal_provenance_chain_resolver",
-        **source_backed_lineage(
-            fixtures["lineage"],
-            source_paths.get(LINEAGE_MODULE_ID),
-        ),
-    }
-    exercises["approval_sign_off_claim_adjudicator"] = {
-        "exercise_id": "approval_sign_off_claim_adjudicator",
-        **source_backed_approval_adjudication(
+    copied_root = next((parent for path in source_paths.values()
+                        for parent in path.parents if parent.name == "source_modules"), None)
+    with imported_source_modules(copied_root) if copied_root else nullcontext():
+        exercises: dict[str, dict[str, Any]] = {}
+        exercises["lineage_temporal_provenance_chain_resolver"] = {
+            "exercise_id": "lineage_temporal_provenance_chain_resolver",
+            **source_backed_lineage(
+                fixtures["lineage"],
+                source_paths.get(LINEAGE_MODULE_ID),
+            ),
+        }
+        exercises["approval_sign_off_claim_adjudicator"] = {
+            "exercise_id": "approval_sign_off_claim_adjudicator",
+            **source_backed_approval_adjudication(
+                fixtures["approval"]["request"],
+                fixtures["approval"]["decision"],
+                {},
+                source_paths.get(APPROVAL_MODULE_ID),
+            ),
+        }
+        approval_preacquired = source_backed_approval_adjudication(
             fixtures["approval"]["request"],
             fixtures["approval"]["decision"],
-            {},
+            fixtures["approval"].get("preacquired", {}),
             source_paths.get(APPROVAL_MODULE_ID),
-        ),
-    }
-    approval_preacquired = source_backed_approval_adjudication(
-        fixtures["approval"]["request"],
-        fixtures["approval"]["decision"],
-        fixtures["approval"].get("preacquired", {}),
-        source_paths.get(APPROVAL_MODULE_ID),
-    )
-    exercises["approval_sign_off_claim_adjudicator"]["preacquired_claim_refused"] = (
-        approval_preacquired["preacquired_claim_refused"]
-    )
-    exercises["approval_sign_off_claim_adjudicator"][
-        "preacquired_decision_error_code"
-    ] = approval_preacquired.get("decision_error_code")
-    ast_tree = source_backed_ast_doc_tree(
-        fixtures["ast"]["files"],
-        source_paths.get(AST_MODULE_ID),
-    )
-    exercises["python_ast_symbol_index_doc_tree"] = {
-        "exercise_id": "python_ast_symbol_index_doc_tree",
-        "status": ast_tree["status"],
-        "symbol_count": ast_tree["symbol_count"],
-        "syntax_error_gap": ast_tree["syntax_error_gap"],
-        "qualified_symbols": ast_tree["qualified_symbols"],
-        "source_body_loaded": ast_tree["source_body_loaded"],
-        "source_contract_status": ast_tree["source_contract_status"],
-        "source_contract": ast_tree.get("source_contract"),
-    }
-    mission = compile_mission_graph(
-        fixtures["mission_graph"]["nodes"],
-        "target",
-        source_text=source_bodies.get(MISSION_GRAPH_MODULE_ID),
-    )
-    missing = compile_mission_graph(
-        fixtures["mission_graph"]["nodes"],
-        str(fixtures["mission_graph"].get("negative_target_id") or "target"),
-        source_text=source_bodies.get(MISSION_GRAPH_MODULE_ID),
-    )
-    exercises["mission_graph_topological_compiler"] = {
-        "exercise_id": "mission_graph_topological_compiler",
-        **mission,
-        "missing_target_error": bool(missing["topology_error"]),
-    }
-    deps = source_backed_dependency_pin_audit(
-        fixtures["dependency_pin"]["requirements"],
-        fixtures["dependency_pin"]["installed"],
-        source_paths.get(DEPENDENCY_PIN_MODULE_ID),
-    )
-    exercises["dependency_pin_drift_auditor"] = {
-        "exercise_id": "dependency_pin_drift_auditor",
-        **deps,
-    }
-    config = source_backed_config_authority_audit(
-        fixtures["config_authority"]["registry"],
-        set(fixtures["config_authority"]["known_roots"]),
-        source_paths.get(CONFIG_AUTHORITY_MODULE_ID),
-    )
-    exercises["config_authority_drift_audit"] = {
-        "exercise_id": "config_authority_drift_audit",
-        "status": config["status"],
-        "audit_status": config["status"],
-        "row_count": config["row_count"],
-        "audit_findings": config["findings"],
-        "mutation_allowed_rejected": any(
-            row.get("code") in {
-                "generated_projection_mutable",
-                "generated_projection_mutation_allowed",
-            }
-            for row in config["findings"]
-        ),
-        "source_body_loaded": config["source_body_loaded"],
-        "source_contract_status": config["source_contract_status"],
-        "source_contract": config.get("source_contract"),
-    }
-    blocked = source_backed_admission_decision(
-        fixtures["host_pressure"]["quote"],
-        "auto",
-        source_paths.get(HOST_PRESSURE_MODULE_ID),
-    )
-    exercises["host_pressure_admission_decision_gate"] = {
-        "exercise_id": "host_pressure_admission_decision_gate",
-        "status": blocked["status"],
-        "decision_status": blocked["decision_status"],
-        "allow": blocked["allow"],
-        "result": blocked["result"],
-        "auto_policy_blocked": blocked["auto_policy_blocked"],
-        "source_body_loaded": blocked["source_body_loaded"],
-        "source_contract_status": blocked["source_contract_status"],
-        "source_contract_findings": blocked.get("source_contract_findings", []),
-        "source_contract": blocked.get("source_contract"),
-    }
-    doctrine_hit = source_backed_doctrine_enrichment(
-        fixtures["doctrine_enrichment"]["corpus"],
-        fixtures["doctrine_enrichment"]["hit_path"],
-        source_paths.get(DOCTRINE_MODULE_ID),
-    )
-    doctrine_miss = source_backed_doctrine_enrichment(
-        fixtures["doctrine_enrichment"]["corpus"],
-        fixtures["doctrine_enrichment"]["miss_path"],
-        source_paths.get(DOCTRINE_MODULE_ID),
-    )
-    exercises["doctrine_file_enrichment_multihop_join"] = {
-        "exercise_id": "doctrine_file_enrichment_multihop_join",
-        **doctrine_hit,
-        "miss_empty_envelope": doctrine_miss["empty_envelope"],
-    }
-    worker_block = source_backed_worker_job_gate(
-        fixtures["worker_gate"]["blocked_job"],
-        source_paths.get(WORKER_GATE_MODULE_ID),
-    )
-    worker_allow = source_backed_worker_job_gate(
-        fixtures["worker_gate"]["allowed_job"],
-        source_paths.get(WORKER_GATE_MODULE_ID),
-    )
-    exercises["worker_job_budget_forbidden_surface_gate"] = {
-        "exercise_id": "worker_job_budget_forbidden_surface_gate",
-        "status": (
-            "pass"
-            if worker_block["source_contract_status"] == "pass"
-            and worker_allow["source_contract_status"] == "pass"
-            else "blocked"
-        ),
-        "blocked_job_status": worker_block["status"],
-        "blocked_job_allow": worker_block["allow"],
-        "blocked_job_reason": worker_block.get("reason"),
-        "blocked_surface": worker_block.get("surface"),
-        "allowed_job_status": worker_allow["status"],
-        "allowed_job_allow": worker_allow["allow"],
-        "source_body_loaded": worker_block["source_body_loaded"],
-        "source_contract_status": worker_block["source_contract_status"],
-        "source_contract_findings": worker_block.get("source_contract_findings", []),
-        "source_contract": worker_block.get("source_contract"),
-    }
-    milestone = source_backed_milestone_quality_accounting(
-        fixtures["milestone_quality"]["runs"],
-        source_paths.get(MILESTONE_MODULE_ID),
-        fixtures["milestone_quality"].get("blocker_metrics"),
-    )
-    exercises["milestone_relative_promotion_quality_accounting"] = {
-        "exercise_id": "milestone_relative_promotion_quality_accounting",
-        **milestone,
-    }
-    return exercises
+        )
+        exercises["approval_sign_off_claim_adjudicator"]["preacquired_claim_refused"] = (
+            approval_preacquired["preacquired_claim_refused"]
+        )
+        exercises["approval_sign_off_claim_adjudicator"][
+            "preacquired_decision_error_code"
+        ] = approval_preacquired.get("decision_error_code")
+        ast_tree = source_backed_ast_doc_tree(
+            fixtures["ast"]["files"],
+            source_paths.get(AST_MODULE_ID),
+        )
+        exercises["python_ast_symbol_index_doc_tree"] = {
+            "exercise_id": "python_ast_symbol_index_doc_tree",
+            "status": ast_tree["status"],
+            "symbol_count": ast_tree["symbol_count"],
+            "syntax_error_gap": ast_tree["syntax_error_gap"],
+            "qualified_symbols": ast_tree["qualified_symbols"],
+            "source_body_loaded": ast_tree["source_body_loaded"],
+            "source_contract_status": ast_tree["source_contract_status"],
+            "source_contract": ast_tree.get("source_contract"),
+        }
+        mission = compile_mission_graph(
+            fixtures["mission_graph"]["nodes"],
+            "target",
+            source_text=source_bodies.get(MISSION_GRAPH_MODULE_ID),
+        )
+        missing = compile_mission_graph(
+            fixtures["mission_graph"]["nodes"],
+            str(fixtures["mission_graph"].get("negative_target_id") or "target"),
+            source_text=source_bodies.get(MISSION_GRAPH_MODULE_ID),
+        )
+        exercises["mission_graph_topological_compiler"] = {
+            "exercise_id": "mission_graph_topological_compiler",
+            **mission,
+            "missing_target_error": bool(missing["topology_error"]),
+        }
+        deps = source_backed_dependency_pin_audit(
+            fixtures["dependency_pin"]["requirements"],
+            fixtures["dependency_pin"]["installed"],
+            source_paths.get(DEPENDENCY_PIN_MODULE_ID),
+        )
+        exercises["dependency_pin_drift_auditor"] = {
+            "exercise_id": "dependency_pin_drift_auditor",
+            **deps,
+        }
+        config = source_backed_config_authority_audit(
+            fixtures["config_authority"]["registry"],
+            set(fixtures["config_authority"]["known_roots"]),
+            source_paths.get(CONFIG_AUTHORITY_MODULE_ID),
+        )
+        exercises["config_authority_drift_audit"] = {
+            "exercise_id": "config_authority_drift_audit",
+            "status": config["status"],
+            "audit_status": config["status"],
+            "row_count": config["row_count"],
+            "audit_findings": config["findings"],
+            "mutation_allowed_rejected": any(
+                row.get("code") in {
+                    "generated_projection_mutable",
+                    "generated_projection_mutation_allowed",
+                }
+                for row in config["findings"]
+            ),
+            "source_body_loaded": config["source_body_loaded"],
+            "source_contract_status": config["source_contract_status"],
+            "source_contract": config.get("source_contract"),
+        }
+        blocked = source_backed_admission_decision(
+            fixtures["host_pressure"]["quote"],
+            "auto",
+            source_paths.get(HOST_PRESSURE_MODULE_ID),
+        )
+        exercises["host_pressure_admission_decision_gate"] = {
+            "exercise_id": "host_pressure_admission_decision_gate",
+            "status": blocked["status"],
+            "decision_status": blocked["decision_status"],
+            "allow": blocked["allow"],
+            "result": blocked["result"],
+            "auto_policy_blocked": blocked["auto_policy_blocked"],
+            "source_body_loaded": blocked["source_body_loaded"],
+            "source_contract_status": blocked["source_contract_status"],
+            "source_contract_findings": blocked.get("source_contract_findings", []),
+            "source_contract": blocked.get("source_contract"),
+        }
+        doctrine_hit = source_backed_doctrine_enrichment(
+            fixtures["doctrine_enrichment"]["corpus"],
+            fixtures["doctrine_enrichment"]["hit_path"],
+            source_paths.get(DOCTRINE_MODULE_ID),
+        )
+        doctrine_miss = source_backed_doctrine_enrichment(
+            fixtures["doctrine_enrichment"]["corpus"],
+            fixtures["doctrine_enrichment"]["miss_path"],
+            source_paths.get(DOCTRINE_MODULE_ID),
+        )
+        exercises["doctrine_file_enrichment_multihop_join"] = {
+            "exercise_id": "doctrine_file_enrichment_multihop_join",
+            **doctrine_hit,
+            "miss_empty_envelope": doctrine_miss["empty_envelope"],
+        }
+        worker_block = source_backed_worker_job_gate(
+            fixtures["worker_gate"]["blocked_job"],
+            source_paths.get(WORKER_GATE_MODULE_ID),
+        )
+        worker_allow = source_backed_worker_job_gate(
+            fixtures["worker_gate"]["allowed_job"],
+            source_paths.get(WORKER_GATE_MODULE_ID),
+        )
+        exercises["worker_job_budget_forbidden_surface_gate"] = {
+            "exercise_id": "worker_job_budget_forbidden_surface_gate",
+            "status": (
+                "pass"
+                if worker_block["source_contract_status"] == "pass"
+                and worker_allow["source_contract_status"] == "pass"
+                else "blocked"
+            ),
+            "blocked_job_status": worker_block["status"],
+            "blocked_job_allow": worker_block["allow"],
+            "blocked_job_reason": worker_block.get("reason"),
+            "blocked_surface": worker_block.get("surface"),
+            "allowed_job_status": worker_allow["status"],
+            "allowed_job_allow": worker_allow["allow"],
+            "source_body_loaded": worker_block["source_body_loaded"],
+            "source_contract_status": worker_block["source_contract_status"],
+            "source_contract_findings": worker_block.get("source_contract_findings", []),
+            "source_contract": worker_block.get("source_contract"),
+        }
+        milestone = source_backed_milestone_quality_accounting(
+            fixtures["milestone_quality"]["runs"],
+            source_paths.get(MILESTONE_MODULE_ID),
+            fixtures["milestone_quality"].get("blocker_metrics"),
+        )
+        exercises["milestone_relative_promotion_quality_accounting"] = {
+            "exercise_id": "milestone_relative_promotion_quality_accounting",
+            **milestone,
+        }
+        return exercises
 
 
 def evaluate(input_dir: Path, public_root: Path, _source_manifest: dict[str, Any]) -> dict[str, Any]:

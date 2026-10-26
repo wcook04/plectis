@@ -20,12 +20,12 @@
           "validation_ref"
         ],
         "guard_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_drift_control_lens_uses_payload_boundary",
-        "residual_route": "microcosm projection-safety",
+        "residual_route": "plectis projection-safety",
         "treatment": "guarded_public_projection"
       },
       "live_repair_authorized": false,
       "release_authorized": false,
-      "repair_route": "microcosm projection-safety",
+      "repair_route": "plectis projection-safety",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::world_model_projection_drift_control_room",
@@ -42,7 +42,7 @@
           "receipts/runtime_shell/public_view_quality_action_map_lens.json",
           "tests/test_observatory_legibility.py::test_observatory_legibility_validator_exposes_causal_chain"
         ],
-        "authority_ref": "microcosm view-quality::action_rows",
+        "authority_ref": "plectis view-quality::action_rows",
         "derivation_path": [
           "projection_protocol.selected_pattern_ids",
           "receipts/runtime_shell/public_projection_drift_control_lens.json::drift_rows",
@@ -53,15 +53,15 @@
           "validation_ref"
         ],
         "guard_ref": "tests/test_observatory_legibility.py::test_observatory_legibility_validator_exposes_causal_chain",
-        "residual_route": "microcosm view-quality",
+        "residual_route": "plectis view-quality",
         "treatment": "guarded_public_projection"
       },
       "live_repair_authorized": false,
       "release_authorized": false,
-      "repair_route": "microcosm view-quality",
+      "repair_route": "plectis view-quality",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
-      "source_ref": "microcosm view-quality::action_rows",
+      "source_ref": "plectis view-quality::action_rows",
       "source_signal": "view action rows are drift targets, not final UI quality claims",
       "target_ref": "receipts/runtime_shell/public_view_quality_action_map_lens.json",
       "validation_ref": "tests/test_observatory_legibility.py::test_observatory_legibility_validator_exposes_causal_chain"
@@ -86,12 +86,12 @@
           "validation_ref"
         ],
         "guard_ref": "tests/test_launch_compression.py",
-        "residual_route": "microcosm spine",
+        "residual_route": "plectis spine",
         "treatment": "guarded_public_projection"
       },
       "live_repair_authorized": false,
       "release_authorized": false,
-      "repair_route": "microcosm spine",
+      "repair_route": "plectis spine",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
       "source_ref": "codex/standards/std_command_output_projection.json",
@@ -119,12 +119,12 @@
           "validation_ref"
         ],
         "guard_ref": "tests/test_runtime_shell.py::test_runtime_shell_status_surface_lists_commands",
-        "residual_route": "microcosm route list",
+        "residual_route": "plectis route list",
         "treatment": "guarded_public_projection"
       },
       "live_repair_authorized": false,
       "release_authorized": false,
-      "repair_route": "microcosm route list",
+      "repair_route": "plectis route list",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
       "source_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_plane.json",
@@ -207,7 +207,7 @@
           "receipts/runtime_shell/public_projection_safety_audit_lens.json",
           "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_uses_payload_boundary"
         ],
-        "authority_ref": "microcosm projection-safety::projection_rows",
+        "authority_ref": "plectis projection-safety::projection_rows",
         "derivation_path": [
           "projection_protocol.selected_pattern_ids",
           "receipts/runtime_shell/public_projection_drift_control_lens.json::drift_rows",
@@ -218,15 +218,15 @@
           "validation_ref"
         ],
         "guard_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_uses_payload_boundary",
-        "residual_route": "microcosm projection-safety",
+        "residual_route": "plectis projection-safety",
         "treatment": "guarded_public_projection"
       },
       "live_repair_authorized": false,
       "release_authorized": false,
-      "repair_route": "microcosm projection-safety",
+      "repair_route": "plectis projection-safety",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
-      "source_ref": "microcosm projection-safety::projection_rows",
+      "source_ref": "plectis projection-safety::projection_rows",
       "source_signal": "public projection rows carry owner route and omission receipt before reveal",
       "target_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
       "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_uses_payload_boundary"
@@ -251,12 +251,12 @@
           "validation_ref"
         ],
         "guard_ref": "tests/test_cli.py::test_cli_projection_drift_control_smoke",
-        "residual_route": "microcosm drift-control",
+        "residual_route": "plectis drift-control",
         "treatment": "guarded_public_projection"
       },
       "live_repair_authorized": false,
       "release_authorized": false,
-      "repair_route": "microcosm drift-control",
+      "repair_route": "plectis drift-control",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
       "source_ref": "kernel.py --entry::task_conditioned_context_pack_entry",
@@ -267,6 +267,6 @@
   ],
   "drift_rows_count": 8,
   "generation_basis": "projection_protocol.selected_pattern_ids + public_runtime_receipt.drift_rows",
-  "recompute_digest": "sha256:682285c76bc75c6754c46a01181f08ce63852eb97fd53591e3850fecbecc4f70",
+  "recompute_digest": "sha256:f5d16ca30ed135814b167eb8c9d8a045d66b278491283f4869c71d96206352ac",
   "schema_version": "world_model_projection_drift_rows_v1"
 }

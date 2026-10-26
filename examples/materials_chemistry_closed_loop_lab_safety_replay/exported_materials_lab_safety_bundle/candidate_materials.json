@@ -1,53 +1,57 @@
 {
-  "schema_version": "materials_chemistry_candidate_materials_v1",
   "candidate_materials": [
     {
+      "bioactivity_target": false,
+      "body_in_receipt": false,
       "candidate_material_id": "mat_polymer_membrane_001",
-      "target_property_label": "thermal_stability_proxy",
+      "controlled_substance_target": false,
+      "discovery_claim": false,
       "literature_capsule_ref": "literature_capsule:public_abstract_membrane_001",
+      "non_actionable_literature_capsule": true,
+      "private_lab_notebook_exported": false,
+      "public_safety_gate_score": 0.94,
       "safety_screen_ref": "safety_screen:membrane_001",
-      "non_actionable_literature_capsule": true,
-      "controlled_substance_target": false,
-      "bioactivity_target": false,
-      "discovery_claim": false,
-      "private_lab_notebook_exported": false,
-      "body_in_receipt": false
+      "target_property_label": "thermal_stability_proxy"
     },
     {
+      "bioactivity_target": false,
+      "body_in_receipt": false,
       "candidate_material_id": "mat_solid_electrolyte_002",
-      "target_property_label": "ionic_transport_proxy",
+      "controlled_substance_target": false,
+      "discovery_claim": false,
       "literature_capsule_ref": "literature_capsule:public_abstract_electrolyte_002",
+      "non_actionable_literature_capsule": true,
+      "private_lab_notebook_exported": false,
+      "public_safety_gate_score": 0.91,
       "safety_screen_ref": "safety_screen:electrolyte_002",
-      "non_actionable_literature_capsule": true,
-      "controlled_substance_target": false,
-      "bioactivity_target": false,
-      "discovery_claim": false,
-      "private_lab_notebook_exported": false,
-      "body_in_receipt": false
+      "target_property_label": "ionic_transport_proxy"
     },
     {
+      "bioactivity_target": false,
+      "body_in_receipt": false,
       "candidate_material_id": "mat_catalyst_support_003",
-      "target_property_label": "surface_area_proxy",
-      "literature_capsule_ref": "literature_capsule:public_abstract_support_003",
-      "safety_screen_ref": "safety_screen:support_003",
-      "non_actionable_literature_capsule": true,
       "controlled_substance_target": false,
-      "bioactivity_target": false,
       "discovery_claim": false,
+      "literature_capsule_ref": "literature_capsule:public_abstract_support_003",
+      "non_actionable_literature_capsule": true,
       "private_lab_notebook_exported": false,
-      "body_in_receipt": false
+      "public_safety_gate_score": 0.85,
+      "safety_screen_ref": "safety_screen:support_003",
+      "target_property_label": "surface_area_proxy"
     },
     {
-      "candidate_material_id": "mat_sorbent_surface_004",
-      "target_property_label": "adsorption_proxy",
-      "literature_capsule_ref": "literature_capsule:public_abstract_sorbent_004",
-      "safety_screen_ref": "safety_screen:sorbent_004",
-      "non_actionable_literature_capsule": true,
-      "controlled_substance_target": false,
       "bioactivity_target": false,
+      "body_in_receipt": false,
+      "candidate_material_id": "mat_sorbent_surface_004",
+      "controlled_substance_target": false,
       "discovery_claim": false,
+      "literature_capsule_ref": "literature_capsule:public_abstract_sorbent_004",
+      "non_actionable_literature_capsule": true,
       "private_lab_notebook_exported": false,
-      "body_in_receipt": false
+      "public_safety_gate_score": 0.88,
+      "safety_screen_ref": "safety_screen:sorbent_004",
+      "target_property_label": "adsorption_proxy"
     }
-  ]
+  ],
+  "schema_version": "materials_chemistry_candidate_materials_v1"
 }

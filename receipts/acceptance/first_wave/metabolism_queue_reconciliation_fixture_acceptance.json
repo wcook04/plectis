@@ -1,0 +1,52 @@
+{
+  "anti_claim": "The metabolism queue reconciliation organ runs against a per-case synthetic temp SQLite store seeded from public fixtures only. It is not the live private metabolism runtime, does not export the production queue database, scheduler daemon, provider state, credentials, or raw operator threads; it does not dispatch agents, call providers, or auto-repair ambiguous runtime state, and it does not authorize release or publication. A planted inconsistency cannot pass because the capsule's reconciler recomputes the job/run/log relationship and emits the matching review rule.",
+  "body_in_receipt": false,
+  "claim_ceiling": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
+  "fixture_id": "first_wave.metabolism_queue_reconciliation",
+  "generated_receipts": [
+    "<private-home-path>",
+    "<private-home-path>",
+    "<private-home-path>",
+    "<private-home-path>"
+  ],
+  "organ_id": "metabolism_queue_reconciliation",
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 4,
+    "replacements": [
+      {
+        "field_path": "generated_receipts[0]",
+        "original_sha256": "sha256:bd5be9336f239ef338a78613248018c1358022c958cbcba6297f4f2ca664d502",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[1]",
+        "original_sha256": "sha256:cd2efa69f7ca5d01c3f429bff04531ae64969459c58887080a5062214bd9dcde",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[2]",
+        "original_sha256": "sha256:5ee79b0033264da801c0dd1376e6aea31c09a52c96704a695b804246a984d952",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[3]",
+        "original_sha256": "sha256:0baa963efb46168776ffac7889f674af0720911a654907ebaa8fce4ea5da952b",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "private_home_path_transform"
+    ]
+  },
+  "real_substrate_disposition": "real_substrate_capsule",
+  "schema_version": "metabolism_queue_reconciliation_acceptance_receipt_v1",
+  "status": "pass"
+}

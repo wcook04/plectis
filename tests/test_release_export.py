@@ -41,17 +41,14 @@ def _commit_all(repo: Path, message: str) -> str:
     ).stdout.strip()
 
 
-def _committed_public_refs(root: Path, *top_levels: str) -> set[str] | None:
+def _candidate_public_refs(root: Path, *top_levels: str) -> set[str] | None:
     try:
         completed = subprocess.run(
             [
                 "git",
                 "-C",
                 str(root),
-                "ls-tree",
-                "-r",
-                "--name-only",
-                "HEAD",
+                "ls-files", "--cached", "--others", "--exclude-standard", "-z",
                 "--",
                 *top_levels,
             ],
@@ -61,7 +58,7 @@ def _committed_public_refs(root: Path, *top_levels: str) -> set[str] | None:
         )
     except (OSError, subprocess.CalledProcessError):
         return None
-    return {line.strip() for line in completed.stdout.splitlines() if line.strip()}
+    return set(completed.stdout.split("\0")) - {""}
 
 
 def _accepted_organ_ids(root: Path) -> set[str]:
@@ -117,13 +114,10 @@ def test_packaged_source_module_python_dirs_cover_public_body_imports() -> None:
         pyproject = tomllib.load(handle)
 
     data_files = pyproject["tool"]["setuptools"]["data-files"]
-    packaged_globs = {
-        pattern
-            for patterns in data_files.values()
-            for pattern in patterns
-            if pattern.endswith("/*.py")
-    }
-    committed_refs = _committed_public_refs(root, "examples", "fixtures")
+    packaged_refs = {path.relative_to(root).as_posix()
+                     for patterns in data_files.values() for pattern in patterns
+                     for path in root.glob(pattern) if path.is_file()}
+    committed_refs = _candidate_public_refs(root, "examples", "fixtures")
     accepted_roots = _accepted_public_roots(root, "examples", "fixtures")
     if committed_refs is None:
         source_module_dirs = sorted(
@@ -150,11 +144,10 @@ def test_packaged_source_module_python_dirs_cover_public_body_imports() -> None:
             }
         )
 
-    missing = [
-        source_dir
-        for source_dir in source_module_dirs
-        if f"{source_dir}/*.py" not in packaged_globs
-    ]
+    missing = [path.relative_to(root).as_posix()
+               for source_dir in source_module_dirs
+               for path in (root / source_dir).glob("*.py")
+               if path.relative_to(root).as_posix() not in packaged_refs]
 
     assert missing == []
 
@@ -334,7 +327,7 @@ def _make_release_root(root: Path) -> Path:
         "SOURCE_STATUS.md",
         "bootstrap.sh",
     ):
-        _write(root / file_name, f"{file_name}\n")
+        _write(root / file_name, "__pycache__/\n.build/\n" if file_name == ".gitignore" else f"{file_name}\n")
     _write(
         root / "pyproject.toml",
         """
@@ -406,6 +399,10 @@ where = ["src"]
         '{"intentional": true}\n',
     )
     _write(root / "fixtures/fixture.json", '{"fixture": true}\n')
+    _write(
+        root / "formal/fixture/Identity.dfy",
+        "lemma Identity(value: int)\n  ensures value == value\n{\n}\n",
+    )
     _write(root / "paper_modules/cold_clone_probe.md", "# Cold clone\n")
     _write(root / "scripts/inspect/first_screen_composition_card.py", "print('ok')\n")
     _write(root / "skills/cold_start_navigation.md", "# Cold start\n")
@@ -571,6 +568,208 @@ def test_candidate_doctrine_lattice_refresh_gates_on_reproducibility_not_populat
     assert receipt["validation_errors"]["projection"] == []
 
 
+@pytest.mark.parametrize("index_flag", ["--assume-unchanged", "--skip-worktree"])
+@pytest.mark.parametrize("restore_after_capture", [False, True])
+def test_release_export_detects_hidden_source_bytes(
+    tmp_path: Path, index_flag: str, restore_after_capture: bool,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root = _make_release_root(tmp_path / "source")
+    _git(root, "init")
+    _git(root, "config", "user.email", "fixture@example.invalid")
+    _git(root, "config", "user.name", "Release Fixture")
+    _commit_all(root, "committed source")
+    assert release_export._source_identity(root)["source_tree_state_kind"] == "git_head_clean"
+    _git(root, "update-index", index_flag, "README.md")
+    payload = b"README.md\nChanged bytes hidden from git status.\n"
+    (root / "README.md").write_bytes(payload)
+    if restore_after_capture:
+        original_copy = release_export._copy_allowed_files
+
+        def copy_then_restore(*args, **kwargs):
+            copied = original_copy(*args, **kwargs)
+            (root / "README.md").write_bytes(b"README.md\n")
+            return copied
+
+        monkeypatch.setattr(release_export, "_copy_allowed_files", copy_then_restore)
+
+    receipt = release_export.build_release_export(root, tmp_path / "out")
+
+    candidate = receipt["release_candidate_packet"]
+    identity = candidate["candidate_identity"]["source"]
+    assert identity["source_tree_state_kind"] == "git_head_with_worktree_delta"
+    assert "README.md" in identity["dirty_source_path_sample"]
+    assert identity["source_capture_hash_sha256"]
+    assert (tmp_path / "out/plectis/README.md").read_bytes() == payload
+    decision = candidate["release_authorization_gate_decision"]
+    assert decision["decision"] == "defer"
+    assert "RELEASE_AUTHORIZATION_DIRTY_SOURCE_TREE" in decision["blocking_codes"]
+    assert decision["release_authorization_allowed_now"] is False
+
+
+def test_source_modules_contamination_prunes_excluded_ancestors_before_descent(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root = tmp_path / "source"
+    first = root / "examples/first/source_modules/module.py"
+    second = root / "examples/deeper/second/source_modules/nested/module.py"
+    artifact = root / "examples/first/source_modules/package/.git/config"
+    _write(first, 'HOME = "/Users/release-fixture/data"\n')
+    _write(second, 'HOME = "/home/release-fixture/data"\n')
+    _write(artifact, "copied Git metadata is build residue\n")
+    _git(root, "init")
+    excluded = [root / name for name in (".git", "nested/.git", ".venv", "venv")]
+    for directory in excluded:
+        _write(directory / "objects/volatile/source_modules/hidden.py", first.read_text())
+    original_scandir = release_export.os.scandir
+
+    def guarded_scandir(path):
+        if isinstance(path, int):
+            return original_scandir(path)
+        candidate = Path(path)
+        assert not any(candidate == directory or directory in candidate.parents
+                       for directory in excluded), "discovery entered an excluded ancestor"
+        return original_scandir(path)
+
+    monkeypatch.setattr(release_export.os, "scandir", guarded_scandir)
+    rows = release_export.scan_source_modules_contamination(root, compare_private_bodies=False)
+
+    assert {(row["path"], row["contamination_class"]) for row in rows} == {
+        (first.relative_to(root).as_posix(), "host_private_path"),
+        (second.relative_to(root).as_posix(), "host_private_path"),
+        (artifact.relative_to(root).as_posix(), "build_artifact_directory"),
+    }
+
+
+def test_source_modules_contamination_preserves_public_tree_discovery_errors(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root = tmp_path / "source"
+    _write(root / "examples/basic/source_modules/module.py", "SAFE = True\n")
+    original_scandir = release_export.os.scandir
+
+    def disappearing_source(path):
+        if isinstance(path, int):
+            return original_scandir(path)
+        if Path(path) == root / "examples":
+            raise FileNotFoundError("public source disappeared during discovery")
+        return original_scandir(path)
+
+    monkeypatch.setattr(release_export.os, "scandir", disappearing_source)
+    with pytest.raises(FileNotFoundError, match="public source disappeared"):
+        release_export.scan_source_modules_contamination(root, compare_private_bodies=False)
+
+
+def test_restricted_source_discovery_prunes_git_before_descent(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root = tmp_path / "source"
+    _write(root / "examples/basic/source_modules/module.py", "SAFE = True\n")
+    _git(root, "init")
+    excluded = [root / name for name in (".git", "nested/.git", ".venv", "venv")]
+    for directory in excluded:
+        _write(directory / "objects/volatile/source_modules/hidden.py", "ignored\n")
+    original_scandir = release_export.os.scandir
+
+    def guarded_scandir(path):
+        if isinstance(path, int):
+            return original_scandir(path)
+        candidate = Path(path)
+        assert not any(candidate == directory or directory in candidate.parents
+                       for directory in excluded), "restricted discovery entered an excluded ancestor"
+        return original_scandir(path)
+
+    monkeypatch.setattr(release_export.os, "scandir", guarded_scandir)
+    assert release_export._restricted_source_module_substitution_rows(root) == []
+
+
+def test_restricted_source_discovery_preserves_public_tree_errors(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root = tmp_path / "source"
+    _write(root / "examples/basic/source_modules/module.py", "SAFE = True\n")
+    original_scandir = release_export.os.scandir
+
+    def disappearing_source(path):
+        if isinstance(path, int):
+            return original_scandir(path)
+        if Path(path) == root / "examples":
+            raise FileNotFoundError("public source disappeared during discovery")
+        return original_scandir(path)
+
+    monkeypatch.setattr(release_export.os, "scandir", disappearing_source)
+    with pytest.raises(FileNotFoundError, match="public source disappeared"):
+        release_export._restricted_source_module_substitution_rows(root)
+
+
+def test_source_identity_detects_mode_drift_hidden_by_git_config(tmp_path: Path) -> None:
+    root = tmp_path / "source"
+    root.mkdir()
+    _write(root / "program.py", "print('fixture')\n")
+    _git(root, "init")
+    _git(root, "config", "user.email", "fixture@example.invalid")
+    _git(root, "config", "user.name", "Release Fixture")
+    _commit_all(root, "non-executable source")
+    _git(root, "config", "core.filemode", "false")
+    (root / "program.py").chmod(0o755)
+
+    identity = release_export._source_identity(root)
+
+    assert identity["status"] == "available"
+    assert identity["source_tree_state_kind"] == "git_head_with_worktree_delta"
+    assert identity["dirty_source_path_sample"] == ["program.py"]
+
+
+def test_release_export_cannot_attest_an_ignored_untracked_payload(tmp_path: Path) -> None:
+    root = _make_release_root(tmp_path / "source")
+    _git(root, "init")
+    _git(root, "config", "user.email", "fixture@example.invalid")
+    _git(root, "config", "user.name", "Release Fixture")
+    (root / ".gitignore").write_text("examples/ignored.py\n")
+    _commit_all(root, "committed source")
+    extra = root / "examples/ignored.py"
+    _write(extra, "UNCOMMITTED = True\n")
+    receipt = release_export.build_release_export(root, tmp_path / "out")
+    assert (tmp_path / "out/plectis/examples/ignored.py").read_bytes() == extra.read_bytes()
+    candidate = receipt["release_candidate_packet"]
+    identity = candidate["candidate_identity"]["source"]
+    assert identity["source_tree_state_kind"] == "git_head_with_worktree_delta"
+    assert "examples/ignored.py" in identity["dirty_source_path_sample"]
+    assert "RELEASE_AUTHORIZATION_DIRTY_SOURCE_TREE" in candidate["release_authorization_gate_decision"]["blocking_codes"]
+
+
+def test_artifact_identity_binds_executable_mode(tmp_path: Path) -> None:
+    path = tmp_path / "program.py"
+    _write(path, "print('fixture')\n")
+    before = release_export._artifact_inventory_for_paths(tmp_path, ["program.py"])
+    path.chmod(0o755)
+    after = release_export._artifact_inventory_for_paths(tmp_path, ["program.py"])
+    assert before[0]["sha256"] == after[0]["sha256"]
+    assert release_export._artifact_payload_hash(before) != release_export._artifact_payload_hash(after)
+
+
+def test_source_identity_cannot_attest_when_commit_comparison_fails(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root = tmp_path / "source"
+    root.mkdir()
+    _write(root / "public.txt")
+    _git(root, "init")
+    _git(root, "config", "user.email", "fixture@example.invalid")
+    _git(root, "config", "user.name", "Release Fixture")
+    _commit_all(root, "source")
+    original = release_export._git_output
+    monkeypatch.setattr(
+        release_export, "_git_output",
+        lambda root, args: None if args[0] == "ls-tree" else original(root, args),
+    )
+
+    identity = release_export._source_identity(root)
+
+    assert identity["status"] == "unavailable"
+    assert identity["source_tree_state_kind"] == "git_source_comparison_unavailable"
+
+
 def test_release_export_generates_clean_standalone_folder_and_receipt(
     tmp_path: Path,
 ) -> None:
@@ -631,6 +830,9 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert (target / "ORGANS.md").is_file()
     assert (target / "NOTICE").is_file()
     assert (target / "PROVENANCE.md").is_file()
+    assert (target / "formal/fixture/Identity.dfy").read_bytes() == (
+        root / "formal/fixture/Identity.dfy"
+    ).read_bytes()
     assert (target / "Makefile").is_file()
     assert (target / ".github/workflows/ci.yml").is_file()
     assert (target / "CONTRIBUTING.md").is_file()

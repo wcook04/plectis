@@ -12,6 +12,46 @@ installation in [Quickstart](../../QUICKSTART.md#2-install). Without installing,
 replace `plectis` with `PYTHONPATH=src python3 -m plectis` in this guide's
 commands. `python3 -m microcosm_core` remains the compatibility spelling.
 
+## Fresh component replays
+
+`make component-replays` runs every implemented component with its registered
+public input. For the Lean components, the gate selects the live fixture
+runner so a saved compatibility bundle cannot stand in for a new proof run.
+It installs `.[test]`
+in the Makefile's virtual environment. The native witnesses also require Git,
+Swift 6+ on macOS, and Lean/Lake; CI uses Lean `leanprover/lean4:v4.29.1` and the
+macOS 15 runner. Set `ELAN_TOOLCHAIN=leanprover/lean4:v4.29.1` when reproducing
+that lane locally. A missing tool or blocked component fails the gate.
+
+Each run writes a fresh directory under `.microcosm/component-replays/`.
+`component-replays.json` records the source revision and working-tree state,
+runtime source hash, each input hash and the hash of its actual parsed receipt.
+The gate checks that receipt status agrees with the runner and that the run
+preserved its inputs. It continues after failures so the summary covers the
+complete registry. The dedicated CI job retains these files as an artifact,
+including failed runs. The Python-version matrix continues to run `make ci`;
+the more expensive native component replay runs once in its own job.
+
+These results establish the named checks on the supplied public inputs.
+They do not prove arbitrary application behavior. `make verify-operations`
+separately rechecks the formal decision kernels and their deliberately broken
+specifications. The governed-mutation example's portable Git-object witness
+checks a public source-change identity and changed paths without private Git
+history; it does not establish execution of the example's symbolic proposals.
+The cognitive-operator replay checks the current public snapshot and retains
+the original private cognition statements as historical evidence.
+
+The [governed-mutation module](../../src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py)
+owns `build_public_commit_witness` and `refresh_public_record_identity`.
+The latter takes an input directory, a public Git checkout and a concrete
+source-change commit. It preserves the earlier upstream identity as history.
+The [exporter](../../src/microcosm_core/release_export.py) owns
+`record_reviewed_source_publication`: after an explicit publication review,
+it records the selected manifests' exact targets and digests under
+`reviewed_publication` in the existing source-module policy. Refresh grants
+retain their separate operation scope. Secret, host-path and build-output
+checks still apply to reviewed copies.
+
 ## The full smoke card set
 
 `make smoke` runs selected CLI commands and saves their output under
@@ -231,3 +271,12 @@ make ci
 
 A successful run establishes that those commands worked in that exported
 copy. It does not authorize release.
+
+## Isolate checks of build defaults
+
+A nested `make` inherits command-line overrides through `MAKEFLAGS`. Tests of
+its default interpreter or environment selection must clear those inherited
+flags and the specific override they are measuring. An explicit outer
+`make test VENV=...` is valid usage and must not silently choose the nested
+probe's answer. Keep this isolation local to the probe rather than disabling
+resource or environment guards for the whole suite.

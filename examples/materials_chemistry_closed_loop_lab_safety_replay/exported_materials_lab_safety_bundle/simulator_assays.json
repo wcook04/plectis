@@ -3,51 +3,55 @@
   "simulator_assays": [
     {
       "assay_id": "assay_membrane_proxy_001",
-      "experiment_ref": "exp_membrane_screen_001",
+      "body_in_receipt": false,
       "candidate_material_ref": "mat_polymer_membrane_001",
-      "simulator_only": true,
-      "property_proxy": "thermal_stability_proxy",
-      "result_table_ref": "result_table:membrane_proxy_001",
-      "uncertainty_label": "bounded_public_simulator_uncertainty",
-      "live_assay_data_exported": false,
       "discovery_claim": false,
-      "body_in_receipt": false
+      "experiment_ref": "exp_membrane_screen_001",
+      "live_assay_data_exported": false,
+      "property_proxy": "thermal_stability_proxy",
+      "public_assay_proxy_value": 0.92,
+      "result_table_ref": "result_table:membrane_proxy_001",
+      "simulator_only": true,
+      "uncertainty_label": "bounded_public_simulator_uncertainty"
     },
     {
       "assay_id": "assay_electrolyte_proxy_002",
-      "experiment_ref": "exp_electrolyte_screen_002",
+      "body_in_receipt": false,
       "candidate_material_ref": "mat_solid_electrolyte_002",
-      "simulator_only": true,
-      "property_proxy": "ionic_transport_proxy",
-      "result_table_ref": "result_table:electrolyte_proxy_002",
-      "uncertainty_label": "bounded_public_simulator_uncertainty",
-      "live_assay_data_exported": false,
       "discovery_claim": false,
-      "body_in_receipt": false
+      "experiment_ref": "exp_electrolyte_screen_002",
+      "live_assay_data_exported": false,
+      "property_proxy": "ionic_transport_proxy",
+      "public_assay_proxy_value": 0.84,
+      "result_table_ref": "result_table:electrolyte_proxy_002",
+      "simulator_only": true,
+      "uncertainty_label": "bounded_public_simulator_uncertainty"
     },
     {
       "assay_id": "assay_support_proxy_003",
-      "experiment_ref": "exp_support_screen_003",
+      "body_in_receipt": false,
       "candidate_material_ref": "mat_catalyst_support_003",
-      "simulator_only": true,
-      "property_proxy": "surface_area_proxy",
-      "result_table_ref": "result_table:support_proxy_003",
-      "uncertainty_label": "bounded_public_simulator_uncertainty",
-      "live_assay_data_exported": false,
       "discovery_claim": false,
-      "body_in_receipt": false
+      "experiment_ref": "exp_support_screen_003",
+      "live_assay_data_exported": false,
+      "property_proxy": "surface_area_proxy",
+      "public_assay_proxy_value": 0.78,
+      "result_table_ref": "result_table:support_proxy_003",
+      "simulator_only": true,
+      "uncertainty_label": "bounded_public_simulator_uncertainty"
     },
     {
       "assay_id": "assay_sorbent_proxy_004",
-      "experiment_ref": "exp_sorbent_screen_004",
+      "body_in_receipt": false,
       "candidate_material_ref": "mat_sorbent_surface_004",
-      "simulator_only": true,
-      "property_proxy": "adsorption_proxy",
-      "result_table_ref": "result_table:sorbent_proxy_004",
-      "uncertainty_label": "bounded_public_simulator_uncertainty",
-      "live_assay_data_exported": false,
       "discovery_claim": false,
-      "body_in_receipt": false
+      "experiment_ref": "exp_sorbent_screen_004",
+      "live_assay_data_exported": false,
+      "property_proxy": "adsorption_proxy",
+      "public_assay_proxy_value": 0.7,
+      "result_table_ref": "result_table:sorbent_proxy_004",
+      "simulator_only": true,
+      "uncertainty_label": "bounded_public_simulator_uncertainty"
     }
   ]
 }

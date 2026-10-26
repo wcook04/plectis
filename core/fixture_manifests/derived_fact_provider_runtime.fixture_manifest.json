@@ -1,0 +1,22 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "organ_id": "derived_fact_provider_runtime",
+  "fixture_id": "first_wave.derived_fact_provider_runtime",
+  "input_root": "fixtures/first_wave/derived_fact_provider_runtime/input",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/derived_fact_provider_runtime/input",
+      "kind": "native_runtime_bundle"
+    }
+  ],
+  "validator_command": "python -m microcosm_core.organs.derived_fact_provider_runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+  "expected_receipts": [
+    "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_result.json",
+    "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_board.json",
+    "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_validation_receipt.json",
+    "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json"
+  ],
+  "claim_ceiling": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
+  "generated_from": "core/organ_registry.json + microcosm_core.runtime_shell.RUNTIME_STEPS",
+  "anti_claim": "This manifest declares the shipped native replay input; input presence is not a passing replay or a formal proof."
+}

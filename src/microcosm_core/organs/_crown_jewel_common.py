@@ -12,11 +12,15 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib
 import json
 import subprocess
+import sys
+import threading
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable, Mapping
+from typing import Any, Callable, Iterator, Mapping
 
 from microcosm_core.receipts import (
     normalize_public_receipt_paths,
@@ -51,6 +55,49 @@ FORBIDDEN_BODY_KEYS = {
     "secret_value",
     "raw_diff_body",
 }
+_COPIED_IMPORT_LOCK = threading.RLock()
+
+
+@contextmanager
+def imported_source_modules(source_root: Path) -> Iterator[None]:
+    """Select one copied package tree and restore the caller's imports afterward.
+
+    The shared lock protects validators using this context in the same process.
+    This is import isolation for reviewed local code, not an execution sandbox.
+    """
+    source_root = source_root.resolve(strict=True)
+    if not source_root.is_dir():
+        raise ValueError("copied source root must be a directory")
+    package_names = {
+        path.name if path.is_dir() else path.stem
+        for path in source_root.iterdir()
+        if (path.is_dir() or path.suffix == ".py")
+        and (path.name if path.is_dir() else path.stem).isidentifier()
+    }
+
+    def selected(name: str, module: Any) -> bool:
+        if name.partition(".")[0] in package_names:
+            return True
+        filename = getattr(module, "__file__", None)
+        return isinstance(filename, str) and Path(filename).is_relative_to(source_root)
+
+    with _COPIED_IMPORT_LOCK:
+        previous_path = sys.path[:]
+        previous_modules = {name: module for name, module in sys.modules.copy().items()
+                            if selected(name, module)}
+        for name in previous_modules:
+            del sys.modules[name]
+        sys.path.insert(0, str(source_root))
+        importlib.invalidate_caches()
+        try:
+            yield
+        finally:
+            for name, module in sys.modules.copy().items():
+                if selected(name, module):
+                    del sys.modules[name]
+            sys.modules.update(previous_modules)
+            sys.path[:] = previous_path
+            importlib.invalidate_caches()
 
 
 @dataclass(frozen=True)
@@ -984,8 +1031,8 @@ def run_crown_jewel_organ(
         ("exercise", exercise),
         ("negative_cases", negative_cases),
     ):
-        section_status = str(section.get("status") or "")
-        if section_status and section_status != PASS and not section.get("findings"):
+        section_status = str(section.get("status") or "missing_verdict")
+        if section_status != PASS and not section.get("findings"):
             findings.append(
                 finding(
                     "CROWN_JEWEL_SECTION_STATUS_WITHOUT_FINDINGS",

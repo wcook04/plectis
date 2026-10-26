@@ -25,7 +25,6 @@ from microcosm_core.organs.batch7_oracle_sibling_capsule import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/batch7_oracle_sibling_capsule/input"
 EXPORTED_BUNDLE = (
     MICROCOSM_ROOT
@@ -177,15 +176,17 @@ def test_batch7_oracle_sibling_source_modules_are_exact_macro_body_imports() -> 
     assert manifest["public_safe_carveouts"] == []
 
     for row in manifest["modules"]:
-        source = SOURCE_ROOT / row["source_ref"]
         target = EXPORTED_BUNDLE / row["path"]
-        assert source.is_file(), row["source_ref"]
         assert target.is_file(), row["path"]
-        assert source.read_bytes() == target.read_bytes(), row["source_ref"]
-        assert row["sha256"] == _sha256(source)
-        assert row["source_sha256"] == row["sha256"]
+        assert row["sha256"] == _sha256(target)
         assert row["target_sha256"] == row["sha256"]
-        assert row["sha256_match"] is True
+        if row["source_to_target_relation"] == "exact_copy":
+            assert row["source_sha256"] == row["sha256"]
+            assert row["sha256_match"] is True
+        else:
+            assert row["source_sha256"]
+            assert row["public_safe_transform"]["public_safe"] is True
+            assert row["public_safe_transform"]["blocker_count"] == 0
         text = target.read_text(encoding="utf-8")
         assert all(anchor in text for anchor in row["required_anchors"])
 
@@ -340,3 +341,13 @@ def test_batch7_oracle_common_negative_cases_move_with_runtime_evidence(
     observed_errors = {row["error_code"] for row in result["findings"]}
     assert "CROWN_JEWEL_NEGATIVE_CASE_NOT_REJECTED" in observed_errors
     assert "CROWN_JEWEL_NEGATIVE_CASE_CODE_MISSING" in observed_errors
+
+
+def test_oracle_loader_executes_copied_modules_and_restores_import_path() -> None:
+    before = list(sys.path)
+
+    modules = capsule_module._load_oracle_modules(capsule_module._repo_root(MICROCOSM_ROOT))
+
+    assert sys.path == before
+    for module in modules.values():
+        assert Path(module.__file__).resolve().is_relative_to(EXPORTED_BUNDLE.resolve())

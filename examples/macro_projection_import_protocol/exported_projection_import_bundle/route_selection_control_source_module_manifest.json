@@ -3,7 +3,7 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "route_selection_control_source_modules_import",
-  "module_count": 1,
+  "module_count": 5,
   "modules": [
     {
       "anchor_count": 5,
@@ -28,60 +28,107 @@
       "source_sha256": "9edb7ba06fae063bffca4da5cb949c1e18a3952d5a67bdc0f6cae2e031bb1fc6",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_contract.json",
       "target_sha256": "9edb7ba06fae063bffca4da5cb949c1e18a3952d5a67bdc0f6cae2e031bb1fc6"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 17452,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 348,
+      "material_class": "public_macro_tool_body",
+      "module_id": "route_selection_intervention_body_import",
+      "required_anchors": [
+        "class RouteRepairSuggestion:",
+        "ROUTE_REPAIR_SUGGESTIONS",
+        "def route_repair_for(",
+        "preferred_first_surface",
+        "suggested_sequence"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/lib/navigation_route_intervention.py",
+      "source_role": "Typed route-intervention authority for navigation anti-pattern steering: anti_pattern_id to repair_class mapping, first-contact route suggestions, and evidence commands.",
+      "source_sha256": "27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_route_intervention.py",
+      "target_sha256": "27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 420247,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 10193,
+      "material_class": "public_macro_tool_body",
+      "module_id": "route_selection_entry_packet_body_import",
+      "required_anchors": [
+        "ENTRY_SURFACE_STRUCTURAL_LANE_TRIGGERS",
+        "def _entry_route_lease(",
+        "schema_version\": \"route_lease_v0",
+        "def build_entry_packet(",
+        "recognized_situation"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
+      "source_role": "Kernel entry packet and route-lease control plane for task recognition, active phase routing, WorkItem routing, mutation governance, and first-contact next actions.",
+      "source_sha256": "a4913ccfc11e546fc87c18832e829a2466fd2a7660e281a4cd22d95c520a11b5",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+      "target_sha256": "a4913ccfc11e546fc87c18832e829a2466fd2a7660e281a4cd22d95c520a11b5"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 788458,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 17974,
+      "material_class": "public_macro_tool_body",
+      "module_id": "route_selection_option_surface_body_import",
+      "required_anchors": [
+        "def build_option_surface(",
+        "def _navigation_contract_summary(",
+        "def _standard_card_row(",
+        "def no_edit_pass_floor_card(",
+        "def build_microcosm_extracted_patterns_option_surface("
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/lib/standard_option_surface.py",
+      "source_role": "Standard-owned option-surface router for artifact-kind rows, standard navigation cards, Microcosm extracted-pattern routing, validation probes, and no-null-pass cards.",
+      "source_sha256": "7df2ed21fd642d47ab85737624cf8a7b39a2611c3f3fdb0887089ecddde6200e",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
+      "target_sha256": "7df2ed21fd642d47ab85737624cf8a7b39a2611c3f3fdb0887089ecddde6200e"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 477172,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 10890,
+      "material_class": "public_macro_tool_body",
+      "module_id": "route_selection_context_pack_body_import",
+      "required_anchors": [
+        "def build_navigation_context_pack(",
+        "schema_version\": \"navigation_context_pack_v0",
+        "selected_rows_are_not_control_edges",
+        "routine context-pack",
+        "candidate_runtime_pressure"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/lib/navigation_context_pack.py",
+      "source_role": "Task-conditioned context-pack builder for coverage-first navigation, selected-row compaction, route budgets, omission receipts, and control-entry overview packets.",
+      "source_sha256": "6d411db162cb529a6d8634a5ac555b6b2d76725df11062cabf9c19490202c199",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_context_pack.py",
+      "target_sha256": "6d411db162cb529a6d8634a5ac555b6b2d76725df11062cabf9c19490202c199"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation into /tmp, and a fixture route-repair call; copied source modules are body evidence, not authority to run the live macro kernel or inspect private state",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
-  "release_substitution_omissions": [
-    {
-      "body_in_receipt": false,
-      "module_id": "route_selection_intervention_body_import",
-      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_route_intervention.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/lib/navigation_route_intervention.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/navigation_route_intervention.py"
-    },
-    {
-      "body_in_receipt": false,
-      "module_id": "route_selection_context_pack_body_import",
-      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_context_pack.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_near_verbatim",
-        "matched_private_ref": "system/lib/navigation_context_pack.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/navigation_context_pack.py"
-    },
-    {
-      "body_in_receipt": false,
-      "module_id": "route_selection_entry_packet_body_import",
-      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_near_verbatim",
-        "matched_private_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py"
-    },
-    {
-      "body_in_receipt": false,
-      "module_id": "route_selection_option_surface_body_import",
-      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_near_verbatim",
-        "matched_private_ref": "system/lib/standard_option_surface.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/standard_option_surface.py"
-    }
-  ],
+  "release_substitution_omissions": [],
   "schema_version": "macro_projection_route_selection_control_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

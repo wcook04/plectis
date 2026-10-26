@@ -678,6 +678,7 @@ def run_dependency_preflight(
     blocked_codes: list[str] = []
     fixture_checks: list[dict[str, Any]] = []
     dependency_checks: list[dict[str, Any]] = []
+    runtime_inputs = {step.organ_id: step.example_rel for step in RUNTIME_STEPS}
     for organ_id in accepted:
         row = readiness_by_id.get(organ_id, {})
         public_manifest = _public_fixture_manifest(public_root, organ_id, row)
@@ -699,9 +700,17 @@ def run_dependency_preflight(
         )
         macro_fixture_inputs = [str(path) for path in row.get("fixture_inputs", [])]
         fixture_inputs = manifest_inputs or macro_fixture_inputs
+        input_source = (
+            "public_fixture_manifest" if manifest_inputs else "macro_readiness_fixture_inputs"
+        )
+        if not fixture_inputs and organ_id in runtime_inputs:
+            fixture_inputs = [runtime_inputs[organ_id]]
+            input_source = "runtime_step_bundle"
         missing_inputs = [
             rel for rel in fixture_inputs if not _fixture_input_exists(public_root, rel)
         ]
+        if not fixture_inputs:
+            blocked_codes.append("MISSING_FIXTURE_INPUT_DECLARATION")
         if missing_inputs:
             blocked_codes.append("MISSING_FIXTURE_INPUT")
         fixture_checks.append(
@@ -711,13 +720,11 @@ def run_dependency_preflight(
                 "fixture_manifest": _display(public_manifest, public_root=public_root)
                 if public_manifest.is_file()
                 else None,
-                "input_source": "public_fixture_manifest"
-                if manifest_inputs
-                else "macro_readiness_fixture_inputs",
+                "input_source": input_source,
                 "macro_fixture_input_ref_count": len(macro_fixture_inputs),
                 "fixture_input_count": len(fixture_inputs),
                 "missing_fixture_inputs": missing_inputs,
-                "status": PASS if not missing_inputs else "blocked",
+                "status": PASS if fixture_inputs and not missing_inputs else "blocked",
             }
         )
 

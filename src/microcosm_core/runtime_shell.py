@@ -20,6 +20,7 @@ import json
 import os
 import sys
 import threading
+from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
@@ -45,6 +46,7 @@ from microcosm_core.schemas import read_json_strict
 
 
 HASH_CHUNK_SIZE = 1024 * 1024
+_SOURCE_READ_WORKERS = 4
 _RUNTIME_RECEIPT_WRITE_STATE = threading.local()
 
 
@@ -5073,8 +5075,10 @@ def _source_module_manifest_body_rows(
     if not _path_is_dir(examples_root):
         return rows
 
-    for manifest_path in sorted(examples_root.glob("**/source_module_manifest.json")):
-        manifest = _read_json_if_exists(manifest_path)
+    manifest_paths = sorted(examples_root.glob("**/source_module_manifest.json"))
+    with ThreadPoolExecutor(max_workers=_SOURCE_READ_WORKERS) as workers:
+        manifests = list(workers.map(_read_json_if_exists, manifest_paths))
+    for manifest_path, manifest in zip(manifest_paths, manifests):
         manifest_rel = _public_relative(manifest_path, root)
         manifest_body_in_receipt = manifest.get("body_in_receipt") is True
         manifest_source_import_class = str(manifest.get("source_import_class") or "")
@@ -5274,15 +5278,24 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     defects: list[dict[str, Any]] = []
     class_counts: dict[str, int] = {}
 
-    for row in body_rows:
+    def read_body_digest(row: dict[str, Any]) -> tuple[bool, str]:
+        """Stream one target's actual bytes; let read errors fail verification."""
+        target_ref = str(row.get("target_ref") or "")
+        target_path = _macro_body_target_path(root, target_ref)
+        exists = bool(target_ref) and _path_is_file(target_path)
+        return exists, _sha256_file_digest(target_path) if exists else ""
+
+    # The cold first screen verifies hundreds of independent files. Bound the
+    # in-flight reads, retain input order, and cache no digest across checks.
+    with ThreadPoolExecutor(max_workers=_SOURCE_READ_WORKERS) as workers:
+        body_digests = list(workers.map(read_body_digest, body_rows))
+
+    for row, (target_exists, actual_digest) in zip(body_rows, body_digests):
         material_id = str(row.get("material_id") or "")
         material_class = str(row.get("material_class") or "")
         target_ref = str(row.get("target_ref") or "")
-        target_path = _macro_body_target_path(root, target_ref)
         verification = row.get("body_import_verification")
         verification = verification if isinstance(verification, dict) else {}
-        target_exists = bool(target_ref) and _path_is_file(target_path)
-        actual_digest = _sha256_file_digest(target_path) if target_exists else ""
         expected_digest = str(row.get("body_digest") or "")
         target_digest = str(verification.get("target_body_digest") or "")
         verification_mode = str(verification.get("verification_mode") or "")
@@ -7993,9 +8006,15 @@ class RuntimeShell:
         evidence_registry = _load_evidence_class_registry(self.root)
         by_step = {step.organ_id: step for step in RUNTIME_STEPS}
         organs: list[dict[str, Any]] = []
-        for row in rows:
-            if not isinstance(row, dict):
-                continue
+        rows = [row for row in rows if isinstance(row, dict)]
+        with ThreadPoolExecutor(max_workers=_SOURCE_READ_WORKERS) as workers:
+            body_imports = list(workers.map(
+                lambda row: _source_open_body_imports_for_organ(
+                    self.root, str(row.get("organ_id") or "")
+                ),
+                rows,
+            ))
+        for row, source_open_body_imports in zip(rows, body_imports):
             organ_id = str(row.get("organ_id") or "")
             step = by_step.get(organ_id)
             evidence_profile = _organ_evidence_profile(organ_id, evidence_registry)
@@ -8006,10 +8025,6 @@ class RuntimeShell:
                 else "drilldown_only"
                 if step
                 else "registry_only"
-            )
-            source_open_body_imports = _source_open_body_imports_for_organ(
-                self.root,
-                organ_id,
             )
             organs.append(
                 {
@@ -8143,10 +8158,18 @@ class RuntimeShell:
             if row.get("organ_id")
         }
         rows: list[dict[str, Any]] = []
-        for index, row in enumerate(organs, start=1):
+        with ThreadPoolExecutor(max_workers=_SOURCE_READ_WORKERS) as workers:
+            standard_contracts = list(workers.map(
+                lambda row: _standard_contract_for_organ(
+                    self.root, str(row.get("organ_id") or "")
+                ),
+                organs,
+            ))
+        for index, (row, standard_contract) in enumerate(
+            zip(organs, standard_contracts), start=1
+        ):
             organ_id = str(row.get("organ_id") or "")
             substrate_row = substrate_by_id.get(organ_id, {})
-            standard_contract = _standard_contract_for_organ(self.root, organ_id)
             requirement_status = _workingness_requirement_status(
                 row, standard_contract
             )
@@ -21589,6 +21612,43 @@ class RuntimeShell:
         )
         lenses = precomputed_lenses if isinstance(precomputed_lenses, dict) else {}
 
+        if not persist_receipt:
+            # These read-model lenses are independent. Preserve the caller's
+            # thread-local receipt policy when overlapping their cold I/O.
+            writes_enabled = _runtime_receipt_writes_enabled()
+            factories = {
+                "intake": self.intake,
+                "reveal": lambda: self.reveal(persist_receipt=False),
+                "market_boundary": self.market_boundary,
+                "trace_lens": self.trace_lens,
+                "repair_loop": self.repair_loop,
+                "evidence_cells": self.evidence_cells,
+                "proof_loop_depth": self.proof_loop_depth,
+                "landing_replay": self.landing_replay,
+                "view_quality": self.view_quality,
+                "projection_safety": self.projection_safety,
+                "projection_drift": self.projection_drift,
+                "route_cleanup": self.route_cleanup,
+                "projection_import_map": self.projection_import_map,
+                "import_projector": self.import_projector,
+                "option_surface": self.option_surface_lens,
+                "stripping_guard": self.stripping_guard,
+                "standards_control": self.standards_control,
+                "hook_coverage": self.hook_coverage,
+                "replay_gauntlet": self.replay_gauntlet,
+                "benchmark_lab": self.benchmark_lab,
+                "legibility_scorecard": self.legibility_scorecard,
+            }
+            missing = [name for name in factories if not isinstance(lenses.get(name), dict)]
+
+            def read_lens(name: str) -> dict[str, Any]:
+                with _runtime_receipt_write_override(writes_enabled):
+                    return factories[name]()
+
+            with ThreadPoolExecutor(max_workers=_SOURCE_READ_WORKERS) as workers:
+                values = list(workers.map(read_lens, missing))
+            lenses = {**lenses, **dict(zip(missing, values))}
+
         def lens_payload(
             lens_id: str,
             factory: Callable[[], dict[str, Any]],
@@ -24748,6 +24808,7 @@ class RuntimeShell:
         workingness_cache_lock = threading.Lock()
         runtime_lens_cache_lock = threading.Lock()
         project_view_cache_lock = threading.Lock()
+        request_count_lock = threading.Lock()
 
         def ensure_project_first_screen_state() -> dict[str, Any]:
             """
@@ -25771,6 +25832,12 @@ class RuntimeShell:
             daemon_threads = True
             block_on_close = False
 
+            def handle_error(self, request: Any, client_address: tuple[str, int]) -> None:
+                """Treat peer disconnects as abandoned responses; report other errors."""
+                if isinstance(sys.exc_info()[1], (BrokenPipeError, ConnectionResetError)):
+                    return
+                super().handle_error(request, client_address)
+
             def serve_forever(
                 self,
                 poll_interval: float = RUNTIME_SHELL_SERVE_FOREVER_POLL_INTERVAL,
@@ -25802,6 +25869,9 @@ class RuntimeShell:
                 """
                 try:
                     super().finish()
+                except OSError:
+                    self._response_delivered = False
+                    raise
                 finally:
                     self._mark_request_complete()
 
@@ -25813,15 +25883,18 @@ class RuntimeShell:
                 orchestration step in its body.
                 """
                 limit = getattr(self.server, "microcosm_max_requests", None)
-                if not isinstance(limit, int):
+                if not isinstance(limit, int) or not getattr(self, "_response_delivered", False):
                     return
-                count = int(getattr(self.server, "microcosm_request_count", 0)) + 1
-                setattr(self.server, "microcosm_request_count", count)
-                if count < limit:
-                    return
-                if bool(getattr(self.server, "microcosm_shutdown_started", False)):
-                    return
-                setattr(self.server, "microcosm_shutdown_started", True)
+                # A disconnected readiness probe did not receive a response.
+                # Do not spend the caller's bounded serving budget on it.
+                with request_count_lock:
+                    count = int(getattr(self.server, "microcosm_request_count", 0)) + 1
+                    setattr(self.server, "microcosm_request_count", count)
+                    if count < limit:
+                        return
+                    if bool(getattr(self.server, "microcosm_shutdown_started", False)):
+                        return
+                    setattr(self.server, "microcosm_shutdown_started", True)
                 threading.Thread(target=self.server.shutdown, daemon=True).start()
 
             def _client_prefers_html_json_view(self) -> bool:
@@ -25897,6 +25970,7 @@ class RuntimeShell:
                 self.send_header("Content-Length", str(len(encoded)))
                 self.end_headers()
                 self.wfile.write(encoded)
+                self._response_delivered = True
 
             def _send(self, status_code: int, payload: dict[str, Any] | list[dict[str, Any]]) -> None:
                 """
@@ -25915,6 +25989,7 @@ class RuntimeShell:
                 self.send_header("Content-Length", str(len(encoded)))
                 self.end_headers()
                 self.wfile.write(encoded)
+                self._response_delivered = True
 
             def _send_html(self, status_code: int, body: str) -> None:
                 """
@@ -25929,6 +26004,7 @@ class RuntimeShell:
                 self.send_header("Content-Length", str(len(encoded)))
                 self.end_headers()
                 self.wfile.write(encoded)
+                self._response_delivered = True
 
             def _send_empty(self, status_code: int) -> None:
                 """
@@ -25940,6 +26016,7 @@ class RuntimeShell:
                 self.send_response(status_code)
                 self.send_header("Content-Length", "0")
                 self.end_headers()
+                self._response_delivered = True
 
             def log_message(self, format: str, *args: Any) -> None:
                 """

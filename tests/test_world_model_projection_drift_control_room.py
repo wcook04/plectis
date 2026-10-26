@@ -8,6 +8,8 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from microcosm_core.organs import world_model_projection_drift_control_room
 from microcosm_core.organs.world_model_projection_drift_control_room import (
     CARD_SCHEMA_VERSION,
@@ -36,7 +38,7 @@ RUNTIME_DRIFT_RECEIPT = (
     MICROCOSM_ROOT / "receipts/runtime_shell/public_projection_drift_control_lens.json"
 )
 EXTRACTED_PATTERNS_LEDGER = (
-    MICROCOSM_ROOT.parent / "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+    MICROCOSM_ROOT / world_model_projection_drift_control_room.PUBLIC_PATTERN_SNAPSHOT_REF
 )
 SOURCE_MODULE_IDS = [
     "world_model_drift_aggregate_source_body_import",
@@ -88,8 +90,8 @@ def _copy_runtime_drift_receipt(public_root: Path) -> None:
         view_quality_target,
     )
     source_target = (
-        public_root.parent
-        / "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+        public_root
+        / world_model_projection_drift_control_room.PUBLIC_PATTERN_SNAPSHOT_REF
     )
     source_target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(EXTRACTED_PATTERNS_LEDGER, source_target)
@@ -221,6 +223,24 @@ def _write_view_quality_geometry_probe(
         },
     )
     return path
+
+
+def _copied_drift_bundle(tmp_path: Path) -> tuple[Path, Path]:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_runtime_drift_receipt(public_root)
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
+        public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
+    )
+    bundle = (
+        public_root
+        / "examples/world_model_projection_drift_control_room/"
+        "exported_projection_drift_control_bundle"
+    )
+    _write_view_quality_geometry_probe(bundle)
+    return public_root, bundle
 
 
 def test_world_model_projection_drift_control_observes_negative_cases(
@@ -448,8 +468,8 @@ def test_world_model_projection_drift_source_ledger_mutation_moves_verdict_and_c
         public_root / "fixtures/first_wave/world_model_projection_drift_control_room",
     )
     ledger_path = (
-        public_root.parent
-        / "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+        public_root
+        / world_model_projection_drift_control_room.PUBLIC_PATTERN_SNAPSHOT_REF
     )
     ledger_rows = [
         json.loads(line)
@@ -493,8 +513,8 @@ def test_world_model_projection_drift_source_ledger_without_source_refs_blocks(
         public_root / "fixtures/first_wave/world_model_projection_drift_control_room",
     )
     ledger_path = (
-        public_root.parent
-        / "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+        public_root
+        / world_model_projection_drift_control_room.PUBLIC_PATTERN_SNAPSHOT_REF
     )
     ledger_rows = [
         json.loads(line)
@@ -744,11 +764,10 @@ def test_world_model_projection_drift_source_modules_are_exact_macro_body_import
 
     for module_id in SOURCE_MODULE_IDS:
         row = by_module[module_id]
-        source = MICROCOSM_ROOT.parent / row["source_ref"]
         target = MICROCOSM_ROOT / row["target_ref"].removeprefix(
             "microcosm-substrate/"
         )
-        source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        source_digest = row["source_sha256"]
         target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
 
         assert target.is_file()
@@ -811,6 +830,7 @@ def test_world_model_projection_drift_rejects_source_module_digest_mismatch(
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -866,6 +886,7 @@ def test_world_model_projection_drift_rejects_source_module_anchor_missing_after
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -920,6 +941,7 @@ def test_world_model_projection_drift_rejects_source_module_fake_source_ref(
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -1126,6 +1148,7 @@ def test_world_model_projection_drift_view_quality_probe_runs_copied_grader(
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -1166,6 +1189,7 @@ def test_world_model_projection_drift_view_quality_probe_perturbation_moves_verd
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -1212,6 +1236,7 @@ def test_world_model_projection_drift_rejects_stale_exported_bundle_snapshot(
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -1252,6 +1277,7 @@ def test_world_model_projection_drift_rejects_exported_bundle_metadata_drift(
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -1393,3 +1419,187 @@ def test_world_model_projection_drift_fixture_manifest_exports_body_floor_summar
     assert body_imports["body_text_exported_in_receipts"] is False
     assert body_imports["body_text_exported_in_workingness"] is False
     assert manifest["body_copied_material_count"] == len(SOURCE_MODULE_IDS)
+
+
+def test_world_model_required_module_bindings_match_standard() -> None:
+    standard = json.loads((MICROCOSM_ROOT / "standards/std_microcosm_world_model_projection_drift_control_room.json").read_text())
+    contract = standard["source_module_manifest_contract"]
+    bindings = world_model_projection_drift_control_room.REQUIRED_SOURCE_MODULE_BINDINGS
+    assert set(bindings) == set(contract["required_module_ids"])
+    assert len(bindings) == contract["module_count"]
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+    assert {row["module_id"]: row["source_ref"] for row in manifest["modules"]} == bindings
+
+
+@pytest.mark.parametrize("mutation, expected", [
+    ("partial_manifest", "DRIFT_SOURCE_MODULE_REQUIRED_MISSING"),
+    ("missing_body", "DRIFT_SOURCE_MODULE_TARGET_MISSING"),
+    ("missing_manifest", "DRIFT_SOURCE_MODULE_MANIFEST_REQUIRED"),
+])
+def test_world_model_export_cannot_omit_required_source(tmp_path, mutation, expected):
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
+                    public_root / "examples/world_model_projection_drift_control_room")
+    _copy_runtime_drift_receipt(public_root)
+    bundle = public_root / BUNDLE_INPUT.relative_to(MICROCOSM_ROOT)
+    path = bundle / "source_module_manifest.json"
+    manifest = json.loads(path.read_text())
+    if mutation == "partial_manifest":
+        manifest["modules"] = [row for row in manifest["modules"]
+                               if row["source_ref"] == "tools/meta/observability/view_quality_census.py"]
+        manifest["module_count"] = 1
+        _write_json(path, manifest)
+    elif mutation == "missing_body":
+        row = manifest["modules"][0]
+        (public_root / row["target_ref"].removeprefix("microcosm-substrate/")).unlink()
+    else:
+        path.unlink()
+        (bundle / world_model_projection_drift_control_room.VIEW_QUALITY_GEOMETRY_PROBE_NAME).unlink(missing_ok=True)
+    result = run_drift_control_bundle(bundle, public_root / "receipts/review", command="pytest")
+    assert result["status"] == "blocked"
+    assert result["source_module_import_status"] == "blocked"
+    codes = {row["error_code"] for row in result["source_module_summary"]["findings"]}
+    assert expected in codes
+
+
+@pytest.mark.parametrize("mutation, expected", [
+    ("boolean_count", "DRIFT_SOURCE_MODULE_COUNT_MISMATCH"),
+    ("wrong_count", "DRIFT_SOURCE_MODULE_COUNT_MISMATCH"),
+    ("duplicate_id", "DRIFT_SOURCE_MODULE_ID_DUPLICATE"),
+    ("duplicate_ref", "DRIFT_SOURCE_MODULE_SOURCE_REF_DUPLICATE"),
+    ("swapped_ids", "DRIFT_SOURCE_MODULE_BINDING_MISMATCH"),
+    ("malformed_rows", "DRIFT_SOURCE_MODULE_ROWS_INVALID"),
+])
+def test_world_model_source_manifest_shape_cannot_replace_coverage(tmp_path, mutation, expected):
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+    if mutation == "boolean_count":
+        manifest["module_count"] = True
+    elif mutation == "wrong_count":
+        manifest["module_count"] = 3
+    elif mutation == "duplicate_id":
+        manifest["modules"][1]["module_id"] = manifest["modules"][0]["module_id"]
+    elif mutation == "duplicate_ref":
+        manifest["modules"][1]["source_ref"] = manifest["modules"][0]["source_ref"]
+    elif mutation == "swapped_ids":
+        a, b = manifest["modules"][:2]
+        a["module_id"], b["module_id"] = b["module_id"], a["module_id"]
+    else:
+        manifest["modules"].append(7)
+    _write_json(tmp_path / "source_module_manifest.json", manifest)
+    result = world_model_projection_drift_control_room._source_module_manifest_result(
+        tmp_path, public_root=MICROCOSM_ROOT, required=True)
+    assert result["status"] == "blocked"
+    assert expected in {row["error_code"] for row in result["findings"]}
+
+
+@pytest.mark.parametrize("escape", ["absolute", "traversal", "symlink"])
+def test_world_model_source_manifest_cannot_read_outside_bundle(
+    tmp_path: Path, escape: str, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _, bundle = _copied_drift_bundle(tmp_path)
+    outside = bundle.parent / "outside.py"
+    marker = tmp_path / "outside_imported"
+    monkeypatch.setenv("PLECTIS_TEST_IMPORT_MARKER", str(marker))
+    outside.write_text(
+        "from pathlib import Path\n"
+        "import os\n"
+        "Path(os.environ['PLECTIS_TEST_IMPORT_MARKER']).write_text('seen')\n",
+        encoding="utf-8",
+    )
+    if escape == "absolute":
+        target_ref = str(outside)
+    elif escape == "traversal":
+        target_ref = "source_modules/../../outside.py"
+    else:
+        (bundle / "source_modules/escape.py").symlink_to(outside)
+        target_ref = "source_modules/escape.py"
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    grader = next(
+        row for row in manifest["modules"]
+        if row["source_ref"] == "tools/meta/observability/view_quality_census.py"
+    )
+    digest = hashlib.sha256(outside.read_bytes()).hexdigest()
+    grader.update(
+        target_ref=target_ref,
+        source_sha256=digest,
+        target_sha256=digest,
+        required_anchors=[],
+    )
+    _write_json(manifest_path, manifest)
+
+    result = run_drift_control_bundle(bundle, tmp_path / "result", command="pytest")
+
+    assert result["source_module_summary"]["status"] == "blocked"
+    assert "DRIFT_SOURCE_MODULE_TARGET_OUTSIDE_BUNDLE" in {
+        row["error_code"] for row in result["source_module_summary"]["findings"]
+    }
+    assert result["view_quality_geometry_grade"]["status"] == "blocked"
+    assert not marker.exists()
+
+
+def test_world_model_self_hashed_substitute_cannot_execute(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _, bundle = _copied_drift_bundle(tmp_path)
+    marker = tmp_path / "substitute_imported"
+    monkeypatch.setenv("PLECTIS_TEST_IMPORT_MARKER", str(marker))
+    grader_path = bundle / "source_modules/tools/meta/observability/view_quality_census.py"
+    grader_path.write_text(
+        "from pathlib import Path\n"
+        "import os\n"
+        "Path(os.environ['PLECTIS_TEST_IMPORT_MARKER']).write_text('seen')\n",
+        encoding="utf-8",
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    grader = next(
+        row for row in manifest["modules"]
+        if row["source_ref"] == "tools/meta/observability/view_quality_census.py"
+    )
+    digest = hashlib.sha256(grader_path.read_bytes()).hexdigest()
+    grader.update(
+        source_sha256=digest,
+        target_sha256=digest,
+        required_anchors=["PLECTIS_TEST_IMPORT_MARKER"],
+    )
+    _write_json(manifest_path, manifest)
+
+    result = run_drift_control_bundle(bundle, tmp_path / "result", command="pytest")
+
+    assert result["source_module_summary"]["status"] == "blocked"
+    assert "DRIFT_VIEW_QUALITY_SOURCE_BODY_UNTRUSTED" in {
+        row["error_code"] for row in result["source_module_summary"]["findings"]
+    }
+    assert result["view_quality_geometry_grade"]["status"] == "blocked"
+    assert not marker.exists()
+
+
+def test_world_model_grader_executes_captured_checked_bytes(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _, bundle = _copied_drift_bundle(tmp_path)
+    grader_path = bundle / "source_modules/tools/meta/observability/view_quality_census.py"
+    marker = tmp_path / "swapped_imported"
+    monkeypatch.setenv("PLECTIS_TEST_IMPORT_MARKER", str(marker))
+    original_read_bytes = Path.read_bytes
+
+    def swap_after_read(path: Path) -> bytes:
+        captured = original_read_bytes(path)
+        if path == grader_path:
+            path.write_text(
+                "from pathlib import Path\n"
+                "import os\n"
+                "Path(os.environ['PLECTIS_TEST_IMPORT_MARKER']).write_text('seen')\n",
+                encoding="utf-8",
+            )
+        return captured
+
+    monkeypatch.setattr(Path, "read_bytes", swap_after_read)
+    module = world_model_projection_drift_control_room._load_view_quality_source_module(
+        grader_path
+    )
+
+    assert callable(module._geometry_vector_from_summary)
+    assert not marker.exists()

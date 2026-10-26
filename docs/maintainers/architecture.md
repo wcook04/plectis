@@ -6,12 +6,17 @@ what to edit and which consumers must move with it.
 
 ## Implementation map
 
-The public package is one Python runtime with component modules and a shipped
-data tree. There is no private service to start or model account to configure.
+The public package contains portable operation modules and the existing
+reference toolkit with its shipped data tree. There is no private service to start or model account to configure.
 Individual components can invoke optional external tools; their example
 instructions state those requirements.
 
 ```text
+plectis.repair -> Python host -> isolated worker -> generated Dafny planner/checker
+plectis.compatibility -> model adapter -> isolated worker -> generated Dafny checker
+plectis.views -> report adapter -> isolated worker -> generated Dafny compiler/interpreter
+plectis.publish -> guarded SQLite transactions
+
 plectis / python -m plectis / plectis.cli:main
   -> microcosm_core.cli (shared entry, argument parsing and command dispatch)
        -> runtime_shell + project_substrate (project inventory and local state)
@@ -24,6 +29,7 @@ receipts + schemas -> JSON output and input validation
 
 | Change | Start here | Keep working |
 |---|---|---|
+| Portable operations and formal claims | [`formal/README.md`](../../formal/README.md), [`verification study`](../guides/verification-study.md) | Small APIs, exact proof/runtime boundary, negative cases and isolated installation. |
 | Command arguments, aliases or exit behavior | [`cli.py`](../../src/microcosm_core/cli.py) | Both public and compatibility command names; see the refactoring contract below. |
 | Project inventory, proposed tasks or local state | [`project_substrate.py`](../../src/microcosm_core/project_substrate.py), [`runtime_shell.py`](../../src/microcosm_core/runtime_shell.py) | User source stays separate from ignored `.microcosm/` output. |
 | One component's behavior | Its module under [`organs/`](../../src/microcosm_core/organs/), selected through `ORGANS.md` | Example inputs, failure cases and the component's stated limits. |
@@ -32,10 +38,29 @@ receipts + schemas -> JSON output and input validation
 | Installed resources or distributions | [`resource_root.py`](../../src/microcosm_core/resource_root.py), `pyproject.toml`, `MANIFEST.in` | Installed commands must work outside the checkout with their shipped inputs. |
 | Local verification or CI | `Makefile`, `.github/workflows/ci.yml` | The same public checks must be reproducible locally. |
 
-`src/plectis/` is intentionally a thin public alias. Keep common behavior in
-`microcosm_core` rather than implementing a second runtime under the new name.
+`src/plectis/repair`, `src/plectis/compatibility`, `src/plectis/views` and `src/plectis/publish.py`
+are independently importable experiments. They use no catalogue, provider or
+private-workbench state. Their formal sources live under `formal/`; generated
+code is retained with exact hashes and its upstream licence. Keep the model
+adapter, proved algorithm and persistence host distinct. The integration example
+composes operations explicitly; there is no second orchestration framework.
+The shared `_sealed_kernel.py` owns captured-source loading for generated
+workers. Update its explicit inventory and manifest pin only after reviewing
+and regenerating the corresponding formal core. Public views is an optional
+pure report transformation, with no dependency on the workflow or storage APIs.
+
+The command-line aliases in `src/plectis/` still delegate to `microcosm_core`.
+Common catalogue behavior belongs there.
 New command handlers should call reusable functions in their owning module;
 argument parsing should stay separate from computation and file writes.
+
+Reference capsules execute the source copies declared by their bundle
+manifests. Keep their imports scoped to that bundle; a sibling private checkout
+must not supply missing modules. The Oracle capsule's original pytest witness
+uses the selected interpreter and the package's test extras. The Demo Take
+Swift witness requires macOS and Swift 6 and builds the copied app without
+launching it. Build output stays outside the source tree; set
+`PLECTIS_SWIFT_BUILD_ROOT` to choose its cache volume.
 
 Use `make check` for the fast registry/source gate, focused pytest files for
 the changed behavior, and `make ci` for the integrated public check. Packaging
@@ -60,6 +85,18 @@ explanation directly. Generate component inventories, commands, counts and
 source identities from their code or JSON owners. Preserve dated experiment
 records as history; a saved result does not become current when it is copied.
 
+Retire a one-off producer when its experiment is complete and no current
+command or validator consumes it. Keep the resulting evidence at its published
+path. For example, the saved code-lens spine attestation records a completed
+release-wave comparison; its unused writer was removed. Current code-lens
+navigation comes from `build_code_lens_join_index.py`, and current review
+packets come from `make release-review`.
+
+The shipped doctrine-enrichment health is a saved snapshot. Its full instance
+corpora are not distributed here, so its builder permits local inspection but
+rejects `--write` and `--check` when a declared source directory is missing.
+Restore the source tree before regenerating or checking that snapshot.
+
 The root reference paths are intentional public interfaces. Their generators,
 package metadata and incoming links already use them. Consolidate their
 content and writers before considering a move.
@@ -81,6 +118,12 @@ Do not rehash changed copies merely to make a check pass. Check their declared
 source or the export inventory, and report upstream currentness as unassessed
 when those upstream bytes are unavailable. Copy identity, successful execution,
 mathematical meaning and publication status answer separate questions.
+
+When restoring an omitted snapshot, first match its saved digest. Recover
+missing support files from the same source revision when possible; mixing a
+recorded module with today's dependencies can change the experiment. Record
+new dependency revisions and any public reference normalization in the bundle
+manifest, then exercise the surviving public entry point.
 
 ## Change producers and consumers together
 

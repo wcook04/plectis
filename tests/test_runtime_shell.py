@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import Counter
 import hashlib
 import json
+import os
 import shutil
 import threading
 from copy import deepcopy
@@ -14,6 +15,8 @@ import pytest
 from microcosm_core import cli
 from microcosm_core import project_substrate
 from microcosm_core import runtime_shell
+from microcosm_core.organs import macro_projection_import_protocol
+from microcosm_core.schemas import DuplicateJsonKeyError
 from microcosm_core.public_payload_boundary import omitted_payload_schema_term_hits
 from microcosm_core.runtime_shell import (
     LOCAL_FIRST_SCREEN_ROUTE_ID,
@@ -234,6 +237,307 @@ def test_runtime_shell_sha256_file_digest_streams_macro_body_targets(
     assert runtime_shell._sha256_file_digest(target) == (
         "sha256:" + hashlib.sha256(body).hexdigest()
     )
+
+
+def _macro_body_digest_fixture(root: Path) -> list[Path]:
+    targets = [root / "copied/tool.py", root / "copied/proof.txt"]
+    rows = []
+    for target, material_class in zip(
+        targets, ("public_macro_tool_body", "public_macro_proof_body")
+    ):
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes((target.stem + " public fixture\n").encode())
+        digest = "sha256:" + hashlib.sha256(target.read_bytes()).hexdigest()
+        rows.append({
+            "material_id": target.stem,
+            "material_class": material_class,
+            "target_ref": target.relative_to(root).as_posix(),
+            "body_copied": True,
+            "body_in_receipt": False,
+            "body_digest": digest,
+            "body_import_verification": {
+                "verification_status": "verified",
+                "verification_mode": "exact_source_digest_match",
+                "target_body_digest": digest,
+            },
+        })
+    protocol = root / runtime_shell.MACRO_PROJECTION_PROTOCOL_REF
+    protocol.parent.mkdir(parents=True)
+    protocol.write_text(json.dumps({"copied_material": rows}), encoding="utf-8")
+    return targets
+
+
+def test_macro_body_floor_overlaps_reads_and_rechecks_tampered_bytes(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    targets = _macro_body_digest_fixture(tmp_path)
+    original = runtime_shell._sha256_file_digest
+    barrier = threading.Barrier(2)
+    checked: list[Path] = []
+
+    def concurrent_digest(path: Path) -> str:
+        # Independent slow reads must be in flight together. A serial verifier
+        # fails at this barrier instead of hiding behind warm filesystem data.
+        barrier.wait(timeout=2)
+        checked.append(path)
+        return original(path)
+
+    monkeypatch.setattr(runtime_shell, "_sha256_file_digest", concurrent_digest)
+    floor = runtime_shell._macro_projection_body_import_floor(tmp_path)
+    assert floor["status"] == "pass"
+    assert set(checked) == set(targets)
+    assert [row["material_id"] for row in floor["body_imports"]] == ["tool", "proof"]
+
+    before = targets[0].stat()
+    body = targets[0].read_bytes()
+    targets[0].write_bytes(b"X" + body[1:])
+    os.utime(targets[0], ns=(before.st_atime_ns, before.st_mtime_ns))
+    checked.clear()
+    changed = runtime_shell._macro_projection_body_import_floor(tmp_path)
+    assert set(checked) == set(targets)
+    assert changed["status"] == "blocked"
+    assert changed["defect_count"] == 1
+    assert changed["defects"][0]["target_ref"] == "copied/tool.py"
+    assert "body_digest_mismatch" in changed["defects"][0]["defect_codes"]
+    assert changed["body_imports"][1]["target_digest_matches"] is True
+
+
+def test_macro_body_floor_propagates_target_read_failure(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    targets = _macro_body_digest_fixture(tmp_path)
+    original = runtime_shell._sha256_file_digest
+
+    def unreadable_target(path: Path) -> str:
+        if path == targets[0]:
+            raise PermissionError("unreadable fixture")
+        return original(path)
+
+    monkeypatch.setattr(runtime_shell, "_sha256_file_digest", unreadable_target)
+    with pytest.raises(PermissionError, match="unreadable fixture"):
+        runtime_shell._macro_projection_body_import_floor(tmp_path)
+
+
+def test_macro_body_floor_rejects_invalid_manifest_in_parallel_read(
+    tmp_path: Path,
+) -> None:
+    _macro_body_digest_fixture(tmp_path)
+    manifest = tmp_path / "examples/extra/source_module_manifest.json"
+    manifest.parent.mkdir()
+    manifest.write_text('{"modules": [], "modules": []}', encoding="utf-8")
+    with pytest.raises(DuplicateJsonKeyError):
+        runtime_shell._macro_projection_body_import_floor(tmp_path)
+
+
+def _projection_target_fixture(
+    root: Path, verification_mode: str = "verified_light_edit_recipe",
+) -> tuple[dict, dict, list[Path]]:
+    protocol = json.loads(
+        (MICROCOSM_ROOT / runtime_shell.MACRO_PROJECTION_PROTOCOL_REF).read_text()
+    )
+    rows = [
+        row for row in protocol["copied_material"]
+        if row.get("body_import_verification", {}).get("verification_mode")
+        == verification_mode
+    ]
+    if verification_mode == "exact_source_digest_match":
+        rows = [
+            row for row in rows
+            if (source := macro_projection_import_protocol._first_existing_source_ref(
+                [row["body_import_verification"].get("source_ref")],
+                public_root=MICROCOSM_ROOT,
+            )) is not None
+            and source[1] == MICROCOSM_ROOT / macro_projection_import_protocol._normalize_runtime_root_ref(
+                row["target_ref"].split("::", 1)[0]
+            )
+        ]
+    rows = rows[:2]
+    assert len(rows) == 2
+    protocol["copied_material"] = rows
+    targets = []
+    for row in rows:
+        relative = Path(macro_projection_import_protocol._normalize_runtime_root_ref(
+            row["target_ref"].split("::", 1)[0]
+        ))
+        assert not relative.is_absolute() and ".." not in relative.parts
+        target = root / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(MICROCOSM_ROOT / relative, target)
+        targets.append(target)
+    policy = json.loads(
+        (MICROCOSM_ROOT / "core/private_state_forbidden_classes.json").read_text()
+    )
+    return protocol, policy, targets
+
+
+def test_projection_alias_uses_one_live_read_and_rechecks_next_call(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    protocol, policy, targets = _projection_target_fixture(
+        tmp_path, "exact_source_digest_match",
+    )
+    original = macro_projection_import_protocol._sha256_digest
+    checked: list[Path] = []
+
+    def track_read(path: Path) -> str:
+        checked.append(path)
+        return original(path)
+
+    monkeypatch.setattr(macro_projection_import_protocol, "_sha256_digest", track_read)
+    result = macro_projection_import_protocol.validate_projection_protocol(
+        protocol, import_policy=policy, public_root=tmp_path,
+    )
+    assert result["status"] == "pass"
+    assert sorted(checked) == sorted(targets)
+
+    before = targets[0].stat()
+    body = targets[0].read_bytes()
+    targets[0].write_bytes(b"X" + body[1:])
+    os.utime(targets[0], ns=(before.st_atime_ns, before.st_mtime_ns))
+    checked.clear()
+    changed = macro_projection_import_protocol.validate_projection_protocol(
+        protocol, import_policy=policy, public_root=tmp_path,
+    )
+    assert sorted(checked) == sorted(targets)
+    assert changed["status"] == "blocked"
+    assert any(row["error_code"] == "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH"
+               for row in changed["findings"])
+
+    # A distinct source is still read independently, including live drift.
+    targets[0].write_bytes(body)
+    source = tmp_path / "separate_source.py"
+    source.write_bytes(b"X" + body[1:])
+    row = protocol["copied_material"][0]
+    row["source_ref"] = "separate_source.py"
+    row["source_refs"] = ["separate_source.py"]
+    row["body_import_verification"]["source_ref"] = "separate_source.py"
+    checked.clear()
+    distinct = macro_projection_import_protocol.validate_projection_protocol(
+        protocol, import_policy=policy, public_root=tmp_path,
+    )
+    assert sorted(checked) == sorted([*targets, source])
+    assert distinct["live_source_drift_count"] == 1
+
+
+def test_observatory_parallel_reads_preserve_write_policy_and_precomputed_lenses(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    shell = RuntimeShell(tmp_path)
+    names = (
+        "intake", "reveal", "market_boundary", "trace_lens", "repair_loop",
+        "evidence_cells", "proof_loop_depth", "landing_replay", "view_quality",
+        "projection_safety", "projection_drift", "route_cleanup", "projection_import_map",
+        "import_projector", "option_surface", "stripping_guard", "standards_control",
+        "hook_coverage", "replay_gauntlet", "benchmark_lab", "legibility_scorecard",
+    )
+    precomputed = {name: {"status": "pass"} for name in names if name not in {"intake", "reveal"}}
+    barrier = threading.Barrier(2)
+    policies: list[bool] = []
+
+    def intake() -> dict:
+        barrier.wait(timeout=2)
+        policies.append(runtime_shell._runtime_receipt_writes_enabled())
+        runtime_shell.write_json_atomic(tmp_path / "must-not-be-written.json", {})
+        return {"status": "pass", "cell_status": []}
+
+    def reveal(*, persist_receipt: bool) -> dict:
+        assert persist_receipt is False
+        barrier.wait(timeout=2)
+        policies.append(runtime_shell._runtime_receipt_writes_enabled())
+        return {"status": "pass"}
+
+    def must_reuse() -> dict:
+        raise AssertionError("precomputed lens must be reused")
+
+    monkeypatch.setattr(shell, "intake", intake)
+    monkeypatch.setattr(shell, "reveal", reveal)
+    monkeypatch.setattr(shell, "market_boundary", must_reuse)
+    with runtime_shell._runtime_receipt_write_override(False):
+        result = shell.observatory_intake_bridge(
+            persist_receipt=False, precomputed_lenses=precomputed,
+        )
+    assert result["status"] == "pass"
+    assert policies == [False, False]
+    assert not (tmp_path / "must-not-be-written.json").exists()
+
+    def unreadable() -> dict:
+        raise PermissionError("unreadable intake")
+
+    monkeypatch.setattr(shell, "intake", unreadable)
+    with pytest.raises(PermissionError, match="unreadable intake"):
+        shell.observatory_intake_bridge(
+            persist_receipt=False,
+            precomputed_lenses={**precomputed, "reveal": {"status": "pass"}},
+        )
+
+
+def test_projection_target_checks_overlap_and_keep_tamper_findings_ordered(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    protocol, policy, targets = _projection_target_fixture(tmp_path)
+    original = macro_projection_import_protocol._sha256_digest
+    barrier = threading.Barrier(2)
+    checked: list[Path] = []
+
+    def concurrent_digest(path: Path) -> str:
+        barrier.wait(timeout=2)
+        checked.append(path)
+        return original(path)
+
+    monkeypatch.setattr(macro_projection_import_protocol, "_sha256_digest", concurrent_digest)
+    result = macro_projection_import_protocol.validate_projection_protocol(
+        protocol, import_policy=policy, public_root=tmp_path,
+    )
+    assert result["status"] == "pass"
+    assert set(checked) == set(targets)
+    for target in targets:
+        before = target.stat()
+        body = target.read_bytes()
+        target.write_bytes(b"X" + body[1:])
+        os.utime(target, ns=(before.st_atime_ns, before.st_mtime_ns))
+    changed = macro_projection_import_protocol.validate_projection_protocol(
+        protocol, import_policy=policy, public_root=tmp_path,
+    )
+    assert changed["status"] == "blocked"
+    assert [
+        row["subject_id"] for row in changed["findings"]
+        if row["error_code"] == "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH"
+    ] == [row["target_ref"] for row in protocol["copied_material"]]
+
+
+def test_projection_target_checks_propagate_errors_and_reject_unsafe_paths(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    protocol, policy, targets = _projection_target_fixture(tmp_path)
+    original = macro_projection_import_protocol._sha256_digest
+
+    def unreadable_target(path: Path) -> str:
+        if path == targets[0]:
+            raise PermissionError("unreadable projection fixture")
+        return original(path)
+
+    monkeypatch.setattr(macro_projection_import_protocol, "_sha256_digest", unreadable_target)
+    with pytest.raises(PermissionError, match="unreadable projection fixture"):
+        macro_projection_import_protocol.validate_projection_protocol(
+            protocol, import_policy=policy, public_root=tmp_path,
+        )
+    protocol["copied_material"][0]["target_ref"] = str(targets[0])
+    checked = []
+
+    def guarded_digest(path: Path) -> str:
+        assert path == targets[1], "Unsafe target must be rejected before a read"
+        checked.append(path)
+        return original(path)
+
+    monkeypatch.setattr(macro_projection_import_protocol, "_sha256_digest", guarded_digest)
+    result = macro_projection_import_protocol.validate_projection_protocol(
+        protocol, import_policy=policy, public_root=tmp_path,
+    )
+    assert result["status"] == "blocked"
+    assert "MACRO_PROJECTION_PUBLIC_SAFE_BODY_TARGET_REF_UNSAFE" in {
+        row["error_code"] for row in result["findings"]
+    }
+    assert checked == [targets[1]]
 
 
 WORK_LANDING_CONTROL_BODY_MATERIAL_IDS = [
@@ -479,16 +783,18 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "body_text_in_receipt": False,
         "verification_mode": "exact_source_digest_match",
     }
-    # This public bundle retains the standard, while three source bodies are
-    # explicit release substitutions. They must not appear as verified bodies.
+    # The reviewed public snapshot now carries the standard and the actual
+    # source bodies. Their declared family must be checked by the source lens.
     trace_manifest = json.loads((MICROCOSM_ROOT / (
         "examples/agent_route_observability_runtime/"
         "exported_agent_trace_route_repair_bundle/source_module_manifest.json"
     )).read_text())
-    assert trace_manifest["release_substitution_omissions"]
-    assert all(row["material_class"] == "public_standard_body"
-               for row in trace_manifest["modules"])
-    assert "exported_agent_trace_route_repair_bundle" not in source_families
+    assert trace_manifest["release_substitution_omissions"] == []
+    trace_family = source_families["exported_agent_trace_route_repair_bundle"]
+    assert trace_family["status"] == "pass"
+    assert trace_family["module_count"] == sum(
+        row["material_class"] == "public_macro_tool_body" for row in trace_manifest["modules"]
+    )
     assert status["product_path_demoted_organ_count"] == _demoted_organ_count()
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
@@ -1767,10 +2073,8 @@ def test_runtime_shell_authority_card_preview_refs_resolve_in_standalone_root(
     assert preview
     assert all(row["authority_ref_resolves_in_public_tree"] is True for row in preview)
     assert all((public_root / row["authority_ref"]).is_file() for row in preview)
-    assert any(
-        row.get("source_authority_ref", "").startswith("state/microcosm_portfolio/")
-        for row in preview
-    )
+    assert all(not row.get("source_authority_ref", "").startswith("state/")
+               for row in preview)
 
 
 def test_runtime_shell_blocks_unclassified_organs(tmp_path: Path) -> None:
@@ -4985,8 +5289,8 @@ def test_runtime_shell_reports_demo_results_against_exported_bundles(tmp_path: P
     result = shell.run_demo("examples/runtime_shell/demo_project")
 
     # This shell test checks real execution and truthful aggregation. Individual
-    # component validators own mathematical/semantic correctness. The public
-    # export deliberately omits private dependencies for some selected steps.
+    # component validators own mathematical/semantic correctness. The Work
+    # Ledger snapshot uses the restored, pinned public runtime.
     events = {event["organ_id"]: event for event in result["events"]}
     assert list(events) == [step.organ_id for step in runtime_shell._product_runtime_steps()]
     assert all(event["status"] in {"pass", "blocked", "fail", "unavailable"}
@@ -5000,9 +5304,9 @@ def test_runtime_shell_reports_demo_results_against_exported_bundles(tmp_path: P
         "belief_state_process_reward_replay", "batch12_release_claim_language_gate",
     ):
         assert events[organ_id]["status"] == "pass", events[organ_id]
-    missing_runtime = events["mission_transaction_work_spine"]
-    assert missing_runtime["execution_status"] == "unavailable"
-    assert "REAL_ACTIVE_CLAIMS_RUNTIME_UNAVAILABLE" in missing_runtime["error_codes"]
+    work_runtime = events["mission_transaction_work_spine"]
+    assert work_runtime["execution_status"] == "pass"
+    assert "REAL_ACTIVE_CLAIMS_RUNTIME_UNAVAILABLE" not in work_runtime["error_codes"]
     assert result["next_actions"] == [
         "plectis status --card examples/runtime_shell/demo_project",
         "plectis observe examples/runtime_shell/demo_project",
@@ -5056,11 +5360,77 @@ def test_runtime_shell_route_and_evidence_drilldowns(tmp_path: Path) -> None:
     assert evidence["body_in_receipt"] is False
     assert evidence["evidence_contract"]["real_runtime_receipt"] is True
     assert evidence["evidence_contract"]["synthetic_receipt_is_product_evidence"] is False
-    assert work_demo["status"] == "blocked"
-    assert work_demo["real_active_claims_snapshot_status"] == "unavailable"
-    assert "REAL_ACTIVE_CLAIMS_RUNTIME_UNAVAILABLE" in work_demo["error_codes"]
+    assert work_demo["status"] == "pass"
+    assert work_demo["real_active_claims_snapshot_status"] == "pass"
+    assert "REAL_ACTIVE_CLAIMS_RUNTIME_UNAVAILABLE" not in work_demo["error_codes"]
     assert work_demo["evidence_ref"].startswith("receipts/runtime_shell/work_demo/")
+    work_receipt = json.loads((public_root / work_demo["evidence_ref"]).read_text())
+    assert work_receipt["real_active_claims_snapshot_result"]["realness_evidence"]["verdict_rederived_from_runtime_evidence"] is True
     assert work_demo["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
+
+
+def test_server_budget_counts_delivered_responses_after_client_disconnect(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    shell = RuntimeShell(MICROCOSM_ROOT)
+    monkeypatch.setattr(shell, "patterns", lambda: [{"pattern_id": "bounded"}])
+    server = shell.serve("127.0.0.1", 0, max_requests=1)
+    handler = server.RequestHandlerClass
+    original_send = handler._send
+    original_finish = handler.finish
+    original_handle_error = server.handle_error
+    completed = threading.Event()
+    error_handled = threading.Event()
+    failed_once = False
+
+    def send(self, code, payload):
+        nonlocal failed_once
+        if not failed_once:
+            failed_once = True
+            raise BrokenPipeError("readiness client disconnected")
+        return original_send(self, code, payload)
+
+    def finish(self):
+        try:
+            return original_finish(self)
+        finally:
+            completed.set()
+
+    def handle_error(request, address):
+        try:
+            return original_handle_error(request, address)
+        finally:
+            error_handled.set()
+
+    monkeypatch.setattr(handler, "_send", send)
+    monkeypatch.setattr(handler, "finish", finish)
+    monkeypatch.setattr(server, "handle_error", handle_error)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    host, port = server.server_address
+    try:
+        with pytest.raises(OSError):
+            urlopen(f"http://{host}:{port}/patterns", timeout=2)
+        assert completed.wait(timeout=2)
+        assert error_handled.wait(timeout=2)
+        assert getattr(server, "microcosm_request_count", 0) == 0
+        assert getattr(server, "microcosm_shutdown_started", False) is False
+        assert capsys.readouterr().err == ""
+        with urlopen(f"http://{host}:{port}/patterns", timeout=2) as response:
+            assert json.loads(response.read())["patterns"] == [{"pattern_id": "bounded"}]
+        thread.join(timeout=2)
+        assert not thread.is_alive()
+        assert server.microcosm_request_count == 1
+        try:
+            raise RuntimeError("unexpected handler fixture")
+        except RuntimeError:
+            original_handle_error(None, (host, port))
+        assert "unexpected handler fixture" in capsys.readouterr().err
+    finally:
+        server.shutdown()
+        thread.join(timeout=2)
+        server.server_close()
 
 
 def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) -> None:

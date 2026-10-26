@@ -10,6 +10,7 @@ bodies out of the payload.
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import re
@@ -842,7 +843,7 @@ def _split_ref_fragment(ref: str) -> tuple[str, str]:
     return path_ref, fragment
 
 
-def _public_ref_exists(ref: str, *, public_root: Path) -> bool:
+def _public_ref_exists(ref: str, *, public_root: Path, allow_directory: bool = False) -> bool:
     """
     Return whether public ref exists holds for the organs cognitive operator registry flow.
 
@@ -860,7 +861,8 @@ def _public_ref_exists(ref: str, *, public_root: Path) -> bool:
         public_root / path_ref,
         public_root / "source_modules" / path_ref,
     ]
-    existing = [candidate for candidate in candidates if candidate.is_file()]
+    existing = [candidate for candidate in candidates
+                if candidate.is_file() or (allow_directory and not fragment and candidate.is_dir())]
     if not existing:
         return False
     if not fragment:
@@ -883,7 +885,9 @@ def _command_path_tokens(command: str) -> list[str]:
     except ValueError:
         return []
     refs: list[str] = []
-    for token in parts:
+    for index, token in enumerate(parts):
+        if index and parts[index - 1] in {"--out", "--acceptance-out"}:
+            continue  # A new output is not an existing evidence input.
         cleaned = token.strip().strip("'\"")
         if not cleaned or cleaned.startswith("-"):
             continue
@@ -1080,7 +1084,7 @@ def _record_dogfood_evidence_resolution_findings(
                     message="Dogfood evidence surface command executable must exist in the public repo.",
                 )
         for path_ref in _command_path_tokens(surface):
-            if not _public_ref_exists(path_ref, public_root=public_root):
+            if not _public_ref_exists(path_ref, public_root=public_root, allow_directory=True):
                 _record_unresolved_evidence(
                     findings,
                     observed,
@@ -1781,6 +1785,56 @@ def run(
         target,
         acceptance_out=Path(acceptance_out) if acceptance_out else None,
     )
+
+
+def refresh_public_dogfood_evidence(input_dir: Path) -> dict[str, Any]:
+    """Produce a public snapshot replay while retaining upstream history.
+
+    Current evidence concerns the supplied declarations and changed-case
+    validation. Historical private cognition claims are retained as history.
+    """
+    input_dir = input_dir.resolve()
+    root = _public_root_for_path(input_dir)
+    path = input_dir / "dogfood_index.json"
+    payload = read_json_strict(path)
+    relative = input_dir.relative_to(root).as_posix()
+    command = ("python3 -m microcosm_core.organs.cognitive_operator_registry "
+               f"run-registry-bundle --input {relative} "
+               "--out .microcosm/cognitive-operator-public-replay --card")
+    for receipt in _dogfood_rows(payload):
+        for field in ("evidence_surfaces", "cognition_delta_evidence"):
+            receipt.setdefault("historical_" + field, receipt.get(field, []))
+        receipt["evidence_scope"] = "public_snapshot_validation"
+        receipt["evidence_surfaces"] = [command]
+        receipt["cognition_delta_evidence"] = [
+            "The public snapshot validator accepts the supplied active operator and receipt fields.",
+            "Removing the operator activation field or cognition delta causes a public validation finding.",
+            "This replay does not establish the historical private cognition or routing result.",
+        ]
+    registry = read_json_strict(input_dir / "operator_registry.json")
+    operators = _operator_rows(registry)
+    receipts = _dogfood_rows(payload)
+    policy = registry.get("registry_policy", {})
+    def validate(rows, dogfood):
+        return _positive_findings(operator_rows=rows, dogfood_rows=dogfood,
+                                  policy=policy, dogfood_payload=payload, public_root=root)
+    if validate(operators, receipts):
+        raise ValueError("public snapshot still has unresolved positive evidence")
+    changed_operators = copy.deepcopy(operators)
+    changed_operators[0].pop("activation", None)
+    if not validate(changed_operators, receipts):
+        raise ValueError("missing activation field was not rejected")
+    changed_receipts = copy.deepcopy(receipts)
+    changed_receipts[0]["cognition_delta_evidence"] = []
+    if not validate(operators, changed_receipts):
+        raise ValueError("missing cognition delta was not rejected")
+    payload["public_replay_validation"] = {
+        "positive_snapshot": "pass", "missing_activation_field": "rejected",
+        "missing_cognition_delta": "rejected",
+        "claim_ceiling": "Current public snapshot validation; historical private effects are not replayed.",
+    }
+    write_json_atomic(path, payload)
+    return payload["public_replay_validation"]
 
 
 def run_registry_bundle(

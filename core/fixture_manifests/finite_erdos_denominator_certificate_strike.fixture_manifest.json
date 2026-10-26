@@ -1,0 +1,22 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "organ_id": "finite_erdos_denominator_certificate_strike",
+  "fixture_id": "first_wave.finite_erdos_denominator_certificate_strike",
+  "input_root": "fixtures/first_wave/finite_erdos_denominator_certificate_strike/input",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/finite_erdos_denominator_certificate_strike/input",
+      "kind": "native_runtime_bundle"
+    }
+  ],
+  "validator_command": "python -m microcosm_core.organs.finite_erdos_denominator_certificate_strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+  "expected_receipts": [
+    "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_result.json",
+    "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_board.json",
+    "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_validation_receipt.json",
+    "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
+  ],
+  "claim_ceiling": "computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact arithmetic and rejects forged certificates; does not prove the infinite Erdos #257, is not an oracle, prover, or provider, and is not a machine-checked proof",
+  "generated_from": "core/organ_registry.json + microcosm_core.runtime_shell.RUNTIME_STEPS",
+  "anti_claim": "This manifest declares the shipped native replay input; input presence is not a passing replay or a formal proof."
+}

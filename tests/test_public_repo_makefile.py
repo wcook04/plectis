@@ -361,7 +361,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core hello .',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core first-screen --card .',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core tour --card .',
-        '$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab',
+        '$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core proof-lab --out "$(TMPDIR)/microcosm-proof-lab"',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core status --card .',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" scripts/check/served_status_smoke.py --root . --project . --out "$(SMOKE_OUT)/served-status-card.json"',
         '$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -m microcosm_core authority --card',
@@ -804,12 +804,18 @@ def test_make_venv_reuse_is_bound_to_the_selected_python(tmp_path: Path) -> None
     )
 
     def selected_venv(python: Path) -> str:
+        # This probe tests default selection, not an outer `make test VENV=...`
+        # override propagated to recursive make through MAKEFLAGS.
+        env = {key: value for key, value in os.environ.items()
+               if key not in {"MAKEFLAGS", "MAKEOVERRIDES", "MFLAGS", "VENV",
+                              "VENV_PYTHON", "PYTHON_ENV_KEY", "PYTEST_TMP_KEY"}}
         result = subprocess.run(
             [
                 "make", "--no-print-directory", "-s", "-f", str(probe_makefile),
                 "print-selected-venv", f"PYTHON={python}", f"TMPDIR={tmp_path}",
             ],
             cwd=MICROCOSM_ROOT,
+            env=env,
             check=True,
             capture_output=True,
             text=True,

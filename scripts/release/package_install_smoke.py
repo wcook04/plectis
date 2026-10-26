@@ -309,6 +309,16 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
             "(a PYTHONPATH or cwd shadow defeats the install proof)"
         )
 
+    # Run real operation calls from the clean installed interpreter, including
+    # generated subprocess kernels. The harness itself supplies no import path.
+    _run(
+        [str(venv_python), "-I",
+         str(work_dir / "source-after-install" / "scripts/release/verify_operations_install.py"),
+         "--require-compatibility", "--require-views"],
+        cwd=project_dir,
+        env=env,
+    )
+
     # Directory guides linked by the installed README must travel with it.
     for reference in (
         "assets/system-map-dark.png",

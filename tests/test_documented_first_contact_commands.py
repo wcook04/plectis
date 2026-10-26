@@ -18,6 +18,8 @@ from __future__ import annotations
 import hashlib
 import os
 import re
+import shlex
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -84,7 +86,7 @@ def test_no_documented_command_installs_into_the_system_interpreter() -> None:
     )
 
 
-def test_first_runnable_readme_block_needs_no_install() -> None:
+def test_first_runnable_readme_block_needs_no_install(tmp_path: Path) -> None:
     """The first thing a reader is told to run must work on a bare clone."""
     readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
     blocks = _bash_blocks(readme)
@@ -92,11 +94,30 @@ def test_first_runnable_readme_block_needs_no_install() -> None:
 
     first = blocks[0]
     assert "git clone" in first
-    assert SOURCE_FORM_PREFIX in first, (
-        "the README's first runnable block no longer offers a route that works "
-        "before anything is installed"
-    )
     assert "pip install" not in first
+    commands = [line for line in first.splitlines() if line.startswith("PYTHONPATH=")]
+    assert len(commands) == 1, "first block must have one runnable source command"
+    args = shlex.split(commands[0])
+    assert args[:2] == ["PYTHONPATH=src", "python3"]
+    script = Path(args[2])
+    assert not script.is_absolute() and ".." not in script.parts
+    clone = tmp_path / "bare-operation-clone"
+    shutil.copytree(
+        MICROCOSM_ROOT / "src" / "plectis", clone / "src" / "plectis",
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc"),
+    )
+    (clone / script).parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MICROCOSM_ROOT / script, clone / script)
+    env = {k: v for k, v in os.environ.items() if k not in {"PYTHONPATH", "PYTHONHOME"}}
+    env.update(PYTHONPATH="src", PYTHONDONTWRITEBYTECODE="1")
+    completed = subprocess.run(
+        [sys.executable, "-S", *args[2:]], cwd=clone, env=env,
+        capture_output=True, text=True, timeout=60,
+    )
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    assert "8 reused, 3 rerun, 1 blocked" in completed.stdout
+    assert "Delayed worker: rejected stale" in completed.stdout
+    assert "Proved:" in completed.stdout and "Tested:" in completed.stdout
 
 
 def test_every_hero_command_works_before_anything_is_installed() -> None:

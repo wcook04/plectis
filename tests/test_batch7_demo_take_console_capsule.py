@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -22,7 +23,6 @@ from microcosm_core.organs.batch7_demo_take_console_capsule import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/batch7_demo_take_console_capsule/input"
 EXPORTED_BUNDLE = (
     MICROCOSM_ROOT
@@ -103,6 +103,7 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+@pytest.mark.skipif(sys.platform != "darwin", reason="The copied Swift app requires macOS.")
 def test_batch7_demo_take_console_capsule_runs_all_engines(tmp_path: Path) -> None:
     result = run(
         FIXTURE_INPUT,
@@ -138,6 +139,7 @@ def test_batch7_demo_take_console_capsule_runs_all_engines(tmp_path: Path) -> No
     assert result["body_in_receipt"] is False
 
 
+@pytest.mark.skipif(sys.platform != "darwin", reason="The copied Swift app requires macOS.")
 def test_batch7_demo_take_console_bundle_validates_runtime_shape(tmp_path: Path) -> None:
     result = run_batch7_demo_take_bundle(
         EXPORTED_BUNDLE,
@@ -161,19 +163,22 @@ def test_batch7_demo_take_console_source_modules_are_exact_macro_body_imports() 
     assert manifest["module_count"] >= 8
 
     for row in manifest["modules"]:
-        source = SOURCE_ROOT / row["source_ref"]
         target = EXPORTED_BUNDLE / row["path"]
-        assert source.is_file(), row["source_ref"]
         assert target.is_file(), row["path"]
-        assert source.read_bytes() == target.read_bytes(), row["source_ref"]
-        assert row["sha256"] == _sha256(source)
-        assert row["source_sha256"] == row["sha256"]
+        assert row["sha256"] == _sha256(target)
         assert row["target_sha256"] == row["sha256"]
-        assert row["sha256_match"] is True
+        if row["source_to_target_relation"] == "exact_copy":
+            assert row["source_sha256"] == row["sha256"]
+            assert row["sha256_match"] is True
+        else:
+            assert row["source_sha256"]
+            assert row["public_safe_transform"]["public_safe"] is True
+            assert row["public_safe_transform"]["blocker_count"] == 0
         text = target.read_text(encoding="utf-8")
         assert all(anchor in text for anchor in row["required_anchors"])
 
 
+@pytest.mark.skipif(sys.platform != "darwin", reason="The copied Swift app requires macOS.")
 def test_batch7_demo_take_console_card_omits_private_bodies(tmp_path: Path) -> None:
     result = run(
         FIXTURE_INPUT,
@@ -255,3 +260,40 @@ def test_batch7_demo_take_common_negative_cases_move_with_runtime_evidence(
     observed_errors = {row["error_code"] for row in result["findings"]}
     assert "CROWN_JEWEL_NEGATIVE_CASE_NOT_REJECTED" in observed_errors
     assert "CROWN_JEWEL_NEGATIVE_CASE_CODE_MISSING" in observed_errors
+
+
+def test_swift_witness_cache_rechecks_changed_package_sources(tmp_path: Path, monkeypatch) -> None:
+    package = capsule_module._copied_source(tmp_path, "apps/demo-take-console")
+    source = package / "Sources/DemoTakeConsoleApp/App.swift"
+    source.parent.mkdir(parents=True)
+    source.write_text("// first source edition\n", encoding="utf-8")
+    calls = []
+
+    def witness(command, **kwargs):
+        calls.append(command)
+        return {"status": "pass", "returncode": 0, "body_in_receipt": False}
+
+    monkeypatch.setattr(capsule_module, "_run_public_witness", witness)
+    capsule_module._cached_swiftpm_build_witness.cache_clear()
+    first = capsule_module._swiftpm_build_witness(tmp_path)
+    assert capsule_module._swiftpm_build_witness(tmp_path) == first
+    source.write_text("// second source edition\n", encoding="utf-8")
+    changed = capsule_module._swiftpm_build_witness(tmp_path)
+
+    assert len(calls) == 2
+    assert changed["original_witness"]["source_binding_sha256"] != first["original_witness"]["source_binding_sha256"]
+    capsule_module._cached_swiftpm_build_witness.cache_clear()
+
+
+@pytest.mark.parametrize("output", ["Build complete! (0.10s)", "Build of product 'DemoTakeConsoleApp' complete! (0.10s)"])
+def test_swift_witness_recognizes_swiftpm_completion_formats(tmp_path: Path, monkeypatch, output: str) -> None:
+    monkeypatch.setattr(
+        capsule_module.subprocess,
+        "run",
+        lambda *args, **kwargs: capsule_module.subprocess.CompletedProcess(args[0], 0, output, ""),
+    )
+
+    witness = capsule_module._run_public_witness(["swift", "build"], cwd=tmp_path)
+
+    assert witness["status"] == "pass"
+    assert witness["observed_build_complete_marker"] is True

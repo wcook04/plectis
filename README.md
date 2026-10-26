@@ -1,25 +1,65 @@
 # Plectis
 
-**Run and inspect experiments in AI-assisted research.**
+**Check what a change preserves and what it invalidates.**
 
-Plectis is a public Python toolkit for running experiments and checking their
-results. It is a research prototype, with selected components from Will Cook's
-larger private workbench.
+Plectis is a public Python toolkit for experiments in AI-assisted research.
+Its workflow operations use formally verified decision cores to plan reruns,
+check interface replacements and derive public-only reports. This research
+prototype also includes reference components for proof checking, agent
+reliability, forecasting and keeping documents consistent with their sources.
 
-[Start in a terminal](#try-the-repository-tour) · [Worked examples](#see-it-work) ·
-[Plectis introduction](https://www.youtube.com/watch?v=U1z2-XaLe_w) ·
-[Documentation](docs/README.md) · [Source map](#repository-layout) ·
-[Related projects](#where-this-toolkit-fits)
+[Run the workflow example](#formally-checked-workflow-operations) ·
+[Inspect the proofs](formal/README.md) ·
+[Browse the reference toolkit](#try-the-repository-tour) ·
+[Documentation](docs/README.md) · [Source map](#repository-layout)
 
-Run an example, inspect how it checks its result, and adapt the useful parts.
-The tools cover checking proofs and agent completion claims, comparing
-forecasts, and keeping generated documents consistent with their sources.
+### Formally checked workflow operations
 
-For example, an agent says “I committed the fix and the tests passed.” The
-[completion-checking example](docs/guides/checking-agent-completion.md) checks
-three supplied claims against a disposable Git repository and an actual pytest
-run, and rejects four deliberately incorrect claims. It is a worked experiment,
-not a general audit of your agent or project.
+The current experiment asks a simple question: **“I changed this workflow.
+Which results can I keep, and what must run again?”** With Python 3.11+, try:
+
+```bash
+git clone --depth 1 https://github.com/wcook04/plectis && cd plectis
+PYTHONPATH=src python3 examples/operations/evaluation.py --format text
+```
+
+The example changes a scoring rule: eight results are reused, three tasks rerun,
+and one external action stays blocked. An old worker cannot publish over the new
+result. Everything runs locally in a temporary directory, without model calls.
+[Read the walkthrough](docs/guides/verification-study.md), then import the
+operations you need:
+
+| Operation | Question it answers | Proof or implementation |
+|---|---|---|
+| [`plectis.repair`](docs/guides/repair.md) | What can I reuse after a declared change? | [Verified graph planner](formal/repair/Repair.dfy) → [generated Python](src/plectis/repair/_generated/Repair.py). |
+| [`plectis.compatibility`](docs/guides/compatibility.md) | Does this replacement preserve the caller's allowed actions and outputs? | [Transition-model proof](formal/compatibility/Compatibility.dfy) → [generated Python](src/plectis/compatibility/_generated/Compatibility.py). |
+| [`plectis.views`](docs/guides/public-views.md) | Can this mixed report become a public-only job with the same public output? | [Report-language proof](formal/views/Release.dfy) → [generated Python](src/plectis/views/_generated/Release.py). |
+| [`plectis.publish`](docs/guides/publish.md) | Can this worker still publish this result? | [Tested SQLite host](src/plectis/publish.py); no formal implementation proof. |
+
+The generated Python is the code these APIs call. The proofs cover the supplied
+graph, transition models and report language; Python adapters, SQLite and
+external services remain outside them. These are independently importable
+research prototypes. An ordinary cache makes the same reuse decisions in this
+example; practical benefits over that baseline still need evaluation.
+
+To recheck the proofs with **Dafny 4.11.0**:
+
+```bash
+make verify-operations DAFNY=/path/to/dafny
+```
+
+This verifies all three cores, regenerates Python byte for byte and requires
+deliberately broken specifications to fail. `make check` checks the saved hashes
+without running the prover. Read the [assumptions and trusted tools](formal/README.md)
+or [copy and install an operation](examples/operations/README.md).
+
+For a separate report-compilation experiment, run
+`PYTHONPATH=src python3 examples/operations/public_views_recipe_change.py`.
+Change one mixed report recipe; derive its public version and run it without
+private fields. A private condition controlling whether a public line appears
+is refused. An ordinary public-only renderer produces the same output; the
+research question is whether maintaining one checked recipe makes later changes
+easier. [Try the report compiler](docs/guides/public-views.md).
 
 ### Try the repository tour
 
@@ -66,8 +106,9 @@ for text indexes, graph data and source links without running the visual maps.
 
 ## Can I use it today?
 
-Yes, for the documented local commands and selected examples. Start with the
-[quickstart](QUICKSTART.md) or the [worked guides](docs/guides/README.md), then
+Yes, for the four operation APIs above, the documented local commands and
+selected examples. Start with the [workflow study](docs/guides/verification-study.md)
+or the [quickstart](QUICKSTART.md), then
 check the chosen component's inputs, dependencies and stated limits before
 adapting it to your own project.
 
@@ -82,6 +123,12 @@ platform, execution availability in every environment or external use of every
 component. The public prototype and the larger private workbench are separate. The
 [overview](docs/overview.md#the-public-workflow) follows one input through a
 selected command to its output and explains the boundary.
+
+Maintainers can run every registered public example with `make component-replays`
+and recheck the three formal cores with `make verify-operations DAFNY=/path/to/dafny`.
+The [validation runbook](docs/maintainers/validation.md) lists dependencies and
+receipt locations; the [verification study](docs/guides/verification-study.md)
+separates execution evidence from proved properties.
 
 ## Why this exists
 
@@ -239,13 +286,16 @@ The older `microcosm` command remains an alias.
 
 ## Repository layout
 
-Start with the guides and examples. The large reference files are indexes for
-looking things up; you do not need to read them all before trying a component.
+For the verified operations, start with `formal/`, `src/plectis/` and
+`examples/operations/`. The broader component catalogue, generated indexes and
+recorded experiments remain available separately; they are not prerequisites
+for using these APIs.
 
 ```text
 plectis/
+├── formal/               Dafny specifications, proofs and negative mutants
 ├── src/
-│   ├── plectis/           Public command entry points
+│   ├── plectis/           Operation APIs, generated kernels and CLI entry points
 │   └── microcosm_core/    Python implementation; components in organs/
 ├── docs/                 Guides, reference, maintainer notes and paper guide
 ├── examples/             Runnable examples and checked source bundles
@@ -281,6 +331,13 @@ indexes. `AXIOMS.md`, `PRINCIPLES.md` and `ANTI_PRINCIPLES.md` contain the
 which files to edit and which builders to run. The [script guide](scripts/README.md)
 explains each maintenance role; `make check` enforces their placement in Git
 and CI.
+
+The `source_modules/` directories inside exported examples contain copied
+implementations with provenance manifests. Component replays and installed
+examples depend on them. Older receipts retain the inputs and limits of their
+original runs; a new replay writes a new result. Neither a historical receipt
+nor inclusion in the catalogue grants a component the formal status of the
+three cores above.
 
 The [documentation index](docs/README.md) separates human guides, reference
 maps and maintainer instructions. Directory READMEs explain the examples and

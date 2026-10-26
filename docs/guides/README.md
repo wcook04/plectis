@@ -7,6 +7,9 @@ repository; read the [project overview](../overview.md) for the wider purpose.
 
 | Guide | What you do | Requirements beyond the clone |
 |---|---|---|
+| [Change a workflow without discarding all its work](verification-study.md) | Run the combined experiment, inspect its guarantees and compare the ordinary cache baseline. | Python 3.11+; no model account or prover needed to run. |
+| [Repair](repair.md), [Publish](publish.md), [Compatibility](compatibility.md) | Import one operation into your own program. | Python 3.11+; Dafny only to recheck proofs. |
+| [Public views](public-views.md) | Change a mixed report and compile its exact public output into a job that receives no private fields. | Python 3.11+; a small fixed text/Boolean language. |
 | [Check an agent's completion claims](checking-agent-completion.md) | Create a sample Git repository, run real tests and compare claims about commits, files and test results with what happened. | Python 3.11+, Git and pytest; setup is included. |
 | [Change a prompt-injection example](prompt-injection.md) | Inspect a saved record, run its checker and change a permission field to make a check fail. | Python 3.11+; no model account. |
 | [Prepare a question for an expert](hypothesis-handoffs.md) | Write down a question, possible answers and observations that could distinguish them; validate the file. | Python 3.11+; no model account. |

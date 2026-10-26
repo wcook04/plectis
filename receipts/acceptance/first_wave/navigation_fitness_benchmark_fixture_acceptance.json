@@ -1,0 +1,52 @@
+{
+  "anti_claim": "The navigation fitness benchmark organ evaluates curated route-packet fixtures over public inputs only. It does not run the private macro kernel.py, does not capture packets from the live route runner, does not validate embeddings, and does not claim universal navigation benchmark authority. It does not export private macro state, credentials, provider state, or raw operator threads, does not call providers or external solvers, and does not authorize release or publication. A packet whose declared expectation is false cannot pass because the capsule recomputes recall, precision, forbidden-route, scent, and latency verdicts and rejects any case whose recomputation contradicts the planted expectation.",
+  "body_in_receipt": false,
+  "claim_ceiling": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
+  "fixture_id": "first_wave.navigation_fitness_benchmark",
+  "generated_receipts": [
+    "<private-home-path>",
+    "<private-home-path>",
+    "<private-home-path>",
+    "<private-home-path>"
+  ],
+  "organ_id": "navigation_fitness_benchmark",
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 4,
+    "replacements": [
+      {
+        "field_path": "generated_receipts[0]",
+        "original_sha256": "sha256:536694f32b694837f0e82c43f5f9a10e6023814a44afcdbef0e921c65ca77d10",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[1]",
+        "original_sha256": "sha256:0c3923e83db06a79e450a6d0742f56847ebd457e1d078e9b71b6831f3a0156e7",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[2]",
+        "original_sha256": "sha256:32a85f0f6fa78052736d0dd073d49c540f8cd4d0c8139fca78d91a1d7c898aef",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[3]",
+        "original_sha256": "sha256:6c9d3c4447a7b72964625ff3585a80cab0e0dfce4139ad0555165f85f986e136",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "private_home_path_transform"
+    ]
+  },
+  "real_substrate_disposition": "real_substrate_capsule",
+  "schema_version": "navigation_fitness_benchmark_acceptance_receipt_v1",
+  "status": "pass"
+}

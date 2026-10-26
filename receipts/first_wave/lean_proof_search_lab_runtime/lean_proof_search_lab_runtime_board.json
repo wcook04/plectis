@@ -1,0 +1,12 @@
+{
+  "anti_claim": "The Lean proof-search lab runtime organ searches and Lean-checks bounded public toy theorems only. It is not neural theorem proving, does not solve open problems, does not forward an oracle proof body or oracle-needed premise ids, and does not export private macro state, credentials, provider state, or raw operator threads; it does not call providers and does not authorize release or publication. When Lean is installed, a candidate that leaks a forward oracle field, depends on sorry, or only works because it memorised the problem id cannot pass, because the capsule recomputes the search, the firewall, the axiom audit, and the problem-id ablation. When Lean is absent, the organ is locked and asserts no verification at all.",
+  "case_count": 5,
+  "claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
+  "lean_available": true,
+  "negative_case_count": 4,
+  "organ_id": "lean_proof_search_lab_runtime",
+  "positive_case_count": 1,
+  "schema_version": "lean_proof_search_lab_runtime_board_v1",
+  "status": "pass",
+  "tool_state": "tool_present_and_verified"
+}

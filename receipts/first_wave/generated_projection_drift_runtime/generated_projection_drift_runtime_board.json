@@ -1,0 +1,10 @@
+{
+  "anti_claim": "The generated projection drift runtime organ checks owner rows over public fixture inputs only. It is not a repair tool, does not regenerate artifacts, does not prove semantic content-diff equivalence for every macro builder, does not validate the entire generated-projection registry, and does not export private macro state, credentials, source bodies, or raw operator threads; it does not authorize release or publication. A drifted owner cannot pass because the gate recomputes the source and artifact fingerprints and runs the owner's no-write check, rejecting any owner whose check fails or whose required artifact is missing.",
+  "case_count": 4,
+  "claim_ceiling": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
+  "negative_case_count": 2,
+  "organ_id": "generated_projection_drift_runtime",
+  "positive_case_count": 2,
+  "schema_version": "generated_projection_drift_runtime_board_v1",
+  "status": "pass"
+}

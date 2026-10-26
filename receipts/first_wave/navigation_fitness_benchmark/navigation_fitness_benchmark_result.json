@@ -1,0 +1,91 @@
+{
+  "anti_claim": "The navigation fitness benchmark organ evaluates curated route-packet fixtures over public inputs only. It does not run the private macro kernel.py, does not capture packets from the live route runner, does not validate embeddings, and does not claim universal navigation benchmark authority. It does not export private macro state, credentials, provider state, or raw operator threads, does not call providers or external solvers, and does not authorize release or publication. A packet whose declared expectation is false cannot pass because the capsule recomputes recall, precision, forbidden-route, scent, and latency verdicts and rejects any case whose recomputation contradicts the planted expectation.",
+  "authority_ceiling": {
+    "embedding_benchmark": false,
+    "live_private_kernel_run": false,
+    "oracle_or_prover": false,
+    "production_ready": false,
+    "provider_call": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "universal_navigation_benchmark": false
+  },
+  "body_in_receipt": false,
+  "case_count": 4,
+  "cases": [
+    {
+      "accepted": true,
+      "case_id": "clean_fanout_pass",
+      "case_type": "positive",
+      "expectation_aligned": true,
+      "expectation_met": true,
+      "expected_ok": true,
+      "observed_failure_kinds": [],
+      "observed_ok": true,
+      "observed_status": "pass"
+    },
+    {
+      "accepted": false,
+      "case_id": "forbidden_first_route_rejected",
+      "case_type": "negative",
+      "expectation_aligned": true,
+      "expectation_met": false,
+      "expected_ok": false,
+      "observed_failure_kinds": [
+        "forbidden_route"
+      ],
+      "observed_ok": true,
+      "observed_status": "pass"
+    },
+    {
+      "accepted": true,
+      "case_id": "latency_debt_pass",
+      "case_type": "positive",
+      "expectation_aligned": true,
+      "expectation_met": true,
+      "expected_ok": true,
+      "observed_failure_kinds": [
+        "latency_fail"
+      ],
+      "observed_ok": true,
+      "observed_status": "pass"
+    },
+    {
+      "accepted": false,
+      "case_id": "missing_stable_id_rejected",
+      "case_type": "negative",
+      "expectation_aligned": true,
+      "expectation_met": false,
+      "expected_ok": false,
+      "observed_failure_kinds": [
+        "missing_id"
+      ],
+      "observed_ok": true,
+      "observed_status": "pass"
+    }
+  ],
+  "claim_ceiling": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
+  "command": "native public fixture replay with installed Lean 4.29.1 when required",
+  "created_at": "2026-10-26T12:01:51+00:00",
+  "expected_negative_cases": {
+    "forbidden_first_route_rejected": [
+      "forbidden_route"
+    ],
+    "missing_stable_id_rejected": [
+      "missing_id"
+    ]
+  },
+  "fixture_id": "first_wave.navigation_fitness_benchmark",
+  "input_mode": "navigation_fitness_benchmark_fixture_cases",
+  "negative_case_count": 2,
+  "observed_negative_case_count": 2,
+  "organ_id": "navigation_fitness_benchmark",
+  "passed_positive_case_count": 2,
+  "positive_case_count": 2,
+  "schema_version": "navigation_fitness_benchmark_organ_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.navigation_fitness_benchmark"
+}

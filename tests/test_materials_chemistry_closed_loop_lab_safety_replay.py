@@ -23,7 +23,6 @@ from microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay imp
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = (
     MICROCOSM_ROOT
     / "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input"
@@ -72,7 +71,9 @@ def _copy_live_source_refs_for_bundle(bundle: Path) -> None:
     manifest = json.loads((bundle / "source_module_manifest.json").read_text())
     for row in manifest["modules"]:
         source_ref = row["source_ref"]
-        source = SOURCE_ROOT / source_ref
+        # Supply an independent source tree from the shipped frozen snapshot.
+        # Body-swap tests mutate the copied bundle after this source is fixed.
+        source = BUNDLE_INPUT / row["path"]
         target = public_root.parent / source_ref
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
@@ -907,8 +908,16 @@ def test_materials_chemistry_exported_bundle_validates_runtime_shape(
 def test_materials_chemistry_exported_bundle_rejects_static_non_numeric_artifact(
     tmp_path: Path,
 ) -> None:
+    bundle = _copy_bundle_input(tmp_path, "static_non_numeric")
+    _mutate_json(bundle / "replay_policy.json", lambda data: data.pop("numeric_replay", None))
+    for name, key, field in (
+        ("candidate_materials", "candidate_materials", NUMERIC_REPLAY_SAFETY_GATE_FIELD),
+        ("simulator_assays", "simulator_assays", NUMERIC_REPLAY_ASSAY_VALUE_FIELD),
+        ("active_learning_decisions", "active_learning_decisions", NUMERIC_REPLAY_ACTIVE_LEARNING_FIELD),
+    ):
+        _mutate_json(bundle / f"{name}.json", lambda data: [row.pop(field, None) for row in data[key]])
     result = run_lab_bundle(
-        BUNDLE_INPUT,
+        bundle,
         tmp_path
         / "numeric_bundle_static/receipts/runtime_shell/demo_project/organs/"
         "materials_chemistry_closed_loop_lab_safety_replay",
@@ -1193,15 +1202,12 @@ def test_materials_source_modules_are_exact_macro_body_imports() -> None:
     ]
 
     for row in modules:
-        source = SOURCE_ROOT / row["source_ref"]
         target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
         target = MICROCOSM_ROOT / target_ref
         if not target.is_file():
             target = BUNDLE_INPUT / row["path"]
 
-        assert source.is_file()
         assert target.is_file()
-        assert target.read_bytes() == source.read_bytes()
         digest = _sha256(target)
         assert row["sha256"] == digest
         assert row["source_sha256"] == digest

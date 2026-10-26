@@ -72,7 +72,7 @@
       "claim_ceiling": "validates only the declared public pattern-binding and route-readiness contract over public fixtures, substrate bundle structure, pattern-ledger row refs, binding sidecars, authority handles, and negative cases; does not certify the private pattern ledger, hosted-public readiness, release, publication, provider calls, private-data equivalence, whole-system correctness, or promote mined pattern rows into standalone public leaves",
       "classification_basis": "derived public contract checks over substrate bundle structure, real pattern-ledger rows, generated substrate-binding sidecar refs, authority handles, and negative cases",
       "counts_as_real_substrate_progress": true,
-      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+      "current_authority_receipt": "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
       "evidence_class": "semantic_validator",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[pattern_binding_contract]",
       "evidence_strength_rank": 5,
@@ -86,13 +86,14 @@
       "runner": "microcosm_core.organs.pattern_binding_contract",
       "status": "accepted_current_authority",
       "truth_accounting_bucket": "real_import_validation",
-      "validator_command": "python -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract"
+      "validator_command": "python -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract",
+      "historical_source_authority_receipt": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json"
     },
     {
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived public standard grammar and cross-reference validation",
       "counts_as_real_substrate_progress": true,
-      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
+      "current_authority_receipt": "receipts/first_wave/executable_doctrine_grammar/paper_module_validation_report.json",
       "evidence_class": "semantic_validator",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[executable_doctrine_grammar]",
       "evidence_strength_rank": 5,
@@ -108,13 +109,14 @@
       "runner": "microcosm_core.organs.executable_doctrine_grammar",
       "status": "accepted_current_authority",
       "truth_accounting_bucket": "real_import_validation",
-      "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.executable_doctrine_grammar validate-executable-grammar-metabolism-bundle --input examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle --out receipts/first_wave/executable_doctrine_grammar --card"
+      "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.executable_doctrine_grammar validate-executable-grammar-metabolism-bundle --input examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle --out receipts/first_wave/executable_doctrine_grammar --card",
+      "historical_source_authority_receipt": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json"
     },
     {
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "computes hashes and policy diagnostics, but proof verdict rows are fixture-shaped expected-result metadata",
       "counts_as_real_substrate_progress": true,
-      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
+      "current_authority_receipt": "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
       "evidence_class": "algorithmic_projection",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[proof_diagnostic_evidence_spine]",
       "evidence_strength_rank": 3,
@@ -130,7 +132,8 @@
       "runner": "microcosm_core.organs.proof_diagnostic_evidence_spine",
       "status": "accepted_current_authority",
       "truth_accounting_bucket": "source_faithful_refactor",
-      "validator_command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine"
+      "validator_command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
+      "historical_source_authority_receipt": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json"
     },
     {
       "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -431,7 +434,7 @@
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "composes the real formal_prover_context_strategy_gate route slice across corpus readiness, Lean/Std premise indexing, premise retrieval, tactic availability, target-shape routing, Ring2 retrieval metrics, verifier-trace repair, proof-diagnostic evidence, and a bounded Lean/Lake witness without upgrading them into general proof authority",
       "counts_as_real_substrate_progress": true,
-      "current_authority_receipt": "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
+      "current_authority_receipt": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
       "evidence_class": "semantic_validator",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[verifier_lab_kernel]",
       "evidence_strength_rank": 5,
@@ -446,7 +449,9 @@
       "runner": "microcosm_core.organs.verifier_lab_kernel",
       "status": "accepted_current_authority",
       "truth_accounting_bucket": "real_import_validation",
-      "validator_command": "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel"
+      "validator_command": "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel",
+      "historical_source_authority_receipt": "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
+      "current_evidence_scope": "exported_verifier_lab_kernel_bundle"
     },
     {
       "claim_ceiling": "tool witness only, not general proof authority",
@@ -473,7 +478,7 @@
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived route-plane checks, source-coupling freshness, and public routing contract validation",
       "counts_as_real_substrate_progress": true,
-      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
+      "current_authority_receipt": "receipts/first_wave/navigation_hologram_route_plane/affordance_passport_selection_receipt.json",
       "evidence_class": "semantic_validator",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[navigation_hologram_route_plane]",
       "evidence_strength_rank": 5,
@@ -491,13 +496,14 @@
       "runner": "microcosm_core.organs.navigation_hologram_route_plane",
       "status": "accepted_current_authority",
       "truth_accounting_bucket": "real_import_validation",
-      "validator_command": "python -m microcosm_core.organs.navigation_hologram_route_plane run --input fixtures/first_wave/navigation_hologram_route_plane/input --out receipts/first_wave/navigation_hologram_route_plane"
+      "validator_command": "python -m microcosm_core.organs.navigation_hologram_route_plane run --input fixtures/first_wave/navigation_hologram_route_plane/input --out receipts/first_wave/navigation_hologram_route_plane",
+      "historical_source_authority_receipt": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json"
     },
     {
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "public source-faithful refactors of work_landing and mission_transaction_preflight macro control bodies drive WorkItem, claim, checkpoint-lane, receipt-drain, and regression-negative fixture checks",
       "counts_as_real_substrate_progress": true,
-      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
+      "current_authority_receipt": "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
       "evidence_class": "bounded_runtime_computation",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[mission_transaction_work_spine]",
       "evidence_strength_rank": 4,
@@ -516,7 +522,8 @@
       "runner": "microcosm_core.organs.mission_transaction_work_spine",
       "status": "accepted_current_authority",
       "truth_accounting_bucket": "real_runtime_receipt",
-      "validator_command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine"
+      "validator_command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+      "historical_source_authority_receipt": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json"
     },
     {
       "claim_ceiling": "validates declared public contract only",
@@ -627,7 +634,7 @@
       "claim_ceiling": "validates only public recorded route-feedback and observability metadata fixtures, including route-lease consumption, trace attribution, hook-shadow advisory status, anti-pattern debt retirement, behavior-change evidence gates, and public macro body import refs; does not read live operator/provider/browser/HUD/account state, mutate Task Ledger or source, install hooks, certify runtime behavior, authorize pattern assimilation, private-root equivalence, release, publication, or whole-system correctness",
       "classification_basis": "derived observability and action-trace checks over public replay inputs",
       "counts_as_real_substrate_progress": true,
-      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
+      "current_authority_receipt": "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
       "evidence_class": "semantic_validator",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[agent_route_observability_runtime]",
       "evidence_strength_rank": 5,
@@ -644,7 +651,8 @@
       "runner": "microcosm_core.organs.agent_route_observability_runtime",
       "status": "accepted_current_authority",
       "truth_accounting_bucket": "real_import_validation",
-      "validator_command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime"
+      "validator_command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
+      "historical_source_authority_receipt": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json"
     },
     {
       "claim_ceiling": "validates only declared public synthetic bridge-continuity fixtures over continuation packets, heartbeat boundaries, resource-pressure dispatch blocks, resume-once semantics, duplicate-resume rejection, worker-skip dedupe, closeout receipts, tracked receipt-write gates, negative cases, and private-state scan boundaries; does not run live bridge transport, call providers, read operator HUD/browser/phase-runtime/private-memory state, prove provider or UI uptime, land work, mutate source, authorize private-root equivalence, release, publication, or whole-system correctness",
@@ -672,7 +680,7 @@
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived acceptance-layer checks for organ landing summaries and assimilation refs",
       "counts_as_real_substrate_progress": true,
-      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
+      "current_authority_receipt": "receipts/first_wave/pattern_assimilation_acceptance.json",
       "evidence_class": "semantic_validator",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[pattern_assimilation_step]",
       "evidence_strength_rank": 5,
@@ -687,7 +695,8 @@
       "runner": "microcosm_core.validators.acceptance",
       "status": "accepted_current_authority",
       "truth_accounting_bucket": "real_import_validation",
-      "validator_command": "python -m microcosm_core.validators.acceptance validate-assimilation-bundle --input examples/pattern_assimilation_step/exported_assimilation_bundle --out receipts/first_wave/pattern_assimilation_step"
+      "validator_command": "python -m microcosm_core.validators.acceptance validate-assimilation-bundle --input examples/pattern_assimilation_step/exported_assimilation_bundle --out receipts/first_wave/pattern_assimilation_step",
+      "historical_source_authority_receipt": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json"
     },
     {
       "claim_ceiling": "bounded public reveal runtime and digest-verified body-import witness only; not release, hosting, publication, provider-call, private-root equivalence, whole-system correctness, or general product authority",

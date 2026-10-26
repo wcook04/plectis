@@ -1,0 +1,10 @@
+{
+  "anti_claim": "The annex knowledge routing organ ranks a sanitized fixture catalog over public fixture inputs only. It does not implement BM25, TF-IDF, embeddings, or semantic search; it does not clone third-party repositories, ship the private annex corpus, export private macro state, credentials, or raw operator threads; it does not call providers or external solvers, does not adjudicate licenses or provenance, and does not authorize release or publication. An unroutable problem cannot pass because the retriever recomputes the per-tier token scores and emits no_match whenever no candidate clears a positive score or a domain/cluster filter removes every candidate.",
+  "case_count": 4,
+  "claim_ceiling": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
+  "negative_case_count": 2,
+  "organ_id": "annex_knowledge_routing",
+  "positive_case_count": 2,
+  "schema_version": "annex_knowledge_routing_board_v1",
+  "status": "pass"
+}

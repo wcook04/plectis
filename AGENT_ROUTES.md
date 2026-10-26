@@ -107,13 +107,13 @@ microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission
 
 Scope limit: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.
 
-Source relation: `74` edges, `11` files, `39` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
+Source relation: `159` edges, `21` files, `104` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=mission_transaction_work_spine]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=mission_transaction_work_spine]
+receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json
 organ_doctrine_row:mission_transaction_work_spine.concept_binding
 organ_doctrine_row:mission_transaction_work_spine.mechanism_binding
 ```
@@ -143,7 +143,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]
+receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json
 organ_doctrine_row:cold_reader_route_map.concept_binding
 organ_doctrine_row:cold_reader_route_map.mechanism_binding
 ```
@@ -179,13 +179,13 @@ microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-b
 
 Scope limit: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.
 
-Source relation: `763` edges, `36` files, `103` shards. Drill down with `microcosm organ-topology --organ provider_context_recipe_budget_policy`.
+Source relation: `1482` edges, `54` files, `194` shards. Drill down with `microcosm organ-topology --organ bounded_autonomy_campaign_packet`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]
+receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json
 organ_doctrine_row:agent_closeout_faithfulness_audit.concept_binding
 organ_doctrine_row:agent_closeout_faithfulness_audit.mechanism_binding
 ```
@@ -210,7 +210,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=bridge_campaign_dag_validation]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=bridge_campaign_dag_validation]
+receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json
 organ_doctrine_row:bridge_campaign_dag_validation.concept_binding
 organ_doctrine_row:bridge_campaign_dag_validation.mechanism_binding
 ```
@@ -235,7 +235,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=egress_self_compliance_audit]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=egress_self_compliance_audit]
+receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json
 organ_doctrine_row:egress_self_compliance_audit.concept_binding
 organ_doctrine_row:egress_self_compliance_audit.mechanism_binding
 ```
@@ -260,7 +260,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=metabolism_queue_reconciliation]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=metabolism_queue_reconciliation]
+receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json
 organ_doctrine_row:metabolism_queue_reconciliation.concept_binding
 organ_doctrine_row:metabolism_queue_reconciliation.mechanism_binding
 ```
@@ -296,13 +296,13 @@ microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-b
 
 Scope limit: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.
 
-Source relation: `763` edges, `36` files, `103` shards. Drill down with `microcosm organ-topology --organ provider_context_recipe_budget_policy`.
+Source relation: `1482` edges, `54` files, `194` shards. Drill down with `microcosm organ-topology --organ bounded_autonomy_campaign_packet`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]
+receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json
 organ_doctrine_row:agent_closeout_faithfulness_audit.concept_binding
 organ_doctrine_row:agent_closeout_faithfulness_audit.mechanism_binding
 ```
@@ -327,7 +327,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=annex_knowledge_routing]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=annex_knowledge_routing]
+receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json
 organ_doctrine_row:annex_knowledge_routing.concept_binding
 organ_doctrine_row:annex_knowledge_routing.mechanism_binding
 ```
@@ -359,13 +359,13 @@ microcosm pattern-route-readiness validate-bundle --input examples/pattern_bindi
 
 Scope limit: It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).
 
-Source relation: `336` edges, `35` files, `96` shards. Drill down with `microcosm organ-topology --organ pattern_binding_contract`.
+Source relation: `432` edges, `42` files, `123` shards. Drill down with `microcosm organ-topology --organ pattern_binding_contract`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=pattern_binding_contract]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=pattern_binding_contract]
+receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json
 organ_doctrine_row:pattern_binding_contract.concept_binding
 organ_doctrine_row:pattern_binding_contract.mechanism_binding
 ```
@@ -384,13 +384,13 @@ microcosm batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_aud
 
 Scope limit: projection mechanics only, not domain-level conclusions
 
-Source relation: `0` edges, `0` files, `0` shards. Drill down with `microcosm organ-topology --organ batch8_audio_level_rms_port`.
+Source relation: `6` edges, `1` files, `4` shards. Drill down with `microcosm organ-topology --organ batch8_audio_level_rms_port`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=batch8_audio_level_rms_port]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch8_audio_level_rms_port]
+receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json
 organ_doctrine_row:batch8_audio_level_rms_port.concept_binding
 organ_doctrine_row:batch8_audio_level_rms_port.mechanism_binding
 ```
@@ -409,13 +409,13 @@ PYTHONPATH=src python3 -m microcosm_core.organs.batch5_authority_systems_capsule
 
 Scope limit: It validates only public-safe copied Batch 5 authority-system source bodies and bounded deterministic exercises; it does not dispatch providers, prove Lean success, send live process signals, mutate generated state, change source files, authorize public sharing, include launch operations, or claim private-system equivalence.
 
-Source relation: `0` edges, `0` files, `0` shards. Drill down with `microcosm organ-topology --organ batch5_authority_systems_capsule`.
+Source relation: `129` edges, `10` files, `30` shards. Drill down with `microcosm organ-topology --organ batch5_authority_systems_capsule`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=batch5_authority_systems_capsule]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch5_authority_systems_capsule]
+receipts/acceptance/first_wave/batch5_authority_systems_capsule_fixture_acceptance.json
 organ_doctrine_row:batch5_authority_systems_capsule.concept_binding
 organ_doctrine_row:batch5_authority_systems_capsule.mechanism_binding
 ```
@@ -440,7 +440,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=navigation_fitness_benchmark]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=navigation_fitness_benchmark]
+receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json
 organ_doctrine_row:navigation_fitness_benchmark.concept_binding
 organ_doctrine_row:navigation_fitness_benchmark.mechanism_binding
 ```
@@ -468,7 +468,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=bridge_campaign_dag_validation]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=bridge_campaign_dag_validation]
+receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json
 organ_doctrine_row:bridge_campaign_dag_validation.concept_binding
 organ_doctrine_row:bridge_campaign_dag_validation.mechanism_binding
 ```
@@ -493,7 +493,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=bridge_campaign_dag_validation]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=bridge_campaign_dag_validation]
+receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json
 organ_doctrine_row:bridge_campaign_dag_validation.concept_binding
 organ_doctrine_row:bridge_campaign_dag_validation.mechanism_binding
 ```
@@ -512,13 +512,13 @@ microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/ba
 
 Scope limit: validates declared public Batch 8 compliance pipeline capsule contract only; no full compliance-ledger freshness, external model access, model dispatch, source-file changes, source note mutation, launch, public sharing, private data equivalence, or whole-system correctness
 
-Source relation: `0` edges, `0` files, `0` shards. Drill down with `microcosm organ-topology --organ batch8_compliance_pipeline_capsule`.
+Source relation: `130` edges, `36` files, `40` shards. Drill down with `microcosm organ-topology --organ batch8_compliance_pipeline_capsule`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=batch8_compliance_pipeline_capsule]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch8_compliance_pipeline_capsule]
+receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json
 organ_doctrine_row:batch8_compliance_pipeline_capsule.concept_binding
 organ_doctrine_row:batch8_compliance_pipeline_capsule.mechanism_binding
 ```
@@ -543,13 +543,13 @@ microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission
 
 Scope limit: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.
 
-Source relation: `74` edges, `11` files, `39` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
+Source relation: `337` edges, `32` files, `152` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=mission_transaction_work_spine]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=mission_transaction_work_spine]
+receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json
 organ_doctrine_row:mission_transaction_work_spine.concept_binding
 organ_doctrine_row:mission_transaction_work_spine.mechanism_binding
 ```
@@ -574,7 +574,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=semantic_singleflight_dedup_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=semantic_singleflight_dedup_runtime]
+receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json
 organ_doctrine_row:semantic_singleflight_dedup_runtime.concept_binding
 organ_doctrine_row:semantic_singleflight_dedup_runtime.mechanism_binding
 ```
@@ -599,7 +599,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=derived_fact_provider_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=derived_fact_provider_runtime]
+receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json
 organ_doctrine_row:derived_fact_provider_runtime.concept_binding
 organ_doctrine_row:derived_fact_provider_runtime.mechanism_binding
 ```
@@ -618,13 +618,13 @@ PYTHONPATH=src python3 -m microcosm_core.organs.batch7_demo_take_console_capsule
 
 Scope limit: It validates only public-safe Demo Take Console copied Swift source bodies and bounded deterministic exercises; it does not launch the app, authorize screen or microphone capture, export recording sessions, execute FFmpeg, dispatch WhisperKit or other models, change source files, prove complete UI coverage, authorize public sharing, or include launch operations.
 
-Source relation: `0` edges, `0` files, `0` shards. Drill down with `microcosm organ-topology --organ batch7_demo_take_console_capsule`.
+Source relation: `84` edges, `51` files, `32` shards. Drill down with `microcosm organ-topology --organ batch7_demo_take_console_capsule`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=batch7_demo_take_console_capsule]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_demo_take_console_capsule]
+receipts/acceptance/first_wave/batch7_demo_take_console_capsule_fixture_acceptance.json
 organ_doctrine_row:batch7_demo_take_console_capsule.concept_binding
 organ_doctrine_row:batch7_demo_take_console_capsule.mechanism_binding
 ```
@@ -654,13 +654,13 @@ microcosm pattern-route-readiness validate-bundle --input examples/pattern_bindi
 
 Scope limit: It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).
 
-Source relation: `281` edges, `31` files, `89` shards. Drill down with `microcosm organ-topology --organ pattern_binding_contract`.
+Source relation: `377` edges, `38` files, `116` shards. Drill down with `microcosm organ-topology --organ pattern_binding_contract`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=pattern_binding_contract]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=pattern_binding_contract]
+receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json
 organ_doctrine_row:pattern_binding_contract.concept_binding
 organ_doctrine_row:pattern_binding_contract.mechanism_binding
 ```
@@ -700,13 +700,13 @@ microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch
 
 Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
 
-Source relation: `353` edges, `59` files, `196` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+Source relation: `2607` edges, `482` files, `1420` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]
+receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
 organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding
 organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding
 ```
@@ -731,7 +731,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=metabolism_queue_reconciliation]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=metabolism_queue_reconciliation]
+receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json
 organ_doctrine_row:metabolism_queue_reconciliation.concept_binding
 organ_doctrine_row:metabolism_queue_reconciliation.mechanism_binding
 ```
@@ -756,7 +756,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=egress_self_compliance_audit]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=egress_self_compliance_audit]
+receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json
 organ_doctrine_row:egress_self_compliance_audit.concept_binding
 organ_doctrine_row:egress_self_compliance_audit.mechanism_binding
 ```
@@ -784,7 +784,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]
+receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json
 organ_doctrine_row:cold_reader_route_map.concept_binding
 organ_doctrine_row:cold_reader_route_map.mechanism_binding
 ```
@@ -809,7 +809,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=finite_erdos_denominator_certificate_strike]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finite_erdos_denominator_certificate_strike]
+receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json
 organ_doctrine_row:finite_erdos_denominator_certificate_strike.concept_binding
 organ_doctrine_row:finite_erdos_denominator_certificate_strike.mechanism_binding
 ```
@@ -836,13 +836,13 @@ microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/fina
 
 Scope limit: synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim
 
-Source relation: `92` edges, `29` files, `33` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
+Source relation: `445` edges, `66` files, `146` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=finance_forecast_evaluation_spine]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finance_forecast_evaluation_spine]
+receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json
 organ_doctrine_row:finance_forecast_evaluation_spine.concept_binding
 organ_doctrine_row:finance_forecast_evaluation_spine.mechanism_binding
 ```
@@ -867,7 +867,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=derived_fact_provider_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=derived_fact_provider_runtime]
+receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json
 organ_doctrine_row:derived_fact_provider_runtime.concept_binding
 organ_doctrine_row:derived_fact_provider_runtime.mechanism_binding
 ```
@@ -895,13 +895,13 @@ microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/fina
 
 Scope limit: synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim
 
-Source relation: `294` edges, `46` files, `69` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
+Source relation: `378` edges, `48` files, `83` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=finance_forecast_evaluation_spine]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finance_forecast_evaluation_spine]
+receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json
 organ_doctrine_row:finance_forecast_evaluation_spine.concept_binding
 organ_doctrine_row:finance_forecast_evaluation_spine.mechanism_binding
 ```
@@ -929,7 +929,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=finite_erdos_denominator_certificate_strike]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finite_erdos_denominator_certificate_strike]
+receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json
 organ_doctrine_row:finite_erdos_denominator_certificate_strike.concept_binding
 organ_doctrine_row:finite_erdos_denominator_certificate_strike.mechanism_binding
 ```
@@ -967,13 +967,13 @@ microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_
 
 Scope limit: It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.
 
-Source relation: `935` edges, `98` files, `148` shards. Drill down with `microcosm organ-topology --organ certificate_kernel_execution_lab`.
+Source relation: `1318` edges, `125` files, `238` shards. Drill down with `microcosm organ-topology --organ certificate_kernel_execution_lab`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=proof_diagnostic_evidence_spine]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=proof_diagnostic_evidence_spine]
+receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json
 organ_doctrine_row:certificate_kernel_execution_lab.concept_binding
 organ_doctrine_row:certificate_kernel_execution_lab.mechanism_binding
 ```
@@ -996,13 +996,13 @@ microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch
 
 Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
 
-Source relation: `16` edges, `5` files, `3` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+Source relation: `263` edges, `55` files, `34` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]
+receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
 organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding
 organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding
 ```
@@ -1027,7 +1027,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=generated_projection_drift_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=generated_projection_drift_runtime]
+receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json
 organ_doctrine_row:generated_projection_drift_runtime.concept_binding
 organ_doctrine_row:generated_projection_drift_runtime.mechanism_binding
 ```
@@ -1055,7 +1055,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]
+receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json
 organ_doctrine_row:cold_reader_route_map.concept_binding
 organ_doctrine_row:cold_reader_route_map.mechanism_binding
 ```
@@ -1083,7 +1083,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]
+receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json
 organ_doctrine_row:cold_reader_route_map.concept_binding
 organ_doctrine_row:cold_reader_route_map.mechanism_binding
 ```
@@ -1108,7 +1108,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=derived_fact_provider_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=derived_fact_provider_runtime]
+receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json
 organ_doctrine_row:derived_fact_provider_runtime.concept_binding
 organ_doctrine_row:derived_fact_provider_runtime.mechanism_binding
 ```
@@ -1146,13 +1146,13 @@ microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_
 
 Scope limit: It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.
 
-Source relation: `935` edges, `98` files, `148` shards. Drill down with `microcosm organ-topology --organ certificate_kernel_execution_lab`.
+Source relation: `1318` edges, `125` files, `238` shards. Drill down with `microcosm organ-topology --organ certificate_kernel_execution_lab`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=proof_diagnostic_evidence_spine]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=proof_diagnostic_evidence_spine]
+receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json
 organ_doctrine_row:certificate_kernel_execution_lab.concept_binding
 organ_doctrine_row:certificate_kernel_execution_lab.mechanism_binding
 ```
@@ -1177,7 +1177,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=lean_proof_search_lab_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=lean_proof_search_lab_runtime]
+receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json
 organ_doctrine_row:lean_proof_search_lab_runtime.concept_binding
 organ_doctrine_row:lean_proof_search_lab_runtime.mechanism_binding
 ```
@@ -1196,13 +1196,13 @@ microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch
 
 Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
 
-Source relation: `4` edges, `4` files, `0` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+Source relation: `26` edges, `11` files, `0` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]
+receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
 organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding
 organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding
 ```
@@ -1233,13 +1233,13 @@ microcosm pattern-route-readiness validate-bundle --input examples/pattern_bindi
 
 Scope limit: It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).
 
-Source relation: `311` edges, `33` files, `93` shards. Drill down with `microcosm organ-topology --organ pattern_binding_contract`.
+Source relation: `407` edges, `40` files, `120` shards. Drill down with `microcosm organ-topology --organ pattern_binding_contract`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=pattern_binding_contract]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=pattern_binding_contract]
+receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json
 organ_doctrine_row:pattern_binding_contract.concept_binding
 organ_doctrine_row:pattern_binding_contract.mechanism_binding
 ```
@@ -1264,7 +1264,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=finite_erdos_denominator_certificate_strike]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finite_erdos_denominator_certificate_strike]
+receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json
 organ_doctrine_row:finite_erdos_denominator_certificate_strike.concept_binding
 organ_doctrine_row:finite_erdos_denominator_certificate_strike.mechanism_binding
 ```
@@ -1289,7 +1289,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=semantic_singleflight_dedup_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=semantic_singleflight_dedup_runtime]
+receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json
 organ_doctrine_row:semantic_singleflight_dedup_runtime.concept_binding
 organ_doctrine_row:semantic_singleflight_dedup_runtime.mechanism_binding
 ```
@@ -1308,13 +1308,13 @@ PYTHONPATH=src python3 -m microcosm_core.organs.batch7_oracle_sibling_capsule ru
 
 Scope limit: It validates only public-safe Oracle sibling copied source bodies and bounded deterministic exercises; it does not run Oracle reasoning, dispatch providers or bridges, invoke GodModeEngine, change source files, prove semantic truth, prove all Oracle paths are covered, authorize public sharing, or include launch operations.
 
-Source relation: `21` edges, `4` files, `17` shards. Drill down with `microcosm organ-topology --organ batch7_oracle_sibling_capsule`.
+Source relation: `120` edges, `41` files, `22` shards. Drill down with `microcosm organ-topology --organ batch7_oracle_sibling_capsule`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=batch7_oracle_sibling_capsule]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_oracle_sibling_capsule]
+receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json
 organ_doctrine_row:batch7_oracle_sibling_capsule.concept_binding
 organ_doctrine_row:batch7_oracle_sibling_capsule.mechanism_binding
 ```
@@ -1339,7 +1339,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=generated_projection_drift_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=generated_projection_drift_runtime]
+receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json
 organ_doctrine_row:generated_projection_drift_runtime.concept_binding
 organ_doctrine_row:generated_projection_drift_runtime.mechanism_binding
 ```
@@ -1364,7 +1364,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=egress_self_compliance_audit]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=egress_self_compliance_audit]
+receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json
 organ_doctrine_row:egress_self_compliance_audit.concept_binding
 organ_doctrine_row:egress_self_compliance_audit.mechanism_binding
 ```
@@ -1389,7 +1389,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=generated_projection_drift_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=generated_projection_drift_runtime]
+receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json
 organ_doctrine_row:generated_projection_drift_runtime.concept_binding
 organ_doctrine_row:generated_projection_drift_runtime.mechanism_binding
 ```
@@ -1414,7 +1414,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=lean_proof_search_lab_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=lean_proof_search_lab_runtime]
+receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json
 organ_doctrine_row:lean_proof_search_lab_runtime.concept_binding
 organ_doctrine_row:lean_proof_search_lab_runtime.mechanism_binding
 ```
@@ -1454,13 +1454,13 @@ microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch
 
 Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
 
-Source relation: `353` edges, `59` files, `196` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+Source relation: `2607` edges, `482` files, `1420` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]
+receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
 organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding
 organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding
 ```
@@ -1485,7 +1485,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=bridge_campaign_dag_validation]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=bridge_campaign_dag_validation]
+receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json
 organ_doctrine_row:bridge_campaign_dag_validation.concept_binding
 organ_doctrine_row:bridge_campaign_dag_validation.mechanism_binding
 ```
@@ -1536,13 +1536,13 @@ microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reade
 
 Scope limit: It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.
 
-Source relation: `1530` edges, `139` files, `317` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
+Source relation: `2408` edges, `167` files, `471` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]
+receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json
 organ_doctrine_row:cold_reader_route_map.concept_binding
 organ_doctrine_row:cold_reader_route_map.mechanism_binding
 ```
@@ -1578,13 +1578,13 @@ microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-b
 
 Scope limit: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.
 
-Source relation: `763` edges, `36` files, `103` shards. Drill down with `microcosm organ-topology --organ provider_context_recipe_budget_policy`.
+Source relation: `1482` edges, `54` files, `194` shards. Drill down with `microcosm organ-topology --organ bounded_autonomy_campaign_packet`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]
+receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json
 organ_doctrine_row:agent_closeout_faithfulness_audit.concept_binding
 organ_doctrine_row:agent_closeout_faithfulness_audit.mechanism_binding
 ```
@@ -1609,7 +1609,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=derived_fact_provider_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=derived_fact_provider_runtime]
+receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json
 organ_doctrine_row:derived_fact_provider_runtime.concept_binding
 organ_doctrine_row:derived_fact_provider_runtime.mechanism_binding
 ```
@@ -1637,13 +1637,13 @@ PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_arti
 
 Scope limit: It validates the shape and presence of synthetic replay metadata and receipt references only - it does not run any experiment, metric script, or rerun, excludes any claim that a paper was actually replicated, that a benchmark claims was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes public sharing or launch.
 
-Source relation: `294` edges, `46` files, `69` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
+Source relation: `378` edges, `48` files, `83` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=research_replication_rubric_artifact_replay]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=research_replication_rubric_artifact_replay]
+receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json
 organ_doctrine_row:finance_forecast_evaluation_spine.concept_binding
 organ_doctrine_row:finance_forecast_evaluation_spine.mechanism_binding
 ```
@@ -1668,7 +1668,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=navigation_fitness_benchmark]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=navigation_fitness_benchmark]
+receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json
 organ_doctrine_row:navigation_fitness_benchmark.concept_binding
 organ_doctrine_row:navigation_fitness_benchmark.mechanism_binding
 ```
@@ -1693,7 +1693,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=annex_knowledge_routing]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=annex_knowledge_routing]
+receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json
 organ_doctrine_row:annex_knowledge_routing.concept_binding
 organ_doctrine_row:annex_knowledge_routing.mechanism_binding
 ```
@@ -1716,13 +1716,13 @@ PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_r
 
 Scope limit: It validates the projection mechanics of a synthetic memory fixture only — that the required refs, decisions, paired replays, negative cases, and secret-exclusion scan line up and that receipts are body-free. It does not claim live-memory product quality, judge whether memory decisions were domain-correct, treat memory recall as source authority, adopt active injection, export private transcripts, use external model services, change source files, or include launch operations.
 
-Source relation: `154` edges, `9` files, `17` shards. Drill down with `microcosm organ-topology --organ agent_memory_temporal_conflict_replay`.
+Source relation: `159` edges, `9` files, `17` shards. Drill down with `microcosm organ-topology --organ agent_memory_temporal_conflict_replay`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=agent_memory_temporal_conflict_replay]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_memory_temporal_conflict_replay]
+receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json
 organ_doctrine_row:agent_memory_temporal_conflict_replay.concept_binding
 organ_doctrine_row:agent_memory_temporal_conflict_replay.mechanism_binding
 ```
@@ -1747,7 +1747,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=egress_self_compliance_audit]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=egress_self_compliance_audit]
+receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json
 organ_doctrine_row:egress_self_compliance_audit.concept_binding
 organ_doctrine_row:egress_self_compliance_audit.mechanism_binding
 ```
@@ -1772,7 +1772,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=lean_proof_search_lab_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=lean_proof_search_lab_runtime]
+receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json
 organ_doctrine_row:lean_proof_search_lab_runtime.concept_binding
 organ_doctrine_row:lean_proof_search_lab_runtime.mechanism_binding
 ```
@@ -1797,7 +1797,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=finite_erdos_denominator_certificate_strike]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finite_erdos_denominator_certificate_strike]
+receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json
 organ_doctrine_row:finite_erdos_denominator_certificate_strike.concept_binding
 organ_doctrine_row:finite_erdos_denominator_certificate_strike.mechanism_binding
 ```
@@ -1837,13 +1837,13 @@ microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch
 
 Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
 
-Source relation: `353` edges, `59` files, `196` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+Source relation: `2607` edges, `482` files, `1420` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=batch7_secondary_runtime_capsule]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=batch7_secondary_runtime_capsule]
+receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
 organ_doctrine_row:batch7_secondary_runtime_capsule.concept_binding
 organ_doctrine_row:batch7_secondary_runtime_capsule.mechanism_binding
 ```
@@ -1868,7 +1868,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=metabolism_queue_reconciliation]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=metabolism_queue_reconciliation]
+receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json
 organ_doctrine_row:metabolism_queue_reconciliation.concept_binding
 organ_doctrine_row:metabolism_queue_reconciliation.mechanism_binding
 ```
@@ -1893,7 +1893,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=generated_projection_drift_runtime]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=generated_projection_drift_runtime]
+receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json
 organ_doctrine_row:generated_projection_drift_runtime.concept_binding
 organ_doctrine_row:generated_projection_drift_runtime.mechanism_binding
 ```
@@ -1932,13 +1932,13 @@ microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_
 
 Scope limit: It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.
 
-Source relation: `965` edges, `100` files, `152` shards. Drill down with `microcosm organ-topology --organ certificate_kernel_execution_lab`.
+Source relation: `1348` edges, `127` files, `242` shards. Drill down with `microcosm organ-topology --organ certificate_kernel_execution_lab`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=proof_diagnostic_evidence_spine]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=proof_diagnostic_evidence_spine]
+receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json
 organ_doctrine_row:certificate_kernel_execution_lab.concept_binding
 organ_doctrine_row:certificate_kernel_execution_lab.mechanism_binding
 ```
@@ -1963,7 +1963,7 @@ Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=annex_knowledge_routing]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=annex_knowledge_routing]
+receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json
 organ_doctrine_row:annex_knowledge_routing.concept_binding
 organ_doctrine_row:annex_knowledge_routing.mechanism_binding
 ```
@@ -1985,13 +1985,13 @@ microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission
 
 Scope limit: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.
 
-Source relation: `44` edges, `9` files, `35` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
+Source relation: `129` edges, `19` files, `100` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=mission_transaction_work_spine]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=mission_transaction_work_spine]
+receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json
 organ_doctrine_row:mission_transaction_work_spine.concept_binding
 organ_doctrine_row:mission_transaction_work_spine.mechanism_binding
 ```
@@ -2015,13 +2015,13 @@ microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission
 
 Scope limit: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.
 
-Source relation: `44` edges, `9` files, `35` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
+Source relation: `307` edges, `30` files, `148` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
 
 Evidence / doctrine / drilldown:
 
 ```text
 core/organ_registry.json::implemented_organs[organ_id=mission_transaction_work_spine]
-core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=mission_transaction_work_spine]
+receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json
 organ_doctrine_row:mission_transaction_work_spine.concept_binding
 organ_doctrine_row:mission_transaction_work_spine.mechanism_binding
 ```

@@ -1,0 +1,7 @@
+{
+  "if": {
+    "condition": {"input": "embargo"},
+    "then": {"emit": {"channel": "public", "value": {"literal": "report available"}}},
+    "else": {"skip": true}
+  }
+}

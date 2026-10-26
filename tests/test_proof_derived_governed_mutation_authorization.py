@@ -3,6 +3,8 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+import subprocess
+import base64
 from pathlib import Path
 from typing import Any
 
@@ -27,9 +29,49 @@ BUNDLE_INPUT = (
     "exported_governed_mutation_authorization_bundle"
 )
 SOURCE_ROOT = MICROCOSM_ROOT.parent
-REAL_RECORD_COMMIT = "67ac353d969750050ac4b46157dc4ba93a900ade"
-REAL_RECORD_PARENT_COMMIT = "e6df7a88bf023c44e17348c570717ec0aee3dd9b"
-REAL_RECORD_PARENT_SUBJECT = "Broaden Microcosm credential token policy gate"
+REAL_RECORD_COMMIT = json.loads((FIXTURE_INPUT / "public_commit_witness.json").read_text())["commit_ref"]
+
+
+def test_public_commit_witness_checks_objects_and_changed_paths(tmp_path, monkeypatch):
+    owner = proof_derived_governed_mutation_authorization
+    repo = tmp_path / "repo"
+    repo.mkdir()
+
+    def git(*args):
+        return subprocess.check_output(["git", "-C", str(repo), *args], text=True).strip()
+
+    git("init", "-q")
+    git("config", "user.name", "Public Fixture")
+    git("config", "user.email", "fixture@example.invalid")
+    relative = "src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py"
+    path = repo / relative
+    path.parent.mkdir(parents=True)
+    path.write_text("before\n")
+    git("add", ".")
+    git("commit", "-qm", "Base fixture")
+    path.write_text("after\n")
+    git("commit", "-qam", "Change public source")
+    head = git("rev-parse", "HEAD")
+    payload = owner.build_public_commit_witness(repo, head)
+    witness = tmp_path / "public_commit_witness.json"
+    witness.write_text(json.dumps(payload))
+    monkeypatch.setattr(owner, "_git_root_candidates", lambda root: [])
+    evidence = owner._git_commit_evidence(head, public_root=tmp_path, witness_path=witness)
+    assert evidence["verified"] is True
+    assert evidence["commit_subject"] == "Change public source"
+    assert evidence["matched_required_paths"] == [relative]
+    assert owner._portable_commit_evidence("0" * 40, witness) is None
+
+    damaged = json.loads(json.dumps(payload))
+    damaged["objects"][0]["data_base64"] = base64.b64encode(b"forged commit").decode()
+    witness.write_text(json.dumps(damaged))
+    assert owner._portable_commit_evidence(head, witness) is None
+    witness.write_text("[]")
+    assert owner._portable_commit_evidence(head, witness) is None
+    damaged = json.loads(json.dumps(payload))
+    damaged["objects"] = [row for row in damaged["objects"] if row["kind"] != "tree"]
+    witness.write_text(json.dumps(damaged))
+    assert owner._portable_commit_evidence(head, witness) is None
 
 
 def _sha256(path: Path) -> str:
@@ -134,12 +176,7 @@ def test_governed_mutation_authorization_resolves_real_commit_and_derives_refs(
     assert result["status"] == "pass"
     assert write_record["resolved_commit_ref"] == REAL_RECORD_COMMIT
     assert write_record["commit_scope_verified"] is True
-    assert {
-        "microcosm-substrate/src/microcosm_core/organs/"
-        "proof_derived_governed_mutation_authorization.py",
-        "microcosm-substrate/tests/"
-        "test_proof_derived_governed_mutation_authorization.py",
-    }.issubset(set(write_record["verified_commit_touched_paths"]))
+    assert "src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py" in write_record["verified_commit_touched_paths"]
     assert write_record["derived_proof_cell_refs"] == [
         "proof.write.scoped_config.v1"
     ]
@@ -821,7 +858,22 @@ def test_governed_mutation_authorization_rejects_baked_real_label_without_commit
 
 def test_governed_mutation_authorization_commit_scope_perturbation_moves_verdict(
     tmp_path: Path,
+    monkeypatch,
 ) -> None:
+    unrelated = tmp_path / "unrelated"
+    unrelated.mkdir()
+    def git(*args):
+        return subprocess.check_output(["git", "-C", str(unrelated), *args], text=True).strip()
+    git("init", "-q")
+    git("config", "user.name", "Fixture")
+    git("config", "user.email", "fixture@example.invalid")
+    (unrelated / "README.md").write_text("unrelated source\n")
+    git("add", ".")
+    git("commit", "-qm", "Unrelated public source")
+    unrelated_commit = git("rev-parse", "HEAD")
+    owner = proof_derived_governed_mutation_authorization
+    original_candidates = owner._git_root_candidates
+    monkeypatch.setattr(owner, "_git_root_candidates", lambda root: [unrelated, *original_candidates(root)])
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     input_dir = (
@@ -845,15 +897,14 @@ def test_governed_mutation_authorization_commit_scope_perturbation_moves_verdict
     records_path = input_dir / "governed_mutation_records.json"
     records = json.loads(records_path.read_text(encoding="utf-8"))
     record = records["governed_mutation_records"][1]
-    record["commit_ref"] = REAL_RECORD_PARENT_COMMIT
-    record["commit_subject"] = REAL_RECORD_PARENT_SUBJECT
+    record["commit_ref"] = unrelated_commit
+    record["commit_subject"] = "Unrelated public source"
     record["source_refs"] = [
-        REAL_RECORD_PARENT_COMMIT
+        f"git:{unrelated_commit}"
         if ref.startswith("git:")
         else ref
         for ref in record["source_refs"]
     ]
-    record["source_refs"][0] = f"git:{REAL_RECORD_PARENT_COMMIT}"
     records_path.write_text(
         json.dumps(records, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
@@ -872,7 +923,7 @@ def test_governed_mutation_authorization_commit_scope_perturbation_moves_verdict
     assert result["authorized_mutation_count"] == 2
     assert result["accepted_real_record_count"] == 2
     assert "GOV_MUT_REAL_RECORD_COMMIT_SCOPE_UNVERIFIED" in result["error_codes"]
-    assert real_record["resolved_commit_ref"] == REAL_RECORD_PARENT_COMMIT
+    assert real_record["resolved_commit_ref"] == unrelated_commit
     assert real_record["commit_scope_verified"] is False
     assert "commit_scope_unverified" in real_record["reason_codes"]
     assert proposal["computed_verdict"] == "blocked"
@@ -1168,12 +1219,12 @@ def test_governed_mutation_authorization_source_modules_are_exact_macro_body_imp
     }
 
     for row in manifest["modules"]:
-        source = SOURCE_ROOT / row["source_ref"]
         target = MICROCOSM_ROOT / row["target_ref"].removeprefix("microcosm-substrate/")
         text = target.read_text(encoding="utf-8")
-        assert source.is_file()
         assert target.is_file()
-        assert _sha256(source) == row["source_sha256"]
+        # The source snapshot digest is shipped; live private currentness is a
+        # different check and is not a prerequisite for a public clone.
+        assert _sha256(target) == row["source_sha256"]
         assert _sha256(target) == row["target_sha256"]
         assert row["source_sha256"] == row["target_sha256"]
         assert row["body_copied"] is True
@@ -1208,7 +1259,7 @@ def test_governed_mutation_authorization_bundle_card_reuses_fresh_receipt(
     assert first_card["status"] == "pass"
     assert first_card["command_speed"]["receipt_reused"] is False
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
-    assert first_card["command_speed"]["freshness_input_count"] == 19
+    assert first_card["command_speed"]["freshness_input_count"] == 20
     assert (
         first_card["validation"]["bundle_id"]
         == "proof_derived_governed_mutation_authorization_runtime_example"

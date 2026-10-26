@@ -4,10 +4,10 @@ import hashlib
 import json
 import shutil
 from pathlib import Path
+from dataclasses import replace
 from typing import Any
 
 from microcosm_core.organs._crown_jewel_common import (
-    _dirty_worktree_source_ref,
     validate_source_manifest,
 )
 from microcosm_core.organs.batch5_authority_systems_capsule import (
@@ -27,7 +27,6 @@ from microcosm_core.organs.batch5_authority_systems_capsule import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/batch5_authority_systems_capsule/input"
 EXPORTED_BUNDLE = (
     MICROCOSM_ROOT
@@ -169,14 +168,9 @@ def test_batch5_authority_systems_source_modules_are_exact_macro_body_imports() 
     assert {row["module_id"] for row in manifest["modules"]} == set(EXPECTED_MODULE_IDS)
 
     for row in manifest["modules"]:
-        source = SOURCE_ROOT / row["source_ref"]
         target = EXPORTED_BUNDLE / row["path"]
-        assert source.is_file(), row["source_ref"]
         assert target.is_file(), row["path"]
-        if source.read_bytes() != target.read_bytes():
-            assert _dirty_worktree_source_ref(row["source_ref"], repo_root=SOURCE_ROOT)
-            continue
-        assert row["sha256"] == _sha256(source)
+        assert row["sha256"] == _sha256(target)
         assert row["source_sha256"] == row["sha256"]
         assert row["target_sha256"] == row["sha256"]
         assert row["sha256_match"] is True
@@ -236,7 +230,8 @@ def test_batch5_source_manifest_demotes_active_claimed_live_source_drift(
         encoding="utf-8",
     )
 
-    result = validate_source_manifest(bundle, SPEC, public_root=public_root)
+    one_source_spec = replace(SPEC, source_required_anchors={row["source_ref"]: SPEC.source_required_anchors[row["source_ref"]]})
+    result = validate_source_manifest(bundle, one_source_spec, public_root=public_root)
 
     assert result["status"] == "pass"
     assert result["all_expected_digests_matched"] is True

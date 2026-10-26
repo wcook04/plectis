@@ -82,6 +82,15 @@ requirements below still apply.
 
 ## Third-Party Material
 
+The [second-round integration record](formal/round2-integration.json) identifies
+the operator-supplied research archives used for confirmed-result recovery,
+captured-source loading, compatibility counterexamples and public-view
+compilation. These are AI-assisted research inputs, not third-party endorsements.
+Original source identities and adaptation boundaries are retained. The public
+view's Dafny source and generated executable are unchanged from its p15 return;
+its host, loader integration, examples and packaging were adapted and tested.
+Generated Dafny support retains its MIT licence alongside each core.
+
 The public repository may contain package dependencies, generated receipts,
 fixtures, source capsules, or documentation references. Included dependencies,
 copied source files, datasets, media assets, fonts, screenshots, or copied text

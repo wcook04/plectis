@@ -4,6 +4,9 @@ import json
 import hashlib
 import re
 import shutil
+import os
+import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -95,11 +98,26 @@ def _walk_keys(payload: Any) -> list[str]:
 
 
 def _copy_source_artifacts(root: Path) -> None:
+    # Bundle tests supply distinct originals to exercise the rewrite recipe;
+    # fixture tests reuse the shipped source bytes bound by SOURCE_DIGESTS.
+    manifest_path = (root / "microcosm-substrate"
+                     / EXPORTED_BUNDLE_INPUT.relative_to(MICROCOSM_ROOT)
+                     / "source_module_manifest.json")
+    manifest = _read_json(manifest_path) if manifest_path.is_file() else None
     for source_ref in SOURCE_ARTIFACT_REFS:
-        source = MICROCOSM_ROOT.parent / source_ref
+        source = EXPORTED_BUNDLE_INPUT / "source_artifacts" / source_ref
         target = root / source_ref
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source, target)
+        text = source.read_text()
+        if manifest:
+            text = text.replace(PUBLIC_EXAMPLE_HOME, PRIVATE_HOME_PREFIX + "source-fixture")
+        target.write_text(text)
+        if manifest:
+            for row in manifest["modules"]:
+                if row["source_ref"] == source_ref:
+                    row["source_sha256"] = _prefixed_sha256(target)
+    if manifest:
+        _write_json(manifest_path, manifest)
 
 
 def _copy_exported_bundle(public_root: Path) -> Path:
@@ -122,7 +140,10 @@ def _copy_fixture_input_with_source_artifacts(public_root: Path) -> Path:
         public_root / "fixtures/first_wave/corpus_readiness_mathlib_absence_gate",
     )
     _copy_source_artifacts(public_root.parent)
-    return public_root / "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input"
+    fixture = public_root / "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input"
+    # These cases deliberately exercise the separately supplied source tree.
+    shutil.rmtree(fixture / "source_artifacts")
+    return fixture
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -508,9 +529,7 @@ def test_corpus_readiness_exported_source_modules_are_digest_verified() -> None:
     rows = {row["source_ref"]: row for row in manifest["modules"]}
     assert sorted(rows) == SOURCE_ARTIFACT_REFS
     for source_ref in SOURCE_ARTIFACT_REFS:
-        source = MICROCOSM_ROOT.parent / source_ref
         target = EXPORTED_BUNDLE_INPUT / rows[source_ref]["path"]
-        source_digest = "sha256:" + hashlib.sha256(source.read_bytes()).hexdigest()
         target_text = target.read_text(encoding="utf-8")
         target_digest = "sha256:" + hashlib.sha256(target_text.encode("utf-8")).hexdigest()
         row = rows[source_ref]
@@ -523,17 +542,19 @@ def test_corpus_readiness_exported_source_modules_are_digest_verified() -> None:
             row_target_digest = f"sha256:{row_target_digest}"
         if not row_digest.startswith("sha256:"):
             row_digest = f"sha256:{row_digest}"
-        assert row_source_digest == source_digest
+        assert re.fullmatch(r"sha256:[0-9a-f]{64}", row_source_digest)
         assert row_target_digest == target_digest
         assert row_digest == target_digest
         if row.get("source_to_target_relation") == "verified_public_safe_private_path_rewrite":
-            assert source_digest != target_digest
+            # The declared normalization can already have been applied to a
+            # source snapshot; identity is a valid idempotent rewrite.
+            assert corpus_gate._normalize_private_absolute_path_rewrite(target_text) == target_text
             assert row["verification_mode"] == "verified_light_edit_recipe"
             assert row["public_safe_transform"] == "private_absolute_path_rewrite_only"
             assert PUBLIC_EXAMPLE_HOME in target_text
             _assert_no_private_home_path(target_text)
         else:
-            assert target.read_bytes() == source.read_bytes()
+            assert row_source_digest == target_digest
             assert row.get("source_to_target_relation", "exact_copy") == "exact_copy"
         assert rows[source_ref]["body_copied"] is True
         assert rows[source_ref]["body_in_receipt"] is False
@@ -1153,3 +1174,62 @@ def test_corpus_readiness_supplied_runtime_probe_input_perturbation_blocks(
     assert "CORPUS_READINESS_RUNTIME_LEAN_IMPORT_PROBE_BLOCKED" in result["error_codes"]
     assert result["authority_ceiling"]["mathlib_dependent_proof_authority"] is False
     assert result["authority_ceiling"]["formal_proof_authority"] is False
+
+@pytest.mark.skipif(os.name != "posix", reason="POSIX process-group cleanup")
+def test_probe_timeout_stops_compiler_descendants(tmp_path: Path) -> None:
+    marker = tmp_path / "child-survived"
+    started = tmp_path / "child-started"
+    child = ("import pathlib,time; pathlib.Path('child-started').touch(); "
+             "time.sleep(1); pathlib.Path('child-survived').write_text('leaked')")
+    parent = (
+        "import subprocess,sys,time; "
+        f"subprocess.Popen([sys.executable, '-c', {child!r}]); time.sleep(20)"
+    )
+    result = corpus_gate._command_result_card(
+        [sys.executable, "-c", parent], cwd=tmp_path, timeout_seconds=0.3
+    )
+    assert result["error_class"] == "TIMEOUT"
+    assert result["return_code"] == 124
+    assert started.exists(), "the test must exercise a running descendant"
+    time.sleep(1.1)
+    assert not marker.exists(), "a timed-out probe left its compiler child running"
+
+
+@pytest.mark.skipif(os.name != "posix", reason="POSIX process-group cleanup")
+def test_probe_cancellation_cleans_group_and_propagates(tmp_path, monkeypatch):
+    class CancelledProcess:
+        pid = 1234567
+        returncode = None
+        calls = 0
+
+        def communicate(self, timeout=None):
+            self.calls += 1
+            if self.calls == 1:
+                raise KeyboardInterrupt
+            return "", ""
+
+    process = CancelledProcess()
+    killed = []
+    monkeypatch.setattr(corpus_gate.subprocess, "Popen", lambda *args, **kwargs: process)
+    monkeypatch.setattr(corpus_gate.os, "killpg", lambda pid, sig: killed.append((pid, sig)))
+    with pytest.raises(KeyboardInterrupt):
+        corpus_gate._command_result_card(["lean"], cwd=tmp_path, timeout_seconds=1)
+    assert killed == [(process.pid, corpus_gate.signal.SIGKILL)]
+    assert process.calls == 2
+
+
+def test_mathlib_timeout_with_partial_diagnostic_does_not_establish_absence(monkeypatch):
+    monkeypatch.undo()
+    monkeypatch.setattr(corpus_gate.shutil, "which", lambda name: f"/tmp/{name}")
+
+    def command(argv, **kwargs):
+        if argv[-1] == "MathlibAbsent.lean":
+            return {"return_code": 124, "timed_out": True, "error_class": "TIMEOUT",
+                    "stdout_has_unknown_mathlib": True}
+        return {"return_code": 0, "timed_out": False}
+
+    monkeypatch.setattr(corpus_gate, "_command_result_card", command)
+    probe = corpus_gate.runtime_lean_import_probe()
+    assert probe["status"] == "blocked"
+    assert probe["mathlib_import_rejected"] is False
+    assert probe["lake_execution_verified"] is False

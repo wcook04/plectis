@@ -3,7 +3,10 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import os
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -15,6 +18,30 @@ from microcosm_core.organs import bridge_phase_continuity_runtime as bridge_runt
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_bridge_fixture_does_not_load_projection_executor(tmp_path: Path) -> None:
+    code = """
+import importlib.abc
+import sys
+from pathlib import Path
+class RejectProjectionExecutor(importlib.abc.MetaPathFinder):
+    def find_spec(self, fullname, path, target=None):
+        if fullname == 'microcosm_core.organs.macro_projection_import_protocol':
+            raise AssertionError('stub validation must not load the projection executor')
+sys.meta_path.insert(0, RejectProjectionExecutor())
+from microcosm_core.organs import bridge_phase_continuity_runtime as bridge
+result = bridge.run(Path('fixtures/second_wave/bridge_phase_continuity_runtime/input'), Path(sys.argv[1]))
+assert result['status'] == 'pass', result
+assert 'microcosm_core.organs.macro_projection_import_protocol' not in sys.modules
+"""
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(MICROCOSM_ROOT / "src")
+    result = subprocess.run(
+        [sys.executable, "-c", code, str(tmp_path / "receipts")],
+        cwd=MICROCOSM_ROOT, env=env, capture_output=True, text=True, timeout=20,
+    )
+    assert result.returncode == 0, result.stderr
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/second_wave/bridge_phase_continuity_runtime/input"
 
 REQUIRED_RECEIPT_FIELDS = {

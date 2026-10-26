@@ -1,0 +1,10 @@
+{
+  "anti_claim": "The bridge campaign DAG validation organ checks campaign specs over public fixture inputs only. It is not a dispatcher, does not run multi-agent execution, does not prove provider safety, does not export private macro state, credentials, provider state, or raw operator threads; it does not call providers or external solvers, and it does not authorize release or publication. A malformed campaign cannot pass because the validator recomputes the graph structure and rejects any spec that breaks a rule.",
+  "case_count": 4,
+  "claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures: schema and identity fields, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node that reaches a probe, barrier alignment, and the provider safe-parallelism ceiling. It rejects malformed campaigns by recomputation. It does not dispatch agents, execute campaigns, prove provider correctness, authorize release, or claim full private-root equivalence.",
+  "negative_case_count": 2,
+  "organ_id": "bridge_campaign_dag_validation",
+  "positive_case_count": 2,
+  "schema_version": "bridge_campaign_dag_validation_board_v1",
+  "status": "pass"
+}
