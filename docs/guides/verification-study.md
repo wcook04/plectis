@@ -150,6 +150,7 @@ The recheckers verify retained source and generated-file hashes:
 ```sh
 python3 scripts/check/check_repair_kernel.py
 python3 scripts/check/check_compatibility_kernel.py
+python3 scripts/check/check_views_kernel.py
 ```
 
 These quick checks do not invoke a prover. With the official Dafny 4.11.0
@@ -160,10 +161,11 @@ and output-matching mutants to fail:
 ```sh
 python3 scripts/check/check_repair_kernel.py --dafny /path/to/dafny
 python3 scripts/check/check_compatibility_kernel.py --dafny /path/to/dafny
+python3 scripts/check/check_views_kernel.py --dafny /path/to/dafny
 ```
 
 The recorded Repair build has 21 verified tasks and zero errors; the
-Compatibility and counterexample build has 33 verified tasks and zero errors;
+Compatibility and counterexample build has 41 verified tasks and zero errors;
 the public-view build has 30. These are prover
 tasks for defined cores, not counts of verified applications. Hashes bind
 retained bytes; they do not prove those bytes correct. The verification is
@@ -301,6 +303,44 @@ identifies imported source archives and changed owners. The older 88-component
 catalogue remains a reference collection, not a count of verified components.
 The next decision is whether a real caller benefits enough from one operation
 to justify continuing it; neither proof counts nor this authored demo answer that.
+
+## Checking the claim as well as the implementation
+
+A proof establishes its stated property under its stated assumptions. It does
+not decide whether that property captures what a caller needs. For example,
+proving that every reported incompatibility is real leaves open a checker that
+misses some incompatibilities. The compatibility replay now proves both
+directions: it reports a mismatch exactly when the supplied interaction word
+contains an approved-admissible prefix that the candidate fails to preserve.
+The [missed-difference mutant](../../formal/compatibility/negative/ReplayMissedDifferenceMutant.dfy)
+still satisfies the older one-way obligation but fails this stronger theorem.
+That is a concrete specification check, not a proof that the specification is
+complete for every application.
+
+The catalogue's evidence is a separate layer. A source hash establishes which
+bytes were replayed; an execution receipt reports what happened for particular
+inputs; a deliberate bad case checks that a gate can reject a particular defect.
+These do not turn all 88 components into formally verified programs. The current
+component audit distinguishes those evidence classes from the three formal
+cores. Restored source snapshots retain their original identities, while their
+new replays describe the current public execution. Synthetic numeric examples
+are fixture data, not measurements or claims about physical experiments.
+
+### Research reviewed on 26 October 2026
+
+The following sources informed this boundary. The videos were reviewed through
+timestamped captions; no claim here depends on inspecting their visuals.
+
+| Source | Useful lesson and disposition |
+|---|---|
+| [Carl Kadie, Microsoft Reactor, 22 October](https://www.youtube.com/watch?v=P9xCUmjkPUM&t=1254s) | Review the specification, preserve the algorithm's structure, and use adversarial review. Applied here by adding an independently meaningful completeness requirement and a mutant that the previous requirement missed. |
+| [Álvaro Silva's ProofPulse demonstration, 11 May](https://www.youtube.com/watch?v=8pO3NAodjoQ) and [project source](https://github.com/VeriFixer/ProofPulse) | Proof-dependency coverage can flag vacuous or unused obligations. Retained as a diagnostic option; it is not an additional correctness certificate, and Plectis does not require this tool to reproduce its proofs. |
+| [Gabriela Moreira, Type Theory Forall, 19 October, 36:13](https://www.youtube.com/watch?v=SdwjRJgp6gs&t=2173s) and [Quint model-based testing documentation](https://quint.sh/docs/model-based-testing) | Generated programs, model-based tests and trace validation connect models to implementations in different ways. Plectis keeps generated executable cores and tests their Python boundaries; it does not count a separately checked model as proof of arbitrary Python. |
+| [Anthropic, 22 October](https://www.anthropic.com/research/formal-verification) and [Theorem's public verification interface](https://github.com/theorem-labs/oss-verify) | Their guarantees attach to selected entrypoints, checked properties and identified build artifacts. Plectis follows that precision about scope. This review does not claim a Theorem or Anthropic verification run; the current release is checked through its existing Dafny route. |
+
+The next useful formal target should come from a real failing obligation at a
+consumer boundary. Changing proof assistants or increasing a component count
+does not by itself supply that obligation.
 
 This guide is a reproducible study record. The canonical system paper remains
 `claim-faithful-publication-systems` in the

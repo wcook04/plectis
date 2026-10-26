@@ -21,7 +21,7 @@ three supplied claims against a disposable Git repository and an actual pytest
 run, and rejects four deliberately incorrect claims. It is a worked experiment,
 not a general audit of your agent or project.
 
-## Formally checked workflow operations
+### Formally checked workflow operations
 
 The current experiment asks a simple question: **“I changed this workflow.
 Which results can I keep, and what must run again?”** With Python 3.11+, try:
@@ -121,6 +121,12 @@ platform, execution availability in every environment or external use of every
 component. The public prototype and the larger private workbench are separate. The
 [overview](docs/overview.md#the-public-workflow) follows one input through a
 selected command to its output and explains the boundary.
+
+Maintainers can run every registered public example with `make component-replays`
+and recheck the three formal cores with `make verify-operations DAFNY=/path/to/dafny`.
+The [validation runbook](docs/maintainers/validation.md) lists dependencies and
+receipt locations; the [verification study](docs/guides/verification-study.md)
+separates execution evidence from proved properties.
 
 ## Why this exists
 

@@ -159,6 +159,11 @@ SOURCE_REFS = [
     "microcosm-substrate/receipts/runtime_shell/public_projection_safety_audit_lens.json",
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
 ]
+PUBLIC_PATTERN_SNAPSHOT_REF = (
+    "examples/world_model_projection_drift_control_room/"
+    "exported_projection_drift_control_bundle/source_artifacts/"
+    "extracted_patterns_ledger.jsonl"
+)
 SUPPORTED_DRIFT_SOURCE_REFS = {
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::world_model_projection_drift_control_room": {
         "evidence_kind": "portfolio_pattern_row",
@@ -193,6 +198,10 @@ SUPPORTED_DRIFT_SOURCE_REFS = {
         "artifact_ref": "kernel.py",
     },
 }
+# Preserve historical CLI aliases while accepting the public product name.
+for _alias in ("view-quality::action_rows", "projection-safety::projection_rows"):
+    SUPPORTED_DRIFT_SOURCE_REFS["plectis " + _alias] = SUPPORTED_DRIFT_SOURCE_REFS["microcosm " + _alias]
+
 SUPPORTED_SOURCE_MODULE_SOURCE_REFS = {
     "system/server/world_model.py",
     "system/server/main.py",
@@ -803,6 +812,10 @@ def _resolve_source_artifact_path(artifact_ref: str, *, public_root: Path) -> Pa
     Inputs are `artifact_ref` and `public_root`; notable helpers are
     `_source_root_for_public_root` and `startswith`.
     """
+    # Compare a frozen, selected source row without depending on a private
+    # checkout adjacent to the public clone.
+    if artifact_ref == "state/microcosm_portfolio/extracted_patterns_ledger.jsonl":
+        return public_root / PUBLIC_PATTERN_SNAPSHOT_REF
     source_root = _source_root_for_public_root(public_root)
     if artifact_ref.startswith(("receipts/", "examples/", "fixtures/", "core/")):
         return public_root / artifact_ref
@@ -1059,7 +1072,9 @@ def _source_state_diff_result(
     return {
         "schema_version": "world_model_projection_drift_source_state_diff_v1",
         "status": PASS if evidence_rows and not findings else "blocked",
-        "basis": "recomputed_public_projection_rows + real_source_state_artifacts",
+        "basis": "recomputed_public_projection_rows + published_source_state_artifacts",
+        "source_snapshot_ref": PUBLIC_PATTERN_SNAPSHOT_REF,
+        "source_snapshot_scope": "frozen_selected_source_row_not_current_private_state",
         "source_row_count": len(evidence_rows),
         "evidence_rows": evidence_rows,
         "findings": findings,

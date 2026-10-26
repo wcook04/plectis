@@ -36,7 +36,7 @@ RUNTIME_DRIFT_RECEIPT = (
     MICROCOSM_ROOT / "receipts/runtime_shell/public_projection_drift_control_lens.json"
 )
 EXTRACTED_PATTERNS_LEDGER = (
-    MICROCOSM_ROOT.parent / "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+    MICROCOSM_ROOT / world_model_projection_drift_control_room.PUBLIC_PATTERN_SNAPSHOT_REF
 )
 SOURCE_MODULE_IDS = [
     "world_model_drift_aggregate_source_body_import",
@@ -88,8 +88,8 @@ def _copy_runtime_drift_receipt(public_root: Path) -> None:
         view_quality_target,
     )
     source_target = (
-        public_root.parent
-        / "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+        public_root
+        / world_model_projection_drift_control_room.PUBLIC_PATTERN_SNAPSHOT_REF
     )
     source_target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(EXTRACTED_PATTERNS_LEDGER, source_target)
@@ -448,8 +448,8 @@ def test_world_model_projection_drift_source_ledger_mutation_moves_verdict_and_c
         public_root / "fixtures/first_wave/world_model_projection_drift_control_room",
     )
     ledger_path = (
-        public_root.parent
-        / "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+        public_root
+        / world_model_projection_drift_control_room.PUBLIC_PATTERN_SNAPSHOT_REF
     )
     ledger_rows = [
         json.loads(line)
@@ -493,8 +493,8 @@ def test_world_model_projection_drift_source_ledger_without_source_refs_blocks(
         public_root / "fixtures/first_wave/world_model_projection_drift_control_room",
     )
     ledger_path = (
-        public_root.parent
-        / "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+        public_root
+        / world_model_projection_drift_control_room.PUBLIC_PATTERN_SNAPSHOT_REF
     )
     ledger_rows = [
         json.loads(line)
@@ -744,11 +744,10 @@ def test_world_model_projection_drift_source_modules_are_exact_macro_body_import
 
     for module_id in SOURCE_MODULE_IDS:
         row = by_module[module_id]
-        source = MICROCOSM_ROOT.parent / row["source_ref"]
         target = MICROCOSM_ROOT / row["target_ref"].removeprefix(
             "microcosm-substrate/"
         )
-        source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        source_digest = row["source_sha256"]
         target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
 
         assert target.is_file()
@@ -811,6 +810,7 @@ def test_world_model_projection_drift_rejects_source_module_digest_mismatch(
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -866,6 +866,7 @@ def test_world_model_projection_drift_rejects_source_module_anchor_missing_after
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -920,6 +921,7 @@ def test_world_model_projection_drift_rejects_source_module_fake_source_ref(
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -1126,6 +1128,7 @@ def test_world_model_projection_drift_view_quality_probe_runs_copied_grader(
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -1166,6 +1169,7 @@ def test_world_model_projection_drift_view_quality_probe_perturbation_moves_verd
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -1212,6 +1216,7 @@ def test_world_model_projection_drift_rejects_stale_exported_bundle_snapshot(
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root
@@ -1252,6 +1257,7 @@ def test_world_model_projection_drift_rejects_exported_bundle_metadata_drift(
     shutil.copytree(
         MICROCOSM_ROOT / "examples/world_model_projection_drift_control_room",
         public_root / "examples/world_model_projection_drift_control_room",
+        dirs_exist_ok=True,
     )
     bundle = (
         public_root

@@ -1,0 +1,12 @@
+{
+  "schema_version": "public_source_snapshot_provenance_v1",
+  "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+  "retained_import_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+  "source_file_sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+  "selection": {
+    "pattern_id": "world_model_cross_plane_drift_aggregate",
+    "method": "exact JSONL line selection"
+  },
+  "snapshot_sha256": "bdef7e42307f6f1826f404fe1cb6044dd0f3905fb471f82d6ff1ce3304ea9a7b",
+  "evidence_scope": "frozen published source row; does not attest the current private ledger"
+}

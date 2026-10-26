@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -229,11 +230,13 @@ def test_durable_agent_work_landing_source_module_manifest_is_exact_public_body_
     assert manifest["body_in_receipt"] is False
     assert manifest["module_count"] == 6
     for row in manifest["modules"]:
-        source_path = MICROCOSM_ROOT.parent / row["source_ref"]
         target_path = BUNDLE_INPUT / row["path"]
-        assert source_path.is_file()
         assert target_path.is_file()
-        assert target_path.read_bytes() == source_path.read_bytes()
+        # Public clones verify the recorded source snapshot, not an ambient
+        # private checkout that may have moved on since the import.
+        digest = hashlib.sha256(target_path.read_bytes()).hexdigest()
+        assert row["source_sha256"] == digest
+        assert row["target_sha256"] == digest
         assert row["body_copied"] is True
         assert row["body_in_receipt"] is False
         assert row["body_text_in_receipt"] is False
