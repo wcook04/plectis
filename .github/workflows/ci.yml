@@ -46,6 +46,42 @@ jobs:
       - name: Ensure verification preserves tracked inputs
         run: git diff --exit-code HEAD --
 
+  standalone-export:
+    name: Standalone export and installation
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        # Public action tag: actions/checkout@v7. Pinned by SHA below.
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Set up Python
+        # Public action tag: actions/setup-python@v7. Pinned by SHA below.
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
+      - name: Build and smoke-test the standalone export
+        run: make standalone-export EXPORT_OUT="$RUNNER_TEMP/plectis-export"
+      - name: Verify and install from the exported directory
+        run: make -C "$RUNNER_TEMP/plectis-export/plectis" ci
+      - name: Retain export and smoke evidence
+        if: always()
+        # Public action tag: actions/upload-artifact@v7. Pinned by SHA below.
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: standalone-export-evidence
+          path: |
+            ${{ runner.temp }}/plectis-export/plectis/receipts/release/release_export_receipt.json
+            ${{ runner.temp }}/plectis-export/plectis/.microcosm/smoke/**
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+      - name: Ensure export preserves tracked inputs
+        if: always()
+        run: git diff --exit-code HEAD --
+
   first-contact:
     # The published first screen, run as a stranger runs it. Deliberately no
     # actions/setup-python step: the promise this repository makes is to the

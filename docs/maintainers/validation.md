@@ -284,6 +284,12 @@ make ci
 A successful run establishes that those commands worked in that exported
 copy. It does not authorize release.
 
+The **Standalone export and installation** CI job runs this same sequence in
+one fresh hosted checkout and retains the export receipt and smoke outputs.
+This is separate from the Python-version matrix: `make ci` itself does not
+recursively export another copy. Inspect the job and its artifact for the
+candidate commit before treating an older local export as current evidence.
+
 ## Isolate checks of build defaults
 
 A nested `make` inherits command-line overrides through `MAKEFLAGS`. Tests of
