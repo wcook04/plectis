@@ -23,24 +23,48 @@ GENERATED_FILES = frozenset({
     "Repair.py", "module_.py", "__main__.py",
     "System_/__init__.py", "_dafny/__init__.py",
 })
+PROOF = runpy.run_path(str(ROOT / "scripts/check/check_component_kernels.py"))
+SOURCES = {"Repair.dfy": "source_sha256",
+           "negative/RepairPropagationMutant.dfy": "negative_source_sha256"}
 
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _source_snapshot(formal: Path, metadata: dict) -> dict[str, bytes]:
+    snapshot = {}
+    for name, key in SOURCES.items():
+        source = PROOF["_source_text"](formal / name).encode("utf-8")
+        if hashlib.sha256(source).hexdigest() != metadata[key]:
+            raise ValueError("formal source identity changed: " + name)
+        snapshot[name] = source
+    source = snapshot["Repair.dfy"].decode("utf-8")
+    before = "    Recurrence(deps, roots, dirty) &&"
+    after = ("    (forall i :: 0 <= i < |deps| && roots[i] ==> dirty[i]) &&"
+             " // MUTANT: roots only")
+    if (source.count(before) != 1 or source.replace(before, after, 1).encode("utf-8")
+            != snapshot["negative/RepairPropagationMutant.dfy"]):
+        raise ValueError("negative fixture must remove only dependency propagation")
+    return snapshot
+
+
 def check_binding(root: Path, generated: Path) -> dict:
     formal = root / "formal/repair"
-    metadata = json.loads((formal / "metadata.json").read_text())
-    manifest = json.loads((generated / "GENERATED_SHA256.json").read_text())
-    if (metadata["dafny_version"] != VERSION
+    metadata = PROOF["_read_json"](formal / "metadata.json")
+    manifest = PROOF["_read_json"](generated / "GENERATED_SHA256.json")
+    if (type(metadata.get("schema_version")) is not int
+            or metadata.get("schema_version") != 1
+            or metadata.get("source") != "Repair.dfy"
+            or metadata.get("negative_source") != "negative/RepairPropagationMutant.dfy"
+            or metadata["dafny_version"] != VERSION
+            or metadata.get("verified_tasks") != 21
+            or metadata.get("negative_verified_tasks") != 19
+            or metadata.get("negative_errors") != 3
             or set(manifest) != GENERATED_FILES
             or metadata["generated_python"] != manifest):
         raise ValueError("unexpected toolchain or generated-file manifest")
-    for name, key in (("Repair.dfy", "source_sha256"),
-                      ("negative/RepairPropagationMutant.dfy", "negative_source_sha256")):
-        if digest(formal / name) != metadata[key]:
-            raise ValueError("formal source identity changed: " + name)
+    _source_snapshot(formal, metadata)
     for name, expected in manifest.items():
         if digest(generated / name) != expected:
             raise ValueError("generated Python identity changed: " + name)
@@ -56,14 +80,14 @@ def check_binding(root: Path, generated: Path) -> dict:
 
 
 def run(argv: list[str], *, cwd: Path, env: dict[str, str]) -> subprocess.CompletedProcess:
-    result = subprocess.run(argv, cwd=cwd, env=env, text=True,
-                            stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                            check=False, timeout=180)
-    print(result.stdout, end="" if result.stdout.endswith("\n") else "\n")
-    return result
+    return PROOF["_run"](argv, cwd=cwd, env=env)
 
 
-def reprove(root: Path, generated: Path, executable: str) -> dict:
+def reprove(root: Path, generated: Path, executable: str, *, expected_binding=None) -> dict:
+    binding = check_binding(root, generated)
+    if expected_binding is not None and expected_binding != binding:
+        raise ValueError("repair binding changed before proof snapshot")
+    sources = _source_snapshot(root / "formal/repair", binding)
     found = shutil.which(executable)
     if found is None:
         raise ValueError("Dafny executable not found: " + executable)
@@ -76,12 +100,14 @@ def reprove(root: Path, generated: Path, executable: str) -> dict:
         raise ValueError("replay requires the exact pinned Dafny 4.11.0 build")
     with tempfile.TemporaryDirectory(prefix="plectis-repair-proof-") as directory:
         work = Path(directory)
-        shutil.copyfile(formal / "Repair.dfy", work / "Repair.dfy")
+        for name, source in sources.items():
+            target = work / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(source)
         build = run([dafny, "build", "--target:py", str(work / "Repair.dfy"),
                      "--verification-time-limit", "30", "--cores", "1"],
                     cwd=work, env=env)
-        if build.returncode or "21 verified, 0 errors" not in build.stdout:
-            raise ValueError("complete clean proof/build failed")
+        PROOF["_proof_result"](build, 21, 0)
         rebuilt = work / "Repair-py"
         files = {p.relative_to(rebuilt).as_posix() for p in rebuilt.rglob("*.py")}
         if files != GENERATED_FILES:
@@ -90,11 +116,10 @@ def reprove(root: Path, generated: Path, executable: str) -> dict:
             if (rebuilt / name).read_bytes() != (generated / name).read_bytes():
                 raise ValueError("deployed Python differs from verified build: " + name)
         mutation = run([dafny, "verify",
-                        str(formal / "negative/RepairPropagationMutant.dfy"),
+                        str(work / "negative/RepairPropagationMutant.dfy"),
                         "--verification-time-limit", "30", "--cores", "1"],
                        cwd=work, env=env)
-        if mutation.returncode != 4 or "19 verified, 3 errors" not in mutation.stdout:
-            raise ValueError("negative soundness fixture did not fail as expected")
+        PROOF["_proof_result"](mutation, 19, 3, negative=True)
     return {"dafny_version": VERSION, "clean_verified_tasks": 21, "clean_errors": 0,
             "negative_verified_tasks": 19, "negative_errors": 3,
             "regenerated_python_byte_identical": True}
@@ -110,7 +135,8 @@ def main() -> int:
     generated = (args.generated_root or root / "src/plectis/repair/_generated").resolve()
     try:
         binding = check_binding(root, generated)
-        proof = reprove(root, generated, args.dafny) if args.dafny else {}
+        proof = (reprove(root, generated, args.dafny, expected_binding=binding)
+                 if args.dafny else {})
     except (OSError, ValueError, KeyError, subprocess.TimeoutExpired) as error:
         print(json.dumps({"status": "fail", "error": str(error)}))
         return 1

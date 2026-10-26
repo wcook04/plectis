@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public readiness metadata, copied non-secret PROVER smoke-run readiness/probe artifacts, public organ source body floor, fixture receipts, and exported-bundle receipts only; no Lean/Lake execution, Mathlib availability beyond probe status, formal proof authority, theorem correctness, provider call, private proof body, oracle premise id, release approval, publication approval, or whole-system correctness.",
-    "card": "Formal Math Readiness Gate is the public readiness membrane before downstream proof work. It checks declared Mathlib and corpus readiness, tactic probe receipts, proof-body-free premise indexes, target-shape routing, provider context budgets, formal_math_readiness_extensions intake rows, copied non-secret PROVER smoke-run artifacts, public organ source body imports, digest manifests, secret exclusion, and negative cases, then emits readiness boards rather than theorem evidence.",
-    "one_line": "The public formal-math readiness gate validates declared corpus, tactic, premise, routing, provider-budget, source-module manifest, copied PROVER probe body, and negative-case boundaries without claiming Lean/Lake or proof authority."
+    "authority_ceiling": "Validates readiness declarations and cited probes, without running Lean or proving a theorem.",
+    "card": "The readiness gate checks declared formal-math inputs before a proof workflow consumes them. It reads corpus availability, tactic probes, a premise index, target-to-tactic routes, and provider context recipes, then writes a board and validation receipt. For example, the fixture reports Mathlib unavailable; a claim that it is available without a passing probe is rejected.",
+    "one_line": "The readiness gate checks declared formal-math inputs before a proof workflow consumes them."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.formal_math_readiness_gate",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public readiness metadata, copied non-secret PROVER smoke-run readiness/probe artifacts, public organ source body floor, fixture receipts, and exported-bundle receipts only; no Lean/Lake execution, Mathlib availability beyond probe status, formal proof authority, theorem correctness, provider call, private proof body, oracle premise id, release approval, publication approval, or whole-system correctness.",
+    "authority_ceiling": "Validates readiness declarations and cited probes, without running Lean or proving a theorem.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,9 +82,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public readiness metadata, copied non-secret PROVER smoke-run readiness/probe artifacts, public organ source body floor, fixture receipts, and exported-bundle receipts only; no Lean/Lake execution, Mathlib availability beyond probe status, formal proof authority, theorem correctness, provider call, private proof body, oracle premise id, release approval, publication approval, or whole-system correctness.",
-        "card": "Formal Math Readiness Gate is the public readiness membrane before downstream proof work. It checks declared Mathlib and corpus readiness, tactic probe receipts, proof-body-free premise indexes, target-shape routing, provider context budgets, formal_math_readiness_extensions intake rows, copied non-secret PROVER smoke-run artifacts, public organ source body imports, digest manifests, secret exclusion, and negative cases, then emits readiness boards rather than theorem evidence.",
-        "one_line": "The public formal-math readiness gate validates declared corpus, tactic, premise, routing, provider-budget, source-module manifest, copied PROVER probe body, and negative-case boundaries without claiming Lean/Lake or proof authority."
+        "authority_ceiling": "Validates readiness declarations and cited probes, without running Lean or proving a theorem.",
+        "card": "The readiness gate checks declared formal-math inputs before a proof workflow consumes them. It reads corpus availability, tactic probes, a premise index, target-to-tactic routes, and provider context recipes, then writes a board and validation receipt. For example, the fixture reports Mathlib unavailable; a claim that it is available without a passing probe is rejected.",
+        "one_line": "The readiness gate checks declared formal-math inputs before a proof workflow consumes them."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -412,7 +412,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public formal-math readiness gate validates declared corpus, tactic, premise, routing, provider-budget, source-module manifest, copied PROVER probe body, and negative-case boundaries without claiming Lean/Lake or proof authority.",
+  "statement": "The readiness gate checks declared formal-math inputs before a proof workflow consumes them.",
   "status": "active",
   "subjects": [
     {

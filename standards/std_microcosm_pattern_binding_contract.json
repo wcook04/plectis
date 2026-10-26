@@ -348,7 +348,7 @@
       "registry_status_before_activation": "draft",
       "validator_id": null,
       "receipt_id": null,
-      "organ_authority_receipt": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+      "organ_authority_receipt": "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
       "organ_evidence_class": "semantic_validator",
       "organ_evidence_strength_rank": 5,
       "truth_accounting_bucket": "real_import_validation",

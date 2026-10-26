@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public owner-routed generated projection drift fixture and focused regression receipts only; no semantic drift proof, full macro registry validation, repair authority, release approval, private-root equivalence, source mutation, provider dispatch, or whole-system correctness.",
-    "card": "Engine Room Generated Projection Drift Gate is a public-safe generated-artifact freshness capsule. It validates projection owner selection from changed paths, declared source and artifact fingerprints, no-write check return codes, source-hash cache reuse, planted-byte detection, and missing-artifact failure over four public fixtures while keeping semantic drift proof, repair authority, full macro registry validation, release, and private-root claims out of scope.",
-    "one_line": "Public generated-projection drift fixture: owner-routed checks fingerprint declared sources and artifacts, reuse clean receipts only under matching hashes, and fail planted-byte or missing-artifact cases."
+    "authority_ceiling": "Declared freshness checks, not semantic proof or repair; configured check commands must be trusted.",
+    "card": "Missing artifacts and planted changes are detected in fixtures even when a command can pass.",
+    "one_line": "Checks declared projection owners using fingerprints and owner commands."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.engine_room_generated_projection_drift_gate",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public owner-routed generated projection drift fixture and focused regression receipts only; no semantic drift proof, full macro registry validation, repair authority, release approval, private-root equivalence, source mutation, provider dispatch, or whole-system correctness.",
+    "authority_ceiling": "Declared freshness checks, not semantic proof or repair; configured check commands must be trusted.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -81,9 +81,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public owner-routed generated projection drift fixture and focused regression receipts only; no semantic drift proof, full macro registry validation, repair authority, release approval, private-root equivalence, source mutation, provider dispatch, or whole-system correctness.",
-        "card": "Engine Room Generated Projection Drift Gate is a public-safe generated-artifact freshness capsule. It validates projection owner selection from changed paths, declared source and artifact fingerprints, no-write check return codes, source-hash cache reuse, planted-byte detection, and missing-artifact failure over four public fixtures while keeping semantic drift proof, repair authority, full macro registry validation, release, and private-root claims out of scope.",
-        "one_line": "Public generated-projection drift fixture: owner-routed checks fingerprint declared sources and artifacts, reuse clean receipts only under matching hashes, and fail planted-byte or missing-artifact cases."
+        "authority_ceiling": "Declared freshness checks, not semantic proof or repair; configured check commands must be trusted.",
+        "card": "Missing artifacts and planted changes are detected in fixtures even when a command can pass.",
+        "one_line": "Checks declared projection owners using fingerprints and owner commands."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -126,7 +126,7 @@
           "ref": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate"
         }
       ],
-      "title": "Engine Room Generated Projection Drift Gate"
+      "title": "Check generated artifacts for drift"
     },
     "strangler_note": "Binds the authored Markdown projection, staged Engine Room generated-projection drift gate runtime, fixture manifest, standard, focused tests, and admitted mechanism row to JSON capsule authority without treating Markdown, generated JSON projections, source-hash cache hits, owner check return codes, or fixture status as semantic drift proof, repair authority, release authority, full registry validation, private-root equivalence, or whole-system correctness. No accepted organ subject is claimed.",
     "support_contract": {
@@ -353,7 +353,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Public generated-projection drift fixture: owner-routed checks fingerprint declared sources and artifacts, reuse clean receipts only under matching hashes, and fail planted-byte or missing-artifact cases.",
+  "statement": "Checks declared projection owners using fingerprints and owner commands.",
   "status": "active",
   "subjects": [
     {
@@ -361,7 +361,7 @@
       "ref": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate"
     }
   ],
-  "title": "Engine Room Generated Projection Drift Gate",
+  "title": "Check generated artifacts for drift",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

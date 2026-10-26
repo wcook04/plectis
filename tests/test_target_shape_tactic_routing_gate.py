@@ -182,7 +182,8 @@ def test_target_shape_tactic_routing_rejects_mutated_real_route_selection(
         ).read_text(encoding="utf-8")
     )
     floor_module = floor_manifest["modules"][0]
-    floor_target = MICROCOSM_ROOT.parent / floor_module["target_ref"]
+    floor_target_ref = Path(floor_module["target_ref"])
+    floor_target = MICROCOSM_ROOT / floor_target_ref.relative_to("microcosm-substrate")
     assert source_body_floor.ORGAN_ID == "target_shape_tactic_routing_gate"
     assert Path(source_body_floor.__file__).resolve() == SOURCE_BODY_FLOOR_MODULE
     assert floor_manifest["source_import_class"] == (

@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Deterministic public policy-engine fixture evidence and copied macro source refs only; no live campaign execution, provider dispatch, repository mutation, private artifact export, market validation, publication approval, release approval, or whole-system correctness.",
-    "card": "Batch 8 Policy Engines Capsule imports Lab contract audit red/green gating, market-fusion fail-closed claim preflight, and campaign dispatch transition adjudication as exact copied non-secret macro bodies with bounded public exercises. It checks source-module manifests, stable negative cases, exercise outcomes, source digests, and authority ceilings while excluding live campaigns, provider calls, repository mutation, private artifact export, market truth, release, publication, and whole-system safety.",
-    "one_line": "Batch 8 Policy Engines Capsule validates three deterministic public policy-engine exercises without running campaigns, providers, markets, or repository mutations."
+    "authority_ceiling": "The examples do not establish the semantic correctness of Lab output, the validity of live market claims, or the safety of campaign execution.",
+    "card": "Checks a red Lab output, a missing market-readiness gate and a refused terminal campaign transition.",
+    "one_line": "Three copied policy engines decide synthetic cases."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch8_policy_engines_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Deterministic public policy-engine fixture evidence and copied macro source refs only; no live campaign execution, provider dispatch, repository mutation, private artifact export, market validation, publication approval, release approval, or whole-system correctness.",
+    "authority_ceiling": "The examples do not establish the semantic correctness of Lab output, the validity of live market claims, or the safety of campaign execution.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,9 +86,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Deterministic public policy-engine fixture evidence and copied macro source refs only; no live campaign execution, provider dispatch, repository mutation, private artifact export, market validation, publication approval, release approval, or whole-system correctness.",
-        "card": "Batch 8 Policy Engines Capsule imports Lab contract audit red/green gating, market-fusion fail-closed claim preflight, and campaign dispatch transition adjudication as exact copied non-secret macro bodies with bounded public exercises. It checks source-module manifests, stable negative cases, exercise outcomes, source digests, and authority ceilings while excluding live campaigns, provider calls, repository mutation, private artifact export, market truth, release, publication, and whole-system safety.",
-        "one_line": "Batch 8 Policy Engines Capsule validates three deterministic public policy-engine exercises without running campaigns, providers, markets, or repository mutations."
+        "authority_ceiling": "The examples do not establish the semantic correctness of Lab output, the validity of live market claims, or the safety of campaign execution.",
+        "card": "Checks a red Lab output, a missing market-readiness gate and a refused terminal campaign transition.",
+        "one_line": "Three copied policy engines decide synthetic cases."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -141,7 +141,7 @@
           "ref": "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule"
         }
       ],
-      "title": "Batch 8 Policy Engines Capsule"
+      "title": "Exercise three policy decisions"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row. Concept edges remain residual until a stable concept id is selected.",
     "support_contract": {
@@ -500,7 +500,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 8 Policy Engines Capsule validates three deterministic public policy-engine exercises without running campaigns, providers, markets, or repository mutations.",
+  "statement": "Three copied policy engines decide synthetic cases.",
   "status": "active",
   "subjects": [
     {
@@ -512,7 +512,7 @@
       "ref": "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule"
     }
   ],
-  "title": "Batch 8 Policy Engines Capsule",
+  "title": "Exercise three policy decisions",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

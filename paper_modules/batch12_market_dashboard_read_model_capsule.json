@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture-bound market-dashboard read-model evidence and copied source refs only; no release authority, provider dispatch, private-root equivalence, market truth, investment advice, publication approval, or whole-system correctness.",
-    "card": "Batch 12 Market Dashboard Read-Model Capsule runs copied non-secret market-dashboard read-model substrate over public synthetic fixtures. It validates market dashboard import stubs, validator-case derivation, runtime feed freshness overlays, related-situation rows, source anchors, digest checks, negative cases, and authority ceilings while excluding release approval, provider dispatch, private-root equivalence, live market truth, investment advice, publication, and whole-system correctness.",
-    "one_line": "Batch 12 Market Dashboard Read-Model Capsule validates copied read-model helpers over public fixtures without market truth, provider dispatch, or release authority."
+    "authority_ceiling": "These cases test the read model and its labels, not current market data, investment advice or the accuracy of a forecast.",
+    "card": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status. It also checks feed freshness and which situations the dashboard treats as related. It writes the three mechanism results and their negative-case observations. The validator rejects a graph edge with no destination and unsafe traversal references. The freshness classifier distinguishes a stale feed from a fresh one and blocks missing readiness evidence; the related-situation check returns no match for two situations with neither shared entities nor the same type. The fixture also allows a same-type match without shared entities.",
+    "one_line": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch12_market_dashboard_read_model_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture-bound market-dashboard read-model evidence and copied source refs only; no release authority, provider dispatch, private-root equivalence, market truth, investment advice, publication approval, or whole-system correctness.",
+    "authority_ceiling": "These cases test the read model and its labels, not current market data, investment advice or the accuracy of a forecast.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,9 +85,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture-bound market-dashboard read-model evidence and copied source refs only; no release authority, provider dispatch, private-root equivalence, market truth, investment advice, publication approval, or whole-system correctness.",
-        "card": "Batch 12 Market Dashboard Read-Model Capsule runs copied non-secret market-dashboard read-model substrate over public synthetic fixtures. It validates market dashboard import stubs, validator-case derivation, runtime feed freshness overlays, related-situation rows, source anchors, digest checks, negative cases, and authority ceilings while excluding release approval, provider dispatch, private-root equivalence, live market truth, investment advice, publication, and whole-system correctness.",
-        "one_line": "Batch 12 Market Dashboard Read-Model Capsule validates copied read-model helpers over public fixtures without market truth, provider dispatch, or release authority."
+        "authority_ceiling": "These cases test the read model and its labels, not current market data, investment advice or the accuracy of a forecast.",
+        "card": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status. It also checks feed freshness and which situations the dashboard treats as related. It writes the three mechanism results and their negative-case observations. The validator rejects a graph edge with no destination and unsafe traversal references. The freshness classifier distinguishes a stale feed from a fresh one and blocks missing readiness evidence; the related-situation check returns no match for two situations with neither shared entities nor the same type. The fixture also allows a same-type match without shared entities.",
+        "one_line": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status."
       },
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
@@ -135,7 +135,7 @@
           "ref": "mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule"
         }
       ],
-      "title": "Batch 12 Market Dashboard Read-Model Capsule"
+      "title": "Check a market dashboard read model"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row. Concept edges remain residual until a stable concept id is selected.",
     "support_contract": {
@@ -397,7 +397,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 12 Market Dashboard Read-Model Capsule validates copied read-model helpers over public fixtures without market truth, provider dispatch, or release authority.",
+  "statement": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status.",
   "status": "active",
   "subjects": [
     {
@@ -409,7 +409,7 @@
       "ref": "mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule"
     }
   ],
-  "title": "Batch 12 Market Dashboard Read-Model Capsule",
+  "title": "Check a market dashboard read model",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

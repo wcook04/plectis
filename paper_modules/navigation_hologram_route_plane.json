@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public fixture and exported-bundle receipts only; no live route freshness, source authority, provider/live-kernel execution, private operator state, later-organ authorization, release approval, or whole-wave certification.",
-    "card": "Navigation Hologram Route Plane is the public route-surface validator for moving from a Microcosm-local control entry into browsable route projections. It checks route rows, source-coupling fingerprints, copied source-module anchors and hashes, route-lease policy, entry-packet floors, affordance-passport selection, and code-architecture projection packets while keeping full source bodies out of receipts.",
-    "one_line": "The public navigation route-plane fixture validates bounded route projections, source-coupling gates, entry floors, affordance passports, and copied non-secret navigation source-module digests without treating browse rows as authority."
+    "authority_ceiling": "Matching hashes establish consistency with referenced bytes, not that the routes are useful or correct. This fixture does not exercise a live private navigation system.",
+    "card": "A route row describes a navigation option and its command. For example, the fixture’s `route_card_candidate` gives a safe drilldown command and conditions for opening it. The validator also checks the required entry-packet fields, the actions a route lease permits, and conditions that demote unsuitable options. A source-coupling manifest contains a hash and row count; the validator compares these with the route rows. It rejects a row without a command and a projection claiming current authority when coupling is stale. The selected fixture card is a small routing example.",
+    "one_line": "Checks public route rows and records that bind them to an entry route, then writes a validation receipt."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.navigation_hologram_route_plane",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public fixture and exported-bundle receipts only; no live route freshness, source authority, provider/live-kernel execution, private operator state, later-organ authorization, release approval, or whole-wave certification.",
+    "authority_ceiling": "Matching hashes establish consistency with referenced bytes, not that the routes are useful or correct. This fixture does not exercise a live private navigation system.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,9 +82,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public fixture and exported-bundle receipts only; no live route freshness, source authority, provider/live-kernel execution, private operator state, later-organ authorization, release approval, or whole-wave certification.",
-        "card": "Navigation Hologram Route Plane is the public route-surface validator for moving from a Microcosm-local control entry into browsable route projections. It checks route rows, source-coupling fingerprints, copied source-module anchors and hashes, route-lease policy, entry-packet floors, affordance-passport selection, and code-architecture projection packets while keeping full source bodies out of receipts.",
-        "one_line": "The public navigation route-plane fixture validates bounded route projections, source-coupling gates, entry floors, affordance passports, and copied non-secret navigation source-module digests without treating browse rows as authority."
+        "authority_ceiling": "Matching hashes establish consistency with referenced bytes, not that the routes are useful or correct. This fixture does not exercise a live private navigation system.",
+        "card": "A route row describes a navigation option and its command. For example, the fixture’s `route_card_candidate` gives a safe drilldown command and conditions for opening it. The validator also checks the required entry-packet fields, the actions a route lease permits, and conditions that demote unsuitable options. A source-coupling manifest contains a hash and row count; the validator compares these with the route rows. It rejects a row without a command and a projection claiming current authority when coupling is stale. The selected fixture card is a small routing example.",
+        "one_line": "Checks public route rows and records that bind them to an entry route, then writes a validation receipt."
       },
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -139,7 +139,7 @@
           "ref": "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle"
         }
       ],
-      "title": "Navigation Hologram Route Plane"
+      "title": "Navigation route-plane validation"
     },
     "strangler_note": "This capsule binds the existing Markdown projection, verified exported source-module bundle, mechanism row, and Microcosm organ source locus without treating Markdown or browse-route projections as source authority.",
     "support_contract": {
@@ -522,7 +522,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public navigation route-plane fixture validates bounded route projections, source-coupling gates, entry floors, affordance passports, and copied non-secret navigation source-module digests without treating browse rows as authority.",
+  "statement": "Checks public route rows and records that bind them to an entry route, then writes a validation receipt.",
   "status": "active",
   "subjects": [
     {
@@ -534,7 +534,7 @@
       "ref": "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle"
     }
   ],
-  "title": "Navigation Hologram Route Plane",
+  "title": "Navigation route-plane validation",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

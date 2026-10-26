@@ -1,0 +1,36 @@
+{
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "generated_python": {
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "TacticSelection.py": "b570a994a538da4db34a0a659b9dc05afbaa4a019b718c9eda7b2cbbfc5c7147",
+    "__main__.py": "33305c59f39e42d5d14a8727bc11cb64cbd10d800b5691720bda41f9ec56111c",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "124a2d64055527387d04a10aa672d97a3f18df3b6ada66c0f351b1c0b7449d8a"
+  },
+  "module": "TacticSelection",
+  "mutations": {
+    "negative/UnprobedMutant.dfy": {
+      "after": "if cs[j].id == ps[i] && cs[j].available && cs[j].allowed {",
+      "before": "if cs[j].id == ps[i] && Eligible(cs[j]) {",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    }
+  },
+  "negative_results": {
+    "negative/UnprobedMutant.dfy": {
+      "errors": 2,
+      "verified_tasks": 3
+    }
+  },
+  "negative_sha256": {
+    "negative/UnprobedMutant.dfy": "9588a084ddde4d75f3ed7ef58da89d02766ade60347461dad04273bccadcdce0"
+  },
+  "negative_sources": [
+    "negative/UnprobedMutant.dfy"
+  ],
+  "schema_version": 1,
+  "slug": "tactic_selection",
+  "source": "TacticSelection.dfy",
+  "source_sha256": "e53335ebde80770cd4f1d2eb38dc6aa15113489c3f97f09ab591f2bdd4499d01",
+  "verified_tasks": 4
+}

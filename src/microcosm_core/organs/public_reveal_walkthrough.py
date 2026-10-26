@@ -12,10 +12,13 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import ipaddress
 import json
+import math
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
+from urllib.parse import unquote, urljoin, urlsplit
 
 from microcosm_core.secret_exclusion_scan import (
     PASS,
@@ -191,6 +194,56 @@ def _strings(value: object) -> list[str]:
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
+
+
+def _public_walkthrough_ref(value: str) -> bool:
+    """Check reference locality; planned outputs need not exist yet."""
+    try:
+        parts = urlsplit(value.strip())
+        path = unquote(parts.path)
+        if "\\" in path or "\x00" in path or ".." in path.split("/"):
+            return False
+        if parts.scheme or parts.netloc:
+            host = parts.hostname or ""
+            _ = parts.port
+            loopback = host == "localhost"
+            if not loopback:
+                try:
+                    loopback = ipaddress.ip_address(host).is_loopback
+                except ValueError:
+                    pass
+            return (parts.scheme in {"http", "https"} and loopback
+                    and parts.username is None and parts.password is None)
+        if path.startswith("/"):
+            return False
+        return bool(path)
+    except ValueError:
+        return False
+
+
+def _minute_range_within_budget(value: object, budget: int | float) -> bool:
+    """Check a declared interval; absence remains optional step metadata."""
+    if not isinstance(value, str):
+        return False
+    pieces = value.split("-")
+    if len(pieces) != 2:
+        return False
+    try:
+        start, end = (float(piece) for piece in pieces)
+    except ValueError:
+        return False
+    return 0 <= start < end <= budget
+
+
+def _explicit_localhost_refs(refs: list[str], context: list[str]) -> list[str]:
+    """Resolve a browser route only against a declared localhost URL in its step."""
+    base = next((ref for ref in context
+                 if _public_walkthrough_ref(ref) and urlsplit(ref.strip()).scheme), None)
+    if base is None:
+        return refs
+    return [urljoin(base.strip(), ref.strip())
+            if ref.strip().startswith("/") and not ref.strip().startswith("//")
+            else ref for ref in refs]
 
 
 def _source_checkout_command(command: str) -> str | None:
@@ -448,6 +501,36 @@ def _source_module_manifest_result(
                     case_id="source_module_manifest",
                     subject_id=SOURCE_MODULE_MANIFEST_NAME,
                     subject_kind="module_count",
+                )
+            )
+
+        # Bind the standalone export to its separately owned public inventory.
+        # Omission stubs are provenance records, not copied source bodies.
+        inventory_path = public_root / "core/fixture_manifests/public_reveal_walkthrough.fixture_manifest.json"
+        try:
+            inventory = read_json_strict(inventory_path)["public_source_inventory"]
+            retained = inventory["retained_bodies"]
+            omitted = inventory["release_substitution_omissions"]
+            actual_omitted = manifest.get("release_substitution_omissions")
+            if not isinstance(retained, list) or len(retained) != 1 or not isinstance(omitted, list) or len(omitted) != 4:
+                raise ValueError("invalid public inventory")
+            if not isinstance(manifest.get("modules"), list) or len(manifest["modules"]) != 1 or len(modules) != 1 or any(modules[0].get(key) != value for key, value in retained[0].items()):
+                raise ValueError("retained body differs from public inventory")
+            declared = [{key: value for key, value in row.items() if key != "stub_sha256"} for row in omitted]
+            if not isinstance(actual_omitted, list) or actual_omitted != declared:
+                raise ValueError("omission roster differs from public inventory")
+            for row in omitted:
+                stub = input_dir / row["path"]
+                if not stub.is_file() or _sha256(stub) != row["stub_sha256"]:
+                    raise ValueError("omission stub missing or changed")
+        except (OSError, ValueError, TypeError, KeyError, IndexError, AttributeError):
+            findings.append(
+                _finding(
+                    "PUBLIC_REVEAL_SOURCE_INVENTORY_MISMATCH",
+                    "Retained source and declared omission stubs must match the public fixture inventory.",
+                    case_id="source_module_manifest",
+                    subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                    subject_kind="source_module_manifest",
                 )
             )
 
@@ -793,22 +876,29 @@ def validate_walkthrough(payload: object, negative_payload: object | None = None
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
-    steps = _rows(payload, "steps")
+    raw_steps = payload.get("steps") if isinstance(payload, dict) else None
+    # Every declared entry must reach the verified per-step requirements.
+    # A malformed row becomes an empty step rather than disappearing.
+    steps = raw_steps if isinstance(raw_steps, list) else []
     normalized_steps: list[dict[str, Any]] = []
     command_refs: list[str] = []
     source_checkout_command_refs: list[str] = []
     evidence_refs: list[str] = []
     substrate_refs: list[str] = []
-    for row in steps:
+    for declared_step in steps:
+        row = declared_step if isinstance(declared_step, dict) else {}
         step_id = str(row.get("step_id") or "step")
-        commands = [str(item) for item in row.get("commands", []) if isinstance(item, str)]
+        commands = [item for item in _strings(row.get("commands")) if item.strip()]
         source_checkout_commands = [
             source_command
             for command in commands
             if (source_command := _source_checkout_command(command))
         ]
-        inspect_refs = [str(item) for item in row.get("inspect_refs", []) if isinstance(item, str)]
-        step_evidence = [str(item) for item in row.get("evidence_refs", []) if isinstance(item, str)]
+        inspect_refs = [item for item in _strings(row.get("inspect_refs")) if item.strip()]
+        step_evidence = [item for item in _strings(row.get("evidence_refs")) if item.strip()]
+        context = inspect_refs + step_evidence
+        inspect_refs = _explicit_localhost_refs(inspect_refs, context)
+        step_evidence = _explicit_localhost_refs(step_evidence, context)
         command_refs.extend(commands)
         source_checkout_command_refs.extend(source_checkout_commands)
         evidence_refs.extend(step_evidence)
@@ -834,9 +924,9 @@ def validate_walkthrough(payload: object, negative_payload: object | None = None
         )
         for row in _rows(negative_payload, "steps"):
             step_id = str(row.get("step_id") or "step")
-            commands = [item for item in row.get("commands", []) if isinstance(item, str)]
-            evidence = [item for item in row.get("evidence_refs", []) if isinstance(item, str)]
-            inspect_refs = [item for item in row.get("inspect_refs", []) if isinstance(item, str)]
+            commands = [item for item in _strings(row.get("commands")) if item.strip()]
+            evidence = [item for item in _strings(row.get("evidence_refs")) if item.strip()]
+            inspect_refs = [item for item in _strings(row.get("inspect_refs")) if item.strip()]
             if not evidence or not inspect_refs:
                 _record(
                     findings,
@@ -861,9 +951,54 @@ def validate_walkthrough(payload: object, negative_payload: object | None = None
                     subject_kind="reveal_step",
                 )
 
-    command_count = len(set(command_refs))
-    evidence_count = len(set(evidence_refs))
-    status = PASS if len(normalized_steps) >= 5 and command_count >= 4 and evidence_count >= 4 else "blocked"
+    from plectis.components.walkthrough_validation import validate
+
+    budget = payload.get("time_budget_minutes") if isinstance(payload, dict) else None
+    normalized_budget = budget if type(budget) is int or (type(budget) is float and math.isfinite(budget)) else 0
+    decision = validate([
+        {key: step[key] for key in ("commands", "inspect_refs", "evidence_refs")}
+        for step in normalized_steps
+    ], normalized_budget)
+    command_count = decision["command_count"]
+    evidence_count = decision["evidence_count"]
+    status = PASS if decision["accepted"] else "blocked"
+    budget_valid = type(budget) in (int, float) and 0 < budget <= 10
+    if not budget_valid:
+        status = "blocked"
+        findings.append(_finding(
+            "PUBLIC_REVEAL_TIME_BUDGET_INVALID",
+            "Reveal walkthrough must declare a positive numeric budget of at most ten minutes.",
+            case_id="time_budget", subject_id="reveal_walkthrough", subject_kind="walkthrough",
+        ))
+    for step in normalized_steps:
+        if budget_valid and step["minute_range"] is not None and not _minute_range_within_budget(step["minute_range"], budget):
+            status = "blocked"
+            findings.append(_finding(
+                "PUBLIC_REVEAL_STEP_TIME_INVALID",
+                "A declared step interval must have positive duration within the walkthrough budget.",
+                case_id="walkthrough_step", subject_id=step["step_id"], subject_kind="reveal_step",
+            ))
+        if any(not _public_walkthrough_ref(ref) for field in ("inspect_refs", "evidence_refs") for ref in step[field]):
+            status = "blocked"
+            findings.append(_finding(
+                "PUBLIC_REVEAL_REFERENCE_BOUNDARY_INVALID",
+                "Walkthrough refs must be public-root relative paths or explicit localhost view refs.",
+                case_id="walkthrough_step", subject_id=step["step_id"], subject_kind="reveal_step",
+            ))
+        if not step["inspect_refs"] or not step["evidence_refs"]:
+            findings.append(_finding(
+                "PUBLIC_REVEAL_STEP_EVIDENCE_MISSING",
+                "Reveal step must point at concrete substrate refs and evidence refs.",
+                case_id="walkthrough_step", subject_id=step["step_id"],
+                subject_kind="reveal_step",
+            ))
+        if not step["commands"]:
+            findings.append(_finding(
+                "PUBLIC_REVEAL_RUNTIME_COMMAND_MISSING",
+                "Reveal step must include a command or local runtime action.",
+                case_id="walkthrough_step", subject_id=step["step_id"],
+                subject_kind="reveal_step",
+            ))
     first_command = next(
         (
             command
@@ -873,7 +1008,7 @@ def validate_walkthrough(payload: object, negative_payload: object | None = None
         None,
     )
     source_checkout_first_command = next(iter(source_checkout_command_refs), None)
-    if status != PASS:
+    if len(normalized_steps) < 5 or command_count < 4 or evidence_count < 4:
         findings.append(
             _finding(
                 "PUBLIC_REVEAL_DENSITY_FLOOR_MISSING",
@@ -916,6 +1051,7 @@ def validate_evidence_map(payload: object) -> dict[str, Any]:
     evidence_ids: list[str] = []
     refs: list[str] = []
     missing_refs: list[str] = []
+    boundary_refs: list[str] = []
     for row in rows:
         evidence_id = str(row.get("evidence_id") or "")
         ref = str(row.get("ref") or "")
@@ -925,12 +1061,14 @@ def validate_evidence_map(payload: object) -> dict[str, Any]:
             refs.append(ref)
         if not evidence_id or not ref or row.get("projection_not_authority") is not True:
             missing_refs.append(evidence_id or ref or "evidence")
+        elif not _public_walkthrough_ref(ref):
+            boundary_refs.append(evidence_id)
     return {
-        "status": PASS if rows and not missing_refs else "blocked",
+        "status": PASS if rows and not missing_refs and not boundary_refs else "blocked",
         "evidence_ids": sorted(evidence_ids),
         "evidence_refs": sorted(refs),
         "evidence_count": len(rows),
-        "missing_or_unbounded_evidence_refs": sorted(missing_refs),
+        "missing_or_unbounded_evidence_refs": sorted(set(missing_refs + boundary_refs)),
         "findings": [
             _finding(
                 "PUBLIC_REVEAL_EVIDENCE_MAP_INCOMPLETE",
@@ -940,6 +1078,13 @@ def validate_evidence_map(payload: object) -> dict[str, Any]:
                 subject_kind="evidence_row",
             )
             for subject in sorted(missing_refs)
+        ] + [
+            _finding(
+                "PUBLIC_REVEAL_REFERENCE_BOUNDARY_INVALID",
+                "Evidence-map refs must be public-root relative paths or explicit localhost view refs.",
+                case_id="evidence_map_floor", subject_id=subject, subject_kind="evidence_row",
+            )
+            for subject in sorted(boundary_refs)
         ],
         "observed_negative_cases": {},
     }

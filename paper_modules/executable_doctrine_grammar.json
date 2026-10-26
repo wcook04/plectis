@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public fixture, exported standards bundle, and copied non-secret macro specimen/body digest evidence only; no private standards engine export, macro doctrine completeness, raw operator voice export, provider payload export, source mutation, release approval, publication authority, private-data equivalence, or whole-system correctness.",
-    "card": "Executable Doctrine Grammar is the public grammar membrane for doctrine-shaped runtime fixtures. It validates standard row fields, paper-module teleology and receipt sections, duplicate-slug and overclaim negative cases, exact copied non-secret executable-grammar, standards-registry/type-plane, lattice, kind-atlas, and standards option-surface bodies, then emits body-free receipts with source refs, digests, counts, and authority ceilings.",
-    "one_line": "The public executable-doctrine grammar fixture validates public standard rows, paper-module sections, negative cases, copied executable-grammar and standards/type-plane source-module bodies, and body-free receipts without claiming doctrine completeness."
+    "authority_ceiling": "A passing fixture run means the expected negative cases were observed and the input scan passed; it does not mean every example input is valid or that the doctrine is complete. Imported-source digest checks establish byte identity, not correctness of the imported algorithms.",
+    "card": "The validator reads a standards registry and Markdown module fixtures, checks their required fields and references, and writes findings and coverage summaries. The fixture run also expects deliberately invalid cases to be detected. For example, a standard that claims prose is executable authority is rejected, as is a duplicate standard slug with conflicting definitions.",
+    "one_line": "Validate fixture standards and paper-module grammar, including negative cases."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.executable_doctrine_grammar",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public fixture, exported standards bundle, and copied non-secret macro specimen/body digest evidence only; no private standards engine export, macro doctrine completeness, raw operator voice export, provider payload export, source mutation, release approval, publication authority, private-data equivalence, or whole-system correctness.",
+    "authority_ceiling": "A passing fixture run means the expected negative cases were observed and the input scan passed; it does not mean every example input is valid or that the doctrine is complete. Imported-source digest checks establish byte identity, not correctness of the imported algorithms.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -81,9 +81,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public fixture, exported standards bundle, and copied non-secret macro specimen/body digest evidence only; no private standards engine export, macro doctrine completeness, raw operator voice export, provider payload export, source mutation, release approval, publication authority, private-data equivalence, or whole-system correctness.",
-        "card": "Executable Doctrine Grammar is the public grammar membrane for doctrine-shaped runtime fixtures. It validates standard row fields, paper-module teleology and receipt sections, duplicate-slug and overclaim negative cases, exact copied non-secret executable-grammar, standards-registry/type-plane, lattice, kind-atlas, and standards option-surface bodies, then emits body-free receipts with source refs, digests, counts, and authority ceilings.",
-        "one_line": "The public executable-doctrine grammar fixture validates public standard rows, paper-module sections, negative cases, copied executable-grammar and standards/type-plane source-module bodies, and body-free receipts without claiming doctrine completeness."
+        "authority_ceiling": "A passing fixture run means the expected negative cases were observed and the input scan passed; it does not mean every example input is valid or that the doctrine is complete. Imported-source digest checks establish byte identity, not correctness of the imported algorithms.",
+        "card": "The validator reads a standards registry and Markdown module fixtures, checks their required fields and references, and writes findings and coverage summaries. The fixture run also expects deliberately invalid cases to be detected. For example, a standard that claims prose is executable authority is rejected, as is a duplicate standard slug with conflicting definitions.",
+        "one_line": "Validate fixture standards and paper-module grammar, including negative cases."
       },
       "concept_refs": [
         "concept.executable_doctrine_grammar_standard_bundle",
@@ -130,7 +130,7 @@
           "ref": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle"
         }
       ],
-      "title": "Executable Doctrine Grammar"
+      "title": "Validate standards and paper-module grammar"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave grammar fixture, exported standards bundle, exported executable-grammar metabolism source-module manifest, mechanism row, and Microcosm organ source locus without treating Markdown, generated atlas docs, or grammar-pass receipts as doctrine completeness authority.",
     "support_contract": {
@@ -361,7 +361,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public executable-doctrine grammar fixture validates public standard rows, paper-module sections, negative cases, copied executable-grammar and standards/type-plane source-module bodies, and body-free receipts without claiming doctrine completeness.",
+  "statement": "Validate fixture standards and paper-module grammar, including negative cases.",
   "status": "active",
   "subjects": [
     {
@@ -373,7 +373,7 @@
       "ref": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle"
     }
   ],
-  "title": "Executable Doctrine Grammar",
+  "title": "Validate standards and paper-module grammar",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

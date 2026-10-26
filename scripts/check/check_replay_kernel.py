@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import json
 import os
 from pathlib import Path
 import runpy
@@ -21,6 +20,9 @@ GENERATED = frozenset({"ReplayAdmission.py", "module_.py", "__main__.py",
 SOURCE = "ReplayAdmission.dfy"
 MUTANTS = ("negative/MissingCoverageMutant.dfy",
            "negative/StaleInputMutant.dfy")
+PROOF = runpy.run_path(str(ROOT / "scripts/check/check_component_kernels.py"))
+NEGATIVE_RESULTS = {MUTANTS[0]: {"verified_tasks": 14, "errors": 2},
+                    MUTANTS[1]: {"verified_tasks": 13, "errors": 3}}
 
 
 def digest(path: Path) -> str:
@@ -52,25 +54,38 @@ def _mutation(source: str, name: str) -> str:
     return source.replace(before, after, 1)
 
 
+def _source_snapshot(formal: Path, metadata: dict) -> dict[str, bytes]:
+    snapshot = {}
+    for name in (SOURCE, *MUTANTS):
+        expected = (metadata["source_sha256"] if name == SOURCE
+                    else metadata["negative_sha256"][name])
+        source = PROOF["_source_text"](formal / name).encode("utf-8")
+        if hashlib.sha256(source).hexdigest() != expected:
+            raise ValueError("formal replay source identity changed: " + name)
+        snapshot[name] = source
+    source = snapshot[SOURCE].decode("utf-8")
+    for name in MUTANTS:
+        if snapshot[name].decode("utf-8") != _mutation(source, name):
+            raise ValueError("negative replay proof fixture changed: " + name)
+    return snapshot
+
+
 def check_binding(root: Path = ROOT) -> dict:
     formal = root / "formal/replay"
     generated = root / "src/plectis/replay/_generated"
-    metadata = json.loads((formal / "metadata.json").read_text())
-    manifest = json.loads((generated / "GENERATED_SHA256.json").read_text())
-    if (metadata.get("schema_version") != 1
+    metadata = PROOF["_read_json"](formal / "metadata.json")
+    manifest = PROOF["_read_json"](generated / "GENERATED_SHA256.json")
+    if (type(metadata.get("schema_version")) is not int or metadata.get("schema_version") != 1
             or metadata.get("source") != SOURCE
             or metadata.get("negative_sources") != list(MUTANTS)
+            or set(metadata["negative_sha256"]) != set(MUTANTS)
+            or metadata.get("verified_tasks") != 16
+            or metadata.get("negative_results") != NEGATIVE_RESULTS
             or metadata.get("dafny_version") != VERSION
             or metadata.get("generated_python") != manifest
             or set(manifest) != GENERATED):
         raise ValueError("unexpected replay proof metadata or generated inventory")
-    if digest(formal / SOURCE) != metadata["source_sha256"]:
-        raise ValueError("formal replay source identity changed")
-    source = (formal / SOURCE).read_text()
-    for name in MUTANTS:
-        if (digest(formal / name) != metadata["negative_sha256"][name]
-                or (formal / name).read_text() != _mutation(source, name)):
-            raise ValueError("negative replay proof fixture changed: " + name)
+    _source_snapshot(formal, metadata)
     for name, expected in manifest.items():
         if digest(generated / name) != expected:
             raise ValueError("generated replay Python identity changed: " + name)
@@ -83,14 +98,13 @@ def check_binding(root: Path = ROOT) -> dict:
 
 
 def _run(argv: list[str], cwd: Path, env: dict[str, str]):
-    result = subprocess.run(argv, cwd=cwd, env=env, text=True,
-                            stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                            check=False, timeout=240)
-    print(result.stdout, end="" if result.stdout.endswith("\n") else "\n")
-    return result
+    return PROOF["_run"](argv, cwd=cwd, env=env)
 
 
 def reprove(root: Path, dafny_executable: str, metadata: dict) -> None:
+    if metadata != check_binding(root):
+        raise ValueError("replay metadata changed before proof snapshot")
+    sources = _source_snapshot(root / "formal/replay", metadata)
     found = shutil.which(dafny_executable)
     if found is None:
         raise ValueError("Dafny executable not found")
@@ -104,12 +118,13 @@ def reprove(root: Path, dafny_executable: str, metadata: dict) -> None:
         raise ValueError("replay requires the pinned official Dafny 4.11.0 build")
     with tempfile.TemporaryDirectory(prefix="proof-", dir=scratch_parent) as directory:
         work = Path(directory)
-        shutil.copyfile(root / "formal/replay" / SOURCE, work / SOURCE)
+        for name, source in sources.items():
+            target = work / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(source)
         build = _run([dafny, "build", "--target:py", str(work / SOURCE),
                       "--verification-time-limit", "120", "--cores", "1"], work, env)
-        if (build.returncode or
-                f"{metadata['verified_tasks']} verified, 0 errors" not in build.stdout):
-            raise ValueError("formal replay verification/build failed")
+        PROOF["_proof_result"](build, metadata["verified_tasks"], 0)
         rebuilt = work / "ReplayAdmission-py"
         files = {path.relative_to(rebuilt).as_posix()
                  for path in rebuilt.rglob("*.py")}
@@ -120,13 +135,11 @@ def reprove(root: Path, dafny_executable: str, metadata: dict) -> None:
             if (rebuilt / name).read_bytes() != (generated / name).read_bytes():
                 raise ValueError("deployed Python differs from verified build: " + name)
         for name in MUTANTS:
-            negative = _run([dafny, "verify", str(root / "formal/replay" / name),
+            negative = _run([dafny, "verify", str(work / name),
                              "--verification-time-limit", "120", "--cores", "1"], work, env)
             expected = metadata["negative_results"][name]
-            summary = (f"{expected['verified_tasks']} verified, "
-                       f"{expected['errors']} errors")
-            if negative.returncode != 4 or summary not in negative.stdout:
-                raise ValueError("negative replay specification was not rejected: " + name)
+            PROOF["_proof_result"](negative, expected["verified_tasks"],
+                                   expected["errors"], negative=True)
 
 
 def main(argv=None) -> int:

@@ -18,9 +18,11 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from plectis.components.mcp_authority import evaluate as evaluate_mcp_authority
+from plectis.components._bridge import kernel_identity
+
 from microcosm_core.validators.source_module_boundary import (
-    copied_source_identity,
-    exported_copy_matches,
+    _export_digest_inventory,
     export_identity_input_paths,
 )
 
@@ -74,6 +76,7 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "anti_claim",
 )
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_INVENTORY_CONTRACT = "core/fixture_manifests/mcp_tool_authority_replay.fixture_manifest.json"
 SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
 SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_mcp_tool_authority_macro_body_landed"
 SOURCE_OPEN_BODY_SCHEMA = "mcp_tool_authority_source_open_body_imports_v1"
@@ -154,6 +157,15 @@ REQUIRED_CALL_FIELDS = (
     "credential_exported",
     "final_answer_only_grading",
 )
+# The active standard requires every call to cite these five references.
+# Presence of an empty field does not satisfy a citation requirement.
+REQUIRED_CALL_CITATION_FIELDS = frozenset({
+    "capability_scope_ref",
+    "call_arguments_hash",
+    "result_source_capsule_ref",
+    "instruction_data_split_ref",
+    "cold_replay_receipt_ref",
+})
 FORBIDDEN_KEYS = (
     "credential_value",
     "secret_value",
@@ -322,6 +334,59 @@ def _source_ref_bytes(public_root: Path, source_ref: str) -> bytes | None:
     return None
 
 
+def _streamed_copy_identity(
+    row: dict[str, Any], target: Path, actual: str, upstream: bytes | None,
+    *, public_root: Path, manifest_path: Path,
+) -> dict[str, Any]:
+    """Match the shared copy-identity contract without loading target bytes."""
+    marker = b"PUBLIC_MICROCOSM_STUB = True"
+    tail = b""
+    stub = False
+    with target.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            text = tail + chunk
+            stub = stub or marker in text
+            tail = text[-(len(marker) - 1):]
+    digest = actual.removeprefix("sha256:")
+    recorded = [str(row.get(key) or "").removeprefix("sha256:")
+                for key in ("sha256", "source_sha256", "target_sha256")]
+    copy_matches = bool(row.get("source_ref")) and not stub and all(
+        value == digest for value in recorded
+    )
+    upstream_digest = hashlib.sha256(upstream).hexdigest() if upstream is not None else None
+    upstream_status = (
+        "not_assessed" if upstream_digest is None
+        else "match" if upstream_digest == digest else "changed"
+    )
+    exported_identity = False
+    try:
+        root = public_root.resolve()
+        refs = {
+            str(manifest_path.resolve().relative_to(root)): _sha256(manifest_path).removeprefix("sha256:"),
+            str(target.resolve().relative_to(root)): digest,
+        }
+        for path in export_identity_input_paths(public_root):
+            if path.name != "release_export_receipt.json":
+                continue
+            stamp = path.stat()
+            inventory = _export_digest_inventory(path, stamp.st_mtime_ns, stamp.st_size)
+            if all(inventory.get(ref) == value for ref, value in refs.items()):
+                exported_identity = True
+                break
+    except (OSError, ValueError):
+        pass
+    return {
+        "status": PASS if copy_matches and (upstream is not None or exported_identity)
+                  and upstream_status != "changed" else "blocked",
+        "recorded_source_digest_matches": copy_matches,
+        "exported_identity_matches": exported_identity,
+        "upstream_currentness": upstream_status,
+        "upstream_source_checked": upstream is not None,
+        "runtime_execution_checked": False,
+        "body_in_receipt": False,
+    }
+
+
 def _body_import_verification(
     base_verification: dict[str, Any],
     *,
@@ -401,9 +466,13 @@ def _source_module_target_path(
     `removeprefix` and `startswith`.
     """
     normalized = target_ref.removeprefix("microcosm-substrate/")
-    if normalized.startswith("source_modules/"):
-        return input_dir / normalized
-    return public_root / normalized
+    base = input_dir if normalized.startswith("source_modules/") else public_root
+    candidate = (base / normalized).resolve()
+    try:
+        candidate.relative_to(base.resolve())
+    except ValueError:
+        return base / "__invalid_source_module_reference__"
+    return candidate
 
 
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
@@ -429,7 +498,7 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
                 if source.is_file():
                     paths.append(source)
                     break
-        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        target_ref = str(row.get("path") or row.get("target_ref") or "")
         if target_ref:
             paths.append(
                 _source_module_target_path(
@@ -438,6 +507,15 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
                     public_root=public_root,
                 )
             )
+    for row in _rows(manifest, "release_substitution_omissions"):
+        path = row.get("path")
+        if isinstance(path, str) and path:
+            candidate = (input_dir / path).resolve()
+            try:
+                candidate.relative_to(input_dir.resolve())
+            except ValueError:
+                continue
+            paths.append(candidate)
     return paths
 
 
@@ -468,8 +546,10 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     return [
         *_input_paths(input_dir, include_negative=include_negative),
         *_source_module_paths(input_dir, public_root=public_root),
+        *([] if include_negative else [public_root / SOURCE_INVENTORY_CONTRACT]),
         public_root / "core/private_state_forbidden_classes.json",
         public_root / VALIDATOR_SOURCE_REF.removeprefix("microcosm-substrate/"),
+        Path(__file__).resolve().parents[1] / "macro_tools/agent_execution_trace.py",
     ]
 
 
@@ -484,6 +564,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
     if not source.is_absolute():
         source = Path.cwd() / source
     public_root = _public_root_for_path(source)
+    component_identity = kernel_identity("mcp_authority")
     rows: list[dict[str, Any]] = []
     missing: list[str] = []
     seen: set[Path] = set()
@@ -513,6 +594,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
             {
                 "card_schema_version": CARD_SCHEMA_VERSION,
                 "include_negative": include_negative,
+                "component_kernel_identity": component_identity,
                 "inputs": rows,
                 "missing_inputs": missing,
                 "validator_schema_version": validator_schema_version,
@@ -523,6 +605,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
     return {
         "schema_version": "mcp_tool_authority_replay_freshness_basis_v1",
         "basis_digest": f"sha256:{basis_digest}",
+        "component_kernel_identity": component_identity,
         "card_schema_version": CARD_SCHEMA_VERSION,
         "include_negative": include_negative,
         "input_count": len(rows),
@@ -665,11 +748,59 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     )
 
 
+def _public_source_floor_matches(
+    manifest: object, *, input_dir: Path, public_root: Path,
+) -> bool:
+    """Bind the release's two retained materials and five explicit omissions."""
+    try:
+        fixture = read_json_strict(public_root / SOURCE_INVENTORY_CONTRACT)
+        contract = fixture["source_inventory_contract"]
+        retained = contract["retained"]
+        omitted = contract["release_omissions"]
+        if (not isinstance(manifest, dict) or type(manifest.get("module_count")) is not int
+                or manifest.get("module_count") != 2 or not isinstance(retained, list)
+                or not isinstance(omitted, list) or len(retained) != 2 or len(omitted) != 5):
+            return False
+        rows = manifest.get("modules")
+        omissions = manifest.get("release_substitution_omissions")
+        if (not isinstance(rows, list) or len(rows) != 2 or
+                not isinstance(omissions, list) or len(omissions) != 5 or
+                any(not isinstance(row, dict) for row in rows + omissions + retained + omitted)):
+            return False
+        by_id = {row.get("module_id"): row for row in rows}
+        omitted_by_id = {row.get("module_id"): row for row in omissions}
+        if (len(by_id) != 2 or len(omitted_by_id) != 5 or
+                set(by_id) != {row["module_id"] for row in retained} or
+                set(omitted_by_id) != {row["module_id"] for row in omitted}):
+            return False
+        for expected in retained:
+            actual = by_id[expected["module_id"]]
+            if any(actual.get(key) != value for key, value in expected.items()):
+                return False
+            target = (input_dir / expected["path"]).resolve()
+            target.relative_to(input_dir.resolve())
+            if not target.is_file() or _sha256(target) != expected["target_sha256"]:
+                return False
+        for expected in omitted:
+            stub_digest = expected["stub_sha256"]
+            expected_row = {key: value for key, value in expected.items() if key != "stub_sha256"}
+            if omitted_by_id[expected["module_id"]] != expected_row:
+                return False
+            stub = (input_dir / expected["path"]).resolve()
+            stub.relative_to(input_dir.resolve())
+            if not stub.is_file() or _sha256(stub) != "sha256:" + stub_digest:
+                return False
+        return True
+    except (OSError, ValueError, TypeError, KeyError):
+        return False
+
+
 def _source_module_manifest_result(
     input_dir: Path,
     *,
     public_root: Path,
     require_manifest: bool,
+    require_public_floor: bool = False,
 ) -> dict[str, Any]:
     """
     Serialize
@@ -710,6 +841,15 @@ def _source_module_manifest_result(
 
     manifest = read_json_strict(manifest_path)
     findings: list[dict[str, Any]] = []
+    if require_public_floor and not _public_source_floor_matches(
+        manifest, input_dir=input_dir, public_root=public_root
+    ):
+        findings.append(_finding(
+            "MCP_TOOL_SOURCE_INVENTORY_FLOOR_MISMATCH",
+            "Retained source materials and explicit release omissions must match the pinned public inventory.",
+            case_id="source_module_manifest_floor", subject_id=manifest_ref,
+            subject_kind="source_module_manifest",
+        ))
     modules = _rows(manifest, "modules")
     module_ids: list[str] = []
     material_class_counts: dict[str, int] = {}
@@ -804,7 +944,7 @@ def _source_module_manifest_result(
             )
         target_ref = str(row.get("target_ref") or row.get("path") or "")
         target = _source_module_target_path(
-            target_ref,
+            str(row.get("path") or target_ref),
             input_dir=input_dir,
             public_root=public_root,
         )
@@ -836,10 +976,10 @@ def _source_module_manifest_result(
                 )
             )
         source_ref = str(row.get("source_ref") or "")
-        identity = copied_source_identity(
-            row, target.read_bytes(),
+        identity = _streamed_copy_identity(
+            row, target, actual,
             _source_ref_bytes(public_root, source_ref) if source_ref else None,
-            exported_identity_matches=exported_copy_matches(public_root, manifest_path, target),
+            public_root=public_root, manifest_path=manifest_path,
         )
         source_identity_checks.append({"module_id": module_id, **identity})
         if identity["status"] != PASS:
@@ -1154,7 +1294,7 @@ def validate_tool_manifest(payload: object) -> dict[str, Any]:
         reasons: list[str] = []
         if str(row.get("tool_class") or "") not in REQUIRED_TOOL_CLASSES:
             reasons.append("unknown_tool_class")
-        if not row.get("capability_scope_ref"):
+        if not _call_citation(row, "capability_scope_ref"):
             reasons.append("missing_capability_scope_ref")
         if row.get("body_in_receipt") is not False:
             reasons.append("body_in_receipt_not_false")
@@ -1194,10 +1334,54 @@ def validate_tool_manifest(payload: object) -> dict[str, Any]:
     }
 
 
+def _missing_call_fields(row: dict[str, Any]) -> list[str]:
+    """Require presence and the nonempty citations named by the standard."""
+    return [
+        field for field in REQUIRED_CALL_FIELDS
+        if field not in row or row.get(field) is None
+        or (field in REQUIRED_CALL_CITATION_FIELDS and not _call_citation(row, field))
+    ]
+
+
+def _call_citation(row: dict[str, Any], field: str) -> str:
+    """Normalize textual refs; never turn another JSON type into a citation."""
+    value = row.get(field)
+    return value.strip() if isinstance(value, str) else ""
+
+
+def _tool_call_observation(
+    row: dict[str, Any], declared_tool_ids: set[str] | None
+) -> dict[str, Any]:
+    """Normalize host observations for the verified MCP decision core."""
+    tool_id = str(row.get("tool_id") or "")
+    return {
+        "declared": declared_tool_ids is None or tool_id in declared_tool_ids,
+        "scope": _call_citation(row, "capability_scope_ref"),
+        "broad": row.get("scope_overbroad") is True,
+        "credential": row.get("credential_exported") is True,
+        "forbiddenKey": _has_forbidden_key(row),
+        "untrustedInstruction": row.get("untrusted_output_as_instruction") is True,
+        "live": row.get("live_account_access") is True,
+        "finalOnly": row.get("final_answer_only_grading") is True,
+        "effect": str(row.get("side_effect_class") or ""),
+        "approval": _call_citation(row, "approval_token_ref"),
+        "ledger": _call_citation(row, "ledger_diff_ref"),
+        "rollback": _call_citation(row, "rollback_receipt_ref"),
+        "bodySafe": row.get("body_in_receipt") is False,
+        "privateSafe": row.get("private_ref_metadata_only") is True,
+        "fieldsPresent": all(field in row and row.get(field) is not None for field in REQUIRED_CALL_FIELDS),
+        "toolClass": str(row.get("tool_class") or ""),
+        "argumentHash": _call_citation(row, "call_arguments_hash"),
+        "sourceCapsule": _call_citation(row, "result_source_capsule_ref"),
+        "instructionSplit": _call_citation(row, "instruction_data_split_ref"),
+        "coldReplay": _call_citation(row, "cold_replay_receipt_ref"),
+    }
+
+
 def _validate_call_row(
     row: dict[str, Any],
     *,
-    declared_tool_ids: set[str] | None = None,
+    faults: list[bool],
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
     negative: bool,
@@ -1211,9 +1395,7 @@ def _validate_call_row(
     case_id = str(row.get("expected_negative_case_id") or row.get("call_id") or "tool_call")
     call_id = str(row.get("call_id") or case_id)
     subject_kind = "negative_case" if negative else "tool_call"
-    missing = [
-        field for field in REQUIRED_CALL_FIELDS if field not in row or row.get(field) is None
-    ]
+    missing = _missing_call_fields(row)
     side_effect_class = str(row.get("side_effect_class") or "")
     reasons: list[str] = []
     scope = str(row.get("capability_scope_ref") or "")
@@ -1223,7 +1405,7 @@ def _validate_call_row(
     tool_class = str(row.get("tool_class") or "")
     tool_id = str(row.get("tool_id") or "")
 
-    if declared_tool_ids is not None and tool_id not in declared_tool_ids:
+    if faults[0]:
         reasons.append("undeclared_tool_id")
         _record(
             findings,
@@ -1235,10 +1417,7 @@ def _validate_call_row(
             subject_kind=subject_kind,
         )
 
-    if (
-        row.get("scope_overbroad") is True
-        or scope in {"*", "all_tools", "workspace_admin", "account_full_access"}
-    ):
+    if faults[1]:
         reasons.append("overbroad_scope")
         _record(
             findings,
@@ -1249,7 +1428,7 @@ def _validate_call_row(
             subject_id=call_id,
             subject_kind=subject_kind,
         )
-    if row.get("credential_exported") is True or _has_forbidden_key(row):
+    if faults[2]:
         reasons.append("hidden_credential_export")
         _record(
             findings,
@@ -1260,7 +1439,7 @@ def _validate_call_row(
             subject_id=call_id,
             subject_kind=subject_kind,
         )
-    if row.get("untrusted_output_as_instruction") is True:
+    if faults[3]:
         reasons.append("tool_output_as_instruction")
         _record(
             findings,
@@ -1271,7 +1450,7 @@ def _validate_call_row(
             subject_id=call_id,
             subject_kind=subject_kind,
         )
-    if row.get("live_account_access") is True:
+    if faults[4]:
         reasons.append("live_account_access")
         _record(
             findings,
@@ -1282,7 +1461,7 @@ def _validate_call_row(
             subject_id=call_id,
             subject_kind=subject_kind,
         )
-    if row.get("final_answer_only_grading") is True:
+    if faults[5]:
         reasons.append("final_answer_only_grading")
         _record(
             findings,
@@ -1293,30 +1472,29 @@ def _validate_call_row(
             subject_id=call_id,
             subject_kind=subject_kind,
         )
-    if side_effect_class in {"write", "external_mutation"}:
-        if approval in {"", "not_required", "missing"} or not ledger:
-            reasons.append("unapproved_side_effect")
-            _record(
-                findings,
-                observed,
-                "MCP_TOOL_UNAPPROVED_SIDE_EFFECT",
-                "Write-capable tool calls require approval token refs and side-effect ledger refs.",
-                case_id=case_id,
-                subject_id=call_id,
-                subject_kind=subject_kind,
-            )
-        if not rollback:
-            reasons.append("missing_rollback_receipt")
-            _record(
-                findings,
-                observed,
-                "MCP_TOOL_MISSING_ROLLBACK_RECEIPT",
-                "Write-capable tool calls require rollback receipt refs before admission.",
-                case_id=case_id,
-                subject_id=call_id,
-                subject_kind=subject_kind,
-            )
-    if row.get("body_in_receipt") is not False or row.get("private_ref_metadata_only") is not True:
+    if faults[6]:
+        reasons.append("unapproved_side_effect")
+        _record(
+            findings,
+            observed,
+            "MCP_TOOL_UNAPPROVED_SIDE_EFFECT",
+            "Write-capable tool calls require approval token refs and side-effect ledger refs.",
+            case_id=case_id,
+            subject_id=call_id,
+            subject_kind=subject_kind,
+        )
+    if faults[7]:
+        reasons.append("missing_rollback_receipt")
+        _record(
+            findings,
+            observed,
+            "MCP_TOOL_MISSING_ROLLBACK_RECEIPT",
+            "Write-capable tool calls require rollback receipt refs before admission.",
+            case_id=case_id,
+            subject_id=call_id,
+            subject_kind=subject_kind,
+        )
+    if faults[8]:
         reasons.append("tool_payload_body_in_receipt")
         _record(
             findings,
@@ -1327,7 +1505,7 @@ def _validate_call_row(
             subject_id=call_id,
             subject_kind=subject_kind,
         )
-    if missing:
+    if faults[9]:
         reasons.append("call_field_missing")
         _record(
             findings,
@@ -1368,47 +1546,39 @@ def validate_tool_calls(
     Serialize `microcosm_core.organs.mcp_tool_authority_replay.validate_tool_calls` into the
     payload shape expected by organs MCP tool authority replay.
 
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    This helper classifies supplied row metadata. When ``declared_tool_ids`` is
+    None it skips the separate manifest-membership observation; complete bundle
+    validation always supplies the accepted manifest IDs.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
+    positive_rows = _rows(payload, "tool_calls")
+    negative_rows = _negative_rows(negative_payloads, "tool_calls")
+    decision = evaluate_mcp_authority(
+        [_tool_call_observation(row, declared_tool_ids) for row in positive_rows],
+        [_tool_call_observation(row, declared_tool_ids) for row in negative_rows],
+    )
     rows = [
         _validate_call_row(
             row,
-            declared_tool_ids=declared_tool_ids,
+            faults=faults,
             findings=findings,
             observed=observed,
             negative=False,
         )
-        for row in _rows(payload, "tool_calls")
+        for row, faults in zip(positive_rows, decision["positive_faults"], strict=True)
     ]
-    for row in _negative_rows(negative_payloads, "tool_calls"):
+    for row, faults in zip(negative_rows, decision["negative_faults"], strict=True):
         _validate_call_row(
             row,
-            declared_tool_ids=declared_tool_ids,
+            faults=faults,
             findings=findings,
             observed=observed,
             negative=True,
         )
 
-    write_side_effects = [
-        row
-        for row in rows
-        if row["side_effect_class"] == "write"
-        and row["approval_token_ref"] not in {"", "not_required", "missing"}
-        and row["ledger_diff_ref"]
-        and row["rollback_receipt_ref"]
-    ]
-    untrusted_results = [
-        row for row in rows if row["tool_class"] == "untrusted_result"
-    ]
     positive_findings = [row for row in rows if row["reason_codes"]]
-    floor_blocked = (
-        len(rows) != 3
-        or len(write_side_effects) != 1
-        or len(untrusted_results) != 1
-        or positive_findings
-    )
+    floor_blocked = not decision["accepted"]
     if floor_blocked and not positive_findings:
         findings.append(
             _finding(
@@ -1423,8 +1593,8 @@ def validate_tool_calls(
         "status": PASS if not floor_blocked else "blocked",
         "call_count": len(rows),
         "declared_tool_id_count": len(declared_tool_ids or set()),
-        "write_side_effect_count": len(write_side_effects),
-        "untrusted_result_count": len(untrusted_results),
+        "write_side_effect_count": decision["write_count"],
+        "untrusted_result_count": decision["untrusted_count"],
         "call_rows": sorted(rows, key=lambda row: row["call_id"]),
         "findings": findings,
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
@@ -2031,6 +2201,7 @@ def _build_result(
         input_dir,
         public_root=public_root,
         require_manifest=input_mode == "exported_mcp_tool_authority_bundle",
+        require_public_floor=input_mode == "exported_mcp_tool_authority_bundle",
     )
     source_open_body_imports = _source_open_body_import_summary(source_modules)
     projection = validate_projection_protocol(

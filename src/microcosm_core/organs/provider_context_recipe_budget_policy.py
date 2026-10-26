@@ -10,15 +10,19 @@ substrate bodies out of the payload.
 from __future__ import annotations
 
 import argparse
+import builtins
 import hashlib
-import importlib.util
+import importlib
+import io
+import types
 import json
-import math
 import sys
 from collections import defaultdict
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
+
+from plectis.components.budget_packing import pack as _pack_budget
 
 from microcosm_core.private_state_scan import (
     PASS,
@@ -164,6 +168,35 @@ EXPECTED_SOURCE_MODULES = {
         ],
     },
 }
+
+# Exact public source bytes reviewed for this component; manifest claims alone
+# cannot authorize source execution or change these identities.
+APPROVED_SOURCE_SHA256 = {'provider_context_batch_calibration_report_body_import': '076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a',
+ 'provider_context_compute_provider_standard_body_import': '5e2c903a8e4ab8155dcac08cbc639cc50d29d491d5c31e135d4bc21d7e6e48bb',
+ 'provider_context_formal_ladder_eval_body_import': '5b658b7b480760ab28460927dc11fbbc4a790ed91bb289e81061b19fabb692a6',
+ 'provider_context_graph_benchmark_body_import': '45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590',
+ 'provider_context_provider_adapter_standard_body_import': '248211860480f2ba3b9e8272386abc7e9f1bbd0dc1a69f636c6fd41ec1897fba',
+ 'provider_context_provider_navigation_transform_receipt_standard_body_import': '512d4847809f6f32621de5f96a7096b2c417050775a923201f3e02d71a18cfda',
+ 'provider_context_receipt_reducer_body_import': '1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6',
+ 'provider_context_transform_job_standard_body_import': '017d75b5cdfa7520dafe88eb7ede6773f0b592ec32f7303988b448281c66ab3b'}
+
+# Resolve the reviewed harness's standard-library dependencies in the trusted
+# host, before any bundle is read. Its dormant provider dispatch helpers must
+# not gain authority to import caller-supplied dependencies such as system.lib.
+_HARNESS_IMPORTS = {
+    name: importlib.import_module(name)
+    for name in (
+        "__future__", "argparse", "hashlib", "json", "os", "re", "shutil",
+        "subprocess", "sys", "time", "dataclasses", "datetime", "pathlib", "typing",
+    )
+}
+
+
+def _reviewed_harness_import(name, globals=None, locals=None, fromlist=(), level=0):
+    """Return trusted dependencies without consulting bundle import paths."""
+    if level != 0 or name not in _HARNESS_IMPORTS:
+        raise ImportError("provider context harness dependency is not reviewed")
+    return _HARNESS_IMPORTS[name]
 
 EXPECTED_RECIPE_BUDGETS = {
     "minimal_4kb": 4096,
@@ -387,9 +420,10 @@ def _source_module_target_refs(input_dir: Path) -> list[str]:
         return []
     manifest = read_json_strict(manifest_path)
     refs: list[str] = []
+    allowed_refs = {row["target_ref"] for row in EXPECTED_SOURCE_MODULES.values()}
     for row in _rows(manifest, "modules"):
         target_ref = row.get("target_ref")
-        if isinstance(target_ref, str) and target_ref.startswith("source_modules/"):
+        if isinstance(target_ref, str) and target_ref in allowed_refs:
             refs.append(target_ref)
     return refs
 
@@ -405,6 +439,8 @@ def _source_module_findings(input_dir: Path) -> dict[str, Any]:
     manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
     findings: list[dict[str, Any]] = []
     imports: list[dict[str, Any]] = []
+    captured_source_texts: dict[str, str] = {}
+    captured_harness_bytes: bytes | None = None
     if not manifest_path.is_file():
         return {
             "status": "blocked",
@@ -466,8 +502,18 @@ def _source_module_findings(input_dir: Path) -> dict[str, Any]:
     for module_id in expected_ids:
         expected = EXPECTED_SOURCE_MODULES[module_id]
         row = by_id.get(module_id, {})
-        target_ref = str(row.get("target_ref") or expected["target_ref"])
+        target_ref = expected["target_ref"]
         target = input_dir / target_ref
+        if row and (row.get("source_ref") != expected["source_ref"] or row.get("target_ref") != target_ref):
+            findings.append(
+                _finding(
+                    "PROVIDER_CONTEXT_SOURCE_MODULE_REF_MISMATCH",
+                    "Source module refs must match the reviewed module binding.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
         anchor_results: list[dict[str, Any]] = []
         target_sha256 = None
         line_count = 0
@@ -496,14 +542,20 @@ def _source_module_findings(input_dir: Path) -> dict[str, Any]:
                 )
             )
         else:
-            target_text = target.read_text(encoding="utf-8")
-            target_sha256 = _sha256(target)
-            line_count = _line_count(target)
-            if row.get("target_sha256") != target_sha256:
+            # The same captured bytes supply the digest, anchors and execution.
+            target_bytes = target.read_bytes()
+            target_text = target_bytes.decode("utf-8")
+            target_sha256 = hashlib.sha256(target_bytes).hexdigest()
+            line_count = sum(1 for _ in io.StringIO(target_text, newline=None)) or 1
+            captured_source_texts[expected["source_ref"]] = target_text
+            if module_id == "provider_context_graph_benchmark_body_import":
+                captured_harness_bytes = target_bytes
+            if (row.get("target_sha256") != target_sha256
+                    or target_sha256 != APPROVED_SOURCE_SHA256[module_id]):
                 findings.append(
                     _finding(
                         "PROVIDER_CONTEXT_SOURCE_MODULE_DIGEST_MISMATCH",
-                        "Source module manifest digest must match the copied target file.",
+                        "Source module bytes must match the manifest and reviewed source pin.",
                         case_id="source_module_floor",
                         subject_id=module_id,
                         subject_kind="source_module",
@@ -546,7 +598,11 @@ def _source_module_findings(input_dir: Path) -> dict[str, Any]:
                 "target_ref": target_ref,
                 "source_sha256": row.get("source_sha256"),
                 "target_sha256": target_sha256,
-                "sha256_match": bool(target_sha256 and row.get("source_sha256") == target_sha256),
+                "sha256_match": bool(
+                    target_sha256
+                    and row.get("source_sha256") == target_sha256
+                    and target_sha256 == APPROVED_SOURCE_SHA256[module_id]
+                ),
                 "line_count": line_count,
                 "required_anchor_count": len(expected["required_anchors"]),
                 "present_anchor_count": sum(1 for item in anchor_results if item["present"]),
@@ -566,6 +622,9 @@ def _source_module_findings(input_dir: Path) -> dict[str, Any]:
         "source_module_imports": imports,
         "source_module_error_codes": error_codes,
         "source_module_findings": findings,
+        # Internal snapshot only; callers never place source bodies in receipts.
+        "_captured_harness_bytes": captured_harness_bytes,
+        "_captured_source_texts": captured_source_texts,
     }
 
 
@@ -709,30 +768,36 @@ def _json_text(value: Any) -> str:
 
 
 @lru_cache(maxsize=8)
-def _load_provider_context_harness(source_path: str) -> Any:
-    """
-    Load load provider context harness for
-    `microcosm_core.organs.provider_context_recipe_budget_policy`.
-
-    Input comes from `source_path`; malformed or missing data follows the exceptions and
-    checks visible in the body.
-    """
-    path = Path(source_path)
-    module_name = (
-        "_microcosm_provider_context_harness_"
-        + hashlib.sha256(str(path).encode("utf-8")).hexdigest()[:16]
-    )
-    spec = importlib.util.spec_from_file_location(module_name, path)
-    if spec is None or spec.loader is None:
-        raise ImportError(f"cannot load provider context harness from {path}")
-    module = importlib.util.module_from_spec(spec)
+def _load_verified_harness_bytes(source_bytes: bytes, display_path: str) -> Any:
+    """Execute only the exact captured public harness bytes after pin validation."""
+    expected = APPROVED_SOURCE_SHA256["provider_context_graph_benchmark_body_import"]
+    if hashlib.sha256(source_bytes).hexdigest() != expected:
+        raise ValueError("provider context harness does not match the reviewed source pin")
+    module_name = "_microcosm_provider_context_harness_" + hashlib.sha256(
+        (display_path + expected).encode("utf-8")
+    ).hexdigest()[:16]
+    module = types.ModuleType(module_name)
+    module.__file__ = display_path
+    module.__dict__["__builtins__"] = {
+        **vars(builtins), "__import__": _reviewed_harness_import,
+    }
     sys.modules[module_name] = module
-    spec.loader.exec_module(module)
+    try:
+        exec(compile(source_bytes, display_path, "exec"), module.__dict__)
+    except BaseException:
+        sys.modules.pop(module_name, None)
+        raise
     return module
 
 
-@lru_cache(maxsize=8)
-def _real_section_bodies_for_input(input_dir_name: str) -> dict[str, str]:
+def _load_provider_context_harness(source_path: str) -> Any:
+    """Capture and pin the source before executing the captured bytes."""
+    path = Path(source_path)
+    source_bytes = path.read_bytes()
+    return _load_verified_harness_bytes(source_bytes, str(path.resolve(strict=False)))
+
+
+def _real_section_bodies_for_input(input_dir_name: str, source_bytes: bytes) -> dict[str, str]:
     """
     Serialize
     `microcosm_core.organs.provider_context_recipe_budget_policy._real_section_bodies_for_input`
@@ -743,10 +808,10 @@ def _real_section_bodies_for_input(input_dir_name: str) -> dict[str, str]:
     input_dir = Path(input_dir_name)
     graph_source = EXPECTED_SOURCE_MODULES["provider_context_graph_benchmark_body_import"]
     harness_path = input_dir / graph_source["target_ref"]
-    if not harness_path.is_file():
-        return {}
     try:
-        harness = _load_provider_context_harness(str(harness_path.resolve(strict=False)))
+        harness = _load_verified_harness_bytes(
+            source_bytes, str(harness_path.resolve(strict=False))
+        )
         problem_set = harness._problem_set()
         problem = problem_set[2]
         premise_index = harness._premise_index()
@@ -816,11 +881,11 @@ def _real_section_bodies_for_input(input_dir_name: str) -> dict[str, str]:
             ),
             "fewshot_examples": _json_text(fewshot.get("fewshot_examples", "")),
         }
-    except Exception:
-        return {}
+    except Exception as error:
+        raise ValueError("reviewed provider context harness could not be evaluated") from error
 
 
-def _real_section_bodies(input_dir: Path) -> dict[str, str]:
+def _real_section_bodies(input_dir: Path, source_bytes: bytes) -> dict[str, str]:
     """
     Produce the real section bodies value used by
     `microcosm_core.organs.provider_context_recipe_budget_policy`.
@@ -828,7 +893,7 @@ def _real_section_bodies(input_dir: Path) -> dict[str, str]:
     Inputs are `input_dir`; notable helpers are `_real_section_bodies_for_input` and
     `resolve`.
     """
-    return _real_section_bodies_for_input(str(input_dir.resolve(strict=False)))
+    return _real_section_bodies_for_input(str(input_dir.resolve(strict=False)), source_bytes)
 
 
 def _finding(
@@ -898,28 +963,34 @@ def _recipe_projection(
     """
     recipe_id = str(recipe.get("recipe_id") or "")
     budget = int(recipe.get("byte_budget") or 0)
-    included: list[dict[str, Any]] = []
-    omitted: list[dict[str, Any]] = []
-    total = 0
+    sections: list[tuple[str, dict[str, Any], dict[str, Any]]] = []
     for section_id in _strings(recipe.get("sections")):
         section = sections_by_id.get(section_id, {"section_id": section_id})
         accounting = _section_accounting(
             section,
             real_section_bodies=real_section_bodies,
         )
-        size = int(accounting["accounted_byte_size"])
-        target = included if total + size <= budget else omitted
-        if target is included:
-            total += size
+        sections.append((section_id, section, accounting))
+    packed = _pack_budget({
+        "sizes": [int(accounting["accounted_byte_size"]) for _, _, accounting in sections],
+        "budget": budget,
+    })
+    included: list[dict[str, Any]] = []
+    omitted: list[dict[str, Any]] = []
+    for (section_id, section, accounting), fits in zip(
+        sections, packed["decisions"], strict=True
+    ):
+        target = included if fits else omitted
         target.append(
             {
                 "section_id": section_id,
                 "declared_byte_size": section.get("declared_byte_size"),
-                "accounted_byte_size": size,
+                "accounted_byte_size": int(accounting["accounted_byte_size"]),
                 "byte_size_source": accounting["byte_size_source"],
                 "body_redacted": True,
             }
         )
+    total = packed["total"]
     return {
         "recipe_id": recipe_id,
         "byte_budget": budget,
@@ -931,7 +1002,7 @@ def _recipe_projection(
         "included_section_ids": [row["section_id"] for row in included],
         "omitted_section_ids": [row["section_id"] for row in omitted],
         "included_byte_count": total,
-        "approximate_tokens": math.ceil(total / 4) if total else 0,
+        "approximate_tokens": (total + 3) // 4,
         "omitted_sections_manifest_emitted": bool(recipe.get("emit_omitted_sections_manifest", True)),
         "provider_calls_authorized": recipe.get("provider_calls_authorized") is True,
         "proof_bodies_allowed": recipe.get("proof_bodies_allowed") is True,
@@ -1493,8 +1564,35 @@ def _build_result(
     recipe_rows = _rows(payloads["provider_context_recipes"], "recipes")
     section_rows = _rows(payloads["section_materials"], "sections")
     sections_by_id = {str(row.get("section_id") or ""): row for row in section_rows}
-    source_texts_by_ref = _source_texts_by_ref(input_dir)
-    real_section_bodies = _real_section_bodies(input_dir)
+    source_modules = _source_module_findings(input_dir)
+    real_section_bodies: dict[str, str] = {}
+    source_texts_by_ref: dict[str, str] = {}
+    if source_modules["status"] == PASS:
+        try:
+            # Execute only the bytes captured during the completed source checks;
+            # do not reopen a mutable input path after validation.
+            captured = source_modules.get("_captured_harness_bytes")
+            if not isinstance(captured, bytes):
+                raise ValueError("reviewed harness snapshot is missing")
+            real_section_bodies = _real_section_bodies(input_dir, captured)
+            if not real_section_bodies:
+                raise ValueError("reviewed harness produced no section bodies")
+            source_texts_by_ref = source_modules.get("_captured_source_texts", {})
+        except (OSError, ValueError):
+            source_modules["status"] = "blocked"
+            code = "PROVIDER_CONTEXT_REVIEWED_HARNESS_UNAVAILABLE"
+            source_modules["source_module_error_codes"] = sorted(
+                {*source_modules["source_module_error_codes"], code}
+            )
+            source_modules["source_module_findings"].append(
+                _finding(
+                    code,
+                    "The captured reviewed provider context harness could not be evaluated.",
+                    case_id="source_module_floor",
+                    subject_id="provider_context_graph_benchmark_body_import",
+                    subject_kind="source_module",
+                )
+            )
     section_material_source_refs = sorted(
         {
             source_ref
@@ -1502,37 +1600,38 @@ def _build_result(
             for source_ref in _section_source_refs(section)
         }
     )
-    context_packets = [
-        _recipe_projection(
-            recipe,
+    context_packets: list[dict[str, Any]] = []
+    recipe_floor_findings: list[dict[str, Any]] = []
+    section_floor_findings: list[dict[str, Any]] = []
+    negative: dict[str, Any] = {"findings": [], "observed_negative_cases": {}}
+    if source_modules["status"] == PASS:
+        context_packets = [
+            _recipe_projection(
+                recipe,
+                sections_by_id=sections_by_id,
+                real_section_bodies=real_section_bodies,
+            )
+            for recipe in recipe_rows
+        ]
+        recipe_floor_findings = _recipe_findings(
+            recipe_rows,
+            case_id="recipe_floor",
             sections_by_id=sections_by_id,
             real_section_bodies=real_section_bodies,
         )
-        for recipe in recipe_rows
-    ]
-    recipe_floor_findings = _recipe_findings(
-        recipe_rows,
-        case_id="recipe_floor",
-        sections_by_id=sections_by_id,
-        real_section_bodies=real_section_bodies,
-    )
-    section_floor_findings = _section_findings(
-        section_rows,
-        case_id="section_material_floor",
-        source_texts_by_ref=source_texts_by_ref,
-    )
-    floor_findings = [*recipe_floor_findings, *section_floor_findings]
-    negative = (
-        _negative_findings(
-            payloads,
-            sections_by_id,
+        section_floor_findings = _section_findings(
+            section_rows,
+            case_id="section_material_floor",
             source_texts_by_ref=source_texts_by_ref,
-            real_section_bodies=real_section_bodies,
         )
-        if include_negative
-        else {"findings": [], "observed_negative_cases": {}}
-    )
-    source_modules = _source_module_findings(input_dir)
+        if include_negative:
+            negative = _negative_findings(
+                payloads,
+                sections_by_id,
+                source_texts_by_ref=source_texts_by_ref,
+                real_section_bodies=real_section_bodies,
+            )
+    floor_findings = [*recipe_floor_findings, *section_floor_findings]
     observed = negative["observed_negative_cases"]
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
@@ -1589,7 +1688,7 @@ def _build_result(
         "section_material_source_ref_count": len(section_material_source_refs),
         "section_material_source_refs": section_material_source_refs,
         "real_section_body_status": (
-            PASS if real_section_bodies else "declared_byte_size_fallback"
+            PASS if real_section_bodies else "unavailable_blocked"
         ),
         "real_section_body_count": len(real_section_bodies),
         "private_state_scan": private_scan,

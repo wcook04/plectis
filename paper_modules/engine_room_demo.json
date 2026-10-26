@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Validates the declared public composition contract only; not production readiness, not private-root equivalence, not a frontier theorem-proving claim, not a complete security proof, not benchmark validation, not release approval.",
-    "card": "Wraps the public-safe capsules under microcosm_core.engine_room, verifies the 14 controller-selected jewel targets, checks each owned staged capsule surface (module source, fixture input, fixture manifest, paper module, standard, tests), executes the staged demo through the public fixture chain, and observes a negative fixture where an expected target is intentionally absent.",
-    "one_line": "Composition organ: verifies the 14 staged Engine Room jewel targets and their owned capsule surfaces through the public fixture chain; composition contract only."
+    "authority_ceiling": "Public fixture composition only; no production or general security claim.",
+    "card": "A missing expected target must be detected; acceptance of the wrapper does not admit each staged module.",
+    "one_line": "Runs a controller audit and fixture composition over Engine Room modules."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.engine_room_demo",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Validates the declared public composition contract only; not production readiness, not private-root equivalence, not a frontier theorem-proving claim, not a complete security proof, not benchmark validation, not release approval.",
+    "authority_ceiling": "Public fixture composition only; no production or general security claim.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -79,9 +79,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Validates the declared public composition contract only; not production readiness, not private-root equivalence, not a frontier theorem-proving claim, not a complete security proof, not benchmark validation, not release approval.",
-        "card": "Wraps the public-safe capsules under microcosm_core.engine_room, verifies the 14 controller-selected jewel targets, checks each owned staged capsule surface (module source, fixture input, fixture manifest, paper module, standard, tests), executes the staged demo through the public fixture chain, and observes a negative fixture where an expected target is intentionally absent.",
-        "one_line": "Composition organ: verifies the 14 staged Engine Room jewel targets and their owned capsule surfaces through the public fixture chain; composition contract only."
+        "authority_ceiling": "Public fixture composition only; no production or general security claim.",
+        "card": "A missing expected target must be detected; acceptance of the wrapper does not admit each staged module.",
+        "one_line": "Runs a controller audit and fixture composition over Engine Room modules."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -174,7 +174,7 @@
           "ref": "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark"
         }
       ],
-      "title": "Engine Room Demo"
+      "title": "Run the Engine Room fixture composition"
     },
     "strangler_note": "Binds the Markdown projection, accepted organ subject, admitted mechanism subject, and runtime locus to JSON source authority; concept/principle/axiom refs and the composed-jewel dependency map remain honest residuals unless source evidence names resolving Microcosm doctrine ids.",
     "support_contract": {
@@ -774,7 +774,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Composition organ: verifies the 14 staged Engine Room jewel targets and their owned capsule surfaces through the public fixture chain; composition contract only.",
+  "statement": "Runs a controller audit and fixture composition over Engine Room modules.",
   "status": "active",
   "subjects": [
     {
@@ -818,7 +818,7 @@
       "ref": "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark"
     }
   ],
-  "title": "Engine Room Demo",
+  "title": "Run the Engine Room fixture composition",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

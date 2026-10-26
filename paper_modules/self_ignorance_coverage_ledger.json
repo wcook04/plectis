@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Known Kind Atlas coverage-debt projection only; no literal unknown-unknown omniscience, no absence proof, no total repository search proof, no source mutation, no release approval, no publication approval, and no whole-system correctness.",
-    "card": "Self-Ignorance Coverage Ledger validates a public known-debt coverage fixture: declared Kind Atlas gaps, missing coverage categories, negative cases, source-open body imports, and authority ceilings. It records what the system knows it has not covered without claiming omniscience, absence proof, total search, source mutation, publication, release authority, or whole-system correctness.",
-    "one_line": "Self-Ignorance Coverage Ledger counts known coverage debt while refusing unknown-unknown or absence-proof claims."
+    "authority_ceiling": "A claim that an absent entry proves the underlying thing does not exist is rejected; a mismatched debt count also blocks the result. The comparison cannot discover everything missing from both inputs. The small static fixture lacks the graph and is expected to block.",
+    "card": "The exported bundle contains counts and IDs for categories such as concepts and standards, plus a saved system graph representing some of those entities. This component compares the two: for each category it reports the shortfall between the listed count and the number represented in the graph, and checks required IDs. The resulting coverage debt helps locate known gaps in that graph.",
+    "one_line": "The exported bundle contains kind-atlas rows and a materialized system graph."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.self_ignorance_coverage_ledger",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Known Kind Atlas coverage-debt projection only; no literal unknown-unknown omniscience, no absence proof, no total repository search proof, no source mutation, no release approval, no publication approval, and no whole-system correctness.",
+    "authority_ceiling": "A claim that an absent entry proves the underlying thing does not exist is rejected; a mismatched debt count also blocks the result. The comparison cannot discover everything missing from both inputs. The small static fixture lacks the graph and is expected to block.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -80,9 +80,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Known Kind Atlas coverage-debt projection only; no literal unknown-unknown omniscience, no absence proof, no total repository search proof, no source mutation, no release approval, no publication approval, and no whole-system correctness.",
-        "card": "Self-Ignorance Coverage Ledger validates a public known-debt coverage fixture: declared Kind Atlas gaps, missing coverage categories, negative cases, source-open body imports, and authority ceilings. It records what the system knows it has not covered without claiming omniscience, absence proof, total search, source mutation, publication, release authority, or whole-system correctness.",
-        "one_line": "Self-Ignorance Coverage Ledger counts known coverage debt while refusing unknown-unknown or absence-proof claims."
+        "authority_ceiling": "A claim that an absent entry proves the underlying thing does not exist is rejected; a mismatched debt count also blocks the result. The comparison cannot discover everything missing from both inputs. The small static fixture lacks the graph and is expected to block.",
+        "card": "The exported bundle contains counts and IDs for categories such as concepts and standards, plus a saved system graph representing some of those entities. This component compares the two: for each category it reports the shortfall between the listed count and the number represented in the graph, and checks required IDs. The resulting coverage debt helps locate known gaps in that graph.",
+        "one_line": "The exported bundle contains kind-atlas rows and a materialized system graph."
       },
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -131,7 +131,7 @@
           "ref": "mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger"
         }
       ],
-      "title": "Self-Ignorance Coverage Ledger"
+      "title": "Compare known atlas coverage"
     },
     "strangler_note": "Binds the Markdown projection, runtime locus, organ subject, and admitted mechanism subject to JSON source authority; authority remains fixture/receipt scoped and does not flip Markdown into source.",
     "support_contract": {
@@ -402,7 +402,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Self-Ignorance Coverage Ledger counts known coverage debt while refusing unknown-unknown or absence-proof claims.",
+  "statement": "The exported bundle contains kind-atlas rows and a materialized system graph.",
   "status": "active",
   "subjects": [
     {
@@ -414,7 +414,7 @@
       "ref": "mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger"
     }
   ],
-  "title": "Self-Ignorance Coverage Ledger",
+  "title": "Compare known atlas coverage",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

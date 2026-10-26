@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture-bound public Swift source-body import, copied-module digest and anchor evidence, deterministic local exercise evidence, SwiftPM build-witness evidence, and body-free receipts only; no app launch authority, screen capture authority, microphone capture authority, recording-session export, FFmpeg execution, WhisperKit/model dispatch, source mutation, publication approval, release approval, private-root equivalence, complete UI coverage, or whole-system correctness.",
-    "card": "Batch 7 Demo Take Console Capsule binds the runnable Demo Take Console source locus, exported public-safe copied Swift source bundle, source-module digests, SwiftPM build-witness posture, deterministic recording-state/helper-bridge/recorder-store/hotkey-audio-meter/transcribe-payload exercises, negative cases, body-free receipts, and authority ceilings to a mechanism-backed JSON capsule without claiming accepted-organ authority, app launch authority, or recording authority.",
-    "one_line": "Batch 7 Demo Take Console Capsule imports public-safe Swift capture-console source bodies and exercises SwiftPM build, recording-state, helper-bridge, recorder-store, hotkey/audio-meter, and transcribe-payload boundaries."
+    "authority_ceiling": "The build witness needs Swift and a compatible macOS environment with the required Apple frameworks. SwiftPM writes build scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset. A successful build and fixture checks do not establish capture quality or transcription accuracy.",
+    "card": "This fixture checks copied Swift sources for a recording console and exercises a build witness, capture state, helper bridge, hotkey, audio meter and transcription payload contracts. It records summaries rather than source or build-log bodies. The source checks reject mutations that remove the guard requiring at least one screen, audio or webcam source, the required hotkey modifiers, the audio-meter clamp or the transcription audio guard. These are checks of source contracts, not simulated recording actions. A SwiftPM build witness checks that the selected app target builds; it does not launch the app or record a screen.",
+    "one_line": "This fixture checks copied Swift sources for a recording console and exercises a build witness, capture state, helper bridge, hotkey, audio meter and transcription payload contracts."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch7_demo_take_console_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture-bound public Swift source-body import, copied-module digest and anchor evidence, deterministic local exercise evidence, SwiftPM build-witness evidence, and body-free receipts only; no app launch authority, screen capture authority, microphone capture authority, recording-session export, FFmpeg execution, WhisperKit/model dispatch, source mutation, publication approval, release approval, private-root equivalence, complete UI coverage, or whole-system correctness.",
+    "authority_ceiling": "The build witness needs Swift and a compatible macOS environment with the required Apple frameworks. SwiftPM writes build scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset. A successful build and fixture checks do not establish capture quality or transcription accuracy.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -89,9 +89,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture-bound public Swift source-body import, copied-module digest and anchor evidence, deterministic local exercise evidence, SwiftPM build-witness evidence, and body-free receipts only; no app launch authority, screen capture authority, microphone capture authority, recording-session export, FFmpeg execution, WhisperKit/model dispatch, source mutation, publication approval, release approval, private-root equivalence, complete UI coverage, or whole-system correctness.",
-        "card": "Batch 7 Demo Take Console Capsule binds the runnable Demo Take Console source locus, exported public-safe copied Swift source bundle, source-module digests, SwiftPM build-witness posture, deterministic recording-state/helper-bridge/recorder-store/hotkey-audio-meter/transcribe-payload exercises, negative cases, body-free receipts, and authority ceilings to a mechanism-backed JSON capsule without claiming accepted-organ authority, app launch authority, or recording authority.",
-        "one_line": "Batch 7 Demo Take Console Capsule imports public-safe Swift capture-console source bodies and exercises SwiftPM build, recording-state, helper-bridge, recorder-store, hotkey/audio-meter, and transcribe-payload boundaries."
+        "authority_ceiling": "The build witness needs Swift and a compatible macOS environment with the required Apple frameworks. SwiftPM writes build scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset. A successful build and fixture checks do not establish capture quality or transcription accuracy.",
+        "card": "This fixture checks copied Swift sources for a recording console and exercises a build witness, capture state, helper bridge, hotkey, audio meter and transcription payload contracts. It records summaries rather than source or build-log bodies. The source checks reject mutations that remove the guard requiring at least one screen, audio or webcam source, the required hotkey modifiers, the audio-meter clamp or the transcription audio guard. These are checks of source contracts, not simulated recording actions. A SwiftPM build witness checks that the selected app target builds; it does not launch the app or record a screen.",
+        "one_line": "This fixture checks copied Swift sources for a recording console and exercises a build witness, capture state, helper bridge, hotkey, audio meter and transcription payload contracts."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -134,7 +134,7 @@
           "ref": "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule"
         }
       ],
-      "title": "Batch 7 Demo Take Console Capsule"
+      "title": "Check Demo Take capture contracts"
     },
     "strangler_note": "Binds the authored Markdown projection, Batch 7 Demo Take Console runnable source locus, exported public-safe copied Swift source bundle, source-module digest evidence, SwiftPM build-witness evidence, acceptance receipts, body-free validation receipts, and mechanism row to JSON capsule authority without claiming accepted-organ status. Organ-atlas authority, app launch authority, recording permission, screen or microphone capture, FFmpeg execution, WhisperKit/model dispatch, source mutation, publication, release, private-root equivalence, complete UI coverage, and whole-system correctness remain out of scope.",
     "support_contract": {
@@ -369,7 +369,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 7 Demo Take Console Capsule imports public-safe Swift capture-console source bodies and exercises SwiftPM build, recording-state, helper-bridge, recorder-store, hotkey/audio-meter, and transcribe-payload boundaries.",
+  "statement": "This fixture checks copied Swift sources for a recording console and exercises a build witness, capture state, helper bridge, hotkey, audio meter and transcription payload contracts.",
   "status": "active",
   "subjects": [
     {
@@ -377,7 +377,7 @@
       "ref": "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule"
     }
   ],
-  "title": "Batch 7 Demo Take Console Capsule",
+  "title": "Check Demo Take capture contracts",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

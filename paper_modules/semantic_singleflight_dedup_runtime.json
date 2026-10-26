@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public fixture and receipt evidence only; it keys and dedups command runs by repo-state fingerprint and does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, live run-state export, release approval, or publication approval.",
-    "card": "Semantic Singleflight Dedup Runtime is the public operational-discipline replay for content-addressed command dedup. It runs bounded fixture exercises that build the command key, show a leader run and a completed-run reuse hit (the side-effecting counter stays at 1), and observe two negative cases: a scoped file mutation that flips the key so a stale working tree cannot answer for a different run, and an empty command that is rejected. It writes body-free receipts and surfaces microcosm_core.engine_room.command_run_singleflight without exporting live state.",
-    "one_line": "The semantic singleflight dedup runtime surfaces the public command-run singleflight capsule and dedups command runs by a content key built from argv, resolved cwd, git HEAD, a scoped dirty-tree fingerprint, and an env fingerprint, over bounded public fixtures only."
+    "authority_ceiling": "Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.",
+    "card": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content, resource class, and the `PYTHONPATH` and `PYTEST_ADDOPTS` environment values. Matching runs can share or reuse a result; the fixture also checks that a scoped file change changes the key. It writes a result, board and validation receipt.",
+    "one_line": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content and environment."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.semantic_singleflight_dedup_runtime",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public fixture and receipt evidence only; it keys and dedups command runs by repo-state fingerprint and does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, live run-state export, release approval, or publication approval.",
+    "authority_ceiling": "Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -87,9 +87,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public fixture and receipt evidence only; it keys and dedups command runs by repo-state fingerprint and does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, live run-state export, release approval, or publication approval.",
-        "card": "Semantic Singleflight Dedup Runtime is the public operational-discipline replay for content-addressed command dedup. It runs bounded fixture exercises that build the command key, show a leader run and a completed-run reuse hit (the side-effecting counter stays at 1), and observe two negative cases: a scoped file mutation that flips the key so a stale working tree cannot answer for a different run, and an empty command that is rejected. It writes body-free receipts and surfaces microcosm_core.engine_room.command_run_singleflight without exporting live state.",
-        "one_line": "The semantic singleflight dedup runtime surfaces the public command-run singleflight capsule and dedups command runs by a content key built from argv, resolved cwd, git HEAD, a scoped dirty-tree fingerprint, and an env fingerprint, over bounded public fixtures only."
+        "authority_ceiling": "Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.",
+        "card": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content, resource class, and the `PYTHONPATH` and `PYTEST_ADDOPTS` environment values. Matching runs can share or reuse a result; the fixture also checks that a scoped file change changes the key. It writes a result, board and validation receipt.",
+        "one_line": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content and environment."
       },
       "concept_refs": [
         "concept.work_landing_and_continuity_control_bundle"
@@ -129,7 +129,7 @@
           "ref": "semantic_singleflight_dedup_runtime"
         }
       ],
-      "title": "Semantic Singleflight Dedup Runtime"
+      "title": "Deduplicate matching local command runs"
     },
     "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced command_run_singleflight capsule. It does not treat receipts, dedup hits, or capsule prose as a concurrency-control guarantee, a lock service, cross-host correctness proof, release authority, source-mutation authority, or whole-system correctness.",
     "support_contract": {
@@ -342,7 +342,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The semantic singleflight dedup runtime surfaces the public command-run singleflight capsule and dedups command runs by a content key built from argv, resolved cwd, git HEAD, a scoped dirty-tree fingerprint, and an env fingerprint, over bounded public fixtures only.",
+  "statement": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content and environment.",
   "status": "active",
   "subjects": [
     {
@@ -350,7 +350,7 @@
       "ref": "semantic_singleflight_dedup_runtime"
     }
   ],
-  "title": "Semantic Singleflight Dedup Runtime",
+  "title": "Deduplicate matching local command runs",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

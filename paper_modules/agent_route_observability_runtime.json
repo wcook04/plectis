@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public synthetic route-observability fixtures, copied non-secret macro body digests, and exported-bundle receipts only; no live session introspection, provider/browser/HUD/account authority, live hook control, benchmark-performance proof, source mutation, release approval, or whole-system correctness.",
-    "card": "Agent Route Observability Runtime is the public evidence membrane for recorded agent route feedback. It checks actor-axis boundaries, selected and replacement routes, route-lease consumption, duplicate trace ids, hook-shadow advisory status, anti-pattern debt retirement, agent-principle-lens admission, egress-mirror boundaries, source-module manifests, and private-state exclusion while keeping transcript, provider, browser, HUD, account, credential, and live-hook bodies out of receipts.",
-    "one_line": "The public route-observability fixture validates synthetic route feedback, route leases, hook-shadow advisory rows, anti-pattern debt, copied non-secret macro trace manifests, and body-free receipts without claiming live session authority."
+    "authority_ceiling": "Recorded fixture validation does not establish live agent behaviour.",
+    "card": "Validates public route-observability metadata, actor authority, route leases, hook-shadow cases and source-copy digests in an exported example.",
+    "one_line": "Checks recorded route events, actor authority and evidence references."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.agent_route_observability_runtime",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public synthetic route-observability fixtures, copied non-secret macro body digests, and exported-bundle receipts only; no live session introspection, provider/browser/HUD/account authority, live hook control, benchmark-performance proof, source mutation, release approval, or whole-system correctness.",
+    "authority_ceiling": "Recorded fixture validation does not establish live agent behaviour.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -78,9 +78,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public synthetic route-observability fixtures, copied non-secret macro body digests, and exported-bundle receipts only; no live session introspection, provider/browser/HUD/account authority, live hook control, benchmark-performance proof, source mutation, release approval, or whole-system correctness.",
-        "card": "Agent Route Observability Runtime is the public evidence membrane for recorded agent route feedback. It checks actor-axis boundaries, selected and replacement routes, route-lease consumption, duplicate trace ids, hook-shadow advisory status, anti-pattern debt retirement, agent-principle-lens admission, egress-mirror boundaries, source-module manifests, and private-state exclusion while keeping transcript, provider, browser, HUD, account, credential, and live-hook bodies out of receipts.",
-        "one_line": "The public route-observability fixture validates synthetic route feedback, route leases, hook-shadow advisory rows, anti-pattern debt, copied non-secret macro trace manifests, and body-free receipts without claiming live session authority."
+        "authority_ceiling": "Recorded fixture validation does not establish live agent behaviour.",
+        "card": "Validates public route-observability metadata, actor authority, route leases, hook-shadow cases and source-copy digests in an exported example.",
+        "one_line": "Checks recorded route events, actor authority and evidence references."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -129,7 +129,7 @@
           "ref": "mechanism.agent_route_observability_runtime.validates_public_route_feedback"
         }
       ],
-      "title": "Agent Route Observability Runtime"
+      "title": "Validate recorded agent routes"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave route-observability fixture, exported observability bundles, copied non-secret macro source-module manifests, mechanism row, Microcosm organ source locus, and source atlas row without treating Markdown, telemetry rows, hook-shadow rows, generated atlas docs, or copied-body presence as live session, provider, hook, source-mutation, or release authority.",
     "support_contract": {
@@ -359,7 +359,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public route-observability fixture validates synthetic route feedback, route leases, hook-shadow advisory rows, anti-pattern debt, copied non-secret macro trace manifests, and body-free receipts without claiming live session authority.",
+  "statement": "Checks recorded route events, actor authority and evidence references.",
   "status": "active",
   "subjects": [
     {
@@ -371,7 +371,7 @@
       "ref": "mechanism.agent_route_observability_runtime.validates_public_route_feedback"
     }
   ],
-  "title": "Agent Route Observability Runtime",
+  "title": "Validate recorded agent routes",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 import re
 import subprocess
@@ -303,6 +304,7 @@ def _make_release_root(root: Path) -> Path:
         "ANTI_PRINCIPLES.md",
         "ARCHITECTURE.md",
         "AXIOMS.md",
+        "CHANGELOG.md",
         "CITATION.cff",
         "CLAUDE.md",
         "docs/governance/public-boundary.md",
@@ -403,6 +405,8 @@ where = ["src"]
         root / "formal/fixture/Identity.dfy",
         "lemma Identity(value: int)\n  ensures value == value\n{\n}\n",
     )
+    _write(root / "formal/components/README.md", "# Component proof fixtures\n")
+    _write(root / "scripts/check/check_component_kernels.py", "# Component checker fixture\n")
     _write(root / "paper_modules/cold_clone_probe.md", "# Cold clone\n")
     _write(root / "scripts/inspect/first_screen_composition_card.py", "print('ok')\n")
     _write(root / "skills/cold_start_navigation.md", "# Cold start\n")
@@ -658,6 +662,32 @@ def test_source_modules_contamination_preserves_public_tree_discovery_errors(
     monkeypatch.setattr(release_export.os, "scandir", disappearing_source)
     with pytest.raises(FileNotFoundError, match="public source disappeared"):
         release_export.scan_source_modules_contamination(root, compare_private_bodies=False)
+
+
+@pytest.mark.parametrize("artifact", [False, True])
+def test_export_inventory_discovery_preserves_io_errors(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, artifact: bool,
+) -> None:
+    root = tmp_path / "source"
+    _write(root / "examples/basic/module.py", "SAFE = True\n")
+    original_scandir = release_export.os.scandir
+
+    def disappearing_source(path):
+        if not isinstance(path, int) and Path(path) == root / "examples":
+            raise FileNotFoundError("export inventory subtree disappeared")
+        return original_scandir(path)
+
+    monkeypatch.setattr(release_export.os, "scandir", disappearing_source)
+    with pytest.raises(FileNotFoundError, match="inventory subtree disappeared"):
+        if artifact:
+            list(release_export._iter_artifact_files(root))
+        else:
+            release_export._iter_allowed_files(root)
+
+
+def test_artifact_inventory_rejects_a_disappeared_member(tmp_path: Path) -> None:
+    with pytest.raises(FileNotFoundError, match="inventory member is missing"):
+        release_export._artifact_inventory_for_paths(tmp_path, ["missing.py"])
 
 
 def test_restricted_source_discovery_prunes_git_before_descent(
@@ -921,6 +951,7 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert candidate["validation_summary"]["wheel_install_supported"] is True
     assert ".github" in receipt["inventory_receipt"]["include_refs"]
     assert "CONTRIBUTING.md" in receipt["inventory_receipt"]["include_refs"]
+    assert "CHANGELOG.md" in receipt["inventory_receipt"]["include_refs"]
     assert "NOTICE" in receipt["inventory_receipt"]["include_refs"]
     assert "PROVENANCE.md" in receipt["inventory_receipt"]["include_refs"]
     assert "Makefile" in receipt["inventory_receipt"]["include_refs"]
@@ -934,6 +965,7 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
         "paper/README.md",
         "plectis-public-system.pdf",
         "CITATION.cff",
+        "CHANGELOG.md",
     ):
         assert (target / ref).read_bytes() == (root / ref).read_bytes()
     assert not (target / "docs/.venv").exists()
@@ -2470,3 +2502,69 @@ def test_export_keeps_role_owned_builders_without_exporting_build_output():
     for ref in ("build/generated.py", "examples/build/output.py",
                 "scripts/build/__pycache__/build_map.pyc"):
         assert release_export._skip_reason(Path(ref), is_dir=False) == "cache_or_build_directory"
+
+
+def test_mini_export_retains_component_sources_and_replaces_its_own_receipt(tmp_path):
+    root = _make_release_root(tmp_path / "source")
+    members = {
+        "formal/components/demo/Kernel.dfy": b"// proof source fixture\n",
+        "formal/components/demo/metadata.json": b'{"kernel": "demo"}\n',
+        "src/plectis/components/demo/_generated/Kernel.py": b"VALUE = 1\n",
+        "src/plectis/components/demo/_generated/metadata.json": b'{"generator": "fixture"}\n',
+        "examples/demo/source_modules/tools/meta/reviewed.py": b"# reviewed snapshot\r\nVALUE = 1\r\n",
+    }
+    for ref, payload in members.items():
+        path = root / ref
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(payload)
+    reviewed_ref = "examples/demo/source_modules/tools/meta/reviewed.py"
+    _write(root / "core/source_module_refresh_policy_v0.json", json.dumps({
+        "reviewed_publication": {
+            "operation": "publish_reviewed_source_copy",
+            "review_status": "approved",
+            "authority_ref": "operator-test-approval",
+            "copies": {reviewed_ref: {
+                "sha256": release_export._sha256_bytes(members[reviewed_ref]),
+                "source_ref": "tools/meta/reviewed.py",
+                "manifest_ref": "examples/demo/source_module_manifest.json",
+                "material_id": "reviewed_source_fixture",
+            }},
+        },
+    }))
+    _write(root / release_export.RELEASE_RECEIPT_REF, '{"previous_export": true}\n')
+    _write(root / "src/plectis/components/demo/_generated/__pycache__/Kernel.pyc", "cache")
+    _write(root / "src/plectis/components/demo/_generated/Kernel.pyo", "cache")
+
+    out = tmp_path / "out"
+    receipt = release_export.build_release_export(root, out, run_smoke=False)
+    target = out / release_export.ARTIFACT_DIR_NAME
+    assert receipt["status"] == "pass"
+    paths = [row["path"] for row in receipt["inventory_receipt"]["files"]]
+    assert len(paths) == len(set(paths))
+    assert release_export.RELEASE_RECEIPT_REF not in paths
+    assert any(
+        row["path"] == release_export.RELEASE_RECEIPT_REF
+        and row["reason"] == "release_receipt_regenerated_after_inventory"
+        for row in receipt["exclusion_receipt"]["source_residue_excluded"]
+    )
+    assert (
+        release_export._artifact_inventory_for_paths(target, paths)
+        == receipt["inventory_receipt"]["files"]
+    )
+    assert (
+        release_export._artifact_payload_hash(receipt["inventory_receipt"]["files"])
+        == receipt["artifact"]["artifact_payload_hash_sha256"]
+    )
+    written_receipt = json.loads((target / release_export.RELEASE_RECEIPT_REF).read_text())
+    assert written_receipt["inventory_receipt"] == receipt["inventory_receipt"]
+    assert written_receipt["artifact"] == receipt["artifact"]
+    assert written_receipt["schema_version"] == "microcosm_release_export_receipt_v1"
+    checker_path = Path(__file__).resolve().parents[1] / "scripts/check/check_repository_layout.py"
+    spec = importlib.util.spec_from_file_location("standalone_layout", checker_path)
+    checker = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(checker)
+    assert set(paths).issubset(checker.candidate_paths(target))
+    for ref, payload in members.items():
+        assert ref in paths
+        assert (target / ref).read_bytes() == payload
+    assert not any(PurePosixPath(ref).suffix in {".pyc", ".pyo"} for ref in paths)

@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture-bound release-claim language gate evidence and copied source refs only; no release approval, publication approval, provider dispatch, private-root equivalence, market truth, investment advice, or whole-system correctness.",
-    "card": "Batch 12 Release Claim-Language Gate runs copied non-secret release claim-language substrate over public fixtures. It classifies phrases against evidence class and authority ceiling, checks typed ordinal evidence ranks, real-substrate flags, fail-closed defaults, boundary-context negation, main --assert-clear behavior, source digests, negative cases, and authority ceilings while excluding release approval, provider dispatch, private-root equivalence, market truth, investment advice, publication, and whole-system correctness.",
-    "one_line": "Batch 12 Release Claim-Language Gate checks public claim language against receipt-backed authority ceilings without approving release or publication."
+    "authority_ceiling": "A passing fixture does not approve a release, publication or the truth of a document. This checkout’s source manifest declares a public-safe stub in place of the original source, so this example exercises the fallback rather than the copied gate. An undeclared missing source blocks the check.",
+    "card": "This fixture writes two sample documents in temporary directories: one warns against an open-source claim, while the other affirmatively claims production readiness. It runs the declared public fallback claim-language gate against both. The result records matched phrase IDs, gate status and the assert-clear exit code. The affirmative production-ready claim is blocked; the assert-clear path returns exit code 2. The fixture also checks a public-facing private-control-plane claim and rejects unsafe fixture filenames. A phrase match is a limited rule-based check, not a general review of every claim.",
+    "one_line": "This fixture writes two sample documents in temporary directories: one warns against an open-source claim, while the other affirmatively claims production readiness."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch12_release_claim_language_gate",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture-bound release-claim language gate evidence and copied source refs only; no release approval, publication approval, provider dispatch, private-root equivalence, market truth, investment advice, or whole-system correctness.",
+    "authority_ceiling": "A passing fixture does not approve a release, publication or the truth of a document. This checkout’s source manifest declares a public-safe stub in place of the original source, so this example exercises the fallback rather than the copied gate. An undeclared missing source blocks the check.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,9 +84,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture-bound release-claim language gate evidence and copied source refs only; no release approval, publication approval, provider dispatch, private-root equivalence, market truth, investment advice, or whole-system correctness.",
-        "card": "Batch 12 Release Claim-Language Gate runs copied non-secret release claim-language substrate over public fixtures. It classifies phrases against evidence class and authority ceiling, checks typed ordinal evidence ranks, real-substrate flags, fail-closed defaults, boundary-context negation, main --assert-clear behavior, source digests, negative cases, and authority ceilings while excluding release approval, provider dispatch, private-root equivalence, market truth, investment advice, publication, and whole-system correctness.",
-        "one_line": "Batch 12 Release Claim-Language Gate checks public claim language against receipt-backed authority ceilings without approving release or publication."
+        "authority_ceiling": "A passing fixture does not approve a release, publication or the truth of a document. This checkout’s source manifest declares a public-safe stub in place of the original source, so this example exercises the fallback rather than the copied gate. An undeclared missing source blocks the check.",
+        "card": "This fixture writes two sample documents in temporary directories: one warns against an open-source claim, while the other affirmatively claims production readiness. It runs the declared public fallback claim-language gate against both. The result records matched phrase IDs, gate status and the assert-clear exit code. The affirmative production-ready claim is blocked; the assert-clear path returns exit code 2. The fixture also checks a public-facing private-control-plane claim and rejects unsafe fixture filenames. A phrase match is a limited rule-based check, not a general review of every claim.",
+        "one_line": "This fixture writes two sample documents in temporary directories: one warns against an open-source claim, while the other affirmatively claims production readiness."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -135,7 +135,7 @@
           "ref": "mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate"
         }
       ],
-      "title": "Batch 12 Release Claim-Language Gate"
+      "title": "Test a release claim-language gate"
     },
     "strangler_note": "Binds the Markdown projection, accepted organ subject, admitted mechanism subject, and runtime locus to JSON source authority; selective concept/principle/axiom refs remain residual unless source evidence names resolving Microcosm doctrine ids.",
     "support_contract": {
@@ -410,7 +410,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 12 Release Claim-Language Gate checks public claim language against receipt-backed authority ceilings without approving release or publication.",
+  "statement": "This fixture writes two sample documents in temporary directories: one warns against an open-source claim, while the other affirmatively claims production readiness.",
   "status": "active",
   "subjects": [
     {
@@ -422,7 +422,7 @@
       "ref": "mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate"
     }
   ],
-  "title": "Batch 12 Release Claim-Language Gate",
+  "title": "Test a release claim-language gate",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

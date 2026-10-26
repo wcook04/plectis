@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public body-free runtime receipt and copied non-secret source-module evidence only; no private runtime body inspection, source authority, source mutation, live route repair, automatic doctrine promotion, provider payload export, release approval, publication approval, or whole-system correctness claim.",
-    "card": "World-Model Projection Drift Control Room is the public projection-drift boundary for Microcosm. It validates eight drift rows, source refs, repair routes, validation refs, target refs, source-module digest evidence, copied world-model and view-quality macro bodies, secret-exclusion policy, and eight negative cases while keeping private runtime bodies, provider payloads, live repair, source mutation, automatic doctrine promotion, release, publication, and source-authority claims out of scope.",
-    "one_line": "The world-model projection drift control room validates public body-free projection-drift rows and copied source-module bodies without treating projections as source authority or repair authority."
+    "authority_ceiling": "The report checks declared public evidence; it does not repair a live route, mutate a source, promote doctrine or authorize a release. Source digest checks do not prove the copied algorithms correct.",
+    "card": "Checks source evidence, snapshot agreement, runtime receipt witnesses, repair and validation references, and boundary claims.",
+    "one_line": "Recomputes public projection-drift rows and compares them with a supplied snapshot and supporting evidence."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.world_model_projection_drift_control_room",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public body-free runtime receipt and copied non-secret source-module evidence only; no private runtime body inspection, source authority, source mutation, live route repair, automatic doctrine promotion, provider payload export, release approval, publication approval, or whole-system correctness claim.",
+    "authority_ceiling": "The report checks declared public evidence; it does not repair a live route, mutate a source, promote doctrine or authorize a release. Source digest checks do not prove the copied algorithms correct.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,9 +86,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public body-free runtime receipt and copied non-secret source-module evidence only; no private runtime body inspection, source authority, source mutation, live route repair, automatic doctrine promotion, provider payload export, release approval, publication approval, or whole-system correctness claim.",
-        "card": "World-Model Projection Drift Control Room is the public projection-drift boundary for Microcosm. It validates eight drift rows, source refs, repair routes, validation refs, target refs, source-module digest evidence, copied world-model and view-quality macro bodies, secret-exclusion policy, and eight negative cases while keeping private runtime bodies, provider payloads, live repair, source mutation, automatic doctrine promotion, release, publication, and source-authority claims out of scope.",
-        "one_line": "The world-model projection drift control room validates public body-free projection-drift rows and copied source-module bodies without treating projections as source authority or repair authority."
+        "authority_ceiling": "The report checks declared public evidence; it does not repair a live route, mutate a source, promote doctrine or authorize a release. Source digest checks do not prove the copied algorithms correct.",
+        "card": "Checks source evidence, snapshot agreement, runtime receipt witnesses, repair and validation references, and boundary claims.",
+        "one_line": "Recomputes public projection-drift rows and compares them with a supplied snapshot and supporting evidence."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -140,7 +140,7 @@
           "ref": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
         }
       ],
-      "title": "World-Model Projection Drift Control Room"
+      "title": "Check projection-drift records"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, organ atlas row, first-wave projection-drift fixture, exported runtime bundle, copied source-module manifest, mechanism row, Microcosm organ source locus, real runtime receipt rows, first-wave receipts, runtime-shell bundle receipt, and focused tests without treating Markdown, generated atlas docs, projection rows, copied body presence, repair route labels, or negative-case observation as source authority, live repair, source mutation, provider authority, release, publication, or whole-system correctness.",
     "support_contract": {
@@ -485,7 +485,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The world-model projection drift control room validates public body-free projection-drift rows and copied source-module bodies without treating projections as source authority or repair authority.",
+  "statement": "Recomputes public projection-drift rows and compares them with a supplied snapshot and supporting evidence.",
   "status": "active",
   "subjects": [
     {
@@ -497,7 +497,7 @@
       "ref": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
     }
   ],
-  "title": "World-Model Projection Drift Control Room",
+  "title": "Check projection-drift records",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

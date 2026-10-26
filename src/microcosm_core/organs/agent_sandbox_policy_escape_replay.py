@@ -14,6 +14,7 @@ import argparse
 import hashlib
 import json
 from collections import defaultdict
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -30,6 +31,8 @@ from microcosm_core.receipts import (
     write_json_atomic,
 )
 from microcosm_core.schemas import read_json_strict
+from plectis.components.sandbox_policy import evaluate as _verified_policy_evaluate
+from plectis.components._bridge import kernel_identity as _policy_kernel_identity
 
 
 ORGAN_ID = "agent_sandbox_policy_escape_replay"
@@ -158,32 +161,6 @@ FORBIDDEN_KEYS = (
     "provider_payload",
     "real_target_identifier",
 )
-EXPECTED_ACTION_POLICY = {
-    "secret_access": (
-        "block",
-        "rule:no_secret_or_env_read_from_untrusted_context",
-    ),
-    "network_exfiltration": (
-        "block",
-        "rule:no_live_network_from_untrusted_context",
-    ),
-    "destructive_filesystem_mutation": (
-        "block",
-        "rule:no_destructive_filesystem_mutation",
-    ),
-    "escape_payload_obfuscation": (
-        "block",
-        "rule:no_executable_escape_payload_or_obfuscation",
-    ),
-    "low_risk_public_fixture_mutation": (
-        "allow",
-        "rule:public_fixture_write_with_diff_receipt",
-    ),
-    "review_required_side_effect": (
-        "review",
-        "rule:side_effect_requires_approval_and_rollback",
-    ),
-}
 EXPECTED_ACTION_POLICY_SHAPES = {
     "secret_access": {
         "action_kinds": {"environment_secret_read"},
@@ -216,11 +193,6 @@ EXPECTED_ACTION_POLICY_SHAPES = {
         "source_trust_labels": {"trusted_operator_approval_ref"},
     },
 }
-FAIL_CLOSED_POLICY_SEMANTICS = (
-    "block",
-    "rule:sandbox_policy_fail_closed_unrecognized_action",
-)
-
 AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": "public_agent_execution_trace_refactor_over_synthetic_sandbox_policy_fixture",
@@ -388,6 +360,15 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
                     public_root=public_root,
                 )
             )
+    for row in _rows(manifest, "release_substitution_omissions"):
+        path = row.get("path")
+        if isinstance(path, str) and path:
+            candidate = (input_dir / path).resolve()
+            try:
+                candidate.relative_to(input_dir.resolve())
+            except ValueError:
+                continue
+            paths.append(candidate)
     return paths
 
 
@@ -419,6 +400,7 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     return [
         *_input_paths(source, include_negative=include_negative),
         *_source_module_paths(source, public_root=public_root),
+        public_root / "core/fixture_manifests/agent_sandbox_policy_escape_replay.fixture_manifest.json",
         Path(__file__).resolve(),
         public_root / "core/private_state_forbidden_classes.json",
     ]
@@ -435,6 +417,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
     if not source.is_absolute():
         source = Path.cwd() / source
     public_root = _public_root_for_path(source)
+    component_identity = _policy_kernel_identity("sandbox_policy")
 
     rows: list[dict[str, Any]] = []
     missing: list[str] = []
@@ -466,6 +449,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
             {
                 "card_schema_version": CARD_SCHEMA_VERSION,
                 "include_negative": include_negative,
+                "component_kernel_identity": component_identity,
                 "inputs": rows,
                 "missing_inputs": missing,
                 "validator_schema_version": validator_schema_version,
@@ -476,6 +460,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
     return {
         "schema_version": "agent_sandbox_policy_escape_replay_freshness_basis_v1",
         "basis_digest": f"sha256:{basis_digest}",
+        "component_kernel_identity": component_identity,
         "card_schema_version": CARD_SCHEMA_VERSION,
         "include_negative": include_negative,
         "input_count": len(rows),
@@ -730,6 +715,35 @@ def _source_module_manifest_result(
                 )
             )
 
+        # Omission stubs carry provenance, not retained source bodies. Bind
+        # the public bundle to the separately reviewed public inventory.
+        inventory_path = public_root / "core/fixture_manifests/agent_sandbox_policy_escape_replay.fixture_manifest.json"
+        try:
+            inventory = read_json_strict(inventory_path)["public_source_inventory"]
+            retained = inventory["retained_bodies"]
+            omitted = inventory["release_substitution_omissions"]
+            if not isinstance(retained, list) or len(retained) != 1 or not isinstance(omitted, list) or len(omitted) != 6:
+                raise ValueError("invalid public inventory")
+            if not isinstance(manifest.get("modules"), list) or len(manifest["modules"]) != 1 or len(modules) != 1 or any(modules[0].get(key) != value for key, value in retained[0].items()):
+                raise ValueError("retained body differs from public inventory")
+            declared = [{key: value for key, value in row.items() if key != "stub_sha256"} for row in omitted]
+            if manifest.get("release_substitution_omissions") != declared:
+                raise ValueError("omission roster differs from public inventory")
+            for row in omitted:
+                stub = input_dir / row["path"]
+                if not stub.is_file() or _sha256(stub) != row["stub_sha256"]:
+                    raise ValueError("omission stub missing or changed")
+        except (OSError, ValueError, TypeError, KeyError, IndexError, AttributeError):
+            findings.append(
+                _finding(
+                    "SANDBOX_POLICY_SOURCE_INVENTORY_MISMATCH",
+                    "Retained source and declared omission stubs must match the public fixture inventory.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="source_module_manifest",
+                )
+            )
+
     verified_count = 0
     for row in modules:
         module_id = str(row.get("module_id") or "source_module")
@@ -901,10 +915,9 @@ def _source_open_body_import_summary(
         },
         "reader_action": (
             "Open source_module_manifest.json plus source_modules/ inside the "
-            "exported sandbox-policy escape bundle for copied macro pattern, "
-            "reconstruction, canonical-organ, trace-standard, trace runtime, "
-            "and route-readiness tool bodies; receipts carry refs, hashes, "
-            "counts, and verdicts only."
+            "exported sandbox-policy escape bundle for the retained trace-standard "
+            "body and six historical source identities represented by public-safe "
+            "omission stubs; receipts carry refs, hashes, counts, and verdicts only."
         )
         if imported
         else "",
@@ -956,17 +969,34 @@ def _policy_shape_mismatches(row: dict[str, Any]) -> list[str]:
     return mismatches
 
 
-def _derived_sandbox_policy_verdict(row: dict[str, Any]) -> tuple[str, str]:
-    """
-    Return derived sandbox policy verdict for the organs agent sandbox policy escape replay
-    flow.
+@lru_cache(maxsize=1024)
+def _policy_decision_cached(kernel_digest: str, risk_class: str, action_kind: str, capability: str, trust: str) -> tuple[str, str]:
+    rows = [{"risk_class": risk_class, "action_kind": action_kind,
+             "requested_capability": capability, "source_trust_label": trust}]
+    verdict, rule = _verified_policy_evaluate(rows)[0]
+    return verdict, rule
 
-    Inputs are `row`; notable helpers are `get` and `_policy_shape_mismatches`.
-    """
-    risk_class = str(row.get("risk_class") or "")
-    if risk_class in EXPECTED_ACTION_POLICY and not _policy_shape_mismatches(row):
-        return EXPECTED_ACTION_POLICY[risk_class]
-    return FAIL_CLOSED_POLICY_SEMANTICS
+
+def _policy_field(row: dict[str, Any], name: str) -> str:
+    """Preserve equality to policy literals while bounding the worker request."""
+    value = str(row.get(name) or "")
+    # All policy literals are shorter than 128 characters. A longer value can
+    # never match one, so the empty nonmatching value has the same decision.
+    return value if len(value) <= 128 else ""
+
+
+def _derived_sandbox_policy_verdict(row: dict[str, Any]) -> tuple[str, str]:
+    """Normalize fields and reuse a decision only after validating its kernel."""
+    identity = _policy_kernel_identity("sandbox_policy")
+    kernel_digest = hashlib.sha256(
+        json.dumps(identity, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    return _policy_decision_cached(
+        kernel_digest,
+        _policy_field(row, "risk_class"), _policy_field(row, "action_kind"),
+        _policy_field(row, "requested_capability"),
+        _policy_field(row, "source_trust_label"),
+    )
 
 
 def _expected_action_policy(row: dict[str, Any]) -> tuple[str, str]:

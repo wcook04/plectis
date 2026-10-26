@@ -62,6 +62,7 @@ DEFAULT_INCLUDE_REFS = (
     "ANTI_PRINCIPLES.md",
     "ARCHITECTURE.md",
     "AXIOMS.md",
+    "CHANGELOG.md",
     "CITATION.cff",
     "CLAUDE.md",
     "docs/governance/public-boundary.md",
@@ -103,6 +104,9 @@ DEFAULT_INCLUDE_REFS = (
 )
 STANDALONE_REQUIRED_PUBLIC_REFS = (
     "README.md",
+    "formal/components/README.md",
+    "scripts/check/check_component_kernels.py",
+    "CHANGELOG.md",
     "CITATION.cff",
     "docs/README.md",
     "docs/UNDERSTANDING_PLECTIS.md",
@@ -571,6 +575,10 @@ def _skip_reason(rel: Path, *, is_dir: bool) -> str | None:
     parts = rel.parts
     if not parts:
         return None
+    # This receipt is written after the payload inventory. Including an older
+    # copy would bind its old bytes and immediately invalidate the new export.
+    if not is_dir and rel.as_posix() == RELEASE_RECEIPT_REF:
+        return "release_receipt_regenerated_after_inventory"
     if parts[0] in SKIPPED_ROOT_NAMES:
         return "root_local_or_nested_release_residue"
     checked_parts = parts[2:] if parts[:2] == ("scripts", "build") else parts
@@ -615,6 +623,10 @@ def _iter_allowed_files(root: Path) -> tuple[list[Path], list[dict[str, str]], l
     files: list[Path] = []
     excluded: list[dict[str, str]] = _source_residue_rows(root)
     missing: list[str] = []
+
+    def discovery_error(error: OSError) -> None:
+        raise error
+
     for include_ref in DEFAULT_INCLUDE_REFS:
         source = root / include_ref
         if not source.exists():
@@ -645,7 +657,7 @@ def _iter_allowed_files(root: Path) -> tuple[list[Path], list[dict[str, str]], l
             else:
                 excluded.append({"path": include_ref, "status": "excluded", "reason": reason})
             continue
-        for current_dir, dirnames, filenames in os.walk(source):
+        for current_dir, dirnames, filenames in os.walk(source, onerror=discovery_error):
             current = Path(current_dir)
             kept_dirnames: list[str] = []
             for dirname in sorted(dirnames):
@@ -706,7 +718,9 @@ def _iter_allowed_files(root: Path) -> tuple[list[Path], list[dict[str, str]], l
                     )
                     continue
                 files.append(path)
-    return files, excluded, missing
+    # Explicit entry files can also sit below an allowlisted directory.
+    # Record each payload path once, including when no projection refresh runs.
+    return sorted(set(files)), excluded, missing
 
 
 def _source_module_private_body_substitution_text(
@@ -817,7 +831,7 @@ def _copy_allowed_files(
             text = None
             if source.suffix in TEXT_SUFFIXES and len(payload) <= 2_000_000:
                 try:
-                    text = payload.decode("utf-8").replace("\r\n", "\n").replace("\r", "\n")
+                    text = payload.decode("utf-8")
                 except UnicodeDecodeError:
                     pass
             if text is not None and "source_modules" in Path(rel).parts:
@@ -825,7 +839,7 @@ def _copy_allowed_files(
                     PUBLIC_EXAMPLE_HOME,
                     text,
                 )
-                destination.write_text(redacted_text, encoding="utf-8")
+                destination.write_bytes(redacted_text.encode("utf-8"))
                 shutil.copystat(source, destination)
                 if redaction_count:
                     home_redaction_rows.append(
@@ -878,7 +892,7 @@ def _artifact_inventory_for_paths(target: Path, paths: list[str]) -> list[dict[s
     for rel in paths:
         path = target / rel
         if not path.is_file():
-            continue
+            raise FileNotFoundError(f"artifact inventory member is missing: {rel}")
         stat = path.stat()
         inventory.append(
             {
@@ -1478,19 +1492,12 @@ def _iter_artifact_paths(target: Path) -> Iterator[Path]:
     exits.
     """
 
-    try:
-        entries = sorted(os.scandir(target), key=lambda entry: entry.name)
-    except OSError:
-        return
+    entries = sorted(os.scandir(target), key=lambda entry: entry.name)
 
     for entry in entries:
         path = Path(entry.path)
         yield path
-        try:
-            is_dir = entry.is_dir(follow_symlinks=False)
-        except OSError:
-            is_dir = False
-        if is_dir:
+        if entry.is_dir(follow_symlinks=False):
             yield from _iter_artifact_paths(path)
 
 

@@ -298,7 +298,9 @@ def _exercise_observer_diff(rows: Mapping[str, Mapping[str, Any]], public_root: 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     mod = _load_copied_module("observer_diff_kernel", rows, public_root)
-    evidence = mod.diff_evidence(
+    from plectis.components.evidence_diff import diff_evidence
+
+    evidence = diff_evidence(
         [
             {"ledger_id": "E1", "source": "lab"},
             {"bad_key": "skipped"},
@@ -308,7 +310,7 @@ def _exercise_observer_diff(rows: Mapping[str, Mapping[str, Any]], public_root: 
             {"ledger_id": "E1", "source": "oracle"},
             {"ledger_id": "E2", "source": "oracle"},
         ],
-    ).to_json_dict()
+    )
     predictions = mod.diff_predictions(
         [
             {"target_id": "A", "direction": "up"},
@@ -337,7 +339,7 @@ def _exercise_observer_diff(rows: Mapping[str, Mapping[str, Any]], public_root: 
         "evidence_diff": evidence,
         "prediction_diff": predictions,
         "malformed_rows_skipped": malformed_skipped,
-        "source_execution_relation": "copied_source_body_executed",
+        "source_execution_relation": "verified_evidence_core_and_copied_prediction_body",
     }
 
 
@@ -550,11 +552,11 @@ def evaluate_negative_case(
     rows = _source_rows(input_dir, public_root)
     try:
         if case_id == "observer_diff_malformed_key_skipped":
-            mod = _load_copied_module("observer_diff_kernel", rows, public_root)
-            result = mod.diff_evidence(
+            from plectis.components.evidence_diff import diff_evidence
+            result = diff_evidence(
                 [{"bad_key": "missing-ledger-id"}],
                 [{"ledger_id": "E1", "source": "fixture"}],
-            ).to_json_dict()
+            )
             rejected = (
                 result["missed_ledger_ids"] == ["E1"]
                 and result["extra_ledger_ids"] == []
@@ -630,7 +632,11 @@ def evaluate(input_dir: Path, public_root: Path, _source_manifest: dict[str, Any
                 "exercise_id": exercise_id,
                 "status": "blocked",
                 "exception_type": type(exc).__name__,
-                "source_execution_relation": "copied_source_body_execution_failed",
+                "source_execution_relation": (
+                    "verified_evidence_or_copied_prediction_execution_failed"
+                    if exercise_id == "observer_set_diff_kernel"
+                    else "copied_source_body_execution_failed"
+                ),
             }
     missing_mechanisms = [
         mechanism_id

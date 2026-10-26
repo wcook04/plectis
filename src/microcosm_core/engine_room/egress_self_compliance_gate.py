@@ -14,7 +14,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -131,100 +130,68 @@ def _body(text: Any) -> str:
 
 
 def _matches(text: str, phrases: Sequence[str]) -> tuple[str, ...]:
-    """
-    Derive matches without touching module import state.
+    """Return literal phrase matches using the verified edge-aware scanner."""
+    from plectis.components.egress_policy import evaluate
 
-    Membership is edge-aware: a phrase whose first or last character is
-    alphanumeric must not fire inside a longer word ("passed" inside
-    "bypassed" would legitimize a genuine violation), while prefix/suffix
-    style phrases ("cap_", "ran:") keep substring behavior at their
-    non-alphanumeric edge.
-    """
-    matched: list[str] = []
-    for phrase in phrases:
-        leading = r"(?<![a-z0-9])" if phrase[:1].isalnum() else ""
-        trailing = r"(?![a-z0-9])" if phrase[-1:].isalnum() else ""
-        if re.search(f"{leading}{re.escape(phrase)}{trailing}", text):
-            matched.append(phrase)
-    return tuple(matched)
+    result = evaluate({"text": text, "groups": [list(phrases)], "policy": False})
+    return tuple(result["matches"][0])
+
+
+# Each pair keeps the original detector order, phrases, and public descriptions.
+_POLICY_GROUPS = (
+    (PERMISSION_GATE_PHRASES, LEGITIMATE_BLOCKER_PHRASES,
+     "permission_gate_without_blocker",
+     "Ask for permission only after naming a real blast-radius blocker; "
+     "otherwise take the safe bounded action and report receipts."),
+    (SELF_ERROR_TRIPWIRE_PHRASES, DURABLE_BINDING_PHRASES,
+     "self_error_without_capture",
+     "Self-detected mistakes must bind to a Task Ledger capture before "
+     "they appear in operator-facing prose."),
+    (COMMAND_DISPLACEMENT_PHRASES, COMMAND_EXECUTION_RECEIPT_PHRASES,
+     "command_displacement_to_operator",
+     "Do not hand a safe in-scope command to the operator; run it and "
+     "report the receipt unless a real blocker exists."),
+)
+
+
+def _verified_policy(text: Any, indices: Sequence[int]) -> tuple[list[DetectorResult], bool]:
+    from plectis.components.egress_policy import evaluate
+
+    # Python str/lower normalization is explicitly outside the verified core.
+    body = _body(text)
+    entries = [_POLICY_GROUPS[index] for index in indices]
+    groups = [list(group) for trigger, legitimizer, _, _ in entries
+              for group in (trigger, legitimizer)]
+    result = evaluate({"text": body, "groups": groups, "policy": True})
+    rows = []
+    for index, (_, _, diagnostic, rule) in enumerate(entries):
+        trigger, legitimizer = result["matches"][2 * index:2 * index + 2]
+        violation = result["violations"][index]
+        if trigger:
+            rows.append(DetectorResult(
+                diagnostic_id=diagnostic,
+                violation=violation,
+                matched_tripwires=tuple(trigger),
+                matched_legitimizers=tuple(legitimizer),
+                severity="operational_pressure" if violation else "informational",
+                one_line_rule=rule,
+            ))
+    return rows, result["red"]
 
 
 def detect_permission_gate_without_blocker(text: Any) -> DetectorResult | None:
-    """
-    Produce the detect permission gate without blocker value used by
-    `microcosm_core.engine_room.egress_self_compliance_gate`.
-
-    Inputs are `text`; notable helpers are `_body`, `_matches`, and `DetectorResult`.
-    """
-    body = _body(text)
-    matched_gates = _matches(body, PERMISSION_GATE_PHRASES)
-    if not matched_gates:
-        return None
-    matched_blockers = _matches(body, LEGITIMATE_BLOCKER_PHRASES)
-    violation = not matched_blockers
-    return DetectorResult(
-        diagnostic_id="permission_gate_without_blocker",
-        violation=violation,
-        matched_tripwires=matched_gates,
-        matched_legitimizers=matched_blockers,
-        severity="operational_pressure" if violation else "informational",
-        one_line_rule=(
-            "Ask for permission only after naming a real blast-radius blocker; "
-            "otherwise take the safe bounded action and report receipts."
-        ),
-    )
+    rows, _ = _verified_policy(text, (0,))
+    return rows[0] if rows else None
 
 
 def detect_self_error_without_capture(text: Any) -> DetectorResult | None:
-    """
-    Produce the detect self error without capture value used by
-    `microcosm_core.engine_room.egress_self_compliance_gate`.
-
-    Inputs are `text`; notable helpers are `_body`, `_matches`, and `DetectorResult`.
-    """
-    body = _body(text)
-    matched_tripwires = _matches(body, SELF_ERROR_TRIPWIRE_PHRASES)
-    if not matched_tripwires:
-        return None
-    matched_bindings = _matches(body, DURABLE_BINDING_PHRASES)
-    violation = not matched_bindings
-    return DetectorResult(
-        diagnostic_id="self_error_without_capture",
-        violation=violation,
-        matched_tripwires=matched_tripwires,
-        matched_legitimizers=matched_bindings,
-        severity="operational_pressure" if violation else "informational",
-        one_line_rule=(
-            "Self-detected mistakes must bind to a Task Ledger capture before "
-            "they appear in operator-facing prose."
-        ),
-    )
+    rows, _ = _verified_policy(text, (1,))
+    return rows[0] if rows else None
 
 
 def detect_command_displacement_to_operator(text: Any) -> DetectorResult | None:
-    """
-    Return detect command displacement to operator for the engine room egress self
-    compliance gate flow.
-
-    Inputs are `text`; notable helpers are `_body`, `_matches`, and `DetectorResult`.
-    """
-    body = _body(text)
-    matched_tripwires = _matches(body, COMMAND_DISPLACEMENT_PHRASES)
-    if not matched_tripwires:
-        return None
-    matched_receipts = _matches(body, COMMAND_EXECUTION_RECEIPT_PHRASES)
-    violation = not matched_receipts
-    return DetectorResult(
-        diagnostic_id="command_displacement_to_operator",
-        violation=violation,
-        matched_tripwires=matched_tripwires,
-        matched_legitimizers=matched_receipts,
-        severity="operational_pressure" if violation else "informational",
-        one_line_rule=(
-            "Do not hand a safe in-scope command to the operator; run it and "
-            "report the receipt unless a real blocker exists."
-        ),
-    )
+    rows, _ = _verified_policy(text, (2,))
+    return rows[0] if rows else None
 
 
 DETECTORS = (
@@ -235,13 +202,8 @@ DETECTORS = (
 
 
 def evaluate_text(text: Any) -> dict[str, Any]:
-    """
-    Serialize `microcosm_core.engine_room.egress_self_compliance_gate.evaluate_text` into
-    the payload shape expected by engine room egress self compliance gate.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
-    """
-    rows = [row for detector in DETECTORS if (row := detector(text)) is not None]
+    """Evaluate all three rules in one verified-worker request."""
+    rows, red = _verified_policy(text, (0, 1, 2))
     return {
         "schema_version": SCHEMA_VERSION,
         "organ_id": ORGAN_ID,
@@ -249,7 +211,7 @@ def evaluate_text(text: Any) -> dict[str, Any]:
         "source_to_target_relation": SOURCE_TO_TARGET_RELATION,
         "claim_ceiling": CLAIM_CEILING,
         "anti_claims": list(ANTI_CLAIMS),
-        "status": "red" if any(row.violation for row in rows) else "green",
+        "status": "red" if red else "green",
         "violation_count": sum(1 for row in rows if row.violation),
         "rows": [asdict(row) for row in rows],
     }

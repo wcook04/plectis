@@ -8,7 +8,8 @@ check interface replacements and derive public-only reports. This research
 prototype also includes reference components for proof checking, agent
 reliability, forecasting and keeping documents consistent with their sources.
 A fourth verified core checks whether their replay evidence satisfies the
-declared source, input, claim-policy and receipt contract.
+declared source, input, claim-policy and receipt contract. Twelve component
+computations also have [their own specifications and proofs](formal/components/README.md).
 
 [Run the workflow example](#formally-checked-workflow-operations) ·
 [Check component replays](#checking-a-component-result) ·
@@ -53,7 +54,7 @@ make verify-operations DAFNY=/path/to/dafny
 
 This verifies the three workflow cores and replay admission, regenerates Python
 byte for byte and requires
-deliberately broken specifications to fail. `make check` checks the saved hashes
+deliberately broken variants to fail. `make check` checks the saved hashes
 without running the prover. Read the [assumptions and trusted tools](formal/README.md)
 or [copy and install an operation](examples/operations/README.md).
 
@@ -108,10 +109,14 @@ Lean/Lake and Swift. The [replay guide](docs/maintainers/validation.md#fresh-com
 lists prerequisites and the [study](docs/guides/verification-study.md#checking-the-component-replay-itself)
 shows the failure cases behind the design.
 
-**The common admission decision is proved; each component's own claim and choice
-of public receipt fields remain its checker's responsibility.** Hashing, file
-capture and execution are tested Python boundaries. A replay cannot inherit a proof of component correctness
-from another core or from the number of components that passed.
+The [component proof index](formal/components/README.md) identifies twelve
+computations with their own verified specifications and generated implementations.
+Their adapters supply normalized observations; the component writes a result and
+receipt, and the separate admission core checks the captured replay evidence.
+Hashing, file capture, host normalization and the producer's choice of public
+receipt fields remain tested Python boundaries. A replay cannot inherit a proof
+of component correctness from another core or from the number of components that
+passed.
 
 ## Why this exists
 
@@ -302,9 +307,9 @@ for using these APIs.
 
 ```text
 plectis/
-├── formal/               Dafny specifications, proofs and negative mutants
+├── formal/               Workflow, replay and component proofs with negative mutants
 ├── src/
-│   ├── plectis/           Operation APIs, generated kernels and CLI entry points
+│   ├── plectis/           Operation APIs, component kernels and CLI entry points
 │   └── microcosm_core/    Python implementation; components in organs/
 ├── docs/                 Guides, reference, maintainer notes and paper guide
 ├── examples/             Runnable examples and checked source bundles
@@ -344,9 +349,9 @@ and CI.
 The `source_modules/` directories inside exported examples contain copied
 implementations with provenance manifests. Component replays and installed
 examples depend on them. Older receipts retain the inputs and limits of their
-original runs; a new replay writes a new result. Neither a historical receipt
-nor inclusion in the catalogue grants a component the formal status of the
-four verified cores.
+original runs; a new replay writes a new result. A historical receipt or
+catalogue entry does not itself prove a component; follow its source and, where
+available, its [component proof](formal/components/README.md).
 
 The [documentation index](docs/README.md) separates human guides, reference
 maps and maintainer instructions. Directory READMEs explain the examples and
@@ -403,7 +408,9 @@ make ci      # tests, command smoke tests and a fresh package installation
 `make ci` creates temporary environments and installs build and test
 dependencies, so it may need network access. `make help` lists narrower checks.
 Maintainers can run every registered public example with `make component-replays`
-and recheck all four formal cores with `make verify-operations DAFNY=/path/to/dafny`.
+and recheck the workflow and replay cores with
+`make verify-operations DAFNY=/path/to/dafny`. Run
+`make verify-components DAFNY=/path/to/dafny` for the twelve component kernels.
 The [validation guide](docs/maintainers/validation.md) explains dependencies,
 release records and generated files. Edit their source and run the owning
 builder rather than changing generated maps or recorded results by hand.

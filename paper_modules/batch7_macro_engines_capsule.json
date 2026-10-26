@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture-bound public source-body import and deterministic exercise evidence only; no release approval, private-root equivalence, semantic truth, investment advice, complete sandbox proof, selected-test sufficiency proof, provider dispatch, or source mutation authority.",
-    "card": "Batch 7 Macro Engines Capsule binds the accepted batch7_macro_engines_capsule organ to its public source-open bundle. It checks copied trace parser, codemap layout, DAG scheduling, release-root, source-surgeon, clean-clone, calculator, PageRank, and regression-selection witnesses, negative cases, digest boundaries, and authority ceilings while excluding release approval, private-root equivalence, semantic truth, investment advice, sandbox completeness, and selected-test sufficiency proof.",
-    "one_line": "Batch 7 Macro Engines Capsule imports public-safe macro engine bodies and exercises trace, graph, scheduling, source-index, patch, numeric, rank, and regression-selection invariants."
+    "authority_ceiling": "The fixture is not a general guarantee of safe patches, complete test selection or whole-system correctness. The original witnesses require Node and their declared JavaScript dependencies; `numpy` is required for the numeric exercise.",
+    "card": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection. Its result combines source checks with the outcomes of the individual witnesses. A cyclic dependency graph is rejected, a patch with mismatched context fails, and an unknown PageRank source is refused. When regression selection would be empty, the example checks the fallback selection. The trace parser also runs its original Node test witness.",
+    "one_line": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch7_macro_engines_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture-bound public source-body import and deterministic exercise evidence only; no release approval, private-root equivalence, semantic truth, investment advice, complete sandbox proof, selected-test sufficiency proof, provider dispatch, or source mutation authority.",
+    "authority_ceiling": "The fixture is not a general guarantee of safe patches, complete test selection or whole-system correctness. The original witnesses require Node and their declared JavaScript dependencies; `numpy` is required for the numeric exercise.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -90,9 +90,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture-bound public source-body import and deterministic exercise evidence only; no release approval, private-root equivalence, semantic truth, investment advice, complete sandbox proof, selected-test sufficiency proof, provider dispatch, or source mutation authority.",
-        "card": "Batch 7 Macro Engines Capsule binds the accepted batch7_macro_engines_capsule organ to its public source-open bundle. It checks copied trace parser, codemap layout, DAG scheduling, release-root, source-surgeon, clean-clone, calculator, PageRank, and regression-selection witnesses, negative cases, digest boundaries, and authority ceilings while excluding release approval, private-root equivalence, semantic truth, investment advice, sandbox completeness, and selected-test sufficiency proof.",
-        "one_line": "Batch 7 Macro Engines Capsule imports public-safe macro engine bodies and exercises trace, graph, scheduling, source-index, patch, numeric, rank, and regression-selection invariants."
+        "authority_ceiling": "The fixture is not a general guarantee of safe patches, complete test selection or whole-system correctness. The original witnesses require Node and their declared JavaScript dependencies; `numpy` is required for the numeric exercise.",
+        "card": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection. Its result combines source checks with the outcomes of the individual witnesses. A cyclic dependency graph is rejected, a patch with mismatched context fails, and an unknown PageRank source is refused. When regression selection would be empty, the example checks the fallback selection. The trace parser also runs its original Node test witness.",
+        "one_line": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -141,7 +141,7 @@
           "ref": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule"
         }
       ],
-      "title": "Batch 7 Macro Engines Capsule"
+      "title": "Run selected macro-engine exercises"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority. The subject names the accepted organ row plus the resolving mechanism row already present in organ_atlas/organ_registry and mechanism_sources; sibling Batch 7 modules without resolving accepted-organ rows remain residual.",
     "support_contract": {
@@ -422,7 +422,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 7 Macro Engines Capsule imports public-safe macro engine bodies and exercises trace, graph, scheduling, source-index, patch, numeric, rank, and regression-selection invariants.",
+  "statement": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection.",
   "status": "active",
   "subjects": [
     {
@@ -434,7 +434,7 @@
       "ref": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule"
     }
   ],
-  "title": "Batch 7 Macro Engines Capsule",
+  "title": "Run selected macro-engine exercises",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

@@ -1,0 +1,48 @@
+{
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "generated_python": {
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "WalkthroughValidation.py": "44ca5ac2a79c36dfb65de220359d7ef57ccf9c64ff8eef81b301cb6bb1bae22f",
+    "__main__.py": "500f32b04ecd5fbeec272f6a179101bd2d4357cedd01d9a1991f845611ac72f6",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "e4dd3b71e3804e2cd4833a17ed36efb8eef0f842c811755247a92f534a09909a"
+  },
+  "module": "WalkthroughValidation",
+  "mutations": {
+    "negative/MissingEvidenceMutant.dfy": {
+      "after": ";",
+      "before": " && |step.evidence| > 0;",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    },
+    "negative/MissingTimeLimitMutant.dfy": {
+      "after": "    accepted := 0 < budgetDenominator && 0 < budgetNumerator &&",
+      "before": "    accepted := WithinTenMinutes(budgetNumerator, budgetDenominator) &&",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    }
+  },
+  "negative_results": {
+    "negative/MissingEvidenceMutant.dfy": {
+      "errors": 1,
+      "verified_tasks": 4
+    },
+    "negative/MissingTimeLimitMutant.dfy": {
+      "errors": 1,
+      "verified_tasks": 4
+    }
+  },
+  "negative_sha256": {
+    "negative/MissingEvidenceMutant.dfy": "9ad7dd3b90b71909a1f3a7461f5c71b64e2c9f5cb61c37131bd3f81de70c0f3f",
+    "negative/MissingTimeLimitMutant.dfy": "0b2ff3cc7459388b32a70563232778a042c63a30756a0f7f37d624a76d669ac4"
+  },
+  "negative_sources": [
+    "negative/MissingEvidenceMutant.dfy",
+    "negative/MissingTimeLimitMutant.dfy"
+  ],
+  "schema_version": 1,
+  "slug": "walkthrough_validation",
+  "source": "WalkthroughValidation.dfy",
+  "source_sha256": "8dcc149cec9bd16d399fb2cc044d44a82579689a59bc079c34f69338d40c253e",
+  "verified_tasks": 5
+}

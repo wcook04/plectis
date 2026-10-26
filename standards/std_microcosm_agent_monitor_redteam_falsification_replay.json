@@ -188,9 +188,9 @@
       "validator_id": "validator.microcosm.organs.agent_monitor_redteam_falsification_replay",
       "receipt_id": "receipt.microcosm.agent_monitor_redteam_falsification_replay",
       "organ_authority_receipt": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
-      "organ_evidence_class": "bounded_runtime_computation",
-      "organ_evidence_strength_rank": 4,
-      "truth_accounting_bucket": "real_runtime_receipt",
+      "organ_evidence_class": "algorithmic_projection",
+      "organ_evidence_strength_rank": 3,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
     }
   },

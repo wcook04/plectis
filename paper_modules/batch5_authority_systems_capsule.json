@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture-bound public source-body import, copied-module digest and anchor evidence, synthetic source-exercise evidence, and body-free receipts only; no live provider dispatch, proof success, process signal authority, generated-state mutation authority, source mutation, publication approval, release approval, private-root equivalence, or whole-system correctness.",
-    "card": "Batch 5 Authority and Systems Capsule binds the legacy Markdown projection, Batch 5 runnable source locus, exported public-safe copied-source bundle, source-module digests, synthetic negative exercises, body-free receipts, and authority ceilings to a mechanism-backed JSON capsule. It covers post-execution receipt validation, reasoning replay scope and lineage, verifier-gated Lean repair harnessing, process orphan classification, generated-state fixpoint settlement, trace-tape compaction, code blast radius, and doctrine graph compilation while preserving public-safe fixture boundaries.",
-    "one_line": "Batch 5 Authority and Systems Capsule imports post-execution authority, replay, proof-repair, process, generated-state, trace, blast-radius, and doctrine-graph macro bodies as public source-open evidence without claiming live authority or release approval."
+    "authority_ceiling": "These are bounded exercises of the supplied cases. A digest confirms a source copy against its manifest; it does not prove authorization, proof correctness or safe process management in a live system.",
+    "card": "This fixture runs examples of receipt validation, replay scope, proof-contract checks, process classification, state convergence, trace recording, dependency impact and doctrine drift. It records each outcome alongside source-manifest evidence. A receipt with provider-context drift is rejected, and a proof contract containing `sorry` is rejected. A live descendant must not be signalled by the orphan classifier. When a generated projection remains unresolved and its source signature changes between checks, the fixture classifies it as a source-moved residual.",
+    "one_line": "This fixture runs examples of receipt validation, replay scope, proof-contract checks, process classification, state convergence, trace recording, dependency impact and doctrine drift."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch5_authority_systems_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture-bound public source-body import, copied-module digest and anchor evidence, synthetic source-exercise evidence, and body-free receipts only; no live provider dispatch, proof success, process signal authority, generated-state mutation authority, source mutation, publication approval, release approval, private-root equivalence, or whole-system correctness.",
+    "authority_ceiling": "These are bounded exercises of the supplied cases. A digest confirms a source copy against its manifest; it does not prove authorization, proof correctness or safe process management in a live system.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -92,9 +92,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture-bound public source-body import, copied-module digest and anchor evidence, synthetic source-exercise evidence, and body-free receipts only; no live provider dispatch, proof success, process signal authority, generated-state mutation authority, source mutation, publication approval, release approval, private-root equivalence, or whole-system correctness.",
-        "card": "Batch 5 Authority and Systems Capsule binds the legacy Markdown projection, Batch 5 runnable source locus, exported public-safe copied-source bundle, source-module digests, synthetic negative exercises, body-free receipts, and authority ceilings to a mechanism-backed JSON capsule. It covers post-execution receipt validation, reasoning replay scope and lineage, verifier-gated Lean repair harnessing, process orphan classification, generated-state fixpoint settlement, trace-tape compaction, code blast radius, and doctrine graph compilation while preserving public-safe fixture boundaries.",
-        "one_line": "Batch 5 Authority and Systems Capsule imports post-execution authority, replay, proof-repair, process, generated-state, trace, blast-radius, and doctrine-graph macro bodies as public source-open evidence without claiming live authority or release approval."
+        "authority_ceiling": "These are bounded exercises of the supplied cases. A digest confirms a source copy against its manifest; it does not prove authorization, proof correctness or safe process management in a live system.",
+        "card": "This fixture runs examples of receipt validation, replay scope, proof-contract checks, process classification, state convergence, trace recording, dependency impact and doctrine drift. It records each outcome alongside source-manifest evidence. A receipt with provider-context drift is rejected, and a proof contract containing `sorry` is rejected. A live descendant must not be signalled by the orphan classifier. When a generated projection remains unresolved and its source signature changes between checks, the fixture classifies it as a source-moved residual.",
+        "one_line": "This fixture runs examples of receipt validation, replay scope, proof-contract checks, process classification, state convergence, trace recording, dependency impact and doctrine drift."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -141,7 +141,7 @@
           "ref": "mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule"
         }
       ],
-      "title": "Batch 5 Authority and Systems Capsule"
+      "title": "Exercise receipt and execution safeguards"
     },
     "strangler_note": "Binds the authored Markdown projection, Batch 5 accepted-organ row, organ-atlas row, runnable source locus, exported public-safe copied-source bundle, acceptance receipts, body-free validation receipts, and mechanism row to JSON capsule authority. Live provider dispatch, process signaling, generated-state mutation, proof success, source mutation, publication, release, private-root equivalence, and whole-system correctness remain out of scope.",
     "support_contract": {
@@ -396,7 +396,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 5 Authority and Systems Capsule imports post-execution authority, replay, proof-repair, process, generated-state, trace, blast-radius, and doctrine-graph macro bodies as public source-open evidence without claiming live authority or release approval.",
+  "statement": "This fixture runs examples of receipt validation, replay scope, proof-contract checks, process classification, state convergence, trace recording, dependency impact and doctrine drift.",
   "status": "active",
   "subjects": [
     {
@@ -408,7 +408,7 @@
       "ref": "mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule"
     }
   ],
-  "title": "Batch 5 Authority and Systems Capsule",
+  "title": "Exercise receipt and execution safeguards",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

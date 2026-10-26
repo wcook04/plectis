@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Declared public routing anti-pattern registry fixture and copied non-secret macro body evidence only; no route source authority, no route mutation, no private routing-note export, no provider calls, no release approval, no publication approval, and no whole-system correctness.",
-    "card": "Routing Anti-Patterns Registry validates the public routing anti-pattern registry contract: kind/version, unique row ids, text fields, required navigation anchors, source-module digest evidence, negative cases, and authority ceilings. It treats the registry as a checked public artifact, not route source authority, route mutation authority, private routing-note export, provider authority, release, publication, or whole-system correctness.",
-    "one_line": "Routing Anti-Patterns Registry validates public anti-pattern registry rows without becoming route source authority or mutating routes."
+    "authority_ceiling": "A duplicate ID or a missing required entry is rejected. This verifies the registry projection; it does not change routing policy or demonstrate that a real route is correct.",
+    "card": "The input is a JSON registry of named routing mistakes and explanatory text. The validator checks its kind and version, required named entries, unique IDs and nonempty descriptions, then writes findings and a board.",
+    "one_line": "The input is a JSON registry of named routing mistakes and explanatory text."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.routing_anti_patterns_registry",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Declared public routing anti-pattern registry fixture and copied non-secret macro body evidence only; no route source authority, no route mutation, no private routing-note export, no provider calls, no release approval, no publication approval, and no whole-system correctness.",
+    "authority_ceiling": "A duplicate ID or a missing required entry is rejected. This verifies the registry projection; it does not change routing policy or demonstrate that a real route is correct.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -87,9 +87,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Declared public routing anti-pattern registry fixture and copied non-secret macro body evidence only; no route source authority, no route mutation, no private routing-note export, no provider calls, no release approval, no publication approval, and no whole-system correctness.",
-        "card": "Routing Anti-Patterns Registry validates the public routing anti-pattern registry contract: kind/version, unique row ids, text fields, required navigation anchors, source-module digest evidence, negative cases, and authority ceilings. It treats the registry as a checked public artifact, not route source authority, route mutation authority, private routing-note export, provider authority, release, publication, or whole-system correctness.",
-        "one_line": "Routing Anti-Patterns Registry validates public anti-pattern registry rows without becoming route source authority or mutating routes."
+        "authority_ceiling": "A duplicate ID or a missing required entry is rejected. This verifies the registry projection; it does not change routing policy or demonstrate that a real route is correct.",
+        "card": "The input is a JSON registry of named routing mistakes and explanatory text. The validator checks its kind and version, required named entries, unique IDs and nonempty descriptions, then writes findings and a board.",
+        "one_line": "The input is a JSON registry of named routing mistakes and explanatory text."
       },
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -143,7 +143,7 @@
           "ref": "mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry"
         }
       ],
-      "title": "Routing Anti-Patterns Registry"
+      "title": "Validate a routing anti-pattern registry"
     },
     "strangler_note": "Binds the Markdown projection, accepted organ subject, admitted mechanism subject, and runtime locus to JSON source authority; selective concept/principle/axiom refs remain residual unless source evidence names resolving Microcosm doctrine ids.",
     "support_contract": {
@@ -517,7 +517,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Routing Anti-Patterns Registry validates public anti-pattern registry rows without becoming route source authority or mutating routes.",
+  "statement": "The input is a JSON registry of named routing mistakes and explanatory text.",
   "status": "active",
   "subjects": [
     {
@@ -529,7 +529,7 @@
       "ref": "mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry"
     }
   ],
-  "title": "Routing Anti-Patterns Registry",
+  "title": "Validate a routing anti-pattern registry",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

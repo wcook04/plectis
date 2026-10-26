@@ -153,29 +153,36 @@
       "source_mutation_authorized": false
     },
     "body_in_receipt": false,
-    "body_material_count": 5,
+    "body_material_count": 1,
     "body_material_ids": [
-      "public_reveal_first_slice_execution_receipt_body_import",
-      "public_reveal_runtime_shell_reorientation_receipt_body_import",
-      "public_reveal_clean_clone_state_fixture_receipt_body_import",
-      "public_reveal_public_substrate_boundary_policy_body_import",
       "public_reveal_walkthrough_control_plane_source_body_import"
     ],
     "body_material_status": "copied_non_secret_public_reveal_macro_body_landed",
     "body_text_exported_in_receipts": false,
     "body_text_exported_in_workingness": false,
     "material_classes": [
-      "public_macro_receipt_body",
-      "public_macro_tool_body",
       "public_python_source_body"
     ],
-    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported public reveal bundle for copied macro reconstruction receipt, boundary-policy, and public organ source bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "reader_action": "Open the source manifest for one retained public Python body and four explicit historical omissions; omission stubs are not copied bodies.",
     "schema_version": "public_reveal_walkthrough_source_open_body_imports_v1",
     "source_import_class": "copied_non_secret_macro_body",
     "source_manifest_refs": [
       "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json"
     ],
-    "status": "pass"
+    "status": "declared_current_export_inventory",
+    "body_material_classes": {
+      "public_python_source_body": 1
+    },
+    "release_omission_count": 4,
+    "release_omission_ids": [
+      "public_reveal_first_slice_execution_receipt_body_import",
+      "public_reveal_runtime_shell_reorientation_receipt_body_import",
+      "public_reveal_clean_clone_state_fixture_receipt_body_import",
+      "public_reveal_public_substrate_boundary_policy_body_import"
+    ],
+    "release_omission_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json::release_substitution_omissions",
+    "count_scope": "Retained entries in source_module_manifest.modules only; public-safe omission stubs are excluded.",
+    "fixture_inventory_ref": "core/fixture_manifests/public_reveal_walkthrough.fixture_manifest.json"
   },
   "standard_id": "std_microcosm_public_reveal_walkthrough",
   "standard_payload": {
@@ -281,5 +288,24 @@
     }
   },
   "source_format": "json",
-  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt",
+  "historical_source_open_body_imports": {
+    "status": "historical_provenance_only",
+    "evidence_scope": "standard declaration before current release substitutions; not the current exported body floor",
+    "body_material_count": 5,
+    "body_material_ids": [
+      "public_reveal_first_slice_execution_receipt_body_import",
+      "public_reveal_runtime_shell_reorientation_receipt_body_import",
+      "public_reveal_clean_clone_state_fixture_receipt_body_import",
+      "public_reveal_public_substrate_boundary_policy_body_import",
+      "public_reveal_walkthrough_control_plane_source_body_import"
+    ],
+    "material_classes": [
+      "public_macro_receipt_body",
+      "public_macro_tool_body",
+      "public_python_source_body"
+    ],
+    "recorded_status": "pass",
+    "recorded_body_material_status": "copied_non_secret_public_reveal_macro_body_landed"
+  }
 }

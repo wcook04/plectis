@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture-bound public source-body import, source-faithful public port evidence, computed negative-probe evidence, and body-free receipts only; no live Work Ledger truth, navigation authority, complete secret detection, live market data, investment advice, raw transcript authority, video capture, source mutation, publication approval, release approval, provider dispatch, private-root equivalence, or whole-system correctness.",
-    "card": "Batch 11 Saturation Engines Capsule binds the accepted batch11_saturation_engines_capsule organ to a refreshed source-open bundle. It exercises run-affinity scoring, calculator cluster insight derivation, std_python delta gating, exogenous navigation grading, portability supersession rollup, shard browse priority, holographic evidence selection, projection secret scanning, stockgrid flow normalization, macro-regime board bucketing, frontend wayfinding, agent-session diagnostic lenses, and demo-take coverage auditing while preserving copied non-secret source digests, computed negative probes, and authority ceilings.",
-    "one_line": "Batch 11 Saturation Engines Capsule imports saturation, diagnostic, wayfinding, market-board, secret-scan, and demo-take macro bodies as public source-open evidence without granting live runtime, release, market, or navigation authority."
+    "authority_ceiling": "The collection mixes copied source with declared public refactors; a matching digest or passing synthetic case does not establish production performance, market truth or security.",
+    "card": "This fixture runs thirteen selected checks on examples ranging from run affinity and navigation to market data, research evidence and recording segments. It checks source manifests and records each exercise and its negative cases. For example, the run selector chooses a working feed run over a stale failed run, even when the latter is marked as the preferred run. A scan of sample public file contents and paths blocks a key-shaped token; an unreachable navigation target fails its route check. The market examples normalize units and route unknown macro categories to an other bucket. Each result is specific to its test inputs.",
+    "one_line": "This fixture runs thirteen selected checks on examples ranging from run affinity and navigation to market data, research evidence and recording segments."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch11_saturation_engines_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture-bound public source-body import, source-faithful public port evidence, computed negative-probe evidence, and body-free receipts only; no live Work Ledger truth, navigation authority, complete secret detection, live market data, investment advice, raw transcript authority, video capture, source mutation, publication approval, release approval, provider dispatch, private-root equivalence, or whole-system correctness.",
+    "authority_ceiling": "The collection mixes copied source with declared public refactors; a matching digest or passing synthetic case does not establish production performance, market truth or security.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,9 +85,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture-bound public source-body import, source-faithful public port evidence, computed negative-probe evidence, and body-free receipts only; no live Work Ledger truth, navigation authority, complete secret detection, live market data, investment advice, raw transcript authority, video capture, source mutation, publication approval, release approval, provider dispatch, private-root equivalence, or whole-system correctness.",
-        "card": "Batch 11 Saturation Engines Capsule binds the accepted batch11_saturation_engines_capsule organ to a refreshed source-open bundle. It exercises run-affinity scoring, calculator cluster insight derivation, std_python delta gating, exogenous navigation grading, portability supersession rollup, shard browse priority, holographic evidence selection, projection secret scanning, stockgrid flow normalization, macro-regime board bucketing, frontend wayfinding, agent-session diagnostic lenses, and demo-take coverage auditing while preserving copied non-secret source digests, computed negative probes, and authority ceilings.",
-        "one_line": "Batch 11 Saturation Engines Capsule imports saturation, diagnostic, wayfinding, market-board, secret-scan, and demo-take macro bodies as public source-open evidence without granting live runtime, release, market, or navigation authority."
+        "authority_ceiling": "The collection mixes copied source with declared public refactors; a matching digest or passing synthetic case does not establish production performance, market truth or security.",
+        "card": "This fixture runs thirteen selected checks on examples ranging from run affinity and navigation to market data, research evidence and recording segments. It checks source manifests and records each exercise and its negative cases. For example, the run selector chooses a working feed run over a stale failed run, even when the latter is marked as the preferred run. A scan of sample public file contents and paths blocks a key-shaped token; an unreachable navigation target fails its route check. The market examples normalize units and route unknown macro categories to an other bucket. Each result is specific to its test inputs.",
+        "one_line": "This fixture runs thirteen selected checks on examples ranging from run affinity and navigation to market data, research evidence and recording segments."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -137,7 +137,7 @@
           "ref": "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule"
         }
       ],
-      "title": "Batch 11 Saturation Engines Capsule"
+      "title": "Exercise a collection of source-backed checks"
     },
     "strangler_note": "Binds the authored Markdown projection, accepted-organ atlas row, refreshed exact-copy source-open bundle, Batch 11 saturation organ source locus, and body-free receipts to JSON source authority. The mechanism subject is named from the resolving Microcosm mechanism row; concept edges remain residual until resolving Microcosm rows exist; shared navigation, market, secret-scan, Work Ledger, source-mutation, publication, and release authority stay out of scope.",
     "support_contract": {
@@ -427,7 +427,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 11 Saturation Engines Capsule imports saturation, diagnostic, wayfinding, market-board, secret-scan, and demo-take macro bodies as public source-open evidence without granting live runtime, release, market, or navigation authority.",
+  "statement": "This fixture runs thirteen selected checks on examples ranging from run affinity and navigation to market data, research evidence and recording segments.",
   "status": "active",
   "subjects": [
     {
@@ -439,7 +439,7 @@
       "ref": "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule"
     }
   ],
-  "title": "Batch 11 Saturation Engines Capsule",
+  "title": "Exercise a collection of source-backed checks",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

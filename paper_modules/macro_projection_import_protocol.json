@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Verified public-safe macro body imports, fixture receipts, exported projection-bundle receipts, per-slice manifest refs, and body-free receipt fields only; no live macro source authority, private-root equivalence, release, publication, hosted deployment, recipient work, provider or Lean/Lake execution, secret/private body export, source mutation, or whole-system correctness.",
-    "card": "Macro Projection Import Protocol is the public import membrane for source-backed Microcosm growth. It validates fixture and exported projection bundles by checking source refs, public target refs, content digests, source-to-target relations, per-slice source-module manifests, validation refs, omitted-material receipts, body-free receipt policy, secret-exclusion scans, projection cell statuses, and negative cases while keeping true private bodies, provider payloads, release material, and static count claims out of public authority.",
-    "one_line": "The public macro-projection import protocol validates classified macro-to-Microcosm projection cells, per-slice source-module manifests, digest relations, omission receipts, intake statuses, and authority ceilings without claiming source or release authority."
+    "authority_ceiling": "Checks declared provenance and omission rules, not algorithm correctness, completeness, or release authority.",
+    "card": "This protocol checks records for copying or refactoring selected source material into the public repository. The input identifies source and target references, material classes, digests, omissions, and validation references. It produces a plan or validation receipt so a reviewer can inspect the claimed provenance and boundaries.",
+    "one_line": "This protocol checks records for copying or refactoring selected source material into the public repository."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.macro_projection_import_protocol",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Verified public-safe macro body imports, fixture receipts, exported projection-bundle receipts, per-slice manifest refs, and body-free receipt fields only; no live macro source authority, private-root equivalence, release, publication, hosted deployment, recipient work, provider or Lean/Lake execution, secret/private body export, source mutation, or whole-system correctness.",
+    "authority_ceiling": "Checks declared provenance and omission rules, not algorithm correctness, completeness, or release authority.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -79,9 +79,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Verified public-safe macro body imports, fixture receipts, exported projection-bundle receipts, per-slice manifest refs, and body-free receipt fields only; no live macro source authority, private-root equivalence, release, publication, hosted deployment, recipient work, provider or Lean/Lake execution, secret/private body export, source mutation, or whole-system correctness.",
-        "card": "Macro Projection Import Protocol is the public import membrane for source-backed Microcosm growth. It validates fixture and exported projection bundles by checking source refs, public target refs, content digests, source-to-target relations, per-slice source-module manifests, validation refs, omitted-material receipts, body-free receipt policy, secret-exclusion scans, projection cell statuses, and negative cases while keeping true private bodies, provider payloads, release material, and static count claims out of public authority.",
-        "one_line": "The public macro-projection import protocol validates classified macro-to-Microcosm projection cells, per-slice source-module manifests, digest relations, omission receipts, intake statuses, and authority ceilings without claiming source or release authority."
+        "authority_ceiling": "Checks declared provenance and omission rules, not algorithm correctness, completeness, or release authority.",
+        "card": "This protocol checks records for copying or refactoring selected source material into the public repository. The input identifies source and target references, material classes, digests, omissions, and validation references. It produces a plan or validation receipt so a reviewer can inspect the claimed provenance and boundaries.",
+        "one_line": "This protocol checks records for copying or refactoring selected source material into the public repository."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -133,7 +133,7 @@
           "ref": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports"
         }
       ],
-      "title": "Macro Projection Import Protocol"
+      "title": "Projection Import Protocol"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave projection-import fixture, exported projection-import bundle, per-slice source-module manifest contract, mechanism row, Microcosm organ source locus, and source atlas row without treating Markdown, generated atlas docs, copied-body presence, intake status counts, or digest refs as source authority, release authority, private-root equivalence, or static count claims.",
     "support_contract": {
@@ -406,7 +406,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public macro-projection import protocol validates classified macro-to-Microcosm projection cells, per-slice source-module manifests, digest relations, omission receipts, intake statuses, and authority ceilings without claiming source or release authority.",
+  "statement": "This protocol checks records for copying or refactoring selected source material into the public repository.",
   "status": "active",
   "subjects": [
     {
@@ -418,7 +418,7 @@
       "ref": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports"
     }
   ],
-  "title": "Macro Projection Import Protocol",
+  "title": "Projection Import Protocol",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

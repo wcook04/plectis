@@ -1,7 +1,8 @@
 # Formal executable cores
 
-Four executable decision cores have Dafny specifications. Their generated Python
-is the code called by the public APIs, not a separate handwritten simulation.
+Four workflow and replay decision cores, plus twelve [component computations](components/README.md),
+have Dafny specifications. Their generated Python is called by the public APIs
+and component paths.
 
 | Core | What is established for valid supplied inputs | What is outside the proof |
 |---|---|---|
@@ -26,6 +27,7 @@ To recheck formal obligations, install the pinned official
 
 ```sh
 make verify-operations DAFNY=/absolute/path/to/dafny
+make verify-components DAFNY=/absolute/path/to/dafny
 ```
 
 The checkers verify the source, regenerate deployed Python and compare its

@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "No live sandbox escape, live secret handling, or live network; source-faithful refactored fixtures and body-free receipts only; not a complete-security or release claim.",
-    "card": "Validator-backed public refactor of the macro agent_execution_trace substrate for sandbox/security claims. Computes body-free trace spans from action requests, pre-execution policy verdicts, side-effect diff receipts, and rollback against negative cases and authority ceilings.",
-    "one_line": "Validator-backed public refactor of macro agent_execution_trace for sandbox/security: body-free trace spans, pre-exec policy verdicts, side-effect diffs"
+    "authority_ceiling": "A passing symbolic replay does not demonstrate real sandbox containment.",
+    "card": "This replay checks synthetic action requests, policy decisions and recorded side effects. A fixed table derives a verdict from the action kind, capability, risk and source trust; the validator compares that verdict with the declared one. Unknown action shapes fail closed to `block`. It checks that blocked actions were not executed and had no recorded diff, and that permitted effects have the required diff and rollback records.",
+    "one_line": "Derives policy decisions for synthetic action records and checks their side-effect receipts."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.agent_sandbox_policy_escape_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "No live sandbox escape, live secret handling, or live network; source-faithful refactored fixtures and body-free receipts only; not a complete-security or release claim.",
+    "authority_ceiling": "A passing symbolic replay does not demonstrate real sandbox containment.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,9 +77,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "No live sandbox escape, live secret handling, or live network; source-faithful refactored fixtures and body-free receipts only; not a complete-security or release claim.",
-        "card": "Validator-backed public refactor of the macro agent_execution_trace substrate for sandbox/security claims. Computes body-free trace spans from action requests, pre-execution policy verdicts, side-effect diff receipts, and rollback against negative cases and authority ceilings.",
-        "one_line": "Validator-backed public refactor of macro agent_execution_trace for sandbox/security: body-free trace spans, pre-exec policy verdicts, side-effect diffs"
+        "authority_ceiling": "A passing symbolic replay does not demonstrate real sandbox containment.",
+        "card": "This replay checks synthetic action requests, policy decisions and recorded side effects. A fixed table derives a verdict from the action kind, capability, risk and source trust; the validator compares that verdict with the declared one. Unknown action shapes fail closed to `block`. It checks that blocked actions were not executed and had no recorded diff, and that permitted effects have the required diff and rollback records.",
+        "one_line": "Derives policy decisions for synthetic action records and checks their side-effect receipts."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -125,7 +125,7 @@
           "ref": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace"
         }
       ],
-      "title": "Agent Sandbox Policy-Escape Replay"
+      "title": "Replay sandbox policy decisions"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to a JSON authority row; concept/principle/axiom refs left as honest residuals (no resolving Microcosm doctrine id), not minted.",
     "support_contract": {
@@ -312,7 +312,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Validator-backed public refactor of macro agent_execution_trace for sandbox/security: body-free trace spans, pre-exec policy verdicts, side-effect diffs",
+  "statement": "Derives policy decisions for synthetic action records and checks their side-effect receipts.",
   "status": "active",
   "subjects": [
     {
@@ -324,7 +324,7 @@
       "ref": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace"
     }
   ],
-  "title": "Agent Sandbox Policy-Escape Replay",
+  "title": "Replay sandbox policy decisions",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

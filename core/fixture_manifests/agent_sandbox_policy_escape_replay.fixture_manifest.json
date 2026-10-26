@@ -1,6 +1,6 @@
 {
   "authority_ceiling": "public_agent_execution_trace_refactor_with_sandbox_policy_fixture_regression_inputs",
-  "body_copied_material_count": 7,
+  "body_copied_material_count": 1,
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_import_verification": {
     "source_ref": "system/lib/agent_execution_trace.py",
@@ -128,8 +128,23 @@
       "security_benchmark_claim_authorized": false,
       "source_mutation_authorized": false
     },
-    "body_material_count": 7,
+    "body_material_count": 1,
     "body_material_ids": [
+      "agent_execution_trace_standard_body_import"
+    ],
+    "body_material_status": "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_standard_body"
+    ],
+    "reader_action": "Open the source manifest and retained trace-standard body; six historical source identities are represented by public-safe omission stubs. Receipts carry refs, hashes, counts and verdicts only.",
+    "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+    "source_manifest_refs": [
+      "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json"
+    ],
+    "status": "pass",
+    "historical_source_identities": [
       "sandbox_policy_extracted_patterns_ledger_body_import",
       "sandbox_policy_high_novelty_growth_receipt_body_import",
       "sandbox_policy_canonical_organ_model_body_import",
@@ -138,22 +153,9 @@
       "extracted_pattern_route_readiness_tool_body_import",
       "strict_json_source_body_import"
     ],
-    "body_material_status": "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed",
-    "body_text_exported_in_receipts": false,
-    "body_text_exported_in_workingness": false,
-    "material_classes": [
-      "public_macro_control_plane_body",
-      "public_macro_pattern_body",
-      "public_macro_receipt_body",
-      "public_macro_standard_body",
-      "public_macro_tool_body"
-    ],
-    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported sandbox-policy escape bundle for copied macro pattern, reconstruction, canonical-organ, trace-standard, trace runtime, and route-readiness tool bodies; receipts carry refs, hashes, counts, and verdicts only.",
-    "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
-    "source_manifest_refs": [
-      "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json"
-    ],
-    "status": "pass"
+    "body_material_classes": {
+      "public_macro_standard_body": 1
+    }
   },
   "source_refs": [
     "system/lib/agent_execution_trace.py",
@@ -172,5 +174,102 @@
   "target_symbols": [
     "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
     "microcosm_core.organs.agent_sandbox_policy_escape_replay::run"
-  ]
+  ],
+  "public_source_inventory": {
+    "retained_bodies": [
+      {
+        "module_id": "agent_execution_trace_standard_body_import",
+        "path": "source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+        "source_ref": "codex/standards/std_agent_execution_trace.json",
+        "target_ref": "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+        "sha256": "sha256:9997ee8e79bc32a867b72e1c23fbdedd0f24e115135cfba7811fad8b682ca753",
+        "required_anchors": [
+          "\"id\": \"std_agent_execution_trace\"",
+          "\"strict_boundary\"",
+          "\"never_parses\"",
+          "\"trace_ontology_contract\""
+        ]
+      }
+    ],
+    "release_substitution_omissions": [
+      {
+        "body_in_receipt": false,
+        "module_id": "sandbox_policy_extracted_patterns_ledger_body_import",
+        "path": "source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "release_substitution": {
+          "body_in_receipt": false,
+          "contamination_class": "restricted_private_source_ref",
+          "matched_private_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+          "substitution": "public_safe_stub"
+        },
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "stub_sha256": "sha256:e6e710a8f2c815541a033fe958ffad4be1f50e311d1db144ce111d0a1c3c8c4f"
+      },
+      {
+        "body_in_receipt": false,
+        "module_id": "sandbox_policy_high_novelty_growth_receipt_body_import",
+        "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "release_substitution": {
+          "body_in_receipt": false,
+          "contamination_class": "restricted_private_source_ref",
+          "matched_private_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+          "substitution": "public_safe_stub"
+        },
+        "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "stub_sha256": "sha256:992be2206dda4f42d175e61fa2e40bb45bb731b241a32756758305833dc04ad3"
+      },
+      {
+        "body_in_receipt": false,
+        "module_id": "sandbox_policy_canonical_organ_model_body_import",
+        "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+        "release_substitution": {
+          "body_in_receipt": false,
+          "contamination_class": "restricted_private_source_ref",
+          "matched_private_ref": "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+          "substitution": "public_safe_stub"
+        },
+        "source_ref": "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+        "stub_sha256": "sha256:a2ab846181932a9aeccb5d9cf9a056c1ad7f3fff5e16adfd6cbb8c2d3fadbbbd"
+      },
+      {
+        "body_in_receipt": false,
+        "module_id": "agent_execution_trace_runtime_body_import",
+        "path": "source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+        "release_substitution": {
+          "body_in_receipt": false,
+          "contamination_class": "private_body_near_verbatim",
+          "matched_private_ref": "system/lib/agent_execution_trace.py",
+          "substitution": "public_safe_stub"
+        },
+        "source_ref": "system/lib/agent_execution_trace.py",
+        "stub_sha256": "sha256:72a3d5a1df240a4471ef78c7fc4db31ae53e8ede5af41e0a078853c36121c2af"
+      },
+      {
+        "body_in_receipt": false,
+        "module_id": "extracted_pattern_route_readiness_tool_body_import",
+        "path": "source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
+        "release_substitution": {
+          "body_in_receipt": false,
+          "contamination_class": "private_body_exact_match",
+          "matched_private_ref": "tools/meta/factory/check_extracted_pattern_route_readiness.py",
+          "substitution": "public_safe_stub"
+        },
+        "source_ref": "tools/meta/factory/check_extracted_pattern_route_readiness.py",
+        "stub_sha256": "sha256:cfaa1238c23395d9c49c13123c518b7c9b54a9c3d6de0ba51b32b672387bc84e"
+      },
+      {
+        "body_in_receipt": false,
+        "module_id": "strict_json_source_body_import",
+        "path": "source_modules/system/lib/strict_json.py",
+        "release_substitution": {
+          "body_in_receipt": false,
+          "contamination_class": "private_body_exact_match",
+          "matched_private_ref": "system/lib/strict_json.py",
+          "substitution": "public_safe_stub"
+        },
+        "source_ref": "system/lib/strict_json.py",
+        "stub_sha256": "sha256:8374917a94198a1a4f15f6ec1e89c70c2fe586feed3b668125799a037af79301"
+      }
+    ]
+  }
 }

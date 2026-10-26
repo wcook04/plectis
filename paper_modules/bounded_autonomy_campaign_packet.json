@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Self-proposal campaign packet fixture and exported-bundle receipt evidence only; no self-repair authority, unsupervised source mutation, live scheduler authority, provider dispatch, release approval, publication approval, or whole-system correctness.",
-    "card": "Bounded Autonomy Campaign Packet validates public campaign packet fixtures: proposed gaps, policy gates, repeated-failure digests, negative cases, source-open body imports, and authority ceilings. It keeps campaign proposals separate from self-repair, source writes, live scheduling, provider dispatch, release authority, publication, and whole-system correctness.",
-    "one_line": "Bounded autonomy campaign packets propose guarded agent work without authorizing source mutation or unsupervised repair."
+    "authority_ceiling": "Draft candidates and source-only or parent-builder witness; no autonomous repair or source mutation.",
+    "card": "The parent builder may run read-only; public-only mode verifies copied source and derives the candidate count from policy.",
+    "one_line": "A synthetic campaign fixture drafts review-only candidates."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.bounded_autonomy_campaign_packet",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Self-proposal campaign packet fixture and exported-bundle receipt evidence only; no self-repair authority, unsupervised source mutation, live scheduler authority, provider dispatch, release approval, publication approval, or whole-system correctness.",
+    "authority_ceiling": "Draft candidates and source-only or parent-builder witness; no autonomous repair or source mutation.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,9 +83,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Self-proposal campaign packet fixture and exported-bundle receipt evidence only; no self-repair authority, unsupervised source mutation, live scheduler authority, provider dispatch, release approval, publication approval, or whole-system correctness.",
-        "card": "Bounded Autonomy Campaign Packet validates public campaign packet fixtures: proposed gaps, policy gates, repeated-failure digests, negative cases, source-open body imports, and authority ceilings. It keeps campaign proposals separate from self-repair, source writes, live scheduling, provider dispatch, release authority, publication, and whole-system correctness.",
-        "one_line": "Bounded autonomy campaign packets propose guarded agent work without authorizing source mutation or unsupervised repair."
+        "authority_ceiling": "Draft candidates and source-only or parent-builder witness; no autonomous repair or source mutation.",
+        "card": "The parent builder may run read-only; public-only mode verifies copied source and derives the candidate count from policy.",
+        "one_line": "A synthetic campaign fixture drafts review-only candidates."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -137,7 +137,7 @@
           "ref": "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet"
         }
       ],
-      "title": "Bounded Autonomy Campaign Packet"
+      "title": "Draft a bounded campaign packet"
     },
     "strangler_note": "Binds the Markdown projection, accepted organ subject, admitted mechanism subject, and runtime locus to JSON source authority; selective concept/principle/axiom refs remain residual unless source evidence names resolving Microcosm doctrine ids.",
     "support_contract": {
@@ -479,7 +479,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Bounded autonomy campaign packets propose guarded agent work without authorizing source mutation or unsupervised repair.",
+  "statement": "A synthetic campaign fixture drafts review-only candidates.",
   "status": "active",
   "subjects": [
     {
@@ -491,7 +491,7 @@
       "ref": "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet"
     }
   ],
-  "title": "Bounded Autonomy Campaign Packet",
+  "title": "Draft a bounded campaign packet",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

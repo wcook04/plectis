@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public source-root bootstrap mechanics and body-free receipt refs only; no release approval, hosted-product readiness, provider call, source mutation, private-root equivalence, publication authority, or whole-system correctness.",
-    "card": "Cold Clone Probe is the public source-root bootstrap membrane. It binds bootstrap.sh, src/microcosm_core/cold_clone_probe.py, the first-wave pattern-binding fixture, the secret-exclusion scan, public relative receipt refs, and focused tests so a fresh checkout has one bounded proof of first-run mechanics before install, CI, hosted release, or full organ inventory review.",
-    "one_line": "The cold-clone probe validates the first public source-root bootstrap path: src import, secret-exclusion scan, first-wave pattern-binding fixture replay, public receipt refs, and ignored local receipt emission."
+    "authority_ceiling": "One checkout example only; no installation or release-readiness guarantee.",
+    "card": "Checks inputs, runs the scan and example, writes a summary and can mirror missing receipt files.",
+    "one_line": "Checks bootstrap with a pattern-binding fixture and configured scan."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.cold_clone_probe",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public source-root bootstrap mechanics and body-free receipt refs only; no release approval, hosted-product readiness, provider call, source mutation, private-root equivalence, publication authority, or whole-system correctness.",
+    "authority_ceiling": "One checkout example only; no installation or release-readiness guarantee.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,9 +84,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public source-root bootstrap mechanics and body-free receipt refs only; no release approval, hosted-product readiness, provider call, source mutation, private-root equivalence, publication authority, or whole-system correctness.",
-        "card": "Cold Clone Probe is the public source-root bootstrap membrane. It binds bootstrap.sh, src/microcosm_core/cold_clone_probe.py, the first-wave pattern-binding fixture, the secret-exclusion scan, public relative receipt refs, and focused tests so a fresh checkout has one bounded proof of first-run mechanics before install, CI, hosted release, or full organ inventory review.",
-        "one_line": "The cold-clone probe validates the first public source-root bootstrap path: src import, secret-exclusion scan, first-wave pattern-binding fixture replay, public receipt refs, and ignored local receipt emission."
+        "authority_ceiling": "One checkout example only; no installation or release-readiness guarantee.",
+        "card": "Checks inputs, runs the scan and example, writes a summary and can mirror missing receipt files.",
+        "one_line": "Checks bootstrap with a pattern-binding fixture and configured scan."
       },
       "concept_refs": [
         "concept.entry_and_reveal_route_readiness_bundle"
@@ -134,7 +134,7 @@
           "ref": "mechanism.cold_clone_probe.validates_public_source_root_bootstrap"
         }
       ],
-      "title": "Cold Clone Probe"
+      "title": "Check a checkout's first run"
     },
     "strangler_note": "Binds the authored Markdown projection, root bootstrap script, resolved source-root probe code locus, public standard, first-wave pattern-binding fixture, secret-exclusion scan, focused tests, and admitted mechanism row without inventing an accepted cold_clone_probe organ or treating ignored local receipts as public body authority.",
     "support_contract": {
@@ -460,7 +460,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The cold-clone probe validates the first public source-root bootstrap path: src import, secret-exclusion scan, first-wave pattern-binding fixture replay, public receipt refs, and ignored local receipt emission.",
+  "statement": "Checks bootstrap with a pattern-binding fixture and configured scan.",
   "status": "active",
   "subjects": [
     {
@@ -468,7 +468,7 @@
       "ref": "mechanism.cold_clone_probe.validates_public_source_root_bootstrap"
     }
   ],
-  "title": "Cold Clone Probe",
+  "title": "Check a checkout's first run",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

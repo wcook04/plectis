@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public first-screen card composition and focused validation only; no release approval, hosted-publication readiness, provider call authority, source mutation, private-data equivalence, score-based progress, reader-success certification, or whole-system correctness.",
-    "card": "First-Screen Composition Root is the public entry-card contract for Microcosm. It binds the package card helper, CLI emitter, standard, README entry order, reader branch ids, doctrine-effect frame, omission receipt, observatory landing refs, text projection, and focused tests so a cold reader sees what to inspect first without treating counts as maturity scores or route cards as release, hosted-publication, provider, source-mutation, private-equivalence, or whole-system proof.",
-    "one_line": "The first-screen composition root validates the public one-screen entry card, reader branches, omission receipts, evidence accounting frame, text projection, README order, and authority ceiling without becoming release or hosted-publication authority."
+    "authority_ceiling": "A missing required section or a disallowed authority claim is a validation failure. A passing card checks this composition contract; it does not demonstrate that a reader understands the project or that a behavioral command was actually run.",
+    "card": "The first-screen composition reads its public standard and assembles a card describing reader routes, source-checkout commands, a pre-install probe and the local-state trail. Its validation checks the assembled fields against the standard. The human-facing `hello` command displays a first screen without writing project state; `tour --card` is the separate state-writing behavior demonstration.",
+    "one_line": "Compose and validate the first-screen command card from its public standard."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.first_screen_composition_root",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public first-screen card composition and focused validation only; no release approval, hosted-publication readiness, provider call authority, source mutation, private-data equivalence, score-based progress, reader-success certification, or whole-system correctness.",
+    "authority_ceiling": "A missing required section or a disallowed authority claim is a validation failure. A passing card checks this composition contract; it does not demonstrate that a reader understands the project or that a behavioral command was actually run.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -91,9 +91,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public first-screen card composition and focused validation only; no release approval, hosted-publication readiness, provider call authority, source mutation, private-data equivalence, score-based progress, reader-success certification, or whole-system correctness.",
-        "card": "First-Screen Composition Root is the public entry-card contract for Microcosm. It binds the package card helper, CLI emitter, standard, README entry order, reader branch ids, doctrine-effect frame, omission receipt, observatory landing refs, text projection, and focused tests so a cold reader sees what to inspect first without treating counts as maturity scores or route cards as release, hosted-publication, provider, source-mutation, private-equivalence, or whole-system proof.",
-        "one_line": "The first-screen composition root validates the public one-screen entry card, reader branches, omission receipts, evidence accounting frame, text projection, README order, and authority ceiling without becoming release or hosted-publication authority."
+        "authority_ceiling": "A missing required section or a disallowed authority claim is a validation failure. A passing card checks this composition contract; it does not demonstrate that a reader understands the project or that a behavioral command was actually run.",
+        "card": "The first-screen composition reads its public standard and assembles a card describing reader routes, source-checkout commands, a pre-install probe and the local-state trail. Its validation checks the assembled fields against the standard. The human-facing `hello` command displays a first screen without writing project state; `tour --card` is the separate state-writing behavior demonstration.",
+        "one_line": "Compose and validate the first-screen command card from its public standard."
       },
       "concept_refs": [
         "concept.entry_and_reveal_route_readiness_bundle"
@@ -141,7 +141,7 @@
           "ref": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
         }
       ],
-      "title": "First-Screen Composition Root"
+      "title": "Compose the first-screen command card"
     },
     "strangler_note": "Binds the authored Markdown projection, first-screen standard, package card helper, CLI emitter, focused tests, README entry contract, and admitted mechanism row without inventing an accepted first_screen_composition_root organ or treating the card as release, hosted-publication, provider, source-mutation, private-equivalence, score-based-progress, reader-success, or whole-system correctness authority.",
     "support_contract": {
@@ -487,7 +487,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The first-screen composition root validates the public one-screen entry card, reader branches, omission receipts, evidence accounting frame, text projection, README order, and authority ceiling without becoming release or hosted-publication authority.",
+  "statement": "Compose and validate the first-screen command card from its public standard.",
   "status": "active",
   "subjects": [
     {
@@ -495,7 +495,7 @@
       "ref": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
     }
   ],
-  "title": "First-Screen Composition Root",
+  "title": "Compose the first-screen command card",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

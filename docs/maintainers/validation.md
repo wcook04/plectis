@@ -12,6 +12,60 @@ installation in [Quickstart](../../QUICKSTART.md#2-install). Without installing,
 replace `plectis` with `PYTHONPATH=src python3 -m plectis` in this guide's
 commands. `python3 -m microcosm_core` remains the compatibility spelling.
 
+## Component computation proofs
+
+Twelve component paths call generated computations with their own Dafny
+specifications. The [component proof index](../../formal/components/README.md)
+links each theorem, production hook and limits. Run the hash-binding check as
+part of `make check`; it verifies saved source, generated-code and mutant
+identities without invoking Dafny. To reprove and regenerate with the pinned
+Dafny 4.11.0 release:
+
+```sh
+make verify-components DAFNY=/absolute/path/to/dafny
+```
+
+The checker requires each source-linked mutant to fail verification and compares
+the regenerated Python bytes with the shipped files. The CI proof job runs this
+alongside `make verify-operations`. Package-installation smoke exercises all
+registered component wrappers; it is a runtime check, not a substitute for
+reproof. For an individual computation, use the focused test and exact proof
+boundary linked from its guide.
+
+### Review the specification
+
+A passing proof says that code satisfies its formal statement; it does not say
+that the statement captures the component's intended behavior. Before accepting
+a component proof, ask a reviewer who did not write it to check the following:
+
+1. **Requirement and scope.** Trace the intended claim to the component source,
+   fixture contract or governing standard. Identify the inputs, output and
+   consumer before comparing them with the theorem and production hook.
+2. **Assumptions and examples.** Show a useful input satisfying every
+   precondition and a concrete input or output the requirement should reject.
+   Check that assumptions are consistent and do not exclude supported cases.
+   Do not use `assume`, axioms, external implementations or disabled
+   verification to make the obligation pass.
+3. **Discriminating failure.** Change executable logic while preserving the
+   specification and theorem; the source-linked mutant must fail a proof
+   obligation. A syntax error or timeout is not that evidence. Try a separate
+   counterexample that the formal statement might allow but the intended claim
+   would not.
+4. **Actual use and coverage.** Run a regression through the component's real
+   consumer and check that it calls the generated computation. Map each claimed
+   behavior to its proof or named test, including trusted normalization and
+   receipt handling. Mark the component's proof coverage partial when checks or
+   behavior remain outside the theorem; a shared admission proof does not fill
+   those gaps.
+
+For example, the [budget-packing proof](../../formal/components/budget_packing/README.md)
+rejects including both six-byte sections under a ten-byte budget. It bounds the
+*supplied* sizes; a wrong declared fallback size can still misstate the bytes in
+the underlying material. A reviewer must preserve that distinction in the
+claim. Record the source and theorem versions, examples, remaining assumptions,
+review outcome and validation commands. Neither the hash checker nor Dafny
+independently decides whether the requirement is the right one.
+
 ## Fresh component replays
 
 `make component-replays` runs every implemented component with its registered
@@ -47,7 +101,7 @@ The admission proof checks the consistency and coverage of observed evidence;
 it does not authenticate a runner or prove the semantics of all components.
 They do not prove arbitrary application behavior. `make verify-operations`
 separately rechecks the formal decision kernels and their deliberately broken
-specifications. The governed-mutation example's portable Git-object witness
+variants. The governed-mutation example's portable Git-object witness
 checks a public source-change identity and changed paths without private Git
 history; it does not establish execution of the example's symbolic proposals.
 The cognitive-operator replay checks the current public snapshot and retains

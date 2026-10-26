@@ -1,0 +1,36 @@
+{
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "generated_python": {
+    "EvidenceDiff.py": "403095fd8ad89faddc7a044c5e9901d067d3badba6533bda3529c5457e8f1cb5",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "__main__.py": "694c23985cf61a2bbd5d9f93a6be83a5e3dba47a28169b63f1289b0787be9e18",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "ad19df4df3b3c8fc28c50ed0b400a4c2a1793ccd91130003ddbae28cf8a0c4d4"
+  },
+  "module": "EvidenceDiff",
+  "mutations": {
+    "negative/OverlapMutant.dfy": {
+      "after": "else (if o < 0 then 1 else 2)",
+      "before": "else (if o < 0 then 1 else 3)",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    }
+  },
+  "negative_results": {
+    "negative/OverlapMutant.dfy": {
+      "errors": 1,
+      "verified_tasks": 3
+    }
+  },
+  "negative_sha256": {
+    "negative/OverlapMutant.dfy": "443523e1b83f16551ae88147715c8d7434579ae181455536b1d0bd3bb57865f6"
+  },
+  "negative_sources": [
+    "negative/OverlapMutant.dfy"
+  ],
+  "schema_version": 1,
+  "slug": "evidence_diff",
+  "source": "EvidenceDiff.dfy",
+  "source_sha256": "d752cd10b557ee247c249990a2dac160971ac972f5cb6579a34cec6ef920fa48",
+  "verified_tasks": 4
+}

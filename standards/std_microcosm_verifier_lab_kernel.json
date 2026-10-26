@@ -260,7 +260,7 @@
       "registry_status_before_activation": "draft",
       "validator_id": "validator.microcosm.organs.verifier_lab_kernel",
       "receipt_id": "receipt.microcosm.verifier_lab_kernel",
-      "organ_authority_receipt": "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
+      "organ_authority_receipt": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
       "organ_evidence_class": "semantic_validator",
       "organ_evidence_strength_rank": 5,
       "truth_accounting_bucket": "real_import_validation",
@@ -272,7 +272,8 @@
     "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
     "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
     "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
-    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json"
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
+    "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
   ],
   "validator_refs": [
     "validator.microcosm.organs.verifier_lab_kernel",

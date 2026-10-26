@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Declared public synthetic spatial counterfactual-replay metadata and source-module import evidence only; no robot or AV operation, real-world geographic accuracy, simulator product validation, generated-video authority, benchmark scores, provider calls, hosting, release approval, publication approval, or whole-system correctness.",
-    "card": "Spatial World Model Counterfactual Simulation Replay validates public synthetic counterfactual rows: scene-state refs, action traces, predicted-state refs, transition diffs, oracle-check refs, public sensor-packet refs, limitation labels, source-module digest evidence, negative cases, and authority ceilings. It keeps generated-video and metadata evidence below real-world geographic accuracy, robot or AV operation, simulator product claims, benchmark scores, provider calls, hosting, release, publication, and whole-system correctness.",
-    "one_line": "Spatial world-model replay validates synthetic counterfactual metadata without robot operation, simulator product claims, or real-world accuracy claims."
+    "authority_ceiling": "A stale predicted state that disagrees with the computed step is rejected. This is a small synthetic gridworld check, not evidence of geographic accuracy, robot operation or a production simulator.",
+    "card": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction. It writes findings and a board for inspecting mismatches.",
+    "one_line": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.spatial_world_model_counterfactual_simulation_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Declared public synthetic spatial counterfactual-replay metadata and source-module import evidence only; no robot or AV operation, real-world geographic accuracy, simulator product validation, generated-video authority, benchmark scores, provider calls, hosting, release approval, publication approval, or whole-system correctness.",
+    "authority_ceiling": "A stale predicted state that disagrees with the computed step is rejected. This is a small synthetic gridworld check, not evidence of geographic accuracy, robot operation or a production simulator.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -88,9 +88,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Declared public synthetic spatial counterfactual-replay metadata and source-module import evidence only; no robot or AV operation, real-world geographic accuracy, simulator product validation, generated-video authority, benchmark scores, provider calls, hosting, release approval, publication approval, or whole-system correctness.",
-        "card": "Spatial World Model Counterfactual Simulation Replay validates public synthetic counterfactual rows: scene-state refs, action traces, predicted-state refs, transition diffs, oracle-check refs, public sensor-packet refs, limitation labels, source-module digest evidence, negative cases, and authority ceilings. It keeps generated-video and metadata evidence below real-world geographic accuracy, robot or AV operation, simulator product claims, benchmark scores, provider calls, hosting, release, publication, and whole-system correctness.",
-        "one_line": "Spatial world-model replay validates synthetic counterfactual metadata without robot operation, simulator product claims, or real-world accuracy claims."
+        "authority_ceiling": "A stale predicted state that disagrees with the computed step is rejected. This is a small synthetic gridworld check, not evidence of geographic accuracy, robot operation or a production simulator.",
+        "card": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction. It writes findings and a board for inspecting mismatches.",
+        "one_line": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction."
       },
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
@@ -142,7 +142,7 @@
           "ref": "mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay"
         }
       ],
-      "title": "Spatial World Model Counterfactual Simulation Replay"
+      "title": "Compare a predicted transition with a toy gridworld"
     },
     "strangler_note": "Binds the Markdown projection, accepted organ subject, admitted mechanism subject, and runtime locus to JSON source authority; selective concept/principle/axiom refs remain residual unless source evidence names resolving Microcosm doctrine ids.",
     "support_contract": {
@@ -489,7 +489,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Spatial world-model replay validates synthetic counterfactual metadata without robot operation, simulator product claims, or real-world accuracy claims.",
+  "statement": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction.",
   "status": "active",
   "subjects": [
     {
@@ -501,7 +501,7 @@
       "ref": "mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay"
     }
   ],
-  "title": "Spatial World Model Counterfactual Simulation Replay",
+  "title": "Compare a predicted transition with a toy gridworld",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

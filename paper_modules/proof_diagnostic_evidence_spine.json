@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public diagnostic receipt refs, copied Ring2 runtime artifacts, and copied public organ source body only; no Lean/Lake execution, formal proof authority, theorem correctness, provider call authority, runtime correctness, release approval, publication authority, private-root equivalence, or whole-system correctness.",
-    "card": "Proof Diagnostic Evidence Spine is the public evidence membrane before formal proof authority. It validates Ring2 failure-taxonomy and graph-update artifacts, verifier-trace repair and evidence-cell receipt refs, copied runtime artifact digests, provider payload policy rows, negative cases, and a copied public organ source-body floor while keeping proof bodies and provider output bodies out of public receipts.",
-    "one_line": "The public proof-diagnostic evidence spine fixture validates Ring2 diagnostic receipt refs, copied runtime artifact digests, provider/proof-body exclusions, stale-coupling visibility, and authority ceilings without becoming formal proof authority."
+    "authority_ceiling": "A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.",
+    "card": "Checks in a public evidence bundle point to source files and receipt anchors. This validator resolves those references, compares source digests and checks the receipt bindings; it also checks diagnostic rows and provider payload policy. For example, a diagnostic row links a failure-taxonomy report to a receipt anchor. Provider rows must not contain proof bodies. The validator writes a body-free result for inspecting which evidence is supported.",
+    "one_line": "Checks in a public evidence bundle point to source files and receipt anchors."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.proof_diagnostic_evidence_spine",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public diagnostic receipt refs, copied Ring2 runtime artifacts, and copied public organ source body only; no Lean/Lake execution, formal proof authority, theorem correctness, provider call authority, runtime correctness, release approval, publication authority, private-root equivalence, or whole-system correctness.",
+    "authority_ceiling": "A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,9 +83,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public diagnostic receipt refs, copied Ring2 runtime artifacts, and copied public organ source body only; no Lean/Lake execution, formal proof authority, theorem correctness, provider call authority, runtime correctness, release approval, publication authority, private-root equivalence, or whole-system correctness.",
-        "card": "Proof Diagnostic Evidence Spine is the public evidence membrane before formal proof authority. It validates Ring2 failure-taxonomy and graph-update artifacts, verifier-trace repair and evidence-cell receipt refs, copied runtime artifact digests, provider payload policy rows, negative cases, and a copied public organ source-body floor while keeping proof bodies and provider output bodies out of public receipts.",
-        "one_line": "The public proof-diagnostic evidence spine fixture validates Ring2 diagnostic receipt refs, copied runtime artifact digests, provider/proof-body exclusions, stale-coupling visibility, and authority ceilings without becoming formal proof authority."
+        "authority_ceiling": "A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.",
+        "card": "Checks in a public evidence bundle point to source files and receipt anchors. This validator resolves those references, compares source digests and checks the receipt bindings; it also checks diagnostic rows and provider payload policy. For example, a diagnostic row links a failure-taxonomy report to a receipt anchor. Provider rows must not contain proof bodies. The validator writes a body-free result for inspecting which evidence is supported.",
+        "one_line": "Checks in a public evidence bundle point to source files and receipt anchors."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -136,7 +136,7 @@
           "ref": "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane"
         }
       ],
-      "title": "Proof Diagnostic Evidence Spine"
+      "title": "Check proof diagnostic evidence"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave proof-diagnostic fixture, exported evidence bundle, copied Ring2 runtime artifact manifest, copied public organ source-body manifest, mechanism row, Microcosm organ source locus, and source atlas row without treating Markdown, generated run JSON, or generated atlas docs as proof authority.",
     "support_contract": {
@@ -438,7 +438,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public proof-diagnostic evidence spine fixture validates Ring2 diagnostic receipt refs, copied runtime artifact digests, provider/proof-body exclusions, stale-coupling visibility, and authority ceilings without becoming formal proof authority.",
+  "statement": "Checks in a public evidence bundle point to source files and receipt anchors.",
   "status": "active",
   "subjects": [
     {
@@ -450,7 +450,7 @@
       "ref": "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane"
     }
   ],
-  "title": "Proof Diagnostic Evidence Spine",
+  "title": "Check proof diagnostic evidence",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

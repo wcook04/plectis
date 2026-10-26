@@ -1,0 +1,48 @@
+{
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "generated_python": {
+    "OwnershipClassification.py": "894921ae7087aa1843691f21263ba8d05860f1dbcb132541b979bf38498e8496",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "__main__.py": "b5d4e29532d2786dbe65add3c864d8a5b44048cbd8dae22e9604ebefb716c959",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "d3aa1f5420a5b999de80a321ff1cf8ddbc99d5da103ea232dfb991fbc6de20ca"
+  },
+  "module": "OwnershipClassification",
+  "mutations": {
+    "negative/FirstClaimMutant.dfy": {
+      "after": "if claims[i].path == path {",
+      "before": "if claims[i].freshness == Live {",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    },
+    "negative/ReversedPriority.dfy": {
+      "after": "classification := if stale then 3 else if unknown then 5 else if live then 2",
+      "before": "classification := if live then 2 else if unknown then 5 else if stale then 3",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    }
+  },
+  "negative_results": {
+    "negative/FirstClaimMutant.dfy": {
+      "errors": 2,
+      "verified_tasks": 8
+    },
+    "negative/ReversedPriority.dfy": {
+      "errors": 1,
+      "verified_tasks": 8
+    }
+  },
+  "negative_sha256": {
+    "negative/FirstClaimMutant.dfy": "be5006cfba6961c8ccf97847ad109e52d75b520d5d8a1ac300325fbc1a86b341",
+    "negative/ReversedPriority.dfy": "c714b9ab5cc8c383cc9977f571423eb0e61e956c3496c29587351c67de212874"
+  },
+  "negative_sources": [
+    "negative/FirstClaimMutant.dfy",
+    "negative/ReversedPriority.dfy"
+  ],
+  "schema_version": 1,
+  "slug": "ownership_classification",
+  "source": "OwnershipClassification.dfy",
+  "source_sha256": "5200f9333b569ffee72e239008c1114350c63919d0d60bb4ea153e74c45e819f",
+  "verified_tasks": 9
+}

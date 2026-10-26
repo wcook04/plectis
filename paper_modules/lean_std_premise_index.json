@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Copied public Lean/Std descriptor index and Ring2 premise-retrieval macro receipts only; no Lean/Lake execution, Mathlib authority, proof-body import, oracle-needed premise authority, provider call, benchmark claim, release approval, publication approval, source mutation, or theorem-correctness claim.",
-    "card": "Lean/Std Premise Index is the source-open formal-math catalog organ for Microcosm. It imports a public-safe premise descriptor index, validates eleven Lean/Std premise rows across Nat, Bool, List, and Iff namespaces, checks six copied body modules through a source-module manifest, observes Mathlib/proof-body/oracle/test-split/source-ref negative cases, and writes body-free receipts that make premise substrate inspectable without turning metadata into proof authority.",
-    "one_line": "The Lean/Std premise index validates a copied public Lean/Std descriptor catalog plus Ring2 premise-retrieval macro bodies without claiming proof, Mathlib, Lean/Lake, provider, release, or theorem-correctness authority."
+    "authority_ceiling": "Checks copied Lean/Std premise metadata, not Mathlib availability or theorem correctness.",
+    "card": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references. It compares public rows with copied source metadata by premise ID and checks declared source digests. A toolchain path may be represented by a public `lean-toolchain://` reference.",
+    "one_line": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.lean_std_premise_index",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Copied public Lean/Std descriptor index and Ring2 premise-retrieval macro receipts only; no Lean/Lake execution, Mathlib authority, proof-body import, oracle-needed premise authority, provider call, benchmark claim, release approval, publication approval, source mutation, or theorem-correctness claim.",
+    "authority_ceiling": "Checks copied Lean/Std premise metadata, not Mathlib availability or theorem correctness.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,9 +82,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Copied public Lean/Std descriptor index and Ring2 premise-retrieval macro receipts only; no Lean/Lake execution, Mathlib authority, proof-body import, oracle-needed premise authority, provider call, benchmark claim, release approval, publication approval, source mutation, or theorem-correctness claim.",
-        "card": "Lean/Std Premise Index is the source-open formal-math catalog organ for Microcosm. It imports a public-safe premise descriptor index, validates eleven Lean/Std premise rows across Nat, Bool, List, and Iff namespaces, checks six copied body modules through a source-module manifest, observes Mathlib/proof-body/oracle/test-split/source-ref negative cases, and writes body-free receipts that make premise substrate inspectable without turning metadata into proof authority.",
-        "one_line": "The Lean/Std premise index validates a copied public Lean/Std descriptor catalog plus Ring2 premise-retrieval macro bodies without claiming proof, Mathlib, Lean/Lake, provider, release, or theorem-correctness authority."
+        "authority_ceiling": "Checks copied Lean/Std premise metadata, not Mathlib availability or theorem correctness.",
+        "card": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references. It compares public rows with copied source metadata by premise ID and checks declared source digests. A toolchain path may be represented by a public `lean-toolchain://` reference.",
+        "one_line": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -412,7 +412,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The Lean/Std premise index validates a copied public Lean/Std descriptor catalog plus Ring2 premise-retrieval macro bodies without claiming proof, Mathlib, Lean/Lake, provider, release, or theorem-correctness authority.",
+  "statement": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references.",
   "status": "active",
   "subjects": [
     {

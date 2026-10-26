@@ -1796,6 +1796,17 @@ def build_public_mcp_tool_authority_trace(input_dir: str | Path) -> dict[str, An
     manifest = bundle["bundle_manifest"]
     protocol = bundle["projection_protocol"]
     session_id = str(manifest.get("bundle_id") or "public_mcp_tool_authority_trace")
+
+    def has_citation(value: Any) -> bool:
+        return isinstance(value, str) and bool(value.strip())
+
+    def has_approval_citation(value: Any) -> bool:
+        return has_citation(value) and value.strip() not in {"missing", "not_required"}
+
+    citation_fields = {
+        "capability_scope_ref", "call_arguments_hash", "result_source_capsule_ref",
+        "instruction_data_split_ref", "cold_replay_receipt_ref",
+    }
     required_call_fields = {
         "call_id",
         "tool_id",
@@ -1846,7 +1857,10 @@ def build_public_mcp_tool_authority_trace(input_dir: str | Path) -> dict[str, An
         result = results_by_call.get(call_id, {})
         side_effect = side_effects_by_call.get(call_id, {})
         cold_replay = cold_replays_by_call.get(call_id, {})
-        missing_fields = sorted(field for field in required_call_fields if field not in row)
+        missing_fields = sorted(
+            field for field in required_call_fields
+            if field not in row or (field in citation_fields and not has_citation(row.get(field)))
+        )
         if missing_fields:
             findings.append(
                 _finding(
@@ -1904,9 +1918,9 @@ def build_public_mcp_tool_authority_trace(input_dir: str | Path) -> dict[str, An
             if row.get(field) is not False:
                 findings.append(_finding(code, message, subject_id=call_id))
 
-        is_write = row.get("side_effect_class") == "write"
+        is_write = row.get("side_effect_class") in ("write", "external_mutation")
         if is_write:
-            if row.get("approval_token_ref") in {"", None, "missing", "not_required"}:
+            if not has_approval_citation(row.get("approval_token_ref")):
                 findings.append(
                     _finding(
                         "PUBLIC_TRACE_MCP_TOOL_WRITE_APPROVAL_REF_MISSING",
@@ -1914,7 +1928,7 @@ def build_public_mcp_tool_authority_trace(input_dir: str | Path) -> dict[str, An
                         subject_id=call_id,
                     )
                 )
-            if not row.get("ledger_diff_ref") or not side_effect:
+            if not has_citation(row.get("ledger_diff_ref")) or not side_effect:
                 findings.append(
                     _finding(
                         "PUBLIC_TRACE_MCP_TOOL_SIDE_EFFECT_LEDGER_REF_MISSING",
@@ -1922,7 +1936,7 @@ def build_public_mcp_tool_authority_trace(input_dir: str | Path) -> dict[str, An
                         subject_id=call_id,
                     )
                 )
-            if not row.get("rollback_receipt_ref"):
+            if not has_citation(row.get("rollback_receipt_ref")):
                 findings.append(
                     _finding(
                         "PUBLIC_TRACE_MCP_TOOL_ROLLBACK_REF_MISSING",
@@ -2014,25 +2028,28 @@ def build_public_mcp_tool_authority_trace(input_dir: str | Path) -> dict[str, An
     status = PASS if not findings else BLOCKED
     action_kind_counts = Counter(span["action_kind"] for span in spans)
     outcome_counts = Counter(span["outcome"] for span in spans)
-    write_spans = [span for span in spans if span.get("side_effect_class") == "write"]
+    write_spans = [
+        span for span in spans
+        if span.get("side_effect_class") in ("write", "external_mutation")
+    ]
     untrusted_spans = [
         span for span in spans if span.get("tool_class") == "untrusted_result"
     ]
     coverage = {
         "capability_scope_coverage": len(spans)
-        == sum(1 for span in spans if span.get("capability_scope_ref")),
+        == sum(1 for span in spans if has_citation(span.get("capability_scope_ref"))),
         "call_argument_hash_coverage": len(spans)
-        == sum(1 for span in spans if span.get("call_arguments_hash")),
+        == sum(1 for span in spans if has_citation(span.get("call_arguments_hash"))),
         "instruction_data_split_coverage": len(spans)
-        == sum(1 for span in spans if span.get("instruction_data_split_ref")),
+        == sum(1 for span in spans if has_citation(span.get("instruction_data_split_ref"))),
         "write_side_effect_approval_coverage": len(write_spans)
-        == sum(1 for span in write_spans if span.get("approval_token_ref")),
+        == sum(1 for span in write_spans if has_approval_citation(span.get("approval_token_ref"))),
         "write_side_effect_ledger_coverage": len(write_spans)
-        == sum(1 for span in write_spans if span.get("ledger_diff_ref")),
+        == sum(1 for span in write_spans if has_citation(span.get("ledger_diff_ref"))),
         "rollback_receipt_coverage": len(write_spans)
-        == sum(1 for span in write_spans if span.get("rollback_receipt_ref")),
+        == sum(1 for span in write_spans if has_citation(span.get("rollback_receipt_ref"))),
         "cold_replay_receipt_coverage": len(spans)
-        == sum(1 for span in spans if span.get("cold_replay_receipt_ref")),
+        == sum(1 for span in spans if has_citation(span.get("cold_replay_receipt_ref"))),
         "untrusted_output_data_boundary_coverage": len(untrusted_spans)
         == sum(1 for span in untrusted_spans if span.get("untrusted_output_ignored")),
         "body_in_receipt": False,

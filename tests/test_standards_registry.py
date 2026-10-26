@@ -2,10 +2,15 @@ from __future__ import annotations
 
 import json
 import shutil
+import copy
+import hashlib
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.validators.standards_registry import validate_standards_registry
+import pytest
+
+from microcosm_core.validators.standards_registry import _acceptance_status, validate_standards_registry
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -44,11 +49,124 @@ def _copy_public_standards_tree(tmp_path: Path) -> Path:
     return public_root
 
 
+def _acceptance_policy():
+    organ = {"organ_id": "declared_organ", "status": "accepted_current_authority",
+             "evidence_class": "semantic_validator", "evidence_strength_rank": 5,
+             "truth_accounting_bucket": "real_import_validation",
+             "counts_as_real_substrate_progress": True, "runner": "microcosm_core.organs.declared_organ"}
+    return (
+        {"accepted_current_authority_organs": [copy.deepcopy(organ)], "deferred_organs": [],
+         "lean_lake_authorized": "bounded_public_witness_only", "release_authorized": False},
+        {"implemented_organs": [copy.deepcopy(organ)]},
+        {"fail_closed_no_default": True,
+         "class_profiles": {"semantic_validator": {"evidence_strength_rank": 5,
+             "truth_accounting_bucket": "real_import_validation", "counts_as_real_substrate_progress": True}},
+         "organ_evidence_classes": [{"organ_id": "declared_organ", "evidence_class": "semantic_validator"}]},
+    )
+
+
+def test_acceptance_membership_requires_current_registry_and_evidence_assignment():
+    plan, registry, evidence = _acceptance_policy()
+    assert _acceptance_status(plan, registry, evidence)["status"] == "pass"
+    future = {**registry["implemented_organs"][0], "organ_id": "unreviewed_future_organ"}
+    registry["implemented_organs"].append(future)
+    plan["accepted_current_authority_organs"].append(copy.deepcopy(future))
+    result = _acceptance_status(plan, registry, evidence)
+    assert result["status"] == "blocked_acceptance_mismatch"
+    assert {"code": "invalid_organ_evidence_assignment", "organ_id": "unreviewed_future_organ"} in result["errors"]
+
+
+@pytest.mark.parametrize("mutation,code", [
+    ("plan_status", "unaccepted_plan_status"),
+    ("registry_status", "unaccepted_registry_status"),
+    ("plan_evidence", "accepted_plan_registry_mismatch"),
+    ("plan_runner", "accepted_plan_registry_mismatch"),
+    ("plan_progress", "accepted_plan_registry_mismatch"),
+    ("unknown_evidence", "invalid_organ_evidence_assignment"),
+    ("missing_evidence", "invalid_organ_evidence_assignment"),
+    ("profile_rank", "organ_evidence_profile_mismatch"),
+    ("duplicate_plan", "duplicate_policy_organ"),
+    ("duplicate_registry", "duplicate_policy_organ"),
+    ("no_fail_closed", "invalid_accepted_evidence_policy"),
+    ("release", "acceptance_authority_exceeded"),
+    ("lean", "acceptance_authority_exceeded"),
+    ("lean_numeric_zero", "acceptance_authority_exceeded"),
+    ("also_deferred", "accepted_organ_also_deferred"),
+    ("malformed_deferred", "invalid_policy_rows"),
+])
+def test_acceptance_rejects_invalid_status_evidence_and_authority(mutation, code):
+    plan, registry, evidence = _acceptance_policy()
+    if mutation == "plan_status":
+        plan["accepted_current_authority_organs"][0]["status"] = "planned"
+    elif mutation == "registry_status":
+        registry["implemented_organs"][0]["status"] = "planned"
+    elif mutation == "plan_evidence":
+        plan["accepted_current_authority_organs"][0]["evidence_class"] = "external_subprocess_witness"
+    elif mutation == "plan_runner":
+        plan["accepted_current_authority_organs"][0]["runner"] = "unknown.runner"
+    elif mutation == "plan_progress":
+        plan["accepted_current_authority_organs"][0]["counts_as_real_substrate_progress"] = False
+    elif mutation == "unknown_evidence":
+        registry["implemented_organs"][0]["evidence_class"] = "unknown_class"
+    elif mutation == "missing_evidence":
+        evidence["organ_evidence_classes"] = []
+    elif mutation == "profile_rank":
+        registry["implemented_organs"][0]["evidence_strength_rank"] = True
+    elif mutation == "duplicate_plan":
+        plan["accepted_current_authority_organs"] *= 2
+    elif mutation == "duplicate_registry":
+        registry["implemented_organs"] *= 2
+    elif mutation == "no_fail_closed":
+        evidence["fail_closed_no_default"] = False
+    elif mutation == "release":
+        plan["release_authorized"] = True
+    elif mutation == "lean":
+        plan["lean_lake_authorized"] = True
+    elif mutation == "lean_numeric_zero":
+        plan["lean_lake_authorized"] = 0
+    elif mutation == "also_deferred":
+        plan["deferred_organs"] = [{"organ_id": "declared_organ"}]
+    elif mutation == "malformed_deferred":
+        plan["deferred_organs"] = None
+    result = _acceptance_status(plan, registry, evidence)
+    assert result["status"] == "blocked_acceptance_mismatch"
+    assert code in {error["code"] for error in result["errors"]}
+
+
+@pytest.mark.parametrize("mutation", ["unknown", "unaccepted", "evidence"])
+def test_standards_registry_rejects_unadmitted_or_misclassified_plan_rows(tmp_path, mutation):
+    public_root = _copy_public_standards_tree(tmp_path)
+    path = public_root / "core/acceptance/first_wave_acceptance.json"
+    plan = json.loads(path.read_text())
+    row = plan["accepted_current_authority_organs"][0]
+    if mutation == "unknown":
+        row["organ_id"] = "unknown_future_organ"
+    elif mutation == "unaccepted":
+        row["status"] = "planned"
+    else:
+        row["evidence_class"] = "forged_evidence"
+    path.write_text(json.dumps(plan), encoding="utf-8")
+    receipt = validate_standards_registry(
+        public_root / "core/standards_registry.json", public_root / "standards", path,
+        public_root / "receipts/standards_registry.json", command="pytest",
+    )
+    assert receipt["status"] == "blocked"
+    assert receipt["acceptance_status"]["status"] == "blocked_acceptance_mismatch"
+    assert receipt["authority_ceiling"]["release_authorized"] is False
+    if mutation == "unknown":
+        assert receipt["acceptance_status"]["unexpected_accepted_organs"] == ["unknown_future_organ"]
+    else:
+        assert receipt["acceptance_status"]["errors"]
+
+
 def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Path) -> None:
     public_root = _copy_public_standards_tree(tmp_path)
     out = public_root / "receipts/first_wave/standards_registry_validation.json"
     registry = json.loads((public_root / "core/standards_registry.json").read_text(encoding="utf-8"))
     expected_count = len(registry["standards"])
+    organ_registry = json.loads((public_root / "core/organ_registry.json").read_text())
+    accepted_ids = {row["organ_id"] for row in organ_registry["implemented_organs"]
+                    if row["status"] == "accepted_current_authority"}
 
     receipt = validate_standards_registry(
         public_root / "core/standards_registry.json",
@@ -122,6 +240,8 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
     assert receipt["duplicate_standard_ids"] == []
     assert receipt["missing_standard_files"] == []
     assert receipt["missing_required_fields_by_standard"] == {}
+    assert set(receipt["acceptance_status"]["accepted_current_authority_organs"]) == accepted_ids
+    assert receipt["acceptance_status"]["errors"] == []
     alignment = receipt["accepted_organ_standard_contract_alignment"]
     assert alignment["status"] == "pass"
     assert alignment["error_count"] == 0
@@ -141,18 +261,17 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
         "standard_activation_witness_gap_summary_v1"
     )
     assert activation_gaps["status"] == "computed"
-    assert activation_gaps["detail_count"] == 11
+    assert {row["standard_id"] for row in activation_gaps["details"]} == ENGINE_ROOM_STAGED_STANDARD_IDS
+    assert activation_gaps["detail_count"] == len(ENGINE_ROOM_STAGED_STANDARD_IDS)
     assert activation_gaps["counts_by_gap_id"] == {
-        "source_schema_not_public_microcosm_standard_v2": 11,
-        "source_status_not_active": 11,
+        "source_schema_not_public_microcosm_standard_v2": len(ENGINE_ROOM_STAGED_STANDARD_IDS),
+        "source_status_not_active": len(ENGINE_ROOM_STAGED_STANDARD_IDS),
     }
     assert activation_gaps["counts_by_registry_status"] == {
-        "draft": 1,
-        "staged_capsule_pending_shared_registry_integration": 10,
+        "staged_capsule_pending_shared_registry_integration": len(ENGINE_ROOM_STAGED_STANDARD_IDS),
     }
     assert activation_gaps["counts_by_source_status"] == {
-        "draft": 1,
-        "staged_capsule_pending_shared_registry_integration": 10,
+        "staged_capsule_pending_shared_registry_integration": len(ENGINE_ROOM_STAGED_STANDARD_IDS),
     }
     assert "public_microcosm_standard_v1" not in (
         activation_gaps["counts_by_source_schema_version"]
@@ -181,30 +300,45 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
         "standard_used_by_organ_admission_summary_v1"
     )
     assert used_by_summary["status"] == "computed"
-    assert used_by_summary["edge_count"] == 243
-    assert used_by_summary["resolved_edge_count"] == 219
-    assert used_by_summary["unresolved_edge_count"] == 24
-    assert used_by_summary["detail_count"] == 24
-    assert used_by_summary["unresolved_target_organ_count"] == 11
+    sources = {row["standard_id"]: json.loads((public_root / row["path"]).read_text())
+               for row in registry["standards"]}
+    declared_pairs = {
+        (row["standard_id"], organ_id)
+        for row in registry["standards"]
+        for organ_id in set(row.get("used_by_organs", [])) | set(
+            sources[row["standard_id"]].get("relationships", {}).get("used_by_organs", [])
+        )
+    }
+    unresolved_pairs = {pair for pair in declared_pairs if pair[1] not in accepted_ids}
+    resolved_count = len(declared_pairs - unresolved_pairs)
+    unresolved_count = len(unresolved_pairs)
+    assert {(row["standard_id"], row["target_organ_id"])
+            for row in used_by_summary["unresolved_details"]} == unresolved_pairs
+    assert used_by_summary["edge_count"] == len(declared_pairs)
+    assert used_by_summary["resolved_edge_count"] == resolved_count
+    assert used_by_summary["unresolved_edge_count"] == unresolved_count
+    assert used_by_summary["detail_count"] == unresolved_count
+    assert used_by_summary["unresolved_target_organ_count"] == len({pair[1] for pair in unresolved_pairs})
     assert used_by_summary["counts_by_admission_status"] == {
-        "accepted_current_authority": 219,
-        "target_organ_not_accepted_current_authority": 24,
+        "accepted_current_authority": resolved_count,
+        "target_organ_not_accepted_current_authority": unresolved_count,
     }
     assert used_by_summary["counts_by_target_status"] == {
-        "accepted_current_authority": 219,
-        "unresolved_json_instance": 24,
+        "accepted_current_authority": resolved_count,
+        "unresolved_json_instance": unresolved_count,
     }
-    assert used_by_summary["unresolved_counts_by_contract_projection_status"] == {
-        "active_v2_governed_json": 23,
-        "legacy_or_draft_standard_contract": 1,
-    }
-    assert used_by_summary["unresolved_counts_by_registry_status"] == {
-        "draft": 24,
-    }
-    assert used_by_summary["unresolved_counts_by_source_status"] == {
-        "active": 23,
-        "draft": 1,
-    }
+    assert used_by_summary["unresolved_counts_by_contract_projection_status"] == dict(Counter(
+        "active_v2_governed_json" if sources[standard_id]["schema_version"] == "public_microcosm_standard_v2"
+        and sources[standard_id]["status"] == "active" else "legacy_or_draft_standard_contract"
+        for standard_id, _organ_id in unresolved_pairs
+    ))
+    registry_by_id = {row["standard_id"]: row for row in registry["standards"]}
+    assert used_by_summary["unresolved_counts_by_registry_status"] == dict(Counter(
+        registry_by_id[standard_id]["status"] for standard_id, _organ_id in unresolved_pairs
+    ))
+    assert used_by_summary["unresolved_counts_by_source_status"] == dict(Counter(
+        sources[standard_id]["status"] for standard_id, _organ_id in unresolved_pairs
+    ))
     assert "std_microcosm_agent_trace" in used_by_summary["unresolved_standard_ids"]
     assert "std_microcosm_compression_band" not in used_by_summary[
         "unresolved_standard_ids"
@@ -275,6 +409,60 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
     assert '"body":' not in text
     assert "matched_excerpt" not in _walk_keys(receipt)
     assert "body" not in _walk_keys(receipt)
+
+
+@pytest.mark.parametrize("component,bundle,retained_count,omission_count,historical_count,classes", [
+    ("public_reveal_walkthrough", "exported_public_reveal_bundle", 1, 4, 5, {"public_python_source_body": 1}),
+    ("mcp_tool_authority_replay", "exported_mcp_tool_authority_bundle", 2, 5, 6, {"public_macro_standard_body": 2}),
+])
+def test_standard_source_body_floor_declares_current_manifest_only(
+    component, bundle, retained_count, omission_count, historical_count, classes,
+):
+    from microcosm_core.organs import mcp_tool_authority_replay, public_reveal_walkthrough
+
+    bundle_path = MICROCOSM_ROOT / "examples" / component / bundle
+    manifest = json.loads((bundle_path / "source_module_manifest.json").read_text())
+    standard = json.loads((MICROCOSM_ROOT / "standards" / f"std_microcosm_{component}.json").read_text())
+    declared = standard["source_open_body_imports"]
+    retained = {row["module_id"] for row in manifest["modules"]}
+    omitted = {row["module_id"] for row in manifest["release_substitution_omissions"]}
+    assert manifest["module_count"] == len(retained) == retained_count
+    assert declared["status"] == "declared_current_export_inventory"
+    assert declared["body_material_count"] == retained_count
+    assert set(declared["body_material_ids"]) == retained
+    assert declared["body_material_classes"] == classes
+    assert declared["material_classes"] == sorted(classes)
+    assert declared["release_omission_count"] == len(omitted) == omission_count
+    assert set(declared["release_omission_ids"]) == omitted
+    assert not retained & omitted
+    assert declared["release_omission_ref"] == declared["source_manifest_refs"][0] + "::release_substitution_omissions"
+    assert declared["body_in_receipt"] is False
+    historical = standard["historical_source_open_body_imports"]
+    assert historical["status"] == "historical_provenance_only"
+    assert historical["body_material_count"] == len(historical["body_material_ids"]) == historical_count
+    for row in manifest["modules"]:
+        data = (bundle_path / row["path"]).read_bytes()
+        assert "sha256:" + hashlib.sha256(data).hexdigest() == row["sha256"]
+        assert row["body_copied"] is True and row["body_in_receipt"] is False
+    if component == "mcp_tool_authority_replay":
+        result = mcp_tool_authority_replay._source_module_manifest_result(
+            bundle_path, public_root=MICROCOSM_ROOT, require_manifest=True, require_public_floor=True
+        )
+        runtime = mcp_tool_authority_replay._source_open_body_import_summary(result)
+        assert standard["body_copied_material_count"] == retained_count
+        verification = standard["body_import_verification"]
+        assert verification["source_module_count"] == retained_count
+        assert verification["verification_status"] == "declared_current_export_inventory"
+        assert standard["historical_body_import_verification"]["recorded_verification"]["source_module_count"] == historical_count
+    else:
+        result = public_reveal_walkthrough._source_module_manifest_result(
+            bundle_path, public_root=MICROCOSM_ROOT, require_manifest=True
+        )
+        runtime = public_reveal_walkthrough._source_open_body_import_summary(result)
+    assert result["status"] == "pass", result
+    assert runtime["body_material_count"] == declared["body_material_count"]
+    assert set(runtime["body_material_ids"]) == retained
+    assert runtime["body_material_classes"] == classes
 
 
 def test_doctrine_roof_validator_ref_has_executable_route() -> None:

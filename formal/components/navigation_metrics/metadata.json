@@ -1,0 +1,48 @@
+{
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "generated_python": {
+    "NavigationMetrics.py": "172da9cf51e22a033f85372925c45fab0ebe18629d16ff7e05cd33536fcb6acb",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "__main__.py": "b75f6e4df327f089a7d1cca29ed96eb055bdc752289d824ade46722cc043b362",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "a9b550887f50145fd29392abb73fc39f5e39921bfc4dc46b7d58d32c2cfab48a"
+  },
+  "module": "NavigationMetrics",
+  "mutations": {
+    "negative/InvalidLatencyMutant.dfy": {
+      "after": "    latency := if !t && wall > budget then 99 else Latency(t,wall,budget);",
+      "before": "    latency := Latency(t,wall,budget);",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    },
+    "negative/PatternCountMutant.dfy": {
+      "after": "    relevant := found;\n    decision := Decision(t,err,found < |e|,scent,forbidden);",
+      "before": "    decision := Decision(t,err,found < |e|,scent,forbidden);",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    }
+  },
+  "negative_results": {
+    "negative/InvalidLatencyMutant.dfy": {
+      "errors": 1,
+      "verified_tasks": 30
+    },
+    "negative/PatternCountMutant.dfy": {
+      "errors": 1,
+      "verified_tasks": 30
+    }
+  },
+  "negative_sha256": {
+    "negative/InvalidLatencyMutant.dfy": "d243f10c2e37cb571fa8a4ba2a4d78be1a8683ff1e17291f4348fda74baca7df",
+    "negative/PatternCountMutant.dfy": "772eb0a0969cd9a98077cdaf2bc97c5081d15faae7f35f1cf0edddd3e1173e74"
+  },
+  "negative_sources": [
+    "negative/InvalidLatencyMutant.dfy",
+    "negative/PatternCountMutant.dfy"
+  ],
+  "schema_version": 1,
+  "slug": "navigation_metrics",
+  "source": "NavigationMetrics.dfy",
+  "source_sha256": "ed519aa34a6edd0a8ff67673b6ed6b40af3ed66790ddb16b4ef5b112721f9c61",
+  "verified_tasks": 31
+}

@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Real-substrate capsule surfaced over bounded public fixtures. Does NOT clone repositories, ship the private annex corpus, perform semantic/embedding/BM25/TF-IDF search, adjudicate licenses or provenance, call providers or external solvers, mutate source, or authorize release or publication. Routes only over the sanitized catalog supplied in each case; absolute scores are catalog-relative (no statistical normalization). Not a production retrieval system and not private-root equivalent.",
-    "card": "Annex Knowledge Routing scores each entry of a sanitized in-memory annex catalog against a problem statement across four descending-weight tiers — structured routing fields, family text, open-first summaries, then curated notes — combining exact-match, phrase-containment, and token-overlap signals per tier into a ranked list with a per-row match breakdown and matched note ids. It is deliberately a transparent keyword-overlap retriever, not BM25/TF-IDF/embeddings/semantic search, and it routes only over the catalog handed to it (no repo cloning, no private corpus, no license authority). The organ exercises the real capsule over four public fixtures: two positives route cleanly to the expected top slug above a minimum score (one via structured fields, one via a curated note), and two negatives self-falsify by recomputing to no_match — one because the problem shares no token with the catalog, one because a domain filter excludes the only candidate. Status is pass only when both positives route, both negatives are rejected with the expected no_match marker, and both expected negative case ids are present.",
-    "one_line": "Explainable tiered weighted-token retrieval that ranks a sanitized annex catalog against a problem statement and rejects unroutable problems with no_match."
+    "authority_ceiling": "Keyword matches are not semantic retrieval or a licence or provenance assessment.",
+    "card": "The annex router takes a problem statement and an in-memory catalogue, scores matching terms and returns ranked entries with a breakdown of their matches. Structured routing fields receive the highest weight, followed by family text, summaries and notes. Optional domain and cluster filters restrict the candidates.",
+    "one_line": "Ranks a supplied catalogue with explainable weighted keyword and phrase matching."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.annex_knowledge_routing",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Real-substrate capsule surfaced over bounded public fixtures. Does NOT clone repositories, ship the private annex corpus, perform semantic/embedding/BM25/TF-IDF search, adjudicate licenses or provenance, call providers or external solvers, mutate source, or authorize release or publication. Routes only over the sanitized catalog supplied in each case; absolute scores are catalog-relative (no statistical normalization). Not a production retrieval system and not private-root equivalent.",
+    "authority_ceiling": "Keyword matches are not semantic retrieval or a licence or provenance assessment.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,9 +86,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Real-substrate capsule surfaced over bounded public fixtures. Does NOT clone repositories, ship the private annex corpus, perform semantic/embedding/BM25/TF-IDF search, adjudicate licenses or provenance, call providers or external solvers, mutate source, or authorize release or publication. Routes only over the sanitized catalog supplied in each case; absolute scores are catalog-relative (no statistical normalization). Not a production retrieval system and not private-root equivalent.",
-        "card": "Annex Knowledge Routing scores each entry of a sanitized in-memory annex catalog against a problem statement across four descending-weight tiers — structured routing fields, family text, open-first summaries, then curated notes — combining exact-match, phrase-containment, and token-overlap signals per tier into a ranked list with a per-row match breakdown and matched note ids. It is deliberately a transparent keyword-overlap retriever, not BM25/TF-IDF/embeddings/semantic search, and it routes only over the catalog handed to it (no repo cloning, no private corpus, no license authority). The organ exercises the real capsule over four public fixtures: two positives route cleanly to the expected top slug above a minimum score (one via structured fields, one via a curated note), and two negatives self-falsify by recomputing to no_match — one because the problem shares no token with the catalog, one because a domain filter excludes the only candidate. Status is pass only when both positives route, both negatives are rejected with the expected no_match marker, and both expected negative case ids are present.",
-        "one_line": "Explainable tiered weighted-token retrieval that ranks a sanitized annex catalog against a problem statement and rejects unroutable problems with no_match."
+        "authority_ceiling": "Keyword matches are not semantic retrieval or a licence or provenance assessment.",
+        "card": "The annex router takes a problem statement and an in-memory catalogue, scores matching terms and returns ranked entries with a breakdown of their matches. Structured routing fields receive the highest weight, followed by family text, summaries and notes. Optional domain and cluster filters restrict the candidates.",
+        "one_line": "Ranks a supplied catalogue with explainable weighted keyword and phrase matching."
       },
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -125,7 +125,7 @@
           "ref": "annex_knowledge_routing"
         }
       ],
-      "title": "Annex Knowledge Routing"
+      "title": "Rank a small catalogue by keyword overlap"
     },
     "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
     "support_contract": {
@@ -282,7 +282,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Explainable tiered weighted-token retrieval that ranks a sanitized annex catalog against a problem statement and rejects unroutable problems with no_match.",
+  "statement": "Ranks a supplied catalogue with explainable weighted keyword and phrase matching.",
   "status": "active",
   "subjects": [
     {
@@ -290,7 +290,7 @@
       "ref": "annex_knowledge_routing"
     }
   ],
-  "title": "Annex Knowledge Routing",
+  "title": "Rank a small catalogue by keyword overlap",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Synthetic replay fixture only; not a live memory product, private transcript export, source-authority claim, or release claim.",
-    "card": "Public Plectis projection of an agent-memory honesty contract. Replays synthetic episodes (a scoped preference later contradicted) and validates temporal-conflict resolution, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
-    "one_line": "Synthetic replay fixture for an agent-memory honesty contract: models scoped-preference episodes and checks temporal-conflict handling; no live memory product."
+    "authority_ceiling": "A fixture replay does not establish the quality or safety of a deployed memory system.",
+    "card": "This replay checks a sequence of public memory episodes, their conflict edges and their later replay. It validates ADD, UPDATE, DELETE and NOOP decisions and checks whether a later update or deletion is supported by an earlier write, evidence handles and temporal ordering. The checker also examines priority and source-trust evidence rather than accepting the decision label alone.",
+    "one_line": "Checks temporal ordering and evidence for memory updates, conflicts and replay."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.agent_memory_temporal_conflict_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Synthetic replay fixture only; not a live memory product, private transcript export, source-authority claim, or release claim.",
+    "authority_ceiling": "A fixture replay does not establish the quality or safety of a deployed memory system.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,9 +77,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Synthetic replay fixture only; not a live memory product, private transcript export, source-authority claim, or release claim.",
-        "card": "Public Plectis projection of an agent-memory honesty contract. Replays synthetic episodes (a scoped preference later contradicted) and validates temporal-conflict resolution, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
-        "one_line": "Synthetic replay fixture for an agent-memory honesty contract: models scoped-preference episodes and checks temporal-conflict handling; no live memory product."
+        "authority_ceiling": "A fixture replay does not establish the quality or safety of a deployed memory system.",
+        "card": "This replay checks a sequence of public memory episodes, their conflict edges and their later replay. It validates ADD, UPDATE, DELETE and NOOP decisions and checks whether a later update or deletion is supported by an earlier write, evidence handles and temporal ordering. The checker also examines priority and source-trust evidence rather than accepting the decision label alone.",
+        "one_line": "Checks temporal ordering and evidence for memory updates, conflicts and replay."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -125,7 +125,7 @@
           "ref": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
         }
       ],
-      "title": "Agent Memory Temporal-Conflict Replay"
+      "title": "Replay memory updates and conflicts"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to a JSON authority row; concept/principle/axiom refs left as honest residuals (no resolving Microcosm doctrine id), not minted.",
     "support_contract": {
@@ -312,7 +312,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Synthetic replay fixture for an agent-memory honesty contract: models scoped-preference episodes and checks temporal-conflict handling; no live memory product.",
+  "statement": "Checks temporal ordering and evidence for memory updates, conflicts and replay.",
   "status": "active",
   "subjects": [
     {
@@ -324,7 +324,7 @@
       "ref": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
     }
   ],
-  "title": "Agent Memory Temporal-Conflict Replay",
+  "title": "Replay memory updates and conflicts",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

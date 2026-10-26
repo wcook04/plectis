@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Synthetic replay fixture only; not a live monitor product, control eval, exploit guide, product-spine substrate, or complete-security claim.",
-    "card": "Public Plectis regression drilldown for a monitor/redteam honesty contract. Replays synthetic monitor traces and validates redteam-falsification behavior, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
-    "one_line": "Synthetic regression drilldown for a monitor/redteam honesty contract; checks falsification handling, negative cases, private-state scan, authority ceilings."
+    "authority_ceiling": "A replay result does not measure detection performance or establish real-world safety.",
+    "card": "This replay joins public trajectory metadata, adversarial probes, monitor observations, escalation and mitigation evidence. It recomputes coverage and monitor verdicts and compares them with the recorded labels. The output identifies whether the supplied evidence satisfies the fixture contract, with findings for mismatches.",
+    "one_line": "Recomputes fixture monitor verdicts and probe coverage from recorded evidence."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.agent_monitor_redteam_falsification_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Synthetic replay fixture only; not a live monitor product, control eval, exploit guide, product-spine substrate, or complete-security claim.",
+    "authority_ceiling": "A replay result does not measure detection performance or establish real-world safety.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,9 +77,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Synthetic replay fixture only; not a live monitor product, control eval, exploit guide, product-spine substrate, or complete-security claim.",
-        "card": "Public Plectis regression drilldown for a monitor/redteam honesty contract. Replays synthetic monitor traces and validates redteam-falsification behavior, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
-        "one_line": "Synthetic regression drilldown for a monitor/redteam honesty contract; checks falsification handling, negative cases, private-state scan, authority ceilings."
+        "authority_ceiling": "A replay result does not measure detection performance or establish real-world safety.",
+        "card": "This replay joins public trajectory metadata, adversarial probes, monitor observations, escalation and mitigation evidence. It recomputes coverage and monitor verdicts and compares them with the recorded labels. The output identifies whether the supplied evidence satisfies the fixture contract, with findings for mismatches.",
+        "one_line": "Recomputes fixture monitor verdicts and probe coverage from recorded evidence."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -124,7 +124,7 @@
           "ref": "mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts"
         }
       ],
-      "title": "Agent Monitor Redteam Falsification Replay"
+      "title": "Check monitor verdicts against adversarial probes"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to a JSON authority row; concept/principle/axiom refs left as honest residuals (no resolving Microcosm doctrine id), not minted.",
     "support_contract": {
@@ -297,7 +297,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Synthetic regression drilldown for a monitor/redteam honesty contract; checks falsification handling, negative cases, private-state scan, authority ceilings.",
+  "statement": "Recomputes fixture monitor verdicts and probe coverage from recorded evidence.",
   "status": "active",
   "subjects": [
     {
@@ -309,7 +309,7 @@
       "ref": "mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts"
     }
   ],
-  "title": "Agent Monitor Redteam Falsification Replay",
+  "title": "Check monitor verdicts against adversarial probes",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public subprocess singleflight fixture and focused regression receipts only; no job scheduler, daemon, distributed lock service, live command_runs export, provider dispatch authority, release approval, private-root equivalence, source mutation, or whole-system correctness.",
-    "card": "Engine Room Command-Run Singleflight is a public-safe subprocess singleflight capsule. It validates content-addressed command keys, scoped dirty/content fingerprints, fcntl leader/follower election, completed-run reuse, captured output replay, and two negative boundaries over fixture commands while keeping scheduler, daemon, distributed-lock, live-state export, release, and private-root claims out of scope.",
-    "one_line": "Public command-run singleflight fixture: content-addressed subprocess keys collapse duplicate active runs and replay captured receipts without claiming scheduler or daemon authority."
+    "authority_ceiling": "Local coordination for the chosen key, not a scheduler or command safety guarantee.",
+    "card": "An empty command is rejected; changed scoped content changes the key.",
+    "one_line": "Coordinates duplicate local commands and can reuse a completed result."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.engine_room_command_run_singleflight",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public subprocess singleflight fixture and focused regression receipts only; no job scheduler, daemon, distributed lock service, live command_runs export, provider dispatch authority, release approval, private-root equivalence, source mutation, or whole-system correctness.",
+    "authority_ceiling": "Local coordination for the chosen key, not a scheduler or command safety guarantee.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -81,9 +81,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public subprocess singleflight fixture and focused regression receipts only; no job scheduler, daemon, distributed lock service, live command_runs export, provider dispatch authority, release approval, private-root equivalence, source mutation, or whole-system correctness.",
-        "card": "Engine Room Command-Run Singleflight is a public-safe subprocess singleflight capsule. It validates content-addressed command keys, scoped dirty/content fingerprints, fcntl leader/follower election, completed-run reuse, captured output replay, and two negative boundaries over fixture commands while keeping scheduler, daemon, distributed-lock, live-state export, release, and private-root claims out of scope.",
-        "one_line": "Public command-run singleflight fixture: content-addressed subprocess keys collapse duplicate active runs and replay captured receipts without claiming scheduler or daemon authority."
+        "authority_ceiling": "Local coordination for the chosen key, not a scheduler or command safety guarantee.",
+        "card": "An empty command is rejected; changed scoped content changes the key.",
+        "one_line": "Coordinates duplicate local commands and can reuse a completed result."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -128,7 +128,7 @@
           "ref": "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight"
         }
       ],
-      "title": "Engine Room Command-Run Singleflight"
+      "title": "Share a duplicate command run"
     },
     "strangler_note": "Binds the authored Markdown projection, staged Engine Room command-run singleflight runtime, fixture manifest, standard, focused tests, and admitted mechanism row to JSON capsule authority without treating Markdown, generated JSON projections, command output, completed-run reuse, or green fixture status as scheduler, daemon, distributed-lock, release, source-mutation, private-root-equivalence, or whole-system authority. No accepted organ subject is claimed.",
     "support_contract": {
@@ -396,7 +396,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Public command-run singleflight fixture: content-addressed subprocess keys collapse duplicate active runs and replay captured receipts without claiming scheduler or daemon authority.",
+  "statement": "Coordinates duplicate local commands and can reuse a completed result.",
   "status": "active",
   "subjects": [
     {
@@ -404,7 +404,7 @@
       "ref": "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight"
     }
   ],
-  "title": "Engine Room Command-Run Singleflight",
+  "title": "Share a duplicate command run",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Copied public macro retrieval metadata and runtime validation receipts only; no theorem correctness, proof-body import, oracle-needed premise authority, Mathlib authority, Lean/Lake execution, provider call, benchmark claim, release approval, publication approval, source mutation, or general formal-proof authority.",
-    "card": "Formal Math Premise Retrieval is the source-backed retrieval slice between the Lean/Std premise catalog and proof-witness boundary. It validates eleven public premise descriptors, four retrieval queries, forty-four considered candidates, exact and source-faithful macro body imports, context recipe byte budgets, strategy ids, card freshness, and five leakage/overclaim negative cases while keeping proof bodies, oracle premise ids, provider payloads, Lean/Lake execution, and release claims out of receipts.",
-    "one_line": "Formal math premise retrieval validates copied public Lean/Std premise metadata, query scoring, context budgets, strategy gates, body-floor provenance, and leakage negative cases without claiming proof authority."
+    "authority_ceiling": "The validator rejects a premise containing a proof body, a query carrying oracle premise IDs, test-split tuning, an unknown strategy and context recipes over budget. This is a small transparent retrieval exercise, not a benchmark of retrieval quality. It does not execute Lean or establish theorem correctness.",
+    "card": "The retrieval fixture scores public Lean/Std premise metadata by token overlap with the query and adds a strategy-tag bonus. It filters candidates by allowed split, sorts by score and checks the shortlist against fixture expectations. The tests show that changing a premise can change the ranking and cause expected recall to fail.",
+    "one_line": "Rank public premise metadata by query terms and strategy tags."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.formal_math_premise_retrieval",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Copied public macro retrieval metadata and runtime validation receipts only; no theorem correctness, proof-body import, oracle-needed premise authority, Mathlib authority, Lean/Lake execution, provider call, benchmark claim, release approval, publication approval, source mutation, or general formal-proof authority.",
+    "authority_ceiling": "The validator rejects a premise containing a proof body, a query carrying oracle premise IDs, test-split tuning, an unknown strategy and context recipes over budget. This is a small transparent retrieval exercise, not a benchmark of retrieval quality. It does not execute Lean or establish theorem correctness.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,9 +84,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Copied public macro retrieval metadata and runtime validation receipts only; no theorem correctness, proof-body import, oracle-needed premise authority, Mathlib authority, Lean/Lake execution, provider call, benchmark claim, release approval, publication approval, source mutation, or general formal-proof authority.",
-        "card": "Formal Math Premise Retrieval is the source-backed retrieval slice between the Lean/Std premise catalog and proof-witness boundary. It validates eleven public premise descriptors, four retrieval queries, forty-four considered candidates, exact and source-faithful macro body imports, context recipe byte budgets, strategy ids, card freshness, and five leakage/overclaim negative cases while keeping proof bodies, oracle premise ids, provider payloads, Lean/Lake execution, and release claims out of receipts.",
-        "one_line": "Formal math premise retrieval validates copied public Lean/Std premise metadata, query scoring, context budgets, strategy gates, body-floor provenance, and leakage negative cases without claiming proof authority."
+        "authority_ceiling": "The validator rejects a premise containing a proof body, a query carrying oracle premise IDs, test-split tuning, an unknown strategy and context recipes over budget. This is a small transparent retrieval exercise, not a benchmark of retrieval quality. It does not execute Lean or establish theorem correctness.",
+        "card": "The retrieval fixture scores public Lean/Std premise metadata by token overlap with the query and adds a strategy-tag bonus. It filters candidates by allowed split, sorts by score and checks the shortlist against fixture expectations. The tests show that changing a premise can change the ranking and cause expected recall to fail.",
+        "one_line": "Rank public premise metadata by query terms and strategy tags."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -138,7 +138,7 @@
           "ref": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection"
         }
       ],
-      "title": "Formal Math Premise Retrieval"
+      "title": "Rank public premise metadata for a query"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave premise-retrieval fixture, exported runtime bundle, source-open body-floor manifests, mechanism row, Microcosm organ source locus, and real validation receipts without treating Markdown, generated atlas docs, retrieval recall, query scoring, copied-body presence, or card freshness as proof, Lean/Lake, Mathlib, provider, release, benchmark, or theorem-correctness authority.",
     "support_contract": {
@@ -416,7 +416,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Formal math premise retrieval validates copied public Lean/Std premise metadata, query scoring, context budgets, strategy gates, body-floor provenance, and leakage negative cases without claiming proof authority.",
+  "statement": "Rank public premise metadata by query terms and strategy tags.",
   "status": "active",
   "subjects": [
     {
@@ -432,7 +432,7 @@
       "ref": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection"
     }
   ],
-  "title": "Formal Math Premise Retrieval",
+  "title": "Rank public premise metadata for a query",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

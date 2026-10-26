@@ -262,10 +262,12 @@
     "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
   },
   "validator_refs": [
-    "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay"
+    "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay",
+    "python -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run --input fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input --out receipts/first_wave/spatial_world_model_counterfactual_simulation_replay"
   ],
   "receipt_refs": [
-    "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay"
+    "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay",
+    "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json"
   ],
   "anti_claims": [
     "This standard governs source-open synthetic spatial counterfactual replay rows under the Microcosm public payload boundary. It does not authorize simulator-product claims, private video export, raw sensor export, live robot or AV operation, real-world geography claims, benchmark scores, provider calls, publication, or release.",

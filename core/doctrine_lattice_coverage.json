@@ -5,6 +5,8 @@
   "anti_principle_instance_corpus": {
     "anti_claim": "Anti-principle JSON presence is migration progress, not proof that every failed-principle relation is obligation-mapped.",
     "authority_flip_status": "not_flipped_legacy_markdown_still_source_of_record",
+    "derived_instance_count": 17,
+    "effective_instance_count": 17,
     "expected_anti_principle_count": 17,
     "extra_json_ids": [],
     "instance_ids": [
@@ -26,9 +28,11 @@
       "AP-16",
       "AP-17"
     ],
-    "instance_source_class": "legacy_markdown_source_until_json_parity",
+    "instance_source_class": "source_canonical_derived_instances",
     "json_authority_migration_status": "not_receipt_bound_or_not_parity_fresh",
     "json_instance_count": 0,
+    "materialization_status": "absent_pre_flip",
+    "materialized_json_file_count": 0,
     "missing_json_ids": [
       "AP-1",
       "AP-2",
@@ -48,121 +52,23 @@
       "AP-16",
       "AP-17"
     ],
-    "parity_status": "blocked",
+    "parity_status": "not_materialized",
     "schema_version": "microcosm_anti_principle_instance_corpus_v1",
     "source_of_record": "ANTI_PRINCIPLES.md",
     "source_refs": {
-      "json_instances": "anti_principles/*.json",
+      "json_instances": null,
       "legacy_markdown": "ANTI_PRINCIPLES.md"
     },
     "validation": {
-      "errors": [
-        {
-          "anti_principle_id": "AP-1",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-1.json"
-        },
-        {
-          "anti_principle_id": "AP-2",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-2.json"
-        },
-        {
-          "anti_principle_id": "AP-3",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-3.json"
-        },
-        {
-          "anti_principle_id": "AP-4",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-4.json"
-        },
-        {
-          "anti_principle_id": "AP-5",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-5.json"
-        },
-        {
-          "anti_principle_id": "AP-6",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-6.json"
-        },
-        {
-          "anti_principle_id": "AP-7",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-7.json"
-        },
-        {
-          "anti_principle_id": "AP-8",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-8.json"
-        },
-        {
-          "anti_principle_id": "AP-9",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-9.json"
-        },
-        {
-          "anti_principle_id": "AP-10",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-10.json"
-        },
-        {
-          "anti_principle_id": "AP-11",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-11.json"
-        },
-        {
-          "anti_principle_id": "AP-12",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-12.json"
-        },
-        {
-          "anti_principle_id": "AP-13",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-13.json"
-        },
-        {
-          "anti_principle_id": "AP-14",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-14.json"
-        },
-        {
-          "anti_principle_id": "AP-15",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-15.json"
-        },
-        {
-          "anti_principle_id": "AP-16",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-16.json"
-        },
-        {
-          "anti_principle_id": "AP-17",
-          "code": "anti_principle_json_instance_missing",
-          "message": "Expected anti-principle JSON instance is missing.",
-          "path": "anti_principles/AP-17.json"
-        }
-      ],
+      "derived_instance_count": 17,
+      "derives_from_canonical_source": true,
+      "effective_instance_count": 17,
+      "errors": [],
       "expected_count": 17,
       "extra_json_ids": [],
       "json_instance_count": 0,
+      "materialization_status": "absent_pre_flip",
+      "materialized_json_file_count": 0,
       "missing_json_ids": [
         "AP-1",
         "AP-2",
@@ -182,14 +88,20 @@
         "AP-16",
         "AP-17"
       ],
+      "parity_status": "not_materialized",
       "schema_version": "microcosm_anti_principle_instance_corpus_validation_v1",
-      "status": "blocked"
-    }
+      "status": "pass",
+      "validation_basis": "canonical_source_derivation"
+    },
+    "validation_basis": "canonical_source_derivation",
+    "validation_status": "pass"
   },
   "authority_boundary": "generated_coverage_projection_not_doctrine_authority",
   "axiom_instance_corpus": {
     "anti_claim": "Axiom JSON presence is migration progress, not proof that every axiom is witnessed or that source authority has flipped from the routing registry.",
     "authority_flip_status": "not_flipped_routing_still_source_of_record",
+    "derived_instance_count": 12,
+    "effective_instance_count": 12,
     "expected_axiom_count": 12,
     "extra_json_ids": [],
     "instance_ids": [
@@ -206,14 +118,13 @@
       "AX-8",
       "AX-9"
     ],
-    "instance_source_class": "legacy_routing_source_until_json_parity",
+    "instance_source_class": "source_canonical_derived_instances",
     "json_authority_migration_status": "not_receipt_bound_or_not_parity_fresh",
     "json_instance_count": 0,
+    "materialization_status": "absent_pre_flip",
+    "materialized_json_file_count": 0,
     "missing_json_ids": [
       "AX-1",
-      "AX-10",
-      "AX-11",
-      "AX-12",
       "AX-2",
       "AX-3",
       "AX-4",
@@ -221,99 +132,31 @@
       "AX-6",
       "AX-7",
       "AX-8",
-      "AX-9"
+      "AX-9",
+      "AX-10",
+      "AX-11",
+      "AX-12"
     ],
-    "parity_status": "blocked",
+    "parity_status": "not_materialized",
     "schema_version": "microcosm_axiom_instance_corpus_v1",
     "source_of_record": "core/axiom_organ_routing.json",
     "source_refs": {
-      "json_instances": "axioms/*.json",
+      "json_instances": null,
       "legacy_markdown": "AXIOMS.md",
       "routing_registry": "core/axiom_organ_routing.json"
     },
     "validation": {
-      "errors": [
-        {
-          "axiom_id": "AX-1",
-          "code": "axiom_json_instance_missing",
-          "message": "Expected axiom JSON instance is missing.",
-          "path": "axioms/AX-1.json"
-        },
-        {
-          "axiom_id": "AX-10",
-          "code": "axiom_json_instance_missing",
-          "message": "Expected axiom JSON instance is missing.",
-          "path": "axioms/AX-10.json"
-        },
-        {
-          "axiom_id": "AX-11",
-          "code": "axiom_json_instance_missing",
-          "message": "Expected axiom JSON instance is missing.",
-          "path": "axioms/AX-11.json"
-        },
-        {
-          "axiom_id": "AX-12",
-          "code": "axiom_json_instance_missing",
-          "message": "Expected axiom JSON instance is missing.",
-          "path": "axioms/AX-12.json"
-        },
-        {
-          "axiom_id": "AX-2",
-          "code": "axiom_json_instance_missing",
-          "message": "Expected axiom JSON instance is missing.",
-          "path": "axioms/AX-2.json"
-        },
-        {
-          "axiom_id": "AX-3",
-          "code": "axiom_json_instance_missing",
-          "message": "Expected axiom JSON instance is missing.",
-          "path": "axioms/AX-3.json"
-        },
-        {
-          "axiom_id": "AX-4",
-          "code": "axiom_json_instance_missing",
-          "message": "Expected axiom JSON instance is missing.",
-          "path": "axioms/AX-4.json"
-        },
-        {
-          "axiom_id": "AX-5",
-          "code": "axiom_json_instance_missing",
-          "message": "Expected axiom JSON instance is missing.",
-          "path": "axioms/AX-5.json"
-        },
-        {
-          "axiom_id": "AX-6",
-          "code": "axiom_json_instance_missing",
-          "message": "Expected axiom JSON instance is missing.",
-          "path": "axioms/AX-6.json"
-        },
-        {
-          "axiom_id": "AX-7",
-          "code": "axiom_json_instance_missing",
-          "message": "Expected axiom JSON instance is missing.",
-          "path": "axioms/AX-7.json"
-        },
-        {
-          "axiom_id": "AX-8",
-          "code": "axiom_json_instance_missing",
-          "message": "Expected axiom JSON instance is missing.",
-          "path": "axioms/AX-8.json"
-        },
-        {
-          "axiom_id": "AX-9",
-          "code": "axiom_json_instance_missing",
-          "message": "Expected axiom JSON instance is missing.",
-          "path": "axioms/AX-9.json"
-        }
-      ],
+      "derived_instance_count": 12,
+      "derives_from_canonical_source": true,
+      "effective_instance_count": 12,
+      "errors": [],
       "expected_count": 12,
       "extra_json_ids": [],
       "json_instance_count": 0,
+      "materialization_status": "absent_pre_flip",
+      "materialized_json_file_count": 0,
       "missing_json_ids": [
         "AX-1",
-        "AX-10",
-        "AX-11",
-        "AX-12",
         "AX-2",
         "AX-3",
         "AX-4",
@@ -321,15 +164,24 @@
         "AX-6",
         "AX-7",
         "AX-8",
-        "AX-9"
+        "AX-9",
+        "AX-10",
+        "AX-11",
+        "AX-12"
       ],
+      "parity_status": "not_materialized",
       "schema_version": "microcosm_axiom_instance_corpus_validation_v1",
-      "status": "blocked"
-    }
+      "status": "pass",
+      "validation_basis": "canonical_source_derivation"
+    },
+    "validation_basis": "canonical_source_derivation",
+    "validation_status": "pass"
   },
   "concept_instance_corpus": {
     "anti_claim": "Concept JSON presence is migration progress, not proof that every concept is principle-grounded, axiom-constrained, or mechanism-instantiated.",
     "authority_flip_status": "not_flipped_entry_packet_still_source_of_record",
+    "derived_instance_count": 11,
+    "effective_instance_count": 11,
     "expected_concept_count": 11,
     "extra_json_ids": [],
     "instance_ids": [
@@ -345,9 +197,11 @@
       "concept.voice_to_doctrine_self_improvement_loop_bundle",
       "concept.work_landing_and_continuity_control_bundle"
     ],
-    "instance_source_class": "entry_packet_source_until_json_parity",
+    "instance_source_class": "source_canonical_derived_instances",
     "json_authority_migration_status": "not_seeded_or_not_parity_fresh",
     "json_instance_count": 0,
+    "materialization_status": "absent_pre_flip",
+    "materialized_json_file_count": 0,
     "missing_json_ids": [
       "concept.agent_reliability_and_safety_validator_bundle",
       "concept.architecture_and_navigation_route_contract_bundle",
@@ -361,86 +215,24 @@
       "concept.voice_to_doctrine_self_improvement_loop_bundle",
       "concept.work_landing_and_continuity_control_bundle"
     ],
-    "parity_status": "blocked",
+    "parity_status": "not_materialized",
     "schema_version": "microcosm_concept_instance_corpus_v1",
     "source_of_record": "atlas/entry_packet.json",
     "source_refs": {
       "entry_packet": "atlas/entry_packet.json",
-      "json_instances": "concepts/*.json"
+      "json_instances": null
     },
     "unpopulated_selective_relation_count": 0,
     "validation": {
-      "errors": [
-        {
-          "code": "concept_json_instance_missing",
-          "concept_id": "concept.agent_reliability_and_safety_validator_bundle",
-          "message": "Expected concept JSON instance is missing.",
-          "path": "concepts/concept.agent_reliability_and_safety_validator_bundle.json"
-        },
-        {
-          "code": "concept_json_instance_missing",
-          "concept_id": "concept.architecture_and_navigation_route_contract_bundle",
-          "message": "Expected concept JSON instance is missing.",
-          "path": "concepts/concept.architecture_and_navigation_route_contract_bundle.json"
-        },
-        {
-          "code": "concept_json_instance_missing",
-          "concept_id": "concept.entry_and_reveal_route_readiness_bundle",
-          "message": "Expected concept JSON instance is missing.",
-          "path": "concepts/concept.entry_and_reveal_route_readiness_bundle.json"
-        },
-        {
-          "code": "concept_json_instance_missing",
-          "concept_id": "concept.executable_doctrine_grammar_standard_bundle",
-          "message": "Expected concept JSON instance is missing.",
-          "path": "concepts/concept.executable_doctrine_grammar_standard_bundle.json"
-        },
-        {
-          "code": "concept_json_instance_missing",
-          "concept_id": "concept.first_screen_doctrine_effect_frame",
-          "message": "Expected concept JSON instance is missing.",
-          "path": "concepts/concept.first_screen_doctrine_effect_frame.json"
-        },
-        {
-          "code": "concept_json_instance_missing",
-          "concept_id": "concept.formal_math_and_proof_witness_bundle",
-          "message": "Expected concept JSON instance is missing.",
-          "path": "concepts/concept.formal_math_and_proof_witness_bundle.json"
-        },
-        {
-          "code": "concept_json_instance_missing",
-          "concept_id": "concept.import_projection_and_drift_control_bundle",
-          "message": "Expected concept JSON instance is missing.",
-          "path": "concepts/concept.import_projection_and_drift_control_bundle.json"
-        },
-        {
-          "code": "concept_json_instance_missing",
-          "concept_id": "concept.research_and_science_replay_evidence_bundle",
-          "message": "Expected concept JSON instance is missing.",
-          "path": "concepts/concept.research_and_science_replay_evidence_bundle.json"
-        },
-        {
-          "code": "concept_json_instance_missing",
-          "concept_id": "concept.standards_meta_diagnostics_bundle",
-          "message": "Expected concept JSON instance is missing.",
-          "path": "concepts/concept.standards_meta_diagnostics_bundle.json"
-        },
-        {
-          "code": "concept_json_instance_missing",
-          "concept_id": "concept.voice_to_doctrine_self_improvement_loop_bundle",
-          "message": "Expected concept JSON instance is missing.",
-          "path": "concepts/concept.voice_to_doctrine_self_improvement_loop_bundle.json"
-        },
-        {
-          "code": "concept_json_instance_missing",
-          "concept_id": "concept.work_landing_and_continuity_control_bundle",
-          "message": "Expected concept JSON instance is missing.",
-          "path": "concepts/concept.work_landing_and_continuity_control_bundle.json"
-        }
-      ],
+      "derived_instance_count": 11,
+      "derives_from_canonical_source": true,
+      "effective_instance_count": 11,
+      "errors": [],
       "expected_count": 11,
       "extra_json_ids": [],
       "json_instance_count": 0,
+      "materialization_status": "absent_pre_flip",
+      "materialized_json_file_count": 0,
       "missing_json_ids": [
         "concept.agent_reliability_and_safety_validator_bundle",
         "concept.architecture_and_navigation_route_contract_bundle",
@@ -454,9 +246,13 @@
         "concept.voice_to_doctrine_self_improvement_loop_bundle",
         "concept.work_landing_and_continuity_control_bundle"
       ],
+      "parity_status": "not_materialized",
       "schema_version": "microcosm_concept_instance_corpus_validation_v1",
-      "status": "blocked"
-    }
+      "status": "pass",
+      "validation_basis": "canonical_source_derivation"
+    },
+    "validation_basis": "canonical_source_derivation",
+    "validation_status": "pass"
   },
   "continuous_population_seat": {
     "cycle": [
@@ -538,7 +334,7 @@
   },
   "generation": {
     "command": "python scripts/build/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-10-13T14:19:54.064058Z",
+    "generated_at": "2026-10-26T22:20:18.833654Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
@@ -635,6 +431,8 @@
   "mechanism_instance_corpus": {
     "anti_claim": "Mechanism JSON presence is migration progress; resolved code-locus paths do not prove runtime correctness, release readiness, or complete concept/sibling wiring.",
     "authority_flip_status": "not_flipped_mechanism_registry_still_source_of_record",
+    "derived_instance_count": 95,
+    "effective_instance_count": 95,
     "expected_mechanism_count": 95,
     "extra_json_ids": [],
     "instance_ids": [
@@ -734,9 +532,11 @@
       "mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop",
       "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
     ],
-    "instance_source_class": "mechanism_registry_source_until_json_parity",
+    "instance_source_class": "source_canonical_derived_instances",
     "json_authority_migration_status": "not_seeded_or_not_parity_fresh",
     "json_instance_count": 0,
+    "materialization_status": "absent_pre_flip",
+    "materialized_json_file_count": 0,
     "missing_json_ids": [
       "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay",
       "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims",
@@ -834,7 +634,7 @@
       "mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop",
       "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
     ],
-    "parity_status": "blocked",
+    "parity_status": "not_materialized",
     "planned_or_unresolved_code_loci": [],
     "planned_or_unresolved_code_loci_count": 0,
     "residual_relation_count": 26,
@@ -1585,586 +1385,20 @@
     ],
     "source_of_record": "core/mechanism_sources.json",
     "source_refs": {
-      "json_instances": "mechanisms/*.json",
+      "json_instances": null,
       "mechanism_registry": "core/mechanism_sources.json"
     },
     "unpopulated_selective_relation_count": 26,
     "validation": {
-      "errors": [
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.agentic_vulnerability_discovery_patch_proof_replay.validates_public_agentic_vulnerability_patch_proof_replay",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.agentic_vulnerability_discovery_patch_proof_replay.validates_public_agentic_vulnerability_patch_proof_replay.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.cognitive_operator_registry.validates_public_operator_contract",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.cognitive_operator_registry.validates_public_operator_contract.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.cold_clone_probe.validates_public_source_root_bootstrap",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.cold_reader_route_map.validates_public_first_run_route_map.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.concurrency_mission_control.validates_public_concurrency_mission_control.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.engine_room_demo.validates_public_engine_room_demo",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.engine_room_demo.validates_public_engine_room_demo.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.first_screen_composition_root.validates_public_first_screen_composition_root.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_witness.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.formal_math_readiness_gate.validates_public_readiness_boundary",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.formal_math_readiness_gate.validates_public_readiness_boundary.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.lean_std_premise_index.validates_public_lean_std_premise_index",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_index.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.pattern_binding_contract.validates_public_pattern_bindings",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.pattern_binding_contract.validates_public_pattern_bindings.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.verifier_lab_kernel.composes_public_formal_math_receipts.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop.json"
-        },
-        {
-          "code": "mechanism_json_instance_missing",
-          "mechanism_id": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
-          "message": "Expected mechanism JSON instance is missing.",
-          "path": "mechanisms/mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary.json"
-        }
-      ],
+      "derived_instance_count": 95,
+      "derives_from_canonical_source": true,
+      "effective_instance_count": 95,
+      "errors": [],
       "expected_count": 95,
       "extra_json_ids": [],
       "json_instance_count": 0,
+      "materialization_status": "absent_pre_flip",
+      "materialized_json_file_count": 0,
       "missing_json_ids": [
         "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay",
         "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims",
@@ -2262,9 +1496,13 @@
         "mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop",
         "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
       ],
+      "parity_status": "not_materialized",
       "schema_version": "microcosm_mechanism_instance_corpus_validation_v1",
-      "status": "blocked"
+      "status": "pass",
+      "validation_basis": "canonical_source_derivation"
     },
+    "validation_basis": "canonical_source_derivation",
+    "validation_status": "pass",
     "without_code_loci": [],
     "without_code_loci_count": 0
   },
@@ -2273,6 +1511,8 @@
   "organ_instance_corpus": {
     "anti_claim": "Organ JSON presence is migration progress, not proof that every organ has complete required links, selective doctrine constraints, runtime correctness, or release readiness.",
     "authority_flip_status": "not_flipped_organ_atlas_registry_still_source_of_record",
+    "derived_instance_count": 88,
+    "effective_instance_count": 88,
     "expected_organ_count": 88,
     "extra_json_ids": [],
     "instance_ids": [
@@ -2365,9 +1605,11 @@
       "voice_to_doctrine_self_improvement_loop",
       "world_model_projection_drift_control_room"
     ],
-    "instance_source_class": "organ_atlas_registry_source_until_json_parity",
+    "instance_source_class": "source_canonical_derived_instances",
     "json_authority_migration_status": "not_seeded_or_not_parity_fresh",
     "json_instance_count": 0,
+    "materialization_status": "absent_pre_flip",
+    "materialized_json_file_count": 0,
     "missing_json_ids": [
       "agent_benchmark_integrity_anti_gaming_replay",
       "agent_closeout_faithfulness_audit",
@@ -2458,7 +1700,7 @@
       "voice_to_doctrine_self_improvement_loop",
       "world_model_projection_drift_control_room"
     ],
-    "parity_status": "blocked",
+    "parity_status": "not_materialized",
     "required_relation_gap_count": 0,
     "residual_relation_count": 26,
     "residual_relation_counts_by_relation_id": {
@@ -3260,545 +2502,21 @@
     ],
     "source_of_record": "core/organ_atlas.json + core/organ_registry.json",
     "source_refs": {
-      "json_instances": "organs/*.json",
+      "json_instances": null,
       "organ_atlas": "core/organ_atlas.json",
       "organ_registry": "core/organ_registry.json"
     },
     "unpopulated_selective_relation_count": 26,
     "validation": {
-      "errors": [
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
-          "path": "organs/agent_benchmark_integrity_anti_gaming_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "agent_closeout_faithfulness_audit",
-          "path": "organs/agent_closeout_faithfulness_audit.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "agent_memory_temporal_conflict_replay",
-          "path": "organs/agent_memory_temporal_conflict_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "agent_monitor_redteam_falsification_replay",
-          "path": "organs/agent_monitor_redteam_falsification_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "agent_route_observability_runtime",
-          "path": "organs/agent_route_observability_runtime.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "agent_sabotage_scheming_monitor_replay",
-          "path": "organs/agent_sabotage_scheming_monitor_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "agent_sandbox_policy_escape_replay",
-          "path": "organs/agent_sandbox_policy_escape_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
-          "path": "organs/agentic_vulnerability_discovery_patch_proof_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "annex_knowledge_routing",
-          "path": "organs/annex_knowledge_routing.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch10_cold_eval_honesty_capsule",
-          "path": "organs/batch10_cold_eval_honesty_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch10_governance_compilers_capsule",
-          "path": "organs/batch10_governance_compilers_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch10_live_source_drift_capsule",
-          "path": "organs/batch10_live_source_drift_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch11_saturation_engines_capsule",
-          "path": "organs/batch11_saturation_engines_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch12_market_dashboard_read_model_capsule",
-          "path": "organs/batch12_market_dashboard_read_model_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch12_prediction_market_board_capsule",
-          "path": "organs/batch12_prediction_market_board_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch12_release_claim_language_gate",
-          "path": "organs/batch12_release_claim_language_gate.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch4_proof_authority_runtime",
-          "path": "organs/batch4_proof_authority_runtime.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch5_authority_systems_capsule",
-          "path": "organs/batch5_authority_systems_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch6_unsurfaced_primitives_capsule",
-          "path": "organs/batch6_unsurfaced_primitives_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch7_demo_take_console_capsule",
-          "path": "organs/batch7_demo_take_console_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch7_macro_engines_capsule",
-          "path": "organs/batch7_macro_engines_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch7_oracle_sibling_capsule",
-          "path": "organs/batch7_oracle_sibling_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch7_secondary_runtime_capsule",
-          "path": "organs/batch7_secondary_runtime_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch8_audio_level_rms_port",
-          "path": "organs/batch8_audio_level_rms_port.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch8_compliance_pipeline_capsule",
-          "path": "organs/batch8_compliance_pipeline_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch8_policy_engines_capsule",
-          "path": "organs/batch8_policy_engines_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch8_structural_theses_capsule",
-          "path": "organs/batch8_structural_theses_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch8_tools_tail_primitives_capsule",
-          "path": "organs/batch8_tools_tail_primitives_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch8_validator_checker_capsule",
-          "path": "organs/batch8_validator_checker_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "batch9_macro_engines_capsule",
-          "path": "organs/batch9_macro_engines_capsule.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "belief_state_process_reward_replay",
-          "path": "organs/belief_state_process_reward_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "bounded_autonomy_campaign_packet",
-          "path": "organs/bounded_autonomy_campaign_packet.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "bridge_campaign_dag_validation",
-          "path": "organs/bridge_campaign_dag_validation.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "bridge_phase_continuity_runtime",
-          "path": "organs/bridge_phase_continuity_runtime.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "certificate_kernel_execution_lab",
-          "path": "organs/certificate_kernel_execution_lab.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "cognitive_operator_registry",
-          "path": "organs/cognitive_operator_registry.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "cold_reader_route_map",
-          "path": "organs/cold_reader_route_map.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "concurrency_mission_control",
-          "path": "organs/concurrency_mission_control.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "corpus_readiness_mathlib_absence_gate",
-          "path": "organs/corpus_readiness_mathlib_absence_gate.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "derived_fact_provider_runtime",
-          "path": "organs/derived_fact_provider_runtime.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "doctrine_fact_claim_audit",
-          "path": "organs/doctrine_fact_claim_audit.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "durable_agent_work_landing_replay",
-          "path": "organs/durable_agent_work_landing_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "egress_self_compliance_audit",
-          "path": "organs/egress_self_compliance_audit.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "engine_room_demo",
-          "path": "organs/engine_room_demo.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "executable_doctrine_grammar",
-          "path": "organs/executable_doctrine_grammar.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "finance_forecast_evaluation_spine",
-          "path": "organs/finance_forecast_evaluation_spine.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "finite_erdos_denominator_certificate_strike",
-          "path": "organs/finite_erdos_denominator_certificate_strike.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "formal_evidence_cell_anchor_resolver",
-          "path": "organs/formal_evidence_cell_anchor_resolver.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "formal_math_lean_proof_witness",
-          "path": "organs/formal_math_lean_proof_witness.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "formal_math_premise_retrieval",
-          "path": "organs/formal_math_premise_retrieval.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "formal_math_readiness_gate",
-          "path": "organs/formal_math_readiness_gate.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "formal_math_verifier_trace_repair_loop",
-          "path": "organs/formal_math_verifier_trace_repair_loop.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "generated_projection_drift_runtime",
-          "path": "organs/generated_projection_drift_runtime.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
-          "path": "organs/indirect_prompt_injection_information_flow_policy_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "lean_proof_search_lab_runtime",
-          "path": "organs/lean_proof_search_lab_runtime.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "lean_std_premise_index",
-          "path": "organs/lean_std_premise_index.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "macro_projection_import_protocol",
-          "path": "organs/macro_projection_import_protocol.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
-          "path": "organs/materials_chemistry_closed_loop_lab_safety_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
-          "path": "organs/mathematical_strategy_atlas_hypothesis_scorer.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "mcp_tool_authority_replay",
-          "path": "organs/mcp_tool_authority_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
-          "path": "organs/mechanistic_interpretability_circuit_attribution_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "metabolism_queue_reconciliation",
-          "path": "organs/metabolism_queue_reconciliation.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "mission_transaction_work_spine",
-          "path": "organs/mission_transaction_work_spine.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "navigation_fitness_benchmark",
-          "path": "organs/navigation_fitness_benchmark.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "navigation_hologram_route_plane",
-          "path": "organs/navigation_hologram_route_plane.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "pattern_assimilation_step",
-          "path": "organs/pattern_assimilation_step.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "pattern_binding_contract",
-          "path": "organs/pattern_binding_contract.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "prediction_oracle_reconciliation",
-          "path": "organs/prediction_oracle_reconciliation.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "proof_derived_governed_mutation_authorization",
-          "path": "organs/proof_derived_governed_mutation_authorization.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "proof_diagnostic_evidence_spine",
-          "path": "organs/proof_diagnostic_evidence_spine.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "provider_context_recipe_budget_policy",
-          "path": "organs/provider_context_recipe_budget_policy.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "public_reveal_walkthrough",
-          "path": "organs/public_reveal_walkthrough.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "research_replication_rubric_artifact_replay",
-          "path": "organs/research_replication_rubric_artifact_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "ring2_premise_retrieval_precision_recall_harness",
-          "path": "organs/ring2_premise_retrieval_precision_recall_harness.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "routing_anti_patterns_registry",
-          "path": "organs/routing_anti_patterns_registry.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "self_ignorance_coverage_ledger",
-          "path": "organs/self_ignorance_coverage_ledger.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "semantic_singleflight_dedup_runtime",
-          "path": "organs/semantic_singleflight_dedup_runtime.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "sleeper_memory_poisoning_quarantine_replay",
-          "path": "organs/sleeper_memory_poisoning_quarantine_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "spatial_world_model_counterfactual_simulation_replay",
-          "path": "organs/spatial_world_model_counterfactual_simulation_replay.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "standards_meta_diagnostics",
-          "path": "organs/standards_meta_diagnostics.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "tactic_portfolio_availability_probe",
-          "path": "organs/tactic_portfolio_availability_probe.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "target_shape_tactic_routing_gate",
-          "path": "organs/target_shape_tactic_routing_gate.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "tool_server_pressure_inventory",
-          "path": "organs/tool_server_pressure_inventory.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "undeclared_library_prior_symbol_classifier",
-          "path": "organs/undeclared_library_prior_symbol_classifier.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "verifier_lab_execution_spine",
-          "path": "organs/verifier_lab_execution_spine.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "verifier_lab_kernel",
-          "path": "organs/verifier_lab_kernel.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "voice_to_doctrine_self_improvement_loop",
-          "path": "organs/voice_to_doctrine_self_improvement_loop.json"
-        },
-        {
-          "code": "organ_json_instance_missing",
-          "message": "Expected organ JSON instance is missing.",
-          "organ_id": "world_model_projection_drift_control_room",
-          "path": "organs/world_model_projection_drift_control_room.json"
-        }
-      ],
+      "derived_instance_count": 88,
+      "derives_from_canonical_source": true,
+      "effective_instance_count": 88,
+      "errors": [],
       "expected_count": 88,
       "extra_json_ids": [],
       "json_instance_count": 0,
+      "materialization_status": "absent_pre_flip",
+      "materialized_json_file_count": 0,
       "missing_json_ids": [
         "agent_benchmark_integrity_anti_gaming_replay",
         "agent_closeout_faithfulness_audit",
@@ -3889,9 +2607,13 @@
         "voice_to_doctrine_self_improvement_loop",
         "world_model_projection_drift_control_room"
       ],
+      "parity_status": "not_materialized",
       "schema_version": "microcosm_organ_instance_corpus_validation_v1",
-      "status": "blocked"
-    }
+      "status": "pass",
+      "validation_basis": "canonical_source_derivation"
+    },
+    "validation_basis": "canonical_source_derivation",
+    "validation_status": "pass"
   },
   "organ_required_edge_coverage": {
     "missing_mechanism_count": 0,
@@ -4775,11 +3497,11 @@
       },
       {
         "path": "core/paper_module_capsules.json",
-        "sha256": "213788f47d80e857849e874e93bc565a66ee436057347dbfae207be89c1cc077",
+        "sha256": "619646bab133a8c13744b9a87b51bceaff3d9ec81e4f1e3cedc6cfb15f13dc4e",
         "source_class": "json_capsule_registry"
       }
     ],
-    "source_manifest_digest": "ea22350639cabb73433eb2544eab7b01394f9f2f54394cdc4534cb2081ea424b",
+    "source_manifest_digest": "9ae9f3a8f10284a07268bbae3a1fbcd57a1155a72411be85822c7d5a3ab7efa2",
     "strangler_rule": "Markdown remains legacy/import projection until JSON instances and capsules round-trip structurally; legacy-only JSON rows are import indexes, not authority upgrades.",
     "suppressed_legacy_markdown_alias_count": 2,
     "suppressed_legacy_markdown_aliases": [
@@ -5443,6 +4165,8 @@
   "principle_instance_corpus": {
     "anti_claim": "Principle JSON presence is migration progress, not proof that every principle is obligation-supported or governs all downstream concepts/mechanisms.",
     "authority_flip_status": "not_flipped_legacy_markdown_still_source_of_record",
+    "derived_instance_count": 20,
+    "effective_instance_count": 20,
     "expected_principle_count": 20,
     "extra_json_ids": [],
     "instance_ids": [
@@ -5467,9 +4191,11 @@
       "P-19",
       "P-20"
     ],
-    "instance_source_class": "legacy_markdown_source_until_json_parity",
+    "instance_source_class": "source_canonical_derived_instances",
     "json_authority_migration_status": "not_receipt_bound_or_not_parity_fresh",
     "json_instance_count": 0,
+    "materialization_status": "absent_pre_flip",
+    "materialized_json_file_count": 0,
     "missing_json_ids": [
       "P-1",
       "P-2",
@@ -5492,139 +4218,23 @@
       "P-19",
       "P-20"
     ],
-    "parity_status": "blocked",
+    "parity_status": "not_materialized",
     "schema_version": "microcosm_principle_instance_corpus_v1",
     "source_of_record": "PRINCIPLES.md",
     "source_refs": {
-      "json_instances": "principles/*.json",
+      "json_instances": null,
       "legacy_markdown": "PRINCIPLES.md"
     },
     "validation": {
-      "errors": [
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-1.json",
-          "principle_id": "P-1"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-2.json",
-          "principle_id": "P-2"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-3.json",
-          "principle_id": "P-3"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-4.json",
-          "principle_id": "P-4"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-5.json",
-          "principle_id": "P-5"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-6.json",
-          "principle_id": "P-6"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-7.json",
-          "principle_id": "P-7"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-8.json",
-          "principle_id": "P-8"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-9.json",
-          "principle_id": "P-9"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-10.json",
-          "principle_id": "P-10"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-11.json",
-          "principle_id": "P-11"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-12.json",
-          "principle_id": "P-12"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-13.json",
-          "principle_id": "P-13"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-14.json",
-          "principle_id": "P-14"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-15.json",
-          "principle_id": "P-15"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-16.json",
-          "principle_id": "P-16"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-17.json",
-          "principle_id": "P-17"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-18.json",
-          "principle_id": "P-18"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-19.json",
-          "principle_id": "P-19"
-        },
-        {
-          "code": "principle_json_instance_missing",
-          "message": "Expected principle JSON instance is missing.",
-          "path": "principles/P-20.json",
-          "principle_id": "P-20"
-        }
-      ],
+      "derived_instance_count": 20,
+      "derives_from_canonical_source": true,
+      "effective_instance_count": 20,
+      "errors": [],
       "expected_count": 20,
       "extra_json_ids": [],
       "json_instance_count": 0,
+      "materialization_status": "absent_pre_flip",
+      "materialized_json_file_count": 0,
       "missing_json_ids": [
         "P-1",
         "P-2",
@@ -5647,9 +4257,13 @@
         "P-19",
         "P-20"
       ],
+      "parity_status": "not_materialized",
       "schema_version": "microcosm_principle_instance_corpus_validation_v1",
-      "status": "blocked"
-    }
+      "status": "pass",
+      "validation_basis": "canonical_source_derivation"
+    },
+    "validation_basis": "canonical_source_derivation",
+    "validation_status": "pass"
   },
   "projection_freshness": {
     "freshness_status": "fresh_at_generation",
@@ -5661,113 +4275,113 @@
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
       "core/mechanism_sources.json": "ee6492f04e5be95eda1ae5bfbf8de419aefdfdd1f40258a266181853e8093d26",
       "core/organ_atlas.json": "621330f48fbd7356b341dfb7f947eb7e41f4a3f929f75d3e263e06be90dcd23c",
-      "core/organ_registry.json": "beebf3017d0a5abdafe7de9c44f13e5497f8bd53c2613a78f77fe0ca87cd8ce3",
-      "core/paper_module_capsules.json": "213788f47d80e857849e874e93bc565a66ee436057347dbfae207be89c1cc077",
+      "core/organ_registry.json": "89e6e97bb5e26dfcb64de5db77e42940b076dd7a7a304d8ed78d9970e6550e1c",
+      "core/paper_module_capsules.json": "619646bab133a8c13744b9a87b51bceaff3d9ec81e4f1e3cedc6cfb15f13dc4e",
       "core/public_surface_manifest.json": "8f1077f8f96170758cb7c274a345f084d5c1ce2d70fd81ace16cac325f0cd957",
       "core/standards_registry.json": "1376ae5629bb3e0728e57bb70d0820046a215a3064b8b69f27a9e67327c04374",
-      "paper_modules/agent_benchmark_integrity_anti_gaming_replay.json": "95568963309ee44954a28fecc3530760f638c6b87ac44ba9046e02beca261970",
-      "paper_modules/agent_closeout_faithfulness_audit.json": "fc248eda1f994d6fc94cb82d5115853fab54f12fab4ce02e5b5714f2aa043bb9",
-      "paper_modules/agent_memory_temporal_conflict_replay.json": "dca7de42640a4fe2ac0fcb773c97734796813cb987afcc75a6aa073a3dfa401e",
-      "paper_modules/agent_monitor_redteam_falsification_replay.json": "7fae43abd9e9f3e881e7233e6c9b68c478b0d9823e1eb2cbbbfc7ff8235c3635",
-      "paper_modules/agent_route_observability_runtime.json": "5ca017abb8bf37e5aec00e8fd88735034f3be251fa4b226fddc16477006d02bb",
-      "paper_modules/agent_sabotage_scheming_monitor_replay.json": "1d478287826bc7eeee7ad3b7b28e428d71d18826a71b6183f9016ee7507e6210",
-      "paper_modules/agent_sandbox_policy_escape_replay.json": "2699a018fc7e1b84e64bb6c802d6f09c7fdc7502d03a810675e01b75a90ae495",
-      "paper_modules/agentic_vulnerability_discovery_patch_proof_replay.json": "2a14afe7fb2413c2bf725a6608fd0b58a7de8ba0e01daa60ca999a41cf8f279c",
-      "paper_modules/annex_knowledge_routing.json": "4aa0057b1337847ff782d5a969a636a27ebbb810102340aaa2f167c39346ed1c",
-      "paper_modules/batch10_cold_eval_honesty_capsule.json": "e4050ed895a51b17483f71221100f8ded5b10741ec4b42956f7eb2bb7c97f606",
-      "paper_modules/batch10_governance_compilers_capsule.json": "c4856b6f33e08c73bd5d9dbd97df1e5f0bf032aa9c24ac41c3a35a61c42a64be",
-      "paper_modules/batch10_live_source_drift_capsule.json": "82cce300a534cf0843e9a7f08288d9dc3ddaa2a36c81799e09157f3e87f25420",
-      "paper_modules/batch11_saturation_engines_capsule.json": "3318c985f9c640e91dd2805e9199bdfc4ad1d84b9d8f498bcc12501e76c2373e",
-      "paper_modules/batch12_market_dashboard_read_model_capsule.json": "eed08f647a9d4ecb38c58a4b13fa022366dc261c12d1ef59a27c579aed162c36",
-      "paper_modules/batch12_prediction_market_board_capsule.json": "927b5d57f8fa60bd3e6648e6643496fcf2ddea37df9f7397c8dfdf2ffabd81ee",
-      "paper_modules/batch12_release_claim_language_gate.json": "7e53be10f5c16cfaeabf5b076c307fa1c832ca1f88f975e8925c077854dedd68",
-      "paper_modules/batch4_proof_authority_runtime.json": "5cee08a8eda0631c5c8c1494798b82bd6a6a336d72028b5296734105fa13e238",
-      "paper_modules/batch5_authority_systems_capsule.json": "4140c50c38caacd62db9a82453ddcdd93d14e14cd00e58b60874be341216f168",
-      "paper_modules/batch6_unsurfaced_primitives_capsule.json": "1b352314ac2dc0ed686e5f523337302251ec4ad85def4c004a78e32bd31cfbbb",
-      "paper_modules/batch7_demo_take_console_capsule.json": "552ad49eaf8f5c97dd7f85559979745417d21c61c6574989d7fa753eaf392adf",
-      "paper_modules/batch7_macro_engines_capsule.json": "5a258c9d3c03ac63a6f5e47e387217f699bb7266577e91af1df4223a5cb925c6",
-      "paper_modules/batch7_oracle_sibling_capsule.json": "c2be154cede47774b3cc91b73e0154a0b167a9e22ca0a7828dcb7994907606a5",
-      "paper_modules/batch7_secondary_runtime_capsule.json": "a65bfbf5f44b2f717630809a387be4619959228d1d3e017746fa1bdac4553dfc",
-      "paper_modules/batch8_audio_level_rms_port.json": "e8bb18695cd0abcbdba24e658de18215c4c7a23ebf18819d95a68ba576f32d1f",
-      "paper_modules/batch8_compliance_pipeline_capsule.json": "6f2b21f25baa2ddd733c49d9b40544df9eb05864109a1b9a782e90804d8ec013",
-      "paper_modules/batch8_policy_engines_capsule.json": "a4f4b95c407ebc78c8ec87cb92681b73852d365f5baca29e3b38fca753c6dad9",
-      "paper_modules/batch8_structural_theses_capsule.json": "699e375ca911a66fde5a9dee0ecbe85441b0bafa9f1efa9c02b1448e99cc0c39",
-      "paper_modules/batch8_tools_tail_primitives_capsule.json": "1f1c042961a157c72d10bb6998f918b573176d0621c02697b8cf30d028985253",
-      "paper_modules/batch8_validator_checker_capsule.json": "b251907880f51ceb6305a0bf975af122475457c38a13f6048aae2b97bd55edc6",
-      "paper_modules/batch9_macro_engines_capsule.json": "a1d2a591f16379175e2872cb71210911b2de0a026b05696b38b7e73eec8b2140",
-      "paper_modules/belief_state_process_reward_replay.json": "7237e44c12abaca97b238d218f0ac16ce001bb2175f9ec6f7ffcdd3efa905234",
-      "paper_modules/bounded_autonomy_campaign_packet.json": "3fc6cb14b8e6622b3665ea4cea73f78f213a5c111502fc7d6ac4a9f76a9bf5d7",
-      "paper_modules/bridge_campaign_dag_validation.json": "61ed8d4e1c4bfcbf301751dfbc44d40d1ed3f1c001b84027122e4932f254ae1e",
-      "paper_modules/bridge_phase_continuity_runtime.json": "da292d1db4f7fdc76f0c3430f359cb1422e25b84b38434ed22c0c2b83df48e86",
-      "paper_modules/certificate_kernel_execution_lab.json": "fcecc345457a89774efd36c039a3126d7d965e13a5b171f35ce9ded19a9e1aeb",
-      "paper_modules/cognitive_operator_registry.json": "b71cf9b08e69f0ab9d857900d0c9cdd73d18ab283eac54ed9fdddb9a5698964c",
-      "paper_modules/cold_clone_probe.json": "a65b5a840d98d1546d4ded8a0d5cc1ac40aaa98b38ed4021e7242c0c8a767e98",
-      "paper_modules/cold_reader_route_map.json": "4e9703b4c9ebcfb7dfb0ae5f78f11db47fdeae9a0bedbd6d78ea860c31ee20db",
-      "paper_modules/computer_use_action_trace_replay.json": "7a8beb29f9172b52ff01eebe540ac3460d3ec10d8334c98e30722a28d5d3f61a",
-      "paper_modules/concurrency_mission_control.json": "23bf3ccb7fb7ea51d36485c330132522fab6ea4c50e5f39bdba47713896145fc",
-      "paper_modules/corpus_readiness_mathlib_absence_gate.json": "c30b87f1362c74725638f9e5a89689156f89316fb627d98cb369feba4cbc883d",
-      "paper_modules/derived_fact_provider_runtime.json": "80307a6b638686d1d537feccac73660d3ea547e1df6bf0c09f57fd5af8bb20a5",
-      "paper_modules/doctrine_fact_claim_audit.json": "923e6185bdc0ccdbf88e01f73a995b54b10fed21547e6bc89bc4e69f68857120",
-      "paper_modules/durable_agent_work_landing_replay.json": "af2a5b9209150e2aaeb08e3584176c701769f87e0fa56c79691527667dc65a50",
-      "paper_modules/egress_self_compliance_audit.json": "ace3587955ac34c53785af1b63941cab2def42a8fd3030c308e90db8d94e459c",
-      "paper_modules/engine_room_annex_knowledge_router.json": "6972a38b67da6fa617b79fbd84531e9c95099e7fb4c4a5b6826f06db533c4096",
-      "paper_modules/engine_room_bridge_campaign_dag.json": "babb5b4aaf384da77dcbd1eac089af0c4e543390c91cd5fa5b000c7f32941a02",
-      "paper_modules/engine_room_command_run_singleflight.json": "edb8eb81512d1fb6fa5ab2506a51df6028d6d780009e5cd1a67034258fc63d20",
-      "paper_modules/engine_room_demo.json": "a2ea8c8cea4cb8d5454fa1f9b5ba30a2d948e6fde90bdf276b98a67fa41dfe92",
-      "paper_modules/engine_room_derived_fact_provider_engine.json": "dc63a6bc9648268746e83145a9f4e8a4db8f8579cc32757184725f9d6b81bef4",
-      "paper_modules/engine_room_egress_self_compliance_gate.json": "a4e9336b9d28099ad21b5f3b49ce4050d020da0d38473b710ee2d9355f1cc8d5",
-      "paper_modules/engine_room_generated_projection_drift_gate.json": "3d0ea2477a0537ecd35933aef06933835f5669f11b7cf0677bdd991d892d52d3",
-      "paper_modules/engine_room_lean_proof_search_lab.json": "7b703a3a16757b7329c2368f1844af520b62b3301a13db087b34ec52e1e4d8d8",
-      "paper_modules/engine_room_metabolism_runtime.json": "ccf2b82fd108b8060f54164a144c54925f0d0116ca9a673726e340c005346cbc",
-      "paper_modules/engine_room_navigation_fitness_benchmark.json": "f2738f0986f7a79ec956a6df29cab2053cef02f0e43f2b8e8b4904e7c76da776",
-      "paper_modules/engine_room_public_projection_leak_gate.json": "c76ec59c6a88b9de1344082a26535075748324a1d6ee6c382a33e32389d313c3",
-      "paper_modules/executable_doctrine_grammar.json": "c7af09c3075df3cb8f030f8fb5e69c838630477312b0c3d6e545cc243e44892b",
-      "paper_modules/finance_forecast_evaluation_spine.json": "327cd1afcf394ff79a3c6f28890353c8eb551133134d60b2aa6e1bb79a5aae44",
-      "paper_modules/finite_erdos_denominator_certificate_strike.json": "b63e3413f2d060c30bb2b330870fded8db92dcecd9242239c490674b05a3dc73",
-      "paper_modules/first_screen_composition_root.json": "82e24dee6cb05a749d5e9289f9415ac274e104c3367028c507fe6b2175d6f21e",
-      "paper_modules/formal_evidence_cell_anchor_resolver.json": "c9cb84e9cbeeb16dde5daee84451b39c34ecc0085480f218134dbd143fd99d17",
-      "paper_modules/formal_math_lean_proof_witness.json": "f44a59fa988e6261c8910724aa64bd6347eeccc1267e0e5f8858a2bda121c33f",
-      "paper_modules/formal_math_premise_retrieval.json": "c068ea83dfb62be5f60d2df1af6382947cae569a122dd39722cb4cbe0e4ab6b3",
-      "paper_modules/formal_math_readiness_gate.json": "cb50212173ae945921d60ab49206448f5520205304c5bf6a1e22ed52c792a855",
-      "paper_modules/formal_math_verifier_trace_repair_loop.json": "379f61c39e0bac0ea7ada2990bd68e79ff7512fdb708b4db3b3af5bee6d1cce0",
-      "paper_modules/generated_projection_drift_runtime.json": "f85c6043fb0aba8fb2f1643e55e55eaa54354ce6d023962ea9bbe029091c42be",
-      "paper_modules/indirect_prompt_injection_information_flow_policy_replay.json": "e5767910cb54abfd615da0b4e875849c5f002f0f71b9cd7f297d962b516577ec",
-      "paper_modules/lean_proof_search_lab_runtime.json": "e6d866ef0abb3632d7f0fd4ca02d9e431917bdd302c98dcad478f49b5a32c1dd",
-      "paper_modules/lean_std_premise_index.json": "42921ff82712cc886e10be5162fe0fe9b581941d96bdc3eed20ecd9e15cc3524",
-      "paper_modules/macro_projection_import_protocol.json": "ef524d445039e765db46b2dacc335bd00f648b9260d65581c9dcbed79f9993df",
-      "paper_modules/materials_chemistry_closed_loop_lab_safety_replay.json": "4c1e6e697ebb5a69728101bb6b92b93d0307a6876c0b862296e68beae12458a1",
-      "paper_modules/mathematical_strategy_atlas.json": "899f2376d993a7eec5913c138e694e2b22907f9b28533eec377a365e6273dba7",
-      "paper_modules/mcp_tool_authority_replay.json": "a9edef5c3487245476c1296ffcab0273438fac9969c32b912126365661f61442",
-      "paper_modules/mechanistic_interpretability_circuit_attribution_replay.json": "9446ad99988a60ac9dbc582caa1d666aa2318053955e07ca770486215f732f53",
-      "paper_modules/metabolism_queue_reconciliation.json": "d3d8276875c89bc5e34266a69a4505496f99ab8cca734c5bf805c260aebed813",
-      "paper_modules/microcosm_axiom_substrate.json": "8e1c6830d8854a8fd51370e4e3cc57fe2f594c5334b5c07eda816e84168790f5",
-      "paper_modules/mission_transaction_work_spine.json": "cabf488be223bd7981cc833c968ab2b4b07c51a3b419e20009e517b8f0ed49dc",
-      "paper_modules/navigation_fitness_benchmark.json": "d345a99c1cfa37dcb9edcce171a3052cb7af978439a1dbfdf47534a7e8f09858",
-      "paper_modules/navigation_hologram_route_plane.json": "627407b37eb60d08b35868ddedafb6374fc2f3244eed8b44753a0c6f23c045eb",
-      "paper_modules/pattern_assimilation.json": "a2e12fdff8326fdab1d0cedac73584c915aac9b75cb57e99639146dcab941e22",
-      "paper_modules/pattern_binding_contract.json": "d08d0785d83604752606ce9b55f43c41046d2b33c0141766339da825df06064d",
-      "paper_modules/prediction_oracle_reconciliation.json": "9c60aac56df171557bafd86a9f8bfbf83eade6a2f2042c02ebd99d286c47c5a0",
-      "paper_modules/proof_derived_governed_mutation_authorization.json": "bf6a05e513cd71c3d1206d2df29b14dbfeef34a04f6e02d22174f052120429b4",
-      "paper_modules/proof_diagnostic_evidence_spine.json": "03b8f8da3617898f6592480170a91e198d041b94fb366813f95afcff969a8a47",
-      "paper_modules/provider_context_recipe_budget.json": "e5451c62ee8cec68e7e790d12f90505f31f4f10a91ff71ceaf818bf377b0e405",
-      "paper_modules/public_reveal_walkthrough.json": "3f2a01838e442fd37f04840d4e3f3f32820f005bc1a04ec0ff1435d3fb838299",
-      "paper_modules/research_replication_rubric_artifact_replay.json": "459459cf5d20f5a7c68733e5048c3b78f1cde91734d8164330e6b0038016d11b",
-      "paper_modules/ring2_premise_precision_recall.json": "39972ad56dd9fefa2b0840b085e1689a7383effc7ff065b306c1578ce475ac25",
-      "paper_modules/routing_anti_patterns_registry.json": "134dcfe8af6df48342e7870be315b4e0dba3505db943b92dd94c0a96ed816602",
-      "paper_modules/self_ignorance_coverage_ledger.json": "c6d4b0e4816e2ad969b6f56217174840bc770fb45adaa1422f9d1a0e1f2d90b6",
-      "paper_modules/semantic_singleflight_dedup_runtime.json": "85af2f4bc95003693d2cec55985d45f40a63150b38489142f0c4377d82493333",
-      "paper_modules/sleeper_memory_poisoning_quarantine_replay.json": "b7947db8e8d0dd02834450cbb531eee453b1cb652ae912ed14f5c2d97632d3c3",
-      "paper_modules/spatial_world_model_counterfactual_simulation_replay.json": "93ef8d6d33321264a60a3c989ace37a4c3d0584bc80226941aabb6fa4b2d87e0",
-      "paper_modules/standards_meta_diagnostics.json": "075ae1ed1e0fc50a5d4015256095a02ccafd9ed936912919d972fd38b0ea2eed",
-      "paper_modules/tactic_portfolio_availability.json": "4664699aac93bfa9178975409feedb9e76d3b4cb59f8a63d18c222752d6d515d",
-      "paper_modules/target_shape_tactic_routing.json": "6a468be722c8d1e60747637db8707b52e82e726a97b0e6e841fd520033abca41",
-      "paper_modules/tool_server_pressure_inventory.json": "3f6a51d2bd73477c0c203a147df7613fb89bd85b486d0ab6d2fdad4038cc4814",
-      "paper_modules/undeclared_library_prior_classifier.json": "922532d202ba2ac5075381bfc3992c121912b0ed17e7e421b9aa9ce40663eded",
-      "paper_modules/verifier_lab_execution_spine.json": "ecb4f648f9be5540fbbf55ee00010649bc4c199ef82585c4ab495e7e3a76c1f7",
-      "paper_modules/verifier_lab_kernel.json": "00cee3e3de50974af9828f218284ab24c7621afac82b3362e3a482e8eb88a1cc",
-      "paper_modules/voice_to_doctrine_self_improvement_loop.json": "d0f2264b239482b322f1992af335429f7d8106d0bd0ee8cbe19c26c57501830c",
-      "paper_modules/work_landing_control_spine.json": "39b6e6fcccf9e111231a16e3c3977fb9442cba51ca67634e6d85fd0b3298070e",
-      "paper_modules/world_model_projection_drift_control_room.json": "a09e05cd3aa73a8c1c4e9bbe59edd20c570777cd229faf7f40159163a070e099",
+      "paper_modules/agent_benchmark_integrity_anti_gaming_replay.json": "2a6474400681d4fe2cf5a65342698ad2e8b658f9ed4579fda2df05fd6fa926b6",
+      "paper_modules/agent_closeout_faithfulness_audit.json": "b7b06c4d2567f0efb6506d02dd830896a8da30d0c6482e1125f8442a00b0d8ce",
+      "paper_modules/agent_memory_temporal_conflict_replay.json": "792a56876733fa904636a79a9a4da0c132033b0c03d8d5aa508124799ea4cb6d",
+      "paper_modules/agent_monitor_redteam_falsification_replay.json": "bc4fb9a10ab10c1952c62daf5b553f382fa4aeca5eccb5640f9364a14e1d7fbb",
+      "paper_modules/agent_route_observability_runtime.json": "1d7abb19ac45840feb5d8c8a1dfe1dc22fc190f6caeda96e3a066b9e5f9e1c80",
+      "paper_modules/agent_sabotage_scheming_monitor_replay.json": "8bf39ac0155bd57ae1cf1ecbe72363ecb0dd142a73d97c36ea1278519feb5e6a",
+      "paper_modules/agent_sandbox_policy_escape_replay.json": "a92ffad85b01a832f0b027c3c9dc9fad5ea391c96e09a8ff9061e363217d137d",
+      "paper_modules/agentic_vulnerability_discovery_patch_proof_replay.json": "0250916a701038c65819aa5eb443d48693d0eb30ba8feed0d20b8f16d8f2b7fd",
+      "paper_modules/annex_knowledge_routing.json": "d91057e36b82af61220b2846ce55954c5fefe279675a85718cf09ba3310e7d60",
+      "paper_modules/batch10_cold_eval_honesty_capsule.json": "55724c26eeaaefb4a28eed301f3fbd7b205cc2212e6f2164ef70b1245c47c4b4",
+      "paper_modules/batch10_governance_compilers_capsule.json": "1a1e0fa7f165789a3136d2d3e851191c673eeab524ea78c685f9da9f1298b1af",
+      "paper_modules/batch10_live_source_drift_capsule.json": "59a347f0ed09914630f32be83b36db75317cac0e22e05d2233e8c0aad51efd7a",
+      "paper_modules/batch11_saturation_engines_capsule.json": "741eccc800308b4651339c2f22e2c9000f2ece9ba5e94b6485c8e6b5d52634c7",
+      "paper_modules/batch12_market_dashboard_read_model_capsule.json": "639b210ef2e38ced7afaa9c8b4cd877b0e15e16b51844f8d28f9c4d69ed18996",
+      "paper_modules/batch12_prediction_market_board_capsule.json": "234dc838a61814f96707aed57e9b71285a3068256f988abc642c844403e0b4b3",
+      "paper_modules/batch12_release_claim_language_gate.json": "3a6f8584e2eceb3c54fd7e8d9dccba60cb2c18df822aaefe5872f7788a5df69d",
+      "paper_modules/batch4_proof_authority_runtime.json": "e0b374f7bf0a35e5d3c975913694d745be0d2cae8dbe61587a2fc1000bf739d7",
+      "paper_modules/batch5_authority_systems_capsule.json": "1c2593f775270174f2c5e77b4f08e0356846099fe10b36f11e1edc49724af993",
+      "paper_modules/batch6_unsurfaced_primitives_capsule.json": "87e581db18fe54c1ec891ceed8149ba222bb62ed876dd5a697fe9cfb640de4bb",
+      "paper_modules/batch7_demo_take_console_capsule.json": "a0554c4ac6fc8819653dded7f6a5ac1ff018ddde0a4a5ec933a41b4f19b9173d",
+      "paper_modules/batch7_macro_engines_capsule.json": "594810206bb9a3be5a90019d879ce98c75559a45d01120bfc6698abb918661de",
+      "paper_modules/batch7_oracle_sibling_capsule.json": "b8a548488c72fb607f06721e380a80b7de71fe4113aae3b78a3184dcb7996892",
+      "paper_modules/batch7_secondary_runtime_capsule.json": "c7821d8e0894c595e64fc40cc864ae006e9971b0f848e6e527af0d749cedf52f",
+      "paper_modules/batch8_audio_level_rms_port.json": "fa449ea72c44687f3cae71f4bba27764cdb0a3dd9c7bc100b02a9cae0e548119",
+      "paper_modules/batch8_compliance_pipeline_capsule.json": "041fcf528fd818256cfa5c6d948612418864333e91ad3d574d89c7d61fec40ae",
+      "paper_modules/batch8_policy_engines_capsule.json": "476ad27b933ea7872d861d26decd931724c7a504a2ba7fb7976fcbed7cc173e4",
+      "paper_modules/batch8_structural_theses_capsule.json": "5fa41182b9bf5402db976a9864d36e44eab52f061c51d1d905148814d1e45539",
+      "paper_modules/batch8_tools_tail_primitives_capsule.json": "fca4aaf11ee96e56ab61c4427413bba35824eb89ca9420be26bfa13e0b8610da",
+      "paper_modules/batch8_validator_checker_capsule.json": "e023a5fc7ca42ce76cb113ffc34b11cc1d8d98ce4e6477bc45da3c4d8bd9a6a0",
+      "paper_modules/batch9_macro_engines_capsule.json": "ef4cc0bb49f35116a7636c71c8143e2b8111f0538fd4bfb04598fa9c4b472a77",
+      "paper_modules/belief_state_process_reward_replay.json": "9caa521e901eb06a180e58902a99eaf244dc5911f919b492d265a1388758186a",
+      "paper_modules/bounded_autonomy_campaign_packet.json": "01388124a34fff3b55172ef92e2848b86d3335b5d906212de05d8b586a4b5182",
+      "paper_modules/bridge_campaign_dag_validation.json": "3ce63519ee6a6a57fb165c3622fb37b13be6917bf9bab0b1858b14f000dddde9",
+      "paper_modules/bridge_phase_continuity_runtime.json": "e2a5f7de081b2dc52e0674e8e8b13cc0dbec913b342405aa551e07ac19fc490b",
+      "paper_modules/certificate_kernel_execution_lab.json": "710a60be8b76e8c886da6677129cbb3def3cfceb3515f558503a6f586ed7bbb9",
+      "paper_modules/cognitive_operator_registry.json": "9465770be3167af6d29aebbdcf9bf73bba223b8c1553634e314dc18c51d17431",
+      "paper_modules/cold_clone_probe.json": "b551ed3b6f9db158964f467a76502a648243339f20908777545e83597d4804e5",
+      "paper_modules/cold_reader_route_map.json": "f2f5eda63d617f44a960d83716049295eaae02fd818f8bf035bcb7fb052c0d96",
+      "paper_modules/computer_use_action_trace_replay.json": "7780a8099d04c2ef7f73df3802d22ffd2a0280d0af9d67a9dc7d6126ce320a71",
+      "paper_modules/concurrency_mission_control.json": "12ef6a542bdcb8a33b1808539421f7ff1bc1f3736cbada6a1e1da9ee23ebab0c",
+      "paper_modules/corpus_readiness_mathlib_absence_gate.json": "19a2d7534a5475644d8f62727c43d32cabf907d9c032ae3fafbe0211391cf055",
+      "paper_modules/derived_fact_provider_runtime.json": "db5d2de55cd420676234fa84a5081686b257deaa7effd75e619f686bfc66d1fd",
+      "paper_modules/doctrine_fact_claim_audit.json": "9497b3e60db0f7fecb42ca24877adbacb2122aceb8b7a222955018eccee50fa3",
+      "paper_modules/durable_agent_work_landing_replay.json": "9c24a83afa792cdcc7ce87a538c34af1f92761ee2eb05a7da06fa84f29f9f49c",
+      "paper_modules/egress_self_compliance_audit.json": "661c531c999831c6b0047cca55127b1959bd0bed99c07f4bb642e4a9ccdd1477",
+      "paper_modules/engine_room_annex_knowledge_router.json": "3b869f0ad38479ca9b2767c4aa19ee6371be86ceb8b8edce7d3ad3844c02365a",
+      "paper_modules/engine_room_bridge_campaign_dag.json": "9a905f449b1bf5380bb64828c17a3cf0c0f9ffef148bc6d72001569b16d6fc9f",
+      "paper_modules/engine_room_command_run_singleflight.json": "3c51eceb7a59d5880675d1a4fd91c05740d42e677ddf92f57366230af0c877c6",
+      "paper_modules/engine_room_demo.json": "91dbd3471965a43110ecd3ebf0e72367128c2d793bff73d5566234f5be78e8aa",
+      "paper_modules/engine_room_derived_fact_provider_engine.json": "803a2d900005d8bfc7c49a8b2508ea12dc840bff87c3bb6f6e517fe282735d7f",
+      "paper_modules/engine_room_egress_self_compliance_gate.json": "5e4192856743ab31cbe1a397a7439ff4e2854ca86ab9eb7caa05677c071ecf29",
+      "paper_modules/engine_room_generated_projection_drift_gate.json": "bdf677e69624cd2b47c22c0a73ccb82290853b1352ec3008df832fe35edf29b3",
+      "paper_modules/engine_room_lean_proof_search_lab.json": "f32fda282f1290158cbdd3453605aabb2b43d96d929fd7d7ac6ba50b3f9059f1",
+      "paper_modules/engine_room_metabolism_runtime.json": "198bd09e6895162b28b774a9be690e6bb2e0957767250a6152a8945d940cf35b",
+      "paper_modules/engine_room_navigation_fitness_benchmark.json": "deca413f11141d80b731dac16da648a4475934c38492e64a9d2f2c901cbefe46",
+      "paper_modules/engine_room_public_projection_leak_gate.json": "13ce8db8724329a0aaf097e26bad218843ffe73a08c8c762770f088554c338a6",
+      "paper_modules/executable_doctrine_grammar.json": "af9b7a5ce7fc97615aca6fac4c85df8fd2e729a832e631a69ec2e2da5f5b3ccf",
+      "paper_modules/finance_forecast_evaluation_spine.json": "a827342bc016dc4d3b76371a56f7e949c32579387599108403984a954c66d8dc",
+      "paper_modules/finite_erdos_denominator_certificate_strike.json": "191b2de557725b9011bc41ffaec41fc0c3ceaa8d2e171e39827d2be75cab63c2",
+      "paper_modules/first_screen_composition_root.json": "54bb7ca6d8ff40d93f57361c47b8582a3a09f40703befeed094adcfa47fcfb25",
+      "paper_modules/formal_evidence_cell_anchor_resolver.json": "9e5a4dcc1eae1e8de3fb68ef916be1cfdc749fd2aeb5376ed066f70a9154df86",
+      "paper_modules/formal_math_lean_proof_witness.json": "8571c94b2f521745b0bab45c9b07872122a3184f42bb50d412308a26aa0dd82c",
+      "paper_modules/formal_math_premise_retrieval.json": "ebfa0dc9e094409a4ed42f007e22d7fc895ea6d09b97241a8e0b056e774eb813",
+      "paper_modules/formal_math_readiness_gate.json": "7a0e5ffec4d19a679be42d8118f3468cc1ed8303d21032e66979788e5d530edf",
+      "paper_modules/formal_math_verifier_trace_repair_loop.json": "0ba7720a36d691214a41d18cf2a5a6157c352e5d999d582c2b256fa1481e12c5",
+      "paper_modules/generated_projection_drift_runtime.json": "915ee2183b4a8aa634b2487f6d17f62f4b1f8e8ae3970f08b317087837fc9ba2",
+      "paper_modules/indirect_prompt_injection_information_flow_policy_replay.json": "314557194379f1110d1e92c0355dfa625130711fdd0f75a7381f0f28a09de93a",
+      "paper_modules/lean_proof_search_lab_runtime.json": "a13bd028ab751c22270756dd689d2281e177a5c1d5591bf84bc104196d80dd65",
+      "paper_modules/lean_std_premise_index.json": "c7db9d5de061775dcba77001449c0a4b2a823e5bede7065d4af8d8c808792582",
+      "paper_modules/macro_projection_import_protocol.json": "278353b8542370f7233f23a1a2e20bdaf1bc5f1869fc50cfe1f0f70f2d8e7f78",
+      "paper_modules/materials_chemistry_closed_loop_lab_safety_replay.json": "f3c8a523cce0ca2ebf9c42073cf984b4cffb83ac9b39493f0ea0832c07a5da2b",
+      "paper_modules/mathematical_strategy_atlas.json": "697a66029713e5dc22f6c659694291cc358885a454afbc0391cd05b548530241",
+      "paper_modules/mcp_tool_authority_replay.json": "374f61fb44758e69d69559cf98c719087e3d5e7a0eceaee1081e385bba683bee",
+      "paper_modules/mechanistic_interpretability_circuit_attribution_replay.json": "05c4bd8f4e52fc38fadd864e7b0d17952453f064990f03cb3b8096f198d7eea0",
+      "paper_modules/metabolism_queue_reconciliation.json": "0cf0e08cc8a0c104c1b087848f44b11f32423b13c6393c5c2fbf2b8414e2bfaa",
+      "paper_modules/microcosm_axiom_substrate.json": "e352112a990c5c2034f84104c41165de6e6b3aba7d1ca1854138f29c0542cf16",
+      "paper_modules/mission_transaction_work_spine.json": "451f00291facf7db90bb0d8206a6258dbd3ae6a4a8bf089f9dda38d58bb816d6",
+      "paper_modules/navigation_fitness_benchmark.json": "9319810222a5649763d772802ac30c5aec91b8c326c2024531b9c64b6028d464",
+      "paper_modules/navigation_hologram_route_plane.json": "d514ba1559c9c2d4f00a450414106ebefca2beb07115bade1500df203789372d",
+      "paper_modules/pattern_assimilation.json": "ace7c5cc76cc73374446467fd6e3bbe2fbd904b7d57e37dd73738d4723cee4f9",
+      "paper_modules/pattern_binding_contract.json": "0e0412677ab95379e29ec3b1afacbe4a89002ac16e5d5569aabb12eb20bd3d99",
+      "paper_modules/prediction_oracle_reconciliation.json": "4d925fdabd5f2a68657eb423e1714eb1b1c290805043bd4116d6f85d4ddb0cba",
+      "paper_modules/proof_derived_governed_mutation_authorization.json": "16d1fe02438990c993abc578d93d8554b7846c24c11417f789174b390786c9e9",
+      "paper_modules/proof_diagnostic_evidence_spine.json": "85365bd1c8f465ebf7b2668c2886edc5def3be0e1bfeae78afca08c62f4a4d78",
+      "paper_modules/provider_context_recipe_budget.json": "f5f16a05c53f3e0dda80ed9e106eb3dfec0944e4d4ed28aa63a699a3a5cbbee3",
+      "paper_modules/public_reveal_walkthrough.json": "795d7d2e17683508cd3895b9e59974b708413564dedee13e4df003a4aa0210fa",
+      "paper_modules/research_replication_rubric_artifact_replay.json": "c983d877328cd9fc40df48d67dfb00b5e233ff225318835b87acf07a79c03c31",
+      "paper_modules/ring2_premise_precision_recall.json": "95c54037b8af5f5fe7317d6cb123da609f03c231d98bf43fd87551c755af4e72",
+      "paper_modules/routing_anti_patterns_registry.json": "ef3d6b57325cb0cc7d45963ac29ec8397b8abb4ed89f6f76d86ea2d89d038e32",
+      "paper_modules/self_ignorance_coverage_ledger.json": "7bbb11f20ca68a5e0e739079d2d2a2f57b7ff271a5892414d0a1203da58d65e4",
+      "paper_modules/semantic_singleflight_dedup_runtime.json": "a757c1fc2b821599281841edaa1b8041fa3ffc3b1888e6725c8a73f7fa1ae863",
+      "paper_modules/sleeper_memory_poisoning_quarantine_replay.json": "2190c46be04fecd4693700fc54e593af29b15d58626c82977d185166a114af7b",
+      "paper_modules/spatial_world_model_counterfactual_simulation_replay.json": "89572f0ebbef3bfb5a4128c649c78e9af804a31be34e29b8d7da98a07136a7f8",
+      "paper_modules/standards_meta_diagnostics.json": "027396ad9c41e14658b76af624a7774ef93380a17f81515d0ce2f1c096f55ab2",
+      "paper_modules/tactic_portfolio_availability.json": "581ad2321e52b8cf9b6cd9a3c01d947d3258548d5c7a6ce48f1f03d5f7288fb0",
+      "paper_modules/target_shape_tactic_routing.json": "1ce3c8ddb2e27a23f036cd432d4678a4d43ea6b1337788767ffd644c7694de5f",
+      "paper_modules/tool_server_pressure_inventory.json": "bc670b4b8e21a283b270e15049d9f26ffbc962c3c176a37bcb5d0022fe9fbb88",
+      "paper_modules/undeclared_library_prior_classifier.json": "818b62d6242dcefdcf1a781c4a27323d861d8086aca03e287fc206f23f2f2337",
+      "paper_modules/verifier_lab_execution_spine.json": "f716fbe2eb68a6204efcbf688a58613fe6b568f9c442abc5d6921a54d0b7c859",
+      "paper_modules/verifier_lab_kernel.json": "76b04e0a14dcdfcde6c22ae7e37a09c5a4f038e2c2f6930421dffc74f9ffa009",
+      "paper_modules/voice_to_doctrine_self_improvement_loop.json": "236fdd7124435fb3321785ad0f716df091f25566e48d0a0f2b2b5e32d03c6e82",
+      "paper_modules/work_landing_control_spine.json": "58db98412d908422689194937d43f874aae724d9ba6104c31fcf03e47e3d284d",
+      "paper_modules/world_model_projection_drift_control_room.json": "e581ddf7237e1ac831c41bff97e294f098e7af30610727ca190541efa72e67ca",
       "skills/cold_start_navigation.json": "c4a9ae43890c1db248e767e2529515c12101273266198049e339f5005c82d183",
       "skills/cold_start_navigation.md": "1d5d79cd99ec517f02d0ffb6701a203cfb579c24052aefdcfe2e056d55834d0f",
       "skills/microcosm.agent_benchmark_integrity_anti_gaming_replay.author.json": "a676a4597f9f7be7c60181a59276d279b4a54e1304da0df9154e5701830d0785",
@@ -6549,9 +5163,9 @@
       "standards/std_microcosm_agent_benchmark_integrity_anti_gaming_replay.json": "4e5026ec637fae53797ae789e9818df6a088d2059417e0e7286d94db1ddb32a3",
       "standards/std_microcosm_agent_closeout_faithfulness_audit.json": "3bffbf26141230922f53ece849b0aa08553bdfbeb5b84bac9c7832cddb1d0674",
       "standards/std_microcosm_agent_memory_temporal_conflict_replay.json": "c956cd24aaa0acd50a9c6e836b6b6eaa4a01e1a047780e8d2a8a079a0f522dbc",
-      "standards/std_microcosm_agent_monitor_redteam_falsification_replay.json": "27b6d2b42edceda4a0b9abb84767bc46a42f99c99e0da1a6bf2d991e4abc69a6",
-      "standards/std_microcosm_agent_route_observability_runtime.json": "a6c4653d8453d4a3b741317469e778b7c60799501bcfb6e5bd21f55a3beac8d2",
-      "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json": "1514123c06ee5b1dd65b703f31e3aa64abf7f5bfa8d7a7b77388677844b8b1bc",
+      "standards/std_microcosm_agent_monitor_redteam_falsification_replay.json": "0e49625bee9bd215b283745fc3ca7a69b185e4f900ec2110be2181003bba067b",
+      "standards/std_microcosm_agent_route_observability_runtime.json": "d98722c9baa05f50f70c3a086805c021d9892bf955f5b55e12851ff97a24117e",
+      "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json": "3d440e60901a6a6e43464f1eb78c475afda3b7790ebb5ee3d7c4dfb9a23349cc",
       "standards/std_microcosm_agent_sandbox_policy_escape_replay.json": "1cc98aad2332dca48c13e51bace4a5e7d924de2203bcbddf9834a327e60330d3",
       "standards/std_microcosm_agent_trace.json": "62b104f7d4df91e5106532e792b3b8c9a6961e00a55992de7c03d4e8d284ce4a",
       "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json": "1fa798ef9f96fbb488f79bb52c14b4c384f2c1078265429b6d41a6ca591eeb2d",
@@ -6596,7 +5210,7 @@
       "standards/std_microcosm_concept.json": "854585f5481577ba03100030e2dd4155964e847ede8b7b0f0a5998bffa5dadb9",
       "standards/std_microcosm_concurrency_mission_control.json": "08bbfc5934fe842305281ae888ce694865e6e08395c633b81fa656072448ae7b",
       "standards/std_microcosm_continuation_packet.json": "c3de9a3ce03489aa169a18433a359cebd4824a826a6948b7f9ea63a662092b47",
-      "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json": "e16f6d8c4b9a55132f9867d6b759132243d88bc6b3fa2f616cfdfe9c3b9de1fd",
+      "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json": "03deb0cfa7ba80cc4a75599d0d3f2613f396149dd6a1ae9b5ebba4ef852e4305",
       "standards/std_microcosm_derived_fact_provider_runtime.json": "9b8a366c1bfe9f15b14ca228cc2a538e0d4b81418055d73efab1ba2f788d1edb",
       "standards/std_microcosm_doctrine_enrichment.json": "7db3af6964d2568141abae6876fdc219e953ae18e6c75fce26cca0a5bb6cd19b",
       "standards/std_microcosm_doctrine_fact_claim_audit.json": "39022745025ca024b2d0f6cb80591dbd762214f076c206b7d9ed816e176a95f7",
@@ -6616,7 +5230,7 @@
       "standards/std_microcosm_engine_room_public_projection_leak_gate.json": "ba77215475bc72ecd91ef6843974eb3c9f19f53e5d9e5903a21fabefec790e43",
       "standards/std_microcosm_evidence_cell.json": "da50834bc871f36eee8ab3ef707ffbb0d3ea16144fb57efbe956903faf19d5bf",
       "standards/std_microcosm_evidence_graph.json": "d5757b9a81332e387ff83ce23101fc85239ff49975d240c1b215c14f5dfcf863",
-      "standards/std_microcosm_executable_doctrine_grammar.json": "b7cd33a2cb1a44fe8ee278e9b90c1a14b13bb2e6b961aa763ee6a0323f095c14",
+      "standards/std_microcosm_executable_doctrine_grammar.json": "233955dbd236b9f93ab812b82b41f572a9d54d03af7e202eede181905a0763b2",
       "standards/std_microcosm_external_candidate.json": "730f026967b9f621de34f1d955f05a427e7ac34734ae808ce5fd171dd80a032c",
       "standards/std_microcosm_finance_forecast_evaluation_spine.json": "a5f49ecbda0b171a934a4914f722faa28a919e5fc921a97f77de712296eb6083",
       "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json": "f3c42472714bec804c98cb9af042341455264d46e3c33576ee2e702a9769ecb9",
@@ -6638,14 +5252,14 @@
       "standards/std_microcosm_macro_projection_import_protocol.json": "8e834bd1e23aee8f5d25f8a116db046344491093abcffaaced2a61b20c917614",
       "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json": "6b5154a4e48d3a5a2c748d500f883cb58f09aaf6ad0867d356b4850e0476ea0c",
       "standards/std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json": "ca419b0664363a4f6c6f69b1ea45fb60d7501ca9c938804c449989fd1d258f4a",
-      "standards/std_microcosm_mcp_tool_authority_replay.json": "b6f8b7615b5d0aeb941c4202dfd1497d4acfbeb50b88cd56d6e5550ffaf3dda4",
+      "standards/std_microcosm_mcp_tool_authority_replay.json": "31e4dda93e6fdfa3f50fa59aff4bae8f19a5d947df2b3a9162eac2665bbfd9f3",
       "standards/std_microcosm_mechanism.json": "39b589359d4ae3883dbdae561810d84e61ecec69b5c2c23dea73af7f63357b4d",
       "standards/std_microcosm_mechanistic_interpretability_circuit_attribution_replay.json": "eddd0992e0b40941acccb741118f5a305d010594c9b3e952ababf5b2037665b5",
       "standards/std_microcosm_metabolism_queue_reconciliation.json": "4aafbbe3d083a0ced53b88c5bacfcfb999e080de2935ecfebc4caacb08b244df",
       "standards/std_microcosm_mission.json": "2c883f2a40bc4cb08ade51b26247f18ff0e4707a7a8f359d8141cd4232c02926",
-      "standards/std_microcosm_mission_transaction_work_spine.json": "2cb72080f94c10a08303ee5ec4d67b8243b9dbe313fbebb3f8cf8164f66f6c7c",
+      "standards/std_microcosm_mission_transaction_work_spine.json": "3b8f33a7c1bd696a2850434c15c4d3d500afb80f07d901c8cc49b321b9962404",
       "standards/std_microcosm_navigation_fitness_benchmark.json": "54660f601f1c07f28237943ce9cb97d4d6d2aea0d9df72eae09e5e0d7fe8a6f6",
-      "standards/std_microcosm_navigation_hologram_route_plane.json": "eafa29f7b37913fa63489949f07f24b8f0c6e5cd15c260766b5e62e7a8daf574",
+      "standards/std_microcosm_navigation_hologram_route_plane.json": "b573ee93f32c765d38c46e6f57eae03ccfaefe61091ce89bf45cda3d27025144",
       "standards/std_microcosm_observatory_legibility.json": "64e6fd2c0fe58aec1a213fed378ac21f99d7433f99095cb13f2e674bb1022732",
       "standards/std_microcosm_omission_receipt.json": "4b22b9bb057e85b2e58494562592647b3d0736140d465791301978a952373edf",
       "standards/std_microcosm_option_surface.json": "17af07af157be019f1df7624329046ff806994ca972db666ea134ff44141a7d0",
@@ -6653,7 +5267,7 @@
       "standards/std_microcosm_paper_module.json": "446b1620b80ccb8108be76a383b34a16d1bfb5562de2d5bcf6eb7e07f013ca1a",
       "standards/std_microcosm_pattern.json": "e082a17271bcd6b026ac03f81807e54aea6eaa5224c6804b028a8dac05a762e3",
       "standards/std_microcosm_pattern_assimilation_step.json": "2438b35096cc49fcc9f20a7eea4507221eb54d500423d53ab288f461803b9c2c",
-      "standards/std_microcosm_pattern_binding_contract.json": "a96a0aba5db48d2a5b8af176ad88dc9df7ae6452d7cfab22efa121c09c858c5d",
+      "standards/std_microcosm_pattern_binding_contract.json": "18e37b813247218ea4dfbed4056e0232f7acc1ceff0b74cbe32f16ce547d2a64",
       "standards/std_microcosm_prediction_oracle_reconciliation.json": "f2ad0ff41c8deaded00950b847af9f00b02950c4ea8b910797a751b27a0d4902",
       "standards/std_microcosm_principle.json": "f82fdb2a0cee8d84e5c4e1c8c0adc0d4810b1d68eae03cfeda5d65475341926f",
       "standards/std_microcosm_private_fixture.json": "861b00fcaf254c0e68e6e35ecb5197489f50ceeabef0f5e7d322738753c1a39c",
@@ -6661,7 +5275,7 @@
       "standards/std_microcosm_proof_derived_governed_mutation_authorization.json": "0b9790274de0c1308f8a7ed4c8942f1331105390271ed0de9e9a9bb697b0fd72",
       "standards/std_microcosm_proof_diagnostic_evidence_spine.json": "43e6f371cf099c28e83eebc96b573b88c5dd12895ede704bf3f2c058e0771929",
       "standards/std_microcosm_provider_context_recipe_budget_policy.json": "9fd7cc06f08435e1e20e0feacec82c93e33fd3e5b02b6cc1e332318eeaf366a8",
-      "standards/std_microcosm_public_reveal_walkthrough.json": "3455b8cb4e5fd999a8fb64dd0bc28c0ae2afe1890894b7d2a904d8139e0073e4",
+      "standards/std_microcosm_public_reveal_walkthrough.json": "bfb6a69b1f377055b2e7fc1a270fb9c7eaf677c2883c1b1d615dd7da6c957726",
       "standards/std_microcosm_quarantine_record.json": "e45c7e6ded5d5351d020db7ae8a92dea1b948a74518b8ebac0d2f9890a5498b5",
       "standards/std_microcosm_receipt.json": "e8509176d683d72eb658f2a955d6bef094d669124cd564c846ceb30f78620747",
       "standards/std_microcosm_research_replication_rubric_artifact_replay.json": "18efb62bb8426d72111d779d37731f69b924187bcf94601e2592fb777f79123c",
@@ -6676,7 +5290,7 @@
       "standards/std_microcosm_sleeper_memory_poisoning_quarantine_replay.json": "b2c6bb0fe5ad7953ba9257a5076a63aef54476ff83b5ef579cd66994d1416b35",
       "standards/std_microcosm_source_capsule.json": "3cd8ad9be1fa45c4626872a5a33ea92914fa8ee551cc48f1cce2bb37f95b2db9",
       "standards/std_microcosm_source_coupling_result.json": "20949dfe1c3db3d52bd33781cb6338884b6eedc0cb5c743ba9f6e7e146f6970e",
-      "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json": "29113f73a5ea5bd930ca420afd37b2af8abecd9ebd017566e1781cb83f6c549e",
+      "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json": "7e9de8465e8beeff1652c4fa5323ec7b557c16b8c3dcba1cfa9dbaeee77b3d0c",
       "standards/std_microcosm_standard.json": "a8328398a6247f04b8db43285f9b6b7fb9d8dcfb712537ca5370974d6e69d1ec",
       "standards/std_microcosm_standards_meta_diagnostics.json": "d560a773702e66969e6ab787d6457346cf3a48f79640a09d51f28ee61900aa8a",
       "standards/std_microcosm_standards_registry.json": "68d388357fd428baa32c31ca527624139be94392bc136511311fe2e4def2a04d",
@@ -6690,7 +5304,7 @@
       "standards/std_microcosm_validation_result.json": "38085e2b87b144aff2481abd54cb832551967d697d3f5427f842a4e1f0a57a49",
       "standards/std_microcosm_validator.json": "9046b0cdd65ced5ad2630fda2e3990e195ca1bd01c06c705df9d4721c1ec5ee8",
       "standards/std_microcosm_verifier_lab_execution_spine.json": "70f4507aacd761f0c32eb2ee8dcfa3971f01d538e944109d240e41049aab6547",
-      "standards/std_microcosm_verifier_lab_kernel.json": "23acaf92a2813e581f3ffcdb0e44c4eaa944fab56a63039c34e07fbf543fb948",
+      "standards/std_microcosm_verifier_lab_kernel.json": "e786844f557782fd49102d338ee7aebc3a159779c368bb8d69ba5cd9e346d769",
       "standards/std_microcosm_voice_to_doctrine_self_improvement_loop.json": "2b0236fea474800f8cd5e3838dc4fbd60492959e68720175c089428fdc21cc59",
       "standards/std_microcosm_work_item.json": "08b3d8f102c004145f58d78d1f10a63d33de8f8fe89e43933121fb0b7fab2282",
       "standards/std_microcosm_work_landing_control_spine.json": "158fb1aceab2f17063a9495576b81e345ded65abd83f6c96293728f0cc7c4000",
@@ -7281,20 +5895,20 @@
     }
   },
   "source_refs": {
-    "anti_principle_instances": "anti_principles/*.json",
+    "anti_principle_instances": null,
     "anti_principles_legacy_markdown": "ANTI_PRINCIPLES.md",
-    "axiom_instances": "axioms/*.json",
+    "axiom_instances": null,
     "axiom_routing": "core/axiom_organ_routing.json",
     "concept_entry_packet": "atlas/entry_packet.json",
-    "concept_instances": "concepts/*.json",
-    "mechanism_instances": "mechanisms/*.json",
+    "concept_instances": null,
+    "mechanism_instances": null,
     "mechanism_registry": "core/mechanism_sources.json",
     "organ_atlas": "core/organ_atlas.json",
-    "organ_instances": "organs/*.json",
+    "organ_instances": null,
     "organ_registry": "core/organ_registry.json",
     "paper_module_capsules": "core/paper_module_capsules.json",
     "paper_module_instances": "paper_modules/*.json",
-    "principle_instances": "principles/*.json",
+    "principle_instances": null,
     "principles_legacy_markdown": "PRINCIPLES.md",
     "public_surface_manifest": "core/public_surface_manifest.json",
     "relation_registry": "core/doctrine_lattice_relations.json",

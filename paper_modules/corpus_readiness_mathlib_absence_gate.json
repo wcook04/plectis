@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public algorithmic projection over copied non-secret corpus/toolchain readiness substrate, first-wave fixture receipts, and exported bundle receipts only; no Lean/Lake rerun, Mathlib availability claim, theorem correctness, proof body export, provider call, benchmark/corpus completeness, release approval, publication approval, or whole-system proof claim.",
-    "card": "Corpus Readiness Mathlib Absence Gate is the public formal-math corpus readiness boundary for Microcosm. It checks copied non-secret PROVER smoke-run corpus readiness rows, Lean/Std toolchain probe rows, Mathlib absence status, consumer-gate decisions, absent corpus blocking, source-module manifest digests, body-free receipt policy, and five negative cases while keeping proof bodies, provider payloads, private source refs, benchmark-completeness claims, release authority, and Mathlib proof authority out of receipts.",
-    "one_line": "The corpus readiness Mathlib absence gate validates copied non-secret corpus/toolchain readiness bodies before any Mathlib-dependent proof or retrieval claim is allowed."
+    "authority_ceiling": "Not a Mathlib project build, theorem proof or complete corpus inventory.",
+    "card": "Compares fixture corpus and consumer records with anchored evidence and a temporary import probe.",
+    "one_line": "Checks corpus readiness with source artifacts and a Lean import probe."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.corpus_readiness_mathlib_absence_gate",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public algorithmic projection over copied non-secret corpus/toolchain readiness substrate, first-wave fixture receipts, and exported bundle receipts only; no Lean/Lake rerun, Mathlib availability claim, theorem correctness, proof body export, provider call, benchmark/corpus completeness, release approval, publication approval, or whole-system proof claim.",
+    "authority_ceiling": "Not a Mathlib project build, theorem proof or complete corpus inventory.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,9 +85,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public algorithmic projection over copied non-secret corpus/toolchain readiness substrate, first-wave fixture receipts, and exported bundle receipts only; no Lean/Lake rerun, Mathlib availability claim, theorem correctness, proof body export, provider call, benchmark/corpus completeness, release approval, publication approval, or whole-system proof claim.",
-        "card": "Corpus Readiness Mathlib Absence Gate is the public formal-math corpus readiness boundary for Microcosm. It checks copied non-secret PROVER smoke-run corpus readiness rows, Lean/Std toolchain probe rows, Mathlib absence status, consumer-gate decisions, absent corpus blocking, source-module manifest digests, body-free receipt policy, and five negative cases while keeping proof bodies, provider payloads, private source refs, benchmark-completeness claims, release authority, and Mathlib proof authority out of receipts.",
-        "one_line": "The corpus readiness Mathlib absence gate validates copied non-secret corpus/toolchain readiness bodies before any Mathlib-dependent proof or retrieval claim is allowed."
+        "authority_ceiling": "Not a Mathlib project build, theorem proof or complete corpus inventory.",
+        "card": "Compares fixture corpus and consumer records with anchored evidence and a temporary import probe.",
+        "one_line": "Checks corpus readiness with source artifacts and a Lean import probe."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -142,7 +142,7 @@
           "ref": "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary"
         }
       ],
-      "title": "Corpus Readiness Mathlib Absence Gate"
+      "title": "Check corpus readiness and a Mathlib absence case"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave corpus readiness fixture, exported runtime bundle, copied source-module manifest, mechanism row, Microcosm organ source locus, real corpus/toolchain readiness rows, Mathlib absence guard, consumer-gate decisions, and validation receipts without treating Markdown, generated atlas docs, copied-body presence, absent-corpus rows, probe metadata, or negative-case observation as Lean/Lake execution, Mathlib proof authority, theorem correctness, benchmark/corpus completeness, provider authority, release, publication, source mutation, or product-progress authority.",
     "support_contract": {
@@ -326,7 +326,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The corpus readiness Mathlib absence gate validates copied non-secret corpus/toolchain readiness bodies before any Mathlib-dependent proof or retrieval claim is allowed.",
+  "statement": "Checks corpus readiness with source artifacts and a Lean import probe.",
   "status": "active",
   "subjects": [
     {
@@ -342,7 +342,7 @@
       "ref": "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary"
     }
   ],
-  "title": "Corpus Readiness Mathlib Absence Gate",
+  "title": "Check corpus readiness and a Mathlib absence case",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

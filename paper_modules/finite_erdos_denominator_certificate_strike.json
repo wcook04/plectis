@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public fixture and receipt evidence only; it computes a finite denominator-order certificate in exact arithmetic and does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, is not a machine-checked proof of even the finite statement, and is not release approval or publication approval.",
-    "card": "Finite Erdos Denominator-Order Certificate Strike is the public formal-math replay for the finite period-noncollapse certificate. It sums 1/(b^n-1) over a finite support as an exact Fraction, reads the reduced denominator Q, computes the multiplicative order of b mod Q, cross-checks Q against the closed form B/gcd(A_L,B), and confirms ord_Q(b)=lcm(F) on small cases including a reducing case. It self-falsifies: a forged order or denominator is rejected by recomputation. It writes body-free receipts and surfaces microcosm_core.engine_room.finite_denominator_order_certificate without calling providers.",
-    "one_line": "The finite Erdos denominator-order certificate strike surfaces the public finite_denominator_order_certificate capsule and verifies, in exact rational arithmetic, that ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q over bounded public fixtures."
+    "authority_ceiling": "The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erdős problem 257.",
+    "card": "For a finite set of positive integers F and base b ≥ 2, the component computes the exact rational sum S = Σ 1/(bⁿ − 1) = P/Q. It calculates the multiplicative order of b modulo Q, compares it with lcm(F), and independently checks Q using a common denominator. Duplicate support entries are normalized to a set.",
+    "one_line": "Compute and check a finite rational denominator and multiplicative-order certificate."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.finite_erdos_denominator_certificate_strike",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public fixture and receipt evidence only; it computes a finite denominator-order certificate in exact arithmetic and does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, is not a machine-checked proof of even the finite statement, and is not release approval or publication approval.",
+    "authority_ceiling": "The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erdős problem 257.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,9 +86,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public fixture and receipt evidence only; it computes a finite denominator-order certificate in exact arithmetic and does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, is not a machine-checked proof of even the finite statement, and is not release approval or publication approval.",
-        "card": "Finite Erdos Denominator-Order Certificate Strike is the public formal-math replay for the finite period-noncollapse certificate. It sums 1/(b^n-1) over a finite support as an exact Fraction, reads the reduced denominator Q, computes the multiplicative order of b mod Q, cross-checks Q against the closed form B/gcd(A_L,B), and confirms ord_Q(b)=lcm(F) on small cases including a reducing case. It self-falsifies: a forged order or denominator is rejected by recomputation. It writes body-free receipts and surfaces microcosm_core.engine_room.finite_denominator_order_certificate without calling providers.",
-        "one_line": "The finite Erdos denominator-order certificate strike surfaces the public finite_denominator_order_certificate capsule and verifies, in exact rational arithmetic, that ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q over bounded public fixtures."
+        "authority_ceiling": "The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erdős problem 257.",
+        "card": "For a finite set of positive integers F and base b ≥ 2, the component computes the exact rational sum S = Σ 1/(bⁿ − 1) = P/Q. It calculates the multiplicative order of b modulo Q, compares it with lcm(F), and independently checks Q using a common denominator. Duplicate support entries are normalized to a set.",
+        "one_line": "Compute and check a finite rational denominator and multiplicative-order certificate."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -125,7 +125,7 @@
           "ref": "finite_erdos_denominator_certificate_strike"
         }
       ],
-      "title": "Finite Erdos Denominator-Order Certificate Strike"
+      "title": "Check a finite denominator and multiplicative order"
     },
     "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
     "support_contract": {
@@ -282,7 +282,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The finite Erdos denominator-order certificate strike surfaces the public finite_denominator_order_certificate capsule and verifies, in exact rational arithmetic, that ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q over bounded public fixtures.",
+  "statement": "Compute and check a finite rational denominator and multiplicative-order certificate.",
   "status": "active",
   "subjects": [
     {
@@ -290,7 +290,7 @@
       "ref": "finite_erdos_denominator_certificate_strike"
     }
   ],
-  "title": "Finite Erdos Denominator-Order Certificate Strike",
+  "title": "Check a finite denominator and multiplicative order",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

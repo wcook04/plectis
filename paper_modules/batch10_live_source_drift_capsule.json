@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture-bound source-digest, anchor, compile, and claim-ceiling evidence only; no route authority, Work or Task Ledger mutation, mission execution, git approval, source mutation, release, publication, provider dispatch, or private runtime export.",
-    "card": "Batch 10 Live Source Drift Capsule imports exact current non-secret control-plane Python bodies after macro source drift. It validates stale-versus-current digest rows, copied-source compileability without import execution, required behavioral anchors, source-manifest boundaries, negative cases, and authority ceilings while excluding route authority, Work Ledger or Task Ledger mutation authority, mission execution, git approval, source mutation, release, publication, provider dispatch, and private runtime export.",
-    "one_line": "Batch 10 Live Source Drift Capsule validates copied current control-plane source bodies without route, ledger-mutation, or release authority."
+    "authority_ceiling": "The fixture is a source-integrity exercise, not a check of a live private runtime.",
+    "card": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them. It produces a result, a board and a validation receipt for the supplied fixture. The digest matrix requires each current digest to match and each stale digest to differ. A replay using a stale digest is rejected; the compile gate also rejects a bypass. Matching bytes and successful compilation do not prove the program behaves correctly or authorize changes to source, ledgers or routes.",
+    "one_line": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch10_live_source_drift_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture-bound source-digest, anchor, compile, and claim-ceiling evidence only; no route authority, Work or Task Ledger mutation, mission execution, git approval, source mutation, release, publication, provider dispatch, or private runtime export.",
+    "authority_ceiling": "The fixture is a source-integrity exercise, not a check of a live private runtime.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,9 +85,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture-bound source-digest, anchor, compile, and claim-ceiling evidence only; no route authority, Work or Task Ledger mutation, mission execution, git approval, source mutation, release, publication, provider dispatch, or private runtime export.",
-        "card": "Batch 10 Live Source Drift Capsule imports exact current non-secret control-plane Python bodies after macro source drift. It validates stale-versus-current digest rows, copied-source compileability without import execution, required behavioral anchors, source-manifest boundaries, negative cases, and authority ceilings while excluding route authority, Work Ledger or Task Ledger mutation authority, mission execution, git approval, source mutation, release, publication, provider dispatch, and private runtime export.",
-        "one_line": "Batch 10 Live Source Drift Capsule validates copied current control-plane source bodies without route, ledger-mutation, or release authority."
+        "authority_ceiling": "The fixture is a source-integrity exercise, not a check of a live private runtime.",
+        "card": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them. It produces a result, a board and a validation receipt for the supplied fixture. The digest matrix requires each current digest to match and each stale digest to differ. A replay using a stale digest is rejected; the compile gate also rejects a bypass. Matching bytes and successful compilation do not prove the program behaves correctly or authorize changes to source, ledgers or routes.",
+        "one_line": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -136,7 +136,7 @@
           "ref": "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule"
         }
       ],
-      "title": "Batch 10 Live Source Drift Capsule"
+      "title": "Check copied source for drift"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row. Concept edges remain residual until a stable concept id is selected.",
     "support_contract": {
@@ -412,7 +412,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 10 Live Source Drift Capsule validates copied current control-plane source bodies without route, ledger-mutation, or release authority.",
+  "statement": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them.",
   "status": "active",
   "subjects": [
     {
@@ -424,7 +424,7 @@
       "ref": "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule"
     }
   ],
-  "title": "Batch 10 Live Source Drift Capsule",
+  "title": "Check copied source for drift",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

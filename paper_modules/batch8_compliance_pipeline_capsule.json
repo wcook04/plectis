@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Declared public compliance and pipeline fixture evidence plus copied source-module digest checks only; no full compliance-ledger refresh, bridge/provider dispatch authority, raw-seed mutation, repository mutation, complete compliance proof, release approval, publication approval, or whole-system correctness.",
-    "card": "Batch 8 Compliance Pipeline Capsule imports public-safe compliance scanner registry, bounded compliance ledger builder, and observe-loop pipeline helper bodies into a runnable organ. It checks registry shape, bounded no-write compliance checks, baseline scanner truth accounting, pure pipeline helper behavior, source-module digests, negative cases, and authority ceilings while excluding full compliance-ledger refresh, bridge/provider dispatch, raw-seed mutation, repository mutation, release, publication, and complete compliance proof.",
-    "one_line": "Batch 8 Compliance Pipeline Capsule validates copied compliance scanner and observe-pipeline mechanics without refreshing the full ledger or dispatching bridge/provider work."
+    "authority_ceiling": "A passing fixture is evidence about these specific source contracts and helper inputs, not a fresh full compliance ledger or permission to dispatch a pipeline.",
+    "card": "Public compliance rows inspect source contracts; selected pipeline helpers run on synthetic data, including a directive-preservation example.",
+    "one_line": "A fixture checks copied compliance contracts and pipeline helpers."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch8_compliance_pipeline_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Declared public compliance and pipeline fixture evidence plus copied source-module digest checks only; no full compliance-ledger refresh, bridge/provider dispatch authority, raw-seed mutation, repository mutation, complete compliance proof, release approval, publication approval, or whole-system correctness.",
+    "authority_ceiling": "A passing fixture is evidence about these specific source contracts and helper inputs, not a fresh full compliance ledger or permission to dispatch a pipeline.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -89,9 +89,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Declared public compliance and pipeline fixture evidence plus copied source-module digest checks only; no full compliance-ledger refresh, bridge/provider dispatch authority, raw-seed mutation, repository mutation, complete compliance proof, release approval, publication approval, or whole-system correctness.",
-        "card": "Batch 8 Compliance Pipeline Capsule imports public-safe compliance scanner registry, bounded compliance ledger builder, and observe-loop pipeline helper bodies into a runnable organ. It checks registry shape, bounded no-write compliance checks, baseline scanner truth accounting, pure pipeline helper behavior, source-module digests, negative cases, and authority ceilings while excluding full compliance-ledger refresh, bridge/provider dispatch, raw-seed mutation, repository mutation, release, publication, and complete compliance proof.",
-        "one_line": "Batch 8 Compliance Pipeline Capsule validates copied compliance scanner and observe-pipeline mechanics without refreshing the full ledger or dispatching bridge/provider work."
+        "authority_ceiling": "A passing fixture is evidence about these specific source contracts and helper inputs, not a fresh full compliance ledger or permission to dispatch a pipeline.",
+        "card": "Public compliance rows inspect source contracts; selected pipeline helpers run on synthetic data, including a directive-preservation example.",
+        "one_line": "A fixture checks copied compliance contracts and pipeline helpers."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -146,7 +146,7 @@
           "ref": "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule"
         }
       ],
-      "title": "Batch 8 Compliance Pipeline Capsule"
+      "title": "Check copied compliance and pipeline helpers"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row. Concept edges remain residual until a stable concept id is selected.",
     "support_contract": {
@@ -536,7 +536,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 8 Compliance Pipeline Capsule validates copied compliance scanner and observe-pipeline mechanics without refreshing the full ledger or dispatching bridge/provider work.",
+  "statement": "A fixture checks copied compliance contracts and pipeline helpers.",
   "status": "active",
   "subjects": [
     {
@@ -548,7 +548,7 @@
       "ref": "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule"
     }
   ],
-  "title": "Batch 8 Compliance Pipeline Capsule",
+  "title": "Check copied compliance and pipeline helpers",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

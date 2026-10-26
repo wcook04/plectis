@@ -198,7 +198,7 @@
       "registry_status_before_activation": "draft",
       "validator_id": "validator.microcosm.organs.navigation_hologram_route_plane",
       "receipt_id": "receipt.microcosm.navigation_hologram_route_plane",
-      "organ_authority_receipt": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
+      "organ_authority_receipt": "receipts/first_wave/navigation_hologram_route_plane/affordance_passport_selection_receipt.json",
       "organ_evidence_class": "semantic_validator",
       "organ_evidence_strength_rank": 5,
       "truth_accounting_bucket": "real_import_validation",

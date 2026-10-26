@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public projection leak-gate fixture and rendered-root scan receipts only; no general security scanner, prompt-injection defense, sandbox, information-flow proof, release approval, private-root equivalence, source mutation, or whole-system correctness.",
-    "card": "Engine Room Public Projection Leak Gate is a public-safe DLP-style projection boundary. It scans rendered public projection files and paths, checks symlink escapes, records policy-exception hits as hash-only evidence, reports optional gitleaks status, and validates two positive plus three negative fixture cases without copying sensitive payloads, approving release, or claiming general security, prompt-injection, sandbox, or information-flow authority.",
-    "one_line": "The Engine Room public projection leak gate validates rendered public projection roots for credential-shaped strings, private path shapes, symlink escapes, policy-exception handling, and optional gitleaks status while keeping findings hash-only."
+    "authority_ceiling": "The fixture suite checks both clean and blocked projections, including a private home path and secret-shaped text. `scan --fail-on-blocking` is needed if a blocked scan should produce a nonzero exit; without it the scan command can return zero even for a non-green result. Policy exception paths change the scan outcome and should be reviewed carefully.",
+    "card": "The gate scans rendered file paths and contents for configured private-path and secret patterns, and checks symlink escapes. Findings are reported without reproducing matching secret values. The optional Gitleaks integration needs an installed `gitleaks` binary; requiring it when unavailable fails closed.",
+    "one_line": "Scan public projection fixtures for configured leak patterns and symlink escapes."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.engine_room_public_projection_leak_gate",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public projection leak-gate fixture and rendered-root scan receipts only; no general security scanner, prompt-injection defense, sandbox, information-flow proof, release approval, private-root equivalence, source mutation, or whole-system correctness.",
+    "authority_ceiling": "The fixture suite checks both clean and blocked projections, including a private home path and secret-shaped text. `scan --fail-on-blocking` is needed if a blocked scan should produce a nonzero exit; without it the scan command can return zero even for a non-green result. Policy exception paths change the scan outcome and should be reviewed carefully.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -80,9 +80,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public projection leak-gate fixture and rendered-root scan receipts only; no general security scanner, prompt-injection defense, sandbox, information-flow proof, release approval, private-root equivalence, source mutation, or whole-system correctness.",
-        "card": "Engine Room Public Projection Leak Gate is a public-safe DLP-style projection boundary. It scans rendered public projection files and paths, checks symlink escapes, records policy-exception hits as hash-only evidence, reports optional gitleaks status, and validates two positive plus three negative fixture cases without copying sensitive payloads, approving release, or claiming general security, prompt-injection, sandbox, or information-flow authority.",
-        "one_line": "The Engine Room public projection leak gate validates rendered public projection roots for credential-shaped strings, private path shapes, symlink escapes, policy-exception handling, and optional gitleaks status while keeping findings hash-only."
+        "authority_ceiling": "The fixture suite checks both clean and blocked projections, including a private home path and secret-shaped text. `scan --fail-on-blocking` is needed if a blocked scan should produce a nonzero exit; without it the scan command can return zero even for a non-green result. Policy exception paths change the scan outcome and should be reviewed carefully.",
+        "card": "The gate scans rendered file paths and contents for configured private-path and secret patterns, and checks symlink escapes. Findings are reported without reproducing matching secret values. The optional Gitleaks integration needs an installed `gitleaks` binary; requiring it when unavailable fails closed.",
+        "one_line": "Scan public projection fixtures for configured leak patterns and symlink escapes."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -127,7 +127,7 @@
           "ref": "mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate"
         }
       ],
-      "title": "Engine Room Public Projection Leak Gate"
+      "title": "Scan public projection fixtures for leaks"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, staged Engine Room leak-gate runtime, fixture manifest, standard, focused tests, mechanism row, and Engine Room demo dependency evidence to JSON capsule authority without treating the Markdown page, generated JSON projections, optional gitleaks availability, scan green status, or policy exceptions as release, source-mutation, private-root-equivalence, general-security, prompt-injection, sandbox, or information-flow authority. No accepted organ subject is claimed.",
     "support_contract": {
@@ -394,7 +394,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The Engine Room public projection leak gate validates rendered public projection roots for credential-shaped strings, private path shapes, symlink escapes, policy-exception handling, and optional gitleaks status while keeping findings hash-only.",
+  "statement": "Scan public projection fixtures for configured leak patterns and symlink escapes.",
   "status": "active",
   "subjects": [
     {
@@ -402,7 +402,7 @@
       "ref": "mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate"
     }
   ],
-  "title": "Engine Room Public Projection Leak Gate",
+  "title": "Scan public projection fixtures for leaks",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

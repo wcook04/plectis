@@ -27,6 +27,7 @@ _LINKED_SIBLINGS = (
     "docs/guides/compatibility.md",
     "docs/guides/public-views.md",
     "formal/README.md",
+    "formal/components/README.md",
     "formal/replay/README.md",
     "formal/repair/Repair.dfy",
     "formal/compatibility/Compatibility.dfy",

@@ -90,6 +90,7 @@ def test_batch8_tools_tail_primitives_capsule_runs_real_source_exercises(
     assert observer["evidence_diff"]["missed_ledger_ids"] == ["E2"]
     assert observer["evidence_diff"]["extra_ledger_ids"] == ["E3"]
     assert observer["malformed_rows_skipped"] is True
+    assert observer["source_execution_relation"] == "verified_evidence_core_and_copied_prediction_body"
 
     patch_vm = runtime["version_committer_json_patch_vm"]
     assert patch_vm["patched_document"]["profile"]["name"] == "Microcosm"

@@ -3,9 +3,10 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
-import subprocess
 from pathlib import Path
 from typing import Any
+
+import pytest
 
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_mcp_tool_authority_trace,
@@ -22,24 +23,11 @@ from microcosm_core.organs.mcp_tool_authority_replay import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/mcp_tool_authority_replay/input"
 BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle"
 )
-
-
-def _committed_source_bytes(repo_root: Path, source_ref: str) -> bytes:
-    """Read the committed macro source so sibling worktree dirt cannot redefine provenance."""
-    result = subprocess.run(
-        ["git", "-C", str(repo_root), "show", f"HEAD:{source_ref}"],
-        check=False,
-        capture_output=True,
-    )
-    if result.returncode == 0:
-        return result.stdout
-    return (repo_root / source_ref).read_bytes()
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -67,10 +55,9 @@ def _copy_fixture_input(tmp_path: Path) -> Path:
 def _copy_bundle_input(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
-    shutil.copytree(
-        MICROCOSM_ROOT / "src/microcosm_core/organs",
-        public_root / "src/microcosm_core/organs",
-    )
+    validator = Path("src/microcosm_core/organs/mcp_tool_authority_replay.py")
+    (public_root / validator).parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MICROCOSM_ROOT / validator, public_root / validator)
     shutil.copytree(
         MICROCOSM_ROOT / "examples/mcp_tool_authority_replay",
         public_root / "examples/mcp_tool_authority_replay",
@@ -465,9 +452,9 @@ def test_mcp_tool_authority_exported_bundle_validates_runtime_shape(
     )
     assert result["source_module_manifest_status"] == "pass"
     assert result["source_open_body_imports"]["status"] == "pass"
-    assert result["source_open_body_imports"]["body_material_count"] >= 6
+    assert result["source_open_body_imports"]["body_material_count"] == 2
     assert result["body_material_status"] == SOURCE_MODULE_IMPORT_STATUS
-    assert result["body_copied_material_count"] >= 6
+    assert result["body_copied_material_count"] == 2
     assert result["realness_rank"] == 4
     assert result["realness_rung"] == "R4"
     assert (
@@ -487,7 +474,10 @@ def test_mcp_tool_authority_exported_bundle_validates_runtime_shape(
     assert verification["source_to_target_relation"] == (
         "source_faithful_public_refactor"
     )
-    assert verification["digest_relation"] == "source_target_refactor_digests_recorded"
+    assert verification["digest_relation"] in {
+        "source_target_refactor_digests_recorded",
+        "source_target_refactor_digests_unavailable_in_public_copy",
+    }
     assert verification["source_ref"] == "system/lib/agent_execution_trace.py"
     assert verification["target_file_ref"] == (
         "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
@@ -496,25 +486,21 @@ def test_mcp_tool_authority_exported_bundle_validates_runtime_shape(
         "microcosm-substrate/src/microcosm_core/macro_tools/"
         "agent_execution_trace.py::build_public_mcp_tool_authority_trace"
     )
-    assert verification["source_body_digest"] == (
-        "sha256:"
-        + hashlib.sha256(
-            (SOURCE_ROOT / "system/lib/agent_execution_trace.py").read_bytes()
-        ).hexdigest()
-    )
-    assert verification["target_body_digest"] == (
-        "sha256:"
-        + hashlib.sha256(
-            (
-                MICROCOSM_ROOT
-                / "src/microcosm_core/macro_tools/agent_execution_trace.py"
-            ).read_bytes()
-        ).hexdigest()
-    )
+    if verification["digest_relation"] == "source_target_refactor_digests_recorded":
+        source_root = mcp_tool_authority_replay._repo_root_for_public_refactor(MICROCOSM_ROOT)
+        assert source_root is not None
+        for key, ref in (("source_body_digest", verification["source_ref"]),
+                         ("target_body_digest", verification["target_file_ref"])):
+            assert verification[key] == "sha256:" + hashlib.sha256(
+                (source_root / ref).read_bytes()
+            ).hexdigest()
+    else:
+        assert verification["source_body_digest"] is None
+        assert verification["target_body_digest"] is None
     assert verification["source_module_digest_relation"] == (
         "manifest_target_digests_verified"
     )
-    assert verification["source_module_digest_count"] >= 6
+    assert verification["source_module_digest_count"] == 2
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["public_agent_execution_trace"]["status"] == "pass"
     assert result["public_agent_execution_trace"]["span_count"] == 3
@@ -977,7 +963,7 @@ def test_mcp_tool_authority_rejects_self_consistent_source_module_body_swap(
     row = next(
         module
         for module in manifest["modules"]
-        if module["module_id"] == "agent_execution_trace_runtime_body_import"
+        if module["module_id"] == "agent_execution_trace_standard_body_import"
     )
     target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
     target = (
@@ -1007,6 +993,7 @@ def test_mcp_tool_authority_rejects_self_consistent_source_module_body_swap(
     assert result["realness_rung"] == "blocked"
     assert result["source_module_manifest_status"] == "blocked"
     assert "MCP_TOOL_SOURCE_MODULE_SOURCE_REF_MISMATCH" in result["error_codes"]
+    assert "MCP_TOOL_SOURCE_INVENTORY_FLOOR_MISMATCH" in result["error_codes"]
 
 
 def test_mcp_tool_authority_bundle_card_reuses_fresh_receipt(
@@ -1035,7 +1022,7 @@ def test_mcp_tool_authority_bundle_card_reuses_fresh_receipt(
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
     assert first_card["tool_authority"]["tool_count"] == 3
     assert first_card["tool_authority"]["call_count"] == 3
-    assert first_card["source_body_floor"]["body_material_count"] >= 6
+    assert first_card["source_body_floor"]["body_material_count"] == 2
     assert first_card["source_body_floor"]["body_material_status"] == (
         SOURCE_MODULE_IMPORT_STATUS
     )
@@ -1059,35 +1046,182 @@ def test_mcp_tool_authority_bundle_card_reuses_fresh_receipt(
     assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
+def test_cached_mcp_receipt_binds_component_host_identity(tmp_path, monkeypatch):
+    identity = mcp_tool_authority_replay.kernel_identity("mcp_authority")
+    monkeypatch.setattr(mcp_tool_authority_replay, "kernel_identity", lambda slug: identity)
+    basis = mcp_tool_authority_replay._freshness_basis(BUNDLE_INPUT, include_negative=False)
+    assert basis["component_kernel_identity"] == identity
+    out = tmp_path / "out"
+    out.mkdir()
+    _rewrite_json(out / mcp_tool_authority_replay.BUNDLE_RESULT_NAME,
+                  {"status": "pass", "freshness_basis": basis})
+    assert mcp_tool_authority_replay._fresh_bundle_receipt(BUNDLE_INPUT, out) is not None
+
+    changed = json.loads(json.dumps(identity))
+    dependency = next(iter(changed["trusted_host"]))
+    changed["trusted_host"][dependency] = "0" * 64
+    monkeypatch.setattr(mcp_tool_authority_replay, "kernel_identity", lambda slug: changed)
+    assert mcp_tool_authority_replay._fresh_bundle_receipt(BUNDLE_INPUT, out) is None
+
+
+def test_cached_mcp_receipt_does_not_bypass_invalid_kernel_inventory(tmp_path, monkeypatch):
+    basis = mcp_tool_authority_replay._freshness_basis(BUNDLE_INPUT, include_negative=False)
+    out = tmp_path / "out"
+    out.mkdir()
+    _rewrite_json(out / mcp_tool_authority_replay.BUNDLE_RESULT_NAME,
+                  {"status": "pass", "freshness_basis": basis})
+
+    def invalid_kernel(slug):
+        assert slug == "mcp_authority"
+        raise ValueError("generated inventory changed")
+
+    monkeypatch.setattr(mcp_tool_authority_replay, "kernel_identity", invalid_kernel)
+    with pytest.raises(ValueError, match="generated inventory changed"):
+        mcp_tool_authority_replay._fresh_bundle_receipt(BUNDLE_INPUT, out)
+
+
 def test_mcp_tool_authority_source_modules_are_exact_macro_body_imports() -> None:
-    manifest_path = BUNDLE_INPUT / "source_module_manifest.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-
-    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
-    assert manifest["module_count"] >= 6
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+    fixture = json.loads((MICROCOSM_ROOT / mcp_tool_authority_replay.SOURCE_INVENTORY_CONTRACT).read_text())
+    contract = fixture["source_inventory_contract"]
+    retained = {
+        "agent_execution_trace_standard_body_import": (
+            "codex/standards/std_agent_execution_trace.json",
+            "9997ee8e79bc32a867b72e1c23fbdedd0f24e115135cfba7811fad8b682ca753",
+            ['"id": "std_agent_execution_trace"', '"privacy_boundary"',
+             '"never_parses"', '"agent_trace_capsule_text_v3"'],
+        ),
+        "extracted_pattern_route_readiness_standard_body_import": (
+            "codex/standards/std_extracted_pattern_route_readiness.json",
+            "b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
+            ['"schema_version": "extracted_pattern_route_readiness_standard_v1"',
+             '"source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"',
+             'check_extracted_pattern_route_readiness.py --check', '"route_readiness_contract"'],
+        ),
+    }
+    omissions = {
+        "mcp_tool_authority_high_novelty_growth_receipt_body_import": ("state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json", "restricted_private_source_ref", "992be2206dda4f42d175e61fa2e40bb45bb731b241a32756758305833dc04ad3"),
+        "mcp_tool_authority_extracted_patterns_ledger_body_import": ("state/microcosm_portfolio/extracted_patterns_ledger.jsonl", "restricted_private_source_ref", "e6e710a8f2c815541a033fe958ffad4be1f50e311d1db144ce111d0a1c3c8c4f"),
+        "agent_execution_trace_runtime_body_import": ("system/lib/agent_execution_trace.py", "private_body_near_verbatim", "72a3d5a1df240a4471ef78c7fc4db31ae53e8ede5af41e0a078853c36121c2af"),
+        "mission_transaction_preflight_control_body_import": ("tools/meta/control/mission_transaction_preflight.py", "private_body_exact_match", "e64efb85c1f5d51d2602317e642c30b5987e68cb814310cbf115aca099cae79a"),
+        "strict_json_source_body_import": ("system/lib/strict_json.py", "private_body_exact_match", "8374917a94198a1a4f15f6ec1e89c70c2fe586feed3b668125799a037af79301"),
+    }
+    rows = {row["module_id"]: row for row in manifest["modules"]}
+    assert manifest["module_count"] == len(rows) == 2
+    assert set(rows) == set(retained)
     assert manifest["body_in_receipt"] is False
+    assert {row["module_id"] for row in contract["retained"]} == set(retained)
+    for name, (source_ref, digest, anchors) in retained.items():
+        row = rows[name]
+        assert row["source_ref"] == source_ref
+        assert row["material_class"] == "public_macro_standard_body"
+        assert row["classification"] == row["source_import_class"] == "copied_non_secret_macro_body"
+        assert row["body_copied"] is True and row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False and row["sha256_match"] is True
+        assert row["path"] == "source_modules/ai_workflow/" + source_ref
+        target = BUNDLE_INPUT / row["path"]
+        body = target.read_bytes()
+        assert hashlib.sha256(body).hexdigest() == digest
+        assert row["sha256"] == row["source_sha256"] == row["target_sha256"] == "sha256:" + digest
+        assert row["byte_count"] == len(body) and row["line_count"] == len(body.splitlines())
+        assert row["anchor_count"] == len(anchors)
+        assert row["required_anchors"] == anchors
+        assert all(anchor in body.decode("utf-8") for anchor in anchors)
+        assert row["target_ref"] == "microcosm-substrate/" + target.relative_to(MICROCOSM_ROOT).as_posix()
+    omitted = {row["module_id"]: row for row in manifest["release_substitution_omissions"]}
+    assert len(omitted) == 5 and set(omitted) == set(omissions)
+    assert {row["module_id"] for row in contract["release_omissions"]} == set(omissions)
+    assert set(fixture["historical_source_open_body_imports"]["body_material_ids"]) == (
+        set(retained) | set(omissions)
+    )
+    for name, (source_ref, classification, digest) in omissions.items():
+        row = omitted[name]
+        assert row["source_ref"] == source_ref and row["body_in_receipt"] is False
+        expected_path = ("source_modules/" + source_ref if name == "strict_json_source_body_import"
+                         else "source_modules/ai_workflow/" + source_ref)
+        assert row["path"] == expected_path
+        sub = row["release_substitution"]
+        assert sub == {"body_in_receipt": False, "contamination_class": classification,
+                       "matched_private_ref": source_ref, "substitution": "public_safe_stub"}
+        body = (BUNDLE_INPUT / row["path"]).read_bytes()
+        assert hashlib.sha256(body).hexdigest() == digest
+        assert b"withheld_private_control_plane_body" in body or b"withheld private source module" in body
+    assert mcp_tool_authority_replay._public_source_floor_matches(
+        manifest, input_dir=BUNDLE_INPUT, public_root=MICROCOSM_ROOT
+    )
 
-    repo_root = MICROCOSM_ROOT.parent
-    for row in manifest["modules"]:
-        source = repo_root / row["source_ref"]
-        target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
-        target = MICROCOSM_ROOT / target_ref
 
-        assert source.is_file(), row["module_id"]
-        assert target.is_file(), row["module_id"]
-        source_digest = "sha256:" + hashlib.sha256(
-            _committed_source_bytes(repo_root, row["source_ref"])
-        ).hexdigest()
-        target_digest = "sha256:" + hashlib.sha256(target.read_bytes()).hexdigest()
-        assert source_digest == target_digest == row["sha256"]
-        assert row["source_sha256"] == source_digest
-        assert row["target_sha256"] == target_digest
-        assert row["body_copied"] is True
-        assert row["body_in_receipt"] is False
-        assert row["body_text_in_receipt"] is False
-        body = target.read_text(encoding="utf-8")
-        for anchor in row["required_anchors"]:
-            assert anchor in body
+@pytest.mark.parametrize("change", ["missing_retained", "missing_file", "tampered_retained", "extra_material", "wrong_count_type", "missing_omission", "tampered_stub"])
+def test_exported_mcp_inventory_rejects_missing_or_tampered_material(tmp_path: Path, change: str) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = public_root / BUNDLE_INPUT.relative_to(MICROCOSM_ROOT)
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    for ref in ("core/private_state_forbidden_classes.json", mcp_tool_authority_replay.SOURCE_INVENTORY_CONTRACT):
+        target = public_root / ref
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(MICROCOSM_ROOT / ref, target)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    if change == "missing_retained":
+        manifest["modules"].pop()
+        manifest["module_count"] = len(manifest["modules"])
+        _rewrite_json(manifest_path, manifest)
+    elif change == "missing_file":
+        (bundle / manifest["modules"][0]["path"]).unlink()
+    elif change == "tampered_retained":
+        with (bundle / manifest["modules"][0]["path"]).open("ab") as handle:
+            handle.write(b"tampered")
+    elif change == "extra_material":
+        manifest["modules"].append({**manifest["modules"][0], "module_id": "unknown"})
+        manifest["module_count"] = len(manifest["modules"])
+        _rewrite_json(manifest_path, manifest)
+    elif change == "wrong_count_type":
+        manifest["module_count"] = "2"
+        _rewrite_json(manifest_path, manifest)
+    elif change == "missing_omission":
+        manifest["release_substitution_omissions"].pop()
+        _rewrite_json(manifest_path, manifest)
+    else:
+        with (bundle / manifest["release_substitution_omissions"][0]["path"]).open("ab") as handle:
+            handle.write(b"tampered")
+    result = run_tool_authority_bundle(bundle, tmp_path / "result", command="pytest")
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert ("MCP_TOOL_SOURCE_INVENTORY_FLOOR_MISMATCH" in result["error_codes"]
+            or "MCP_TOOL_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+            or "MCP_TOOL_SOURCE_MODULE_TARGET_MISSING" in result["error_codes"])
+
+
+@pytest.mark.parametrize("change", ["missing", "tampered"])
+def test_alternate_bundle_checks_its_own_retained_bytes(tmp_path: Path, change: str) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    canonical = public_root / BUNDLE_INPUT.relative_to(MICROCOSM_ROOT)
+    alternate = public_root / "alternate-bundle"
+    shutil.copytree(BUNDLE_INPUT, canonical)
+    shutil.copytree(BUNDLE_INPUT, alternate)
+    contract_ref = Path(mcp_tool_authority_replay.SOURCE_INVENTORY_CONTRACT)
+    (public_root / contract_ref).parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MICROCOSM_ROOT / contract_ref, public_root / contract_ref)
+    manifest = json.loads((alternate / "source_module_manifest.json").read_text())
+    assert mcp_tool_authority_replay._public_source_floor_matches(
+        manifest, input_dir=alternate, public_root=public_root
+    )
+    retained_path = alternate / manifest["modules"][0]["path"]
+    if change == "missing":
+        retained_path.unlink()
+    else:
+        with retained_path.open("ab") as handle:
+            handle.write(b"tampered")
+    assert (canonical / manifest["modules"][0]["path"]).is_file()
+    assert not mcp_tool_authority_replay._public_source_floor_matches(
+        manifest, input_dir=alternate, public_root=public_root
+    )
+    result = mcp_tool_authority_replay._source_module_manifest_result(
+        alternate, public_root=public_root, require_manifest=True, require_public_floor=True
+    )
+    assert result["status"] == "blocked"
+    assert any(row["error_code"] == "MCP_TOOL_SOURCE_INVENTORY_FLOOR_MISMATCH"
+               for row in result["findings"])
 
 
 def test_public_agent_execution_trace_refactor_builds_mcp_tool_authority_spans() -> None:

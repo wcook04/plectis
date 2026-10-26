@@ -1,6 +1,7 @@
 """Real isolated imports and generated-worker execution without the old runtime."""
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -14,6 +15,15 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 SMOKE = ROOT / "scripts/release/verify_operations_install.py"
+
+COMPONENT_KERNELS = {
+    "budget_packing": "BudgetPacking", "dependency_reachability": "DependencyReachability",
+    "egress_policy": "EgressPolicy", "evidence_diff": "EvidenceDiff",
+    "information_flow": "InformationFlow", "mcp_authority": "McpAuthority",
+    "navigation_metrics": "NavigationMetrics", "ownership_classification": "OwnershipClassification",
+    "premise_ranking": "PremiseRanking", "sandbox_policy": "SandboxPolicy",
+    "tactic_selection": "TacticSelection", "walkthrough_validation": "WalkthroughValidation",
+}
 
 
 @pytest.fixture
@@ -37,13 +47,20 @@ def copy_components(library):
                     ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
 
 
+def copy_formal_resources(python):
+    prefix = python.parent.parent
+    resources = (prefix / "share/plectis/formal/components").resolve()
+    shutil.copytree(ROOT / "formal/components", resources)
+    return resources
+
+
 def run_smoke(python, working, *arguments, isolated=True):
     # A caller's source checkout must never rescue an incomplete installation.
-    environment = {**os.environ, "PYTHONPATH": str(ROOT / "src"),
+    environment = {**os.environ, "PYTHONPATH": os.pathsep.join((str(working), str(ROOT / "src"))),
                    "PYTHONDONTWRITEBYTECODE": "1"}
     return subprocess.run(
         [str(python), *(["-I"] if isolated else []), "-B", str(SMOKE), *arguments],
-        cwd=working, env=environment, capture_output=True, text=True, timeout=45,
+        cwd=working, env=environment, capture_output=True, text=True, timeout=120,
     )
 
 
@@ -87,14 +104,86 @@ def test_components_work_as_the_only_copied_package(isolated_python):
     }
     assert all(Path(origin).is_relative_to(library)
                for origin in result["installed_modules"].values())
-    assert result["generated_sources"] == {
+    expected_sources = {
         f"plectis.{component}._generated.{kernel}":
             str((library / "plectis" / component / "_generated" / f"{kernel}.py").resolve())
         for component, kernel in (("repair", "Repair"), ("compatibility", "Compatibility"),
                                   ("compatibility", "Replay"),
                                   ("views", "Release"), ("replay", "ReplayAdmission"))
     }
+    expected_sources.update({
+        f"plectis.components.{slug}._generated.{kernel}":
+            str((library / "plectis/components" / slug / "_generated" / f"{kernel}.py").resolve())
+        for slug, kernel in COMPONENT_KERNELS.items()
+    })
+    assert result["components"] == {name: "passed" for name in COMPONENT_KERNELS}
+    assert result["generated_sources"] == expected_sources
+    assert result["component_manifests"] == {
+        slug: str((library / "plectis/components" / slug / "_generated/GENERATED_SHA256.json").resolve())
+        for slug in COMPONENT_KERNELS
+    }
     assert list(working.iterdir()) == []
+
+
+def test_copied_package_ignores_executable_ambient_shadows(isolated_python):
+    python, library, working = isolated_python
+    copy_components(library)
+    marker = working / "shadow-executed"
+    poison = f"from pathlib import Path\nPath({str(marker)!r}).touch()\nraise RuntimeError('shadow')\n"
+    for relative in ("plectis/__init__.py", "BudgetPacking.py", "module_.py", "_dafny/__init__.py"):
+        path = working / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(poison, encoding="utf-8")
+    completed = run_smoke(python, working, "--require-compatibility", "--require-views", "--require-replay")
+    assert completed.returncode == 0, completed.stderr
+    assert not marker.exists()
+
+
+def test_copied_package_checks_retained_formal_resources_when_requested(isolated_python):
+    python, library, working = isolated_python
+    copy_components(library)
+    resources = copy_formal_resources(python)
+    completed = run_smoke(python, working, "--require-formal-resources")
+    assert completed.returncode == 0, completed.stderr
+    result = json.loads(completed.stdout)
+    assert result["component_formal_resources"] == {
+        slug: {"metadata": str(resources / slug / "metadata.json"),
+               "source": str(resources / slug / f"{kernel}.dfy"),
+               "evidence": "retained_hashes_checked"}
+        for slug, kernel in COMPONENT_KERNELS.items()
+    }
+
+
+@pytest.mark.parametrize("changed", ["missing_source", "source", "mutant", "metadata", "unexpected", "symlink"])
+def test_copied_formal_resource_damage_is_rejected(isolated_python, changed):
+    python, library, working = isolated_python
+    copy_components(library)
+    resources = copy_formal_resources(python)
+    formal = resources / "budget_packing"
+    source = formal / "BudgetPacking.dfy"
+    if changed == "missing_source":
+        source.unlink()
+    elif changed in ("source", "mutant"):
+        path = source if changed == "source" else formal / "negative/FullBudgetPerItem.dfy"
+        path.write_bytes(path.read_bytes() + b"\n// altered retained evidence\n")
+    elif changed == "metadata":
+        path = formal / "metadata.json"
+        metadata = json.loads(path.read_text(encoding="utf-8"))
+        metadata["generated_python"]["BudgetPacking.py"] = "0" * 64
+        path.write_text(json.dumps(metadata), encoding="utf-8")
+    elif changed == "unexpected":
+        (formal / "unreviewed.dfy").write_text("module Unreviewed {}\n", encoding="utf-8")
+    else:
+        outside = working / "BudgetPacking.dfy"
+        source.rename(outside)
+        try:
+            source.symlink_to(outside)
+        except OSError as error:
+            pytest.skip(f"file symlinks are unavailable: {error}")
+    completed = run_smoke(python, working, "--require-formal-resources")
+    assert completed.returncode != 0
+    assert "operations install check failed" in completed.stderr
+    assert not completed.stdout
 
 
 def test_missing_install_cannot_use_inherited_pythonpath_or_working_directory(isolated_python):
@@ -197,3 +286,45 @@ def test_replay_requirement_is_independent_of_workflow_cores(isolated_python):
     missing = run_smoke(python, working, "--require-replay")
     assert missing.returncode != 0
     assert "plectis.replay" in missing.stderr
+
+
+@pytest.mark.parametrize("changed", ["source", "manifest", "source_and_manifest", "missing_licence", "shadow_package"])
+def test_component_kernel_tampering_fails_installed_smoke(isolated_python, changed):
+    python, library, working = isolated_python
+    copy_components(library)
+    generated = library / "plectis/components/dependency_reachability/_generated"
+    marker = working / "shadow-executed"
+    if changed == "missing_licence":
+        (generated / "Dafny-LICENSE.txt").unlink()
+    elif changed == "shadow_package":
+        shadow = generated / "DependencyReachability"
+        shadow.mkdir()
+        (shadow / "__init__.py").write_text(
+            f"from pathlib import Path\nPath({str(marker)!r}).touch()\n", encoding="utf-8")
+    else:
+        path = generated / ("GENERATED_SHA256.json" if changed == "manifest" else "DependencyReachability.py")
+        path.write_bytes(path.read_bytes() + b"\n")
+        if changed == "source_and_manifest":
+            manifest = generated / "GENERATED_SHA256.json"
+            hashes = json.loads(manifest.read_text(encoding="utf-8"))
+            hashes[path.name] = hashlib.sha256(path.read_bytes()).hexdigest()
+            manifest.write_text(json.dumps(hashes), encoding="utf-8")
+    completed = run_smoke(python, working)
+    assert completed.returncode != 0
+    assert "operations install check failed" in completed.stderr
+    assert not completed.stdout
+    assert not marker.exists()
+
+
+def test_component_registry_without_a_smoke_case_is_rejected(isolated_python):
+    python, library, working = isolated_python
+    copy_components(library)
+    registry = library / "plectis/components/_registry.py"
+    text = registry.read_text(encoding="utf-8")
+    target = '    "dependency_reachability": "DependencyReachability",\n'
+    assert text.count(target) == 1
+    registry.write_text(text.replace(target, ""), encoding="utf-8")
+    completed = run_smoke(python, working)
+    assert completed.returncode != 0
+    assert "component smoke cases do not cover the registered kernels" in completed.stderr
+    assert not completed.stdout

@@ -1,0 +1,60 @@
+{
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "generated_python": {
+    "McpAuthority.py": "4353d8e418bbbe84244a61d138ffac53747596641b00ddceb74333bffa1d6e4b",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "__main__.py": "08cce654d2d0dd3b951cf513f1b9140b334c55f619acf4d33488a1aa7c8a4cda",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "f41daad8f3a1084a7828dc6cbb4175b0f9103a9569e649e7aefa8fbf4c2e267d"
+  },
+  "module": "McpAuthority",
+  "mutations": {
+    "negative/EmptyScopeMutant.dfy": {
+      "after": "!c.fieldsPresent || c.argumentHash == \"\" || // MUTANT: an empty scope is admitted",
+      "before": "!c.fieldsPresent || c.scope == \"\" || c.argumentHash == \"\" ||",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    },
+    "negative/MissingRollbackMutant.dfy": {
+      "after": "false, // MUTANT: rollback is never flagged",
+      "before": "(c.effect == \"write\" || c.effect == \"external_mutation\") && c.rollback == \"\",",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    },
+    "negative/SwappedFaultMutant.dfy": {
+      "after": "c.live, c.untrustedInstruction, c.finalOnly, // MUTANT: swap diagnostic identities",
+      "before": "c.untrustedInstruction, c.live, c.finalOnly,",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    }
+  },
+  "negative_results": {
+    "negative/EmptyScopeMutant.dfy": {
+      "errors": 3,
+      "verified_tasks": 14
+    },
+    "negative/MissingRollbackMutant.dfy": {
+      "errors": 3,
+      "verified_tasks": 14
+    },
+    "negative/SwappedFaultMutant.dfy": {
+      "errors": 1,
+      "verified_tasks": 15
+    }
+  },
+  "negative_sha256": {
+    "negative/EmptyScopeMutant.dfy": "1591af43f6383fdba49a2bcc9a39b9272ec79d4a05c1b0fb7973ed8e6df51e4e",
+    "negative/MissingRollbackMutant.dfy": "a42c92fab9cf45b24a874be5222bf5cd0192ed87aa0c9087fc372bee0c17f3fc",
+    "negative/SwappedFaultMutant.dfy": "21fd17ed7ea876d104eefd11b3ea51871047256905f48915216fd16c09aa7c4e"
+  },
+  "negative_sources": [
+    "negative/MissingRollbackMutant.dfy",
+    "negative/SwappedFaultMutant.dfy",
+    "negative/EmptyScopeMutant.dfy"
+  ],
+  "schema_version": 1,
+  "slug": "mcp_authority",
+  "source": "McpAuthority.dfy",
+  "source_sha256": "6368a5ce00a120a8e733ca3d64f6e91757abfc693d78d9419631a55f0d897007",
+  "verified_tasks": 16
+}

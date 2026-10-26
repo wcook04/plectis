@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Evidence-cell anchor metadata and source-open runtime receipts only; no theorem correctness, proof-body import, private source-ref authority, human approval as proof authority, Lean/Lake execution, provider call, release approval, publication approval, source mutation, or formal-proof certification.",
-    "card": "Formal Evidence Cell Anchor Resolver is the evidence-legibility membrane for Microcosm's formal math claims. It resolves three paper claims to public evidence-cell ids, checks source-anchor and machine-anchor metadata, anchors the verifier-trace cell to real Ring2 verifier-trace repair receipts, validates six copied source-open body modules, observes seven proof/private/human-approval/theorem-correctness negative cases, and emits body-free receipts that make proof-language boundaries inspectable without becoming proof authority.",
-    "one_line": "The formal evidence cell anchor resolver binds proof-language paper claims to public evidence cells, source anchors, machine-anchor metadata, copied source modules, and negative-case receipts without claiming theorem correctness."
+    "authority_ceiling": "The bundled source checks also compare imported module digests. These checks establish that references and configured copies match; they do not prove theorem correctness or independently validate the mathematics.",
+    "card": "The resolver reads paper claims, evidence-cell records and public source anchors, then checks that claims name known cells and that referenced paths and markers resolve. Its result records the resolution without copying proof bodies into the receipt. The fixture includes deliberately invalid claims: a missing source anchor, a private source reference and a claim that human approval is proof evidence are rejected.",
+    "one_line": "Resolve claims to public evidence cells and source markers."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.formal_evidence_cell_anchor_resolver",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Evidence-cell anchor metadata and source-open runtime receipts only; no theorem correctness, proof-body import, private source-ref authority, human approval as proof authority, Lean/Lake execution, provider call, release approval, publication approval, source mutation, or formal-proof certification.",
+    "authority_ceiling": "The bundled source checks also compare imported module digests. These checks establish that references and configured copies match; they do not prove theorem correctness or independently validate the mathematics.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,9 +85,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Evidence-cell anchor metadata and source-open runtime receipts only; no theorem correctness, proof-body import, private source-ref authority, human approval as proof authority, Lean/Lake execution, provider call, release approval, publication approval, source mutation, or formal-proof certification.",
-        "card": "Formal Evidence Cell Anchor Resolver is the evidence-legibility membrane for Microcosm's formal math claims. It resolves three paper claims to public evidence-cell ids, checks source-anchor and machine-anchor metadata, anchors the verifier-trace cell to real Ring2 verifier-trace repair receipts, validates six copied source-open body modules, observes seven proof/private/human-approval/theorem-correctness negative cases, and emits body-free receipts that make proof-language boundaries inspectable without becoming proof authority.",
-        "one_line": "The formal evidence cell anchor resolver binds proof-language paper claims to public evidence cells, source anchors, machine-anchor metadata, copied source modules, and negative-case receipts without claiming theorem correctness."
+        "authority_ceiling": "The bundled source checks also compare imported module digests. These checks establish that references and configured copies match; they do not prove theorem correctness or independently validate the mathematics.",
+        "card": "The resolver reads paper claims, evidence-cell records and public source anchors, then checks that claims name known cells and that referenced paths and markers resolve. Its result records the resolution without copying proof bodies into the receipt. The fixture includes deliberately invalid claims: a missing source anchor, a private source reference and a claim that human approval is proof evidence are rejected.",
+        "one_line": "Resolve claims to public evidence cells and source markers."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -139,7 +139,7 @@
           "ref": "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors"
         }
       ],
-      "title": "Formal Evidence Cell Anchor Resolver"
+      "title": "Resolve evidence cells to public source anchors"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave evidence-cell anchor fixture, exported runtime bundle, copied source-open body manifest, mechanism row, Microcosm organ source locus, Ring2 verifier-trace repair receipt anchors, and real validation receipts without treating Markdown, generated atlas docs, copied-body presence, cell metadata, source anchors, machine-anchor classes, or human approval as proof, theorem-correctness, Lean/Lake, provider, release, or publication authority.",
     "support_contract": {
@@ -418,7 +418,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The formal evidence cell anchor resolver binds proof-language paper claims to public evidence cells, source anchors, machine-anchor metadata, copied source modules, and negative-case receipts without claiming theorem correctness.",
+  "statement": "Resolve claims to public evidence cells and source markers.",
   "status": "active",
   "subjects": [
     {
@@ -434,7 +434,7 @@
       "ref": "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors"
     }
   ],
-  "title": "Formal Evidence Cell Anchor Resolver",
+  "title": "Resolve evidence cells to public source anchors",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

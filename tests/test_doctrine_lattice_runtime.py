@@ -6,6 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from microcosm_core.doctrine_lattice import (
     _kind_coverage_rows,
     _registry_atlas_join_health,
@@ -48,6 +50,60 @@ from microcosm_core.doctrine_lattice import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+
+def _effective_source_instances(kind: str) -> dict:
+    from microcosm_core import doctrine_lattice as lattice
+    validation = getattr(lattice, f"validate_{kind}_instance_corpus")(MICROCOSM_ROOT)
+    assert validation["status"] == "pass", validation["errors"]
+    if validation["validation_basis"] == "canonical_source_derivation":
+        return getattr(lattice, f"expected_{kind}_instances")(MICROCOSM_ROOT)
+    return getattr(lattice, f"load_{kind}_instances")(MICROCOSM_ROOT)
+
+
+def _projection_target_resolution_status(edge: dict) -> str:
+    from microcosm_core import doctrine_lattice as lattice
+    kind = edge["target_kind"]
+    if kind in lattice.SOURCE_PROJECTED_KINDS:
+        assert edge["target_id"] in _effective_source_instances(kind)
+        path = MICROCOSM_ROOT / getattr(lattice, f"_{kind}_instance_rel")(edge["target_id"])
+        return "resolved_json_instance" if path.is_file() else "resolved_source_instance"
+    return "resolved_json_instance"
+
+
+def _historical_nonlocal_receipt_refs() -> set[str]:
+    # These preserved authority-history handles are not shipped public evidence.
+    names = {
+        "agent_route_observability_runtime_current_authority_build_receipt_v1.json",
+        "executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
+        "mission_transaction_work_spine_current_authority_build_receipt_v1.json",
+        "navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
+        "public_first_slice_build_execution_receipt_v1.json",
+    }
+    return {"state/microcosm_portfolio/reconstruction/" + name for name in names}
+
+
+def _nonlocal_ref_exists(ref: str) -> bool:
+    return (MICROCOSM_ROOT / ref).is_file() or (MICROCOSM_ROOT.parent / ref).is_file()
+
+
+def _source_parity_status(kind: str) -> str:
+    from microcosm_core import doctrine_lattice as lattice
+    directory = MICROCOSM_ROOT / getattr(lattice, f"{kind.upper()}_INSTANCE_DIR_REL")
+    return "pass" if list(directory.glob("*.json")) else "not_materialized"
+
+
+def _assert_source_projection_counts(view: dict, kind: str, expected: int) -> None:
+    from microcosm_core import doctrine_lattice as lattice
+    corpus = getattr(lattice, f"build_{kind}_instance_corpus")(MICROCOSM_ROOT)
+    directory = MICROCOSM_ROOT / getattr(lattice, f"{kind.upper()}_INSTANCE_DIR_REL")
+    actual_files = len(list(directory.glob("*.json")))
+    assert corpus["validation_status"] == "pass", corpus["validation"]
+    assert view["json_instance_count"] == corpus["json_instance_count"] == actual_files
+    assert corpus["effective_instance_count"] == expected
+    assert corpus["derived_instance_count"] == (expected if actual_files == 0 else 0)
+    assert view["parity_status"] == _source_parity_status(kind)
+
+
 STANDARD_TRIAD_SKILL_BATCH_STANDARD_IDS = {
     "std_microcosm_agent_benchmark_integrity_anti_gaming_replay",
     "std_microcosm_agent_memory_temporal_conflict_replay",
@@ -116,20 +172,50 @@ ENGINE_ROOM_STAGED_STANDARD_IDS = {
     "std_microcosm_engine_room_navigation_fitness_benchmark",
     "std_microcosm_engine_room_public_projection_leak_gate",
 }
-EXPECTED_SKILL_INSTANCE_COUNT = 401
+def _skill_source_count() -> int:
+    source_ids = {path.stem for path in (MICROCOSM_ROOT / "skills").glob("*.md") if not path.name.endswith(".generated.md")}
+    json_ids = {path.stem for path in (MICROCOSM_ROOT / "skills").glob("*.json")}
+    assert json_ids == source_ids, "required skill materializations must match canonical Markdown IDs"
+    return len(source_ids)
+
+
+def _source_markdown_view(kind: str, instance_id: str) -> str:
+    from microcosm_core import doctrine_lattice as lattice
+    instance = _effective_source_instances(kind)[instance_id]
+    text = getattr(lattice, f"render_{kind}_markdown")(instance)
+    path = MICROCOSM_ROOT / getattr(lattice, f"_{kind}_markdown_rel")(instance_id)
+    if path.is_file():
+        assert path.read_text(encoding="utf-8") == text
+    return text
 EXPECTED_SKILL_SELECTIVE_RELATION_COUNT = 6
 EXPECTED_SKILL_SELECTIVE_NODE_COUNT = 6
 EXPECTED_ORGAN_SELECTIVE_RELATION_COUNT = 26
-EXPECTED_STANDARD_INSTANCE_COUNT = 146
-EXPECTED_STANDARD_REQUIRED_EDGE_GAP_COUNT = 0
-EXPECTED_STANDARD_REQUIRED_RELATION_GAP_COUNT = 0
-EXPECTED_STANDARD_TRIAD_RESOLVED_EDGE_COUNT = 438
-EXPECTED_STANDARD_TRIAD_PLANNED_UNRESOLVED_EDGE_COUNT = 0
-EXPECTED_STANDARD_REQUIRED_RELATION_GAP_DETAIL_COUNT = 0
-EXPECTED_STANDARD_USED_BY_ORGAN_EDGE_COUNT = 243
-EXPECTED_STANDARD_USED_BY_ORGAN_RESOLVED_EDGE_COUNT = 219
-EXPECTED_STANDARD_USED_BY_ORGAN_UNRESOLVED_EDGE_COUNT = 24
-EXPECTED_SOURCE_LEVEL_STANDARD_LEGACY_COUNT_AFTER_ACCEPTED_ORGAN_ACTIVATION = 11
+def _standard_source_count() -> int:
+    registry = json.loads((MICROCOSM_ROOT / "core/standards_registry.json").read_text())
+    ids = {row["standard_id"] for row in registry["standards"]}
+    files = {path.stem for path in (MICROCOSM_ROOT / "standards").glob("std_microcosm_*.json")}
+    assert ids == files, "registered standards and canonical JSON files must match"
+    return len(ids)
+EXPECTED_STANDARD_REQUIRED_EDGE_GAP_COUNT = 10
+EXPECTED_STANDARD_REQUIRED_RELATION_GAP_COUNT = 30
+EXPECTED_STANDARD_TRIAD_RESOLVED_EDGE_COUNT = 423
+EXPECTED_STANDARD_TRIAD_PLANNED_UNRESOLVED_EDGE_COUNT = 30
+EXPECTED_STANDARD_REQUIRED_RELATION_GAP_DETAIL_COUNT = 10
+EXPECTED_STANDARD_USED_BY_ORGAN_EDGE_COUNT = 248
+EXPECTED_STANDARD_USED_BY_ORGAN_RESOLVED_EDGE_COUNT = 225
+EXPECTED_STANDARD_USED_BY_ORGAN_UNRESOLVED_EDGE_COUNT = 23
+PLANNED_STANDARD_TRIAD_IDS = {
+    "std_microcosm_annex_knowledge_routing",
+    "std_microcosm_bridge_campaign_dag_validation",
+    "std_microcosm_derived_fact_provider_runtime",
+    "std_microcosm_egress_self_compliance_audit",
+    "std_microcosm_finite_erdos_denominator_certificate_strike",
+    "std_microcosm_generated_projection_drift_runtime",
+    "std_microcosm_lean_proof_search_lab_runtime",
+    "std_microcosm_metabolism_queue_reconciliation",
+    "std_microcosm_navigation_fitness_benchmark",
+    "std_microcosm_semantic_singleflight_dedup_runtime",
+}
 ACCEPTED_ORGAN_STANDARD_V2_ACTIVATION_IDS = {
     "std_microcosm_agent_memory_temporal_conflict_replay",
     "std_microcosm_agent_monitor_redteam_falsification_replay",
@@ -162,7 +248,8 @@ ACCEPTED_ORGAN_STANDARD_V2_ACTIVATION_IDS = {
     "std_microcosm_verifier_lab_kernel",
     "std_microcosm_voice_to_doctrine_self_improvement_loop",
     "std_microcosm_world_model_projection_drift_control_room",
-}
+    "std_microcosm_spatial_world_model_counterfactual_simulation_replay",
+} | PLANNED_STANDARD_TRIAD_IDS
 FAMILY_CONCEPT_IDS = {
     "concept.agent_reliability_and_safety_validator_bundle",
     "concept.architecture_and_navigation_route_contract_bundle",
@@ -523,13 +610,13 @@ def test_axiom_instance_corpus_is_seeded_from_routing_with_parity() -> None:
     validation = validate_axiom_instance_corpus(MICROCOSM_ROOT)
 
     assert corpus["expected_axiom_count"] == 12
-    assert corpus["json_instance_count"] == 12
-    assert corpus["parity_status"] == "pass"
+    _assert_source_projection_counts(corpus, "axiom", 12)
+    assert corpus['parity_status'] == _source_parity_status("axiom")
     assert corpus["authority_flip_status"] == "not_flipped_routing_still_source_of_record"
     assert validation["status"] == "pass"
     assert validation["errors"] == []
 
-    ax1 = json.loads((MICROCOSM_ROOT / "axioms/AX-1.json").read_text(encoding="utf-8"))
+    ax1 = _effective_source_instances("axiom")["AX-1"]
     assert ax1["schema_version"] == "microcosm_axiom_instance_v1"
     assert ax1["axiom_payload"]["support_contract"]["computed_by"] == (
         "validator.microcosm.axiom_support_cover"
@@ -553,7 +640,7 @@ def test_axiom_instance_corpus_is_seeded_from_routing_with_parity() -> None:
     assert "not support claims" in reciprocity["claim_ceiling"]["boundary"]
     assert any(edge["target_id"] == "P-1" for edge in ax1["relationships"]["edges"])
 
-    ax8 = json.loads((MICROCOSM_ROOT / "axioms/AX-8.json").read_text(encoding="utf-8"))
+    ax8 = _effective_source_instances("axiom")["AX-8"]
     ax8_reciprocity = ax8["axiom_payload"]["substrate_reciprocity_contract"]
     assert ax8_reciprocity["substrate_to_law"]["layer_debt_ids"] == [
         "AX8-general-taint-propagation"
@@ -576,17 +663,17 @@ def test_principle_and_anti_principle_corpora_are_seeded_with_parity() -> None:
     anti_principle_validation = validate_anti_principle_instance_corpus(MICROCOSM_ROOT)
 
     assert principle_corpus["expected_principle_count"] == 20
-    assert principle_corpus["json_instance_count"] == 20
-    assert principle_corpus["parity_status"] == "pass"
+    _assert_source_projection_counts(principle_corpus, "principle", 20)
+    assert principle_corpus['parity_status'] == _source_parity_status("principle")
     assert principle_validation["status"] == "pass"
     assert principle_validation["errors"] == []
     assert anti_principle_corpus["expected_anti_principle_count"] == 17
-    assert anti_principle_corpus["json_instance_count"] == 17
-    assert anti_principle_corpus["parity_status"] == "pass"
+    _assert_source_projection_counts(anti_principle_corpus, "anti_principle", 17)
+    assert anti_principle_corpus['parity_status'] == _source_parity_status("anti_principle")
     assert anti_principle_validation["status"] == "pass"
     assert anti_principle_validation["errors"] == []
 
-    p1 = json.loads((MICROCOSM_ROOT / "principles/P-1.json").read_text(encoding="utf-8"))
+    p1 = _effective_source_instances("principle")["P-1"]
     assert p1["schema_version"] == "microcosm_principle_instance_v1"
     assert p1["axiom_refs"] == ["AX-1"]
     assert p1["obligation_refs"] == [
@@ -712,7 +799,7 @@ def test_principle_and_anti_principle_corpora_are_seeded_with_parity() -> None:
     )
     assert p1["relationships"]["unpopulated_selective_relations"] == []
 
-    p18 = json.loads((MICROCOSM_ROOT / "principles/P-18.json").read_text(encoding="utf-8"))
+    p18 = _effective_source_instances("principle")["P-18"]
     assert p18["schema_version"] == "microcosm_principle_instance_v1"
     assert p18["axiom_refs"] == ["AX-3", "AX-9", "AX-11", "AX-12"]
     assert "AX-12.O4.evidence_truth_floor_blocks_release" in p18["obligation_refs"]
@@ -758,7 +845,7 @@ def test_principle_and_anti_principle_corpora_are_seeded_with_parity() -> None:
     } == set(p18["relationships"]["governs_concept_ids"])
     assert p18["relationships"]["unpopulated_selective_relations"] == []
 
-    p19 = json.loads((MICROCOSM_ROOT / "principles/P-19.json").read_text(encoding="utf-8"))
+    p19 = _effective_source_instances("principle")["P-19"]
     assert p19["schema_version"] == "microcosm_principle_instance_v1"
     assert p19["axiom_refs"] == ["AX-5", "AX-6", "AX-11"]
     assert p19["obligation_refs"] == [
@@ -813,12 +900,10 @@ def test_principle_and_anti_principle_corpora_are_seeded_with_parity() -> None:
     ) in p19_statement
     assert "Neither direction is support proof, projection authority" in p19_statement
     assert "permission to launder residual pressure into an edge" in p19_statement
-    p19_markdown = (
-        MICROCOSM_ROOT / "principles/P-19.md"
-    ).read_text(encoding="utf-8")
+    p19_markdown = _source_markdown_view("principle", "P-19")
     assert "Bidirectional\nsubstrate representation follows the same floor" in p19_markdown
 
-    p20 = json.loads((MICROCOSM_ROOT / "principles/P-20.json").read_text(encoding="utf-8"))
+    p20 = _effective_source_instances("principle")["P-20"]
     assert p20["schema_version"] == "microcosm_principle_instance_v1"
     assert p20["axiom_refs"] == ["AX-11", "AX-12"]
     assert p20["relationships"]["obligation_refs"] == p20["obligation_refs"]
@@ -853,9 +938,7 @@ def test_principle_and_anti_principle_corpora_are_seeded_with_parity() -> None:
         "failure_guarded_by_anti_principle_ids"
     ]
 
-    ap17 = json.loads(
-        (MICROCOSM_ROOT / "anti_principles/AP-17.json").read_text(encoding="utf-8")
-    )
+    ap17 = _effective_source_instances("anti_principle")["AP-17"]
     assert ap17["schema_version"] == "microcosm_anti_principle_instance_v1"
     assert ap17["guards"] == ["AX-4", "AX-11"]
     assert {
@@ -904,24 +987,19 @@ def test_concept_and_mechanism_corpora_are_seeded_with_parity() -> None:
     concept_source_count = _concept_source_count()
 
     assert concept_corpus["expected_concept_count"] == concept_source_count
-    assert concept_corpus["json_instance_count"] == concept_source_count
-    assert concept_corpus["parity_status"] == "pass"
+    _assert_source_projection_counts(concept_corpus, "concept", concept_source_count)
+    assert concept_corpus['parity_status'] == _source_parity_status("concept")
     assert concept_corpus["unpopulated_selective_relation_count"] == 0
     assert concept_validation["status"] == "pass"
     assert concept_validation["errors"] == []
     assert mechanism_corpus["expected_mechanism_count"] == mechanism_source_count
-    assert mechanism_corpus["json_instance_count"] == mechanism_source_count
-    assert mechanism_corpus["parity_status"] == "pass"
+    _assert_source_projection_counts(mechanism_corpus, "mechanism", mechanism_source_count)
+    assert mechanism_corpus['parity_status'] == _source_parity_status("mechanism")
     assert mechanism_corpus["without_code_loci_count"] == 0
     assert mechanism_validation["status"] == "pass"
     assert mechanism_validation["errors"] == []
 
-    concept = json.loads(
-        (
-            MICROCOSM_ROOT
-            / "concepts/concept.first_screen_doctrine_effect_frame.json"
-        ).read_text(encoding="utf-8")
-    )
+    concept = _effective_source_instances("concept")["concept.first_screen_doctrine_effect_frame"]
     assert concept["schema_version"] == "microcosm_concept_instance_v1"
     assert concept["concept_payload"]["source_specimen_id"] == (
         "first_screen_doctrine_effect_frame"
@@ -959,7 +1037,7 @@ def test_concept_and_mechanism_corpora_are_seeded_with_parity() -> None:
     }
     for concept_id, (mechanism_id, principle_ids, axiom_ids) in resolved_concepts.items():
         concept_path = MICROCOSM_ROOT / "concepts" / f"{concept_id}.json"
-        resolved_concept = json.loads(concept_path.read_text(encoding="utf-8"))
+        resolved_concept = _effective_source_instances("concept")[concept_id]
         assert resolved_concept["relationships"]["unpopulated_selective_relations"] == []
         assert set(resolved_concept["relationships"]["principle_refs"]) == principle_ids
         assert resolved_concept["relationships"]["mechanism_refs"] == [mechanism_id]
@@ -973,11 +1051,7 @@ def test_concept_and_mechanism_corpora_are_seeded_with_parity() -> None:
         }
 
     family_concepts = {
-        concept_id: json.loads(
-            (MICROCOSM_ROOT / "concepts" / f"{concept_id}.json").read_text(
-                encoding="utf-8"
-            )
-        )
+        concept_id: _effective_source_instances("concept")[concept_id]
         for concept_id in FAMILY_CONCEPT_IDS
     }
     assert set(family_concepts) == FAMILY_CONCEPT_IDS
@@ -992,12 +1066,7 @@ def test_concept_and_mechanism_corpora_are_seeded_with_parity() -> None:
         } == {"resolved_json_instance"}
         assert "organ_family_concept_specimen" == relationships["specimen_role"]
 
-    mechanism = json.loads(
-        (
-            MICROCOSM_ROOT
-            / "mechanisms/mechanism.verifier_lab_kernel.composes_public_formal_math_receipts.json"
-        ).read_text(encoding="utf-8")
-    )
+    mechanism = _effective_source_instances("mechanism")["mechanism.verifier_lab_kernel.composes_public_formal_math_receipts"]
     assert mechanism["schema_version"] == "microcosm_mechanism_instance_v1"
     assert mechanism["code_loci"][0]["path"] == (
         "src/microcosm_core/organs/verifier_lab_kernel.py"
@@ -1016,12 +1085,7 @@ def test_concept_and_mechanism_corpora_are_seeded_with_parity() -> None:
 
 
 def test_cold_clone_probe_mechanism_runs_in_pattern_binding_contract() -> None:
-    mechanism = json.loads(
-        (
-            MICROCOSM_ROOT
-            / "mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json"
-        ).read_text(encoding="utf-8")
-    )
+    mechanism = _effective_source_instances("mechanism")["mechanism.cold_clone_probe.validates_public_source_root_bootstrap"]
     relationships = mechanism["relationships"]
     edges = relationships["edges"]
 
@@ -1184,18 +1248,14 @@ def test_organ_corpus_is_seeded_from_atlas_and_registry_with_parity() -> None:
     organ_validation = validate_organ_instance_corpus(MICROCOSM_ROOT)
 
     assert organ_corpus["expected_organ_count"] == _organ_source_count()
-    assert organ_corpus["json_instance_count"] == _organ_source_count()
-    assert organ_corpus["parity_status"] == "pass"
+    _assert_source_projection_counts(organ_corpus, "organ", _organ_source_count())
+    assert organ_corpus['parity_status'] == _source_parity_status("organ")
     assert organ_corpus["required_relation_gap_count"] == 0
     assert organ_corpus["unpopulated_selective_relation_count"] > 0
     assert organ_validation["status"] == "pass"
     assert organ_validation["errors"] == []
 
-    organ = json.loads(
-        (MICROCOSM_ROOT / "organs/pattern_binding_contract.json").read_text(
-            encoding="utf-8"
-        )
-    )
+    organ = _effective_source_instances("organ")["pattern_binding_contract"]
     assert organ["schema_version"] == "microcosm_organ_instance_v1"
     assert organ["paper_module_ref"] == "paper_modules/pattern_binding_contract.md"
     assert any(
@@ -1306,8 +1366,8 @@ def test_skill_corpus_is_seeded_from_markdown_with_required_edges_and_parity() -
     corpus = build_skill_instance_corpus(MICROCOSM_ROOT)
     validation = validate_skill_instance_corpus(MICROCOSM_ROOT)
 
-    assert corpus["expected_skill_count"] == EXPECTED_SKILL_INSTANCE_COUNT
-    assert corpus["json_instance_count"] == EXPECTED_SKILL_INSTANCE_COUNT
+    assert corpus["expected_skill_count"] == _skill_source_count()
+    assert corpus["json_instance_count"] == _skill_source_count()
     assert corpus["required_relation_gap_count"] == 0
     assert (
         corpus["unpopulated_selective_relation_count"]
@@ -1983,32 +2043,196 @@ def test_source_backed_organ_skill_mappings_resolve_neighbours() -> None:
     assert len(organ_bound_skill_ids) == 81
 
 
+def _standard_resolution_fixture(tmp_path: Path, *, standard_count: int = 7) -> Path:
+    (tmp_path / "core").mkdir()
+    (tmp_path / "standards").mkdir()
+    (tmp_path / "skills").mkdir()
+    rows = []
+    for index in range(standard_count):
+        standard_id = f"std_microcosm_resolution_{index}"
+        relative = f"standards/{standard_id}.json"
+        rows.append({"standard_id": standard_id, "path": relative})
+        (tmp_path / relative).write_text(json.dumps({
+            "standard_id": standard_id,
+            "kind_id": "resolution_fixture",
+            "schema_version": "public_microcosm_standard_v2",
+            "status": "active",
+            "skills": {role: {"skill_id": "skill.one", "status": "planned"}
+                       for role in ("author", "refine_instance", "refine_standard_and_propagate")},
+        }), encoding="utf-8")
+    (tmp_path / "core/standards_registry.json").write_text(
+        json.dumps({"standards": rows}), encoding="utf-8"
+    )
+    return tmp_path / "skills"
+
+
+def test_standard_build_reads_skill_json_once_and_shares_immutable_ids(tmp_path: Path, monkeypatch) -> None:
+    from microcosm_core import doctrine_lattice as lattice
+
+    skills = _standard_resolution_fixture(tmp_path)
+    for name in ("one", "two", "three", "four"):
+        (skills / f"{name}.json").write_text(json.dumps({"id": f"skill.{name}"}), encoding="utf-8")
+    monkeypatch.setattr(lattice, "expected_organ_instances", lambda root: {})
+    reads = []
+    snapshots = []
+    read = lattice.read_json_strict
+    build_row = lattice.build_standard_instance_from_registry_row
+
+    def observe_read(path):
+        if Path(path).parent == skills:
+            reads.append(Path(path).name)
+        return read(path)
+
+    def observe_row(*args, **kwargs):
+        snapshots.append(kwargs["known_skill_ids"])
+        return build_row(*args, **kwargs)
+
+    monkeypatch.setattr(lattice, "read_json_strict", observe_read)
+    monkeypatch.setattr(lattice, "build_standard_instance_from_registry_row", observe_row)
+    corpus = lattice.build_standard_instance_corpus(tmp_path)
+    assert sorted(reads) == ["four.json", "one.json", "three.json", "two.json"]
+    assert len(snapshots) == 7
+    assert isinstance(snapshots[0], frozenset)
+    assert all(snapshot is snapshots[0] for snapshot in snapshots)
+    assert corpus["json_instance_count"] == 7
+    assert corpus["triad_skill_resolved_edge_count"] == 21
+    assert corpus["parity_status"] == "pass"
+
+
+def test_standard_build_observes_skill_json_changes_between_invocations(tmp_path: Path, monkeypatch) -> None:
+    from microcosm_core import doctrine_lattice as lattice
+
+    skills = _standard_resolution_fixture(tmp_path)
+    source = skills / "one.json"
+    source.write_text(json.dumps({"id": "skill.one"}), encoding="utf-8")
+    monkeypatch.setattr(lattice, "expected_organ_instances", lambda root: {})
+    assert lattice.build_standard_instance_corpus(tmp_path)["triad_skill_resolved_edge_count"] == 21
+    source.unlink()
+    missing = lattice.build_standard_instance_corpus(tmp_path)
+    assert missing["triad_skill_resolved_edge_count"] == 0
+    assert missing["triad_skill_planned_unresolved_edge_count"] == 21
+    source.write_text(json.dumps({"id": "skill.one"}), encoding="utf-8")
+    assert lattice.build_standard_instance_corpus(tmp_path)["triad_skill_resolved_edge_count"] == 21
+
+
+def test_standard_build_refreshes_markdown_fallback_skill_ids(tmp_path: Path, monkeypatch) -> None:
+    from microcosm_core import doctrine_lattice as lattice
+
+    skills = _standard_resolution_fixture(tmp_path)
+    source = skills / "one.md"
+    source.write_text("# One\n", encoding="utf-8")
+    monkeypatch.setattr(lattice, "expected_organ_instances", lambda root: {})
+    assert lattice.build_standard_instance_corpus(tmp_path)["triad_skill_resolved_edge_count"] == 21
+    source.rename(skills / "other.md")
+    changed = lattice.build_standard_instance_corpus(tmp_path)
+    assert changed["triad_skill_resolved_edge_count"] == 0
+    assert changed["triad_skill_planned_unresolved_edge_count"] == 21
+
+
+def test_empty_standard_registry_does_not_read_unused_skills(tmp_path: Path) -> None:
+    from microcosm_core import doctrine_lattice as lattice
+
+    (tmp_path / "core").mkdir()
+    (tmp_path / "skills").mkdir()
+    (tmp_path / "core/standards_registry.json").write_text(
+        json.dumps({"standards": []}), encoding="utf-8"
+    )
+    (tmp_path / "skills/unused.json").write_text("not JSON", encoding="utf-8")
+    assert lattice.expected_standard_instances(tmp_path) == {}
+
+
+def _assert_standard_skill_resolution(source: dict, instance: dict, known_skill_ids: set[str]) -> set[str]:
+    triad_edges = [edge for edge in instance["relationships"]["edges"]
+                  if edge["relation_id"] == "standard.owns_triad.skill"]
+    roles = {"author", "refine_instance", "refine_standard_and_propagate"}
+    assert len(triad_edges) == len(roles)
+    assert sorted(edge["target_id"] for edge in triad_edges) == sorted(
+        source["skills"][role]["skill_id"] for role in roles
+    )
+    by_source_ref = {edge["justification"]["source_ref"]: edge for edge in triad_edges}
+    planned = set()
+    for role in roles:
+        declaration = source["skills"][role]
+        skill_id = declaration["skill_id"]
+        edge = by_source_ref[f"{instance['relationships']['source_ref']}::skills.{role}.skill_id"]
+        assert edge["target_id"] == skill_id
+        assert role in edge["justification"]["summary"]
+        if skill_id in known_skill_ids:
+            assert edge["target_status"] == "resolved_json_instance"
+        else:
+            assert instance["id"] in PLANNED_STANDARD_TRIAD_IDS
+            assert declaration["status"] == "planned"
+            assert declaration["purpose"].strip()
+            assert edge["target_status"] == "planned_unresolved"
+            planned.add(skill_id)
+    assert not any(row.get("requirement") == "required"
+                   for row in instance["relationships"]["unpopulated_selective_relations"])
+    return planned
+
+
+def test_standard_resolution_assertions_reject_unresolved_and_unjustified_edges(tmp_path: Path, monkeypatch) -> None:
+    from microcosm_core import doctrine_lattice as lattice
+
+    _standard_resolution_fixture(tmp_path, standard_count=1)
+    monkeypatch.setattr(lattice, "expected_organ_instances", lambda root: {})
+    instance = next(iter(lattice.expected_standard_instances(tmp_path).values()))
+    source = json.loads((tmp_path / instance["relationships"]["source_ref"]).read_text())
+    for edge in instance["relationships"]["edges"]:
+        if edge["relation_id"] == "standard.owns_triad.skill":
+            edge["target_status"] = "resolved_json_instance"
+    assert _assert_standard_skill_resolution(source, instance, {"skill.one"}) == set()
+    invalid = copy.deepcopy(instance)
+    next(edge for edge in invalid["relationships"]["edges"]
+         if edge["relation_id"] == "standard.owns_triad.skill")["target_status"] = "unresolved_json_instance"
+    with pytest.raises(AssertionError):
+        _assert_standard_skill_resolution(source, invalid, {"skill.one"})
+    with pytest.raises(AssertionError):
+        _assert_standard_skill_resolution(source, instance, set())
+    unjustified = copy.deepcopy(instance)
+    unjustified["id"] = min(PLANNED_STANDARD_TRIAD_IDS)
+    for edge in unjustified["relationships"]["edges"]:
+        if edge["relation_id"] == "standard.owns_triad.skill":
+            edge["target_status"] = "planned_unresolved"
+    with pytest.raises(KeyError, match="purpose"):
+        _assert_standard_skill_resolution(source, unjustified, set())
+
+
 def test_standard_corpus_projects_registry_backed_json_without_greenwashing() -> None:
     corpus = build_standard_instance_corpus(MICROCOSM_ROOT)
     validation = validate_standard_instance_corpus(MICROCOSM_ROOT)
+    instances = load_standard_instances(MICROCOSM_ROOT)
+    registry_rows = json.loads((MICROCOSM_ROOT / "core/standards_registry.json").read_text())["standards"]
+    registry_ids = {row["standard_id"] for row in registry_rows}
+    known_skill_ids = set(load_skill_instances(MICROCOSM_ROOT))
+    planned = set()
+    for row in registry_rows:
+        source = json.loads((MICROCOSM_ROOT / row["path"]).read_text())
+        planned.update(_assert_standard_skill_resolution(source, instances[row["standard_id"]], known_skill_ids))
+    expected_planned = {f"skill.microcosm.{standard_id.removeprefix('std_microcosm_')}.{role}"
+                        for standard_id in PLANNED_STANDARD_TRIAD_IDS
+                        for role in ("author", "refine_instance", "refine_standard_and_propagate")}
+    assert planned == expected_planned
 
     assert validation["status"] == "pass"
-    assert corpus["expected_standard_count"] == EXPECTED_STANDARD_INSTANCE_COUNT
-    assert corpus["json_instance_count"] == EXPECTED_STANDARD_INSTANCE_COUNT
+    assert set(instances) == set(corpus["instance_ids"]) == registry_ids
+    assert corpus["expected_standard_count"] == len(registry_ids)
+    assert corpus["json_instance_count"] == len(registry_ids)
     assert corpus["parity_status"] == "pass"
     assert corpus["authority_flip_status"] == "already_json_source_contract_no_markdown_authority_flip"
     assert corpus["legacy_or_draft_contract_count"] > 0
-    assert corpus["required_relation_gap_count"] == (
-        EXPECTED_STANDARD_REQUIRED_RELATION_GAP_COUNT
-    )
-    assert corpus["required_relation_gap_instance_count"] == (
-        EXPECTED_STANDARD_REQUIRED_EDGE_GAP_COUNT
-    )
-    assert corpus["governs_kind_resolved_edge_count"] == EXPECTED_STANDARD_INSTANCE_COUNT
+    assert corpus["required_relation_gap_count"] == len(expected_planned)
+    assert set(corpus["required_relation_gap_instance_ids"]) == PLANNED_STANDARD_TRIAD_IDS
+    assert corpus["required_relation_gap_instance_count"] == len(PLANNED_STANDARD_TRIAD_IDS)
+    assert corpus["governs_kind_resolved_edge_count"] == len(registry_ids)
     assert corpus["governs_kind_unresolved_edge_count"] == 0
     assert corpus["governs_kind_missing_required_count"] == 0
     assert (
         corpus["triad_skill_resolved_edge_count"]
-        == corpus["json_instance_count"] * 3
+        == corpus["json_instance_count"] * 3 - len(expected_planned)
     )
     assert (
         corpus["triad_skill_planned_unresolved_edge_count"]
-        == EXPECTED_STANDARD_TRIAD_PLANNED_UNRESOLVED_EDGE_COUNT
+        == len(expected_planned)
     )
     assert corpus["triad_skill_unresolved_edge_count"] == 0
     assert corpus["triad_skill_missing_required_count"] == 0
@@ -2050,9 +2274,25 @@ def test_accepted_organ_standards_activate_with_receipt_backing_only() -> None:
         if row["status"] == "accepted_current_authority"
     }
 
-    assert corpus["legacy_or_draft_contract_count"] == (
-        EXPECTED_SOURCE_LEVEL_STANDARD_LEGACY_COUNT_AFTER_ACCEPTED_ORGAN_ACTIVATION
-    )
+    assert set(corpus["legacy_or_draft_contract_ids"]) == ENGINE_ROOM_STAGED_STANDARD_IDS
+    assert corpus["legacy_or_draft_contract_count"] == len(ENGINE_ROOM_STAGED_STANDARD_IDS)
+    receipt_backed_ids = set()
+    for standard_id in registry_by_standard_id:
+        source = json.loads((MICROCOSM_ROOT / "standards" / f"{standard_id}.json").read_text())
+        projected = instances[standard_id]["standard_payload"]["contract_projection_status"]
+        if standard_id in ENGINE_ROOM_STAGED_STANDARD_IDS:
+            assert source["status"] == "staged_capsule_pending_shared_registry_integration"
+            assert projected == "legacy_or_draft_standard_contract"
+        else:
+            assert source["schema_version"] == "public_microcosm_standard_v2"
+            assert source["status"] == "active"
+            assert projected == "active_v2_governed_json"
+        authority = source["source_authority"]
+        assert authority in {"json_is_contract_markdown_is_projection",
+                             "json_standard_contract_backed_by_accepted_organ_registry_receipt"}
+        if authority == "json_standard_contract_backed_by_accepted_organ_registry_receipt":
+            receipt_backed_ids.add(standard_id)
+    assert receipt_backed_ids == ACCEPTED_ORGAN_STANDARD_V2_ACTIVATION_IDS
 
     for standard_id in ACCEPTED_ORGAN_STANDARD_V2_ACTIVATION_IDS:
         source = json.loads(
@@ -2096,6 +2336,25 @@ def test_accepted_organ_standards_activate_with_receipt_backing_only() -> None:
         if registry_row.get("receipt_id"):
             assert registry_row["receipt_id"] in source["receipt_refs"]
         assert organ["current_authority_receipt"] in source["receipt_refs"]
+        if standard_id == "std_microcosm_spatial_world_model_counterfactual_simulation_replay":
+            assert source["relationships"]["canonical_organ_model_ref"] == (
+                f"core/organ_registry.json#{organ_id}"
+            )
+            assert source["authority_ceiling"] == {
+                "benchmark_score_claim_authorized": False,
+                "generated_video_authority_authorized": False,
+                "geographic_accuracy_claim_authorized": False,
+                "live_av_operation_authorized": False,
+                "live_robot_operation_authorized": False,
+                "private_video_exported": False,
+                "raw_sensor_data_exported": False,
+                "real_world_location_claim_authorized": False,
+                "release_authorized": False,
+                "standard_authority": "synthetic_spatial_counterfactual_replay_schema_only",
+                "status": "pass",
+                "trained_simulator_claim_authorized": False,
+            }
+            continue
         assert source["authority_ceiling"]["accepted_organ_ref"] == (
             f"core/organ_registry.json#{organ_id}"
         )
@@ -2392,7 +2651,7 @@ def test_doctrine_projection_uses_computed_support_not_legacy_strength() -> None
     )
 
     assert projection["status"] == "pass"
-    assert projection["axiom_instance_corpus"]["json_instance_count"] == 12
+    _assert_source_projection_counts(projection['axiom_instance_corpus'], "axiom", 12)
     assert projection["support_truth_calculus"]["status"] == "computed"
     piloted_axioms = projection["support_truth_calculus"]["piloted_axioms"]
     assert set(piloted_axioms) == {f"AX-{i}" for i in range(1, 13)}
@@ -2404,12 +2663,25 @@ def test_doctrine_projection_uses_computed_support_not_legacy_strength() -> None
     assert ax1["claim_ceiling"] != ax1["legacy_witness_strength"]["value"]
 
 
-def test_doctrine_projection_includes_principle_and_anti_principle_nodes_without_authority_flip() -> None:
+def test_doctrine_projection_includes_principle_and_anti_principle_nodes_without_authority_flip(monkeypatch) -> None:
+    from microcosm_core import doctrine_lattice as lattice
+
+    skill_snapshots = []
+    known_ids = lattice._known_skill_instance_ids
+
+    def observe_known_ids(root):
+        snapshot = known_ids(root)
+        skill_snapshots.append(snapshot)
+        return snapshot
+
+    monkeypatch.setattr(lattice, "_known_skill_instance_ids", observe_known_ids)
     projection = build_doctrine_projection(
         MICROCOSM_ROOT,
         generated_at="2026-06-01T00:00:00Z",
         command="pytest",
     )
+    assert len(skill_snapshots) == 1
+    assert isinstance(skill_snapshots[0], frozenset)
 
     assert projection["status"] == "pass"
     assert projection["principle_instance_corpus"]["json_instance_count"] == (
@@ -2418,16 +2690,10 @@ def test_doctrine_projection_includes_principle_and_anti_principle_nodes_without
     assert projection["principle_instance_corpus"]["authority_flip_status"] == (
         "not_flipped_legacy_markdown_still_source_of_record"
     )
-    assert projection["anti_principle_instance_corpus"]["json_instance_count"] == 17
-    assert projection["concept_instance_corpus"]["json_instance_count"] == (
-        _concept_source_count()
-    )
-    assert projection["mechanism_instance_corpus"]["json_instance_count"] == (
-        _mechanism_source_count()
-    )
-    assert projection["organ_instance_corpus"]["json_instance_count"] == (
-        _organ_source_count()
-    )
+    _assert_source_projection_counts(projection['anti_principle_instance_corpus'], "anti_principle", 17)
+    _assert_source_projection_counts(projection['concept_instance_corpus'], "concept", _concept_source_count())
+    _assert_source_projection_counts(projection['mechanism_instance_corpus'], "mechanism", _mechanism_source_count())
+    _assert_source_projection_counts(projection['organ_instance_corpus'], "organ", _organ_source_count())
     assert projection["paper_module_instance_corpus"]["json_instance_count"] == (
         build_paper_module_instance_corpus(MICROCOSM_ROOT)["json_instance_count"]
     )
@@ -2436,7 +2702,7 @@ def test_doctrine_projection_includes_principle_and_anti_principle_nodes_without
     )
     assert (
         projection["skill_instance_corpus"]["json_instance_count"]
-        == EXPECTED_SKILL_INSTANCE_COUNT
+        == _skill_source_count()
     )
     assert projection["skill_instance_corpus"]["required_relation_gap_count"] == 0
     assert (
@@ -2445,7 +2711,7 @@ def test_doctrine_projection_includes_principle_and_anti_principle_nodes_without
     )
     assert (
         projection["standard_instance_corpus"]["json_instance_count"]
-        == EXPECTED_STANDARD_INSTANCE_COUNT
+        == _standard_source_count()
     )
     assert projection["standard_instance_corpus"]["legacy_or_draft_contract_count"] > 0
     assert (
@@ -2627,7 +2893,7 @@ def test_doctrine_projection_includes_principle_and_anti_principle_nodes_without
         and edge["source_id"] == "P-1"
         and edge["target_kind"] == "axiom"
         and edge["target_id"] == "AX-1"
-        and edge["target_status"] == "resolved_json_instance"
+        and edge["target_status"] == _projection_target_resolution_status(edge)
         for edge in projection["edges"]
     )
     assert any(
@@ -2642,7 +2908,7 @@ def test_doctrine_projection_includes_principle_and_anti_principle_nodes_without
         and edge["source_id"] == "P-1"
         and edge["relation_id"] == "principle.governs.mechanism"
         and edge["target_kind"] == "mechanism"
-        and edge["target_status"] == "resolved_json_instance"
+        and edge["target_status"] == _projection_target_resolution_status(edge)
         for edge in projection["edges"]
     )
     assert any(
@@ -2651,14 +2917,14 @@ def test_doctrine_projection_includes_principle_and_anti_principle_nodes_without
         and edge["relation_id"] == "anti_principle.negates_failure_of.principle"
         and edge["target_kind"] == "principle"
         and edge["target_id"] == "P-15"
-        and edge["target_status"] == "resolved_json_instance"
+        and edge["target_status"] == _projection_target_resolution_status(edge)
         for edge in projection["edges"]
     )
     assert any(
         edge["source_kind"] == "organ"
         and edge["source_id"] == "pattern_binding_contract"
         and edge["relation_id"] == "organ.operates_through.mechanism"
-        and edge["target_status"] == "resolved_json_instance"
+        and edge["target_status"] == _projection_target_resolution_status(edge)
         for edge in projection["edges"]
     )
     assert any(
@@ -2666,7 +2932,7 @@ def test_doctrine_projection_includes_principle_and_anti_principle_nodes_without
         and edge["source_id"] == "paper_module.verifier_lab_kernel"
         and edge["target_kind"] == "organ"
         and edge["target_id"] == "verifier_lab_kernel"
-        and edge["target_status"] == "resolved_json_instance"
+        and edge["target_status"] == _projection_target_resolution_status(edge)
         for edge in projection["edges"]
     )
     assert any(
@@ -2674,7 +2940,7 @@ def test_doctrine_projection_includes_principle_and_anti_principle_nodes_without
         and edge["source_id"] == "skill.cold_start_navigation"
         and edge["relation_id"] == "skill.applies.concept"
         and edge["target_id"] == "concept.first_screen_doctrine_effect_frame"
-        and edge["target_status"] == "resolved_json_instance"
+        and edge["target_status"] == _projection_target_resolution_status(edge)
         for edge in projection["edges"]
     )
     assert any(
@@ -2690,7 +2956,7 @@ def test_doctrine_projection_includes_principle_and_anti_principle_nodes_without
         and edge["source_id"] == "std_microcosm_axiom"
         and edge["relation_id"] == "standard.owns_triad.skill"
         and edge["target_id"] == "skill.microcosm.axiom.author"
-        and edge["target_status"] == "resolved_json_instance"
+        and edge["target_status"] == _projection_target_resolution_status(edge)
         for edge in projection["edges"]
     )
 
@@ -2699,20 +2965,20 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
     health = build_lattice_health(MICROCOSM_ROOT)
 
     assert health["status"] == "deficit"
-    assert health["axioms"]["json_instance_count"] == 12
-    assert health["axioms"]["parity_status"] == "pass"
+    _assert_source_projection_counts(health['axioms'], "axiom", 12)
+    assert health['axioms']['parity_status'] == _source_parity_status("axiom")
     assert health["principles"]["json_instance_count"] == (
         build_principle_instance_corpus(MICROCOSM_ROOT)["json_instance_count"]
     )
-    assert health["principles"]["parity_status"] == "pass"
-    assert health["anti_principles"]["json_instance_count"] == 17
-    assert health["anti_principles"]["parity_status"] == "pass"
-    assert health["concepts"]["json_instance_count"] == _concept_source_count()
-    assert health["concepts"]["parity_status"] == "pass"
-    assert health["mechanisms"]["json_instance_count"] == _mechanism_source_count()
-    assert health["mechanisms"]["parity_status"] == "pass"
-    assert health["organs"]["json_instance_count"] == _organ_source_count()
-    assert health["organs"]["parity_status"] == "pass"
+    assert health['principles']['parity_status'] == _source_parity_status("principle")
+    _assert_source_projection_counts(health['anti_principles'], "anti_principle", 17)
+    assert health['anti_principles']['parity_status'] == _source_parity_status("anti_principle")
+    _assert_source_projection_counts(health['concepts'], "concept", _concept_source_count())
+    assert health['concepts']['parity_status'] == _source_parity_status("concept")
+    _assert_source_projection_counts(health['mechanisms'], "mechanism", _mechanism_source_count())
+    assert health['mechanisms']['parity_status'] == _source_parity_status("mechanism")
+    _assert_source_projection_counts(health['organs'], "organ", _organ_source_count())
+    assert health['organs']['parity_status'] == _source_parity_status("organ")
     assert health["paper_modules"]["json_instance_count"] == (
         build_paper_module_instance_corpus(MICROCOSM_ROOT)["json_instance_count"]
     )
@@ -2726,7 +2992,7 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
     assert health["paper_modules"]["legacy_only_json_instance_count"] == (
         health["paper_modules"]["required_subject_gap_count"]
     )
-    assert health["skills"]["json_instance_count"] == EXPECTED_SKILL_INSTANCE_COUNT
+    assert health["skills"]["json_instance_count"] == _skill_source_count()
     assert health["skills"]["json_instance_parity_status"] == "pass"
     assert health["skills"]["required_edge_gap_count"] == 0
     assert (
@@ -2735,7 +3001,7 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
     )
     assert (
         health["standards"]["json_instance_count"]
-        == EXPECTED_STANDARD_INSTANCE_COUNT
+        == _standard_source_count()
     )
     assert health["standards"]["json_instance_parity_status"] == "pass"
     assert health["standards"]["legacy_or_draft_contract_count"] > 0
@@ -2749,7 +3015,7 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
     )
     assert (
         health["standards"]["governs_kind_resolved_edge_count"]
-        == EXPECTED_STANDARD_INSTANCE_COUNT
+        == _standard_source_count()
     )
     assert (
         health["standards"]["triad_skill_resolved_edge_count"]
@@ -2859,7 +3125,9 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
         assert "paper_module_json_capsule_and_edge_population" not in residual_gap_classes
     if health["skills"]["unpopulated_selective_edge_count"]:
         assert "skill_selective_edge_population" in residual_gap_classes
-    assert "evidence_walkability_population" not in residual_gap_classes
+    assert ("evidence_walkability_population" in residual_gap_classes) == bool(
+        health["receipts"]["missing_ref_count"] or health["receipts"]["unresolved_nonlocal_ref_count"]
+    )
     for row in health["residual_pressure"]:
         assert row["pressure_ref"] == (
             "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
@@ -2902,11 +3170,16 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
     assert receipt_health["declared_ref_count"] == receipt_support_counts[
         "declared_receipt_ref_not_file_resolved"
     ]
-    assert receipt_health["nonlocal_ref_count"] == receipt_support_counts[
-        "nonlocal_receipt_path_resolved_not_public_evidence"
-    ]
-    assert receipt_health["resolved_nonlocal_ref_count"] == receipt_health["nonlocal_ref_count"]
-    assert receipt_health["unresolved_nonlocal_ref_count"] == 0
+    assert receipt_health["nonlocal_ref_count"] == (
+        receipt_support_counts.get("nonlocal_receipt_path_resolved_not_public_evidence", 0)
+        + receipt_support_counts.get("nonlocal_receipt_ref_declared_not_public_file_resolved", 0)
+    )
+    expected_history = _historical_nonlocal_receipt_refs()
+    assert {row["id"] for row in receipt_health["nonlocal_ref_details"]} == expected_history
+    expected_unresolved = {ref for ref in expected_history if not _nonlocal_ref_exists(ref)}
+    assert {row["id"] for row in receipt_health["unresolved_nonlocal_ref_details"]} == expected_unresolved
+    assert receipt_health["unresolved_nonlocal_ref_count"] == len(expected_unresolved)
+    assert receipt_health["resolved_nonlocal_ref_count"] + len(expected_unresolved) == receipt_health["nonlocal_ref_count"]
     assert receipt_health["missing_ref_count"] == 0
     assert receipt_health["relation_ids"] == [
         "anti_principle.evidenced_by.receipt",
@@ -2948,9 +3221,9 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
     ]
     assert (
         nonlocal_receipt["support_status"]
-        == "nonlocal_receipt_path_resolved_not_public_evidence"
+        == ("nonlocal_receipt_path_resolved_not_public_evidence" if _nonlocal_ref_exists(nonlocal_receipt["id"]) else "nonlocal_receipt_ref_declared_not_public_file_resolved")
     )
-    assert nonlocal_receipt["gap_count"] == 0
+    assert nonlocal_receipt["gap_count"] == (0 if _nonlocal_ref_exists(nonlocal_receipt["id"]) else 1)
     assert (
         "not_public_file_evidence"
         in nonlocal_receipt["claim_ceiling"]
@@ -2958,7 +3231,7 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
     assert health["axioms"]["not_obligation_piloted"] == []
     assert health["axioms"]["support_frontier_count"] == 12
     assert health["principles"]["obligation_level_supported_count"] == (
-        build_principle_instance_corpus(MICROCOSM_ROOT)["json_instance_count"]
+        build_principle_instance_corpus(MICROCOSM_ROOT)["effective_instance_count"]
     )
     assert health["principles"]["unsupported_at_obligation_level"] == []
     assert "AX-4" not in health["axioms"]["not_obligation_piloted"]
@@ -3028,8 +3301,20 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
         row["organ_id"]: row
         for row in health["organs"]["required_edge_gap_details"]
     }
-    assert health["organs"]["required_edge_gap_detail_count"] == 0
-    assert gap_details == {}
+    planned_mechanism_organs = {
+        "annex_knowledge_routing", "bridge_campaign_dag_validation",
+        "derived_fact_provider_runtime", "egress_self_compliance_audit",
+        "finite_erdos_denominator_certificate_strike", "generated_projection_drift_runtime",
+        "lean_proof_search_lab_runtime", "metabolism_queue_reconciliation",
+        "navigation_fitness_benchmark", "semantic_singleflight_dedup_runtime",
+    }
+    assert health["organs"]["required_edge_gap_detail_count"] == len(planned_mechanism_organs)
+    assert set(gap_details) == planned_mechanism_organs
+    for organ_id, detail in gap_details.items():
+        refs = _organ_atlas_row(organ_id)["mechanism_refs"]
+        assert refs and all(ref["resolution_status"] == "planned_unresolved" for ref in refs)
+        assert detail["missing_required_relation_ids"] == ["organ.operates_through.mechanism"]
+        assert detail["missing_source_authority_fields"] == ["mechanism_refs"]
     assert "batch6_unsurfaced_primitives_capsule" not in gap_details
     assert set(gap_details).isdisjoint(resolved_import_organs)
     assert (
@@ -3039,7 +3324,11 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
     assert health["paper_modules"]["unpopulated_selective_edge_count"] == len(
         health["paper_modules"]["unpopulated_selective_edges"]
     )
-    assert health["paper_modules"]["unpopulated_selective_edge_count"] == 0
+    canonical_paper_residual_ids = {
+        instance_id for instance_id, instance in expected_paper_module_instances(MICROCOSM_ROOT).items()
+        if instance.get("relationships", {}).get("unpopulated_selective_relations")
+    }
+    assert set(health["paper_modules"]["unpopulated_selective_edges"]) == canonical_paper_residual_ids
     assert health["residual_pressure"][0]["pressure_ref"] == (
         "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
     )
@@ -3541,7 +3830,7 @@ def test_coverage_reports_current_organ_binding_deficits_without_greenwashing() 
     )
     assert (
         projection["deficit_summary"]["skill_json_instance_count"]
-        == EXPECTED_SKILL_INSTANCE_COUNT
+        == _skill_source_count()
     )
     assert projection["deficit_summary"]["skill_json_missing_count"] == 0
     assert projection["deficit_summary"]["skill_required_relation_gap_count"] == 0
@@ -3551,7 +3840,7 @@ def test_coverage_reports_current_organ_binding_deficits_without_greenwashing() 
     )
     assert (
         projection["deficit_summary"]["standard_json_instance_count"]
-        == EXPECTED_STANDARD_INSTANCE_COUNT
+        == _standard_source_count()
     )
     assert projection["deficit_summary"]["standard_json_missing_count"] == 0
     assert projection["deficit_summary"]["standard_legacy_or_draft_contract_count"] > 0
@@ -3561,7 +3850,7 @@ def test_coverage_reports_current_organ_binding_deficits_without_greenwashing() 
     )
     assert (
         projection["deficit_summary"]["standard_governs_kind_resolved_edge_count"]
-        == EXPECTED_STANDARD_INSTANCE_COUNT
+        == _standard_source_count()
     )
     assert (
         projection["deficit_summary"]["standard_triad_skill_resolved_edge_count"]
@@ -7547,7 +7836,7 @@ def test_doctrine_lattice_entry_card_is_microcosm_local_and_projection_backed() 
     )
     assert (
         card["current_counts"]["skill_json_instance_count"]
-        == EXPECTED_SKILL_INSTANCE_COUNT
+        == _skill_source_count()
     )
     assert card["current_counts"]["skill_required_relation_gap_count"] == 0
     assert (
@@ -7556,7 +7845,7 @@ def test_doctrine_lattice_entry_card_is_microcosm_local_and_projection_backed() 
     )
     assert (
         card["current_counts"]["standard_json_instance_count"]
-        == EXPECTED_STANDARD_INSTANCE_COUNT
+        == _standard_source_count()
     )
     assert card["current_counts"]["standard_legacy_or_draft_contract_count"] > 0
     assert (

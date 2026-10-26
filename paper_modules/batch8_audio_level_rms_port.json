@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Deterministic RMS parity evidence over public fixture inputs and copied source refs only; no macOS audio-session evidence, microphone permission authority, device capture, recorded audio, UI readiness, source mutation authority, release approval, publication approval, or whole-system correctness.",
-    "card": "Batch 8 Audio Level RMS Port ports the Swift AudioLevelMonitor normalizedLevel RMS calculation into a bounded Python organ and checks float, int16, clamp, empty-buffer, and unsupported-format cases over public synthetic sample arrays. It carries source-module refs, digests, anchors, sample counts, parity verdicts, negative cases, and an authority ceiling while excluding AVCaptureSession startup, microphone permission, recorded audio, device state, UI readiness, source mutation, release, publication, and whole-system correctness.",
-    "one_line": "Batch 8 Audio Level RMS Port validates deterministic RMS math parity over public synthetic samples without audio capture, microphone permission, or UI readiness authority."
+    "authority_ceiling": "This checks the Python calculation on the supplied cases; it does not establish sample-buffer parity on a device, microphone permissions, session behavior or audio capture.",
+    "card": "Reference float and int16 buffers check the formula; separate tests exercise generated WAV bytes.",
+    "one_line": "A Python port computes a normalized RMS level for audio samples."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch8_audio_level_rms_port",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Deterministic RMS parity evidence over public fixture inputs and copied source refs only; no macOS audio-session evidence, microphone permission authority, device capture, recorded audio, UI readiness, source mutation authority, release approval, publication approval, or whole-system correctness.",
+    "authority_ceiling": "This checks the Python calculation on the supplied cases; it does not establish sample-buffer parity on a device, microphone permissions, session behavior or audio capture.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,9 +84,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Deterministic RMS parity evidence over public fixture inputs and copied source refs only; no macOS audio-session evidence, microphone permission authority, device capture, recorded audio, UI readiness, source mutation authority, release approval, publication approval, or whole-system correctness.",
-        "card": "Batch 8 Audio Level RMS Port ports the Swift AudioLevelMonitor normalizedLevel RMS calculation into a bounded Python organ and checks float, int16, clamp, empty-buffer, and unsupported-format cases over public synthetic sample arrays. It carries source-module refs, digests, anchors, sample counts, parity verdicts, negative cases, and an authority ceiling while excluding AVCaptureSession startup, microphone permission, recorded audio, device state, UI readiness, source mutation, release, publication, and whole-system correctness.",
-        "one_line": "Batch 8 Audio Level RMS Port validates deterministic RMS math parity over public synthetic samples without audio capture, microphone permission, or UI readiness authority."
+        "authority_ceiling": "This checks the Python calculation on the supplied cases; it does not establish sample-buffer parity on a device, microphone permissions, session behavior or audio capture.",
+        "card": "Reference float and int16 buffers check the formula; separate tests exercise generated WAV bytes.",
+        "one_line": "A Python port computes a normalized RMS level for audio samples."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -138,7 +138,7 @@
           "ref": "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port"
         }
       ],
-      "title": "Batch 8 Audio Level RMS Port"
+      "title": "Calculate a normalized audio level"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row. Concept edges remain residual until a stable concept id is selected.",
     "support_contract": {
@@ -468,7 +468,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 8 Audio Level RMS Port validates deterministic RMS math parity over public synthetic samples without audio capture, microphone permission, or UI readiness authority.",
+  "statement": "A Python port computes a normalized RMS level for audio samples.",
   "status": "active",
   "subjects": [
     {
@@ -480,7 +480,7 @@
       "ref": "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port"
     }
   ],
-  "title": "Batch 8 Audio Level RMS Port",
+  "title": "Calculate a normalized audio level",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

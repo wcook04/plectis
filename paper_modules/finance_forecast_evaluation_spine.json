@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Synthetic market-shaped fixtures only; not investment or trading advice, no live market data, no track record or performance claim, mutates no optimizer, SciPy absence is a typed HLN refusal.",
-    "card": "Runs admissible forecast-evaluation statistics (Diebold-Mariano loss-differential, Harvey-Leybourne-Newbold small-sample correction, Hansen SPA with recentering, Politis-Romano stationary bootstrap, Bartlett HAC long-run variance, purged/embargoed CV) over synthetic market-shaped fixtures and copied non-secret macro bodies; refusal discipline returns typed refusals (horizon>=sample length, too-small samples, leakage-prone splits, missing SciPy, advice-shaped claims) instead of crashing; computed-statistic and refused-because-inadmissible are both valid validator outcomes.",
-    "one_line": "Forecast-evaluation organ: Diebold-Mariano / Hansen-SPA / stationary-bootstrap stats over synthetic fixtures with typed refusal discipline; no market authority."
+    "authority_ceiling": "A lookahead split or a claim that the output authorizes investment advice is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment decision.",
+    "card": "This component reads a matrix of synthetic losses for a baseline and candidate forecasts, paired loss series and a boundary policy. The fixture exercises stationary bootstrap, reality check, superior predictive ability and model confidence set calculations, as well as a Diebold–Mariano comparison. The test fixture has 40 observations. Its reality check, superior predictive ability and model confidence set calls each use 40 bootstrap replicates; a separate stationary-bootstrap index demonstration uses five. The fixture deliberately blocks SciPy imports to exercise a typed refusal of the Harvey–Leybourne–Newbold correction to the paired comparison, regardless of whether SciPy is installed.",
+    "one_line": "Evaluate synthetic forecast-loss fixtures and boundary checks."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.finance_forecast_evaluation_spine",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Synthetic market-shaped fixtures only; not investment or trading advice, no live market data, no track record or performance claim, mutates no optimizer, SciPy absence is a typed HLN refusal.",
+    "authority_ceiling": "A lookahead split or a claim that the output authorizes investment advice is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment decision.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -74,9 +74,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Synthetic market-shaped fixtures only; not investment or trading advice, no live market data, no track record or performance claim, mutates no optimizer, SciPy absence is a typed HLN refusal.",
-        "card": "Runs admissible forecast-evaluation statistics (Diebold-Mariano loss-differential, Harvey-Leybourne-Newbold small-sample correction, Hansen SPA with recentering, Politis-Romano stationary bootstrap, Bartlett HAC long-run variance, purged/embargoed CV) over synthetic market-shaped fixtures and copied non-secret macro bodies; refusal discipline returns typed refusals (horizon>=sample length, too-small samples, leakage-prone splits, missing SciPy, advice-shaped claims) instead of crashing; computed-statistic and refused-because-inadmissible are both valid validator outcomes.",
-        "one_line": "Forecast-evaluation organ: Diebold-Mariano / Hansen-SPA / stationary-bootstrap stats over synthetic fixtures with typed refusal discipline; no market authority."
+        "authority_ceiling": "A lookahead split or a claim that the output authorizes investment advice is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment decision.",
+        "card": "This component reads a matrix of synthetic losses for a baseline and candidate forecasts, paired loss series and a boundary policy. The fixture exercises stationary bootstrap, reality check, superior predictive ability and model confidence set calculations, as well as a Diebold–Mariano comparison. The test fixture has 40 observations. Its reality check, superior predictive ability and model confidence set calls each use 40 bootstrap replicates; a separate stationary-bootstrap index demonstration uses five. The fixture deliberately blocks SciPy imports to exercise a typed refusal of the Harvey–Leybourne–Newbold correction to the paired comparison, regardless of whether SciPy is installed.",
+        "one_line": "Evaluate synthetic forecast-loss fixtures and boundary checks."
       },
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
@@ -120,7 +120,7 @@
           "ref": "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine"
         }
       ],
-      "title": "Finance Forecast Evaluation Spine"
+      "title": "Evaluate synthetic forecast losses"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to a JSON authority row; concept/principle/axiom refs left as honest residuals until a resolving microcosm doctrine id exists (no minting).",
     "support_contract": {
@@ -276,7 +276,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Forecast-evaluation organ: Diebold-Mariano / Hansen-SPA / stationary-bootstrap stats over synthetic fixtures with typed refusal discipline; no market authority.",
+  "statement": "Evaluate synthetic forecast-loss fixtures and boundary checks.",
   "status": "active",
   "subjects": [
     {
@@ -288,7 +288,7 @@
       "ref": "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine"
     }
   ],
-  "title": "Finance Forecast Evaluation Spine",
+  "title": "Evaluate synthetic forecast losses",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

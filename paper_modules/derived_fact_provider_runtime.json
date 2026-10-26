@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A pass means the surfaced fact-provider capsule resolved the authored fixture registries against their supplied roots and rejected the planted-defect registries by recomputation with the expected error_class. It does NOT mean any downstream prose claim is true (not a doctrine truth auditor), does NOT cover the full macro fact registry (not a full export), does NOT perform semantic claim validation, does NOT prove the provider correct beyond the bounded fixtures, and grants NO release, publication, private-source-export, or source-mutation authority. The only runtime variability admitted is filesystem reads, the git subprocess used by callable facts (over isolated tempdirs), and CLI argument reads.",
-    "card": "Surfaces the derived_fact_provider_engine capsule as an organ. It evaluates authored fact registries against bounded public fixture roots through three provider shapes — json_pointer (RFC 6901, list-index aware), glob_count (with excluded prefixes), and named callable facts (git-tracked counts) — and converts any provider failure into an error-as-data row (provider_status=error, error_class, repair hint) that degrades the receipt rather than crashing the ledger. The runner exercises two clean registries (pointer+glob; git-callable+array-index pointer) and self-falsifies on two planted defects (an absent source path -> FileNotFoundError, an unsupported provider_type -> ValueError), asserting the exact error_class marker fires. Receipts are body-free. It is not a doctrine truth auditor, not a full macro registry export, not semantic claim validation, and grants no release/publication authority.",
-    "one_line": "Registry-backed derived fact provider runtime: resolves JSON-pointer, glob-count, and git-backed callable facts over public fixture roots and turns provider failures into error-as-data rows, rejecting malformed registries by recomputation."
+    "authority_ceiling": "Resolution does not judge prose truth or a complete external registry.",
+    "card": "Evaluates fixture registries and reports typed errors such as a missing source.",
+    "one_line": "Resolves registry facts by JSON pointer, glob and named callable."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.derived_fact_provider_runtime",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A pass means the surfaced fact-provider capsule resolved the authored fixture registries against their supplied roots and rejected the planted-defect registries by recomputation with the expected error_class. It does NOT mean any downstream prose claim is true (not a doctrine truth auditor), does NOT cover the full macro fact registry (not a full export), does NOT perform semantic claim validation, does NOT prove the provider correct beyond the bounded fixtures, and grants NO release, publication, private-source-export, or source-mutation authority. The only runtime variability admitted is filesystem reads, the git subprocess used by callable facts (over isolated tempdirs), and CLI argument reads.",
+    "authority_ceiling": "Resolution does not judge prose truth or a complete external registry.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,9 +86,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A pass means the surfaced fact-provider capsule resolved the authored fixture registries against their supplied roots and rejected the planted-defect registries by recomputation with the expected error_class. It does NOT mean any downstream prose claim is true (not a doctrine truth auditor), does NOT cover the full macro fact registry (not a full export), does NOT perform semantic claim validation, does NOT prove the provider correct beyond the bounded fixtures, and grants NO release, publication, private-source-export, or source-mutation authority. The only runtime variability admitted is filesystem reads, the git subprocess used by callable facts (over isolated tempdirs), and CLI argument reads.",
-        "card": "Surfaces the derived_fact_provider_engine capsule as an organ. It evaluates authored fact registries against bounded public fixture roots through three provider shapes — json_pointer (RFC 6901, list-index aware), glob_count (with excluded prefixes), and named callable facts (git-tracked counts) — and converts any provider failure into an error-as-data row (provider_status=error, error_class, repair hint) that degrades the receipt rather than crashing the ledger. The runner exercises two clean registries (pointer+glob; git-callable+array-index pointer) and self-falsifies on two planted defects (an absent source path -> FileNotFoundError, an unsupported provider_type -> ValueError), asserting the exact error_class marker fires. Receipts are body-free. It is not a doctrine truth auditor, not a full macro registry export, not semantic claim validation, and grants no release/publication authority.",
-        "one_line": "Registry-backed derived fact provider runtime: resolves JSON-pointer, glob-count, and git-backed callable facts over public fixture roots and turns provider failures into error-as-data rows, rejecting malformed registries by recomputation."
+        "authority_ceiling": "Resolution does not judge prose truth or a complete external registry.",
+        "card": "Evaluates fixture registries and reports typed errors such as a missing source.",
+        "one_line": "Resolves registry facts by JSON pointer, glob and named callable."
       },
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
@@ -125,7 +125,7 @@
           "ref": "derived_fact_provider_runtime"
         }
       ],
-      "title": "Derived Fact Provider Runtime"
+      "title": "Resolve facts from a fixture registry"
     },
     "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
     "support_contract": {
@@ -282,7 +282,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Registry-backed derived fact provider runtime: resolves JSON-pointer, glob-count, and git-backed callable facts over public fixture roots and turns provider failures into error-as-data rows, rejecting malformed registries by recomputation.",
+  "statement": "Resolves registry facts by JSON pointer, glob and named callable.",
   "status": "active",
   "subjects": [
     {
@@ -290,7 +290,7 @@
       "ref": "derived_fact_provider_runtime"
     }
   ],
-  "title": "Derived Fact Provider Runtime",
+  "title": "Resolve facts from a fixture registry",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

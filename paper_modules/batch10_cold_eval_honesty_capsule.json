@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture-bound route-quality scorecard and copied source refs only; no live benchmark, navigation truth, hosted readiness, release approval, provider dispatch, source mutation, or whole-system correctness.",
-    "card": "Batch 10 Cold Eval Honesty Capsule imports the real non-secret cold_eval.py macro body and runs its route-quality simulator over a synthetic public workspace. It audits the all-B idea-first scorecard shape, expected-ref injection policy, private fixture refs, missing-task refusals, negative cases, and authority ceilings while excluding live benchmark results, navigation truth, hosted readiness, release approval, provider dispatch, source mutation, and whole-system correctness.",
-    "one_line": "Batch 10 Cold Eval Honesty Capsule runs copied cold-eval substrate over public fixtures without benchmark, navigation-truth, or release authority."
+    "authority_ceiling": "The fixture scorecard does not establish real-world navigation performance.",
+    "card": "Runs a copied cold-eval simulator over a synthetic workspace and audits its comparison, which combines reference coverage and other scoring heuristics.",
+    "one_line": "Runs and audits a fixture route-comparison scorecard."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch10_cold_eval_honesty_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture-bound route-quality scorecard and copied source refs only; no live benchmark, navigation truth, hosted readiness, release approval, provider dispatch, source mutation, or whole-system correctness.",
+    "authority_ceiling": "The fixture scorecard does not establish real-world navigation performance.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,9 +84,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture-bound route-quality scorecard and copied source refs only; no live benchmark, navigation truth, hosted readiness, release approval, provider dispatch, source mutation, or whole-system correctness.",
-        "card": "Batch 10 Cold Eval Honesty Capsule imports the real non-secret cold_eval.py macro body and runs its route-quality simulator over a synthetic public workspace. It audits the all-B idea-first scorecard shape, expected-ref injection policy, private fixture refs, missing-task refusals, negative cases, and authority ceilings while excluding live benchmark results, navigation truth, hosted readiness, release approval, provider dispatch, source mutation, and whole-system correctness.",
-        "one_line": "Batch 10 Cold Eval Honesty Capsule runs copied cold-eval substrate over public fixtures without benchmark, navigation-truth, or release authority."
+        "authority_ceiling": "The fixture scorecard does not establish real-world navigation performance.",
+        "card": "Runs a copied cold-eval simulator over a synthetic workspace and audits its comparison, which combines reference coverage and other scoring heuristics.",
+        "one_line": "Runs and audits a fixture route-comparison scorecard."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -135,7 +135,7 @@
           "ref": "mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule"
         }
       ],
-      "title": "Batch 10 Cold Eval Honesty Capsule"
+      "title": "Run a small route-comparison simulation"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row. Concept edges remain residual until a stable concept id is selected.",
     "support_contract": {
@@ -410,7 +410,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 10 Cold Eval Honesty Capsule runs copied cold-eval substrate over public fixtures without benchmark, navigation-truth, or release authority.",
+  "statement": "Runs and audits a fixture route-comparison scorecard.",
   "status": "active",
   "subjects": [
     {
@@ -422,7 +422,7 @@
       "ref": "mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule"
     }
   ],
-  "title": "Batch 10 Cold Eval Honesty Capsule",
+  "title": "Run a small route-comparison simulation",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

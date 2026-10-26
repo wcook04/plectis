@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public fixture and exported-bundle receipts only; no live Task Ledger mutation, live Work Ledger mutation, live git mutation, private backup execution, broad checkpoint authorization, release approval, publication approval, or whole-system correctness.",
-    "card": "Mission Transaction Work Spine is the public replay membrane for Microcosm work-landing discipline. It checks fixed WorkItem, claim, dependency, transaction, receipt-drain, closeout, scoped mutation, and checkpoint-lane rows; validates copied Task Ledger, Work Ledger, checkpoint, scoped-commit, and mission-preflight source modules by manifest; and writes body-free receipts with secret-exclusion and authority ceilings.",
-    "one_line": "The public mission-transaction fixture validates work-landing, claim, dependency, scoped-commit, checkpoint-lane, receipt-drain, closeout, and copied non-secret control source-module contracts without mutating live ledgers or git."
+    "authority_ceiling": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release.",
+    "card": "The replay reconstructs an active-claims snapshot using imported public-safe Work Ledger code. It checks claims against paths and expected parent state, dependency unlocks and scoped checkpoint policy. Tests change a same-path conflict to a disjoint claim and change an expected parent to check that the verdict follows the input. A stale expected parent or conflicting claim is rejected.",
+    "one_line": "Validates a public work-transaction fixture containing path claims, dependencies, preflight and checkpoint policy, and writes receipts."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.mission_transaction_work_spine",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public fixture and exported-bundle receipts only; no live Task Ledger mutation, live Work Ledger mutation, live git mutation, private backup execution, broad checkpoint authorization, release approval, publication approval, or whole-system correctness.",
+    "authority_ceiling": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -81,9 +81,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public fixture and exported-bundle receipts only; no live Task Ledger mutation, live Work Ledger mutation, live git mutation, private backup execution, broad checkpoint authorization, release approval, publication approval, or whole-system correctness.",
-        "card": "Mission Transaction Work Spine is the public replay membrane for Microcosm work-landing discipline. It checks fixed WorkItem, claim, dependency, transaction, receipt-drain, closeout, scoped mutation, and checkpoint-lane rows; validates copied Task Ledger, Work Ledger, checkpoint, scoped-commit, and mission-preflight source modules by manifest; and writes body-free receipts with secret-exclusion and authority ceilings.",
-        "one_line": "The public mission-transaction fixture validates work-landing, claim, dependency, scoped-commit, checkpoint-lane, receipt-drain, closeout, and copied non-secret control source-module contracts without mutating live ledgers or git."
+        "authority_ceiling": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release.",
+        "card": "The replay reconstructs an active-claims snapshot using imported public-safe Work Ledger code. It checks claims against paths and expected parent state, dependency unlocks and scoped checkpoint policy. Tests change a same-path conflict to a disjoint claim and change an expected parent to check that the verdict follows the input. A stale expected parent or conflicting claim is rejected.",
+        "one_line": "Validates a public work-transaction fixture containing path claims, dependencies, preflight and checkpoint policy, and writes receipts."
       },
       "concept_refs": [
         "concept.work_landing_and_continuity_control_bundle"
@@ -128,7 +128,7 @@
           "ref": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle"
         }
       ],
-      "title": "Mission Transaction Work Spine"
+      "title": "Work-landing transaction replay"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave mission-transaction fixture, exported mission-transaction bundle, copied non-secret Task Ledger/Work Ledger/checkpoint/mission-control source-module manifests, mechanism row, and Microcosm organ source locus without treating Markdown, generated atlas docs, copied-body presence, or receipt projections as live ledger, git, checkpoint, release, or whole-system authority.",
     "support_contract": {
@@ -305,7 +305,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public mission-transaction fixture validates work-landing, claim, dependency, scoped-commit, checkpoint-lane, receipt-drain, closeout, and copied non-secret control source-module contracts without mutating live ledgers or git.",
+  "statement": "Validates a public work-transaction fixture containing path claims, dependencies, preflight and checkpoint policy, and writes receipts.",
   "status": "active",
   "subjects": [
     {
@@ -317,7 +317,7 @@
       "ref": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle"
     }
   ],
-  "title": "Mission Transaction Work Spine",
+  "title": "Work-landing transaction replay",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

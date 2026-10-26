@@ -17,7 +17,10 @@
     "tests/test_repository_layout.py",
     "formal/README.md",
     "docs/guides/verification-study.md",
-    "examples/operations/README.md"
+    "examples/operations/README.md",
+    "formal/components/README.md",
+    "src/plectis/components/_registry.py",
+    "scripts/check/check_component_kernels.py"
   ],
   "exceptions": {}
 }

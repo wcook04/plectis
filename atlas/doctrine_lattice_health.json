@@ -1,22 +1,36 @@
 {
   "anti_claim": "Health rows route gaps to residual pressure; they do not weaken doctrine or upgrade coverage.",
   "anti_principles": {
+    "derived_instance_count": 17,
+    "effective_instance_count": 17,
     "guards_resolved_axiom_edge_count": 30,
+    "instance_source_class": "source_canonical_derived_instances",
     "json_instance_count": 0,
     "known_count": 17,
-    "parity_status": "blocked",
+    "materialization_status": "absent_pre_flip",
+    "materialized_json_file_count": 0,
+    "parity_status": "not_materialized",
     "support_scope": "anti-principle guard edges resolve violated axioms; failed-principle negation binding remains residual until obligation-level mapping exists",
     "unpopulated_negates_edge_count": 0,
-    "unpopulated_negates_edges": []
+    "unpopulated_negates_edges": [],
+    "validation_basis": "canonical_source_derivation",
+    "validation_status": "pass"
   },
   "authority_boundary": "generated_health_projection_not_doctrine_authority",
   "axioms": {
+    "derived_instance_count": 12,
+    "effective_instance_count": 12,
     "expected_count": 12,
+    "instance_source_class": "source_canonical_derived_instances",
     "json_instance_count": 0,
+    "materialization_status": "absent_pre_flip",
+    "materialized_json_file_count": 0,
     "not_obligation_piloted": [],
-    "parity_status": "blocked",
+    "parity_status": "not_materialized",
     "support_frontier_count": 12,
-    "unwitnessed": []
+    "unwitnessed": [],
+    "validation_basis": "canonical_source_derivation",
+    "validation_status": "pass"
   },
   "code_loci": {
     "counts_by_support_status": {
@@ -386,13 +400,20 @@
     "support_scope": "derived from source relationship edges; path existence is not code correctness, runtime proof, or release authority"
   },
   "concepts": {
+    "derived_instance_count": 11,
+    "effective_instance_count": 11,
+    "instance_source_class": "source_canonical_derived_instances",
     "json_instance_count": 0,
     "known_count": 11,
-    "parity_status": "blocked",
+    "materialization_status": "absent_pre_flip",
+    "materialized_json_file_count": 0,
+    "parity_status": "not_materialized",
     "source_specimen_count": 11,
     "support_scope": "concept specimen parity and typed selective neighbours are computed from source-named ids; unresolved or omitted selective edges remain residual pressure",
     "unpopulated_selective_edge_count": 0,
-    "unpopulated_selective_edges": []
+    "unpopulated_selective_edges": [],
+    "validation_basis": "canonical_source_derivation",
+    "validation_status": "pass"
   },
   "doctrine_kinds": {
     "counts_by_relation_id": {
@@ -863,9 +884,14 @@
       "unresolved_dependencies": [],
       "unresolved_dependency_count": 0
     },
+    "derived_instance_count": 95,
+    "effective_instance_count": 95,
+    "instance_source_class": "source_canonical_derived_instances",
     "json_instance_count": 0,
     "known_count": 95,
-    "parity_status": "blocked",
+    "materialization_status": "absent_pre_flip",
+    "materialized_json_file_count": 0,
+    "parity_status": "not_materialized",
     "planned_or_unresolved_code_loci": [],
     "planned_or_unresolved_code_loci_count": 0,
     "residual_relation_count": 26,
@@ -1941,14 +1967,21 @@
         }
       }
     ],
+    "validation_basis": "canonical_source_derivation",
+    "validation_status": "pass",
     "without_code_loci": [],
     "without_code_loci_count": 0
   },
   "organs": {
     "accepted_count": 88,
+    "derived_instance_count": 88,
+    "effective_instance_count": 88,
     "expected_json_instance_count": 88,
+    "instance_source_class": "source_canonical_derived_instances",
     "json_instance_count": 0,
-    "parity_status": "blocked",
+    "materialization_status": "absent_pre_flip",
+    "materialized_json_file_count": 0,
+    "parity_status": "not_materialized",
     "required_edge_gap_count": 0,
     "required_edge_gap_detail_count": 10,
     "required_edge_gap_details": [
@@ -2611,6 +2644,8 @@
         }
       }
     ],
+    "validation_basis": "canonical_source_derivation",
+    "validation_status": "pass",
     "wires_to_mechanism_upstream_missing_source_declaration_count": 0,
     "wires_to_mechanism_upstream_missing_source_declaration_details": [],
     "wires_to_residual_counts_by_fillability_status": {
@@ -3416,970 +3451,64 @@
     "without_json_capsule_count": 0
   },
   "principles": {
+    "derived_instance_count": 20,
+    "effective_instance_count": 20,
     "expected_json_instance_count": 20,
+    "instance_source_class": "source_canonical_derived_instances",
     "json_instance_count": 0,
     "known_count": 20,
     "legacy_markdown_count": 20,
+    "materialization_status": "absent_pre_flip",
+    "materialized_json_file_count": 0,
     "obligation_level_supported_count": 20,
-    "parity_status": "blocked",
+    "parity_status": "not_materialized",
     "support_scope": "only principles grounded in piloted axiom obligations are computed",
     "unpopulated_governs_edge_count": 0,
     "unpopulated_governs_edges": [],
-    "unsupported_at_obligation_level": []
+    "unsupported_at_obligation_level": [],
+    "validation_basis": "canonical_source_derivation",
+    "validation_status": "pass"
   },
   "projections": {
-    "anti_principle_json_parity": "blocked",
-    "axiom_json_parity": "blocked",
-    "concept_json_parity": "blocked",
+    "anti_principle_json_parity": "not_materialized",
+    "axiom_json_parity": "not_materialized",
+    "concept_json_parity": "not_materialized",
     "coverage_population_status": "complete",
     "coverage_status": "pass",
-    "mechanism_json_parity": "blocked",
-    "organ_json_parity": "blocked",
+    "mechanism_json_parity": "not_materialized",
+    "organ_json_parity": "not_materialized",
     "paper_module_json_parity": "pass",
-    "principle_json_parity": "blocked",
+    "principle_json_parity": "not_materialized",
     "skill_json_parity": "pass",
     "standard_json_parity": "pass"
   },
   "receipts": {
     "counts_by_support_status": {
       "declared_receipt_ref_not_file_resolved": 3,
-      "missing_receipt_ref": 36,
-      "nonlocal_receipt_ref_declared_not_public_file_resolved": 7,
-      "receipt_path_resolved": 460,
+      "nonlocal_receipt_ref_declared_not_public_file_resolved": 5,
+      "receipt_path_resolved": 497,
       "symbolic_receipt_id_declared_not_file_resolved": 135
     },
     "declared_ref_count": 3,
-    "edge_count": 1394,
+    "edge_count": 1396,
     "gap_details": [
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:annex_knowledge_routing",
-          "standard:std_microcosm_annex_knowledge_routing"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[84:annex_knowledge_routing].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[84:annex_knowledge_routing].receipt_refs[4]",
-          "standards/std_microcosm_annex_knowledge_routing.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:bridge_campaign_dag_validation",
-          "standard:std_microcosm_bridge_campaign_dag_validation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[80:bridge_campaign_dag_validation].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[80:bridge_campaign_dag_validation].receipt_refs[4]",
-          "standards/std_microcosm_bridge_campaign_dag_validation.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:derived_fact_provider_runtime",
-          "standard:std_microcosm_derived_fact_provider_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[82:derived_fact_provider_runtime].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[82:derived_fact_provider_runtime].receipt_refs[4]",
-          "standards/std_microcosm_derived_fact_provider_runtime.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:egress_self_compliance_audit",
-          "standard:std_microcosm_egress_self_compliance_audit"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[85:egress_self_compliance_audit].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[85:egress_self_compliance_audit].receipt_refs[4]",
-          "standards/std_microcosm_egress_self_compliance_audit.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:finite_erdos_denominator_certificate_strike",
-          "standard:std_microcosm_finite_erdos_denominator_certificate_strike"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[79:finite_erdos_denominator_certificate_strike].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[79:finite_erdos_denominator_certificate_strike].receipt_refs[4]",
-          "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:generated_projection_drift_runtime",
-          "standard:std_microcosm_generated_projection_drift_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[86:generated_projection_drift_runtime].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[86:generated_projection_drift_runtime].receipt_refs[4]",
-          "standards/std_microcosm_generated_projection_drift_runtime.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:lean_proof_search_lab_runtime",
-          "standard:std_microcosm_lean_proof_search_lab_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[87:lean_proof_search_lab_runtime].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[87:lean_proof_search_lab_runtime].receipt_refs[4]",
-          "standards/std_microcosm_lean_proof_search_lab_runtime.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:metabolism_queue_reconciliation",
-          "standard:std_microcosm_metabolism_queue_reconciliation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[81:metabolism_queue_reconciliation].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[81:metabolism_queue_reconciliation].receipt_refs[4]",
-          "standards/std_microcosm_metabolism_queue_reconciliation.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:navigation_fitness_benchmark",
-          "standard:std_microcosm_navigation_fitness_benchmark"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[83:navigation_fitness_benchmark].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[83:navigation_fitness_benchmark].receipt_refs[4]",
-          "standards/std_microcosm_navigation_fitness_benchmark.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:annex_knowledge_routing",
-          "standard:std_microcosm_annex_knowledge_routing"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[84:annex_knowledge_routing].receipt_refs[2]",
-          "standards/std_microcosm_annex_knowledge_routing.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:annex_knowledge_routing",
-          "standard:std_microcosm_annex_knowledge_routing"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[84:annex_knowledge_routing].receipt_refs[1]",
-          "standards/std_microcosm_annex_knowledge_routing.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:annex_knowledge_routing",
-          "standard:std_microcosm_annex_knowledge_routing"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[84:annex_knowledge_routing].receipt_refs[3]",
-          "standards/std_microcosm_annex_knowledge_routing.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:bridge_campaign_dag_validation",
-          "standard:std_microcosm_bridge_campaign_dag_validation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[80:bridge_campaign_dag_validation].receipt_refs[2]",
-          "standards/std_microcosm_bridge_campaign_dag_validation.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:bridge_campaign_dag_validation",
-          "standard:std_microcosm_bridge_campaign_dag_validation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[80:bridge_campaign_dag_validation].receipt_refs[1]",
-          "standards/std_microcosm_bridge_campaign_dag_validation.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:bridge_campaign_dag_validation",
-          "standard:std_microcosm_bridge_campaign_dag_validation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[80:bridge_campaign_dag_validation].receipt_refs[3]",
-          "standards/std_microcosm_bridge_campaign_dag_validation.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:derived_fact_provider_runtime",
-          "standard:std_microcosm_derived_fact_provider_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[82:derived_fact_provider_runtime].receipt_refs[2]",
-          "standards/std_microcosm_derived_fact_provider_runtime.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:derived_fact_provider_runtime",
-          "standard:std_microcosm_derived_fact_provider_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[82:derived_fact_provider_runtime].receipt_refs[1]",
-          "standards/std_microcosm_derived_fact_provider_runtime.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:derived_fact_provider_runtime",
-          "standard:std_microcosm_derived_fact_provider_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[82:derived_fact_provider_runtime].receipt_refs[3]",
-          "standards/std_microcosm_derived_fact_provider_runtime.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:egress_self_compliance_audit",
-          "standard:std_microcosm_egress_self_compliance_audit"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[85:egress_self_compliance_audit].receipt_refs[2]",
-          "standards/std_microcosm_egress_self_compliance_audit.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:egress_self_compliance_audit",
-          "standard:std_microcosm_egress_self_compliance_audit"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[85:egress_self_compliance_audit].receipt_refs[1]",
-          "standards/std_microcosm_egress_self_compliance_audit.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:egress_self_compliance_audit",
-          "standard:std_microcosm_egress_self_compliance_audit"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[85:egress_self_compliance_audit].receipt_refs[3]",
-          "standards/std_microcosm_egress_self_compliance_audit.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:finite_erdos_denominator_certificate_strike",
-          "standard:std_microcosm_finite_erdos_denominator_certificate_strike"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[79:finite_erdos_denominator_certificate_strike].receipt_refs[2]",
-          "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:finite_erdos_denominator_certificate_strike",
-          "standard:std_microcosm_finite_erdos_denominator_certificate_strike"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[79:finite_erdos_denominator_certificate_strike].receipt_refs[1]",
-          "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:finite_erdos_denominator_certificate_strike",
-          "standard:std_microcosm_finite_erdos_denominator_certificate_strike"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[79:finite_erdos_denominator_certificate_strike].receipt_refs[3]",
-          "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:generated_projection_drift_runtime",
-          "standard:std_microcosm_generated_projection_drift_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[86:generated_projection_drift_runtime].receipt_refs[2]",
-          "standards/std_microcosm_generated_projection_drift_runtime.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:generated_projection_drift_runtime",
-          "standard:std_microcosm_generated_projection_drift_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[86:generated_projection_drift_runtime].receipt_refs[1]",
-          "standards/std_microcosm_generated_projection_drift_runtime.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:generated_projection_drift_runtime",
-          "standard:std_microcosm_generated_projection_drift_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[86:generated_projection_drift_runtime].receipt_refs[3]",
-          "standards/std_microcosm_generated_projection_drift_runtime.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:lean_proof_search_lab_runtime",
-          "standard:std_microcosm_lean_proof_search_lab_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[87:lean_proof_search_lab_runtime].receipt_refs[2]",
-          "standards/std_microcosm_lean_proof_search_lab_runtime.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:lean_proof_search_lab_runtime",
-          "standard:std_microcosm_lean_proof_search_lab_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[87:lean_proof_search_lab_runtime].receipt_refs[1]",
-          "standards/std_microcosm_lean_proof_search_lab_runtime.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:lean_proof_search_lab_runtime",
-          "standard:std_microcosm_lean_proof_search_lab_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[87:lean_proof_search_lab_runtime].receipt_refs[3]",
-          "standards/std_microcosm_lean_proof_search_lab_runtime.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:metabolism_queue_reconciliation",
-          "standard:std_microcosm_metabolism_queue_reconciliation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[81:metabolism_queue_reconciliation].receipt_refs[2]",
-          "standards/std_microcosm_metabolism_queue_reconciliation.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:metabolism_queue_reconciliation",
-          "standard:std_microcosm_metabolism_queue_reconciliation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[81:metabolism_queue_reconciliation].receipt_refs[1]",
-          "standards/std_microcosm_metabolism_queue_reconciliation.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:metabolism_queue_reconciliation",
-          "standard:std_microcosm_metabolism_queue_reconciliation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[81:metabolism_queue_reconciliation].receipt_refs[3]",
-          "standards/std_microcosm_metabolism_queue_reconciliation.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:navigation_fitness_benchmark",
-          "standard:std_microcosm_navigation_fitness_benchmark"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[83:navigation_fitness_benchmark].receipt_refs[2]",
-          "standards/std_microcosm_navigation_fitness_benchmark.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:navigation_fitness_benchmark",
-          "standard:std_microcosm_navigation_fitness_benchmark"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[83:navigation_fitness_benchmark].receipt_refs[1]",
-          "standards/std_microcosm_navigation_fitness_benchmark.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:navigation_fitness_benchmark",
-          "standard:std_microcosm_navigation_fitness_benchmark"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[83:navigation_fitness_benchmark].receipt_refs[3]",
-          "standards/std_microcosm_navigation_fitness_benchmark.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_validation_receipt.json"
-      },
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:agent_route_observability_runtime",
           "standard:std_microcosm_agent_route_observability_runtime"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[26:agent_route_observability_runtime].receipt_refs[0]",
           "standards/std_microcosm_agent_route_observability_runtime.json.receipt_refs[1]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -4390,21 +3519,18 @@
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:executable_doctrine_grammar",
           "standard:std_microcosm_executable_doctrine_grammar"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[1:executable_doctrine_grammar].receipt_refs[0]",
           "standards/std_microcosm_executable_doctrine_grammar.json.receipt_refs[1]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -4415,21 +3541,18 @@
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:mission_transaction_work_spine",
           "standard:std_microcosm_mission_transaction_work_spine"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[20:mission_transaction_work_spine].receipt_refs[0]",
           "standards/std_microcosm_mission_transaction_work_spine.json.receipt_refs[1]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -4440,21 +3563,18 @@
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:navigation_hologram_route_plane",
           "standard:std_microcosm_navigation_hologram_route_plane"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[19:navigation_hologram_route_plane].receipt_refs[0]",
           "standards/std_microcosm_navigation_hologram_route_plane.json.receipt_refs[1]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -4464,1007 +3584,47 @@
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
-        "id": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
-        "inbound_edge_count": 1,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:pattern_assimilation_step"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[28:pattern_assimilation_step].receipt_refs[0]"
-        ],
-        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
-        "title": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 1,
-        "id": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
-        "inbound_edge_count": 1,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:proof_diagnostic_evidence_spine"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[2:proof_diagnostic_evidence_spine].receipt_refs[0]"
-        ],
-        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
-        "title": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:pattern_binding_contract",
           "standard:std_microcosm_pattern_binding_contract"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[0:pattern_binding_contract].receipt_refs[0]",
           "standards/std_microcosm_pattern_binding_contract.json.receipt_refs[0]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
         "title": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json"
       }
     ],
-    "known_count": 641,
-    "missing_ref_count": 36,
-    "missing_ref_details": [
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:annex_knowledge_routing",
-          "standard:std_microcosm_annex_knowledge_routing"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[84:annex_knowledge_routing].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[84:annex_knowledge_routing].receipt_refs[4]",
-          "standards/std_microcosm_annex_knowledge_routing.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:bridge_campaign_dag_validation",
-          "standard:std_microcosm_bridge_campaign_dag_validation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[80:bridge_campaign_dag_validation].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[80:bridge_campaign_dag_validation].receipt_refs[4]",
-          "standards/std_microcosm_bridge_campaign_dag_validation.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:derived_fact_provider_runtime",
-          "standard:std_microcosm_derived_fact_provider_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[82:derived_fact_provider_runtime].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[82:derived_fact_provider_runtime].receipt_refs[4]",
-          "standards/std_microcosm_derived_fact_provider_runtime.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:egress_self_compliance_audit",
-          "standard:std_microcosm_egress_self_compliance_audit"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[85:egress_self_compliance_audit].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[85:egress_self_compliance_audit].receipt_refs[4]",
-          "standards/std_microcosm_egress_self_compliance_audit.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:finite_erdos_denominator_certificate_strike",
-          "standard:std_microcosm_finite_erdos_denominator_certificate_strike"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[79:finite_erdos_denominator_certificate_strike].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[79:finite_erdos_denominator_certificate_strike].receipt_refs[4]",
-          "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:generated_projection_drift_runtime",
-          "standard:std_microcosm_generated_projection_drift_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[86:generated_projection_drift_runtime].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[86:generated_projection_drift_runtime].receipt_refs[4]",
-          "standards/std_microcosm_generated_projection_drift_runtime.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:lean_proof_search_lab_runtime",
-          "standard:std_microcosm_lean_proof_search_lab_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[87:lean_proof_search_lab_runtime].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[87:lean_proof_search_lab_runtime].receipt_refs[4]",
-          "standards/std_microcosm_lean_proof_search_lab_runtime.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:metabolism_queue_reconciliation",
-          "standard:std_microcosm_metabolism_queue_reconciliation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[81:metabolism_queue_reconciliation].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[81:metabolism_queue_reconciliation].receipt_refs[4]",
-          "standards/std_microcosm_metabolism_queue_reconciliation.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
-        "inbound_edge_count": 3,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:navigation_fitness_benchmark",
-          "standard:std_microcosm_navigation_fitness_benchmark"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[83:navigation_fitness_benchmark].receipt_refs[0]",
-          "core/organ_registry.json::implemented_organs[83:navigation_fitness_benchmark].receipt_refs[4]",
-          "standards/std_microcosm_navigation_fitness_benchmark.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:annex_knowledge_routing",
-          "standard:std_microcosm_annex_knowledge_routing"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[84:annex_knowledge_routing].receipt_refs[2]",
-          "standards/std_microcosm_annex_knowledge_routing.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:annex_knowledge_routing",
-          "standard:std_microcosm_annex_knowledge_routing"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[84:annex_knowledge_routing].receipt_refs[1]",
-          "standards/std_microcosm_annex_knowledge_routing.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:annex_knowledge_routing",
-          "standard:std_microcosm_annex_knowledge_routing"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[84:annex_knowledge_routing].receipt_refs[3]",
-          "standards/std_microcosm_annex_knowledge_routing.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:bridge_campaign_dag_validation",
-          "standard:std_microcosm_bridge_campaign_dag_validation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[80:bridge_campaign_dag_validation].receipt_refs[2]",
-          "standards/std_microcosm_bridge_campaign_dag_validation.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:bridge_campaign_dag_validation",
-          "standard:std_microcosm_bridge_campaign_dag_validation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[80:bridge_campaign_dag_validation].receipt_refs[1]",
-          "standards/std_microcosm_bridge_campaign_dag_validation.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:bridge_campaign_dag_validation",
-          "standard:std_microcosm_bridge_campaign_dag_validation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[80:bridge_campaign_dag_validation].receipt_refs[3]",
-          "standards/std_microcosm_bridge_campaign_dag_validation.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:derived_fact_provider_runtime",
-          "standard:std_microcosm_derived_fact_provider_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[82:derived_fact_provider_runtime].receipt_refs[2]",
-          "standards/std_microcosm_derived_fact_provider_runtime.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:derived_fact_provider_runtime",
-          "standard:std_microcosm_derived_fact_provider_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[82:derived_fact_provider_runtime].receipt_refs[1]",
-          "standards/std_microcosm_derived_fact_provider_runtime.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:derived_fact_provider_runtime",
-          "standard:std_microcosm_derived_fact_provider_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[82:derived_fact_provider_runtime].receipt_refs[3]",
-          "standards/std_microcosm_derived_fact_provider_runtime.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:egress_self_compliance_audit",
-          "standard:std_microcosm_egress_self_compliance_audit"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[85:egress_self_compliance_audit].receipt_refs[2]",
-          "standards/std_microcosm_egress_self_compliance_audit.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:egress_self_compliance_audit",
-          "standard:std_microcosm_egress_self_compliance_audit"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[85:egress_self_compliance_audit].receipt_refs[1]",
-          "standards/std_microcosm_egress_self_compliance_audit.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:egress_self_compliance_audit",
-          "standard:std_microcosm_egress_self_compliance_audit"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[85:egress_self_compliance_audit].receipt_refs[3]",
-          "standards/std_microcosm_egress_self_compliance_audit.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:finite_erdos_denominator_certificate_strike",
-          "standard:std_microcosm_finite_erdos_denominator_certificate_strike"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[79:finite_erdos_denominator_certificate_strike].receipt_refs[2]",
-          "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:finite_erdos_denominator_certificate_strike",
-          "standard:std_microcosm_finite_erdos_denominator_certificate_strike"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[79:finite_erdos_denominator_certificate_strike].receipt_refs[1]",
-          "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:finite_erdos_denominator_certificate_strike",
-          "standard:std_microcosm_finite_erdos_denominator_certificate_strike"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[79:finite_erdos_denominator_certificate_strike].receipt_refs[3]",
-          "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:generated_projection_drift_runtime",
-          "standard:std_microcosm_generated_projection_drift_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[86:generated_projection_drift_runtime].receipt_refs[2]",
-          "standards/std_microcosm_generated_projection_drift_runtime.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:generated_projection_drift_runtime",
-          "standard:std_microcosm_generated_projection_drift_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[86:generated_projection_drift_runtime].receipt_refs[1]",
-          "standards/std_microcosm_generated_projection_drift_runtime.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:generated_projection_drift_runtime",
-          "standard:std_microcosm_generated_projection_drift_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[86:generated_projection_drift_runtime].receipt_refs[3]",
-          "standards/std_microcosm_generated_projection_drift_runtime.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:lean_proof_search_lab_runtime",
-          "standard:std_microcosm_lean_proof_search_lab_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[87:lean_proof_search_lab_runtime].receipt_refs[2]",
-          "standards/std_microcosm_lean_proof_search_lab_runtime.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:lean_proof_search_lab_runtime",
-          "standard:std_microcosm_lean_proof_search_lab_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[87:lean_proof_search_lab_runtime].receipt_refs[1]",
-          "standards/std_microcosm_lean_proof_search_lab_runtime.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:lean_proof_search_lab_runtime",
-          "standard:std_microcosm_lean_proof_search_lab_runtime"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[87:lean_proof_search_lab_runtime].receipt_refs[3]",
-          "standards/std_microcosm_lean_proof_search_lab_runtime.json.receipt_refs[4]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:metabolism_queue_reconciliation",
-          "standard:std_microcosm_metabolism_queue_reconciliation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[81:metabolism_queue_reconciliation].receipt_refs[2]",
-          "standards/std_microcosm_metabolism_queue_reconciliation.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:metabolism_queue_reconciliation",
-          "standard:std_microcosm_metabolism_queue_reconciliation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[81:metabolism_queue_reconciliation].receipt_refs[1]",
-          "standards/std_microcosm_metabolism_queue_reconciliation.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:metabolism_queue_reconciliation",
-          "standard:std_microcosm_metabolism_queue_reconciliation"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[81:metabolism_queue_reconciliation].receipt_refs[3]",
-          "standards/std_microcosm_metabolism_queue_reconciliation.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_validation_receipt.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_board.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:navigation_fitness_benchmark",
-          "standard:std_microcosm_navigation_fitness_benchmark"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[83:navigation_fitness_benchmark].receipt_refs[2]",
-          "standards/std_microcosm_navigation_fitness_benchmark.json.receipt_refs[2]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_board.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_result.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:navigation_fitness_benchmark",
-          "standard:std_microcosm_navigation_fitness_benchmark"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[83:navigation_fitness_benchmark].receipt_refs[1]",
-          "standards/std_microcosm_navigation_fitness_benchmark.json.receipt_refs[1]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_result.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 1,
-        "id": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_validation_receipt.json",
-        "inbound_edge_count": 2,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt",
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:navigation_fitness_benchmark",
-          "standard:std_microcosm_navigation_fitness_benchmark"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[83:navigation_fitness_benchmark].receipt_refs[3]",
-          "standards/std_microcosm_navigation_fitness_benchmark.json.receipt_refs[3]"
-        ],
-        "support_status": "missing_receipt_ref",
-        "title": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_validation_receipt.json"
-      }
-    ],
-    "nonlocal_ref_count": 7,
+    "known_count": 640,
+    "missing_ref_count": 0,
+    "missing_ref_details": [],
+    "nonlocal_ref_count": 5,
     "nonlocal_ref_details": [
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:agent_route_observability_runtime",
           "standard:std_microcosm_agent_route_observability_runtime"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[26:agent_route_observability_runtime].receipt_refs[0]",
           "standards/std_microcosm_agent_route_observability_runtime.json.receipt_refs[1]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -5475,21 +3635,18 @@
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:executable_doctrine_grammar",
           "standard:std_microcosm_executable_doctrine_grammar"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[1:executable_doctrine_grammar].receipt_refs[0]",
           "standards/std_microcosm_executable_doctrine_grammar.json.receipt_refs[1]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -5500,21 +3657,18 @@
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:mission_transaction_work_spine",
           "standard:std_microcosm_mission_transaction_work_spine"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[20:mission_transaction_work_spine].receipt_refs[0]",
           "standards/std_microcosm_mission_transaction_work_spine.json.receipt_refs[1]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -5525,21 +3679,18 @@
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:navigation_hologram_route_plane",
           "standard:std_microcosm_navigation_hologram_route_plane"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[19:navigation_hologram_route_plane].receipt_refs[0]",
           "standards/std_microcosm_navigation_hologram_route_plane.json.receipt_refs[1]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -5549,66 +3700,19 @@
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
-        "id": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
-        "inbound_edge_count": 1,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:pattern_assimilation_step"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[28:pattern_assimilation_step].receipt_refs[0]"
-        ],
-        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
-        "title": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 1,
-        "id": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
-        "inbound_edge_count": 1,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:proof_diagnostic_evidence_spine"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[2:proof_diagnostic_evidence_spine].receipt_refs[0]"
-        ],
-        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
-        "title": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:pattern_binding_contract",
           "standard:std_microcosm_pattern_binding_contract"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[0:pattern_binding_contract].receipt_refs[0]",
           "standards/std_microcosm_pattern_binding_contract.json.receipt_refs[0]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -5624,7 +3728,7 @@
       "standard.evidenced_by.receipt"
     ],
     "resolved_nonlocal_ref_count": 0,
-    "resolved_path_count": 460,
+    "resolved_path_count": 497,
     "sample_nodes": [
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
@@ -5893,28 +3997,25 @@
     ],
     "support_scope": "derived from receipt_refs on source instances; receipt existence is not proof, and nonlocal path walkability is not runtime correctness, release authority, or source evidence laundering",
     "symbolic_id_count": 135,
-    "unresolved_nonlocal_ref_count": 7,
+    "unresolved_nonlocal_ref_count": 5,
     "unresolved_nonlocal_ref_details": [
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:agent_route_observability_runtime",
           "standard:std_microcosm_agent_route_observability_runtime"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[26:agent_route_observability_runtime].receipt_refs[0]",
           "standards/std_microcosm_agent_route_observability_runtime.json.receipt_refs[1]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -5925,21 +4026,18 @@
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:executable_doctrine_grammar",
           "standard:std_microcosm_executable_doctrine_grammar"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[1:executable_doctrine_grammar].receipt_refs[0]",
           "standards/std_microcosm_executable_doctrine_grammar.json.receipt_refs[1]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -5950,21 +4048,18 @@
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:mission_transaction_work_spine",
           "standard:std_microcosm_mission_transaction_work_spine"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[20:mission_transaction_work_spine].receipt_refs[0]",
           "standards/std_microcosm_mission_transaction_work_spine.json.receipt_refs[1]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -5975,21 +4070,18 @@
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:navigation_hologram_route_plane",
           "standard:std_microcosm_navigation_hologram_route_plane"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[19:navigation_hologram_route_plane].receipt_refs[0]",
           "standards/std_microcosm_navigation_hologram_route_plane.json.receipt_refs[1]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -5999,66 +4091,19 @@
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
         "gap_count": 1,
-        "id": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
-        "inbound_edge_count": 1,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:pattern_assimilation_step"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[28:pattern_assimilation_step].receipt_refs[0]"
-        ],
-        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
-        "title": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 1,
-        "id": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
-        "inbound_edge_count": 1,
-        "kind": "receipt",
-        "path_exists": false,
-        "relation_ids": [
-          "organ.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "source_ids": [
-          "organ:proof_diagnostic_evidence_spine"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "core/organ_registry.json::implemented_organs[2:proof_diagnostic_evidence_spine].receipt_refs[0]"
-        ],
-        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
-        "title": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
-        "inbound_edge_count": 2,
+        "inbound_edge_count": 1,
         "kind": "receipt",
         "path_exists": false,
         "relation_ids": [
-          "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
-          "organ:pattern_binding_contract",
           "standard:std_microcosm_pattern_binding_contract"
         ],
         "source_ref": null,
         "source_refs": [
-          "core/organ_registry.json::implemented_organs[0:pattern_binding_contract].receipt_refs[0]",
           "standards/std_microcosm_pattern_binding_contract.json.receipt_refs[0]"
         ],
         "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
@@ -6071,11 +4116,6 @@
       "gap_class": "doctrine_lattice_population",
       "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "reentry_condition": "Continue corpus migration and source-evidence edge wiring only for currently computed deficits; do not keep closed gap classes in the run queue."
-    },
-    {
-      "gap_class": "principle_and_anti_principle_edge_population",
-      "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-      "reentry_condition": "Populate principle.governs and anti_principle.negates_failure_of edges from source evidence; do not treat residual-free axiom guards as full obligation mapping."
     },
     {
       "gap_class": "concept_and_mechanism_edge_population",

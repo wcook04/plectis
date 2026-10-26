@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture-bound public source-body import, source-faithful public refactor evidence, deterministic exercise evidence, and body-free receipts only; no live Work Ledger truth, live Task Ledger truth, source mutation, publication approval, release approval, provider dispatch, market advice, private-root equivalence, neutral benchmark claim, or whole-system correctness.",
-    "card": "Batch 10 Governance And Compilers Capsule binds the accepted batch10_governance_compilers_capsule organ to a refreshed source-open bundle. It exercises governed-mutation intent, observe/apply compilation, public-proof review, release blocker triage, publication path contracts, receipt reuse, no-lookahead horizons, session-wave execution, claim-conflict wait tax, role-aware DAG blocking, frontend table shaping, annex grouping, recent-change coalescing, and the deferred Batch-9 lane-width repair while preserving copied non-secret source digests, negative cases, and authority ceilings.",
-    "one_line": "Batch 10 Governance And Compilers Capsule imports governance, compiler, release, finance, dependency, DAG, table, annex, and recent-change macro bodies as public source-open evidence without granting live ledger, publication, release, market, or source-mutation authority."
+    "authority_ceiling": "Passing fixture checks do not authorize a release or prove the whole system correct.",
+    "card": "This capsule runs bounded examples of governance and compiler logic against public fixtures. The checks include mutation intent, observe/apply plans, release blockers, publication path contracts, receipt reuse, dependency waves and time horizons. It records source-copy digest and anchor checks alongside computed negative-case results.",
+    "one_line": "Exercises fixture governance and compiler checks and records a deferred binding repair."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch10_governance_compilers_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture-bound public source-body import, source-faithful public refactor evidence, deterministic exercise evidence, and body-free receipts only; no live Work Ledger truth, live Task Ledger truth, source mutation, publication approval, release approval, provider dispatch, market advice, private-root equivalence, neutral benchmark claim, or whole-system correctness.",
+    "authority_ceiling": "Passing fixture checks do not authorize a release or prove the whole system correct.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,9 +85,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture-bound public source-body import, source-faithful public refactor evidence, deterministic exercise evidence, and body-free receipts only; no live Work Ledger truth, live Task Ledger truth, source mutation, publication approval, release approval, provider dispatch, market advice, private-root equivalence, neutral benchmark claim, or whole-system correctness.",
-        "card": "Batch 10 Governance And Compilers Capsule binds the accepted batch10_governance_compilers_capsule organ to a refreshed source-open bundle. It exercises governed-mutation intent, observe/apply compilation, public-proof review, release blocker triage, publication path contracts, receipt reuse, no-lookahead horizons, session-wave execution, claim-conflict wait tax, role-aware DAG blocking, frontend table shaping, annex grouping, recent-change coalescing, and the deferred Batch-9 lane-width repair while preserving copied non-secret source digests, negative cases, and authority ceilings.",
-        "one_line": "Batch 10 Governance And Compilers Capsule imports governance, compiler, release, finance, dependency, DAG, table, annex, and recent-change macro bodies as public source-open evidence without granting live ledger, publication, release, market, or source-mutation authority."
+        "authority_ceiling": "Passing fixture checks do not authorize a release or prove the whole system correct.",
+        "card": "This capsule runs bounded examples of governance and compiler logic against public fixtures. The checks include mutation intent, observe/apply plans, release blockers, publication path contracts, receipt reuse, dependency waves and time horizons. It records source-copy digest and anchor checks alongside computed negative-case results.",
+        "one_line": "Exercises fixture governance and compiler checks and records a deferred binding repair."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -136,7 +136,7 @@
           "ref": "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule"
         }
       ],
-      "title": "Batch 10 Governance And Compilers Capsule"
+      "title": "Exercise governance and compiler checks"
     },
     "strangler_note": "Binds the authored Markdown projection, accepted-organ atlas row, refreshed exact-copy source-open bundle, Batch 10 governance/compiler organ source locus, and body-free receipts to JSON source authority. The mechanism subject is named from the resolving Microcosm mechanism row; concept edges remain residual until resolving Microcosm rows exist; Batch-9 lane-width authority remains explicitly deferred.",
     "support_contract": {
@@ -412,7 +412,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 10 Governance And Compilers Capsule imports governance, compiler, release, finance, dependency, DAG, table, annex, and recent-change macro bodies as public source-open evidence without granting live ledger, publication, release, market, or source-mutation authority.",
+  "statement": "Exercises fixture governance and compiler checks and records a deferred binding repair.",
   "status": "active",
   "subjects": [
     {
@@ -424,7 +424,7 @@
       "ref": "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule"
     }
   ],
-  "title": "Batch 10 Governance And Compilers Capsule",
+  "title": "Exercise governance and compiler checks",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

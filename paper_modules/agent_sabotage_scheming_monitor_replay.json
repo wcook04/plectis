@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "No live sabotage, exploit instruction, credential/account material, private reasoning, harmful payload, or deployment-risk product claim; synthetic fixtures and body-free receipts only.",
-    "card": "Drilldown-only regression contract for synthetic sabotage/scheming monitor claims. Checks projection_protocol, scheming_monitor_policy, task_episodes, action_traces, monitor_scores, counterfactual_replay, and cold_replay against negative cases and authority ceilings.",
-    "one_line": "Drilldown regression contract for synthetic sabotage/scheming monitor claims: replays task episodes, action traces, monitor scores, counterfactual/cold replay."
+    "authority_ceiling": "The replay does not establish the effectiveness of a deployed monitor.",
+    "card": "This replay checks whether recorded monitor scores and action steps support declared caught or not-caught verdicts. It joins episodes, action traces and evidence references, then checks a benign counterfactual replay intended to remove the side objective while retaining the main task. It also checks cold-replay references and source-artifact digests.",
+    "one_line": "Checks monitor verdicts and counterfactual evidence in recorded episodes."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.agent_sabotage_scheming_monitor_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "No live sabotage, exploit instruction, credential/account material, private reasoning, harmful payload, or deployment-risk product claim; synthetic fixtures and body-free receipts only.",
+    "authority_ceiling": "The replay does not establish the effectiveness of a deployed monitor.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,9 +77,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "No live sabotage, exploit instruction, credential/account material, private reasoning, harmful payload, or deployment-risk product claim; synthetic fixtures and body-free receipts only.",
-        "card": "Drilldown-only regression contract for synthetic sabotage/scheming monitor claims. Checks projection_protocol, scheming_monitor_policy, task_episodes, action_traces, monitor_scores, counterfactual_replay, and cold_replay against negative cases and authority ceilings.",
-        "one_line": "Drilldown regression contract for synthetic sabotage/scheming monitor claims: replays task episodes, action traces, monitor scores, counterfactual/cold replay."
+        "authority_ceiling": "The replay does not establish the effectiveness of a deployed monitor.",
+        "card": "This replay checks whether recorded monitor scores and action steps support declared caught or not-caught verdicts. It joins episodes, action traces and evidence references, then checks a benign counterfactual replay intended to remove the side objective while retaining the main task. It also checks cold-replay references and source-artifact digests.",
+        "one_line": "Checks monitor verdicts and counterfactual evidence in recorded episodes."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -124,7 +124,7 @@
           "ref": "mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay"
         }
       ],
-      "title": "Agent Sabotage Scheming-Monitor Replay"
+      "title": "Replay monitor evidence and counterfactuals"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to a JSON authority row; concept/principle/axiom refs left as honest residuals (no resolving Microcosm doctrine id), not minted.",
     "support_contract": {
@@ -297,7 +297,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Drilldown regression contract for synthetic sabotage/scheming monitor claims: replays task episodes, action traces, monitor scores, counterfactual/cold replay.",
+  "statement": "Checks monitor verdicts and counterfactual evidence in recorded episodes.",
   "status": "active",
   "subjects": [
     {
@@ -309,7 +309,7 @@
       "ref": "mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay"
     }
   ],
-  "title": "Agent Sabotage Scheming-Monitor Replay",
+  "title": "Replay monitor evidence and counterfactuals",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

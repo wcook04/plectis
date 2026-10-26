@@ -244,7 +244,7 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     project_dir.mkdir(parents=True)
     (project_dir / "app.py").write_text('print("plectis package smoke")\n', encoding="utf-8")
 
-    _run([python, "-m", "venv", str(venv_dir)])
+    _run([python, "-I", "-m", "venv", str(venv_dir)], cwd=project_dir)
     venv_python = _bin_dir(venv_dir) / ("python.exe" if os.name == "nt" else "python")
     plectis = _bin_dir(venv_dir) / ("plectis.exe" if os.name == "nt" else "plectis")
     tmp_dir = work_dir / "tmp"
@@ -275,49 +275,70 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
 
     with _source_build_lock(staged_source):
         _clear_stale_wheel_staging(staged_source)
+        wheel_dir = work_dir / "wheelhouse"
         _run(
             [
                 str(venv_python),
                 "-m",
                 "pip",
-                "install",
+                "wheel",
                 "--disable-pip-version-check",
                 "--no-deps",
+                "--wheel-dir", str(wheel_dir),
                 str(staged_source),
             ],
             cwd=project_dir,
             env=env,
         )
+        wheels = sorted(wheel_dir.glob("*.whl"))
+        if len(wheels) != 1 or not wheels[0].name.startswith("plectis-"):
+            raise SystemExit("package build did not produce exactly one Plectis wheel")
+        _run([str(venv_python), "-m", "pip", "install", "--disable-pip-version-check",
+              "--no-deps", "--no-index", str(wheels[0])], cwd=project_dir, env=env)
 
     # The built source is no longer an available working directory or import root.
     staged_source.rename(work_dir / "source-after-install")
 
     # Install-context independence: the console commands below must exercise
     # the pip-installed copy, not a shadowing checkout import.
-    import_root = _run(
+    installation = json.loads(_run(
         [
-            str(venv_python),
+            str(venv_python), "-I",
             "-c",
-            "import microcosm_core; print(microcosm_core.__file__)",
+            "import importlib.metadata, json, microcosm_core, plectis, sysconfig; "
+            "distribution = importlib.metadata.distribution('plectis'); "
+            "assert plectis.__version__ == distribution.version; "
+            "print(json.dumps({'modules': {'microcosm_core': microcosm_core.__file__, "
+            "'plectis': plectis.__file__}, "
+            "'libraries': [sysconfig.get_path('purelib'), sysconfig.get_path('platlib')]}))",
         ],
         cwd=project_dir,
         env=env,
-    ).stdout.strip()
-    if not import_root.startswith(str(venv_dir)):
-        raise SystemExit(
-            "installed console resolves microcosm_core outside the venv "
-            "(a PYTHONPATH or cwd shadow defeats the install proof)"
-        )
+    ).stdout)
+    libraries = [Path(path).resolve() for path in installation["libraries"]]
+    for name, filename in installation["modules"].items():
+        if not any(Path(filename).resolve().is_relative_to(library) for library in libraries):
+            raise SystemExit(f"installed console resolves {name} outside this installation")
 
     # Run real operation calls from the clean installed interpreter, including
     # generated subprocess kernels. The harness itself supplies no import path.
+    operations_output = output_dir / "operations.json"
     _run(
         [str(venv_python), "-I",
          str(work_dir / "source-after-install" / "scripts/release/verify_operations_install.py"),
-         "--require-compatibility", "--require-views", "--require-replay"],
+         "--require-compatibility", "--require-views", "--require-replay",
+         "--require-formal-resources"],
         cwd=project_dir,
         env=env,
+        stdout_path=operations_output,
     )
+    operations_output.write_text(
+        _normalize_work_refs(operations_output.read_text(encoding="utf-8"), work_dir),
+        encoding="utf-8",
+    )
+    _assert_no_private_markers(operations_output, label="operations")
+    if _json_payload(operations_output, label="operations").get("status") != "passed":
+        raise SystemExit("installed operations check did not pass")
 
     # Directory guides linked by the installed README must travel with it.
     for reference in (
@@ -487,7 +508,7 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     print("workdir: <work-dir>")
     print(f"version: {version_text}")
     print(
-        "checks: version, hello, first-screen, tour, status, authority, "
+        "checks: operations and component formal resources, version, hello, first-screen, tour, status, authority, "
         "workingness, legibility, first-action, first-action-assay, "
         "hypothesis-handoff, "
         "prompt-injection execution, voice-to-doctrine execution, finance execution"

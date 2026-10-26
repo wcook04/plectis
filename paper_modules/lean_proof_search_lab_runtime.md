@@ -1,117 +1,29 @@
-# Lean Proof-Search Lab Runtime
+# Lean Proof Search Lab
 
-`lean_proof_search_lab_runtime` searches small Lean theorems for a proof, checks
-each candidate with the Lean toolchain that is actually installed, and refuses to
-claim anything when that toolchain is absent.
+This lab runs bounded symbolic search on small Lean propositions and checks candidate proofs with Lean. The positive fixture includes `theorem lab_and_intro (p q : Prop) : p -> q -> And p q` and `theorem lab_or_comm (p q : Prop) : Or p q -> Or q p`. Search uses a bounded AND/OR procedure and compares it with a hammer-style baseline; an ID-blind policy ablation checks for dependence on problem identifiers.
 
-## Purpose
+The negative cases include oracle fields, `sorry`/axiom taint, and a policy that memorizes problem IDs. The fixture run requires a `lean` executable on PATH. If Lean is absent, it reports `locked` with no verification performed, rather than a pass or failure. The separate exported-bundle runner checks that three required files exist and counts JSON files. It neither executes Lean nor verifies the retained proof material, so its pass is not a fresh proof check. These examples do not establish results for open problems or neural theorem proving.
 
-A proof-search demo is easy to fake: print a tactic, assert success, ship a green
-badge. This organ answers a narrower, harder question — did a real checker accept
-this proof, and can a reader tell whether the checker even ran?
+## Run the example
 
-It surfaces the public `lean_proof_search_lab` capsule. Over a bounded set of toy
-theorems it runs a depth-limited tactic search, hands each candidate to the
-`lean`/`lake` subprocess, and reads `#print axioms` on what comes back. A
-candidate is accepted only when Lean itself compiles it with a clean axiom set.
-The interesting part is the third terminal state: when Lean is not on the path,
-the run does not pass and does not fail — it reports `locked`, performs no
-verification, and makes no proof claim. Missing Lean is an honest unlock state,
-not a silent green and not a failure.
-
-## Shape
-
-```mermaid
-flowchart LR
-  Probe["Lean toolchain probe\nshutil.which(lean/lake)"]
-  Locked["Locked\ntool_missing\nno verification, no claim"]
-  Search["Bounded tactic search\ntoy theorems"]
-  Lean["Lean subprocess\ncompile candidate"]
-  Axioms["Axiom audit\n#print axioms"]
-  Firewall["Oracle firewall\nproblem-id ablation"]
-  Verdict["Verdict\nverified | rejected"]
-
-  Probe -->|absent| Locked
-  Probe -->|present| Search
-  Search --> Lean
-  Lean --> Axioms
-  Axioms --> Firewall
-  Firewall --> Verdict
-```
-
-## JSON Capsule Binding
-
-- source_ref:
-  `core/paper_module_capsules.json::paper_modules[102:paper_module.lean_proof_search_lab_runtime]`
-- source_authority: json_capsule
-- Projection role: This Markdown is a reader projection of the JSON capsule row,
-  not the source authority. The generated Mermaid projection is
-  `paper_module.lean_proof_search_lab_runtime.mermaid` with status
-  `available_from_capsule_edges`, and the generated Atlas projection is
-  `organ_atlas.lean_proof_search_lab_runtime` with status
-  `linked_from_capsule_edges`.
-- proof boundary: the capsule binds the accepted organ, the resolved mechanism
-  row, the runtime locus, the surfaced engine-room capsule, and the governing
-  concept, principle, and axiom edges; the generated JSON projection carries the
-  exact resolved relationship edges.
-- authority ceiling: this page can explain the bounded proof-search fixtures, the
-  locked/verified/rejected receipt states, and the validation receipts, but it
-  cannot become neural theorem proving, a general proof-correctness oracle, a
-  claim about open mathematics, or release authority.
-
-## Structured Lattice Bindings
-
-The structured capsule row is
-`core/paper_module_capsules.json#paper_module.lean_proof_search_lab_runtime`. It
-binds this Markdown projection to the organ, the resolved mechanism row
-`mechanism.lean_proof_search_lab_runtime.verifies_lean_proof_search_lab`, the
-runtime locus `src/microcosm_core/organs/lean_proof_search_lab_runtime.py`, and
-the surfaced capsule
-`src/microcosm_core/engine_room/lean_proof_search_lab.py`. It abides by axiom
-`AX-2` (a small checker decides claims over certificates) and principle `P-3`
-(prefer a small, rerunnable verifier over narrative confidence).
-
-Generated atlas docs remain builder-owned projections: refresh them with
-`PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write` instead of editing
-`ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, or
-`atlas/agent_task_routes.json` by hand.
-
-## Reader Evidence Routing
-
-The honest unit here is not "proofs found" but "did the checker run, and what did
-it decide." Read the receipt's `tool_state` before its `status`:
-
-- A safety/evals engineer should read `tool_state` first
-  (`tool_present_and_verified`, `tool_present_but_failed`, or `tool_missing`).
-  The useful question is whether a green result is backed by a real Lean run, and
-  whether the locked state is reported honestly when Lean is absent.
-- A hiring reviewer should read the positive and the four negative cases. The
-  useful question is whether the rejections come from recomputation — Lean
-  actually catching the defect — rather than from a hard-coded expected answer.
-- A peer developer should run the organ locally with and without Lean on the
-  path. The useful question is whether the same command yields a verified
-  witness when Lean is present and a claimless locked receipt when it is not.
-
-## Validation
+From the repository root with Python 3.11 or newer, run the supplied fixture into ignored local output:
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json
-../repo-pytest microcosm-substrate/tests/test_lean_proof_search_lab_runtime.py
+PYTHONPATH=src python3 -m microcosm_core.organs.lean_proof_search_lab_runtime run \
+  --input fixtures/first_wave/lean_proof_search_lab_runtime/input \
+  --out .microcosm/component-guides/lean_proof_search_lab_runtime/out \
+  --acceptance-out .microcosm/component-guides/lean_proof_search_lab_runtime/acceptance.json
 ```
 
-The positive case (`positive_symbolic_lab_pass`) is accepted only when Lean
-proves the toy theorems and the axiom audit is clean. The four negative cases are
-rejected by recomputation, each by a distinct guard: a forwarded oracle field and
-a nested oracle field trip the oracle firewall, a `sorry`/axiom proof trips the
-axiom-taint check, and a memorised policy trips problem-id ablation. The focused
-test also asserts the locked path: with Lean removed from the environment the run
-reports `tool_missing`, performs no verification, and never reads as a pass.
+Inspect the reported status as well as the process exit code: `locked` exits successfully but means Lean did not run.
 
-## Authority Ceiling
+## Verification
 
-A green run shows that the installed Lean toolchain accepted bounded toy proofs
-and that the firewall, axiom audit, and ablation rejected the planted defects. It
-does not prove open mathematical results, does not perform neural or automated
-theorem proving at scale, is not a general proof-correctness oracle, and does not
-authorize release, publication, provider calls, or source mutation. A `locked`
-receipt asserts nothing at all beyond "Lean was not available to check this."
+The direct fixture needs Lean on `PATH` to check candidate proofs of `lab_and_intro` and `lab_or_comm`; without it the run is `locked`. `make component-replays` instead runs the exported file-presence check under the [shared Dafny admission check](../formal/replay/README.md). Neither admission nor file presence proves the search algorithm correct.
+
+## Source and evidence
+
+- [Implementation](../src/microcosm_core/organs/lean_proof_search_lab_runtime.py) and [fixture inputs](../fixtures/first_wave/lean_proof_search_lab_runtime/input/).
+- [Tests](../tests/test_lean_proof_search_lab_runtime.py).
+- [Saved example result](../receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json) (historical, not a fresh run).
+- [Component JSON record](./lean_proof_search_lab_runtime.json) and [canonical capsule](../core/paper_module_capsules.json).

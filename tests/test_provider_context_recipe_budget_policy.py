@@ -7,6 +7,8 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from microcosm_core.organs.provider_context_recipe_budget_policy import (
     BUNDLE_RESULT_NAME,
     CARD_SCHEMA_VERSION,
@@ -15,6 +17,7 @@ from microcosm_core.organs.provider_context_recipe_budget_policy import (
     RESULT_NAME,
     SOURCE_REFS,
     _line_count,
+    _load_provider_context_harness,
     _byte_size,
     _sha256,
     main,
@@ -37,10 +40,22 @@ PROVIDER_CONTEXT_SOURCE_MODULE_IDS = [
 ]
 
 
+def _copy_provider_core(public_root: Path) -> None:
+    """Copy the policy inputs this component consumes, without unrelated fixtures."""
+    target = public_root / "core"
+    target.mkdir(parents=True)
+    for name in ("private_state_forbidden_classes.json", "source_module_refresh_policy_v0.json"):
+        shutil.copy2(MICROCOSM_ROOT / "core" / name, target / name)
+
+
 @lru_cache(maxsize=None)
 def _real_provider_context_section_body(recipe_id: str, section_id: str) -> str:
-    from tools.meta.factory import run_prover_graph_benchmark as harness
-
+    harness_path = (
+        MICROCOSM_ROOT
+        / "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle"
+        / "source_modules/tools/meta/factory/run_prover_graph_benchmark.py"
+    )
+    harness = _load_provider_context_harness(str(harness_path))
     problem_set = harness._problem_set()
     pack, *_ = harness._provider_context_pack(
         problem=problem_set[2],
@@ -182,7 +197,7 @@ def test_provider_context_budget_receipts_are_public_relative_and_redacted(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_provider_core(public_root)
     shutil.copytree(
         MICROCOSM_ROOT / "fixtures/first_wave/provider_context_recipe_budget_policy",
         public_root / "fixtures/first_wave/provider_context_recipe_budget_policy",
@@ -218,7 +233,7 @@ def test_provider_context_budget_exported_bundle_validates_runtime_shape(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_provider_core(public_root)
     shutil.copytree(
         MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
         public_root / "examples/provider_context_recipe_budget_policy",
@@ -264,7 +279,7 @@ def test_provider_context_budget_moves_when_section_text_changes(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_provider_core(public_root)
     shutil.copytree(
         MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
         public_root / "examples/provider_context_recipe_budget_policy",
@@ -344,7 +359,7 @@ def test_provider_context_budget_finding_moves_with_real_body_bytes(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_provider_core(public_root)
     shutil.copytree(
         MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
         public_root / "examples/provider_context_recipe_budget_policy",
@@ -429,7 +444,7 @@ def test_provider_context_budget_rejects_source_module_digest_mismatch(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_provider_core(public_root)
     shutil.copytree(
         MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
         public_root / "examples/provider_context_recipe_budget_policy",
@@ -463,7 +478,13 @@ def test_provider_context_budget_rejects_source_module_digest_mismatch(
     assert result["source_module_error_codes"] == [
         "PROVIDER_CONTEXT_SOURCE_MODULE_DIGEST_MISMATCH"
     ]
-    assert result["source_module_imports"][0]["module_id"] == module_id
+    matches = [row for row in result["source_module_imports"] if row["module_id"] == module_id]
+    assert len(matches) == 1
+    assert any(
+        finding.get("subject_id") == module_id
+        and finding.get("error_code") in result["source_module_error_codes"]
+        for finding in result["findings"]
+    )
     assert result["private_state_scan"]["blocking_hit_count"] == 0
 
 
@@ -471,7 +492,7 @@ def test_provider_context_budget_rejects_partial_source_module_digest_mismatch(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_provider_core(public_root)
     shutil.copytree(
         MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
         public_root / "examples/provider_context_recipe_budget_policy",
@@ -506,7 +527,13 @@ def test_provider_context_budget_rejects_partial_source_module_digest_mismatch(
     assert result["source_module_error_codes"] == [
         "PROVIDER_CONTEXT_SOURCE_MODULE_SOURCE_TARGET_MISMATCH"
     ]
-    assert result["source_module_imports"][0]["module_id"] == module_id
+    matches = [row for row in result["source_module_imports"] if row["module_id"] == module_id]
+    assert len(matches) == 1
+    assert any(
+        finding.get("subject_id") == module_id
+        and finding.get("error_code") in result["source_module_error_codes"]
+        for finding in result["findings"]
+    )
     assert result["private_state_scan"]["blocking_hit_count"] == 0
 
 
@@ -514,7 +541,7 @@ def test_provider_context_budget_rejects_partial_target_module_digest_mismatch(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_provider_core(public_root)
     shutil.copytree(
         MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
         public_root / "examples/provider_context_recipe_budget_policy",
@@ -551,7 +578,13 @@ def test_provider_context_budget_rejects_partial_target_module_digest_mismatch(
         "PROVIDER_CONTEXT_SOURCE_MODULE_DIGEST_MISMATCH",
         "PROVIDER_CONTEXT_SOURCE_MODULE_SOURCE_TARGET_MISMATCH"
     ]
-    assert result["source_module_imports"][0]["module_id"] == module_id
+    matches = [row for row in result["source_module_imports"] if row["module_id"] == module_id]
+    assert len(matches) == 1
+    assert any(
+        finding.get("subject_id") == module_id
+        and finding.get("error_code") in result["source_module_error_codes"]
+        for finding in result["findings"]
+    )
     assert result["private_state_scan"]["blocking_hit_count"] == 0
 
 
@@ -564,7 +597,7 @@ def test_provider_context_budget_rejects_manifest_body_text_receipt_boundary(
     }
     for case_id, value in cases.items():
         public_root = tmp_path / case_id / "microcosm-substrate"
-        shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+        _copy_provider_core(public_root)
         shutil.copytree(
             MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
             public_root / "examples/provider_context_recipe_budget_policy",
@@ -614,7 +647,7 @@ def test_provider_context_budget_rejects_row_body_receipt_boundary(
     }
     for case_id, value in cases.items():
         public_root = tmp_path / case_id / "microcosm-substrate"
-        shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+        _copy_provider_core(public_root)
         shutil.copytree(
             MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
             public_root / "examples/provider_context_recipe_budget_policy",
@@ -652,8 +685,14 @@ def test_provider_context_budget_rejects_row_body_receipt_boundary(
         assert "PROVIDER_CONTEXT_SOURCE_MODULE_BODY_RECEIPT_BOUNDARY_INVALID" in result[
             "error_codes"
         ]
-        assert result["source_module_imports"][0]["module_id"] == module_id
-        assert result["source_module_imports"][0]["body_text_in_receipt"] is False
+        matches = [row for row in result["source_module_imports"] if row["module_id"] == module_id]
+        assert len(matches) == 1
+        assert any(
+            finding.get("subject_id") == module_id
+            and finding.get("error_code") in result["source_module_error_codes"]
+            for finding in result["findings"]
+        )
+        assert matches[0]["body_text_in_receipt"] is False
         assert result["private_state_scan"]["blocking_hit_count"] == 0
         assert "body" not in _walk_keys(result)
 
@@ -663,7 +702,7 @@ def test_provider_context_fixture_card_stdout_is_compact_and_keeps_full_receipts
     capsys,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_provider_core(public_root)
     shutil.copytree(
         MICROCOSM_ROOT / "fixtures/first_wave/provider_context_recipe_budget_policy",
         public_root / "fixtures/first_wave/provider_context_recipe_budget_policy",
@@ -722,7 +761,7 @@ def test_provider_context_bundle_card_stdout_is_compact_and_keeps_full_receipt(
     capsys,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_provider_core(public_root)
     shutil.copytree(
         MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
         public_root / "examples/provider_context_recipe_budget_policy",
@@ -775,7 +814,7 @@ def test_provider_context_source_modules_are_exact_macro_body_imports(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_provider_core(public_root)
     shutil.copytree(
         MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
         public_root / "examples/provider_context_recipe_budget_policy",
@@ -804,20 +843,28 @@ def test_provider_context_source_modules_are_exact_macro_body_imports(
         row["module_id"]: row
         for row in result["source_module_imports"]
     }
+    declared = {row["module_id"]: row for row in manifest["modules"]}
+    grants = json.loads(
+        (public_root / "core/source_module_refresh_policy_v0.json").read_text(encoding="utf-8")
+    )["reviewed_publication"]["copies"]
     for module_id in PROVIDER_CONTEXT_SOURCE_MODULE_IDS:
         row = by_module[module_id]
-        source = MICROCOSM_ROOT.parent / row["source_ref"]
         target = (
             public_root
             / "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle"
             / row["target_ref"]
         )
         digest = hashlib.sha256(target.read_bytes()).hexdigest()
-        source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
-
+        grant = grants[target.relative_to(public_root).as_posix()]
+        assert grant["material_id"] == module_id
+        assert grant["source_ref"] == row["source_ref"] == declared[module_id]["source_ref"]
+        assert grant["manifest_ref"] == (
+            "examples/provider_context_recipe_budget_policy/"
+            "exported_provider_context_budget_bundle/source_module_manifest.json"
+        )
         assert target.is_file()
-        assert digest == source_digest
-        assert row["source_sha256"] == source_digest
+        assert digest == grant["sha256"] == declared[module_id]["target_sha256"]
+        assert row["source_sha256"] == digest == declared[module_id]["source_sha256"]
         assert row["target_sha256"] == digest
         assert row["sha256_match"] is True
         assert row["required_anchor_count"] == row["present_anchor_count"]
@@ -841,3 +888,143 @@ def test_provider_context_fixture_manifest_counts_source_open_body_floor() -> No
     assert set(body_imports["body_material_ids"]) == set(PROVIDER_CONTEXT_SOURCE_MODULE_IDS)
     assert "public_macro_standard_body" in body_imports["material_classes"]
     assert "public_macro_tool_body" in body_imports["material_classes"]
+
+
+def test_provider_context_fixture_restores_exact_reviewed_public_bundle_copies() -> None:
+    fixture_manifest = json.loads((FIXTURE_INPUT / "source_module_manifest.json").read_text(encoding="utf-8"))
+    bundle = MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle"
+    bundle_manifest = json.loads((bundle / "source_module_manifest.json").read_text(encoding="utf-8"))
+    fixture = {row["module_id"]: row for row in fixture_manifest["modules"]}
+    exported = {row["module_id"]: row for row in bundle_manifest["modules"]}
+    assert set(fixture) == set(exported) == set(PROVIDER_CONTEXT_SOURCE_MODULE_IDS)
+    assert fixture_manifest["module_count"] == len(fixture)
+    assert fixture_manifest["release_substitution_omissions"] == []
+    for module_id in PROVIDER_CONTEXT_SOURCE_MODULE_IDS:
+        row = fixture[module_id]
+        example_row = exported[module_id]
+        assert row == example_row
+        target = FIXTURE_INPUT / row["target_ref"]
+        example_target = bundle / row["target_ref"]
+        assert target.read_bytes() == example_target.read_bytes()
+        assert hashlib.sha256(target.read_bytes()).hexdigest() == row["target_sha256"] == row["source_sha256"]
+
+
+@pytest.mark.parametrize("forge_manifest", [False, True])
+def test_changed_harness_never_executes_even_with_forged_manifest(
+    tmp_path: Path, forge_manifest: bool
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_provider_core(public_root)
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
+        public_root / "examples/provider_context_recipe_budget_policy",
+    )
+    bundle = public_root / "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle"
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    row = next(row for row in manifest["modules"] if row["module_id"] == "provider_context_graph_benchmark_body_import")
+    source = bundle / row["target_ref"]
+    sentinel = tmp_path / "untrusted_harness_executed"
+    source.write_text(
+        source.read_text(encoding="utf-8")
+        + "\n__import__('pathlib').Path(" + repr(str(sentinel)) + ").write_text('executed')\n",
+        encoding="utf-8",
+    )
+    if forge_manifest:
+        digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        row["source_sha256"] = row["target_sha256"] = digest
+        manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    result = run_budget_bundle(bundle, public_root / "receipts/provider-context", command="pytest")
+    assert result["status"] == "blocked"
+    assert "PROVIDER_CONTEXT_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+    assert not sentinel.exists()
+
+
+def test_harness_changed_after_validation_is_not_executed(tmp_path: Path, monkeypatch: Any) -> None:
+    from microcosm_core.organs import provider_context_recipe_budget_policy as provider_policy
+
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_provider_core(public_root)
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
+        public_root / "examples/provider_context_recipe_budget_policy",
+    )
+    bundle = public_root / "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle"
+    source = bundle / "source_modules/tools/meta/factory/run_prover_graph_benchmark.py"
+    sentinel = tmp_path / "raced_harness_executed"
+    validate = provider_policy._source_module_findings
+
+    def mutate_after_validation(input_dir: Path) -> dict[str, Any]:
+        result = validate(input_dir)
+        assert result["status"] == "pass"
+        source.write_text(
+            source.read_text(encoding="utf-8")
+            + "\n__import__('pathlib').Path(" + repr(str(sentinel)) + ").write_text('executed')\n",
+            encoding="utf-8",
+        )
+        return result
+
+    monkeypatch.setattr(provider_policy, "_source_module_findings", mutate_after_validation)
+    result = run_budget_bundle(bundle, public_root / "receipts/provider-context", command="pytest")
+    # The validator runs the already captured, pinned bytes, not the replacement.
+    assert result["status"] == "pass"
+    assert result["source_module_import_status"] == "pass"
+    assert not sentinel.exists()
+
+
+def test_reviewed_harness_cannot_import_unreviewed_provider_dependencies(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    harness_path = (
+        MICROCOSM_ROOT
+        / "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle"
+        / "source_modules/tools/meta/factory/run_prover_graph_benchmark.py"
+    )
+    sentinel = tmp_path / "unreviewed_dependency_executed"
+    dependency = tmp_path / "system/lib"
+    dependency.mkdir(parents=True)
+    (dependency.parent / "__init__.py").write_text("", encoding="utf-8")
+    (dependency / "__init__.py").write_text(
+        "__import__('pathlib').Path(" + repr(str(sentinel)) + ").write_text('executed')\n",
+        encoding="utf-8",
+    )
+    monkeypatch.syspath_prepend(str(tmp_path))
+    harness = _load_provider_context_harness(str(harness_path))
+    result = harness._provider_availability_report(requested_provider="auto")
+    assert all(
+        row["error"] == "provider context harness dependency is not reviewed"
+        for row in result["providers"].values()
+    )
+    assert not sentinel.exists()
+
+
+@pytest.mark.parametrize("forge_manifest", [False, True])
+def test_changed_dependency_blocks_before_any_harness_execution(
+    tmp_path: Path, monkeypatch: Any, forge_manifest: bool
+) -> None:
+    from microcosm_core.organs import provider_context_recipe_budget_policy as provider_policy
+
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_provider_core(public_root)
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
+        public_root / "examples/provider_context_recipe_budget_policy",
+    )
+    bundle = public_root / "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle"
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    row = next(row for row in manifest["modules"] if row["module_id"] == "provider_context_receipt_reducer_body_import")
+    source = bundle / row["target_ref"]
+    source.write_bytes(source.read_bytes() + b"\nraise AssertionError('unreviewed dependency')\n")
+    if forge_manifest:
+        digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        row["source_sha256"] = row["target_sha256"] = digest
+        manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    def unexpected_execution(*args: Any, **kwargs: Any) -> dict[str, str]:
+        raise AssertionError("a mismatched dependency must block harness evaluation")
+
+    monkeypatch.setattr(provider_policy, "_real_section_bodies", unexpected_execution)
+    result = run_budget_bundle(bundle, public_root / "receipts/provider-context", command="pytest")
+    assert result["status"] == "blocked"
+    assert "PROVIDER_CONTEXT_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
