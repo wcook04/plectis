@@ -70,6 +70,8 @@ PUBLIC_DATA_SUFFIXES = {
     ".mjs",
     ".olean",
     ".py",
+    ".swift",
+    ".resolved",
     ".ts",
     ".tsx",
     ".toml",
@@ -98,17 +100,14 @@ def _source_relative(path: Path) -> str:
     return path.relative_to(MICROCOSM_ROOT).as_posix()
 
 
-def _committed_public_refs(top_level: str) -> set[str] | None:
+def _candidate_public_refs(top_level: str) -> set[str] | None:
     try:
         completed = subprocess.run(
             [
                 "git",
                 "-C",
                 str(MICROCOSM_ROOT),
-                "ls-tree",
-                "-r",
-                "--name-only",
-                "HEAD",
+                "ls-files", "--cached", "--others", "--exclude-standard", "-z",
                 "--",
                 top_level,
             ],
@@ -118,7 +117,7 @@ def _committed_public_refs(top_level: str) -> set[str] | None:
         )
     except (OSError, subprocess.CalledProcessError):
         return None
-    return {line.strip() for line in completed.stdout.splitlines() if line.strip()}
+    return set(completed.stdout.split("\0")) - {""}
 
 
 def _accepted_organ_ids() -> set[str]:
@@ -183,7 +182,7 @@ def _contains_generated_data_part(ref: str) -> bool:
 
 def _expected_public_data_files(top_level: str) -> dict[str, list[str]]:
     public_root = MICROCOSM_ROOT / top_level
-    committed_refs = _committed_public_refs(top_level)
+    committed_refs = _candidate_public_refs(top_level)
     accepted_roots = _accepted_public_roots(top_level)
     public_dirs = sorted(
         {
@@ -430,7 +429,12 @@ def test_package_data_contract_includes_all_public_fixture_directories() -> None
         if key.startswith("share/plectis/fixtures/")
     }
 
-    assert observed == expected
+    assert {key: {str(path.relative_to(MICROCOSM_ROOT)) for pattern in patterns
+                  for path in MICROCOSM_ROOT.glob(pattern) if path.is_file()}
+            for key, patterns in expected.items()} == {
+        key: {str(path.relative_to(MICROCOSM_ROOT)) for pattern in (patterns or [])
+              for path in MICROCOSM_ROOT.glob(pattern) if path.is_file()}
+        for key, patterns in observed.items()}
     assert data_files["share/plectis/fixtures"] == ["fixtures/README.md"]
 
 
@@ -445,7 +449,12 @@ def test_package_data_contract_includes_all_public_example_directories() -> None
         if key.startswith("share/plectis/examples/")
     }
 
-    assert observed == expected
+    assert {key: {str(path.relative_to(MICROCOSM_ROOT)) for pattern in patterns
+                  for path in MICROCOSM_ROOT.glob(pattern) if path.is_file()}
+            for key, patterns in expected.items()} == {
+        key: {str(path.relative_to(MICROCOSM_ROOT)) for pattern in (patterns or [])
+              for path in MICROCOSM_ROOT.glob(pattern) if path.is_file()}
+        for key, patterns in observed.items()}
     assert data_files["share/plectis/examples"] == ["examples/README.md"]
 
 

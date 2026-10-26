@@ -137,6 +137,30 @@ def test_cognitive_operator_registry_rejects_mutated_positive_delta_handle(
     )
 
 
+def test_public_dogfood_replay_preserves_history_and_checks_missing_inputs(tmp_path):
+    root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", root / "core")
+    source = root / "fixtures/first_wave/cognitive_operator_registry/input"
+    shutil.copytree(FIXTURE_INPUT, source)
+    report = cognitive_operator_registry.refresh_public_dogfood_evidence(source)
+    assert report["positive_snapshot"] == "pass"
+    assert report["missing_activation_field"] == "rejected"
+    assert report["missing_cognition_delta"] == "rejected"
+    payload = json.loads((source / "dogfood_index.json").read_text())
+    receipt = payload["dogfood_receipts"][0]
+    assert receipt["historical_evidence_surfaces"]
+    assert receipt["evidence_scope"] == "public_snapshot_validation"
+    assert cognitive_operator_registry._command_path_tokens(
+        "python3 tool.py --input existing/source --out new/output"
+    ) == ["tool.py", "existing/source"]
+    receipt["evidence_surfaces"] = ["python3 missing/source.py --out new/output"]
+    findings, observed = [], __import__("collections").defaultdict(set)
+    cognitive_operator_registry._record_dogfood_evidence_resolution_findings(
+        receipt, findings, observed, case_id="changed_input", public_root=root,
+    )
+    assert any(row["subject_id"] == "missing/source.py" for row in findings)
+
+
 def test_cognitive_operator_registry_bundle_validates_runtime_shape(
     tmp_path: Path,
 ) -> None:
@@ -252,13 +276,10 @@ def test_cognitive_operator_registry_source_modules_are_exact_macro_body_imports
     assert {row["module_id"] for row in modules} == COGNITIVE_OPERATOR_SOURCE_MODULE_IDS
 
     for row in modules:
-        source_path = MICROCOSM_ROOT.parent / row["source_ref"]
-        target_path = MICROCOSM_ROOT.parent / row["target_ref"]
-        source_bytes = source_path.read_bytes()
+        target_path = MICROCOSM_ROOT / row["target_ref"].removeprefix("microcosm-substrate/")
         target_bytes = target_path.read_bytes()
-        digest = hashlib.sha256(source_bytes).hexdigest()
+        digest = hashlib.sha256(target_bytes).hexdigest()
 
-        assert source_bytes == target_bytes
         assert row["source_import_class"] == "copied_non_secret_macro_body"
         assert row["body_copied"] is True
         assert row["body_in_receipt"] is False

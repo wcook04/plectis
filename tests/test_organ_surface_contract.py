@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -14,6 +15,223 @@ MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 def _accepted_organ_count() -> int:
     return len(_accepted_registry_rows())
+
+
+def test_claim_assurance_covers_every_native_component_without_implying_proof() -> None:
+    payload = organ_surface_contract.build_organ_surface_contract(MICROCOSM_ROOT)
+    assurance = payload["claim_assurance"]
+    assert assurance["component_count"] == _accepted_organ_count()
+    assert assurance["runtime_input_present_count"] == _accepted_organ_count()
+    assert sum(assurance["evidence_class_counts"].values()) == _accepted_organ_count()
+    assert assurance["replay_status"] == "not_run"
+    for row in payload["rows"]:
+        evidence = row["claim_assurance"]
+        assert evidence["evidence_class"]
+        assert evidence["claim_ceiling"]
+        assert (MICROCOSM_ROOT / evidence["runtime_input_ref"]).is_dir()
+        assert evidence["recorded_evidence_freshness"] == "not_checked"
+        assert evidence["formal_proof_of_component_correctness"] == "not_established_by_this_audit"
+        assert evidence["replay"] == {"status": "not_run"}
+
+
+def test_replay_preserves_failures_and_continues_to_every_component(tmp_path: Path, monkeypatch) -> None:
+    from microcosm_core import runtime_shell
+
+    def passing(input_dir, out, command):
+        out.mkdir(parents=True)
+        (out / "result.json").write_text('{"status":"pass"}')
+        return {"status": "pass"}
+
+    def blocked(input_dir, out, command):
+        return {"status": "blocked", "error_codes": ["MISSING_DEPENDENCY"]}
+
+    def broken(input_dir, out, command):
+        raise RuntimeError("private body must not reach the report")
+
+    monkeypatch.setattr(runtime_shell, "RUNTIME_STEPS", tuple(
+        SimpleNamespace(organ_id=name, example_rel="fixture", receipt_name="result.json", runner=runner)
+        for name, runner in [("good", passing), ("blocked", blocked), ("broken", broken)]
+    ))
+    rows = [{"organ_id": name, "claim_assurance": {}} for name in ["good", "blocked", "broken"]]
+    result = organ_surface_contract.replay_organ_surfaces(tmp_path / "checkout", tmp_path / "out", rows)
+    assert result["status"] == "blocked"
+    assert result["status_counts"] == {"blocked": 1, "exception": 1, "pass": 1}
+    assert rows[1]["claim_assurance"]["replay"]["error_codes"] == ["MISSING_DEPENDENCY"]
+    assert rows[2]["claim_assurance"]["replay"]["exception_type"] == "RuntimeError"
+    assert "private body" not in json.dumps(rows)
+
+
+def test_replay_refuses_checkout_source_and_historical_receipt_outputs(tmp_path: Path) -> None:
+    for target in [tmp_path, tmp_path / "receipts", tmp_path / "examples"]:
+        with pytest.raises(ValueError, match="output"):
+            organ_surface_contract.replay_organ_surfaces(tmp_path, target, [])
+
+
+@pytest.mark.parametrize("receipt", [
+    '{"status":"blocked"}', '{"status":"pass","organ_id":"another"}',
+    '{"status":"pass","organ_id":null}', '{}', '[]', 'not JSON',
+])
+def test_replay_rejects_wrong_or_malformed_written_verdict(tmp_path, monkeypatch, receipt):
+    from microcosm_core import runtime_shell
+
+    def runner(source, out, command):
+        out.mkdir(parents=True)
+        (out / "result.json").write_text(receipt)
+        return {"status": "pass"}
+
+    monkeypatch.setattr(runtime_shell, "RUNTIME_STEPS", (
+        SimpleNamespace(organ_id="probe", example_rel="input", receipt_name="result.json", runner=runner),))
+    rows = [{"organ_id": "probe", "claim_assurance": {}}]
+    result = organ_surface_contract.replay_organ_surfaces(tmp_path / "checkout", tmp_path / "out", rows)
+    assert result["status"] == "blocked"
+    assert rows[0]["claim_assurance"]["replay"]["status"] == "exception"
+    assert receipt not in json.dumps(rows)
+
+
+def test_replay_cannot_reuse_a_previous_receipt_as_fresh_output(tmp_path, monkeypatch):
+    from microcosm_core import runtime_shell
+
+    def write(source, out, command):
+        out.mkdir(parents=True)
+        (out / "result.json").write_text('{"status":"pass"}')
+        return {"status": "pass"}
+
+    step = SimpleNamespace(organ_id="probe", example_rel="input", receipt_name="result.json", runner=write)
+    monkeypatch.setattr(runtime_shell, "RUNTIME_STEPS", (step,))
+    first = [{"organ_id": "probe", "claim_assurance": {}}]
+    organ_surface_contract.replay_organ_surfaces(tmp_path / "checkout", tmp_path / "out", first)
+    original = Path(first[0]["claim_assurance"]["replay"]["receipt_ref"])
+    step.runner = lambda *args: {"status": "pass"}
+    second = [{"organ_id": "probe", "claim_assurance": {}}]
+    result = organ_surface_contract.replay_organ_surfaces(tmp_path / "checkout", tmp_path / "out", second)
+    assert result["status"] == "blocked"
+    replay = second[0]["claim_assurance"]["replay"]
+    assert replay["status"] == "missing_replay_receipt"
+    assert Path(replay["receipt_ref"]) != original
+    assert original.read_text() == '{"status":"pass"}'
+
+
+def test_native_replay_selects_live_lean_lab_without_changing_compatibility_default():
+    from microcosm_core import runtime_shell
+    from microcosm_core.organs import lean_proof_search_lab_runtime as lab
+
+    declared = next(step for step in runtime_shell.RUNTIME_STEPS if step.organ_id == lab.ORGAN_ID)
+    compatibility_runner = declared.runner
+    native = organ_surface_contract.native_replay_step(declared)
+    assert native.runner is lab.run
+    assert native.example_rel == "fixtures/first_wave/lean_proof_search_lab_runtime/input"
+    assert declared.runner is compatibility_runner
+    assert declared.runner.__name__ == lab.run_lean_proof_search_lab_runtime_bundle.__name__
+    assert declared.example_rel.startswith("examples/")
+    assert organ_surface_contract.replay_verdict(native, {"status": "pass"}) == "missing_native_lean_witness"
+
+
+@pytest.mark.parametrize("mutation", ["blocked", "wrong_component", "missing_identity", "null_identity"])
+def test_current_receipt_invalid_status_or_identity_blocks_surface_audit(monkeypatch, mutation):
+    registry = json.loads((MICROCOSM_ROOT / "core/organ_registry.json").read_text())
+    row = organ_surface_contract._accepted_registry_rows(registry)[0]
+    target = MICROCOSM_ROOT / row["current_authority_receipt"]
+    original = organ_surface_contract.read_json_strict
+
+    def altered(path):
+        payload = original(path)
+        if Path(path) == target:
+            payload = dict(payload)
+            if mutation == "blocked":
+                payload["status"] = "blocked"
+            elif mutation == "missing_identity":
+                payload.pop("organ_id")
+            else:
+                payload["organ_id"] = None if mutation == "null_identity" else "another_component"
+        return payload
+
+    monkeypatch.setattr(organ_surface_contract, "read_json_strict", altered)
+    payload = organ_surface_contract.build_organ_surface_contract(MICROCOSM_ROOT)
+    observed = next(item for item in payload["rows"] if item["organ_id"] == row["organ_id"])
+    assert observed["current_authority_receipt_status"] == (
+        "blocked" if mutation == "blocked" else "wrong_component")
+    assert observed["checks"]["current_authority_receipt"] is False
+    assert payload["status"] == "blocked"
+
+
+@pytest.mark.parametrize("identity", ["another", None, "missing"])
+def test_public_runtime_index_does_not_adopt_unbound_passing_receipts(tmp_path, monkeypatch, identity):
+    from microcosm_core import runtime_shell
+
+    (tmp_path / "core/fixture_manifests").mkdir(parents=True)
+    (tmp_path / "fixture").mkdir()
+    forged = {"status": "pass"}
+    if identity != "missing":
+        forged["organ_id"] = identity
+    (tmp_path / "forged.json").write_text(json.dumps(forged))
+    (tmp_path / "correct.json").write_text('{"status":"pass","organ_id":"one"}')
+    registry = {"implemented_organs": [{
+        "organ_id": "one", "status": "accepted_current_authority", "validator_command": "python -m one",
+        "current_authority_receipt": "forged.json", "generated_receipts": ["forged.json", "correct.json"]}]}
+    path = tmp_path / "core/organ_registry.json"
+    path.write_text(json.dumps(registry))
+    monkeypatch.setattr(runtime_shell, "RUNTIME_STEPS", (
+        SimpleNamespace(organ_id="one", example_rel="fixture"),))
+    organ_surface_contract.refresh_public_runtime_index(tmp_path)
+    row = json.loads(path.read_text())["implemented_organs"][0]
+    assert row["current_authority_receipt"] == "correct.json"
+    assert row["historical_source_authority_receipt"] == "forged.json"
+
+
+def test_acceptance_refresh_updates_only_current_evidence_fields(tmp_path: Path) -> None:
+    (tmp_path / "core/acceptance").mkdir(parents=True)
+    source = {"class_profiles": {"semantic_validator": {
+        "counts_as_real_substrate_progress": True, "truth_accounting_bucket": "real_import_validation",
+    }}, "organ_evidence_classes": [{"organ_id": "one", "evidence_class": "semantic_validator"}]}
+    (tmp_path / "core/organ_evidence_classes.json").write_text(json.dumps(source))
+    path = tmp_path / organ_surface_contract.ACCEPTANCE_PLAN_REF
+    path.write_text(json.dumps({"accepted_current_authority_organs": [{
+        "organ_id": "one", "evidence_class": "old", "historical_receipt": "keep.json",
+    }], "acceptance_commands": ["preserve command"]}))
+    assert organ_surface_contract.refresh_acceptance_evidence(tmp_path) == ["one"]
+    refreshed = json.loads(path.read_text())
+    assert refreshed["accepted_current_authority_organs"][0]["historical_receipt"] == "keep.json"
+    assert refreshed["acceptance_commands"] == ["preserve command"]
+    assert organ_surface_contract.refresh_acceptance_evidence(tmp_path) == []
+
+
+def test_current_runtime_index_preserves_provenance_and_requires_passing_public_evidence(tmp_path: Path, monkeypatch) -> None:
+    from microcosm_core import runtime_shell
+
+    (tmp_path / "core/fixture_manifests").mkdir(parents=True)
+    (tmp_path / "fixture").mkdir()
+    (tmp_path / "receipt.json").write_text('{"organ_id":"one","status":"blocked"}')
+    path = tmp_path / "core/organ_registry.json"
+    path.write_text(json.dumps({"implemented_organs": [{
+        "organ_id": "one", "status": "accepted_current_authority", "validator_command": "python -m one",
+        "current_authority_receipt": "state/old.json", "generated_receipts": ["receipt.json"],
+    }]}))
+    monkeypatch.setattr(runtime_shell, "RUNTIME_STEPS", (SimpleNamespace(organ_id="one", example_rel="fixture"),))
+    result = organ_surface_contract.refresh_public_runtime_index(tmp_path)
+    assert result == {"created_fixture_manifests": ["one"], "rebound_public_receipt_refs": []}
+    assert json.loads(path.read_text())["implemented_organs"][0]["current_authority_receipt"] == "state/old.json"
+    (tmp_path / "receipt.json").write_text('{"organ_id":"one","status":"pass"}')
+    result = organ_surface_contract.refresh_public_runtime_index(tmp_path)
+    assert result == {"created_fixture_manifests": [], "rebound_public_receipt_refs": ["one"]}
+    row = json.loads(path.read_text())["implemented_organs"][0]
+    assert row["historical_source_authority_receipt"] == "state/old.json"
+    assert row["current_authority_receipt"] == "receipt.json"
+    manifest = tmp_path / "core/fixture_manifests/one.fixture_manifest.json"
+    before = manifest.read_bytes()
+    organ_surface_contract.refresh_public_runtime_index(tmp_path)
+    assert manifest.read_bytes() == before
+
+
+def test_new_root_runtime_alias_executes_and_rejects_forged_certificates(tmp_path: Path) -> None:
+    code = cli.main([
+        "finite-erdos-denominator-certificate-strike", "run",
+        "--input", str(MICROCOSM_ROOT / "fixtures/first_wave/finite_erdos_denominator_certificate_strike/input"),
+        "--out", str(tmp_path),
+    ])
+    assert code == 0
+    result = json.loads((tmp_path / "finite_erdos_denominator_certificate_strike_result.json").read_text())
+    assert result["passed_positive_case_count"] == 2
+    assert result["observed_negative_case_count"] == 2
 
 
 def _accepted_registry_rows() -> list[dict[str, object]]:
@@ -49,6 +267,21 @@ def _atlas_wires_to(organ_id: str) -> set[str]:
     )
     row = next(item for item in atlas["organs"] if item["organ_id"] == organ_id)
     return set(row.get("wires_to", []))
+
+
+def test_source_language_queries_use_actual_sources_and_ignore_bytecode(tmp_path: Path) -> None:
+    sources = tmp_path / "examples/toy/source_modules"
+    sources.mkdir(parents=True)
+    (sources / "one.py").write_text("value = 1\n")
+    (sources / "two.ts").write_text("export const value: number = 1;\n")
+    (sources / "three.mjs").write_text("export const value = 1;\n")
+    (sources / "__pycache__").mkdir()
+    (sources / "__pycache__/one.cpython-312.pyc").write_bytes(b"generated bytecode")
+    inventory = organ_surface_contract._source_language_inventory(tmp_path, ["toy"])
+    assert inventory["by_organ"]["toy"]["source_module_file_count"] == 3
+    assert set(inventory["by_organ"]["toy"]["language_families"]) == {"python", "typescript", "javascript"}
+    adjacency = organ_surface_contract._source_language_adjacency(inventory)
+    assert adjacency["query_affordances"]["python_typescript_javascript_organs"] == ["toy"]
 
 
 def test_organ_surface_contract_tracks_live_accepted_organs() -> None:
@@ -149,7 +382,7 @@ def test_organ_surface_contract_tracks_live_accepted_organs() -> None:
     assert query_affordances["accepted_without_source_modules"] == (
         source_language_inventory["accepted_without_source_modules"]
     )
-    assert "batch7_macro_engines_capsule" in query_affordances[
+    assert "batch7_macro_engines_capsule" not in query_affordances[
         "python_typescript_javascript_organs"
     ]
     adjacency_rows = source_language_adjacency["rows"]
@@ -161,7 +394,6 @@ def test_organ_surface_contract_tracks_live_accepted_organs() -> None:
     assert set(macro_engines_adjacency["peer_organs_by_language"]) >= {
         "javascript",
         "python",
-        "typescript",
     }
     source_module_file_graph = payload["coverage"]["source_module_file_graph"]
     assert source_module_file_graph["schema_version"] == (
@@ -304,7 +536,7 @@ def test_organ_surface_contract_tracks_live_accepted_organs() -> None:
     ]
     assert any(
         edge["relation_type"] == "organ.has_source_language_family"
-        and edge["target_id"] == "source_language_family:typescript"
+        and edge["target_id"] == "source_language_family:javascript"
         for edge in macro_engines_edges
     )
     assert any(
@@ -386,14 +618,13 @@ def test_organ_surface_contract_tracks_live_accepted_organs() -> None:
         "source_language_inventory"
     ]
     assert macro_engines_inventory["source_module_file_count"] > 0
-    assert set(macro_engines_inventory["language_families"]) >= {
+    assert set(macro_engines_inventory["language_families"]) == {
         "javascript",
         "python",
-        "typescript",
     }
     assert macro_engines_inventory["extension_counts"][".mjs"] > 0
     assert macro_engines_inventory["extension_counts"][".py"] > 0
-    assert macro_engines_inventory["extension_counts"][".ts"] > 0
+    assert macro_engines_inventory["extension_counts"].get(".ts", 0) == 0
     for row in payload["rows"]:
         assert all(row["checks"].values()), row["organ_id"]
         assert row["real_substrate_disposition"] in {
@@ -710,7 +941,7 @@ def test_organ_surface_contract_cli_emits_compact_card(
     assert source_language_adjacency["language_family_organ_counts"][
         "typescript"
     ] == len(source_language_adjacency["typescript_bearing_organs"])
-    assert "batch7_macro_engines_capsule" in source_language_adjacency[
+    assert "batch7_macro_engines_capsule" not in source_language_adjacency[
         "python_typescript_javascript_organs"
     ]
     assert "bridge_phase_continuity_runtime" not in source_language_adjacency[
@@ -834,7 +1065,7 @@ def test_organ_topology_cli_emits_direct_query_surface(
         in card["available_relation_types"]
     )
     assert "source_shard.validated_by_ref" in card["available_relation_types"]
-    assert "batch7_macro_engines_capsule" in card["query_affordances"][
+    assert "batch7_macro_engines_capsule" not in card["query_affordances"][
         "python_typescript_javascript_organs"
     ]
     assert card["query_examples"] == [
@@ -904,7 +1135,7 @@ def test_organ_topology_cli_filters_edges_by_organ_and_relation(
         for edge in card["edges"]
     )
     assert any(
-        edge["target_id"] == "source_language_family:typescript"
+        edge["target_id"] == "source_language_family:javascript"
         for edge in card["edges"]
     )
 

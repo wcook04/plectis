@@ -1,0 +1,56 @@
+{
+  "anti_claim": "The derived fact provider runtime organ evaluates authored fact registries over public fixture roots only. It does not audit whether prose claims are true, does not export the full macro fact registry, does not perform semantic claim validation, does not export private macro state, credentials, or raw operator threads, and it does not authorize release or publication. A clean provider receipt means the registered facts resolved against the supplied root, not that any downstream claim is true. A malformed registry cannot pass because the provider recomputes each row and records the planted defect as an error-as-data row with the expected error_class.",
+  "authority_ceiling": {
+    "doctrine_truth_auditor": false,
+    "full_macro_registry_export": false,
+    "oracle_or_prover": false,
+    "production_ready": false,
+    "provider_call": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "semantic_claim_validation": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.derived_fact_provider_runtime",
+  "organ_id": "derived_fact_provider_runtime",
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 3,
+    "replacements": [
+      {
+        "field_path": "receipt_paths.result",
+        "original_sha256": "sha256:7d240553668cbaf6e442260618bdb42c2de02ee72a084dc1dcc1fa3e47ce70f0",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "receipt_paths.board",
+        "original_sha256": "sha256:7b1817c5edc543eeae8ba01e27df18ffc896d0b035062d7676797b98803c9491",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "receipt_paths.validation",
+        "original_sha256": "sha256:94cb767a57fae1a6726220af85d1f6e948224d9027162973b52d305c32cdc52e",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "private_home_path_transform"
+    ]
+  },
+  "receipt_paths": {
+    "board": "<private-home-path>",
+    "result": "<private-home-path>",
+    "validation": "<private-home-path>"
+  },
+  "schema_version": "derived_fact_provider_runtime_validation_receipt_v1",
+  "status": "pass"
+}

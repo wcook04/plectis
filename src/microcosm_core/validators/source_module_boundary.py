@@ -273,6 +273,8 @@ REFRESH_POLICY_TOP_LEVEL_KEYS = frozenset(
         "policy_ref",
         "policy_revision",
         "provenance_refs",
+        # Enforced by release_export; it never supplies a refresh grant.
+        "reviewed_publication",
         "schema_version",
     }
 )

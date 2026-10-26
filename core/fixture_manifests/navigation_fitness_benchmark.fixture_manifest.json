@@ -1,0 +1,22 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "organ_id": "navigation_fitness_benchmark",
+  "fixture_id": "first_wave.navigation_fitness_benchmark",
+  "input_root": "fixtures/first_wave/navigation_fitness_benchmark/input",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/navigation_fitness_benchmark/input",
+      "kind": "native_runtime_bundle"
+    }
+  ],
+  "validator_command": "python -m microcosm_core.organs.navigation_fitness_benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+  "expected_receipts": [
+    "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_result.json",
+    "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_board.json",
+    "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_validation_receipt.json",
+    "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json"
+  ],
+  "claim_ceiling": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
+  "generated_from": "core/organ_registry.json + microcosm_core.runtime_shell.RUNTIME_STEPS",
+  "anti_claim": "This manifest declares the shipped native replay input; input presence is not a passing replay or a formal proof."
+}

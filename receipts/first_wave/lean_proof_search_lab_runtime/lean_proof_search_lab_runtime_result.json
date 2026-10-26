@@ -1,0 +1,90 @@
+{
+  "anti_claim": "The Lean proof-search lab runtime organ searches and Lean-checks bounded public toy theorems only. It is not neural theorem proving, does not solve open problems, does not forward an oracle proof body or oracle-needed premise ids, and does not export private macro state, credentials, provider state, or raw operator threads; it does not call providers and does not authorize release or publication. When Lean is installed, a candidate that leaks a forward oracle field, depends on sorry, or only works because it memorised the problem id cannot pass, because the capsule recomputes the search, the firewall, the axiom audit, and the problem-id ablation. When Lean is absent, the organ is locked and asserts no verification at all.",
+  "authority_ceiling": {
+    "external_tool_required": true,
+    "neural_theorem_proving": false,
+    "oracle_body_forwarding": false,
+    "oracle_or_prover": false,
+    "production_ready": false,
+    "provider_call": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "solves_open_problem": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "case_count": 5,
+  "cases": [
+    {
+      "case_id": "memorized_policy_negative",
+      "case_type": "negative",
+      "expectation_met": true,
+      "expected_status": "fail",
+      "observed_failure_kind": "problem_id_ablation_failure",
+      "observed_ok": true,
+      "observed_status": "fail"
+    },
+    {
+      "case_id": "nested_oracle_field_negative",
+      "case_type": "negative",
+      "expectation_met": true,
+      "expected_status": "fail",
+      "observed_failure_kind": "oracle_firewall_violation",
+      "observed_ok": true,
+      "observed_status": "fail"
+    },
+    {
+      "case_id": "oracle_field_negative",
+      "case_type": "negative",
+      "expectation_met": true,
+      "expected_status": "fail",
+      "observed_failure_kind": "oracle_firewall_violation",
+      "observed_ok": true,
+      "observed_status": "fail"
+    },
+    {
+      "case_id": "positive_symbolic_lab_pass",
+      "case_type": "positive",
+      "expectation_met": true,
+      "expected_status": "pass",
+      "observed_failure_kind": null,
+      "observed_ok": true,
+      "observed_status": "pass"
+    },
+    {
+      "case_id": "sorry_axiom_negative",
+      "case_type": "negative",
+      "expectation_met": true,
+      "expected_status": "fail",
+      "observed_failure_kind": "axiom_taint_detected",
+      "observed_ok": true,
+      "observed_status": "fail"
+    }
+  ],
+  "claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
+  "command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+  "created_at": "2026-10-26T12:24:03+00:00",
+  "execution_witness_mode": "live_lean_subprocess_verified",
+  "expected_negative_cases": {
+    "memorized_policy_negative": "problem_id_ablation_failure",
+    "nested_oracle_field_negative": "oracle_firewall_violation",
+    "oracle_field_negative": "oracle_firewall_violation",
+    "sorry_axiom_negative": "axiom_taint_detected"
+  },
+  "fixture_id": "first_wave.lean_proof_search_lab_runtime",
+  "input_mode": "lean_proof_search_lab_fixture_cases",
+  "lean_available": true,
+  "negative_case_count": 4,
+  "observed_negative_case_count": 4,
+  "organ_id": "lean_proof_search_lab_runtime",
+  "passed_positive_case_count": 1,
+  "positive_case_count": 1,
+  "required_tool": "lean",
+  "schema_version": "lean_proof_search_lab_runtime_organ_v1",
+  "status": "pass",
+  "tool_state": "tool_present_and_verified",
+  "validator_id": "validator.microcosm.organs.lean_proof_search_lab_runtime",
+  "verification_performed": true
+}

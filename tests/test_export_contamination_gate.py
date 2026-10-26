@@ -9,14 +9,45 @@ check that the population/export candidate carries neither class.
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 
 from microcosm_core.release_export import (
     _skip_reason,
     scan_source_modules_contamination,
+    _restricted_source_module_substitution_rows,
 )
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_reviewed_source_publication_is_bound_to_target_and_bytes(tmp_path: Path) -> None:
+    root = tmp_path / "public"
+    relative = "examples/demo/source_modules/system/lib/reviewed.py"
+    path = root / relative
+    path.parent.mkdir(parents=True)
+    path.write_text("PUBLIC_VALUE = 1\n")
+    policy_path = root / "core/source_module_refresh_policy_v0.json"
+    policy_path.parent.mkdir()
+    review = {"operation": "publish_reviewed_source_copy", "review_status": "approved",
+              "authority_ref": "operator-test-approval", "copies": {
+                  relative: {"sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                             "source_ref": "system/lib/reviewed.py", "manifest_ref": "examples/demo/source_module_manifest.json",
+                             "material_id": "reviewed_source"}}}
+    policy_path.write_text(json.dumps({"reviewed_publication": review}))
+    assert _restricted_source_module_substitution_rows(root) == []
+    path.write_text("PUBLIC_VALUE = 2\n")
+    assert [row["path"] for row in _restricted_source_module_substitution_rows(root)] == [relative]
+    path.write_text("PUBLIC_VALUE = 1\n")
+    other = path.with_name("undeclared.py")
+    other.write_bytes(path.read_bytes())
+    assert [row["path"] for row in _restricted_source_module_substitution_rows(root)] == [relative.replace("reviewed.py", "undeclared.py")]
+    other.unlink()
+    path.write_text("PRIVATE_HOME = '/Users/realname/source'\n")
+    review["copies"][relative]["sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
+    policy_path.write_text(json.dumps({"reviewed_publication": review}))
+    assert any(row["contamination_class"] == "host_private_path"
+               for row in scan_source_modules_contamination(root, compare_private_bodies=False))
 
 
 def test_live_source_modules_payloads_are_contamination_free() -> None:

@@ -144,7 +144,7 @@
     {
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "external_subprocess_witness",
       "generated_receipts": [
         "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
         "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
@@ -155,7 +155,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.corpus_readiness_mathlib_absence_gate",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "source_faithful_refactor",
+      "truth_accounting_bucket": "real_runtime_receipt",
       "validator_command": "python -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate"
     },
     {
@@ -314,7 +314,7 @@
     {
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "generated_receipts": [
         "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
         "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
@@ -325,13 +325,13 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_runtime_receipt",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "validator_command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay"
     },
     {
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "bounded_runtime_computation",
       "generated_receipts": [
         "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_result.json",
         "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_board.json",
@@ -342,7 +342,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.provider_context_recipe_budget_policy",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "source_faithful_refactor",
+      "truth_accounting_bucket": "real_runtime_receipt",
       "validator_command": "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy"
     },
     {
@@ -419,7 +419,7 @@
     {
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "bounded_runtime_computation",
       "generated_receipts": [
         "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
         "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
@@ -434,7 +434,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.mission_transaction_work_spine",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "source_faithful_refactor",
+      "truth_accounting_bucket": "real_runtime_receipt",
       "validator_command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine"
     },
     {
@@ -666,7 +666,7 @@
     {
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "generated_receipts": [
         "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_result.json",
         "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_board.json",
@@ -677,13 +677,13 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.agent_monitor_redteam_falsification_replay",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_runtime_receipt",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "validator_command": "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay"
     },
     {
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "generated_receipts": [
         "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_result.json",
         "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_board.json",
@@ -694,7 +694,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.agent_sabotage_scheming_monitor_replay",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_runtime_receipt",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "validator_command": "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
     },
     {
@@ -1273,7 +1273,7 @@
     {
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json",
-      "evidence_class": "semantic_validator",
+      "evidence_class": "algorithmic_projection",
       "generated_receipts": [
         "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_result.json",
         "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_board.json",
@@ -1284,7 +1284,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.batch8_compliance_pipeline_capsule",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_import_validation",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "validator_command": "python -m microcosm_core.organs.batch8_compliance_pipeline_capsule run --input fixtures/first_wave/batch8_compliance_pipeline_capsule/input --out receipts/first_wave/batch8_compliance_pipeline_capsule --acceptance-out receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json"
     },
     {
@@ -1578,7 +1578,7 @@
     {
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "external_subprocess_witness",
       "generated_receipts": [
         "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_result.json",
         "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_board.json",
@@ -1595,7 +1595,7 @@
     {
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "external_subprocess_witness",
       "generated_receipts": [
         "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json",
         "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json",

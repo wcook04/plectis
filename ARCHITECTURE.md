@@ -153,15 +153,15 @@ This facet is the deep drilldown; skip it on a first read. It is body-free relat
 
 | Handle | Count |
 |---|---:|
-| Accepted organs with source relations | 67 |
-| Source-module edges | 3110 |
-| Source files (per-organ aggregate) | 304 |
-| Source shards (per-organ aggregate) | 695 |
-| Target files (per-organ aggregate) | 308 |
-| Target shards (per-organ aggregate) | 708 |
-| Validation refs (per-organ aggregate) | 121 |
+| Accepted organs with source relations | 85 |
+| Source-module edges | 6909 |
+| Source files (per-organ aggregate) | 802 |
+| Source shards (per-organ aggregate) | 2254 |
+| Target files (per-organ aggregate) | 812 |
+| Target shards (per-organ aggregate) | 2295 |
+| Validation refs (per-organ aggregate) | 141 |
 
-Top relation types: `source_shard.retained_as_public_target_shard` `708` · `source_shard.validated_by_ref` `571` · `target_shard.validated_by_ref` `571` · `source_file.validated_by_ref` `342` · `target_file.validated_by_ref` `342`
+Top relation types: `source_shard.retained_as_public_target_shard` `2296` · `source_shard.validated_by_ref` `1062` · `target_shard.validated_by_ref` `1062` · `source_file.copied_to_public_target` `813` · `target_file.shares_macro_source_with_target_file` `748`
 
 Route into the live topology surface:
 

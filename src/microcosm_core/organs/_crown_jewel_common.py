@@ -1031,8 +1031,8 @@ def run_crown_jewel_organ(
         ("exercise", exercise),
         ("negative_cases", negative_cases),
     ):
-        section_status = str(section.get("status") or "")
-        if section_status and section_status != PASS and not section.get("findings"):
+        section_status = str(section.get("status") or "missing_verdict")
+        if section_status != PASS and not section.get("findings"):
             findings.append(
                 finding(
                     "CROWN_JEWEL_SECTION_STATUS_WITHOUT_FINDINGS",

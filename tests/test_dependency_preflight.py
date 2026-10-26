@@ -33,11 +33,40 @@ def _copy_public_tree(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(MICROCOSM_ROOT / "fixtures", public_root / "fixtures")
+    try:
+        (public_root / "examples").symlink_to(MICROCOSM_ROOT / "examples", target_is_directory=True)
+    except OSError:
+        shutil.copytree(MICROCOSM_ROOT / "examples", public_root / "examples")
     shutil.copytree(
         MICROCOSM_ROOT / "receipts/runtime_shell",
         public_root / "receipts/runtime_shell",
     )
     return public_root
+
+
+def test_dependency_preflight_checks_runtime_bundle_when_readiness_is_absent(tmp_path: Path) -> None:
+    public_root = _copy_public_tree(tmp_path)
+    (public_root / "core/fixture_manifests/semantic_singleflight_dedup_runtime.fixture_manifest.json").unlink(missing_ok=True)
+    receipt = run_dependency_preflight(
+        READINESS, NEGATIVE_MATRIX, public_root / "receipts/preflight/dependency.json", command="pytest",
+    )
+    row = next(row for row in receipt["fixture_precondition_checks"] if row["organ_id"] == "semantic_singleflight_dedup_runtime")
+    assert row["input_source"] == "runtime_step_bundle"
+    assert row["fixture_input_count"] == 1
+    assert row["status"] == "pass"
+
+
+def test_dependency_preflight_does_not_pass_an_empty_input_check(tmp_path: Path, monkeypatch) -> None:
+    public_root = _copy_public_tree(tmp_path)
+    readiness = json.loads(READINESS.read_text())
+    next(row for row in readiness["organ_readiness"] if row["organ_id"] == "pattern_binding_contract")["fixture_inputs"] = []
+    path = tmp_path / "readiness.json"
+    path.write_text(json.dumps(readiness))
+    monkeypatch.setattr(dependency_preflight, "RUNTIME_STEPS", tuple(step for step in dependency_preflight.RUNTIME_STEPS if step.organ_id != "pattern_binding_contract"))
+    receipt = run_dependency_preflight(path, NEGATIVE_MATRIX, public_root / "receipts/preflight/dependency.json", command="pytest")
+    row = next(row for row in receipt["fixture_precondition_checks"] if row["organ_id"] == "pattern_binding_contract")
+    assert row["status"] == "blocked"
+    assert "MISSING_FIXTURE_INPUT_DECLARATION" in receipt["blocked_dependency_codes"]
 
 
 def _accepted_organs_from_registry(public_root: Path) -> list[str]:

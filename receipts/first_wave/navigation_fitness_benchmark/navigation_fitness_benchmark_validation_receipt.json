@@ -1,0 +1,56 @@
+{
+  "anti_claim": "The navigation fitness benchmark organ evaluates curated route-packet fixtures over public inputs only. It does not run the private macro kernel.py, does not capture packets from the live route runner, does not validate embeddings, and does not claim universal navigation benchmark authority. It does not export private macro state, credentials, provider state, or raw operator threads, does not call providers or external solvers, and does not authorize release or publication. A packet whose declared expectation is false cannot pass because the capsule recomputes recall, precision, forbidden-route, scent, and latency verdicts and rejects any case whose recomputation contradicts the planted expectation.",
+  "authority_ceiling": {
+    "embedding_benchmark": false,
+    "live_private_kernel_run": false,
+    "oracle_or_prover": false,
+    "production_ready": false,
+    "provider_call": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "universal_navigation_benchmark": false
+  },
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.navigation_fitness_benchmark",
+  "organ_id": "navigation_fitness_benchmark",
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 3,
+    "replacements": [
+      {
+        "field_path": "receipt_paths.result",
+        "original_sha256": "sha256:536694f32b694837f0e82c43f5f9a10e6023814a44afcdbef0e921c65ca77d10",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "receipt_paths.board",
+        "original_sha256": "sha256:0c3923e83db06a79e450a6d0742f56847ebd457e1d078e9b71b6831f3a0156e7",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "receipt_paths.validation",
+        "original_sha256": "sha256:32a85f0f6fa78052736d0dd073d49c540f8cd4d0c8139fca78d91a1d7c898aef",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "private_home_path_transform"
+    ]
+  },
+  "receipt_paths": {
+    "board": "<private-home-path>",
+    "result": "<private-home-path>",
+    "validation": "<private-home-path>"
+  },
+  "schema_version": "navigation_fitness_benchmark_validation_receipt_v1",
+  "status": "pass"
+}

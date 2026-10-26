@@ -1,0 +1,22 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "organ_id": "semantic_singleflight_dedup_runtime",
+  "fixture_id": "first_wave.semantic_singleflight_dedup_runtime",
+  "input_root": "fixtures/first_wave/semantic_singleflight_dedup_runtime/input",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/semantic_singleflight_dedup_runtime/input",
+      "kind": "native_runtime_bundle"
+    }
+  ],
+  "validator_command": "python -m microcosm_core.organs.semantic_singleflight_dedup_runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+  "expected_receipts": [
+    "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_result.json",
+    "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_board.json",
+    "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_validation_receipt.json",
+    "receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json"
+  ],
+  "claim_ceiling": "keys and dedups command runs by repo-state fingerprint; does not guarantee global mutual exclusion, does not replace a lock service, and does not prove cross-host correctness",
+  "generated_from": "core/organ_registry.json + microcosm_core.runtime_shell.RUNTIME_STEPS",
+  "anti_claim": "This manifest declares the shipped native replay input; input presence is not a passing replay or a formal proof."
+}

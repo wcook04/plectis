@@ -227,8 +227,9 @@ def test_validate_negative_cases_without_semantic_evaluator_rejects_label_only_f
     }.issubset({row["error_code"] for row in result["findings"]})
 
 
+@pytest.mark.parametrize("reported", [{"status": "blocked"}, {}, {"status": None}, {"status": ""}])
 def test_run_crown_jewel_organ_blocks_section_status_without_findings(
-    tmp_path: Path,
+    tmp_path: Path, reported,
 ) -> None:
     # The overall verdict is derived from findings alone; an evaluator that
     # reports a non-pass status while contributing zero findings must not be
@@ -259,7 +260,7 @@ def test_run_crown_jewel_organ_blocks_section_status_without_findings(
         input_path: Path, root: Path, source_manifest: dict
     ) -> dict:
         del input_path, root, source_manifest
-        return {"status": "blocked", "findings": [], "body_in_receipt": False}
+        return {**reported, "findings": [], "body_in_receipt": False}
 
     result = run_crown_jewel_organ(
         _spec(),

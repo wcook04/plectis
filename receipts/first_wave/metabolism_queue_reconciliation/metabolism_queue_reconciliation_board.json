@@ -1,0 +1,10 @@
+{
+  "anti_claim": "The metabolism queue reconciliation organ runs against a per-case synthetic temp SQLite store seeded from public fixtures only. It is not the live private metabolism runtime, does not export the production queue database, scheduler daemon, provider state, credentials, or raw operator threads; it does not dispatch agents, call providers, or auto-repair ambiguous runtime state, and it does not authorize release or publication. A planted inconsistency cannot pass because the capsule's reconciler recomputes the job/run/log relationship and emits the matching review rule.",
+  "case_count": 4,
+  "claim_ceiling": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
+  "negative_case_count": 2,
+  "organ_id": "metabolism_queue_reconciliation",
+  "positive_case_count": 2,
+  "schema_version": "metabolism_queue_reconciliation_board_v1",
+  "status": "pass"
+}

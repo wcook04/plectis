@@ -783,16 +783,18 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "body_text_in_receipt": False,
         "verification_mode": "exact_source_digest_match",
     }
-    # This public bundle retains the standard, while three source bodies are
-    # explicit release substitutions. They must not appear as verified bodies.
+    # The reviewed public snapshot now carries the standard and the actual
+    # source bodies. Their declared family must be checked by the source lens.
     trace_manifest = json.loads((MICROCOSM_ROOT / (
         "examples/agent_route_observability_runtime/"
         "exported_agent_trace_route_repair_bundle/source_module_manifest.json"
     )).read_text())
-    assert trace_manifest["release_substitution_omissions"]
-    assert all(row["material_class"] == "public_standard_body"
-               for row in trace_manifest["modules"])
-    assert "exported_agent_trace_route_repair_bundle" not in source_families
+    assert trace_manifest["release_substitution_omissions"] == []
+    trace_family = source_families["exported_agent_trace_route_repair_bundle"]
+    assert trace_family["status"] == "pass"
+    assert trace_family["module_count"] == sum(
+        row["material_class"] == "public_macro_tool_body" for row in trace_manifest["modules"]
+    )
     assert status["product_path_demoted_organ_count"] == _demoted_organ_count()
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
@@ -2071,10 +2073,8 @@ def test_runtime_shell_authority_card_preview_refs_resolve_in_standalone_root(
     assert preview
     assert all(row["authority_ref_resolves_in_public_tree"] is True for row in preview)
     assert all((public_root / row["authority_ref"]).is_file() for row in preview)
-    assert any(
-        row.get("source_authority_ref", "").startswith("state/microcosm_portfolio/")
-        for row in preview
-    )
+    assert all(not row.get("source_authority_ref", "").startswith("state/")
+               for row in preview)
 
 
 def test_runtime_shell_blocks_unclassified_organs(tmp_path: Path) -> None:
@@ -5289,8 +5289,8 @@ def test_runtime_shell_reports_demo_results_against_exported_bundles(tmp_path: P
     result = shell.run_demo("examples/runtime_shell/demo_project")
 
     # This shell test checks real execution and truthful aggregation. Individual
-    # component validators own mathematical/semantic correctness. The public
-    # export deliberately omits private dependencies for some selected steps.
+    # component validators own mathematical/semantic correctness. The Work
+    # Ledger snapshot uses the restored, pinned public runtime.
     events = {event["organ_id"]: event for event in result["events"]}
     assert list(events) == [step.organ_id for step in runtime_shell._product_runtime_steps()]
     assert all(event["status"] in {"pass", "blocked", "fail", "unavailable"}
@@ -5304,9 +5304,9 @@ def test_runtime_shell_reports_demo_results_against_exported_bundles(tmp_path: P
         "belief_state_process_reward_replay", "batch12_release_claim_language_gate",
     ):
         assert events[organ_id]["status"] == "pass", events[organ_id]
-    missing_runtime = events["mission_transaction_work_spine"]
-    assert missing_runtime["execution_status"] == "unavailable"
-    assert "REAL_ACTIVE_CLAIMS_RUNTIME_UNAVAILABLE" in missing_runtime["error_codes"]
+    work_runtime = events["mission_transaction_work_spine"]
+    assert work_runtime["execution_status"] == "pass"
+    assert "REAL_ACTIVE_CLAIMS_RUNTIME_UNAVAILABLE" not in work_runtime["error_codes"]
     assert result["next_actions"] == [
         "plectis status --card examples/runtime_shell/demo_project",
         "plectis observe examples/runtime_shell/demo_project",
@@ -5360,10 +5360,12 @@ def test_runtime_shell_route_and_evidence_drilldowns(tmp_path: Path) -> None:
     assert evidence["body_in_receipt"] is False
     assert evidence["evidence_contract"]["real_runtime_receipt"] is True
     assert evidence["evidence_contract"]["synthetic_receipt_is_product_evidence"] is False
-    assert work_demo["status"] == "blocked"
-    assert work_demo["real_active_claims_snapshot_status"] == "unavailable"
-    assert "REAL_ACTIVE_CLAIMS_RUNTIME_UNAVAILABLE" in work_demo["error_codes"]
+    assert work_demo["status"] == "pass"
+    assert work_demo["real_active_claims_snapshot_status"] == "pass"
+    assert "REAL_ACTIVE_CLAIMS_RUNTIME_UNAVAILABLE" not in work_demo["error_codes"]
     assert work_demo["evidence_ref"].startswith("receipts/runtime_shell/work_demo/")
+    work_receipt = json.loads((public_root / work_demo["evidence_ref"]).read_text())
+    assert work_receipt["real_active_claims_snapshot_result"]["realness_evidence"]["verdict_rederived_from_runtime_evidence"] is True
     assert work_demo["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
 
 

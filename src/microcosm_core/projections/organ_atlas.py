@@ -1064,6 +1064,13 @@ def load_model(root: str | Path) -> dict[str, Any]:
                     "substrate_next_repair": substrate.get("next_repair"),
                     "validator_command": reg.get("validator_command"),
                     "generated_receipts": reg.get("generated_receipts", []),
+                    "current_authority_receipt": reg.get("current_authority_receipt"),
+                    "current_evidence_scope": reg.get("current_evidence_scope"),
+                    "fixture_manifest": (
+                        f"core/fixture_manifests/{oid}.fixture_manifest.json"
+                        if (root / f"core/fixture_manifests/{oid}.fixture_manifest.json").is_file()
+                        else None
+                    ),
                     "human_gloss": gloss.get("human_gloss", ""),
                     "agent_gloss": gloss.get("agent_gloss", ""),
                     "one_line": compression.get("one_line", ""),
@@ -1413,7 +1420,9 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
             for ref in primary.get("generated_receipts", [])
             if str(ref).strip()
         ]
-        receipt_ref = str(primary.get("acceptance") or "").strip()
+        receipt_ref = str(
+            primary.get("current_authority_receipt") or primary.get("acceptance") or ""
+        ).strip()
         if not receipt_ref and primary_receipts:
             receipt_ref = primary_receipts[0]
         relevant_organs = []
@@ -1446,6 +1455,9 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
                     "claim_ceiling_restated": scope_limit,
                     "authority_boundary": scope_limit,
                     "receipt_refs": receipts,
+                    "current_receipt_ref": card.get("current_authority_receipt"),
+                    "current_evidence_scope": card.get("current_evidence_scope"),
+                    "fixture_manifest_ref": card.get("fixture_manifest"),
                     "acceptance_ref": card.get("acceptance"),
                     "standard_ref": card.get("standard"),
                     "paper_module_ref": card.get("paper_module"),
@@ -1931,6 +1943,14 @@ def render_organs_md(model: dict[str, Any]) -> str:
                 drill.append(f"validator `{card['validator_command']}`")
             if card.get("acceptance"):
                 drill.append(f"acceptance `{card['acceptance']}`")
+            if card.get("current_authority_receipt"):
+                ref = card["current_authority_receipt"]
+                drill.append(f"current evidence [`{ref}`]({ref})")
+            if card.get("current_evidence_scope"):
+                drill.append(f"evidence scope `{card['current_evidence_scope']}`")
+            if card.get("fixture_manifest"):
+                ref = card["fixture_manifest"]
+                drill.append(f"input manifest [`{ref}`]({ref})")
             if drill:
                 out.append(f"- **Drill down:** {' · '.join(drill)}")
             out.append("")

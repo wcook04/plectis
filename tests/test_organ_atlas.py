@@ -103,6 +103,32 @@ def test_atlas_model_is_complete_and_non_overclaiming() -> None:
     assert model["blocking_reasons"] == []
 
 
+def test_generated_readers_receive_current_public_receipts_and_input_manifests() -> None:
+    registry = {
+        row["organ_id"]: row
+        for row in read_json_strict(MICROCOSM_ROOT / "core/organ_registry.json")["implemented_organs"]
+        if row.get("status") == "accepted_current_authority"
+    }
+    result = build(MICROCOSM_ROOT, write=False)
+    cards = {
+        row["organ_id"]: row
+        for route in result["agent_task_routes"]["routes"]
+        for row in route["relevant_organs"]
+    }
+    assert set(cards) == set(registry)
+    for organ_id, row in registry.items():
+        current = row["current_authority_receipt"]
+        manifest = f"core/fixture_manifests/{organ_id}.fixture_manifest.json"
+        assert cards[organ_id]["current_receipt_ref"] == current
+        assert cards[organ_id]["fixture_manifest_ref"] == manifest
+        assert (MICROCOSM_ROOT / manifest).is_file()
+        assert read_json_strict(MICROCOSM_ROOT / current)["status"] == "pass"
+        assert f"]({current})" in result["organs_md"]
+        assert f"]({manifest})" in result["organs_md"]
+    for route in result["agent_task_routes"]["routes"]:
+        assert route["receipt_ref"] == registry[route["primary_organ_id"]]["current_authority_receipt"]
+
+
 def test_sentinel_claim_ceilings_bind_to_registry_source() -> None:
     """Sentinel rows must not inherit another organ's claim ceiling."""
     registry_claims = _registry_claims()

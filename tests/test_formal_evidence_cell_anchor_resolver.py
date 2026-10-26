@@ -12,6 +12,7 @@ from microcosm_core.organs.formal_evidence_cell_anchor_resolver import (
     SOURCE_REFS,
     _line_count,
     _sha256_file,
+    _resolve_public_anchor_ref,
     main,
     run,
     run_anchor_bundle,
@@ -45,7 +46,10 @@ def _copy_public_ref(public_root: Path, ref: str) -> None:
         source = repo_root / path_ref
         target = public_root.parent / path_ref
     if not source.is_file():
-        return
+        source, _, _ = _resolve_public_anchor_ref(ref, public_root=MICROCOSM_ROOT)
+        if source is None:
+            return
+        target = public_root / path_ref.removeprefix("microcosm-substrate/")
     target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(source, target)
 

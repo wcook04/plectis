@@ -1,0 +1,52 @@
+{
+  "anti_claim": "The finite Erdos denominator-order certificate strike computes exact rationals and multiplicative orders over public fixture inputs only. It does not solve or claim to solve Erdos #257, does not export private macro state, credentials, provider state, or raw operator threads; it does not call providers or external solvers, and it does not authorize release or publication. A forged certificate cannot pass because the runner recomputes the truth and rejects any claimed value that disagrees.",
+  "body_in_receipt": false,
+  "claim_ceiling": "Computes the finite denominator-order certificate ord_Q(b) = lcm(F) for S_F(b) = sum_{n in F} 1/(b^n - 1) = P/Q in exact rational arithmetic over bounded public fixtures, and rejects forged certificates by recomputation. It does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof of even the finite statement.",
+  "fixture_id": "first_wave.finite_erdos_denominator_certificate_strike",
+  "generated_receipts": [
+    "<private-home-path>",
+    "<private-home-path>",
+    "<private-home-path>",
+    "<private-home-path>"
+  ],
+  "organ_id": "finite_erdos_denominator_certificate_strike",
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 4,
+    "replacements": [
+      {
+        "field_path": "generated_receipts[0]",
+        "original_sha256": "sha256:04e71ad7197c6eea832bb7a5a685cc33bbbb7906653f10bd5fd072dd93bf9de4",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[1]",
+        "original_sha256": "sha256:e56275c95c9fcd32b0279ba24d51c02b3a461e5c9087dd36c199200937a8c171",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[2]",
+        "original_sha256": "sha256:cad5d13d51ecf7cd6f9b0efcedb3eadd7e80384fc46cddb1624211fb1f1b03c8",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[3]",
+        "original_sha256": "sha256:02cd4056a859524112b28a6a9f51aa818ffc8ad48b32cd30a5a72aae66a7b371",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "private_home_path_transform"
+    ]
+  },
+  "real_substrate_disposition": "real_substrate_capsule",
+  "schema_version": "finite_erdos_denominator_certificate_strike_acceptance_receipt_v1",
+  "status": "pass"
+}

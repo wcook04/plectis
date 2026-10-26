@@ -194,7 +194,7 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
     # worth saying which three, because that is not obvious from the failure.
     _assert_inspectable_pinned_github_actions(
         workflow,
-        required_public_tags={"actions/checkout@v7", "actions/setup-python@v7"},
+        required_public_tags={"actions/checkout@v7", "actions/setup-python@v7", "actions/upload-artifact@v7"},
     )
 
     for duplicated_command in (

@@ -181,8 +181,12 @@
           "writes_outputs_under": ".microcosm/first_action_runs/lean_proof_search_lab_runtime"
         },
         "command": "PYTHONPATH=src python3 -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
-        "committed_receipts": [],
-        "committed_receipts_more": 0,
+        "committed_receipts": [
+          "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json",
+          "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json",
+          "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_validation_receipt.json"
+        ],
+        "committed_receipts_more": 1,
         "why": "Finds tactic scripts the real Lean prover accepts on toy theorems, and refuses proofs that cheat.",
         "writes_outputs_under": "receipts/first_wave/lean_proof_search_lab_runtime"
       },
@@ -199,18 +203,13 @@
       },
       "proof_path": {
         "note": null,
-        "provenance_receipts": [
-          {
-            "exists_in_clone": false,
-            "path": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json"
-          },
-          {
-            "exists_in_clone": false,
-            "path": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json"
-          }
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json",
+          "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json",
+          "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_validation_receipt.json"
         ],
-        "receipt_refs": [],
-        "receipt_refs_more": 0,
+        "receipt_refs_more": 1,
         "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
         "validation_commands": [],
         "validator_command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"

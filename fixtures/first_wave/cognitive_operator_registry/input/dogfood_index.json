@@ -31,12 +31,21 @@
         }
       ],
       "cognition_delta_evidence": [
+        "The public snapshot validator accepts the supplied active operator and receipt fields.",
+        "Removing the operator activation field or cognition delta causes a public validation finding.",
+        "This replay does not establish the historical private cognition or routing result."
+      ],
+      "evidence_scope": "public_snapshot_validation",
+      "evidence_surfaces": [
+        "python3 -m microcosm_core.organs.cognitive_operator_registry run-registry-bundle --input fixtures/first_wave/cognitive_operator_registry/input --out .microcosm/cognitive-operator-public-replay --card"
+      ],
+      "historical_cognition_delta_evidence": [
         "Pre-install context-pack for the stranded-slice prompt returned no selected rows, leaving no first-class landing handoff operator.",
         "Task Ledger cards show repeated scoped-commit blockers caused by protected Git metadata writes, including attention_frame_rehydrator_scoped_commit_blocked and cap_quick_codex_scoped_commit_blocked_by_git_metad_35bf88ec9f13.",
         "The new contract makes the validator consume landing_blocker, owned_path_set, validation_evidence, commit_authority_requirement, handoff_packet, status_binding, and reentry_rule.",
         "Post-install route and test checks require commit-blocked validated-slice prompts to select cogop_landing_handoff_compiler."
       ],
-      "evidence_surfaces": [
+      "historical_evidence_surfaces": [
         "./repo-python kernel.py --context-pack \"validated slice passed tests but scoped commit blocked by protected git metadata exact owned paths uncommitted handoff landing continuity\" --context-budget 12000",
         "./repo-python kernel.py --option-surface task_ledger --band card --ids attention_frame_rehydrator_scoped_commit_blocked cap_quick_codex_scoped_commit_blocked_by_git_metad_35bf88ec9f13 attention_frame_rehydrator_hologram_residual attention_frame_rehydrator_context_pack_miss",
         "./repo-python tools/meta/control/mission_transaction_preflight.py --subject-id attention_frame_rehydrator --owned-path <attention-frame-owned-paths> --fail-on-status blocked",
@@ -68,11 +77,20 @@
         "Pressure-to-action reducer: install a small validated operator that makes future agents reduce pressure surfaces into one status-bound action before broad expansion."
       ],
       "cognition_delta_evidence": [
+        "The public snapshot validator accepts the supplied active operator and receipt fields.",
+        "Removing the operator activation field or cognition delta causes a public validation finding.",
+        "This replay does not establish the historical private cognition or routing result."
+      ],
+      "evidence_scope": "public_snapshot_validation",
+      "evidence_surfaces": [
+        "python3 -m microcosm_core.organs.cognitive_operator_registry run-registry-bundle --input fixtures/first_wave/cognitive_operator_registry/input --out .microcosm/cognitive-operator-public-replay --card"
+      ],
+      "historical_cognition_delta_evidence": [
         "Pre-install route sample for the pressure prompt had selected_rows=[] and exposed only broad kind signposts for task_ledger, row_patches, and transform_job_receipts.",
         "Post-install route sample for the same pressure prompt selected cogop_pressure_to_action_reducer with relevance=1.0, selected_band=card, source_kind=cognitive_operator_pressure_reduction_anchor, and a strong_affordance_match passport.",
         "The validator now consumes pressure_reduction_contract and rejects active operators whose receipt lacks pressure surfaces, selected pressure, rejected pressures, decision axes, bounded action, status-binding target, or validation return condition."
       ],
-      "evidence_surfaces": [
+      "historical_evidence_surfaces": [
         "./repo-python kernel.py --pulse",
         "./repo-python kernel.py --entry \"discover and install the next missing cognitive operator for autonomous intelligence\" --context-budget 12000",
         "./repo-python kernel.py --context-pack \"discover and install the next missing cognitive operator for autonomous intelligence\" --context-budget 12000",
@@ -122,12 +140,21 @@
         }
       ],
       "cognition_delta_evidence": [
+        "The public snapshot validator accepts the supplied active operator and receipt fields.",
+        "Removing the operator activation field or cognition delta causes a public validation finding.",
+        "This replay does not establish the historical private cognition or routing result."
+      ],
+      "evidence_scope": "public_snapshot_validation",
+      "evidence_surfaces": [
+        "python3 -m microcosm_core.organs.cognitive_operator_registry run-registry-bundle --input fixtures/first_wave/cognitive_operator_registry/input --out .microcosm/cognitive-operator-public-replay --card"
+      ],
+      "historical_cognition_delta_evidence": [
         "Pre-install context-pack for the add/merge/reuse prompt selected only cogop_capability_gap_ladder, so the system had no row-owned novelty/merge operator to retain the decision before adding more operators.",
         "Post-install context-pack selection includes cogop_operator_accretion_governor for add-another-operator and merge/reuse prompts.",
         "The validator now consumes operator_accretion_contract and rejects receipts missing candidate_operator, nearest_existing_operators, novelty_test, merge_or_extend_decision, accretion_risk, install_or_cap_decision, or future_reentry_rule.",
         "The dogfood decision changed this seed from open-ended operator invention into a bounded install/merge/extend/cap/reject gate with retained nearest-neighbor evidence."
       ],
-      "evidence_surfaces": [
+      "historical_evidence_surfaces": [
         "./repo-python kernel.py --entry \"discover and install the next missing cognitive operator for autonomous intelligence\" --context-budget 12000",
         "./repo-python kernel.py --context-pack \"discover and install the next missing cognitive operator for autonomous intelligence\" --context-budget 12000",
         "./repo-python kernel.py --context-pack \"decide whether this autonomous seed should add another cognitive operator or merge reuse an existing operator before installing more\" --context-budget 12000",
@@ -147,6 +174,12 @@
       }
     }
   ],
+  "public_replay_validation": {
+    "claim_ceiling": "Current public snapshot validation; historical private effects are not replayed.",
+    "missing_activation_field": "rejected",
+    "missing_cognition_delta": "rejected",
+    "positive_snapshot": "pass"
+  },
   "schema_version": "cognitive_operator_registry_dogfood_index_v1",
   "source_dogfood_root": "state/cognitive_operators/dogfood"
 }

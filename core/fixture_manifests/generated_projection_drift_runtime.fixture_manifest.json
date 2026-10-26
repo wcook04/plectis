@@ -1,0 +1,22 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "organ_id": "generated_projection_drift_runtime",
+  "fixture_id": "first_wave.generated_projection_drift_runtime",
+  "input_root": "fixtures/first_wave/generated_projection_drift_runtime/input",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/generated_projection_drift_runtime/input",
+      "kind": "native_runtime_bundle"
+    }
+  ],
+  "validator_command": "python -m microcosm_core.organs.generated_projection_drift_runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+  "expected_receipts": [
+    "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_result.json",
+    "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_board.json",
+    "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_validation_receipt.json",
+    "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json"
+  ],
+  "claim_ceiling": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
+  "generated_from": "core/organ_registry.json + microcosm_core.runtime_shell.RUNTIME_STEPS",
+  "anti_claim": "This manifest declares the shipped native replay input; input presence is not a passing replay or a formal proof."
+}

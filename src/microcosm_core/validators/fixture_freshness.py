@@ -154,8 +154,12 @@ def _iter_directory_files(path: Path) -> Iterator[Path]:
         for entry in entries:
             child = path / entry.name
             if entry.is_dir(follow_symlinks=False):
+                if entry.name == "__pycache__":
+                    continue
                 yield from _iter_directory_files(child)
             elif entry.is_file(follow_symlinks=False):
+                if child.suffix == ".pyc":
+                    continue
                 yield child
 
 
@@ -676,14 +680,17 @@ def _acceptance_summary_blockers(
     return blockers
 
 
-def _manifest_public_path(public_root: Path, readiness_row: dict[str, Any]) -> Path:
+def _manifest_public_path(
+    public_root: Path, readiness_row: dict[str, Any], organ_id: str = "",
+) -> Path:
     """
     Compute manifest public path from `public_root` and `readiness_row`.
 
     Inputs are `public_root` and `readiness_row`; notable helpers are `Path` and `get`.
     """
     macro_path = Path(str(readiness_row.get("fixture_manifest") or ""))
-    return public_root / "core/fixture_manifests" / macro_path.name
+    manifest_name = macro_path.name or f"{organ_id}.fixture_manifest.json"
+    return public_root / "core/fixture_manifests" / manifest_name
 
 
 def _manifest_input_paths(manifest_path: Path) -> list[str]:
@@ -829,10 +836,14 @@ def run_fixture_freshness(
     input_fingerprints: dict[str, dict[str, str]] = {}
     stale_codes: list[str] = []
     checked_receipts: list[str] = []
+    fixture_checks: list[dict[str, Any]] = []
+    from microcosm_core.runtime_shell import RUNTIME_STEPS
+
+    runtime_inputs = {step.organ_id: step.example_rel for step in RUNTIME_STEPS}
     for organ in accepted:
         organ_id = str(organ.get("organ_id"))
         readiness_row = readiness_by_id.get(organ_id, {})
-        manifest_path = _manifest_public_path(public_root, readiness_row)
+        manifest_path = _manifest_public_path(public_root, readiness_row, organ_id)
         if manifest_path.is_file():
             manifest_hashes[organ_id] = _sha256(manifest_path)
         else:
@@ -841,6 +852,11 @@ def run_fixture_freshness(
         fixture_inputs = _manifest_input_paths(manifest_path) or [
             str(path) for path in readiness_row.get("fixture_inputs", [])
         ]
+        if not fixture_inputs and organ_id in runtime_inputs:
+            fixture_inputs = [runtime_inputs[organ_id]]
+        if not fixture_inputs:
+            stale_codes.append(f"MISSING_FIXTURE_INPUT_DECLARATION:{organ_id}")
+        missing_inputs = []
         for rel in fixture_inputs:
             path = public_root / str(rel)
             if path.is_file():
@@ -848,7 +864,14 @@ def run_fixture_freshness(
             elif path.is_dir():
                 input_fingerprints[organ_id][str(rel)] = _sha256_directory(path)
             else:
+                missing_inputs.append(str(rel))
                 stale_codes.append(f"MISSING_FIXTURE_INPUT:{organ_id}:{rel}")
+        fixture_checks.append({
+            "organ_id": organ_id,
+            "fixture_input_count": len(fixture_inputs),
+            "missing_fixture_inputs": missing_inputs,
+            "status": PASS if fixture_inputs and not missing_inputs else "blocked",
+        })
         for rel in organ.get("generated_receipts", []):
             if str(rel).startswith("state/"):
                 continue
@@ -913,6 +936,7 @@ def run_fixture_freshness(
         "status": status,
         "command": command,
         "checked_receipts": checked_receipts,
+        "fixture_precondition_checks": fixture_checks,
         "fixture_manifest_sha256_by_organ": manifest_hashes,
         "mission_dag_node_refs": {
             "path": _display_context_ref(mission_dag_file, public_root=public_root),

@@ -1,0 +1,52 @@
+{
+  "anti_claim": "The bridge campaign DAG validation organ checks campaign specs over public fixture inputs only. It is not a dispatcher, does not run multi-agent execution, does not prove provider safety, does not export private macro state, credentials, provider state, or raw operator threads; it does not call providers or external solvers, and it does not authorize release or publication. A malformed campaign cannot pass because the validator recomputes the graph structure and rejects any spec that breaks a rule.",
+  "body_in_receipt": false,
+  "claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures: schema and identity fields, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node that reaches a probe, barrier alignment, and the provider safe-parallelism ceiling. It rejects malformed campaigns by recomputation. It does not dispatch agents, execute campaigns, prove provider correctness, authorize release, or claim full private-root equivalence.",
+  "fixture_id": "first_wave.bridge_campaign_dag_validation",
+  "generated_receipts": [
+    "<private-home-path>",
+    "<private-home-path>",
+    "<private-home-path>",
+    "<private-home-path>"
+  ],
+  "organ_id": "bridge_campaign_dag_validation",
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 4,
+    "replacements": [
+      {
+        "field_path": "generated_receipts[0]",
+        "original_sha256": "sha256:87191a6d3c6db96d3dfcf0a967c61b3a350edd8c573179ef1337dca7810a1879",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[1]",
+        "original_sha256": "sha256:3e7988492853d096e5b65d98ad5fd2f440bfd187ec31d22c5edd9c1f3d3f954b",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[2]",
+        "original_sha256": "sha256:692242f0869d1a4e006eb19c19761c67ba9d92df083430bdc5475f7f6c716d22",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      },
+      {
+        "field_path": "generated_receipts[3]",
+        "original_sha256": "sha256:03afb05e725d9e375c8e8c66a8edd2aef98293a38fed022a1718abe5eb604736",
+        "replacement": "<private-home-path>",
+        "treatment_class": "private_home_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "private_home_path_transform"
+    ]
+  },
+  "real_substrate_disposition": "real_substrate_capsule",
+  "schema_version": "bridge_campaign_dag_validation_acceptance_receipt_v1",
+  "status": "pass"
+}

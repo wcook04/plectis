@@ -1,0 +1,98 @@
+{
+  "anti_claim": "The annex knowledge routing organ ranks a sanitized fixture catalog over public fixture inputs only. It does not implement BM25, TF-IDF, embeddings, or semantic search; it does not clone third-party repositories, ship the private annex corpus, export private macro state, credentials, or raw operator threads; it does not call providers or external solvers, does not adjudicate licenses or provenance, and does not authorize release or publication. An unroutable problem cannot pass because the retriever recomputes the per-tier token scores and emits no_match whenever no candidate clears a positive score or a domain/cluster filter removes every candidate.",
+  "authority_ceiling": {
+    "clones_repositories": false,
+    "license_authority": false,
+    "oracle_or_prover": false,
+    "production_ready": false,
+    "provider_call": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "semantic_search": false,
+    "ships_private_corpus": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "case_count": 4,
+  "cases": [
+    {
+      "case_id": "domain_filter_rejected",
+      "case_type": "negative",
+      "expectation_met": true,
+      "expected_ok": false,
+      "match_breakdown": {},
+      "matched_note_ids": [],
+      "observed_ok": true,
+      "observed_status": "no_match",
+      "observed_top_score": 0,
+      "observed_top_slug": ""
+    },
+    {
+      "case_id": "no_overlap_rejected",
+      "case_type": "negative",
+      "expectation_met": true,
+      "expected_ok": false,
+      "match_breakdown": {},
+      "matched_note_ids": [],
+      "observed_ok": true,
+      "observed_status": "no_match",
+      "observed_top_score": 0,
+      "observed_top_slug": ""
+    },
+    {
+      "case_id": "note_route_ok",
+      "case_type": "positive",
+      "expectation_met": true,
+      "expected_ok": true,
+      "match_breakdown": {
+        "family_text": 18,
+        "notes": 9,
+        "open_first": 0,
+        "structured": 36
+      },
+      "matched_note_ids": [
+        "note_provider_backoff"
+      ],
+      "observed_ok": true,
+      "observed_status": "routed",
+      "observed_top_score": 63,
+      "observed_top_slug": "provider-rate-limit-patterns"
+    },
+    {
+      "case_id": "structured_route_ok",
+      "case_type": "positive",
+      "expectation_met": true,
+      "expected_ok": true,
+      "match_breakdown": {
+        "family_text": 12,
+        "notes": 0,
+        "open_first": 12,
+        "structured": 120
+      },
+      "matched_note_ids": [],
+      "observed_ok": true,
+      "observed_status": "routed",
+      "observed_top_score": 144,
+      "observed_top_slug": "provider-rate-limit-patterns"
+    }
+  ],
+  "claim_ceiling": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
+  "command": "native public fixture replay with installed Lean 4.29.1 when required",
+  "created_at": "2026-10-26T12:01:51+00:00",
+  "expected_negative_cases": {
+    "domain_filter_rejected": "no_match",
+    "no_overlap_rejected": "no_match"
+  },
+  "fixture_id": "first_wave.annex_knowledge_routing",
+  "input_mode": "annex_knowledge_routing_fixture_cases",
+  "negative_case_count": 2,
+  "observed_negative_case_count": 2,
+  "organ_id": "annex_knowledge_routing",
+  "passed_positive_case_count": 2,
+  "positive_case_count": 2,
+  "schema_version": "annex_knowledge_routing_organ_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.annex_knowledge_routing"
+}

@@ -885,6 +885,16 @@ equivalence, proof correctness, trading advice, or whole-system correctness.
 """
 
 PUBLIC_BUNDLE_COMMAND_HELP = {
+    "semantic-singleflight-dedup-runtime": "exercise content-key command deduplication",
+    "finite-erdos-denominator-certificate-strike": "check bounded exact denominator certificates",
+    "bridge-campaign-dag-validation": "check campaign dependency DAG fixtures",
+    "metabolism-queue-reconciliation": "reconcile bounded queue fixtures",
+    "derived-fact-provider-runtime": "exercise derived-fact provider fixtures",
+    "navigation-fitness-benchmark": "exercise navigation fitness fixtures",
+    "annex-knowledge-routing": "exercise annex knowledge routing fixtures",
+    "egress-self-compliance-audit": "check egress compliance fixtures",
+    "generated-projection-drift-runtime": "exercise projection drift detection",
+    "lean-proof-search-lab-runtime": "exercise the bounded Lean proof-search lab",
     "pattern-binding": "validate exported pattern/source-route bundles",
     "pattern-route-readiness": "validate pattern route-readiness bundle",
     "crown-jewel-demo": "run the Crown Jewel import demo sequence",
@@ -3350,6 +3360,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     organ_surface_parser.add_argument("--root", default=str(MICROCOSM_ROOT))
     organ_surface_parser.add_argument("--out")
+    organ_surface_parser.add_argument("--replay-out", help="replay all native components into an explicit output directory")
+    organ_surface_parser.add_argument("--refresh-acceptance-evidence", action="store_true", help="refresh current acceptance evidence classifications")
+    organ_surface_parser.add_argument("--refresh-public-runtime-index", action="store_true", help="refresh absent native input manifests and public receipt refs")
     organ_surface_parser.add_argument(
         "--card",
         action="store_true",
@@ -3462,6 +3475,22 @@ def main(argv: list[str] | None = None) -> int:
     )
     _add_input_out(engine_room_demo_parser)
     engine_room_demo_parser.add_argument("--acceptance-out")
+
+    native_runtime_parsers = [
+        _add_bundle_parser(subparsers, "semantic-singleflight-dedup-runtime"),
+        _add_bundle_parser(subparsers, "finite-erdos-denominator-certificate-strike"),
+        _add_bundle_parser(subparsers, "bridge-campaign-dag-validation"),
+        _add_bundle_parser(subparsers, "metabolism-queue-reconciliation"),
+        _add_bundle_parser(subparsers, "derived-fact-provider-runtime"),
+        _add_bundle_parser(subparsers, "navigation-fitness-benchmark"),
+        _add_bundle_parser(subparsers, "annex-knowledge-routing"),
+        _add_bundle_parser(subparsers, "egress-self-compliance-audit"),
+        _add_bundle_parser(subparsers, "generated-projection-drift-runtime"),
+        _add_bundle_parser(subparsers, "lean-proof-search-lab-runtime"),
+    ]
+    for native_parser in native_runtime_parsers:
+        native_parser.add_argument("action", choices=["run"])
+        _add_input_out_acceptance(native_parser)
 
     closeout_audit_parser = _add_bundle_parser(
         subparsers, "agent-closeout-faithfulness-audit"
@@ -4533,8 +4562,22 @@ def main(argv: list[str] | None = None) -> int:
         return secret_exclusion_scan.main(["--root", args.root, "--out", args.out] + (["--policy", args.policy] if args.policy else []))
     if args.command == "public-entry-docs":
         return public_entry_docs.main(["--root", args.root, "--out", args.out])
+    if args.command in {
+        "semantic-singleflight-dedup-runtime", "finite-erdos-denominator-certificate-strike",
+        "bridge-campaign-dag-validation", "metabolism-queue-reconciliation",
+        "derived-fact-provider-runtime", "navigation-fitness-benchmark", "annex-knowledge-routing",
+        "egress-self-compliance-audit", "generated-projection-drift-runtime", "lean-proof-search-lab-runtime",
+    }:
+        module = importlib.import_module("microcosm_core.organs." + args.command.replace("-", "_"))
+        return module.main(_organ_command_args(args))
     if args.command == "organ-surface-contract":
         contract_args = ["--root", args.root]
+        if args.replay_out:
+            contract_args.extend(["--replay-out", args.replay_out])
+        if args.refresh_acceptance_evidence:
+            contract_args.append("--refresh-acceptance-evidence")
+        if args.refresh_public_runtime_index:
+            contract_args.append("--refresh-public-runtime-index")
         if args.out:
             contract_args.extend(["--out", args.out])
         if args.card:

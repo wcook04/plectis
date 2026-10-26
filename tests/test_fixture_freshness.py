@@ -28,6 +28,22 @@ MISSION_DAG = PREFLIGHT_SUPPORT / "microcosm_rebuild_mission_graph_v1.json"
 RECEIPT_COVERAGE = PREFLIGHT_SUPPORT / "validator_receipt_coverage_map_v1.json"
 
 
+def test_fixture_manifest_falls_back_to_current_organ_id_without_old_readiness() -> None:
+    expected = MICROCOSM_ROOT / "core/fixture_manifests/batch5_authority_systems_capsule.fixture_manifest.json"
+    assert fixture_freshness._manifest_public_path(MICROCOSM_ROOT, {}, "batch5_authority_systems_capsule") == expected
+    assert expected.is_file()
+
+
+def test_replay_bytecode_cache_does_not_change_fixture_directory_identity(tmp_path: Path) -> None:
+    (tmp_path / "input.json").write_text('{"case":"example"}')
+    before = _sha256_directory(tmp_path)
+    (tmp_path / "__pycache__").mkdir()
+    (tmp_path / "__pycache__/imported.cpython-312.pyc").write_bytes(b"runtime cache")
+    assert _sha256_directory(tmp_path) == before
+    (tmp_path / "input.json").write_text('{"case":"changed"}')
+    assert _sha256_directory(tmp_path) != before
+
+
 def _walk_keys(payload: Any) -> list[str]:
     if isinstance(payload, dict):
         keys = list(payload)
@@ -215,7 +231,12 @@ def test_fixture_freshness_passes_and_emits_acceptance_summary(tmp_path: Path) -
     ]
     assert disposition_coverage["status"] == "pass"
     assert disposition_coverage["covered_count"] == len(accepted_rows)
-    assert disposition_coverage["synthetic_accepted_count"] == 3
+    assert disposition_coverage["synthetic_accepted_count"] == sum(
+        row.get("evidence_class") == "fixture_echo_smoke"
+        or row.get("truth_accounting_bucket") == "regression_negative_fixture"
+        or row.get("counts_as_real_substrate_progress") is False
+        for row in accepted_rows
+    )
     assert disposition_coverage["disposition_counts"] == dict(
         sorted(expected_disposition_counts.items())
     )
@@ -368,9 +389,23 @@ def test_fixture_freshness_blocks_missing_synthetic_disposition(
     organ_id = "agent_benchmark_integrity_anti_gaming_replay"
 
     def remove_synthetic_disposition(row: dict[str, object]) -> None:
+        row.update({
+            "evidence_class": "fixture_echo_smoke",
+            "truth_accounting_bucket": "regression_negative_fixture",
+            "counts_as_real_substrate_progress": False,
+            "real_substrate_disposition": "retained_regression_validator",
+        })
         row.pop("synthetic_acceptance_disposition", None)
 
     _update_registry_row(public_root, organ_id, remove_synthetic_disposition)
+    evidence_path = public_root / "core/organ_evidence_classes.json"
+    evidence = json.loads(evidence_path.read_text())
+    next(row for row in evidence["organ_evidence_classes"] if row["organ_id"] == organ_id)["evidence_class"] = "fixture_echo_smoke"
+    evidence_path.write_text(json.dumps(evidence, indent=2) + "\n")
+    acceptance_path = public_root / "core/acceptance/first_wave_acceptance.json"
+    acceptance = json.loads(acceptance_path.read_text())
+    remove_synthetic_disposition(next(row for row in acceptance["accepted_current_authority_organs"] if row["organ_id"] == organ_id))
+    acceptance_path.write_text(json.dumps(acceptance, indent=2) + "\n")
 
     receipt = run_fixture_freshness(
         READINESS,

@@ -63,6 +63,12 @@ def _copy_fixture_input(tmp_path: Path) -> Path:
         MICROCOSM_ROOT / "fixtures/first_wave/mission_transaction_work_spine",
         public_root / "fixtures/first_wave/mission_transaction_work_spine",
     )
+    # Snapshot cases execute the declared copied Work Ledger runtime. Carry its
+    # real public dependency into this isolated fixture root.
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/mission_transaction_work_spine",
+        public_root / "examples/mission_transaction_work_spine",
+    )
     return public_root / "fixtures/first_wave/mission_transaction_work_spine/input"
 
 
@@ -937,12 +943,8 @@ def test_public_mission_transaction_preflight_status_tracks_landing_blockers() -
 def test_mission_transaction_work_spine_receipts_are_public_relative_and_secret_excluded(
     tmp_path: Path,
 ) -> None:
-    public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
-    shutil.copytree(
-        MICROCOSM_ROOT / "fixtures/first_wave/mission_transaction_work_spine",
-        public_root / "fixtures/first_wave/mission_transaction_work_spine",
-    )
+    input_dir = _copy_fixture_input(tmp_path)
+    public_root = input_dir.parents[3]
 
     result = run(
         public_root / "fixtures/first_wave/mission_transaction_work_spine/input",
@@ -1712,6 +1714,7 @@ def test_mission_transaction_work_spine_receipts_consume_public_work_landing_ref
 def test_public_omitted_runtime_reports_unavailable_without_execution(tmp_path: Path) -> None:
     from microcosm_core.organs.mission_transaction_work_spine import validate_real_active_claims_snapshot
     input_dir = _copy_bundle_input(tmp_path)
+    (input_dir / "source_modules/system/lib/work_ledger_runtime.py").unlink()
     public_root = input_dir.parents[2]
     result = validate_real_active_claims_snapshot(
         _read_json(input_dir / REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME), input_dir, public_root,

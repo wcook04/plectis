@@ -55,7 +55,10 @@ RUNTIME_PACKAGES = ("microcosm_core", "plectis")
 # Preserve the same six-file headroom; both byte ceilings remain unchanged.
 ARTIFACT_BUDGET = {
     "max_total_bytes": 134_217_728,  # 128 MiB
-    "max_total_files": 3_952,
+    # Reviewed source restoration, native witness dependencies and portable Git
+    # evidence add 204 files to the round-two footprint (3,946 -> 4,150).
+    # Keep six-file headroom and retain both existing byte ceilings.
+    "max_total_files": 4_156,
     "max_data_files_bytes": 120_000_000,  # ~114.4 MiB
 }
 

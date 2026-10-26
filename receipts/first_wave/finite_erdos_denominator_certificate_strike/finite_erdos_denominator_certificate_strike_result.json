@@ -1,0 +1,100 @@
+{
+  "anti_claim": "The finite Erdos denominator-order certificate strike computes exact rationals and multiplicative orders over public fixture inputs only. It does not solve or claim to solve Erdos #257, does not export private macro state, credentials, provider state, or raw operator threads; it does not call providers or external solvers, and it does not authorize release or publication. A forged certificate cannot pass because the runner recomputes the truth and rejects any claimed value that disagrees.",
+  "authority_ceiling": {
+    "infinite_problem_proof": false,
+    "machine_checked_proof": false,
+    "oracle_or_prover": false,
+    "production_ready": false,
+    "provider_call": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "solves_erdos257": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "case_count": 4,
+  "cases": [
+    {
+      "base": 2,
+      "case_id": "certificate_holds",
+      "case_type": "positive",
+      "certificate_holds": true,
+      "denominator": 3,
+      "exercise": "certificate_holds",
+      "lcm": 2,
+      "numerator": 1,
+      "observed_error_codes": [],
+      "observed_ok": true,
+      "order": 2,
+      "reduced": false,
+      "support": [
+        2
+      ]
+    },
+    {
+      "base": 2,
+      "case_id": "certificate_holds_after_reduction",
+      "case_type": "positive",
+      "certificate_holds": true,
+      "denominator": 21,
+      "exercise": "certificate_holds_after_reduction",
+      "lcm": 6,
+      "numerator": 10,
+      "observed_error_codes": [],
+      "observed_ok": true,
+      "order": 6,
+      "reduced": true,
+      "support": [
+        2,
+        3
+      ]
+    },
+    {
+      "case_id": "forged_denominator_rejected",
+      "case_type": "negative",
+      "exercise": "forged_denominator_rejected",
+      "observed_error_codes": [
+        "ERDOS_CERT_DENOMINATOR_MISMATCH"
+      ],
+      "observed_ok": true,
+      "recomputed_denominator": 7,
+      "recomputed_order": 3,
+      "rejected": true
+    },
+    {
+      "case_id": "forged_order_rejected",
+      "case_type": "negative",
+      "exercise": "forged_order_rejected",
+      "observed_error_codes": [
+        "ERDOS_CERT_ORDER_MISMATCH"
+      ],
+      "observed_ok": true,
+      "recomputed_denominator": 3,
+      "recomputed_order": 2,
+      "rejected": true
+    }
+  ],
+  "claim_ceiling": "Computes the finite denominator-order certificate ord_Q(b) = lcm(F) for S_F(b) = sum_{n in F} 1/(b^n - 1) = P/Q in exact rational arithmetic over bounded public fixtures, and rejects forged certificates by recomputation. It does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof of even the finite statement.",
+  "command": "native public fixture replay with installed Lean 4.29.1 when required",
+  "created_at": "2026-10-26T12:01:50+00:00",
+  "expected_negative_cases": {
+    "forged_denominator_rejected": [
+      "ERDOS_CERT_DENOMINATOR_MISMATCH"
+    ],
+    "forged_order_rejected": [
+      "ERDOS_CERT_ORDER_MISMATCH"
+    ]
+  },
+  "fixture_id": "first_wave.finite_erdos_denominator_certificate_strike",
+  "input_mode": "finite_erdos_denominator_certificate_fixture_cases",
+  "negative_case_count": 2,
+  "observed_negative_case_count": 2,
+  "organ_id": "finite_erdos_denominator_certificate_strike",
+  "passed_positive_case_count": 2,
+  "positive_case_count": 2,
+  "schema_version": "finite_erdos_denominator_certificate_strike_organ_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.finite_erdos_denominator_certificate_strike"
+}

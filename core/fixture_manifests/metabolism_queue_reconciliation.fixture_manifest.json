@@ -1,0 +1,22 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "organ_id": "metabolism_queue_reconciliation",
+  "fixture_id": "first_wave.metabolism_queue_reconciliation",
+  "input_root": "fixtures/first_wave/metabolism_queue_reconciliation/input",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/metabolism_queue_reconciliation/input",
+      "kind": "native_runtime_bundle"
+    }
+  ],
+  "validator_command": "python -m microcosm_core.organs.metabolism_queue_reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+  "expected_receipts": [
+    "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_result.json",
+    "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_board.json",
+    "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_validation_receipt.json",
+    "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json"
+  ],
+  "claim_ceiling": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
+  "generated_from": "core/organ_registry.json + microcosm_core.runtime_shell.RUNTIME_STEPS",
+  "anti_claim": "This manifest declares the shipped native replay input; input presence is not a passing replay or a formal proof."
+}

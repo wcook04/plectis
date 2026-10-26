@@ -105,7 +105,9 @@ PUBLIC_TESTS += tests/test_cli.py::test_root_doc_command_spans_include_microcosm
 # Exercise the complete public shell and CLI, including command naming and export boundaries.
 PUBLIC_TESTS += tests/test_runtime_shell.py tests/test_cli.py tests/test_bridge_phase_continuity_runtime.py
 PUBLIC_TESTS += tests/test_crown_jewel_common.py tests/test_source_module_boundary.py tests/test_runtime_demo_freshness.py
-PUBLIC_TESTS += tests/test_mission_transaction_work_spine.py::test_public_omitted_runtime_reports_unavailable_without_execution
+PUBLIC_TESTS += tests/test_mission_transaction_work_spine.py
+PUBLIC_TESTS += tests/test_component_replays.py tests/test_export_contamination_gate.py
+PUBLIC_TESTS += tests/test_cognitive_operator_registry.py tests/test_proof_derived_governed_mutation_authorization.py
 
 .PHONY: operations-demo operations-test verify-operations
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
@@ -113,6 +115,7 @@ PUBLIC_TESTS += tests/test_mission_transaction_work_spine.py::test_public_omitte
 .PHONY: flight-recorder flight-recorder-verify
 .PHONY: release-candidate-proof release-candidate-proof-verify release-review public-site-parity
 .PHONY: check preflight validate artifact-budget public-profile
+.PHONY: component-replays
 
 help:
 	@printf '%s\n' \
@@ -132,6 +135,7 @@ help:
 		"  make public-site-parity  verify gh-pages/live downloadable packet parity with this source tree" \
 		"  make package-smoke       install local package in a fresh venv and run console cards" \
 		"  make ci                  run test, smoke, and package-smoke" \
+		"  make component-replays   freshly replay every registered component (Lean, Swift and test extras required)" \
 		"  make check               fast preflight: evidence registry + Lean proof-trust floor" \
 		"  make validate            full pre-commit floor: ci + doctrine-lattice drift check" \
 		"  make artifact-budget     report and bound the shipped distribution footprint" \
@@ -219,6 +223,9 @@ verify-operations:
 	@"$(PYTHON)" scripts/check/check_views_kernel.py --dafny "$(DAFNY)"
 
 ci: check test smoke package-smoke
+
+component-replays: install
+	@MICROCOSM_TRACKED_RECEIPT_WRITES=0 PYTHONPATH=src "$(VENV_PYTHON)" scripts/check/check_component_replays.py
 
 check preflight:
 	@"$(PYTHON)" scripts/check/check_repair_kernel.py
