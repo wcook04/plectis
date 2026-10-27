@@ -800,6 +800,20 @@ def _split_anchor_ref(ref: str) -> tuple[str, str]:
     return file_ref, anchor if marker else ""
 
 
+def _contained_file(root: Path, ref: str) -> Path | None:
+    """Resolve a relative file only within its authorized root before opening it."""
+    if not _safe_relative_ref(ref):
+        return None
+    candidate = root / ref
+    try:
+        resolved = candidate.resolve()
+        if resolved.is_relative_to(root.resolve()) and resolved.is_file():
+            return resolved
+    except (OSError, RuntimeError, ValueError):
+        pass
+    return None
+
+
 def _resolve_public_ref(public_root: Path, ref: str) -> Path | None:
     """
     Derive resolve public ref without touching module import state.
@@ -812,8 +826,8 @@ def _resolve_public_ref(public_root: Path, ref: str) -> Path | None:
         return None
     roots = [public_root, public_root.parent]
     for root in roots:
-        candidate = root / file_ref
-        if candidate.is_file():
+        candidate = _contained_file(root, file_ref)
+        if candidate is not None:
             return candidate
     attestation = _bundle_artifact_attestation(public_root, file_ref)
     if attestation is not None:
@@ -829,11 +843,11 @@ def _bundle_artifact_target_path(
     source_ref: str,
 ) -> Path | None:
     """Return a declared bundled target even when its digest is intentionally under test."""
-    manifest_path = (
-        public_root
-        / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json"
+    manifest_path = _contained_file(
+        public_root,
+        "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
     )
-    if not manifest_path.is_file():
+    if manifest_path is None:
         return None
     try:
         manifest = read_json_strict(manifest_path)
@@ -845,8 +859,7 @@ def _bundle_artifact_target_path(
         target_ref = str(row.get("target_ref") or "")
         if not _safe_relative_ref(target_ref):
             return None
-        target_path = public_root / target_ref
-        return target_path if target_path.is_file() else None
+        return _contained_file(public_root, target_ref)
     return None
 
 
@@ -860,11 +873,11 @@ def _bundle_artifact_attestation(
     This does not pretend the macro source body is present. It verifies the shipped target
     digest and returns the separately declared source digest as provenance evidence.
     """
-    manifest_path = (
-        public_root
-        / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json"
+    manifest_path = _contained_file(
+        public_root,
+        "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
     )
-    if not manifest_path.is_file():
+    if manifest_path is None:
         return None
     try:
         manifest = read_json_strict(manifest_path)
@@ -876,8 +889,8 @@ def _bundle_artifact_attestation(
         target_ref = str(row.get("target_ref") or "")
         if not _safe_relative_ref(target_ref):
             return None
-        target_path = public_root / target_ref
-        if not target_path.is_file():
+        target_path = _contained_file(public_root, target_ref)
+        if target_path is None:
             return None
         actual_sha256 = _sha256_file(target_path)
         target_sha256 = str(row.get("target_sha256") or row.get("sha256") or "")
@@ -1300,8 +1313,8 @@ def validate_copied_macro_body_artifacts(
             or ""
         )
         expected_copy_policy = str(expected_artifact.get("copy_policy") or "")
-        target_path = public_root / target_ref
-        file_present = target_path.is_file()
+        target_path = _contained_file(public_root, target_ref)
+        file_present = target_path is not None
         actual_sha256 = _sha256_file(target_path) if file_present else ""
         source_digest = SOURCE_DIGESTS.get(expected_source_ref, "")
         copy_policy = str(row.get("copy_policy") or "")
@@ -1407,9 +1420,9 @@ def validate_source_body_floor_artifacts(
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
-    manifest_path = input_dir / "source_body_floor" / "source_module_manifest.json"
+    manifest_path = _contained_file(input_dir, "source_body_floor/source_module_manifest.json")
     manifest_payload: dict[str, Any] = {}
-    if manifest_path.is_file():
+    if manifest_path is not None:
         loaded = read_json_strict(manifest_path)
         if isinstance(loaded, dict):
             manifest_payload = loaded
@@ -1445,11 +1458,11 @@ def validate_source_body_floor_artifacts(
         target_path = (
             _resolve_public_ref(public_root, target_ref)
             if target_ref
-            else input_dir / "source_body_floor" / path_ref
+            else _contained_file(input_dir, (Path("source_body_floor") / path_ref).as_posix())
         )
         if target_path is None:
-            target_path = input_dir / "source_body_floor" / path_ref
-        file_present = target_path.is_file()
+            target_path = _contained_file(input_dir, (Path("source_body_floor") / path_ref).as_posix())
+        file_present = target_path is not None
         actual_sha256 = _sha256_file(target_path) if file_present else ""
         text = target_path.read_text(encoding="utf-8") if file_present else ""
         required_anchors = [

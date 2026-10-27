@@ -35,6 +35,7 @@ receipts + schemas -> JSON output and input validation
 | Project inventory, proposed tasks or local state | [`project_substrate.py`](../../src/microcosm_core/project_substrate.py), [`runtime_shell.py`](../../src/microcosm_core/runtime_shell.py) | User source stays separate from ignored `.microcosm/` output. |
 | One component's behavior | Its module under [`organs/`](../../src/microcosm_core/organs/), selected through `ORGANS.md` | Example inputs, failure cases and the component's stated limits. |
 | A generated map or explanation | [`projections/`](../../src/microcosm_core/projections/) and its registry under `core/` | Regenerate the view; do not patch the generated Markdown. |
+| Component descriptions | [`component_descriptions.py`](../../src/microcosm_core/component_descriptions.py), joining capsule compression to structural atlas rows | Preserve public compatibility keys and registry normative claims; reject missing or ambiguous canonical sources. |
 | Reading/writing result files | [`schemas.py`](../../src/microcosm_core/schemas.py), [`receipts.py`](../../src/microcosm_core/receipts.py) | Strict JSON input, atomic writes and tests that preserve committed results. |
 | Installed resources or distributions | [`resource_root.py`](../../src/microcosm_core/resource_root.py), `pyproject.toml`, `MANIFEST.in` | Installed commands must work outside the checkout with their shipped inputs. |
 | Local verification or CI | `Makefile`, `.github/workflows/ci.yml` | The same public checks must be reproducible locally. |
@@ -60,6 +61,54 @@ read of the saved file. Keep this observer scoped to the selected runner, and
 preserve the existing raw API return and public receipt projection contracts.
 Keep the domain checker, observation capture and admission decision distinct: an
 admitted observation does not prove the runner's own implementation or claim.
+### Single-component replay
+
+`plectis component-replay <organ_id> --root <checkout>` selects one existing
+runtime route. `scripts/check/check_component_replays.py --organ <organ_id>`
+provides the same bounded option; omitting it preserves the complete replay
+gate. Both retain exit codes 0 (admitted), 1 (blocked), and 2 (invalid request).
+There is no custom-input flag or execution of catalogue command strings.
+
+`microcosm_core.component_replay.replay_component` takes the full runtime steps,
+registry rows and route provider, validates their nonempty unique universes,
+then passes a singleton selection to the existing host. The full route provider
+still participates in both source snapshots. Native fixture selection happens
+once inside that host. A fresh `.microcosm/` run contains the named receipt and
+`component-replays.json`; `scope="component"` and `selected_organ_ids` make the
+one-component limit explicit. This uses the existing generated admission core,
+not a second execution registry or admission algorithm.
+
+Runtime source identity uses `source_inventory_scheme="package_roots_v1"`.
+`runtime_package_tree_sha256` maps the fixed names `microcosm_core` and `plectis`
+to byte/type/path/POSIX-mode tree hashes; generated code under `plectis` is
+included. `runtime_source_tree_sha256` is the stable canonical digest of that
+mapping. The same named package roots are used in a source tree and an installed
+`site-packages`; other installed packages are outside this runtime inventory.
+Missing or linked first-party roots fail closed, with no scan of the entire
+environment and no timestamp cache. The before/after snapshots retain their
+full route, registry, core policy, standards, selected runner and input bindings.
+A supplied checkout's `src/` retains a separate clone-source tree digest.
+Standard-library and third-party dependency behavior remains trusted. Historical
+receipts without `source_inventory_scheme` retain their original source scope.
+
+Backend consumers use
+`microcosm_core.component_replay_worker.replay_component_isolated`. Each request
+launches a fixed Python module in a fresh process, with child-only environment
+settings and bounded logs. Isolated Python mode loads the fixed trusted package
+root; workspace packages and ambient `PYTHONPATH` cannot select the backend.
+Parent and worker compare that origin and five entry/host file hashes under the
+immutable-installation assumption, without authenticating the host or loaded
+bytecode. The parent then checks strict results, selected ID/scope,
+admission and persisted receipt bindings before returning a pass. Timeouts
+terminate the POSIX process group and return diagnostics without manufacturing
+a pass receipt. Other platforms explicitly report that descendant cleanup is
+not guaranteed.
+
+The low-level API runs trusted runner code synchronously and is not a shared
+thread service boundary: existing runners alter process-wide import state.
+Process isolation is not a filesystem sandbox. Keep source immutable while
+requests run; deliberately detached descendants require stronger OS isolation.
+
 New command handlers should call reusable functions in their owning module;
 argument parsing should stay separate from computation and file writes.
 

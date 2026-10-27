@@ -32,5 +32,40 @@
   "slug": "tactic_selection",
   "source": "TacticSelection.dfy",
   "source_sha256": "e53335ebde80770cd4f1d2eb38dc6aa15113489c3f97f09ab591f2bdd4499d01",
-  "verified_tasks": 4
+  "verified_tasks": 4,
+  "contract": {
+    "schema_version": "plectis_formal_contract_v1",
+    "contract_id": "contract::tactic_selection",
+    "statement": "Select the first preferred ID with an eligible candidate, otherwise the first eligible candidate, or report none.",
+    "input_model": "Ordered finite preferences and candidate IDs with known, available and allowed observations.",
+    "assumptions": "Trusted host supplies normalized observations; adapter, isolated worker, Dafny, compiler and runtime remain trusted.",
+    "limits": "Host inputs and availability observations are trusted; selection does not prove a tactic solves the goal.",
+    "specification_refs": [
+      "formal/components/tactic_selection/TacticSelection.dfy#Eligible",
+      "formal/components/tactic_selection/TacticSelection.dfy#Match",
+      "formal/components/tactic_selection/TacticSelection.dfy#AnyPreference"
+    ],
+    "entry_theorem_refs": [
+      "formal/components/tactic_selection/TacticSelection.dfy#Select"
+    ],
+    "component_bindings": [
+      {
+        "organ_id": "target_shape_tactic_routing_gate",
+        "runtime_refs": [
+          "src/microcosm_core/organs/target_shape_tactic_routing_gate.py#_shape_preferred_selection"
+        ],
+        "primary_guide_ref": "paper_modules/target_shape_tactic_routing.md",
+        "test_refs": [
+          "tests/test_component_tactic_selection.py::test_selection_matches_independent_preference_product_order",
+          "tests/test_component_tactic_selection.py::test_adapter_rejects_untyped_observations"
+        ]
+      }
+    ],
+    "positive_test_ref": "tests/test_component_tactic_selection.py::test_selection_matches_independent_preference_product_order",
+    "adversarial_test_ref": "tests/test_component_tactic_selection.py::test_adapter_rejects_untyped_observations",
+    "mutant_refs": [
+      "formal/components/tactic_selection/negative/UnprobedMutant.dfy"
+    ],
+    "formal_readme_ref": "formal/components/tactic_selection/README.md"
+  }
 }

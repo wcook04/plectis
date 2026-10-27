@@ -14,7 +14,7 @@ This checkout contains 21 active papers.
 
 ## System and exposition papers
 
-- [Plectis: What a Stranger Can Check](full-text/plectis-public-system.md) — Evidence boundary
+- [Plectis: Verifying Code and Recording Its Execution](full-text/plectis-public-system.md) — Software architecture and formal verification study
 
 The mathematical papers are listed below, [by Erdős problem number](#problem-portfolio).
 
@@ -195,13 +195,13 @@ Start here (selected for this guide): [The cold-clone problem](full-text/cold-cl
 
 Start here (selected for this guide): [The strategy](full-text/open-source-mathematics-strategy.md#sec:strategy), [The contribution protocol](full-text/open-source-mathematics-strategy.md#sec:protocol), [From an agent claim to mathematical attention](full-text/open-source-mathematics-strategy.md#sec:attention), [The local-to-general track](full-text/open-source-mathematics-strategy.md#sec:local-to-general), [Limits and governance](full-text/open-source-mathematics-strategy.md#sec:limits).
 
-### What may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?
+### How are selected formally verified computations connected to their application callers and observed executions?
 
-**Plectis: What a Stranger Can Check**
+**Plectis: Verifying Code and Recording Its Execution**
 
-[full text](full-text/plectis-public-system.md) · [PDF](../../plectis-public-system.pdf) · [LaTeX source](../../paper/plectis-public-system.tex) · 32 sections · `plectis-public-system` · native to this repository
+[full text](full-text/plectis-public-system.md) · [PDF](../../plectis-public-system.pdf) · [LaTeX source](../../paper/plectis-public-system.tex) · 7 sections · `plectis-public-system` · native to this repository
 
-Start here (selected for this guide): [The problem](full-text/plectis-public-system.md#sec:problem), [One public test before the general design](full-text/plectis-public-system.md#sec:early-example), [Five distinctions](full-text/plectis-public-system.md#sec:distinctions), [What stronger evidence would look like](full-text/plectis-public-system.md#sec:stronger).
+Start here (selected for this guide): [Architecture: from a property to an observed run](full-text/plectis-public-system.md#sec:architecture), [Worked behavior: protecting a live owner](full-text/plectis-public-system.md#sec:ownership), [Verification method and evidence](full-text/plectis-public-system.md#sec:evidence), [Boundaries](full-text/plectis-public-system.md#sec:scope).
 
 ## Evidence and limitations
 
@@ -234,7 +234,7 @@ the source identity of every imported or archived edition.
 - `claim-faithful-publication-systems` is not authority for the mathematical content it uses as its worked example, and the correctness of the human review it preserves.
 - `cold-clone-to-proof-receipt` is not authority for proof validity, optimal reasoning, external mathematical novelty, or demonstrated transfer to another formalisation project.
 - `open-source-mathematics-strategy` is not authority for a solution to any Erdős problem, measured discovery-rate improvement, human peer review, novelty, significance, or community endorsement.
-- `plectis-public-system` is not authority for the private system's internal state, which is not public, and the mathematical results it cites as evidence.
+- `plectis-public-system` is not authority for Correctness of the full catalogue or Python hosts, authenticated observations, compilation correctness, production readiness or independent evaluation.
 
 ## For agents
 

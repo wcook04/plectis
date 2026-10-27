@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "These cases test the read model and its labels, not current market data, investment advice or the accuracy of a forecast.",
     "card": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status. It also checks feed freshness and which situations the dashboard treats as related. It writes the three mechanism results and their negative-case observations. The validator rejects a graph edge with no destination and unsafe traversal references. The freshness classifier distinguishes a stale feed from a fresh one and blocks missing readiness evidence; the related-situation check returns no match for two situations with neither shared entities nor the same type. The fixture also allows a same-type match without shared entities.",
-    "one_line": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status."
+    "one_line": "Checks synthetic dashboard data, feed freshness and related situations."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch12_market_dashboard_read_model_capsule",
@@ -87,7 +87,7 @@
       "compression": {
         "authority_ceiling": "These cases test the read model and its labels, not current market data, investment advice or the accuracy of a forecast.",
         "card": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status. It also checks feed freshness and which situations the dashboard treats as related. It writes the three mechanism results and their negative-case observations. The validator rejects a graph edge with no destination and unsafe traversal references. The freshness classifier distinguishes a stale feed from a fresh one and blocks missing readiness evidence; the related-situation check returns no match for two situations with neither shared entities nor the same type. The fixture also allows a same-type match without shared entities.",
-        "one_line": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status."
+        "one_line": "Checks synthetic dashboard data, feed freshness and related situations."
       },
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
@@ -397,7 +397,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status.",
+  "statement": "Checks synthetic dashboard data, feed freshness and related situations.",
   "status": "active",
   "subjects": [
     {

@@ -7,6 +7,7 @@ core does not prove component semantics or authenticate an arbitrary subprocess.
 from __future__ import annotations
 
 from dataclasses import replace
+from contextlib import redirect_stdout
 import hashlib
 import inspect
 import json
@@ -25,10 +26,166 @@ from microcosm_core.schemas import loads_json_strict, read_json_strict
 
 CLAIM_CEILING = "Fresh named runner results over supplied public inputs; no broader correctness or release authority."
 CODE_ROOT = Path(__file__).resolve().parents[1]
+SOURCE_INVENTORY_SCHEME = "package_roots_v1"
+RUNTIME_PACKAGE_NAMES = ("microcosm_core", "plectis")
+RUNTIME_SOURCE_SCOPE = tuple(f"{name}/**" for name in RUNTIME_PACKAGE_NAMES)
 
 
 class UnsupportedInputSymlink(ValueError):
     """An input or receipt uses a link outside the captured file model."""
+
+
+class ReplaySelectionError(ValueError):
+    """A selection is invalid before any runner or output creation."""
+
+    def __init__(self, code: str, message: str):
+        super().__init__(message)
+        self.code = code
+
+
+def _validate_replay_selection(organ_id: str, declared_steps: Sequence[Any],
+                               registry_rows: Sequence[dict[str, Any]],
+                               route_provider: Callable[[], Sequence[Any]]):
+    """Validate the full universes before selecting exactly one declared route."""
+    def unique_ids(rows, field, kind):
+        try:
+            rows = tuple(rows)
+            if any((not isinstance(row, dict)) if kind == "registry" else isinstance(row, dict)
+                   for row in rows):
+                raise TypeError("invalid universe row")
+            ids = [row[field] if kind == "registry" else getattr(row, field) for row in rows]
+        except (KeyError, AttributeError, TypeError) as exc:
+            raise ReplaySelectionError("invalid_universe", f"invalid {kind} universe") from exc
+        if (not ids or any(not isinstance(value, str) or not value for value in ids)
+                or len(ids) != len(set(ids))):
+            raise ReplaySelectionError("invalid_universe", f"{kind} universe must be nonempty and unique")
+        return ids
+
+    try:
+        steps = tuple(declared_steps)
+    except TypeError as exc:
+        raise ReplaySelectionError("invalid_universe", "invalid runtime universe") from exc
+    declared = unique_ids(steps, "organ_id", "runtime")
+    registered = unique_ids(registry_rows, "organ_id", "registry")
+    if set(declared) != set(registered):
+        raise ReplaySelectionError("universe_mismatch", "runtime routes must cover the complete component registry")
+    if not isinstance(organ_id, str) or organ_id not in declared:
+        raise ReplaySelectionError("unknown_component", "unknown exact component ID")
+    # IDs become output directory names; receipt/input names are still governed
+    # by the existing host's confinement checks.
+    if organ_id in {".", ".."} or Path(organ_id).name != organ_id or "\\" in organ_id:
+        raise ReplaySelectionError("invalid_component_id", "component ID must be a single directory name")
+    selected = next(step for step in steps if step.organ_id == organ_id)
+    receipt_name = getattr(selected, "receipt_name", None)
+    if (not isinstance(receipt_name, str) or not receipt_name or receipt_name in {".", ".."}
+            or Path(receipt_name).name != receipt_name or "\\" in receipt_name):
+        raise ReplaySelectionError("invalid_receipt_name", "primary receipt must be a single file name")
+    if not callable(route_provider):
+        raise ReplaySelectionError("invalid_universe", "route provider must be callable")
+
+    def checked_routes():
+        routes = tuple(route_provider())
+        routed = unique_ids(routes, "organ_id", "route provider")
+        if set(routed) != set(declared):
+            raise ReplaySelectionError("universe_mismatch", "route provider must retain the complete runtime universe")
+        return routes
+
+    checked_routes()
+    return selected, checked_routes
+
+
+def _component_replay_output(root: Path, out: Path) -> tuple[Path, Path]:
+    """Constrain the public component API to this root's ignored run area."""
+    root = Path(root).resolve()
+    out = Path(out)
+    if not out.is_absolute():
+        out = root / out
+    # Check lexical ancestry before resolution so links cannot disappear.
+    out = Path(os.path.abspath(out))
+    parent = root / ".microcosm"
+    if not out.is_relative_to(parent):
+        raise ValueError("component replay output must be under this root's .microcosm directory")
+    _confined(out, parent)
+    return root, out.resolve()
+
+
+def _component_execution_state(summary: dict[str, Any]) -> str:
+    """Classify existing host evidence without strengthening its verdict."""
+    row = summary["results"][0]
+    status = row.get("status")
+    if summary["status"] == "pass" and summary["admission"]["accepted"] is True:
+        return "pass"
+    if status in {"source_changed", "input_changed", "receipt_changed"}:
+        return status
+    if row.get("input_error") == "FileNotFoundError":
+        return "missing_input"
+    if row.get("tool_state") == "tool_missing":
+        return "tool_unavailable"
+    if any(value is False for value in row.get("required_tool_availability", {}).values()):
+        return "tool_unavailable"
+    if status in {"missing_native_lean_witness", "missing_native_lean_lake_witness"}:
+        return "missing_native_witness"
+    if row.get("error_code") or row.get("receipt_written") or status == "pass":
+        return "admission_rejected"
+    # A runner exception or an unclassified nonpass result is not evidence of
+    # a missing tool or a component's semantic failure.
+    return "unknown" if row.get("error") else "blocked"
+
+
+def replay_component(root: Path, out: Path, organ_id: str, *,
+                     declared_steps: Sequence[Any],
+                     registry_rows: Sequence[dict[str, Any]],
+                     route_provider: Callable[[], Sequence[Any]]) -> dict[str, Any]:
+    """Replay one named component through the existing admission host.
+
+    Supply the complete runtime and registry, never an already narrowed list.
+    This low-level synchronous API runs trusted component code in the caller's
+    process. Backend consumers must use component_replay_worker's isolated
+    entry because some runners change process-wide import state.
+    """
+    selected, full_routes = _validate_replay_selection(
+        organ_id, declared_steps, registry_rows, route_provider)
+    root, out = _component_replay_output(root, out)
+    run = new_replay_directory(root, out)
+    # native_replay_step belongs to replay_components; do not apply it twice.
+    summary = replay_components(root, run, (selected,), registry_rows=registry_rows,
+                                route_provider=full_routes,
+                                command=f"plectis component-replay {organ_id}")
+    summary.update(scope="component", selected_organ_ids=[organ_id])
+    summary["execution_state"] = _component_execution_state(summary)
+    summary["summary_ref"] = str(run / "component-replays.json")
+    _confined(Path(summary["summary_ref"]), run)
+    Path(summary["summary_ref"]).write_text(json.dumps(summary, indent=2) + "\n")
+    return summary
+
+
+def run_component_replay_command(organ_id: str, *, root: Path | None = None,
+                                 out: Path | None = None, format: str = "json") -> int:
+    """Thin installed CLI seam; it does not evaluate indexed command strings."""
+    from microcosm_core.runtime_shell import RUNTIME_STEPS
+
+    root = Path.cwd() if root is None else Path(root)
+    out = Path(".microcosm/component-replays") if out is None else Path(out)
+    try:
+        registry = read_json_strict(root / "core/organ_registry.json")
+        with redirect_stdout(sys.stderr):
+            summary = replay_component(root, out, organ_id, declared_steps=RUNTIME_STEPS,
+                                       registry_rows=registry["implemented_organs"],
+                                       route_provider=lambda: RUNTIME_STEPS)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        failure = {"status": "usage_error", "scope": "component", "selected_organ_ids": [organ_id],
+                   "execution_state": "unknown", "error_code": getattr(exc, "code", "invalid_replay_request"),
+                   "error": str(exc)}
+        print(json.dumps(failure), file=sys.stderr)
+        return 2
+    if format == "text":
+        row = summary["results"][0]
+        print(f"{organ_id}: {row['status']}")
+        print(f"Component replay gate: {summary['status']} (1 selected component)")
+        print(f"Summary: {summary['summary_ref']}")
+    else:
+        print(json.dumps(summary, indent=2))
+    return 0 if summary["status"] == "pass" else 1
 
 
 def _digest(data: bytes) -> str:
@@ -185,6 +342,23 @@ def _route_policy(step: Any, registry: dict[str, Any]) -> dict[str, Any]:
             "registry_policy": registry}
 
 
+def _runtime_source_inventory(base: Path | None = None) -> dict[str, str]:
+    """Hash the two first-party packages in this trusted source/installation.
+
+    CODE_ROOT can be ``src`` or ``site-packages``. Its other siblings are not
+    runtime source authority. Missing or linked packages fail closed; they do
+    not cause a fallback to scanning the environment or another installation.
+    """
+    base = Path(os.path.abspath(CODE_ROOT if base is None else base))
+    _confined(base, Path(base.anchor))
+    packages = {}
+    for name in RUNTIME_PACKAGE_NAMES:
+        package = base / name
+        _confined(package, base)
+        packages[name] = input_tree_hash(package)
+    return packages
+
+
 def _source_snapshot(root: Path, routes: Sequence[Any], policies: list[dict[str, Any]], selected_steps: Sequence[Any]) -> dict[str, Any]:
     sources = {}
     for step in selected_steps:
@@ -193,13 +367,19 @@ def _source_snapshot(root: Path, routes: Sequence[Any], policies: list[dict[str,
             sources[reference] = _digest(source.read_bytes())
     registry = root / "core/organ_registry.json"
     head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, capture_output=True, text=True, check=False)
-    runtime_hash = input_tree_hash(CODE_ROOT)
+    runtime_packages = _runtime_source_inventory()
+    runtime_hash = _json_digest(runtime_packages)
     declared_source = root / "src"
     if declared_source.is_symlink():
         raise UnsupportedInputSymlink
-    declared_hash = (runtime_hash if declared_source.resolve() == CODE_ROOT.resolve()
-                     else input_tree_hash(declared_source)) if declared_source.exists() else None
-    return {"runtime_source_tree_sha256": runtime_hash,
+    declared_hash = input_tree_hash(declared_source) if declared_source.exists() else None
+    return {"source_inventory_scheme": SOURCE_INVENTORY_SCHEME,
+            "runtime_source_scope": list(RUNTIME_SOURCE_SCOPE),
+            "runtime_package_tree_sha256": runtime_packages,
+            "runtime_package_digest_scheme": "tree_type_path_bytes_posix_mode_v2",
+            "runtime_dependency_boundary": "First-party package bytes and POSIX modes only; standard-library and third-party dependency behavior remain trusted.",
+            "runtime_source_tree_sha256": runtime_hash,
+            "declared_source_scope": "root/src/** when present; an independent clone-source byte and POSIX-mode snapshot",
             "declared_source_tree_sha256": declared_hash,
             "registry_sha256": _digest(registry.read_bytes()) if registry.exists() else None,
             "core_policy_tree_sha256": input_tree_hash(root / "core") if (root / "core").exists() else None,
@@ -287,6 +467,12 @@ def replay_components(root: Path, out: Path, declared_steps: Sequence[Any], *,
             for key in ("execution_witness_mode", "verification_performed", "lean_executed", "tool_state",
                         "real_runtime_receipt", "not_a_live_run"):
                 row[key] = result.get(key)
+            if step.organ_id == "formal_math_lean_proof_witness":
+                versions = result.get("tool_versions")
+                if isinstance(versions, dict):
+                    row["required_tool_availability"] = {
+                        key: versions.get(key) for key in ("lean_available", "lake_available")
+                        if isinstance(versions.get(key), bool)}
             row.update(receipt_ref=str(receipt), receipt_written=False)
             data = _receipt_bytes(receipt, component_out)
             recorded = loads_json_strict(data.decode("utf-8"), "component replay receipt")
@@ -355,6 +541,8 @@ def replay_components(root: Path, out: Path, declared_steps: Sequence[Any], *,
     failures = [r["organ_id"] for r in results if r["status"] != "pass"]
     return {"schema_version": "plectis_component_replay_gate_v2", "status": "pass" if admitted else "blocked",
             "component_count": len(results), "failed_components": failures, "results": results,
+            "source_inventory_scheme": SOURCE_INVENTORY_SCHEME,
+            "runtime_source_scope": list(RUNTIME_SOURCE_SCOPE),
             "source": dict(source_before), "source_identity_material": source_before,
             "source_after": source_after, "source_identity": source_identity,
             "input_digest_scheme": "tree_type_path_bytes_posix_mode_v2",

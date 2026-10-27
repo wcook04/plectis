@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "The check establishes the recorded closeout contract for supplied rows. It does not establish that a refinement improved the system or that every lesson has been found.",
     "card": "A decision can point to a refinement receipt naming an owner and artifact, or to a `nothing_to_refine` receipt with stewardship, next-lane and re-entry checks. The validator resolves those references and checks duplicate IDs. It rejects a landed row with a missing closeout or a dead receipt reference; a local refinement cannot claim global doctrine authority.",
-    "one_line": "Checks whether each landed component in an input set has a linked, same-lane closeout decision and writes a validation receipt."
+    "one_line": "Checks landed components for linked, same-lane closeout decisions."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.pattern_assimilation",
@@ -88,7 +88,7 @@
       "compression": {
         "authority_ceiling": "The check establishes the recorded closeout contract for supplied rows. It does not establish that a refinement improved the system or that every lesson has been found.",
         "card": "A decision can point to a refinement receipt naming an owner and artifact, or to a `nothing_to_refine` receipt with stewardship, next-lane and re-entry checks. The validator resolves those references and checks duplicate IDs. It rejects a landed row with a missing closeout or a dead receipt reference; a local refinement cannot claim global doctrine authority.",
-        "one_line": "Checks whether each landed component in an input set has a linked, same-lane closeout decision and writes a validation receipt."
+        "one_line": "Checks landed components for linked, same-lane closeout decisions."
       },
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -571,7 +571,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Checks whether each landed component in an input set has a linked, same-lane closeout decision and writes a validation receipt.",
+  "statement": "Checks landed components for linked, same-lane closeout decisions.",
   "status": "active",
   "subjects": [
     {

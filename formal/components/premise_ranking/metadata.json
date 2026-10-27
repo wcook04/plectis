@@ -32,5 +32,43 @@
   "slug": "premise_ranking",
   "source": "PremiseRanking.dfy",
   "source_sha256": "85d9ae268927055a4ed2adef7b62d9253415398a22c7b22f2e1c242297592a97",
-  "verified_tasks": 9
+  "verified_tasks": 9,
+  "contract": {
+    "schema_version": "plectis_formal_contract_v1",
+    "contract_id": "contract::premise_ranking",
+    "statement": "Eligible candidate occurrences are scored by token-count overlap plus strategy bonus and sorted by score, ID rank and original position.",
+    "input_model": "Finite equal-length nonnegative token-count vectors and candidate eligibility, strategy and ID-rank observations.",
+    "assumptions": "Trusted host supplies normalized observations; adapter, isolated worker, Dafny, compiler and runtime remain trusted.",
+    "limits": "Host tokenization, metadata, split and strategy checks are trusted; ranking usefulness is not proved.",
+    "specification_refs": [
+      "formal/components/premise_ranking/PremiseRanking.dfy#OverlapSpec",
+      "formal/components/premise_ranking/PremiseRanking.dfy#ScoreSpec",
+      "formal/components/premise_ranking/PremiseRanking.dfy#RankBefore",
+      "formal/components/premise_ranking/PremiseRanking.dfy#Expected"
+    ],
+    "entry_theorem_refs": [
+      "formal/components/premise_ranking/PremiseRanking.dfy#Score",
+      "formal/components/premise_ranking/PremiseRanking.dfy#Insert",
+      "formal/components/premise_ranking/PremiseRanking.dfy#Compute"
+    ],
+    "component_bindings": [
+      {
+        "organ_id": "formal_math_premise_retrieval",
+        "runtime_refs": [
+          "src/microcosm_core/organs/formal_math_premise_retrieval.py#_score_query"
+        ],
+        "primary_guide_ref": "paper_modules/formal_math_premise_retrieval.md",
+        "test_refs": [
+          "tests/test_component_premise_ranking.py::test_normalized_rankings_match_independent_lexicographic_reference",
+          "tests/test_component_premise_ranking.py::test_empty_ineligible_and_arbitrary_precision_counts"
+        ]
+      }
+    ],
+    "positive_test_ref": "tests/test_component_premise_ranking.py::test_normalized_rankings_match_independent_lexicographic_reference",
+    "adversarial_test_ref": "tests/test_component_premise_ranking.py::test_empty_ineligible_and_arbitrary_precision_counts",
+    "mutant_refs": [
+      "formal/components/premise_ranking/negative/SplitFilterMutant.dfy"
+    ],
+    "formal_readme_ref": "formal/components/premise_ranking/README.md"
+  }
 }

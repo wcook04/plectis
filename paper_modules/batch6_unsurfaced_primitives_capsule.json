@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "These synthetic examples do not establish market truth, policy effectiveness or correctness for other inputs. Source hashes and anchors establish identity checks, not algorithm correctness.",
     "card": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing. It checks the selected mechanism set and returns individual exercise results. The negative cases include a stopword-only phrase that yields no keyphrase, a finance unit-scale mismatch that blocks, and a missing counterevidence case. The concurrency case identifies a parent-child conflict; the recording case checks pause-time remapping.",
-    "one_line": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing."
+    "one_line": "Exercises copied primitives for text, memory, policy, markets and recording timing."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch6_unsurfaced_primitives_capsule",
@@ -91,7 +91,7 @@
       "compression": {
         "authority_ceiling": "These synthetic examples do not establish market truth, policy effectiveness or correctness for other inputs. Source hashes and anchors establish identity checks, not algorithm correctness.",
         "card": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing. It checks the selected mechanism set and returns individual exercise results. The negative cases include a stopword-only phrase that yields no keyphrase, a finance unit-scale mismatch that blocks, and a missing counterevidence case. The concurrency case identifies a parent-child conflict; the recording case checks pause-time remapping.",
-        "one_line": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing."
+        "one_line": "Exercises copied primitives for text, memory, policy, markets and recording timing."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -435,7 +435,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing.",
+  "statement": "Exercises copied primitives for text, memory, policy, markets and recording timing.",
   "status": "active",
   "subjects": [
     {

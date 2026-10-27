@@ -97,7 +97,7 @@ the returned result, the public payload sent to the receipt writer, and the save
 receipt. A [Dafny-verified admission rule](formal/replay/README.md)
 then requires exactly one matching result for every selected component, with no
 missing or duplicate rows, changed identities, altered public payloads or missing
-required execution evidence. Both replay commands call its generated Python.
+required execution evidence. Replay commands call its generated Python.
 
 ```bash
 make component-replays
@@ -108,6 +108,22 @@ This runs the current catalogue and writes new results under
 Lean/Lake and Swift. The [replay guide](docs/maintainers/validation.md#fresh-component-replays)
 lists prerequisites and the [study](docs/guides/verification-study.md#checking-the-component-replay-itself)
 shows the failure cases behind the design.
+
+To replay one exact component ID with its declared inputs, run:
+
+```bash
+plectis component-replay pattern_binding_contract --root .
+```
+
+The result covers that selected component only. It writes a fresh run below
+`.microcosm/` and reports missing inputs or tools without passing them.
+Receipts mark runtime source identity as `package_roots_v1`: byte and mode
+hashes for `microcosm_core` and `plectis`, including generated kernels.
+Standard-library and third-party dependency behavior remains trusted; the
+receipt separately binds project source, routes, registry, core policy,
+standards and inputs. The
+[shared replay host and isolated backend API](docs/maintainers/architecture.md#single-component-replay)
+keep receipt observation and admission in the existing execution path.
 
 The [component proof index](formal/components/README.md) identifies twelve
 computations with their own verified specifications and generated implementations.
@@ -299,6 +315,16 @@ installation commands and other options, see [Quickstart](QUICKSTART.md),
 The older `microcosm` command remains an alias.
 
 ## Repository layout
+
+The [component HTTP API](docs/reference/component-http-api.md) serves the validated public
+component index as read-only JSON for component, claim, proof, coverage and graph queries.
+Run `plectis serve-components` for a loopback listener; its retained evidence remains
+separate from current byte checks and fresh proof or replay results.
+
+Component descriptions are read from capsule compression through
+[`component_descriptions.py`](src/microcosm_core/component_descriptions.py).
+The atlas owns structure and commands; the registry retains normative claims.
+
 
 For the verified operations, start with `formal/`, `src/plectis/` and
 `examples/operations/`. The broader component catalogue, generated indexes and

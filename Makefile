@@ -108,6 +108,24 @@ PUBLIC_TESTS += tests/test_runtime_shell.py tests/test_cli.py tests/test_bridge_
 PUBLIC_TESTS += tests/test_crown_jewel_common.py tests/test_source_module_boundary.py tests/test_runtime_demo_freshness.py
 PUBLIC_TESTS += tests/test_mission_transaction_work_spine.py
 PUBLIC_TESTS += tests/test_component_replays.py tests/test_export_contamination_gate.py
+PUBLIC_TESTS += tests/test_code_lens_join_index.py tests/test_claim_index_assurance.py
+PUBLIC_TESTS += $(addprefix tests/test_verifier_lab_execution_spine.py::, \
+	test_transition_path_boundary_rejects_before_side_effects \
+	test_transition_path_boundary_accepts_ordinary_filename \
+	test_transition_path_boundary_rejects_symlink_escape \
+	test_transition_path_boundary_accepts_internal_symlink \
+	test_transition_path_boundary_rejects_before_batch_or_cache \
+	test_transition_path_boundary_batch_symlink_falls_back_without_write)
+PUBLIC_TESTS += $(addprefix tests/test_proof_diagnostic_evidence_spine.py::, \
+	test_public_ref_path_boundary_preserves_public_parent_and_internal_symlink \
+	test_public_ref_path_boundary_rejects_absolute_traversal_and_symlink_escape \
+	test_public_ref_path_boundary_preserves_bundle_attestation_and_digest_fallback \
+	test_public_ref_path_boundary_rejects_bundle_target_escape_before_hash \
+	test_public_ref_path_boundary_rejects_bundle_manifest_symlink_before_read \
+	test_public_ref_path_boundary_source_floor_fallback_stays_in_floor_root \
+	test_public_ref_path_boundary_bundle_internal_symlink_stays_usable \
+	test_public_ref_path_boundary_source_floor_directory_symlink_is_not_opened)
+PUBLIC_TESTS += tests/test_refresh_source_module_manifest.py
 PUBLIC_TESTS += $(filter-out tests/test_component_replays.py,$(wildcard tests/test_component_*.py))
 PUBLIC_TESTS += tests/test_legacy_kernel_checkers.py
 PUBLIC_TESTS += tests/test_doctrine_source_projection.py

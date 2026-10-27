@@ -1287,12 +1287,28 @@ def _lean_source_for_transition(row: dict[str, Any]) -> str:
     return f"{header}{body}{footer}"
 
 
+def _transition_source_path(project_dir: Path | None, transition_id: str) -> Path | None:
+    """Keep transition filenames in the selected project, including symlink targets."""
+    filename = f"{transition_id}.lean"
+    if "\x00" in filename or Path(filename).name != filename:
+        return None
+    source_path = Path(filename) if project_dir is None else project_dir / filename
+    if project_dir is not None:
+        try:
+            if not source_path.resolve().is_relative_to(project_dir.resolve()):
+                return None
+        except (OSError, RuntimeError, ValueError):
+            return None
+    return source_path
+
+
 def _validate_transition_contract(
     row: dict[str, Any],
     *,
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
     negative: bool,
+    project_dir: Path | None = None,
 ) -> list[str]:
     """
     Validate whether validate transition contract holds for the organs verifier lab
@@ -1305,6 +1321,19 @@ def _validate_transition_contract(
     transition_id = str(row.get("transition_id") or row.get("case_id") or "transition")
     case_id = str(row.get("expected_negative_case_id") or row.get("case_id") or transition_id)
     codes: list[str] = []
+    if _transition_source_path(project_dir, str(row.get("transition_id") or "transition")) is None:
+        code = "VERIFIER_LAB_EXECUTION_TRANSITION_PATH_UNSAFE"
+        _record(
+            findings,
+            observed,
+            code,
+            "Transition source filenames must stay inside the selected Lake project.",
+            case_id=case_id,
+            subject_id=transition_id,
+            subject_kind="transition_candidate",
+            count_observed=negative,
+        )
+        codes.append(code)
     forbidden_keys = _walk_forbidden_keys(row, FORBIDDEN_TRANSITION_KEYS)
     if forbidden_keys:
         code = "VERIFIER_LAB_EXECUTION_TRANSITION_FIELD_FORBIDDEN"
@@ -1369,6 +1398,7 @@ def _execute_transition(
         findings=findings,
         observed=observed,
         negative=False,
+        project_dir=project_dir,
     )
     if codes:
         return TransitionReceipt(
@@ -1389,7 +1419,8 @@ def _execute_transition(
             error_codes=tuple(codes),
         )
 
-    source_path = project_dir / f"{transition_id}.lean"
+    source_path = _transition_source_path(project_dir, transition_id)
+    assert source_path is not None  # Validated before any write or subprocess.
     source_path.parent.mkdir(parents=True, exist_ok=True)
     source_path.write_text(_lean_source_for_transition(row), encoding="utf-8")
     lean_run = _run_command(["lake", "env", "lean", source_path.name], cwd=project_dir)
@@ -1566,7 +1597,9 @@ def _execute_positive_transition_batch(
     """
     if not rows:
         return []
-    source_path = project_dir / "PositiveTransitionBatch.lean"
+    source_path = _transition_source_path(project_dir, "PositiveTransitionBatch")
+    if source_path is None:
+        return None
     source_path.write_text(_positive_transition_batch_source(rows), encoding="utf-8")
     lean_run = _run_command(
         ["lake", "env", "lean", source_path.name],
@@ -1600,6 +1633,7 @@ def _execute_transitions(
             findings=findings,
             observed=observed,
             negative=False,
+            project_dir=project_dir,
         )
         if codes:
             receipts[index] = _contract_rejected_transition_receipt(row, codes)

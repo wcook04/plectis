@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from microcosm_core.runtime_shell import RUNTIME_STEPS
 from microcosm_core.component_replay import (
     UnsupportedInputSymlink, input_tree_hash, native_replay_step,
-    new_replay_directory, replay_components, replay_steps, replay_verdict,
+    new_replay_directory, replay_component, replay_components, replay_steps, replay_verdict,
 )
 from microcosm_core.release_export import _source_identity
 from microcosm_core.schemas import read_json_strict
@@ -24,6 +24,7 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--out", type=Path, default=Path(".microcosm/component-replays"))
+    parser.add_argument("--organ", help="replay one exact ID; omit for the complete existing gate")
     args = parser.parse_args(argv)
     root = args.root.resolve()
     registry = read_json_strict(root / "core/organ_registry.json")
@@ -36,13 +37,21 @@ def main(argv=None) -> int:
     out = args.out.resolve()
     if not out.is_relative_to(root / ".microcosm"):
         parser.error("replay output must be inside this checkout's ignored .microcosm directory")
-    run = new_replay_directory(root, out)
-    os.environ["MICROCOSM_TRACKED_RECEIPT_WRITES"] = "0"
-    sys.dont_write_bytecode = True
-    os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
     identity = _source_identity(root)
-    summary = replay_components(root, run, RUNTIME_STEPS, registry_rows=registry_rows,
-                                route_provider=lambda: RUNTIME_STEPS)
+    if args.organ is not None:
+        try:
+            summary = replay_component(root, out, args.organ, declared_steps=RUNTIME_STEPS,
+                                       registry_rows=registry_rows, route_provider=lambda: RUNTIME_STEPS)
+        except (ValueError, OSError) as exc:
+            parser.error(str(exc))
+        run = Path(summary["summary_ref"]).parent
+    else:
+        run = new_replay_directory(root, out)
+        os.environ["MICROCOSM_TRACKED_RECEIPT_WRITES"] = "0"
+        sys.dont_write_bytecode = True
+        os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
+        summary = replay_components(root, run, RUNTIME_STEPS, registry_rows=registry_rows,
+                                    route_provider=lambda: RUNTIME_STEPS)
     summary["git_identity"] = identity
     for row in summary["results"]:
         if row.get("receipt_ref"):

@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "A walkthrough that claims a capability without a matching evidence route is rejected. A passing walkthrough does not establish private-system equivalence or authorize a release.",
     "card": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references. It produces a board and findings to help a reader follow a claim to supporting material.",
-    "one_line": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references."
+    "one_line": "Checks walkthrough claims and their links to public evidence."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.public_reveal_walkthrough",
@@ -86,7 +86,7 @@
       "compression": {
         "authority_ceiling": "A walkthrough that claims a capability without a matching evidence route is rejected. A passing walkthrough does not establish private-system equivalence or authorize a release.",
         "card": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references. It produces a board and findings to help a reader follow a claim to supporting material.",
-        "one_line": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references."
+        "one_line": "Checks walkthrough claims and their links to public evidence."
       },
       "concept_refs": [
         "concept.entry_and_reveal_route_readiness_bundle"
@@ -502,7 +502,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references.",
+  "statement": "Checks walkthrough claims and their links to public evidence.",
   "status": "active",
   "subjects": [
     {

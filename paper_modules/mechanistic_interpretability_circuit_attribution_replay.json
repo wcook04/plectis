@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "This toy replay does not establish transparency for a trained model or access private activations. Source digests check copied inputs, not the correctness of interpretability methods.",
     "card": "The synthetic fixture supplies token IDs, embeddings and weights. The code averages embeddings, applies a linear layer, tanh and a second linear layer, then recomputes gradients and feature ablations for this small network. Despite its `toy_transformer` identifier, this network has no attention. It checks the declared top feature, graph paths and intervention references. A stale top-feature claim or disconnected graph is rejected.",
-    "one_line": "Checks a public circuit-attribution fixture and a small numerical model, recording whether the declared feature attribution agrees with its inputs."
+    "one_line": "Checks feature attribution in a public fixture and small numerical model."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.mechanistic_interpretability_circuit_attribution_replay",
@@ -87,7 +87,7 @@
       "compression": {
         "authority_ceiling": "This toy replay does not establish transparency for a trained model or access private activations. Source digests check copied inputs, not the correctness of interpretability methods.",
         "card": "The synthetic fixture supplies token IDs, embeddings and weights. The code averages embeddings, applies a linear layer, tanh and a second linear layer, then recomputes gradients and feature ablations for this small network. Despite its `toy_transformer` identifier, this network has no attention. It checks the declared top feature, graph paths and intervention references. A stale top-feature claim or disconnected graph is rejected.",
-        "one_line": "Checks a public circuit-attribution fixture and a small numerical model, recording whether the declared feature attribution agrees with its inputs."
+        "one_line": "Checks feature attribution in a public fixture and small numerical model."
       },
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
@@ -412,7 +412,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Checks a public circuit-attribution fixture and a small numerical model, recording whether the declared feature attribution agrees with its inputs.",
+  "statement": "Checks feature attribution in a public fixture and small numerical model.",
   "status": "active",
   "subjects": [
     {

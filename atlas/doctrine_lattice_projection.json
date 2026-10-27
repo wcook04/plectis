@@ -135979,7 +135979,7 @@
   ],
   "generation": {
     "command": "python scripts/build/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-10-26T22:20:17.796902Z",
+    "generated_at": "2026-10-26T23:44:33.905453Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_doctrine_projection"
   },
   "mechanism_instance_corpus": {
@@ -139236,7 +139236,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, provider execution, live-repo mutation, private/oracle/hidden-gold body access, product progress, or release readiness.",
+      "claim_ceiling": "A digest or passing replay is not a benchmark score or evidence of algorithm correctness.",
       "gap_count": 0,
       "id": "agent_benchmark_integrity_anti_gaming_replay",
       "kind": "organ",
@@ -139258,7 +139258,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[49:agent_closeout_faithfulness_audit]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+      "claim_ceiling": "The result concerns the supplied fixture and does not verify a real project closeout.",
       "gap_count": 1,
       "id": "agent_closeout_faithfulness_audit",
       "kind": "organ",
@@ -139282,7 +139282,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates the projection mechanics of a synthetic memory fixture only — that the required refs, decisions, paired replays, negative cases, and secret-exclusion scan line up and that receipts are body-free. It does not claim live-memory product quality, judge whether memory decisions were domain-correct, treat memory recall as source authority, adopt active injection, export private transcripts, call providers, mutate source, or authorize release.",
+      "claim_ceiling": "A fixture replay does not establish the quality or safety of a deployed memory system.",
       "gap_count": 0,
       "id": "agent_memory_temporal_conflict_replay",
       "kind": "organ",
@@ -139304,7 +139304,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[34:agent_monitor_redteam_falsification_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "Bounded public runtime validation over copied non-secret macro pattern bodies, sanitized dogfood trace slices, recomputed monitor-verdict spans, source-artifact evidence refs, digest/body-free/private-state gates, and negative cases only; no live agent execution, monitor product performance, control-eval score, safety-validation, benchmark, provider-call, source-mutation, release, publication, or product authority.",
+      "claim_ceiling": "A replay result does not measure detection performance or establish real-world safety.",
       "gap_count": 0,
       "id": "agent_monitor_redteam_falsification_replay",
       "kind": "organ",
@@ -139326,7 +139326,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[26:agent_route_observability_runtime]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only public, recorded trace-feedback metadata and regression fixtures; it does not inspect live operator state, certify or prove runtime behavior, read provider payloads, mutate the Task Ledger, authorize pattern assimilation, or authorize release.",
+      "claim_ceiling": "Recorded fixture validation does not establish live agent behaviour.",
       "gap_count": 0,
       "id": "agent_route_observability_runtime",
       "kind": "organ",
@@ -139348,7 +139348,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[35:agent_sabotage_scheming_monitor_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "Bounded public runtime validation over copied non-secret macro pattern bodies, sanitized dogfood trace slices, recomputed sabotage/scheming monitor spans, source-artifact evidence refs, digest/body-free/private-state gates, and negative cases only; no live sabotage, live agent execution, exploit instruction, credential/account, private-reasoning, harmful-payload, monitor-product-performance, deployment-risk, benchmark, provider-call, source-mutation, release, publication, or product authority.",
+      "claim_ceiling": "The replay does not establish the effectiveness of a deployed monitor.",
       "gap_count": 1,
       "id": "agent_sabotage_scheming_monitor_replay",
       "kind": "organ",
@@ -139372,7 +139372,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[41:agent_sandbox_policy_escape_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates the projection / trace-refactor mechanics over a synthetic fixture only; it authorizes no live sandbox escape, secret or credential handling, live network access, host filesystem mutation, executable payload export, raw environment export, provider calls, security benchmark claims, source mutation, or release. A pass proves the projection boundary and trace-refactor mechanics for this contract, not real sandbox security, exploit resistance, or whole-system safety.",
+      "claim_ceiling": "A passing symbolic replay does not demonstrate real sandbox containment.",
       "gap_count": 0,
       "id": "agent_sandbox_policy_escape_replay",
       "kind": "organ",
@@ -139394,7 +139394,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[43:agentic_vulnerability_discovery_patch_proof_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the projection/evidence-chain mechanics of a synthetic replay: structural presence, cross-reference consistency, declared boolean flags, and the secret/live-access exclusion scan. It executes small public-safe regression witnesses but performs no real vulnerability discovery and makes no judgment of real-world security or fix correctness. It authorizes no live-target testing, real CVE exploitation, weaponized payloads, credential handling, network exfiltration, actionable exploit steps, provider calls, source mutation, benchmark security scores, release, or any whole-system security claim.",
+      "claim_ceiling": "A passing synthetic replay is not a live security assessment.",
       "gap_count": 1,
       "id": "agentic_vulnerability_discovery_patch_proof_replay",
       "kind": "organ",
@@ -139418,7 +139418,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[84:annex_knowledge_routing]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
+      "claim_ceiling": "Keyword matches are not semantic retrieval or a licence or provenance assessment.",
       "gap_count": 1,
       "id": "annex_knowledge_routing",
       "kind": "organ",
@@ -139445,7 +139445,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[71:batch10_cold_eval_honesty_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "verified non-secret cold-eval macro body import only, not a live benchmark, navigation truth, source authority, provider dispatch, private-root equivalence, publication, or release authority",
+      "claim_ceiling": "The fixture scorecard does not establish real-world navigation performance.",
       "gap_count": 1,
       "id": "batch10_cold_eval_honesty_capsule",
       "kind": "organ",
@@ -139469,7 +139469,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[66:batch10_governance_compilers_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, publication, live ledger control, or source mutation authority.",
+      "claim_ceiling": "Passing fixture checks do not authorize a release or prove the whole system correct.",
       "gap_count": 1,
       "id": "batch10_governance_compilers_capsule",
       "kind": "organ",
@@ -139493,7 +139493,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[70:batch10_live_source_drift_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "verified non-secret macro body import only, not route authority, Work Ledger or Task Ledger mutation authority, mission-transaction execution, git staging or commit approval, source mutation, private runtime export, release, or publication",
+      "claim_ceiling": "The fixture is a source-integrity exercise, not a check of a live private runtime.",
       "gap_count": 0,
       "id": "batch10_live_source_drift_capsule",
       "kind": "organ",
@@ -139515,7 +139515,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, publication, live runtime authority, or source mutation authority.",
+      "claim_ceiling": "The collection mixes copied source with declared public refactors; a matching digest or passing synthetic case does not establish production performance, market truth or security.",
       "gap_count": 0,
       "id": "batch11_saturation_engines_capsule",
       "kind": "organ",
@@ -139537,7 +139537,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "This is fixture-bound read-model, freshness, and relation-grouping evidence only; it is not live market truth, not investment advice, not provider dispatch, not release authority, and not whole-system correctness.",
+      "claim_ceiling": "These cases test the read model and its labels, not current market data, investment advice or the accuracy of a forecast.",
       "gap_count": 0,
       "id": "batch12_market_dashboard_read_model_capsule",
       "kind": "organ",
@@ -139559,7 +139559,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[76:batch12_prediction_market_board_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "This is deterministic fixture evidence for copied quant helpers only; it is not live prediction-market truth, not provider truth, not forecast correctness, not investment advice, not provider dispatch, and not release authority.",
+      "claim_ceiling": "The examples do not validate live market prices, provider data, forecast accuracy or calibration; they are not trading advice.",
       "gap_count": 0,
       "id": "batch12_prediction_market_board_capsule",
       "kind": "organ",
@@ -139581,7 +139581,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "This is lexical fixture evidence only; it is not release authority, not publication approval, not semantic NLP truth, not secret-scan coverage, and not whole-system correctness.",
+      "claim_ceiling": "A passing fixture does not approve a release, publication or the truth of a document. This checkout’s source manifest declares a public-safe stub in place of the original source, so this example exercises the fallback rather than the copied gate. An undeclared missing source blocks the check.",
       "gap_count": 1,
       "id": "batch12_release_claim_language_gate",
       "kind": "organ",
@@ -139605,7 +139605,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[54:batch4_proof_authority_runtime]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "claim_ceiling": "A token scan is not a proof check, and even successful local compilation does not establish a solution to Erdős #257. The optional probe needs Lean, Lake, the source Lake project and its dependencies; unavailable is distinct from a successful compilation.",
       "gap_count": 1,
       "id": "batch4_proof_authority_runtime",
       "kind": "organ",
@@ -139629,7 +139629,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[56:batch5_authority_systems_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only public-safe copied Batch 5 authority-system source bodies and bounded deterministic exercises; it does not dispatch providers, prove Lean success, send live process signals, mutate generated state, mutate source, authorize publication, authorize release, or claim private-root equivalence.",
+      "claim_ceiling": "These are bounded exercises of the supplied cases. A digest confirms a source copy against its manifest; it does not prove authorization, proof correctness or safe process management in a live system.",
       "gap_count": 1,
       "id": "batch5_authority_systems_capsule",
       "kind": "organ",
@@ -139653,7 +139653,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[55:batch6_unsurfaced_primitives_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only a public source-open capsule and bounded public exercises; it is not raw operator memory, not prompt-shelf capture authority, not live market data, not provider/browser state, not media release, and not publication or release approval.",
+      "claim_ceiling": "These synthetic examples do not establish market truth, policy effectiveness or correctness for other inputs. Source hashes and anchors establish identity checks, not algorithm correctness.",
       "gap_count": 1,
       "id": "batch6_unsurfaced_primitives_capsule",
       "kind": "organ",
@@ -139677,7 +139677,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[59:batch7_demo_take_console_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only public-safe Demo Take Console copied Swift source bodies and bounded deterministic exercises; it does not launch the app, authorize screen or microphone capture, export recording sessions, execute FFmpeg, dispatch WhisperKit or other models, mutate source, prove complete UI coverage, authorize publication, or authorize release.",
+      "claim_ceiling": "The build witness needs Swift and a compatible macOS environment with the required Apple frameworks. SwiftPM writes build scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset. A successful build and fixture checks do not establish capture quality or transcription accuracy.",
       "gap_count": 0,
       "id": "batch7_demo_take_console_capsule",
       "kind": "organ",
@@ -139699,7 +139699,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only a public source-open capsule and bounded exercises; it is not live source authority, private-root equivalence, semantic truth, investment advice, complete sandbox proof, selected-test sufficiency proof, publication, or release approval.",
+      "claim_ceiling": "The fixture is not a general guarantee of safe patches, complete test selection or whole-system correctness. The original witnesses require Node and their declared JavaScript dependencies; `numpy` is required for the numeric exercise.",
       "gap_count": 0,
       "id": "batch7_macro_engines_capsule",
       "kind": "organ",
@@ -139721,7 +139721,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[58:batch7_oracle_sibling_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only public-safe Oracle sibling copied source bodies and bounded deterministic exercises; it does not run Oracle reasoning, dispatch providers or bridges, invoke GodModeEngine, mutate source, prove semantic truth, prove all Oracle paths are covered, authorize publication, or authorize release.",
+      "claim_ceiling": "The pytest witness requires pytest and its source dependencies. These examples do not establish semantic truth, live market reasoning or coverage of the full Oracle system.",
       "gap_count": 0,
       "id": "batch7_oracle_sibling_capsule",
       "kind": "organ",
@@ -139743,7 +139743,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment advice, provider dispatch, source mutation, private-root equivalence, publication, release, semantic-truth, or whole-system correctness claim",
+      "claim_ceiling": "These checks establish the named fixture behavior, not live-market accuracy, investment advice, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.",
       "gap_count": 1,
       "id": "batch7_secondary_runtime_capsule",
       "kind": "organ",
@@ -139767,7 +139767,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[62:batch8_audio_level_rms_port]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "projection mechanics only, not domain correctness",
+      "claim_ceiling": "This checks the Python calculation on the supplied cases; it does not establish sample-buffer parity on a device, microphone permissions, session behavior or audio capture.",
       "gap_count": 1,
       "id": "batch8_audio_level_rms_port",
       "kind": "organ",
@@ -139791,7 +139791,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "validates declared public Batch 8 compliance pipeline capsule contract only; no full compliance-ledger freshness, provider dispatch, model dispatch, source mutation, raw-seed mutation, release, publication, private data equivalence, or whole-system correctness",
+      "claim_ceiling": "A passing fixture is evidence about these specific source contracts and helper inputs, not a fresh full compliance ledger or permission to dispatch a pipeline.",
       "gap_count": 0,
       "id": "batch8_compliance_pipeline_capsule",
       "kind": "organ",
@@ -139813,7 +139813,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[61:batch8_policy_engines_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, or publication.",
+      "claim_ceiling": "The examples do not establish the semantic correctness of Lab output, the validity of live market claims, or the safety of campaign execution.",
       "gap_count": 1,
       "id": "batch8_policy_engines_capsule",
       "kind": "organ",
@@ -139837,7 +139837,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[63:batch8_structural_theses_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, or publication.",
+      "claim_ceiling": "Synthetic examples check the validation rules, not predictive performance or investment advice. A frozen claim and a complete sampling frame matter to the interpretation of any real study.",
       "gap_count": 0,
       "id": "batch8_structural_theses_capsule",
       "kind": "organ",
@@ -139859,7 +139859,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, or publication.",
+      "claim_ceiling": "These are fixture-level checks of the functions, not evidence that the input observations are true, edits are semantically correct, or predictions will succeed. The patch helper’s operations should not be assumed to implement all of JSON Patch.",
       "gap_count": 1,
       "id": "batch8_tools_tail_primitives_capsule",
       "kind": "organ",
@@ -139883,7 +139883,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the imported validators.py source body and its checker membrane. It does not claim source authority, a full validator-suite proof, private-root equivalence, release, hosted-public status, publication, provider dispatch, or source mutation authority.",
+      "claim_ceiling": "Read the witness mode before interpreting a pass. Source identity alone cannot establish checker behavior, full validator coverage, or release readiness.",
       "gap_count": 0,
       "id": "batch8_validator_checker_capsule",
       "kind": "organ",
@@ -139905,7 +139905,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[65:batch9_macro_engines_capsule]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only a public source-open capsule and bounded synthetic exercises; it is not live lineage truth, human approval authority, market/news truth, host-state truth, Work Ledger truth, provider dispatch, source mutation authority, publication, release approval, or private-root equivalence.",
+      "claim_ceiling": "These examples show selected behavior of the copied code. They do not establish live deployment safety, complete coverage, or correctness for arbitrary repositories.",
       "gap_count": 0,
       "id": "batch9_macro_engines_capsule",
       "kind": "organ",
@@ -139927,7 +139927,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[40:belief_state_process_reward_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It only checks that the projection's accounting lines up under its own schema rules over recorded synthetic fixtures; it does not authorize hidden-reasoning export, RL training, hidden gold or neural-judge-only labels, benchmark-performance claims, provider calls, source mutation, or release, and proves nothing about real-world reward, live agent behavior, or domain correctness.",
+      "claim_ceiling": "This is a check of the supplied public records and policy, not live reinforcement learning, a benchmark result or evidence of improved model performance. It does not export hidden reasoning.",
       "gap_count": 1,
       "id": "belief_state_process_reward_replay",
       "kind": "organ",
@@ -139951,7 +139951,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[52:bounded_autonomy_campaign_packet]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "self-proposal campaign packet only; no self-repair or unsupervised source mutation",
+      "claim_ceiling": "Draft candidates and source-only or parent-builder witness; no autonomous repair or source mutation.",
       "gap_count": 1,
       "id": "bounded_autonomy_campaign_packet",
       "kind": "organ",
@@ -139975,7 +139975,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[80:bridge_campaign_dag_validation]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence.",
+      "claim_ceiling": "The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.",
       "gap_count": 1,
       "id": "bridge_campaign_dag_validation",
       "kind": "organ",
@@ -140002,7 +140002,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the declared public continuity contract over synthetic fixtures; it does not run live bridge transport, call providers, read operator HUD/browser/phase-runtime or private-memory state, prove provider or UI uptime, land work, mutate source, or authorize release.",
+      "claim_ceiling": "Fixture consistency only; no live bridge or work-landing evidence.",
       "gap_count": 0,
       "id": "bridge_phase_continuity_runtime",
       "kind": "organ",
@@ -140024,7 +140024,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[45:certificate_kernel_execution_lab]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it does not authorize general proof authority, count oracle/provider output as proof, expose proof text, mutate source, claim a benchmark solve-rate, or authorize release.",
+      "claim_ceiling": "Fixture-specific execution only; exported bundle validation is not a fresh Lean run.",
       "gap_count": 1,
       "id": "certificate_kernel_execution_lab",
       "kind": "organ",
@@ -140048,7 +140048,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the declared public registry contract and copied non-secret macro bodies; it never becomes registry source authority, mutates operators, proves operator correctness, exposes raw operator voice, or authorizes release, provider calls, or any whole-system-correctness claim.",
+      "claim_ceiling": "Resolving a reference does not prove the procedure caused improvement.",
       "gap_count": 1,
       "id": "cognitive_operator_registry",
       "kind": "organ",
@@ -140072,7 +140072,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-data equivalence, or whole-system correctness.",
+      "claim_ceiling": "Text checks do not execute every route or establish reader comprehension.",
       "gap_count": 0,
       "id": "cold_reader_route_map",
       "kind": "organ",
@@ -140094,7 +140094,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "verified non-secret concurrency mission-control macro body import only, not a live scheduler, provider dispatch, hosted orchestration, production concurrency-safety proof, source authority, private-root equivalence, publication, or release authority",
+      "claim_ceiling": "Fixture classifications do not enforce rules on live agents.",
       "gap_count": 0,
       "id": "concurrency_mission_control",
       "kind": "organ",
@@ -140116,7 +140116,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[4:corpus_readiness_mathlib_absence_gate]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It only projects and gate-checks recorded corpus/toolchain readiness accounting, re-verifies recorded source digests and leakage guards, and runs a bounded Lean/Lake import probe when a toolchain is present. It does not run a full Lake build, prove theorem correctness, claim Mathlib is available beyond the probe result, benchmark corpora, score model performance, call providers, or authorize release or publication.",
+      "claim_ceiling": "Not a Mathlib project build, theorem proof or complete corpus inventory.",
       "gap_count": 0,
       "id": "corpus_readiness_mathlib_absence_gate",
       "kind": "organ",
@@ -140138,7 +140138,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[82:derived_fact_provider_runtime]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
+      "claim_ceiling": "Resolution does not judge prose truth or a complete external registry.",
       "gap_count": 1,
       "id": "derived_fact_provider_runtime",
       "kind": "organ",
@@ -140165,7 +140165,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[50:doctrine_fact_claim_audit]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "fact assertion, code-loci, and DAG fixture truth gate only; it is not a comprehension engine and does not prove a minimum read graph",
+      "claim_ceiling": "Fixture relations do not establish assertion truth or comprehension.",
       "gap_count": 0,
       "id": "doctrine_fact_claim_audit",
       "kind": "organ",
@@ -140187,7 +140187,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[21:durable_agent_work_landing_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the declared public work-landing contract over recorded rows. It is evidence for fixture-local closeout mechanics, not for live Git side effects, unrelated-path staging, private body export, service operation, or distribution clearance.",
+      "claim_ceiling": "Fixture replay only; neither real commit truth nor live Git authority.",
       "gap_count": 0,
       "id": "durable_agent_work_landing_replay",
       "kind": "organ",
@@ -140209,7 +140209,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[85:egress_self_compliance_audit]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication.",
+      "claim_ceiling": "Phrase matching on supplied examples; not complete semantic or safety analysis.",
       "gap_count": 1,
       "id": "egress_self_compliance_audit",
       "kind": "organ",
@@ -140236,7 +140236,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[64:engine_room_demo]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the public Engine Room composition contract; it is not production readiness, private-root equivalence, frontier theorem proving, complete security proof, publication, or release approval.",
+      "claim_ceiling": "Public fixture composition only; no production or general security claim.",
       "gap_count": 0,
       "id": "engine_room_demo",
       "kind": "organ",
@@ -140258,7 +140258,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[1:executable_doctrine_grammar]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates an exported public executable-grammar metabolism bundle with exact copied-body digests and redacted receipts, plus fixture regressions for standards/paper-module shape. It does not publish macro doctrine bodies in receipts, prove doctrine completeness, export a private standards engine, authorize later organs, or claim provider calls, private-data equivalence, release readiness, or whole-system correctness.",
+      "claim_ceiling": "A passing fixture run means the expected negative cases were observed and the input scan passed; it does not mean every example input is valid or that the doctrine is complete. Imported-source digest checks establish byte identity, not correctness of the imported algorithms.",
       "gap_count": 0,
       "id": "executable_doctrine_grammar",
       "kind": "organ",
@@ -140280,7 +140280,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[53:finance_forecast_evaluation_spine]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "synthetic fixture forecast-evaluation statistics only; no investment advice, live market data, track record, or performance claim",
+      "claim_ceiling": "A lookahead split or a claim that the output authorizes investment advice is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment decision.",
       "gap_count": 0,
       "id": "finance_forecast_evaluation_spine",
       "kind": "organ",
@@ -140302,7 +140302,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[79:finite_erdos_denominator_certificate_strike]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "claim_ceiling": "The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erdős problem 257.",
       "gap_count": 1,
       "id": "finite_erdos_denominator_certificate_strike",
       "kind": "organ",
@@ -140329,7 +140329,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[11:formal_evidence_cell_anchor_resolver]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates claim-to-evidence anchoring mechanics only: claim-to-cell resolution, source-anchor presence, permitted claim strength, copied-source-module digest checks, and leakage refusals. It does not run Lean/Lake, certify theorem or mathematical correctness, expose proof bodies or private source refs, call providers, or authorize release/publication.",
+      "claim_ceiling": "The bundled source checks also compare imported module digests. These checks establish that references and configured copies match; they do not prove theorem correctness or independently validate the mathematics.",
       "gap_count": 0,
       "id": "formal_evidence_cell_anchor_resolver",
       "kind": "organ",
@@ -140351,7 +140351,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[16:formal_math_lean_proof_witness]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It authorizes only a witness that a tiny declared public toy proof compiled under the locally installed Lean/Lake toolchain in a temporary workspace, plus confirmation that its leakage guardrails fired. It does not authorize Mathlib/Aesop/Batteries-dependent or general proof or theorem-program authority, provider calls, private proof import, benchmark or performance claims, whole-system correctness, or any release, hosted deployment, or publication.",
+      "claim_ceiling": "Lean and Lake must be available for the fixture run. The exported witness bundle uses a standalone contract that does not perform a fresh Lean/Lake build. A successful witness concerns the supplied project and tool invocation; it does not establish correctness of unrelated theorems, Mathlib availability, or a general proof service. Source digest checks establish copied bytes, not a proof of the copied code.",
       "gap_count": 0,
       "id": "formal_math_lean_proof_witness",
       "kind": "organ",
@@ -140373,7 +140373,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[9:formal_math_premise_retrieval]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It only checks that public retrieval metadata is internally coherent, term-scored over a copied index, budget-bounded, and leakage-clean; it does not run Lean/Lake, call providers, prove any theorem or its own correctness, claim benchmark performance, or authorize release.",
+      "claim_ceiling": "The validator rejects a premise containing a proof body, a query carrying oracle premise IDs, test-split tuning, an unknown strategy and context recipes over budget. This is a small transparent retrieval exercise, not a benchmark of retrieval quality. It does not execute Lean or establish theorem correctness.",
       "gap_count": 0,
       "id": "formal_math_premise_retrieval",
       "kind": "organ",
@@ -140395,7 +140395,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[3:formal_math_readiness_gate]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It only validates and projects declared readiness metadata; it does not run Lean/Lake, inspect the real toolchain, call providers, prove any theorem correct, produce benchmark scores, or authorize Mathlib-dependent proof attempts.",
+      "claim_ceiling": "Validates readiness declarations and cited probes, without running Lean or proving a theorem.",
       "gap_count": 0,
       "id": "formal_math_readiness_gate",
       "kind": "organ",
@@ -140417,7 +140417,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[10:formal_math_verifier_trace_repair_loop]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It demonstrates control-loop projection mechanics over copied non-secret Ring2 run rows only; it does not run Lean/Lake, call providers, expose proof bodies or oracle premise ids, treat human or provider advice as correctness, prove any theorem, or authorize release.",
+      "claim_ceiling": "Checks recorded repair traces and evaluates four toy inputs; it does not perform a fresh Lean proof check.",
       "gap_count": 0,
       "id": "formal_math_verifier_trace_repair_loop",
       "kind": "organ",
@@ -140439,7 +140439,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[86:generated_projection_drift_runtime]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
+      "claim_ceiling": "Checks declared artifacts and owner commands; it neither repairs files nor proves semantic correctness.",
       "gap_count": 1,
       "id": "generated_projection_drift_runtime",
       "kind": "organ",
@@ -140466,7 +140466,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[42:indirect_prompt_injection_information_flow_policy_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "Passing receipts only show this projection satisfies the named information-flow contract over synthetic, redacted, body-free rows; they do not prove general prompt-injection robustness, benchmark performance, live account/tool/provider safety, hidden-message handling in a real system, source-mutation authority, or release authority.",
+      "claim_ceiling": "Checks synthetic information-flow records, not general prompt-injection resistance or live accounts.",
       "gap_count": 1,
       "id": "indirect_prompt_injection_information_flow_policy_replay",
       "kind": "organ",
@@ -140490,7 +140490,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[87:lean_proof_search_lab_runtime]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
+      "claim_ceiling": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
       "gap_count": 1,
       "id": "lean_proof_search_lab_runtime",
       "kind": "organ",
@@ -140517,7 +140517,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[8:lean_std_premise_index]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It only validates the public-safe projection of premise metadata and copied non-secret macro bodies; it does not run Lean or Lake, prove any theorem correct, expose proof bodies or oracle-needed ids, call providers, produce benchmark scores, or authorize release.",
+      "claim_ceiling": "Checks copied Lean/Std premise metadata, not Mathlib availability or theorem correctness.",
       "gap_count": 0,
       "id": "lean_std_premise_index",
       "kind": "organ",
@@ -140539,7 +140539,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[30:macro_projection_import_protocol]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It authorizes only verified non-secret macro body import with provenance and content-digest checks; it does not grant source authority, private-root equivalence, release, hosted deployment, publication, recipient work, provider or Lean/Lake execution, secret or private-source-body export, or any whole-system correctness claim.",
+      "claim_ceiling": "Checks declared provenance and omission rules, not algorithm correctness, completeness, or release authority.",
       "gap_count": 0,
       "id": "macro_projection_import_protocol",
       "kind": "organ",
@@ -140561,7 +140561,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[44:materials_chemistry_closed_loop_lab_safety_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It documents projection and replay mechanics only and does not authorize wetlab protocols, hazardous synthesis steps, reagent amounts, controlled/bioactive targets, robot commands, live assay data, discovery claims, benchmark scores, provider calls, or any judgment of domain/chemical correctness.",
+      "claim_ceiling": "Checks synthetic simulator records, not laboratory safety or a discovery.",
       "gap_count": 0,
       "id": "materials_chemistry_closed_loop_lab_safety_replay",
       "kind": "organ",
@@ -140583,7 +140583,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[5:mathematical_strategy_atlas_hypothesis_scorer]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It only projects pre-oracle strategy-hypothesis and retrieval mechanics; it does not run Lean/Lake, prove theorems, establish domain or theorem correctness, reveal oracle labels, expose proof bodies, call providers, tune on test answers, or authorize release.",
+      "claim_ceiling": "Scores strategy hypotheses from supplied features; it does not prove a statement or measure benchmark performance.",
       "gap_count": 1,
       "id": "mathematical_strategy_atlas_hypothesis_scorer",
       "kind": "organ",
@@ -140607,7 +140607,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[38:mcp_tool_authority_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It only checks that the tool-authority evidence in a recorded bundle (scopes, approvals, rollbacks, instruction/data splits, cold replays, redaction, and the expected abuse-case failures) is present and internally consistent. It does not run tools or authorize live MCP/account access, credential or payload export, treating tool output as instruction, source mutation, benchmark safety scores, or release, and it makes no claim that the underlying tool-use policy is domain-correct.",
+      "claim_ceiling": "Checks synthetic tool records, not live-account security or credential certification.",
       "gap_count": 0,
       "id": "mcp_tool_authority_replay",
       "kind": "organ",
@@ -140629,7 +140629,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[25:mechanistic_interpretability_circuit_attribution_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the declared public circuit-attribution runtime-receipt contract. It does not authorize model-transparency product claims, live model access, export of private weights/raw activations/proprietary prompts/hidden chain-of-thought, provider calls, benchmark scores, or publication/release.",
+      "claim_ceiling": "This toy replay does not establish transparency for a trained model or access private activations. Source digests check copied inputs, not the correctness of interpretability methods.",
       "gap_count": 1,
       "id": "mechanistic_interpretability_circuit_attribution_replay",
       "kind": "organ",
@@ -140653,7 +140653,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[81:metabolism_queue_reconciliation]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
+      "claim_ceiling": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.",
       "gap_count": 1,
       "id": "metabolism_queue_reconciliation",
       "kind": "organ",
@@ -140680,7 +140680,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
+      "claim_ceiling": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release.",
       "gap_count": 0,
       "id": "mission_transaction_work_spine",
       "kind": "organ",
@@ -140702,7 +140702,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[83:navigation_fitness_benchmark]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
+      "claim_ceiling": "These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.",
       "gap_count": 1,
       "id": "navigation_fitness_benchmark",
       "kind": "organ",
@@ -140729,7 +140729,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[19:navigation_hologram_route_plane]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the declared public toy route-plane contract and its regression fixtures (plus exact copied non-secret navigation source modules in the bundle path); it does not prove live route freshness, grant source authority, authorize any later organ, run any provider/live-kernel call, or certify the whole wave.",
+      "claim_ceiling": "Matching hashes establish consistency with referenced bytes, not that the routes are useful or correct. This fixture does not exercise a live private navigation system.",
       "gap_count": 0,
       "id": "navigation_hologram_route_plane",
       "kind": "organ",
@@ -140751,7 +140751,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[28:pattern_assimilation_step]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the declared public closeout contract over synthetic fixture data; it does not ingest private lessons, mutate live ledgers, promote global doctrine, authorize release or publication, make provider calls, claim private-data equivalence, or certify public runtime behavior.",
+      "claim_ceiling": "The check establishes the recorded closeout contract for supplied rows. It does not establish that a refinement improved the system or that every lesson has been found.",
       "gap_count": 1,
       "id": "pattern_assimilation_step",
       "kind": "organ",
@@ -140775,7 +140775,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[0:pattern_binding_contract]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public release or hosted-public readiness, publication, provider calls, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).",
+      "claim_ceiling": "A passing binding is a consistent record under these checks; it does not prove that the pattern is useful or that copied source is correct.",
       "gap_count": 0,
       "id": "pattern_binding_contract",
       "kind": "organ",
@@ -140797,7 +140797,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[31:prediction_oracle_reconciliation]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It exercises projection mechanics on a synthetic, invented packet only. It does not establish forecasting correctness or accuracy, give trading/financial/investment advice, call live market data or providers, publish predictions, claim any performance or track record, import private data, or authorize release.",
+      "claim_ceiling": "The packet and outcomes are synthetic. This replay does not establish forecasting accuracy, access market feeds, or provide investment advice.",
       "gap_count": 0,
       "id": "prediction_oracle_reconciliation",
       "kind": "organ",
@@ -140819,7 +140819,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[39:proof_derived_governed_mutation_authorization]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only a declared, synthetic governed-mutation contract and authorizes no live cloud/account action, standing credentials, source or irreversible mutation, policy-after-execution, hidden votes, provider calls, benchmark-score claims, or release.",
+      "claim_ceiling": "The result concerns the supplied evidence and synthetic proposals. It grants no credential or permission to mutate a live system. A source hash or Git witness is not proof that the underlying change is correct.",
       "gap_count": 0,
       "id": "proof_derived_governed_mutation_authorization",
       "kind": "organ",
@@ -140841,7 +140841,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[2:proof_diagnostic_evidence_spine]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, call providers, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public release, authorize publication or recipient work, or establish secret export.",
+      "claim_ceiling": "A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.",
       "gap_count": 0,
       "id": "proof_diagnostic_evidence_spine",
       "kind": "organ",
@@ -140863,7 +140863,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates context-budget projection mechanics (byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, and digest-checked source-body imports) only. It does not authorize provider/API calls, run Lean/Lake, expose or carry proof or oracle truth-side material, assert theorem or domain correctness, or authorize release.",
+      "claim_ceiling": "A recipe that suppresses its omitted-sections manifest or permits proof bodies is rejected. This checks recipe accounting and policy, not a provider call or model performance.",
       "gap_count": 0,
       "id": "provider_context_recipe_budget_policy",
       "kind": "organ",
@@ -140885,7 +140885,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It authorizes only bounded public reveal runtime behavior and a digest-verified public body-import witness; it does not authorize release, hosted deployment, publication, recipient work, provider calls, secret export, private-data equivalence, Lean/Lake execution, whole-system correctness, or general product authority.",
+      "claim_ceiling": "A walkthrough that claims a capability without a matching evidence route is rejected. A passing walkthrough does not establish private-system equivalence or authorize a release.",
       "gap_count": 0,
       "id": "public_reveal_walkthrough",
       "kind": "organ",
@@ -140907,7 +140907,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[22:research_replication_rubric_artifact_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates the shape and presence of synthetic replay metadata and receipt references only - it does not run any experiment, metric script, or rerun, does not authorize any claim that a paper was actually replicated, that a benchmark score was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes publication or release.",
+      "claim_ceiling": "Supports a bounded sum_field metric, not arbitrary scripts, independent reproduction of an outside study, or benchmark performance.",
       "gap_count": 0,
       "id": "research_replication_rubric_artifact_replay",
       "kind": "organ",
@@ -140929,7 +140929,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[13:ring2_premise_retrieval_precision_recall_harness]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "These are after-the-fact retrieval-attribution labels and precision/recall counts over copied run records only. The organ does not run Lean or Lake, call any provider, expose proof bodies, tune on test answers, claim benchmark performance, prove theorem correctness, or authorize release, and its labels are explicitly forbidden from flowing into provider context. The aggregate numbers describe only the copied fixture/bundle replayed, not any benchmark standing.",
+      "claim_ceiling": "Checks declared label separation and supplied fixture metrics; does not perform retrieval, prove labels were excluded during ranking, or establish general retrieval performance.",
       "gap_count": 0,
       "id": "ring2_premise_retrieval_precision_recall_harness",
       "kind": "organ",
@@ -140951,7 +140951,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[48:routing_anti_patterns_registry]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the declared public routing anti-pattern registry contract and copied non-secret macro body; it never becomes route source authority, mutates routes, exposes private routing notes, calls providers, authorizes release, or proves whole-system correctness.",
+      "claim_ceiling": "A duplicate ID or a missing required entry is rejected. This verifies the registry projection; it does not change routing policy or demonstrate that a real route is correct.",
       "gap_count": 0,
       "id": "routing_anti_patterns_registry",
       "kind": "organ",
@@ -140973,7 +140973,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[51:self_ignorance_coverage_ledger]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "known Kind Atlas coverage debt projection only; it does not claim literal unknown-unknown omniscience or absence proof",
+      "claim_ceiling": "A claim that an absent entry proves the underlying thing does not exist is rejected; a mismatched debt count also blocks the result. The comparison cannot discover everything missing from both inputs. The small static fixture lacks the graph and is expected to block.",
       "gap_count": 1,
       "id": "self_ignorance_coverage_ledger",
       "kind": "organ",
@@ -140997,7 +140997,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[78:semantic_singleflight_dedup_runtime]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or release approval.",
+      "claim_ceiling": "Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.",
       "gap_count": 1,
       "id": "semantic_singleflight_dedup_runtime",
       "kind": "organ",
@@ -141024,7 +141024,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[37:sleeper_memory_poisoning_quarantine_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It only checks the structural shape and internal consistency of a synthetic memory-security policy projection recorded as JSON. It does not run or validate any real memory store, does not itself quarantine, delete, or re-run anything, and does not prove that any system actually resists poisoning. It exports no private memory bodies or transcripts, calls no providers, mutates no source, produces no benchmark scores, and authorizes no release (all authority-ceiling flags are hardcoded false).",
+      "claim_ceiling": "A retrieval that admits a quarantined memory or fails to cite its quarantine audit is rejected. These synthetic records test the policy checks; they do not demonstrate security of a live memory system.",
       "gap_count": 1,
       "id": "sleeper_memory_poisoning_quarantine_replay",
       "kind": "organ",
@@ -141048,7 +141048,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[24:spatial_world_model_counterfactual_simulation_replay]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows. It is evidence for inspectable replay rows and limitation labels, not for real-world spatial accuracy, simulator-product validity, media-only authority, operational deployment, service distribution, or scope decisions.",
+      "claim_ceiling": "A stale predicted state that disagrees with the computed step is rejected. This is a small synthetic gridworld check, not evidence of geographic accuracy, robot operation or a production simulator.",
       "gap_count": 1,
       "id": "spatial_world_model_counterfactual_simulation_replay",
       "kind": "organ",
@@ -141072,7 +141072,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[32:standards_meta_diagnostics]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the declared public coverage contract and never becomes source authority for the registries, mutates source, exposes private material, or authorizes release, provider calls, or any whole-system-correctness claim.",
+      "claim_ceiling": "A pass describes checked public coverage; it does not establish that every component works correctly or authorize registry changes or a release.",
       "gap_count": 1,
       "id": "standards_meta_diagnostics",
       "kind": "organ",
@@ -141096,7 +141096,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[6:tactic_portfolio_availability_probe]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It only projects and validates which tactics were recorded as compiling in one captured environment; it does not run Lean/Lake at all, prove any goal, certify domain correctness, call providers, claim benchmark performance, or authorize release.",
+      "claim_ceiling": "The run checks existing evidence; it does not run Lean or Lake. Availability and timing are scoped to the recorded environment and do not prove a theorem or establish benchmark performance.",
       "gap_count": 0,
       "id": "tactic_portfolio_availability_probe",
       "kind": "organ",
@@ -141118,7 +141118,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[7:target_shape_tactic_routing_gate]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It only inspects and records the projection mechanics of pre-execution tactic-routing references — emitting per-tactic allow/reject decisions with reasons. It does not run Lean/Lake, does not prove or judge the correctness of any goal, emits no proof bodies, makes no provider calls, performs no post-execution route selection, reports no benchmark scores or maturity, and authorizes no release.",
+      "claim_ceiling": "A selected tactic is a routing suggestion, not a proof or a guarantee that the tactic will solve a goal. This validator does not execute Lean or Lake.",
       "gap_count": 0,
       "id": "target_shape_tactic_routing_gate",
       "kind": "organ",
@@ -141140,7 +141140,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "validates declared public helper-process pressure inventory contract only; no live process reads, process signalling, host mutation, release authority, provider calls, private data equivalence, or whole-system correctness",
+      "claim_ceiling": "The implementation does not inspect the live process table or send signals. A recommendation in a receipt is not permission to stop a process.",
       "gap_count": 1,
       "id": "tool_server_pressure_inventory",
       "kind": "organ",
@@ -141164,7 +141164,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[12:undeclared_library_prior_symbol_classifier]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It only projects the symbol-boundary classification mechanic over copied non-secret Lean/Std premise rows and pre-extracted symbol observations; it does not read proof source, run Lean or Lake, prove theorem correctness, treat the whole standard library as an implicit allowlist, claim Mathlib availability, call providers, or authorize release.",
+      "claim_ceiling": "The result depends on the supplied index and extracted symbols. It is advisory metadata, not proof checking or a claim that an unqualified name resolves to a particular declaration.",
       "gap_count": 0,
       "id": "undeclared_library_prior_symbol_classifier",
       "kind": "organ",
@@ -141186,7 +141186,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[18:verifier_lab_execution_spine]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It is a tool-witness receipt for bounded public Lean transition rows only: it does not establish general proof authority, count oracle/provider output as proof, export proof bodies or tactic scripts, call providers, mutate source, claim benchmark solve-rates, or authorize release/publication.",
+      "claim_ceiling": "This is a bounded public witness and policy experiment. It does not establish correctness of arbitrary proofs or authorize arbitrary source changes. The command requires compatible `lean` and `lake` on PATH and can take time to build.",
       "gap_count": 0,
       "id": "verifier_lab_execution_spine",
       "kind": "organ",
@@ -141208,7 +141208,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates the declared public contract shape of the proof packet and component receipts only; it does not prove anything correct, count oracle/provider output as forward proof success, import private or Mathlib-dependent proof bodies, call providers, mutate source, or claim benchmark solve rates, release, or maturity.",
+      "claim_ceiling": "The fixture path can invoke its bounded public Lean/Lake witness; compatible `lean` and `lake` are prerequisites. Provider suggestions and translated actions are not proofs, and the kernel does not validate arbitrary private proofs.",
       "gap_count": 0,
       "id": "verifier_lab_kernel",
       "kind": "organ",
@@ -141230,7 +141230,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[46:voice_to_doctrine_self_improvement_loop]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It validates only the declared public-safe contract of the loop on fixtures; it does not export raw operator voice or private bodies, grant source/doctrine mutation, global-promotion, live Task Ledger mutation, or publication authority, make provider calls, prove correctness, or claim private-root equivalence.",
+      "claim_ceiling": "The validator checks records and references; it does not itself make the changes described by a lesson. It cannot establish that private operator speech or private thread content has been faithfully represented.",
       "gap_count": 0,
       "id": "voice_to_doctrine_self_improvement_loop",
       "kind": "organ",
@@ -141252,7 +141252,7 @@
     {
       "atlas_source_ref": "core/organ_atlas.json::organs[23:world_model_projection_drift_control_room]",
       "authority_boundary": "generated_projection_node_from_organ_instance_not_source_authority",
-      "claim_ceiling": "It only validates the declared public, metadata-only drift-receipt contract. It supports inspection of recorded drift rows and source-linked refs; live repair, source control, doctrine promotion, model-output export, public sharing, and launch are outside the fixture. It does not claim complete drift coverage or live repair control.",
+      "claim_ceiling": "The report checks declared public evidence; it does not repair a live route, mutate a source, promote doctrine or authorize a release. Source digest checks do not prove the copied algorithms correct.",
       "gap_count": 0,
       "id": "world_model_projection_drift_control_room",
       "kind": "organ",
@@ -179134,7 +179134,7 @@
         }
       }
     ],
-    "source_of_record": "core/organ_atlas.json + core/organ_registry.json",
+    "source_of_record": "core/organ_atlas.json + core/paper_module_capsules.json + core/organ_registry.json",
     "source_refs": {
       "json_instances": null,
       "organ_atlas": "core/organ_atlas.json",
@@ -179896,9 +179896,9 @@
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
       "core/mechanism_sources.json": "ee6492f04e5be95eda1ae5bfbf8de419aefdfdd1f40258a266181853e8093d26",
-      "core/organ_atlas.json": "621330f48fbd7356b341dfb7f947eb7e41f4a3f929f75d3e263e06be90dcd23c",
+      "core/organ_atlas.json": "ca79fd402949c6efa9bc58e316bdc82e51c19e4a5edf4dfd5687cb3ea04e8e8c",
       "core/organ_registry.json": "89e6e97bb5e26dfcb64de5db77e42940b076dd7a7a304d8ed78d9970e6550e1c",
-      "core/paper_module_capsules.json": "619646bab133a8c13744b9a87b51bceaff3d9ec81e4f1e3cedc6cfb15f13dc4e",
+      "core/paper_module_capsules.json": "79b2f01514a589376ae1a9239401bbf6c09f2a5c6066a894168915ad54187c3d",
       "core/public_surface_manifest.json": "8f1077f8f96170758cb7c274a345f084d5c1ce2d70fd81ace16cac325f0cd957",
       "core/standards_registry.json": "1376ae5629bb3e0728e57bb70d0820046a215a3064b8b69f27a9e67327c04374",
       "paper_modules/agent_benchmark_integrity_anti_gaming_replay.json": "2a6474400681d4fe2cf5a65342698ad2e8b658f9ed4579fda2df05fd6fa926b6",
@@ -179912,19 +179912,19 @@
       "paper_modules/annex_knowledge_routing.json": "d91057e36b82af61220b2846ce55954c5fefe279675a85718cf09ba3310e7d60",
       "paper_modules/batch10_cold_eval_honesty_capsule.json": "55724c26eeaaefb4a28eed301f3fbd7b205cc2212e6f2164ef70b1245c47c4b4",
       "paper_modules/batch10_governance_compilers_capsule.json": "1a1e0fa7f165789a3136d2d3e851191c673eeab524ea78c685f9da9f1298b1af",
-      "paper_modules/batch10_live_source_drift_capsule.json": "59a347f0ed09914630f32be83b36db75317cac0e22e05d2233e8c0aad51efd7a",
-      "paper_modules/batch11_saturation_engines_capsule.json": "741eccc800308b4651339c2f22e2c9000f2ece9ba5e94b6485c8e6b5d52634c7",
-      "paper_modules/batch12_market_dashboard_read_model_capsule.json": "639b210ef2e38ced7afaa9c8b4cd877b0e15e16b51844f8d28f9c4d69ed18996",
-      "paper_modules/batch12_prediction_market_board_capsule.json": "234dc838a61814f96707aed57e9b71285a3068256f988abc642c844403e0b4b3",
-      "paper_modules/batch12_release_claim_language_gate.json": "3a6f8584e2eceb3c54fd7e8d9dccba60cb2c18df822aaefe5872f7788a5df69d",
+      "paper_modules/batch10_live_source_drift_capsule.json": "eea49a4e295291f607320382366b25fb9a0c449e5a7f494547cee0649015ac1f",
+      "paper_modules/batch11_saturation_engines_capsule.json": "0dea3f16a5d520bd3d048bc29913429502743e4ddfd2d4bf080ee3b9d43ab426",
+      "paper_modules/batch12_market_dashboard_read_model_capsule.json": "0b40180f8553b5113ccdb88b110b886130c1f43a70405ba3c777e10b394271c3",
+      "paper_modules/batch12_prediction_market_board_capsule.json": "16961c2c3ef6371d4f7c29d93c48f41c2086c34e9b4c73ecd8003368e24b71e9",
+      "paper_modules/batch12_release_claim_language_gate.json": "cfee54e806f3ab7a3ea75b30b9f8bf5aacdaafca78706f54c7e3ffd04438fb4e",
       "paper_modules/batch4_proof_authority_runtime.json": "e0b374f7bf0a35e5d3c975913694d745be0d2cae8dbe61587a2fc1000bf739d7",
-      "paper_modules/batch5_authority_systems_capsule.json": "1c2593f775270174f2c5e77b4f08e0356846099fe10b36f11e1edc49724af993",
-      "paper_modules/batch6_unsurfaced_primitives_capsule.json": "87e581db18fe54c1ec891ceed8149ba222bb62ed876dd5a697fe9cfb640de4bb",
-      "paper_modules/batch7_demo_take_console_capsule.json": "a0554c4ac6fc8819653dded7f6a5ac1ff018ddde0a4a5ec933a41b4f19b9173d",
-      "paper_modules/batch7_macro_engines_capsule.json": "594810206bb9a3be5a90019d879ce98c75559a45d01120bfc6698abb918661de",
-      "paper_modules/batch7_oracle_sibling_capsule.json": "b8a548488c72fb607f06721e380a80b7de71fe4113aae3b78a3184dcb7996892",
+      "paper_modules/batch5_authority_systems_capsule.json": "95c9992f585b138edc01d6a469b840842e336f2925916702046efb34bfd38cc2",
+      "paper_modules/batch6_unsurfaced_primitives_capsule.json": "0e14e5f17855bbc891aca77a0641283f53355f1dac26300d58e6b594dfa5e4af",
+      "paper_modules/batch7_demo_take_console_capsule.json": "c176a4b5e1b3f517d4ba3d11968a48a848d22e56507dde532b6fcde875e1acd3",
+      "paper_modules/batch7_macro_engines_capsule.json": "27ad00c72ba9751827385efcc4e0777d2bd5ae51e9cfcdb6cf01bb4b976c91c2",
+      "paper_modules/batch7_oracle_sibling_capsule.json": "ae14d138dc8af91e463c6592e6af791384822cf980661b01b502167d9f2a3a6d",
       "paper_modules/batch7_secondary_runtime_capsule.json": "c7821d8e0894c595e64fc40cc864ae006e9971b0f848e6e527af0d749cedf52f",
-      "paper_modules/batch8_audio_level_rms_port.json": "fa449ea72c44687f3cae71f4bba27764cdb0a3dd9c7bc100b02a9cae0e548119",
+      "paper_modules/batch8_audio_level_rms_port.json": "1838aca252bad41e8f582a503a8e2d419561746cb996a1ac99fe8d32f5e29975",
       "paper_modules/batch8_compliance_pipeline_capsule.json": "041fcf528fd818256cfa5c6d948612418864333e91ad3d574d89c7d61fec40ae",
       "paper_modules/batch8_policy_engines_capsule.json": "476ad27b933ea7872d861d26decd931724c7a504a2ba7fb7976fcbed7cc173e4",
       "paper_modules/batch8_structural_theses_capsule.json": "5fa41182b9bf5402db976a9864d36e44eab52f061c51d1d905148814d1e45539",
@@ -179969,38 +179969,38 @@
       "paper_modules/generated_projection_drift_runtime.json": "915ee2183b4a8aa634b2487f6d17f62f4b1f8e8ae3970f08b317087837fc9ba2",
       "paper_modules/indirect_prompt_injection_information_flow_policy_replay.json": "314557194379f1110d1e92c0355dfa625130711fdd0f75a7381f0f28a09de93a",
       "paper_modules/lean_proof_search_lab_runtime.json": "a13bd028ab751c22270756dd689d2281e177a5c1d5591bf84bc104196d80dd65",
-      "paper_modules/lean_std_premise_index.json": "c7db9d5de061775dcba77001449c0a4b2a823e5bede7065d4af8d8c808792582",
+      "paper_modules/lean_std_premise_index.json": "46f79ea78abfe5efd0c3728a71f5de812cc30b18f4e64845ec9523c12a91b6d9",
       "paper_modules/macro_projection_import_protocol.json": "278353b8542370f7233f23a1a2e20bdaf1bc5f1869fc50cfe1f0f70f2d8e7f78",
       "paper_modules/materials_chemistry_closed_loop_lab_safety_replay.json": "f3c8a523cce0ca2ebf9c42073cf984b4cffb83ac9b39493f0ea0832c07a5da2b",
-      "paper_modules/mathematical_strategy_atlas.json": "697a66029713e5dc22f6c659694291cc358885a454afbc0391cd05b548530241",
+      "paper_modules/mathematical_strategy_atlas.json": "da4a1e5d3b418089b53c29dec6973296ef2b7b709cbde594879c95db5375eeb0",
       "paper_modules/mcp_tool_authority_replay.json": "374f61fb44758e69d69559cf98c719087e3d5e7a0eceaee1081e385bba683bee",
-      "paper_modules/mechanistic_interpretability_circuit_attribution_replay.json": "05c4bd8f4e52fc38fadd864e7b0d17952453f064990f03cb3b8096f198d7eea0",
-      "paper_modules/metabolism_queue_reconciliation.json": "0cf0e08cc8a0c104c1b087848f44b11f32423b13c6393c5c2fbf2b8414e2bfaa",
+      "paper_modules/mechanistic_interpretability_circuit_attribution_replay.json": "0340269063fbefb509246710810aca373aacf05da44e7a8123769d04afb81f92",
+      "paper_modules/metabolism_queue_reconciliation.json": "72a209d63bcd4dc71f9c90aec3dd9e3b87bbe22f312eabafb768fa20dfd76c4d",
       "paper_modules/microcosm_axiom_substrate.json": "e352112a990c5c2034f84104c41165de6e6b3aba7d1ca1854138f29c0542cf16",
-      "paper_modules/mission_transaction_work_spine.json": "451f00291facf7db90bb0d8206a6258dbd3ae6a4a8bf089f9dda38d58bb816d6",
-      "paper_modules/navigation_fitness_benchmark.json": "9319810222a5649763d772802ac30c5aec91b8c326c2024531b9c64b6028d464",
+      "paper_modules/mission_transaction_work_spine.json": "bbbae103ea1e3bd19ee0c06021a8f93a812ac1c9abbb3aeab72f13d19b70bb9b",
+      "paper_modules/navigation_fitness_benchmark.json": "0995da0de39b77b46e7f52c022f86d42b75d3a4aafdb0e7828c9ec08e90870d8",
       "paper_modules/navigation_hologram_route_plane.json": "d514ba1559c9c2d4f00a450414106ebefca2beb07115bade1500df203789372d",
-      "paper_modules/pattern_assimilation.json": "ace7c5cc76cc73374446467fd6e3bbe2fbd904b7d57e37dd73738d4723cee4f9",
-      "paper_modules/pattern_binding_contract.json": "0e0412677ab95379e29ec3b1afacbe4a89002ac16e5d5569aabb12eb20bd3d99",
-      "paper_modules/prediction_oracle_reconciliation.json": "4d925fdabd5f2a68657eb423e1714eb1b1c290805043bd4116d6f85d4ddb0cba",
-      "paper_modules/proof_derived_governed_mutation_authorization.json": "16d1fe02438990c993abc578d93d8554b7846c24c11417f789174b390786c9e9",
+      "paper_modules/pattern_assimilation.json": "0ac69ec9218937dfcbffbd2d68b2a7877aeacb659d7af2a1b58142e4e3ae14bf",
+      "paper_modules/pattern_binding_contract.json": "a19def8597fc935cd458157c9e3ee63bb10b2457f6b95cbbf37a76bb8d392292",
+      "paper_modules/prediction_oracle_reconciliation.json": "a070e2c43c104fe9829821335e5ee5f41ebb501549ee98056a9a5fce9e82873d",
+      "paper_modules/proof_derived_governed_mutation_authorization.json": "6d25d5397169ee8efc4f92c53ff8047a0df196a550cca6473906436475cf9d8c",
       "paper_modules/proof_diagnostic_evidence_spine.json": "85365bd1c8f465ebf7b2668c2886edc5def3be0e1bfeae78afca08c62f4a4d78",
-      "paper_modules/provider_context_recipe_budget.json": "f5f16a05c53f3e0dda80ed9e106eb3dfec0944e4d4ed28aa63a699a3a5cbbee3",
-      "paper_modules/public_reveal_walkthrough.json": "795d7d2e17683508cd3895b9e59974b708413564dedee13e4df003a4aa0210fa",
+      "paper_modules/provider_context_recipe_budget.json": "549ad2d0d7376587daea534cc261c49751e8f3b71372389fb6d42d15511f40e3",
+      "paper_modules/public_reveal_walkthrough.json": "1c021bf4036a781770fe155b7b1c04b5e78e815e3a1b50d0975a4b239ab7521a",
       "paper_modules/research_replication_rubric_artifact_replay.json": "c983d877328cd9fc40df48d67dfb00b5e233ff225318835b87acf07a79c03c31",
       "paper_modules/ring2_premise_precision_recall.json": "95c54037b8af5f5fe7317d6cb123da609f03c231d98bf43fd87551c755af4e72",
       "paper_modules/routing_anti_patterns_registry.json": "ef3d6b57325cb0cc7d45963ac29ec8397b8abb4ed89f6f76d86ea2d89d038e32",
       "paper_modules/self_ignorance_coverage_ledger.json": "7bbb11f20ca68a5e0e739079d2d2a2f57b7ff271a5892414d0a1203da58d65e4",
-      "paper_modules/semantic_singleflight_dedup_runtime.json": "a757c1fc2b821599281841edaa1b8041fa3ffc3b1888e6725c8a73f7fa1ae863",
+      "paper_modules/semantic_singleflight_dedup_runtime.json": "1dd061b3c185517f1a10fe3603f39d1a08feab89449329746ce9348731588ebe",
       "paper_modules/sleeper_memory_poisoning_quarantine_replay.json": "2190c46be04fecd4693700fc54e593af29b15d58626c82977d185166a114af7b",
-      "paper_modules/spatial_world_model_counterfactual_simulation_replay.json": "89572f0ebbef3bfb5a4128c649c78e9af804a31be34e29b8d7da98a07136a7f8",
-      "paper_modules/standards_meta_diagnostics.json": "027396ad9c41e14658b76af624a7774ef93380a17f81515d0ce2f1c096f55ab2",
-      "paper_modules/tactic_portfolio_availability.json": "581ad2321e52b8cf9b6cd9a3c01d947d3258548d5c7a6ce48f1f03d5f7288fb0",
-      "paper_modules/target_shape_tactic_routing.json": "1ce3c8ddb2e27a23f036cd432d4678a4d43ea6b1337788767ffd644c7694de5f",
-      "paper_modules/tool_server_pressure_inventory.json": "bc670b4b8e21a283b270e15049d9f26ffbc962c3c176a37bcb5d0022fe9fbb88",
-      "paper_modules/undeclared_library_prior_classifier.json": "818b62d6242dcefdcf1a781c4a27323d861d8086aca03e287fc206f23f2f2337",
-      "paper_modules/verifier_lab_execution_spine.json": "f716fbe2eb68a6204efcbf688a58613fe6b568f9c442abc5d6921a54d0b7c859",
-      "paper_modules/verifier_lab_kernel.json": "76b04e0a14dcdfcde6c22ae7e37a09c5a4f038e2c2f6930421dffc74f9ffa009",
+      "paper_modules/spatial_world_model_counterfactual_simulation_replay.json": "6d2659ac0bf977deacf46808d5af620990131269e2e9375089960e4a7c9cc50b",
+      "paper_modules/standards_meta_diagnostics.json": "0c08b85c515eea76d4b7fa30681857a43892d1d1f10c12cd91291eeee6b04d45",
+      "paper_modules/tactic_portfolio_availability.json": "520d012f9898bbfa2b3d3a3ff69d1ae6f44846690510f5b1c67e70409b7e3ed0",
+      "paper_modules/target_shape_tactic_routing.json": "638b10879ebf7a4c3785ebb00b4437cf2877b6b40b02fd6b7902466777246d81",
+      "paper_modules/tool_server_pressure_inventory.json": "078ec649e5cc98eaefd4cbdafcd50f09cb83cfc359cd8fa157036481f50b3262",
+      "paper_modules/undeclared_library_prior_classifier.json": "0c34e728503af3e208746f162dfcc0a190ad5e2ad2df2359d8e9f458bd792461",
+      "paper_modules/verifier_lab_execution_spine.json": "d986620387d4a70b2a06f319bc49d5ee22c5b9ffa4a3af0fdcfc1846cf633ba5",
+      "paper_modules/verifier_lab_kernel.json": "69503c90160bd13f4c012db3c5deea36972e8ccc3d7d36d6fd2a95c12d9d9d24",
       "paper_modules/voice_to_doctrine_self_improvement_loop.json": "236fdd7124435fb3321785ad0f716df091f25566e48d0a0f2b2b5e32d03c6e82",
       "paper_modules/work_landing_control_spine.json": "58db98412d908422689194937d43f874aae724d9ba6104c31fcf03e47e3d284d",
       "paper_modules/world_model_projection_drift_control_room.json": "e581ddf7237e1ac831c41bff97e294f098e7af30610727ca190541efa72e67ca",

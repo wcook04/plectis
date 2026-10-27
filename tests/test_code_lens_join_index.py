@@ -97,6 +97,19 @@ def _atlas() -> dict:
     }
 
 
+def _capsules() -> dict:
+    return {"paper_modules": [{
+        "id": "paper_module.foo",
+        "legacy_markdown_projection": "paper_modules/foo.md",
+        "subjects": [{"kind": "organ", "ref": "foo"}],
+        "compression": {
+            "one_line": "Foo fixture contract.",
+            "card": "Checks the declared foo fixture contract.",
+            "authority_ceiling": "Validates the declared fixture contract only.",
+        },
+    }]}
+
+
 def _routes() -> dict:
     return {
         "routes": [
@@ -119,7 +132,7 @@ def _routes() -> dict:
 
 def _full_index() -> dict:
     return build_mod.build_join_index(
-        _lens(), _registry(), atlas=_atlas(), routes=_routes()
+        _lens(), _registry(), atlas=_atlas(), capsules=_capsules(), routes=_routes()
     )
 
 
@@ -239,7 +252,7 @@ def test_join_index_screens_secretish_route_values() -> None:
     routes = _routes()
     secret = "sk-" + "B" * 22
     routes["routes"][0]["stop_condition"] = f"Stop after exporting {secret}."
-    index = build_mod.build_join_index(_lens(), _registry(), atlas=_atlas(), routes=routes)
+    index = build_mod.build_join_index(_lens(), _registry(), atlas=_atlas(), capsules=_capsules(), routes=routes)
     route = index["nodes"]["route"][0]
     assert route["stop_condition"] is None
     assert secret not in str(index)
@@ -313,7 +326,7 @@ def test_join_index_redefers_honestly_without_atlas_and_routes() -> None:
 def test_join_index_partial_plane_atlas_without_routes() -> None:
     # Atlas-only build: family/wires/doctrine edges materialize, the route class
     # honestly stays deferred -- the CLI-default degradation path.
-    index = build_mod.build_join_index(_lens(), _registry(), atlas=_atlas())
+    index = build_mod.build_join_index(_lens(), _registry(), atlas=_atlas(), capsules=_capsules())
     kinds = {e["kind"] for e in index["edges"]}
     assert {"member_of_family", "wires_to", "grounded_in_doctrine"} <= kinds
     assert index["nodes"]["family"] != []

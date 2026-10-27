@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "Checks copied Lean/Std premise metadata, not Mathlib availability or theorem correctness.",
     "card": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references. It compares public rows with copied source metadata by premise ID and checks declared source digests. A toolchain path may be represented by a public `lean-toolchain://` reference.",
-    "one_line": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references."
+    "one_line": "Validates public Lean and Std premise descriptors against source metadata."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.lean_std_premise_index",
@@ -84,7 +84,7 @@
       "compression": {
         "authority_ceiling": "Checks copied Lean/Std premise metadata, not Mathlib availability or theorem correctness.",
         "card": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references. It compares public rows with copied source metadata by premise ID and checks declared source digests. A toolchain path may be represented by a public `lean-toolchain://` reference.",
-        "one_line": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references."
+        "one_line": "Validates public Lean and Std premise descriptors against source metadata."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -412,7 +412,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references.",
+  "statement": "Validates public Lean and Std premise descriptors against source metadata.",
   "status": "active",
   "subjects": [
     {

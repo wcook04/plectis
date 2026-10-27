@@ -19,6 +19,7 @@ from typing import Any
 
 from microcosm_core.receipts import write_json_atomic
 from microcosm_core.resource_root import microcosm_root
+from microcosm_core.component_descriptions import load_description_atlas, resolve_component_capsules
 from microcosm_core.schemas import read_json_strict
 
 
@@ -149,24 +150,6 @@ def _standard_by_id(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
         if isinstance(row.get("standard_id"), str) and row.get("standard_id")
     }
 
-
-def _capsules_by_organ(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    """
-    Compute capsules by organ from `payload`.
-
-    Inputs are `payload`; notable helpers are `_rows`, `_as_list`, and `get`.
-    """
-    capsules: dict[str, dict[str, Any]] = {}
-    for row in _rows(payload, "paper_modules"):
-        for subject in _as_list(row.get("subjects")):
-            if not isinstance(subject, dict):
-                continue
-            if subject.get("kind") != "organ":
-                continue
-            organ_id = str(subject.get("ref") or "")
-            if organ_id and organ_id not in capsules:
-                capsules[organ_id] = row
-    return capsules
 
 
 def _coverage_sets(payload: dict[str, Any]) -> dict[str, set[str]]:
@@ -536,6 +519,7 @@ def _owner_build_route(organ_id: str) -> dict[str, Any]:
         "source_authority": [
             f"core/organ_registry.json::implemented_organs[organ_id={organ_id}]",
             f"core/organ_atlas.json::organs[organ_id={organ_id}]",
+            "core/paper_module_capsules.json::paper_modules",
             f"core/organ_evidence_classes.json::organ_evidence_classes[organ_id={organ_id}]",
         ],
         "builder_check_commands": [
@@ -610,7 +594,7 @@ def build_organ_discoverability_matrix(root: str | Path | None = None) -> dict[s
     entry_packet = _load_json(resolved_root / "atlas/entry_packet.json")
     routes = _load_json(resolved_root / "atlas/agent_task_routes.json")
     registry = _load_json(resolved_root / "core/organ_registry.json")
-    atlas = _load_json(resolved_root / "core/organ_atlas.json")
+    atlas = load_description_atlas(resolved_root)
     evidence = _load_json(resolved_root / "core/organ_evidence_classes.json")
     capsules = _optional_json(resolved_root / "core/paper_module_capsules.json")
     coverage = _optional_json(resolved_root / "core/doctrine_lattice_coverage.json")
@@ -624,7 +608,10 @@ def build_organ_discoverability_matrix(root: str | Path | None = None) -> dict[s
     atlas_by_id = _by_organ_id(_rows(atlas, "organs"))
     evidence_by_id = _by_organ_id(_rows(evidence, "organ_evidence_classes"))
     routes_by_organ = _route_rows_by_organ(routes)
-    capsules_by_organ = _capsules_by_organ(capsules)
+    capsules_by_organ = {
+        organ_id: capsule for organ_id, (capsule, _status) in
+        resolve_component_capsules(_rows(atlas, "organs"), _rows(capsules, "paper_modules")).items()
+    }
     coverage_sets = _coverage_sets(coverage)
     standards_by_id = _standard_by_id(standards_registry)
 
@@ -713,6 +700,7 @@ def build_organ_discoverability_matrix(root: str | Path | None = None) -> dict[s
                 "source_refs": [
                     f"core/organ_registry.json::implemented_organs[organ_id={organ_id}]",
                     f"core/organ_atlas.json::organs[organ_id={organ_id}]",
+            "core/paper_module_capsules.json::paper_modules",
                     f"core/organ_evidence_classes.json::organ_evidence_classes[organ_id={organ_id}]",
                     "atlas/agent_task_routes.json::routes",
                     "core/paper_module_capsules.json::paper_modules",

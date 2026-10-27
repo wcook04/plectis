@@ -12,6 +12,8 @@ Python 3.11 or later is required. From the repository root, print the composed f
 PYTHONPATH=src python3 -m microcosm_core first-screen --card .
 ```
 
+The card also shows `plectis comprehend --first-action "<your goal>" --format text` for selecting a command and stop condition from the public task routes. This selection does not execute the command. [FIRST_ACTION.md](../FIRST_ACTION.md) contains worked examples.
+
 ## Verification
 
 The composition tests and standard-backed checks assess required fields, routes and authority flags. This helper has no separate registered component replay or component-specific formal proof. A passing card is evidence about the tested composition, not a proof that its presentation works for every reader.

@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "The fixture is not a general guarantee of safe patches, complete test selection or whole-system correctness. The original witnesses require Node and their declared JavaScript dependencies; `numpy` is required for the numeric exercise.",
     "card": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection. Its result combines source checks with the outcomes of the individual witnesses. A cyclic dependency graph is rejected, a patch with mismatched context fails, and an unknown PageRank source is refused. When regression selection would be empty, the example checks the fallback selection. The trace parser also runs its original Node test witness.",
-    "one_line": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection."
+    "one_line": "Exercises copied engines for traces, scheduling, patch checks and other workflows."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch7_macro_engines_capsule",
@@ -92,7 +92,7 @@
       "compression": {
         "authority_ceiling": "The fixture is not a general guarantee of safe patches, complete test selection or whole-system correctness. The original witnesses require Node and their declared JavaScript dependencies; `numpy` is required for the numeric exercise.",
         "card": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection. Its result combines source checks with the outcomes of the individual witnesses. A cyclic dependency graph is rejected, a patch with mismatched context fails, and an unknown PageRank source is refused. When regression selection would be empty, the example checks the fallback selection. The trace parser also runs its original Node test witness.",
-        "one_line": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection."
+        "one_line": "Exercises copied engines for traces, scheduling, patch checks and other workflows."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -422,7 +422,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection.",
+  "statement": "Exercises copied engines for traces, scheduling, patch checks and other workflows.",
   "status": "active",
   "subjects": [
     {

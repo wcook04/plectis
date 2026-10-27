@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release.",
     "card": "The replay reconstructs an active-claims snapshot using imported public-safe Work Ledger code. It checks claims against paths and expected parent state, dependency unlocks and scoped checkpoint policy. Tests change a same-path conflict to a disjoint claim and change an expected parent to check that the verdict follows the input. A stale expected parent or conflicting claim is rejected.",
-    "one_line": "Validates a public work-transaction fixture containing path claims, dependencies, preflight and checkpoint policy, and writes receipts."
+    "one_line": "Checks work-transaction claims, dependencies and checkpoint policy in a public fixture."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.mission_transaction_work_spine",
@@ -83,7 +83,7 @@
       "compression": {
         "authority_ceiling": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release.",
         "card": "The replay reconstructs an active-claims snapshot using imported public-safe Work Ledger code. It checks claims against paths and expected parent state, dependency unlocks and scoped checkpoint policy. Tests change a same-path conflict to a disjoint claim and change an expected parent to check that the verdict follows the input. A stale expected parent or conflicting claim is rejected.",
-        "one_line": "Validates a public work-transaction fixture containing path claims, dependencies, preflight and checkpoint policy, and writes receipts."
+        "one_line": "Checks work-transaction claims, dependencies and checkpoint policy in a public fixture."
       },
       "concept_refs": [
         "concept.work_landing_and_continuity_control_bundle"
@@ -305,7 +305,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Validates a public work-transaction fixture containing path claims, dependencies, preflight and checkpoint policy, and writes receipts.",
+  "statement": "Checks work-transaction claims, dependencies and checkpoint policy in a public fixture.",
   "status": "active",
   "subjects": [
     {

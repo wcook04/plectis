@@ -658,3 +658,127 @@ def test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_bod
             "public_macro_proof_body",
         }
         assert source_path.read_bytes() == target_path.read_bytes()
+
+
+@pytest.mark.parametrize("unsafe_id", ["../escape_probe", "nested/escape_probe", "absolute", "bad\x00id"])
+def test_transition_path_boundary_rejects_before_side_effects(
+    tmp_path: Path, monkeypatch: Any, unsafe_id: str,
+) -> None:
+    project_dir = tmp_path / "project_not_created"
+    if unsafe_id == "absolute":
+        unsafe_id = str(tmp_path / "absolute_escape")
+
+    def no_run(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("invalid transition must not run Lean")
+
+    monkeypatch.setattr(spine, "_run_command", no_run)
+    findings: list[dict[str, Any]] = []
+    receipt = spine._execute_transition(
+        {"transition_id": unsafe_id, "action_class": "decide"},
+        project_dir=project_dir, findings=findings, observed={},
+    )
+    assert receipt.contract_rejected is True
+    assert receipt.lean_return_code is None
+    assert receipt.error_codes == ("VERIFIER_LAB_EXECUTION_TRANSITION_PATH_UNSAFE",)
+    assert findings[0]["error_code"] == receipt.error_codes[0]
+    assert list(tmp_path.iterdir()) == []
+
+
+def test_transition_path_boundary_accepts_ordinary_filename(
+    tmp_path: Path, monkeypatch: Any,
+) -> None:
+    project_dir = tmp_path / "project"
+    calls: list[tuple[list[str], Path]] = []
+
+    def fake_run(argv: list[str], *, cwd: Path) -> dict[str, Any]:
+        calls.append((argv, cwd))
+        return {"return_code": 0, "timed_out": False}
+
+    monkeypatch.setattr(spine, "_run_command", fake_run)
+    receipt = spine._execute_transition(
+        {"transition_id": "case 1-Δ.v2", "action_class": "decide"},
+        project_dir=project_dir, findings=[], observed={},
+    )
+    assert receipt.accepted is True
+    assert receipt.contract_rejected is False
+    assert (project_dir / "case 1-Δ.v2.lean").is_file()
+    assert calls == [(["lake", "env", "lean", "case 1-Δ.v2.lean"], project_dir)]
+
+
+def test_transition_path_boundary_rejects_symlink_escape(
+    tmp_path: Path, monkeypatch: Any,
+) -> None:
+    project_dir = tmp_path / "project"
+    project_dir.mkdir()
+    outside = tmp_path / "outside.lean"
+    outside.write_text("untouched\n")
+    (project_dir / "candidate.lean").symlink_to(outside)
+
+    def no_run(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("symlink escape must not run Lean")
+
+    monkeypatch.setattr(spine, "_run_command", no_run)
+    receipt = spine._execute_transition(
+        {"transition_id": "candidate", "action_class": "decide"},
+        project_dir=project_dir, findings=[], observed={},
+    )
+    assert receipt.contract_rejected is True
+    assert outside.read_text() == "untouched\n"
+    assert sorted(path.name for path in project_dir.iterdir()) == ["candidate.lean"]
+
+
+def test_transition_path_boundary_accepts_internal_symlink(
+    tmp_path: Path, monkeypatch: Any,
+) -> None:
+    project_dir = tmp_path / "project"
+    project_dir.mkdir()
+    target = project_dir / "internal.lean"
+    target.write_text("old\n")
+    (project_dir / "candidate.lean").symlink_to(target)
+    monkeypatch.setattr(spine, "_run_command", lambda *_args, **_kwargs: {"return_code": 0, "timed_out": False})
+    receipt = spine._execute_transition(
+        {"transition_id": "candidate", "action_class": "decide"},
+        project_dir=project_dir, findings=[], observed={},
+    )
+    assert receipt.accepted is True
+    assert target.read_text() == spine._lean_source_for_transition({"action_class": "decide"})
+
+
+def test_transition_path_boundary_rejects_before_batch_or_cache(
+    tmp_path: Path, monkeypatch: Any,
+) -> None:
+    project_dir = tmp_path / "project_not_created"
+
+    def forbidden(*_args: Any, **_kwargs: Any) -> Any:
+        raise AssertionError("invalid rows must not reach cache, batch or subprocess")
+
+    for name in ("_run_command", "_transition_execution_cache_key", "_execute_positive_transition_batch"):
+        monkeypatch.setattr(spine, name, forbidden)
+    receipts = spine._execute_transitions(
+        [{"transition_id": value, "action_class": "decide"} for value in ("../escape_one", "../escape_two")],
+        project_dir=project_dir, findings=[], observed={},
+    )
+    assert len(receipts) == 2
+    assert all(receipt.contract_rejected for receipt in receipts)
+    assert list(tmp_path.iterdir()) == []
+
+
+def test_transition_path_boundary_batch_symlink_falls_back_without_write(
+    tmp_path: Path, monkeypatch: Any,
+) -> None:
+    project_dir = tmp_path / "project"
+    project_dir.mkdir()
+    outside = tmp_path / "outside.lean"
+    outside.write_text("untouched\n")
+    (project_dir / "PositiveTransitionBatch.lean").symlink_to(outside)
+
+    def no_run(*_args: Any, **_kwargs: Any) -> Any:
+        raise AssertionError("unsafe batch path must not run Lean")
+
+    monkeypatch.setattr(spine, "_run_command", no_run)
+    result = spine._execute_positive_transition_batch(
+        [{"transition_id": "first", "action_class": "decide"}, {"transition_id": "second", "action_class": "rfl"}],
+        project_dir=project_dir,
+    )
+    assert result is None
+    assert outside.read_text() == "untouched\n"

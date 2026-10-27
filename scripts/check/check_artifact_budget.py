@@ -65,7 +65,10 @@ ARTIFACT_BUDGET = {
     # checker add 177 packaged files (4,168 -> 4,345). Shorter component guides
     # offset the added bytes: the measured distribution remains 120.11 MiB.
     # Keep six-file headroom and preserve both byte ceilings.
-    "max_total_files": 4_351,
+    # Typed component descriptions, index/compiler, isolated worker and HTTP
+    # add five runtime modules plus one API reference page (4,350 -> 4,356).
+    # Preserve the existing one-file headroom and both byte ceilings.
+    "max_total_files": 4_357,
     "max_data_files_bytes": 120_000_000,  # ~114.4 MiB
 }
 

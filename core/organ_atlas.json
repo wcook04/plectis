@@ -8,12 +8,9 @@
   },
   "organs": [
     {
-      "agent_gloss": "An agent runs it to validate that public pattern rows meet the declared binding contract (required fields, no duplicate pattern IDs, resolved reference capsules, no private-body or secret leakage, no public-leaf overclaim) and to read the pass/reject findings and per-row anti-claims from the emitted JSON receipt.",
-      "claim_ceiling_restated": "It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public release or hosted-public readiness, publication, provider calls, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).",
       "evidence_class": "semantic_validator",
       "family": "architecture_and_navigation",
       "first_command": "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
-      "human_gloss": "It checks that each declared \"pattern\" (a reusable bit of system structure) is properly hooked up: it has the required fields, points at real source material by reference, names the rule it answers to and what it explicitly does NOT claim, has no duplicate pattern IDs, and leaks no secrets or private bodies into the public record. It produces a written receipt showing the overall pass/fail, which pattern rows are accepted versus rejected and why, and what each row is forbidden from claiming.",
       "organ_id": "pattern_binding_contract",
       "axiom_refs": [
         "AX-1",
@@ -91,12 +88,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs the `validate-executable-grammar-metabolism-bundle` subcommand to confirm the exported executable-grammar metabolism bundle carries copied non-secret macro bodies, exact source-module digests, redacted receipt bodies, private-state exclusion, authority ceilings, and grammar/card counts. The fixture `validate` subcommand remains as a regression path for toy standards and paper-module shape checks.",
-      "claim_ceiling_restated": "It validates an exported public executable-grammar metabolism bundle with exact copied-body digests and redacted receipts, plus fixture regressions for standards/paper-module shape. It does not publish macro doctrine bodies in receipts, prove doctrine completeness, export a private standards engine, authorize later organs, or claim provider calls, private-data equivalence, release readiness, or whole-system correctness.",
       "evidence_class": "semantic_validator",
       "family": "architecture_and_navigation",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.executable_doctrine_grammar validate-executable-grammar-metabolism-bundle --input examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle --out receipts/first_wave/executable_doctrine_grammar --card",
-      "human_gloss": "It checks that a folder of example \"doctrine\" files (toy public standards and write-ups that describe how the system is supposed to behave) actually have the required parts: a stated purpose, the rule that governs them, the receipts they are expected to produce, and an honest statement of what they do NOT claim. It reports, file by file, which entries are well-formed and which ones fail a required check, including ones that overclaim (saying a passing grammar check proves the doctrine is complete) or that try to treat plain advice as enforceable authority.",
       "organ_id": "executable_doctrine_grammar",
       "axiom_refs": [
         "AX-11",
@@ -152,12 +146,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to turn upstream Ring2 proof-pipeline receipt references (failure-taxonomy, graph-update, verifier-trace repair, evidence-cell anchor) into accepted/rejected diagnostic receipts, and to confirm forbidden cases (provider proof bodies, source-authority upgrades, stale receipt coupling, runtime-correctness overclaims) are rejected as regression guards before any downstream proof-witness step. It emits a diagnostic board, proof receipts, a provider-payload policy result, and a proof-evidence validation receipt over receipt refs only.",
-      "claim_ceiling_restated": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, call providers, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public release, authorize publication or recipient work, or establish secret export.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
       "first_command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
-      "human_gloss": "An evidence checkpoint that sits in front of formal-proof work. It reads the diagnostic records left by earlier proof-pipeline steps and writes a \"diagnostic board\" listing which checks were accepted, which were rejected, and why. The board shows exactly what evidence was kept, and refuses to let raw model output, a stale record, or a merely-passing check get inflated into a claim that the math is actually correct. It only organizes and judges existing records; it never runs a proof checker itself.",
       "organ_id": "proof_diagnostic_evidence_spine",
       "paper_module_ref": "core/paper_module_capsules.json#paper_module.proof_diagnostic_evidence_spine",
       "mechanism_refs": [
@@ -222,12 +213,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to get a machine-readable readiness board listing available vs. blocked tactics, allowed lemma-lookup rows, and admissible target-shape routes before deciding what a downstream prover step may safely attempt. The board is derived from declared metadata only, so treat it as a permission/boundary surface, not as evidence the environment actually works.",
-      "claim_ceiling_restated": "It only validates and projects declared readiness metadata; it does not run Lean/Lake, inspect the real toolchain, call providers, prove any theorem correct, produce benchmark scores, or authorize Mathlib-dependent proof attempts.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
       "first_command": "microcosm formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
-      "human_gloss": "Before anyone tries to prove a math theorem with the Lean prover, this gate reads simple description files that declare what a math setup is supposed to have — which math library is claimed to be present, which proof tactics are reported as already probed, which lemmas may be looked up, and which limits apply to the text budgets handed to AI providers — and writes a plain checklist of what is allowed to be attempted versus blocked. It works only from those declared description files; it does not inspect the real toolchain or run anything. Its guards keep the claims honest and checkable: it refuses to let a library be marked available unless a probe result backs that up, blocks routing a proof tactic that was not probed, and refuses to let any real proof text sneak into the lemma-lookup tables or provider budgets.",
       "organ_id": "formal_math_readiness_gate",
       "paper_module_ref": "paper_modules/formal_math_readiness_gate.md",
       "mechanism_refs": [
@@ -292,12 +280,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to check, against copied non-secret readiness rows, whether the Mathlib import probe passed and therefore which consumer cases are allowed versus blocked before routing proof or premise work. It validates and projects the recorded accounting and, when a Lean toolchain is present, runs a bounded Std/Mathlib import probe; it does not run a full Lake build or prove anything.",
-      "claim_ceiling_restated": "It only projects and gate-checks recorded corpus/toolchain readiness accounting, re-verifies recorded source digests and leakage guards, and runs a bounded Lean/Lake import probe when a toolchain is present. It does not run a full Lake build, prove theorem correctness, claim Mathlib is available beyond the probe result, benchmark corpora, score model performance, call providers, or authorize release or publication.",
       "evidence_class": "external_subprocess_witness",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
-      "human_gloss": "It reads a recorded readiness report from a Lean math toolchain run and makes one fact inspectable: when the report was captured, the Mathlib library was not importable (its import probe failed). From that, it lists which math corpora are absent or usable only for translation smoke tests, and which downstream tasks must be blocked before any Mathlib-dependent proof work is attempted. It also re-checks that the recorded source files match their recorded SHA-256 digests and that no proof bodies, provider outputs, or private paths leaked into the public output. The result shows exactly where the proof pipeline draws a hard \"not ready, do not proceed\" line, with provenance, instead of quietly assuming the environment is fine.",
       "organ_id": "corpus_readiness_mathlib_absence_gate",
       "axiom_refs": [
         "AX-7"
@@ -350,12 +335,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to deterministically pick a pre-proof strategy hypothesis and retrieval terms from problem feature tags (highest feature overlap wins; zero overlap becomes a typed strategy-selection miss), and to check that unknown strategy ids, proof bodies, oracle labels, post-oracle selection, and release/proof/provider overclaims are all rejected.",
-      "claim_ceiling_restated": "It only projects pre-oracle strategy-hypothesis and retrieval mechanics; it does not run Lean/Lake, prove theorems, establish domain or theorem correctness, reveal oracle labels, expose proof bodies, call providers, tune on test answers, or authorize release.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer",
-      "human_gloss": "Before any proof is attempted, this organ looks at a math problem's feature tags and writes down its first-guess strategy (for example, \"this looks like an if-and-only-if, so split it both ways\"), and flags anything it cannot map as an explicit \"no strategy matched\" instead of a silent failure. The chosen opening move, why it was chosen, and the cases it could not map are all recorded in machine-readable receipts.",
       "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
       "paper_module_ref": "paper_modules/mathematical_strategy_atlas.md",
       "mechanism_refs": [
@@ -409,12 +391,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent reads it to get an environment-scoped map of which tactics were recorded as compiling, and relies on its checks: every tactic must carry a compile status, no Mathlib-dependent tactic may be marked available unless the Mathlib import probe passed, and any tactic a consumer references must exist in the probed portfolio.",
-      "claim_ceiling_restated": "It only projects and validates which tactics were recorded as compiling in one captured environment; it does not run Lean/Lake at all, prove any goal, certify domain correctness, call providers, claim benchmark performance, or authorize release.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.tactic_portfolio_availability_probe run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out receipts/first_wave/tactic_portfolio_availability_probe --acceptance-out receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json",
-      "human_gloss": "It turns one captured Lean run's results into an inspectable list of which proof shortcuts (\"tactics\" like `rfl`, `simp`, `omega`, `aesop`) were recorded as compiling, showing at a glance which are usable and which are off before anything treats a tactic as available. In this fixture seven tactics are marked usable and `aesop` is marked failed (its recorded run hit a missing-Mathlib error). The tool reads pre-recorded status rows and checks them for honesty; it does not run Lean itself.",
       "organ_id": "tactic_portfolio_availability_probe",
       "paper_module_ref": "paper_modules/tactic_portfolio_availability.md",
       "mechanism_refs": [
@@ -471,12 +450,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to produce an auditable per-tactic decision record (admissible / unavailable / unprobed / shape-inadmissible, each with a reason) over real Ring2 route references, asserting the decision is made before any proof execution. It is a checker/projector of the pre-execution routing decision, not a live prover gate: it reads supplied route refs and emits allow/reject decisions plus authority-ceiling and secret-exclusion receipts; it does not run Lean/Lake or attempt a proof.",
-      "claim_ceiling_restated": "It only inspects and records the projection mechanics of pre-execution tactic-routing references — emitting per-tactic allow/reject decisions with reasons. It does not run Lean/Lake, does not prove or judge the correctness of any goal, emits no proof bodies, makes no provider calls, performs no post-execution route selection, reports no benchmark scores or maturity, and authorizes no release.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.cli target-shape-tactic-routing-gate run-routing-bundle --input examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle --out receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate",
-      "human_gloss": "Before a proof is attempted, this organ checks a list of candidate proof tactics for a given goal and writes down an allow-or-reject decision, with a plain reason, for each one. Rejections fall into three kinds: the tactic isn't actually available in the declared environment, it was never listed in the environment's tested set of tactics, or it simply doesn't fit the kind of goal being proved. The resulting record shows, tactic by tactic, exactly what was admitted or blocked and why, instead of an opaque \"we tried these\" claim. It only inspects and records the routing decision over references that already exist; it never runs a prover or proves anything itself.",
       "organ_id": "target_shape_tactic_routing_gate",
       "paper_module_ref": "paper_modules/target_shape_tactic_routing.md",
       "mechanism_refs": [
@@ -534,12 +510,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate that a premise-index bundle's metadata (and, in exported-bundle mode, copied public-safe macro receipt bodies) stays inside the closed-index public-safe boundary (no Mathlib refs, no proof bodies, no oracle-needed ids, no test-split-tuning authority, every row citing an Init/ Lean source) and to read the resulting pass/blocked receipt. It never runs Lean/Lake or authorizes release.",
-      "claim_ceiling_restated": "It only validates the public-safe projection of premise metadata and copied non-secret macro bodies; it does not run Lean or Lake, prove any theorem correct, expose proof bodies or oracle-needed ids, call providers, produce benchmark scores, or authorize release.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.lean_std_premise_index run --input fixtures/first_wave/lean_std_premise_index/input --out receipts/first_wave/lean_std_premise_index --acceptance-out receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
-      "human_gloss": "Presents a small, fixed catalog of Lean standard-library \"premises\" (named building blocks like facts about numbers, booleans, lists, and basic logic) along with the labels and source references that say where each one comes from. It shows what proof ingredients are on the table and that they were copied from public Lean sources, with no hidden proof text, no Mathlib, and nothing that secretly gives away test answers. It only checks and displays this catalog; it does not run Lean or prove anything.",
       "organ_id": "lean_std_premise_index",
       "paper_module_ref": "paper_modules/lean_std_premise_index.md",
       "mechanism_refs": [
@@ -596,12 +569,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs the first-wave fixture (`run` mode, which includes the negative inputs) to replay term-scored premise retrieval over the copied index and confirm that all five guards — proof-body leakage, oracle/answer-key ids, context-budget overflow, test-split tuning, and unknown-strategy-id — observe and block their planted negative cases (expected == observed, none missing). The separate `run-retrieval-bundle` mode replays only the positive retrieval demo and does not exercise the negative cases.",
-      "claim_ceiling_restated": "It only checks that public retrieval metadata is internally coherent, term-scored over a copied index, budget-bounded, and leakage-clean; it does not run Lean/Lake, call providers, prove any theorem or its own correctness, claim benchmark performance, or authorize release.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python -m microcosm_core.organs.formal_math_premise_retrieval run --input fixtures/first_wave/formal_math_premise_retrieval/input --out receipts/first_wave/formal_math_premise_retrieval",
-      "human_gloss": "Given a small copied set of Lean/Std math-lemma descriptions plus some search queries, this organ shows which lemmas a plain term-matching search would surface for each query, how it keeps each assembled context within a fixed size budget, and that it never exposes proof text or \"answer-key\" hints (the premise ids a solver would only get to see after the fact). On the bundled first-wave fixture, the receipt shows the retrieval mechanism working in miniature alongside deliberate bad inputs (a leaked proof body, leaked answer-key ids, a budget overflow, an attempt to peek at test answers, and an unknown strategy) that the organ catches; the leak and budget guards actually fire.",
       "organ_id": "formal_math_premise_retrieval",
       "paper_module_ref": "paper_modules/formal_math_premise_retrieval.md",
       "mechanism_refs": [
@@ -665,12 +635,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate that a verifier-trace repair loop over copied non-secret Ring2 run rows obeys its gates (a trace grade requires recorded trace events, every repair action must name a verifier failure class, and promotion requires a cold-rerun receipt reference) and that it rejects proof bodies, oracle-needed premise ids, provider payload bodies, and human approval treated as proof correctness.",
-      "claim_ceiling_restated": "It demonstrates control-loop projection mechanics over copied non-secret Ring2 run rows only; it does not run Lean/Lake, call providers, expose proof bodies or oracle premise ids, treat human or provider advice as correctness, prove any theorem, or authorize release.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
       "first_command": "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
-      "human_gloss": "It replays how a proof-lab turns a verifier's failure feedback into a teaching signal, working from copied (non-secret) run data so the failure categories, the repair action tied to each failure, and the rule that nothing gets promoted without a fresh re-run receipt are all inspectable. Actual proofs, answer keys, and model outputs are deliberately kept out, so the whole correction loop is visible without exposing any of them.",
       "organ_id": "formal_math_verifier_trace_repair_loop",
       "paper_module_ref": "core/paper_module_capsules.json#paper_module.formal_math_verifier_trace_repair_loop",
       "mechanism_refs": [
@@ -732,12 +699,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to validate that every formal-math claim resolves to a known evidence cell with public source-anchor refs and a permitted claim strength, that the copied macro source-module bodies match their recorded digests, and that the authority ceiling stays at metadata-only (no theorem correctness, Lean/Lake, providers, or release). The cited run-anchor-bundle command validates the clean exported bundle; running the organ's fixture mode (the `run` subcommand) instead is what exercises and confirms all seven leakage/overclaim refusal cases.",
-      "claim_ceiling_restated": "It validates claim-to-evidence anchoring mechanics only: claim-to-cell resolution, source-anchor presence, permitted claim strength, copied-source-module digest checks, and leakage refusals. It does not run Lean/Lake, certify theorem or mathematical correctness, expose proof bodies or private source refs, call providers, or authorize release/publication.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
       "first_command": "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
-      "human_gloss": "When the project's writeups make proof-flavored claims about its formal-math work, this organ checks each claim against a named piece of recorded evidence and the public reference files in the repo, confirms the claim is no stronger than that evidence allows, and flags claims that have no backing or that overreach. The record shows which claims are anchored to evidence and which are just words, while proof contents and any private file references are kept out of the output.",
       "organ_id": "formal_evidence_cell_anchor_resolver",
       "paper_module_ref": "paper_modules/formal_evidence_cell_anchor_resolver.md",
       "mechanism_refs": [
@@ -798,12 +762,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it over symbol-observation rows whose qualified references are already extracted, scoring each known symbol against the allowed premise set and getting a classification: UNDECLARED_LIBRARY_PRIOR (route bridge_escalate) when a known library symbol is outside the allowed ids, or PREMISE_BUDGET_VIOLATION (route retry) which takes precedence when cited-unallowed ids are present. It also emits a secret-exclusion scan confirming no proof bodies, private source refs, oracle ids, or provider payloads entered the receipts.",
-      "claim_ceiling_restated": "It only projects the symbol-boundary classification mechanic over copied non-secret Lean/Std premise rows and pre-extracted symbol observations; it does not read proof source, run Lean or Lake, prove theorem correctness, treat the whole standard library as an implicit allowlist, claim Mathlib availability, call providers, or authorize release.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.undeclared_library_prior_symbol_classifier run --input fixtures/first_wave/undeclared_library_prior_symbol_classifier/input --out receipts/first_wave/undeclared_library_prior_symbol_classifier",
-      "human_gloss": "It checks whether a Lean proof cites a library result (a lemma or definition) that was never on its approved list. Even after a prover accepts a proof, that proof can still quietly use a library symbol it wasn't allowed to, and this organ surfaces those out-of-bounds uses as an inspectable record that names each symbol and where the rule came from. It matters because \"the proof checked\" does not mean \"the proof stayed within the allowed set of building blocks,\" and this makes that gap visible without ever reading the proof's own steps.",
       "organ_id": "undeclared_library_prior_symbol_classifier",
       "paper_module_ref": "paper_modules/undeclared_library_prior_classifier.md",
       "mechanism_refs": [
@@ -865,12 +826,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to compute per-problem precision@k / recall@k over copied Ring-2 retrieval rankings and bucket each problem into retrieval_hit / partial_retrieval_miss / retrieval_miss / proof_failure_despite_hit, plus aggregate hit-over-candidate precision and hit-over-needed recall. The validator emits blocking findings (status blocked, non-zero exit) for oracle/needed premise ids planted in rankings, leaked proof/provider/private body fields, test-split tuning flags, metric overclaims (proof/benchmark/provider/release authority), a missing adversarial-decoy case, incomplete copied-material provenance, and source-artifact digest mismatches; receipts carry import ids/digests only, never proof bodies.",
-      "claim_ceiling_restated": "These are after-the-fact retrieval-attribution labels and precision/recall counts over copied run records only. The organ does not run Lean or Lake, call any provider, expose proof bodies, tune on test answers, claim benchmark performance, prove theorem correctness, or authorize release, and its labels are explicitly forbidden from flowing into provider context. The aggregate numbers describe only the copied fixture/bundle replayed, not any benchmark standing.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness run --input fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input --out receipts/first_wave/ring2_premise_retrieval_precision_recall_harness",
-      "human_gloss": "When a math-proving system searches for the supporting facts (\"premises\") a proof will need, this organ replays saved records of that search and reports, problem by problem, how much of the needed support the search actually turned up. Per problem it labels one of four outcomes: the search found everything needed and the proof went through; it found everything needed but the proof still failed; it found only some of the needed support; or it found none of it. Separating \"the proof failed even though every needed premise was found\" from \"the proof failed because the search missed a needed premise\" shows which part to fix. It also runs as a regression guard that refuses inputs which try to slip the answer into the search itself (the known-correct premises planted in the ranked results), leak proof text, tune on the test answers, or claim more than retrieval-quality numbers.",
       "organ_id": "ring2_premise_retrieval_precision_recall_harness",
       "paper_module_ref": "paper_modules/ring2_premise_precision_recall.md",
       "mechanism_refs": [
@@ -925,12 +883,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the exported benchmark-integrity bundle against copied public-safe macro pattern provenance bodies, source-artifact evidence refs, locked evaluator policy, recomputed public trace verdicts, and anti-gaming negatives. It emits body-free receipts only and never obtains, verifies, or asserts any benchmark or SWE-bench score, agent capability, provider result, live-repo mutation, or release authority.",
-      "claim_ceiling_restated": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, provider execution, live-repo mutation, private/oracle/hidden-gold body access, product progress, or release readiness.",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "first_command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
-      "human_gloss": "Checks a public benchmark-integrity example bundle that contains three copied public-safe macro pattern provenance bodies under source_artifacts. The organ verifies the source-module manifest digests, requires each replay row to cite those copied source artifacts, recomputes pass/quarantine verdicts from contamination, file-access, and locked-evaluator spans, and rejects common gaming attempts such as peeking at hidden answers, training on the test set, exposing the oracle patch, cherry-picking a favorable attempt, or asserting a score. It still does not run real bug fixes or claim any benchmark score.",
       "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
       "paper_module_ref": "paper_modules/agent_benchmark_integrity_anti_gaming_replay.md",
       "mechanism_refs": [
@@ -982,12 +937,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to validate that its planned provider-context recipes respect their fixed byte budgets, fill sections in declared order under those budgets, emit an omitted-sections manifest whenever something is dropped, and route to the correct deliverable type, while rejecting any recipe that authorizes a provider call or carries truth-side, oracle, or proof-body material. It also digest-checks the copied standard/source-module bodies it ships. Output is context metadata and verdicts only.",
-      "claim_ceiling_restated": "It validates context-budget projection mechanics (byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, and digest-checked source-body imports) only. It does not authorize provider/API calls, run Lean/Lake, expose or carry proof or oracle truth-side material, assert theorem or domain correctness, or authorize release.",
       "evidence_class": "bounded_runtime_computation",
       "family": "agent_reliability_and_safety",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
-      "human_gloss": "This organ checks that the bundles of context an AI agent would assemble before calling an outside model provider stay inside fixed size limits (in bytes), fill their sections in the declared order until the budget runs out, list any section that was dropped for not fitting, and never carry answer keys, proof solutions, or other \"correct answer\" material. The record shows the exact size ceilings for each recipe, which sections fit versus got left out, and which output each recipe is allowed to produce, so the context boundary is inspectable as plain accounting before any provider call or answer authority is ever in play. It only validates this metadata; it does not itself call any provider.",
       "organ_id": "provider_context_recipe_budget_policy",
       "paper_module_ref": "paper_modules/provider_context_recipe_budget.md",
       "mechanism_refs": [
@@ -1043,12 +995,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to get a redacted receipt confirming that a small public Lean fixture compiles under the locally installed Lean/Lake toolchain, and that the guardrails fire on the negative cases: Mathlib/Aesop/Batteries imports are rejected, private source refs and embedded proof bodies in manifests are refused, and an intentionally invalid Lean proof is rejected. The receipt carries tool-availability status, Lake build status, source hashes, declaration names, line counts, and negative-case coverage only; it never exports proof bodies, stdout/stderr text, or provider payloads.",
-      "claim_ceiling_restated": "It authorizes only a witness that a tiny declared public toy proof compiled under the locally installed Lean/Lake toolchain in a temporary workspace, plus confirmation that its leakage guardrails fired. It does not authorize Mathlib/Aesop/Batteries-dependent or general proof or theorem-program authority, provider calls, private proof import, benchmark or performance claims, whole-system correctness, or any release, hosted deployment, or publication.",
       "evidence_class": "external_subprocess_witness",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
-      "human_gloss": "This takes a small, purpose-built Lean math file (a handful of toy theorems written just for this demo) and a tiny project setup, copies them into a throwaway scratch folder, and actually tries to compile them with the installed Lean theorem-prover and its Lake build tool. It then writes down exactly what happened: whether the Lean and Lake tools were found, whether the build passed, fingerprints (hashes) of the source files, the names of the theorems it defined, and how many lines each file had. It also deliberately feeds in a broken proof and a couple of off-limits files to confirm they get rejected. The point is to show real proof-checking machinery run on a small example, while keeping the written records honest and redacted: no proof text or internal logs leak out, and it states plainly that this is a narrow toy check on one fixture, not a general-purpose proof system.",
       "organ_id": "formal_math_lean_proof_witness",
       "axiom_refs": [
         "AX-2"
@@ -1101,12 +1050,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to compose the nine public formal-math organs into one receipt and confirm the proof packet obeys its declared contract, keeping verifier-backed, oracle-compared, provider-suggested, and contract-rejected rows in separate buckets, with proof/provider/oracle bodies excluded from the receipt.",
-      "claim_ceiling_restated": "It validates the declared public contract shape of the proof packet and component receipts only; it does not prove anything correct, count oracle/provider output as forward proof success, import private or Mathlib-dependent proof bodies, call providers, mutate source, or claim benchmark solve rates, release, or maturity.",
       "evidence_class": "semantic_validator",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel",
-      "human_gloss": "This assembly point for the Lean/proof toolkit runs nine smaller formal-math pipeline checkers together and folds their results into one leak-proof report that labels every line by where it came from: a Lean verifier, an answer-key (oracle) comparator, an AI suggestion, a retrieval miss, or a row thrown out for breaking the rules. The report carries only references, hashes, counts, and verdicts, never the actual proof text, AI output, or answer-key bodies. One receipt shows which claims a Lean verifier actually backed versus which are just hints or were rejected, instead of leaving a pile of separate outputs to be taken on faith.",
       "organ_id": "verifier_lab_kernel",
       "standalone_or_wired": "wired",
       "wiring_note": "composition root that runs and folds receipts from nine named formal-math organs (corpus_readiness_mathlib_absence_gate, lean_std_premise_index, formal_math_premise_retrieval, tactic_portfolio_availability_probe, target_shape_tactic_routing_gate, ring2_premise_retrieval_precision_recall_harness, formal_math_verifier_trace_repair_loop, proof_diagnostic_evidence_spine, formal_math_lean_proof_witness)",
@@ -1170,12 +1116,9 @@
       ]
     },
     {
-      "agent_gloss": "Run it for a structured, leak-proof receipt of which bounded Lean transition candidates the local Lean/Lake checker (run on a temp copy of a public fixture) accepted or rejected, with residual-retry and bounded policy reruns re-checked the same way. Proof bodies, raw tactic scripts, and provider/oracle text are excluded (proof_body_exported=False, body_in_receipt=False); the receipt carries only ids, action classes, Lean return codes, accept/residual verdicts, safety counters, authority ceiling, and anti-claim.",
-      "claim_ceiling_restated": "It is a tool-witness receipt for bounded public Lean transition rows only: it does not establish general proof authority, count oracle/provider output as proof, export proof bodies or tactic scripts, call providers, mutate source, claim benchmark solve-rates, or authorize release/publication.",
       "evidence_class": "external_subprocess_witness",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.verifier_lab_execution_spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out .microcosm/verifier_lab_execution_spine",
-      "human_gloss": "It copies a small public Lean math project into a throwaway temporary workspace and actually runs the Lean/Lake checker on a handful of small, bounded proof-step attempts the tool builds itself. It then writes down what the checker said: which attempts were accepted, which failed, and the failure category for each, plus safety counts (for example, how many attempts tried to sneak in forbidden content and were rejected). The pass/fail facts and the safety counts are readable directly, while the tool never shows the underlying proof text, never calls any outside service, and never modifies the original project or any existing source files.",
       "organ_id": "verifier_lab_execution_spine",
       "paper_module_ref": "paper_modules/verifier_lab_execution_spine.md",
       "mechanism_refs": [
@@ -1233,12 +1176,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to confirm a fixture's route-plane contract holds and that browse rows stay projections, not authority. The fixture run exercises eight expected negative cases and confirms each is detected: (1) stale source coupling bundled with a banned first-contact drilldown route, (2) a route card missing its omission receipt, (3) an atlas projection claiming control-entry authority, (4) a route card leaking private body content, (5) a route summary overclaiming freshness while coupling is stale, (6) a duplicate route id, (7) entry-payload compaction dropping a required control-floor field, and (8) an affordance-passport anti-trigger row that must be demoted before similarity can select it. A separate validate-route-plane-bundle subcommand additionally checks copied source-module digests and required anchors plus a secret-exclusion scan, with all body text kept out of the receipts.",
-      "claim_ceiling_restated": "It validates only the declared public toy route-plane contract and its regression fixtures (plus exact copied non-secret navigation source modules in the bundle path); it does not prove live route freshness, grant source authority, authorize any later organ, run any provider/live-kernel call, or certify the whole wave.",
       "evidence_class": "semantic_validator",
       "family": "architecture_and_navigation",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.navigation_hologram_route_plane run --input fixtures/first_wave/navigation_hologram_route_plane/input --out receipts/first_wave/navigation_hologram_route_plane",
-      "human_gloss": "This checks that a folder's local \"how to get around\" surface behaves: the path starts from one control entry, then drills into browsable lists of routes and cards, and those browse rows are never allowed to pose as the source of truth. It makes visible, in plain receipt files, that stale or mislabeled navigation is caught, that compressed cards keep a note of what they left out, and that nothing private or secret leaks into the navigation material while moving around. It only inspects toy fixture files and exact copied-but-non-secret navigation source modules; it does not touch any live system.",
       "organ_id": "navigation_hologram_route_plane",
       "axiom_refs": [
         "AX-1",
@@ -1309,12 +1249,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to confirm that the projected work-landing, claim, checkpoint-lane, and Work Ledger seed-speed source-import metadata obeys the expected rules and emits the expected blocking error codes (e.g. SAME_PATH_CLAIM_CONFLICT, EXPECTED_PARENT_MISMATCH, PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED) before treating any change as landed.",
-      "claim_ceiling_restated": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
       "evidence_class": "bounded_runtime_computation",
       "family": "work_landing_and_continuity",
       "first_command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
-      "human_gloss": "Replays a fixed set of pre-recorded work-landing situations against a toy repository and shows when a change would be allowed to \"land\" versus blocked: two claims competing on the same file, a claim built on a stale parent commit, a claim missing its owned path, a clean preflight check that wrongly says the work is already finished, and which commit lane (a narrow scoped commit vs a broad checkpoint) a dirty working tree is permitted to use. Its exported bundle also anchors the public Work Ledger seed-speed source imports for session heartbeat, mutation-check, active-claim snapshot, and path-collision handling. The resulting receipts show exactly why each situation was permitted or refused, instead of an opaque \"it's done\" message.",
       "organ_id": "mission_transaction_work_spine",
       "axiom_refs": [
         "AX-9"
@@ -1377,12 +1314,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this over recorded work-landing rows to confirm they satisfy the declared contract (each row cites owned claimed paths and owner-native validation refs; validation precedes the commit attempt; a \"committed-landed\" claim carries a declared HEAD-before != HEAD-after advance; metadata-blocked rows capture a blocker ref; Work Ledger closeout is cited) and to confirm the fixture's nine negative rows are each rejected with their expected error codes. It validates the recorded contract only; it does not execute Git or prove real-world landedness.",
-      "claim_ceiling_restated": "It validates only the declared public work-landing contract over recorded rows. It is evidence for fixture-local closeout mechanics, not for live Git side effects, unrelated-path staging, private body export, service operation, or distribution clearance.",
       "evidence_class": "semantic_validator",
       "family": "work_landing_and_continuity",
       "first_command": "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
-      "human_gloss": "This checks recorded examples of an agent finishing a piece of work the careful way: each example must name the exact files it claims to have touched, show that validation was recorded before any commit was attempted, and only label itself \"committed\" if the example also records the repository's HEAD moving. It also checks that blockers and ledger closeout were captured. The check shows whether each recorded work-claim carries the required evidence and ordering, rather than being an unbacked chat boast. It judges the recorded claims against the contract; it does not run Git or prove that any commit truly landed in a real repository.",
       "organ_id": "durable_agent_work_landing_replay",
       "axiom_refs": [
         "AX-4",
@@ -1439,12 +1373,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate a replication-claim bundle: that the two synthetic paper capsules each carry all fourteen required evidence references (rubric tree, contribution decomposition, allowed-input refs, scaffold, experiment DAG, metric scripts, declared+actual artifact-hash refs, grader report, budget, ablation diff, failure taxonomy, cold-rerun receipt), that the policy forbids the prohibited shortcuts, and that all eight negative fixtures fire their expected error codes (author-code reuse, hidden-rubric leakage, report-only success, benchmark overclaim, private-body leak, unbounded compute, final-answer-only grading, undeclared artifact hash). It validates reference presence and receipt shape only; it does not execute the scripts, run a rerun, or call providers.",
-      "claim_ceiling_restated": "It validates the shape and presence of synthetic replay metadata and receipt references only - it does not run any experiment, metric script, or rerun, does not authorize any claim that a paper was actually replicated, that a benchmark score was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes publication or release.",
       "evidence_class": "algorithmic_projection",
       "family": "research_and_science_replays",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay",
-      "human_gloss": "It checks whether a claim that an AI agent \"replicated a research paper\" comes with the paper trail real replication would leave behind. It re-runs nothing; instead it confirms the bundle names every required piece of evidence: a breakdown of the paper's contributions, a grading rubric, the list of allowed public inputs, a from-scratch repo scaffold, an experiment plan, the metric scripts, a roster of declared file-hashes for the outputs plus hashes that all stay inside that roster, a grader report, a capped compute/runtime budget, an ablation diff, a failure list, and a cold-rerun receipt. It also catches eight ways a claim can cheat: reusing the original authors' code, leaking a hidden rubric, calling a run a \"success\" when only a write-up backs it, asserting a benchmark score, leaking a private paper or dataset body, using unbounded compute, grading only the final answer, or pointing at a file-hash that was never declared. The work runs on two made-up sample papers (one machine-learning method, one computational-science study), and the generated receipt shows which of the eight cheats each test case triggered, rather than taking \"it was replicated\" on trust.",
       "organ_id": "research_replication_rubric_artifact_replay",
       "paper_module_ref": "paper_modules/research_replication_rubric_artifact_replay.md",
       "mechanism_refs": [
@@ -1511,12 +1442,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to validate that a set of body-free drift rows each cite a source ref, repair route, validation ref, and target ref while keeping the forbidden booleans (source-authority, live-repair, source-mutation, doctrine-promotion, provider-export, private-export, release) false, and that the secret-exclusion scan passes with no body text emitted. The organ's fixture mode additionally asserts that the eight expected negative cases (missing source ref, missing validation ref, source-authority claim, live-repair authorization, private-runtime export, provider-payload export, automatic doctrine promotion, release claim) are rejected; the validation receipt records 8/8.",
-      "claim_ceiling_restated": "It only validates the declared public, metadata-only drift-receipt contract. It supports inspection of recorded drift rows and source-linked refs; live repair, source control, doctrine promotion, model-output export, public sharing, and launch are outside the fixture. It does not claim complete drift coverage or live repair control.",
       "evidence_class": "semantic_validator",
       "family": "import_projection_and_drift",
       "first_command": "microcosm world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room",
-      "human_gloss": "This organ shows, in plain receipts, where a projected copy of a world model has drifted from its real source. For each drift it names the signal, points to where the real source lives, gives a suggested repair route, and cites the test that would confirm the fix. The receipts show the drift is being flagged honestly: the projection never claims to be the source of truth, and the receipts deliberately leave out any private or credentialed data.",
       "organ_id": "world_model_projection_drift_control_room",
       "axiom_refs": [
         "AX-1",
@@ -1587,12 +1515,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate that the synthetic counterfactual-replay rows are well-formed (each cites scene-state, action-trace, predicted-state, transition-diff, oracle-check, and public sensor-packet refs plus limitation labels) and that every forbidden claim (private video export, raw sensor export, live robot/AV operation, real-world geographic accuracy, simulator-product claim, generated-video-only authority, benchmark scores, release) is rejected by a negative-case receipt.",
-      "claim_ceiling_restated": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows. It is evidence for inspectable replay rows and limitation labels, not for real-world spatial accuracy, simulator-product validity, media-only authority, operational deployment, service distribution, or scope decisions.",
       "evidence_class": "semantic_validator",
       "family": "research_and_science_replays",
       "first_command": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay",
-      "human_gloss": "This replay takes six made-up \"what if\" spatial scenes from robotics and self-driving-style settings (a forklift appears from behind an occlusion, a small pedestrian steps into a crosswalk, a gust pushes a drone off course, a shiny floor fools a robot into seeing free space, a stacked load shifts into a lane, and an oncoming car turns late) and shows each one as inspectable rows: the starting scene, the action taken, the predicted next scene, what changed between them, a sanity check, and honest notes on its limits (it is synthetic, not real-world ground truth). The rows show exactly what a spatial \"world model\" claim is built from, plus a checklist of dangerous claims it deliberately refuses to make.",
       "organ_id": "spatial_world_model_counterfactual_simulation_replay",
       "standalone_or_wired": "standalone_specimen",
       "wiring_note": "binds only to the shared kernel + evidence/authority spine (secret-exclusion scan, public payload boundary, receipts), pulling in a copied non-secret macro source body but feeding no other named organ",
@@ -1701,11 +1626,8 @@
         "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json",
         "receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle_validation_result.json"
       ],
-      "agent_gloss": "An agent runs it to check that a circuit-attribution replay bundle meets the declared public contract: each row carries feature-to-edge links, causal intervention deltas, sufficiency and faithfulness limits, a secret-exclusion scan, and target/source refs, while private or raw bodies (weights, activations, prompts, hidden reasoning) and any release/provider/benchmark authority are absent. It validates the receipt contract only; it does not inspect a live model.",
-      "claim_ceiling_restated": "It validates only the declared public circuit-attribution runtime-receipt contract. It does not authorize model-transparency product claims, live model access, export of private weights/raw activations/proprietary prompts/hidden chain-of-thought, provider calls, benchmark scores, or publication/release.",
       "evidence_class": "semantic_validator",
       "family": "research_and_science_replays",
-      "human_gloss": "This takes the workflow of \"tracing which internal features inside a model drove an answer\" and turns it into inspectable local records. Each row links feature ids to a machine-readable graph of connections, records the before/after results of poking those features (the causal-intervention deltas), notes how far the explanation can be trusted (its faithfulness limit), and points to where the underlying evidence lives. The records show that every interpretability claim is backed by checkable evidence, and that they deliberately hold no model weights, no raw activations, no prompts, and no hidden reasoning — they carry only refs, digests, counts, and verdicts.",
       "standalone_or_wired": "standalone_specimen",
       "wiring_note": "binds only to the shared kernel + evidence/authority spine (copies non-secret macro source bodies into its own bundle rather than feeding or consuming other named organs)",
       "display_name": "Toy-Transformer Attribution Replay",
@@ -1720,12 +1642,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to validate a synthetic route-feedback fixture against the declared public contract — checking actor-axis authority boundaries, route-lease consumption, duplicate trace ids, hook-shadow advisory status, anti-pattern debt retirement, and behavior-change evidence gates. It emits a pass/blocked receipt over recorded fixture metadata only; it does not read live operator state, provider payloads, or certify runtime behavior.",
-      "claim_ceiling_restated": "It validates only public, recorded trace-feedback metadata and regression fixtures; it does not inspect live operator state, certify or prove runtime behavior, read provider payloads, mutate the Task Ledger, authorize pattern assimilation, or authorize release.",
       "evidence_class": "semantic_validator",
       "family": "agent_reliability_and_safety",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
-      "human_gloss": "This validator takes a sample (synthetic, not live) record of an agent's local run — the route it picked, the work it did, the events it logged, the evidence it pointed to, and the authority limit it declared — and checks that this recorded trail is well-formed and self-consistent, instead of leaving raw log JSON to be read by hand. The record is built to state, up front, where the agent's authority was supposed to stop, so the limits are written down and checkable rather than taken on faith. It checks the recorded evidence; it does not watch a live agent or prove one actually stayed in bounds.",
       "organ_id": "agent_route_observability_runtime",
       "paper_module_ref": "paper_modules/agent_route_observability_runtime.md",
       "mechanism_refs": [
@@ -1784,12 +1703,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to confirm, against a public synthetic fixture, that detached-job continuity rules hold before relying on them: a resumable job needs a continuation packet, a packet resumes exactly once (duplicate resume is rejected), heartbeats are liveness-only (and stale heartbeats are not live-health evidence), resource pressure blocks dispatch as a recorded decision, worker-skip rows dedupe without silently closing a claim, and only a closeout transition receipt marks work as landed. Each rule is exercised by a matching negative case.",
-      "claim_ceiling_restated": "It validates only the declared public continuity contract over synthetic fixtures; it does not run live bridge transport, call providers, read operator HUD/browser/phase-runtime or private-memory state, prove provider or UI uptime, land work, mutate source, or authorize release.",
       "evidence_class": "semantic_validator",
       "family": "work_landing_and_continuity",
       "first_command": "microcosm bridge-phase-continuity-runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out /tmp/microcosm-bridge-continuity",
-      "human_gloss": "Replays a small synthetic record of a paused background job to check that the rules for safely resuming it hold. It confirms the job left behind a real resume note, that trying to resume the same job twice is refused, that \"still alive\" pings can never count as permission to resume (and a long-stale ping can't be passed off as proof the job is still healthy), and that only a proper close-out receipt is allowed to claim the work actually finished. It also includes deliberately broken cases to prove each rule rejects them. These continuity rules are inspectable in plain receipts without any live job, network call, or private data ever being touched.",
       "organ_id": "bridge_phase_continuity_runtime",
       "axiom_refs": [
         "AX-1",
@@ -1850,12 +1766,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to validate that each landed organ in the fixture set has exactly one same-lane closeout decision: either a concrete refinement receipt naming the owner surface and changed artifact, or a typed nothing_to_refine receipt with stewardship checked, next-best-lane checked, and a re-entry condition. It also checks residual lifecycle posture, rejects duplicate refinement receipt ids, rejects local-lesson authority upgrades to global doctrine, and rejects raw-seed bodies in fixtures. It asserts only that the declared closeout contract holds over fixtures, not that any live learning actually occurred.",
-      "claim_ceiling_restated": "It validates only the declared public closeout contract over synthetic fixture data; it does not ingest private lessons, mutate live ledgers, promote global doctrine, authorize release or publication, make provider calls, claim private-data equivalence, or certify public runtime behavior.",
       "evidence_class": "semantic_validator",
       "family": "architecture_and_navigation",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
-      "human_gloss": "When a piece of work lands in the local substrate, this organ checks the closeout records for it — confirming that exactly one same-lane \"what did we learn from this\" decision was filed per landed item, that any claimed refinement names an owner-visible surface and the artifact it changed, that a \"nothing to refine\" entry carries its required typed fields, and that there are no duplicate or off-lane entries. It runs over fixture data and makes the closeout bookkeeping inspectable, showing whether the recorded closeouts conform to the system's stated learning-from-landed-work rules, rather than leaving that on faith.",
       "organ_id": "pattern_assimilation_step",
       "axiom_refs": [
         "AX-1",
@@ -1921,12 +1834,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the public reveal card, require the exported reveal-bundle witness, digest-check five copied non-secret public source bodies, confirm source-open body accounting, keep the secret scan clean, and prove the negative cases reject release/hosting overclaim, private-data-equivalence overclaim, missing evidence refs, marketing-only material, and tampered source-module digests.",
-      "claim_ceiling_restated": "It authorizes only bounded public reveal runtime behavior and a digest-verified public body-import witness; it does not authorize release, hosted deployment, publication, recipient work, provider calls, secret export, private-data equivalence, Lean/Lake execution, whole-system correctness, or general product authority.",
       "evidence_class": "bounded_runtime_computation",
       "family": "entry_and_reveal",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
-      "human_gloss": "This checks the short guided tour Microcosm advertises for a first-time reader and binds it to real public evidence: the declared route through patterns, work, events, and evidence must still point to receipts, and the exported reveal bundle must carry digest-verified copies of the public source bodies that back the walkthrough. The card remains bounded, and each claim-heavy count leads to a source-body witness instead of stopping at marketing copy.",
       "organ_id": "public_reveal_walkthrough",
       "axiom_refs": [
         "AX-1",
@@ -1991,12 +1901,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to preview or validate a projection bundle before import: confirm each proposed cell has source and public-target refs, a matching content digest, omission receipts for any withheld private material, a body-free receipt contract, and an authority ceiling that stays capped below release. Use `plan` for a no-write preview (emits the intake-preview schema and per-cell ready/blocked status); use `run-projection-bundle` to validate-and-record.",
-      "claim_ceiling_restated": "It authorizes only verified non-secret macro body import with provenance and content-digest checks; it does not grant source authority, private-root equivalence, release, hosted deployment, publication, recipient work, provider or Lean/Lake execution, secret or private-source-body export, or any whole-system correctness claim.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
-      "human_gloss": "This is the checkpoint that handles bringing material from the larger private project into the public Plectis folder. When someone proposes a batch of files to import, it verifies each one: it only accepts non-secret material, and only when the destination file, a content fingerprint (to confirm the copy matches), a record of where it came from, and the supporting checks all line up. Anything held back as private or secret has to come with a written note saying so, and attempts to claim more authority than allowed are rejected. The record shows exactly what was imported, what was deliberately left out, and what was refused, so the public copy stays honest about its limits instead of quietly leaking private source or pretending to be more than it is.",
       "organ_id": "macro_projection_import_protocol",
       "axiom_refs": [
         "AX-4"
@@ -2071,12 +1978,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to check that a synthetic prediction packet passes the projection gates (resolved CP1 fork with kept invalidation rationale, CP2 targets inside the declared universe, no post-target evidence refs, graded oracle diff, bounded public-delta dossier edits), that the six negative fixtures each trip their expected rejection code, and that the authority ceiling keeps trading/advice/provider/live-market/publication/release/private-equivalence all false.",
-      "claim_ceiling_restated": "It exercises projection mechanics on a synthetic, invented packet only. It does not establish forecasting correctness or accuracy, give trading/financial/investment advice, call live market data or providers, publish predictions, claim any performance or track record, import private data, or authorize release.",
       "evidence_class": "algorithmic_projection",
       "family": "research_and_science_replays",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.prediction_oracle_reconciliation run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
-      "human_gloss": "Runs a made-up forecasting case through the discipline a careful predictor would have to defend: which way a fork was called and why the losing side was ruled out, whether each prediction stayed inside the pre-declared list of allowed outcomes, that no \"after the fact\" evidence got used as if it were known in advance, how the guesses compared to a synthetic \"what actually happened\" result, and that any edits to the running record were small, allowed changes rather than rewrites. The reasoning is laid out as inspectable records rather than a single handed-down verdict. Everything is invented test data — it makes no real forecast and claims no track record.",
       "organ_id": "prediction_oracle_reconciliation",
       "standalone_or_wired": "standalone_specimen",
       "wiring_note": "binds only to the shared kernel + evidence/authority spine (secret_exclusion_scan, receipts, schemas); it projects a CP1/CP2/oracle/dossier pattern group but does not feed or consume other named organs",
@@ -2136,12 +2040,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to confirm that every accepted organ in the public inventory maps to a standard, a runtime contract (CLI command plus runtime step), and at least one receipt ref, and that the diagnostic policy and inputs carry no release/provider overclaim and no private-source or provider-payload body.",
-      "claim_ceiling_restated": "It validates only the declared public coverage contract and never becomes source authority for the registries, mutates source, exposes private material, or authorizes release, provider calls, or any whole-system-correctness claim.",
       "evidence_class": "semantic_validator",
       "family": "architecture_and_navigation",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out /tmp/standards_meta_diagnostics_out",
-      "human_gloss": "This is a coverage checker that reads the project's public catalogs and confirms every accepted part is still tied to a written standard, a documented way to run it, and a saved proof-of-run, while flagging any claim that overreaches (like \"ready to release\") or any leaked private text. It makes the system's own bookkeeping inspectable: whether the pieces are accounted for is visible rather than taken on trust.",
       "organ_id": "standards_meta_diagnostics",
       "axiom_refs": [
         "AX-11"
@@ -2193,12 +2094,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to confirm the declared first-run route sequence starts with the front-door commands (tour, status card, proof lab) and is ordinal-sorted, that each route names a runnable command plus a public docs reference and resolves by route_id to at least one receipt ref in the route-receipts file, and that nothing carries release/provider overclaims or private source bodies.",
-      "claim_ceiling_restated": "It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-data equivalence, or whole-system correctness.",
       "evidence_class": "semantic_validator",
       "family": "entry_and_reveal",
       "first_command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
-      "human_gloss": "It checks Microcosm's \"what do I run first\" guided path so that every step on the cold-reader route map is backed by a real command, a public doc reference, and an evidence receipt instead of just prose promises. A newcomer can therefore trust that the suggested ten-minute first-run tour is actually wired and honestly labeled, with small verified counts shown as plain accounting rather than success badges.",
       "organ_id": "cold_reader_route_map",
       "axiom_refs": [
         "AX-1",
@@ -2268,12 +2166,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to validate a public monitor-redteam bundle: the runner verifies copied macro-pattern bodies and a sanitized dogfood trace slice by digest, recomputes monitor verdict spans from public evidence refs, rejects verdict/source-evidence/body-in-receipt/digest tampering, and keeps all receipts body-free while refusing live-agent, credential, exploit, private-reasoning, traffic, and performance-claim inputs.",
-      "claim_ceiling_restated": "Bounded public runtime validation over copied non-secret macro pattern bodies, sanitized dogfood trace slices, recomputed monitor-verdict spans, source-artifact evidence refs, digest/body-free/private-state gates, and negative cases only; no live agent execution, monitor product performance, control-eval score, safety-validation, benchmark, provider-call, source-mutation, release, publication, or product authority.",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "first_command": "microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay",
-      "human_gloss": "It replays three made-up agent trajectories (a normal one, one trying to hide a failure, and one overstepping a tool's permissions) and checks that every monitor verdict — including a clean \"pass\" — comes with the receipts needed to re-run and verify it. The receipts show exactly which checks each verdict depends on, and any verdict missing its backing evidence gets quarantined instead of trusted. It is a demo over fictional data, not a measurement of how well a real monitor catches anything.",
       "organ_id": "agent_monitor_redteam_falsification_replay",
       "paper_module_ref": "paper_modules/agent_monitor_redteam_falsification_replay.md",
       "mechanism_refs": [
@@ -2323,12 +2218,9 @@
       ]
     },
     {
-      "agent_gloss": "Run this to validate a public sabotage/scheming-monitor bundle: the runner verifies copied macro-pattern bodies and a sanitized dogfood trace slice by digest, recomputes caught verdicts from public monitor-score spans, checks source-artifact evidence refs, rejects verdict/source-evidence/body-in-receipt/digest tampering, and observes forbidden negative cases without exporting private reasoning, credentials, exploit instructions, harmful payloads, or live sabotage inputs.",
-      "claim_ceiling_restated": "Bounded public runtime validation over copied non-secret macro pattern bodies, sanitized dogfood trace slices, recomputed sabotage/scheming monitor spans, source-artifact evidence refs, digest/body-free/private-state gates, and negative cases only; no live sabotage, live agent execution, exploit instruction, credential/account, private-reasoning, harmful-payload, monitor-product-performance, deployment-risk, benchmark, provider-call, source-mutation, release, publication, or product authority.",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "first_command": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
-      "human_gloss": "This inspects whether a write-up that claims an AI agent was caught secretly working a hidden side-goal actually carries the supporting structure a reader would need: the step-by-step actions, a per-step \"how suspicious did the monitor find this?\" score, and a stated counterfactual saying that removing the sneaky steps would drop the hidden goal while keeping the real task working. It runs only on synthetic, scrubbed example data, so it shows what the skeleton of such a safety claim should look like and checks the pieces line up with each other. It does not run a real agent, does not detect real scheming, and proves nothing about how any deployed monitor performs.",
       "organ_id": "agent_sabotage_scheming_monitor_replay",
       "axiom_refs": [
         "AX-1"
@@ -2375,12 +2267,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this against a synthetic fixture to see the shape of the memory-update bookkeeping it should produce: updates and deletes of older memory must carry temporal conflict-edge and stale-downgrade refs before they may affect a replay; private threads appear only as metadata-only refs with no exported body; and a memory-on replay must cite evidence handles while the memory-on/off pair is reconciled by an answer-delta receipt, not by final-answer comparison alone. It also confirms seven failure fixtures (raw transcript export, private-candidate auto-promotion, stale-preference override, memory-as-source-authority, vector recall without an evidence handle, final-answer-only credit, active-injection authority) are all rejected. It validates structure and receipt presence on fixture rows, not the correctness of any real memory system.",
-      "claim_ceiling_restated": "It validates the projection mechanics of a synthetic memory fixture only — that the required refs, decisions, paired replays, negative cases, and secret-exclusion scan line up and that receipts are body-free. It does not claim live-memory product quality, judge whether memory decisions were domain-correct, treat memory recall as source authority, adopt active injection, export private transcripts, call providers, mutate source, or authorize release.",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out /tmp/agent_memory_temporal_conflict_replay_out",
-      "human_gloss": "Replays a canned three-step story: an agent's memory first records two facts (a preference and a tool result), then learns one is now out of date and edits the preference and deletes the stale fact, then re-runs the same task once with memory on and once with memory off. From plain receipts, it shows that the update and deletion each carry a \"conflict\" and \"downgrade\" receipt before the memory is allowed to affect the answer, that the memory-on vs memory-off runs are compared through logged evidence rather than just the final wording, and that private-thread content stays in the record only as metadata pointers, never as copied text. It checks the bookkeeping of this synthetic example; it does not judge whether the agent's memory decisions were the right ones.",
       "organ_id": "agent_memory_temporal_conflict_replay",
       "paper_module_ref": "paper_modules/agent_memory_temporal_conflict_replay.md",
       "mechanism_refs": [
@@ -2473,11 +2362,8 @@
         "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_validation_receipt.json",
         "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json"
       ],
-      "agent_gloss": "An agent runs this to check that a synthetic memory-poisoning handling record has all the required pieces (provenance-bound write proposals, a quarantine verdict on the untrusted poisoned source, a retrieval-blocked-before-action gate, and a rollback with a deletion-audit ref plus a cold-rerun receipt marking the memory absent), that a body-free private-state scan finds no leaks, and that all eight known bad patterns (e.g. private-body export, live-user-memory claim, trusted promotion from untrusted context, deletion without audit) are each rejected with the expected error codes.",
-      "claim_ceiling_restated": "It only checks the structural shape and internal consistency of a synthetic memory-security policy projection recorded as JSON. It does not run or validate any real memory store, does not itself quarantine, delete, or re-run anything, and does not prove that any system actually resists poisoning. It exports no private memory bodies or transcripts, calls no providers, mutates no source, produces no benchmark scores, and authorizes no release (all authority-ceiling flags are hardcoded false).",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
-      "human_gloss": "This is a worked, made-up example of how an agent should handle a tampered \"memory\": a poisoned note gets spotted, held in quarantine, blocked from being used in any later action, and finally deleted-with-an-audit, with a clean re-run recorded showing the bad memory is no longer there. The organ does not actually delete anything or perform the re-run; it reads the on-disk record of that whole guard-and-cleanup sequence and checks that every required step and receipt lines up, so exactly which checks must hold is visible. It works entirely from synthetic refs and metadata, with no private memory or transcripts exposed.",
       "standalone_or_wired": "standalone_specimen",
       "wiring_note": "binds only to the shared kernel + evidence/authority spine (private_state_scan, receipts, schemas, and the shared forbidden-classes policy)",
       "display_name": "Memory-Poisoning Quarantine Policy Replay",
@@ -2527,11 +2413,8 @@
         "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
         "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json"
       ],
-      "agent_gloss": "An agent runs this to check that a recorded tool-use bundle is admissible: every call has a narrow scope ref, writes carry approval plus ledger plus rollback refs, untrusted output is treated as data not instruction, cold-replay receipts exist, payloads/account refs stay metadata-only, and all eight expected negative-abuse cases fire. It validates presence and consistency of this evidence only; it does not run tools, hit providers, or authorize anything.",
-      "claim_ceiling_restated": "It only checks that the tool-authority evidence in a recorded bundle (scopes, approvals, rollbacks, instruction/data splits, cold replays, redaction, and the expected abuse-case failures) is present and internally consistent. It does not run tools or authorize live MCP/account access, credential or payload export, treating tool output as instruction, source mutation, benchmark safety scores, or release, and it makes no claim that the underlying tool-use policy is domain-correct.",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
-      "human_gloss": "When an AI agent uses outside tools (look something up, change a ticket, read a result from an untrusted source), this checks a recorded log of that tool use to confirm each action was properly fenced: bound to a narrow permission, approved before it changed anything, given a way to undo it, and kept from letting untrusted tool output boss the agent around. It runs on a small built-in make-believe example that carries only labels and references (no real accounts, secrets, or tool contents), so the safety checks an agent's tool use is supposed to pass are inspectable without anything touching a live account.",
       "axiom_refs": [
         "AX-3"
       ],
@@ -2558,12 +2441,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to confirm a mutation-authorization claim is backed by replayable proof, pre-execution visible verdicts, logged-and-reversible side effects, and that the eight rigged failure cases (standing credential, policy-after-execution, hidden vote, live cloud credential, irreversible mutation, unlogged side effect, consensus-without-evidence, final-answer-only) are all caught.",
-      "claim_ceiling_restated": "It validates only a declared, synthetic governed-mutation contract and authorizes no live cloud/account action, standing credentials, source or irreversible mutation, policy-after-execution, hidden votes, provider calls, benchmark-score claims, or release.",
       "evidence_class": "semantic_validator",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization --acceptance-out receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
-      "human_gloss": "Replays a make-believe example of \"should this change be allowed to run?\" and shows, step by step, why each proposed action was permitted. All three actions (a look-only inspection, a small config write, and an undo of that write) had to carry proof evidence and two visible policy approvals before anything was admitted; on top of that, the two actions that actually change something (the config write and the undo) also had to show a logged record of the change and a matching undo receipt. Just holding a password or credential is never treated as permission, and nothing here touches a real account or makes any real change.",
       "organ_id": "proof_derived_governed_mutation_authorization",
       "axiom_refs": [
         "AX-3"
@@ -2655,11 +2535,8 @@
         "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_validation_receipt.json",
         "receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json"
       ],
-      "agent_gloss": "An agent runs this to validate a recorded belief-state/process-reward fixture bundle and confirm that its seven planted failure cases are each caught: hidden chain-of-thought export, neural-judge-only labels, hidden gold labels, reward-by-formatting, verifier bypass, benchmark-performance claims, and final-answer-only scoring. It also runs a secret-exclusion scan and emits redacted receipts (result, board, validation, acceptance).",
-      "claim_ceiling_restated": "It only checks that the projection's accounting lines up under its own schema rules over recorded synthetic fixtures; it does not authorize hidden-reasoning export, RL training, hidden gold or neural-judge-only labels, benchmark-performance claims, provider calls, source mutation, or release, and proves nothing about real-world reward, live agent behavior, or domain correctness.",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
-      "human_gloss": "Takes a recorded, synthetic bundle of agent steps on three partially-observable toy tasks (a terminal investigation, a mock purchase, a small planner) and checks that every \"the agent did the right step\" reward is actually backed by a checkable verifier or observed feedback reference, not by hidden reasoning, formatting tricks, a smuggled answer key, or a final-answer-only score. It does not run or watch a live agent; it validates pre-recorded files. The resulting receipt files show, per step, the belief summary, the reward, and whether the reward-hacking and replay checks passed, so it is inspectable why each reward was or was not allowed.",
       "axiom_refs": [
         "AX-1"
       ],
@@ -2681,12 +2558,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to validate that a sandbox-policy fixture has pre-execution policy verdicts on every one of the six action requests, body-free side-effect/rollback/cold-replay receipts (4 blocked with zero side effects, 2 executed with verified rollback), a public agent-execution trace span per request, and that the eight escape negative cases (real_secret_material, live_network_access, raw_environment_export, policy_after_execution, unlogged_side_effect, tool_output_policy_bypass, executable_escape_payload, security_benchmark_claim) all trip. Validation covers projection/trace-refactor mechanics over a synthetic fixture only.",
-      "claim_ceiling_restated": "It validates the projection / trace-refactor mechanics over a synthetic fixture only; it authorizes no live sandbox escape, secret or credential handling, live network access, host filesystem mutation, executable payload export, raw environment export, provider calls, security benchmark claims, source mutation, or release. A pass proves the projection boundary and trace-refactor mechanics for this contract, not real sandbox security, exploit resistance, or whole-system safety.",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.cli agent-sandbox-policy-escape-replay run-sandbox-bundle --input examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle --out receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay",
-      "human_gloss": "This takes a synthetic record of an agent attempting risky actions inside a sandbox and lays out, step by step, what each action requested, whether a safety policy approved or blocked it before it would have run, what (if anything) changed afterward, and for the actions that did run, whether the change was rolled back and could be re-checked. The record shows exactly how each containment decision is captured: every blocked attempt is still logged as a traced step but is marked as never executed with no resulting change, all from local files with no real secrets, network, or live agent involved.",
       "organ_id": "agent_sandbox_policy_escape_replay",
       "paper_module_ref": "paper_modules/agent_sandbox_policy_escape_replay.md",
       "mechanism_refs": [
@@ -2774,11 +2648,8 @@
         "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json",
         "receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle_validation_result.json"
       ],
-      "agent_gloss": "An agent runs it to confirm that, in this replayed synthetic episode, every recorded flow from untrusted source text to a privileged action was gated (blocked, sent to review, or sanitized) before the action, and that the recorded outputs disclosed no trusted context or credential. Evidence is the validated fixture rows plus a body-free agent-execution trace, not a live agent run or a general robustness guarantee.",
-      "claim_ceiling_restated": "Passing receipts only show this projection satisfies the named information-flow contract over synthetic, redacted, body-free rows; they do not prove general prompt-injection robustness, benchmark performance, live account/tool/provider safety, hidden-message handling in a real system, source-mutation authority, or release authority.",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
-      "human_gloss": "Replays a recorded sample agent episode (built from synthetic, body-free rows) and makes visible whether the instructions the agent treated as trusted were kept separate from untrusted web, tool, or browser text before any sensitive action was taken. Row by row, the record shows where untrusted text flowed, what the policy decided for each flow (allow / warn / block / review) before the action, and that the recorded outcome leaked no secret and disclosed no trusted context. It also bundles deliberately-bad cases it must reject (e.g. untrusted text reaching a sensitive action ungated, or a credential being exfiltrated).",
       "axiom_refs": [
         "AX-8"
       ],
@@ -2800,12 +2671,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to check that a vulnerability-discovery-and-patch claim carries a structurally complete, body-free, secret-free evidence chain (target to hypothesis to trace to abstract-exploitability ref to patch to declared-passing regression tests to sandbox verdict to cold replay) with every stage present and cross-referenced, before treating the claim as inspectable. It validates declared structure and the secret/live-access exclusion only; it does not execute tests, exploit anything, or judge real-world correctness.",
-      "claim_ceiling_restated": "It validates only the projection/evidence-chain mechanics of a synthetic replay: structural presence, cross-reference consistency, declared boolean flags, and the secret/live-access exclusion scan. It executes small public-safe regression witnesses but performs no real vulnerability discovery and makes no judgment of real-world security or fix correctness. It authorizes no live-target testing, real CVE exploitation, weaponized payloads, credential handling, network exfiltration, actionable exploit steps, provider calls, source mutation, benchmark security scores, release, or any whole-system security claim.",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agentic_vulnerability_discovery_patch_proof_replay run --input fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input --out receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay --acceptance-out receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
-      "human_gloss": "Takes a claim that an AI agent \"found and fixed a security bug\" and lays it out as a local, inspectable chain of made-up (synthetic) evidence: the imagined target, the suspected issue, the trace pointed to as backing, a reference to an abstract exploitability argument, the patch, and regression tests the fixture says fail before the fix and pass after it. The organ checks only that these pieces are all present, refer to each other consistently, and carry no real targets, exploits, payloads, credentials, or attack steps; it does not run the tests or judge whether the bug or fix is actually real. The receipt shows whether the declared chain holds together, with no real attack material ever present.",
       "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
       "paper_module_ref": "paper_modules/agentic_vulnerability_discovery_patch_proof_replay.md",
       "mechanism_refs": [
@@ -2857,12 +2725,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to validate that a closed-loop materials-lab replay fixture is body-free and simulator-only, and to confirm its safety gates reject wetlab protocols, hazardous synthesis steps, reagent amounts, controlled/bioactive targets, live lab credentials, robot commands, private lab notebooks, and discovery claims.",
-      "claim_ceiling_restated": "It documents projection and replay mechanics only and does not authorize wetlab protocols, hazardous synthesis steps, reagent amounts, controlled/bioactive targets, robot commands, live assay data, discovery claims, benchmark scores, provider calls, or any judgment of domain/chemical correctness.",
       "evidence_class": "algorithmic_projection",
       "family": "research_and_science_replays",
       "first_command": "microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay",
-      "human_gloss": "Takes the pattern of a \"self-driving materials lab\" (propose a candidate material, run safety screens, simulate an assay, then decide what to try next) and replays it locally as inspectable records: every step, its safety gate, its simulated result, and the decision that followed, plus the pre-recorded points where such a loop would fail and where it would restart. It makes the workflow's structure visible, all on a simulator-only fixture, so how the loop is wired is traceable without any real lab, real chemicals, or real robot ever being involved.",
       "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
       "paper_module_ref": "paper_modules/materials_chemistry_closed_loop_lab_safety_replay.md",
       "mechanism_refs": [
@@ -2922,12 +2787,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to get a structured pass/blocked receipt confirming a small public Lean/Lake fixture compiled in a temporary workspace copy and that declared transition rows were accepted, rejected, or left residual by the local Lean verifier, with oracle/provider sidecars carried only as comparison rows (never counted as proof), and no proof bodies, provider calls, or source mutation.",
-      "claim_ceiling_restated": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it does not authorize general proof authority, count oracle/provider output as proof, expose proof text, mutate source, claim a benchmark solve-rate, or authorize release.",
       "evidence_class": "external_subprocess_witness",
       "family": "formal_math_and_proof",
       "first_command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
-      "human_gloss": "It builds a small public Lean/Lake project, then runs the Lean verifier over declared \"transition\" rows that reference a set of generated \"certificate\" declarations, and writes a structured receipt showing which rows the verifier accepted, which it left unresolved or rejected, plus the exact build command, return code, and file hashes. The receipt is honest, inspectable evidence that a real Lean verifier ran on public material, with proof text, provider/oracle output, and private source deliberately excluded from the receipt and that exclusion recorded (not silently dropped) rather than passed off as evidence.",
       "organ_id": "certificate_kernel_execution_lab",
       "axiom_refs": [
         "AX-2"
@@ -2980,12 +2842,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to check that each declared lesson legitimately refined a named owner surface (with validation) or was captured with a re-entry condition, while raw operator voice, private thread bodies, provider payloads, direct doctrine-node edits, and unvalidated global-promotion claims are rejected by negative cases.",
-      "claim_ceiling_restated": "It validates only the declared public-safe contract of the loop on fixtures; it does not export raw operator voice or private bodies, grant source/doctrine mutation, global-promotion, live Task Ledger mutation, or publication authority, make provider calls, prove correctness, or claim private-root equivalence.",
       "evidence_class": "semantic_validator",
       "family": "architecture_and_navigation",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop",
-      "human_gloss": "It makes the system's \"learn from a lesson, then improve\" cycle inspectable on a folder. Each local lesson is shown being assigned to a specific owner surface (a skill, a doctrine page, a standard, or a tracked to-do capture), then changed or captured there, then validated, then closed out with a concrete reason to revisit later. Using local files only, the receipts confirm that improvements are tied to real owner-surface changes and evidence rather than just asserted.",
       "organ_id": "voice_to_doctrine_self_improvement_loop",
       "standalone_or_wired": "standalone_specimen",
       "wiring_note": "Imports macro loop shapes (recursive self-improvement, doctrine population, local-to-general propagation, Task Ledger) only by public-safe source refs/hashes; binds to the shared kernel + evidence/authority spine, not to other live organs. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the organ's hosted mechanism(s); they name structural sibling navigation only, not live invocation, release authority, or proof of runtime integration.",
@@ -3046,12 +2905,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to confirm every operator row in the public cognitive-operator registry carries the required operator-shape fields (activation, process, integration, validation, evidence, dogfood receipts), that each active operator has a dogfood receipt with cognition_delta_evidence, that near-duplicate operators carry an accretion decision (anti-sprawl), and that no row claims operator-voice authority, leaks a private body, or sets a release/provider/mutation overclaim.",
-      "claim_ceiling_restated": "It validates only the declared public registry contract and copied non-secret macro bodies; it never becomes registry source authority, mutates operators, proves operator correctness, exposes raw operator voice, or authorizes release, provider calls, or any whole-system-correctness claim.",
       "evidence_class": "semantic_validator",
       "family": "architecture_and_navigation",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.cognitive_operator_registry run --input fixtures/first_wave/cognitive_operator_registry/input --out /tmp/cognitive_operator_registry_out",
-      "human_gloss": "This is a checker for the system's catalogue of named thinking-moves (operators like \"reduce competing pressure to one bounded action\" or \"compile a handoff packet when validated work cannot be committed\"). It confirms every operator in the public catalogue is fully described (how it is triggered, used, and checked) and that every operator marked active carries a real receipt proving it once changed a live decision, while rejecting any operator that claims to speak with the owner's voice or overreaches into \"ready to release.\" It matters because it shows the system treats reasoning itself as inspectable typed substrate instead of ad-hoc prompt lore.",
       "organ_id": "cognitive_operator_registry",
       "axiom_refs": [
         "AX-1",
@@ -3110,12 +2966,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to confirm codex/doctrine/routing_anti_patterns.json has landed as a public Plectis organ: kind/version are declared, every anti-pattern row has unique id/text, required navigation anchors survive, negative cases reject missing kind, duplicate ids, missing text, authority overclaims, and private source leakage, and the exported bundle source-module manifest validates exact copied non-secret macro body hashes.",
-      "claim_ceiling_restated": "It validates only the declared public routing anti-pattern registry contract and copied non-secret macro body; it never becomes route source authority, mutates routes, exposes private routing notes, calls providers, authorizes release, or proves whole-system correctness.",
       "evidence_class": "semantic_validator",
       "family": "architecture_and_navigation",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.routing_anti_patterns_registry run --input fixtures/first_wave/routing_anti_patterns_registry/input --out /tmp/routing_anti_patterns_registry_out",
-      "human_gloss": "This is a checker for the system's public list of navigation mistakes agents keep making, such as grepping before asking the kernel for a route or sending work to a bridge before scope is chosen. It confirms each anti-pattern row has a stable id and explanation, rejects duplicate or body-leaking rows, and proves the public bundle carries the actual macro registry body copied byte-for-byte instead of a synthetic paraphrase.",
       "organ_id": "routing_anti_patterns_registry",
       "axiom_refs": [
         "AX-1",
@@ -3189,12 +3042,9 @@
       ]
     },
     {
-      "agent_gloss": "Use this to audit closeout receipts for evidence-existence and explicit pytest pass-status boundaries; fake commit, fake cap, and fake test claims are rejected by stable negative cases.",
-      "claim_ceiling_restated": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
       "evidence_class": "external_subprocess_witness",
       "family": "agent_reliability_and_safety",
       "first_command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
-      "human_gloss": "Runs a public fixture repo through real git and pytest subprocesses, then checks that closeout claims only say what the evidence supports: commit object exists, ledger cap exists, and pytest pass is claimed only after exit-zero status was checked.",
       "organ_id": "agent_closeout_faithfulness_audit",
       "paper_module_ref": "core/paper_module_capsules.json#paper_module.agent_closeout_faithfulness_audit",
       "mechanism_refs": [
@@ -3239,12 +3089,9 @@
       ]
     },
     {
-      "agent_gloss": "Use this to reject wrong fact counts, missing code loci, and dead code-locus anchors without upgrading the result into a comprehension-engine or minimum-read-graph claim.",
-      "claim_ceiling_restated": "fact assertion, code-loci, and DAG fixture truth gate only; it is not a comprehension engine and does not prove a minimum read graph",
       "evidence_class": "semantic_validator",
       "family": "architecture_and_navigation",
       "first_command": "microcosm doctrine-fact-claim-audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit",
-      "human_gloss": "Checks that public fact rows state the expected count, point at live copied code loci, preserve anchors, and only reference facts that exist in the fixture DAG.",
       "organ_id": "doctrine_fact_claim_audit",
       "axiom_refs": [
         "AX-10",
@@ -3304,12 +3151,9 @@
       ]
     },
     {
-      "agent_gloss": "Use this to count known coverage debt while refusing unknown-unknown omniscience, absence proof, source mutation, or release authority.",
-      "claim_ceiling_restated": "known Kind Atlas coverage debt projection only; it does not claim literal unknown-unknown omniscience or absence proof",
       "evidence_class": "algorithmic_projection",
       "family": "architecture_and_navigation",
       "first_command": "microcosm self-ignorance-coverage-ledger run --input fixtures/first_wave/self_ignorance_coverage_ledger/input --out receipts/first_wave/self_ignorance_coverage_ledger",
-      "human_gloss": "Compares declared Kind Atlas expectations against materialized entities and reports the known coverage debt that falls out of that public fixture comparison.",
       "organ_id": "self_ignorance_coverage_ledger",
       "axiom_refs": [
         "AX-6",
@@ -3361,12 +3205,9 @@
       ]
     },
     {
-      "agent_gloss": "Use this to emit bounded self-proposal packets and reject source-write campaign packets or repeated failed campaign digests.",
-      "claim_ceiling_restated": "self-proposal campaign packet only; no self-repair or unsupervised source mutation",
       "evidence_class": "external_subprocess_witness",
       "family": "agent_reliability_and_safety",
       "first_command": "microcosm bounded-autonomy-campaign-packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet",
-      "human_gloss": "Turns synthetic coverage gaps into a draft candidate packet in a subprocess and records the boundary that it proposes work but cannot repair itself or write source.",
       "organ_id": "bounded_autonomy_campaign_packet",
       "paper_module_ref": "paper_modules/bounded_autonomy_campaign_packet.md",
       "standalone_or_wired": "standalone_specimen",
@@ -3427,12 +3268,9 @@
       ]
     },
     {
-      "agent_gloss": "Use this to exercise the deferred statistical finance modules on synthetic fixtures; leakage, no-advice overclaim, and fake-HLN p-value behavior are rejected.",
-      "claim_ceiling_restated": "synthetic fixture forecast-evaluation statistics only; no investment advice, live market data, track record, or performance claim",
       "evidence_class": "external_subprocess_witness",
       "family": "research_and_science_replays",
       "first_command": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
-      "human_gloss": "Runs public synthetic forecast-evaluation fixtures through copied finance statistics modules and records p-value/refusal behavior without live market data or advice claims.",
       "organ_id": "finance_forecast_evaluation_spine",
       "axiom_refs": [
         "AX-7"
@@ -3477,12 +3315,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch-4 source-open capsule: all 14 proof, authority, and runtime mechanisms must be present, the copied source-module manifest must preserve public anchors, and planted overclaim/leakage/lease/runtime-negative cases must reject with typed findings.",
-      "claim_ceiling_restated": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
       "evidence_class": "verified_macro_body_import",
       "family": "formal_math_and_proof",
       "first_command": "microcosm batch4-proof-authority-runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json",
-      "human_gloss": "This capsule imports the Batch-4 public-safe proof/control/runtime source modules and checks them as one inspectable unit. It surfaces the 14 mechanisms, the copied module manifest, the digest/anchor evidence, and the negative cases that reject proof, benchmark, release, runtime, and private-state overclaims without exposing source bodies in receipts.",
       "organ_id": "batch4_proof_authority_runtime",
       "paper_module_ref": "paper_modules/batch4_proof_authority_runtime.md",
       "mechanism_refs": [
@@ -3542,12 +3377,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch-6 unsurfaced source-open capsule: all 11 mechanisms must be present, exact copied source/support modules must preserve public anchors, and planted negative cases must reject private-state, receipt-only, conflation, overclaim, or duplicate-fire failure modes with typed findings.",
-      "claim_ceiling_restated": "It validates only a public source-open capsule and bounded public exercises; it is not raw operator memory, not prompt-shelf capture authority, not live market data, not provider/browser state, not media release, and not publication or release approval.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch6-unsurfaced-primitives-capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports the Batch-6 public-safe macro primitives that were real but under-surfaced. It exposes the 11 mechanisms, exact source-module manifest, source execution outcomes, and negative cases without exposing copied body text, raw operator transcripts, prompt-shelf private logs, provider/browser state, live market data, or media assets in receipts.",
       "organ_id": "batch6_unsurfaced_primitives_capsule",
       "axiom_refs": [
         "AX-1",
@@ -3615,12 +3447,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch 5 authority-systems source-open capsule: 10 copied public macro authority/control modules must preserve required anchors and digests, all 8 bounded public exercises must pass, planted negative cases must be observed, and receipts must stay body-free inside the public authority ceiling.",
-      "claim_ceiling_restated": "It validates only public-safe copied Batch 5 authority-system source bodies and bounded deterministic exercises; it does not dispatch providers, prove Lean success, send live process signals, mutate generated state, mutate source, authorize publication, authorize release, or claim private-root equivalence.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch5_authority_systems_capsule run --input fixtures/first_wave/batch5_authority_systems_capsule/input --out receipts/first_wave/batch5_authority_systems_capsule --acceptance-out receipts/acceptance/first_wave/batch5_authority_systems_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports Batch 5 public authority and systems source bodies as a bounded source-open replay. It checks post-execution receipt validation, reasoning replay scope and lineage, proof-contract gating, process orphan classification, generated-state fixpoint settlement, trace-tape compaction, code blast radius, and doctrine graph compilation, with negative cases that prevent live provider, proof-success, process-signal, generated-state-mutation, source-mutation, publication, or release overclaims.",
       "organ_id": "batch5_authority_systems_capsule",
       "axiom_refs": [
         "AX-4",
@@ -3690,12 +3519,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch-7 source-open capsule: all 9 mechanisms must execute, all 15 copied source modules must preserve required anchors and digests, planted negative cases must be observed, receipts must omit copied body text and private state, and the capsule must stay inside its public authority ceiling.",
-      "claim_ceiling_restated": "It validates only a public source-open capsule and bounded exercises; it is not live source authority, private-root equivalence, semantic truth, investment advice, complete sandbox proof, selected-test sufficiency proof, publication, or release approval.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch7-macro-engines-capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports the Batch-7 public-safe macro engines as exact copied source bodies plus deterministic public exercises. It exposes fifteen JS, TS, and Python engine bodies for trace parsing, code-map layout, DAG scheduling, source indexing, patch validation, hermetic clean-clone execution, robust numeric scoring, personalized PageRank routing, and regression-test selection, with negative cases that prevent release, private-root, semantic-truth, or test-sufficiency overclaims.",
       "organ_id": "batch7_macro_engines_capsule",
       "axiom_refs": [
         "AX-1",
@@ -3762,12 +3588,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch 7 Oracle sibling source-open capsule: subject index, subject snapshot, macro truth-diff, quartet repair planning, and original pytest witnesses must execute against copied public-safe source bodies, the exact-copy digests must hold, planted negative cases must be observed, and receipts must stay body-free inside the public authority ceiling.",
-      "claim_ceiling_restated": "It validates only public-safe Oracle sibling copied source bodies and bounded deterministic exercises; it does not run Oracle reasoning, dispatch providers or bridges, invoke GodModeEngine, mutate source, prove semantic truth, prove all Oracle paths are covered, authorize publication, or authorize release.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch7_oracle_sibling_capsule run --input fixtures/first_wave/batch7_oracle_sibling_capsule/input --out receipts/first_wave/batch7_oracle_sibling_capsule --acceptance-out receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports the Batch 7 public Oracle sibling source bodies as a bounded, source-open replay. It checks subject-index grounding, subject-snapshot hydration, macro truth-diff deltas, quartet repair alias planning, and original pytest witness evidence, with negative cases that prevent Oracle reasoning, provider dispatch, source mutation, semantic-truth, coverage, publication, or release overclaims.",
       "organ_id": "batch7_oracle_sibling_capsule",
       "axiom_refs": [
         "AX-4",
@@ -3830,12 +3653,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch 7 Demo Take Console source-open capsule: copied public Swift source bodies must preserve required anchors and digests, SwiftPM build witness posture must be present, deterministic recording-state/helper-bridge/recorder-store/hotkey-audio-meter/transcribe-payload exercises must pass, planted negative cases must be observed, and receipts must stay body-free inside the public authority ceiling.",
-      "claim_ceiling_restated": "It validates only public-safe Demo Take Console copied Swift source bodies and bounded deterministic exercises; it does not launch the app, authorize screen or microphone capture, export recording sessions, execute FFmpeg, dispatch WhisperKit or other models, mutate source, prove complete UI coverage, authorize publication, or authorize release.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch7_demo_take_console_capsule run --input fixtures/first_wave/batch7_demo_take_console_capsule/input --out receipts/first_wave/batch7_demo_take_console_capsule --acceptance-out receipts/acceptance/first_wave/batch7_demo_take_console_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports the Batch 7 Demo Take Console public Swift source bodies as a bounded source-open replay. It checks SwiftPM build-witness posture, recording-state control, capture-helper bridge contracts, recorder-store capture FSM boundaries, hotkey/audio-meter behavior, and transcribe-payload construction, with negative cases that prevent app-launch, capture, model-dispatch, source-mutation, UI-coverage, publication, or release overclaims.",
       "organ_id": "batch7_demo_take_console_capsule",
       "axiom_refs": [
         "AX-4",
@@ -3899,12 +3719,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate that the copied tools-tail source modules preserve required anchors and digests, their public exercises pass, planted negative cases are observed, and receipts omit copied body text and private state.",
-      "claim_ceiling_restated": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, or publication.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch8-tools-tail-primitives-capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports four Batch-8 tools-tail primitives as copied public source bodies with deterministic fixture exercises. It exposes observer set diffs, JSON patch interpretation, stable ledger-id hashing, and shadow envelope parsing without invoking live oracles, repository mutation, provider dispatch, publication, or release authority.",
       "organ_id": "batch8_tools_tail_primitives_capsule",
       "paper_module_ref": "paper_modules/batch8_tools_tail_primitives_capsule.md",
       "mechanism_refs": [
@@ -3963,12 +3780,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate that the copied policy-engine source modules preserve required anchors and digests, their public policy exercises pass, planted negative cases are observed, and receipts omit copied body text and private state.",
-      "claim_ceiling_restated": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, or publication.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch8-policy-engines-capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports three Batch-8 policy-engine bodies as copied public source modules with deterministic fixture exercises. It exposes lab contract audit, market fusion readiness, and campaign transition adjudication mechanics without model dispatch, live campaign execution, publication, or release authority.",
       "organ_id": "batch8_policy_engines_capsule",
       "paper_module_ref": "paper_modules/batch8_policy_engines_capsule.md",
       "mechanism_refs": [
@@ -4026,12 +3840,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate that the public Python port preserves the declared RMS normalization semantics over fixture arrays, rejects planted malformed cases, and keeps audio-session, device-capture, publication, and release claims fenced off.",
-      "claim_ceiling_restated": "projection mechanics only, not domain correctness",
       "evidence_class": "algorithmic_projection",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json",
-      "human_gloss": "This port projects the pure AudioLevelMonitor normalized-level RMS math into a runnable Python fixture over synthetic sample arrays. It exposes the normalization behavior without starting an audio session, requesting microphone permission, capturing device input, publishing, or authorizing release.",
       "organ_id": "batch8_audio_level_rms_port",
       "paper_module_ref": "paper_modules/batch8_audio_level_rms_port.md",
       "mechanism_refs": [
@@ -4088,12 +3899,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate that the copied structural thesis source body preserves required anchors and digest evidence, the synthetic winner/loser/control exercises pass, planted negative cases are observed, and receipts omit copied body text and private state.",
-      "claim_ceiling_restated": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, or publication.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch8-structural-theses-capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports the structural_theses finance spine as a copied public source body with synthetic dated thesis-card exercises. The exercises run the lifecycle/backtest mechanics without live market data, investment advice, portfolio action, provider dispatch, publication, or release authority.",
       "organ_id": "batch8_structural_theses_capsule",
       "paper_module_ref": "paper_modules/batch8_structural_theses_capsule.md",
       "mechanism_refs": [
@@ -4153,12 +3961,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the staged Engine Room composition: all 14 targets must be covered, every capsule surface must exist, the executable capsule chain must pass, and the planted missing-target case must be observed.",
-      "claim_ceiling_restated": "It validates only the public Engine Room composition contract; it is not production readiness, private-root equivalence, frontier theorem proving, complete security proof, publication, or release approval.",
       "evidence_class": "semantic_validator",
       "family": "import_projection_and_drift",
       "first_command": "microcosm engine-room-demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
-      "human_gloss": "This organ turns the staged Engine Room capsules into one accepted public demo surface. It exercises the proof-search, runtime, integrity, security, navigation, orchestration, and annex-routing capsules through bounded public fixtures with explicit anti-claims.",
       "organ_id": "engine_room_demo",
       "axiom_refs": [
         "AX-1",
@@ -4238,12 +4043,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch-9 source-open capsule: all 13 mechanisms must be present, exact copied source modules must preserve public anchors and digests, runtime exercises must pass, planted negative cases must be observed, and receipts must omit copied body text and private state.",
-      "claim_ceiling_restated": "It validates only a public source-open capsule and bounded synthetic exercises; it is not live lineage truth, human approval authority, market/news truth, host-state truth, Work Ledger truth, provider dispatch, source mutation authority, publication, release approval, or private-root equivalence.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch9-macro-engines-capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports the Batch-9 public-safe macro engines as exact copied source bodies plus deterministic public exercises. The exercises inspect thirteen backend, governance, projection, frontend data-shaping, worker-gate, and quality-accounting mechanisms, their source-module digest evidence, and the negative cases that prevent live-authority or receipt-only overclaims.",
       "organ_id": "batch9_macro_engines_capsule",
       "paper_module_ref": "paper_modules/batch9_macro_engines_capsule.md",
       "mechanism_refs": [
@@ -4307,12 +4109,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch-10 source-open capsule: all 13 imported mechanisms must pass, exact copied source modules must preserve required anchors and digests, the publication selector contract must be represented as a private-path-safe public refactor, planted negative cases must be observed, the Batch-9 lane-width binding repair must remain explicitly deferred, and receipts must omit copied body text and private state.",
-      "claim_ceiling_restated": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, publication, live ledger control, or source mutation authority.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch10-governance-compilers-capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports the Batch-10 governance, compiler, release, finance, dependency, DAG, table, annex, and recent-change macro mechanisms as public-safe source-open substrate. It exposes for inspection the exact source-module digest evidence, the source-faithful public refactor for publication-manifest selector checks, the deterministic exercises, and the planted negative cases without exposing private paths, copied body text in receipts, live ledgers, or release authority.",
       "organ_id": "batch10_governance_compilers_capsule",
       "paper_module_ref": "paper_modules/batch10_governance_compilers_capsule.md",
       "mechanism_refs": [
@@ -4371,12 +4170,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch-11 saturation-engine capsule: all 12 imported modules must preserve source digests, public exercises must compute from fixture inputs, all 13 negative probes must be computed rather than fixture-verdict echoes, and receipts must omit copied body text and private state.",
-      "claim_ceiling_restated": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, publication, live runtime authority, or source mutation authority.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch11-saturation-engines-capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports twelve Batch-11 saturation-engine mechanisms as public-safe source-open substrate. It exposes for inspection exact source-module digest evidence, source-faithful computed exercises, and computed negative-case probes without exposing private paths, copied body text in receipts, live runtime state, source mutation authority, publication, or release authority.",
       "organ_id": "batch11_saturation_engines_capsule",
       "paper_module_ref": "paper_modules/batch11_saturation_engines_capsule.md",
       "mechanism_refs": [
@@ -4439,12 +4235,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the tool-server pressure membrane: the fixture must classify synthetic process rows, keep active-owner descendants out of safe-close candidates, convert over-budget active owners into release requests, observe all seven negative cases, validate the source-module digest for the public orphan_reaper refactor, and keep receipts body-free.",
-      "claim_ceiling_restated": "validates declared public helper-process pressure inventory contract only; no live process reads, process signalling, host mutation, release authority, provider calls, private data equivalence, or whole-system correctness",
       "evidence_class": "semantic_validator",
       "family": "import_projection_and_drift",
       "first_command": "microcosm tool-server-pressure-inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json",
-      "human_gloss": "This organ imports the macro helper-process pressure inventory pattern as a public-safe, read-only validator. Over synthetic ps-shaped process rows it surfaces detached helper candidates, active-owner descendants, keep runtimes, and owner-release pressure groups without reading live host processes or exposing command bodies.",
       "organ_id": "tool_server_pressure_inventory",
       "paper_module_ref": "paper_modules/tool_server_pressure_inventory.md",
       "standalone_or_wired": "standalone_specimen",
@@ -4500,12 +4293,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch 8 compliance pipeline membrane: the fixture must exercise all six compliance/pipeline engines, observe six negative cases, verify 11 exact copied source-module digests and anchors, and keep receipts free of body text, raw seed, provider payloads, absolute paths, release authority, source mutation, and full compliance-ledger overclaims.",
-      "claim_ceiling_restated": "validates declared public Batch 8 compliance pipeline capsule contract only; no full compliance-ledger freshness, provider dispatch, model dispatch, source mutation, raw-seed mutation, release, publication, private data equivalence, or whole-system correctness",
       "evidence_class": "algorithmic_projection",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule",
-      "human_gloss": "This organ imports the compliance adapter registry, compliance coverage and baseline scanners, Microcosm compliance adapter, bounded compliance-ledger builder, and observe pipeline stages as public runnable substrate. Running it shows how registered compliance adapters, bounded no-write checks, baseline companion scans, digest normalization, observe-plan helper selection, and dispatch/process boundaries fit together without refreshing the live ledger or dispatching providers.",
       "organ_id": "batch8_compliance_pipeline_capsule",
       "paper_module_ref": "paper_modules/batch8_compliance_pipeline_capsule.md",
       "mechanism_refs": [
@@ -4571,12 +4361,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the live-source drift membrane: all four exact copied source bodies must match current macro digests, stale digest rows must differ, required anchors must be present, Python modules must compile without import execution, planted negative cases must be observed, and receipts must omit source body text and private runtime state.",
-      "claim_ceiling_restated": "verified non-secret macro body import only, not route authority, Work Ledger or Task Ledger mutation authority, mission-transaction execution, git staging or commit approval, source mutation, private runtime export, release, or publication",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch10-live-source-drift-capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json",
-      "human_gloss": "This organ imports exact current public macro bodies for the option-surface router, mission-transaction landing preflight, work landing controller, and Work Ledger controller. Running it inspects stale-versus-current digest repair, source anchors, and compile-only validation without reading private runtime state or granting live mutation authority.",
       "organ_id": "batch10_live_source_drift_capsule",
       "paper_module_ref": "paper_modules/batch10_live_source_drift_capsule.md",
       "mechanism_refs": [
@@ -4636,12 +4423,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the cold-eval honesty membrane: the copied cold_eval.py body must match its source digest and anchors, the public exercise must execute run_cold_eval, the scorecard asymmetry must stay fixture-scoped, all four negative cases must be observed, and receipts must omit copied body text, private refs, provider payloads, live-agent results, and release authority.",
-      "claim_ceiling_restated": "verified non-secret cold-eval macro body import only, not a live benchmark, navigation truth, source authority, provider dispatch, private-root equivalence, publication, or release authority",
       "evidence_class": "verified_macro_body_import",
       "family": "agent_reliability_and_safety",
       "first_command": "microcosm batch10-cold-eval-honesty-capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json",
-      "human_gloss": "This organ imports the real cold_eval.py route-quality simulator as an exact public-safe source copy. Running it over a synthetic workspace inspects the all-B scorecard shape, source-module digest evidence, and claim-ceiling checks without exporting body text in receipts or turning the fixture into benchmark truth.",
       "organ_id": "batch10_cold_eval_honesty_capsule",
       "paper_module_ref": "paper_modules/batch10_cold_eval_honesty_capsule.md",
       "mechanism_refs": [
@@ -4699,12 +4483,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch 8 validator checker membrane: the copied validators.py body must match its source digest and required anchors, all six checker engines must pass, all six negative cases must be observed, and receipts must omit source body text, private refs, provider payloads, release authority, source mutation, and full validator-suite overclaims.",
-      "claim_ceiling_restated": "It validates only the imported validators.py source body and its checker membrane. It does not claim source authority, a full validator-suite proof, private-root equivalence, release, hosted-public status, publication, provider dispatch, or source mutation authority.",
       "evidence_class": "verified_macro_body_import",
       "family": "agent_reliability_and_safety",
       "first_command": "microcosm batch8-validator-checker-capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
-      "human_gloss": "This organ imports the real idea_microcosm validators.py body as an exact public-safe source copy. Running it shows status-policy judging, private-boundary scans, specimen checks, release-gate checks, and the validate entrypoint exercised against public fixtures and negative cases.",
       "organ_id": "batch8_validator_checker_capsule",
       "paper_module_ref": "paper_modules/batch8_validator_checker_capsule.md",
       "mechanism_refs": [
@@ -4769,12 +4550,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the concurrency mission-control membrane: copied macro builder and bridge artifacts must match their digests and anchors, transaction failure classes must be observed, the Work Ledger seed-speed topology fixture must expose session heartbeat, mutation-check, active-claim, and claim-collision anchors, and receipts must omit copied bodies, private refs, provider payloads, hosted orchestration, live scheduling, and release authority.",
-      "claim_ceiling_restated": "verified non-secret concurrency mission-control macro body import only, not a live scheduler, provider dispatch, hosted orchestration, production concurrency-safety proof, source authority, private-root equivalence, publication, or release authority",
       "evidence_class": "verified_macro_body_import",
       "family": "work_landing_and_continuity",
       "first_command": "microcosm concurrency-mission-control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json",
-      "human_gloss": "This organ imports the real concurrency mission-control specimen builder plus public provider and Task Ledger bridge artifacts as exact public-safe copies. Running it shows duplicate claims, dependency conflicts, stale leases, missing receipts, supervised finalizers, and misanchored claims blocked through repair rows while authority-collapse counters stay at zero.",
       "organ_id": "concurrency_mission_control",
       "axiom_refs": [
         "AX-9",
@@ -4836,12 +4614,9 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch 7 secondary runtime capsule: all eight runtime, graph, cartography, stockgrid, and Polymarket fixture engines must execute, copied source modules must preserve digest anchors, planted negative cases must stay visible, and receipts must remain body-free inside the public authority ceiling.",
-      "claim_ceiling_restated": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment advice, provider dispatch, source mutation, private-root equivalence, publication, release, semantic-truth, or whole-system correctness claim",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports a second Batch 7 runtime slice as public runnable substrate. It checks agent trace view-model trust classes, lane-progress state normalization, graph-lens focus roles, graph projection summaries, observe-only cartography rendering, stockgrid payload terms, Polymarket CLOB microstructure, and four-lens market scanning over synthetic public fixtures without exporting sessions, fetching live markets, or giving trading advice.",
       "organ_id": "batch7_secondary_runtime_capsule",
       "axiom_refs": [
         "AX-4",
@@ -4905,10 +4680,7 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate copied market_dashboard_read_model.py digests and anchors, execute validate_market_dashboard_read_model, _runtime_feed_freshness_overlay, and _related_situations over bounded fixtures, confirm all planted negative cases are observed, and keep receipts free of copied body text and live market/provider authority.",
-      "claim_ceiling_restated": "This is fixture-bound read-model, freshness, and relation-grouping evidence only; it is not live market truth, not investment advice, not provider dispatch, not release authority, and not whole-system correctness.",
       "first_command": "microcosm batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule",
-      "human_gloss": "This capsule imports the market dashboard read-model source as public runnable substrate. Running it over synthetic market-dashboard rows shows how structural read-model checks, feed freshness classification, and related-situation grouping catch dangling graph edges, unsafe route refs, auto-apply overclaims, trading-language overclaims, silent omissions, stale or missing readiness, and no-overlap relation cases.",
       "organ_id": "batch12_market_dashboard_read_model_capsule",
       "paper_module_ref": "paper_modules/batch12_market_dashboard_read_model_capsule.md",
       "display_name": "Market Dashboard Read-Model Capsule",
@@ -4968,10 +4740,7 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate copied quant_presentation_mart.py digests and anchors, execute prediction board, provider drift, missingness, delta, and macro lifecycle helpers over public fixtures, confirm seven negative cases are computed, and preserve claim ceilings around market truth, provider truth, advice, dispatch, publication, and release.",
-      "claim_ceiling_restated": "This is deterministic fixture evidence for copied quant helpers only; it is not live prediction-market truth, not provider truth, not forecast correctness, not investment advice, not provider dispatch, and not release authority.",
       "first_command": "microcosm batch12-prediction-market-board-capsule run-prediction-market-board-bundle --input examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_prediction_market_board_capsule",
-      "human_gloss": "This capsule imports the quant presentation mart source as public runnable substrate. Running it over synthetic prediction-market and feed-diagnostic rows shows event identity joining, duplicate-market retention by volume, orphan identity refusal, provider drift flags, missingness rows, unavailable previous-green deltas, and macro lifecycle vintage enrichment.",
       "organ_id": "batch12_prediction_market_board_capsule",
       "paper_module_ref": "paper_modules/batch12_prediction_market_board_capsule.md",
       "display_name": "Prediction Market Board Capsule",
@@ -5029,10 +4798,7 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate copied release_claim_language_gate.py digests and anchors, execute build_gate and _classify_hit against safe boundary and active-overclaim markdown fixtures, confirm assert-clear returns the expected failure on blocker text, and keep receipts scoped to lexical claim-language evidence.",
-      "claim_ceiling_restated": "This is lexical fixture evidence only; it is not release authority, not publication approval, not semantic NLP truth, not secret-scan coverage, and not whole-system correctness.",
       "first_command": "microcosm batch12-release-claim-language-gate run-release-claim-language-gate-bundle --input examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle --out receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate",
-      "human_gloss": "This organ imports the release claim-language gate as public runnable substrate. Running it over small publication-manifest fixtures shows boundary-only warnings allowed while affirmative open-source and production-readiness wording is classified as active claim language and blocked by the assert-clear contract.",
       "organ_id": "batch12_release_claim_language_gate",
       "axiom_refs": [
         "AX-12"
@@ -5091,10 +4857,7 @@
     {
       "organ_id": "semantic_singleflight_dedup_runtime",
       "display_name": "Semantic Singleflight Dedup Runtime",
-      "human_gloss": "Surfaces the public command-run singleflight capsule as a first-class operational-discipline runtime. It runs a small set of bounded command exercises and shows how duplicate runs collapse: a first run becomes the leader and runs once; a second run with the same content key reuses the completed run instead of executing again (the side-effecting counter stays at 1); mutating a scoped file flips the key so a stale working tree cannot answer for a different run; and an empty command is refused outright. The content key is built from the command words, the resolved working directory, the git HEAD commit, a scoped dirty-tree fingerprint, and an environment fingerprint, so what counts as 'the same run' is decided by repo state rather than by the command words alone.",
-      "agent_gloss": "An agent runs it to confirm that command execution dedups by a repo-state fingerprint over bounded public fixtures: it builds the content key, observes a leader run and a completed-run reuse hit, and observes the two negative cases (a scoped mutation that flips the key, emitting SINGLEFLIGHT_STALE_STATE_CANNOT_DEDUP, and an empty argv that is rejected, emitting SINGLEFLIGHT_EMPTY_ARGV_REJECTED) before trusting that a stale state cannot be reused for a different run.",
       "first_command": "microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
-      "claim_ceiling_restated": "It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or release approval.",
       "specialty": [
         "agent-concurrency",
         "operational-discipline",
@@ -5162,10 +4925,7 @@
     {
       "organ_id": "finite_erdos_denominator_certificate_strike",
       "display_name": "Finite Erdos Denominator-Order Certificate Strike",
-      "human_gloss": "Computes a finite denominator-order certificate in exact whole-number arithmetic. For a finite set F of exponents and a base b, it sums 1/(b^n - 1) over the exponents as an exact fraction P/Q, then checks a sharp claim: the multiplicative order of b modulo the reduced denominator Q is exactly the least common multiple of F. It shows the certificate holding on small cases — including one where a common factor cancels in the fraction yet the claim still holds — and it shows two forged certificates being caught: a wrong order and a wrong denominator are both rejected because the runner recomputes the real values and compares. This is the finite identity behind the Erdos #257 period-noncollapse strike; it is not a solution to the open problem.",
-      "agent_gloss": "An agent runs it to confirm a finite denominator-order certificate is computed exactly at runtime and self-falsifies. It sums S_F(b)=sum 1/(b^n-1)=P/Q with Fraction, derives the multiplicative order ord_Q(b), cross-checks Q against the closed form B/gcd(A_L,B), and confirms ord_Q(b)=lcm(F) over the positive cases (including a reducing case). It then observes the two negative cases: a forged order emits ERDOS_CERT_ORDER_MISMATCH and a forged denominator emits ERDOS_CERT_DENOMINATOR_MISMATCH, both rejected by recomputation, before trusting that a claimed certificate cannot pass without matching the truth.",
       "first_command": "microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
-      "claim_ceiling_restated": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
       "specialty": [
         "formal-math",
         "number-theory",
@@ -5229,10 +4989,7 @@
     {
       "organ_id": "bridge_campaign_dag_validation",
       "display_name": "Bridge Campaign DAG Validation",
-      "human_gloss": "Validates the shape of a bridge campaign - a small plan that fans several parallel reads into one synthesis. It checks the plan carries the required identity fields, that every step has a unique name, that each dependency points at a real step, that the steps form no cycle, that there is exactly one synthesis step which can be traced back to at least one probe, that the barrier names that synthesis, and that the requested worker count stays within the provider's safe limit. It shows two well-formed plans accepted - a straight chain and a three-way fan-in - and two broken plans rejected: one with a dependency loop and one with two synthesis steps. It validates plan structure only; it does not run the campaign or dispatch any agents.",
-      "agent_gloss": "An agent runs it to confirm a bridge campaign DAG is validated structurally and self-falsifies. It loads each fixture campaign, calls validate_campaign, and confirms result.ok matches expected_ok. The two positive cases (linear_chain_ok, fan_in_ok) validate clean; the two negative cases reject with the expected rule id - cycle_rejected fires CR012 (acyclicity) and two_synthesis_rejected fires CR013 (exactly one synthesis) - before trusting that a malformed campaign cannot pass.",
       "first_command": "microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
-      "claim_ceiling_restated": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence.",
       "specialty": [
         "agent-orchestration",
         "campaign-dag",
@@ -5292,10 +5049,7 @@
     {
       "organ_id": "metabolism_queue_reconciliation",
       "display_name": "Metabolism Queue Reconciliation",
-      "human_gloss": "A small, runnable model of a durable job queue. It puts jobs in a temporary scratch database, hands one out to a worker on a lease, recovers the job when the lease expires, and tracks claim-and-contradiction events on a shared blackboard. It then runs a consistency check that flags impossible situations for a human to review, for example a job marked \"running\" with no record of a run, or a run that finished while its job still says running. Two clean scenarios are checked end to end; two deliberately broken scenarios are confirmed to be caught and rejected. It is a faithful but bounded copy of the real machinery: it never touches the live production database, never starts agents, and never silently fixes anything.",
-      "agent_gloss": "Verify by running: PYTHONPATH=src python3 -c \"from microcosm_core.organs.metabolism_queue_reconciliation import build_result as b; r=b('fixtures/first_wave/metabolism_queue_reconciliation/input'); print(r['status'], r['case_count'])\". Expect status==pass, case_count==4 (2 positive, 2 negative, every observed_ok True). The organ calls the real capsule via metabolism_runtime.evaluate_case over a temp scratch root; positives require a clean compute with no reconciliation rule fired, negatives require the reconciler to fire the rule named in EXPECTED_NEGATIVE_CASES (running_job_no_run_row, run_finalized_but_job_running). To confirm it is not baked, replace an expected marker with a non-firing rule or delete a negative fixture: status must flip to fail. Receipts are body-free (body_in_receipt False); CLI `run`/`run-metabolism-queue-reconciliation-bundle` returns 0 on pass.",
       "first_command": "microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
-      "claim_ceiling_restated": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
       "specialty": [
         "agent-runtime",
         "durable-queue",
@@ -5353,10 +5107,7 @@
     {
       "organ_id": "derived_fact_provider_runtime",
       "display_name": "Derived Fact Provider Runtime",
-      "human_gloss": "A small engine that fills in facts from a list of recipes. Each recipe says where a number or string lives — pull this field out of a JSON file by its path, count the files matching this pattern, or run a named helper like \"how many tracked files are there\". When a recipe points at something that is not there, the engine does not fall over: it writes that fact down as an error with a hint about how to fix it, and marks the overall run as degraded. The organ checks two well-formed recipe lists resolve to the right answers, and two broken ones (a missing file, an unknown recipe type) get caught and reported as errors rather than slipping through. It only resolves facts against the files you give it; it does not decide whether any larger claim is true.",
-      "agent_gloss": "Verify by running: PYTHONPATH=src python3 -c \"from microcosm_core.organs.derived_fact_provider_runtime import build_result as b; r=b('fixtures/first_wave/derived_fact_provider_runtime/input'); print(r['status'], r['case_count'])\" — expect \"pass 4\". _evaluate_case delegates to the capsule's evaluate_case (no re-implementation) and computes observed_ok from the capsule's expectation_met plus observed_status plus, for negatives, an exact error_class match against EXPECTED_NEGATIVE_CASES (missing_source_path_rejected->FileNotFoundError, unknown_provider_type_rejected->ValueError). build_result returns pass only when both positives compute clean (observed_status ok, expected_values match), both negatives are rejected with the expected marker (observed_status degraded), and both expected negative case_ids are present. Falsifiability: repairing the planted defect or mutating the expected marker flips observed_ok to False. Receipts are body-free (body_in_receipt False). git binary must be present for the git-callable positive.",
       "first_command": "microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
-      "claim_ceiling_restated": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
       "specialty": [
         "research-infrastructure",
         "derived-facts",
@@ -5415,10 +5166,7 @@
     {
       "organ_id": "navigation_fitness_benchmark",
       "display_name": "Navigation Fitness Benchmark",
-      "human_gloss": "A scorer for how well a navigation system found the right thing. Each test case is a \"task\" (what someone was looking for, which exact items count as the right answer, which shortcut routes are off-limits, and how fast it should be) paired with a \"route packet\" (what the system actually returned and how long it took). The tool re-checks the answer: did it find the expected items (recall), how much of what it returned was on-target (precision), did it take a banned first step, did it mention the right cue words, and did it stay under the time budget. It then flags any \"debt\" — places that missed the mark or ran slow. It judges curated public examples only; it does not run the real private system, does not test the underlying search/embeddings, and does not claim to be a general-purpose navigation score.",
-      "agent_gloss": "Verify by running: PYTHONPATH=src python3 -c \"from microcosm_core.organs.navigation_fitness_benchmark import build_result as b; r=b('fixtures/first_wave/navigation_fitness_benchmark/input'); print(r['status'], r['case_count'])\" — expect \"pass 4\". _evaluate_case calls the real capsule evaluate_case (engine_room.navigation_fitness_benchmark) which recomputes the benchmark; no answers are stored. Positives: observed_ok = expectation_met AND expected_ok. Negatives: observed_ok = (not accepted) AND the expected marker (missing_id / forbidden_route from EXPECTED_NEGATIVE_CASES) is in the recomputed task_results. Falsifiability: making a negative's expected_task_statuses honest, OR repairing its defective packet, flips accepted=True and observed_ok=False — proving recomputation-driven rejection. Receipts body-free; imports limited to the capsule plus microcosm_core.receipts.",
       "first_command": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
-      "claim_ceiling_restated": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
       "specialty": [
         "architecture",
         "navigation",
@@ -5478,10 +5226,7 @@
     {
       "organ_id": "annex_knowledge_routing",
       "display_name": "Annex Knowledge Routing",
-      "human_gloss": "Give it a plain-English problem and a small catalog of annex entries (each tagged with the domains, capabilities, and problem-spaces it covers), and it returns the entries most likely to help, ranked, with a breakdown of why each matched. It weighs strong structured tags more than loose description text, and shows its working rather than hiding it behind a black-box score. If nothing in the catalog actually overlaps your problem, it says no_match instead of inventing a result. It is a transparent keyword-overlap matcher, not a search engine or embedding model, and it never reaches outside the catalog you hand it.",
-      "agent_gloss": "Verify by running: cd microcosm-substrate && PYTHONPATH=src python3 -c \"from microcosm_core.organs.annex_knowledge_routing import build_result as b; r=b('fixtures/first_wave/annex_knowledge_routing/input'); print(r['status'], r['case_count'])\". Expect status=pass, case_count=4. Each case row carries observed_status, observed_top_slug, observed_top_score, match_breakdown, matched_note_ids recomputed live by route_catalog (no baked answers). Positives (structured_route_ok, note_route_ok) must show observed_status=routed with top slug provider-rate-limit-patterns above expected_min_score; note_route_ok must surface note_provider_backoff in matched_note_ids. Negatives (no_overlap_rejected, domain_filter_rejected) must show observed_status=no_match, with EXPECTED_NEGATIVE_CASES mapping each negative case_id to the no_match marker that _evaluate_case asserts. status flips to fail if any positive stops routing, any negative starts routing, or an expected negative case_id is missing. Receipts written by run() are body-free (body_in_receipt=False).",
       "first_command": "microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
-      "claim_ceiling_restated": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
       "specialty": [
         "architecture",
         "routing",
@@ -5541,10 +5286,7 @@
     {
       "organ_id": "egress_self_compliance_audit",
       "display_name": "Egress Self-Compliance Audit",
-      "human_gloss": "Checks a snippet of an AI agent's own output for three self-policing slips: asking the user \"shall I continue?\" without naming a real reason to stop, admitting a mistake without saying it was logged, or telling the user to run a command instead of running it. It works by looking for specific giveaway phrases and the phrases that would excuse them — so it is a fast, transparent style check, not a deep understanding of meaning. Reword the slip and it will be missed; that is the honest limit.",
-      "agent_gloss": "Import build_result from microcosm_core.organs.egress_self_compliance_audit and call it over fixtures/first_wave/egress_self_compliance_audit/input. Each case routes its text through the real capsule evaluate_text; a positive must come back green (observed_clean), a negative must come back red AND carry its EXPECTED_NEGATIVE_CASES diagnostic_id among the violating rows. Status is pass only when both positives are clean, both negatives are rejected with the right marker, and the expected negative case_ids are all present. To confirm it is not baked: repair a negative's missing legitimiser (it flips green) or strip a positive's legitimiser (it flips red); point a negative at the wrong diagnostic id and build_result must go fail.",
       "first_command": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
-      "claim_ceiling_restated": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication.",
       "specialty": [
         "agent-reliability",
         "egress-policy",
@@ -5603,10 +5345,7 @@
     {
       "organ_id": "generated_projection_drift_runtime",
       "display_name": "Generated Projection Drift Runtime",
-      "human_gloss": "Generated files (build outputs that are supposed to be reproducible from their source) can quietly drift when someone hand-edits the output or a builder stops matching its source. This component is the gate that catches that. For each \"owner\" (a generated artifact plus its source and a check command) it hashes the source and the output, checks whether a recent clean record lets it safely skip re-running the check, makes sure the required output actually exists, and otherwise runs the owner's own no-write check. It calls the file clean only when that check passes and the output is present. It flags drift; it does not fix files, does not judge every builder in the larger private system, and does not decide anything about releasing software.",
-      "agent_gloss": "To verify: run `PYTHONPATH=src python3 -c \"from microcosm_core.organs.generated_projection_drift_runtime import build_result as b; r=b('fixtures/first_wave/generated_projection_drift_runtime/input'); print(r['status'], r['case_count'])\"` and expect `pass 4`. _evaluate_case calls the real capsule (microcosm_core.engine_room.generated_projection_drift_gate.evaluate_case) inside a per-case TemporaryDirectory; it does not re-implement drift logic. Positives must observe status clean AND meet the fixture's expected_status; negatives must observe drift AND carry the EXPECTED_NEGATIVE_CASES status_reason marker for their case_id (planted_byte_drift->check_command_failed, missing_artifact_drift->artifact_missing). build_result returns pass only when both positives pass, both negatives are recomputed-rejected with the right marker, and both expected negative ids are present — mirroring bridge_campaign_dag_validation exactly. To confirm the cache-hit positive is real, inspect that its owner check_mode is source_hash_cache_hit with hit_count 1 (its baked SHA-256s match the recomputed fingerprints; change the fixture bytes and you must recompute them). Receipts are body-free (body_in_receipt False).",
       "first_command": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
-      "claim_ceiling_restated": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
       "specialty": [
         "projection-drift",
         "generated-surfaces",
@@ -5666,10 +5405,7 @@
     {
       "organ_id": "lean_proof_search_lab_runtime",
       "display_name": "Lean Proof-Search Lab Runtime",
-      "human_gloss": "A small, runnable proof-search lab for toy logic theorems, checked by the real Lean theorem prover. For each toy theorem it searches over candidate tactic scripts, compiles each one with Lean, and keeps a script only when Lean actually closes the proof. It refuses three ways of cheating: forwarding a ready-made proof body (an oracle leak), leaning on `sorry` or extra axioms (an unclean proof), and a policy that only picks the right tactic because it recognised the problem's name (memorisation, caught by renaming the problem). It shows one honest search succeeding and four cheats being rejected. Lean is optional: install it to unlock the real run; without it the lab reports itself locked and claims nothing, rather than pretending to have proved anything.",
-      "agent_gloss": "An agent runs it to confirm toy Lean proofs are searched and checked by a real subprocess and that the lab self-falsifies. Verify with: PYTHONPATH=src python3 -c \"from microcosm_core.organs.lean_proof_search_lab_runtime import build_result as b; r=b('fixtures/first_wave/lean_proof_search_lab_runtime/input'); print(r['status'], r['tool_state'], r['case_count'])\". With Lean installed expect status==pass, tool_state==tool_present_and_verified, case_count==5: the positive (positive_symbolic_lab_pass) requires real Lean to close the toy theorems, and the four negatives are rejected with their mechanism marker (oracle_firewall_violation x2, axiom_taint_detected, problem_id_ablation_failure). Without Lean on PATH the organ returns status==locked / tool_state==tool_missing and verification_performed==False; that is honest absence, not a failure. Receipts are body-free and never disclose the lean binary path.",
       "first_command": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
-      "claim_ceiling_restated": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
       "specialty": [
         "formal-math",
         "theorem-proving",

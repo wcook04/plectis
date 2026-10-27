@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.resource_root import microcosm_root
+from microcosm_core.component_descriptions import load_description_atlas
 from microcosm_core.schemas import read_json_strict
 from microcosm_core.validators.concept_mechanism_population import (
     validate_concept_mechanism_population,
@@ -204,7 +205,7 @@ def _organ_atlas_by_id(root: Path) -> dict[str, dict[str, Any]]:
 
     Inputs are `root`; notable helpers are `_load_json`, `get`, and `_as_list`.
     """
-    atlas = _load_json(root / "core/organ_atlas.json")
+    atlas = load_description_atlas(root)
     return {
         str(row.get("organ_id")): row
         for row in _as_list(atlas.get("organs"))
@@ -324,6 +325,7 @@ def build_organ_doctrine_rows(root: str | Path | None = None) -> list[dict[str, 
                 "surface_refs": {
                     "registry": f"{ORGAN_REGISTRY_REF}[organ_id={organ_id}]",
                     "atlas": f"{ORGAN_ATLAS_REF}[organ_id={organ_id}]",
+                    "description": atlas_row["description_source_ref"],
                     "paper_module": paper_module_ref,
                     "standard": standard_ref,
                     "standards_registry": (

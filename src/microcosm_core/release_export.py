@@ -1437,6 +1437,35 @@ def _discover_source_module_roots(
     return sorted(roots)
 
 
+# Exact, already-public MCP substitution stubs. This permits only these
+# specific bytes at these paths; private-body contamination remains a separate
+# blocking/substitution path and is never waived by this recognition.
+_MCP_CANONICAL_PUBLIC_STUB_SHA256 = {
+    'examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py':
+        '72a3d5a1df240a4471ef78c7fc4db31ae53e8ede5af41e0a078853c36121c2af',
+    'examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py':
+        'e64efb85c1f5d51d2602317e642c30b5987e68cb814310cbf115aca099cae79a',
+    'examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/system/lib/strict_json.py':
+        '8374917a94198a1a4f15f6ec1e89c70c2fe586feed3b668125799a037af79301',
+}
+
+
+def _is_canonical_mcp_public_stub(path: Path, public_root: Path) -> bool:
+    try:
+        relative = path.relative_to(public_root)
+        expected = _MCP_CANONICAL_PUBLIC_STUB_SHA256.get(relative.as_posix())
+        if expected is None:
+            return False
+        current = public_root
+        for part in relative.parts:
+            current = current / part
+            if current.is_symlink():
+                return False
+        return path.is_file() and _sha256_file(path) == expected
+    except (OSError, ValueError):
+        return False
+
+
 def _restricted_source_module_substitution_rows(public_root: Path) -> list[dict[str, Any]]:
     """
     Derive restricted source module substitution rows without touching module import state.
@@ -1461,6 +1490,8 @@ def _restricted_source_module_substitution_rows(public_root: Path) -> list[dict[
             source_modules_tail = path.relative_to(modules_root).as_posix()
             restriction = _restricted_private_source_match(source_modules_tail)
             if not restriction:
+                continue
+            if _is_canonical_mcp_public_stub(path, public_root):
                 continue
             if _reviewed_source_copy(path, public_root):
                 continue

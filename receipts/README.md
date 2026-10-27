@@ -40,7 +40,8 @@ not a general quality score or evidence that you reproduced the run yourself.
 - [`code_lens/`](code_lens/) contains generated navigation data and reading
   packets used by the comprehension commands.
 - [`preflight/`](preflight/) contains repository and dependency checks.
-- [`release/`](release/) contains recorded packaging and review checks.
+- Packaging and review commands write `release/` records when run; see the
+  [validation guide](../docs/maintainers/validation.md#standalone-export).
 
 Other directories support specific import, documentation and validation tasks.
 Use the [component map](../ORGANS.md#find-your-specialty) to select a component

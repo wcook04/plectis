@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.",
     "card": "The evaluator calculates recall and precision for expected artifacts, checks forbidden first routes, checks how many task-specific cue words appear in the packet summary and compares elapsed time with a budget. The fixture calls those cue words scent terms. A budget overrun is latency debt and is recorded separately from whether the selected artifacts are sufficient. A packet missing an expected stable ID or selecting a forbidden first route is rejected when it claims to pass.",
-    "one_line": "Scores supplied route packets against task-specific expected IDs and rules, then checks whether each computed verdict matches its fixture expectation. A packet records the choices returned for a task: the first command, selected artifacts, summary and elapsed time."
+    "one_line": "Scores route packets against task-specific artifacts, rules and time budgets."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.navigation_fitness_benchmark",
@@ -88,7 +88,7 @@
       "compression": {
         "authority_ceiling": "These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.",
         "card": "The evaluator calculates recall and precision for expected artifacts, checks forbidden first routes, checks how many task-specific cue words appear in the packet summary and compares elapsed time with a budget. The fixture calls those cue words scent terms. A budget overrun is latency debt and is recorded separately from whether the selected artifacts are sufficient. A packet missing an expected stable ID or selecting a forbidden first route is rejected when it claims to pass.",
-        "one_line": "Scores supplied route packets against task-specific expected IDs and rules, then checks whether each computed verdict matches its fixture expectation. A packet records the choices returned for a task: the first command, selected artifacts, summary and elapsed time."
+        "one_line": "Scores route packets against task-specific artifacts, rules and time budgets."
       },
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -282,7 +282,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Scores supplied route packets against task-specific expected IDs and rules, then checks whether each computed verdict matches its fixture expectation. A packet records the choices returned for a task: the first command, selected artifacts, summary and elapsed time.",
+  "statement": "Scores route packets against task-specific artifacts, rules and time budgets.",
   "status": "active",
   "subjects": [
     {

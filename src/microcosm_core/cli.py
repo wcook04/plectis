@@ -2925,6 +2925,15 @@ def main(argv: list[str] | None = None) -> int:
         version=f"%(prog)s {__version__}",
     )
     subparsers = parser.add_subparsers(dest="command", metavar="<command>")
+    component_replay_parser = subparsers.add_parser(
+        "component-replay", help="replay one exact component ID over its declared public inputs",
+    )
+    component_replay_parser.add_argument("organ_id")
+    component_replay_parser.add_argument("--root", type=Path, default=None,
+                                         help="public checkout root (defaults to the current directory)")
+    component_replay_parser.add_argument("--out", type=Path, default=None,
+                                         help="output parent under the selected root's .microcosm")
+    component_replay_parser.add_argument("--format", choices=("json", "text"), default="json")
     init_parser = subparsers.add_parser(
         "init",
         help="create project-local .microcosm state",
@@ -3232,6 +3241,13 @@ def main(argv: list[str] | None = None) -> int:
         default=DEFAULT_PROJECT_REL,
         help="runtime demo project path; defaults to examples/runtime_shell/demo_project",
     )
+    components_parser = subparsers.add_parser(
+        "serve-components",
+        help="serve the validated public component index (read-only)",
+    )
+    if raw_argv and raw_argv[0] == "serve-components":
+        from microcosm_core.component_http import add_arguments
+        add_arguments(components_parser)
     serve_parser = subparsers.add_parser(
         "serve",
         help="serve the local observatory over project state",
@@ -4257,6 +4273,9 @@ def main(argv: list[str] | None = None) -> int:
     if project_error is not None:
         print(f"{display_program}: {project_error}", file=sys.stderr)
         return 2
+    if args.command == "component-replay":
+        from microcosm_core.component_replay import run_component_replay_command
+        return run_component_replay_command(args.organ_id, root=args.root, out=args.out, format=args.format)
     if args.command == "init":
         return project_substrate.main(["init", args.project])
     if args.command == "index":
@@ -4453,6 +4472,9 @@ def main(argv: list[str] | None = None) -> int:
             command_args.append("--card")
         command_args.append(args.project)
         return runtime_shell.main(command_args)
+    if args.command == "serve-components":
+        from microcosm_core.component_http import serve
+        return serve(args)
     if args.command == "serve":
         serve_args = ["serve", "--host", args.host, "--port", str(args.port)]
         if args.max_requests is not None:

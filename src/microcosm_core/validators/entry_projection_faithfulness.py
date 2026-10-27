@@ -14,6 +14,7 @@ from collections.abc import Iterable, Iterator
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.component_descriptions import enrich_description_atlas, load_description_atlas
 from microcosm_core.schemas import read_json_strict
 
 
@@ -329,6 +330,7 @@ def _projection_mode(row: dict[str, Any]) -> str:
 def evaluate_entry_projection_faithfulness(
     atlas_payload: dict[str, Any],
     projection_payloads: Iterable[tuple[str, Any]],
+    *, capsules_payload: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
     Serialize
@@ -337,6 +339,8 @@ def evaluate_entry_projection_faithfulness(
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
+    if capsules_payload is not None:
+        atlas_payload = enrich_description_atlas(atlas_payload, capsules_payload)
     cards_by_id, ids_by_display = _atlas_maps(atlas_payload)
     projection_rows: list[dict[str, Any]] = []
     under_projected: list[dict[str, Any]] = []
@@ -394,7 +398,9 @@ def evaluate_entry_projection_faithfulness(
                         },
                         "owner_surface_mutation_guidance": (
                             "Carry human_gloss, agent_gloss, first_command, and "
-                            "claim_ceiling_restated from core/organ_atlas.json, or "
+                            "claim_ceiling_restated from the joined capsule compression "
+                            "(core/paper_module_capsules.json), plus first_command from "
+                            "core/organ_atlas.json, or "
                             "make the projection explicitly route to the rich organ card "
                             "while preserving first command and authority ceiling."
                         ),
@@ -407,6 +413,11 @@ def evaluate_entry_projection_faithfulness(
         "checker_id": CHECKER_ID,
         "status": status,
         "atlas_ref": "core/organ_atlas.json",
+        "description_ref": (
+            "core/paper_module_capsules.json" if capsules_payload is not None
+            or (cards_by_id and all(row.get("description_source_ref") for row in cards_by_id.values()))
+            else None
+        ),
         "source_rich_coverage": _source_rich_coverage(cards_by_id),
         "projection_ref_count": len(inspected_refs),
         "projection_refs": sorted(inspected_refs),
@@ -477,7 +488,7 @@ def main(argv: list[str] | None = None) -> int:
     atlas_path = Path(args.atlas) if args.atlas else root / "core/organ_atlas.json"
     projection_paths = args.projection_json or [str(root / "atlas/agent_task_routes.json")]
     card = evaluate_entry_projection_faithfulness(
-        read_json_strict(atlas_path),
+        load_description_atlas(root, atlas_path=atlas_path),
         _load_projection_payloads(projection_paths),
     )
     print(json.dumps(card, indent=2, sort_keys=True))

@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.",
     "card": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content, resource class, and the `PYTHONPATH` and `PYTEST_ADDOPTS` environment values. Matching runs can share or reuse a result; the fixture also checks that a scoped file change changes the key. It writes a result, board and validation receipt.",
-    "one_line": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content and environment."
+    "one_line": "Exercises command-run deduplication using keys derived from inputs and environment."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.semantic_singleflight_dedup_runtime",
@@ -89,7 +89,7 @@
       "compression": {
         "authority_ceiling": "Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.",
         "card": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content, resource class, and the `PYTHONPATH` and `PYTEST_ADDOPTS` environment values. Matching runs can share or reuse a result; the fixture also checks that a scoped file change changes the key. It writes a result, board and validation receipt.",
-        "one_line": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content and environment."
+        "one_line": "Exercises command-run deduplication using keys derived from inputs and environment."
       },
       "concept_refs": [
         "concept.work_landing_and_continuity_control_bundle"
@@ -342,7 +342,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content and environment.",
+  "statement": "Exercises command-run deduplication using keys derived from inputs and environment.",
   "status": "active",
   "subjects": [
     {

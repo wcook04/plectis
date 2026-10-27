@@ -44,5 +44,49 @@
   "slug": "navigation_metrics",
   "source": "NavigationMetrics.dfy",
   "source_sha256": "ed519aa34a6edd0a8ff67673b6ed6b40af3ed66790ddb16b4ef5b112721f9c61",
-  "verified_tasks": 31
+  "verified_tasks": 31,
+  "contract": {
+    "schema_version": "plectis_formal_contract_v1",
+    "contract_id": "contract::navigation_metrics",
+    "statement": "Counts equal the cardinalities of matching expected and selected positions in their separate units. Decisions follow timeout/error/missing/scent/forbidden priority; latency is exactly timeout, within budget or over budget from the integer observations.",
+    "input_model": "Finite normalized expected and selected ID sequences, timeout/error/scent/forbidden flags, and signed integer wall time and budget. Missing expected artifacts are derived from the matching counts.",
+    "assumptions": "The host supplies normalized string and timing observations. The adapter, isolated worker, Dafny, Boogie, Z3, compiler and Python runtime remain trusted.",
+    "limits": "Host sorting, observed labels, ratios and rounding are trusted; route quality is not proved.",
+    "specification_refs": [
+      "formal/components/navigation_metrics/NavigationMetrics.dfy#MatchSpec",
+      "formal/components/navigation_metrics/NavigationMetrics.dfy#FoundSpec",
+      "formal/components/navigation_metrics/NavigationMetrics.dfy#RelevantSpec",
+      "formal/components/navigation_metrics/NavigationMetrics.dfy#DecisionSpec",
+      "formal/components/navigation_metrics/NavigationMetrics.dfy#Latency"
+    ],
+    "entry_theorem_refs": [
+      "formal/components/navigation_metrics/NavigationMetrics.dfy#CountsAreCardinalities",
+      "formal/components/navigation_metrics/NavigationMetrics.dfy#DecisionExact",
+      "formal/components/navigation_metrics/NavigationMetrics.dfy#ResultContract",
+      "formal/components/navigation_metrics/NavigationMetrics.dfy#Compute"
+    ],
+    "component_bindings": [
+      {
+        "organ_id": "navigation_fitness_benchmark",
+        "runtime_refs": [
+          "src/microcosm_core/engine_room/navigation_fitness_benchmark.py#evaluate_task"
+        ],
+        "primary_guide_ref": "paper_modules/navigation_fitness_benchmark.md",
+        "test_refs": [
+          "tests/test_component_navigation_metrics.py::test_overlap_and_prefix_units_are_selected_artifacts",
+          "tests/test_component_navigation_metrics.py::test_adapter_rejects_malformed_inputs",
+          "tests/test_component_navigation_metrics.py::test_latency_code_is_exact_at_integer_boundaries",
+          "tests/test_component_navigation_metrics.py::test_component_calls_verified_core",
+          "tests/test_component_navigation_metrics.py::test_navigation_organ_fixture_route_calls_verified_core"
+        ]
+      }
+    ],
+    "positive_test_ref": "tests/test_component_navigation_metrics.py::test_overlap_and_prefix_units_are_selected_artifacts",
+    "adversarial_test_ref": "tests/test_component_navigation_metrics.py::test_adapter_rejects_malformed_inputs",
+    "mutant_refs": [
+      "formal/components/navigation_metrics/negative/InvalidLatencyMutant.dfy",
+      "formal/components/navigation_metrics/negative/PatternCountMutant.dfy"
+    ],
+    "formal_readme_ref": "formal/components/navigation_metrics/README.md"
+  }
 }

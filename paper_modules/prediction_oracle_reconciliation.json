@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "The packet and outcomes are synthetic. This replay does not establish forecasting accuracy, access market feeds, or provide investment advice.",
     "card": "The validator checks prediction targets and evidence timing, recomputes numeric rankings and grades supplied realised directions. It keeps stock and ETF counts separate and constrains dossier mutations to declared types and evidence. It rejects an oracle row without a supporting prediction, a claimed grade contradicting recomputation, and post-prediction evidence used as prior evidence.",
-    "one_line": "Checks a synthetic prediction packet against supplied evidence and realised outcomes, then emits a reconciliation result."
+    "one_line": "Compares synthetic predictions with supplied evidence and outcomes."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.prediction_oracle_reconciliation",
@@ -87,7 +87,7 @@
       "compression": {
         "authority_ceiling": "The packet and outcomes are synthetic. This replay does not establish forecasting accuracy, access market feeds, or provide investment advice.",
         "card": "The validator checks prediction targets and evidence timing, recomputes numeric rankings and grades supplied realised directions. It keeps stock and ETF counts separate and constrains dossier mutations to declared types and evidence. It rejects an oracle row without a supporting prediction, a claimed grade contradicting recomputation, and post-prediction evidence used as prior evidence.",
-        "one_line": "Checks a synthetic prediction packet against supplied evidence and realised outcomes, then emits a reconciliation result."
+        "one_line": "Compares synthetic predictions with supplied evidence and outcomes."
       },
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
@@ -412,7 +412,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Checks a synthetic prediction packet against supplied evidence and realised outcomes, then emits a reconciliation result.",
+  "statement": "Compares synthetic predictions with supplied evidence and outcomes.",
   "status": "active",
   "subjects": [
     {

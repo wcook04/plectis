@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from .resource_root import microcosm_root
+from microcosm_core.component_descriptions import load_description_atlas, enrich_organ_route_rows
 from .schemas import StrictJsonError, read_json_strict
 
 MICROCOSM_ROOT = microcosm_root()
@@ -2053,7 +2054,9 @@ def _organ_glance_ladder_rows(root: Path) -> tuple[list[dict[str, Any]], set[str
     Inputs are `root`; notable helpers are `_load_public_json`, `get`, `_public_text`,
     `add`, and 1 more.
     """
-    routes = _load_public_json(root, AGENT_TASK_ROUTES_REF)
+    routes = enrich_organ_route_rows(
+        _load_public_json(root, AGENT_TASK_ROUTES_REF), load_description_atlas(root),
+    )
     ladder = routes.get("organ_glance_ladder", []) if isinstance(routes, dict) else []
     rows: list[dict[str, Any]] = []
     families: set[str] = set()
@@ -2119,7 +2122,7 @@ def _representative_substrate_glance(root: Path) -> dict[str, Any]:
             SUBSTRATE_GLANCE_EXCERPT_MAX_CHARS,
         )
         card_excerpt = _public_excerpt(
-            row.get("card") or row.get("human_gloss") or row.get("agent_gloss"),
+            row.get("card"),
             SUBSTRATE_GLANCE_EXCERPT_MAX_CHARS,
         )
         glance_excerpt = one_line or card_excerpt

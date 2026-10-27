@@ -2568,3 +2568,53 @@ def test_mini_export_retains_component_sources_and_replaces_its_own_receipt(tmp_
         assert ref in paths
         assert (target / ref).read_bytes() == payload
     assert not any(PurePosixPath(ref).suffix in {".pyc", ".pyo"} for ref in paths)
+
+
+@pytest.mark.parametrize("relative", list(release_export._MCP_CANONICAL_PUBLIC_STUB_SHA256))
+@pytest.mark.parametrize("case", ["canonical", "modified", "other_path", "symlink"])
+def test_restricted_export_preserves_only_pinned_public_mcp_stubs(tmp_path: Path, relative: str, case: str) -> None:
+    source = Path(__file__).resolve().parents[1]
+    root = tmp_path / "source"
+    path = root / relative
+    path.parent.mkdir(parents=True)
+    payload = (source / relative).read_bytes()
+    if case == "modified":
+        payload += b"# altered public bytes\n"
+    if case == "other_path":
+        path = root / relative.replace("examples/mcp_tool_authority_replay/", "examples/other/")
+        path.parent.mkdir(parents=True)
+    if case == "symlink":
+        outside = tmp_path / "outside.py"
+        outside.write_bytes(payload)
+        path.symlink_to(outside)
+    else:
+        path.write_bytes(payload)
+    assert release_export._is_canonical_mcp_public_stub(path, root) is (case == "canonical")
+    rows = release_export._restricted_source_module_substitution_rows(root)
+    assert any(row["path"] == path.relative_to(root).as_posix() for row in rows) is (case != "canonical")
+
+
+def test_exported_mcp_public_materials_keep_actual_consumer_floor(tmp_path: Path) -> None:
+    from microcosm_core.organs import mcp_tool_authority_replay as mcp
+    source = Path(__file__).resolve().parents[1]
+    root, exported = tmp_path / "source", tmp_path / "exported"
+    bundle = Path("examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle")
+    fixture = json.loads((source / mcp.SOURCE_INVENTORY_CONTRACT).read_text())
+    contract = fixture["source_inventory_contract"]
+    refs = [Path(mcp.SOURCE_INVENTORY_CONTRACT), bundle / "source_module_manifest.json"]
+    refs.extend(bundle / row["path"] for row in contract["retained"] + contract["release_omissions"])
+    for ref in refs:
+        path = root / ref
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes((source / ref).read_bytes())
+    substitutions = {row["path"]: row for row in release_export._restricted_source_module_substitution_rows(root)}
+    assert not (set(substitutions) & set(release_export._MCP_CANONICAL_PUBLIC_STUB_SHA256))
+    assert len(substitutions) == 2  # Existing JSON/JSONL omissions still use the substitution owner.
+    release_export._copy_allowed_files([root / ref for ref in refs], root=root, target=exported,
+                                       private_body_substitutions=substitutions)
+    release_export._rewrite_private_body_stub_metadata(exported, substitutions)
+    manifest = json.loads((exported / bundle / "source_module_manifest.json").read_text())
+    assert mcp._public_source_floor_matches(manifest, input_dir=exported / bundle, public_root=exported)
+    changed = exported / next(iter(release_export._MCP_CANONICAL_PUBLIC_STUB_SHA256))
+    changed.write_bytes(changed.read_bytes() + b"# altered after export\n")
+    assert not mcp._public_source_floor_matches(manifest, input_dir=exported / bundle, public_root=exported)

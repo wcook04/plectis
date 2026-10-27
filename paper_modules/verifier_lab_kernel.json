@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "The fixture path can invoke its bounded public Lean/Lake witness; compatible `lean` and `lake` are prerequisites. Provider suggestions and translated actions are not proofs, and the kernel does not validate arbitrary private proofs.",
     "card": "The fixture checks component results alongside packet rules. It rejects an oracle result counted as forward success, a provider hypothesis claiming proof authority, and candidate bodies in fields that must remain body-free. Tests also exercise the standalone exported-bundle contract.",
-    "one_line": "The verifier-lab kernel combines a public component stack with a packet of forward problems, oracle sidecars, provider hypotheses and candidate actions."
+    "one_line": "Checks verifier-lab fixtures, keeping oracle and provider data separate from forward results."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.verifier_lab_kernel",
@@ -81,7 +81,7 @@
       "compression": {
         "authority_ceiling": "The fixture path can invoke its bounded public Lean/Lake witness; compatible `lean` and `lake` are prerequisites. Provider suggestions and translated actions are not proofs, and the kernel does not validate arbitrary private proofs.",
         "card": "The fixture checks component results alongside packet rules. It rejects an oracle result counted as forward success, a provider hypothesis claiming proof authority, and candidate bodies in fields that must remain body-free. Tests also exercise the standalone exported-bundle contract.",
-        "one_line": "The verifier-lab kernel combines a public component stack with a packet of forward problems, oracle sidecars, provider hypotheses and candidate actions."
+        "one_line": "Checks verifier-lab fixtures, keeping oracle and provider data separate from forward results."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -520,7 +520,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The verifier-lab kernel combines a public component stack with a packet of forward problems, oracle sidecars, provider hypotheses and candidate actions.",
+  "statement": "Checks verifier-lab fixtures, keeping oracle and provider data separate from forward results.",
   "status": "active",
   "subjects": [
     {

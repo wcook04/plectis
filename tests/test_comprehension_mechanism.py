@@ -10,6 +10,11 @@ from __future__ import annotations
 
 import re
 
+import pytest
+
+from microcosm_core.component_descriptions import ComponentDescriptionError
+from microcosm_core.projections.organ_atlas import _public_scope_text
+
 from microcosm_core import comprehension as C
 from microcosm_core import cli
 
@@ -35,40 +40,34 @@ _INTERNAL_JARGON = (
 )
 
 
-def test_mechanism_index_ladder_and_fallback() -> None:
-    """The precedence join is deterministic: card -> statement -> gloss."""
-    atlas_by = {
-        "card_organ": {"agent_gloss": "short gloss A", "claim_ceiling_restated": "no X"},
-        "stmt_organ": {"agent_gloss": "short gloss B", "claim_ceiling_restated": "no Y"},
-        "gloss_organ": {"agent_gloss": "G" * 200, "claim_ceiling_restated": "no Z"},
-    }
-    capsules = {
-        "paper_modules": [
-            {
-                "compression": {
-                    "card": "C" * 150,
-                    "one_line": "card organ one line",
-                    "authority_ceiling": "card ceiling",
-                },
-                "subjects": [{"kind": "organ", "ref": "card_organ"}],
-            }
-        ]
-    }
-    mechanisms = {
-        "mechanisms": [
-            {"statement": "stmt organ computes a thing exactly", "runs_in": ["stmt_organ"]}
-        ]
-    }
-    idx = C._mechanism_index(capsules, mechanisms, atlas_by)
-    # card rung wins when card >= 120 chars; line + ceiling come from the capsule.
-    assert idx["card_organ"]["body"] == "C" * 150
-    assert idx["card_organ"]["line"] == "card organ one line"
-    assert idx["card_organ"]["ceiling"] == "card ceiling"
-    # statement rung when no card; ceiling falls back to the atlas claim ceiling.
-    assert idx["stmt_organ"]["body"] == "stmt organ computes a thing exactly"
-    assert idx["stmt_organ"]["ceiling"] == "no Y"
-    # gloss rung when neither card nor statement is present.
-    assert idx["gloss_organ"]["body"] == "G" * 200
+def test_mechanism_index_uses_canonical_capsules_without_legacy_fallback() -> None:
+    """Even short cards come from the explicit capsule, never stale side prose."""
+    atlas_by = {}
+    modules = []
+    for oid in ("card_organ", "stmt_organ", "gloss_organ"):
+        atlas_by[oid] = {
+            "organ_id": oid, "paper_module_ref": f"core/paper_module_capsules.json#paper_module.{oid}",
+            "agent_gloss": "Stale permissive gloss " * 20,
+            "claim_ceiling_restated": "Stale authority grant.",
+        }
+        modules.append({
+            "id": f"paper_module.{oid}", "subjects": [{"kind": "organ", "ref": oid}],
+            "compression": {"card": f"Checks {oid} fixtures.", "one_line": f"Read {oid} fixtures.",
+                            "authority_ceiling": "No live authority."},
+        })
+    capsules = {"paper_modules": modules}
+    mechanisms = {"mechanisms": [{"statement": "Stale mechanism statement " * 20, "runs_in": list(atlas_by)}]}
+    index = C._mechanism_index(capsules, mechanisms, atlas_by)
+    for oid, module in zip(atlas_by, modules):
+        compression = module["compression"]
+        assert index[oid] == {"body": compression["card"], "line": compression["one_line"],
+                              "ceiling": compression["authority_ceiling"]}
+        assert len(index[oid]["body"]) < 120
+    # Neither a long mechanism statement nor a long stale atlas gloss rescues
+    # an absent canonical source after the description-owner migration.
+    capsules["paper_modules"].pop()
+    with pytest.raises(ComponentDescriptionError, match="unresolved_capsule_ref"):
+        C._mechanism_index(capsules, mechanisms, atlas_by)
 
 
 def test_all_organs_resolve_a_mechanism_shard() -> None:
@@ -78,8 +77,11 @@ def test_all_organs_resolve_a_mechanism_shard() -> None:
     assert len(atlas_by) >= 80
     missing = [oid for oid in atlas_by if not (mech_by.get(oid) or {}).get("line")]
     assert not missing, f"organs with no mechanism line: {missing}"
-    thin = [oid for oid in atlas_by if len((mech_by.get(oid) or {}).get("body", "")) < 120]
-    assert not thin, f"organs with a sub-120-char mechanism body: {thin}"
+    # Fidelity means exact canonical text, not an arbitrary prose length.
+    assert set(mech_by) == set(atlas_by)
+    for oid, row in atlas_by.items():
+        assert mech_by[oid]["body"] == _public_scope_text(row["compression_card"])
+        assert mech_by[oid]["ceiling"] == _public_scope_text(row["compression_authority_ceiling"])
 
 
 def test_high_regret_organs_name_their_machinery() -> None:
@@ -90,12 +92,19 @@ def test_high_regret_organs_name_their_machinery() -> None:
         return (mech_by.get(oid) or {}).get("body", "")
 
     fin = body("finance_forecast_evaluation_spine")
-    assert "Diebold-Mariano" in fin and ("Hansen" in fin or "SPA" in fin)
+    # Typography may use an en dash and the statistical method may be spelled
+    # out; retain the named computations rather than their old abbreviation.
+    normalized_fin = re.sub(r"[\u2010-\u2015-]", " ", fin).casefold()
+    for computation in ("diebold mariano", "stationary bootstrap", "reality check",
+                        "superior predictive ability", "model confidence set"):
+        assert computation in normalized_fin, computation
     erd = body("finite_erdos_denominator_certificate_strike")
-    assert "ord_Q" in erd and "lcm" in erd
+    assert "multiplicative order" in erd and "modulo Q" in erd and "lcm(F)" in erd
     sab = body("agent_sabotage_scheming_monitor_replay")
     assert "counterfactual" in sab or "monitor" in sab
-    assert "RMS" in body("batch8_audio_level_rms_port")
+    audio = body("batch8_audio_level_rms_port").casefold()
+    assert "root mean square" in audio or re.search(r"\brms\b", audio)
+    assert "int16" in audio and "32767" in audio and "clamp" in audio
 
 
 def test_mechanism_surfaces_do_not_leak_source_bodies() -> None:
@@ -111,7 +120,9 @@ def test_comprehend_organ_carries_full_mechanism_body() -> None:
         mode="organ", organ_id="finance_forecast_evaluation_spine", inputs=inputs
     )
     assert pack.get("found")
-    assert "Diebold-Mariano" in pack["summary"].get("mechanism", "")
+    expected = inputs["mechanism_by_organ"]["finance_forecast_evaluation_spine"]["body"]
+    assert pack["summary"]["mechanism"] == expected
+    assert expected == _public_scope_text(inputs["atlas_by_organ"]["finance_forecast_evaluation_spine"]["compression_card"])
 
 
 def test_whole_substrate_map_rows_carry_mechanism() -> None:
@@ -145,9 +156,11 @@ def test_slice_mechanism_text_renders_substance_lines() -> None:
     assert "Mechanism lines:" in text
     assert text.index("Mechanism substance examples:") < text.index("Mechanism lines:")
     assert "Lean Proof-Search Lab Runtime" in text
-    assert "Gated external-tool proof-search lab" in text
+    for node in pack["substance_nodes"]:
+        assert node["mechanism"] in text
+    lean = next(node for node in pack["substance_nodes"] if node["organ_id"] == "lean_proof_search_lab_runtime")
+    assert "bounded" in lean["mechanism"] and "Lean" in lean["mechanism"]
     assert "Finite Erdos Denominator-Order Certificate Strike" in text
-    assert "ord_Q(b)=lcm(F)" in text
     assert "Sabotage-Monitor Contract Replay" in text
     assert "What this does NOT claim:" in text
 
