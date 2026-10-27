@@ -78,8 +78,8 @@
       "source_ref": "main",
       "source_path": "README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/README.md",
-      "source_sha256": "492db29cc207b52d81bee3563a442ce26a76df2bd5916102d22370518c690188",
-      "bytes": 17898
+      "source_sha256": "799039e31a9db6698fa5b16ae7478ffb9668b4ffcb8e76c9d647f26424491bfa",
+      "bytes": 18184
     },
     {
       "hosted_path": "lean/human-source/docs/READING_GUIDE.md",
@@ -105,8 +105,8 @@
       "source_ref": "main",
       "source_path": "paper/README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/README.md",
-      "source_sha256": "952a4474d2e936a5760868d3249c4cf8766e25f17ec59e7728c8cf02705191de",
-      "bytes": 16347
+      "source_sha256": "decf75c300deb85716e1726091ca1d547496950636d10c81f4c437f8297a5432",
+      "bytes": 16413
     },
     {
       "hosted_path": "lean/human-source/docs/README.md",
@@ -114,8 +114,8 @@
       "source_ref": "main",
       "source_path": "docs/README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/README.md",
-      "source_sha256": "c2eb0ae77c4426603aadbf1657b2891d69ead2def3737d844b5207e0a0a06c50",
-      "bytes": 8534
+      "source_sha256": "2b18860351eefb494e70e1711f3a9f30a2e5895382cb14835c38369b44819b38",
+      "bytes": 8600
     },
     {
       "hosted_path": "lean/human-source/docs/RESULTS.md",
@@ -213,8 +213,8 @@
       "source_ref": "main",
       "source_path": "docs/ARCHITECTURE.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ARCHITECTURE.md",
-      "source_sha256": "e79a63ea29765fcba7455a5486d444436eced30378e797132a31e949a1d14f81",
-      "bytes": 17971
+      "source_sha256": "21c7ec9dbc7c7078149d2248965620d88065ab6d1f276ba71192459f907906bb",
+      "bytes": 18015
     },
     {
       "hosted_path": "lean/human-source/docs/reference/RESIDUAL_PROGRESS.md",

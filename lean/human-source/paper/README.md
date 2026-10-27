@@ -3,8 +3,8 @@
 
 # Papers
 
-[Browse on the website](https://wcook04.github.io/plectis/docs/papers.html) ·
-[Explore the maths map](https://wcook04.github.io/plectis/maths/universe.html) ·
+[Browse on the website](https://wcook04.github.io/practical-formal-verification/docs/papers.html) ·
+[Explore the maths map](https://wcook04.github.io/practical-formal-verification/maths/universe.html) ·
 [Read without a clone](../docs/reading-edition/README.md)
 
 Each problem has a short first-read paper and a longer complete reasoning record.
@@ -25,7 +25,7 @@ The collection has five complementary roles:
   structured and revised using literature and feedback.
 
 You do not need Lean or a coding agent to read the papers. PDFs and LaTeX
-sources are paired below; the [website catalogue](https://wcook04.github.io/plectis/docs/papers.html)
+sources are paired below; the [website catalogue](https://wcook04.github.io/practical-formal-verification/docs/papers.html)
 offers browser reading alongside the downloads.
 
 ## What the papers establish

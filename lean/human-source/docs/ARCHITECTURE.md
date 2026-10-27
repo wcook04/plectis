@@ -43,8 +43,8 @@ source and an on-demand model remains untested. The
 
 ## Website, map and repository
 
-The [website](https://wcook04.github.io/plectis/maths/) and its
-[maths map](https://wcook04.github.io/plectis/maths/universe.html) connect a
+The [website](https://wcook04.github.io/practical-formal-verification/maths/) and its
+[maths map](https://wcook04.github.io/practical-formal-verification/maths/universe.html) connect a
 problem to papers, results and recorded formal evidence. This checkout holds
 the sources and works independently of the site. Humans enter through
 [README.md](../README.md); agents use [AGENTS.md](../AGENTS.md). Both lead to

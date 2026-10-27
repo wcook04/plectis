@@ -10,7 +10,7 @@
       "links": [
         {
           "label": "Plectis (my main website and maths map)",
-          "href": "https://wcook04.github.io/plectis/"
+          "href": "https://wcook04.github.io/practical-formal-verification/"
         },
         {
           "label": "Plectis Atlas (OpenAI’s maths and outside assessments)",
@@ -26,7 +26,7 @@
         },
         {
           "label": "Get in touch (email and collaboration)",
-          "href": "https://wcook04.github.io/plectis/docs/contact.html#get-in-touch"
+          "href": "https://wcook04.github.io/practical-formal-verification/docs/contact.html#get-in-touch"
         },
         {
           "label": "X / Twitter (updates and discussion)",
@@ -249,15 +249,15 @@
         },
         {
           "label": "Short paper (the precise results and arguments)",
-          "href": "https://wcook04.github.io/plectis/maths/papers/erdos-257-mersenne-support-subseries.html"
+          "href": "https://wcook04.github.io/practical-formal-verification/maths/papers/erdos-257-mersenne-support-subseries.html"
         },
         {
           "label": "Long paper (the wider investigation and failed approaches)",
-          "href": "https://wcook04.github.io/plectis/maths/papers/erdos257-mersenne-reasoning-surface.html"
+          "href": "https://wcook04.github.io/practical-formal-verification/maths/papers/erdos257-mersenne-reasoning-surface.html"
         },
         {
           "label": "Maths map (find the statement and its proof)",
-          "href": "https://wcook04.github.io/plectis/maths/universe.html"
+          "href": "https://wcook04.github.io/practical-formal-verification/maths/universe.html"
         },
         {
           "label": "Research repository (papers and source)",
@@ -588,11 +588,11 @@
       "links": [
         {
           "label": "Plectis (my main website)",
-          "href": "https://wcook04.github.io/plectis/"
+          "href": "https://wcook04.github.io/practical-formal-verification/"
         },
         {
           "label": "Public toolkit (separate tools from the same system)",
-          "href": "https://github.com/wcook04/plectis"
+          "href": "https://github.com/wcook04/practical-formal-verification"
         },
         {
           "label": "One Checkout (save selected changes)",
@@ -807,7 +807,7 @@
         },
         {
           "label": "Plectis (my main website)",
-          "href": "https://wcook04.github.io/plectis/"
+          "href": "https://wcook04.github.io/practical-formal-verification/"
         }
       ],
       "still_inset": null,
@@ -994,11 +994,11 @@
       "links": [
         {
           "label": "Maths map (choose a problem, paper or proof)",
-          "href": "https://wcook04.github.io/plectis/maths/universe.html"
+          "href": "https://wcook04.github.io/practical-formal-verification/maths/universe.html"
         },
         {
           "label": "Papers (short explanations and longer investigations)",
-          "href": "https://wcook04.github.io/plectis/docs/papers.html"
+          "href": "https://wcook04.github.io/practical-formal-verification/docs/papers.html"
         },
         {
           "label": "Plectis Erdős (research repository)",
@@ -1228,7 +1228,7 @@
         },
         {
           "label": "Plectis (my own maths programme and other projects)",
-          "href": "https://wcook04.github.io/plectis/"
+          "href": "https://wcook04.github.io/practical-formal-verification/"
         }
       ],
       "still_inset": null,
@@ -1426,7 +1426,7 @@
         },
         {
           "label": "Plectis (my main website)",
-          "href": "https://wcook04.github.io/plectis/"
+          "href": "https://wcook04.github.io/practical-formal-verification/"
         }
       ],
       "still_inset": null,
@@ -1801,7 +1801,7 @@
       "links": [
         {
           "label": "Plectis (my main website and maths map)",
-          "href": "https://wcook04.github.io/plectis/"
+          "href": "https://wcook04.github.io/practical-formal-verification/"
         },
         {
           "label": "Plectis Atlas (OpenAI’s maths and outside assessments)",
@@ -1817,7 +1817,7 @@
         },
         {
           "label": "Get in touch (email and collaboration)",
-          "href": "https://wcook04.github.io/plectis/docs/contact.html#get-in-touch"
+          "href": "https://wcook04.github.io/practical-formal-verification/docs/contact.html#get-in-touch"
         },
         {
           "label": "X / Twitter (updates and discussion)",
@@ -2148,7 +2148,7 @@
         },
         {
           "label": "Software repository",
-          "href": "https://github.com/wcook04/plectis",
+          "href": "https://github.com/wcook04/practical-formal-verification",
           "kind": "code"
         }
       ]

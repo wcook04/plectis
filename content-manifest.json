@@ -1452,8 +1452,8 @@
     }
   ],
   "legacy_compatibility": {
-    "canonical_site_base_url": "https://wcook04.github.io/plectis/",
-    "legacy_site_base_url": "https://wcook04.github.io/plectis/",
+    "canonical_site_base_url": "https://wcook04.github.io/practical-formal-verification/",
+    "legacy_site_base_url": "https://wcook04.github.io/practical-formal-verification/",
     "legacy_site_output_root": "sites/microcosm-legacy",
     "machine_json_aliases": [
       "content-graph.json",
@@ -5457,7 +5457,7 @@
       "title": "Credit ledger"
     }
   ],
-  "public_base_url": "https://wcook04.github.io/plectis/",
+  "public_base_url": "https://wcook04.github.io/practical-formal-verification/",
   "schema_version": "microcosm_public_site_content_manifest_v1",
   "semantic_redundancy_evaluation": {
     "decision_classes": [

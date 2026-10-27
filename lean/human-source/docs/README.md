@@ -21,10 +21,10 @@ else to inspect the argument and continue from it.
 
 ## Read on the website
 
-The [mathematics overview](https://wcook04.github.io/plectis/maths/) introduces
-the eight problems. The [interactive maths map](https://wcook04.github.io/plectis/maths/universe.html)
+The [mathematics overview](https://wcook04.github.io/practical-formal-verification/maths/) introduces
+the eight problems. The [interactive maths map](https://wcook04.github.io/practical-formal-verification/maths/universe.html)
 connects papers, results and recorded evidence; the
-[paper catalogue](https://wcook04.github.io/plectis/docs/papers.html) provides
+[paper catalogue](https://wcook04.github.io/practical-formal-verification/docs/papers.html) provides
 browser reading and PDFs. This index gives the corresponding routes inside a
 clone. No website account or coding agent is needed to read the work.
 

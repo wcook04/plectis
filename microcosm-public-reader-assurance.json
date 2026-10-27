@@ -1,5 +1,5 @@
 {
-  "canonical_url": "https://wcook04.github.io/plectis/plectis-public-reader-assurance.json",
+  "canonical_url": "https://wcook04.github.io/practical-formal-verification/plectis-public-reader-assurance.json",
   "moved_to": "plectis-public-reader-assurance.json",
   "note_for_agents": "Fetch canonical_url for the payload. This file is a pointer, not a truncated or sampled copy of it.",
   "reason": "This is the pre-rename path for an artifact now published as plectis-public-reader-assurance.json. The payload is served there; this pointer remains so links published before the rename still resolve rather than 404.",

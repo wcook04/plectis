@@ -19977,7 +19977,7 @@
       "subject": "Systems paper",
       "form": "Evidence boundary",
       "href": "papers/plectis-public-system.json",
-      "source_github": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex"
+      "source_github": "https://github.com/wcook04/practical-formal-verification/blob/main/paper/plectis-public-system.tex"
     },
     {
       "id": "paper:writing-a-good-mathematical-paper",

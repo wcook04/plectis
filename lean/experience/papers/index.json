@@ -6514,7 +6514,7 @@
         "html_exact_tex": "papers/plectis-public-system.mathjax.html",
         "pdf": "../../papers/plectis-public-system.pdf",
         "latex": "../../papers/source/plectis/paper/plectis-public-system.tex",
-        "source_github": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex",
+        "source_github": "https://github.com/wcook04/practical-formal-verification/blob/main/paper/plectis-public-system.tex",
         "source_raw": "https://raw.githubusercontent.com/wcook04/plectis/main/paper/plectis-public-system.tex"
       },
       "render_contract": {
@@ -6527,7 +6527,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "7d92a620c0a6f310",
-        "source_sha256": "b93fb1381948d5123d8abfc6bf95bebb7e6709efb04018e6d34b59fa0aa76cb4",
+        "source_sha256": "b7193e6bece8bae9c183388ea97736cff7c67e45f3fffcb549dd5c551b596c92",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 24,
@@ -6536,8 +6536,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "3dd6cbe04c98e71f63f9afe6016384540002d996825c9f9b60ce6951c27c3918",
-        "html_exact_tex_sha256": "aced3709137b8c02b3473ebea031986754ff5bd3919b76140e4ba9352ab30cda"
+        "html_mathml_sha256": "8cc28806e3538e5345b179af2dfa31846afce772a9c174596e7e4d39e620c07e",
+        "html_exact_tex_sha256": "c2e6404667288444eb9e9bd2f032c989c68b8658204ee61c2bc38625c5b14587"
       },
       "sections": [
         {

@@ -2,7 +2,7 @@
   "schema": "plectis_packet_identity_sidecar_v1",
   "describes": "plectis-ai-review-packet.json",
   "how_to_use": "Run sha256 over your downloaded file and compare it with exact_byte_sha256 below. Equal means you hold this build. Different means you hold another one, and its own numbers are the ones that apply to it -- not these.",
-  "exact_byte_sha256": "sha256:3e9a468e43ef817de6c9aa221cd08a2ca3c6901d74c902ac51f07751f45acf93",
+  "exact_byte_sha256": "sha256:edeeb9a968b9add1ca393db33fb4fb3b84f8e082ab5f03c7b487905a735e8993",
   "byte_count": 1490580,
   "payload_sha256_excluding_identity": "sha256:2113c8e1b5493bd17c29872ade2f3e544c096173a93d3adfc2d0cd2ccf6cf8a9",
   "source_fingerprint": "3efa84e02a2e34bb7723f6de2455f7bca1c8157d70be9d43a3efe0f31b816660",
@@ -14,5 +14,5 @@
   "source_integrity": null,
   "suggested_local_filename": null,
   "why_a_sidecar_and_not_a_second_copy": "This hash identifies the exact downloaded bytes without publishing a second copy.",
-  "stable_url": "https://wcook04.github.io/plectis/plectis-ai-review-packet.json"
+  "stable_url": "https://wcook04.github.io/practical-formal-verification/plectis-ai-review-packet.json"
 }

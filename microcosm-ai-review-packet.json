@@ -1,5 +1,5 @@
 {
-  "canonical_url": "https://wcook04.github.io/plectis/plectis-ai-review-packet.json",
+  "canonical_url": "https://wcook04.github.io/practical-formal-verification/plectis-ai-review-packet.json",
   "moved_to": "plectis-ai-review-packet.json",
   "note_for_agents": "Fetch canonical_url for the payload. This file is a pointer, not a truncated or sampled copy of it.",
   "reason": "This is the pre-rename path for an artifact now published as plectis-ai-review-packet.json. The payload is served there; this pointer remains so links published before the rename still resolve rather than 404.",
