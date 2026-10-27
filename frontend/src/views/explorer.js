@@ -5,7 +5,7 @@
 // chosen object is addressable as #o=<key>; search and filters live in the
 // query string.
 
-import { apiPath, getEnvelope, withQuery } from '../api.js';
+import { ApiError, apiPath, getEnvelope, withQuery } from '../api.js';
 import { getModel } from '../data.js';
 import { announce, backingGlyph, clear, h, keyGlyph, ringStyle, ringSwatch, svg } from '../dom.js';
 import {
@@ -107,7 +107,12 @@ export async function mountExplorer(root, { url, navigate }) {
       onEnter: (it) => map && map.hoverKey(`comp:${it.organ_id}`),
       onLeave: () => map && map.hoverKey(null),
     }),
-    onMatches: (set) => { currentMatches = set; if (map && !pinnedTrack) map.setMatches(set); },
+    onMatches: (set, error) => {
+      currentMatches = set;
+      if (map && !pinnedTrack) map.setMatches(set);
+      if (error?.kind === 'revision') foot.textContent = 'The index changed. Reload the map to apply this search.';
+    },
+    expectedRevision: () => model?.revision || '',
     onReset: () => resetQuery(),
   });
 
@@ -375,7 +380,7 @@ export async function mountExplorer(root, { url, navigate }) {
       h('h3', { class: 'section-title' }, 'What checks it'), column,
       h('div', { class: 'limit', 'data-limit': '' }, h('span', { class: 'limit__label' }, 'What it does not claim'), 'Loading…'),
       h('details', { class: 'fullwriteup', open: true }, h('summary', {}, 'Full write-up'), h('div', { 'data-writeup': '' }, h('p', { class: 'muted small' }, 'Loading the write-up…'))));
-    loadPlain('component', c.id).then((text) => {
+    loadPlain('component', c.id, model.revision).then((text) => {
       if (text && mine === cardRun && !destroyed) card.querySelector('[data-plain]').textContent = text;
     });
     loadWriteup('component', c.id, model.links, { skipPlain: true }).then((el) => {
@@ -425,7 +430,9 @@ export async function mountExplorer(root, { url, navigate }) {
     body.scrollTop = 0;
     let detail;
     try {
-      detail = (await getEnvelope(apiPath('components', c.id))).data;
+      const envelope = await getEnvelope(apiPath('components', c.id));
+      if (envelope.revision !== model.revision) throw new ApiError('revision', 'The index changed. Reload the map to read this component.');
+      detail = envelope.data;
     } catch (error) {
       if (mine !== cardRun) return;
       card.querySelector('[data-limit]').replaceChildren(h('span', { class: 'limit__label' }, 'What it does not claim'), `This component's details could not be loaded: ${error.message}`);
@@ -546,7 +553,7 @@ export async function mountExplorer(root, { url, navigate }) {
   foot.textContent = `Snapshot ${model.revision.slice(0, 12)}${src}.`;
   foot.title = model.revision;
   const t = model.totals;
-  lede.textContent = `Plectis has ${t.components} components. For ${t.kernels + t.cores} small computations in it, a tool called Dafny has proved that the code follows written rules, and the proved code is the code that runs. The rings around the map show what else checks each component, and the gaps show what nothing checks.`;
+  lede.textContent = `Plectis has ${t.components} components. For ${t.kernels + t.cores} small computations in it, a tool called Dafny has proved that the code follows written rules, and the proved code is the code that runs. The rings around the map show which checks are recorded for each component in this snapshot; gaps mean no such check is recorded here.`;
   if (revealPlayed) document.documentElement.classList.add('map-seen');
   let peekTimer = 0, peekKey = null;
   function showPeek(o) {
@@ -564,7 +571,7 @@ export async function mountExplorer(root, { url, navigate }) {
     if (o.type === 'component') {
       const c = o.comp;
       const text = h('p', { class: 'peek__plain' }, c.summary);
-      loadPlain('component', c.id).then((plain) => { if (plain && peekKey === o.key) text.textContent = plain; });
+      loadPlain('component', c.id, model.revision).then((plain) => { if (plain && peekKey === o.key) text.textContent = plain; });
       return h('div', {},
         h('p', { class: 'card-kind' }, backingGlyph(c.backing, c.kernelId ? 'mark--proved' : 'mark'), familyName(c.family)),
         h('p', { class: 'peek__title' }, c.title),
@@ -606,7 +613,7 @@ export async function mountExplorer(root, { url, navigate }) {
   // It starts after the opening has drawn, so it never delays the map.
   setTimeout(async () => {
     const ids = model.components.map((c) => c.id);
-    for (let i = 0; i < ids.length && !destroyed; i += 3) await Promise.all(ids.slice(i, i + 3).map((id) => fetchWriteup('component', id)));
+    for (let i = 0; i < ids.length && !destroyed; i += 3) await Promise.all(ids.slice(i, i + 3).map((id) => fetchWriteup('component', id, model.revision)));
   }, 2600);
 
   return () => {

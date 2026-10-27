@@ -110,7 +110,25 @@ def main(argv=None):
         page.goto(f"{base}/components/mcp_tool_authority_replay", wait_until="load")
         page.wait_for_selector("h1")
         check("a revision change is an explicit state", page.locator("h1").inner_text() == "The index changed while loading")
+        page.goto(f"{base}/#o=comp%3Amcp_tool_authority_replay", wait_until="load")
+        page.wait_for_function("document.querySelector('[data-limit]')?.textContent.includes('Reload the map')")
+        check("a map card refuses details from another revision",
+              "The index changed" in page.locator('[data-limit]').inner_text())
         page.unroute("**/api/v1/components/mcp_tool_authority_replay")
+
+        def other_guide_revision(route):
+            response = route.fetch()
+            headers = dict(response.headers)
+            headers["x-plectis-snapshot-revision"] = "0" * 64
+            route.fulfill(response=response, headers=headers)
+
+        page.route("**/guides/component/mcp_tool_authority_replay", other_guide_revision)
+        page.goto(f"{base}/components/mcp_tool_authority_replay", wait_until="load")
+        page.wait_for_selector("text=The write-up and this view no longer share a snapshot")
+        check("a guide from another snapshot is withheld",
+              page.locator('#s-writeup .writeup').count() == 0)
+        page.screenshot(path=str(args.out / "guide-revision-conflict.png"))
+        page.unroute("**/guides/component/mcp_tool_authority_replay")
 
         # 5. A slow earlier search cannot overwrite a later one (controlled delay).
         def slow(route):
@@ -130,6 +148,54 @@ def main(argv=None):
         check("a superseded slow search is discarded", page.url.endswith("q=ownership") and len(titles) >= 1 and not any("slow" in t.lower() for t in titles),
               f"{len(titles)} rows for 'ownership'")
         page.unroute("**/api/v1/components?*")
+
+        # 5b. Map match requests must be superseded even by an empty reset.
+        match_probes = page.evaluate("""async () => {
+          const { createCatalogue } = await import('/src/views/catalogue-core.js');
+          const originalFetch = globalThis.fetch;
+          const results = [];
+          try {
+            for (const scenario of ['text-reset', 'facet-reset', 'new-query', 'revision']) {
+              let release;
+              const observed = [];
+              globalThis.fetch = async (url) => {
+                const u = new URL(url, location.href);
+                const old = u.searchParams.get('q') === 'old' || u.searchParams.has('family');
+                const reply = () => new Response(JSON.stringify({
+                  schema_version: 'plectis_component_http_v1',
+                  snapshot_revision: scenario === 'revision' ? 'other' : 'held',
+                  data: { items: [{ organ_id: old ? 'old-match' : 'new-match' }], total: 1, next_cursor: null }
+                }), { headers: { 'Content-Type': 'application/json' } });
+                if (old && u.searchParams.get('limit') === '100') {
+                  return new Promise((resolve) => { release = () => resolve(reply()); });
+                }
+                return reply();
+              };
+              const host = document.createElement('div');
+              const catalogue = createCatalogue(host, {
+                row: () => document.createElement('li'), expectedRevision: () => 'held',
+                onMatches: (ids, error) => observed.push({ ids: ids === null ? null : [...ids], error: error?.kind || null })
+              });
+              const first = scenario === 'facet-reset' ? { family: 'example' } : { q: scenario === 'revision' ? 'new' : 'old' };
+              await catalogue.load(first);
+              if (scenario !== 'revision') {
+                await catalogue.load({ q: scenario === 'new-query' ? 'new' : '' });
+                release();
+              }
+              await new Promise((resolve) => setTimeout(resolve, 0));
+              results.push({ scenario, observed });
+              catalogue.destroy();
+            }
+          } finally { globalThis.fetch = originalFetch; }
+          return results;
+        }""")
+        for probe in match_probes:
+            expected = [{"ids": None, "error": None}]
+            if probe["scenario"] == "new-query":
+                expected = [{"ids": ["new-match"], "error": None}]
+            elif probe["scenario"] == "revision":
+                expected = [{"ids": None, "error": "revision"}]
+            check(f"map matches: {probe['scenario']}", probe["observed"] == expected, str(probe["observed"]))
 
         # 6. A truncated graph, and the same relations as a list.
         page.goto(f"{base}/graph?type=organ&id=pattern_assimilation_step&depth=2&max_edges=60", wait_until="load")

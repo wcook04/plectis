@@ -48,7 +48,7 @@ export async function mountComponent(root, { id }) {
   const section = (sid, title, ...content) => h('section', { id: `s-${sid}`, 'aria-labelledby': `h-${sid}` }, h('h2', { id: `h-${sid}` }, title), ...content);
 
   const plain = h('p', { class: 'page-plain' }, c.summary);
-  loadPlain('component', c.id).then((text) => { if (text) plain.textContent = text; });
+  loadPlain('component', c.id, model.revision).then((text) => { if (text) plain.textContent = text; });
   const writeup = h('div', {}, h('p', { class: 'muted small' }, 'Loading the write-up…'));
   loadWriteup('component', c.id, model.links, { skipPlain: true }).then((el) => writeup.replaceChildren(el));
 

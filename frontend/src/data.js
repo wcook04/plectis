@@ -235,7 +235,7 @@ export function build(data, revision) {
     clauses: list(explorer.claim_clause_coverage),
     localRuns: data.local_runs || null,
     source: sourceRevision,
-    links: { componentIds: new Set(byId.keys()), proofIdOfDir, source: sourceRevision },
+    links: { componentIds: new Set(byId.keys()), proofIdOfDir, source: sourceRevision, revision },
     totals: {
       components: components.length,
       kernels: kernels.length,

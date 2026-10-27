@@ -70,7 +70,7 @@ export function componentRow(item, { href, onEnter, onLeave, onPick } = {}) {
  * receives every matching ID (fetched separately, all pages) so the map
  * can light them; `row` builds one list row.
  */
-export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset } = {}) {
+export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset, expectedRevision = () => '' } = {}) {
   const run = latestOnly();
   const matchRun = latestOnly();
   let list = null;
@@ -156,12 +156,12 @@ export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset }
   async function loadMatches() {
     if (!onMatches) return;
     const params = apiParams(state);
-    if (!Object.keys(params).length) { onMatches(null); return; }
     try {
       const ids = await matchRun(async (signal) => {
+        if (!Object.keys(params).length) return null;
         const out = [];
         let cursor = null;
-        let revision = '';
+        let revision = expectedRevision();
         do {
           const env = await getEnvelope(withQuery(apiPath('components'), { ...params, limit: 100, cursor }), { signal });
           if (revision && env.revision !== revision) throw new ApiError('revision', 'index changed');
@@ -171,9 +171,9 @@ export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset }
         } while (cursor);
         return out;
       });
-      onMatches(new Set(ids));
+      onMatches(ids === null ? null : new Set(ids));
     } catch (error) {
-      if (error.kind !== 'aborted') onMatches(null);
+      if (error.kind !== 'aborted') onMatches(null, error);
     }
   }
 

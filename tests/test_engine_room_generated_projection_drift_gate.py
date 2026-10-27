@@ -149,6 +149,35 @@ def test_glob_fallback_uses_complete_fixed_directories() -> None:
     assert projection_pattern_matches_path("docs/**/*.md", "docs/other.txt")
 
 
+def test_saved_runtime_result_preserves_which_owner_failed(tmp_path: Path) -> None:
+    from microcosm_core.organs.generated_projection_drift_runtime import RESULT_NAME, run
+
+    outcomes = []
+    for failing in ["left", "right"]:
+        case = {
+            "case_id": "swapped_owner", "case_type": "negative",
+            "expected_status": "drift", "expected_owner_count": 2,
+            "files": [{"path": f"{name}.txt", "text": "report body"} for name in ["left", "right"]],
+            "owners": [{
+                "owner_id": name, "artifacts": [f"{name}.txt"],
+                "check_command": ["builtin:fail" if name == failing else "builtin:pass"],
+            } for name in ["left", "right"]],
+        }
+        inputs = tmp_path / failing / "inputs"
+        _write(inputs / "case.json", json.dumps(case))
+        out = tmp_path / failing / "out"
+        run(inputs, out)
+        saved = json.loads((out / RESULT_NAME).read_text())["cases"][0]
+        assert {row["owner_id"] for row in saved["owners"] if row["status"] == "drift"} == {failing}
+        for row in saved["owners"]:
+            assert set(row) == {"owner_id", "status", "status_reasons", "check_mode", "check_returncode"}
+            assert row["check_returncode"] == (7 if row["owner_id"] == failing else 0)
+        outcomes.append(saved)
+    assert {k: v for k, v in outcomes[0].items() if k != "owners"} == {
+        k: v for k, v in outcomes[1].items() if k != "owners"
+    }
+
+
 def test_required_fact_authority_lineage_drifts_when_incomplete(tmp_path: Path) -> None:
     _write(tmp_path / "source/spec.json", '{"title":"lineage"}\n')
     _write(tmp_path / "expected/report.md", "lineage\n")

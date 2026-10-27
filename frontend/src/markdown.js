@@ -161,29 +161,38 @@ export function renderWriteup(markdown, { base = '', skipTitle = true, skipPlain
   return root;
 }
 
-// Write-ups are read once per page load: { status, text, base } by "kind/id".
+// Successful write-ups are cached within their expected model revision.
 const fetched = new Map();
-export function fetchWriteup(kind, id) {
-  const key = `${kind}/${id}`;
+export function fetchWriteup(kind, id, expectedRevision = '') {
+  const key = JSON.stringify([expectedRevision, kind, id]);
   if (!fetched.has(key)) {
-    fetched.set(key, fetch(`/guides/${kind}/${encodeURIComponent(id)}`, { headers: { Accept: 'text/markdown' } })
-      .then(async (r) => ({ status: r.status, text: r.ok ? await r.text() : '', base: r.headers.get('X-Plectis-Guide-Ref') || '' }))
-      .catch(() => ({ status: 0, text: '', base: '' })));
+    const pending = fetch(`/guides/${kind}/${encodeURIComponent(id)}`, { headers: { Accept: 'text/markdown' } })
+      .then(async (r) => {
+        const revision = r.headers.get('X-Plectis-Snapshot-Revision') || '';
+        const status = r.ok && expectedRevision && revision !== expectedRevision ? 409 : r.status;
+        return { status, text: status === 200 ? await r.text() : '', base: r.headers.get('X-Plectis-Guide-Ref') || '', revision };
+      })
+      .catch(() => ({ status: 0, text: '', base: '', revision: '' }))
+      .then((result) => {
+        if (result.status !== 200 && fetched.get(key) === pending) fetched.delete(key);
+        return result;
+      });
+    fetched.set(key, pending);
   }
   return fetched.get(key);
 }
 
 /** Fetch and render the write-up for a component or a core; resolves to an element or a note. */
 export async function loadWriteup(kind, id, ctx, options = {}) {
-  const { status, text, base } = await fetchWriteup(kind, id);
+  const { status, text, base } = await fetchWriteup(kind, id, ctx.revision);
   if (status === 0) return h('p', { class: 'note' }, 'The write-up could not be read: the explorer server is not reachable.');
-  if (status === 409) return h('p', { class: 'note' }, 'The write-up has changed since the index was built, so it is not shown. Rebuild the index to read the current text.');
+  if (status === 409) return h('p', { class: 'note' }, 'The write-up and this view no longer share a snapshot, so the write-up is not shown. Reload the view; rebuild the index if its recorded guide has changed.');
   if (status !== 200) return h('p', { class: 'note' }, 'No write-up is recorded for this in the index.');
   return renderWriteup(text, { base, ...ctx, ...options });
 }
 
 /** The plain-language lead for a component, or null while there is none. */
-export async function loadPlain(kind, id) {
-  const { status, text } = await fetchWriteup(kind, id);
+export async function loadPlain(kind, id, revision = '') {
+  const { status, text } = await fetchWriteup(kind, id, revision);
   return status === 200 ? plainLead(text) : null;
 }

@@ -5,10 +5,50 @@ import assert from 'node:assert/strict';
 import {
   API_SCHEMA, ApiError, apiPath, withQuery, getEnvelope, latestOnly, loadTogether, Collection,
 } from '../src/api.js';
+import { fetchWriteup } from '../src/markdown.js';
 
 const envelope = (data, revision = 'r1') => ({ schema_version: API_SCHEMA, snapshot_revision: revision, data });
 const reply = (status, body) => new Response(typeof body === 'string' ? body : JSON.stringify(body), { status });
 const fetchFrom = (handler) => async (url, init) => handler(url, init);
+
+test('write-ups cache only successful text bound to the expected snapshot', async (t) => {
+  const original = globalThis.fetch;
+  t.after(() => { globalThis.fetch = original; });
+  let revision = 'guide-A';
+  let calls = 0;
+  globalThis.fetch = async () => {
+    calls += 1;
+    return new Response(`text ${revision}`, { headers: { 'X-Plectis-Snapshot-Revision': revision } });
+  };
+  const a = await fetchWriteup('component', 'revision-cache-probe', 'guide-A');
+  assert.equal(a.text, 'text guide-A');
+  assert.equal(await fetchWriteup('component', 'revision-cache-probe', 'guide-A'), a);
+  assert.equal(calls, 1);
+  revision = 'guide-B';
+  const b = await fetchWriteup('component', 'revision-cache-probe', 'guide-B');
+  assert.equal(b.text, 'text guide-B');
+  assert.equal(calls, 2, 'a new model revision fetches its own guide');
+  const mismatch = await fetchWriteup('component', 'revision-mismatch-probe', 'guide-A');
+  assert.equal(mismatch.status, 409);
+  assert.equal(mismatch.text, '', 'a stale model cannot render a different snapshot guide');
+  revision = 'guide-A';
+  assert.equal((await fetchWriteup('component', 'revision-mismatch-probe', 'guide-A')).status, 200);
+  let failed = true;
+  globalThis.fetch = async () => {
+    if (failed) throw new TypeError('offline');
+    return new Response('recovered', { headers: { 'X-Plectis-Snapshot-Revision': 'retry' } });
+  };
+  assert.equal((await fetchWriteup('component', 'network-retry-probe', 'retry')).status, 0);
+  failed = false;
+  assert.equal((await fetchWriteup('component', 'network-retry-probe', 'retry')).text, 'recovered');
+  let status = 409;
+  globalThis.fetch = async () => new Response('changed', { status, headers: { 'X-Plectis-Snapshot-Revision': 'retry' } });
+  assert.equal((await fetchWriteup('component', 'conflict-retry-probe', 'retry')).status, 409);
+  status = 200;
+  assert.equal((await fetchWriteup('component', 'conflict-retry-probe', 'retry')).status, 200);
+  globalThis.fetch = async () => new Response('unbound');
+  assert.equal((await fetchWriteup('component', 'missing-revision-probe', 'retry')).status, 409);
+});
 
 test('IDs are encoded as one path segment', () => {
   assert.equal(apiPath('proofs', 'proof::dafny::mcp_authority'), '/api/v1/proofs/proof%3A%3Adafny%3A%3Amcp_authority');
