@@ -168,15 +168,18 @@ def projection_pattern_matches_path(pattern: str, path: str) -> bool:
         # directories, fnmatch requires at least one) and glob patterns get
         # no directory-prefix scoping, so selection could miss an owner whose
         # fingerprint provably covers the changed path. Fall back to the
-        # pattern's static directory prefix — over-selecting is the safe
-        # direction for a drift gate.
+        # pattern's complete static directories — a partial component such
+        # as `gen` in `docs/gen*` is not a directory boundary. A root glob
+        # has no fixed directory, so conservatively select it for any path.
+        # Over-selecting is the safe direction for a drift gate; this also
+        # routes deleted files without requiring them to exist on disk.
         glob_start = min(
             idx for idx in (
                 normalized_pattern.find(token) for token in "*?["
             ) if idx != -1
         )
-        prefix = normalized_pattern[:glob_start].rstrip("/")
-        return bool(prefix) and (
+        prefix = normalized_pattern[:glob_start].rpartition("/")[0]
+        return not prefix or (
             normalized_path == prefix
             or normalized_path.startswith(f"{prefix}/")
             or prefix.startswith(f"{normalized_path}/")
