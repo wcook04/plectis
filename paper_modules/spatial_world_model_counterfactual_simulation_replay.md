@@ -1,5 +1,7 @@
 # Compare a predicted transition with a toy gridworld
 
+> **In plain terms.** A prediction of how a scene will change after a 'what if' event goes out of date when the scene or event changes. This component is given made-up scenes on a small grid, each with a 'what if' event and a predicted scene afterwards. For each one it works out the grid's next step under fixed rules, then compares the number of actors and the other changes with the prediction. The output is a list of findings showing each mismatch, and a prediction that no longer matches the computed step is rejected. It is a small made-up grid, not evidence of geographic accuracy, robot operation or a production simulator.
+
 For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction. It writes findings and a board for inspecting mismatches.
 
 ## Run the example

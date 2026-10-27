@@ -1,5 +1,7 @@
 # Exercise receipt and execution safeguards
 
+> **In plain terms.** Systems that keep saved records and run programs need safeguards that catch mistakes. It is given made-up cases for saved records and background processes, plus a map of what depends on what. It runs each safeguard on its cases and rejects the bad ones, and for the dependency map it lists everything that relies on a chosen item, directly or indirectly. The output is an outcome for each case, so someone can check each safeguard did what it should. One small step, finding what relies on the chosen item, is checked by a mathematical proof against written rules, while the rest, which tries only made-up cases and no live system, lies outside that proof.
+
 This fixture runs examples of receipt validation, replay scope, proof-contract checks, process classification, state convergence, trace recording, dependency impact and doctrine drift. It records each outcome alongside source-manifest evidence.
 
 ## Run the example

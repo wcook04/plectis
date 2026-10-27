@@ -1,5 +1,7 @@
 # Validate recorded agent routes
 
+> **In plain terms.** A log of what an automated assistant did is only useful if its entries are consistent. This component is given a bundle of events recorded along an assistant's route, with copies of source files. It checks that no party in the events claims more authority than it was given, that each copied file is the one recorded, and, in a broader run, that claimed behaviour changes cite evidence that can be found. The output is a pass or a list of findings, so someone can see which checks a bundle of records fails. It works on saved records, not a live stream of events, so a pass does not show that a real assistant followed its route.
+
 This runtime validates recorded agent observability metadata. The exported example checks recorded route events and whether their actors claim only the authority allowed to them. It also checks source-copy digests and writes a validation result. The broader fixture runner checks trace IDs and references supporting claimed behaviour changes.
 
 The exported-bundle tests reject a changed source digest. The fixture runner also rejects a behaviour-change claim with an unresolved evidence reference. The validator works on recorded inputs, not a live event tap. A passing result is evidence about these records and checks, not proof that a real agent followed a route or changed its behaviour.

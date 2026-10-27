@@ -1,5 +1,7 @@
 # Audit claims about a completed task
 
+> **In plain terms.** An automated assistant's closing report may say it saved its work and passed a test when it did not. This component is given claims about a saved snapshot, a log entry and a test, plus a small example project. It compares the claimed snapshot and log entry with the project's records, runs the named test, and accepts a pass claim only if the test succeeded and the claim says the result was checked. The output lists which claims held up and whether the test passed, so a reader can compare a closing report with what happened. It reads only claims in a fixed format, not ordinary closing messages, and checks no real project's log or release.
+
 This audit checks structured claims about a commit, a ledger entry and a test against a public fixture. It copies the fixture repository into a temporary directory, uses Git to create and inspect its HEAD, and runs the named pytest test. A test-pass claim needs both a zero exit status and an explicit indication that the status was checked. The ledger claim is checked against the supplied fixture ledger.
 
 For example, a commit reference that does not match the temporary repository HEAD is rejected. A missing pytest node or an unchecked pass claim is also rejected. The audit evaluates structured fixture claims; it does not read arbitrary closeout prose or verify a real project’s ledger or deployment.

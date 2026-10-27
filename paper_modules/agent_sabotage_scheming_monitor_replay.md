@@ -1,5 +1,7 @@
 # Replay monitor evidence and counterfactuals
 
+> **In plain terms.** A watching program labels each episode of an automated assistant's work as caught or not caught for pursuing a hidden side goal. This component is given recorded episodes, the watcher's scores, the assistant's actions and the evidence behind each label. It compares each episode with a rerun that has no side goal but the same main job, and checks that the difference points to the step tied to the side goal. It lists findings, such as an outdated caught label or a comparison that misses that step, so a reader can judge each label. These example records test only the chain of evidence, so they say nothing about how often a real watcher would succeed.
+
 This replay checks whether recorded monitor scores and action steps support declared caught or not-caught verdicts. It joins episodes, action traces and evidence references, then compares the recorded episode with a benign replay where the agent’s side objective is removed while its main task is preserved. It also checks cold-replay references and source-artifact digests.
 
 A stale caught label or a counterfactual that fails to isolate the step associated with that side objective is rejected. These public records are bounded examples for checking the evidence chain. They do not implement a deployed scheming detector or establish its detection rate, and matching source hashes do not establish algorithm correctness.

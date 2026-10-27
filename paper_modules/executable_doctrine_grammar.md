@@ -1,5 +1,7 @@
 # Validate standards and paper-module grammar
 
+> **In plain terms.** A project's written rules and explanatory pages should follow a fixed format. This check reads a list of the written rules, a set of short pages and some deliberately flawed example inputs. It checks that every rule and page has the required fields and that its references lead somewhere real, and it expects to catch the flawed examples, such as a rule name used twice with conflicting definitions. It writes a list of findings and a summary of what it covered, so problems can be found and fixed. A pass means the expected bad cases were caught, not that every example is valid or that the written guidance is complete.
+
 The validator reads a standards registry and Markdown module fixtures, checks their required fields and references, and writes findings and coverage summaries. The fixture run also expects deliberately invalid cases to be detected. For example, a standard that claims prose is executable authority is rejected, as is a duplicate standard slug with conflicting definitions.
 
 A passing fixture run means the expected negative cases were observed and the input scan passed; it does not mean every example input is valid or that the doctrine is complete. The exported metabolism bundle also checks imported-source digests; those checks establish byte identity, not correctness of the imported algorithms.

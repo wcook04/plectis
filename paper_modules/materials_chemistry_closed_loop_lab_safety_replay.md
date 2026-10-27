@@ -1,5 +1,7 @@
 # Materials Chemistry Simulator Safety Replay
 
+> **In plain terms.** When software picks which material a lab should test next, someone should check that the pick follows from the scores. This component reads made-up records of candidate materials, simulated lab tests, safety screening and the candidate declared as chosen. It works out the pick again from a stand-in test score, a score for what to test next and a safety score, then compares it with the declared pick. It writes a result with findings and rejects a pick that no longer matches the scores or a claimed hands-on lab procedure. It works only on simulated records, so it runs no experiment or robot and shows nothing about laboratory safety or a materials discovery.
+
 This validator reads synthetic candidate, simulator assay, safety-screen, and selection records. It recomputes the selected candidate using assay proxy, active-learning, and safety-gate scores, then compares the result with the declared selection. It also checks the replay graph, source manifests, and negative-case refusals before writing a result and board.
 
 The fixture rejects a claimed wet-lab procedure and the tests reject a stale selection after scores change. The result concerns the supplied simulated records; it does not run an experiment or robot, establish laboratory safety, or demonstrate a materials discovery. A source digest verifies the referenced copy, not its scientific validity.

@@ -1,5 +1,7 @@
 # Governed mutation evidence replay
 
+> **In plain terms.** A system that changes things automatically needs evidence that each change was checked, allowed by policy and can be undone. This component is given made-up change proposals, each linked to proof records, policy rulings, an undo record and a version-control record. It looks up each record, recalculates a fingerprint summarizing the evidence, checks the version-control record, and rejects a proposal with only one visible policy ruling, a stale fingerprint or no undo record for a reversible write. It writes a saved record of whether each proposal's evidence holds together, showing which are properly backed. It covers only supplied evidence and made-up proposals, and grants no permission to change a live system.
+
 Checks synthetic mutation proposals against linked proof, policy, side-effect, rollback and replay records, then writes an authorization replay receipt.
 
 ## Run the example

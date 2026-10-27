@@ -1,5 +1,7 @@
 # Check a synthetic bridge continuation
 
+> **In plain terms.** Resuming a paused job goes wrong if its resume note is missing or already used. This component reads made-up records of a paused job, its resume note, alive signals, computer-load decisions and skipped workers. It checks that the job paused with its place saved, its note is unused, and a recent alive signal matches the job's stage. It writes five saved records for testing handoff rules, and other cases catch a missing note, a second resume attempt and a stale alive signal that claims too much. The records are made up, so nothing here connects to a live system or shows that a real handoff worked.
+
 `bridge_phase_continuity_runtime` reads a synthetic detached job, continuation packet, heartbeat rows, resource-pressure decisions and worker-skip records. The continuation packet identifies the job to resume and records whether the packet has already been consumed. The validator checks whether the supplied records describe a coherent continuation and writes five JSON receipts. This is useful for testing handoff rules without running a bridge.
 
 ## Run the example

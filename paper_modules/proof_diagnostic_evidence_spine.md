@@ -1,5 +1,7 @@
 # Check proof diagnostic evidence
 
+> **In plain terms.** Diagnostic reports about proofs are only useful if their claims point to real files that have not changed. This component is given a bundle of diagnostic entries, each linking a failure report to a spot in a saved record, plus the source files and their fingerprints. It follows each link to the file and spot it names, compares fingerprints, and rejects any row from an outside provider that contains a full proof. It writes a result without proof text, listing which evidence is supported and flagging any changed source file as out of date. Matching links and fingerprints do not show that any theorem is correct, and it does not run the Lean proof checker.
+
 Checks in a public evidence bundle point to source files and receipt anchors. This validator resolves those references, compares source digests and checks the receipt bindings; it also checks diagnostic rows and provider payload policy. For example, a diagnostic row links a failure-taxonomy report to a receipt anchor. Provider rows must not contain proof bodies. The validator writes a body-free result for inspecting which evidence is supported.
 
 ## Run the example

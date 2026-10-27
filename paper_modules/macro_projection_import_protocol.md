@@ -1,5 +1,7 @@
 # Projection Import Protocol
 
+> **In plain terms.** A reviewer needs to know what was copied into a public project, from where, and how it was checked. This check reads a record for each import, naming its source and target, the checks done and a digest, meaning a fingerprint of the exact content. It rejects a claimed exact copy that lacks a target and a real digest, rejects an import lacking required checking, and can flag a source that changed since the recorded copy. It produces a plan or validation record for a reviewer, and the plan can be previewed without writing any files. A matching digest shows only that the copy is identical, not that the code is correct or complete.
+
 This protocol checks records for copying or refactoring selected source material into the public repository. The input identifies source and target references, material classes, digests, omissions, and validation references. It produces a plan or validation receipt so a reviewer can inspect the claimed provenance and boundaries.
 
 A copied-body claim without a target and a real digest is rejected, as is an import without the required verification. The plan can report that a live source has changed since a recorded exact copy; that drift is distinct from a bad recorded import. A digest checks byte identity, not the correctness or completeness of the copied implementation, and a passing protocol is not a release decision. The non-writing plan below is useful when inspecting an import before making changes.

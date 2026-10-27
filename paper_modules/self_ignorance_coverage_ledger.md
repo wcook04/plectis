@@ -1,5 +1,7 @@
 # Compare known atlas coverage
 
+> **In plain terms.** A project keeps a map of its own parts, and some parts it knows exist may be missing from the map. This comparison reads counts and identifiers for categories such as concepts and standards, plus a saved map that represents some of them. For each category it works out the shortfall between the listed count and the number shown on the map, and checks that required identifiers are present. The shortfall, called coverage debt, points to known gaps, and a claim that a missing entry shows something does not exist is rejected. The map is a snapshot, and the comparison cannot discover everything that is missing from both the counts and the map.
+
 The exported bundle contains counts and IDs for categories such as concepts and standards, plus a saved system graph representing some of those entities. This component compares the two: for each category it reports the shortfall between the listed count and the number represented in the graph, and checks required IDs. The resulting coverage debt helps locate known gaps in that graph.
 
 ## Run the example

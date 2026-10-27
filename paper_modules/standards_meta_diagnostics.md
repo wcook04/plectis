@@ -1,5 +1,7 @@
 # Standards coverage diagnostics
 
+> **In plain terms.** Each accepted component of a project should have a written standard, a command that runs it and saved records backing what is said about it. This check reads the project's public list of accepted components, along with inventory and command entries, and some deliberately flawed example inputs. It compares accepted components with those entries, checks that each cited standard and saved record exists, and rejects a claim of permission to release. It writes a result listing what it found, so maintainers can see which components lack standards or references. A pass describes the public coverage that was checked, not that every component works or that a release is allowed.
+
 This validator checks whether accepted components have the declared standards, runtime commands and receipt references needed to describe their public contracts. The fixture run derives positive rows from the current public registry and checks negative examples from the input directory.
 
 ## Run the example

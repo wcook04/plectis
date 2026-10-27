@@ -1,5 +1,7 @@
 # Check Demo Take capture contracts
 
+> **In plain terms.** A recording app relies on a few small guards in its code, and an edit could remove one unnoticed. Its input is the program code of the Demo Take recording console. It checks the code for guards such as the rule that a recording needs at least one screen, audio or webcam source, confirms that altered copies with a guard removed are rejected, and tries to build the app. The output is a short summary of each check, which someone can use to see that the guards are still in place. These check written rules, not real recording, and the build neither launches the app nor shows anything about capture quality or transcription accuracy.
+
 This fixture checks copied Swift sources for a recording console and exercises a build witness, capture state, helper bridge, hotkey, audio meter and transcription payload contracts. It records summaries rather than source or build-log bodies.
 
 ## Run the example

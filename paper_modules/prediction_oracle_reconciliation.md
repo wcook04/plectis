@@ -1,5 +1,7 @@
 # Prediction and oracle reconciliation
 
+> **In plain terms.** A price prediction is graded unfairly if the grading uses evidence from after the prediction was made. This component is given a made-up packet of predictions, the evidence cited for each, and rows recording the realised outcomes. It checks each prediction's target and evidence dates, works out the numeric rankings again and grades the realised direction of each outcome. It writes a result and rejects an outcome with no matching prediction, a grade that disagrees with the one it works out, and later evidence used as if it came earlier. Because everything is made up, it says nothing about forecasting accuracy, uses no market feeds and gives no investment advice.
+
 Checks a synthetic prediction packet against supplied evidence and realised outcomes, then emits a reconciliation result.
 
 ## Run the example

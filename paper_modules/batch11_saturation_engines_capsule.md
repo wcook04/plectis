@@ -1,5 +1,7 @@
 # Exercise a collection of source-backed checks
 
+> **In plain terms.** Small helper routines in a software project, like one that picks which earlier run of a job to trust, can fail on awkward cases. It is given thirteen checks with sample cases, from choosing between runs of a data feed to checking links and market figures. It runs each check, for example picking a working feed run over a failed one marked as preferred, and blocking a file with a token shaped like a secret key. The output records each exercise and its cases that should fail, so someone can see how each routine behaves. The results hold only for these test inputs and say nothing about real-world performance, market truth or security.
+
 This fixture runs thirteen selected checks on examples ranging from run affinity and navigation to market data, research evidence and recording segments. It checks source manifests and records each exercise and its negative cases.
 
 ## Run the example

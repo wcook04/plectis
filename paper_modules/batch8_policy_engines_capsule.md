@@ -1,5 +1,7 @@
 # Exercise three policy decisions
 
+> **In plain terms.** Programs that allow or refuse an action need their rules tested on known cases. This check loads three copied decision rules and feeds them made-up cases, including lab result files, an unregistered market situation and campaign status changes. The lab audit flags a summary containing a question mark, the market gate refuses the unregistered situation, and the campaign check allows a move from candidate to blocked but refuses completed back to running. The refusals come from running the copied code, not from a label declaring an error, and a saved status reports the outcome. The examples do not show that lab output is right, live market claims are valid or campaigns are safe to run.
+
 The fixture loads three copied policy engines and applies them to synthetic artifacts. The Lab audit checks JSON artifacts written by its compute nodes, such as cross-correlation summaries. It reports green for the prepared artifacts and red when a summary contains a question mark. The market readiness gate refuses an unregistered situation with `candidate_situation_gate_missing`. The campaign transition check accepts `candidate` to `blocked`, treats `completed` to `completed` as already at target, and refuses `completed` to `running`.
 
 These are concrete checks of particular decisions. The negative cases derive their verdicts from the copied functions rather than accepting a declared error label as proof.

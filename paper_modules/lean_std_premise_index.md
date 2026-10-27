@@ -1,5 +1,7 @@
 # Lean/Std Premise Index
 
+> **In plain terms.** A program that helps write proofs needs an index of known facts that matches its source and gives away no answers. This component is given such an index for the standard library of the proof-checking program Lean, listing each fact's name, source and allowed uses, plus copied source details. It matches entries to those details, checks that source files still match their stored fingerprints, and rejects entries from the Mathlib library, leaked proofs or answer keys, and tuning on the test portion. It reports a pass when the checks are met, and a mismatch flags a change to the copied index. It does not run Lean or show that any fact is correct.
+
 This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references. It compares public rows with copied source metadata by premise ID and checks declared source digests. A toolchain path may be represented by a public `lean-toolchain://` reference.
 
 The fixture rejects Mathlib premises, proof-body or oracle-ID leakage, test-split tuning, and a namespace without a source reference. Digest and row checks help identify changes to the copied index; they do not establish mathematical correctness. The validator does not run Lean or Lake or prove that a premise is useful in a new proof.

@@ -1,5 +1,7 @@
 # Mathematical Strategy Atlas
 
+> **In plain terms.** Before proving a statement, someone must pick a first approach, and a program can suggest one by scoring each option. This component is given problem descriptions, such as a statement worded 'if and only if', and strategy cards listing clues for and against each approach. It recalculates each score, adding points for matching clues, subtracting points for opposing clues and adding a small capped bonus for matching search words. It outputs the highest-scoring approach, or a recorded no-match, to try before any proof attempt, and rejects a declared choice that disagrees with it. The suggestion is a hypothesis from the supplied descriptions, not evidence that the approach will prove the statement.
+
 The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution. The score weights matching triggers, penalizes negative triggers, and adds a capped bonus for retrieval-term matches. The fixture includes an `iff_goal` case selecting `iff_split`; an unmapped case can yield a typed selection miss.
 
 The validator rejects an unknown strategy, an exposed oracle label, a proof body, and an invalid declared selection. Tests change features or strategy evidence to check that the selection is recomputed. This is a hypothesis from the supplied features and scoring rules, not evidence that the strategy proves the statement or that a model performs well on a benchmark.

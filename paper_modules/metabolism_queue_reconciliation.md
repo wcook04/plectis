@@ -1,5 +1,7 @@
 # Queue reconciliation in a temporary SQLite store
 
+> **In plain terms.** A queue of jobs for programs to work on can contradict itself, for example a job marked as running that has no run on record. This component is given made-up queue scenarios, each run in a temporary database, such as lending a job out and recovering it when the loan expires. A checker then compares the job, run and log records against its consistency rules and reports whether the outcome matches what each scenario expects. Where a contradiction is planted on purpose, success means the expected rule fires, so a pass does not mean that queue was healthy. The component never inspects or repairs a real queue, and passing says nothing about reliability in real use.
+
 Runs queue scenarios in temporary SQLite stores and reports whether the reconciliation rules match each case’s expectation.
 
 ## Run the example

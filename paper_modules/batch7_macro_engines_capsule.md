@@ -1,5 +1,7 @@
 # Run selected macro-engine exercises
 
+> **In plain terms.** Tools that run a software project rely on helper routines to order tasks, apply edits and choose which tests to rerun. It is given copies of such routines and small example cases for each. It runs each routine on its cases, rejecting tasks that depend on one another in a circle, refusing an edit whose surrounding lines do not match, and checking that an empty test choice falls back to a default. The result combines checks on the copied source with each routine's outcome, showing whether they handle these cases as intended. It does not show that edits are safe, that test selection is complete or that the whole system is correct.
+
 This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection. Its result combines source checks with the outcomes of the individual witnesses.
 
 ## Run the example

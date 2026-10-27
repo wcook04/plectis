@@ -1,5 +1,7 @@
 # Route-packet fitness benchmark
 
+> **In plain terms.** A guide that suggests where to start a task can pick a wrong first step or wrong items. This benchmark reads sample routes, each with a first command, chosen items, a summary and the time taken, plus what the task expected. It counts how many expected items were chosen and how many chosen items were relevant, flags forbidden first steps, and compares the time taken with a budget. Each route gets a verdict, checked against the expected one, with delay recorded apart from whether its items were enough. One small counting and decision step is checked by a mathematical proof against written rules, the rest lies outside that proof, and only hand-picked cases are tried.
+
 Scores supplied route packets against task-specific expected IDs and rules, then checks whether each computed verdict matches its fixture expectation. A packet records the choices returned for a task: the first command, selected artifacts, summary and elapsed time.
 
 ## Run the example

@@ -1,5 +1,7 @@
 # Circuit attribution replay
 
+> **In plain terms.** A claim about which input feature mattered most to a computer model's answer can go stale when the model's numbers change. This component is given a tiny made-up model written as plain numbers, plus a claim naming the top feature and a diagram of connections. It runs the model and measures how much the output changes when each feature is nudged and when it is removed. The result records whether the claimed top feature agrees with those measurements, and it rejects a stale claim or a disconnected diagram. It looks only at a toy network, not a trained model, so it does not show that any trained model can be understood.
+
 Checks a public circuit-attribution fixture and a small numerical model, recording whether the declared feature attribution agrees with its inputs.
 
 ## Run the example

@@ -1,5 +1,7 @@
 # Resolve facts from a fixture registry
 
+> **In plain terms.** Answering questions about files, such as how many there are, takes a repeatable recipe, and one missing file should not stop the other answers. This component is given a short list of fact recipes and a temporary example folder of files. Each recipe reads one value from a data file, counts files whose names match a pattern, or counts the files a version-tracking tool follows. The output lists each value found, shows a missing file as an error entry instead of stopping, and rejects an unknown kind of recipe. A value found this way describes only those files and that recipe, and says nothing about whether a claim built on it is true.
+
 `derived_fact_provider_runtime` evaluates small registries of facts against temporary fixture roots. A fact can read a JSON value by pointer, count files by glob, or call a named Git-index counter. The result reports values and provider errors as data, so a missing source does not crash the entire ledger.
 
 ## Run the example

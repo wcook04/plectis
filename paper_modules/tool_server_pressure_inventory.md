@@ -1,5 +1,7 @@
 # Classify tool-server process pressure
 
+> **In plain terms.** When too many programs are running on a computer, someone has to work out which ones belong to whom. This check is given a saved snapshot of the running programs, a list classifying their owners and a policy on how much pressure is too much. It follows ownership links, sorts owners into active, unknown and detached, applies the policy, and rejects any claim that a program with an unknown owner is safe to close. The output is an inventory and a recommendation for easing the pressure, to help decide what needs an owner's attention. It reads only the saved snapshot and sends no signals, and a recommendation is not permission to stop anything.
+
 This component takes a supplied process table, owner classifications and pressure policy and produces an inventory and a relief recommendation. It helps inspect a recorded process snapshot before deciding what needs an owner’s attention.
 
 ## Run the example
