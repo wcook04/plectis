@@ -140,9 +140,10 @@ python3 scripts/check/check_compatibility_kernel.py --dafny /path/to/dafny
 ```
 
 The second command checks exact source/generated hashes only. The last command
-requires the pinned official Dafny 4.11.0 build, verifies all 14 proof tasks,
-regenerates the deployed Python byte-for-byte, and verifies that removing the
-output-equality obligation fails with one proof error. The independent small
+requires the pinned official Dafny 4.11.0 build, verifies all 41 proof tasks,
+regenerates the deployed Python byte-for-byte, and rejects the three variants
+that remove output equality, admit a stale input or miss an output difference.
+The independent small
 oracle checks all 625 ordered pairs of two-state, one-input models; 247 pass.
 Its four-step oracle bound is complete for that small experiment only.
 

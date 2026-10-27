@@ -645,3 +645,24 @@ def test_documentation_and_companion_snapshot_travel_with_installed_resources():
     for ref in required:
         assert (MICROCOSM_ROOT / ref).is_file(), ref
         assert _is_packaged_by_data_files(data_files, ref), ref
+
+
+def test_component_generated_and_formal_resources_have_install_rules():
+    from plectis.components._registry import KERNELS
+
+    setuptools = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text())["tool"]["setuptools"]
+    for slug, kernel in KERNELS.items():
+        generated = MICROCOSM_ROOT / "src/plectis/components" / slug / "_generated"
+        patterns = setuptools["package-data"][f"plectis.components.{slug}._generated"]
+        for filename in ("GENERATED_SHA256.json", "Dafny-LICENSE.txt"):
+            assert (generated / filename).is_file()
+            assert any(fnmatch.fnmatchcase(filename, pattern) for pattern in patterns)
+        # A reviewed binding is useful to installed readers only when its
+        # source, metadata, explanation and declared negative sources travel.
+        formal = MICROCOSM_ROOT / "formal/components" / slug
+        metadata = json.loads((formal / "metadata.json").read_text())
+        for relative in (f"{kernel}.dfy", "metadata.json", "README.md", *metadata["negative_sources"]):
+            source = formal / relative
+            key = f"share/plectis/{source.parent.relative_to(MICROCOSM_ROOT).as_posix()}"
+            assert any(source in MICROCOSM_ROOT.glob(pattern)
+                       for pattern in setuptools["data-files"].get(key, [])), source

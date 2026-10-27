@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public route-map fixture, exported-bundle receipts, and copied non-secret macro cold-entry body evidence only; no route-registry authority, provider call, source mutation, release approval, private-data equivalence, trading or financial advice, or whole-system correctness.",
-    "card": "Cold-Reader Route Map is the public first-run route membrane. It validates route rows, route-to-receipt bindings, ordinal first-run sequencing, command/docs/receipt refs, release/provider/private-source overclaim rejection, exact copied macro cold-entry source modules, and body-free receipts so a cold agent can see what to run first and what proof bounds each row.",
-    "one_line": "The public cold-reader route-map fixture validates first-run command order, docs refs, receipt refs, authority ceilings, copied cold-entry source-module digests, and private-state exclusion without becoming route-registry authority."
+    "authority_ceiling": "Text checks do not execute every route or establish reader comprehension.",
+    "card": "Matches commands and descriptions to public text and verifies documentation anchors and linked results.",
+    "one_line": "Checks introductory command entries and local references."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.cold_reader_route_map",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public route-map fixture, exported-bundle receipts, and copied non-secret macro cold-entry body evidence only; no route-registry authority, provider call, source mutation, release approval, private-data equivalence, trading or financial advice, or whole-system correctness.",
+    "authority_ceiling": "Text checks do not execute every route or establish reader comprehension.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,9 +83,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public route-map fixture, exported-bundle receipts, and copied non-secret macro cold-entry body evidence only; no route-registry authority, provider call, source mutation, release approval, private-data equivalence, trading or financial advice, or whole-system correctness.",
-        "card": "Cold-Reader Route Map is the public first-run route membrane. It validates route rows, route-to-receipt bindings, ordinal first-run sequencing, command/docs/receipt refs, release/provider/private-source overclaim rejection, exact copied macro cold-entry source modules, and body-free receipts so a cold agent can see what to run first and what proof bounds each row.",
-        "one_line": "The public cold-reader route-map fixture validates first-run command order, docs refs, receipt refs, authority ceilings, copied cold-entry source-module digests, and private-state exclusion without becoming route-registry authority."
+        "authority_ceiling": "Text checks do not execute every route or establish reader comprehension.",
+        "card": "Matches commands and descriptions to public text and verifies documentation anchors and linked results.",
+        "one_line": "Checks introductory command entries and local references."
       },
       "concept_refs": [
         "concept.entry_and_reveal_route_readiness_bundle"
@@ -139,7 +139,7 @@
           "ref": "mechanism.cold_reader_route_map.validates_public_first_run_route_map"
         }
       ],
-      "title": "Cold-Reader Route Map"
+      "title": "Check quickstart commands and their references"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave route-map fixture, exported cold-reader route-map bundle, exact copied cold-entry source-module manifest, mechanism row, Microcosm organ source locus, and source atlas row without treating Markdown or generated atlas docs as source authority.",
     "support_contract": {
@@ -509,7 +509,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public cold-reader route-map fixture validates first-run command order, docs refs, receipt refs, authority ceilings, copied cold-entry source-module digests, and private-state exclusion without becoming route-registry authority.",
+  "statement": "Checks introductory command entries and local references.",
   "status": "active",
   "subjects": [
     {
@@ -521,7 +521,7 @@
       "ref": "mechanism.cold_reader_route_map.validates_public_first_run_route_map"
     }
   ],
-  "title": "Cold-Reader Route Map",
+  "title": "Check quickstart commands and their references",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

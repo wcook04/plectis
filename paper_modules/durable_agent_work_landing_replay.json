@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public synthetic replay receipts and copied non-secret macro work-landing/control-plane source bodies only; no live Git mutation, unrelated staging, broad checkpoint authority, arbitrary commit proof, provider calls, private body export, publication, hosting, release approval, or whole-system correctness.",
-    "card": "Durable Agent Work-Landing Replay is the public work-spine replay contract for agent landing claims. It checks claimed paths, owner-native validation refs, commit-attempt order, HEAD-before/after evidence, metadata-blocked rows, Work Ledger finalizer evidence, nine negative cases, and six exact copied macro source bodies while keeping raw diffs, private paths, provider payloads, and source bodies out of receipts.",
-    "one_line": "The public durable work-landing replay fixture validates recorded agent landing rows, copied macro control-plane source bodies, validation-before-commit ordering, HEAD-advance evidence, blocker capture, and Work Ledger closeout without performing live Git work."
+    "authority_ceiling": "Fixture replay only; neither real commit truth nor live Git authority.",
+    "card": "Rejects a landed claim without HEAD advance and a commit attempt preceding validation; checks source-copy digests separately.",
+    "one_line": "Checks recorded landing evidence and negative fixtures without executing Git."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.durable_agent_work_landing_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public synthetic replay receipts and copied non-secret macro work-landing/control-plane source bodies only; no live Git mutation, unrelated staging, broad checkpoint authority, arbitrary commit proof, provider calls, private body export, publication, hosting, release approval, or whole-system correctness.",
+    "authority_ceiling": "Fixture replay only; neither real commit truth nor live Git authority.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -81,9 +81,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public synthetic replay receipts and copied non-secret macro work-landing/control-plane source bodies only; no live Git mutation, unrelated staging, broad checkpoint authority, arbitrary commit proof, provider calls, private body export, publication, hosting, release approval, or whole-system correctness.",
-        "card": "Durable Agent Work-Landing Replay is the public work-spine replay contract for agent landing claims. It checks claimed paths, owner-native validation refs, commit-attempt order, HEAD-before/after evidence, metadata-blocked rows, Work Ledger finalizer evidence, nine negative cases, and six exact copied macro source bodies while keeping raw diffs, private paths, provider payloads, and source bodies out of receipts.",
-        "one_line": "The public durable work-landing replay fixture validates recorded agent landing rows, copied macro control-plane source bodies, validation-before-commit ordering, HEAD-advance evidence, blocker capture, and Work Ledger closeout without performing live Git work."
+        "authority_ceiling": "Fixture replay only; neither real commit truth nor live Git authority.",
+        "card": "Rejects a landed claim without HEAD advance and a commit attempt preceding validation; checks source-copy digests separately.",
+        "one_line": "Checks recorded landing evidence and negative fixtures without executing Git."
       },
       "concept_refs": [
         "concept.work_landing_and_continuity_control_bundle"
@@ -131,7 +131,7 @@
           "ref": "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract"
         }
       ],
-      "title": "Durable Agent Work-Landing Replay"
+      "title": "Recorded work landing: check the evidence"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave work-landing fixture, exported work-landing bundle, copied macro control-plane source-body manifest, mechanism row, Microcosm organ source locus, and source atlas row without treating Markdown, generated run JSON, generated atlas docs, or replay rows as live commit authority.",
     "support_contract": {
@@ -363,7 +363,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public durable work-landing replay fixture validates recorded agent landing rows, copied macro control-plane source bodies, validation-before-commit ordering, HEAD-advance evidence, blocker capture, and Work Ledger closeout without performing live Git work.",
+  "statement": "Checks recorded landing evidence and negative fixtures without executing Git.",
   "status": "active",
   "subjects": [
     {
@@ -375,7 +375,7 @@
       "ref": "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract"
     }
   ],
-  "title": "Durable Agent Work-Landing Replay",
+  "title": "Recorded work landing: check the evidence",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Copied non-secret macro control-plane source bundle, validator receipt, source-manifest digest evidence, required-anchor evidence, no-live-mutation contract flags, and secret-exclusion evidence only; no live Git mutation, live Task Ledger or Work Ledger mutation, claim release, shared-index mutation, private-index commit execution, broad staging, provider calls, credential export, publication, release approval, or whole-system correctness.",
-    "card": "Work Landing Control Spine is the public source-open import for non-secret work-landing control-plane bodies. It validates copied work_landing, work_landing_status, mission transaction preflight, landing preflight, and scoped-commit source modules by manifest digest, required anchors, no-live-mutation contract flags, secret-exclusion scan, and body-free receipt policy while keeping live Git, Task Ledger, Work Ledger, claim release, shared-index mutation, private-index execution, provider calls, publication, and release authority out of scope.",
-    "one_line": "The public work-landing control spine validates copied non-secret work-landing control-plane source bodies without authorizing live Git, ledger, claim-release, private-index, publication, or release operations."
+    "authority_ceiling": "The helper validates an exported bundle; it does not perform a live Git commit, mutate a task ledger or authorize publication.",
+    "card": "Validates source roster, digests, line counts, anchors and authority flags; a local run after source-bundle repair passed.",
+    "one_line": "Checks work-landing bundle files against their manifest and runtime contract."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.work_landing_control_spine",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Copied non-secret macro control-plane source bundle, validator receipt, source-manifest digest evidence, required-anchor evidence, no-live-mutation contract flags, and secret-exclusion evidence only; no live Git mutation, live Task Ledger or Work Ledger mutation, claim release, shared-index mutation, private-index commit execution, broad staging, provider calls, credential export, publication, release approval, or whole-system correctness.",
+    "authority_ceiling": "The helper validates an exported bundle; it does not perform a live Git commit, mutate a task ledger or authorize publication.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -88,9 +88,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Copied non-secret macro control-plane source bundle, validator receipt, source-manifest digest evidence, required-anchor evidence, no-live-mutation contract flags, and secret-exclusion evidence only; no live Git mutation, live Task Ledger or Work Ledger mutation, claim release, shared-index mutation, private-index commit execution, broad staging, provider calls, credential export, publication, release approval, or whole-system correctness.",
-        "card": "Work Landing Control Spine is the public source-open import for non-secret work-landing control-plane bodies. It validates copied work_landing, work_landing_status, mission transaction preflight, landing preflight, and scoped-commit source modules by manifest digest, required anchors, no-live-mutation contract flags, secret-exclusion scan, and body-free receipt policy while keeping live Git, Task Ledger, Work Ledger, claim release, shared-index mutation, private-index execution, provider calls, publication, and release authority out of scope.",
-        "one_line": "The public work-landing control spine validates copied non-secret work-landing control-plane source bodies without authorizing live Git, ledger, claim-release, private-index, publication, or release operations."
+        "authority_ceiling": "The helper validates an exported bundle; it does not perform a live Git commit, mutate a task ledger or authorize publication.",
+        "card": "Validates source roster, digests, line counts, anchors and authority flags; a local run after source-bundle repair passed.",
+        "one_line": "Checks work-landing bundle files against their manifest and runtime contract."
       },
       "concept_refs": [
         "concept.work_landing_and_continuity_control_bundle",
@@ -141,7 +141,7 @@
           "ref": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports"
         }
       ],
-      "title": "Work Landing Control Spine"
+      "title": "Validate the work-landing control bundle"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, accepted macro projection import protocol subject, public work_landing_control_source_modules_import cell, copied work-landing control source bundle, validator runtime, source manifest, runtime contract, and focused tests without treating Markdown, copied-body presence, generated receipts, or import-cell status as live Git, ledger, claim-release, publication, release, or private-root authority.",
     "support_contract": {
@@ -435,7 +435,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public work-landing control spine validates copied non-secret work-landing control-plane source bodies without authorizing live Git, ledger, claim-release, private-index, publication, or release operations.",
+  "statement": "Checks work-landing bundle files against their manifest and runtime contract.",
   "status": "active",
   "subjects": [
     {
@@ -447,7 +447,7 @@
       "ref": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports"
     }
   ],
-  "title": "Work Landing Control Spine",
+  "title": "Validate the work-landing control bundle",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

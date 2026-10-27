@@ -1,0 +1,48 @@
+{
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "generated_python": {
+    "InformationFlow.py": "957cefacca8920615563060334367d67c326340fdb3f89ec3b0f24143d1fcbf2",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "__main__.py": "7f0a68d743df1abe94e92825dc5839e47a0f7b9d36b5ec7e852d75b5448bcf04",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "ba3e9fc0ebdf9e26f26063cddf2e499ee55d2b2d347286036fc4df879b9cdefc"
+  },
+  "module": "InformationFlow",
+  "mutations": {
+    "negative/HiddenSeedMutant.dfy": {
+      "after": "    reached := seeds;",
+      "before": "    reached := seeds + (if hiddenLabel then HiddenDestinations(es) else {});",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    },
+    "negative/UntrustedWriteMutant.dfy": {
+      "after": "    } else if i.untrusted && i.privileged && !i.sanitized {\n      verdict := 1;",
+      "before": "    } else if i.untrusted && i.privileged && !i.sanitized {\n      verdict := 0;",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    }
+  },
+  "negative_results": {
+    "negative/HiddenSeedMutant.dfy": {
+      "errors": 1,
+      "verified_tasks": 19
+    },
+    "negative/UntrustedWriteMutant.dfy": {
+      "errors": 1,
+      "verified_tasks": 19
+    }
+  },
+  "negative_sha256": {
+    "negative/HiddenSeedMutant.dfy": "9da0e6a32cb904d4267ecbf2947c3558b92715acbe5da269d69080c812eac73c",
+    "negative/UntrustedWriteMutant.dfy": "d1fa630ac73fc427230ad755744689e5c5839233473ef91b932250dd8a7ed12b"
+  },
+  "negative_sources": [
+    "negative/UntrustedWriteMutant.dfy",
+    "negative/HiddenSeedMutant.dfy"
+  ],
+  "schema_version": 1,
+  "slug": "information_flow",
+  "source": "InformationFlow.dfy",
+  "source_sha256": "f8019e0d5c694199eb53bdc5e9a51f7efa27a93bbc9a07b18e5b534a6ff114a5",
+  "verified_tasks": 20
+}

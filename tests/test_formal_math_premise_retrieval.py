@@ -27,20 +27,57 @@ SOURCE_RUN = (
     / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
 )
 
+# These are public retained projections. Their bytes are not the private source
+# bytes whose historical digests are recorded by the import manifest.
+PUBLIC_PREMISE_SNAPSHOT = BUNDLE_INPUT / "premise_index.json"
+RING2_BUNDLE = (
+    MICROCOSM_ROOT
+    / "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle"
+)
+PUBLIC_PROBLEM_SNAPSHOT = (
+    RING2_BUNDLE
+    / "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json"
+)
+PUBLIC_PROBLEM_SNAPSHOT_SHA256 = "9658b0c79ed8f2ea3bdcf9798147ed6408b5cb40a660272cb2bc3dc40479ba33"
+
+
+def _faithful_module(module_id: str) -> dict[str, Any]:
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+    return next(row for row in manifest["source_faithful_modules"] if row["module_id"] == module_id)
+
+
+def _assert_public_premise_snapshot_pin() -> str:
+    module = _faithful_module("lean_std_toolchain_premise_index_body_import")
+    digest = "sha256:" + sha256(PUBLIC_PREMISE_SNAPSHOT.read_bytes()).hexdigest()
+    assert digest == module["target_sha256"]
+    assert sha256((FIXTURE_INPUT / "premise_index.json").read_bytes()).hexdigest() == digest.removeprefix("sha256:")
+    return digest
+
 
 def _copy_fixture_input_with_source_artifact(tmp_path: Path) -> Path:
+    """Bind a temporary fixture to the pinned public projection, not private bytes."""
+    digest = _assert_public_premise_snapshot_pin()
     public_root = tmp_path / "microcosm-substrate"
     input_dir = public_root / "fixtures/first_wave/formal_math_premise_retrieval/input"
-    source_target = (
-        tmp_path
-        / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
+    (public_root / "core").mkdir(parents=True)
+    shutil.copyfile(
+        MICROCOSM_ROOT / "core/private_state_forbidden_classes.json",
+        public_root / "core/private_state_forbidden_classes.json",
     )
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(
         MICROCOSM_ROOT / "fixtures/first_wave/formal_math_premise_retrieval",
         public_root / "fixtures/first_wave/formal_math_premise_retrieval",
     )
-    shutil.copytree(SOURCE_RUN, source_target)
+    source_target = public_root / "public_snapshot/premise_index.json"
+    source_target.parent.mkdir(parents=True)
+    shutil.copyfile(PUBLIC_PREMISE_SNAPSHOT, source_target)
+    index_path = input_dir / "premise_index.json"
+    payload = json.loads(index_path.read_text(encoding="utf-8"))
+    # The test-local source reference and digest identify the public projection;
+    # they do not claim it has the historical private source bytes.
+    payload["source_ref"] = "public_snapshot/premise_index.json"
+    payload["source_sha256"] = digest
+    _rewrite_json(index_path, payload)
     return input_dir
 
 
@@ -724,6 +761,7 @@ def test_formal_math_premise_retrieval_imports_real_macro_premise_index() -> Non
 def test_formal_math_premise_retrieval_primary_run_rejects_mutated_real_premise_row(
     tmp_path: Path,
 ) -> None:
+    # Exercise the source-opening path against a pinned public projection.
     input_dir = _copy_fixture_input_with_source_artifact(tmp_path)
     baseline = run(
         input_dir,
@@ -777,16 +815,26 @@ def test_formal_math_premise_retrieval_primary_run_rejects_mutated_real_premise_
     assert "FORMAL_RETRIEVAL_SOURCE_ARTIFACT_ROW_MISMATCH" in mutated["error_codes"]
     assert "FORMAL_RETRIEVAL_EXPECTED_PUBLIC_PREMISE_MISSED" in mutated["error_codes"]
 
+    # Check the separate source-byte integrity and malformed-JSON paths too.
+    source_path = tmp_path / "microcosm-substrate/public_snapshot/premise_index.json"
+    source_path.write_bytes(source_path.read_bytes() + b"\n")
+    artifact = premise_module._validate_source_artifact(
+        payload, input_dir=input_dir, public_root=tmp_path / "microcosm-substrate"
+    )
+    assert artifact["status"] == "blocked"
+    assert "FORMAL_RETRIEVAL_SOURCE_ARTIFACT_DIGEST_MISMATCH" in {
+        finding["error_code"] for finding in artifact["findings"]
+    }
+    source_path.write_text('{"premises":', encoding="utf-8")
+    with pytest.raises(ValueError, match="invalid JSON"):
+        premise_module._validate_source_artifact(
+            payload, input_dir=input_dir, public_root=tmp_path / "microcosm-substrate"
+        )
+
 
 def test_formal_math_premise_retrieval_source_open_manifest_counts_body_floor() -> None:
-    premise_source_path = (
-        MICROCOSM_ROOT.parent
-        / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json"
-    )
-    problem_source_path = (
-        MICROCOSM_ROOT.parent
-        / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json"
-    )
+    premise_source_path = FIXTURE_INPUT / "premise_index.json"
+    problem_source_path = PUBLIC_PROBLEM_SNAPSHOT
     source_module_manifest = json.loads(
         (BUNDLE_INPUT / "source_module_manifest.json").read_text()
     )
@@ -841,14 +889,20 @@ def test_formal_math_premise_retrieval_source_open_manifest_counts_body_floor() 
 
     premise_module = faithful_modules["lean_std_toolchain_premise_index_body_import"]
     query_module = faithful_modules["formal_math_public_retrieval_query_slice_body_import"]
+    assert _assert_public_premise_snapshot_pin() == premise_module["target_sha256"]
     assert premise_module["source_sha256"] == (
-        "sha256:" + sha256(premise_source_path.read_bytes()).hexdigest()
+        "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1"
     )
     assert premise_module["target_sha256"] == (
         "sha256:" + sha256((BUNDLE_INPUT / "premise_index.json").read_bytes()).hexdigest()
     )
+    assert sha256(problem_source_path.read_bytes()).hexdigest() == PUBLIC_PROBLEM_SNAPSHOT_SHA256
+    ring2_manifest = json.loads((RING2_BUNDLE / "bundle_manifest.json").read_text())
+    problem_ref = query_module["source_ref"]
+    assert problem_ref in ring2_manifest["source_digests"]
+    assert ring2_manifest["source_digests"][problem_ref] == query_module["source_sha256"]
     assert query_module["source_sha256"] == (
-        "sha256:" + sha256(problem_source_path.read_bytes()).hexdigest()
+        "sha256:d78e433e36788a3e25e0d80f76e959557b5ea8c1b2e180b080cb59a20cdd8a1b"
     )
     assert query_module["target_sha256"] == (
         "sha256:" + sha256((BUNDLE_INPUT / "retrieval_queries.json").read_bytes()).hexdigest()
@@ -874,3 +928,33 @@ def test_formal_math_premise_retrieval_source_open_manifest_counts_body_floor() 
         assert source_problem["theorem_name"].removeprefix("ring2_") in query["query_id"]
         assert "oracle_needed_premise_ids" not in query
         assert "proof_body" not in query
+
+
+def test_private_source_originals_when_available_match_recorded_digests() -> None:
+    """Public runs do not require private originals; if present, verify their pins."""
+    for filename, module_id in (
+        ("premise_index.json", "lean_std_toolchain_premise_index_body_import"),
+        ("problem_source_manifest.json", "formal_math_public_retrieval_query_slice_body_import"),
+    ):
+        original = SOURCE_RUN / filename
+        if not original.is_file():
+            continue
+        assert "sha256:" + sha256(original.read_bytes()).hexdigest() == _faithful_module(module_id)["source_sha256"]
+        original_payload = json.loads(original.read_text(encoding="utf-8"))
+        if filename == "premise_index.json":
+            public_index = json.loads(PUBLIC_PREMISE_SNAPSHOT.read_text(encoding="utf-8"))
+            source_rows = {row["premise_id"]: row for row in original_payload["premises"]}
+            assert len(source_rows) == len(public_index["premises"])
+            for public_row in public_index["premises"]:
+                source_row = source_rows[public_row["premise_id"]]
+                assert premise_module._source_premise_signature(
+                    source_row, source_root=original_payload.get("local_or_annex_path")
+                ) == premise_module._public_premise_signature(public_row)
+        else:
+            public_queries = json.loads((BUNDLE_INPUT / "retrieval_queries.json").read_text())
+            original_problems = {row["problem_id"]: row for row in original_payload["problems"]}
+            for query in public_queries["queries"]:
+                source_problem = original_problems[query["source_problem_id"]]
+                assert query["split"] == source_problem["split"]
+                assert set(source_problem["retrieval_query_terms"]).issubset(query["query_terms"])
+                assert source_problem["theorem_name"].removeprefix("ring2_") in query["query_id"]

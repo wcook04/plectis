@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import shlex
 import shutil
 import subprocess
 import sys
@@ -1150,8 +1151,24 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "Source-Root Probe" in cold_start
     assert "before install" in cold_start
     assert "after first-screen behavior is visible" not in cold_start
-    assert "Run `./bootstrap.sh` from the public root." in cold_clone_module
-    assert "ignored `.microcosm/cold_clone_probe.json` evidence" in cold_clone_module
+    # The guide may choose a different ignored summary path from the default
+    # cold-start route. Validate its actual bootstrap command and output scope,
+    # rather than pinning an old explanatory sentence.
+    examples = [shlex.split(line.strip()) for line in cold_clone_module.splitlines()
+                if line.strip().startswith("./bootstrap.sh")]
+    assert examples, "cold-clone guide must include a runnable bootstrap example"
+    for args in examples:
+        assert args[0] == "./bootstrap.sh"
+        emit = args[args.index("--emit") + 1] if "--emit" in args else ".microcosm/cold_clone_probe.json"
+        emit_path = Path(emit)
+        assert not emit_path.is_absolute() and ".." not in emit_path.parts
+        assert emit_path.parts[0] == ".microcosm", emit
+        dry_run = subprocess.run(
+            ["bash", str(MICROCOSM_ROOT / "bootstrap.sh"), *args[1:], "--dry-run"],
+            cwd=MICROCOSM_ROOT, text=True, capture_output=True, check=False,
+        )
+        assert dry_run.returncode == 0, dry_run.stderr
+        assert emit in dry_run.stdout
     assert "--emit receipts/cold_clone_probe.json" not in cold_clone_module
     assert not (MICROCOSM_ROOT / "receipts/cold_clone_probe.json").exists()
     assert "proof-lab --out /tmp/microcosm-proof-lab" in cold_start
@@ -1430,38 +1447,24 @@ def test_public_entry_packet_exposes_reader_typed_routes() -> None:
     assert "maturity score" in rows["safety_evals_engineer"]["anti_misread"]
 
 
-def test_cold_reader_route_map_names_compact_path_before_drilldowns() -> None:
-    route_map = (
-        MICROCOSM_ROOT / "paper_modules/cold_reader_route_map.md"
-    ).read_text(encoding="utf-8")
-    accepted_path = route_map.split("The accepted path is:", 1)[1].split(
-        "Full drilldowns stay available", 1
-    )[0]
-    compact_commands = [
-        "plectis hello <project>",
-        "plectis tour --card <project>",
-        "plectis status --card <project>",
-        "plectis authority --card",
-        "plectis workingness --card",
-        "plectis legibility-scorecard",
-    ]
-
-    command_positions = []
-    for command in compact_commands:
-        wrapped = f"`{command}`"
-        assert wrapped in accepted_path
-        command_positions.append(accepted_path.index(wrapped))
-    assert command_positions == sorted(command_positions)
-
-    drilldowns = route_map.split("Full drilldowns stay available", 1)[1].split(
-        "## Reader-Specific Evidence Routing", 1
-    )[0]
-    for command in [
-        "plectis tour <project>",
-        "plectis compile <project>",
-        "plectis proof-lab --out /tmp/microcosm-proof-lab",
-    ]:
-        assert f"`{command}`" in drilldowns
+def test_cold_reader_route_map_guide_explains_validator_inputs_and_limits() -> None:
+    # Route order belongs to route_policy.json and the runtime route-map tests.
+    # This component guide now explains that validator, rather than duplicating
+    # the historical cold-entry manual under header-sensitive prose markers.
+    route_map = (MICROCOSM_ROOT / "paper_modules/cold_reader_route_map.md").read_text(encoding="utf-8")
+    for ref in (
+        "../src/microcosm_core/organs/cold_reader_route_map.py",
+        "../fixtures/first_wave/cold_reader_route_map/input",
+        "../tests/test_cold_reader_route_map.py",
+        "../receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+    ):
+        assert ref in route_map
+        assert (MICROCOSM_ROOT / "paper_modules" / ref).exists(), ref
+    assert "--input fixtures/first_wave/cold_reader_route_map/input" in route_map
+    assert "COLD_ROUTE_COMMAND_SOURCE_UNSUPPORTED" in route_map
+    assert "does not execute each route" in route_map
+    assert "not a fresh execution" in route_map
+    assert "cannot establish that a newcomer understands" in route_map
 
 
 def test_public_entry_packet_routes_python_navigation_assay() -> None:
@@ -1827,29 +1830,27 @@ def test_public_entry_standard_names_degraded_kernel_fallback() -> None:
     assert "first_screen_navigation_contract.degraded_kernel_fallback" in module_text
 
 
-def test_public_bridge_continuity_copy_uses_synthetic_transport_language() -> None:
-    # README is the human front door and no longer carries bridge-subsystem
-    # terminology (assurance-preserving projection migration, 2026-06-22). The
-    # "synthetic transport" (never "fake transport") terminology truth stays
-    # enforced on the six canonical owners below that actually discuss the
-    # bridge: AGENTS.md, the bridge paper module, its standard, its fixture
-    # manifest, the organ registry, and the evidence-class registry.
+def test_public_bridge_continuity_copy_preserves_synthetic_fixture_boundary() -> None:
+    # Machine owners retain the established transport classification. The
+    # rewritten guide explains the synthetic record fixture and its limits;
+    # it need not repeat the classification's exact editorial phrase.
     surfaces = {
         "AGENTS": MICROCOSM_ROOT / "AGENTS.md",
-        "paper module": MICROCOSM_ROOT / "paper_modules/bridge_phase_continuity_runtime.md",
-        "standard": MICROCOSM_ROOT
-        / "standards/std_microcosm_bridge_phase_continuity_runtime.json",
-        "fixture manifest": MICROCOSM_ROOT
-        / "core/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
+        "standard": MICROCOSM_ROOT / "standards/std_microcosm_bridge_phase_continuity_runtime.json",
+        "fixture manifest": MICROCOSM_ROOT / "core/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
         "organ registry": MICROCOSM_ROOT / "core/organ_registry.json",
         "evidence classes": MICROCOSM_ROOT / "core/organ_evidence_classes.json",
     }
-
     for label, path in surfaces.items():
         text = path.read_text(encoding="utf-8")
         assert "synthetic transport" in text or "synthetic-transport" in text, label
-        assert "fake-transport" not in text, label
-        assert "fake transport" not in text, label
+        assert "fake-transport" not in text and "fake transport" not in text, label
+    guide = (MICROCOSM_ROOT / "paper_modules/bridge_phase_continuity_runtime.md").read_text(encoding="utf-8")
+    assert "synthetic" in guide
+    assert "does not connect to a live bridge" in guide
+    assert "dispatch a provider" in guide
+    assert "not evidence that work landed" in guide
+    assert "fake-transport" not in guide and "fake transport" not in guide
 
 
 def test_entry_surfaces_converge_on_first_action_product() -> None:

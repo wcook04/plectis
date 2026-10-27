@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public fixture and exported-bundle receipts only; no arbitrary live commit proof, Task Ledger mutation or closure, live Git mutation, provider call, release approval, broad closeout certification, or pytest-pass claim without explicit exit-zero status.",
-    "card": "Agent Closeout Faithfulness Audit is the public fixture witness for closeout evidence language. It builds a fixture repo, verifies commit and HEAD evidence with git subprocesses, runs pytest for the declared span, checks cap claims against a fixture ledger, validates a copied source-module manifest for agent experience diagnostics, and writes bounded receipts that keep source bodies out.",
-    "one_line": "The public closeout-faithfulness fixture checks commit, ledger-cap, and pytest-span claims with real git/pytest subprocess witnesses while refusing unchecked pass overclaims."
+    "authority_ceiling": "The result concerns the supplied fixture and does not verify a real project closeout.",
+    "card": "This audit checks structured claims about a commit, a ledger entry and a test against a public fixture. It copies the fixture repository into a temporary directory, uses Git to create and inspect its HEAD, and runs the named pytest test. A test-pass claim needs both a zero exit status and an explicit indication that the status was checked. The ledger claim is checked against the supplied fixture ledger.",
+    "one_line": "Checks fixture commit, ledger and test claims using a temporary Git repository and a pytest subprocess."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.agent_closeout_faithfulness_audit",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public fixture and exported-bundle receipts only; no arbitrary live commit proof, Task Ledger mutation or closure, live Git mutation, provider call, release approval, broad closeout certification, or pytest-pass claim without explicit exit-zero status.",
+    "authority_ceiling": "The result concerns the supplied fixture and does not verify a real project closeout.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -76,9 +76,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public fixture and exported-bundle receipts only; no arbitrary live commit proof, Task Ledger mutation or closure, live Git mutation, provider call, release approval, broad closeout certification, or pytest-pass claim without explicit exit-zero status.",
-        "card": "Agent Closeout Faithfulness Audit is the public fixture witness for closeout evidence language. It builds a fixture repo, verifies commit and HEAD evidence with git subprocesses, runs pytest for the declared span, checks cap claims against a fixture ledger, validates a copied source-module manifest for agent experience diagnostics, and writes bounded receipts that keep source bodies out.",
-        "one_line": "The public closeout-faithfulness fixture checks commit, ledger-cap, and pytest-span claims with real git/pytest subprocess witnesses while refusing unchecked pass overclaims."
+        "authority_ceiling": "The result concerns the supplied fixture and does not verify a real project closeout.",
+        "card": "This audit checks structured claims about a commit, a ledger entry and a test against a public fixture. It copies the fixture repository into a temporary directory, uses Git to create and inspect its HEAD, and runs the named pytest test. A test-pass claim needs both a zero exit status and an explicit indication that the status was checked. The ledger claim is checked against the supplied fixture ledger.",
+        "one_line": "Checks fixture commit, ledger and test claims using a temporary Git repository and a pytest subprocess."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -123,7 +123,7 @@
           "ref": "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims"
         }
       ],
-      "title": "Agent Closeout Faithfulness Audit"
+      "title": "Audit claims about a completed task"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, copied non-secret diagnostics source-module manifest, mechanism row, and Microcosm organ source locus without treating Markdown or receipt projections as source authority.",
     "support_contract": {
@@ -295,7 +295,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public closeout-faithfulness fixture checks commit, ledger-cap, and pytest-span claims with real git/pytest subprocess witnesses while refusing unchecked pass overclaims.",
+  "statement": "Checks fixture commit, ledger and test claims using a temporary Git repository and a pytest subprocess.",
   "status": "active",
   "subjects": [
     {
@@ -307,7 +307,7 @@
       "ref": "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims"
     }
   ],
-  "title": "Agent Closeout Faithfulness Audit",
+  "title": "Audit claims about a completed task",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

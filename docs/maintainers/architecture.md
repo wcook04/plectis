@@ -15,6 +15,7 @@ instructions state those requirements.
 plectis.repair -> Python host -> isolated worker -> generated Dafny planner/checker
 plectis.compatibility -> model adapter -> isolated worker -> generated Dafny checker
 plectis.views -> report adapter -> isolated worker -> generated Dafny compiler/interpreter
+component replay commands -> shared replay host -> plectis.replay -> generated Dafny admission
 plectis.publish -> guarded SQLite transactions
 
 plectis / python -m plectis / plectis.cli:main
@@ -50,7 +51,15 @@ and regenerating the corresponding formal core. Public views is an optional
 pure report transformation, with no dependency on the workflow or storage APIs.
 
 The command-line aliases in `src/plectis/` still delegate to `microcosm_core`.
-Common catalogue behavior belongs there.
+Common catalogue behavior belongs there. The shared `component_replay.py` host
+owns capture, runner execution and receipt handling for both replay entrypoints.
+Its aggregate verdict calls the independently importable `plectis.replay` core.
+The shared receipt writer supplies a scoped observation of the exact public
+payload it writes; the replay host compares that intent with an independent
+read of the saved file. Keep this observer scoped to the selected runner, and
+preserve the existing raw API return and public receipt projection contracts.
+Keep the domain checker, observation capture and admission decision distinct: an
+admitted observation does not prove the runner's own implementation or claim.
 New command handlers should call reusable functions in their owning module;
 argument parsing should stay separate from computation and file writes.
 

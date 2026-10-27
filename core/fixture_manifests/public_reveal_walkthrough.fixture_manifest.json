@@ -24,22 +24,14 @@
     "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
     "status": "pass",
     "body_material_status": "copied_non_secret_public_reveal_macro_body_landed",
-    "body_material_count": 5,
+    "body_material_count": 1,
     "body_material_ids": [
-      "public_reveal_first_slice_execution_receipt_body_import",
-      "public_reveal_runtime_shell_reorientation_receipt_body_import",
-      "public_reveal_clean_clone_state_fixture_receipt_body_import",
-      "public_reveal_public_substrate_boundary_policy_body_import",
       "public_reveal_walkthrough_control_plane_source_body_import"
     ],
     "material_classes": [
-      "public_macro_receipt_body",
-      "public_macro_tool_body",
       "public_python_source_body"
     ],
     "body_material_classes": {
-      "public_macro_receipt_body": 3,
-      "public_macro_tool_body": 1,
       "public_python_source_body": 1
     },
     "source_manifest_refs": [
@@ -49,15 +41,22 @@
     "fixture_manifest_ref": "core/fixture_manifests/public_reveal_walkthrough.fixture_manifest.json",
     "body_text_exported_in_receipts": false,
     "body_text_exported_in_workingness": false,
-    "reader_action": "Open source_module_manifest.json and source_modules/ for copied public-reveal macro reconstruction receipt, boundary-policy, and public organ source bodies; receipts carry refs, hashes, counts, and verdicts only."
+    "reader_action": "Open the source manifest and retained public source body; four historical source identities are represented by public-safe omission stubs. Receipts carry refs, hashes, counts and verdicts only.",
+    "historical_source_identities": [
+      "public_reveal_first_slice_execution_receipt_body_import",
+      "public_reveal_runtime_shell_reorientation_receipt_body_import",
+      "public_reveal_clean_clone_state_fixture_receipt_body_import",
+      "public_reveal_public_substrate_boundary_policy_body_import",
+      "public_reveal_walkthrough_control_plane_source_body_import"
+    ]
   },
-  "body_copied_material_count": 5,
+  "body_copied_material_count": 1,
   "real_lane_witness": {
     "status": "required",
     "witness_action": "run-reveal-bundle",
     "witness_input_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle",
     "source_body_imports_required_for_witness": true,
-    "current_body_material_count": 5,
+    "current_body_material_count": 1,
     "tamper_rejection_error_code": "PUBLIC_REVEAL_REAL_LANE_WITNESS_BLOCKED"
   },
   "command": "python -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
@@ -71,7 +70,10 @@
     "PUBLIC_REVEAL_RELEASE_OVERCLAIM",
     "PUBLIC_REVEAL_PRIVATE_EQUIVALENCE_OVERCLAIM",
     "PUBLIC_REVEAL_STEP_EVIDENCE_MISSING",
-    "PUBLIC_REVEAL_RUNTIME_COMMAND_MISSING"
+    "PUBLIC_REVEAL_RUNTIME_COMMAND_MISSING",
+    "PUBLIC_REVEAL_TIME_BUDGET_INVALID",
+    "PUBLIC_REVEAL_STEP_TIME_INVALID",
+    "PUBLIC_REVEAL_REFERENCE_BOUNDARY_INVALID"
   ],
   "receipt_field_floor": [
     "schema_version",
@@ -105,5 +107,75 @@
     "raw_seed_body": "forbidden; reveal only cites public-root refs and receipts"
   },
   "authority_ceiling": "public ten-minute reveal metadata only; not release, hosting, publication, provider authority, secret export, or whole-system correctness",
-  "anti_claim": "This fixture manifest accepts only public reveal metadata and negative-case coverage. It does not authorize release, hosted deployment, publication operations, recipient work, provider calls, secret export, Lean/Lake, or whole-system correctness."
+  "anti_claim": "This fixture manifest accepts only public reveal metadata and negative-case coverage. It does not authorize release, hosted deployment, publication operations, recipient work, provider calls, secret export, Lean/Lake, or whole-system correctness.",
+  "public_source_inventory": {
+    "retained_bodies": [
+      {
+        "module_id": "public_reveal_walkthrough_control_plane_source_body_import",
+        "path": "source_modules/microcosm_core/organs/public_reveal_walkthrough.py",
+        "source_ref": "microcosm-substrate/src/microcosm_core/organs/public_reveal_walkthrough.py",
+        "target_ref": "microcosm-substrate/examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_modules/microcosm_core/organs/public_reveal_walkthrough.py",
+        "sha256": "sha256:7a0988e1f361d06ddbba2b548a598bfd37d67bc6748f7255ec1215c5038c2ab9",
+        "required_anchors": [
+          "def run_reveal_bundle",
+          "PUBLIC_SAFE_SOURCE_BODY_CLASSES",
+          "synthetic_receipt_standin_allowed"
+        ]
+      }
+    ],
+    "release_substitution_omissions": [
+      {
+        "body_in_receipt": false,
+        "module_id": "public_reveal_first_slice_execution_receipt_body_import",
+        "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+        "release_substitution": {
+          "body_in_receipt": false,
+          "contamination_class": "restricted_private_source_ref",
+          "matched_private_ref": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+          "substitution": "public_safe_stub"
+        },
+        "source_ref": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+        "stub_sha256": "sha256:dde545c0ed550d0dee81c764ce240569f2485ce23e71b17f1f298ccd37757541"
+      },
+      {
+        "body_in_receipt": false,
+        "module_id": "public_reveal_runtime_shell_reorientation_receipt_body_import",
+        "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/public_microcosm_runtime_shell_reorientation_receipt_v1.json",
+        "release_substitution": {
+          "body_in_receipt": false,
+          "contamination_class": "restricted_private_source_ref",
+          "matched_private_ref": "state/microcosm_portfolio/reconstruction/public_microcosm_runtime_shell_reorientation_receipt_v1.json",
+          "substitution": "public_safe_stub"
+        },
+        "source_ref": "state/microcosm_portfolio/reconstruction/public_microcosm_runtime_shell_reorientation_receipt_v1.json",
+        "stub_sha256": "sha256:ce8826414ab1a08697fda172ccd476b90bb28949b0409e7de4c96e6c8075c7e4"
+      },
+      {
+        "body_in_receipt": false,
+        "module_id": "public_reveal_clean_clone_state_fixture_receipt_body_import",
+        "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/public_clean_clone_state_fixture_repair_receipt_v1.json",
+        "release_substitution": {
+          "body_in_receipt": false,
+          "contamination_class": "restricted_private_source_ref",
+          "matched_private_ref": "state/microcosm_portfolio/reconstruction/public_clean_clone_state_fixture_repair_receipt_v1.json",
+          "substitution": "public_safe_stub"
+        },
+        "source_ref": "state/microcosm_portfolio/reconstruction/public_clean_clone_state_fixture_repair_receipt_v1.json",
+        "stub_sha256": "sha256:2651a95163fd727b18ca8b26316d33ec68210ffad0a4aa5cd93ac94aa3fc4007"
+      },
+      {
+        "body_in_receipt": false,
+        "module_id": "public_reveal_public_substrate_boundary_policy_body_import",
+        "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/public_substrate_boundary_policy_v1.json",
+        "release_substitution": {
+          "body_in_receipt": false,
+          "contamination_class": "restricted_private_source_ref",
+          "matched_private_ref": "state/microcosm_portfolio/reconstruction/public_substrate_boundary_policy_v1.json",
+          "substitution": "public_safe_stub"
+        },
+        "source_ref": "state/microcosm_portfolio/reconstruction/public_substrate_boundary_policy_v1.json",
+        "stub_sha256": "sha256:63a7088e50d9338b873df4f05972db1f8878786b51ac9e63caa822239b30e153"
+      }
+    ]
+  }
 }

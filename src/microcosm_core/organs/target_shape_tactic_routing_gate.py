@@ -603,99 +603,51 @@ def _shape_preferred_selection(
     *,
     target_shape: str,
     decisions: list[dict[str, Any]],
+    candidates: list[str],
+    known: set[str],
+    available: set[str],
+    allowed: set[str],
 ) -> dict[str, Any]:
-    """
-    Serialize
-    `microcosm_core.organs.target_shape_tactic_routing_gate._shape_preferred_selection` into
-    the payload shape expected by organs target shape tactic routing gate.
+    """Select using the verified core; preserve the existing explanation fields."""
+    from plectis.components.tactic_selection import select
 
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
-    """
     preferred_tactic_ids = _preferred_tactic_ids(target_shape)
     known_shape = target_shape in PREFERRED_TACTICS_BY_TARGET_SHAPE
     decision_by_tactic = {str(decision["tactic_id"]): decision for decision in decisions}
-    allow_by_tactic = {
-        str(decision["tactic_id"]): decision
-        for decision in decisions
-        if decision.get("decision") == "allow"
-    }
-
-    skipped_preferred: list[dict[str, Any]] = []
-    for tactic_id in preferred_tactic_ids:
-        if tactic_id in allow_by_tactic:
-            fallback_reason = ""
+    index, preference = select({
+        "preferences": preferred_tactic_ids,
+        "candidates": [
+            {"id": tactic_id, "known": tactic_id in known,
+             "available": tactic_id in available, "allowed": tactic_id in allowed}
+            for tactic_id in candidates
+        ],
+    })
+    selected = candidates[index] if index >= 0 else ""
+    prefix = preferred_tactic_ids[:preference] if preference >= 0 else preferred_tactic_ids
+    skipped_preferred = [decision_by_tactic[item] for item in prefix if item in decision_by_tactic]
+    if preference >= 0:
+        if not known_shape:
+            selection_basis = "unknown_shape_default_preference"
+            fallback_reason = "target shape has no specific preference map; used the default safe tactic order"
+        elif skipped_preferred:
+            selection_basis = "preferred_tactic_fallback"
+            fallback_reason = "earlier preferred tactics were not selectable; used the next available allowed tactic"
+        else:
             selection_basis = "shape_preferred_available"
-            if not known_shape:
-                selection_basis = "unknown_shape_default_preference"
-                fallback_reason = (
-                    "target shape has no specific preference map; used the default "
-                    "safe tactic order"
-                )
-            elif skipped_preferred:
-                selection_basis = "preferred_tactic_fallback"
-                fallback_reason = (
-                    "earlier preferred tactics were not selectable; used the next "
-                    "available allowed tactic"
-                )
-            return {
-                "computed_selected_tactic_id": tactic_id,
-                "selection_basis": selection_basis,
-                "fallback_reason": fallback_reason,
-                "unknown_shape_default_used": not known_shape,
-                "skipped_preferred_tactic_ids": [
-                    str(row["tactic_id"]) for row in skipped_preferred
-                ],
-                "preferred_unavailable_tactic_ids": [
-                    str(row["tactic_id"])
-                    for row in skipped_preferred
-                    if row.get("classifier") == "UNAVAILABLE_TACTIC"
-                ],
-                "preferred_unprobed_tactic_ids": [
-                    str(row["tactic_id"])
-                    for row in skipped_preferred
-                    if row.get("classifier") == "UNPROBED_TACTIC"
-                ],
-                "preferred_not_allowed_tactic_ids": [
-                    str(row["tactic_id"])
-                    for row in skipped_preferred
-                    if row.get("classifier") == "TARGET_SHAPE_ADMISSIBILITY_REJECTED"
-                ],
-            }
-        decision = decision_by_tactic.get(tactic_id)
-        if decision is not None:
-            skipped_preferred.append(decision)
-
-    first_allowed = next(iter(allow_by_tactic), "")
+            fallback_reason = ""
+    else:
+        selection_basis = "no_preferred_available_candidate_order_fallback" if selected else "no_available_allowed_tactic"
+        fallback_reason = ("no preferred tactic was selectable; used the first available allowed candidate"
+                           if selected else "no candidate was both available and allowed")
     return {
-        "computed_selected_tactic_id": first_allowed,
-        "selection_basis": "no_preferred_available_candidate_order_fallback"
-        if first_allowed
-        else "no_available_allowed_tactic",
-        "fallback_reason": (
-            "no preferred tactic was selectable; used the first available allowed "
-            "candidate"
-            if first_allowed
-            else "no candidate was both available and allowed"
-        ),
+        "computed_selected_tactic_id": selected,
+        "selection_basis": selection_basis,
+        "fallback_reason": fallback_reason,
         "unknown_shape_default_used": not known_shape,
-        "skipped_preferred_tactic_ids": [
-            str(row["tactic_id"]) for row in skipped_preferred
-        ],
-        "preferred_unavailable_tactic_ids": [
-            str(row["tactic_id"])
-            for row in skipped_preferred
-            if row.get("classifier") == "UNAVAILABLE_TACTIC"
-        ],
-        "preferred_unprobed_tactic_ids": [
-            str(row["tactic_id"])
-            for row in skipped_preferred
-            if row.get("classifier") == "UNPROBED_TACTIC"
-        ],
-        "preferred_not_allowed_tactic_ids": [
-            str(row["tactic_id"])
-            for row in skipped_preferred
-            if row.get("classifier") == "TARGET_SHAPE_ADMISSIBILITY_REJECTED"
-        ],
+        "skipped_preferred_tactic_ids": [str(row["tactic_id"]) for row in skipped_preferred],
+        "preferred_unavailable_tactic_ids": [str(row["tactic_id"]) for row in skipped_preferred if row.get("classifier") == "UNAVAILABLE_TACTIC"],
+        "preferred_unprobed_tactic_ids": [str(row["tactic_id"]) for row in skipped_preferred if row.get("classifier") == "UNPROBED_TACTIC"],
+        "preferred_not_allowed_tactic_ids": [str(row["tactic_id"]) for row in skipped_preferred if row.get("classifier") == "TARGET_SHAPE_ADMISSIBILITY_REJECTED"],
     }
 
 
@@ -735,6 +687,10 @@ def _score_case(
     selection = _shape_preferred_selection(
         target_shape=target_shape,
         decisions=decisions,
+        candidates=candidates,
+        known=known,
+        available=available,
+        allowed=allowed,
     )
     computed_selected = str(selection["computed_selected_tactic_id"])
     selected = computed_selected

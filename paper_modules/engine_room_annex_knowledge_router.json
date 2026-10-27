@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public sanitized-annex routing fixture and focused regression evidence only; no BM25, TF-IDF, embedding search, repository cloning, license authority, private annex corpus export, release approval, private-root equivalence, source mutation, or whole-system correctness.",
-    "card": "Engine Room Annex Knowledge Router binds the staged annex-routing capsule to a concrete mechanism. It scores structured routing metadata, family text, open-first summaries, and curated notes over public fixtures, then rejects domain-mismatch and empty-query cases without cloning repositories, exporting private annex material, or claiming BM25, TF-IDF, embedding, license, release, or private-root authority.",
-    "one_line": "Public Engine Room component: sanitized annex router for structured fields, note relevance, domain filters, and no-match boundaries."
+    "authority_ceiling": "Fixture routing only; no BM25 implementation or demonstrated real-world retrieval performance.",
+    "card": "Structured matches and note IDs explain ranking; an empty query returns no match.",
+    "one_line": "Scores and filters supplied catalogue entries for a problem description."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.engine_room_annex_knowledge_router",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public sanitized-annex routing fixture and focused regression evidence only; no BM25, TF-IDF, embedding search, repository cloning, license authority, private annex corpus export, release approval, private-root equivalence, source mutation, or whole-system correctness.",
+    "authority_ceiling": "Fixture routing only; no BM25 implementation or demonstrated real-world retrieval performance.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -92,9 +92,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public sanitized-annex routing fixture and focused regression evidence only; no BM25, TF-IDF, embedding search, repository cloning, license authority, private annex corpus export, release approval, private-root equivalence, source mutation, or whole-system correctness.",
-        "card": "Engine Room Annex Knowledge Router binds the staged annex-routing capsule to a concrete mechanism. It scores structured routing metadata, family text, open-first summaries, and curated notes over public fixtures, then rejects domain-mismatch and empty-query cases without cloning repositories, exporting private annex material, or claiming BM25, TF-IDF, embedding, license, release, or private-root authority.",
-        "one_line": "Public Engine Room component: sanitized annex router for structured fields, note relevance, domain filters, and no-match boundaries."
+        "authority_ceiling": "Fixture routing only; no BM25 implementation or demonstrated real-world retrieval performance.",
+        "card": "Structured matches and note IDs explain ranking; an empty query returns no match.",
+        "one_line": "Scores and filters supplied catalogue entries for a problem description."
       },
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -139,7 +139,7 @@
           "ref": "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router"
         }
       ],
-      "title": "Engine Room Annex Knowledge Router"
+      "title": "Route a problem to catalogue entries"
     },
     "strangler_note": "Binds the legacy Markdown projection, staged Engine Room annex router runtime, fixture manifest, standard, focused tests, and admitted mechanism row to JSON capsule authority without treating Markdown, generated projections, note matches, or green fixture status as repository-clone, license, release, private-root-equivalence, or whole-system authority. No accepted organ subject is claimed.",
     "support_contract": {
@@ -431,7 +431,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Public Engine Room component: sanitized annex router for structured fields, note relevance, domain filters, and no-match boundaries.",
+  "statement": "Scores and filters supplied catalogue entries for a problem description.",
   "status": "active",
   "subjects": [
     {
@@ -439,7 +439,7 @@
       "ref": "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router"
     }
   ],
-  "title": "Engine Room Annex Knowledge Router",
+  "title": "Route a problem to catalogue entries",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

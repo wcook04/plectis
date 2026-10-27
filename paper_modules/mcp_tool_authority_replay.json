@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Synthetic MCP-like replay fixture only; not a live MCP account test, provider call, credential-handling certification, benchmark security result, or release claim.",
-    "card": "Public Plectis projection of a tool-authority claim contract. Replays a synthetic MCP-like tool-authority scenario and validates replay receipts, negative cases, and authority ceilings with body-free receipts.",
-    "one_line": "Synthetic MCP-like replay fixture for a tool-authority claim contract: replay receipts, negative cases, authority ceilings; no live MCP/provider/credential"
+    "authority_ceiling": "Checks synthetic tool records, not live-account security or credential certification.",
+    "card": "This replay validates synthetic MCP-like tool records. The fixture describes a read-only lookup, a write-capable ticket update, and an untrusted result source. The validator connects declared tools and calls to scope, approval, side-effect, rollback, and instruction/data boundary references, then checks the recorded replay evidence.",
+    "one_line": "This replay validates synthetic MCP-like tool records."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.mcp_tool_authority_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Synthetic MCP-like replay fixture only; not a live MCP account test, provider call, credential-handling certification, benchmark security result, or release claim.",
+    "authority_ceiling": "Checks synthetic tool records, not live-account security or credential certification.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,9 +77,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Synthetic MCP-like replay fixture only; not a live MCP account test, provider call, credential-handling certification, benchmark security result, or release claim.",
-        "card": "Public Plectis projection of a tool-authority claim contract. Replays a synthetic MCP-like tool-authority scenario and validates replay receipts, negative cases, and authority ceilings with body-free receipts.",
-        "one_line": "Synthetic MCP-like replay fixture for a tool-authority claim contract: replay receipts, negative cases, authority ceilings; no live MCP/provider/credential"
+        "authority_ceiling": "Checks synthetic tool records, not live-account security or credential certification.",
+        "card": "This replay validates synthetic MCP-like tool records. The fixture describes a read-only lookup, a write-capable ticket update, and an untrusted result source. The validator connects declared tools and calls to scope, approval, side-effect, rollback, and instruction/data boundary references, then checks the recorded replay evidence.",
+        "one_line": "This replay validates synthetic MCP-like tool records."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -297,7 +297,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Synthetic MCP-like replay fixture for a tool-authority claim contract: replay receipts, negative cases, authority ceilings; no live MCP/provider/credential",
+  "statement": "This replay validates synthetic MCP-like tool records.",
   "status": "active",
   "subjects": [
     {

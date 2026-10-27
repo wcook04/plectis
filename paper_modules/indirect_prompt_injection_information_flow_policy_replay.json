@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Source-faithful refactored fixtures and body-free receipts only; not a live information-flow product, complete-security proof, or release claim.",
-    "card": "Validator-backed public claim contract for indirect prompt-injection information-flow policy. Admits one narrow claim: a source-faithful trace refactor separated trusted instructions from untrusted web/tool/browser text before any privileged action or answer, checked against negative cases and authority ceilings.",
-    "one_line": "Validator-backed claim: a source-faithful trace refactor separated trusted instructions from untrusted web/tool/browser text before any privileged action."
+    "authority_ceiling": "Checks synthetic information-flow records, not general prompt-injection resistance or live accounts.",
+    "card": "This replay checks synthetic records of information moving from documents and tool output to actions or answers. It tracks data from each source through a chain to an action or answer. It derives the trust labels carried along that chain, called taint, and compares them with recorded labels and policy verdicts. It also checks sanitized output and replay evidence. The result is a validation receipt over the supplied trace metadata.",
+    "one_line": "This replay checks synthetic records of information moving from documents and tool output to actions or answers."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.indirect_prompt_injection_information_flow_policy_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Source-faithful refactored fixtures and body-free receipts only; not a live information-flow product, complete-security proof, or release claim.",
+    "authority_ceiling": "Checks synthetic information-flow records, not general prompt-injection resistance or live accounts.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,9 +77,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Source-faithful refactored fixtures and body-free receipts only; not a live information-flow product, complete-security proof, or release claim.",
-        "card": "Validator-backed public claim contract for indirect prompt-injection information-flow policy. Admits one narrow claim: a source-faithful trace refactor separated trusted instructions from untrusted web/tool/browser text before any privileged action or answer, checked against negative cases and authority ceilings.",
-        "one_line": "Validator-backed claim: a source-faithful trace refactor separated trusted instructions from untrusted web/tool/browser text before any privileged action."
+        "authority_ceiling": "Checks synthetic information-flow records, not general prompt-injection resistance or live accounts.",
+        "card": "This replay checks synthetic records of information moving from documents and tool output to actions or answers. It tracks data from each source through a chain to an action or answer. It derives the trust labels carried along that chain, called taint, and compares them with recorded labels and policy verdicts. It also checks sanitized output and replay evidence. The result is a validation receipt over the supplied trace metadata.",
+        "one_line": "This replay checks synthetic records of information moving from documents and tool output to actions or answers."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -124,7 +124,7 @@
           "ref": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay"
         }
       ],
-      "title": "Indirect Prompt-Injection Information-Flow Policy Replay"
+      "title": "Indirect Prompt-Injection Information-Flow Replay"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to a JSON authority row; concept/principle/axiom refs left as honest residuals (no resolving Microcosm doctrine id), not minted.",
     "support_contract": {
@@ -297,7 +297,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Validator-backed claim: a source-faithful trace refactor separated trusted instructions from untrusted web/tool/browser text before any privileged action.",
+  "statement": "This replay checks synthetic records of information moving from documents and tool output to actions or answers.",
   "status": "active",
   "subjects": [
     {
@@ -309,7 +309,7 @@
       "ref": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay"
     }
   ],
-  "title": "Indirect Prompt-Injection Information-Flow Policy Replay",
+  "title": "Indirect Prompt-Injection Information-Flow Replay",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

@@ -1,0 +1,36 @@
+{
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "generated_python": {
+    "ReplayAdmission.py": "8d12ab6740d52c48048ff64f27b38ce93a56516d6d94c12bd3a2499302b9b96d",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "__main__.py": "c4ae6779df0fe169f99586b7b88fa2d885c3acaffcb1322c36db8b326b841090",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "a70f4f6e38631b43bc249928d69eaf530b88ba152a3e92fcda837585b348728c"
+  },
+  "negative_results": {
+    "negative/MissingCoverageMutant.dfy": {
+      "errors": 2,
+      "verified_tasks": 14
+    },
+    "negative/StaleInputMutant.dfy": {
+      "errors": 3,
+      "verified_tasks": 13
+    }
+  },
+  "negative_sha256": {
+    "negative/MissingCoverageMutant.dfy": "d3b3e3b5436304bdee313d0968c575cf007e25abe986c592812b3cfe84ea23ac",
+    "negative/StaleInputMutant.dfy": "3de64ed728cd310db66f55fd100a6d7d51bfd5056d1373be69377d30734203d3"
+  },
+  "negative_sources": [
+    "negative/MissingCoverageMutant.dfy",
+    "negative/StaleInputMutant.dfy"
+  ],
+  "official_arm64_macos_archive_sha256": "c90c75e7d5db9c6ccbb7127840dfe43f0ac938b039a7ebed146d8ead383a572f",
+  "runtime_license": "MIT (Dafny); retain src/plectis/replay/_generated/Dafny-LICENSE.txt",
+  "schema_version": 1,
+  "source": "ReplayAdmission.dfy",
+  "source_sha256": "c57d8ccc791bf5e80857c732b15901103a9f9c7caf79993dd6c6642419933aae",
+  "toolchain": "https://github.com/dafny-lang/dafny/releases/tag/v4.11.0",
+  "trust": "Dafny/Boogie/Z3, compiler, Python runtime, host extraction and cryptographic/source/input observations remain trusted; component semantics and execution authenticity are not proved.",
+  "verified_tasks": 16
+}

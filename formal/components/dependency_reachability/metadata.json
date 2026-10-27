@@ -1,0 +1,36 @@
+{
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "generated_python": {
+    "DependencyReachability.py": "f7cf51c59e08afcafb9823f9dea328262e85b9203612dfd1fc364c2c61581662",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "__main__.py": "8075caf9cb80308e2c46d9383778b910b88342ab1587a6082926f93fe0d9111c",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "4c118c93edadcb4d82e97bf26c14ce9233829fed18f8d6d75d02649e5805589d"
+  },
+  "module": "DependencyReachability",
+  "mutations": {
+    "negative/OneHopMutant.dfy": {
+      "after": "      added := {}; // MUTANT: return only direct dependents",
+      "before": "      added := Expand(es,reached);",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    }
+  },
+  "negative_results": {
+    "negative/OneHopMutant.dfy": {
+      "errors": 1,
+      "verified_tasks": 9
+    }
+  },
+  "negative_sha256": {
+    "negative/OneHopMutant.dfy": "e3755777e4c3f41dcfabece95b805f107c86b8d2f960ba42a241ab697fb71a45"
+  },
+  "negative_sources": [
+    "negative/OneHopMutant.dfy"
+  ],
+  "schema_version": 1,
+  "slug": "dependency_reachability",
+  "source": "DependencyReachability.dfy",
+  "source_sha256": "8bbf881721beef39fea61585811654eeaa39dff2f36b13ba10deeabb922b0892",
+  "verified_tasks": 10
+}

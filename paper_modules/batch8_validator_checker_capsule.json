@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Selected public checker-group fixture and copied validator-source evidence only; no release authority, hosted-public proof, source mutation authority, complete validator-suite proof, provider call authority, publication approval, release approval, or whole-system correctness.",
-    "card": "Batch 8 Validator Checker Capsule imports the real idea_microcosm validators body and exercises policy well-formedness, status transition judging, private-boundary scanning, zero-failure, specimen, release-gate, source-capsule, source-shuttle, concurrency, native-guard, release-root compiler, and no-write validate entrypoint groups. It carries source anchors, public runtime-only evidence, negative cases, and authority ceilings while excluding release approval, hosted-public proof, source mutation authority, full validator-suite proof, provider calls, publication, and whole-system correctness.",
-    "one_line": "Batch 8 Validator Checker Capsule validates selected public checker groups without becoming release authority or a complete validator-suite proof."
+    "authority_ceiling": "Read the witness mode before interpreting a pass. Source identity alone cannot establish checker behavior, full validator coverage, or release readiness.",
+    "card": "The public-only path checks source anchors and digests; it does not execute the other five checker groups.",
+    "one_line": "Checker evidence depends on whether parent runtime state is available."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch8_validator_checker_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Selected public checker-group fixture and copied validator-source evidence only; no release authority, hosted-public proof, source mutation authority, complete validator-suite proof, provider call authority, publication approval, release approval, or whole-system correctness.",
+    "authority_ceiling": "Read the witness mode before interpreting a pass. Source identity alone cannot establish checker behavior, full validator coverage, or release readiness.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -91,9 +91,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Selected public checker-group fixture and copied validator-source evidence only; no release authority, hosted-public proof, source mutation authority, complete validator-suite proof, provider call authority, publication approval, release approval, or whole-system correctness.",
-        "card": "Batch 8 Validator Checker Capsule imports the real idea_microcosm validators body and exercises policy well-formedness, status transition judging, private-boundary scanning, zero-failure, specimen, release-gate, source-capsule, source-shuttle, concurrency, native-guard, release-root compiler, and no-write validate entrypoint groups. It carries source anchors, public runtime-only evidence, negative cases, and authority ceilings while excluding release approval, hosted-public proof, source mutation authority, full validator-suite proof, provider calls, publication, and whole-system correctness.",
-        "one_line": "Batch 8 Validator Checker Capsule validates selected public checker groups without becoming release authority or a complete validator-suite proof."
+        "authority_ceiling": "Read the witness mode before interpreting a pass. Source identity alone cannot establish checker behavior, full validator coverage, or release readiness.",
+        "card": "The public-only path checks source anchors and digests; it does not execute the other five checker groups.",
+        "one_line": "Checker evidence depends on whether parent runtime state is available."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -146,7 +146,7 @@
           "ref": "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule"
         }
       ],
-      "title": "Batch 8 Validator Checker Capsule"
+      "title": "Inspect validator source and available checker exercises"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row. Concept edges remain residual until a stable concept id is selected.",
     "support_contract": {
@@ -523,7 +523,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 8 Validator Checker Capsule validates selected public checker groups without becoming release authority or a complete validator-suite proof.",
+  "statement": "Checker evidence depends on whether parent runtime state is available.",
   "status": "active",
   "subjects": [
     {
@@ -535,7 +535,7 @@
       "ref": "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule"
     }
   ],
-  "title": "Batch 8 Validator Checker Capsule",
+  "title": "Inspect validator source and available checker exercises",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

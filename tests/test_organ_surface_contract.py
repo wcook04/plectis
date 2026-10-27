@@ -7,6 +7,7 @@ from types import SimpleNamespace
 import pytest
 
 from microcosm_core import cli
+from microcosm_core.receipts import write_json_atomic
 from microcosm_core.projections import organ_surface_contract
 
 
@@ -35,12 +36,13 @@ def test_claim_assurance_covers_every_native_component_without_implying_proof() 
 
 
 def test_replay_preserves_failures_and_continues_to_every_component(tmp_path: Path, monkeypatch) -> None:
+    (tmp_path / "checkout/fixture").mkdir(parents=True)
     from microcosm_core import runtime_shell
 
     def passing(input_dir, out, command):
         out.mkdir(parents=True)
-        (out / "result.json").write_text('{"status":"pass"}')
-        return {"status": "pass"}
+        write_json_atomic(out / "result.json", {"status":"pass", "organ_id":out.name})
+        return {"status": "pass", "organ_id": out.name}
 
     def blocked(input_dir, out, command):
         return {"status": "blocked", "error_codes": ["MISSING_DEPENDENCY"]}
@@ -72,12 +74,13 @@ def test_replay_refuses_checkout_source_and_historical_receipt_outputs(tmp_path:
     '{"status":"pass","organ_id":null}', '{}', '[]', 'not JSON',
 ])
 def test_replay_rejects_wrong_or_malformed_written_verdict(tmp_path, monkeypatch, receipt):
+    (tmp_path / "checkout/input").mkdir(parents=True)
     from microcosm_core import runtime_shell
 
     def runner(source, out, command):
         out.mkdir(parents=True)
         (out / "result.json").write_text(receipt)
-        return {"status": "pass"}
+        return {"status": "pass", "organ_id": "probe"}
 
     monkeypatch.setattr(runtime_shell, "RUNTIME_STEPS", (
         SimpleNamespace(organ_id="probe", example_rel="input", receipt_name="result.json", runner=runner),))
@@ -89,26 +92,56 @@ def test_replay_rejects_wrong_or_malformed_written_verdict(tmp_path, monkeypatch
 
 
 def test_replay_cannot_reuse_a_previous_receipt_as_fresh_output(tmp_path, monkeypatch):
+    (tmp_path / "checkout/input").mkdir(parents=True)
     from microcosm_core import runtime_shell
 
     def write(source, out, command):
         out.mkdir(parents=True)
-        (out / "result.json").write_text('{"status":"pass"}')
-        return {"status": "pass"}
+        write_json_atomic(out / "result.json", {"status":"pass", "organ_id":out.name})
+        return {"status": "pass", "organ_id": out.name}
 
     step = SimpleNamespace(organ_id="probe", example_rel="input", receipt_name="result.json", runner=write)
     monkeypatch.setattr(runtime_shell, "RUNTIME_STEPS", (step,))
     first = [{"organ_id": "probe", "claim_assurance": {}}]
     organ_surface_contract.replay_organ_surfaces(tmp_path / "checkout", tmp_path / "out", first)
     original = Path(first[0]["claim_assurance"]["replay"]["receipt_ref"])
-    step.runner = lambda *args: {"status": "pass"}
+    step.runner = lambda *args: {"status": "pass", "organ_id": "probe"}
     second = [{"organ_id": "probe", "claim_assurance": {}}]
     result = organ_surface_contract.replay_organ_surfaces(tmp_path / "checkout", tmp_path / "out", second)
     assert result["status"] == "blocked"
     replay = second[0]["claim_assurance"]["replay"]
     assert replay["status"] == "missing_replay_receipt"
     assert Path(replay["receipt_ref"]) != original
-    assert original.read_text() == '{"status":"pass"}'
+    assert json.loads(original.read_text()) == {"status": "pass", "organ_id": "probe"}
+
+
+def test_surface_replay_uses_shared_input_mutation_admission(tmp_path, monkeypatch):
+    from microcosm_core import runtime_shell
+    source = tmp_path / "checkout/input"
+    source.mkdir(parents=True)
+    (source / "data").write_text("original")
+
+    def runner(input_dir, out, command):
+        (input_dir / "data").write_text("changed")
+        out.mkdir(parents=True)
+        result = {"status": "pass", "organ_id": "probe"}
+        write_json_atomic(out / "result.json", result)
+        return result
+
+    monkeypatch.setattr(runtime_shell, "RUNTIME_STEPS", (
+        SimpleNamespace(organ_id="probe", example_rel="input", receipt_name="result.json", runner=runner),))
+    rows = [{"organ_id": "probe", "claim_assurance": {}}]
+    result = organ_surface_contract.replay_organ_surfaces(tmp_path / "checkout", tmp_path / "out", rows)
+    assert result["status"] == "blocked"
+    assert result["admission"]["accepted"] is False
+    assert rows[0]["claim_assurance"]["replay"]["status"] == "input_changed"
+
+
+def test_surface_replay_rejects_empty_selection(tmp_path):
+    (tmp_path / "checkout").mkdir()
+    result = organ_surface_contract.replay_organ_surfaces(tmp_path / "checkout", tmp_path / "out", [])
+    assert result["status"] == "blocked"
+    assert result["component_count"] == 0
 
 
 def test_native_replay_selects_live_lean_lab_without_changing_compatibility_default():

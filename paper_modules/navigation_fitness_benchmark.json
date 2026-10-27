@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Command-receipt evidence over bounded public fixtures, not runtime-product completeness. A pass means the curated route-packet cases recomputed as expected (positives accepted, negatives rejected by recomputation with the expected markers); it does NOT establish live private-kernel navigation quality, embedding quality, universal benchmark authority, production readiness, or release/publication authorization. Receipts are body-free command evidence, not proof of substrate correctness.",
-    "card": "Navigation Fitness Benchmark surfaces the engine-room route-packet benchmark capsule. Each fixture pairs a navigation task (expected stable ids, forbidden first routes, latency budget, scent terms) with the route packet a router actually produced. The capsule recomputes recall/precision against the expected ids, checks the first route against the forbidden list, scores scent coverage, derives a latency verdict, and collects sufficiency/latency debt — then reports whether the recomputation matches the case's planted expectation. Two positive cases match their expectations and are accepted (one carrying an honestly-anticipated latency debt); two negative cases plant a route defect plus a deliberately-wrong \"it passed\" expectation, which the recomputation contradicts, so they are rejected with the real failure marker (missing_id, forbidden_route) firing. Scope: curated public fixtures only — not a live kernel run, not an embedding benchmark, not a universal navigation score, not release authority.",
-    "one_line": "Recomputes a curated route-packet navigation benchmark — recall, precision, forbidden-first-route, scent coverage, latency, and debt — over bounded public fixtures, accepting a case only when the recomputation matches its planted expectation."
+    "authority_ceiling": "These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.",
+    "card": "The evaluator calculates recall and precision for expected artifacts, checks forbidden first routes, checks how many task-specific cue words appear in the packet summary and compares elapsed time with a budget. The fixture calls those cue words scent terms. A budget overrun is latency debt and is recorded separately from whether the selected artifacts are sufficient. A packet missing an expected stable ID or selecting a forbidden first route is rejected when it claims to pass.",
+    "one_line": "Scores supplied route packets against task-specific expected IDs and rules, then checks whether each computed verdict matches its fixture expectation. A packet records the choices returned for a task: the first command, selected artifacts, summary and elapsed time."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.navigation_fitness_benchmark",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Command-receipt evidence over bounded public fixtures, not runtime-product completeness. A pass means the curated route-packet cases recomputed as expected (positives accepted, negatives rejected by recomputation with the expected markers); it does NOT establish live private-kernel navigation quality, embedding quality, universal benchmark authority, production readiness, or release/publication authorization. Receipts are body-free command evidence, not proof of substrate correctness.",
+    "authority_ceiling": "These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,9 +86,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Command-receipt evidence over bounded public fixtures, not runtime-product completeness. A pass means the curated route-packet cases recomputed as expected (positives accepted, negatives rejected by recomputation with the expected markers); it does NOT establish live private-kernel navigation quality, embedding quality, universal benchmark authority, production readiness, or release/publication authorization. Receipts are body-free command evidence, not proof of substrate correctness.",
-        "card": "Navigation Fitness Benchmark surfaces the engine-room route-packet benchmark capsule. Each fixture pairs a navigation task (expected stable ids, forbidden first routes, latency budget, scent terms) with the route packet a router actually produced. The capsule recomputes recall/precision against the expected ids, checks the first route against the forbidden list, scores scent coverage, derives a latency verdict, and collects sufficiency/latency debt — then reports whether the recomputation matches the case's planted expectation. Two positive cases match their expectations and are accepted (one carrying an honestly-anticipated latency debt); two negative cases plant a route defect plus a deliberately-wrong \"it passed\" expectation, which the recomputation contradicts, so they are rejected with the real failure marker (missing_id, forbidden_route) firing. Scope: curated public fixtures only — not a live kernel run, not an embedding benchmark, not a universal navigation score, not release authority.",
-        "one_line": "Recomputes a curated route-packet navigation benchmark — recall, precision, forbidden-first-route, scent coverage, latency, and debt — over bounded public fixtures, accepting a case only when the recomputation matches its planted expectation."
+        "authority_ceiling": "These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.",
+        "card": "The evaluator calculates recall and precision for expected artifacts, checks forbidden first routes, checks how many task-specific cue words appear in the packet summary and compares elapsed time with a budget. The fixture calls those cue words scent terms. A budget overrun is latency debt and is recorded separately from whether the selected artifacts are sufficient. A packet missing an expected stable ID or selecting a forbidden first route is rejected when it claims to pass.",
+        "one_line": "Scores supplied route packets against task-specific expected IDs and rules, then checks whether each computed verdict matches its fixture expectation. A packet records the choices returned for a task: the first command, selected artifacts, summary and elapsed time."
       },
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -125,7 +125,7 @@
           "ref": "navigation_fitness_benchmark"
         }
       ],
-      "title": "Navigation Fitness Benchmark"
+      "title": "Route-packet fitness benchmark"
     },
     "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
     "support_contract": {
@@ -282,7 +282,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Recomputes a curated route-packet navigation benchmark — recall, precision, forbidden-first-route, scent coverage, latency, and debt — over bounded public fixtures, accepting a case only when the recomputation matches its planted expectation.",
+  "statement": "Scores supplied route packets against task-specific expected IDs and rules, then checks whether each computed verdict matches its fixture expectation. A packet records the choices returned for a task: the first command, selected artifacts, summary and elapsed time.",
   "status": "active",
   "subjects": [
     {
@@ -290,7 +290,7 @@
       "ref": "navigation_fitness_benchmark"
     }
   ],
-  "title": "Navigation Fitness Benchmark",
+  "title": "Route-packet fitness benchmark",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

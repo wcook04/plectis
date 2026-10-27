@@ -19,7 +19,7 @@ import shutil
 import sys
 import tempfile
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Mapping, Sequence
 
 from microcosm_core.organs._crown_jewel_common import (
     CrownJewelSpec,
@@ -357,6 +357,42 @@ def _session_freshness(
     return "unknown"
 
 
+def _freshness_observations(
+    session_id: str,
+    *,
+    session_cards_by_id: Mapping[str, Mapping[str, Any]],
+    claim: Mapping[str, Any],
+    session_cards: Sequence[Mapping[str, Any]] = (),
+) -> tuple[str, ...]:
+    """Retain every supplied card and claim freshness signal for one identity."""
+    cards = [card for card in session_cards
+             if str(card.get("session_id") or "").strip() == session_id]
+    if not cards:
+        cards = [session_cards_by_id.get(session_id) or {}]
+    values = [card.get("freshness_state") for card in cards] + [
+        claim.get("freshness_state"), claim.get("claim_state"), claim.get("freshness")]
+    return tuple(sorted({str(value).strip() for value in values
+                         if value is not None and str(value).strip()}))
+
+
+def _protective_freshness(
+    session_id: str,
+    *,
+    session_cards_by_id: Mapping[str, Mapping[str, Any]],
+    claim: Mapping[str, Any],
+    session_cards: Sequence[Mapping[str, Any]] = (),
+) -> str:
+    """A live signal protects; missing identity or uncertain freshness blocks reentry."""
+    signals = _freshness_observations(
+        session_id, session_cards_by_id=session_cards_by_id,
+        claim=claim, session_cards=session_cards)
+    if not session_id:
+        return "unknown"
+    if "live" in signals:
+        return "live"
+    return "stale" if signals and all(value == "stale" for value in signals) else "unknown"
+
+
 def classify_generated_surface_claim_lens(
     case: Mapping[str, Any],
     *,
@@ -370,10 +406,15 @@ def classify_generated_surface_claim_lens(
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
 
+    # The host normalizes paths and observations; the sealed core selects the
+    # earliest live claim for each path, then unresolved, then stale. A later
+    # live owner can never be hidden by an earlier stale observation.
+    from plectis.components.ownership_classification import classify
+
     generated_surface_set = set(generated_surfaces)
     drift_paths = _as_string_set(case.get("drift_paths"))
-    generated_drift_paths = sorted(drift_paths.intersection(generated_surface_set))
-    unrelated_drift_paths = sorted(drift_paths - generated_surface_set)
+    ordered_paths = sorted(drift_paths)
+    path_ids = {path: index for index, path in enumerate(ordered_paths)}
     session_cards = _as_records(case.get("session_cards"))
     session_cards_by_id = {
         str(row.get("session_id") or "").strip(): row
@@ -381,83 +422,113 @@ def classify_generated_surface_claim_lens(
         if str(row.get("session_id") or "").strip()
     }
     claim_rows = _as_records(case.get("claim_rows"))
-    claims_by_path: dict[str, list[Mapping[str, Any]]] = {}
+    encoded_claims = []
     for claim in claim_rows:
-        path = _claim_path(claim)
-        if path:
-            claims_by_path.setdefault(path, []).append(claim)
-
-    owner_rows: list[dict[str, Any]] = []
-    live_owner = False
-    stale_owner = False
+        session_id = str(claim.get("session_id") or "").strip()
+        freshness = _protective_freshness(
+            session_id, session_cards_by_id=session_cards_by_id, claim=claim,
+            session_cards=session_cards,
+        )
+        encoded_claims.append({
+            "path": path_ids.get(_claim_path(claim), -1),
+            "freshness": freshness,
+        })
+    decision = classify({
+        "paths": [{"id": index, "generated": path in generated_surface_set}
+                  for index, path in enumerate(ordered_paths)],
+        "claims": encoded_claims,
+    })
+    generated_drift_paths = []
+    unrelated_drift_paths = []
+    unowned_generated_paths = []
+    owner_rows = []
     owner_session_id = None
     owner_claim_id = None
     owner_freshness = "unknown"
-    unowned_generated_paths: list[str] = []
-    for path in generated_drift_paths:
-        owners = claims_by_path.get(path, [])
-        if not owners:
+    representative_candidates = []
+    matching_owner_rows = []
+    live_sessions_by_path: dict[str, set[str]] = {}
+    for index, claim in enumerate(claim_rows):
+        path = _claim_path(claim)
+        if path not in drift_paths or path not in generated_surface_set:
+            continue
+        session_id = str(claim.get("session_id") or "").strip()
+        freshness = encoded_claims[index]["freshness"]
+        observations = _freshness_observations(
+            session_id, session_cards_by_id=session_cards_by_id,
+            claim=claim, session_cards=session_cards)
+        matching_owner_rows.append({
+            "path": path,
+            "owner_session_id": session_id or None,
+            "claim_id": str(claim.get("claim_id") or "").strip() or None,
+            "freshness_state": freshness,
+            "reported_freshness_state": _session_freshness(
+                session_id, session_cards_by_id=session_cards_by_id, claim=claim),
+            "freshness_observations": list(observations),
+            "freshness_conflict": len(observations) > 1,
+            "body_in_receipt": False,
+        })
+        if freshness == "live":
+            live_sessions_by_path.setdefault(path, set()).add(session_id)
+    for path, result in zip(ordered_paths, decision["rows"], strict=True):
+        kind = result["kind"]
+        if kind == 0:
+            unrelated_drift_paths.append(path)
+            continue
+        generated_drift_paths.append(path)
+        if kind == 1:
             unowned_generated_paths.append(path)
             continue
-        claim = owners[0]
+        claim = claim_rows[result["owner_index"]]
         session_id = str(claim.get("session_id") or "").strip()
-        freshness = _session_freshness(
-            session_id,
-            session_cards_by_id=session_cards_by_id,
-            claim=claim,
-        )
-        if session_id and owner_session_id is None:
-            owner_session_id = session_id
-            owner_claim_id = str(claim.get("claim_id") or "").strip() or None
-            owner_freshness = freshness
-        is_live = freshness == "live" or str(claim.get("claim_state") or "") == "live"
-        live_owner = live_owner or is_live
-        stale_owner = stale_owner or not is_live
-        owner_rows.append(
-            {
-                "path": path,
-                "owner_session_id": session_id or None,
-                "claim_id": str(claim.get("claim_id") or "").strip() or None,
-                "claim_scope": str(claim.get("scope_kind") or "path"),
-                "freshness_state": freshness,
-                "allowed_action": (
-                    "do_not_patch_from_sibling_lane"
-                    if is_live
-                    else "release_or_supersede_owner_claim_then_regenerate"
-                ),
-            }
-        )
-
-    if generated_drift_paths and live_owner:
-        classification = "owned_live"
-        drift_authority = "owner_lane"
-        allowed_action = "do_not_patch_from_sibling_lane"
-        reentry_condition = "owner session lands, releases, or explicit handoff is recorded"
-    elif generated_drift_paths and stale_owner:
-        classification = "owned_stale"
-        drift_authority = "stale_projection"
-        allowed_action = "release_or_supersede_owner_claim_then_regenerate"
-        reentry_condition = "claim is released or superseded through Work Ledger owner tooling"
-    elif generated_drift_paths and unowned_generated_paths:
-        classification = "unowned_generated_drift"
-        drift_authority = "unowned_defect"
-        allowed_action = "claim_builder_lane_then_regenerate_and_validate"
-        reentry_condition = "a generator owner claim is acquired and the generated-surface check passes"
-    elif generated_drift_paths:
-        classification = "unowned_generated_drift"
-        drift_authority = "unowned_defect"
-        allowed_action = "claim_builder_lane_then_regenerate_and_validate"
-        reentry_condition = "a generator owner claim is acquired and the generated-surface check passes"
-    elif drift_paths:
-        classification = "unrelated_dirty_state"
-        drift_authority = "unrelated_dirty_state"
-        allowed_action = "route_to_owning_lane_or_capture"
-        reentry_condition = "owning lane consumes or captures the unrelated dirty state"
-    else:
-        classification = "clean"
-        drift_authority = "no_drift"
-        allowed_action = "continue"
-        reentry_condition = "new generated-surface drift appears"
+        freshness = encoded_claims[result["owner_index"]]["freshness"]
+        representative_candidates.append((
+            {2: 0, 5: 1, 3: 2}[kind], result["owner_index"], session_id,
+            str(claim.get("claim_id") or "").strip() or None, freshness,
+        ))
+        owner_rows.append({
+            "path": path,
+            "owner_session_id": session_id or None,
+            "claim_id": str(claim.get("claim_id") or "").strip() or None,
+            "claim_scope": str(claim.get("scope_kind") or "path"),
+            "freshness_state": freshness,
+            "reported_freshness_state": _session_freshness(
+                session_id, session_cards_by_id=session_cards_by_id, claim=claim),
+            "allowed_action": (
+                "do_not_patch_from_sibling_lane" if kind == 2
+                else "inspect_owner_freshness_before_reentry" if kind == 5
+                else "release_or_supersede_owner_claim_then_regenerate"
+            ),
+        })
+    if representative_candidates:
+        _, _, owner_session_id, owner_claim_id, owner_freshness = min(representative_candidates)
+        owner_session_id = owner_session_id or None
+    live_owner_collisions = [
+        {"path": path, "owner_session_ids": sorted(sessions), "body_in_receipt": False}
+        for path, sessions in sorted(live_sessions_by_path.items()) if len(sessions) > 1
+    ]
+    decisions = {
+        2: ("owned_live", "owner_lane",
+            "owner session lands, releases, or explicit handoff is recorded"),
+        3: ("owned_stale", "stale_projection",
+            "claim is released or superseded through Work Ledger owner tooling"),
+        5: ("owned_unresolved", "unresolved_owner_observation",
+            "owner identity and freshness are resolved through Work Ledger owner tooling"),
+        1: ("unowned_generated_drift", "unowned_defect",
+            "a generator owner claim is acquired and the generated-surface check passes"),
+        4: ("unrelated_dirty_state", "unrelated_dirty_state",
+            "owning lane consumes or captures the unrelated dirty state"),
+        0: ("clean", "no_drift", "new generated-surface drift appears"),
+    }
+    classification, drift_authority, reentry_condition = decisions[decision["classification"]]
+    allowed_action = {
+        11: "do_not_patch_from_sibling_lane",
+        12: "release_or_supersede_owner_claim_then_regenerate",
+        13: "claim_builder_lane_then_regenerate_and_validate",
+        14: "route_to_owning_lane_or_capture",
+        15: "continue",
+        16: "inspect_owner_freshness_before_reentry",
+    }[decision["action"]]
 
     return {
         "schema_version": "generated_surface_claim_lens_v1",
@@ -472,6 +543,9 @@ def classify_generated_surface_claim_lens(
         "owner_claim_id": owner_claim_id,
         "owner_freshness_state": owner_freshness,
         "surface_owner_rows": owner_rows,
+        "matching_owner_rows": matching_owner_rows,
+        "live_owner_collisions": live_owner_collisions,
+        "live_owner_collision_count": len(live_owner_collisions),
         "reentry_condition": reentry_condition,
         "closeout_receipt_ref": str(case.get("closeout_receipt_ref") or "").strip() or None,
         "body_in_receipt": False,
@@ -485,27 +559,19 @@ def _first_owner_row(case: Mapping[str, Any]) -> Mapping[str, Any]:
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
-    claim_rows = _as_records(case.get("claim_rows"))
-    session_cards = _as_records(case.get("session_cards"))
-    session_cards_by_id = {
-        str(row.get("session_id") or "").strip(): row
-        for row in session_cards
-        if str(row.get("session_id") or "").strip()
-    }
-    for claim in claim_rows:
-        session_id = str(claim.get("session_id") or "").strip()
-        if not session_id:
-            continue
-        return {
-            "owner_session_id": session_id,
-            "owner_claim_id": str(claim.get("claim_id") or "").strip() or None,
-            "owner_freshness_state": _session_freshness(
-                session_id,
-                session_cards_by_id=session_cards_by_id,
-                claim=claim,
-            ),
-        }
-    return {}
+    # Overbroad-scope cases can have claims without generated drift paths.
+    # Reuse verified selection for these exact scopes rather than independently
+    # overriding a live representative with the first stale row.
+    paths = tuple(sorted({_claim_path(claim) for claim in _as_records(case.get("claim_rows"))
+                          if _claim_path(claim)}))
+    if not paths:
+        if _as_records(case.get("claim_rows")):
+            return {"classification": "owned_unresolved",
+                    "owner_freshness_state": "unknown",
+                    "reentry_condition": "claim scope and owner identity are resolved before reentry"}
+        return {}
+    return classify_generated_surface_claim_lens(
+        {**case, "drift_paths": list(paths)}, generated_surfaces=paths)
 
 
 def classify_concurrency_closure_state_lens(case: Mapping[str, Any]) -> dict[str, Any]:
@@ -519,7 +585,10 @@ def classify_concurrency_closure_state_lens(case: Mapping[str, Any]) -> dict[str
 
     generated = classify_generated_surface_claim_lens(case)
     generated_classification = str(generated.get("classification") or "")
-    owner = _first_owner_row(case)
+    owner = generated
+    if (str(case.get("path_scope_status") or "") == "overbroad"
+            and generated_classification not in {"owned_live", "owned_unresolved", "owned_stale"}):
+        owner = _first_owner_row(case)
     validation_quote = _as_mapping(case.get("validation_quote"))
     validation_state = str(
         case.get("heavy_validation_state")
@@ -540,7 +609,8 @@ def classify_concurrency_closure_state_lens(case: Mapping[str, Any]) -> dict[str
         str(case.get("path_scope_status") or "") == "overbroad"
         and owner.get("owner_session_id")
     ):
-        classification = "owned_live_handoff"
+        classification = ("owned_live_handoff" if owner.get("owner_freshness_state") == "live"
+                          else "owned_unresolved")
         allowed_action = "narrow_path_scope_or_coordinate_owner"
         drift_authority = "owner_lane"
         reentry_condition = "candidate path scope is narrowed or owner handoff is recorded"
@@ -554,6 +624,12 @@ def classify_concurrency_closure_state_lens(case: Mapping[str, Any]) -> dict[str
         allowed_action = "release_or_supersede_owner_claim_then_reenter"
         drift_authority = "stale_projection"
         reentry_condition = str(generated.get("reentry_condition") or "")
+    elif (generated_classification == "owned_unresolved"
+          or owner.get("classification") == "owned_unresolved"):
+        classification = "owned_unresolved"
+        allowed_action = "inspect_owner_freshness_before_reentry"
+        drift_authority = "unresolved_owner_observation"
+        reentry_condition = str(owner.get("reentry_condition") or generated.get("reentry_condition") or "")
     elif generated_classification == "unowned_generated_drift":
         classification = "unowned_generated_drift"
         allowed_action = "claim_builder_lane_then_regenerate_and_validate"
@@ -624,6 +700,9 @@ def classify_concurrency_closure_state_lens(case: Mapping[str, Any]) -> dict[str
         "owner_freshness_state": (
             owner.get("owner_freshness_state") or generated.get("owner_freshness_state")
         ),
+        "matching_owner_rows": owner.get("matching_owner_rows", []),
+        "live_owner_collisions": owner.get("live_owner_collisions", []),
+        "live_owner_collision_count": owner.get("live_owner_collision_count", 0),
         "secondary_states": sorted(set(secondary_states) - {classification}),
         "reentry_condition": reentry_condition,
         "body_in_receipt": False,

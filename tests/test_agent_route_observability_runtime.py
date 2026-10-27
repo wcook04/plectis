@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -3785,6 +3786,93 @@ def test_computer_use_action_trace_receipt_is_public_relative_and_redacted(
         assert not Path(hit["path"]).is_absolute()
 
 
+@pytest.mark.parametrize(
+    "change", [None, "missing_manifest_row", "changed_bytes", "missing_review"]
+)
+def test_computer_use_standalone_export_keeps_reviewed_sources_and_checks_pins(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, change: str | None,
+) -> None:
+    from microcosm_core import release_export
+
+    source = tmp_path / "source/microcosm-substrate"
+    bundle_ref = COMPUTER_USE_BUNDLE_INPUT.relative_to(MICROCOSM_ROOT)
+    shutil.copytree(
+        COMPUTER_USE_BUNDLE_INPUT,
+        source / bundle_ref,
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc"),
+    )
+    (source / "core").mkdir()
+    for name in ("source_module_refresh_policy_v0.json", "private_state_forbidden_classes.json"):
+        shutil.copy2(MICROCOSM_ROOT / "core" / name, source / "core" / name)
+    source_manifest = source / bundle_ref / "source_module_manifest.json"
+    manifest_bytes = source_manifest.read_bytes()
+    manifest = json.loads(manifest_bytes)
+    trace_row = next(
+        row for row in manifest["modules"]
+        if row["source_ref"] == "system/lib/agent_execution_trace.py"
+    )
+    trace_ref = trace_row["target_ref"].removeprefix("microcosm-substrate/")
+    if change == "missing_review":
+        policy_path = source / "core/source_module_refresh_policy_v0.json"
+        policy = json.loads(policy_path.read_text())
+        policy["reviewed_publication"]["copies"].pop(trace_ref)
+        policy_path.write_text(json.dumps(policy))
+
+    substitutions = {
+        row["path"]: row
+        for row in release_export._restricted_source_module_substitution_rows(source)
+    }
+    assert set(substitutions) == ({trace_ref} if change == "missing_review" else set())
+    artifact = tmp_path / "artifact/microcosm-substrate"
+    release_export._copy_allowed_files(
+        sorted(path for path in source.rglob("*") if path.is_file()),
+        root=source,
+        target=artifact,
+        private_body_substitutions=substitutions,
+    )
+    release_export._rewrite_private_body_stub_metadata(artifact, substitutions)
+    monkeypatch.setenv("GIT_CEILING_DIRECTORIES", str(tmp_path))
+    assert subprocess.run(
+        ["git", "rev-parse", "--is-inside-work-tree"], cwd=artifact,
+        capture_output=True, check=False,
+    ).returncode != 0
+    bundle = artifact / bundle_ref
+    exported_manifest = bundle / "source_module_manifest.json"
+    if change != "missing_review":
+        assert exported_manifest.read_bytes() == manifest_bytes
+        for row in manifest["modules"]:
+            assert hashlib.sha256((bundle / row["path"]).read_bytes()).hexdigest() == row["sha256"]
+    if change == "missing_manifest_row":
+        altered = json.loads(exported_manifest.read_text())
+        altered["modules"] = [
+            row for row in altered["modules"]
+            if row["source_ref"] != "codex/standards/std_agent_execution_trace.json"
+        ]
+        altered["module_count"] = len(altered["modules"])
+        exported_manifest.write_text(json.dumps(altered))
+    elif change == "changed_bytes":
+        with (bundle / "source_modules/codex/standards/std_agent_execution_trace.json").open("a") as stream:
+            stream.write("\n ")
+    elif change == "missing_review":
+        assert (artifact / trace_ref).read_bytes() != (source / trace_ref).read_bytes()
+
+    result = run_computer_use_action_trace_bundle(
+        bundle, artifact / "receipts/test", command="pytest",
+    )
+    if change is None:
+        assert result["status"] == "pass"
+        assert result["source_module_manifest"]["status"] == "pass"
+    else:
+        assert result["status"] == "blocked"
+        assert result["source_module_manifest"]["status"] == "blocked"
+        expected = (
+            "COMPUTER_USE_SOURCE_MODULE_DIGEST_MISMATCH"
+            if change == "changed_bytes"
+            else "COMPUTER_USE_SOURCE_MODULE_MISSING_FROM_MANIFEST"
+        )
+        assert expected in result["error_codes"]
+
+
 def test_computer_use_action_trace_exported_bundle_validates_runtime_shape(
     tmp_path: Path,
 ) -> None:
@@ -3892,12 +3980,6 @@ def test_computer_use_action_trace_imports_public_agent_execution_trace_refactor
         COMPUTER_USE_BUNDLE_INPUT
         / "source_modules/codex/standards/std_agent_execution_trace.json"
     )
-    assert hashlib.sha256(source.read_bytes()).hexdigest() == hashlib.sha256(
-        bundle_source.read_bytes()
-    ).hexdigest()
-    assert hashlib.sha256(standard.read_bytes()).hexdigest() == hashlib.sha256(
-        bundle_standard.read_bytes()
-    ).hexdigest()
     manifest = json.loads(
         (COMPUTER_USE_BUNDLE_INPUT / "source_module_manifest.json").read_text(
             encoding="utf-8"
@@ -3905,11 +3987,21 @@ def test_computer_use_action_trace_imports_public_agent_execution_trace_refactor
     )
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
-    assert {row["path"] for row in manifest["modules"]} == {
+    rows = {row["path"]: row for row in manifest["modules"]}
+    assert set(rows) == {
         "source_modules/codex/standards/std_agent_execution_trace.json",
         "source_modules/system/lib/agent_execution_trace.py",
         "source_modules/system/lib/strict_json.py",
     }
+    assert manifest["module_count"] == len(rows)
+    for original, copied in ((source, bundle_source), (standard, bundle_standard)):
+        digest = hashlib.sha256(copied.read_bytes()).hexdigest()
+        row = rows[copied.relative_to(COMPUTER_USE_BUNDLE_INPUT).as_posix()]
+        assert row["sha256"] == digest
+        assert row["source_sha256"] == f"sha256:{digest}"
+        assert row["target_sha256"] == f"sha256:{digest}"
+        if original.is_file():
+            assert hashlib.sha256(original.read_bytes()).hexdigest() == digest
 
 
 def test_computer_use_trace_loader_rejects_duplicate_json_keys(tmp_path: Path) -> None:

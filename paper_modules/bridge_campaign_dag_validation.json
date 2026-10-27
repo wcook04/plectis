@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public fixture and receipt evidence only; it validates campaign DAG structure and does not dispatch agents, execute campaigns, prove provider correctness or safety, and is not release approval or publication approval.",
-    "card": "Bridge Campaign DAG Validation is the public agent-orchestration replay for a fan-in campaign graph. It validates each campaign spec against a public-safe subset of the macro CR/VR rule families: schema and identity, unique node labels, dependency edges that reference existing nodes, DFS acyclicity, exactly one synthesis node that reaches a probe, a barrier naming that synthesis, and a requested worker count within the provider safe-parallelism ceiling. It accepts a linear chain and a three-way fan-in, and self-falsifies: a cyclic campaign is rejected with CR012 and a two-synthesis campaign with CR013. It writes body-free receipts and surfaces microcosm_core.engine_room.bridge_campaign_dag without dispatching agents or calling providers.",
-    "one_line": "The bridge campaign DAG validation organ surfaces the public bridge_campaign_dag capsule and checks, over bounded public fixtures, that a fan-in campaign graph is well formed: unique labels, existing dependency edges, acyclicity, exactly one synthesis reaching a probe, barrier alignment, and a worker count within the provider safe-parallelism ceiling."
+    "authority_ceiling": "The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.",
+    "card": "Checks dependencies, cycles, one synthesis reaching a probe, barrier alignment and the configured worker ceiling.",
+    "one_line": "A campaign graph validator rejects malformed dependency plans."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.bridge_campaign_dag_validation",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public fixture and receipt evidence only; it validates campaign DAG structure and does not dispatch agents, execute campaigns, prove provider correctness or safety, and is not release approval or publication approval.",
+    "authority_ceiling": "The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -87,9 +87,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public fixture and receipt evidence only; it validates campaign DAG structure and does not dispatch agents, execute campaigns, prove provider correctness or safety, and is not release approval or publication approval.",
-        "card": "Bridge Campaign DAG Validation is the public agent-orchestration replay for a fan-in campaign graph. It validates each campaign spec against a public-safe subset of the macro CR/VR rule families: schema and identity, unique node labels, dependency edges that reference existing nodes, DFS acyclicity, exactly one synthesis node that reaches a probe, a barrier naming that synthesis, and a requested worker count within the provider safe-parallelism ceiling. It accepts a linear chain and a three-way fan-in, and self-falsifies: a cyclic campaign is rejected with CR012 and a two-synthesis campaign with CR013. It writes body-free receipts and surfaces microcosm_core.engine_room.bridge_campaign_dag without dispatching agents or calling providers.",
-        "one_line": "The bridge campaign DAG validation organ surfaces the public bridge_campaign_dag capsule and checks, over bounded public fixtures, that a fan-in campaign graph is well formed: unique labels, existing dependency edges, acyclicity, exactly one synthesis reaching a probe, barrier alignment, and a worker count within the provider safe-parallelism ceiling."
+        "authority_ceiling": "The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.",
+        "card": "Checks dependencies, cycles, one synthesis reaching a probe, barrier alignment and the configured worker ceiling.",
+        "one_line": "A campaign graph validator rejects malformed dependency plans."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -126,7 +126,7 @@
           "ref": "bridge_campaign_dag_validation"
         }
       ],
-      "title": "Bridge Campaign DAG Validation"
+      "title": "Validate a campaign dependency graph"
     },
     "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
     "support_contract": {
@@ -284,7 +284,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The bridge campaign DAG validation organ surfaces the public bridge_campaign_dag capsule and checks, over bounded public fixtures, that a fan-in campaign graph is well formed: unique labels, existing dependency edges, acyclicity, exactly one synthesis reaching a probe, barrier alignment, and a worker count within the provider safe-parallelism ceiling.",
+  "statement": "A campaign graph validator rejects malformed dependency plans.",
   "status": "active",
   "subjects": [
     {
@@ -292,7 +292,7 @@
       "ref": "bridge_campaign_dag_validation"
     }
   ],
-  "title": "Bridge Campaign DAG Validation",
+  "title": "Validate a campaign dependency graph",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

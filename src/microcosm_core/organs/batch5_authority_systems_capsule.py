@@ -458,30 +458,18 @@ def _blast_radius_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
     graph = payload.get("graph") if isinstance(payload.get("graph"), Mapping) else {}
     target = str(payload.get("target") or "")
     leaf = str(payload.get("leaf_target") or "")
-    reverse: dict[str, list[str]] = {}
-    for source, deps in graph.items():
-        for dep in deps if isinstance(deps, list) else []:
-            reverse.setdefault(str(dep), []).append(str(source))
+    # Normalize at the existing boundary; the component core computes reverse
+    # transitive reachability from dependency to dependent.
+    from plectis.components.dependency_reachability import dependents
 
-    def dependents(start: str) -> set[str]:
-        """
-        Produce the dependents value used by
-        `microcosm_core.organs.batch5_authority_systems_capsule`.
-
-        Inputs are `start`; notable helpers are `get`, `pop`, `add`, and `extend`.
-        """
-        seen: set[str] = set()
-        stack = list(reverse.get(start, []))
-        while stack:
-            item = stack.pop()
-            if item in seen:
-                continue
-            seen.add(item)
-            stack.extend(reverse.get(item, []))
-        return seen
-
-    target_deps = dependents(target)
-    leaf_deps = dependents(leaf)
+    edges = [
+        [str(dep), str(source)]
+        for source, deps in graph.items()
+        for dep in (deps if isinstance(deps, list) else [])
+    ]
+    target_rows, leaf_rows = dependents(edges, [target, leaf])
+    target_deps = set(target_rows)
+    leaf_deps = set(leaf_rows)
     return {
         "status": "pass" if target_deps and not leaf_deps else "blocked",
         "target_transitive_dependents": sorted(target_deps),

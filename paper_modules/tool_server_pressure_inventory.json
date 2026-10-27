@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Declared public helper-process pressure inventory fixture and source-module digest evidence only; no live process reads, process signalling, host mutation, release authority, provider calls, private-data equivalence, publication approval, or whole-system correctness.",
-    "card": "Tool Server Pressure Inventory validates the public tool-server pressure membrane: synthetic process rows, active-owner descendants, over-budget owner release requests, redaction findings, source-module digests, body-free receipts, negative cases, and authority ceilings. It treats pressure inventory rows as fixture evidence, not live process control, process signalling, host mutation, provider authority, release authority, publication, or whole-system correctness.",
-    "one_line": "Tool Server Pressure Inventory validates public pressure-inventory fixtures without reading or mutating live host process state."
+    "authority_ceiling": "The implementation does not inspect the live process table or send signals. A recommendation in a receipt is not permission to stop a process.",
+    "card": "The classifier follows owner relationships, distinguishes active, unknown and detached owners, and applies the supplied policy. Tests cover cycles and active-owner descendants. It rejects a claim that an unknown-owner process is safe to close, and rejects recorded process signals or exposed command previews.",
+    "one_line": "This component takes a supplied process table, owner classifications and pressure policy and produces an inventory and a relief recommendation."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.tool_server_pressure_inventory",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Declared public helper-process pressure inventory fixture and source-module digest evidence only; no live process reads, process signalling, host mutation, release authority, provider calls, private-data equivalence, publication approval, or whole-system correctness.",
+    "authority_ceiling": "The implementation does not inspect the live process table or send signals. A recommendation in a receipt is not permission to stop a process.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,9 +84,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Declared public helper-process pressure inventory fixture and source-module digest evidence only; no live process reads, process signalling, host mutation, release authority, provider calls, private-data equivalence, publication approval, or whole-system correctness.",
-        "card": "Tool Server Pressure Inventory validates the public tool-server pressure membrane: synthetic process rows, active-owner descendants, over-budget owner release requests, redaction findings, source-module digests, body-free receipts, negative cases, and authority ceilings. It treats pressure inventory rows as fixture evidence, not live process control, process signalling, host mutation, provider authority, release authority, publication, or whole-system correctness.",
-        "one_line": "Tool Server Pressure Inventory validates public pressure-inventory fixtures without reading or mutating live host process state."
+        "authority_ceiling": "The implementation does not inspect the live process table or send signals. A recommendation in a receipt is not permission to stop a process.",
+        "card": "The classifier follows owner relationships, distinguishes active, unknown and detached owners, and applies the supplied policy. Tests cover cycles and active-owner descendants. It rejects a claim that an unknown-owner process is safe to close, and rejects recorded process signals or exposed command previews.",
+        "one_line": "This component takes a supplied process table, owner classifications and pressure policy and produces an inventory and a relief recommendation."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -135,7 +135,7 @@
           "ref": "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory"
         }
       ],
-      "title": "Tool Server Pressure Inventory"
+      "title": "Classify tool-server process pressure"
     },
     "strangler_note": "Binds the Markdown projection, runtime locus, organ subject, and admitted mechanism subject to JSON source authority; authority remains fixture/receipt scoped and does not flip Markdown into source.",
     "support_contract": {
@@ -410,7 +410,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Tool Server Pressure Inventory validates public pressure-inventory fixtures without reading or mutating live host process state.",
+  "statement": "This component takes a supplied process table, owner classifications and pressure policy and produces an inventory and a relief recommendation.",
   "status": "active",
   "subjects": [
     {
@@ -422,7 +422,7 @@
       "ref": "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory"
     }
   ],
-  "title": "Tool Server Pressure Inventory",
+  "title": "Classify tool-server process pressure",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

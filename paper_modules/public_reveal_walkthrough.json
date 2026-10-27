@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public reveal fixture and exported-bundle receipts only; no release, hosted deployment, publication, recipient work, provider call, secret export, private-root equivalence, Lean/Lake execution, source mutation, or whole-system correctness.",
-    "card": "Public Reveal Walkthrough is the source-backed public-entry membrane for Microcosm. It checks the declared reveal steps, runnable command set, evidence refs, claim-floor phrases, secret-exclusion scan, source-open body import manifest, runtime-bundle shape, and four overclaim negative cases while keeping copied bodies out of receipts and release/provider/private-equivalence claims out of scope.",
-    "one_line": "The public reveal walkthrough validates a ten-minute cold-reader path through commands, routes, evidence refs, source-open body imports, negative cases, and authority ceilings without claiming release readiness or private-root equivalence."
+    "authority_ceiling": "A walkthrough that claims a capability without a matching evidence route is rejected. A passing walkthrough does not establish private-system equivalence or authorize a release.",
+    "card": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references. It produces a board and findings to help a reader follow a claim to supporting material.",
+    "one_line": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.public_reveal_walkthrough",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public reveal fixture and exported-bundle receipts only; no release, hosted deployment, publication, recipient work, provider call, secret export, private-root equivalence, Lean/Lake execution, source mutation, or whole-system correctness.",
+    "authority_ceiling": "A walkthrough that claims a capability without a matching evidence route is rejected. A passing walkthrough does not establish private-system equivalence or authorize a release.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,9 +84,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public reveal fixture and exported-bundle receipts only; no release, hosted deployment, publication, recipient work, provider call, secret export, private-root equivalence, Lean/Lake execution, source mutation, or whole-system correctness.",
-        "card": "Public Reveal Walkthrough is the source-backed public-entry membrane for Microcosm. It checks the declared reveal steps, runnable command set, evidence refs, claim-floor phrases, secret-exclusion scan, source-open body import manifest, runtime-bundle shape, and four overclaim negative cases while keeping copied bodies out of receipts and release/provider/private-equivalence claims out of scope.",
-        "one_line": "The public reveal walkthrough validates a ten-minute cold-reader path through commands, routes, evidence refs, source-open body imports, negative cases, and authority ceilings without claiming release readiness or private-root equivalence."
+        "authority_ceiling": "A walkthrough that claims a capability without a matching evidence route is rejected. A passing walkthrough does not establish private-system equivalence or authorize a release.",
+        "card": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references. It produces a board and findings to help a reader follow a claim to supporting material.",
+        "one_line": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references."
       },
       "concept_refs": [
         "concept.entry_and_reveal_route_readiness_bundle"
@@ -142,7 +142,7 @@
           "ref": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
         }
       ],
-      "title": "Public Reveal Walkthrough"
+      "title": "Check a public walkthrough against its evidence"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave public reveal fixture, exported public reveal bundle, copied macro source-body manifest, mechanism row, and Microcosm organ source locus without treating Markdown, generated atlas docs, copied-body presence, reveal visuals, or evidence totals as release, hosting, provider, or private-root-equivalence authority.",
     "support_contract": {
@@ -502,7 +502,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public reveal walkthrough validates a ten-minute cold-reader path through commands, routes, evidence refs, source-open body imports, negative cases, and authority ceilings without claiming release readiness or private-root equivalence.",
+  "statement": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references.",
   "status": "active",
   "subjects": [
     {
@@ -518,7 +518,7 @@
       "ref": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
     }
   ],
-  "title": "Public Reveal Walkthrough",
+  "title": "Check a public walkthrough against its evidence",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

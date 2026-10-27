@@ -14,7 +14,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-from collections import defaultdict
+from collections import Counter, defaultdict, deque
 from pathlib import Path
 from typing import Any
 
@@ -533,6 +533,9 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
+    from plectis.components._bridge import kernel_identity
+
+    component_kernel = kernel_identity("information_flow")
     source = Path(input_dir)
     if not source.is_absolute():
         source = Path.cwd() / source
@@ -567,6 +570,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
         json.dumps(
             {
                 "card_schema_version": CARD_SCHEMA_VERSION,
+                "component_kernel": component_kernel,
                 "include_negative": include_negative,
                 "inputs": rows,
                 "missing_inputs": missing,
@@ -579,6 +583,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
         "schema_version": "indirect_prompt_injection_freshness_basis_v1",
         "basis_digest": f"sha256:{basis_digest}",
         "card_schema_version": CARD_SCHEMA_VERSION,
+        "component_kernel": component_kernel,
         "include_negative": include_negative,
         "input_count": len(rows),
         "missing_path_count": len(missing),
@@ -1295,11 +1300,18 @@ def validate_source_documents(payload: object) -> dict[str, Any]:
     rows = _rows(payload, "source_documents")
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
+    source_counts = Counter(str(row.get("source_id") or "") for row in rows)
+    for duplicate in sorted(source_id for source_id, count in source_counts.items() if source_id and count > 1):
+        findings.append(_finding(
+            "PROMPT_INJECTION_DUPLICATE_SOURCE_ID",
+            "Source IDs must be unique so trust labels cannot be overwritten by an ambiguous source.",
+            case_id="source_document_floor", subject_id=duplicate, subject_kind="source_document"))
     for row in rows:
         source_id = str(row.get("source_id") or "")
         trust_label = str(row.get("trust_label") or "")
         if (
             _missing(row, REQUIRED_SOURCE_FIELDS)
+            or not source_id
             or _has_forbidden_key(row)
             or row.get("body_redacted") is not True
             or row.get("synthetic_fixture") is not True
@@ -1387,137 +1399,213 @@ def _has_untrusted_taint(labels: list[str]) -> bool:
     )
 
 
-def _derived_policy_verdict(
-    row: dict[str, Any],
-    derived_taint_labels: list[str],
-) -> str:
-    """
-    Compute derived policy verdict from `row` and `derived_taint_labels`.
-
-    Inputs are `row` and `derived_taint_labels`; notable helpers are `_has_untrusted_taint`
-    and `get`.
-    """
+def _policy_observations(row: dict[str, Any], derived_taint_labels: list[str]) -> dict[str, bool]:
+    """Normalize source metadata for the verified information-flow decision."""
     labels = set(derived_taint_labels)
     sink_kind = str(row.get("sink_kind") or "")
     proposed_action = str(row.get("proposed_action_ref") or "")
-    privileged = row.get("privileged_sink") is True
-    sanitized = row.get("sanitization_applied") is True
-    hidden_policy_promotion = (
-        "hidden_policy_claim" in labels
-        or sink_kind == "instruction_channel"
-        or "promote" in proposed_action
-    )
-    untrusted = _has_untrusted_taint(sorted(labels))
+    return {
+        "hidden": (
+            "hidden_policy_claim" in labels
+            or sink_kind == "instruction_channel"
+            or "promote" in proposed_action
+        ),
+        "untrusted": _has_untrusted_taint(sorted(labels)),
+        "privileged": row.get("privileged_sink") is True,
+        "sanitized": row.get("sanitization_applied") is True,
+    }
 
-    if hidden_policy_promotion:
-        return "block"
-    if untrusted and privileged and not sanitized:
-        return "block"
-    if untrusted and privileged and sanitized:
-        return "review"
-    if untrusted and sanitized:
-        return "warn"
-    if untrusted:
-        return "review"
-    return "allow"
+
+def _derived_policy_verdict(row: dict[str, Any], derived_taint_labels: list[str]) -> str:
+    """Apply the verified decision to one normalized observation."""
+    from plectis.components.information_flow import verdicts
+
+    return verdicts([_policy_observations(row, derived_taint_labels)])[0]
+
+
+def _episode_closure_input(
+    entries: list[tuple[int, dict[str, Any]]], source_by_id: dict[str, dict[str, Any]],
+) -> tuple[dict[str, Any], list[str], dict[int, int], list[str]]:
+    """Normalize one episode; node and label interpretation remains host code."""
+    nodes = sorted(
+        {str(row.get("from_source_id") or "") for _, row in entries}
+        | {str(row.get("to_sink_id") or "") for _, row in entries if row.get("to_sink_id")}
+    )
+    indices = {node: index for index, node in enumerate(nodes)}
+    episode_id = str(entries[0][1].get("episode_id") or "")
+    seeds: dict[str, list[int]] = {}
+    for node in nodes:
+        source = source_by_id.get(node, {})
+        if str(source.get("episode_id") or "") != episode_id:
+            continue
+        for label in set(_strings(source.get("taint_labels"))):
+            seeds.setdefault(label, []).append(indices[node])
+    edges: list[dict[str, Any]] = []
+    edge_by_row: dict[int, int] = {}
+    edge_refs: list[str] = []
+    for position, row in entries:
+        source = str(row.get("from_source_id") or "")
+        sink = str(row.get("to_sink_id") or "")
+        if not sink:
+            continue
+        hidden = (str(row.get("sink_kind") or "") == "instruction_channel"
+                  or "promote" in str(row.get("proposed_action_ref") or ""))
+        edge_by_row[position] = len(edges)
+        edges.append({"source": indices[source], "target": indices[sink], "hidden": hidden})
+        edge_refs.append(str(row.get("flow_id") or ""))
+    return {"node_count": len(nodes), "edges": edges, "seeds": seeds}, nodes, edge_by_row, edge_refs
+
+
+def _episode_witnesses(
+    episode: dict[str, Any], nodes: list[str], reached: dict[str, list[int]],
+    edge_refs: list[str],
+) -> dict[tuple[int, str], dict[str, Any]]:
+    """Find one finite deterministic walk per label; check it against the core."""
+    import heapq
+
+    edges = episode["edges"]
+    adjacency: dict[int, list[tuple[int, int]]] = {n: [] for n in range(len(nodes))}
+    for index, edge in enumerate(edges):
+        adjacency[edge["source"]].append((edge["target"], index))
+    for successors in adjacency.values():
+        successors.sort(key=lambda item: (nodes[item[0]], edge_refs[item[1]], item[1]))
+    pending: list[tuple[Any, ...]] = []
+    for label, sources in episode["seeds"].items():
+        for source in sources:
+            path = (nodes[source],)
+            heapq.heappush(pending, (1, path, (), label, source, "source", source, -1))
+    for index, edge in enumerate(edges):
+        if edge["hidden"]:
+            path = (nodes[edge["source"]], nodes[edge["target"]])
+            heapq.heappush(pending, (2, path, (index,), "hidden_policy_claim", edge["target"],
+                                     "hidden_edge", edge["source"], index))
+    found: dict[tuple[int, str], dict[str, Any]] = {}
+    while pending:
+        _, path, edge_indices, label, node, origin, seed_node, seed_edge = heapq.heappop(pending)
+        key = (node, label)
+        if key in found:
+            continue
+        found[key] = {"nodes": list(path), "edge_indices": list(edge_indices),
+                      "origin": origin, "seed_node": seed_node, "seed_edge": seed_edge}
+        for target, edge_index in adjacency[node]:
+            next_path = path + (nodes[target],)
+            heapq.heappush(pending, (len(next_path), next_path, edge_indices + (edge_index,),
+                                     label, target, origin, seed_node, seed_edge))
+    expected = {(node, label) for label, targets in reached.items() for node in targets}
+    if set(found) != expected:
+        raise RuntimeError("host witness search does not match verified closure")
+    return found
 
 
 def _taint_propagation_receipt(
     rows: list[dict[str, Any]],
     source_by_id: dict[str, dict[str, Any]],
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    """
-    Derive taint propagation receipt without touching module import state.
+    """Recompute episode-local least taint closure and policy verdicts."""
+    from plectis.components.information_flow import closures, verdicts
 
-    Inputs are `rows` and `source_by_id`; notable helpers are `get`, `update`,
-    `_derived_policy_verdict`, `append`, and 6 more.
-    """
+    ordered = sorted(rows, key=lambda item: (str(item.get("episode_id") or ""),
+                                              str(item.get("flow_id") or "")))
+    grouped: dict[str, list[tuple[int, dict[str, Any]]]] = {}
+    for position, row in enumerate(ordered):
+        grouped.setdefault(str(row.get("episode_id") or ""), []).append((position, row))
+    contexts = [_episode_closure_input(group, source_by_id) for group in grouped.values()]
+    # Batch independent episodes to keep routine worker requests manageable.
+    # A single large episode still shares the worker's execution timeout.
+    closures_by_episode: list[dict[str, list[int]]] = []
+    batch: list[dict[str, Any]] = []
+    batch_size = 0
+    for episode, _, _, _ in contexts:
+        size = len(json.dumps(episode, ensure_ascii=True, separators=(",", ":"))) + 1
+        if batch and batch_size + size > 1_500_000:
+            closures_by_episode.extend(closures(batch))
+            batch, batch_size = [], 0
+        batch.append(episode)
+        batch_size += size
+    if batch:
+        closures_by_episode.extend(closures(batch))
+    by_episode: dict[str, tuple[Any, ...]] = {}
+    for name, context, reached in zip(grouped, contexts, closures_by_episode, strict=True):
+        episode, nodes, edge_by_row, edge_refs = context
+        witnesses = _episode_witnesses(episode, nodes, reached, edge_refs)
+        by_episode[name] = (episode, nodes, edge_by_row, edge_refs, reached, witnesses)
+
     findings: list[dict[str, Any]] = []
-    taints_by_node: dict[str, set[str]] = {
-        source_id: set(_strings(source.get("taint_labels")))
-        for source_id, source in source_by_id.items()
-    }
-    paths_by_node: dict[str, list[list[str]]] = {
-        source_id: [[source_id]] for source_id in source_by_id
-    }
     path_rows: list[dict[str, Any]] = []
-    for row in sorted(
-        rows,
-        key=lambda item: (
-            str(item.get("episode_id") or ""),
-            str(item.get("flow_id") or ""),
-        ),
-    ):
+    policy_inputs: list[dict[str, bool]] = []
+    for position, row in enumerate(ordered):
         flow_id = str(row.get("flow_id") or "")
         source_id = str(row.get("from_source_id") or "")
         sink_id = str(row.get("to_sink_id") or "")
+        episode_id = str(row.get("episode_id") or "")
+        episode, nodes, edge_by_row, edge_refs, reached, witnesses = by_episode[episode_id]
+        source_index = nodes.index(source_id)
+        labels = {label for label, targets in reached.items() if source_index in targets}
         source = source_by_id.get(source_id, {})
-        upstream_labels = set(taints_by_node.get(source_id) or ())
-        if not upstream_labels:
-            upstream_labels = set(_strings(source.get("taint_labels")))
-        derived_labels = set(_derived_flow_taint_labels(row, source))
-        derived_labels.update(upstream_labels)
+        if str(source.get("episode_id") or "") != episode_id:
+            source = {}
+        labels.update(_derived_flow_taint_labels(row, source))
         declared_labels = set(_strings(row.get("taint_labels")))
-        if declared_labels != derived_labels:
-            findings.append(
-                _finding(
-                    "PROMPT_INJECTION_TAINT_PROPAGATION_MISMATCH",
-                    "Flow taint labels must be derived from the source row plus policy transforms, not hand-written independently.",
-                    case_id="taint_propagation_floor",
-                    subject_id=flow_id or "information_flow",
-                    subject_kind="information_flow",
-                )
-            )
-        declared_verdict = str(row.get("policy_verdict") or "")
-        derived_verdict = _derived_policy_verdict(row, sorted(derived_labels))
-        if declared_verdict != derived_verdict:
-            findings.append(
-                _finding(
-                    "PROMPT_INJECTION_POLICY_VERDICT_DERIVATION_MISMATCH",
-                    "Flow policy verdicts must be computed from propagated taint, sink privilege, sanitizer state, sink kind, and proposed action.",
-                    case_id="policy_verdict_derivation_floor",
-                    subject_id=flow_id or "information_flow",
-                    subject_kind="information_flow",
-                )
-            )
-        source_paths = paths_by_node.get(source_id) or [[source_id]]
-        propagated_paths = [path + [sink_id] for path in source_paths if sink_id]
+        policy_inputs.append(_policy_observations(row, sorted(labels)))
+        witness_rows = []
         if sink_id:
-            taints_by_node.setdefault(sink_id, set()).update(derived_labels)
-            paths_by_node.setdefault(sink_id, []).extend(propagated_paths)
-        path_rows.append(
-            {
-                "flow_id": flow_id,
-                "from_source_id": source_id,
-                "to_sink_id": sink_id,
-                "derived_taint_labels": sorted(derived_labels),
-                "declared_taint_labels": sorted(declared_labels),
-                "taint_derivation_passed": declared_labels == derived_labels,
-                "derived_policy_verdict": derived_verdict,
-                "declared_policy_verdict": declared_verdict,
-                "policy_derivation_passed": declared_verdict == derived_verdict,
-                "source_to_sink_paths": propagated_paths,
-                "path_count": len(propagated_paths),
-                "body_in_receipt": False,
-            }
-        )
-    return (
-        {
-            "status": PASS if rows and not findings else "blocked",
-            "analysis_kind": "derived_taint_propagation_over_source_to_sink_graph",
-            "propagated_node_count": len(taints_by_node),
-            "propagated_path_count": sum(row["path_count"] for row in path_rows),
-            "derived_taint_mismatch_count": sum(
-                1 for row in path_rows if row["taint_derivation_passed"] is not True
-            ),
-            "derived_policy_verdict_mismatch_count": sum(
-                1 for row in path_rows if row["policy_derivation_passed"] is not True
-            ),
-            "flow_path_rows": path_rows,
-            "body_in_receipt": False,
-        },
-        findings,
-    )
+            current_edge = edge_by_row[position]
+            for label in sorted(labels):
+                witness = witnesses.get((source_index, label))
+                if witness is None:
+                    if label != "hidden_policy_claim" or not episode["edges"][current_edge]["hidden"]:
+                        raise RuntimeError("missing taint witness")
+                    witness = {"nodes": [source_id], "edge_indices": [], "origin": "hidden_edge",
+                               "seed_node": source_index, "seed_edge": current_edge}
+                edge_indices = [*witness["edge_indices"], current_edge]
+                witness_rows.append({
+                    "label": label, "nodes": [*witness["nodes"], sink_id],
+                    "flow_ids": [edge_refs[index] for index in edge_indices],
+                    "edge_indices": edge_indices, "origin": witness["origin"],
+                    "seed_source_id": nodes[witness["seed_node"]],
+                    "seed_flow_id": (edge_refs[witness["seed_edge"]]
+                                     if witness["seed_edge"] >= 0 else ""),
+                })
+        paths = sorted({tuple(witness["nodes"]) for witness in witness_rows})
+        if sink_id and not paths:
+            paths = [(source_id, sink_id)]
+        path_rows.append({
+            "flow_id": flow_id, "episode_id": episode_id, "from_source_id": source_id,
+            "to_sink_id": sink_id, "derived_taint_labels": sorted(labels),
+            "declared_taint_labels": sorted(declared_labels),
+            "taint_derivation_passed": declared_labels == labels,
+            "declared_policy_verdict": str(row.get("policy_verdict") or ""),
+            "source_to_sink_paths": [list(path) for path in paths],
+            "taint_witnesses": witness_rows, "path_count": len(paths), "body_in_receipt": False,
+        })
+    decisions: list[str] = []
+    for start in range(0, len(policy_inputs), 2048):
+        decisions.extend(verdicts(policy_inputs[start : start + 2048]))
+    for path_row, derived_verdict in zip(path_rows, decisions, strict=True):
+        path_row["derived_policy_verdict"] = derived_verdict
+        path_row["policy_derivation_passed"] = path_row["declared_policy_verdict"] == derived_verdict
+        if not path_row["taint_derivation_passed"]:
+            findings.append(_finding(
+                "PROMPT_INJECTION_TAINT_PROPAGATION_MISMATCH",
+                "Flow taint labels must be derived from the source row plus policy transforms, not hand-written independently.",
+                case_id="taint_propagation_floor", subject_id=path_row["flow_id"] or "information_flow",
+                subject_kind="information_flow"))
+        if not path_row["policy_derivation_passed"]:
+            findings.append(_finding(
+                "PROMPT_INJECTION_POLICY_VERDICT_DERIVATION_MISMATCH",
+                "Flow policy verdicts must be computed from propagated taint, sink privilege, sanitizer state, sink kind, and proposed action.",
+                case_id="policy_verdict_derivation_floor", subject_id=path_row["flow_id"] or "information_flow",
+                subject_kind="information_flow"))
+    nodes_seen = set(source_by_id) | {str(row.get("to_sink_id") or "") for row in ordered if row.get("to_sink_id")}
+    return ({
+        "status": PASS if rows and not findings else "blocked",
+        "analysis_kind": "episode_scoped_least_fixed_point_taint_propagation",
+        "propagated_node_count": len(nodes_seen),
+        "propagated_path_count": sum(row["path_count"] for row in path_rows),
+        "derived_taint_mismatch_count": sum(not row["taint_derivation_passed"] for row in path_rows),
+        "derived_policy_verdict_mismatch_count": sum(not row["policy_derivation_passed"] for row in path_rows),
+        "flow_path_rows": path_rows, "body_in_receipt": False,
+    }, findings)
 
 
 def _live_tool_call_trace_promotion(public_trace: dict[str, Any]) -> dict[str, Any]:
@@ -1614,22 +1702,49 @@ def validate_information_flow_graph(
     source_by_id = {str(row["source_id"]): row for row in source_rows}
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
+    # Downstream policy and sanitized-output records identify flows by ID only.
+    # Reject ambiguous IDs even when they occur in different episodes.
+    source_counts = Counter(str(row.get("source_id") or "") for row in source_rows)
+    for duplicate in sorted(source_id for source_id, count in source_counts.items() if source_id and count > 1):
+        findings.append(_finding(
+            "PROMPT_INJECTION_DUPLICATE_SOURCE_ID",
+            "Source IDs must be unique so trust labels cannot be overwritten by an ambiguous source.",
+            case_id="information_flow_floor", subject_id=duplicate, subject_kind="source_document"))
+    flow_counts = Counter(str(row.get("flow_id") or "") for row in rows)
+    for duplicate in sorted(flow_id for flow_id, count in flow_counts.items() if flow_id and count > 1):
+        findings.append(_finding(
+            "PROMPT_INJECTION_DUPLICATE_FLOW_ID",
+            "Flow IDs must be unique so policy and sanitized-output records cannot bind ambiguously.",
+            case_id="information_flow_floor", subject_id=duplicate, subject_kind="information_flow"))
     taint_propagation, taint_findings = _taint_propagation_receipt(rows, source_by_id)
     findings.extend(taint_findings)
-    taint_by_flow = {
-        str(row.get("flow_id")): row
-        for row in taint_propagation.get("flow_path_rows", [])
-        if isinstance(row, dict)
-    }
+    # Flow IDs are not guaranteed unique across episodes (or within an input).
+    # The stable sort in the propagation pass preserves order for equal keys.
+    taint_by_flow: dict[tuple[str, str], deque[dict[str, Any]]] = defaultdict(deque)
+    for path_row in taint_propagation.get("flow_path_rows", []):
+        if isinstance(path_row, dict):
+            key = (str(path_row.get("episode_id") or ""), str(path_row.get("flow_id") or ""))
+            taint_by_flow[key].append(path_row)
     for row in rows:
         flow_id = str(row.get("flow_id") or "")
+        key = (str(row.get("episode_id") or ""), flow_id)
+        derived_flow = taint_by_flow[key].popleft()
         source_id = str(row.get("from_source_id") or "")
         trust_label = str(row.get("source_trust_label") or "")
         verdict = str(row.get("policy_verdict") or "")
         privileged = row.get("privileged_sink") is True
         sanitized = row.get("sanitization_applied") is True
+        if (source_id in source_by_id and
+                str(source_by_id[source_id].get("episode_id") or "") != str(row.get("episode_id") or "")):
+            findings.append(_finding(
+                "PROMPT_INJECTION_SOURCE_EPISODE_MISMATCH",
+                "A flow cannot reuse a source record from another episode.",
+                case_id="information_flow_floor", subject_id=flow_id or "information_flow",
+                subject_kind="information_flow"))
         if (
             _missing(row, REQUIRED_FLOW_FIELDS)
+            or not flow_id
+            or not source_id
             or _has_forbidden_key(row)
             or source_id not in source_by_id
             or source_by_id.get(source_id, {}).get("trust_label") != trust_label
@@ -1665,13 +1780,13 @@ def validate_information_flow_graph(
                 "source_trust_label": trust_label,
                 "taint_labels": _strings(row.get("taint_labels")),
                 "derived_taint_labels": (
-                    taint_by_flow.get(flow_id, {}).get("derived_taint_labels", [])
+                    derived_flow.get("derived_taint_labels", [])
                 ),
                 "source_to_sink_paths": (
-                    taint_by_flow.get(flow_id, {}).get("source_to_sink_paths", [])
+                    derived_flow.get("source_to_sink_paths", [])
                 ),
                 "derived_policy_verdict": (
-                    taint_by_flow.get(flow_id, {}).get("derived_policy_verdict")
+                    derived_flow.get("derived_policy_verdict")
                 ),
                 "sanitization_applied": sanitized,
                 "policy_verdict": verdict,

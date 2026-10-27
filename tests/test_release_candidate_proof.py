@@ -229,7 +229,8 @@ def test_first_action_release_candidate_proof_is_distribution_true() -> None:
     assert '"first-action",' in package_smoke
     assert '"first-action-assay",' in package_smoke
     assert 'env.pop("PYTHONPATH", None)' in package_smoke
-    assert "import microcosm_core; print(microcosm_core.__file__)" in package_smoke
+    assert "importlib.metadata.distribution('plectis')" in package_smoke
+    assert "outside this installation" in package_smoke
     assert "workdir: <work-dir>" in package_smoke
 
 
@@ -1192,7 +1193,14 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
     ) -> subprocess.CompletedProcess[str]:
         calls.append((argv, env, stdout_path))
         stdout = ""
+        if argv[1:4] == ["-m", "pip", "wheel"]:
+            assert Path(argv[-1]) == work_dir / "source"
+            wheel_dir = Path(argv[argv.index("--wheel-dir") + 1])
+            wheel_dir.mkdir()
+            (wheel_dir / "plectis-0.0.0-py3-none-any.whl").write_bytes(b"wheel fixture")
         if argv[1:4] == ["-m", "pip", "install"]:
+            assert "--no-index" in argv and "--no-deps" in argv
+            assert Path(argv[-1]).parent == work_dir / "wheelhouse"
             installed_example = (
                 work_dir
                 / "venv/share/plectis/examples/hypothesis_handoff/independent_evaluation.json"
@@ -1202,12 +1210,16 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
             for reference in documentation_refs:
                 installed_doc = work_dir / "venv/share/plectis" / reference
                 installed_doc.parent.mkdir(parents=True, exist_ok=True)
-                installed_doc.write_bytes((Path(argv[-1]) / reference).read_bytes())
-        if "-c" in argv:
-            stdout = str(
-                work_dir
-                / "venv/lib/python/site-packages/microcosm_core/__init__.py"
-            )
+                installed_doc.write_bytes((work_dir / "source" / reference).read_bytes())
+        if "-c" in argv and "importlib.metadata" in argv[-1]:
+            assert "-I" in argv
+            assert env is not None and "PYTHONPATH" not in env
+            library = work_dir / "venv/lib/python/site-packages"
+            stdout = json.dumps({
+                "libraries": [str(library)],
+                "modules": {name: str(library / name / "__init__.py")
+                            for name in ("microcosm_core", "plectis")},
+            })
         if "--first-action" in argv:
             stdout = json.dumps(first_action(argv[-1]))
         if "--out" in argv:
@@ -1220,7 +1232,9 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
             (result_dir / "fixture_result.json").write_text(stdout, encoding="utf-8")
         if stdout_path is not None:
             if stdout_path.suffix == ".json":
-                payload: dict[str, object] = {"status": "pass"}
+                payload: dict[str, object] = {
+                    "status": "passed" if stdout_path.name == "operations.json" else "pass"
+                }
                 if stdout_path.name == "authority.json":
                     payload["authority_ceiling"] = {"release_authorized": False}
                 if stdout_path.name == "workingness.json":
@@ -1261,7 +1275,9 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
         if argv_env[0][1:4] == ["-m", "pip", "install"]
     )
     pip_argv, pip_env, _ = pip_call
-    assert pip_argv[-1] == str(work_dir / "source")
+    assert pip_argv[-1] == str(work_dir / "wheelhouse/plectis-0.0.0-py3-none-any.whl")
+    wheel_argv = next(argv for argv, _, _ in calls if argv[1:4] == ["-m", "pip", "wheel"])
+    assert wheel_argv[-1] == str(work_dir / "source")
     assert str(source_root) not in pip_argv
     assert pip_env is not None
     assert pip_env["PIP_CACHE_DIR"] == str(work_dir / "pip-cache")

@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Component evidence for the accepted staged Engine Room demo only; not a live private runtime export, not provider execution, not agent dispatch, not distributed database proof, not release readiness, and not source-mutation authority.",
-    "card": "Engine Room Metabolism Runtime explains the public-safe metabolism runtime component inside the accepted Engine Room demo. It exercises synthetic SQLite queue state, lease recovery, blackboard claim projection, and cold-start reconciliation fixtures without exporting private runtime state or dispatching providers.",
-    "one_line": "Staged Engine Room component: synthetic SQLite metabolism runtime exercise for queues, leases, blackboard projection, and reconciliation."
+    "authority_ceiling": "This is a synthetic local SQLite exercise. It does not dispatch workers or providers, reproduce a distributed database, or automatically repair ambiguous state.",
+    "card": "The fixture evaluator creates temporary SQLite databases to exercise a job queue, expiring leases, a claim event log with an active view, and reconciliation. The queue rejects a duplicate idempotency key while its job is active. An expired claim can be requeued; a running job without a run row instead produces an operator-review finding.",
+    "one_line": "Exercise synthetic SQLite queues, leases, claim events and reconciliation."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.engine_room_metabolism_runtime",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Component evidence for the accepted staged Engine Room demo only; not a live private runtime export, not provider execution, not agent dispatch, not distributed database proof, not release readiness, and not source-mutation authority.",
+    "authority_ceiling": "This is a synthetic local SQLite exercise. It does not dispatch workers or providers, reproduce a distributed database, or automatically repair ambiguous state.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -91,9 +91,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Component evidence for the accepted staged Engine Room demo only; not a live private runtime export, not provider execution, not agent dispatch, not distributed database proof, not release readiness, and not source-mutation authority.",
-        "card": "Engine Room Metabolism Runtime explains the public-safe metabolism runtime component inside the accepted Engine Room demo. It exercises synthetic SQLite queue state, lease recovery, blackboard claim projection, and cold-start reconciliation fixtures without exporting private runtime state or dispatching providers.",
-        "one_line": "Staged Engine Room component: synthetic SQLite metabolism runtime exercise for queues, leases, blackboard projection, and reconciliation."
+        "authority_ceiling": "This is a synthetic local SQLite exercise. It does not dispatch workers or providers, reproduce a distributed database, or automatically repair ambiguous state.",
+        "card": "The fixture evaluator creates temporary SQLite databases to exercise a job queue, expiring leases, a claim event log with an active view, and reconciliation. The queue rejects a duplicate idempotency key while its job is active. An expired claim can be requeued; a running job without a run row instead produces an operator-review finding.",
+        "one_line": "Exercise synthetic SQLite queues, leases, claim events and reconciliation."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -138,7 +138,7 @@
           "ref": "mechanism.engine_room_demo.validates_public_engine_room_demo"
         }
       ],
-      "title": "Engine Room Metabolism Runtime"
+      "title": "SQLite queue and reconciliation fixtures"
     },
     "strangler_note": "Binds the legacy Markdown projection and resolved component code locus to the accepted Engine Room demo mechanism without inventing a standalone engine_room_metabolism_runtime organ or a standalone metabolism-runtime mechanism.",
     "support_contract": {
@@ -416,7 +416,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Staged Engine Room component: synthetic SQLite metabolism runtime exercise for queues, leases, blackboard projection, and reconciliation.",
+  "statement": "Exercise synthetic SQLite queues, leases, claim events and reconciliation.",
   "status": "active",
   "subjects": [
     {
@@ -424,7 +424,7 @@
       "ref": "mechanism.engine_room_demo.validates_public_engine_room_demo"
     }
   ],
-  "title": "Engine Room Metabolism Runtime",
+  "title": "SQLite queue and reconciliation fixtures",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

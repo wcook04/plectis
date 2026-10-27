@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public route-reference fixture and exported-bundle receipts only; no Lean/Lake execution, theorem correctness, post-execution routing, provider call, proof body export, release approval, publication approval, or whole-system correctness.",
-    "card": "Target Shape Tactic Routing is the pre-execution gate between tactic availability and proof attempts. It validates Ring2 problem-domain, failure-class, graph-update, and tactic-probe references, rejects unavailable or unprobed tactics, and records body-free route decisions before any Lean/Lake proof authority is claimed.",
-    "one_line": "Pre-execution tactic routing admits or rejects tactics from target shape and probe evidence without proving the target."
+    "authority_ceiling": "A selected tactic is a routing suggestion, not a proof or a guarantee that the tactic will solve a goal. This validator does not execute Lean or Lake.",
+    "card": "For example, the test for a Boolean double-negation goal checks that the preferred available tactic is `decide`. The gate rejects selecting an unavailable tactic and requires a fallback for an unknown shape or an unavailable preferred tactic. The input includes invalid post-execution and proof-body cases.",
+    "one_line": "This gate reads recorded tactic availability and target-shape route cases, then checks the selected tactic against the candidates, availability and shape-specific preferences."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.target_shape_tactic_routing",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public route-reference fixture and exported-bundle receipts only; no Lean/Lake execution, theorem correctness, post-execution routing, provider call, proof body export, release approval, publication approval, or whole-system correctness.",
+    "authority_ceiling": "A selected tactic is a routing suggestion, not a proof or a guarantee that the tactic will solve a goal. This validator does not execute Lean or Lake.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,9 +82,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public route-reference fixture and exported-bundle receipts only; no Lean/Lake execution, theorem correctness, post-execution routing, provider call, proof body export, release approval, publication approval, or whole-system correctness.",
-        "card": "Target Shape Tactic Routing is the pre-execution gate between tactic availability and proof attempts. It validates Ring2 problem-domain, failure-class, graph-update, and tactic-probe references, rejects unavailable or unprobed tactics, and records body-free route decisions before any Lean/Lake proof authority is claimed.",
-        "one_line": "Pre-execution tactic routing admits or rejects tactics from target shape and probe evidence without proving the target."
+        "authority_ceiling": "A selected tactic is a routing suggestion, not a proof or a guarantee that the tactic will solve a goal. This validator does not execute Lean or Lake.",
+        "card": "For example, the test for a Boolean double-negation goal checks that the preferred available tactic is `decide`. The gate rejects selecting an unavailable tactic and requires a fallback for an unknown shape or an unavailable preferred tactic. The input includes invalid post-execution and proof-body cases.",
+        "one_line": "This gate reads recorded tactic availability and target-shape route cases, then checks the selected tactic against the candidates, availability and shape-specific preferences."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -137,7 +137,7 @@
           "ref": "mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary"
         }
       ],
-      "title": "Target Shape Tactic Routing"
+      "title": "Choose tactics for a target shape"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row.",
     "support_contract": {
@@ -479,7 +479,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Pre-execution tactic routing admits or rejects tactics from target shape and probe evidence without proving the target.",
+  "statement": "This gate reads recorded tactic availability and target-shape route cases, then checks the selected tactic against the candidates, availability and shape-specific preferences.",
   "status": "active",
   "subjects": [
     {
@@ -491,7 +491,7 @@
       "ref": "mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary"
     }
   ],
-  "title": "Target Shape Tactic Routing",
+  "title": "Choose tactics for a target shape",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

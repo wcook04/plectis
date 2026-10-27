@@ -6,6 +6,8 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 import microcosm_core.organs.cold_reader_route_map as cold_reader_route_map
 from microcosm_core import cli
 from microcosm_core.organs.cold_reader_route_map import (
@@ -655,3 +657,133 @@ def test_cold_reader_bundle_card_is_available_from_top_level_cli(
     assert card["status"] == "pass"
     assert card["route_map"]["route_count"] == 10
     assert card["output_economy"]["source_bodies_exported"] is False
+
+
+# Registration and source-text support are separate; prose cannot register commands.
+def _registered_command_support(command, registration, corpus=None):
+    corpus = command if corpus is None else corpus
+    text = cold_reader_route_map._normalized_text(corpus)
+    return cold_reader_route_map._command_support(command, corpus_text=text, corpus_normalized=text, cli_registration=registration)
+
+
+def _write_registration_cli_source(root, *, roots=('intake',), nested=('nested-only',), lenses=('reveal',)):
+    target = root/'src/microcosm_core/cli.py'
+    target.parent.mkdir(parents=True, exist_ok=True)
+    root_lines = ''.join(f'    subparsers.add_parser({name!r})\n' for name in roots)
+    nested_lines = ''.join(f'    nested_subparsers.add_parser({name!r})\n' for name in nested)
+    lens_rows = repr(tuple((name, 'Help for '+name) for name in lenses))
+    target.write_text('PUBLIC_LENS_COMMAND_HELP = '+lens_rows+'\n'
+        'def _add_public_lens_parsers(subparsers):\n'
+        '    for command, text in PUBLIC_LENS_COMMAND_HELP:\n'
+        '        subparsers.add_parser(command, help=text)\n'
+        'def main(parser):\n'
+        '    subparsers = parser.add_subparsers(dest="command")\n'+root_lines+
+        '    _add_bundle_parser(subparsers, "cold-reader-route-map")\n'
+        '    _add_public_lens_parsers(subparsers)\n'
+        '    nested_subparsers = parser.add_subparsers(dest="nested_action")\n'+nested_lines)
+    return target
+
+
+def test_actual_all_ten_routes_have_source_and_registered_cli_support():
+    bundle = MICROCOSM_ROOT/'examples/cold_reader_route_map/exported_cold_reader_route_map_bundle'
+    routes = json.loads((bundle/'route_map.json').read_text())['routes']
+    receipts = json.loads((bundle/'route_receipts.json').read_text())['route_receipts']
+    manifest = json.loads((bundle/'source_module_manifest.json').read_text())
+    records = cold_reader_route_map._source_replay_text_records(bundle, public_root=MICROCOSM_ROOT, source_manifest_payload=manifest,
+                                            route_rows=routes, receipt_rows=receipts)
+    corpus = '\n'.join(row['text'] for row in records)
+    registration = cold_reader_route_map._public_cli_registration(MICROCOSM_ROOT)
+    assert registration['status'] == 'pass'
+    assert len(routes) == 10
+    for row in routes:
+        result = _registered_command_support(row['command'], registration, corpus)
+        assert result['status'] == 'pass', (row['route_id'], result)
+        assert result['cli_registration']['status'] == 'pass'
+        assert result['source_text_supported'] is True
+    # The actual rewritten guide describes this failed example verbaticold_reader_route_map. Its
+    # occurrence in that corpus must remain descriptive, not registration.
+    command = 'microcosm hallucinated-import'
+    assert any(command in row['text'] for row in records if row['source_kind'] == 'docs_ref')
+    result = _registered_command_support(command, registration, corpus)
+    assert result['exact_command_supported'] is True
+    assert result['status'] == 'blocked'
+    assert result['cli_registration']['reason'] == 'command_not_registered_in_public_cli'
+
+
+def test_top_level_bundle_and_invoked_lens_registrations_are_recognized(tmp_path):
+    _write_registration_cli_source(tmp_path)
+    registration = cold_reader_route_map._public_cli_registration(tmp_path)
+    assert registration['commands'] == ['cold-reader-route-map', 'intake', 'reveal']
+    assert _registered_command_support('plectis intake', registration)['status'] == 'pass'
+    assert _registered_command_support('microcosm reveal', registration)['status'] == 'pass'
+    assert _registered_command_support('plectis cold-reader-route-map run-route-map-bundle', registration)['status'] == 'pass'
+    assert _registered_command_support('plectis nested-only', registration)['status'] == 'blocked'
+
+
+@pytest.mark.parametrize('command',[
+    'plectis intake <project>',
+    'plectis intake <selected_route_id>',
+    'plectis intake <project> <selected_route_id>',
+])
+def test_angle_placeholders_remain_valid_route_source_shapes(tmp_path, command):
+    _write_registration_cli_source(tmp_path)
+    result = _registered_command_support(command, cold_reader_route_map._public_cli_registration(tmp_path))
+    assert result['status'] == 'pass'
+    assert result['cli_registration']['reason'] == 'registered_public_cli_command'
+
+
+def test_declared_lens_names_are_not_roots_without_the_owner_registration_call(tmp_path):
+    source = _write_registration_cli_source(tmp_path)
+    source.write_text(source.read_text().replace('    _add_public_lens_parsers(subparsers)\n',''))
+    registration = cold_reader_route_map._public_cli_registration(tmp_path)
+    assert registration['commands'] == ['cold-reader-route-map', 'intake']
+    assert _registered_command_support('plectis reveal', registration)['status'] == 'blocked'
+
+
+@pytest.mark.parametrize('command',[
+    'hallucinated-executable intake', '/tmp/plectis intake', 'python -c intake',
+    'plectis hallucinated-import', 'microcosm nested-only', 'plectis', '',
+    'plectis "intake', 'plectis intake; true', 'plectis intake && true',
+    'plectis intake | true', 'plectis intake > output',
+    'plectis intake $(true)', 'plectis intake `true`',
+    'plectis intake >output', 'plectis intake >>output',
+    'plectis intake <input', 'plectis intake 2>output',
+])
+def test_prose_mention_cannot_admit_unknown_executable_command_or_shell_shape(tmp_path, command):
+    _write_registration_cli_source(tmp_path)
+    result = _registered_command_support(command, cold_reader_route_map._public_cli_registration(tmp_path),
+                       'This negative example is blocked: '+command)
+    assert result['status'] == 'blocked'
+    assert result['cli_registration']['status'] == 'blocked'
+
+
+@pytest.mark.parametrize('contents',[None,'def broken(', 'def main(parser):\n    pass\n',
+    'PUBLIC_LENS_COMMAND_HELP = 42\ndef main(parser):\n    subparsers = parser.add_subparsers(dest="command")\n    subparsers.add_parser("intake")\n    _add_public_lens_parsers(subparsers)\n'])
+def test_missing_or_malformed_cli_source_cannot_fall_back_to_prose(tmp_path,contents):
+    path=tmp_path/'src/microcosm_core/cli.py'
+    if contents is not None:
+        path.parent.mkdir(parents=True,exist_ok=True);path.write_text(contents)
+    registration=cold_reader_route_map._public_cli_registration(tmp_path)
+    assert registration['status']=='blocked'
+    result=_registered_command_support('plectis intake',registration,'plectis intake')
+    assert result['source_text_supported'] is True
+    assert result['status']=='blocked'
+
+
+def test_registered_command_still_requires_source_text_support(tmp_path):
+    _write_registration_cli_source(tmp_path)
+    result=_registered_command_support('plectis intake',cold_reader_route_map._public_cli_registration(tmp_path),'unrelated text')
+    assert result['cli_registration']['status']=='pass'
+    assert result['source_text_supported'] is False
+    assert result['status']=='blocked'
+
+
+def test_source_reader_has_no_process_cache_and_never_executes_cli(tmp_path):
+    path=_write_registration_cli_source(tmp_path,roots=('first',),lenses=())
+    path.write_text('raise RuntimeError("must not execute copied source")\n'+path.read_text())
+    assert 'first' in cold_reader_route_map._public_cli_registration(tmp_path)['commands']
+    path.write_text(path.read_text().replace("'first'", "'second'"))
+    assert 'first' not in cold_reader_route_map._public_cli_registration(tmp_path)['commands']
+    assert 'second' in cold_reader_route_map._public_cli_registration(tmp_path)['commands']
+    path.unlink()
+    assert cold_reader_route_map._public_cli_registration(tmp_path)['status']=='blocked'

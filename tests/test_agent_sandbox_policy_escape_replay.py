@@ -6,6 +6,9 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import pytest
+
+from microcosm_core.release_export import _source_module_private_body_substitution_text
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_sandbox_policy_trace,
 )
@@ -34,7 +37,6 @@ FIXTURE_MANIFESTS = (
     MICROCOSM_ROOT
     / "core/fixture_manifests/agent_sandbox_policy_escape_replay.fixture_manifest.json",
 )
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 
 
 def _sha256(path: Path) -> str:
@@ -432,7 +434,7 @@ def test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape(
         == "extension_of_existing_public_refactor"
     )
     assert result["source_module_manifest_status"] == "pass"
-    assert result["body_copied_material_count"] == 7
+    assert result["body_copied_material_count"] == 1
     assert (
         result["source_open_body_imports"]["body_material_status"]
         == "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed"
@@ -495,39 +497,144 @@ def test_agent_sandbox_policy_escape_bundle_rejects_blocked_action_execution(
 
 
 def test_agent_sandbox_policy_escape_source_modules_are_exact_macro_body_imports() -> None:
+    """The release contains one pinned body and six explicit public stubs."""
     manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
-
     assert manifest["body_in_receipt"] is False
     assert manifest["body_text_in_receipt"] is False
-    assert manifest["module_count"] == 7
-    assert {
-        row["module_id"] for row in manifest["modules"]
-    } == {
-        "sandbox_policy_extracted_patterns_ledger_body_import",
-        "sandbox_policy_high_novelty_growth_receipt_body_import",
-        "sandbox_policy_canonical_organ_model_body_import",
-        "agent_execution_trace_runtime_body_import",
-        "strict_json_source_body_import",
-        "agent_execution_trace_standard_body_import",
-        "extracted_pattern_route_readiness_tool_body_import",
-    }
+    assert manifest["module_count"] == 1
+    assert len(manifest["modules"]) == 1
+    row = manifest["modules"][0]
+    assert row["module_id"] == "agent_execution_trace_standard_body_import"
+    assert row["source_ref"] == "codex/standards/std_agent_execution_trace.json"
+    assert row["path"] == "source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json"
+    assert row["material_class"] == "public_macro_standard_body"
+    assert row["classification"] == "copied_non_secret_macro_body"
+    assert row["source_import_class"] == "copied_non_secret_macro_body"
+    assert row["body_copied"] is True
+    assert row["body_in_receipt"] is False
+    assert row["body_text_in_receipt"] is False
+    assert row["sha256_match"] is True
+    expected_digest = "sha256:9997ee8e79bc32a867b72e1c23fbdedd0f24e115135cfba7811fad8b682ca753"
+    target = BUNDLE_INPUT / row["path"]
+    assert _sha256(target) == expected_digest
+    assert row["sha256"] == row["source_sha256"] == row["target_sha256"] == expected_digest
+    assert row["target_ref"] == "microcosm-substrate/" + target.relative_to(MICROCOSM_ROOT).as_posix()
+    body = target.read_bytes()
+    assert row["byte_count"] == len(body) == 50351
+    assert row["line_count"] == len(body.splitlines()) == 679
+    text = body.decode("utf-8")
+    assert row["anchor_count"] == 4
+    assert row["required_anchors"] == [
+        '"id": "std_agent_execution_trace"',
+        '"strict_boundary"',
+        '"never_parses"',
+        '"trace_ontology_contract"',
+    ]
+    assert all(anchor in text for anchor in row["required_anchors"])
+    # These are recorded provenance digests. The public test does not consult
+    # a private source checkout or assert current private/public parity.
 
-    for row in manifest["modules"]:
-        source = SOURCE_ROOT / row["source_ref"]
-        target = MICROCOSM_ROOT / row["target_ref"].removeprefix(
-            "microcosm-substrate/"
+    expected = {
+        'sandbox_policy_extracted_patterns_ledger_body_import': (
+            'source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl',
+            'state/microcosm_portfolio/extracted_patterns_ledger.jsonl',
+            'restricted_private_source_ref',
+            'e6e710a8f2c815541a033fe958ffad4be1f50e311d1db144ce111d0a1c3c8c4f',
+        ),
+        'sandbox_policy_high_novelty_growth_receipt_body_import': (
+            'source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json',
+            'state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json',
+            'restricted_private_source_ref',
+            '992be2206dda4f42d175e61fa2e40bb45bb731b241a32756758305833dc04ad3',
+        ),
+        'sandbox_policy_canonical_organ_model_body_import': (
+            'source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json',
+            'state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json',
+            'restricted_private_source_ref',
+            'a2ab846181932a9aeccb5d9cf9a056c1ad7f3fff5e16adfd6cbb8c2d3fadbbbd',
+        ),
+        'agent_execution_trace_runtime_body_import': (
+            'source_modules/ai_workflow/system/lib/agent_execution_trace.py',
+            'system/lib/agent_execution_trace.py',
+            'private_body_near_verbatim',
+            '72a3d5a1df240a4471ef78c7fc4db31ae53e8ede5af41e0a078853c36121c2af',
+        ),
+        'extracted_pattern_route_readiness_tool_body_import': (
+            'source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py',
+            'tools/meta/factory/check_extracted_pattern_route_readiness.py',
+            'private_body_exact_match',
+            'cfaa1238c23395d9c49c13123c518b7c9b54a9c3d6de0ba51b32b672387bc84e',
+        ),
+        'strict_json_source_body_import': (
+            'source_modules/system/lib/strict_json.py',
+            'system/lib/strict_json.py',
+            'private_body_exact_match',
+            '8374917a94198a1a4f15f6ec1e89c70c2fe586feed3b668125799a037af79301',
+        ),
+    }
+    omissions = manifest["release_substitution_omissions"]
+    assert len(omissions) == len(expected) == 6
+    assert {item["module_id"] for item in omissions} == set(expected)
+    for item in omissions:
+        path, source_ref, boundary, expected_sha = expected[item["module_id"]]
+        assert item == {
+            "module_id": item["module_id"], "path": path, "source_ref": source_ref,
+            "body_in_receipt": False,
+            "release_substitution": {
+                "substitution": "public_safe_stub", "matched_private_ref": source_ref,
+                "contamination_class": boundary, "body_in_receipt": False,
+            },
+        }
+        stub = BUNDLE_INPUT / path
+        assert _sha256(stub) == "sha256:" + expected_sha
+        assert stub.read_text(encoding="utf-8") == _source_module_private_body_substitution_text(
+            rel=path, match_row=item["release_substitution"]
         )
-        text = target.read_text(encoding="utf-8")
-        assert source.is_file()
-        assert target.is_file()
-        assert _sha256(source) == row["source_sha256"]
-        assert _sha256(target) == row["target_sha256"]
-        assert row["source_sha256"] == row["target_sha256"]
-        assert row["body_copied"] is True
-        assert row["body_in_receipt"] is False
-        assert row["body_text_in_receipt"] is False
-        for anchor in row["required_anchors"]:
-            assert anchor in text
+
+
+def test_agent_sandbox_policy_escape_rejects_tampered_retained_source_body(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_sandbox_policy_escape_replay",
+        public_root / "examples/agent_sandbox_policy_escape_replay",
+    )
+    bundle = public_root / "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle"
+    manifest = json.loads((bundle / "source_module_manifest.json").read_text())
+    target = bundle / manifest["modules"][0]["path"]
+    with target.open("ab") as stream:
+        stream.write(b"\n")
+    result = run_sandbox_bundle(bundle, public_root / "receipts/sandbox-tamper", command="pytest")
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "SANDBOX_POLICY_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+@pytest.mark.parametrize("corruption", ["relabel_retained", "missing_omission", "tampered_stub", "extra_malformed_module"])
+def test_agent_sandbox_source_inventory_rejects_substituted_or_missing_material(
+    tmp_path: Path, corruption: str,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = public_root / "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle"
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if corruption == "relabel_retained":
+        manifest["modules"][0]["module_id"] = "unreviewed_replacement"
+    elif corruption == "missing_omission":
+        manifest["release_substitution_omissions"].pop()
+    elif corruption == "tampered_stub":
+        (bundle / manifest["release_substitution_omissions"][0]["path"]).write_text("tampered\n", encoding="utf-8")
+    else:
+        manifest["modules"].append(None)
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    result = run_sandbox_bundle(bundle, tmp_path / "result", command="pytest")
+    assert result["status"] == "blocked"
+    assert "SANDBOX_POLICY_SOURCE_INVENTORY_MISMATCH" in result["error_codes"]
+    assert result["body_copied_material_count"] == 0
 
 
 def test_agent_sandbox_policy_escape_rejects_source_module_digest_mismatch(
@@ -781,7 +888,7 @@ def test_agent_sandbox_policy_escape_bundle_card_reuses_fresh_receipt(
     assert first_card["sandbox_policy"]["derived_policy_verdict_mismatch_count"] == 0
     assert first_card["validation"]["public_agent_execution_trace_span_count"] == 6
     assert first_card["validation"]["source_module_manifest_status"] == "pass"
-    assert first_card["validation"]["body_material_count"] == 7
+    assert first_card["validation"]["body_material_count"] == 1
     assert (
         first_card["validation"]["body_material_status"]
         == "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed"
@@ -852,13 +959,23 @@ def test_agent_sandbox_policy_fixture_manifests_bind_public_trace_refactor() -> 
             manifest["product_path_role"]
             == "source_faithful_public_agent_execution_trace_refactor"
         )
-        assert manifest["body_copied_material_count"] == 7
+        assert manifest["body_copied_material_count"] == 1
         assert (
             manifest["body_material_status"]
             == "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed"
         )
         assert manifest["source_open_body_imports"]["status"] == "pass"
-        assert manifest["source_open_body_imports"]["body_material_count"] == 7
+        source_open = manifest["source_open_body_imports"]
+        assert source_open["body_material_count"] == 1
+        assert source_open["body_material_ids"] == ["agent_execution_trace_standard_body_import"]
+        assert source_open["material_classes"] == ["public_macro_standard_body"]
+        assert source_open["body_material_classes"] == {"public_macro_standard_body": 1}
+        inventory = manifest["public_source_inventory"]
+        assert len(inventory["retained_bodies"]) == 1
+        assert len(inventory["release_substitution_omissions"]) == 6
+        assert set(source_open["historical_source_identities"]) == {
+            row["module_id"] for row in inventory["retained_bodies"] + inventory["release_substitution_omissions"]
+        }
         assert manifest["source_open_body_imports"]["body_text_exported_in_receipts"] is False
         assert manifest["body_in_receipt"] is False
         assert manifest["body_import_verification"] == {

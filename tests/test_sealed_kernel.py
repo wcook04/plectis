@@ -36,10 +36,17 @@ EXPECTED = {
 def deployment(request, tmp_path):
     name = request.param
     root = tmp_path / "deployment"
-    for relative in ("src/plectis", "formal/repair", "formal/compatibility",
-                     "scripts/check"):
+    # Copy the selected core's real deployment, not every unrelated generated
+    # component for each negative-control specimen (especially on slow volumes).
+    for relative in ("src/plectis/" + name.lower(), "formal/" + name.lower()):
         shutil.copytree(ROOT / relative, root / relative,
                         ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+    shutil.copy2(ROOT / "src/plectis/_sealed_kernel.py", root / "src/plectis/_sealed_kernel.py")
+    (root / "scripts/check").mkdir(parents=True)
+    checker = "check_" + name.lower() + "_kernel.py"
+    shutil.copy2(ROOT / "scripts/check" / checker, root / "scripts/check" / checker)
+    shutil.copy2(ROOT / "scripts/check/check_component_kernels.py",
+                 root / "scripts/check/check_component_kernels.py")
     return root, name
 
 

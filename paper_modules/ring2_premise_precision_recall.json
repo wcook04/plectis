@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Copied non-secret Ring2 retrieval records and public fixture/exported-bundle receipts only; no Lean/Lake execution, theorem proof, benchmark performance, provider call, provider-context label flow, release approval, publication approval, or whole-system correctness.",
-    "card": "Ring-2 Premise Precision Recall validates copied Ring2 retrieval rankings against after-the-fact metric labels. It computes precision/recall classes, rejects oracle-label leakage and tuning shortcuts, and keeps proof bodies, provider payloads, benchmark claims, and theorem-correctness claims outside the public receipt boundary.",
-    "one_line": "After-the-fact premise retrieval metrics separate retrieval misses from proof failures without becoming theorem authority."
+    "authority_ceiling": "Checks declared label separation and supplied fixture metrics; does not perform retrieval, prove labels were excluded during ranking, or establish general retrieval performance.",
+    "card": "Evaluates supplied rankings against labelled needed premises. Per-row precision divides unique hits by declared top-k slots; aggregate precision uses total hits over total slots, and recall uses hits over needed premises.",
+    "one_line": "This harness compares retrieved premise rankings with separately supplied needed-premise labels."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.ring2_premise_precision_recall",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Copied non-secret Ring2 retrieval records and public fixture/exported-bundle receipts only; no Lean/Lake execution, theorem proof, benchmark performance, provider call, provider-context label flow, release approval, publication approval, or whole-system correctness.",
+    "authority_ceiling": "Checks declared label separation and supplied fixture metrics; does not perform retrieval, prove labels were excluded during ranking, or establish general retrieval performance.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,9 +83,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Copied non-secret Ring2 retrieval records and public fixture/exported-bundle receipts only; no Lean/Lake execution, theorem proof, benchmark performance, provider call, provider-context label flow, release approval, publication approval, or whole-system correctness.",
-        "card": "Ring-2 Premise Precision Recall validates copied Ring2 retrieval rankings against after-the-fact metric labels. It computes precision/recall classes, rejects oracle-label leakage and tuning shortcuts, and keeps proof bodies, provider payloads, benchmark claims, and theorem-correctness claims outside the public receipt boundary.",
-        "one_line": "After-the-fact premise retrieval metrics separate retrieval misses from proof failures without becoming theorem authority."
+        "authority_ceiling": "Checks declared label separation and supplied fixture metrics; does not perform retrieval, prove labels were excluded during ranking, or establish general retrieval performance.",
+        "card": "Evaluates supplied rankings against labelled needed premises. Per-row precision divides unique hits by declared top-k slots; aggregate precision uses total hits over total slots, and recall uses hits over needed premises.",
+        "one_line": "This harness compares retrieved premise rankings with separately supplied needed-premise labels."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -135,7 +135,7 @@
           "ref": "mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution"
         }
       ],
-      "title": "Ring-2 Premise Precision Recall"
+      "title": "Measure premise retrieval against labelled examples"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row.",
     "support_contract": {
@@ -449,7 +449,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "After-the-fact premise retrieval metrics separate retrieval misses from proof failures without becoming theorem authority.",
+  "statement": "This harness compares retrieved premise rankings with separately supplied needed-premise labels.",
   "status": "active",
   "subjects": [
     {
@@ -461,7 +461,7 @@
       "ref": "mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution"
     }
   ],
-  "title": "Ring-2 Premise Precision Recall",
+  "title": "Measure premise retrieval against labelled examples",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

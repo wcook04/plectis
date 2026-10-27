@@ -102,6 +102,72 @@ in the examples below. Without that setting, the Makefile chooses a temporary
 directory from the checkout path and selected Python interpreter. You do not
 need pytest installed beforehand.
 
+## Add or verify a component proof
+
+Start with the behavior the component actually computes. Find its implementation
+under `src/microcosm_core/`, its input in `fixtures/first_wave/` or `examples/`,
+and its focused tests in `tests/`. The component guide in `paper_modules/`
+and its entry in `core/organ_registry.json` describe the supported claim;
+`core/organ_evidence_classes.json` defines its evidence class. Identify the
+receipt written by the runner and use a separate ignored
+output path for a new run; some fixture runners also need an explicit acceptance
+path to avoid overwriting a tracked receipt.
+
+Before designing the algorithm, derive its requirement from the component's
+source contract or governing standard and identify the input, result and
+intended claim. State the property over those inputs with explicit assumptions.
+Give a useful input that satisfies them and a concrete case the requirement
+must reject. An example can expose a mistake, but passing examples do not
+establish the general property. Explain normalization, external observations
+and other trusted host behavior; do not narrow away a case the component is
+meant to handle just to make the proof pass.
+
+Put the executable algorithm and an independently stated specification in
+`formal/components/<slug>/`. Prove their relationship, and integrate the
+generated Python into the component's actual execution path through the existing
+component adapter and worker. A parallel demonstration that the component never
+calls does not establish its behavior. Preserve existing semantics or explain
+and test an intentional correction. Ask another reviewer to check that the
+formal statement expresses that source-backed property, its assumptions admit
+the useful input, and the deployed path really invokes the generated algorithm.
+The reviewer should try a counterexample that would violate the requirement,
+including one the theorem might allow. Do not bypass proof obligations with
+contradictory assumptions, `assume`, axioms, external implementations or
+verification-disabling options.
+
+For a registered component, the checker first verifies the recorded source,
+generated-file and loader bindings. This is a hash and inventory check; it does
+not rerun the proof. For example:
+
+```sh
+python3 scripts/check/check_component_kernels.py --component ownership_classification
+```
+
+To reprove and rebuild, install the pinned official Dafny 4.11.0 release linked
+from [formal/README.md](formal/README.md), then run:
+
+```sh
+python3 scripts/check/check_component_kernels.py --component ownership_classification --dafny /absolute/path/to/dafny
+```
+
+This checks the normal proof, compares rebuilt Python bytes with the deployed
+files and requires each recorded source-linked mutant to fail verification.
+Each mutant changes executable logic while retaining the specification and
+theorem; the component's `metadata.json` records the mutation and expected
+verification result.
+Replace the example slug with the registered component being checked; registry
+and directory discovery remains global. Also run the focused runtime tests,
+including malformed inputs, meaningful adversarial cases and a test of the
+production call path. Record the theorem, assumptions, source and test paths,
+commands and outcomes in the change. Map the component's claims to the proved
+computation and name any unproved checks, host steps or other behavior. Call the
+component coverage partial when only part of its claimed behavior is proved.
+A timeout or a malformed mutant is not a successful negative proof check. The
+[formal guide](formal/README.md) explains the verifier and host trust boundaries;
+shared replay admission is a separate property from a component algorithm proof.
+The [review gate](docs/maintainers/validation.md#review-the-specification) sets
+out what an independent reviewer should check.
+
 ## Tests and validation
 
 ```bash

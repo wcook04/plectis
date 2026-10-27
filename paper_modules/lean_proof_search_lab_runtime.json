@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Real-substrate external-tool witness over bounded public toy theorems. A pass attests only that the installed Lean subprocess closed the toy positive theorems and rejected the planted oracle-leak, axiom-taint, and problem-id-memorisation negatives on these fixtures. It does NOT prove any open mathematical problem, is NOT neural theorem proving, does NOT forward oracle proof bodies, is NOT an oracle/prover authority, and does NOT authorize release, publication, production use, or source mutation. When Lean is absent the organ is locked and attests nothing at all.",
-    "card": "Lean Proof-Search Lab Runtime surfaces the engine-room lean_proof_search_lab capsule: a bounded and/or symbolic tactic search over public toy theorems where every candidate body is compiled by the real `lean` subprocess. It enforces three epistemic-discipline guards and self-falsifies on each: a forward oracle firewall (no proof body, oracle body, or oracle-needed premise ids may be forwarded), a #print axioms cleanliness gate (sorry-tainted candidates are rejected), and a problem-id ablation (a policy that only works because it memorised the problem id fails once the id is renamed). The organ exercises one positive case (Lean closes lab_and_intro and lab_or_comm) and four planted negatives (two oracle-firewall violations, one axiom taint, one problem-id ablation failure). It is a gated external-tool witness: with Lean installed it reports tool_present_and_verified, without Lean it is terminally locked and claims no verification. Not neural theorem proving, not a solver of any open problem, no oracle-body forwarding, no release or publication authority.",
-    "one_line": "Gated external-tool proof-search lab that searches toy Lean theorems, checks each candidate with the installed Lean subprocess, and rejects oracle leaks, axiom taint, and problem-id memorisation by recomputation; locked and claimless when Lean is absent."
+    "authority_ceiling": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
+    "card": "This lab runs bounded symbolic search on small Lean propositions and checks candidate proofs with Lean. The positive fixture includes `theorem lab_and_intro (p q : Prop) : p -> q -> And p q` and `theorem lab_or_comm (p q : Prop) : Or p q -> Or q p`. Search uses a bounded AND/OR procedure and compares it with a hammer-style baseline; an ID-blind policy ablation checks for dependence on problem identifiers.",
+    "one_line": "This lab runs bounded symbolic search on small Lean propositions and checks candidate proofs with Lean."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.lean_proof_search_lab_runtime",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Real-substrate external-tool witness over bounded public toy theorems. A pass attests only that the installed Lean subprocess closed the toy positive theorems and rejected the planted oracle-leak, axiom-taint, and problem-id-memorisation negatives on these fixtures. It does NOT prove any open mathematical problem, is NOT neural theorem proving, does NOT forward oracle proof bodies, is NOT an oracle/prover authority, and does NOT authorize release, publication, production use, or source mutation. When Lean is absent the organ is locked and attests nothing at all.",
+    "authority_ceiling": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -92,9 +92,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Real-substrate external-tool witness over bounded public toy theorems. A pass attests only that the installed Lean subprocess closed the toy positive theorems and rejected the planted oracle-leak, axiom-taint, and problem-id-memorisation negatives on these fixtures. It does NOT prove any open mathematical problem, is NOT neural theorem proving, does NOT forward oracle proof bodies, is NOT an oracle/prover authority, and does NOT authorize release, publication, production use, or source mutation. When Lean is absent the organ is locked and attests nothing at all.",
-        "card": "Lean Proof-Search Lab Runtime surfaces the engine-room lean_proof_search_lab capsule: a bounded and/or symbolic tactic search over public toy theorems where every candidate body is compiled by the real `lean` subprocess. It enforces three epistemic-discipline guards and self-falsifies on each: a forward oracle firewall (no proof body, oracle body, or oracle-needed premise ids may be forwarded), a #print axioms cleanliness gate (sorry-tainted candidates are rejected), and a problem-id ablation (a policy that only works because it memorised the problem id fails once the id is renamed). The organ exercises one positive case (Lean closes lab_and_intro and lab_or_comm) and four planted negatives (two oracle-firewall violations, one axiom taint, one problem-id ablation failure). It is a gated external-tool witness: with Lean installed it reports tool_present_and_verified, without Lean it is terminally locked and claims no verification. Not neural theorem proving, not a solver of any open problem, no oracle-body forwarding, no release or publication authority.",
-        "one_line": "Gated external-tool proof-search lab that searches toy Lean theorems, checks each candidate with the installed Lean subprocess, and rejects oracle leaks, axiom taint, and problem-id memorisation by recomputation; locked and claimless when Lean is absent."
+        "authority_ceiling": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
+        "card": "This lab runs bounded symbolic search on small Lean propositions and checks candidate proofs with Lean. The positive fixture includes `theorem lab_and_intro (p q : Prop) : p -> q -> And p q` and `theorem lab_or_comm (p q : Prop) : Or p q -> Or q p`. Search uses a bounded AND/OR procedure and compares it with a hammer-style baseline; an ID-blind policy ablation checks for dependence on problem identifiers.",
+        "one_line": "This lab runs bounded symbolic search on small Lean propositions and checks candidate proofs with Lean."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -131,7 +131,7 @@
           "ref": "lean_proof_search_lab_runtime"
         }
       ],
-      "title": "Lean Proof-Search Lab Runtime"
+      "title": "Lean Proof Search Lab"
     },
     "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
     "support_contract": {
@@ -294,7 +294,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Gated external-tool proof-search lab that searches toy Lean theorems, checks each candidate with the installed Lean subprocess, and rejects oracle leaks, axiom taint, and problem-id memorisation by recomputation; locked and claimless when Lean is absent.",
+  "statement": "This lab runs bounded symbolic search on small Lean propositions and checks candidate proofs with Lean.",
   "status": "active",
   "subjects": [
     {
@@ -302,7 +302,7 @@
       "ref": "lean_proof_search_lab_runtime"
     }
   ],
-  "title": "Lean Proof-Search Lab Runtime",
+  "title": "Lean Proof Search Lab",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

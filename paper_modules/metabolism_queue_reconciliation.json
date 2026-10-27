@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Real-substrate capsule run over public fixtures; status pass attests only that the synthetic queue/reconciliation computation behaved as specified on these bounded cases. Does NOT export the live private metabolism database/scheduler, does NOT dispatch agents, does NOT call providers, does NOT auto-repair ambiguous runtime state, is NOT a distributed database, is NOT an oracle/prover, and does NOT authorize release, publication, production use, or source mutation.",
-    "card": "Metabolism Queue Reconciliation surfaces the Engine Room metabolism_runtime capsule: a stdlib-only synthetic SQLite job queue with idempotency-guarded enqueue, lease claim and expired-lease recovery, a blackboard claim-event projection where contradictions invalidate assertions, and a cold-start reconciler over the job/run/log triple. The organ exercises two clean scenarios (lease recovery to recoverable with a healthy reconcile; a contradiction zeroing active claims) and two planted-defect scenarios (a running job with no run row; a finalized run whose job is still running), asserting the reconciler rejects each defect with its expected rule id. Status is pass only when both positives compute clean, both negatives are rejected with the expected marker, and both expected negative ids are present. No live private database, no agent dispatch, no provider call, no auto-repair.",
-    "one_line": "Runs a synthetic SQLite durable-queue capsule over public fixtures and rejects planted job/run/log inconsistencies by recomputing the reconciliation taxonomy."
+    "authority_ceiling": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.",
+    "card": "The cases exercise idempotent enqueue, leases and expired-lease recovery, plus a blackboard projection. The reconciler examines job, run and log records. A running job without a run row, or a finalised run whose job is still running, is a named negative case. A negative case succeeds when the expected rule fires; the inconsistent queue is not thereby healthy.",
+    "one_line": "Runs queue scenarios in temporary SQLite stores and reports whether the reconciliation rules match each case’s expectation."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.metabolism_queue_reconciliation",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Real-substrate capsule run over public fixtures; status pass attests only that the synthetic queue/reconciliation computation behaved as specified on these bounded cases. Does NOT export the live private metabolism database/scheduler, does NOT dispatch agents, does NOT call providers, does NOT auto-repair ambiguous runtime state, is NOT a distributed database, is NOT an oracle/prover, and does NOT authorize release, publication, production use, or source mutation.",
+    "authority_ceiling": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,9 +85,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Real-substrate capsule run over public fixtures; status pass attests only that the synthetic queue/reconciliation computation behaved as specified on these bounded cases. Does NOT export the live private metabolism database/scheduler, does NOT dispatch agents, does NOT call providers, does NOT auto-repair ambiguous runtime state, is NOT a distributed database, is NOT an oracle/prover, and does NOT authorize release, publication, production use, or source mutation.",
-        "card": "Metabolism Queue Reconciliation surfaces the Engine Room metabolism_runtime capsule: a stdlib-only synthetic SQLite job queue with idempotency-guarded enqueue, lease claim and expired-lease recovery, a blackboard claim-event projection where contradictions invalidate assertions, and a cold-start reconciler over the job/run/log triple. The organ exercises two clean scenarios (lease recovery to recoverable with a healthy reconcile; a contradiction zeroing active claims) and two planted-defect scenarios (a running job with no run row; a finalized run whose job is still running), asserting the reconciler rejects each defect with its expected rule id. Status is pass only when both positives compute clean, both negatives are rejected with the expected marker, and both expected negative ids are present. No live private database, no agent dispatch, no provider call, no auto-repair.",
-        "one_line": "Runs a synthetic SQLite durable-queue capsule over public fixtures and rejects planted job/run/log inconsistencies by recomputing the reconciliation taxonomy."
+        "authority_ceiling": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.",
+        "card": "The cases exercise idempotent enqueue, leases and expired-lease recovery, plus a blackboard projection. The reconciler examines job, run and log records. A running job without a run row, or a finalised run whose job is still running, is a named negative case. A negative case succeeds when the expected rule fires; the inconsistent queue is not thereby healthy.",
+        "one_line": "Runs queue scenarios in temporary SQLite stores and reports whether the reconciliation rules match each case’s expectation."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -124,7 +124,7 @@
           "ref": "metabolism_queue_reconciliation"
         }
       ],
-      "title": "Metabolism Queue Reconciliation"
+      "title": "Queue reconciliation in a temporary SQLite store"
     },
     "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
     "support_contract": {
@@ -280,7 +280,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Runs a synthetic SQLite durable-queue capsule over public fixtures and rejects planted job/run/log inconsistencies by recomputing the reconciliation taxonomy.",
+  "statement": "Runs queue scenarios in temporary SQLite stores and reports whether the reconciliation rules match each case’s expectation.",
   "status": "active",
   "subjects": [
     {
@@ -288,7 +288,7 @@
       "ref": "metabolism_queue_reconciliation"
     }
   ],
-  "title": "Metabolism Queue Reconciliation",
+  "title": "Queue reconciliation in a temporary SQLite store",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

@@ -1,321 +1,34 @@
-# Pattern Binding Contract
+# Pattern binding validation
 
-## Teleology
+Checks pattern rows and their source, reference and authority-chain records, producing a validation result and related receipts.
 
-`pattern_binding_contract` is the public root organ that binds pattern rows to
-source-available source capsules, public runtime refs, authority-chain handles,
-anti-claims, and secret-exclusion receipts. Synthetic rows are allowed only as
-regression controls or negative cases; they are not product evidence.
+## Run the example
 
-## Purpose
-
-A mined engineering pattern is a tempting thing to publish on its own. It reads
-like a self-contained insight, so it is easy to lift a single row out of a
-private ledger and present it as a finished public claim. This organ exists to
-stop that. It answers one question: can a given pattern row be admitted to the
-public surface, and if so, under exactly what evidence and what ceiling?
-
-The check is binding rather than display. Every pattern row must name a source
-capsule that points at a real public runtime ref or regression-harness ref, a
-governing standard, and an anti-claim. A row that lacks any of these, duplicates
-another row's id, or claims to be a standalone public leaf is rejected. The same
-validator runs deliberate negative cases alongside the positive control, so the
-receipt proves not only that good rows pass but that each known failure mode is
-still caught.
-
-The less obvious idea is truth accounting. When an exported bundle is validated,
-the organ separates rows that merely describe runtime metadata from rows that
-represent a real pattern-ledger import, and records that a high accepted-row
-count is not the same as substrate progress. This guards against the quiet
-inflation where counting accepted rows starts to read like a measure of how much
-real work has landed. The route-readiness layer closes the matching gap on the
-selector side: a row can look selectable in isolation, but it is only admitted
-through the organ that owns it, its fixture contract, and a gate that refuses to
-let hard no-standalone rows appear as selectable targets.
-
-## Public Contract
-
-The validator checks required binding fields, duplicate pattern conflicts,
-unsupported authority-chain handles, unresolved reference capsules,
-secret/provider/operator body sentinels, and public-leaf overclaim failures. It
-emits command-owned receipts under
-`receipts/first_wave/pattern_binding_contract/`.
-
-The exported substrate bundle also carries the macro route-readiness selector
-overlays as public source-open bodies:
-`examples/pattern_binding_contract/exported_route_readiness_bundle/`. The
-validator recomputes the selector contract against the imported pattern ledger,
-route-readiness audit, row-to-organ router, route cards, fixture specs, decision
-matrix, dependency DAG, internal routing graph, and copied macro validation
-report. This closes the old gap where a mined pattern row could look selectable
-without opening the organ bundle that owns it.
-
-Cold readers should use `microcosm pattern-route-readiness validate-bundle`
-against `examples/pattern_binding_contract/exported_route_readiness_bundle/`
-when the question is selector admission rather than generic pattern binding.
-The older `pattern-binding validate-route-readiness-bundle` action remains a
-compatibility route to the same validator.
-
-## Shape
-
-```mermaid
-flowchart LR
-  subgraph Inputs["Pattern-binding inputs"]
-    Patterns["Pattern rows\nid, governing standard,\nanti-claim, source refs,\nprojection posture"]
-    Capsules["Source capsules\nbody-free refs to\npublic runtime or\nregression harness"]
-    Handles["Authority-chain handles\nresolver receipts"]
-  end
-
-  Validator["pattern_binding_contract\nrequired fields, duplicate ids,\ncapsule resolution,\nsecret-exclusion scan"]
-
-  subgraph Negative["Refusal floor"]
-    Dup["Duplicate id rejected"]
-    Leak["Private body leak rejected"]
-    Overclaim["Public-leaf overclaim rejected"]
-    Unsupported["Unsupported authority\nhandle not upgraded"]
-  end
-
-  subgraph Bundle["Exported-bundle path"]
-    Truth["Truth accounting\nruntime-metadata rows vs\nreal pattern-ledger import"]
-    RouteReadiness["Route-readiness selector\norgan-first admission,\nfixture contract,\nhard no-standalone gate"]
-  end
-
-  Receipts["Receipts\nrefs, digests, counts,\nverdicts; body text omitted"]
-
-  Patterns --> Validator
-  Capsules --> Validator
-  Handles --> Validator
-  Validator --> Negative
-  Validator --> Bundle
-  Truth --> RouteReadiness
-  Negative --> Receipts
-  Bundle --> Receipts
-```
-
-## Source-Open Body Floor
-
-The source-open body floor is the imported public bundle, not the private
-pattern ledger. Cold readers can open
-`examples/pattern_binding_contract/exported_substrate_bundle/` and
-`examples/pattern_binding_contract/exported_route_readiness_bundle/` to inspect
-the copied source module manifests, source capsules, reference capsules,
-authority-chain handles, route-readiness overlays, selector contract inputs,
-and copied macro validation report. The required body floor is named by each
-`source_module_manifest.json` plus `source_capsules.json`,
-`reference_capsules.json`, and `authority_chain_handles.json`.
-
-Receipts and manifests must stay body-free where the standard requires it:
-they carry refs, digests, anchors, counts, verdicts, omission receipts, and
-secret-exclusion results. They do not inline private source bodies, raw
-operator payloads, provider payloads, recipient data, or hidden pattern-ledger
-material.
-
-## Claim Ceiling
-
-This module covers public pattern-binding mechanics: source-capsule validation,
-reference-capsule validation, authority-handle validation, route-readiness
-selector admission, duplicate and unknown-ref rejection, private-leakage
-sentinel checks, and body-free receipt shape. It is evidence for the
-`pattern_binding_contract` organ and
-`mechanism.pattern_binding_contract.validates_public_pattern_bindings`.
-
-The ceiling stops before private pattern-ledger authority, hosted or public
-release readiness, production readiness, standalone public-leaf selector
-status, private-data equivalence, provider calls, recipient work, source
-mutation, publication authority, or whole-system correctness.
-
-## Evidence Binding
-
-Accepted organ row:
-`core/organ_registry.json::implemented_organs[pattern_binding_contract]`.
-Evidence class:
-`core/organ_evidence_classes.json::organ_evidence_classes[pattern_binding_contract]`
-with rank 5 semantic-validator authority. The runtime locus is
-`src/microcosm_core/organs/pattern_binding_contract.py`, with focused coverage
-in `tests/test_pattern_binding_contract.py`.
-
-Paper capsule authority:
-`core/paper_module_capsules.json#paper_module.pattern_binding_contract`.
-Mechanism source:
-`core/mechanism_sources.json#mechanism.pattern_binding_contract.validates_public_pattern_bindings`.
-
-## JSON Capsule Binding
-
-- Source row: `core/paper_module_capsules.json::paper_modules[9:paper_module.pattern_binding_contract]`
-- `source_authority: json_capsule`
-- This Markdown is a reader projection. The generated Mermaid projection is
-  `available_from_capsule_edges`, and the generated Atlas projection is
-  `linked_from_capsule_edges`; both are navigation projections derived from the
-  capsule row rather than source authority.
-- The proof boundary is the public pattern-binding fixtures, route-readiness
-  bundle, copied validation report, decision matrix, routing graph, DAG refs,
-  accepted-organ receipts, and validation receipts.
-- The authority ceiling excludes private pattern-ledger authority, public
-  release operations, hosted readiness, publication authority, recipients,
-  provider calls, private-data equivalence, and whole-system correctness.
-
-## Structured Lattice Bindings
-
-- Capsule row:
-  `core/paper_module_capsules.json::paper_modules[9:paper_module.pattern_binding_contract]`
-- Subjects: `pattern_binding_contract` and
-  `mechanism.pattern_binding_contract.validates_public_pattern_bindings`
-- Runtime loci: `src/microcosm_core/organs/pattern_binding_contract.py` and
-  `src/microcosm_core/macro_tools/pattern_route_readiness.py`
-- Depends on: `paper_module.navigation_hologram_route_plane`,
-  `paper_module.agent_route_observability_runtime`, and
-  `paper_module.cold_reader_route_map`
-- Generated relationship edges: the current projection reports 23 relationship
-  edges across the capsule's subjects, dependencies, code loci, and governed
-  doctrine refs.
-- Selective residuals: the current projection reports zero unresolved
-  selective relations. Future concept, principle, axiom, or dependency changes
-  still belong in the JSON capsule owner lane.
-
-## Reader Evidence Routing
-
-Read this module as a public binding membrane for pattern rows, not as a
-private pattern-ledger certificate or a standalone public-leaf selector. Start
-with `paper_modules/pattern_binding_contract.json` for the capsule payload, then
-open `standards/std_microcosm_pattern_binding_contract.json` to check the
-required fields, public/private boundary, source-open body import floor,
-route-readiness rules, and receipt expectations.
-
-Use `core/fixture_manifests/pattern_binding_contract.fixture_manifest.json`
-before inspecting fixtures or exported bundles. The manifest and the
-`source_module_manifest.json` files name the copied non-secret macro body floor;
-receipt payloads should carry source refs, digests, anchors, counts, verdicts,
-and omission receipts rather than inlining body text.
-
-Treat route-readiness selection as organ-first evidence. A mined pattern row can
-be selectable only through the route-readiness bundle, selector contract, and
-receipts that keep duplicates, unknown refs, private leakage, missing fixture
-contracts, dependency cycles, hard no-standalone rows, and companion-overlay
-gaps rejected.
-
-## Reader Proof Boundary
-
-The proof boundary for this module is the JSON capsule row, the pattern-binding
-organ, the route-readiness validator, the exported substrate and
-route-readiness bundles, source-module manifests, focused tests, and
-body-free receipts. The current generated-row projection reports 23
-relationship edges, Mermaid `available_from_capsule_edges`, Atlas
-`linked_from_capsule_edges`, and zero unresolved selective relations. Those
-numbers are generated projection readback; the capsule and runtime receipts
-remain the authority.
-
-The positive claim is that public pattern rows can be checked against source
-capsules, reference capsules, authority-chain handles, selector overlays, and
-negative cases. It is not a certificate for the private pattern ledger, hosted
-readiness, public release, provider dispatch, private-data equivalence, or
-whole-system correctness.
-
-## Public Site Availability Boundary
-
-The public site may expose the binding validator, route-readiness bundle,
-negative floors, source/ref handles, receipt names, selector-admission status,
-and the JSON sidecar/card payload generated from
-`paper_modules/pattern_binding_contract.json`. The source page and JSON sidecar
-are source inputs; `tools/meta/dissemination/build_microcosm_public_site.py`
-owns the generated site outputs.
-
-Site HTML, `content-graph.json`, `object-map.json`, search records, and
-`llms.txt` are projections over the capsule, sidecar, source refs, and builder
-contract. They are not source authority and must not be hand-edited to make
-this module appear available. The current handoff receipt is
-`receipts/public_site/pattern_binding_contract_site_handoff_20260604T2008Z.json`.
-
-The site must keep mined pattern rows organ-first and must not turn a row or
-site card into standalone public-leaf authority. Published copy should show the
-anti-claim beside any selector or pattern count. It must not imply release,
-hosted readiness, provider permission, private pattern-ledger authority, source
-mutation authority, publication approval, or whole-system correctness.
-
-## Public-Safe Body Handling
-
-Receipts and site data may carry refs, digests, anchors, counts, verdicts,
-omission receipts, secret-exclusion scan results, and source-manifest ids. They
-must not inline private pattern-ledger bodies, raw operator material, provider
-payloads, recipient data, credentials, or hidden macro source bodies. Copied
-public-safe source modules belong under the exported bundles and are governed
-by the source-module manifests, not by this Markdown page.
-
-First commands:
+From the repository root with Python 3.11 or newer:
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract
-PYTHONPATH=src python3 -m microcosm_core.organs.pattern_binding_contract validate-substrate-bundle --input examples/pattern_binding_contract/exported_substrate_bundle --out receipts/first_wave/pattern_binding_contract
-PYTHONPATH=src python3 -m microcosm_core.organs.pattern_binding_contract validate-route-readiness-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out receipts/first_wave/pattern_binding_contract/route_readiness
+PYTHONPATH=src python3 -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out .microcosm/component-guides/pattern_binding_contract --card
 ```
 
-## Validation Receipt Path
+Inspect the status and findings in `.microcosm/component-guides/`; the linked result below is a historical sample.
 
-From `microcosm-substrate/`, reproduce this page's proof boundary with
-temporary receipts:
+## What it checks
 
-```bash
-PYTHONPATH=src ../repo-python -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out /tmp/microcosm-pattern-binding-contract
-PYTHONPATH=src ../repo-python -m microcosm_core.organs.pattern_binding_contract validate-substrate-bundle --input examples/pattern_binding_contract/exported_substrate_bundle --out /tmp/microcosm-pattern-binding-substrate-bundle
-PYTHONPATH=src ../repo-python -m microcosm_core.organs.pattern_binding_contract validate-route-readiness-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-binding-route-readiness
-../repo-pytest microcosm-substrate/tests/test_pattern_binding_contract.py
-PYTHONPATH=src ../repo-python scripts/build/build_doctrine_projection.py --check-paper-module-corpus
-```
+A pattern binding links a pattern ID to its governing standard, source references and limits. In the fixture, `pb_valid_synthetic_binding` points to `capsule.synthetic_pattern_contract`, a provenance record for the regression harness. The validator checks required fields, reference resolution, duplicate conflicts and private-body markers. It rejects missing references, conflicting duplicate patterns, private source bodies and public claims that exceed their evidence. A separate route-readiness bundle checks whether selector rows resolve through their owning routes.
 
-These checks validate public pattern-binding fixtures, substrate-bundle
-receipts, route-readiness selector receipts, and body-free authority handles
-only; they do not certify the private pattern ledger, hosted readiness,
-release, provider calls, private-data equivalence, or whole-system
-correctness.
+## Limits
 
-The current authority is the runtime receipt set under
-`receipts/first_wave/pattern_binding_contract/`; do not cite a separate
-pattern-specific acceptance receipt unless an acceptance-lane artifact is
-actually present. Cold readers should inspect receipt fields rather than
-markdown constants: `status`, `secret_exclusion_scan`,
-`source_open_body_imports`, `truth_accounting`, `route_readiness_summary`,
-`selection_contract`, and `source_manifest`.
+A passing binding is a consistent record under these checks; it does not prove that the pattern is useful or that copied source is correct.
 
-## Receipt Expectations
+## Verification
 
-The primary receipt is
-`receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json`.
-Supporting receipts include source capsules, omission receipts, reference
-capsule resolver receipts, and authority-chain resolver receipts. Positive
-receipts must expose `secret_exclusion_scan`, `body_in_receipt`,
-`real_runtime_receipt`, `public_runtime_refs`, and
-`synthetic_receipt_standin_allowed: false`. The substrate-bundle receipt must
-also expose `real_pattern_route_readiness_consumed`,
-`route_readiness_summary`, `selection_contract`, `source_manifest`, and
-`route_readiness_error_rules`. The standalone route-readiness receipt is
-`receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json`.
+The focused tests exercise this component’s checks; they do not prove its algorithm. `make component-replays` runs its registered exported substrate bundle through the shared [Dafny admission check](../formal/replay/README.md), which checks source, input, claim-policy and receipt agreement within the host’s observations. The direct command above does not itself invoke that admission gate.
 
-## Prior Art Grounding
+## Source and evidence
 
-This organ follows the software pattern-language tradition of making reusable
-engineering structures explicit, named, and reviewable. The
-[Hillside patterns library](https://hillside.net/patterns/) is the direct
-prior-art family for treating patterns as shared vocabulary rather than loose
-implementation notes.
+- [Implementation](../src/microcosm_core/organs/pattern_binding_contract.py) and [focused tests](../tests/test_pattern_binding_contract.py)
+- [Example input](../fixtures/first_wave/pattern_binding_contract/input/patterns.jsonl) and [historical sample result](../receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json)
+- [Component JSON record](./pattern_binding_contract.json) and [canonical capsule](../core/paper_module_capsules.json)
+- [Supporting implementation](../src/microcosm_core/macro_tools/pattern_route_readiness.py)
 
-The binding layer also borrows from provenance and supply-chain attestation
-patterns. [W3C PROV](https://www.w3.org/TR/prov-overview/) motivates the
-source/ref/evidence relation shape, while [SLSA](https://slsa.dev/spec/) and
-[in-toto](https://in-toto.io/) motivate digest-bound artifact claims and
-step-level metadata. Microcosm applies those ideas to pattern rows and
-route-readiness selectors, not to release certification.
-
-Re-entry condition: if copied macro bodies, route-readiness overlays, or
-negative-case rules change, rerun the three first commands above and update this
-paper module plus `standards/std_microcosm_pattern_binding_contract.json` from
-the new receipt fields. Do not raise the authority ceiling from selector and
-binding validation to release, publication, private-data equivalence, or
-standalone public-leaf authority.
-
-## Anti-Claim
-
-This module documents public pattern-binding mechanics and regression harnesses.
-It does not certify the private pattern ledger, public release operations,
-hosted-public readiness, publication, recipient work, provider calls,
-private-data equivalence, or whole-system correctness. Route-readiness import
-does not make any mined pattern row a standalone public leaf; selection remains
-organ-first and fixture-bound.
+Related provenance frameworks include [in-toto](https://in-toto.io/), [SLSA](https://slsa.dev/spec/) and [W3C PROV](https://www.w3.org/TR/prov-overview/).

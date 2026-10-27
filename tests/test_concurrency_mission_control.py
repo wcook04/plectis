@@ -10,6 +10,7 @@ from microcosm_core.organs.concurrency_mission_control import (
     AUTHORITY_CEILING,
     EXPECTED_ENGINES,
     EXPECTED_NEGATIVE_CASES,
+    SOURCE_REQUIRED_ANCHORS,
     classify_concurrency_closure_state_lens,
     classify_generated_surface_claim_lens,
     result_card,
@@ -201,25 +202,36 @@ def test_concurrency_mission_control_rejects_source_module_digest_mismatch(
     assert result["receipt_body_scan"]["status"] == "pass"
 
 
-def test_concurrency_mission_control_source_modules_are_exact_macro_body_imports() -> None:
+def test_concurrency_mission_control_source_modules_match_public_manifest() -> None:
     manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
     assert manifest["module_count"] == 7
+    rows = manifest["modules"]
+    assert len(rows) == manifest["module_count"]
+    assert {row["source_ref"] for row in rows} == set(SOURCE_REQUIRED_ANCHORS)
+    assert len({row["path"] for row in rows}) == len(rows)
 
-    for row in manifest["modules"]:
+    for row in rows:
         source = SOURCE_ROOT / row["source_ref"]
         target = EXPORTED_BUNDLE / row["path"]
-        assert source.is_file(), row["source_ref"]
         assert target.is_file(), row["path"]
-        assert source.read_bytes() == target.read_bytes(), row["source_ref"]
-        assert row["sha256"] == _sha256(source)
+        body = target.read_bytes()
+        assert row["sha256"] == _sha256(target)
         assert row["source_sha256"] == row["sha256"]
         assert row["target_sha256"] == row["sha256"]
         assert row["sha256_match"] is True
-        text = target.read_text(encoding="utf-8")
+        assert row["byte_count"] == len(body)
+        assert row["line_count"] == len(body.splitlines())
+        assert row["required_anchors"] == list(SOURCE_REQUIRED_ANCHORS[row["source_ref"]])
+        text = body.decode("utf-8")
         assert all(anchor in text for anchor in row["required_anchors"])
+        # A standalone public clone need not contain the private source tree.
+        # When a source exists, require current byte-for-byte parity as well.
+        if source.exists():
+            assert source.is_file(), row["source_ref"]
+            assert source.read_bytes() == body, row["source_ref"]
 
 
 def test_concurrency_mission_control_card_omits_private_bodies(tmp_path: Path) -> None:

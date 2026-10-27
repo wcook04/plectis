@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Command-receipt evidence over bounded public fixtures, not runtime-product completeness. Establishes only that the capsule's phrase-membership detectors reproduce the declared green/red verdicts and diagnostic markers on the authored cases. Does NOT establish coverage of real agent output, semantic correctness, adversarial robustness, or any safety guarantee; does not authorize release, publication, provider calls, or source mutation.",
-    "card": "Egress Self-Compliance Audit surfaces the egress_self_compliance_gate capsule: a transparent substring policy that flags three ways an agent's own output can break its operating discipline — asking permission with no named blocker, confessing an error with no durable capture, or displacing a command onto the operator with no execution receipt. Each detector fires only when a tripwire phrase appears without its legitimiser. The organ replays 2 compliant and 2 planted-violation fixtures through the live capsule, asserting each violation reproduces with its exact diagnostic marker. Honest ceiling: phrase membership only — no taint analysis, no prompt-injection defense, no semantics; paraphrased violations are missed.",
-    "one_line": "Phrase-membership audit of agent-output text for three egress self-compliance slips (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator), verified by recomputation over public fixtures."
+    "authority_ceiling": "Phrase matching on supplied examples; not complete semantic or safety analysis.",
+    "card": "A passing matrix includes correctly flagged permission requests without a blocker.",
+    "one_line": "Runs phrase-based checks against response fixtures and records expected positives and negatives."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.egress_self_compliance_audit",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Command-receipt evidence over bounded public fixtures, not runtime-product completeness. Establishes only that the capsule's phrase-membership detectors reproduce the declared green/red verdicts and diagnostic markers on the authored cases. Does NOT establish coverage of real agent output, semantic correctness, adversarial robustness, or any safety guarantee; does not authorize release, publication, provider calls, or source mutation.",
+    "authority_ceiling": "Phrase matching on supplied examples; not complete semantic or safety analysis.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,9 +86,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Command-receipt evidence over bounded public fixtures, not runtime-product completeness. Establishes only that the capsule's phrase-membership detectors reproduce the declared green/red verdicts and diagnostic markers on the authored cases. Does NOT establish coverage of real agent output, semantic correctness, adversarial robustness, or any safety guarantee; does not authorize release, publication, provider calls, or source mutation.",
-        "card": "Egress Self-Compliance Audit surfaces the egress_self_compliance_gate capsule: a transparent substring policy that flags three ways an agent's own output can break its operating discipline — asking permission with no named blocker, confessing an error with no durable capture, or displacing a command onto the operator with no execution receipt. Each detector fires only when a tripwire phrase appears without its legitimiser. The organ replays 2 compliant and 2 planted-violation fixtures through the live capsule, asserting each violation reproduces with its exact diagnostic marker. Honest ceiling: phrase membership only — no taint analysis, no prompt-injection defense, no semantics; paraphrased violations are missed.",
-        "one_line": "Phrase-membership audit of agent-output text for three egress self-compliance slips (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator), verified by recomputation over public fixtures."
+        "authority_ceiling": "Phrase matching on supplied examples; not complete semantic or safety analysis.",
+        "card": "A passing matrix includes correctly flagged permission requests without a blocker.",
+        "one_line": "Runs phrase-based checks against response fixtures and records expected positives and negatives."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -125,7 +125,7 @@
           "ref": "egress_self_compliance_audit"
         }
       ],
-      "title": "Egress Self-Compliance Audit"
+      "title": "Audit example agent responses"
     },
     "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
     "support_contract": {
@@ -282,7 +282,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Phrase-membership audit of agent-output text for three egress self-compliance slips (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator), verified by recomputation over public fixtures.",
+  "statement": "Runs phrase-based checks against response fixtures and records expected positives and negatives.",
   "status": "active",
   "subjects": [
     {
@@ -290,7 +290,7 @@
       "ref": "egress_self_compliance_audit"
     }
   ],
-  "title": "Egress Self-Compliance Audit",
+  "title": "Audit example agent responses",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

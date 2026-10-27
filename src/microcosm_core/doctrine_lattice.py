@@ -370,7 +370,7 @@ def _root_key(root: str | Path | None) -> str:
 
 
 @lru_cache(maxsize=512)
-def _read_source_json_cached(root_key: str, rel: str) -> Any:
+def _read_source_json_cached(root_key: str, rel: str, mtime_ns: int | None = None, size: int | None = None) -> Any:
     """
     Read read source JSON cached for `microcosm_core.doctrine_lattice`.
 
@@ -387,7 +387,9 @@ def _load(root: str | Path | None, rel: str) -> Any:
     Input comes from `root` and `rel`; malformed or missing data follows the exceptions and
     checks visible in the body.
     """
-    return _read_source_json_cached(_root_key(root), rel)
+    path = _path(root, rel)
+    stat = path.stat()
+    return _read_source_json_cached(_root_key(root), rel, stat.st_mtime_ns, stat.st_size)
 
 
 def _sha256(path: Path) -> str:
@@ -472,11 +474,11 @@ def load_kind_standards(root: str | Path | None = None) -> dict[str, dict[str, A
     Input comes from `root`; malformed or missing data follows the exceptions and checks
     visible in the body.
     """
-    return _load_kind_standards_cached(_root_key(root))
+    return _load_kind_standards_cached(_root_key(root), _kind_contract_signature(root))
 
 
 @lru_cache(maxsize=32)
-def _load_kind_standards_cached(root_key: str) -> dict[str, dict[str, Any]]:
+def _load_kind_standards_cached(root_key: str, source_signature: tuple = ()) -> dict[str, dict[str, Any]]:
     """
     Load load kind standards cached for `microcosm_core.doctrine_lattice`.
 
@@ -484,7 +486,7 @@ def _load_kind_standards_cached(root_key: str) -> dict[str, dict[str, Any]]:
     visible in the body.
     """
     return {
-        kind: _as_dict(_read_source_json_cached(root_key, _standard_rel(kind)))
+        kind: _as_dict(_load(Path(root_key), _standard_rel(kind)))
         for kind in KIND_STANDARD_IDS
     }
 
@@ -500,7 +502,7 @@ def load_relation_registry(root: str | Path | None = None) -> dict[str, Any]:
 
 
 @lru_cache(maxsize=512)
-def _load_optional_dict_cached(root_key: str, rel: str) -> dict[str, Any]:
+def _load_optional_dict_cached(root_key: str, rel: str, mtime_ns: int | None = None, size: int | None = None) -> dict[str, Any]:
     """
     Serialize `microcosm_core.doctrine_lattice._load_optional_dict_cached` into the payload
     shape expected by doctrine lattice.
@@ -510,7 +512,7 @@ def _load_optional_dict_cached(root_key: str, rel: str) -> dict[str, Any]:
     path = Path(root_key) / rel
     if not path.is_file():
         return {}
-    return _as_dict(_read_source_json_cached(root_key, rel))
+    return _as_dict(_load(Path(root_key), rel))
 
 
 def _load_optional_dict(root: str | Path | None, rel: str) -> dict[str, Any]:
@@ -520,7 +522,11 @@ def _load_optional_dict(root: str | Path | None, rel: str) -> dict[str, Any]:
     Input comes from `root` and `rel`; malformed or missing data follows the exceptions and
     checks visible in the body.
     """
-    return _load_optional_dict_cached(_root_key(root), rel)
+    path = _path(root, rel)
+    if not path.is_file():
+        return {}
+    stat = path.stat()
+    return _load_optional_dict_cached(_root_key(root), rel, stat.st_mtime_ns, stat.st_size)
 
 
 def _root(root: str | Path | None) -> Path:
@@ -2836,22 +2842,22 @@ def _lattice_health_residual_pressure_rows(health: dict[str, Any]) -> list[dict[
         )
 
     principle_or_anti_principle_active = (
-        section("principles").get("parity_status") != "pass"
+        section("principles").get("validation_status", section("principles").get("parity_status")) != "pass"
         or count("principles", "unpopulated_governs_edge_count") > 0
         or has_rows("principles", "unsupported_at_obligation_level")
-        or section("anti_principles").get("parity_status") != "pass"
+        or section("anti_principles").get("validation_status", section("anti_principles").get("parity_status")) != "pass"
         or count("anti_principles", "unpopulated_negates_edge_count") > 0
     )
     concept_or_mechanism_active = (
-        section("concepts").get("parity_status") != "pass"
+        section("concepts").get("validation_status", section("concepts").get("parity_status")) != "pass"
         or count("concepts", "unpopulated_selective_edge_count") > 0
-        or section("mechanisms").get("parity_status") != "pass"
+        or section("mechanisms").get("validation_status", section("mechanisms").get("parity_status")) != "pass"
         or count("mechanisms", "without_code_loci_count") > 0
         or count("mechanisms", "unpopulated_selective_edge_count") > 0
         or count("mechanisms", "unpopulated_selective_relation_count") > 0
     )
     organ_active = (
-        section("organs").get("parity_status") != "pass"
+        section("organs").get("validation_status", section("organs").get("parity_status")) != "pass"
         or count("organs", "required_edge_gap_count") > 0
         or count("organs", "unpopulated_selective_edge_count") > 0
         or has_rows("organs", "unconstrained_by_axiom")
@@ -2930,7 +2936,7 @@ def _lattice_health_residual_pressure_rows(health: dict[str, Any]) -> list[dict[
         or section("projections").get("coverage_population_status") != "complete"
     )
     axiom_active = (
-        section("axioms").get("parity_status") != "pass"
+        section("axioms").get("validation_status", section("axioms").get("parity_status")) != "pass"
         or has_rows("axioms", "unwitnessed")
         or has_rows("axioms", "not_obligation_piloted")
     )
@@ -3486,21 +3492,24 @@ def _standard_triad_skill_id(row: Any) -> str:
     return str(_as_dict(row).get("skill_id") or "").strip()
 
 
-def _known_skill_instance_ids(root: str | Path | None) -> set[str]:
-    """
-    Produce the known skill instance IDs value used by `microcosm_core.doctrine_lattice`.
+def _known_skill_instance_ids(root: str | Path | None) -> frozenset[str]:
+    """Read this build's skill IDs, falling back to current markdown sources.
 
-    Inputs are `root`; notable helpers are `load_skill_instances` and
-    `expected_skill_instances`.
+    Only identities are needed here, so the fallback reads source rows without
+    constructing or retaining a complete skill projection.
     """
-    loaded = set(load_skill_instances(root))
-    return loaded if loaded else set(expected_skill_instances(root))
+    loaded = frozenset(load_skill_instances(root))
+    return loaded if loaded else frozenset(
+        str(row["id"]) for row in _skill_source_rows(root) if row.get("id")
+    )
 
 
 def build_standard_instance_from_registry_row(
     row: dict[str, Any],
     index: int,
     root: str | Path | None = None,
+    *,
+    known_skill_ids: frozenset[str] | None = None,
 ) -> dict[str, Any]:
     """
     Serialize `microcosm_core.doctrine_lattice.build_standard_instance_from_registry_row`
@@ -3515,7 +3524,8 @@ def build_standard_instance_from_registry_row(
     source_exists = _path(root, source_ref).is_file()
     governs_kind = str(payload.get("kind_id") or row.get("kind_id") or "").strip()
     skills = _as_dict(payload.get("skills"))
-    known_skill_ids = _known_skill_instance_ids(root)
+    if known_skill_ids is None:
+        known_skill_ids = _known_skill_instance_ids(root)
     known_organ_ids = set(expected_organ_instances(root))
     used_by_organs = _unique_strings(
         payload_relationships.get("used_by_organs"),
@@ -3722,33 +3732,29 @@ def build_standard_instance_from_registry_row(
 
 
 def expected_standard_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
-    """
-    Return expected standard instances for the doctrine lattice flow.
+    """Project standards against one fresh, immutable skill-ID snapshot.
 
-    Inputs are `root`; notable helpers are `_expected_standard_instances_cached` and
-    `_root_key`.
+    Callers composing several standard views pass this invocation's result to
+    their nested builders rather than retaining a process-global projection.
     """
-    return _expected_standard_instances_cached(_root_key(root))
-
-
-@lru_cache(maxsize=32)
-def _expected_standard_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
-    """
-    Return expected standard instances cached for the doctrine lattice flow.
-
-    Inputs are `root_key`; notable helpers are `lru_cache`, `Path`,
-    `_standards_registry_rows`, `build_standard_instance_from_registry_row`, and 1 more.
-    """
-    root = Path(root_key)
+    known_skill_ids: frozenset[str] | None = None
     rows: dict[str, dict[str, Any]] = {}
     for index, row in enumerate(_standards_registry_rows(root)):
         standard_id = str(row.get("standard_id") or "")
         if standard_id:
-            rows[standard_id] = build_standard_instance_from_registry_row(row, index, root)
+            if known_skill_ids is None:
+                known_skill_ids = _known_skill_instance_ids(root)
+            rows[standard_id] = build_standard_instance_from_registry_row(
+                row, index, root, known_skill_ids=known_skill_ids
+            )
     return rows
 
 
-def load_standard_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
+def load_standard_instances(
+    root: str | Path | None = None,
+    *,
+    expected_standards: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, dict[str, Any]]:
     """
     Load load standard instances for `microcosm_core.doctrine_lattice`.
 
@@ -3757,9 +3763,10 @@ def load_standard_instances(root: str | Path | None = None) -> dict[str, dict[st
     """
     inventory = _standard_file_inventory(root)
     file_ids = set(_as_list(inventory.get("file_ids")))
+    expected = expected_standard_instances(root) if expected_standards is None else expected_standards
     return {
         standard_id: instance
-        for standard_id, instance in expected_standard_instances(root).items()
+        for standard_id, instance in expected.items()
         if standard_id in file_ids
     }
 
@@ -4778,7 +4785,11 @@ def _standard_relation_metrics(instances: Any) -> dict[str, int]:
     return metrics
 
 
-def validate_standard_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
+def validate_standard_instance_corpus(
+    root: str | Path | None = None,
+    *,
+    expected_standards: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     """
     Serialize `microcosm_core.doctrine_lattice.validate_standard_instance_corpus` into the
     payload shape expected by doctrine lattice.
@@ -4786,8 +4797,8 @@ def validate_standard_instance_corpus(root: str | Path | None = None) -> dict[st
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     errors: list[dict[str, Any]] = []
-    expected = expected_standard_instances(root)
-    actual = load_standard_instances(root)
+    expected = expected_standard_instances(root) if expected_standards is None else expected_standards
+    actual = load_standard_instances(root, expected_standards=expected)
     inventory = _standard_file_inventory(root)
     expected_ids = set(expected)
     actual_ids = set(actual)
@@ -4847,16 +4858,20 @@ def validate_standard_instance_corpus(root: str | Path | None = None) -> dict[st
     }
 
 
-def build_standard_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
+def build_standard_instance_corpus(
+    root: str | Path | None = None,
+    *,
+    expected_standards: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     """
     Serialize `microcosm_core.doctrine_lattice.build_standard_instance_corpus` into the
     payload shape expected by doctrine lattice.
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
-    expected = expected_standard_instances(root)
-    actual = load_standard_instances(root)
-    validation = validate_standard_instance_corpus(root)
+    expected = expected_standard_instances(root) if expected_standards is None else expected_standards
+    actual = load_standard_instances(root, expected_standards=expected)
+    validation = validate_standard_instance_corpus(root, expected_standards=expected)
     instances = actual if actual else expected
     relation_metrics = _standard_relation_metrics(instances.values())
     legacy_or_draft_details = _standard_legacy_or_draft_detail_rows(
@@ -5359,11 +5374,11 @@ def expected_axiom_instances(root: str | Path | None = None) -> dict[str, dict[s
     Inputs are `root`; notable helpers are `_expected_axiom_instances_cached` and
     `_root_key`.
     """
-    return _expected_axiom_instances_cached(_root_key(root))
+    return _expected_axiom_instances_cached(_root_key(root), _source_projection_signature(root, "axiom"))
 
 
 @lru_cache(maxsize=32)
-def _expected_axiom_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
+def _expected_axiom_instances_cached(root_key: str, source_signature: tuple = ()) -> dict[str, dict[str, Any]]:
     """
     Compute expected axiom instances cached from `root_key`.
 
@@ -5375,6 +5390,157 @@ def _expected_axiom_instances_cached(root_key: str) -> dict[str, dict[str, Any]]
         for index, row in enumerate(_axiom_routing_rows(Path(root_key)))
         if row.get("axiom_id")
     }
+
+
+# These families still name canonical source owners in their migration contracts.
+# On-disk loaders stay literal; a wholly absent optional materialization may be
+# derived in memory, while any partial/stale materialization must pass parity.
+SOURCE_PROJECTED_KINDS = ("axiom", "principle", "anti_principle", "concept", "mechanism", "organ")
+_SOURCE_PROJECTION_INPUTS = {
+    "axiom": (AXIOM_ROUTING_REL,),
+    "principle": (PRINCIPLES_REL, "core/organ_atlas.json", AXIOM_ROUTING_REL, CONCEPT_ENTRY_PACKET_REL),
+    "anti_principle": (ANTI_PRINCIPLES_REL, AXIOM_ROUTING_REL),
+    "concept": (CONCEPT_ENTRY_PACKET_REL, PRINCIPLES_REL, AXIOM_ROUTING_REL, MECHANISM_REGISTRY_REL),
+    "mechanism": (MECHANISM_REGISTRY_REL, CONCEPT_ENTRY_PACKET_REL, PRINCIPLES_REL, AXIOM_ROUTING_REL, "core/organ_atlas.json"),
+    "organ": ("core/organ_atlas.json", "core/organ_registry.json", MECHANISM_REGISTRY_REL, CONCEPT_ENTRY_PACKET_REL, PRINCIPLES_REL, AXIOM_ROUTING_REL),
+}
+
+
+def _kind_contract_signature(root: str | Path | None) -> tuple:
+    return tuple((rel, _path(root, rel).stat().st_mtime_ns, _path(root, rel).stat().st_size)
+                 for rel in (_standard_rel(kind) for kind in KIND_STANDARD_IDS))
+
+
+def _source_projection_signature(root: str | Path | None, kind: str) -> tuple:
+    return tuple((rel, _path(root, rel).stat().st_mtime_ns, _path(root, rel).stat().st_size)
+                 for rel in _SOURCE_PROJECTION_INPUTS[kind]) + _kind_contract_signature(root)
+
+
+def _source_instance_state(root: str | Path | None, kind: str, expected: dict, actual: dict) -> dict[str, Any]:
+    directory = _path(root, globals()[f"{kind.upper()}_INSTANCE_DIR_REL"])
+    json_files = sorted(directory.glob("*.json"))
+    projection_files = json_files + sorted(directory.glob("*.md"))
+    pre_flip = bool(expected) and all(
+        _as_dict(_as_dict(row.get(f"{kind}_payload")).get("migration_contract")).get("authority_flip_status") == "not_flipped"
+        for row in expected.values()
+    )
+    derived = not projection_files and pre_flip
+    return {
+        "validation_basis": "canonical_source_derivation" if derived else "materialized_json_parity",
+        "materialization_status": "absent_pre_flip" if derived else "materialized_or_required",
+        "materialized_json_file_count": len(json_files),
+        "json_instance_count": len(actual),
+        "effective_instance_count": len(expected if derived else actual),
+        "derived_instance_count": len(expected) if derived else 0,
+        "derives_from_canonical_source": derived,
+    }
+
+
+def _validate_source_instance_corpus(root: str | Path | None, kind: str) -> dict[str, Any]:
+    expected = globals()[f"expected_{kind}_instances"](root)
+    actual = globals()[f"load_{kind}_instances"](root)
+    state = _source_instance_state(root, kind, expected, actual)
+    derived = state["derives_from_canonical_source"]
+    effective = expected if derived else actual
+    errors: list[dict[str, Any]] = []
+    path_for = globals()[f"_{kind}_instance_rel"]
+    id_key = f"{kind}_id"
+    if not expected:
+        _add_error(errors, code=f"{kind}_canonical_source_empty", path=_SOURCE_PROJECTION_INPUTS[kind][0],
+                   message="Canonical source did not produce any valid instances for this required doctrine family.")
+    if not derived:
+        for missing in sorted(set(expected) - set(actual), key=_id_sort_key):
+            _add_error(errors, code=f"{kind}_json_instance_missing", path=path_for(missing),
+                       message="Expected materialized JSON instance is missing.", **{id_key: missing})
+    for extra in sorted(set(actual) - set(expected), key=_id_sort_key):
+        _add_error(errors, code=f"{kind}_json_instance_extra", path=path_for(extra),
+                   message="Materialized JSON instance has no canonical source row.", **{id_key: extra})
+    if state["materialized_json_file_count"] != len(actual):
+        _add_error(errors, code=f"{kind}_json_instance_invalid_or_duplicate_id", path=path_for("*"),
+                   message="Every materialized JSON file must carry one unique valid instance ID.")
+    directory = _path(root, globals()[f"{kind.upper()}_INSTANCE_DIR_REL"])
+    for path in sorted(directory.glob("*.json")):
+        payload = read_json_strict(path)
+        instance_id = payload.get("id") if isinstance(payload, dict) else None
+        if not isinstance(instance_id, str) or not instance_id or path != _path(root, path_for(instance_id)):
+            _add_error(errors, code=f"{kind}_json_instance_invalid_path_or_id", path=path.relative_to(_root(root)).as_posix(),
+                       message="Materialized instance ID must match its canonical JSON path.")
+    required = _instance_required_fields(root, kind)
+    parity_name = {"axiom":"routing", "principle":"markdown", "anti_principle":"markdown",
+                   "concept":"entry_packet", "mechanism":"registry", "organ":"atlas_registry"}[kind]
+    for instance_id in sorted(set(expected) & set(effective), key=_id_sort_key):
+        payload = effective[instance_id]
+        missing_required = sorted(required - set(payload))
+        if missing_required:
+            _add_error(errors, code=f"{kind}_json_instance_missing_required_fields", path=path_for(instance_id),
+                       message="Instance is missing fields required by its kind contract.",
+                       **{id_key: instance_id, "missing_required": missing_required})
+        if not derived and payload != expected[instance_id]:
+            _add_error(errors, code=f"{kind}_json_instance_{parity_name}_parity_mismatch", path=path_for(instance_id),
+                       message="Materialized JSON instance is not reproducible from its canonical source.", **{id_key: instance_id})
+    return {
+        "schema_version": f"microcosm_{kind}_instance_corpus_validation_v1",
+        "status": "pass" if not errors else "blocked",
+        "parity_status": "not_materialized" if derived else "pass" if not errors else "blocked",
+        "expected_count": len(expected),
+        "missing_json_ids": sorted(set(expected) - set(actual), key=_id_sort_key),
+        "extra_json_ids": sorted(set(actual) - set(expected), key=_id_sort_key),
+        "errors": errors,
+        **state,
+    }
+
+
+def _source_projection_metadata(validation: dict[str, Any]) -> dict[str, Any]:
+    return {key: validation[key] for key in (
+        "validation_basis", "materialization_status", "materialized_json_file_count",
+        "effective_instance_count", "derived_instance_count",
+    )} | {
+        "validation_status": validation["status"],
+        "instance_source_class": (
+            "source_canonical_derived_instances" if validation["derives_from_canonical_source"]
+            else "materialized_json_instances" if validation["json_instance_count"]
+            else "required_materialization_absent"
+        ),
+    }
+
+
+def _source_instance_ref(instance: dict[str, Any]) -> str:
+    relationships = _as_dict(instance.get("relationships"))
+    for key in ("source_routing_row_ref", "source_markdown_ref", "source_specimen_ref",
+                "source_registry_row_ref", "source_atlas_row_ref"):
+        if relationships.get(key):
+            return str(relationships[key])
+    raise ValueError(f"source-derived {instance.get('kind')}:{instance.get('id')} lacks its canonical source ref")
+
+
+def _effective_projection_instances(root: str | Path | None, *, expected_standards: dict | None = None) -> tuple[list[dict[str, Any]], dict[tuple[str, str], str]]:
+    instances: list[dict[str, Any]] = []
+    source_refs: dict[tuple[str, str], str] = {}
+    for kind in SOURCE_PROJECTED_KINDS:
+        expected = globals()[f"expected_{kind}_instances"](root)
+        actual = globals()[f"load_{kind}_instances"](root)
+        state = _source_instance_state(root, kind, expected, actual)
+        chosen = expected if state["derives_from_canonical_source"] else actual
+        instances.extend(chosen.values())
+        if state["derives_from_canonical_source"]:
+            source_refs.update({(kind, instance_id): _source_instance_ref(row) for instance_id, row in chosen.items()})
+    for kind in ("paper_module", "skill"):
+        actual = globals()[f"load_{kind}_instances"](root)
+        instances.extend((actual or globals()[f"expected_{kind}_instances"](root)).values())
+    standards = expected_standard_instances(root) if expected_standards is None else expected_standards
+    instances.extend(load_standard_instances(root, expected_standards=standards).values())
+    return instances, source_refs
+
+
+def _projection_instance_edges(instances: list[dict[str, Any]], source_refs: dict[tuple[str, str], str]) -> list[dict[str, Any]]:
+    rows = _json(instances)
+    for instance in rows:
+        for edge in _as_list(_as_dict(instance.get("relationships")).get("edges")):
+            target = (str(edge.get("target_kind") or ""), str(edge.get("target_id") or ""))
+            if edge.get("target_status") == "resolved_json_instance" and target in source_refs:
+                edge["target_status"] = "resolved_source_instance"
+                edge["target_source_ref"] = source_refs[target]
+    return rows
 
 
 def load_axiom_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
@@ -5396,63 +5562,8 @@ def load_axiom_instances(root: str | Path | None = None) -> dict[str, dict[str, 
 
 
 def validate_axiom_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
-    """
-    Serialize `microcosm_core.doctrine_lattice.validate_axiom_instance_corpus` into the
-    payload shape expected by doctrine lattice.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
-    """
-    errors: list[dict[str, Any]] = []
-    expected = expected_axiom_instances(root)
-    actual = load_axiom_instances(root)
-    expected_ids = set(expected)
-    actual_ids = set(actual)
-    for missing in sorted(expected_ids - actual_ids):
-        _add_error(
-            errors,
-            code="axiom_json_instance_missing",
-            path=_axiom_instance_rel(missing),
-            message="Expected axiom JSON instance is missing.",
-            axiom_id=missing,
-        )
-    for extra in sorted(actual_ids - expected_ids):
-        _add_error(
-            errors,
-            code="axiom_json_instance_extra",
-            path=_axiom_instance_rel(extra),
-            message="Axiom JSON instance has no routing row.",
-            axiom_id=extra,
-        )
-    required = set(_as_list(load_kind_standards(root)["axiom"].get("required_fields")))
-    for axiom_id in sorted(expected_ids & actual_ids):
-        payload = actual[axiom_id]
-        missing_required = sorted(required - set(payload))
-        if missing_required:
-            _add_error(
-                errors,
-                code="axiom_json_instance_missing_required_fields",
-                path=_axiom_instance_rel(axiom_id),
-                message="Axiom JSON instance is missing required standard fields.",
-                axiom_id=axiom_id,
-                missing_required=missing_required,
-            )
-        if payload != expected[axiom_id]:
-            _add_error(
-                errors,
-                code="axiom_json_instance_routing_parity_mismatch",
-                path=_axiom_instance_rel(axiom_id),
-                message="Axiom JSON instance is not reproducible from the routing source of record.",
-                axiom_id=axiom_id,
-            )
-    return {
-        "schema_version": "microcosm_axiom_instance_corpus_validation_v1",
-        "status": "pass" if not errors else "blocked",
-        "expected_count": len(expected),
-        "json_instance_count": len(actual),
-        "missing_json_ids": sorted(expected_ids - actual_ids),
-        "extra_json_ids": sorted(actual_ids - expected_ids),
-        "errors": errors,
-    }
+    """Validate canonical derivation or strict on-disk parity for this pre-flip family."""
+    return _validate_source_instance_corpus(root, "axiom")
 
 
 def build_axiom_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
@@ -5482,14 +5593,15 @@ def build_axiom_instance_corpus(root: str | Path | None = None) -> dict[str, Any
         "expected_axiom_count": len(expected),
         "json_instance_count": len(actual),
         "instance_source_class": source_class,
-        "instance_ids": sorted(actual or expected),
+        "instance_ids": sorted(expected if validation["derives_from_canonical_source"] else actual),
         "missing_json_ids": validation["missing_json_ids"],
         "extra_json_ids": validation["extra_json_ids"],
-        "parity_status": validation["status"],
+        "parity_status": validation["parity_status"],
+        **_source_projection_metadata(validation),
         "validation": validation,
         "source_refs": {
             "routing_registry": AXIOM_ROUTING_REL,
-            "json_instances": f"{AXIOM_INSTANCE_DIR_REL}/*.json",
+            "json_instances": None if validation["derives_from_canonical_source"] else f"{AXIOM_INSTANCE_DIR_REL}/*.json",
             "legacy_markdown": "AXIOMS.md",
         },
         "anti_claim": (
@@ -5808,39 +5920,24 @@ def _ref_ids(value: Any) -> list[str]:
     return sorted(set(refs), key=_id_sort_key)
 
 
-def _principle_mechanism_governance_from_organ_atlas(
-    root: str | Path | None,
-) -> dict[str, list[dict[str, str]]]:
-    """
-    Return principle mechanism governance from organ atlas for the doctrine lattice flow.
-
-    Inputs are `root`; notable helpers are `_as_dict`, `_load`, `_as_list`, `strip`, and 5
-    more.
-    """
+def _principle_mechanism_governance_from_organ_atlas(root: str | Path | None) -> dict[str, list[dict[str, str]]]:
     atlas = _as_dict(_load(root, "core/organ_atlas.json"))
-    by_principle: dict[str, dict[str, str]] = {}
-    for atlas_index, row in enumerate(_as_list(atlas.get("organs"))):
+    known = set(_mechanism_sources(root))
+    by_principle: dict[str, dict[str, dict[str, str]]] = {}
+    for index, row in enumerate(_as_list(atlas.get("organs"))):
         if not isinstance(row, dict):
             continue
-        organ_id = str(row.get("organ_id") or row.get("id") or "").strip()
-        principle_refs = _ref_ids(row.get("principle_refs"))
-        mechanism_refs = _ref_ids(row.get("mechanism_refs"))
-        if not organ_id or not principle_refs or not mechanism_refs:
-            continue
-        source_ref = f"core/organ_atlas.json::organs[{atlas_index}:{organ_id}]"
-        for principle_id in principle_refs:
+        organ_id = str(row.get("organ_id") or row.get("id") or "")
+        for principle_id in _ref_ids(row.get("principle_refs")):
             targets = by_principle.setdefault(principle_id, {})
-            for mechanism_id in mechanism_refs:
-                targets.setdefault(mechanism_id, source_ref)
-    return {
-        principle_id: [
-            {"mechanism_id": mechanism_id, "source_ref": source_ref}
-            for mechanism_id, source_ref in sorted(
-                targets.items(), key=lambda item: _id_sort_key(item[0])
-            )
-        ]
-        for principle_id, targets in by_principle.items()
-    }
+            for item in _mechanism_ref_rows(row):
+                mechanism_id = str(item.get("ref") or "")
+                targets.setdefault(mechanism_id, {
+                    "mechanism_id": mechanism_id,
+                    "source_ref": f"core/organ_atlas.json::organs[{index}:{organ_id}]",
+                    "target_status": "planned_unresolved_mechanism" if item.get("resolution_status") == "planned_unresolved" else "resolved_json_instance" if mechanism_id in known else "unresolved_json_instance",
+                })
+    return {principle_id: [targets[key] for key in sorted(targets, key=_id_sort_key)] for principle_id, targets in by_principle.items()}
 
 
 def _principle_concept_governance_from_organ_atlas(
@@ -6051,7 +6148,7 @@ def build_principle_instance_from_source_row(row: dict[str, Any]) -> dict[str, A
             target_kind="mechanism",
             target_id=str(item.get("mechanism_id")),
             source_ref=str(item.get("source_ref") or source_ref),
-            target_status="resolved_json_instance",
+            target_status=str(item.get("target_status") or "unresolved_json_instance"),
             justification=(
                 "Organ atlas row names this principle as governing an organ and names "
                 "the organ mechanism ref; the principle governs the mechanism route "
@@ -6432,11 +6529,11 @@ def expected_principle_instances(root: str | Path | None = None) -> dict[str, di
     Inputs are `root`; notable helpers are `_expected_principle_instances_cached` and
     `_root_key`.
     """
-    return _expected_principle_instances_cached(_root_key(root))
+    return _expected_principle_instances_cached(_root_key(root), _source_projection_signature(root, "principle"))
 
 
 @lru_cache(maxsize=32)
-def _expected_principle_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
+def _expected_principle_instances_cached(root_key: str, source_signature: tuple = ()) -> dict[str, dict[str, Any]]:
     """
     Compute expected principle instances cached from `root_key`.
 
@@ -6469,11 +6566,11 @@ def expected_anti_principle_instances(root: str | Path | None = None) -> dict[st
     Inputs are `root`; notable helpers are `_expected_anti_principle_instances_cached` and
     `_root_key`.
     """
-    return _expected_anti_principle_instances_cached(_root_key(root))
+    return _expected_anti_principle_instances_cached(_root_key(root), _source_projection_signature(root, "anti_principle"))
 
 
 @lru_cache(maxsize=32)
-def _expected_anti_principle_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
+def _expected_anti_principle_instances_cached(root_key: str, source_signature: tuple = ()) -> dict[str, dict[str, Any]]:
     """
     Return expected anti principle instances cached for the doctrine lattice flow.
 
@@ -6528,73 +6625,13 @@ def load_anti_principle_instances(root: str | Path | None = None) -> dict[str, d
 
 
 def validate_principle_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
-    """
-    Serialize `microcosm_core.doctrine_lattice.validate_principle_instance_corpus` into the
-    payload shape expected by doctrine lattice.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
-    """
-    errors: list[dict[str, Any]] = []
-    expected = expected_principle_instances(root)
-    actual = load_principle_instances(root)
-    expected_ids = set(expected)
-    actual_ids = set(actual)
-    for missing in sorted(expected_ids - actual_ids, key=_id_sort_key):
-        _add_error(errors, code="principle_json_instance_missing", path=_principle_instance_rel(missing), message="Expected principle JSON instance is missing.", principle_id=missing)
-    for extra in sorted(actual_ids - expected_ids, key=_id_sort_key):
-        _add_error(errors, code="principle_json_instance_extra", path=_principle_instance_rel(extra), message="Principle JSON instance has no legacy markdown source row.", principle_id=extra)
-    required = _instance_required_fields(root, "principle")
-    for principle_id in sorted(expected_ids & actual_ids, key=_id_sort_key):
-        payload = actual[principle_id]
-        missing_required = sorted(required - set(payload))
-        if missing_required:
-            _add_error(errors, code="principle_json_instance_missing_required_fields", path=_principle_instance_rel(principle_id), message="Principle JSON instance is missing required standard fields.", principle_id=principle_id, missing_required=missing_required)
-        if payload != expected[principle_id]:
-            _add_error(errors, code="principle_json_instance_markdown_parity_mismatch", path=_principle_instance_rel(principle_id), message="Principle JSON instance is not reproducible from PRINCIPLES.md.", principle_id=principle_id)
-    return {
-        "schema_version": "microcosm_principle_instance_corpus_validation_v1",
-        "status": "pass" if not errors else "blocked",
-        "expected_count": len(expected),
-        "json_instance_count": len(actual),
-        "missing_json_ids": sorted(expected_ids - actual_ids, key=_id_sort_key),
-        "extra_json_ids": sorted(actual_ids - expected_ids, key=_id_sort_key),
-        "errors": errors,
-    }
+    """Validate canonical derivation or strict on-disk parity for this pre-flip family."""
+    return _validate_source_instance_corpus(root, "principle")
 
 
 def validate_anti_principle_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
-    """
-    Serialize `microcosm_core.doctrine_lattice.validate_anti_principle_instance_corpus` into
-    the payload shape expected by doctrine lattice.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
-    """
-    errors: list[dict[str, Any]] = []
-    expected = expected_anti_principle_instances(root)
-    actual = load_anti_principle_instances(root)
-    expected_ids = set(expected)
-    actual_ids = set(actual)
-    for missing in sorted(expected_ids - actual_ids, key=_id_sort_key):
-        _add_error(errors, code="anti_principle_json_instance_missing", path=_anti_principle_instance_rel(missing), message="Expected anti-principle JSON instance is missing.", anti_principle_id=missing)
-    for extra in sorted(actual_ids - expected_ids, key=_id_sort_key):
-        _add_error(errors, code="anti_principle_json_instance_extra", path=_anti_principle_instance_rel(extra), message="Anti-principle JSON instance has no legacy markdown source row.", anti_principle_id=extra)
-    required = _instance_required_fields(root, "anti_principle")
-    for anti_principle_id in sorted(expected_ids & actual_ids, key=_id_sort_key):
-        payload = actual[anti_principle_id]
-        missing_required = sorted(required - set(payload))
-        if missing_required:
-            _add_error(errors, code="anti_principle_json_instance_missing_required_fields", path=_anti_principle_instance_rel(anti_principle_id), message="Anti-principle JSON instance is missing required standard fields.", anti_principle_id=anti_principle_id, missing_required=missing_required)
-        if payload != expected[anti_principle_id]:
-            _add_error(errors, code="anti_principle_json_instance_markdown_parity_mismatch", path=_anti_principle_instance_rel(anti_principle_id), message="Anti-principle JSON instance is not reproducible from ANTI_PRINCIPLES.md.", anti_principle_id=anti_principle_id)
-    return {
-        "schema_version": "microcosm_anti_principle_instance_corpus_validation_v1",
-        "status": "pass" if not errors else "blocked",
-        "expected_count": len(expected),
-        "json_instance_count": len(actual),
-        "missing_json_ids": sorted(expected_ids - actual_ids, key=_id_sort_key),
-        "extra_json_ids": sorted(actual_ids - expected_ids, key=_id_sort_key),
-        "errors": errors,
-    }
+    """Validate canonical derivation or strict on-disk parity for this pre-flip family."""
+    return _validate_source_instance_corpus(root, "anti_principle")
 
 
 def build_principle_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
@@ -6615,14 +6652,15 @@ def build_principle_instance_corpus(root: str | Path | None = None) -> dict[str,
         "expected_principle_count": len(expected),
         "json_instance_count": len(actual),
         "instance_source_class": "json_instances_with_markdown_parity" if validation["status"] == "pass" and actual else "legacy_markdown_source_until_json_parity",
-        "instance_ids": sorted(actual or expected, key=_id_sort_key),
+        "instance_ids": sorted(expected if validation["derives_from_canonical_source"] else actual, key=_id_sort_key),
         "missing_json_ids": validation["missing_json_ids"],
         "extra_json_ids": validation["extra_json_ids"],
-        "parity_status": validation["status"],
+        "parity_status": validation["parity_status"],
+        **_source_projection_metadata(validation),
         "validation": validation,
         "source_refs": {
             "legacy_markdown": PRINCIPLES_REL,
-            "json_instances": f"{PRINCIPLE_INSTANCE_DIR_REL}/*.json",
+            "json_instances": None if validation["derives_from_canonical_source"] else f"{PRINCIPLE_INSTANCE_DIR_REL}/*.json",
         },
         "anti_claim": "Principle JSON presence is migration progress, not proof that every principle is obligation-supported or governs all downstream concepts/mechanisms.",
     }
@@ -6646,14 +6684,15 @@ def build_anti_principle_instance_corpus(root: str | Path | None = None) -> dict
         "expected_anti_principle_count": len(expected),
         "json_instance_count": len(actual),
         "instance_source_class": "json_instances_with_markdown_parity" if validation["status"] == "pass" and actual else "legacy_markdown_source_until_json_parity",
-        "instance_ids": sorted(actual or expected, key=_id_sort_key),
+        "instance_ids": sorted(expected if validation["derives_from_canonical_source"] else actual, key=_id_sort_key),
         "missing_json_ids": validation["missing_json_ids"],
         "extra_json_ids": validation["extra_json_ids"],
-        "parity_status": validation["status"],
+        "parity_status": validation["parity_status"],
+        **_source_projection_metadata(validation),
         "validation": validation,
         "source_refs": {
             "legacy_markdown": ANTI_PRINCIPLES_REL,
-            "json_instances": f"{ANTI_PRINCIPLE_INSTANCE_DIR_REL}/*.json",
+            "json_instances": None if validation["derives_from_canonical_source"] else f"{ANTI_PRINCIPLE_INSTANCE_DIR_REL}/*.json",
         },
         "anti_claim": "Anti-principle JSON presence is migration progress, not proof that every failed-principle relation is obligation-mapped.",
     }
@@ -7402,11 +7441,11 @@ def expected_concept_instances(root: str | Path | None = None) -> dict[str, dict
     Inputs are `root`; notable helpers are `_expected_concept_instances_cached` and
     `_root_key`.
     """
-    return _expected_concept_instances_cached(_root_key(root))
+    return _expected_concept_instances_cached(_root_key(root), _source_projection_signature(root, "concept"))
 
 
 @lru_cache(maxsize=32)
-def _expected_concept_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
+def _expected_concept_instances_cached(root_key: str, source_signature: tuple = ()) -> dict[str, dict[str, Any]]:
     """
     Derive expected concept instances cached without touching module import state.
 
@@ -7428,11 +7467,11 @@ def expected_mechanism_instances(root: str | Path | None = None) -> dict[str, di
     Inputs are `root`; notable helpers are `_expected_mechanism_instances_cached` and
     `_root_key`.
     """
-    return _expected_mechanism_instances_cached(_root_key(root))
+    return _expected_mechanism_instances_cached(_root_key(root), _source_projection_signature(root, "mechanism"))
 
 
 @lru_cache(maxsize=32)
-def _expected_mechanism_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
+def _expected_mechanism_instances_cached(root_key: str, source_signature: tuple = ()) -> dict[str, dict[str, Any]]:
     """
     Compute expected mechanism instances cached from `root_key`.
 
@@ -7484,73 +7523,13 @@ def load_mechanism_instances(root: str | Path | None = None) -> dict[str, dict[s
 
 
 def validate_concept_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
-    """
-    Serialize `microcosm_core.doctrine_lattice.validate_concept_instance_corpus` into the
-    payload shape expected by doctrine lattice.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
-    """
-    errors: list[dict[str, Any]] = []
-    expected = expected_concept_instances(root)
-    actual = load_concept_instances(root)
-    expected_ids = set(expected)
-    actual_ids = set(actual)
-    for missing in sorted(expected_ids - actual_ids, key=_id_sort_key):
-        _add_error(errors, code="concept_json_instance_missing", path=_concept_instance_rel(missing), message="Expected concept JSON instance is missing.", concept_id=missing)
-    for extra in sorted(actual_ids - expected_ids, key=_id_sort_key):
-        _add_error(errors, code="concept_json_instance_extra", path=_concept_instance_rel(extra), message="Concept JSON instance has no entry-packet specimen source row.", concept_id=extra)
-    required = _instance_required_fields(root, "concept")
-    for concept_id in sorted(expected_ids & actual_ids, key=_id_sort_key):
-        payload = actual[concept_id]
-        missing_required = sorted(required - set(payload))
-        if missing_required:
-            _add_error(errors, code="concept_json_instance_missing_required_fields", path=_concept_instance_rel(concept_id), message="Concept JSON instance is missing required standard fields.", concept_id=concept_id, missing_required=missing_required)
-        if payload != expected[concept_id]:
-            _add_error(errors, code="concept_json_instance_specimen_parity_mismatch", path=_concept_instance_rel(concept_id), message="Concept JSON instance is not reproducible from the entry-packet specimen source.", concept_id=concept_id)
-    return {
-        "schema_version": "microcosm_concept_instance_corpus_validation_v1",
-        "status": "pass" if not errors else "blocked",
-        "expected_count": len(expected),
-        "json_instance_count": len(actual),
-        "missing_json_ids": sorted(expected_ids - actual_ids, key=_id_sort_key),
-        "extra_json_ids": sorted(actual_ids - expected_ids, key=_id_sort_key),
-        "errors": errors,
-    }
+    """Validate canonical derivation or strict on-disk parity for this pre-flip family."""
+    return _validate_source_instance_corpus(root, "concept")
 
 
 def validate_mechanism_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
-    """
-    Serialize `microcosm_core.doctrine_lattice.validate_mechanism_instance_corpus` into the
-    payload shape expected by doctrine lattice.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
-    """
-    errors: list[dict[str, Any]] = []
-    expected = expected_mechanism_instances(root)
-    actual = load_mechanism_instances(root)
-    expected_ids = set(expected)
-    actual_ids = set(actual)
-    for missing in sorted(expected_ids - actual_ids, key=_id_sort_key):
-        _add_error(errors, code="mechanism_json_instance_missing", path=_mechanism_instance_rel(missing), message="Expected mechanism JSON instance is missing.", mechanism_id=missing)
-    for extra in sorted(actual_ids - expected_ids, key=_id_sort_key):
-        _add_error(errors, code="mechanism_json_instance_extra", path=_mechanism_instance_rel(extra), message="Mechanism JSON instance has no mechanism-registry source row.", mechanism_id=extra)
-    required = _instance_required_fields(root, "mechanism")
-    for mechanism_id in sorted(expected_ids & actual_ids, key=_id_sort_key):
-        payload = actual[mechanism_id]
-        missing_required = sorted(required - set(payload))
-        if missing_required:
-            _add_error(errors, code="mechanism_json_instance_missing_required_fields", path=_mechanism_instance_rel(mechanism_id), message="Mechanism JSON instance is missing required standard fields.", mechanism_id=mechanism_id, missing_required=missing_required)
-        if payload != expected[mechanism_id]:
-            _add_error(errors, code="mechanism_json_instance_registry_parity_mismatch", path=_mechanism_instance_rel(mechanism_id), message="Mechanism JSON instance is not reproducible from the mechanism registry.", mechanism_id=mechanism_id)
-    return {
-        "schema_version": "microcosm_mechanism_instance_corpus_validation_v1",
-        "status": "pass" if not errors else "blocked",
-        "expected_count": len(expected),
-        "json_instance_count": len(actual),
-        "missing_json_ids": sorted(expected_ids - actual_ids, key=_id_sort_key),
-        "extra_json_ids": sorted(actual_ids - expected_ids, key=_id_sort_key),
-        "errors": errors,
-    }
+    """Validate canonical derivation or strict on-disk parity for this pre-flip family."""
+    return _validate_source_instance_corpus(root, "mechanism")
 
 
 def _unpopulated_relation_count(instances: dict[str, dict[str, Any]]) -> int:
@@ -7575,7 +7554,7 @@ def build_concept_instance_corpus(root: str | Path | None = None) -> dict[str, A
     expected = expected_concept_instances(root)
     actual = load_concept_instances(root)
     validation = validate_concept_instance_corpus(root)
-    instances = actual if actual else expected
+    instances = expected if validation["derives_from_canonical_source"] else actual
     return {
         "schema_version": "microcosm_concept_instance_corpus_v1",
         "source_of_record": CONCEPT_ENTRY_PACKET_REL,
@@ -7584,15 +7563,16 @@ def build_concept_instance_corpus(root: str | Path | None = None) -> dict[str, A
         "expected_concept_count": len(expected),
         "json_instance_count": len(actual),
         "instance_source_class": "json_instances_with_entry_packet_parity" if validation["status"] == "pass" and actual else "entry_packet_source_until_json_parity",
-        "instance_ids": sorted(actual or expected, key=_id_sort_key),
+        "instance_ids": sorted(expected if validation["derives_from_canonical_source"] else actual, key=_id_sort_key),
         "missing_json_ids": validation["missing_json_ids"],
         "extra_json_ids": validation["extra_json_ids"],
         "unpopulated_selective_relation_count": _unpopulated_relation_count(instances),
-        "parity_status": validation["status"],
+        "parity_status": validation["parity_status"],
+        **_source_projection_metadata(validation),
         "validation": validation,
         "source_refs": {
             "entry_packet": CONCEPT_ENTRY_PACKET_REL,
-            "json_instances": f"{CONCEPT_INSTANCE_DIR_REL}/*.json",
+            "json_instances": None if validation["derives_from_canonical_source"] else f"{CONCEPT_INSTANCE_DIR_REL}/*.json",
         },
         "anti_claim": "Concept JSON presence is migration progress, not proof that every concept is principle-grounded, axiom-constrained, or mechanism-instantiated.",
     }
@@ -7608,7 +7588,7 @@ def build_mechanism_instance_corpus(root: str | Path | None = None) -> dict[str,
     expected = expected_mechanism_instances(root)
     actual = load_mechanism_instances(root)
     validation = validate_mechanism_instance_corpus(root)
-    instances = actual if actual else expected
+    instances = expected if validation["derives_from_canonical_source"] else actual
     residual_details = _residual_relation_detail_rows(
         "mechanism",
         instances.values(),
@@ -7642,7 +7622,7 @@ def build_mechanism_instance_corpus(root: str | Path | None = None) -> dict[str,
         "expected_mechanism_count": len(expected),
         "json_instance_count": len(actual),
         "instance_source_class": "json_instances_with_registry_parity" if validation["status"] == "pass" and actual else "mechanism_registry_source_until_json_parity",
-        "instance_ids": sorted(actual or expected, key=_id_sort_key),
+        "instance_ids": sorted(expected if validation["derives_from_canonical_source"] else actual, key=_id_sort_key),
         "missing_json_ids": validation["missing_json_ids"],
         "extra_json_ids": validation["extra_json_ids"],
         "without_code_loci": sorted(without_code_loci, key=_id_sort_key),
@@ -7665,11 +7645,12 @@ def build_mechanism_instance_corpus(root: str | Path | None = None) -> dict[str,
         ),
         "selective_residual_relation_detail_count": len(selective_residual_details),
         "selective_residual_relation_details": selective_residual_details,
-        "parity_status": validation["status"],
+        "parity_status": validation["parity_status"],
+        **_source_projection_metadata(validation),
         "validation": validation,
         "source_refs": {
             "mechanism_registry": MECHANISM_REGISTRY_REL,
-            "json_instances": f"{MECHANISM_INSTANCE_DIR_REL}/*.json",
+            "json_instances": None if validation["derives_from_canonical_source"] else f"{MECHANISM_INSTANCE_DIR_REL}/*.json",
         },
         "anti_claim": "Mechanism JSON presence is migration progress; resolved code-locus paths do not prove runtime correctness, release readiness, or complete concept/sibling wiring.",
     }
@@ -8213,11 +8194,11 @@ def expected_organ_instances(root: str | Path | None = None) -> dict[str, dict[s
     Inputs are `root`; notable helpers are `_expected_organ_instances_cached` and
     `_root_key`.
     """
-    return _expected_organ_instances_cached(_root_key(root))
+    return _expected_organ_instances_cached(_root_key(root), _source_projection_signature(root, "organ"))
 
 
 @lru_cache(maxsize=32)
-def _expected_organ_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
+def _expected_organ_instances_cached(root_key: str, source_signature: tuple = ()) -> dict[str, dict[str, Any]]:
     """
     Compute expected organ instances cached from `root_key`.
 
@@ -8257,38 +8238,8 @@ def load_organ_instances(root: str | Path | None = None) -> dict[str, dict[str, 
 
 
 def validate_organ_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
-    """
-    Serialize `microcosm_core.doctrine_lattice.validate_organ_instance_corpus` into the
-    payload shape expected by doctrine lattice.
-
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
-    """
-    errors: list[dict[str, Any]] = []
-    expected = expected_organ_instances(root)
-    actual = load_organ_instances(root)
-    expected_ids = set(expected)
-    actual_ids = set(actual)
-    for missing in sorted(expected_ids - actual_ids, key=_id_sort_key):
-        _add_error(errors, code="organ_json_instance_missing", path=_organ_instance_rel(missing), message="Expected organ JSON instance is missing.", organ_id=missing)
-    for extra in sorted(actual_ids - expected_ids, key=_id_sort_key):
-        _add_error(errors, code="organ_json_instance_extra", path=_organ_instance_rel(extra), message="Organ JSON instance has no accepted atlas/registry source row.", organ_id=extra)
-    required = _instance_required_fields(root, "organ")
-    for organ_id in sorted(expected_ids & actual_ids, key=_id_sort_key):
-        payload = actual[organ_id]
-        missing_required = sorted(required - set(payload))
-        if missing_required:
-            _add_error(errors, code="organ_json_instance_missing_required_fields", path=_organ_instance_rel(organ_id), message="Organ JSON instance is missing required standard fields.", organ_id=organ_id, missing_required=missing_required)
-        if payload != expected[organ_id]:
-            _add_error(errors, code="organ_json_instance_atlas_registry_parity_mismatch", path=_organ_instance_rel(organ_id), message="Organ JSON instance is not reproducible from organ atlas plus accepted registry row.", organ_id=organ_id)
-    return {
-        "schema_version": "microcosm_organ_instance_corpus_validation_v1",
-        "status": "pass" if not errors else "blocked",
-        "expected_count": len(expected),
-        "json_instance_count": len(actual),
-        "missing_json_ids": sorted(expected_ids - actual_ids, key=_id_sort_key),
-        "extra_json_ids": sorted(actual_ids - expected_ids, key=_id_sort_key),
-        "errors": errors,
-    }
+    """Validate canonical derivation or strict on-disk parity for this pre-flip family."""
+    return _validate_source_instance_corpus(root, "organ")
 
 
 def _relation_residual_count(instances: dict[str, dict[str, Any]], *, requirement: str | None = None) -> int:
@@ -8318,7 +8269,7 @@ def build_organ_instance_corpus(root: str | Path | None = None) -> dict[str, Any
     expected = expected_organ_instances(root)
     actual = load_organ_instances(root)
     validation = validate_organ_instance_corpus(root)
-    instances = actual if actual else expected
+    instances = expected if validation["derives_from_canonical_source"] else actual
     residual_details = _residual_relation_detail_rows(
         "organ",
         instances.values(),
@@ -8339,7 +8290,7 @@ def build_organ_instance_corpus(root: str | Path | None = None) -> dict[str, Any
         "expected_organ_count": len(expected),
         "json_instance_count": len(actual),
         "instance_source_class": "json_instances_with_atlas_registry_parity" if validation["status"] == "pass" and actual else "organ_atlas_registry_source_until_json_parity",
-        "instance_ids": sorted(actual or expected, key=_id_sort_key),
+        "instance_ids": sorted(expected if validation["derives_from_canonical_source"] else actual, key=_id_sort_key),
         "missing_json_ids": validation["missing_json_ids"],
         "extra_json_ids": validation["extra_json_ids"],
         "required_relation_gap_count": _relation_residual_count(instances, requirement="required"),
@@ -8359,12 +8310,13 @@ def build_organ_instance_corpus(root: str | Path | None = None) -> dict[str, Any
         ),
         "selective_residual_relation_detail_count": len(selective_residual_details),
         "selective_residual_relation_details": selective_residual_details,
-        "parity_status": validation["status"],
+        "parity_status": validation["parity_status"],
+        **_source_projection_metadata(validation),
         "validation": validation,
         "source_refs": {
             "organ_atlas": "core/organ_atlas.json",
             "organ_registry": "core/organ_registry.json",
-            "json_instances": f"{ORGAN_INSTANCE_DIR_REL}/*.json",
+            "json_instances": None if validation["derives_from_canonical_source"] else f"{ORGAN_INSTANCE_DIR_REL}/*.json",
         },
         "anti_claim": "Organ JSON presence is migration progress, not proof that every organ has complete required links, selective doctrine constraints, runtime correctness, or release readiness.",
     }
@@ -8592,6 +8544,7 @@ def render_doctrine_mermaid(instances: list[dict[str, Any]]) -> str:
                 if target_status
                 not in {
                     "resolved_json_instance",
+                    "resolved_source_instance",
                     "resolved_registry_or_atlas_target",
                     "resolved_code_locus",
                     "resolved_paper_module_ref",
@@ -8611,6 +8564,7 @@ def build_lattice_health(
     root: str | Path | None = None,
     *,
     projection: dict[str, Any] | None = None,
+    expected_standards: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """
     Produce the build lattice health value used by `microcosm_core.doctrine_lattice`.
@@ -8620,6 +8574,8 @@ def build_lattice_health(
     `build_anti_principle_instance_corpus`, and 52 more.
     """
     resolved = _root(root)
+    if expected_standards is None:
+        expected_standards = expected_standard_instances(resolved)
     corpus = build_axiom_instance_corpus(resolved)
     principle_corpus = build_principle_instance_corpus(resolved)
     anti_principle_corpus = build_anti_principle_instance_corpus(resolved)
@@ -8628,7 +8584,7 @@ def build_lattice_health(
     organ_corpus = build_organ_instance_corpus(resolved)
     paper_module_instance_corpus = build_paper_module_instance_corpus(resolved)
     skill_corpus = build_skill_instance_corpus(resolved)
-    standard_corpus = build_standard_instance_corpus(resolved)
+    standard_corpus = build_standard_instance_corpus(resolved, expected_standards=expected_standards)
     instances = list(load_axiom_instances(resolved).values())
     if not instances:
         instances = list(expected_axiom_instances(resolved).values())
@@ -8653,9 +8609,9 @@ def build_lattice_health(
     skill_instances = list(load_skill_instances(resolved).values())
     if not skill_instances:
         skill_instances = list(expected_skill_instances(resolved).values())
-    standard_instances = list(load_standard_instances(resolved).values())
+    standard_instances = list(load_standard_instances(resolved, expected_standards=expected_standards).values())
     if not standard_instances:
-        standard_instances = list(expected_standard_instances(resolved).values())
+        standard_instances = list(expected_standards.values())
     support = evaluate_axiom_support_cover(resolved)
     support_frontiers = _as_dict(support.get("support_frontiers"))
     piloted_axioms = set(_strings(support.get("piloted_axioms")))
@@ -8921,6 +8877,7 @@ def build_lattice_health(
         "axioms": {
             "expected_count": corpus["expected_axiom_count"],
             "json_instance_count": corpus["json_instance_count"],
+            **_source_projection_metadata(corpus["validation"]),
             "parity_status": corpus["parity_status"],
             "unwitnessed": [
                 str(instance.get("id"))
@@ -8935,6 +8892,7 @@ def build_lattice_health(
             "known_count": len(all_principles),
             "legacy_markdown_count": len(routing_principles),
             "json_instance_count": principle_corpus["json_instance_count"],
+            **_source_projection_metadata(principle_corpus["validation"]),
             "expected_json_instance_count": principle_corpus["expected_principle_count"],
             "parity_status": principle_corpus["parity_status"],
             "obligation_level_supported_count": len(supported_principles),
@@ -8948,6 +8906,7 @@ def build_lattice_health(
         "anti_principles": {
             "known_count": anti_principle_corpus["expected_anti_principle_count"],
             "json_instance_count": anti_principle_corpus["json_instance_count"],
+            **_source_projection_metadata(anti_principle_corpus["validation"]),
             "parity_status": anti_principle_corpus["parity_status"],
             "guards_resolved_axiom_edge_count": sum(
                 len(
@@ -8968,6 +8927,7 @@ def build_lattice_health(
         "concepts": {
             "known_count": concept_corpus["expected_concept_count"],
             "json_instance_count": concept_corpus["json_instance_count"],
+            **_source_projection_metadata(concept_corpus["validation"]),
             "parity_status": concept_corpus["parity_status"],
             "source_specimen_count": len(_concept_source_rows(resolved)),
             "unpopulated_selective_edge_count": len(concept_unpopulated_edges),
@@ -8978,6 +8938,7 @@ def build_lattice_health(
             "accepted_count": len(_atlas_organs(resolved)),
             "expected_json_instance_count": organ_corpus["expected_organ_count"],
             "json_instance_count": organ_corpus["json_instance_count"],
+            **_source_projection_metadata(organ_corpus["validation"]),
             "parity_status": organ_corpus["parity_status"],
             "required_edge_gap_count": len(organ_required_edge_gaps),
             "required_edge_gaps": sorted(organ_required_edge_gaps, key=_id_sort_key),
@@ -9020,6 +8981,7 @@ def build_lattice_health(
         "mechanisms": {
             "known_count": mechanism_corpus["expected_mechanism_count"],
             "json_instance_count": mechanism_corpus["json_instance_count"],
+            **_source_projection_metadata(mechanism_corpus["validation"]),
             "parity_status": mechanism_corpus["parity_status"],
             "without_code_loci_count": len(mechanisms_without_code),
             "without_code_loci": mechanisms_without_code,
@@ -9310,12 +9272,12 @@ def build_lattice_health(
     }
     health["residual_pressure"] = _lattice_health_residual_pressure_rows(health)
     if (
-        corpus["parity_status"] == "pass"
-        and principle_corpus["parity_status"] == "pass"
-        and anti_principle_corpus["parity_status"] == "pass"
-        and concept_corpus["parity_status"] == "pass"
-        and mechanism_corpus["parity_status"] == "pass"
-        and organ_corpus["parity_status"] == "pass"
+        corpus["validation_status"] == "pass"
+        and principle_corpus["validation_status"] == "pass"
+        and anti_principle_corpus["validation_status"] == "pass"
+        and concept_corpus["validation_status"] == "pass"
+        and mechanism_corpus["validation_status"] == "pass"
+        and organ_corpus["validation_status"] == "pass"
         and paper_module_instance_corpus["parity_status"] == "pass"
         and skill_corpus["parity_status"] == "pass"
         and standard_corpus["parity_status"] == "pass"
@@ -9338,6 +9300,7 @@ def build_doctrine_projection(
     *,
     generated_at: str | None = None,
     command: str = "python -m microcosm_core.doctrine_lattice --doctrine-projection",
+    expected_standards: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """
     Serialize `microcosm_core.doctrine_lattice.build_doctrine_projection` into the payload
@@ -9346,7 +9309,11 @@ def build_doctrine_projection(
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     resolved = _root(root)
-    coverage = build_coverage_projection(resolved, generated_at=generated_at, command=command)
+    if expected_standards is None:
+        expected_standards = expected_standard_instances(resolved)
+    coverage = build_coverage_projection(
+        resolved, generated_at=generated_at, command=command, expected_standards=expected_standards
+    )
     corpus = build_axiom_instance_corpus(resolved)
     principle_corpus = build_principle_instance_corpus(resolved)
     anti_principle_corpus = build_anti_principle_instance_corpus(resolved)
@@ -9355,45 +9322,8 @@ def build_doctrine_projection(
     organ_corpus = build_organ_instance_corpus(resolved)
     paper_module_instance_corpus = build_paper_module_instance_corpus(resolved)
     skill_corpus = build_skill_instance_corpus(resolved)
-    standard_corpus = build_standard_instance_corpus(resolved)
-    instances = list(load_axiom_instances(resolved).values())
-    if not instances:
-        instances = list(expected_axiom_instances(resolved).values())
-    principle_instances = list(load_principle_instances(resolved).values())
-    if not principle_instances:
-        principle_instances = list(expected_principle_instances(resolved).values())
-    anti_principle_instances = list(load_anti_principle_instances(resolved).values())
-    if not anti_principle_instances:
-        anti_principle_instances = list(expected_anti_principle_instances(resolved).values())
-    concept_instances = list(load_concept_instances(resolved).values())
-    if not concept_instances:
-        concept_instances = list(expected_concept_instances(resolved).values())
-    mechanism_instances = list(load_mechanism_instances(resolved).values())
-    if not mechanism_instances:
-        mechanism_instances = list(expected_mechanism_instances(resolved).values())
-    organ_instances = list(load_organ_instances(resolved).values())
-    if not organ_instances:
-        organ_instances = list(expected_organ_instances(resolved).values())
-    paper_module_instances = list(load_paper_module_instances(resolved).values())
-    if not paper_module_instances:
-        paper_module_instances = list(expected_paper_module_instances(resolved).values())
-    skill_instances = list(load_skill_instances(resolved).values())
-    if not skill_instances:
-        skill_instances = list(expected_skill_instances(resolved).values())
-    standard_instances = list(load_standard_instances(resolved).values())
-    if not standard_instances:
-        standard_instances = list(expected_standard_instances(resolved).values())
-    all_instances = (
-        instances
-        + principle_instances
-        + anti_principle_instances
-        + concept_instances
-        + mechanism_instances
-        + organ_instances
-        + paper_module_instances
-        + skill_instances
-        + standard_instances
-    )
+    standard_corpus = build_standard_instance_corpus(resolved, expected_standards=expected_standards)
+    all_instances, source_derived_refs = _effective_projection_instances(resolved, expected_standards=expected_standards)
     support = evaluate_axiom_support_cover(resolved)
     support_frontiers = _as_dict(support.get("support_frontiers"))
     support_by_principle = {
@@ -9921,6 +9851,12 @@ def build_doctrine_projection(
             "authority_boundary",
             _source_instance_node_authority_boundary(kind),
         )
+        if (kind, instance_id) in source_derived_refs:
+            node["source_ref"] = source_derived_refs[(kind, instance_id)]
+            node["materialization_status"] = "source_derived_not_materialized"
+            node["materialized_json_ref"] = None
+        else:
+            node["materialization_status"] = "materialized_json"
         node_rows.append(node)
         for edge in _as_list(relationships.get("edges")):
             if not isinstance(edge, dict):
@@ -9928,13 +9864,17 @@ def build_doctrine_projection(
             row = _json(edge)
             row["source_kind"] = kind
             row["source_id"] = instance_id
+            target = (str(row.get("target_kind") or ""), str(row.get("target_id") or ""))
+            if row.get("target_status") == "resolved_json_instance" and target in source_derived_refs:
+                row["target_status"] = "resolved_source_instance"
+                row["target_source_ref"] = source_derived_refs[target]
             edge_rows.append(row)
     receipt_edge_rows = _receipt_evidence_edge_rows(all_instances, resolved)
     edge_rows.extend(receipt_edge_rows)
     node_rows.extend(_derived_doctrine_kind_node_rows(edge_rows))
     node_rows.extend(_derived_code_locus_node_rows(edge_rows, resolved))
     node_rows.extend(_derived_receipt_node_rows(receipt_edge_rows, resolved))
-    health = build_lattice_health(resolved, projection=coverage)
+    health = build_lattice_health(resolved, projection=coverage, expected_standards=expected_standards)
     return {
         "_doc": (
             "Generated doctrine-lattice projection from governed JSON instances where present, "
@@ -9953,12 +9893,12 @@ def build_doctrine_projection(
             "command": command,
         },
         "source_refs": {
-            "axiom_instances": f"{AXIOM_INSTANCE_DIR_REL}/*.json",
-            "principle_instances": f"{PRINCIPLE_INSTANCE_DIR_REL}/*.json",
-            "anti_principle_instances": f"{ANTI_PRINCIPLE_INSTANCE_DIR_REL}/*.json",
-            "concept_instances": f"{CONCEPT_INSTANCE_DIR_REL}/*.json",
-            "mechanism_instances": f"{MECHANISM_INSTANCE_DIR_REL}/*.json",
-            "organ_instances": f"{ORGAN_INSTANCE_DIR_REL}/*.json",
+            "axiom_instances": f"{AXIOM_INSTANCE_DIR_REL}/*.json" if load_axiom_instances(root) else None,
+            "principle_instances": f"{PRINCIPLE_INSTANCE_DIR_REL}/*.json" if load_principle_instances(root) else None,
+            "anti_principle_instances": f"{ANTI_PRINCIPLE_INSTANCE_DIR_REL}/*.json" if load_anti_principle_instances(root) else None,
+            "concept_instances": f"{CONCEPT_INSTANCE_DIR_REL}/*.json" if load_concept_instances(root) else None,
+            "mechanism_instances": f"{MECHANISM_INSTANCE_DIR_REL}/*.json" if load_mechanism_instances(root) else None,
+            "organ_instances": f"{ORGAN_INSTANCE_DIR_REL}/*.json" if load_organ_instances(root) else None,
             "paper_module_instances": f"{PAPER_MODULE_INSTANCE_DIR_REL}/*.json",
             "skill_instances": f"{SKILL_INSTANCE_DIR_REL}/*.json",
             "standard_instances": f"{STANDARD_INSTANCE_DIR_REL}/std_microcosm_*.json",
@@ -10003,12 +9943,12 @@ def build_doctrine_projection(
         },
         "status": (
             "pass"
-            if corpus["parity_status"] == "pass"
-            and principle_corpus["parity_status"] == "pass"
-            and anti_principle_corpus["parity_status"] == "pass"
-            and concept_corpus["parity_status"] == "pass"
-            and mechanism_corpus["parity_status"] == "pass"
-            and organ_corpus["parity_status"] == "pass"
+            if corpus["validation_status"] == "pass"
+            and principle_corpus["validation_status"] == "pass"
+            and anti_principle_corpus["validation_status"] == "pass"
+            and concept_corpus["validation_status"] == "pass"
+            and mechanism_corpus["validation_status"] == "pass"
+            and organ_corpus["validation_status"] == "pass"
             and paper_module_instance_corpus["parity_status"] == "pass"
             and skill_corpus["parity_status"] == "pass"
             and standard_corpus["parity_status"] == "pass"
@@ -10030,21 +9970,14 @@ def write_doctrine_projection(
     performed in this function.
     """
     resolved = _root(root)
+    expected_standards = expected_standard_instances(resolved)
     projection = build_doctrine_projection(
         resolved,
         command=command,
+        expected_standards=expected_standards,
     )
-    graph_instances = (
-        list(load_axiom_instances(resolved).values())
-        + list(load_principle_instances(resolved).values())
-        + list(load_anti_principle_instances(resolved).values())
-        + list(load_concept_instances(resolved).values())
-        + list(load_mechanism_instances(resolved).values())
-        + list(load_organ_instances(resolved).values())
-        + list(load_paper_module_instances(resolved).values())
-        + list(load_skill_instances(resolved).values())
-        + list(load_standard_instances(resolved).values())
-    )
+    graph_instances, source_refs = _effective_projection_instances(resolved, expected_standards=expected_standards)
+    graph_instances = _projection_instance_edges(graph_instances, source_refs)
     graph = render_doctrine_mermaid(graph_instances)
     health = _as_dict(projection.get("coverage_health"))
     outputs = {
@@ -10067,6 +10000,7 @@ def validate_doctrine_projection(root: str | Path | None = None) -> dict[str, An
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     resolved = _root(root)
+    expected_standards = expected_standard_instances(resolved)
     errors: list[dict[str, Any]] = []
     corpus_validation = validate_axiom_instance_corpus(resolved)
     principle_validation = validate_principle_instance_corpus(resolved)
@@ -10076,7 +10010,7 @@ def validate_doctrine_projection(root: str | Path | None = None) -> dict[str, An
     organ_validation = validate_organ_instance_corpus(resolved)
     paper_module_validation = validate_paper_module_instance_corpus(resolved)
     skill_validation = validate_skill_instance_corpus(resolved)
-    standard_validation = validate_standard_instance_corpus(resolved)
+    standard_validation = validate_standard_instance_corpus(resolved, expected_standards=expected_standards)
     if corpus_validation["status"] != "pass":
         errors.extend(_as_list(corpus_validation.get("errors")))
     if principle_validation["status"] != "pass":
@@ -10099,6 +10033,7 @@ def validate_doctrine_projection(root: str | Path | None = None) -> dict[str, An
         resolved,
         generated_at="check",
         command="python scripts/build/build_doctrine_projection.py --write",
+        expected_standards=expected_standards,
     )
     node_keys = {
         (str(node.get("kind") or ""), str(node.get("id") or ""))
@@ -10116,8 +10051,11 @@ def validate_doctrine_projection(root: str | Path | None = None) -> dict[str, An
                 path=f"{DOCTRINE_PROJECTION_REL}::edges[{index}]",
                 message="Every generated edge must carry source_ref and summary justification.",
             )
+        if edge.get("target_status") == "unresolved_json_instance" and edge.get("target_kind") == "mechanism":
+            _add_error(errors, code="doctrine_projection_unplanned_target_unresolved", path=f"{DOCTRINE_PROJECTION_REL}::edges[{index}]", message="Declared target is neither resolved from canonical source nor explicitly planned.", target_kind=edge.get("target_kind"), target_id=edge.get("target_id"))
         if edge.get("target_status") in {
             "resolved_json_instance",
+            "resolved_source_instance",
             "resolved_doctrine_kind_contract",
         }:
             key = (str(edge.get("target_kind") or ""), str(edge.get("target_id") or ""))
@@ -10167,17 +10105,8 @@ def validate_doctrine_projection(root: str | Path | None = None) -> dict[str, An
                         message=f"Doctrine projection field {key} is not reproducible from source.",
                     )
     graph_path = resolved / DOCTRINE_GRAPH_REL
-    expected_graph = render_doctrine_mermaid(
-        list(load_axiom_instances(resolved).values())
-        + list(load_principle_instances(resolved).values())
-        + list(load_anti_principle_instances(resolved).values())
-        + list(load_concept_instances(resolved).values())
-        + list(load_mechanism_instances(resolved).values())
-        + list(load_organ_instances(resolved).values())
-        + list(load_paper_module_instances(resolved).values())
-        + list(load_skill_instances(resolved).values())
-        + list(load_standard_instances(resolved).values())
-    )
+    graph_instances, source_refs = _effective_projection_instances(resolved, expected_standards=expected_standards)
+    expected_graph = render_doctrine_mermaid(_projection_instance_edges(graph_instances, source_refs))
     if not graph_path.is_file() or graph_path.read_text(encoding="utf-8") != expected_graph:
         _add_error(
             errors,
@@ -10245,6 +10174,7 @@ def build_coverage_projection(
     *,
     generated_at: str | None = None,
     command: str = "python -m microcosm_core.doctrine_lattice",
+    expected_standards: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """
     Serialize `microcosm_core.doctrine_lattice.build_coverage_projection` into the payload
@@ -10252,6 +10182,8 @@ def build_coverage_projection(
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
+    if expected_standards is None:
+        expected_standards = expected_standard_instances(root)
     standards = load_kind_standards(root)
     relation_registry = load_relation_registry(root)
     relation_validation = validate_relation_registry(relation_registry, standards)
@@ -10283,7 +10215,7 @@ def build_coverage_projection(
     organ_corpus = build_organ_instance_corpus(root)
     paper_module_instance_corpus = build_paper_module_instance_corpus(root)
     skill_corpus = build_skill_instance_corpus(root)
-    standard_corpus = build_standard_instance_corpus(root)
+    standard_corpus = build_standard_instance_corpus(root, expected_standards=expected_standards)
     coverage_organ_instances = list(load_organ_instances(root).values()) or list(
         expected_organ_instances(root).values()
     )
@@ -10368,12 +10300,12 @@ def build_coverage_projection(
             "organ_atlas": "core/organ_atlas.json",
             "mechanism_registry": MECHANISM_REGISTRY_REL,
             "paper_module_capsules": PAPER_MODULE_CAPSULES_REL,
-            "axiom_instances": f"{AXIOM_INSTANCE_DIR_REL}/*.json",
-            "principle_instances": f"{PRINCIPLE_INSTANCE_DIR_REL}/*.json",
-            "anti_principle_instances": f"{ANTI_PRINCIPLE_INSTANCE_DIR_REL}/*.json",
-            "concept_instances": f"{CONCEPT_INSTANCE_DIR_REL}/*.json",
-            "mechanism_instances": f"{MECHANISM_INSTANCE_DIR_REL}/*.json",
-            "organ_instances": f"{ORGAN_INSTANCE_DIR_REL}/*.json",
+            "axiom_instances": f"{AXIOM_INSTANCE_DIR_REL}/*.json" if load_axiom_instances(root) else None,
+            "principle_instances": f"{PRINCIPLE_INSTANCE_DIR_REL}/*.json" if load_principle_instances(root) else None,
+            "anti_principle_instances": f"{ANTI_PRINCIPLE_INSTANCE_DIR_REL}/*.json" if load_anti_principle_instances(root) else None,
+            "concept_instances": f"{CONCEPT_INSTANCE_DIR_REL}/*.json" if load_concept_instances(root) else None,
+            "mechanism_instances": f"{MECHANISM_INSTANCE_DIR_REL}/*.json" if load_mechanism_instances(root) else None,
+            "organ_instances": f"{ORGAN_INSTANCE_DIR_REL}/*.json" if load_organ_instances(root) else None,
             "paper_module_instances": f"{PAPER_MODULE_INSTANCE_DIR_REL}/*.json",
             "skill_instances": f"{SKILL_INSTANCE_DIR_REL}/*.json",
             "standard_instances": f"{STANDARD_INSTANCE_DIR_REL}/std_microcosm_*.json",
@@ -10662,8 +10594,11 @@ def build_entry_card(
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
+    expected_standards = expected_standard_instances(root)
     if projection is None:
-        projection = build_coverage_projection(root, generated_at=generated_at, command=command)
+        projection = build_coverage_projection(
+            root, generated_at=generated_at, command=command, expected_standards=expected_standards
+        )
     coverage = _as_dict(projection.get("organ_required_edge_coverage"))
     deficit = _as_dict(projection.get("deficit_summary"))
     axiom_corpus = _as_dict(projection.get("axiom_instance_corpus"))
@@ -10678,7 +10613,7 @@ def build_entry_card(
     paper_module_corpus = _as_dict(projection.get("paper_module_instance_corpus"))
     skill_corpus = _as_dict(projection.get("skill_instance_corpus"))
     standard_corpus = _as_dict(projection.get("standard_instance_corpus"))
-    health = build_lattice_health(root, projection=projection)
+    health = build_lattice_health(root, projection=projection, expected_standards=expected_standards)
     doctrine_kind_health = _as_dict(health.get("doctrine_kinds"))
     code_loci_health = _as_dict(health.get("code_loci"))
     receipts_health = _as_dict(health.get("receipts"))
@@ -10719,12 +10654,12 @@ def build_entry_card(
             "coverage_projection": "core/doctrine_lattice_coverage.json",
             "doctrine_projection": DOCTRINE_PROJECTION_REL,
             "doctrine_health": DOCTRINE_HEALTH_REL,
-            "axiom_instances": f"{AXIOM_INSTANCE_DIR_REL}/*.json",
-            "principle_instances": f"{PRINCIPLE_INSTANCE_DIR_REL}/*.json",
-            "anti_principle_instances": f"{ANTI_PRINCIPLE_INSTANCE_DIR_REL}/*.json",
-            "concept_instances": f"{CONCEPT_INSTANCE_DIR_REL}/*.json",
-            "mechanism_instances": f"{MECHANISM_INSTANCE_DIR_REL}/*.json",
-            "organ_instances": f"{ORGAN_INSTANCE_DIR_REL}/*.json",
+            "axiom_instances": f"{AXIOM_INSTANCE_DIR_REL}/*.json" if load_axiom_instances(root) else None,
+            "principle_instances": f"{PRINCIPLE_INSTANCE_DIR_REL}/*.json" if load_principle_instances(root) else None,
+            "anti_principle_instances": f"{ANTI_PRINCIPLE_INSTANCE_DIR_REL}/*.json" if load_anti_principle_instances(root) else None,
+            "concept_instances": f"{CONCEPT_INSTANCE_DIR_REL}/*.json" if load_concept_instances(root) else None,
+            "mechanism_instances": f"{MECHANISM_INSTANCE_DIR_REL}/*.json" if load_mechanism_instances(root) else None,
+            "organ_instances": f"{ORGAN_INSTANCE_DIR_REL}/*.json" if load_organ_instances(root) else None,
             "paper_module_instances": f"{PAPER_MODULE_INSTANCE_DIR_REL}/*.json",
             "skill_instances": f"{SKILL_INSTANCE_DIR_REL}/*.json",
             "standard_instances": f"{STANDARD_INSTANCE_DIR_REL}/std_microcosm_*.json",

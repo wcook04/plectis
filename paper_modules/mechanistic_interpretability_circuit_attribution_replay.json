@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Declared public circuit-attribution runtime receipt and source-module import evidence only; no live model access, model-transparency product claim, export of private weights, raw activations, proprietary prompts, hidden reasoning, provider calls, benchmark scores, release approval, publication approval, or whole-system correctness.",
-    "card": "Mechanistic Interpretability Circuit Attribution Replay checks that public circuit-attribution replay rows carry feature-to-edge links, intervention deltas, sufficiency and faithfulness limits, target/source refs, source-module digest evidence, secret-exclusion scans, negative cases, and authority ceilings. It validates the receipt contract only, not live model transparency, private weights, raw activations, proprietary prompts, hidden reasoning, provider calls, benchmark scores, release, publication, or whole-system correctness.",
-    "one_line": "Mechanistic interpretability replay validates public circuit-attribution receipt contracts without live model access or private activation export."
+    "authority_ceiling": "This toy replay does not establish transparency for a trained model or access private activations. Source digests check copied inputs, not the correctness of interpretability methods.",
+    "card": "The synthetic fixture supplies token IDs, embeddings and weights. The code averages embeddings, applies a linear layer, tanh and a second linear layer, then recomputes gradients and feature ablations for this small network. Despite its `toy_transformer` identifier, this network has no attention. It checks the declared top feature, graph paths and intervention references. A stale top-feature claim or disconnected graph is rejected.",
+    "one_line": "Checks a public circuit-attribution fixture and a small numerical model, recording whether the declared feature attribution agrees with its inputs."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.mechanistic_interpretability_circuit_attribution_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Declared public circuit-attribution runtime receipt and source-module import evidence only; no live model access, model-transparency product claim, export of private weights, raw activations, proprietary prompts, hidden reasoning, provider calls, benchmark scores, release approval, publication approval, or whole-system correctness.",
+    "authority_ceiling": "This toy replay does not establish transparency for a trained model or access private activations. Source digests check copied inputs, not the correctness of interpretability methods.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,9 +85,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Declared public circuit-attribution runtime receipt and source-module import evidence only; no live model access, model-transparency product claim, export of private weights, raw activations, proprietary prompts, hidden reasoning, provider calls, benchmark scores, release approval, publication approval, or whole-system correctness.",
-        "card": "Mechanistic Interpretability Circuit Attribution Replay checks that public circuit-attribution replay rows carry feature-to-edge links, intervention deltas, sufficiency and faithfulness limits, target/source refs, source-module digest evidence, secret-exclusion scans, negative cases, and authority ceilings. It validates the receipt contract only, not live model transparency, private weights, raw activations, proprietary prompts, hidden reasoning, provider calls, benchmark scores, release, publication, or whole-system correctness.",
-        "one_line": "Mechanistic interpretability replay validates public circuit-attribution receipt contracts without live model access or private activation export."
+        "authority_ceiling": "This toy replay does not establish transparency for a trained model or access private activations. Source digests check copied inputs, not the correctness of interpretability methods.",
+        "card": "The synthetic fixture supplies token IDs, embeddings and weights. The code averages embeddings, applies a linear layer, tanh and a second linear layer, then recomputes gradients and feature ablations for this small network. Despite its `toy_transformer` identifier, this network has no attention. It checks the declared top feature, graph paths and intervention references. A stale top-feature claim or disconnected graph is rejected.",
+        "one_line": "Checks a public circuit-attribution fixture and a small numerical model, recording whether the declared feature attribution agrees with its inputs."
       },
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
@@ -136,7 +136,7 @@
           "ref": "mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay"
         }
       ],
-      "title": "Mechanistic Interpretability Circuit Attribution Replay"
+      "title": "Circuit attribution replay"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row, and the atlas row currently relies on this capsule for paper-module binding.",
     "support_contract": {
@@ -412,7 +412,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Mechanistic interpretability replay validates public circuit-attribution receipt contracts without live model access or private activation export.",
+  "statement": "Checks a public circuit-attribution fixture and a small numerical model, recording whether the declared feature attribution agrees with its inputs.",
   "status": "active",
   "subjects": [
     {
@@ -424,7 +424,7 @@
       "ref": "mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay"
     }
   ],
-  "title": "Mechanistic Interpretability Circuit Attribution Replay",
+  "title": "Circuit attribution replay",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

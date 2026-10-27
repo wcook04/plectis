@@ -8,6 +8,8 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_computer_use_trace,
 )
@@ -744,11 +746,40 @@ def _assert_source_digest_matches_import_contract(
     target: Path,
 ) -> None:
     target_digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
-    source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
-    recorded_source_digest = row["body_import_verification"]["source_body_digest"]
+    verification = row["body_import_verification"]
+    recorded_source_digest = verification["source_body_digest"]
 
     assert row["body_digest"] == target_digest
-    assert row["body_import_verification"]["target_body_digest"] == target_digest
+    assert verification["target_body_digest"] == target_digest
+    if "source_snapshot_ref" in verification:
+        # Explicit retained snapshots are public source evidence for this
+        # import version, not an assertion about the current private macro HEAD.
+        target_ref = Path(str(row["target_ref"]).removeprefix("microcosm-substrate/"))
+        assert target_ref.parts and not target_ref.is_absolute() and ".." not in target_ref.parts
+        public_root = target.resolve()
+        for _part in target_ref.parts:
+            public_root = public_root.parent
+        assert (public_root / target_ref).resolve() == target.resolve()
+        snapshot_ref = Path(verification["source_snapshot_ref"])
+        manifest_ref = Path(verification["source_snapshot_manifest_ref"])
+        for ref in (snapshot_ref, manifest_ref):
+            assert ref.parts and not ref.is_absolute() and ".." not in ref.parts
+            assert (public_root / ref).resolve().is_relative_to(public_root)
+        snapshot = public_root / snapshot_ref
+        snapshot_digest = hashlib.sha256(snapshot.read_bytes()).hexdigest()
+        manifest = macro_projection_import_protocol.read_json_strict(public_root / manifest_ref)
+        matches = [
+            module for module in manifest["modules"]
+            if str(module.get("target_ref") or "").removeprefix("microcosm-substrate/") == snapshot_ref.as_posix()
+        ]
+        assert len(matches) == 1
+        entry = matches[0]
+        assert entry["body_copied"] is True and entry["body_in_receipt"] is False
+        assert entry["sha256_match"] is True
+        assert entry["source_sha256"] == entry["target_sha256"] == snapshot_digest
+        assert recorded_source_digest == f"sha256:{snapshot_digest}"
+        return
+    source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
     if recorded_source_digest == source_digest:
         return
 
@@ -764,6 +795,40 @@ def _assert_source_digest_matches_import_contract(
     assert drift["recorded_source_body_digest"] == recorded_source_digest
     assert drift["current_source_body_digest"] == source_digest
     assert recorded_source_digest == target_digest
+
+
+@pytest.mark.parametrize("change", ["missing_snapshot", "tampered_snapshot", "missing_manifest_binding", "wrong_manifest_digest"])
+def test_explicit_retained_source_snapshot_requires_manifest_and_exact_bytes(tmp_path: Path, change: str) -> None:
+    root = tmp_path / "standalone"
+    snapshot = root / "snapshots/source.py"
+    target = root / "copied/target.py"
+    snapshot.parent.mkdir(parents=True)
+    target.parent.mkdir(parents=True)
+    snapshot.write_text("value = 7\n")
+    target.write_bytes(snapshot.read_bytes())
+    digest = hashlib.sha256(snapshot.read_bytes()).hexdigest()
+    manifest = {"modules": [{
+        "body_copied": True, "body_in_receipt": False, "sha256_match": True,
+        "source_sha256": digest, "target_sha256": digest,
+        "target_ref": "microcosm-substrate/snapshots/source.py",
+    }]}
+    row = {"material_id": "retained", "target_ref": "copied/target.py", "body_digest": f"sha256:{digest}",
+           "body_import_verification": {"source_body_digest": f"sha256:{digest}", "target_body_digest": f"sha256:{digest}",
+                                        "source_snapshot_ref": "snapshots/source.py", "source_snapshot_manifest_ref": "snapshots/manifest.json"}}
+    manifest_path = root / "snapshots/manifest.json"
+    manifest_path.write_text(json.dumps(manifest))
+    _assert_source_digest_matches_import_contract(row=row, result={}, source=root / "unavailable_private_source.py", target=target)
+    if change == "missing_snapshot":
+        snapshot.unlink()
+    elif change == "tampered_snapshot":
+        snapshot.write_text("value = 8\n")
+    elif change == "missing_manifest_binding":
+        manifest["modules"] = []
+    else:
+        manifest["modules"][0]["source_sha256"] = "0" * 64
+    manifest_path.write_text(json.dumps(manifest))
+    with pytest.raises((AssertionError, FileNotFoundError)):
+        _assert_source_digest_matches_import_contract(row=row, result={}, source=root / "unavailable_private_source.py", target=target)
 
 
 def _assert_public_safe_verification_mode(row: dict[str, Any]) -> None:

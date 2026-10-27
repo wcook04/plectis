@@ -179,7 +179,7 @@ microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-b
 
 Scope limit: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.
 
-Source relation: `1482` edges, `54` files, `194` shards. Drill down with `microcosm organ-topology --organ bounded_autonomy_campaign_packet`.
+Source relation: `1530` edges, `54` files, `196` shards. Drill down with `microcosm organ-topology --organ bounded_autonomy_campaign_packet`.
 
 Evidence / doctrine / drilldown:
 
@@ -296,7 +296,7 @@ microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-b
 
 Scope limit: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.
 
-Source relation: `1482` edges, `54` files, `194` shards. Drill down with `microcosm organ-topology --organ bounded_autonomy_campaign_packet`.
+Source relation: `1530` edges, `54` files, `196` shards. Drill down with `microcosm organ-topology --organ bounded_autonomy_campaign_packet`.
 
 Evidence / doctrine / drilldown:
 
@@ -700,7 +700,7 @@ microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch
 
 Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
 
-Source relation: `2607` edges, `482` files, `1420` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+Source relation: `2608` edges, `482` files, `1420` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
 Evidence / doctrine / drilldown:
 
@@ -895,7 +895,7 @@ microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/fina
 
 Scope limit: synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim
 
-Source relation: `378` edges, `48` files, `83` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
+Source relation: `379` edges, `48` files, `83` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
 
 Evidence / doctrine / drilldown:
 
@@ -1454,7 +1454,7 @@ microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch
 
 Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
 
-Source relation: `2607` edges, `482` files, `1420` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+Source relation: `2608` edges, `482` files, `1420` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
 Evidence / doctrine / drilldown:
 
@@ -1536,7 +1536,7 @@ microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reade
 
 Scope limit: It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.
 
-Source relation: `2408` edges, `167` files, `471` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
+Source relation: `2452` edges, `167` files, `473` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
 
 Evidence / doctrine / drilldown:
 
@@ -1578,7 +1578,7 @@ microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-b
 
 Scope limit: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.
 
-Source relation: `1482` edges, `54` files, `194` shards. Drill down with `microcosm organ-topology --organ bounded_autonomy_campaign_packet`.
+Source relation: `1530` edges, `54` files, `196` shards. Drill down with `microcosm organ-topology --organ bounded_autonomy_campaign_packet`.
 
 Evidence / doctrine / drilldown:
 
@@ -1637,7 +1637,7 @@ PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_arti
 
 Scope limit: It validates the shape and presence of synthetic replay metadata and receipt references only - it does not run any experiment, metric script, or rerun, excludes any claim that a paper was actually replicated, that a benchmark claims was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes public sharing or launch.
 
-Source relation: `378` edges, `48` files, `83` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
+Source relation: `379` edges, `48` files, `83` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
 
 Evidence / doctrine / drilldown:
 
@@ -1716,7 +1716,7 @@ PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_r
 
 Scope limit: It validates the projection mechanics of a synthetic memory fixture only — that the required refs, decisions, paired replays, negative cases, and secret-exclusion scan line up and that receipts are body-free. It does not claim live-memory product quality, judge whether memory decisions were domain-correct, treat memory recall as source authority, adopt active injection, export private transcripts, use external model services, change source files, or include launch operations.
 
-Source relation: `159` edges, `9` files, `17` shards. Drill down with `microcosm organ-topology --organ agent_memory_temporal_conflict_replay`.
+Source relation: `161` edges, `9` files, `17` shards. Drill down with `microcosm organ-topology --organ agent_memory_temporal_conflict_replay`.
 
 Evidence / doctrine / drilldown:
 
@@ -1837,7 +1837,7 @@ microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch
 
 Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
 
-Source relation: `2607` edges, `482` files, `1420` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
+Source relation: `2608` edges, `482` files, `1420` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
 Evidence / doctrine / drilldown:
 

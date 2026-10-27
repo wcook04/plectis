@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Copied non-secret Ring2 verifier-trace repair metadata, source-module digests, public fixture receipts, and one deterministic public toy-theorem rerun only; no Lean/Lake authority, theorem correctness, proof body, oracle premise id, provider call, human approval as proof authority, release approval, publication approval, or whole-system correctness.",
-    "card": "Formal Math Verifier Trace Repair Loop is the public evidence membrane for proof-lab repair mechanics. It checks copied Ring2 run refs and digests, verifier attempts, trace grades, repair actions, promotion gates, source-module manifests, secret exclusion, and seven leakage or overclaim negative cases, then writes body-free receipts that keep proof bodies, oracle premise ids, provider payloads, Lean/Lake execution, and theorem-correctness claims out of scope.",
-    "one_line": "The public verifier-trace repair fixture validates copied non-secret Ring2 failure taxonomy, graph-update, oracle-repair contrast rows, source-module digests, negative cases, and one deterministic toy rerun without claiming proof authority."
+    "authority_ceiling": "Checks recorded repair traces and evaluates four toy inputs; it does not perform a fresh Lean proof check.",
+    "card": "This validator examines recorded attempt, verifier trace, repair, and promotion metadata. It connects a reported failure class to a repair action and checks a claim that a repaired attempt succeeded. That claim of promotion requires a reference to a cold rerun: a separate recorded check of the repaired attempt. The validator checks the reference and source records; it does not rerun the verifier. It writes a board and a validation receipt for inspection.",
+    "one_line": "This validator examines recorded attempt, verifier trace, repair, and promotion metadata."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.formal_math_verifier_trace_repair_loop",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Copied non-secret Ring2 verifier-trace repair metadata, source-module digests, public fixture receipts, and one deterministic public toy-theorem rerun only; no Lean/Lake authority, theorem correctness, proof body, oracle premise id, provider call, human approval as proof authority, release approval, publication approval, or whole-system correctness.",
+    "authority_ceiling": "Checks recorded repair traces and evaluates four toy inputs; it does not perform a fresh Lean proof check.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,9 +83,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Copied non-secret Ring2 verifier-trace repair metadata, source-module digests, public fixture receipts, and one deterministic public toy-theorem rerun only; no Lean/Lake authority, theorem correctness, proof body, oracle premise id, provider call, human approval as proof authority, release approval, publication approval, or whole-system correctness.",
-        "card": "Formal Math Verifier Trace Repair Loop is the public evidence membrane for proof-lab repair mechanics. It checks copied Ring2 run refs and digests, verifier attempts, trace grades, repair actions, promotion gates, source-module manifests, secret exclusion, and seven leakage or overclaim negative cases, then writes body-free receipts that keep proof bodies, oracle premise ids, provider payloads, Lean/Lake execution, and theorem-correctness claims out of scope.",
-        "one_line": "The public verifier-trace repair fixture validates copied non-secret Ring2 failure taxonomy, graph-update, oracle-repair contrast rows, source-module digests, negative cases, and one deterministic toy rerun without claiming proof authority."
+        "authority_ceiling": "Checks recorded repair traces and evaluates four toy inputs; it does not perform a fresh Lean proof check.",
+        "card": "This validator examines recorded attempt, verifier trace, repair, and promotion metadata. It connects a reported failure class to a repair action and checks a claim that a repaired attempt succeeded. That claim of promotion requires a reference to a cold rerun: a separate recorded check of the repaired attempt. The validator checks the reference and source records; it does not rerun the verifier. It writes a board and a validation receipt for inspection.",
+        "one_line": "This validator examines recorded attempt, verifier trace, repair, and promotion metadata."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -438,7 +438,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public verifier-trace repair fixture validates copied non-secret Ring2 failure taxonomy, graph-update, oracle-repair contrast rows, source-module digests, negative cases, and one deterministic toy rerun without claiming proof authority.",
+  "statement": "This validator examines recorded attempt, verifier trace, repair, and promotion metadata.",
   "status": "active",
   "subjects": [
     {

@@ -67,6 +67,13 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "spatial_simulation_board",
 )
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SPATIAL_BUNDLE_SOURCE_MATERIAL_IDS = frozenset(
+    {
+        "station_geometry_checker_source_body_import",
+        "station_geometry_checker_test_body_import",
+        "station_geometry_build_wiring_source_body_import",
+    }
+)
 PAYLOAD_BOUNDARY_ID = (
     "spatial_world_model_counterfactual_simulation_replay_payload_boundary"
 )
@@ -523,6 +530,7 @@ def _source_module_manifest_result(
     manifest_payload: object,
     *,
     public_root: Path,
+    require_complete: bool = False,
 ) -> dict[str, Any]:
     """
     Serialize
@@ -533,9 +541,21 @@ def _source_module_manifest_result(
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not isinstance(manifest_payload, dict):
+        findings = (
+            [{
+                "error_code": "SPATIAL_SOURCE_MODULE_FLOOR_INVALID",
+                "module_id": SOURCE_MODULE_MANIFEST_NAME,
+                "source_ref": "",
+                "target_ref": SOURCE_MODULE_MANIFEST_NAME,
+                "missing_anchors": [],
+                "reasons": ["source_manifest_missing_or_invalid"],
+            }]
+            if require_complete
+            else []
+        )
         return {
-            "status": "not_present",
-            "body_import_status": "not_present",
+            "status": "blocked" if require_complete else "not_present",
+            "body_import_status": "blocked" if require_complete else "not_present",
             "module_count": 0,
             "verified_module_count": 0,
             "module_ids": [],
@@ -543,12 +563,40 @@ def _source_module_manifest_result(
             "material_classes": [],
             "body_text_in_receipt": False,
             "body_in_receipt": False,
-            "findings": [],
+            "findings": findings,
         }
 
     findings: list[dict[str, Any]] = []
     module_results: list[dict[str, Any]] = []
     material_classes: set[str] = set()
+    if require_complete:
+        raw_modules = manifest_payload.get("modules")
+        rows = _rows(manifest_payload, "modules")
+        ids = [row.get("module_id") for row in rows]
+        expected_count = len(SPATIAL_BUNDLE_SOURCE_MATERIAL_IDS)
+        reasons = []
+        if not isinstance(raw_modules, list) or len(rows) != len(raw_modules):
+            reasons.append("modules_must_be_a_list_of_objects")
+        if (
+            len(ids) != expected_count
+            or not all(isinstance(value, str) for value in ids)
+            or set(ids) != SPATIAL_BUNDLE_SOURCE_MATERIAL_IDS
+        ):
+            reasons.append("required_source_material_ids_mismatch")
+        declared_count = manifest_payload.get("module_count")
+        if type(declared_count) is not int or declared_count != expected_count:
+            reasons.append("declared_module_count_mismatch")
+        if reasons:
+            findings.append(
+                {
+                    "error_code": "SPATIAL_SOURCE_MODULE_FLOOR_INVALID",
+                    "module_id": SOURCE_MODULE_MANIFEST_NAME,
+                    "source_ref": "",
+                    "target_ref": SOURCE_MODULE_MANIFEST_NAME,
+                    "missing_anchors": [],
+                    "reasons": reasons,
+                }
+            )
     if manifest_payload.get("body_text_in_receipt") is True:
         findings.append(
             {
@@ -1448,6 +1496,7 @@ def _build_result(
     source_module_summary = _source_module_manifest_result(
         payloads.get("source_module_manifest"),
         public_root=public_root,
+        require_complete=input_mode == "exported_spatial_world_model_simulation_bundle",
     )
     manifest_ref = (
         _display(input_dir / SOURCE_MODULE_MANIFEST_NAME, public_root=public_root)

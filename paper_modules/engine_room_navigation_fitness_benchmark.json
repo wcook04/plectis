@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public route-packet fixture evidence only; no live private kernel run, no embedding benchmark, no universal navigation benchmark, no release approval, no private-root equivalence, no source mutation, and no whole-system correctness.",
-    "card": "Engine Room Navigation Fitness Benchmark binds the staged navigation-fitness capsule to a concrete mechanism. It evaluates public route-packet fixtures for expected stable-id recall, precision, forbidden first routes, latency budgets, scent terms, and debt candidates without running the private kernel, validating embeddings, claiming universal benchmark authority, or upgrading release/private-root status.",
-    "one_line": "Public Engine Room component: route-packet benchmark evaluator for stable-id recall, precision, forbidden first routes, latency, and debt candidates."
+    "authority_ceiling": "The inputs are curated packets, not live private-kernel calls. Their scores do not establish general navigation or embedding performance.",
+    "card": "A route packet records the artifacts selected for a task, the first command and timing. Task fixtures specify the stable artifact IDs that should be selected. This evaluator compares saved route packets with those expectations. It matches selected artifact IDs against expected IDs, measures recall and precision, checks forbidden first routes and required words that indicate a useful route description, and records latency against a budget. Latency and sufficiency are separate: a correct packet can be slow, and a fast packet can miss a required ID.",
+    "one_line": "Score saved navigation packets for task sufficiency and latency."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.engine_room_navigation_fitness_benchmark",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public route-packet fixture evidence only; no live private kernel run, no embedding benchmark, no universal navigation benchmark, no release approval, no private-root equivalence, no source mutation, and no whole-system correctness.",
+    "authority_ceiling": "The inputs are curated packets, not live private-kernel calls. Their scores do not establish general navigation or embedding performance.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -94,9 +94,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public route-packet fixture evidence only; no live private kernel run, no embedding benchmark, no universal navigation benchmark, no release approval, no private-root equivalence, no source mutation, and no whole-system correctness.",
-        "card": "Engine Room Navigation Fitness Benchmark binds the staged navigation-fitness capsule to a concrete mechanism. It evaluates public route-packet fixtures for expected stable-id recall, precision, forbidden first routes, latency budgets, scent terms, and debt candidates without running the private kernel, validating embeddings, claiming universal benchmark authority, or upgrading release/private-root status.",
-        "one_line": "Public Engine Room component: route-packet benchmark evaluator for stable-id recall, precision, forbidden first routes, latency, and debt candidates."
+        "authority_ceiling": "The inputs are curated packets, not live private-kernel calls. Their scores do not establish general navigation or embedding performance.",
+        "card": "A route packet records the artifacts selected for a task, the first command and timing. Task fixtures specify the stable artifact IDs that should be selected. This evaluator compares saved route packets with those expectations. It matches selected artifact IDs against expected IDs, measures recall and precision, checks forbidden first routes and required words that indicate a useful route description, and records latency against a budget. Latency and sufficiency are separate: a correct packet can be slow, and a fast packet can miss a required ID.",
+        "one_line": "Score saved navigation packets for task sufficiency and latency."
       },
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -144,7 +144,7 @@
           "ref": "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark"
         }
       ],
-      "title": "Engine Room Navigation Fitness Benchmark"
+      "title": "Score navigation packets against fixture expectations"
     },
     "strangler_note": "Binds the legacy Markdown projection, staged Engine Room navigation-fitness runtime, fixture manifest, standard, focused tests, and admitted mechanism row to JSON capsule authority without treating generated projections, route packet scores, latency measurements, or green fixture status as live-kernel evidence, universal benchmark authority, release, private-root-equivalence, or whole-system authority. No accepted organ subject is claimed.",
     "support_contract": {
@@ -506,7 +506,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Public Engine Room component: route-packet benchmark evaluator for stable-id recall, precision, forbidden first routes, latency, and debt candidates.",
+  "statement": "Score saved navigation packets for task sufficiency and latency.",
   "status": "active",
   "subjects": [
     {
@@ -514,7 +514,7 @@
       "ref": "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark"
     }
   ],
-  "title": "Engine Room Navigation Fitness Benchmark",
+  "title": "Score navigation packets against fixture expectations",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

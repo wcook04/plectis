@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Copied public strategy metadata, public macro tool bodies, and public fixture/exported-bundle receipts only; no Lean/Lake execution, theorem correctness, oracle-label visibility, provider call, benchmark performance, release approval, publication approval, or whole-system correctness.",
-    "card": "Mathematical Strategy Atlas scores public problem features into explicit pre-oracle strategy hypotheses before retrieval or proof execution. It validates strategy ids, copied public macro tool bodies, retrieval-term effects, oracle-label exclusion, negative cases, and body-free receipts while keeping proof and provider authority out of scope.",
-    "one_line": "Pre-oracle strategy hypotheses make the first proof-search move inspectable without claiming proof or provider authority."
+    "authority_ceiling": "Scores strategy hypotheses from supplied features; it does not prove a statement or measure benchmark performance.",
+    "card": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution. The score weights matching triggers, penalizes negative triggers, and adds a capped bonus for retrieval-term matches. The fixture includes an `iff_goal` case selecting `iff_split`; an unmapped case can yield a typed selection miss.",
+    "one_line": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.mathematical_strategy_atlas",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Copied public strategy metadata, public macro tool bodies, and public fixture/exported-bundle receipts only; no Lean/Lake execution, theorem correctness, oracle-label visibility, provider call, benchmark performance, release approval, publication approval, or whole-system correctness.",
+    "authority_ceiling": "Scores strategy hypotheses from supplied features; it does not prove a statement or measure benchmark performance.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,9 +85,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Copied public strategy metadata, public macro tool bodies, and public fixture/exported-bundle receipts only; no Lean/Lake execution, theorem correctness, oracle-label visibility, provider call, benchmark performance, release approval, publication approval, or whole-system correctness.",
-        "card": "Mathematical Strategy Atlas scores public problem features into explicit pre-oracle strategy hypotheses before retrieval or proof execution. It validates strategy ids, copied public macro tool bodies, retrieval-term effects, oracle-label exclusion, negative cases, and body-free receipts while keeping proof and provider authority out of scope.",
-        "one_line": "Pre-oracle strategy hypotheses make the first proof-search move inspectable without claiming proof or provider authority."
+        "authority_ceiling": "Scores strategy hypotheses from supplied features; it does not prove a statement or measure benchmark performance.",
+        "card": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution. The score weights matching triggers, penalizes negative triggers, and adds a capped bonus for retrieval-term matches. The fixture includes an `iff_goal` case selecting `iff_split`; an unmapped case can yield a typed selection miss.",
+        "one_line": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -468,7 +468,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Pre-oracle strategy hypotheses make the first proof-search move inspectable without claiming proof or provider authority.",
+  "statement": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution.",
   "status": "active",
   "subjects": [
     {

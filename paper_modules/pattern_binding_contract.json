@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public pattern-binding fixtures, exported substrate bundles, route-readiness selector bundles, source-capsule refs, and body-free receipts only; no private pattern-ledger certification, release approval, provider call, hosted-public readiness, recipient work, private-data equivalence, source mutation, or whole-system correctness.",
-    "card": "Pattern Binding Contract is the public substrate membrane for mined pattern rows. It validates binding fields, source capsules, reference capsules, authority-chain handles, secret-exclusion scans, exported substrate bundles, and route-readiness selector overlays, then writes bounded receipts that keep private bodies out and prevent individual pattern rows from becoming standalone public leaves.",
-    "one_line": "The public pattern-binding organ validates pattern rows, source capsules, authority handles, exported substrate bundles, and route-readiness selector overlays while keeping mined rows organ-first and fixture-bound."
+    "authority_ceiling": "A passing binding is a consistent record under these checks; it does not prove that the pattern is useful or that copied source is correct.",
+    "card": "A pattern binding links a pattern ID to its governing standard, source references and limits. In the fixture, `pb_valid_synthetic_binding` points to `capsule.synthetic_pattern_contract`, a provenance record for the regression harness. The validator checks required fields, reference resolution, duplicate conflicts and private-body markers. It rejects missing references, conflicting duplicate patterns, private source bodies and public claims that exceed their evidence. A separate route-readiness bundle checks whether selector rows resolve through their owning routes.",
+    "one_line": "Checks pattern rows and their source, reference and authority-chain records, producing a validation result and related receipts."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.pattern_binding_contract",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public pattern-binding fixtures, exported substrate bundles, route-readiness selector bundles, source-capsule refs, and body-free receipts only; no private pattern-ledger certification, release approval, provider call, hosted-public readiness, recipient work, private-data equivalence, source mutation, or whole-system correctness.",
+    "authority_ceiling": "A passing binding is a consistent record under these checks; it does not prove that the pattern is useful or that copied source is correct.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -94,9 +94,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public pattern-binding fixtures, exported substrate bundles, route-readiness selector bundles, source-capsule refs, and body-free receipts only; no private pattern-ledger certification, release approval, provider call, hosted-public readiness, recipient work, private-data equivalence, source mutation, or whole-system correctness.",
-        "card": "Pattern Binding Contract is the public substrate membrane for mined pattern rows. It validates binding fields, source capsules, reference capsules, authority-chain handles, secret-exclusion scans, exported substrate bundles, and route-readiness selector overlays, then writes bounded receipts that keep private bodies out and prevent individual pattern rows from becoming standalone public leaves.",
-        "one_line": "The public pattern-binding organ validates pattern rows, source capsules, authority handles, exported substrate bundles, and route-readiness selector overlays while keeping mined rows organ-first and fixture-bound."
+        "authority_ceiling": "A passing binding is a consistent record under these checks; it does not prove that the pattern is useful or that copied source is correct.",
+        "card": "A pattern binding links a pattern ID to its governing standard, source references and limits. In the fixture, `pb_valid_synthetic_binding` points to `capsule.synthetic_pattern_contract`, a provenance record for the regression harness. The validator checks required fields, reference resolution, duplicate conflicts and private-body markers. It rejects missing references, conflicting duplicate patterns, private source bodies and public claims that exceed their evidence. A separate route-readiness bundle checks whether selector rows resolve through their owning routes.",
+        "one_line": "Checks pattern rows and their source, reference and authority-chain records, producing a validation result and related receipts."
       },
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -150,7 +150,7 @@
           "ref": "mechanism.pattern_binding_contract.validates_public_pattern_bindings"
         }
       ],
-      "title": "Pattern Binding Contract"
+      "title": "Pattern binding validation"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave pattern-binding fixture, exported substrate bundle, route-readiness selector bundle, mechanism row, Microcosm organ source locus, macro route-readiness validator, and source atlas row without treating Markdown, mined pattern rows, generated atlas docs, copied-body presence, or selector admission as release, publication, provider, private-ledger, source-mutation, or standalone public-leaf authority.",
     "support_contract": {
@@ -544,7 +544,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public pattern-binding organ validates pattern rows, source capsules, authority handles, exported substrate bundles, and route-readiness selector overlays while keeping mined rows organ-first and fixture-bound.",
+  "statement": "Checks pattern rows and their source, reference and authority-chain records, producing a validation result and related receipts.",
   "status": "active",
   "subjects": [
     {
@@ -556,7 +556,7 @@
       "ref": "mechanism.pattern_binding_contract.validates_public_pattern_bindings"
     }
   ],
-  "title": "Pattern Binding Contract",
+  "title": "Pattern binding validation",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

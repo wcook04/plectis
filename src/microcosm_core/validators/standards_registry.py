@@ -59,90 +59,6 @@ ORGAN_EVIDENCE_BASIS_KEYS = {
     "organ_evidence_strength_rank": "evidence_strength_rank",
     "truth_accounting_bucket": "truth_accounting_bucket",
 }
-ACCEPTED_PUBLIC_ORGANS = [
-    "pattern_binding_contract",
-    "executable_doctrine_grammar",
-    "proof_diagnostic_evidence_spine",
-    "formal_math_readiness_gate",
-    "corpus_readiness_mathlib_absence_gate",
-    "mathematical_strategy_atlas_hypothesis_scorer",
-    "tactic_portfolio_availability_probe",
-    "target_shape_tactic_routing_gate",
-    "lean_std_premise_index",
-    "formal_math_premise_retrieval",
-    "formal_math_verifier_trace_repair_loop",
-    "formal_evidence_cell_anchor_resolver",
-    "undeclared_library_prior_symbol_classifier",
-    "ring2_premise_retrieval_precision_recall_harness",
-    "agent_benchmark_integrity_anti_gaming_replay",
-    "provider_context_recipe_budget_policy",
-    "formal_math_lean_proof_witness",
-    "verifier_lab_kernel",
-    "verifier_lab_execution_spine",
-    "navigation_hologram_route_plane",
-    "mission_transaction_work_spine",
-    "durable_agent_work_landing_replay",
-    "research_replication_rubric_artifact_replay",
-    "world_model_projection_drift_control_room",
-    "spatial_world_model_counterfactual_simulation_replay",
-    "mechanistic_interpretability_circuit_attribution_replay",
-    "agent_route_observability_runtime",
-    "bridge_phase_continuity_runtime",
-    "pattern_assimilation_step",
-    "public_reveal_walkthrough",
-    "macro_projection_import_protocol",
-    "voice_to_doctrine_self_improvement_loop",
-    "cognitive_operator_registry",
-    "routing_anti_patterns_registry",
-    "prediction_oracle_reconciliation",
-    "standards_meta_diagnostics",
-    "cold_reader_route_map",
-    "agent_monitor_redteam_falsification_replay",
-    "agent_sabotage_scheming_monitor_replay",
-    "agent_memory_temporal_conflict_replay",
-    "sleeper_memory_poisoning_quarantine_replay",
-    "mcp_tool_authority_replay",
-    "proof_derived_governed_mutation_authorization",
-    "belief_state_process_reward_replay",
-    "agent_sandbox_policy_escape_replay",
-    "indirect_prompt_injection_information_flow_policy_replay",
-    "agentic_vulnerability_discovery_patch_proof_replay",
-    "materials_chemistry_closed_loop_lab_safety_replay",
-    "certificate_kernel_execution_lab",
-    "voice_to_doctrine_self_improvement_loop",
-    "cognitive_operator_registry",
-    "routing_anti_patterns_registry",
-    "agent_closeout_faithfulness_audit",
-    "doctrine_fact_claim_audit",
-    "self_ignorance_coverage_ledger",
-    "bounded_autonomy_campaign_packet",
-    "finance_forecast_evaluation_spine",
-    "batch4_proof_authority_runtime",
-    "batch5_authority_systems_capsule",
-    "batch6_unsurfaced_primitives_capsule",
-    "batch7_oracle_sibling_capsule",
-    "batch7_demo_take_console_capsule",
-    "batch7_secondary_runtime_capsule",
-    "batch7_macro_engines_capsule",
-    "batch8_tools_tail_primitives_capsule",
-    "batch8_policy_engines_capsule",
-    "batch8_audio_level_rms_port",
-    "batch8_structural_theses_capsule",
-    "engine_room_demo",
-    "batch9_macro_engines_capsule",
-    "batch10_governance_compilers_capsule",
-    "batch11_saturation_engines_capsule",
-    "tool_server_pressure_inventory",
-    "batch8_compliance_pipeline_capsule",
-    "batch10_live_source_drift_capsule",
-    "batch10_cold_eval_honesty_capsule",
-    "batch8_validator_checker_capsule",
-    "concurrency_mission_control",
-    "batch12_market_dashboard_read_model_capsule",
-    "batch12_prediction_market_board_capsule",
-    "batch12_release_claim_language_gate",
-]
-
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
@@ -211,33 +127,107 @@ def _load_standard(path: Path) -> dict[str, Any] | None:
     return payload
 
 
-def _acceptance_status(acceptance: dict[str, Any]) -> dict[str, Any]:
-    """
-    Serialize `microcosm_core.validators.standards_registry._acceptance_status` into the
-    payload shape expected by validators standards registry.
+def _acceptance_status(
+    acceptance: dict[str, Any],
+    organ_registry: dict[str, Any],
+    evidence_registry: dict[str, Any],
+) -> dict[str, Any]:
+    """Check the plan against current registry membership and declared evidence.
 
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    Admission requires agreement between the organ registry, acceptance plan
+    and fail-closed evidence-class assignments. This checks public metadata;
+    it does not promote an organ or revalidate its runtime receipts.
     """
-    accepted = [
-        str(row.get("organ_id"))
-        for row in acceptance.get("accepted_current_authority_organs", [])
-        if isinstance(row, dict) and row.get("organ_id")
-    ]
-    missing = [organ_id for organ_id in ACCEPTED_PUBLIC_ORGANS if organ_id not in accepted]
-    unexpected = [
-        organ_id for organ_id in accepted if organ_id not in ACCEPTED_PUBLIC_ORGANS
-    ]
+    errors: list[dict[str, Any]] = []
+
+    def rows(payload: dict[str, Any], key: str) -> dict[str, dict[str, Any]]:
+        values = payload.get(key)
+        if not isinstance(values, list):
+            errors.append({"code": "invalid_policy_rows", "source": key})
+            return {}
+        result = {}
+        for row in values:
+            if (not isinstance(row, dict) or type(row.get("organ_id")) is not str
+                    or not row["organ_id"].strip()):
+                errors.append({"code": "invalid_policy_row", "source": key})
+                continue
+            organ_id = row["organ_id"]
+            if organ_id in result:
+                errors.append({"code": "duplicate_policy_organ", "source": key, "organ_id": organ_id})
+            result[organ_id] = row
+        return result
+
+    organs = rows(organ_registry, "implemented_organs")
+    for organ_id, row in organs.items():
+        if row.get("status") != "accepted_current_authority":
+            errors.append({"code": "unaccepted_registry_status", "organ_id": organ_id})
+    expected = {organ_id: row for organ_id, row in organs.items()
+                if row.get("status") == "accepted_current_authority"}
+    accepted_rows = rows(acceptance, "accepted_current_authority_organs")
+    assignments = rows(evidence_registry, "organ_evidence_classes")
+    profiles = evidence_registry.get("class_profiles")
+    if not isinstance(profiles, dict):
+        profiles = {}
+    if not expected or not profiles or evidence_registry.get("fail_closed_no_default") is not True:
+        errors.append({"code": "invalid_accepted_evidence_policy"})
+    for organ_id, organ in expected.items():
+        evidence_class = organ.get("evidence_class")
+        profile = profiles.get(evidence_class) if type(evidence_class) is str else None
+        assignment = assignments.get(organ_id, {})
+        if not isinstance(profile, dict) or assignment.get("evidence_class") != evidence_class:
+            errors.append({"code": "invalid_organ_evidence_assignment", "organ_id": organ_id})
+            continue
+        if (type(profile.get("evidence_strength_rank")) is not int
+                or profile["evidence_strength_rank"] <= 0
+                or type(profile.get("truth_accounting_bucket")) is not str
+                or not profile["truth_accounting_bucket"]
+                or type(profile.get("counts_as_real_substrate_progress")) is not bool):
+            errors.append({"code": "invalid_organ_evidence_profile", "organ_id": organ_id})
+            continue
+        for key in ("evidence_strength_rank", "truth_accounting_bucket", "counts_as_real_substrate_progress"):
+            if key not in profile or type(organ.get(key)) is not type(profile[key]) or organ.get(key) != profile[key]:
+                errors.append({"code": "organ_evidence_profile_mismatch", "organ_id": organ_id, "field": key})
+    for organ_id, row in accepted_rows.items():
+        if row.get("status") != "accepted_current_authority":
+            errors.append({"code": "unaccepted_plan_status", "organ_id": organ_id})
+        organ = expected.get(organ_id)
+        if organ is not None:
+            for key in ("evidence_class", "truth_accounting_bucket", "runner"):
+                if not isinstance(organ.get(key), str) or not organ[key] or row.get(key) != organ[key]:
+                    errors.append({"code": "accepted_plan_registry_mismatch", "organ_id": organ_id, "field": key})
+            if row.get("counts_as_real_substrate_progress") is not organ.get("counts_as_real_substrate_progress"):
+                errors.append({"code": "accepted_plan_registry_mismatch", "organ_id": organ_id, "field": "counts_as_real_substrate_progress"})
+    for key in ("release_authorized", "hosted_public_authorized", "provider_calls_authorized",
+                "publication_authorized", "recipient_work_authorized",
+                "private_data_equivalence_authorized", "trading_or_financial_advice_authorized"):
+        if acceptance.get(key, False) is not False:
+            errors.append({"code": "acceptance_authority_exceeded", "field": key})
+    lean_authority = acceptance.get("lean_lake_authorized", False)
+    if not (lean_authority is False or type(lean_authority) is str and lean_authority == "bounded_public_witness_only"):
+        errors.append({"code": "acceptance_authority_exceeded", "field": "lean_lake_authorized"})
+    accepted = list(accepted_rows)
+    missing = [organ_id for organ_id in expected if organ_id not in accepted_rows]
+    unexpected = [organ_id for organ_id in accepted if organ_id not in expected]
+    deferred_rows = acceptance.get("deferred_organs", [])
+    if not isinstance(deferred_rows, list):
+        errors.append({"code": "invalid_policy_rows", "source": "deferred_organs"})
+        deferred_rows = []
     deferred = [
         str(row.get("organ_id"))
-        for row in acceptance.get("deferred_organs", [])
+        for row in deferred_rows
         if isinstance(row, dict) and row.get("organ_id")
     ]
+    if set(deferred) & set(accepted):
+        errors.append({"code": "accepted_organ_also_deferred"})
     return {
-        "status": PASS if not missing and not unexpected else "blocked_acceptance_mismatch",
+        "status": PASS if not missing and not unexpected and not errors else "blocked_acceptance_mismatch",
         "accepted_current_authority_organs": accepted,
         "missing_accepted_organs": missing,
         "unexpected_accepted_organs": unexpected,
         "deferred_organs": deferred,
+        "errors": errors,
+        "membership_source": "core/organ_registry.json::implemented_organs[status=accepted_current_authority]",
+        "evidence_source": "core/organ_evidence_classes.json",
         "lean_lake_authorized": acceptance.get("lean_lake_authorized", False),
         "release_authorized": bool(acceptance.get("release_authorized", False)),
     }
@@ -750,9 +740,15 @@ def validate_standards_registry(
 
     registry_declared_count = int(registry.get("standard_count") or len(rows))
     count_mismatch = registry_declared_count != len(rows)
-    acceptance = _acceptance_status(acceptance)
     organ_registry_file = public_root / "core/organ_registry.json"
     organ_registry = read_json_strict(organ_registry_file) if organ_registry_file.is_file() else {}
+    evidence_registry_file = public_root / "core/organ_evidence_classes.json"
+    evidence_registry = read_json_strict(evidence_registry_file) if evidence_registry_file.is_file() else {}
+    acceptance = _acceptance_status(
+        acceptance,
+        organ_registry if isinstance(organ_registry, dict) else {},
+        evidence_registry if isinstance(evidence_registry, dict) else {},
+    )
     organ_standard_alignment = _accepted_organ_standard_contract_alignment(
         loaded_standards,
         organ_registry if isinstance(organ_registry, dict) else {},
@@ -761,6 +757,8 @@ def validate_standards_registry(
     scan_paths_to_check = [registry_file, acceptance_file, *standard_paths]
     if organ_registry_file.is_file():
         scan_paths_to_check.append(organ_registry_file)
+    if evidence_registry_file.is_file():
+        scan_paths_to_check.append(evidence_registry_file)
     scan = _receipt_safe_scan(
         scan_paths(
             scan_paths_to_check,

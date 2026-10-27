@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public registry-contract fixture and copied non-secret macro body evidence only; no live operator execution, registry mutation, source mutation, provider call, release approval, private-data equivalence, operator correctness proof, or whole-system correctness.",
-    "card": "Cognitive Operator Registry is the public evidence membrane for reusable cognition as typed substrate. It validates public operator rows, dogfood receipts with cognition-delta evidence, negative cases for missing fields, missing dogfood, sprawl, operator-voice claims, authority overclaims, and private-source leakage, then checks copied non-secret macro registry, standard, and validator bodies by digest while keeping bodies out of receipts.",
-    "one_line": "The public cognitive-operator registry fixture validates operator-shape rows, active-operator dogfood receipts, anti-sprawl decisions, copied macro registry/standard/tool bodies, and authority ceilings without becoming operator source authority."
+    "authority_ceiling": "Resolving a reference does not prove the procedure caused improvement.",
+    "card": "Validates required fields, statuses and evidence references, including unresolved references.",
+    "one_line": "Checks a registry of procedures and cited use records."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.cognitive_operator_registry",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public registry-contract fixture and copied non-secret macro body evidence only; no live operator execution, registry mutation, source mutation, provider call, release approval, private-data equivalence, operator correctness proof, or whole-system correctness.",
+    "authority_ceiling": "Resolving a reference does not prove the procedure caused improvement.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,9 +82,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public registry-contract fixture and copied non-secret macro body evidence only; no live operator execution, registry mutation, source mutation, provider call, release approval, private-data equivalence, operator correctness proof, or whole-system correctness.",
-        "card": "Cognitive Operator Registry is the public evidence membrane for reusable cognition as typed substrate. It validates public operator rows, dogfood receipts with cognition-delta evidence, negative cases for missing fields, missing dogfood, sprawl, operator-voice claims, authority overclaims, and private-source leakage, then checks copied non-secret macro registry, standard, and validator bodies by digest while keeping bodies out of receipts.",
-        "one_line": "The public cognitive-operator registry fixture validates operator-shape rows, active-operator dogfood receipts, anti-sprawl decisions, copied macro registry/standard/tool bodies, and authority ceilings without becoming operator source authority."
+        "authority_ceiling": "Resolving a reference does not prove the procedure caused improvement.",
+        "card": "Validates required fields, statuses and evidence references, including unresolved references.",
+        "one_line": "Checks a registry of procedures and cited use records."
       },
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -136,7 +136,7 @@
           "ref": "mechanism.cognitive_operator_registry.validates_public_operator_contract"
         }
       ],
-      "title": "Cognitive Operator Registry"
+      "title": "Validate a registry of reusable reasoning procedures"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, copied non-secret cognitive-operator registry/standard/tool source-module manifest, mechanism row, Microcosm organ source locus, and source atlas row without treating Markdown or generated atlas docs as source authority.",
     "support_contract": {
@@ -477,7 +477,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public cognitive-operator registry fixture validates operator-shape rows, active-operator dogfood receipts, anti-sprawl decisions, copied macro registry/standard/tool bodies, and authority ceilings without becoming operator source authority.",
+  "statement": "Checks a registry of procedures and cited use records.",
   "status": "active",
   "subjects": [
     {
@@ -489,7 +489,7 @@
       "ref": "mechanism.cognitive_operator_registry.validates_public_operator_contract"
     }
   ],
-  "title": "Cognitive Operator Registry",
+  "title": "Validate a registry of reusable reasoning procedures",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

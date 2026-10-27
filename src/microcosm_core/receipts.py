@@ -16,11 +16,45 @@ import json
 import os
 import re
 import tempfile
+from contextlib import contextmanager
+from contextvars import ContextVar
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, Iterator
 
 from microcosm_core.schemas import StrictJsonError, read_json_strict
+
+
+@dataclass(frozen=True)
+class ReceiptWriteObservation:
+    """Successful writer intent; the payload digest precedes disk serialization."""
+    target: Path
+    payload_sha256: str
+
+
+_RECEIPT_WRITE_OBSERVERS: ContextVar[tuple[Callable[[ReceiptWriteObservation], None], ...]] = ContextVar(
+    "receipt_write_observers", default=())
+
+
+@contextmanager
+def observe_receipt_writes(observer: Callable[[ReceiptWriteObservation], None]) -> Iterator[None]:
+    """Observe writes in this context; writes outside it are not observed.
+
+    Observers receive only an immutable digest and resolved target after a
+    successful replace. A replay still reads the actual file independently.
+    """
+    token = _RECEIPT_WRITE_OBSERVERS.set((*_RECEIPT_WRITE_OBSERVERS.get(), observer))
+    try:
+        yield
+    finally:
+        _RECEIPT_WRITE_OBSERVERS.reset(token)
+
+
+def receipt_payload_digest(payload: dict[str, Any]) -> str:
+    """Canonical JSON commitment, including path-normalization provenance."""
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":"),
+                                    ensure_ascii=False, allow_nan=False).encode()).hexdigest()
 
 
 AUTHORITY_CEILING = "command_receipt_evidence_not_runtime_product_completeness"
@@ -418,6 +452,9 @@ def _write_json_atomic_unchecked(path: str | Path, payload: dict[str, Any]) -> N
     payload_to_write = _payload_with_stable_created_at(
         target, normalize_public_receipt_paths(payload)
     )
+    observers = _RECEIPT_WRITE_OBSERVERS.get()
+    # Compute before IO, but publish only after the intended replace succeeds.
+    observation = ReceiptWriteObservation(target.resolve(), receipt_payload_digest(payload_to_write)) if observers else None
     target.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp_name = tempfile.mkstemp(prefix=f"{target.name}.", dir=str(target.parent))
     try:
@@ -425,6 +462,9 @@ def _write_json_atomic_unchecked(path: str | Path, payload: dict[str, Any]) -> N
             json.dump(payload_to_write, fh, ensure_ascii=True, indent=2, sort_keys=True)
             fh.write("\n")
         os.replace(tmp_name, target)
+        if observation is not None:
+            for observer in observers:
+                observer(observation)
     except Exception:
         try:
             os.unlink(tmp_name)

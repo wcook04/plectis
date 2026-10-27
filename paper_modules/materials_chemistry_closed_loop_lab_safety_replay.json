@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Copied public Lab/Evolve macro/control/receipt/standard bodies, body-free simulator-only fixture receipts, runtime bundle receipts, and artifact safety/refusal validation only; no wetlab execution, hazardous synthesis guidance, reagent quantity, controlled or bioactive target, live assay, robot command, private lab notebook, provider call, discovery claim, benchmark score, release approval, publication approval, or product-progress evidence.",
-    "card": "Materials Chemistry Closed-Loop Lab-Safety Replay is the public lab-safety claim boundary for Microcosm. It checks candidate material refs, safety-screen refs, simulator-only assay refs, active-learning decisions, failure taxonomy refs, cold replay refs, source capsule hashes, Lab/Evolve replay graph evidence, copied non-secret macro/control/receipt/standard bodies, body-free receipt policy, and eight lab-safety overclaim negative cases while keeping wetlab protocols, hazardous synthesis steps, reagent quantities, controlled or bioactive targets, live lab credentials, robot commands, private lab notebook bodies, live assay data, discovery claims, benchmark scores, provider payloads, raw operator voice, and release authority out of receipts.",
-    "one_line": "The materials chemistry lab-safety replay validates body-free simulator-only closed-loop rows before any materials-lab or discovery language is allowed."
+    "authority_ceiling": "Checks synthetic simulator records, not laboratory safety or a discovery.",
+    "card": "This validator reads synthetic candidate, simulator assay, safety-screen, and selection records. It recomputes the selected candidate using assay proxy, active-learning, and safety-gate scores, then compares the result with the declared selection. It also checks the replay graph, source manifests, and negative-case refusals before writing a result and board.",
+    "one_line": "This validator reads synthetic candidate, simulator assay, safety-screen, and selection records."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.materials_chemistry_closed_loop_lab_safety_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Copied public Lab/Evolve macro/control/receipt/standard bodies, body-free simulator-only fixture receipts, runtime bundle receipts, and artifact safety/refusal validation only; no wetlab execution, hazardous synthesis guidance, reagent quantity, controlled or bioactive target, live assay, robot command, private lab notebook, provider call, discovery claim, benchmark score, release approval, publication approval, or product-progress evidence.",
+    "authority_ceiling": "Checks synthetic simulator records, not laboratory safety or a discovery.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,9 +86,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Copied public Lab/Evolve macro/control/receipt/standard bodies, body-free simulator-only fixture receipts, runtime bundle receipts, and artifact safety/refusal validation only; no wetlab execution, hazardous synthesis guidance, reagent quantity, controlled or bioactive target, live assay, robot command, private lab notebook, provider call, discovery claim, benchmark score, release approval, publication approval, or product-progress evidence.",
-        "card": "Materials Chemistry Closed-Loop Lab-Safety Replay is the public lab-safety claim boundary for Microcosm. It checks candidate material refs, safety-screen refs, simulator-only assay refs, active-learning decisions, failure taxonomy refs, cold replay refs, source capsule hashes, Lab/Evolve replay graph evidence, copied non-secret macro/control/receipt/standard bodies, body-free receipt policy, and eight lab-safety overclaim negative cases while keeping wetlab protocols, hazardous synthesis steps, reagent quantities, controlled or bioactive targets, live lab credentials, robot commands, private lab notebook bodies, live assay data, discovery claims, benchmark scores, provider payloads, raw operator voice, and release authority out of receipts.",
-        "one_line": "The materials chemistry lab-safety replay validates body-free simulator-only closed-loop rows before any materials-lab or discovery language is allowed."
+        "authority_ceiling": "Checks synthetic simulator records, not laboratory safety or a discovery.",
+        "card": "This validator reads synthetic candidate, simulator assay, safety-screen, and selection records. It recomputes the selected candidate using assay proxy, active-learning, and safety-gate scores, then compares the result with the declared selection. It also checks the replay graph, source manifests, and negative-case refusals before writing a result and board.",
+        "one_line": "This validator reads synthetic candidate, simulator assay, safety-screen, and selection records."
       },
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
@@ -139,7 +139,7 @@
           "ref": "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay"
         }
       ],
-      "title": "Materials Chemistry Closed-Loop Lab-Safety Replay"
+      "title": "Materials Chemistry Simulator Safety Replay"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave materials chemistry lab-safety fixture, exported runtime bundle, copied source-open manifest, mechanism row, Microcosm organ source locus, Lab/Evolve replay refactor, and real validation receipts without treating Markdown, generated atlas docs, copied-body presence, simulator-only material rows, Lab/Evolve replay graphs, source capsule hashes, or negative-case observation as wetlab safety certification, material discovery, benchmark performance, provider, release, publication, robot execution, or product-progress authority.",
     "support_contract": {
@@ -444,7 +444,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The materials chemistry lab-safety replay validates body-free simulator-only closed-loop rows before any materials-lab or discovery language is allowed.",
+  "statement": "This validator reads synthetic candidate, simulator assay, safety-screen, and selection records.",
   "status": "active",
   "subjects": [
     {
@@ -456,7 +456,7 @@
       "ref": "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay"
     }
   ],
-  "title": "Materials Chemistry Closed-Loop Lab-Safety Replay",
+  "title": "Materials Chemistry Simulator Safety Replay",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

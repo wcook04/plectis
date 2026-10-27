@@ -3,8 +3,11 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+import subprocess
 from pathlib import Path
 from typing import Any
+
+import pytest
 
 import microcosm_core.macro_tools.work_landing_control_spine as work_landing_control_spine
 from microcosm_core import cli
@@ -120,12 +123,11 @@ def test_work_landing_control_spine_accepts_copied_macro_sources(
         assert row["target_ref"].startswith(
             "microcosm-substrate/examples/work_landing_control_spine/"
         )
-        source_path = MICROCOSM_ROOT.parent / source_ref
-        target_path = MICROCOSM_ROOT.parent / row["target_ref"]
-        assert source_path.read_bytes() == target_path.read_bytes()
+        target_path = MICROCOSM_ROOT / row["target_ref"].removeprefix("microcosm-substrate/")
         digest = hashlib.sha256(target_path.read_bytes()).hexdigest()
         assert row["source_sha256"] == digest
         assert row["target_sha256"] == digest
+        assert row["sha256"] == digest
     assert result["anchor_summary"]["missing_anchor_count"] == 0
     assert result["contract_summary"]["authority_overclaim_count"] == 0
     assert result["authority_ceiling"]["live_git_mutation_authorized"] is False
@@ -144,6 +146,71 @@ def test_work_landing_control_spine_accepts_copied_macro_sources(
     assert "body_redacted" not in encoded
     assert "public_replacement" not in encoded
     assert "metadata_only" not in encoded
+
+
+@pytest.mark.parametrize("change", [None, "missing_review", "changed_bytes"])
+def test_work_landing_control_standalone_export_preserves_reviewed_pins(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, change: str | None,
+) -> None:
+    from microcosm_core import release_export
+
+    source = tmp_path / "source/microcosm-substrate"
+    bundle_ref = WORK_LANDING_CONTROL_BUNDLE.relative_to(MICROCOSM_ROOT)
+    shutil.copytree(
+        WORK_LANDING_CONTROL_BUNDLE,
+        source / bundle_ref,
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc"),
+    )
+    (source / "core").mkdir()
+    for name in ("source_module_refresh_policy_v0.json", "private_state_forbidden_classes.json"):
+        shutil.copy2(MICROCOSM_ROOT / "core" / name, source / "core" / name)
+    source_manifest = source / bundle_ref / "source_module_manifest.json"
+    manifest_bytes = source_manifest.read_bytes()
+    manifest = json.loads(manifest_bytes)
+    first_ref = manifest["modules"][0]["target_ref"].removeprefix("microcosm-substrate/")
+    if change == "missing_review":
+        policy_path = source / "core/source_module_refresh_policy_v0.json"
+        policy = json.loads(policy_path.read_text())
+        policy["reviewed_publication"]["copies"].pop(first_ref)
+        policy_path.write_text(json.dumps(policy))
+
+    substitutions = {
+        row["path"]: row
+        for row in release_export._restricted_source_module_substitution_rows(source)
+    }
+    assert set(substitutions) == ({first_ref} if change == "missing_review" else set())
+    artifact = tmp_path / "artifact/microcosm-substrate"
+    release_export._copy_allowed_files(
+        sorted(path for path in source.rglob("*") if path.is_file()),
+        root=source,
+        target=artifact,
+        private_body_substitutions=substitutions,
+    )
+    release_export._rewrite_private_body_stub_metadata(artifact, substitutions)
+    monkeypatch.setenv("GIT_CEILING_DIRECTORIES", str(tmp_path))
+    assert subprocess.run(
+        ["git", "rev-parse", "--is-inside-work-tree"], cwd=artifact,
+        capture_output=True, check=False,
+    ).returncode != 0
+    bundle = artifact / bundle_ref
+    if change != "missing_review":
+        assert (bundle / "source_module_manifest.json").read_bytes() == manifest_bytes
+        for row in manifest["modules"]:
+            assert hashlib.sha256((bundle / row["path"]).read_bytes()).hexdigest() == row["sha256"]
+    if change == "changed_bytes":
+        with (artifact / first_ref).open("a") as stream:
+            stream.write("\n# changed after export\n")
+    elif change == "missing_review":
+        assert (artifact / first_ref).read_bytes() != (source / first_ref).read_bytes()
+
+    result = validate_work_landing_control_bundle(
+        bundle, artifact / "receipts/test", command="pytest",
+    )
+    if change is None:
+        assert result["status"] == "pass"
+    else:
+        assert result["status"] == "blocked"
+        assert "SOURCE_DIGEST_MISMATCH" in result["error_codes"]
 
 
 def test_work_landing_control_spine_rejects_manifest_and_contract_drift(

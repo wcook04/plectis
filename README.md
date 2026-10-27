@@ -7,8 +7,12 @@ Its workflow operations use formally verified decision cores to plan reruns,
 check interface replacements and derive public-only reports. This research
 prototype also includes reference components for proof checking, agent
 reliability, forecasting and keeping documents consistent with their sources.
+A fourth verified core checks whether their replay evidence satisfies the
+declared source, input, claim-policy and receipt contract. Twelve component
+computations also have [their own specifications and proofs](formal/components/README.md).
 
 [Run the workflow example](#formally-checked-workflow-operations) ·
+[Check component replays](#checking-a-component-result) ·
 [Inspect the proofs](formal/README.md) ·
 [Browse the reference toolkit](#try-the-repository-tour) ·
 [Documentation](docs/README.md) · [Source map](#repository-layout)
@@ -48,61 +52,23 @@ To recheck the proofs with **Dafny 4.11.0**:
 make verify-operations DAFNY=/path/to/dafny
 ```
 
-This verifies all three cores, regenerates Python byte for byte and requires
-deliberately broken specifications to fail. `make check` checks the saved hashes
+This verifies the three workflow cores and replay admission, regenerates Python
+byte for byte and requires
+deliberately broken variants to fail. `make check` checks the saved hashes
 without running the prover. Read the [assumptions and trusted tools](formal/README.md)
 or [copy and install an operation](examples/operations/README.md).
 
-For a separate report-compilation experiment, run
-`PYTHONPATH=src python3 examples/operations/public_views_recipe_change.py`.
-Change one mixed report recipe; derive its public version and run it without
-private fields. A private condition controlling whether a public line appears
-is refused. An ordinary public-only renderer produces the same output; the
-research question is whether maintaining one checked recipe makes later changes
-easier. [Try the report compiler](docs/guides/public-views.md).
-
 ### Try the repository tour
 
-For a first look, run the tour with Python 3.11 or newer. No installation or
-model account is needed:
+For the broader reference toolkit, run this after cloning the repository as
+shown above:
 
 ```bash
-git clone https://github.com/wcook04/plectis
-cd plectis
 PYTHONPATH=src python3 -m plectis tour --format text .
 ```
 
-This lists project files, suggests a starting task and saves a local run record.
-It makes no model calls and leaves your source unchanged. The examples below
-show what the individual tools do; the tour itself does not run your tests or
-carry out the suggested task.
-
-<a href="https://wcook04.github.io/plectis/docs/system-map.html">
-  <img src="assets/system-map-dark.png" alt="Plectis system map in dark mode: seven families of software components surround the axioms, principles and failure modes they cite." width="100%">
-</a>
-
-[**Explore the system map →**](https://wcook04.github.io/plectis/docs/system-map.html)
-<br>
-<sub>Components around the rim; the doctrine they cite at the centre. Select a
-component or rule on the website to follow its connections.</sub>
-
-The tools were built with AI coding agents.
-[Authorship, third-party sources and licensing](#name-and-history) are recorded below.
-
-> **Looking for the mathematics?** Start with
-> [**Plectis Erdős →**](https://github.com/wcook04/plectis-erdos), the main research
-> repository for the Lean proofs, papers and open questions.
-> [Read the guide](https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md)
-> or [explore the mathematics map](https://wcook04.github.io/plectis/maths/universe.html).
-
-Browse the live [component pages](https://wcook04.github.io/plectis/docs/components.html),
-[papers](https://wcook04.github.io/plectis/#papers) and
-[films](https://wcook04.github.io/plectis/#videos) on the
-[Plectis website](https://wcook04.github.io/plectis/).
-
-The website and its maps are agent-readable. Start with the
-[agent navigation guide](https://wcook04.github.io/plectis/llms.txt)
-for text indexes, graph data and source links without running the visual maps.
+The tour lists project files and suggests a task. It does not run your tests or
+change your source.
 
 ## Can I use it today?
 
@@ -114,21 +80,43 @@ adapting it to your own project.
 
 | Status | What that means here |
 |---|---|
-| **Usable today** | Project inventory, suggested routes and selected examples, with component-specific prerequisites. |
+| **Usable today** | Four portable operation APIs, project inventory and selected examples; follow each operation's prerequisites. |
 | **Tested** | Named inputs and failure cases; the completion example includes Git and pytest subprocesses. |
 | **Experimental or unverified** | New project adaptations and end-to-end research automation need separate validation. |
 
-The 88-component catalogue does not establish an integrated public research
-platform, execution availability in every environment or external use of every
-component. The public prototype and the larger private workbench are separate. The
-[overview](docs/overview.md#the-public-workflow) follows one input through a
-selected command to its output and explains the boundary.
+The 88-component catalogue lists individual replays, not an integrated public
+research platform; check each replay's requirements. The [overview](docs/overview.md#the-public-workflow)
+shows one command's input, output and limits. The larger private workbench is
+separate from this clone.
 
-Maintainers can run every registered public example with `make component-replays`
-and recheck the three formal cores with `make verify-operations DAFNY=/path/to/dafny`.
-The [validation runbook](docs/maintainers/validation.md) lists dependencies and
-receipt locations; the [verification study](docs/guides/verification-study.md)
-separates execution evidence from proved properties.
+## Checking a component result
+
+A component runs its checker on supplied inputs and saves a receipt. The shared
+replay host captures source and input identities, the declared claim policy,
+the returned result, the public payload sent to the receipt writer, and the saved
+receipt. A [Dafny-verified admission rule](formal/replay/README.md)
+then requires exactly one matching result for every selected component, with no
+missing or duplicate rows, changed identities, altered public payloads or missing
+required execution evidence. Both replay commands call its generated Python.
+
+```bash
+make component-replays
+```
+
+This runs the current catalogue and writes new results under
+`.microcosm/component-replays/`; it needs the components' native tools, including
+Lean/Lake and Swift. The [replay guide](docs/maintainers/validation.md#fresh-component-replays)
+lists prerequisites and the [study](docs/guides/verification-study.md#checking-the-component-replay-itself)
+shows the failure cases behind the design.
+
+The [component proof index](formal/components/README.md) identifies twelve
+computations with their own verified specifications and generated implementations.
+Their adapters supply normalized observations; the component writes a result and
+receipt, and the separate admission core checks the captured replay evidence.
+Hashing, file capture, host normalization and the producer's choice of public
+receipt fields remain tested Python boundaries. A replay cannot inherit a proof
+of component correctness from another core or from the number of components that
+passed.
 
 ## Why this exists
 
@@ -140,9 +128,8 @@ contribute a correction or direction without operating the AI themselves.
 This toolkit publishes selected parts of that effort. The
 [mathematics repository](https://github.com/wcook04/plectis-erdos) contains the
 papers, proofs and open questions; the [website](https://wcook04.github.io/plectis/)
-explains both. The larger private workbench shown in the videos is separate
-from this clone. The [project overview](docs/overview.md) explains how the
-parts fit together and relates them to other research tools.
+explains both. The [project overview](docs/overview.md) relates these parts to
+other research tools.
 
 <a id="choose-a-route"></a>
 
@@ -150,6 +137,7 @@ parts fit together and relates them to other research tools.
 
 | You want to… | Start here |
 |---|---|
+| Change a workflow with declared guarantees | [Run the verification study](docs/guides/verification-study.md) and [choose an operation](examples/operations/README.md) |
 | Understand the project | [Why these tools belong together](docs/overview.md) |
 | Run something locally | [Quickstart](QUICKSTART.md) |
 | Follow a complete example | [Worked guides](docs/guides/README.md) |
@@ -158,6 +146,16 @@ parts fit together and relates them to other research tools.
 | Read the mathematics | [Companion reader's guide](https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md) |
 
 ## See it work
+
+A separate [report-compilation experiment](docs/guides/public-views.md) changes
+one mixed recipe, derives a public-only program and checks that a private
+condition cannot control whether a public line appears. An ordinary public-only
+renderer produces the same output; the value of maintaining one checked recipe
+still needs evaluation. Run it with:
+
+```bash
+PYTHONPATH=src python3 examples/operations/public_views_recipe_change.py
+```
 
 An AI says: “I committed the fix and the tests passed.” The
 [completion-checking guide](docs/guides/checking-agent-completion.md) shows how
@@ -202,8 +200,24 @@ files, and the runner reports unavailable requirements.
 | [Source and generated files](ORGANS.md#import-projection--drift) | Comparing file fingerprints and checking that declared outputs exist. |
 | [Work and continuity](ORGANS.md#work-landing--continuity) | Checking that a work record names its changes, validation results and commits. |
 
-You can [browse the components on the website](https://wcook04.github.io/plectis/docs/components.html)
-or list and search their descriptions from the terminal:
+<a href="https://wcook04.github.io/plectis/docs/system-map.html">
+  <img src="assets/system-map-dark.png" alt="Plectis system map: seven families of software components surround the axioms, principles and failure modes they cite." width="100%">
+</a>
+
+[**Explore the system map →**](https://wcook04.github.io/plectis/docs/system-map.html)
+<br>
+<sub>Select a component or rule on the website to follow its connections.</sub>
+
+Browse the live [component pages](https://wcook04.github.io/plectis/docs/components.html),
+[papers](https://wcook04.github.io/plectis/#papers) and
+[films](https://wcook04.github.io/plectis/#videos) on the
+[Plectis website](https://wcook04.github.io/plectis/). For text indexes and
+source links, use the [agent navigation guide](https://wcook04.github.io/plectis/llms.txt).
+For mathematical papers, Lean proofs and open questions, follow the
+[Plectis Erdős reader's guide](https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md)
+or the [mathematics map](https://wcook04.github.io/plectis/maths/universe.html).
+
+To search component descriptions from the terminal:
 
 ```bash
 PYTHONPATH=src python3 -m plectis comprehend --slice mechanism --format text
@@ -293,9 +307,9 @@ for using these APIs.
 
 ```text
 plectis/
-├── formal/               Dafny specifications, proofs and negative mutants
+├── formal/               Workflow, replay and component proofs with negative mutants
 ├── src/
-│   ├── plectis/           Operation APIs, generated kernels and CLI entry points
+│   ├── plectis/           Operation APIs, component kernels and CLI entry points
 │   └── microcosm_core/    Python implementation; components in organs/
 ├── docs/                 Guides, reference, maintainer notes and paper guide
 ├── examples/             Runnable examples and checked source bundles
@@ -335,9 +349,9 @@ and CI.
 The `source_modules/` directories inside exported examples contain copied
 implementations with provenance manifests. Component replays and installed
 examples depend on them. Older receipts retain the inputs and limits of their
-original runs; a new replay writes a new result. Neither a historical receipt
-nor inclusion in the catalogue grants a component the formal status of the
-three cores above.
+original runs; a new replay writes a new result. A historical receipt or
+catalogue entry does not itself prove a component; follow its source and, where
+available, its [component proof](formal/components/README.md).
 
 The [documentation index](docs/README.md) separates human guides, reference
 maps and maintainer instructions. Directory READMEs explain the examples and
@@ -393,8 +407,12 @@ make ci      # tests, command smoke tests and a fresh package installation
 
 `make ci` creates temporary environments and installs build and test
 dependencies, so it may need network access. `make help` lists narrower checks.
-The [validation guide](docs/maintainers/validation.md) explains how to reproduce
-release records and check generated files. Edit their source and run the owning
+Maintainers can run every registered public example with `make component-replays`
+and recheck the workflow and replay cores with
+`make verify-operations DAFNY=/path/to/dafny`. Run
+`make verify-components DAFNY=/path/to/dafny` for the twelve component kernels.
+The [validation guide](docs/maintainers/validation.md) explains dependencies,
+release records and generated files. Edit their source and run the owning
 builder rather than changing generated maps or recorded results by hand.
 The [release review](RELEASE_REVIEW.md) records the candidate’s checks;
 [source status](SOURCE_STATUS.md) explains which source material is included.

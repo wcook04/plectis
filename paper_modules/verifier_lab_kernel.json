@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public fixture and exported-bundle receipts only; no theorem-prover authority, Mathlib import authority, oracle-to-forward success, provider proof authority, benchmark solve-rate claim, release approval, publication approval, source mutation, or secret export.",
-    "card": "Verifier Lab Kernel is the public receipt compiler for the formal-math fixture cohort. It runs or consumes named component receipts, classifies proof-lab rows by authority class, preserves anti-claims, and excludes proof/provider/oracle bodies from exported receipts.",
-    "one_line": "The public verifier-lab composition root folds bounded formal-math component receipts into one leak-proof receipt while separating verifier-backed, oracle-compared, provider-suggested, retrieval-miss, CP2, Evolve, and contract-rejected rows."
+    "authority_ceiling": "The fixture path can invoke its bounded public Lean/Lake witness; compatible `lean` and `lake` are prerequisites. Provider suggestions and translated actions are not proofs, and the kernel does not validate arbitrary private proofs.",
+    "card": "The fixture checks component results alongside packet rules. It rejects an oracle result counted as forward success, a provider hypothesis claiming proof authority, and candidate bodies in fields that must remain body-free. Tests also exercise the standalone exported-bundle contract.",
+    "one_line": "The verifier-lab kernel combines a public component stack with a packet of forward problems, oracle sidecars, provider hypotheses and candidate actions."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.verifier_lab_kernel",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public fixture and exported-bundle receipts only; no theorem-prover authority, Mathlib import authority, oracle-to-forward success, provider proof authority, benchmark solve-rate claim, release approval, publication approval, source mutation, or secret export.",
+    "authority_ceiling": "The fixture path can invoke its bounded public Lean/Lake witness; compatible `lean` and `lake` are prerequisites. Provider suggestions and translated actions are not proofs, and the kernel does not validate arbitrary private proofs.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -79,9 +79,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public fixture and exported-bundle receipts only; no theorem-prover authority, Mathlib import authority, oracle-to-forward success, provider proof authority, benchmark solve-rate claim, release approval, publication approval, source mutation, or secret export.",
-        "card": "Verifier Lab Kernel is the public receipt compiler for the formal-math fixture cohort. It runs or consumes named component receipts, classifies proof-lab rows by authority class, preserves anti-claims, and excludes proof/provider/oracle bodies from exported receipts.",
-        "one_line": "The public verifier-lab composition root folds bounded formal-math component receipts into one leak-proof receipt while separating verifier-backed, oracle-compared, provider-suggested, retrieval-miss, CP2, Evolve, and contract-rejected rows."
+        "authority_ceiling": "The fixture path can invoke its bounded public Lean/Lake witness; compatible `lean` and `lake` are prerequisites. Provider suggestions and translated actions are not proofs, and the kernel does not validate arbitrary private proofs.",
+        "card": "The fixture checks component results alongside packet rules. It rejects an oracle result counted as forward success, a provider hypothesis claiming proof authority, and candidate bodies in fields that must remain body-free. Tests also exercise the standalone exported-bundle contract.",
+        "one_line": "The verifier-lab kernel combines a public component stack with a packet of forward problems, oracle sidecars, provider hypotheses and candidate actions."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -138,7 +138,7 @@
           "ref": "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts"
         }
       ],
-      "title": "Verifier Lab Kernel"
+      "title": "Inspect the verifier-lab kernel"
     },
     "strangler_note": "This capsule starts the source inversion pilot by binding the existing Markdown projection, mechanism, and code locus to a JSON authority row without treating Markdown as source.",
     "support_contract": {
@@ -520,7 +520,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public verifier-lab composition root folds bounded formal-math component receipts into one leak-proof receipt while separating verifier-backed, oracle-compared, provider-suggested, retrieval-miss, CP2, Evolve, and contract-rejected rows.",
+  "statement": "The verifier-lab kernel combines a public component stack with a packet of forward problems, oracle sidecars, provider hypotheses and candidate actions.",
   "status": "active",
   "subjects": [
     {
@@ -532,7 +532,7 @@
       "ref": "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts"
     }
   ],
-  "title": "Verifier Lab Kernel",
+  "title": "Inspect the verifier-lab kernel",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

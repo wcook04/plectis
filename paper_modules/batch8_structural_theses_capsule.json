@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Deterministic fixture evidence over public synthetic thesis rows and copied source refs only; no financial advice, investment recommendation, live-market validation, provider dispatch, portfolio authority, publication approval, release approval, or whole-system correctness.",
-    "card": "Batch 8 Structural Theses Capsule imports tools/finance/structural_theses.py as exact copied non-secret macro source and exercises CP1/CP2 thesis-family validation over public synthetic winner, loser, and control rows. It checks source digest parity, anchors, public family evidence, loser evidence, negative controls, survivor-only rejection, forward-gate-breach rejection, control-leak rejection, runtime verdicts, and authority ceilings while excluding financial advice, investment recommendations, live market data, provider calls, portfolio action, release, publication, and whole-system correctness.",
-    "one_line": "Batch 8 Structural Theses Capsule validates public synthetic thesis-family replay without financial advice, live-market validation, provider calls, or portfolio authority."
+    "authority_ceiling": "Synthetic examples check the validation rules, not predictive performance or investment advice. A frozen claim and a complete sampling frame matter to the interpretation of any real study.",
+    "card": "A survivor-only sample, a promoted refuted pattern and a confirmed negative control produce validation findings.",
+    "one_line": "A synthetic thesis family tests losses, controls and forward gates."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch8_structural_theses_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Deterministic fixture evidence over public synthetic thesis rows and copied source refs only; no financial advice, investment recommendation, live-market validation, provider dispatch, portfolio authority, publication approval, release approval, or whole-system correctness.",
+    "authority_ceiling": "Synthetic examples check the validation rules, not predictive performance or investment advice. A frozen claim and a complete sampling frame matter to the interpretation of any real study.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,9 +86,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Deterministic fixture evidence over public synthetic thesis rows and copied source refs only; no financial advice, investment recommendation, live-market validation, provider dispatch, portfolio authority, publication approval, release approval, or whole-system correctness.",
-        "card": "Batch 8 Structural Theses Capsule imports tools/finance/structural_theses.py as exact copied non-secret macro source and exercises CP1/CP2 thesis-family validation over public synthetic winner, loser, and control rows. It checks source digest parity, anchors, public family evidence, loser evidence, negative controls, survivor-only rejection, forward-gate-breach rejection, control-leak rejection, runtime verdicts, and authority ceilings while excluding financial advice, investment recommendations, live market data, provider calls, portfolio action, release, publication, and whole-system correctness.",
-        "one_line": "Batch 8 Structural Theses Capsule validates public synthetic thesis-family replay without financial advice, live-market validation, provider calls, or portfolio authority."
+        "authority_ceiling": "Synthetic examples check the validation rules, not predictive performance or investment advice. A frozen claim and a complete sampling frame matter to the interpretation of any real study.",
+        "card": "A survivor-only sample, a promoted refuted pattern and a confirmed negative control produce validation findings.",
+        "one_line": "A synthetic thesis family tests losses, controls and forward gates."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -140,7 +140,7 @@
           "ref": "mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule"
         }
       ],
-      "title": "Batch 8 Structural Theses Capsule"
+      "title": "Test a structural-thesis family with losses and controls"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row. Concept edges remain residual until a stable concept id is selected.",
     "support_contract": {
@@ -485,7 +485,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 8 Structural Theses Capsule validates public synthetic thesis-family replay without financial advice, live-market validation, provider calls, or portfolio authority.",
+  "statement": "A synthetic thesis family tests losses, controls and forward gates.",
   "status": "active",
   "subjects": [
     {
@@ -497,7 +497,7 @@
       "ref": "mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule"
     }
   ],
-  "title": "Batch 8 Structural Theses Capsule",
+  "title": "Test a structural-thesis family with losses and controls",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

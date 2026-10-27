@@ -12,6 +12,60 @@ installation in [Quickstart](../../QUICKSTART.md#2-install). Without installing,
 replace `plectis` with `PYTHONPATH=src python3 -m plectis` in this guide's
 commands. `python3 -m microcosm_core` remains the compatibility spelling.
 
+## Component computation proofs
+
+Twelve component paths call generated computations with their own Dafny
+specifications. The [component proof index](../../formal/components/README.md)
+links each theorem, production hook and limits. Run the hash-binding check as
+part of `make check`; it verifies saved source, generated-code and mutant
+identities without invoking Dafny. To reprove and regenerate with the pinned
+Dafny 4.11.0 release:
+
+```sh
+make verify-components DAFNY=/absolute/path/to/dafny
+```
+
+The checker requires each source-linked mutant to fail verification and compares
+the regenerated Python bytes with the shipped files. The CI proof job runs this
+alongside `make verify-operations`. Package-installation smoke exercises all
+registered component wrappers; it is a runtime check, not a substitute for
+reproof. For an individual computation, use the focused test and exact proof
+boundary linked from its guide.
+
+### Review the specification
+
+A passing proof says that code satisfies its formal statement; it does not say
+that the statement captures the component's intended behavior. Before accepting
+a component proof, ask a reviewer who did not write it to check the following:
+
+1. **Requirement and scope.** Trace the intended claim to the component source,
+   fixture contract or governing standard. Identify the inputs, output and
+   consumer before comparing them with the theorem and production hook.
+2. **Assumptions and examples.** Show a useful input satisfying every
+   precondition and a concrete input or output the requirement should reject.
+   Check that assumptions are consistent and do not exclude supported cases.
+   Do not use `assume`, axioms, external implementations or disabled
+   verification to make the obligation pass.
+3. **Discriminating failure.** Change executable logic while preserving the
+   specification and theorem; the source-linked mutant must fail a proof
+   obligation. A syntax error or timeout is not that evidence. Try a separate
+   counterexample that the formal statement might allow but the intended claim
+   would not.
+4. **Actual use and coverage.** Run a regression through the component's real
+   consumer and check that it calls the generated computation. Map each claimed
+   behavior to its proof or named test, including trusted normalization and
+   receipt handling. Mark the component's proof coverage partial when checks or
+   behavior remain outside the theorem; a shared admission proof does not fill
+   those gaps.
+
+For example, the [budget-packing proof](../../formal/components/budget_packing/README.md)
+rejects including both six-byte sections under a ten-byte budget. It bounds the
+*supplied* sizes; a wrong declared fallback size can still misstate the bytes in
+the underlying material. A reviewer must preserve that distinction in the
+claim. Record the source and theorem versions, examples, remaining assumptions,
+review outcome and validation commands. Neither the hash checker nor Dafny
+independently decides whether the requirement is the right one.
+
 ## Fresh component replays
 
 `make component-replays` runs every implemented component with its registered
@@ -26,16 +80,28 @@ that lane locally. A missing tool or blocked component fails the gate.
 Each run writes a fresh directory under `.microcosm/component-replays/`.
 `component-replays.json` records the source revision and working-tree state,
 runtime source hash, each input hash and the hash of its actual parsed receipt.
-The gate checks that receipt status agrees with the runner and that the run
-preserved its inputs. It continues after failures so the summary covers the
-complete registry. The dedicated CI job retains these files as an artifact,
+The shared host captures every selected input before any runner starts and
+rechecks all inputs and source identities after the run. It parses and hashes
+one captured receipt buffer, requires matching component identities and native
+evidence, and compares the saved payload with the public payload captured at the
+shared writer. Missing or ambiguous writes and linked or pre-existing output
+paths are rejected. The raw API result's digest is retained separately; the
+producer's choice of public fields remains outside the admission proof.
+It continues after failures so the summary covers the complete registry.
+The generated [replay admission core](../../formal/replay/README.md) decides the
+aggregate verdict from those observations: every declared component must occur
+exactly once and satisfy its identity, claim-policy, stability and witness checks.
+The theorem applies to any finite nonempty supplied registry; component count
+comes from the current registry, not a constant in the proof. The dedicated CI job retains these files as an artifact,
 including failed runs. The Python-version matrix continues to run `make ci`;
 the more expensive native component replay runs once in its own job.
 
 These results establish the named checks on the supplied public inputs.
+The admission proof checks the consistency and coverage of observed evidence;
+it does not authenticate a runner or prove the semantics of all components.
 They do not prove arbitrary application behavior. `make verify-operations`
 separately rechecks the formal decision kernels and their deliberately broken
-specifications. The governed-mutation example's portable Git-object witness
+variants. The governed-mutation example's portable Git-object witness
 checks a public source-change identity and changed paths without private Git
 history; it does not establish execution of the example's symbolic proposals.
 The cognitive-operator replay checks the current public snapshot and retains
@@ -271,6 +337,12 @@ make ci
 
 A successful run establishes that those commands worked in that exported
 copy. It does not authorize release.
+
+The **Standalone export and installation** CI job runs this same sequence in
+one fresh hosted checkout and retains the export receipt and smoke outputs.
+This is separate from the Python-version matrix: `make ci` itself does not
+recursively export another copy. Inspect the job and its artifact for the
+candidate commit before treating an older local export as current evidence.
 
 ## Isolate checks of build defaults
 

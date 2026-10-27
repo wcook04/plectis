@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture-bound public source-body import and secondary runtime/market witness evidence only; no browser/session export, wallet authority, live market data, investment advice, provider dispatch, release approval, private-root equivalence, semantic truth, source mutation, or complete UI/ranking coverage proof.",
-    "card": "Batch 7 Secondary Runtime Capsule binds the accepted batch7_secondary_runtime_capsule organ to copied public-safe runtime view-model, lane-progress, graph-lens, graph-projection, cartography, stockgrid, and Polymarket source bodies. It exercises eight fixture engines, source digest anchors, required anchors, UI witness metadata, synthetic runtime packets, synthetic market rows, negative cases, and authority ceilings while excluding browser/session export, wallet authority, live market data, investment advice, provider dispatch, release approval, private-root equivalence, semantic truth, and complete UI or ranking coverage.",
-    "one_line": "Batch 7 Secondary Runtime Capsule imports public-safe runtime, graph, cartography, stockgrid, and Polymarket bodies and exercises their fixture-bound boundaries."
+    "authority_ceiling": "These checks establish the named fixture behavior, not live-market accuracy, investment advice, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.",
+    "card": "Checks momentum, unsorted order-book prices and resolved-market scoring; it runs no UI or graph exercises.",
+    "one_line": "Three copied market primitives are exercised on synthetic data."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch7_secondary_runtime_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture-bound public source-body import and secondary runtime/market witness evidence only; no browser/session export, wallet authority, live market data, investment advice, provider dispatch, release approval, private-root equivalence, semantic truth, source mutation, or complete UI/ranking coverage proof.",
+    "authority_ceiling": "These checks establish the named fixture behavior, not live-market accuracy, investment advice, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -91,9 +91,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture-bound public source-body import and secondary runtime/market witness evidence only; no browser/session export, wallet authority, live market data, investment advice, provider dispatch, release approval, private-root equivalence, semantic truth, source mutation, or complete UI/ranking coverage proof.",
-        "card": "Batch 7 Secondary Runtime Capsule binds the accepted batch7_secondary_runtime_capsule organ to copied public-safe runtime view-model, lane-progress, graph-lens, graph-projection, cartography, stockgrid, and Polymarket source bodies. It exercises eight fixture engines, source digest anchors, required anchors, UI witness metadata, synthetic runtime packets, synthetic market rows, negative cases, and authority ceilings while excluding browser/session export, wallet authority, live market data, investment advice, provider dispatch, release approval, private-root equivalence, semantic truth, and complete UI or ranking coverage.",
-        "one_line": "Batch 7 Secondary Runtime Capsule imports public-safe runtime, graph, cartography, stockgrid, and Polymarket bodies and exercises their fixture-bound boundaries."
+        "authority_ceiling": "These checks establish the named fixture behavior, not live-market accuracy, investment advice, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.",
+        "card": "Checks momentum, unsorted order-book prices and resolved-market scoring; it runs no UI or graph exercises.",
+        "one_line": "Three copied market primitives are exercised on synthetic data."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -140,7 +140,7 @@
           "ref": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule"
         }
       ],
-      "title": "Batch 7 Secondary Runtime Capsule"
+      "title": "Synthetic market primitives: stock momentum and order books"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority. The subject names the accepted organ row plus the resolving mechanism row already present in organ_atlas/organ_registry and mechanism_sources; browser/session export, wallet authority, live market data, investment advice, and release authority stay out of scope.",
     "support_contract": {
@@ -394,7 +394,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 7 Secondary Runtime Capsule imports public-safe runtime, graph, cartography, stockgrid, and Polymarket bodies and exercises their fixture-bound boundaries.",
+  "statement": "Three copied market primitives are exercised on synthetic data.",
   "status": "active",
   "subjects": [
     {
@@ -406,7 +406,7 @@
       "ref": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule"
     }
   ],
-  "title": "Batch 7 Secondary Runtime Capsule",
+  "title": "Synthetic market primitives: stock momentum and order books",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

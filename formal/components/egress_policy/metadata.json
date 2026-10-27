@@ -1,0 +1,61 @@
+{
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "generated_python": {
+    "EgressPolicy.py": "5f9a2010608fec56e60c93cf408771a6bd4d1e195bc0d59c0072c112c7ccfc9d",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "__main__.py": "410585200c3b1832f49f77f16e31e116be5e704cacdd3007bce6b2bc31b40d54",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "529f2ef854c3f793c34ed1c4e1661eef2aeaa5cc967bf93c6d80b9f9e2640ea0"
+  },
+  "module": "EgressPolicy",
+  "mutations": {
+    "negative/MissingLeftGuard.dfy": {
+      "after": "      if t[i..i + |p|] == p &&\n         true &&\n         (!right || i + |p| == |t| || !AsciiWord(t[i + |p|])) {",
+      "before": "      if t[i..i + |p|] == p &&\n         (!left || i == 0 || !AsciiWord(t[i-1])) &&\n         (!right || i + |p| == |t| || !AsciiWord(t[i + |p|])) {",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    },
+    "negative/MissingLegitimizerGuard.dfy": {
+      "after": "      var violation := flags[2*i];",
+      "before": "      var violation := flags[2*i] && !flags[2*i+1];",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    },
+    "negative/MissingRightGuard.dfy": {
+      "after": "      if t[i..i + |p|] == p &&\n         (!left || i == 0 || !AsciiWord(t[i-1])) &&\n         true {",
+      "before": "      if t[i..i + |p|] == p &&\n         (!left || i == 0 || !AsciiWord(t[i-1])) &&\n         (!right || i + |p| == |t| || !AsciiWord(t[i + |p|])) {",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    }
+  },
+  "negative_results": {
+    "negative/MissingLeftGuard.dfy": {
+      "errors": 1,
+      "verified_tasks": 7
+    },
+    "negative/MissingLegitimizerGuard.dfy": {
+      "errors": 1,
+      "verified_tasks": 7
+    },
+    "negative/MissingRightGuard.dfy": {
+      "errors": 1,
+      "verified_tasks": 7
+    }
+  },
+  "negative_sha256": {
+    "negative/MissingLeftGuard.dfy": "5d1e2f7a161a58c05766eadcc3eb2d0c7be9842caa24241e4d7a3f057c376757",
+    "negative/MissingLegitimizerGuard.dfy": "9b82a874b704e79c191f86d63ef12c65b44bf467a51a66979dbf75ce08e0a952",
+    "negative/MissingRightGuard.dfy": "0b0794a1cd18da4ff19627b0cec208fcad4eeacfe61d37e93767eccdbe566608"
+  },
+  "negative_sources": [
+    "negative/MissingLeftGuard.dfy",
+    "negative/MissingRightGuard.dfy",
+    "negative/MissingLegitimizerGuard.dfy"
+  ],
+  "schema_version": 1,
+  "slug": "egress_policy",
+  "source": "EgressPolicy.dfy",
+  "source_sha256": "73d960cbdd0c7861a47405f29a577197769f8685c61b59b182d9cf981483a814",
+  "trust": "Python normalization, Unicode code-point and edge-flag conversion, generated runtime, sealed loader, process host, Dafny and solver remain trusted. Phrase rules do not establish semantic safety.",
+  "verified_tasks": 8
+}

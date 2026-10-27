@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Declared public-safe lesson-propagation fixture only; no raw operator voice export, private body export, provider payload export, source or doctrine mutation authority, global-promotion authority, live Task Ledger mutation, publication approval, release approval, provider calls, private-root equivalence, or whole-system correctness.",
-    "card": "Voice to Doctrine Self-Improvement Loop validates whether declared lessons refined a named owner surface with validation or were captured with a re-entry condition. It checks projection protocol, policy, owner surfaces, lesson rows, negative cases, source-open body imports, and authority ceilings while rejecting raw operator voice export, private thread bodies, provider payloads, direct doctrine-node edits, unvalidated global promotion, live Task Ledger mutation, publication, release, and whole-system correctness.",
-    "one_line": "Voice to Doctrine Self-Improvement Loop validates public-safe lesson propagation without exporting raw operator voice or granting doctrine mutation authority."
+    "authority_ceiling": "The validator checks records and references; it does not itself make the changes described by a lesson. It cannot establish that private operator speech or private thread content has been faithfully represented.",
+    "card": "The checks resolve referenced public paths and anchors and compare each lesson with the declared sequence and allowed outcomes. A record claiming global promotion without owner validation is rejected, as is treating a receipt alone as progress. Tests mutate references to ensure the result follows the actual target rather than a stored expected label.",
+    "one_line": "This validator checks public records that connect a local lesson to an owner surface, validation and closeout."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.voice_to_doctrine_self_improvement_loop",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Declared public-safe lesson-propagation fixture only; no raw operator voice export, private body export, provider payload export, source or doctrine mutation authority, global-promotion authority, live Task Ledger mutation, publication approval, release approval, provider calls, private-root equivalence, or whole-system correctness.",
+    "authority_ceiling": "The validator checks records and references; it does not itself make the changes described by a lesson. It cannot establish that private operator speech or private thread content has been faithfully represented.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,9 +86,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Declared public-safe lesson-propagation fixture only; no raw operator voice export, private body export, provider payload export, source or doctrine mutation authority, global-promotion authority, live Task Ledger mutation, publication approval, release approval, provider calls, private-root equivalence, or whole-system correctness.",
-        "card": "Voice to Doctrine Self-Improvement Loop validates whether declared lessons refined a named owner surface with validation or were captured with a re-entry condition. It checks projection protocol, policy, owner surfaces, lesson rows, negative cases, source-open body imports, and authority ceilings while rejecting raw operator voice export, private thread bodies, provider payloads, direct doctrine-node edits, unvalidated global promotion, live Task Ledger mutation, publication, release, and whole-system correctness.",
-        "one_line": "Voice to Doctrine Self-Improvement Loop validates public-safe lesson propagation without exporting raw operator voice or granting doctrine mutation authority."
+        "authority_ceiling": "The validator checks records and references; it does not itself make the changes described by a lesson. It cannot establish that private operator speech or private thread content has been faithfully represented.",
+        "card": "The checks resolve referenced public paths and anchors and compare each lesson with the declared sequence and allowed outcomes. A record claiming global promotion without owner validation is rejected, as is treating a receipt alone as progress. Tests mutate references to ensure the result follows the actual target rather than a stored expected label.",
+        "one_line": "This validator checks public records that connect a local lesson to an owner surface, validation and closeout."
       },
       "concept_refs": [
         "concept.voice_to_doctrine_self_improvement_loop_bundle",
@@ -138,7 +138,7 @@
           "ref": "mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop"
         }
       ],
-      "title": "Voice to Doctrine Self-Improvement Loop"
+      "title": "Validate a lesson-to-owner record"
     },
     "strangler_note": "Binds the Markdown projection, runtime locus, organ subject, and admitted mechanism subject to JSON source authority; authority remains fixture/receipt scoped and does not flip Markdown into source.",
     "support_contract": {
@@ -429,7 +429,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Voice to Doctrine Self-Improvement Loop validates public-safe lesson propagation without exporting raw operator voice or granting doctrine mutation authority.",
+  "statement": "This validator checks public records that connect a local lesson to an owner surface, validation and closeout.",
   "status": "active",
   "subjects": [
     {
@@ -441,7 +441,7 @@
       "ref": "mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop"
     }
   ],
-  "title": "Voice to Doctrine Self-Improvement Loop",
+  "title": "Validate a lesson-to-owner record",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

@@ -111,3 +111,45 @@ def test_package_staging_keeps_maintained_builders_and_drops_generated_output(tm
     assert (staged / "scripts/build/build_map.py").read_text() == "fixture"
     assert not (staged / "build").exists()
     assert not (staged / "scripts/build/__pycache__").exists()
+
+
+@pytest.mark.parametrize("wheel_names", [
+    ["plectis-0.0.0-py3-none-any.whl"], [], ["other-0.0.0-py3-none-any.whl"],
+    ["plectis-0.0.0-py3-none-any.whl", "plectis-0.0.1-py3-none-any.whl"],
+])
+def test_package_smoke_installs_only_the_single_built_wheel(
+    tmp_path, monkeypatch, smoke_module, wheel_names
+):
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "pyproject.toml").write_text("[project]\nname='plectis'\n")
+    work = tmp_path / "work"
+    installed = []
+
+    def run(argv, **kwargs):
+        assert "PYTHONPATH" not in kwargs.get("env", {})
+        if argv[1:4] == ["-I", "-m", "venv"]:
+            assert kwargs["cwd"] == work / "project"
+            return subprocess.CompletedProcess(argv, 0, "", "")
+        if "wheel" in argv:
+            wheel_dir = Path(argv[argv.index("--wheel-dir") + 1])
+            wheel_dir.mkdir()
+            for name in wheel_names:
+                (wheel_dir / name).write_bytes(b"test-only wheel inventory")
+            return subprocess.CompletedProcess(argv, 0, "", "")
+        if "install" in argv:
+            assert "--no-index" in argv
+            assert "--no-deps" in argv
+            installed.append(Path(argv[-1]))
+            raise RuntimeError("explicit wheel install reached")
+        pytest.fail(f"unexpected command: {argv}")
+
+    monkeypatch.setattr(smoke_module, "_run", run)
+    if len(wheel_names) == 1 and wheel_names[0].startswith("plectis-"):
+        with pytest.raises(RuntimeError, match="explicit wheel install reached"):
+            smoke_module.run_package_smoke(source, work, sys.executable)
+        assert installed == [work / "wheelhouse" / wheel_names[0]]
+    else:
+        with pytest.raises(SystemExit, match="exactly one Plectis wheel"):
+            smoke_module.run_package_smoke(source, work, sys.executable)
+        assert installed == []

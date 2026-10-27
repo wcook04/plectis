@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public fixture metadata, exported assimilation bundle metadata, copied non-secret body-import digest evidence, and body-free receipts only; no live Task Ledger or Work Ledger mutation, raw-seed ingestion, global doctrine promotion, release or publication authority, provider calls, behavior-change proof, private-data equivalence, or whole-system correctness.",
-    "card": "Pattern Assimilation binds the accepted pattern_assimilation_step organ to the public acceptance validator, first-wave fixture, exported assimilation bundle, source-module manifest, standard row, and body-free receipts. It checks same-lane closeout decisions, owner-surface refinement evidence, stewardship and re-entry fields, duplicate receipt rejection, local-lesson authority ceilings, raw-seed exclusion, copied non-secret body imports, and public-relative receipt paths while excluding live ledger mutation, raw operator voice ingestion, provider payloads, global doctrine promotion, release, publication, behavior-change proof, and private-data equivalence.",
-    "one_line": "Pattern Assimilation validates public closeout-learning metadata, owner-routed refinement receipts, typed nothing-to-refine decisions, and copied non-secret body-import manifests without promoting local lessons into global doctrine."
+    "authority_ceiling": "The check establishes the recorded closeout contract for supplied rows. It does not establish that a refinement improved the system or that every lesson has been found.",
+    "card": "A decision can point to a refinement receipt naming an owner and artifact, or to a `nothing_to_refine` receipt with stewardship, next-lane and re-entry checks. The validator resolves those references and checks duplicate IDs. It rejects a landed row with a missing closeout or a dead receipt reference; a local refinement cannot claim global doctrine authority.",
+    "one_line": "Checks whether each landed component in an input set has a linked, same-lane closeout decision and writes a validation receipt."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.pattern_assimilation",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public fixture metadata, exported assimilation bundle metadata, copied non-secret body-import digest evidence, and body-free receipts only; no live Task Ledger or Work Ledger mutation, raw-seed ingestion, global doctrine promotion, release or publication authority, provider calls, behavior-change proof, private-data equivalence, or whole-system correctness.",
+    "authority_ceiling": "The check establishes the recorded closeout contract for supplied rows. It does not establish that a refinement improved the system or that every lesson has been found.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,9 +86,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public fixture metadata, exported assimilation bundle metadata, copied non-secret body-import digest evidence, and body-free receipts only; no live Task Ledger or Work Ledger mutation, raw-seed ingestion, global doctrine promotion, release or publication authority, provider calls, behavior-change proof, private-data equivalence, or whole-system correctness.",
-        "card": "Pattern Assimilation binds the accepted pattern_assimilation_step organ to the public acceptance validator, first-wave fixture, exported assimilation bundle, source-module manifest, standard row, and body-free receipts. It checks same-lane closeout decisions, owner-surface refinement evidence, stewardship and re-entry fields, duplicate receipt rejection, local-lesson authority ceilings, raw-seed exclusion, copied non-secret body imports, and public-relative receipt paths while excluding live ledger mutation, raw operator voice ingestion, provider payloads, global doctrine promotion, release, publication, behavior-change proof, and private-data equivalence.",
-        "one_line": "Pattern Assimilation validates public closeout-learning metadata, owner-routed refinement receipts, typed nothing-to-refine decisions, and copied non-secret body-import manifests without promoting local lessons into global doctrine."
+        "authority_ceiling": "The check establishes the recorded closeout contract for supplied rows. It does not establish that a refinement improved the system or that every lesson has been found.",
+        "card": "A decision can point to a refinement receipt naming an owner and artifact, or to a `nothing_to_refine` receipt with stewardship, next-lane and re-entry checks. The validator resolves those references and checks duplicate IDs. It rejects a landed row with a missing closeout or a dead receipt reference; a local refinement cannot claim global doctrine authority.",
+        "one_line": "Checks whether each landed component in an input set has a linked, same-lane closeout decision and writes a validation receipt."
       },
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -144,7 +144,7 @@
           "ref": "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step"
         }
       ],
-      "title": "Pattern Assimilation"
+      "title": "Pattern assimilation closeout check"
     },
     "strangler_note": "Binds the Markdown projection, accepted organ subject, admitted mechanism subject, and runtime locus to JSON source authority; selective concept/principle/axiom refs remain residual unless source evidence names resolving Microcosm doctrine ids.",
     "support_contract": {
@@ -571,7 +571,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Pattern Assimilation validates public closeout-learning metadata, owner-routed refinement receipts, typed nothing-to-refine decisions, and copied non-secret body-import manifests without promoting local lessons into global doctrine.",
+  "statement": "Checks whether each landed component in an input set has a linked, same-lane closeout decision and writes a validation receipt.",
   "status": "active",
   "subjects": [
     {
@@ -583,7 +583,7 @@
       "ref": "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step"
     }
   ],
-  "title": "Pattern Assimilation",
+  "title": "Pattern assimilation closeout check",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

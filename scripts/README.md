@@ -29,13 +29,21 @@ See the [maintenance guide](../docs/maintainers/architecture.md).
 
 ## Formal operations
 
-`make verify-operations DAFNY=/path/to/dafny` runs the Repair, Compatibility and
-public-view proof checkers in
+`make verify-operations DAFNY=/path/to/dafny` runs the Repair, Compatibility,
+public-view and replay-admission proof checkers in
 `check/`, regenerates the executable Python and compares its bytes, and requires
-negative specifications to fail. Without `--dafny`, those scripts only check
+negative variants to fail. Without `--dafny`, those scripts only check
 recorded hashes and the generated source inventories. `release/verify_operations_install.py` exercises the APIs from
 an installed interpreter in isolated mode; `make package-smoke` includes it.
-See [formal/README.md](../formal/README.md) for assumptions and reproduction.
+
+`make verify-components DAFNY=/path/to/dafny` runs
+`check/check_component_kernels.py` to reprove the twelve registered component
+kernels, regenerate their Python and check the source-linked mutants. Without
+`--dafny`, that checker verifies saved hash bindings rather than rerunning the
+prover. The installation smoke check also exercises the component wrappers.
+
+See [formal/README.md](../formal/README.md) and the [component proof index](../formal/components/README.md)
+for assumptions and reproduction.
 
 ## Earlier command paths
 

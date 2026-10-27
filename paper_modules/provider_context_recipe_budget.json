@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Context-budget projection fixture and source-body import evidence only; no provider or API call authorization, no Lean or Lake execution, no proof or oracle truth-side material, no theorem or domain correctness, no release approval, no publication approval, and no whole-system correctness.",
-    "card": "Provider Context Recipe Budget validates provider-context recipe mechanics: fixed byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, digest-checked source-body imports, forbidden-body rejection, negative cases, and authority ceilings. It emits context metadata and verdicts only, without provider/API authorization, Lean/Lake execution, proof or oracle truth-side material, theorem correctness, domain correctness, release, publication, or whole-system correctness.",
-    "one_line": "Provider Context Recipe Budget validates context-budget projection mechanics without authorizing provider calls or truth-side material."
+    "authority_ceiling": "A recipe that suppresses its omitted-sections manifest or permits proof bodies is rejected. This checks recipe accounting and policy, not a provider call or model performance.",
+    "card": "This validator takes ordered context recipes and section material, measures available section bodies, falling back to a declared byte size when a body is unavailable, and includes each section if it fits the remaining byte budget. Its result lists included and omitted sections with sizes, while redacting their bodies. The token count is a rough estimate of one token per four bytes.",
+    "one_line": "This validator takes ordered context recipes and section material, measures available section bodies and includes each section if it fits the remaining byte budget."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.provider_context_recipe_budget",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Context-budget projection fixture and source-body import evidence only; no provider or API call authorization, no Lean or Lake execution, no proof or oracle truth-side material, no theorem or domain correctness, no release approval, no publication approval, and no whole-system correctness.",
+    "authority_ceiling": "A recipe that suppresses its omitted-sections manifest or permits proof bodies is rejected. This checks recipe accounting and policy, not a provider call or model performance.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -87,9 +87,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Context-budget projection fixture and source-body import evidence only; no provider or API call authorization, no Lean or Lake execution, no proof or oracle truth-side material, no theorem or domain correctness, no release approval, no publication approval, and no whole-system correctness.",
-        "card": "Provider Context Recipe Budget validates provider-context recipe mechanics: fixed byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, digest-checked source-body imports, forbidden-body rejection, negative cases, and authority ceilings. It emits context metadata and verdicts only, without provider/API authorization, Lean/Lake execution, proof or oracle truth-side material, theorem correctness, domain correctness, release, publication, or whole-system correctness.",
-        "one_line": "Provider Context Recipe Budget validates context-budget projection mechanics without authorizing provider calls or truth-side material."
+        "authority_ceiling": "A recipe that suppresses its omitted-sections manifest or permits proof bodies is rejected. This checks recipe accounting and policy, not a provider call or model performance.",
+        "card": "This validator takes ordered context recipes and section material, measures available section bodies, falling back to a declared byte size when a body is unavailable, and includes each section if it fits the remaining byte budget. Its result lists included and omitted sections with sizes, while redacting their bodies. The token count is a rough estimate of one token per four bytes.",
+        "one_line": "This validator takes ordered context recipes and section material, measures available section bodies and includes each section if it fits the remaining byte budget."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -140,7 +140,7 @@
           "ref": "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary"
         }
       ],
-      "title": "Provider Context Recipe Budget"
+      "title": "Pack context sections within a byte budget"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row.",
     "support_contract": {
@@ -472,7 +472,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Provider Context Recipe Budget validates context-budget projection mechanics without authorizing provider calls or truth-side material.",
+  "statement": "This validator takes ordered context recipes and section material, measures available section bodies and includes each section if it fits the remaining byte budget.",
   "status": "active",
   "subjects": [
     {
@@ -484,7 +484,7 @@
       "ref": "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary"
     }
   ],
-  "title": "Provider Context Recipe Budget",
+  "title": "Pack context sections within a byte budget",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

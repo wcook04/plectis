@@ -10,9 +10,11 @@ bodies out of the payload.
 from __future__ import annotations
 
 import argparse
+import ast
 import hashlib
 import json
 import re
+import shlex
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -545,7 +547,103 @@ def _source_replay_text_records(
     return records
 
 
-def _command_support(command: str, *, corpus_text: str, corpus_normalized: str) -> dict[str, Any]:
+
+def _public_cli_registration(public_root: Path) -> dict[str, Any]:
+    """Read top-level public CLI registrations without executing copied source.
+
+    This is source-shape support only. It does not validate option combinations,
+    execute commands or turn the route map into command registry authority.
+    """
+    ref = "src/microcosm_core/cli.py"
+    result = {"status": "blocked", "source_ref": ref, "commands": [], "reason": None}
+    try:
+        tree = ast.parse((public_root / ref).read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, SyntaxError):
+        result["reason"] = "cli_source_unavailable_or_malformed"
+        return result
+    mains = [node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == "main"]
+    if len(mains) != 1:
+        result["reason"] = "cli_main_registration_missing_or_ambiguous"
+        return result
+    main = mains[0]
+    receivers = set()
+    for node in ast.walk(main):
+        if not isinstance(node, ast.Assign) or not isinstance(node.value, ast.Call):
+            continue
+        call = node.value
+        if (isinstance(call.func, ast.Attribute) and call.func.attr == "add_subparsers"
+                and any(kw.arg == "dest" and isinstance(kw.value, ast.Constant)
+                        and kw.value.value == "command" for kw in call.keywords)):
+            receivers.update(target.id for target in node.targets if isinstance(target, ast.Name))
+    commands = set()
+    lens_invoked = False
+    for node in ast.walk(main):
+        if not isinstance(node, ast.Call):
+            continue
+        if (isinstance(node.func, ast.Attribute) and node.func.attr == "add_parser"
+                and isinstance(node.func.value, ast.Name) and node.func.value.id in receivers
+                and node.args and isinstance(node.args[0], ast.Constant)
+                and isinstance(node.args[0].value, str)):
+            commands.add(node.args[0].value)
+        if (isinstance(node.func, ast.Name) and node.args
+                and isinstance(node.args[0], ast.Name) and node.args[0].id in receivers):
+            if (node.func.id == "_add_bundle_parser" and len(node.args) > 1
+                    and isinstance(node.args[1], ast.Constant) and isinstance(node.args[1].value, str)):
+                commands.add(node.args[1].value)
+            if node.func.id == "_add_public_lens_parsers":
+                lens_invoked = True
+    if lens_invoked:
+        declarations = [node.value for node in tree.body if isinstance(node, ast.Assign)
+                        and any(isinstance(target, ast.Name) and target.id == "PUBLIC_LENS_COMMAND_HELP"
+                                for target in node.targets)]
+        try:
+            rows = ast.literal_eval(declarations[0]) if len(declarations) == 1 else None
+            if not isinstance(rows, (list, tuple)) or not all(
+                isinstance(row, (list, tuple)) and len(row) == 2
+                and isinstance(row[0], str) and isinstance(row[1], str) for row in rows
+            ):
+                raise ValueError("unsupported public lens declaration")
+        except (ValueError, TypeError, SyntaxError):
+            result["reason"] = "cli_lens_registration_malformed"
+            return result
+        commands.update(row[0] for row in rows)
+    if not receivers or not commands:
+        result["reason"] = "cli_top_level_registration_missing"
+        return result
+    result.update(status=PASS, commands=sorted(commands), reason="declared_top_level_cli_source")
+    return result
+
+
+def _command_registration(command: str, registration: dict[str, Any]) -> dict[str, Any]:
+    """Check only public executable and registered root-command source shape."""
+    result = {"status": "blocked", "command_name": None, "reason": None}
+    try:
+        parts = shlex.split(command)
+    except ValueError:
+        result["reason"] = "malformed_command_quoting"
+        return result
+    # Route examples use angle placeholders, which are not redirects. Any
+    # remaining angle delimiter is a shell shape, including attached forms.
+    shell_shape = re.sub(r"<[A-Za-z_][A-Za-z0-9_]*>", "", command)
+    if (any(character in shell_shape for character in ";|&`<>\n\r") or "$(" in shell_shape):
+        result["reason"] = "shell_operator_not_a_route_command"
+    elif len(parts) < 2 or parts[0] not in {"plectis", "microcosm"}:
+        result["reason"] = "public_executable_or_command_missing"
+    elif registration.get("status") != PASS:
+        result["reason"] = registration.get("reason") or "cli_registration_unavailable"
+    else:
+        result["command_name"] = parts[1]
+        if parts[1] in registration["commands"]:
+            result.update(status=PASS, reason="registered_public_cli_command")
+        else:
+            result["reason"] = "command_not_registered_in_public_cli"
+    return result
+
+
+def _command_support(
+    command: str, *, corpus_text: str, corpus_normalized: str,
+    cli_registration: dict[str, Any],
+) -> dict[str, Any]:
     """
     Serialize `microcosm_core.organs.cold_reader_route_map._command_support` into the
     payload shape expected by organs cold reader route map.
@@ -576,11 +674,16 @@ def _command_support(command: str, *, corpus_text: str, corpus_normalized: str) 
         if _normalized_text(token) not in corpus_text
         and _normalized_text(token) not in corpus_normalized
     ]
+    registration = _command_registration(command, cli_registration)
+    text_supported = exact_supported or not missing_tokens
     return {
-        "status": PASS if exact_supported or not missing_tokens else "blocked",
+        "status": PASS if registration["status"] == PASS and text_supported else "blocked",
         "exact_command_supported": exact_supported,
         "material_tokens": material_tokens,
         "missing_material_tokens": missing_tokens,
+        "source_text_supported": text_supported,
+        "cli_registration": registration,
+        "argument_validation": "not_performed_by_source_support_check",
     }
 
 
@@ -639,6 +742,7 @@ def _route_source_replay_result(
         receipt_rows=receipt_rows,
     )
     corpus_text = _normalized_text("\n".join(row["text"] for row in text_records))
+    cli_registration = _public_cli_registration(public_root)
     receipt_refs_by_id = {
         str(row.get("route_id") or ""): [
             str(ref)
@@ -665,6 +769,7 @@ def _route_source_replay_result(
             command,
             corpus_text=corpus_text,
             corpus_normalized=corpus_text,
+            cli_registration=cli_registration,
         )
         signal_result = _mechanism_signal_support(row, corpus_normalized=corpus_text)
         route_findings: list[dict[str, Any]] = []
@@ -736,6 +841,11 @@ def _route_source_replay_result(
             "copied_public_source_docs_and_pass_receipts"
         ),
         "source_record_count": len(text_records),
+        "cli_registration_source": {
+            "status": cli_registration["status"], "source_ref": cli_registration["source_ref"],
+            "command_count": len(cli_registration["commands"]), "reason": cli_registration["reason"],
+            "argument_validation": "not_performed_by_source_support_check",
+        },
         "source_refs": [row["ref"] for row in text_records],
         "route_count": len(replay_rows),
         "supported_route_count": len(supported_routes),

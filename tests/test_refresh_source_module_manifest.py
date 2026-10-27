@@ -646,3 +646,43 @@ def test_refresh_manifest_repairs_stale_public_copy_self_ref_with_original_sourc
     assert row["target_expected_digest_match"] is True
     assert raw_seed_root not in target_text
     assert "<private-raw-seed-root>" in target_text
+
+
+@pytest.mark.parametrize("case", ["self", "different", "escape", "symlink"])
+def test_direct_public_body_refresh_requires_same_contained_file(tmp_path: Path, case: str) -> None:
+    refresh = _load_refresh_module()
+    root = tmp_path / "microcosm-substrate"
+    source = root / "src/microcosm_core/organs/demo.py"
+    source.parent.mkdir(parents=True)
+    source.write_text("VALUE = 1\n")
+    target = source
+    if case == "different":
+        target = root / "src/microcosm_core/organs/other.py"
+        target.write_text("different body\n")
+    elif case in {"escape", "symlink"}:
+        outside = tmp_path / "outside.py"
+        outside.write_text("private body\n")
+        if case == "escape":
+            source = target = outside
+        else:
+            source.unlink()
+            source.symlink_to(outside)
+    source_ref = str(source.relative_to(root)) if source.is_relative_to(root) else str(source)
+    target_ref = str(target.relative_to(root)) if target.is_relative_to(root) else str(target)
+    manifest = _write_manifest(root, module_id="direct", source_ref=source_ref, target_ref=target_ref)
+    data = json.loads(manifest.read_text())
+    data["modules"][0]["source_to_target_relation"] = "public_package_body_exercised_directly"
+    manifest.write_text(json.dumps(data))
+    before_manifest, before_target = manifest.read_bytes(), target.read_bytes()
+    result = refresh.refresh_manifest(manifest, module_ids={"direct"}, write=True)
+    assert target.read_bytes() == before_target
+    if case == "self":
+        assert result["status"] == "pass" and result["write_applied"]
+        row = json.loads(manifest.read_text())["modules"][0]
+        digest = hashlib.sha256(before_target).hexdigest()
+        assert row["source_sha256"] == row["target_sha256"] == row["sha256"] == digest
+        assert row["byte_count"] == len(before_target) and row["line_count"] == 1
+        assert row["source_to_target_relation"] == "public_package_body_exercised_directly"
+    else:
+        assert result["status"] == "blocked" and not result.get("write_applied", False)
+        assert manifest.read_bytes() == before_manifest

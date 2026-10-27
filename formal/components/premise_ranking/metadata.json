@@ -1,0 +1,36 @@
+{
+  "dafny_version": "4.11.0+fcb2042d6d043a2634f0854338c08feeaaaf4ae2",
+  "generated_python": {
+    "PremiseRanking.py": "fbe9428bba9c4b363426395b36d4f005364c135ba6fa1b5409021059cdafb04e",
+    "System_/__init__.py": "96b6e33c036bc3aeab6d1810c7aef085184d09c407bdec032ea89d7a98843edf",
+    "__main__.py": "42c8f0f4781ec668b7774cac10e91dbcff60b256514bc594012c184637b7ad57",
+    "_dafny/__init__.py": "18d39decdedad0e188456e15d17f1dcd5113c4abc258ad6cb718e39534555e7a",
+    "module_.py": "bf65c0a05e9cef9deaf7a730ee722479189bdc03d5db1a2e13ad87d186eeb9d0"
+  },
+  "module": "PremiseRanking",
+  "mutations": {
+    "negative/SplitFilterMutant.dfy": {
+      "after": "      if true {",
+      "before": "      if cs[i].eligible {",
+      "expected_occurrences": 1,
+      "occurrence": 0
+    }
+  },
+  "negative_results": {
+    "negative/SplitFilterMutant.dfy": {
+      "errors": 1,
+      "verified_tasks": 8
+    }
+  },
+  "negative_sha256": {
+    "negative/SplitFilterMutant.dfy": "0761061005499c584aea1a7e0309bc50f38ff8de87da69d89a8c9ba6b7a1b462"
+  },
+  "negative_sources": [
+    "negative/SplitFilterMutant.dfy"
+  ],
+  "schema_version": 1,
+  "slug": "premise_ranking",
+  "source": "PremiseRanking.dfy",
+  "source_sha256": "85d9ae268927055a4ed2adef7b62d9253415398a22c7b22f2e1c242297592a97",
+  "verified_tasks": 9
+}

@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Copied public macro pattern provenance bodies and body-free synthetic benchmark-integrity replay receipts only; no benchmark score, SWE-bench performance claim, hidden-gold access, oracle patch body export, private issue body export, provider call, live repository mutation, release approval, publication approval, source mutation, or product-progress evidence.",
-    "card": "Agent Benchmark Integrity Anti-Gaming Replay is the public benchmark-claim boundary for Microcosm. It checks locked evaluator ids and config hashes, declared benchmark case rosters, replay rows, file-access and contamination refs, trusted-reference score refs, output-replay refs, computed-vs-declared integrity verdicts, three copied non-secret macro pattern provenance bodies, and eleven anti-gaming negative cases while keeping private issue, oracle patch, hidden-gold, provider, raw patch, and score payload bodies out of receipts.",
-    "one_line": "The agent benchmark integrity anti-gaming replay validates copied public macro pattern provenance bodies and body-free benchmark replay rows before any score-like language is allowed."
+    "authority_ceiling": "A digest or passing replay is not a benchmark score or evidence of algorithm correctness.",
+    "card": "This replay checks whether recorded benchmark runs agree with a locked evaluator policy and their supporting evidence. It reads public case and replay records, checks evaluator IDs and configuration hashes, and recomputes integrity verdicts from file-access and contamination evidence. Its result is useful when examining how a benchmark claim was recorded; it does not calculate a benchmark score.",
+    "one_line": "Checks benchmark replay evidence against locked evaluator configuration and recomputed integrity verdicts."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.agent_benchmark_integrity_anti_gaming_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Copied public macro pattern provenance bodies and body-free synthetic benchmark-integrity replay receipts only; no benchmark score, SWE-bench performance claim, hidden-gold access, oracle patch body export, private issue body export, provider call, live repository mutation, release approval, publication approval, source mutation, or product-progress evidence.",
+    "authority_ceiling": "A digest or passing replay is not a benchmark score or evidence of algorithm correctness.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,9 +83,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Copied public macro pattern provenance bodies and body-free synthetic benchmark-integrity replay receipts only; no benchmark score, SWE-bench performance claim, hidden-gold access, oracle patch body export, private issue body export, provider call, live repository mutation, release approval, publication approval, source mutation, or product-progress evidence.",
-        "card": "Agent Benchmark Integrity Anti-Gaming Replay is the public benchmark-claim boundary for Microcosm. It checks locked evaluator ids and config hashes, declared benchmark case rosters, replay rows, file-access and contamination refs, trusted-reference score refs, output-replay refs, computed-vs-declared integrity verdicts, three copied non-secret macro pattern provenance bodies, and eleven anti-gaming negative cases while keeping private issue, oracle patch, hidden-gold, provider, raw patch, and score payload bodies out of receipts.",
-        "one_line": "The agent benchmark integrity anti-gaming replay validates copied public macro pattern provenance bodies and body-free benchmark replay rows before any score-like language is allowed."
+        "authority_ceiling": "A digest or passing replay is not a benchmark score or evidence of algorithm correctness.",
+        "card": "This replay checks whether recorded benchmark runs agree with a locked evaluator policy and their supporting evidence. It reads public case and replay records, checks evaluator IDs and configuration hashes, and recomputes integrity verdicts from file-access and contamination evidence. Its result is useful when examining how a benchmark claim was recorded; it does not calculate a benchmark score.",
+        "one_line": "Checks benchmark replay evidence against locked evaluator configuration and recomputed integrity verdicts."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -130,7 +130,7 @@
           "ref": "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay"
         }
       ],
-      "title": "Agent Benchmark Integrity Anti-Gaming Replay"
+      "title": "Benchmark integrity replay"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave benchmark-integrity fixture, exported runtime bundle, copied source-open pattern provenance manifest, mechanism row, Microcosm organ source locus, and real validation receipts without treating Markdown, generated atlas docs, copied-body presence, replay integrity verdicts, or trusted-reference score refs as benchmark score, SWE-bench performance, provider, release, publication, live repository mutation, or product-progress authority.",
     "support_contract": {
@@ -309,7 +309,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The agent benchmark integrity anti-gaming replay validates copied public macro pattern provenance bodies and body-free benchmark replay rows before any score-like language is allowed.",
+  "statement": "Checks benchmark replay evidence against locked evaluator configuration and recomputed integrity verdicts.",
   "status": "active",
   "subjects": [
     {
@@ -321,7 +321,7 @@
       "ref": "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay"
     }
   ],
-  "title": "Agent Benchmark Integrity Anti-Gaming Replay",
+  "title": "Benchmark integrity replay",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

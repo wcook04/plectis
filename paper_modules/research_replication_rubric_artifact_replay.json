@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Copied public macro pattern provenance bodies, exact-copy public Python control-plane body, body-free research-replication replay receipts, public agent-execution trace spans, and fixture validation only; no actual paper replication success, benchmark performance claim, private paper/data body export, hidden-rubric export, provider call, unbounded compute search, original-author code reuse, release approval, publication approval, source mutation, or product-progress evidence.",
-    "card": "Research Replication Rubric Artifact Replay is the public research-replication claim boundary for Microcosm. It checks contribution decomposition refs, rubric trees, allowed public inputs, scratch repo scaffolds, experiment DAG refs, metric scripts, declared artifact-hash rosters, artifact hashes, grader reports, compute/runtime budgets, ablation diffs, failure taxonomies, cold-rerun receipts, public agent-execution trace spans, four copied non-secret source modules, and eight replication-overclaim negative cases while keeping private paper/data bodies, hidden rubrics, provider payloads, original-author code bodies, benchmark scores, and publication claims out of receipts.",
-    "one_line": "The research replication rubric-artifact replay validates source-backed public replication bundles before any paper-replication language is allowed."
+    "authority_ceiling": "Supports a bounded sum_field metric, not arbitrary scripts, independent reproduction of an outside study, or benchmark performance.",
+    "card": "Checks research replay metadata and artifact hashes, and interprets the supported public sum_field metric on its input before comparing the computed output and hash to the declared artifacts.",
+    "one_line": "Checks research replay records and recomputes the supported sum-field metric against declared artifacts."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.research_replication_rubric_artifact_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Copied public macro pattern provenance bodies, exact-copy public Python control-plane body, body-free research-replication replay receipts, public agent-execution trace spans, and fixture validation only; no actual paper replication success, benchmark performance claim, private paper/data body export, hidden-rubric export, provider call, unbounded compute search, original-author code reuse, release approval, publication approval, source mutation, or product-progress evidence.",
+    "authority_ceiling": "Supports a bounded sum_field metric, not arbitrary scripts, independent reproduction of an outside study, or benchmark performance.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -88,9 +88,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Copied public macro pattern provenance bodies, exact-copy public Python control-plane body, body-free research-replication replay receipts, public agent-execution trace spans, and fixture validation only; no actual paper replication success, benchmark performance claim, private paper/data body export, hidden-rubric export, provider call, unbounded compute search, original-author code reuse, release approval, publication approval, source mutation, or product-progress evidence.",
-        "card": "Research Replication Rubric Artifact Replay is the public research-replication claim boundary for Microcosm. It checks contribution decomposition refs, rubric trees, allowed public inputs, scratch repo scaffolds, experiment DAG refs, metric scripts, declared artifact-hash rosters, artifact hashes, grader reports, compute/runtime budgets, ablation diffs, failure taxonomies, cold-rerun receipts, public agent-execution trace spans, four copied non-secret source modules, and eight replication-overclaim negative cases while keeping private paper/data bodies, hidden rubrics, provider payloads, original-author code bodies, benchmark scores, and publication claims out of receipts.",
-        "one_line": "The research replication rubric-artifact replay validates source-backed public replication bundles before any paper-replication language is allowed."
+        "authority_ceiling": "Supports a bounded sum_field metric, not arbitrary scripts, independent reproduction of an outside study, or benchmark performance.",
+        "card": "Checks research replay metadata and artifact hashes, and interprets the supported public sum_field metric on its input before comparing the computed output and hash to the declared artifacts.",
+        "one_line": "Checks research replay records and recomputes the supported sum-field metric against declared artifacts."
       },
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
@@ -139,7 +139,7 @@
           "ref": "mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay"
         }
       ],
-      "title": "Research Replication Rubric Artifact Replay"
+      "title": "Check a research replication record"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave research-replication fixture, exported runtime bundle, copied source-open manifest, mechanism row, Microcosm organ source locus, public trace refactor, and real validation receipts without treating Markdown, generated atlas docs, copied-body presence, synthetic replay rows, public trace spans, or declared artifact-hash rosters as paper-replication success, benchmark performance, provider, release, publication, unbounded-compute, or product-progress authority.",
     "support_contract": {
@@ -418,7 +418,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The research replication rubric-artifact replay validates source-backed public replication bundles before any paper-replication language is allowed.",
+  "statement": "Checks research replay records and recomputes the supported sum-field metric against declared artifacts.",
   "status": "active",
   "subjects": [
     {
@@ -430,7 +430,7 @@
       "ref": "mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay"
     }
   ],
-  "title": "Research Replication Rubric Artifact Replay",
+  "title": "Check a research replication record",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

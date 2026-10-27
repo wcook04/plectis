@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture-bound public source-body import and deterministic exercise evidence only; no live lineage truth, human approval authority, real market/news truth, host-state truth, Work Ledger truth, provider dispatch, source mutation, publication, release approval, or private-root equivalence.",
-    "card": "Batch 9 Macro Engines Capsule binds the accepted batch9_macro_engines_capsule organ to its public source-open bundle. It checks thirteen copied non-secret macro engines for provenance lineage, approval adjudication, Python AST indexing, finance headline clustering, mission graph compilation, dependency pin drift, config authority audit, heterogeneous edge extraction, WorkAtlas aggregation, host-pressure admission, doctrine enrichment, worker job budget gating, and milestone-relative quality accounting while excluding live lineage truth, approval authority, market/news truth, host-state truth, Work Ledger truth, provider dispatch, source mutation, publication, and release approval.",
-    "one_line": "Batch 9 Macro Engines Capsule imports public-safe backend and governance macro-engine bodies and exercises provenance, approval, AST, finance-news, mission graph, dependency, config, edge, WorkAtlas, host-pressure, doctrine-enrichment, worker-budget, and milestone-quality invariants."
+    "authority_ceiling": "These examples show selected behavior of the copied code. They do not establish live deployment safety, complete coverage, or correctness for arbitrary repositories.",
+    "card": "Exercises lineage, approval, indexing, graphs, drift, admission and accounting; mission topology is computed locally against copied-source anchors.",
+    "one_line": "Ten workflow mechanisms are checked on bounded public examples."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch9_macro_engines_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture-bound public source-body import and deterministic exercise evidence only; no live lineage truth, human approval authority, real market/news truth, host-state truth, Work Ledger truth, provider dispatch, source mutation, publication, release approval, or private-root equivalence.",
+    "authority_ceiling": "These examples show selected behavior of the copied code. They do not establish live deployment safety, complete coverage, or correctness for arbitrary repositories.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -88,9 +88,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture-bound public source-body import and deterministic exercise evidence only; no live lineage truth, human approval authority, real market/news truth, host-state truth, Work Ledger truth, provider dispatch, source mutation, publication, release approval, or private-root equivalence.",
-        "card": "Batch 9 Macro Engines Capsule binds the accepted batch9_macro_engines_capsule organ to its public source-open bundle. It checks thirteen copied non-secret macro engines for provenance lineage, approval adjudication, Python AST indexing, finance headline clustering, mission graph compilation, dependency pin drift, config authority audit, heterogeneous edge extraction, WorkAtlas aggregation, host-pressure admission, doctrine enrichment, worker job budget gating, and milestone-relative quality accounting while excluding live lineage truth, approval authority, market/news truth, host-state truth, Work Ledger truth, provider dispatch, source mutation, publication, and release approval.",
-        "one_line": "Batch 9 Macro Engines Capsule imports public-safe backend and governance macro-engine bodies and exercises provenance, approval, AST, finance-news, mission graph, dependency, config, edge, WorkAtlas, host-pressure, doctrine-enrichment, worker-budget, and milestone-quality invariants."
+        "authority_ceiling": "These examples show selected behavior of the copied code. They do not establish live deployment safety, complete coverage, or correctness for arbitrary repositories.",
+        "card": "Exercises lineage, approval, indexing, graphs, drift, admission and accounting; mission topology is computed locally against copied-source anchors.",
+        "one_line": "Ten workflow mechanisms are checked on bounded public examples."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -139,7 +139,7 @@
           "ref": "mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule"
         }
       ],
-      "title": "Batch 9 Macro Engines Capsule"
+      "title": "Exercise ten workflow checks"
     },
     "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority. The subject names the accepted organ row plus the resolving mechanism row already present in organ_atlas/organ_registry and mechanism_sources; live lineage, approval, market, host, Work Ledger, provider, source-mutation, publication, and release authority stay out of scope.",
     "support_contract": {
@@ -418,7 +418,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 9 Macro Engines Capsule imports public-safe backend and governance macro-engine bodies and exercises provenance, approval, AST, finance-news, mission graph, dependency, config, edge, WorkAtlas, host-pressure, doctrine-enrichment, worker-budget, and milestone-quality invariants.",
+  "statement": "Ten workflow mechanisms are checked on bounded public examples.",
   "status": "active",
   "subjects": [
     {
@@ -430,7 +430,7 @@
       "ref": "mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule"
     }
   ],
-  "title": "Batch 9 Macro Engines Capsule",
+  "title": "Exercise ten workflow checks",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

@@ -3,8 +3,11 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+import subprocess
 from pathlib import Path
 from typing import Any
+
+import pytest
 
 from microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay import (
     CARD_SCHEMA_VERSION,
@@ -40,6 +43,102 @@ SPATIAL_SOURCE_BODY_MATERIAL_IDS = [
     "station_geometry_checker_test_body_import",
     "station_geometry_build_wiring_source_body_import",
 ]
+
+
+@pytest.mark.parametrize(
+    "review_change", [None, "missing_review", "wrong_digest", "changed_body"]
+)
+def test_standalone_spatial_export_preserves_only_reviewed_source_bytes(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    review_change: str | None,
+) -> None:
+    """Exercise the real export substitution lane, not a full export/build."""
+    from microcosm_core import release_export
+    from microcosm_core.runtime_shell import RuntimeShell
+
+    source = tmp_path / "source/microcosm-substrate"
+    bundle_ref = BUNDLE_INPUT.relative_to(MICROCOSM_ROOT)
+    shutil.copytree(
+        BUNDLE_INPUT,
+        source / bundle_ref,
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc"),
+    )
+    (source / "core").mkdir()
+    for name in ("source_module_refresh_policy_v0.json", "private_state_forbidden_classes.json"):
+        shutil.copy2(MICROCOSM_ROOT / "core" / name, source / "core" / name)
+    manifest_path = source / bundle_ref / "source_module_manifest.json"
+    manifest_bytes = manifest_path.read_bytes()
+    manifest = json.loads(manifest_bytes)
+    first_ref = manifest["modules"][0]["target_ref"].removeprefix("microcosm-substrate/")
+    policy_path = source / "core/source_module_refresh_policy_v0.json"
+    policy = json.loads(policy_path.read_text())
+    if review_change == "missing_review":
+        policy["reviewed_publication"]["copies"].pop(first_ref)
+    elif review_change == "wrong_digest":
+        policy["reviewed_publication"]["copies"][first_ref]["sha256"] = "0" * 64
+    elif review_change == "changed_body":
+        with (source / first_ref).open("a") as stream:
+            stream.write("\n# bytes changed after publication review\n")
+    policy_path.write_text(json.dumps(policy))
+
+    substitutions = {
+        row["path"]: row
+        for row in release_export._restricted_source_module_substitution_rows(source)
+    }
+    assert set(substitutions) == ({first_ref} if review_change else set())
+    artifact = tmp_path / "artifact/microcosm-substrate"
+    release_export._copy_allowed_files(
+        sorted(path for path in source.rglob("*") if path.is_file()),
+        root=source,
+        target=artifact,
+        private_body_substitutions=substitutions,
+    )
+    release_export._rewrite_private_body_stub_metadata(artifact, substitutions)
+    monkeypatch.setenv("GIT_CEILING_DIRECTORIES", str(tmp_path))
+    assert not (artifact / ".git").exists()
+    assert subprocess.run(
+        ["git", "rev-parse", "--is-inside-work-tree"],
+        cwd=artifact,
+        capture_output=True,
+        check=False,
+    ).returncode != 0
+
+    exported_manifest = artifact / bundle_ref / "source_module_manifest.json"
+    if review_change:
+        # The exporter omits substituted rows; the bundle must reject the
+        # resulting incomplete source floor.
+        exported = json.loads(exported_manifest.read_text())
+        assert len(exported["modules"]) == len(manifest["modules"]) - 1
+        assert len(exported["release_substitution_omissions"]) == 1
+        assert (artifact / first_ref).read_bytes() != (source / first_ref).read_bytes()
+        lens = RuntimeShell(artifact).spatial_simulation()
+        assert lens["status"] == "blocked"
+        assert lens["source_module_summary"]["status"] == "blocked"
+        assert any(
+            row["error_code"] == "SPATIAL_SOURCE_MODULE_FLOOR_INVALID"
+            for row in lens["source_module_summary"]["findings"]
+        )
+        return
+
+    assert exported_manifest.read_bytes() == manifest_bytes
+    lens = RuntimeShell(artifact).spatial_simulation()
+    assert lens["status"] == "pass"
+    assert lens["authority_ceiling"]["release_authorized"] is False
+    assert lens["simulation_summary"]["scene_state_count"] == 6
+    assert lens["source_module_summary"]["public_safe_body_material_ids"] == (
+        SPATIAL_SOURCE_BODY_MATERIAL_IDS
+    )
+    for row in manifest["modules"]:
+        target = artifact / row["target_ref"].removeprefix("microcosm-substrate/")
+        assert hashlib.sha256(target.read_bytes()).hexdigest() == row["target_sha256"]
+
+    # The independent replay validator still rejects bytes changed after export.
+    with (artifact / first_ref).open("a") as stream:
+        stream.write("\n# altered after export\n")
+    tampered = RuntimeShell(artifact).spatial_simulation()
+    assert tampered["status"] == "blocked"
+    assert tampered["source_module_summary"]["status"] == "blocked"
 
 
 def _sha256_ref(path: Path) -> str:
@@ -280,7 +379,6 @@ def test_spatial_world_model_counterfactual_source_modules_are_exact_station_geo
         row = modules[material_id]
         target = MICROCOSM_ROOT / row["target_ref"].removeprefix("microcosm-substrate/")
         source = MICROCOSM_ROOT.parent / row["source_ref"]
-        assert source.is_file()
         assert target.is_file()
         assert row["status"] == "pass"
         assert row["material_class"] == "public_macro_tool_body"
@@ -288,7 +386,100 @@ def test_spatial_world_model_counterfactual_source_modules_are_exact_station_geo
         assert row["body_copied"] is True
         assert row["body_in_receipt"] is False
         assert row["target_body_digest"] == _sha256_ref(target)
-        assert _sha256_ref(source) == _sha256_ref(target)
+        assert row["source_sha256"] == hashlib.sha256(target.read_bytes()).hexdigest()
+        if source.is_file():
+            assert _sha256_ref(source) == _sha256_ref(target)
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        "missing_manifest",
+        "omit_0",
+        "omit_1",
+        "omit_2",
+        "extra",
+        "duplicate",
+        "wrong_id",
+        "invalid_id",
+        "wrong_count",
+        "malformed_row",
+    ],
+)
+def test_spatial_bundle_rejects_incomplete_source_floor(
+    tmp_path: Path, change: str
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = public_root / BUNDLE_INPUT.relative_to(MICROCOSM_ROOT)
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    (public_root / "core").mkdir()
+    shutil.copy2(
+        MICROCOSM_ROOT / "core/private_state_forbidden_classes.json",
+        public_root / "core/private_state_forbidden_classes.json",
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if change == "missing_manifest":
+        manifest_path.unlink()
+    else:
+        modules = manifest["modules"]
+        if change.startswith("omit_"):
+            modules.pop(int(change[-1]))
+        elif change == "extra":
+            modules.append({**modules[0], "module_id": "unexpected_material"})
+        elif change == "duplicate":
+            modules[-1] = dict(modules[0])
+        elif change == "wrong_id":
+            modules[-1]["module_id"] = "unexpected_material"
+        elif change == "invalid_id":
+            modules[-1]["module_id"] = {"unexpected": "object"}
+        elif change == "wrong_count":
+            manifest["module_count"] = 2
+        elif change == "malformed_row":
+            modules.append("not an object")
+        manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    result = run_simulation_bundle(bundle, public_root / "out", command="pytest")
+    assert result["status"] == "blocked"
+    assert result["source_module_summary"]["status"] == "blocked"
+    assert any(
+        row["error_code"] == "SPATIAL_SOURCE_MODULE_FLOOR_INVALID"
+        for row in result["source_module_summary"]["findings"]
+    )
+
+
+def test_spatial_bundle_source_floor_change_invalidates_cached_receipt(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = public_root / BUNDLE_INPUT.relative_to(MICROCOSM_ROOT)
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    (public_root / "core").mkdir()
+    shutil.copy2(
+        MICROCOSM_ROOT / "core/private_state_forbidden_classes.json",
+        public_root / "core/private_state_forbidden_classes.json",
+    )
+    out = public_root / "out"
+    first = run_simulation_bundle(
+        bundle, out, command="pytest", reuse_fresh_receipt=True
+    )
+    assert first["status"] == "pass"
+    cached = run_simulation_bundle(
+        bundle, out, command="pytest", reuse_fresh_receipt=True
+    )
+    assert cached["receipt_reused"] is True
+
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"].pop()
+    manifest["module_count"] = len(manifest["modules"])
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    result = run_simulation_bundle(
+        bundle, out, command="pytest", reuse_fresh_receipt=True
+    )
+    assert result["receipt_reused"] is False
+    assert result["status"] == "blocked"
+    assert result["source_module_summary"]["status"] == "blocked"
 
 
 def test_spatial_world_model_source_modules_reject_body_text_in_receipt(

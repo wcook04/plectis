@@ -418,7 +418,7 @@
       },
       "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/system/lib/agent_execution_trace.py": {
         "manifest_ref": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_module_manifest.json",
-        "material_id": null,
+        "material_id": "agent_execution_trace_source_body_import",
         "sha256": "ad15a6c93b47303ccb179525f66f229ae325a3429de4bdd3c613cd88a6d4bda4",
         "source_ref": "system/lib/agent_execution_trace.py"
       },
@@ -3752,6 +3752,24 @@
         "sha256": "b6da2f44efa58d10880de549c699a76fa3d666f81e6b4a4d2c2d18a7415e1e9f",
         "source_ref": "tools/meta/factory/build_system_atlas.py"
       },
+      "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/system/server/tests/test_station_geometry_check.py": {
+        "manifest_ref": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json",
+        "material_id": "station_geometry_checker_test_body_import",
+        "sha256": "9fd7af9310c07f159344bdc41e15fe17720b5594cb31cf130109980e169313b3",
+        "source_ref": "system/server/tests/test_station_geometry_check.py"
+      },
+      "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/system/server/ui/package.json": {
+        "manifest_ref": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json",
+        "material_id": "station_geometry_build_wiring_source_body_import",
+        "sha256": "3a431d49fff186c1110b435a5fcd211ca2343db6610965f0faa068307170519e",
+        "source_ref": "system/server/ui/package.json"
+      },
+      "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/tools/meta/factory/check_station_geometry.py": {
+        "manifest_ref": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json",
+        "material_id": "station_geometry_checker_source_body_import",
+        "sha256": "f105f18f4e9f2d14ed570a9606d174cb96ba7c7ddaf6db3f37ee6b14c19ba1ac",
+        "source_ref": "tools/meta/factory/check_station_geometry.py"
+      },
       "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py": {
         "manifest_ref": "fixtures/first_wave/tool_server_pressure_inventory/input/source_module_manifest.json",
         "material_id": "orphan_reaper_pressure_inventory_public_refactor",
@@ -3794,6 +3812,36 @@
         "sha256": "1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
         "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py"
       },
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py": {
+        "manifest_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "material_id": "mission_transaction_landing_preflight_body_import",
+        "sha256": "20ab7fa2309760713cc1a07743e4acca96b275c4181cebc1ba34c394173cea4f",
+        "source_ref": "system/lib/mission_transaction_landing_preflight.py"
+      },
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py": {
+        "manifest_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "material_id": "work_landing_status_body_import",
+        "sha256": "f722c452444a33251166f9a8dce80274c01d9a5a7e27f4366b7502831fb4af90",
+        "source_ref": "system/lib/work_landing_status.py"
+      },
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py": {
+        "manifest_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "material_id": "mission_transaction_preflight_tool_body_import",
+        "sha256": "17ec837f90cd47710b910e698de87b977648872719f4f51b9321899df25bc177",
+        "source_ref": "tools/meta/control/mission_transaction_preflight.py"
+      },
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py": {
+        "manifest_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "material_id": "scoped_commit_tool_body_import",
+        "sha256": "3530ae5bc000962aa01a762c4bf06db318fb7ded570ebbb482bc454c81e4cc96",
+        "source_ref": "tools/meta/control/scoped_commit.py"
+      },
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py": {
+        "manifest_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "material_id": "work_landing_control_tool_body_import",
+        "sha256": "03c661cb123d128efac7641baee00b868205ced546bac88528cbfcbce2bf79da",
+        "source_ref": "tools/meta/control/work_landing.py"
+      },
       "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/system/server/main.py": {
         "manifest_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
         "material_id": "world_model_drift_endpoint_source_body_import",
@@ -3817,6 +3865,54 @@
         "material_id": "view_quality_action_map_source_body_import",
         "sha256": "9af792fa6a611715f76bf31c3c2f995e13a29014e1b12c8e0dc5dcfeab9b4ee3",
         "source_ref": "tools/meta/observability/view_quality_census.py"
+      },
+      "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/codex/standards/std_compute_provider.json": {
+        "manifest_ref": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
+        "material_id": "provider_context_compute_provider_standard_body_import",
+        "sha256": "5e2c903a8e4ab8155dcac08cbc639cc50d29d491d5c31e135d4bc21d7e6e48bb",
+        "source_ref": "codex/standards/std_compute_provider.json"
+      },
+      "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/codex/standards/std_provider_adapter.json": {
+        "manifest_ref": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
+        "material_id": "provider_context_provider_adapter_standard_body_import",
+        "sha256": "248211860480f2ba3b9e8272386abc7e9f1bbd0dc1a69f636c6fd41ec1897fba",
+        "source_ref": "codex/standards/std_provider_adapter.json"
+      },
+      "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/codex/standards/std_provider_navigation_transform_receipt.json": {
+        "manifest_ref": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
+        "material_id": "provider_context_provider_navigation_transform_receipt_standard_body_import",
+        "sha256": "512d4847809f6f32621de5f96a7096b2c417050775a923201f3e02d71a18cfda",
+        "source_ref": "codex/standards/std_provider_navigation_transform_receipt.json"
+      },
+      "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/codex/standards/std_transform_job.json": {
+        "manifest_ref": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
+        "material_id": "provider_context_transform_job_standard_body_import",
+        "sha256": "017d75b5cdfa7520dafe88eb7ede6773f0b592ec32f7303988b448281c66ab3b",
+        "source_ref": "codex/standards/std_transform_job.json"
+      },
+      "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py": {
+        "manifest_ref": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
+        "material_id": "provider_context_batch_calibration_report_body_import",
+        "sha256": "076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
+        "source_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py"
+      },
+      "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py": {
+        "manifest_ref": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
+        "material_id": "provider_context_receipt_reducer_body_import",
+        "sha256": "1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+        "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py"
+      },
+      "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py": {
+        "manifest_ref": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
+        "material_id": "provider_context_formal_ladder_eval_body_import",
+        "sha256": "5b658b7b480760ab28460927dc11fbbc4a790ed91bb289e81061b19fabb692a6",
+        "source_ref": "tools/meta/factory/run_prover_formal_problem_ladder_eval.py"
+      },
+      "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/run_prover_graph_benchmark.py": {
+        "manifest_ref": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
+        "material_id": "provider_context_graph_benchmark_body_import",
+        "sha256": "45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+        "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py"
       },
       "src/microcosm_core/macro_tools/agent_session_attribution.py": {
         "manifest_ref": "examples/agent_route_observability_runtime/exported_session_attribution_bundle/source_module_manifest.json",

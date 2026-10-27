@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Synthetic public computer-use action-trace fixtures, exported bundle metadata, copied non-secret source-module digests, and body-free receipts only; no live account action, credential entry, external network mutation, purchase/send authority, destructive host action, hidden screen-state claim, benchmark-score claim, release approval, or whole-system correctness.",
-    "card": "Computer-Use Action Trace Replay validates a synthetic computer-use episode through visible observations, affordances, action rows, authority verdicts, state-transition and recovery receipts, cold replay rows, public trace spans, source-module manifests, negative cases, and body-free receipts. It is a reader-facing contract under Agent Route Observability Runtime, not live browser or desktop control.",
-    "one_line": "Validator-backed public replay for synthetic computer-use action traces under the route-observability runtime."
+    "authority_ceiling": "Trace consistency only; no independent desktop observation or safety benchmark.",
+    "card": "An offline validator checks observation references, declared pre-action permission records and transition consistency, without independently observing the desktop.",
+    "one_line": "Checks consistency of supplied computer-use observations and actions."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.computer_use_action_trace_replay",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Synthetic public computer-use action-trace fixtures, exported bundle metadata, copied non-secret source-module digests, and body-free receipts only; no live account action, credential entry, external network mutation, purchase/send authority, destructive host action, hidden screen-state claim, benchmark-score claim, release approval, or whole-system correctness.",
+    "authority_ceiling": "Trace consistency only; no independent desktop observation or safety benchmark.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -76,9 +76,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Synthetic public computer-use action-trace fixtures, exported bundle metadata, copied non-secret source-module digests, and body-free receipts only; no live account action, credential entry, external network mutation, purchase/send authority, destructive host action, hidden screen-state claim, benchmark-score claim, release approval, or whole-system correctness.",
-        "card": "Computer-Use Action Trace Replay validates a synthetic computer-use episode through visible observations, affordances, action rows, authority verdicts, state-transition and recovery receipts, cold replay rows, public trace spans, source-module manifests, negative cases, and body-free receipts. It is a reader-facing contract under Agent Route Observability Runtime, not live browser or desktop control.",
-        "one_line": "Validator-backed public replay for synthetic computer-use action traces under the route-observability runtime."
+        "authority_ceiling": "Trace consistency only; no independent desktop observation or safety benchmark.",
+        "card": "An offline validator checks observation references, declared pre-action permission records and transition consistency, without independently observing the desktop.",
+        "one_line": "Checks consistency of supplied computer-use observations and actions."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -124,7 +124,7 @@
           "ref": "mechanism.agent_route_observability_runtime.validates_public_route_feedback"
         }
       ],
-      "title": "Computer-Use Action Trace Replay"
+      "title": "Validate a recorded computer-use episode"
     },
     "strangler_note": "Binds the legacy Markdown reader route, fixture manifest contract, exported computer-use bundle, focused route-observability tests, copied non-secret source-module manifest, and accepted route-observability organ without upgrading the page into live browser/desktop control, account action authority, benchmark evidence, or release authority.",
     "support_contract": {
@@ -310,7 +310,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Validator-backed public replay for synthetic computer-use action traces under the route-observability runtime.",
+  "statement": "Checks consistency of supplied computer-use observations and actions.",
   "status": "active",
   "subjects": [
     {
@@ -322,7 +322,7 @@
       "ref": "mechanism.agent_route_observability_runtime.validates_public_route_feedback"
     }
   ],
-  "title": "Computer-Use Action Trace Replay",
+  "title": "Validate a recorded computer-use episode",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

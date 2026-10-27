@@ -270,25 +270,30 @@ def _retrieval_bundle_freshness_basis(
     *,
     public_root: Path,
 ) -> list[dict[str, Any]]:
-    """
-    Compute retrieval bundle freshness basis from `input_dir` and `public_root`.
+    """Bind cached retrieval results to inputs, host code and the ranking kernel.
 
-    Inputs are `input_dir` and `public_root`; notable helpers are `resolve`,
-    `_scan_input_paths`, `_file_freshness_entry`, `Path`, and 1 more.
+    Kernel integrity is checked before cache lookup, so a changed or invalid
+    generated core cannot reuse a result computed by an earlier implementation.
     """
+    from plectis.components._bridge import kernel_identity
+
     paths = [
         Path(__file__).resolve(strict=False),
         Path(private_state_scan.__file__).resolve(strict=False),
         public_root / "core/private_state_forbidden_classes.json",
         *_scan_input_paths(input_dir, include_negative=False),
     ]
-    return sorted(
+    files = sorted(
         (
             _file_freshness_entry(path, public_root=public_root)
             for path in _dedupe_paths(paths)
         ),
         key=lambda item: str(item["path"]),
     )
+    return [
+        *files,
+        {"component_kernel": "premise_ranking", "identity": kernel_identity("premise_ranking")},
+    ]
 
 
 def _fresh_retrieval_bundle_receipt(
@@ -1256,19 +1261,26 @@ def _score_query(
     query: dict[str, Any],
     premises: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    """
-    Return score query for the organs formal math premise retrieval flow.
+    """Normalize public metadata and rank it with the verified scoring core.
 
-    Inputs are `query` and `premises`; notable helpers are `_tokenize`, `get`, `Counter`,
-    `_premise_scoring_fields`, and 2 more.
+    Tokenization, split membership, strategy-tag membership, field-hit reporting
+    and Python string ordering are host observations supplied to the core.
     """
+    from plectis.components.premise_ranking import rank
+
     split = str(query.get("split") or "train")
     query_terms = _tokenize(query.get("query_terms"))
     strategy_id = str(query.get("strategy_id") or "")
-    ranked: list[dict[str, Any]] = []
+    tokens = sorted(query_terms)
+    payload_rows: list[dict[str, Any]] = []
+    records: list[dict[str, Any] | None] = []
+    id_keys: list[str] = []
     for premise in premises:
-        allowed = set(premise.get("allowed_for_split", []))
-        if split not in allowed:
+        eligible = split in set(premise.get("allowed_for_split", []))
+        if not eligible:
+            payload_rows.append({"eligible": False, "id_rank": 0,
+                                 "counts": [0] * len(tokens), "bonus": False})
+            records.append(None)
             continue
         premise_terms: Counter[str] = Counter()
         field_hits: list[dict[str, Any]] = []
@@ -1279,22 +1291,35 @@ def _score_query(
             if hit_terms:
                 field_hits.append({"field": field, "hit_terms": hit_terms})
         overlap = sorted(set(query_terms) & set(premise_terms))
-        strategy_bonus = 1 if strategy_id in set(premise.get("strategy_tags", [])) else 0
-        score = sum(min(query_terms[token], premise_terms[token]) for token in overlap)
-        score += strategy_bonus
-        ranked.append(
-            {
-                "premise_id": premise["premise_id"],
-                "score": score,
-                "overlap_terms": overlap,
-                "field_hits": field_hits,
-                "matched_fields": [row["field"] for row in field_hits],
-                "strategy_bonus": strategy_bonus,
-                "source_ref": premise.get("source_ref"),
-                "body_material_status": "retrieval_score_over_imported_index",
-            }
-        )
-    return sorted(ranked, key=lambda row: (-int(row["score"]), str(row["premise_id"])))
+        bonus = strategy_id in set(premise.get("strategy_tags", []))
+        premise_id = premise["premise_id"]
+        id_keys.append(str(premise_id))
+        records.append({
+            "premise_id": premise_id,
+            "overlap_terms": overlap,
+            "field_hits": field_hits,
+            "matched_fields": [row["field"] for row in field_hits],
+            "strategy_bonus": int(bonus),
+            "source_ref": premise.get("source_ref"),
+            "body_material_status": "retrieval_score_over_imported_index",
+        })
+        payload_rows.append({"eligible": True, "id_rank": 0,
+                             "counts": [premise_terms[token] for token in tokens],
+                             "bonus": bonus})
+    id_ranks = {value: i for i, value in enumerate(sorted(set(id_keys)))}
+    for row, record in zip(payload_rows, records):
+        if record is not None:
+            row["id_rank"] = id_ranks[str(record["premise_id"])]
+    selected = rank({"query_counts": [query_terms[token] for token in tokens],
+                     "candidates": payload_rows})
+    result = []
+    for index, score in selected:
+        record = records[index]
+        if record is None:
+            raise RuntimeError("verified ranking returned an ineligible candidate")
+        result.append({"premise_id": record["premise_id"], "score": score,
+                       **{key: value for key, value in record.items() if key != "premise_id"}})
+    return result
 
 
 def validate_retrieval_queries(

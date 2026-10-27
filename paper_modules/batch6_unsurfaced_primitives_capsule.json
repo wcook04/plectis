@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture-bound public source-body import, copied-module digest/anchor evidence, synthetic source-exercise evidence, and body-free receipts only; no live operator memory, prompt-shelf capture authority, live market data, provider/browser state, media release, source mutation, publication approval, release approval, private-root equivalence, or whole-system correctness.",
-    "card": "Batch 6 Unsurfaced Primitives Capsule binds the accepted batch6_unsurfaced_primitives_capsule organ to source-open primitive exercises. It checks raw-seed keyphrase scoring, schema-loose distillation, operator handoff linkage, observed-turn window merging, market situation graphs, finance numeric assurance, fail-closed policy judgment, clone-local concurrency, market-clock scheduling, provider-recovery scoping, and demo-take temporal remapping while preserving public fixture inputs, exact-source digest expectations, negative cases, and authority ceilings.",
-    "one_line": "Batch 6 Unsurfaced Primitives Capsule imports provenance, operator-handoff, market, finance, provider-recovery, and demo-take macro primitives as public source-open evidence without granting live operator memory, market, provider, media, publication, or release authority."
+    "authority_ceiling": "These synthetic examples do not establish market truth, policy effectiveness or correctness for other inputs. Source hashes and anchors establish identity checks, not algorithm correctness.",
+    "card": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing. It checks the selected mechanism set and returns individual exercise results. The negative cases include a stopword-only phrase that yields no keyphrase, a finance unit-scale mismatch that blocks, and a missing counterevidence case. The concurrency case identifies a parent-child conflict; the recording case checks pause-time remapping.",
+    "one_line": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch6_unsurfaced_primitives_capsule",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture-bound public source-body import, copied-module digest/anchor evidence, synthetic source-exercise evidence, and body-free receipts only; no live operator memory, prompt-shelf capture authority, live market data, provider/browser state, media release, source mutation, publication approval, release approval, private-root equivalence, or whole-system correctness.",
+    "authority_ceiling": "These synthetic examples do not establish market truth, policy effectiveness or correctness for other inputs. Source hashes and anchors establish identity checks, not algorithm correctness.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -89,9 +89,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture-bound public source-body import, copied-module digest/anchor evidence, synthetic source-exercise evidence, and body-free receipts only; no live operator memory, prompt-shelf capture authority, live market data, provider/browser state, media release, source mutation, publication approval, release approval, private-root equivalence, or whole-system correctness.",
-        "card": "Batch 6 Unsurfaced Primitives Capsule binds the accepted batch6_unsurfaced_primitives_capsule organ to source-open primitive exercises. It checks raw-seed keyphrase scoring, schema-loose distillation, operator handoff linkage, observed-turn window merging, market situation graphs, finance numeric assurance, fail-closed policy judgment, clone-local concurrency, market-clock scheduling, provider-recovery scoping, and demo-take temporal remapping while preserving public fixture inputs, exact-source digest expectations, negative cases, and authority ceilings.",
-        "one_line": "Batch 6 Unsurfaced Primitives Capsule imports provenance, operator-handoff, market, finance, provider-recovery, and demo-take macro primitives as public source-open evidence without granting live operator memory, market, provider, media, publication, or release authority."
+        "authority_ceiling": "These synthetic examples do not establish market truth, policy effectiveness or correctness for other inputs. Source hashes and anchors establish identity checks, not algorithm correctness.",
+        "card": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing. It checks the selected mechanism set and returns individual exercise results. The negative cases include a stopword-only phrase that yields no keyphrase, a finance unit-scale mismatch that blocks, and a missing counterevidence case. The concurrency case identifies a parent-child conflict; the recording case checks pause-time remapping.",
+        "one_line": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -141,7 +141,7 @@
           "ref": "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule"
         }
       ],
-      "title": "Batch 6 Unsurfaced Primitives Capsule"
+      "title": "Exercise text, policy and timing primitives"
     },
     "strangler_note": "Binds the authored Markdown projection, accepted-organ atlas row, Batch 6 organ source locus, public fixture exercises, and body-free receipts to JSON source authority. The mechanism subject is named from the resolving Microcosm mechanism row; concept edges remain residual until resolving Microcosm rows exist; exact-copy refresh of the copied bundle is a separate source-coupled lane, and live operator memory, market, provider, media, source-mutation, publication, and release authority stay out of scope.",
     "support_contract": {
@@ -435,7 +435,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Batch 6 Unsurfaced Primitives Capsule imports provenance, operator-handoff, market, finance, provider-recovery, and demo-take macro primitives as public source-open evidence without granting live operator memory, market, provider, media, publication, or release authority.",
+  "statement": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing.",
   "status": "active",
   "subjects": [
     {
@@ -447,7 +447,7 @@
       "ref": "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule"
     }
   ],
-  "title": "Batch 6 Unsurfaced Primitives Capsule",
+  "title": "Exercise text, policy and timing primitives",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

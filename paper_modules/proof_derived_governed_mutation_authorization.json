@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public synthetic governed-mutation receipts and copied non-secret macro body digest evidence only; no standing credential authority, live cloud/account mutation, source mutation, provider call, hidden vote, policy-after-execution authority, benchmark security claim, release approval, publication, hosting, or whole-system correctness.",
-    "card": "Proof-Derived Governed Mutation Authorization is the public mutation-authority replay contract. It checks three synthetic proposals, proof-cell validator refs, visible policy verdicts, side-effect logs, rollback receipts, cold replay, eight negative cases, and six exact copied macro pattern/receipt/control-plane bodies while keeping credentials, proof bodies, provider payloads, account refs, source mutation, and release authority out of receipts.",
-    "one_line": "The public proof-derived governed-mutation fixture validates synthetic mutation proposals through proof cells, visible pre-execution policy verdicts, logged side effects, rollback receipts, cold replay, negative cases, and copied non-secret macro control-plane bodies without granting live mutation authority."
+    "authority_ceiling": "The result concerns the supplied evidence and synthetic proposals. It grants no credential or permission to mutate a live system. A source hash or Git witness is not proof that the underlying change is correct.",
+    "card": "For each proposal, the validator resolves proof cells and visible policy verdicts, recomputes an evidence-chain hash and checks the associated record. Write and rollback proposals require side-effect and rollback records. It also checks a Git commit witness and its changed paths; Git must be installed and the referenced commit available. A proposal with one visible verdict, a stale hash or no rollback for a reversible write is rejected.",
+    "one_line": "Checks synthetic mutation proposals against linked proof, policy, side-effect, rollback and replay records, then writes an authorization replay receipt."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.proof_derived_governed_mutation_authorization",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public synthetic governed-mutation receipts and copied non-secret macro body digest evidence only; no standing credential authority, live cloud/account mutation, source mutation, provider call, hidden vote, policy-after-execution authority, benchmark security claim, release approval, publication, hosting, or whole-system correctness.",
+    "authority_ceiling": "The result concerns the supplied evidence and synthetic proposals. It grants no credential or permission to mutate a live system. A source hash or Git witness is not proof that the underlying change is correct.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,9 +84,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public synthetic governed-mutation receipts and copied non-secret macro body digest evidence only; no standing credential authority, live cloud/account mutation, source mutation, provider call, hidden vote, policy-after-execution authority, benchmark security claim, release approval, publication, hosting, or whole-system correctness.",
-        "card": "Proof-Derived Governed Mutation Authorization is the public mutation-authority replay contract. It checks three synthetic proposals, proof-cell validator refs, visible policy verdicts, side-effect logs, rollback receipts, cold replay, eight negative cases, and six exact copied macro pattern/receipt/control-plane bodies while keeping credentials, proof bodies, provider payloads, account refs, source mutation, and release authority out of receipts.",
-        "one_line": "The public proof-derived governed-mutation fixture validates synthetic mutation proposals through proof cells, visible pre-execution policy verdicts, logged side effects, rollback receipts, cold replay, negative cases, and copied non-secret macro control-plane bodies without granting live mutation authority."
+        "authority_ceiling": "The result concerns the supplied evidence and synthetic proposals. It grants no credential or permission to mutate a live system. A source hash or Git witness is not proof that the underlying change is correct.",
+        "card": "For each proposal, the validator resolves proof cells and visible policy verdicts, recomputes an evidence-chain hash and checks the associated record. Write and rollback proposals require side-effect and rollback records. It also checks a Git commit witness and its changed paths; Git must be installed and the referenced commit available. A proposal with one visible verdict, a stale hash or no rollback for a reversible write is rejected.",
+        "one_line": "Checks synthetic mutation proposals against linked proof, policy, side-effect, rollback and replay records, then writes an authorization replay receipt."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -131,7 +131,7 @@
           "ref": "mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization"
         }
       ],
-      "title": "Proof-Derived Governed Mutation Authorization"
+      "title": "Governed mutation evidence replay"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave governed-mutation fixture, exported governed-mutation bundle, copied macro source-body manifest, mechanism row, Microcosm organ source locus, and source atlas row without treating Markdown, generated receipts, copied body presence, credentials, or policy prose as live mutation authority.",
     "support_contract": {
@@ -311,7 +311,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public proof-derived governed-mutation fixture validates synthetic mutation proposals through proof cells, visible pre-execution policy verdicts, logged side effects, rollback receipts, cold replay, negative cases, and copied non-secret macro control-plane bodies without granting live mutation authority.",
+  "statement": "Checks synthetic mutation proposals against linked proof, policy, side-effect, rollback and replay records, then writes an authorization replay receipt.",
   "status": "active",
   "subjects": [
     {
@@ -323,7 +323,7 @@
       "ref": "mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization"
     }
   ],
-  "title": "Proof-Derived Governed Mutation Authorization",
+  "title": "Governed mutation evidence replay",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

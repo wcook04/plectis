@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Declared public toy Lean/Lake fixture receipts only; no Mathlib/Aesop/Batteries authority, general theorem correctness, private proof import, provider call, benchmark performance, release approval, publication approval, source mutation, or whole-system correctness.",
-    "card": "Formal Math Lean Proof Witness is the public runtime crossing from readiness metadata into a real local Lean/Lake subprocess witness. It copies a bounded public Lake project, records tool availability, Lake build status, source hashes, declaration names, line counts, source-module manifest verdicts, a Mathlib-blocked debt row, and four leakage/invalid-proof negative cases while keeping proof bodies and command output bodies out of receipts.",
-    "one_line": "The public Lean proof witness runs local Lean/Lake over a tiny synthetic project, validates copied public source-module digests and negative cases, and emits redacted receipts without claiming general proof authority."
+    "authority_ceiling": "Lean and Lake must be available for the fixture run. The exported witness bundle uses a standalone contract that does not perform a fresh Lean/Lake build. A successful witness concerns the supplied project and tool invocation; it does not establish correctness of unrelated theorems, Mathlib availability, or a general proof service. Source digest checks establish copied bytes, not a proof of the copied code.",
+    "card": "This fixture runs Lean and Lake on a small declared public project and records the subprocess outcomes in a bounded witness receipt. The fixture checks that an invalid proof is rejected, and separately checks a source file containing a forbidden Mathlib import. Negative manifest cases include a private source reference and an embedded proof body. The test suite checks the witness and its receipt redaction.",
+    "one_line": "Record Lean and Lake results for a small public proof fixture."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.formal_math_lean_proof_witness",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Declared public toy Lean/Lake fixture receipts only; no Mathlib/Aesop/Batteries authority, general theorem correctness, private proof import, provider call, benchmark performance, release approval, publication approval, source mutation, or whole-system correctness.",
+    "authority_ceiling": "Lean and Lake must be available for the fixture run. The exported witness bundle uses a standalone contract that does not perform a fresh Lean/Lake build. A successful witness concerns the supplied project and tool invocation; it does not establish correctness of unrelated theorems, Mathlib availability, or a general proof service. Source digest checks establish copied bytes, not a proof of the copied code.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -79,9 +79,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Declared public toy Lean/Lake fixture receipts only; no Mathlib/Aesop/Batteries authority, general theorem correctness, private proof import, provider call, benchmark performance, release approval, publication approval, source mutation, or whole-system correctness.",
-        "card": "Formal Math Lean Proof Witness is the public runtime crossing from readiness metadata into a real local Lean/Lake subprocess witness. It copies a bounded public Lake project, records tool availability, Lake build status, source hashes, declaration names, line counts, source-module manifest verdicts, a Mathlib-blocked debt row, and four leakage/invalid-proof negative cases while keeping proof bodies and command output bodies out of receipts.",
-        "one_line": "The public Lean proof witness runs local Lean/Lake over a tiny synthetic project, validates copied public source-module digests and negative cases, and emits redacted receipts without claiming general proof authority."
+        "authority_ceiling": "Lean and Lake must be available for the fixture run. The exported witness bundle uses a standalone contract that does not perform a fresh Lean/Lake build. A successful witness concerns the supplied project and tool invocation; it does not establish correctness of unrelated theorems, Mathlib availability, or a general proof service. Source digest checks establish copied bytes, not a proof of the copied code.",
+        "card": "This fixture runs Lean and Lake on a small declared public project and records the subprocess outcomes in a bounded witness receipt. The fixture checks that an invalid proof is rejected, and separately checks a source file containing a forbidden Mathlib import. Negative manifest cases include a private source reference and an embedded proof body. The test suite checks the witness and its receipt redaction.",
+        "one_line": "Record Lean and Lake results for a small public proof fixture."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -129,7 +129,7 @@
           "ref": "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness"
         }
       ],
-      "title": "Formal Math Lean Proof Witness"
+      "title": "Run a Lean and Lake proof witness"
     },
     "strangler_note": "This capsule binds the authored Markdown projection, first-wave Lean witness fixture, exported Lean witness bundle, copied public Lean/Lake source-module manifest, mechanism row, Microcosm organ source locus, and real local Lean/Lake receipts without treating Markdown, generated atlas docs, copied-body presence, one toy build, or local tool availability as Mathlib, provider, benchmark, release, publication, source-mutation, or general theorem-correctness authority.",
     "support_contract": {
@@ -307,7 +307,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The public Lean proof witness runs local Lean/Lake over a tiny synthetic project, validates copied public source-module digests and negative cases, and emits redacted receipts without claiming general proof authority.",
+  "statement": "Record Lean and Lake results for a small public proof fixture.",
   "status": "active",
   "subjects": [
     {
@@ -323,7 +323,7 @@
       "ref": "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness"
     }
   ],
-  "title": "Formal Math Lean Proof Witness",
+  "title": "Run a Lean and Lake proof witness",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

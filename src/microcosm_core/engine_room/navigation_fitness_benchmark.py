@@ -111,29 +111,6 @@ def _percentile(values: Sequence[int], percentile: float) -> int | None:
     return ordered[index]
 
 
-def _match_expected(expected: set[str], selected: set[str]) -> tuple[list[str], list[str]]:
-    """
-    Derive match expected without touching module import state.
-
-    Inputs are `expected` and `selected`; notable helpers are `endswith`, `append`, and
-    `startswith`.
-    """
-    found: list[str] = []
-    missing: list[str] = []
-    for item in sorted(expected):
-        if item.endswith("*"):
-            prefix = item[:-1]
-            if any(candidate.startswith(prefix) for candidate in selected):
-                found.append(item)
-            else:
-                missing.append(item)
-        elif item in selected:
-            found.append(item)
-        else:
-            missing.append(item)
-    return found, missing
-
-
 def _packet_artifacts(packet: Mapping[str, Any]) -> set[str]:
     """
     Derive packet artifacts without touching module import state.
@@ -200,7 +177,6 @@ def evaluate_task(task: NavigationFitnessTask, packet: Mapping[str, Any]) -> dic
     """
     selected = _packet_artifacts(packet)
     expected = set(task.expected_artifacts)
-    found, missing = _match_expected(expected, selected)
     first_contact_command = _string(packet.get("first_contact_command"))
     command_used = _string(packet.get("command_used")) or first_contact_command
     forbidden_hits = [route for route in task.forbidden_first_routes if route and route in first_contact_command]
@@ -208,41 +184,29 @@ def evaluate_task(task: NavigationFitnessTask, packet: Mapping[str, Any]) -> dic
     timed_out = bool(packet.get("timed_out"))
     error = packet.get("error")
     scent_status, missing_scent_terms = _scent_status(task, packet)
-    recall = 1.0 if not expected else len(found) / len(expected)
-    # Precision counts relevant SELECTED artifacts over selected artifacts.
-    # Counting matched expected PATTERNS mixes units: an exact id plus a
-    # wildcard covering the same artifact reports 2.0, and one wildcard
-    # covering two relevant selections reports 0.5 instead of 1.0.
-    matched_selected = [
-        candidate
-        for candidate in selected
-        if any(
-            candidate.startswith(item[:-1]) if item.endswith("*") else candidate == item
-            for item in expected
-        )
-    ]
-    precision = 1.0 if not selected else len(matched_selected) / len(selected)
+    # The generated core owns wildcard matching, counts and decision precedence.
+    # JSON normalization, scent/forbidden observations and float rounding remain host code.
+    from plectis.components.navigation_metrics import evaluate as evaluate_metrics
 
-    if timed_out:
-        sufficiency_status = "fail"
-        failure_kind = "route_timeout"
-    elif error:
-        sufficiency_status = "fail"
-        failure_kind = "route_error"
-    elif missing:
-        sufficiency_status = "fail"
-        failure_kind = "missing_id"
-    elif scent_status == "fail":
-        sufficiency_status = "fail"
-        failure_kind = "weak_scent"
-    elif forbidden_hits:
-        sufficiency_status = "fail"
-        failure_kind = "forbidden_route"
-    else:
-        sufficiency_status = "pass"
-        failure_kind = None
-
-    latency_status = "timeout" if timed_out else "pass" if wall_ms <= task.latency_budget_ms else "fail"
+    expected_ids = sorted(expected)
+    selected_ids = sorted(selected)
+    metrics = evaluate_metrics({
+        "expected": expected_ids,
+        "selected": selected_ids,
+        "timeout": timed_out,
+        "error": bool(error),
+        "scent_fail": scent_status == "fail",
+        "forbidden": bool(forbidden_hits),
+        "wall": wall_ms,
+        "budget": task.latency_budget_ms,
+    })
+    found = [item for item, hit in zip(expected_ids, metrics["found"]) if hit]
+    missing = [item for item, hit in zip(expected_ids, metrics["found"]) if not hit]
+    recall = 1.0 if not expected else metrics["found_count"] / len(expected)
+    precision = 1.0 if not selected else metrics["relevant_count"] / len(selected)
+    failure_kind = (None, "route_timeout", "route_error", "missing_id", "weak_scent", "forbidden_route")[metrics["decision"]]
+    sufficiency_status = "pass" if failure_kind is None else "fail"
+    latency_status = ("pass", "fail", "timeout")[metrics["latency"]]
     return {
         "task_id": task.task_id,
         "family": task.family,

@@ -396,7 +396,7 @@
       "registry_status_before_activation": "draft",
       "validator_id": "validator.microcosm.organs.agent_route_observability_runtime",
       "receipt_id": "receipt.microcosm.agent_route_observability_runtime",
-      "organ_authority_receipt": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
+      "organ_authority_receipt": "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
       "organ_evidence_class": "semantic_validator",
       "organ_evidence_strength_rank": 5,
       "truth_accounting_bucket": "real_import_validation",

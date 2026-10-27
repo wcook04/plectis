@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public tiny-fixture Lean proof-search evidence only; no neural theorem proving, frontier-scale automation, private macro run export, oracle-body forward solving, release approval, private-root equivalence, source mutation, or whole-system proof correctness.",
-    "card": "Engine Room Lean Proof Search Lab binds the staged proof-search capsule to a concrete mechanism. It runs tiny public Lean statements through symbolic tactic search, statement-only candidate scoring, problem-id ablation, forward oracle-body rejection, and axiom cleanliness checks, while keeping private macro run state, oracle proof bodies, neural theorem proving, frontier-scale automation, release, and private-root authority out of scope.",
-    "one_line": "Public Engine Room component: bounded Lean proof-search lab for tiny fixture statements, oracle-firewall negatives, ablation, and axiom-cleanliness checks."
+    "authority_ceiling": "Tiny public examples only; no neural or frontier-scale theorem-proving claim.",
+    "card": "Oracle-body fields, ID-memorizing behavior and sorry-tainted candidates are negative fixtures.",
+    "one_line": "Searches tiny Lean fixtures with symbolic candidates and checks proofs and axioms."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.engine_room_lean_proof_search_lab",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public tiny-fixture Lean proof-search evidence only; no neural theorem proving, frontier-scale automation, private macro run export, oracle-body forward solving, release approval, private-root equivalence, source mutation, or whole-system proof correctness.",
+    "authority_ceiling": "Tiny public examples only; no neural or frontier-scale theorem-proving claim.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -96,9 +96,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public tiny-fixture Lean proof-search evidence only; no neural theorem proving, frontier-scale automation, private macro run export, oracle-body forward solving, release approval, private-root equivalence, source mutation, or whole-system proof correctness.",
-        "card": "Engine Room Lean Proof Search Lab binds the staged proof-search capsule to a concrete mechanism. It runs tiny public Lean statements through symbolic tactic search, statement-only candidate scoring, problem-id ablation, forward oracle-body rejection, and axiom cleanliness checks, while keeping private macro run state, oracle proof bodies, neural theorem proving, frontier-scale automation, release, and private-root authority out of scope.",
-        "one_line": "Public Engine Room component: bounded Lean proof-search lab for tiny fixture statements, oracle-firewall negatives, ablation, and axiom-cleanliness checks."
+        "authority_ceiling": "Tiny public examples only; no neural or frontier-scale theorem-proving claim.",
+        "card": "Oracle-body fields, ID-memorizing behavior and sorry-tainted candidates are negative fixtures.",
+        "one_line": "Searches tiny Lean fixtures with symbolic candidates and checks proofs and axioms."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -145,7 +145,7 @@
           "ref": "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab"
         }
       ],
-      "title": "Engine Room Lean Proof Search Lab"
+      "title": "Search for small Lean proofs"
     },
     "strangler_note": "Binds the legacy Markdown projection, staged Engine Room Lean proof-search runtime, fixture manifest, standard, focused tests, and admitted mechanism row to JSON capsule authority without treating generated projections, fixture success, Lean subprocess availability, or accepted tiny proofs as frontier theorem proving, proof-correctness for private macro runs, release, private-root-equivalence, or whole-system authority. No accepted organ subject is claimed.",
     "support_contract": {
@@ -495,7 +495,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Public Engine Room component: bounded Lean proof-search lab for tiny fixture statements, oracle-firewall negatives, ablation, and axiom-cleanliness checks.",
+  "statement": "Searches tiny Lean fixtures with symbolic candidates and checks proofs and axioms.",
   "status": "active",
   "subjects": [
     {
@@ -503,7 +503,7 @@
       "ref": "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab"
     }
   ],
-  "title": "Engine Room Lean Proof Search Lab",
+  "title": "Search for small Lean proofs",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

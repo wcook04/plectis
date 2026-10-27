@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Verified non-secret concurrency mission-control fixture and source-module import evidence only; no live scheduler, provider dispatch, hosted orchestration, production concurrency-safety proof, source authority, private-root equivalence, release approval, publication approval, or whole-system correctness.",
-    "card": "Concurrency Mission Control validates the public concurrency mission-control membrane: copied macro-builder digests, bridge artifacts, failure classes, Work Ledger seed-speed topology, heartbeat and claim-collision anchors, negative cases, source-open body imports, and body-free receipts. It separates coordination evidence from hosted orchestration, provider dispatch, live scheduling, private-root equivalence, source authority, release, publication, and production concurrency guarantees.",
-    "one_line": "Concurrency Mission Control validates body-free coordination receipts without becoming a live scheduler or production concurrency proof."
+    "authority_ceiling": "Fixture classifications do not enforce rules on live agents.",
+    "card": "Runs a copied builder and derives classifications from supplied owner, path, validation and commit records.",
+    "one_line": "Classifies concurrent-work ownership and closure fixture cases."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.concurrency_mission_control",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Verified non-secret concurrency mission-control fixture and source-module import evidence only; no live scheduler, provider dispatch, hosted orchestration, production concurrency-safety proof, source authority, private-root equivalence, release approval, publication approval, or whole-system correctness.",
+    "authority_ceiling": "Fixture classifications do not enforce rules on live agents.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,9 +83,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Verified non-secret concurrency mission-control fixture and source-module import evidence only; no live scheduler, provider dispatch, hosted orchestration, production concurrency-safety proof, source authority, private-root equivalence, release approval, publication approval, or whole-system correctness.",
-        "card": "Concurrency Mission Control validates the public concurrency mission-control membrane: copied macro-builder digests, bridge artifacts, failure classes, Work Ledger seed-speed topology, heartbeat and claim-collision anchors, negative cases, source-open body imports, and body-free receipts. It separates coordination evidence from hosted orchestration, provider dispatch, live scheduling, private-root equivalence, source authority, release, publication, and production concurrency guarantees.",
-        "one_line": "Concurrency Mission Control validates body-free coordination receipts without becoming a live scheduler or production concurrency proof."
+        "authority_ceiling": "Fixture classifications do not enforce rules on live agents.",
+        "card": "Runs a copied builder and derives classifications from supplied owner, path, validation and commit records.",
+        "one_line": "Classifies concurrent-work ownership and closure fixture cases."
       },
       "concept_refs": [
         "concept.work_landing_and_continuity_control_bundle"
@@ -135,7 +135,7 @@
           "ref": "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control"
         }
       ],
-      "title": "Concurrency Mission Control"
+      "title": "Replay concurrent-work ownership cases"
     },
     "strangler_note": "Binds the Markdown projection, runtime locus, organ subject, and admitted mechanism subject to JSON source authority; authority remains fixture/receipt scoped and does not flip Markdown into source.",
     "support_contract": {
@@ -423,7 +423,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Concurrency Mission Control validates body-free coordination receipts without becoming a live scheduler or production concurrency proof.",
+  "statement": "Classifies concurrent-work ownership and closure fixture cases.",
   "status": "active",
   "subjects": [
     {
@@ -435,7 +435,7 @@
       "ref": "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control"
     }
   ],
-  "title": "Concurrency Mission Control",
+  "title": "Replay concurrent-work ownership cases",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

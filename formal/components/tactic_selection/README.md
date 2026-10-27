@@ -1,0 +1,5 @@
+# Tactic selection decision core
+
+`Select` receives an ordered preference list and ordered candidate observations. Each candidate carries a normalized identity and booleans saying whether it is known, available and allowed. It selects the first preference with an eligible candidate, or the first eligible candidate when no preference matches, or reports no selection. The postconditions state eligibility, first-preference precedence, first-candidate tie order and the no-candidate case for arbitrary finite inputs.
+
+The component's Python code supplies the preferences, candidate order and membership observations. Python normalization, source availability records and the runtime boundary remain outside the proof; a chosen tactic is not a proof that it will solve a goal. The generated Python is called through the component worker, with no Python decision fallback. Dafny, its solver and compiler, the worker and Python remain trusted. The source-linked mutant drops the known-candidate condition; the original specification must reject it.

@@ -240,10 +240,10 @@
       "registry_status_before_activation": "draft",
       "validator_id": "validator.microcosm.organs.mission_transaction_work_spine",
       "receipt_id": "receipt.microcosm.mission_transaction_work_spine",
-      "organ_authority_receipt": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
-      "organ_evidence_class": "algorithmic_projection",
-      "organ_evidence_strength_rank": 3,
-      "truth_accounting_bucket": "source_faithful_refactor",
+      "organ_authority_receipt": "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
+      "organ_evidence_class": "bounded_runtime_computation",
+      "organ_evidence_strength_rank": 4,
+      "truth_accounting_bucket": "real_runtime_receipt",
       "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
     }
   },

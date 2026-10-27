@@ -60,6 +60,7 @@ PUBLIC_TESTS ?= \
 	tests/test_public_site_parity.py
 OPERATIONS_TESTS = tests/test_repair.py tests/test_repair_api.py tests/test_publish.py tests/test_compatibility.py tests/test_operations_integration.py tests/test_operations_boundaries.py tests/test_operations_portability.py
 OPERATIONS_TESTS += tests/test_operations_recovery.py tests/test_sealed_kernel.py tests/test_compatibility_witness.py tests/test_public_views.py tests/test_public_views_recipe_change.py
+OPERATIONS_TESTS += tests/test_replay_kernel.py
 PUBLIC_TESTS += $(OPERATIONS_TESTS)
 PUBLIC_TESTS += tests/test_public_system_paper.py
 PUBLIC_TESTS += tests/test_hypothesis_handoff.py
@@ -107,6 +108,10 @@ PUBLIC_TESTS += tests/test_runtime_shell.py tests/test_cli.py tests/test_bridge_
 PUBLIC_TESTS += tests/test_crown_jewel_common.py tests/test_source_module_boundary.py tests/test_runtime_demo_freshness.py
 PUBLIC_TESTS += tests/test_mission_transaction_work_spine.py
 PUBLIC_TESTS += tests/test_component_replays.py tests/test_export_contamination_gate.py
+PUBLIC_TESTS += tests/test_refresh_source_module_manifest.py
+PUBLIC_TESTS += $(filter-out tests/test_component_replays.py,$(wildcard tests/test_component_*.py))
+PUBLIC_TESTS += tests/test_legacy_kernel_checkers.py
+PUBLIC_TESTS += tests/test_doctrine_source_projection.py
 PUBLIC_TESTS += tests/test_cognitive_operator_registry.py tests/test_proof_derived_governed_mutation_authorization.py
 PUBLIC_TESTS += tests/test_world_model_projection_drift_control_room.py
 
@@ -124,6 +129,7 @@ help:
 		"  make operations-demo     run the local workflow-change experiment" \
 		"  make operations-test     test the portable operation APIs" \
 		"  make verify-operations   recheck proofs with DAFNY=/path/to/dafny" \
+		"  make verify-components   recheck component proofs with DAFNY=/path/to/dafny" \
 		"  make install             create temp venv and install test extras" \
 		"  make test                run public entry and safety tests" \
 		"  make test-all            run full suite with pytest receipt writes blocked" \
@@ -222,6 +228,11 @@ verify-operations:
 	@"$(PYTHON)" scripts/check/check_repair_kernel.py --dafny "$(DAFNY)"
 	@"$(PYTHON)" scripts/check/check_compatibility_kernel.py --dafny "$(DAFNY)"
 	@"$(PYTHON)" scripts/check/check_views_kernel.py --dafny "$(DAFNY)"
+	@"$(PYTHON)" scripts/check/check_replay_kernel.py --dafny "$(DAFNY)"
+
+.PHONY: verify-components
+verify-components:
+	@"$(PYTHON)" scripts/check/check_component_kernels.py --dafny "$(DAFNY)"
 
 ci: check test smoke package-smoke
 
@@ -232,6 +243,8 @@ check preflight:
 	@"$(PYTHON)" scripts/check/check_repair_kernel.py
 	@"$(PYTHON)" scripts/check/check_compatibility_kernel.py
 	@"$(PYTHON)" scripts/check/check_views_kernel.py
+	@"$(PYTHON)" scripts/check/check_replay_kernel.py
+	@"$(PYTHON)" scripts/check/check_component_kernels.py
 	@"$(PYTHON)" scripts/check/check_repository_layout.py
 	@$(SMOKE_ENV) PYTHONPATH=src "$(PYTHON)" -c "from microcosm_core.runtime_shell import _load_evidence_class_registry; from pathlib import Path; _load_evidence_class_registry(Path('.'))"
 	@"$(PYTHON)" scripts/check/check_lean_proof_trust.py

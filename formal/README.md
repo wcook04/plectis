@@ -1,13 +1,15 @@
 # Formal executable cores
 
-Three small executable cores have Dafny specifications. Their generated Python
-is the code called by the public APIs, not a separate handwritten simulation.
+Four workflow and replay decision cores, plus twelve [component computations](components/README.md),
+have Dafny specifications. Their generated Python is called by the public APIs
+and component paths.
 
 | Core | What is established for valid supplied inputs | What is outside the proof |
 |---|---|---|
 | [Repair](repair/README.md) | The producer terminates; the accepted plan is the unique least propagation of invalid inputs and blocked effects through any finite topologically ordered DAG. | Dependency discovery, callback behavior, persistence and external effects. |
 | [Compatibility](compatibility/README.md) | An accepted state relation preserves every finite allowed input sequence and its outputs in the supplied deterministic transition models; the replay checker detects exactly the words with a differing allowed prefix. | Whether a model faithfully describes a Python program, SQLite or the intended policy. |
 | [Public views](views/README.md) | A checked mixed report compiles to a public-only program preserving its exact ordered public trace; the slice reads no private input slot. | Policy correctness, secret-dependent plan construction, row selection, host decoding and side channels. |
+| [Replay admission](replay/README.md) | Acceptance is equivalent to complete, unique coverage of a nonempty supplied registry with matching component, input, claim-policy, source, public payload and required witness observations. | Whether a runner executed honestly, whether its public receipt expresses the right domain claim, filesystem/hash observations and policy adequacy. |
 
 These are SMT-backed Dafny proofs. Dafny's verification encoding, Boogie, Z3,
 the compiler and support runtime, Python, and the execution platform remain
@@ -17,12 +19,15 @@ repository's Apache-2.0 licence.
 
 ## Run and recheck
 
-Python 3.11+ is enough to run the [examples](../examples/operations/README.md).
+Python 3.11+ is enough to run the [workflow examples](../examples/operations/README.md).
+The replay core is called by the [shared component host](../src/microcosm_core/component_replay.py);
+full component replays also need their declared native tools.
 To recheck formal obligations, install the pinned official
 [Dafny 4.11.0 release](https://github.com/dafny-lang/dafny/releases/tag/v4.11.0):
 
 ```sh
 make verify-operations DAFNY=/absolute/path/to/dafny
+make verify-components DAFNY=/absolute/path/to/dafny
 ```
 
 The checkers verify the source, regenerate deployed Python and compare its

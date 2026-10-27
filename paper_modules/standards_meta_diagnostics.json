@@ -6,9 +6,9 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Projection-only diagnostic; never source authority for core/standards_registry.json, no source mutation, no provider/release authorization, no whole-system correctness.",
-    "card": "Checks accepted adapter-backed organs against standards_inventory/organ_runtime_contracts/diagnostic_policy; rejects 5 boundary failures (missing standard_id/standard_ref, missing inventory row, missing receipt ref, release/provider/publication overclaim, private-body leak); secret_exclusion_scan with body_in_receipt:false and synthetic_receipt_standin_allowed:false.",
-    "one_line": "Terminal public coverage diagnostic: verifies every accepted organ stays mapped to a standard, runtime contract, receipt, and authority ceiling."
+    "authority_ceiling": "A pass describes checked public coverage; it does not establish that every component works correctly or authorize registry changes or a release.",
+    "card": "The checker compares accepted component IDs against inventory and runtime-contract rows, checks standard and receipt references, and scans inputs for forbidden material. A missing standard reference or a claimed release authorization is rejected. The exported bundle uses supplied rows and checks a source-module manifest.",
+    "one_line": "This validator checks whether accepted components have the declared standards, runtime commands and receipt references needed to describe their public contracts."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.standards_meta_diagnostics",
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Projection-only diagnostic; never source authority for core/standards_registry.json, no source mutation, no provider/release authorization, no whole-system correctness.",
+    "authority_ceiling": "A pass describes checked public coverage; it does not establish that every component works correctly or authorize registry changes or a release.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -79,9 +79,9 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Projection-only diagnostic; never source authority for core/standards_registry.json, no source mutation, no provider/release authorization, no whole-system correctness.",
-        "card": "Checks accepted adapter-backed organs against standards_inventory/organ_runtime_contracts/diagnostic_policy; rejects 5 boundary failures (missing standard_id/standard_ref, missing inventory row, missing receipt ref, release/provider/publication overclaim, private-body leak); secret_exclusion_scan with body_in_receipt:false and synthetic_receipt_standin_allowed:false.",
-        "one_line": "Terminal public coverage diagnostic: verifies every accepted organ stays mapped to a standard, runtime contract, receipt, and authority ceiling."
+        "authority_ceiling": "A pass describes checked public coverage; it does not establish that every component works correctly or authorize registry changes or a release.",
+        "card": "The checker compares accepted component IDs against inventory and runtime-contract rows, checks standard and receipt references, and scans inputs for forbidden material. A missing standard reference or a claimed release authorization is rejected. The exported bundle uses supplied rows and checks a source-module manifest.",
+        "one_line": "This validator checks whether accepted components have the declared standards, runtime commands and receipt references needed to describe their public contracts."
       },
       "concept_refs": [
         "concept.standards_meta_diagnostics_bundle",
@@ -128,7 +128,7 @@
           "ref": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics"
         }
       ],
-      "title": "Standards Meta Diagnostics"
+      "title": "Standards coverage diagnostics"
     },
     "strangler_note": "Binds the existing Markdown projection and code locus to a JSON authority row without treating Markdown as source.",
     "support_contract": {
@@ -357,7 +357,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Terminal public coverage diagnostic: verifies every accepted organ stays mapped to a standard, runtime contract, receipt, and authority ceiling.",
+  "statement": "This validator checks whether accepted components have the declared standards, runtime commands and receipt references needed to describe their public contracts.",
   "status": "active",
   "subjects": [
     {
@@ -369,7 +369,7 @@
       "ref": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics"
     }
   ],
-  "title": "Standards Meta Diagnostics",
+  "title": "Standards coverage diagnostics",
   "validator_refs": [
     "microcosm-substrate/scripts/build/build_doctrine_projection.py --check-paper-module-corpus"
   ]

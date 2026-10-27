@@ -90,12 +90,18 @@ def test_high_regret_organs_name_their_machinery() -> None:
         return (mech_by.get(oid) or {}).get("body", "")
 
     fin = body("finance_forecast_evaluation_spine")
-    assert "Diebold-Mariano" in fin and ("Hansen" in fin or "SPA" in fin)
+    # Preserve named computations across typographic dashes and expanded names.
+    normalized_fin = re.sub(r"[\u2010-\u2015-]", " ", fin).casefold()
+    for computation in ("diebold mariano", "stationary bootstrap", "reality check",
+                        "superior predictive ability", "model confidence set"):
+        assert computation in normalized_fin, computation
     erd = body("finite_erdos_denominator_certificate_strike")
-    assert "ord_Q" in erd and "lcm" in erd
+    assert "multiplicative order" in erd and "modulo Q" in erd and "lcm(F)" in erd
     sab = body("agent_sabotage_scheming_monitor_replay")
     assert "counterfactual" in sab or "monitor" in sab
-    assert "RMS" in body("batch8_audio_level_rms_port")
+    audio = body("batch8_audio_level_rms_port").casefold()
+    assert "root mean square" in audio or re.search(r"\brms\b", audio)
+    assert "int16" in audio and "32767" in audio and "clamp" in audio
 
 
 def test_mechanism_surfaces_do_not_leak_source_bodies() -> None:
@@ -111,7 +117,8 @@ def test_comprehend_organ_carries_full_mechanism_body() -> None:
         mode="organ", organ_id="finance_forecast_evaluation_spine", inputs=inputs
     )
     assert pack.get("found")
-    assert "Diebold-Mariano" in pack["summary"].get("mechanism", "")
+    expected = inputs["mechanism_by_organ"]["finance_forecast_evaluation_spine"]["body"]
+    assert pack["summary"]["mechanism"] == expected
 
 
 def test_whole_substrate_map_rows_carry_mechanism() -> None:
@@ -145,9 +152,11 @@ def test_slice_mechanism_text_renders_substance_lines() -> None:
     assert "Mechanism lines:" in text
     assert text.index("Mechanism substance examples:") < text.index("Mechanism lines:")
     assert "Lean Proof-Search Lab Runtime" in text
-    assert "Gated external-tool proof-search lab" in text
+    for node in pack["substance_nodes"]:
+        assert node["mechanism"] in text
+    lean = next(node for node in pack["substance_nodes"] if node["organ_id"] == "lean_proof_search_lab_runtime")
+    assert "bounded" in lean["mechanism"] and "Lean" in lean["mechanism"]
     assert "Finite Erdos Denominator-Order Certificate Strike" in text
-    assert "ord_Q(b)=lcm(F)" in text
     assert "Sabotage-Monitor Contract Replay" in text
     assert "What this does NOT claim:" in text
 
