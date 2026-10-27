@@ -198,6 +198,9 @@ def test_historical_observations_cannot_be_reassigned_or_counted_twice(owners, d
 
 def test_universe_is_registry_not_magic_count_or_capsule_subjects(owners):
     _, registry, atlas, assurance = copy.deepcopy(owners)
+    # This fixture deliberately builds a smaller source universe. Its optional
+    # explorer projection was collected for the full registry and is not reused.
+    assurance.pop("explorer", None)
     ids = {"belief_state_process_reward_replay", "formal_math_lean_proof_witness"}
     registry["implemented_organs"] = [row for row in registry["implemented_organs"] if row["organ_id"] in ids]
     atlas["organs"] = [row for row in atlas["organs"] if row["organ_id"] in ids]

@@ -134,7 +134,9 @@ second catalogue or invoke a runner when a page loads. Keep these boundaries:
 | Owner | Responsibility | May depend on |
 |---|---|---|
 | `component_descriptions.py` and index builder | Canonical descriptions and source-bound generated data | Registered public source owners |
+| `projections/component_proof_excerpts.py`, `component_workflow_cores.py`, `component_explorer_metadata.py` | Build-time bounded declarations, retained proof data, doctrine, receipt summaries and lexical import evidence | Public source files, retained hash records and existing checker implementations |
 | `component_index.py` | Validate the full index; derive component, proof and coverage views | Resource lookup and strict JSON |
+| `component_explorer_validation.py` and `component_annotations.py` | Pure-data validation of bounded excerpts and explicit review/clause records | Standard library; no source reads or execution during validation |
 | `component_api_contract.py` | Public protocol, shared limits and OpenAPI schemas | Standard library only; no data loading |
 | `component_http.py` | Immutable snapshots, search, bounded graph queries, pagination, caching and HTTP | Index reader and protocol contract |
 | Frontend | Navigation, rendering and user interaction | HTTP contract; no imports of Python runners or private state |
@@ -145,6 +147,16 @@ once; atomic replacement creates a new revision. Cursor identity covers the
 query and revision. The frontend must also compare revisions when combining
 separate responses. Search uses the canonical component ID, title and summary;
 it does not scan the repository or introduce another search index on disk.
+
+`/overview` compiles the full map once per snapshot, including the four workflow
+cores. The optional explorer extension keeps old v3 indexes readable. The source
+extractor checks actual retained source bytes at build time; runtime admission
+checks excerpt bounds, hashes and internal consistency without reopening source.
+It does not establish independent proof of excerpt membership in a missing file.
+Unknown task names, absent review records and missing receipt dates remain
+explicitly unrecorded. Lexical imports are distinguished from declared wiring
+and do not claim that a call occurred. The builder publishes complete JSON with
+an atomic same-directory replacement; see the [rebuild command](../../scripts/README.md#component-explorer-snapshot).
 
 The [API reference](../reference/component-http-api.md) describes implemented
 behavior. The [frontend brief](../guides/frontend-implementation.md) specifies

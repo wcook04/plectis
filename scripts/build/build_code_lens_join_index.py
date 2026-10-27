@@ -3,9 +3,11 @@
 from __future__ import annotations
 import argparse
 import json
+import os
 from pathlib import Path
 import runpy
 import sys
+import tempfile
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 from microcosm_core.projections.component_assurance import (
     SCHEMA_VERSION, build_join_index, extend_claim_index, collect_claim_assurance_inputs,
@@ -18,6 +20,41 @@ def proof_binding_tools(root):
     return runpy.run_path(str(Path(root) / "scripts/check/check_component_kernels.py"))
 
 
+def registered_runner_lens(root, registry):
+    """Extract current registered runner symbols using the existing lens parser."""
+    from microcosm_core.project_substrate import _python_span_projection
+    from microcosm_core.projections.component_assurance import _bounded_file
+    rows = []
+    for ref in sorted({"src/" + row["runner"].replace(".", "/") + ".py"
+                       for row in registry["implemented_organs"]}):
+        projection = _python_span_projection(ref, _bounded_file(root, ref).decode("utf-8"))
+        if projection["parse_status"] != "parsed":
+            raise ValueError("registered runner cannot be parsed: " + ref)
+        rows.extend(projection["symbol_capsule_rows"])
+    return {"payload_boundary": {"source_bodies_exported": False}, "symbol_capsule_rows": rows}
+
+
+def write_index(path, index):
+    """Publish a complete snapshot atomically; a failed build leaves the old file."""
+    encoded = json.dumps(index, indent=2, sort_keys=True, allow_nan=False) + "\n"
+    path = Path(path)
+    if path.is_symlink():
+        raise ValueError("index output must not be a symlink")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent,
+                                         prefix="." + path.name + ".", delete=False) as stream:
+            temporary = Path(stream.name)
+            stream.write(encoded)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
 def main(argv: list[str] | None = None) -> int:
     """
     Run `scripts.build.build_code_lens_join_index` as a command-line entry point.
@@ -27,6 +64,8 @@ def main(argv: list[str] | None = None) -> int:
     """
     parser = argparse.ArgumentParser(description="Build the code-lens join index v2.")
     parser.add_argument("--lens", type=Path, help="python-lens --full snapshot JSON")
+    parser.add_argument("--registered-runners", action="store_true",
+                        help="extract current registered runner symbols for an assurance rebuild")
     parser.add_argument(
         "--registry",
         type=Path,
@@ -63,9 +102,11 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.base_index and not args.claim_assurance:
         parser.error("--base-index requires --claim-assurance")
+    if args.registered_runners and not args.claim_assurance:
+        parser.error("--registered-runners requires --claim-assurance")
     if args.claim_assurance:
-        if args.refresh_navigation or (args.base_index and args.lens):
-            parser.error("assurance requires one base index or lens; no navigation-only refresh")
+        if args.refresh_navigation or sum(bool(value) for value in (args.base_index, args.lens, args.registered_runners)) != 1:
+            parser.error("assurance requires exactly one base index, lens or registered-runners input; no navigation-only refresh")
         root = args.repo_root.resolve()
         def source_path(path):
             return path if path.is_absolute() else root / path
@@ -74,7 +115,7 @@ def main(argv: list[str] | None = None) -> int:
             base = _load_json(args.base_index, "saved v2 join index")
             if not isinstance(base, dict) or base.get("schema_version") != SCHEMA_VERSION:
                 parser.error("--base-index requires a saved v2 join index; regenerate v3 with --lens from a current python-lens --full snapshot")
-        elif not args.lens:
+        elif not args.lens and not args.registered_runners:
             parser.error("--lens or --base-index is required for assurance")
         registry = _load_json(source_path(args.registry), "organ registry")
         atlas = _load_json(source_path(args.atlas), "organ atlas")
@@ -82,18 +123,17 @@ def main(argv: list[str] | None = None) -> int:
         if base is not None:
             index = extend_claim_index(base, registry, atlas, assurance)
         else:
-            lens = _load_json(args.lens, "lens snapshot")
+            lens = registered_runner_lens(root, registry) if args.registered_runners else _load_json(args.lens, "lens snapshot")
             routes = _load_json(source_path(args.routes), "task routes")
             index = build_join_index(lens, registry, atlas=atlas, routes=routes, assurance=assurance)
-        args.out.parent.mkdir(parents=True, exist_ok=True)
-        args.out.write_text(json.dumps(index, indent=2, sort_keys=True) + "\n")
+        write_index(args.out, index)
         print(f"wrote {args.out}: {len(index['nodes']['claim'])} component claims with explicit v3 assurance")
         return 0
     if args.refresh_navigation:
         if args.lens:
             parser.error("--refresh-navigation does not accept a lens input")
         index = _load_json(args.out, "saved join index")
-        args.out.write_text(json.dumps(refresh_navigation(index), indent=2, sort_keys=True) + "\n")
+        write_index(args.out, refresh_navigation(index))
         print(f"refreshed owner navigation only: {args.out}")
         return 0
     if not args.lens:
@@ -106,8 +146,7 @@ def main(argv: list[str] | None = None) -> int:
     routes = _load_json(args.routes, "agent task routes") if args.routes.is_file() else None
     capsules = _load_json(args.capsules, "paper module capsules") if args.capsules.is_file() else None
     index = build_join_index(lens, registry, atlas=atlas, routes=routes, capsules=capsules)
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(index, indent=2, sort_keys=True) + "\n")
+    write_index(args.out, index)
     rollup = index["rollup"]
     print(
         f"wrote {args.out}: {rollup['organ_count']} organs, "

@@ -45,6 +45,23 @@ prover. The installation smoke check also exercises the component wrappers.
 See [formal/README.md](../formal/README.md) and the [component proof index](../formal/components/README.md)
 for assumptions and reproduction.
 
+## Component explorer snapshot
+
+Regenerate the backend's single snapshot from the canonical registry, current
+registered-runner lens, formal hash records and public source owners:
+
+```bash
+PYTHONPATH=src python3 scripts/build/build_code_lens_join_index.py --claim-assurance --registered-runners
+```
+
+The builder validates before atomically replacing
+`receipts/code_lens/code_lens_join_index_v0.json`. It does not run the prover or
+component replays. For an isolated candidate, pass `--out /tmp/component-index.json`.
+The build-time collectors live under `src/microcosm_core/projections/`; runtime
+admission and the HTTP contract stay under `src/microcosm_core/`. The
+[ownership map](../docs/maintainers/architecture.md#component-backend-ownership)
+and [HTTP reference](../docs/reference/component-http-api.md) explain those boundaries.
+
 ## Earlier command paths
 
 The following maintenance programs moved on 13 October 2026. Historical papers

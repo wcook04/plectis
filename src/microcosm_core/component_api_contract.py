@@ -6,13 +6,14 @@ The index owner still validates the complete evidence records at startup.
 """
 from __future__ import annotations
 
-CONTRACT_VERSION = "1.1.0"
+CONTRACT_VERSION = "1.2.0"
 API_SCHEMA = "plectis_component_http_v1"
 API_PREFIX = "/api/v1"
 MAX_PAGE_SIZE = 100
 MAX_GRAPH_DEPTH = 3
 MAX_GRAPH_EDGES = 500
 MAX_SEARCH_LENGTH = 160
+MAX_OVERVIEW_BYTES = 8 * 1024 * 1024
 CLASSIFICATION_FIELDS = ("family", "evidence_class", "real_substrate_disposition", "truth_accounting_bucket")
 
 
@@ -47,6 +48,12 @@ def openapi_document():
     claim = _object(claim_id=text, organ_id=text, claim_ceiling=text, card=card)
     proof = _object(proof=record, modeled_contracts=_array(record), index_state=text,
                     current_backend_binding=status, fresh_prover=status)
+    proof["properties"].update(component_ids=_array(text), claim_ids=_array(text))
+    core = _object(core_id=text, proof_id=text, statement=text,
+        assumptions=_array(text), limits=_array(text), specification_refs=_array(text),
+        entry_theorem_refs=_array(text), retained_verification=record,
+        current_binding=record, fresh_prover_result=record, generated_refs=_array(text),
+        negative_controls=_array(record), public_caller_refs=_array(text))
     artifact = _object(artifact_id=text, ref=text, kind=text,
                        availability={"enum": ["available", "unavailable"]})
     artifact["properties"].update(href=text, reason=text, sha256=text)
@@ -55,7 +62,7 @@ def openapi_document():
         "ComponentSummary": _object(organ_id=text, claim_id=text, title=text, summary=text,
                                      evidence_class=text, formal_subclaim_ids=_array(text),
                                      classification=classification),
-        "Claim": claim, "Proof": proof, "Artifact": artifact,
+        "Claim": claim, "Proof": proof, "Artifact": artifact, "Core": core,
         "Component": _object(component_id=text, claim=_ref("Claim"), guide=record, replay=record,
                               subclaims=_array(record), proofs=_array(_ref("Proof")),
                               artifacts=_array(_ref("Artifact")), evidence_state=evidence,
@@ -77,11 +84,89 @@ def openapi_document():
                                                            "to": text, "to_type": text}))),
         "Error": _object(schema_version={"const": API_SCHEMA}, error=_object(code=text, message=text)),
     }
+    schemas.update({
+        "ArtifactBinding": _object(ref=text, sha256={"type": "string", "pattern": "^[0-9a-f]{64}$"}),
+        "SourceExcerpt": _object(ref=text, kind=text, name=text,
+            line_start={"type": "integer", "minimum": 1}, line_end={"type": "integer", "minimum": 1},
+            text={"type": "string", "maxLength": 24 * 1024}),
+        "ChangedLine": _object(line={"type": "integer", "minimum": 1}, original={"type": ["string", "null"]}, mutated={"type": ["string", "null"]}),
+        "NegativeControl": _object(source_ref=text, retained_result=record, fresh_result=record),
+        "VerificationTask": _object(name=text, kind=text),
+        "DoctrineNode": _object(id=text, title=text, plain=text, kind=text, source_ref=text),
+        "TypedRelation": _object(from_id=text, to_id=text, kind={"const": "imports_runner"},
+            source_ref=text, line={"type": "integer", "minimum": 1}, source_sha256=text),
+        "DoctrineEdge": _object(from_id=text, to_id=text, kind=text, source_ref=text),
+        "SourceRevision": _object(status={"enum": ["unknown", "recorded"]}, commit={"type": ["string", "null"]},
+            dirty={"type": ["boolean", "null"]}, repository={"type": ["string", "null"]},
+            exact_source_links={"type": "boolean"}),
+        "ReceiptSummary": _object(ref=text, availability={"enum": ["available", "unavailable"]},
+            created_at={"type": ["string", "null"]}, date_status={"enum": ["recorded", "unrecorded"]},
+            artifact_sha256={"type": ["string", "null"]},
+            availability_reason={"type": ["string", "null"]},
+            recorded_fields={"type": "object", "additionalProperties": {"type": ["string", "integer", "boolean"]}}),
+        "FilterValue": _object(value=text, component_count={"type": "integer", "minimum": 0}),
+    })
+    schemas["SourceExcerpt"]["properties"].update(source_sha256=_ref("SnapshotRevision"),
+        text_sha256=_ref("SnapshotRevision"))
+    schemas["SourceExcerpt"]["required"].extend(["source_sha256", "text_sha256"])
+    schemas["NegativeControl"]["properties"].update(description=text,
+        changed_lines=_array(_ref("ChangedLine")), source_sha256=text,
+        description_basis=text, changed_lines_sha256=text)
+    schemas["FilterValue"]["properties"].update(label=text, description=text, label_basis=text)
+    schemas["Core"]["properties"].update(artifact_bindings=_array(_ref("ArtifactBinding")),
+        negative_controls=_array(_ref("NegativeControl")))
+    proof_record = {"type": "object", "properties": {
+        "component_ids": _array(text), "claim_ids": _array(text),
+        "excerpts": _array(_ref("SourceExcerpt")),
+        "negative_controls": _array(_ref("NegativeControl")),
+        "retained_verification": {"type": "object", "properties": {
+            "tasks": _array(_ref("VerificationTask")), "task_names_status": text, "tasks_availability": text, "tasks_reason": text}}}}
+    schemas["Proof"]["properties"]["proof"] = proof_record
+    schemas["Metadata"]["properties"].update(source_revision=_ref("SourceRevision"),
+        component_filters=_object(**{key: _array(_ref("FilterValue")) for key in CLASSIFICATION_FIELDS}))
+    schemas["Artifact"]["properties"]["summary"] = _ref("ReceiptSummary")
+    schemas["Explorer"] = {"type": "object", "properties": {
+        "source_revision": _ref("SourceRevision"),
+        "doctrine": _object(nodes=_array(_ref("DoctrineNode")), edges=_array(_ref("DoctrineEdge"))),
+        "cores": _array(_ref("Core")), "ownership_example": record,
+        "typed_relations": _object(status=text, edges=_array(_ref("TypedRelation")),
+            unavailable_component_ids=_array(text), reason=text),
+        "receipt_summaries": _array(_ref("ReceiptSummary"))}}
+    schemas["Component"]["properties"].update(
+        requirements_reviews=_object(status=text, records=_array(record)),
+        claim_clause_coverage=_object(status=text, claim_text_sha256=text,
+            clauses=_array(record), mapped_clause_count={"type": ["integer", "null"], "minimum": 0},
+            whole_claim_coverage=text))
+    schemas["LocalSavedRun"] = _object(component_id=text, run_id=text, recorded_status=text,
+        admission=_object(recorded_accepted={"type": "boolean"}, rechecked_accepted={"type": "boolean"},
+            basis={"const": "saved_host_observations"}), summary_sha256=_ref("SnapshotRevision"),
+        receipt_sha256={"type": ["string", "null"]}, source_identity=_ref("SnapshotRevision"),
+        current_policy_binding={"const": "matches_current_registry_policy"},
+        indexed_registry_binding={"const": "matches_indexed_registry_bytes"},
+        current_source_binding=_object(status={"const": "unknown"}, reason=text),
+        input_freshness=_object(status={"const": "unknown"}),
+        recorded_time=_object(status={"const": "unrecorded"}),
+        fresh_execution=_object(status={"const": "not_run_by_server"}))
+    schemas["LocalRuns"] = _object(status={"enum": ["disabled", "loaded"]},
+        evidence_kind={"const": "explicit_local_saved_run"},
+        runs={"type": "array", "maxItems": 32, "items": _ref("LocalSavedRun")},
+        observation_authenticity={"const": "trusted_local_files_not_authenticated"},
+        fresh_execution=_object(status={"const": "not_run_by_server"}),
+        assessment_time_basis={"const": "server_startup_only"})
+    schemas["Metadata"]["properties"]["local_runs"] = {"type": "object", "properties": {
+        **{key: value for key, value in schemas["LocalRuns"]["properties"].items() if key != "runs"},
+        "run_count": {"type": "integer", "minimum": 0, "maximum": 32}}}
+    schemas["OverviewComponent"] = _object(**schemas["ComponentSummary"]["properties"],
+        proof_ids=_array(text), receipt_refs=_array(_ref("Artifact")), wires_to=_array(text),
+        doctrine_ref_ids=_array(text), route_ids=_array(text))
+    schemas["Overview"] = _object(components=_array(_ref("OverviewComponent")),
+        kernels=_array(_ref("Proof")), receipts=_array(_ref("Artifact")),
+        wiring=_array(record), coverage=_ref("Coverage"), cores=_array(_ref("Core")), explorer=_ref("Explorer"), local_runs=_ref("LocalRuns"))
     schemas["Error"]["properties"]["snapshot_revision"] = _ref("SnapshotRevision")
-    for name in ("ComponentSummary", "Claim", "Proof", "Artifact"):
+    for name in ("ComponentSummary", "Claim", "Proof", "Artifact", "Core"):
         schemas[name + "Page"] = _page(_ref(name))
     for name in ("Metadata", "ComponentSummaryPage", "Component", "ClaimPage", "Claim",
-                 "ProofPage", "Proof", "ArtifactPage", "Coverage", "Graph"):
+                 "ProofPage", "Proof", "ArtifactPage", "Coverage", "Graph", "Overview", "CorePage", "Core", "LocalRuns"):
         schemas[name + "Response"] = _object(schema_version={"const": API_SCHEMA},
                                               snapshot_revision=_ref("SnapshotRevision"), data=_ref(name))
 
@@ -97,6 +182,7 @@ def openapi_document():
                          for name in CLASSIFICATION_FIELDS]
     routes = [
         ("", "metadata", "MetadataResponse", []),
+        ("/overview", "overview", "OverviewResponse", []),
         ("/components", "listComponents", "ComponentSummaryPageResponse", [
             *filter_parameters, parameter("q", {"type": "string", "minLength": 1, "maxLength": MAX_SEARCH_LENGTH},
                 "Trimmed, case-insensitive literal substring of ID, title or summary. No regex or ranking."), *pagination]),
@@ -109,6 +195,10 @@ def openapi_document():
         ("/proofs/{proof_id}", "getProof", "ProofResponse", [
             parameter("proof_id", {"type": "string", "pattern": "^proof::dafny::[a-z][a-z0-9_]*$"}, required=True, location="path")]),
         ("/receipts", "listReceipts", "ArtifactPageResponse", [parameter("component", text), *pagination]),
+        ("/local-runs", "localSavedRuns", "LocalRunsResponse", []),
+        ("/cores", "listCores", "CorePageResponse", pagination),
+        ("/cores/{core_id}", "getCore", "CoreResponse", [
+            parameter("core_id", {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}, required=True, location="path")]),
         ("/coverage", "coverage", "CoverageResponse", []),
         ("/graph", "graph", "GraphResponse", [
             parameter("type", text, "Use a node type declared in metadata.graph.", required=True),

@@ -1144,6 +1144,16 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
     handoff_example = source_root / "examples/hypothesis_handoff/independent_evaluation.json"
     handoff_example.parent.mkdir(parents=True)
     handoff_example.write_text("{}", encoding="utf-8")
+    backend_metadata = {
+        "core/organ_registry.json": {"implemented_organs": [{"organ_id": "fixture"}]},
+        "formal/components/fixture/metadata.json": {"contract": True, "verified_tasks": 1},
+        **{f"formal/{name}/metadata.json": {"verified_tasks": 1}
+           for name in ("repair", "compatibility", "views", "replay")},
+    }
+    for reference, payload in backend_metadata.items():
+        metadata = source_root / reference
+        metadata.parent.mkdir(parents=True, exist_ok=True)
+        metadata.write_text(json.dumps(payload), encoding="utf-8")
     documentation_refs = (
         "assets/system-map-dark.png",
         "assets/README.md",
@@ -1231,6 +1241,15 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
             stdout = json.dumps({"status": "pass"})
             (result_dir / "fixture_result.json").write_text(stdout, encoding="utf-8")
         if stdout_path is not None:
+            if stdout_path.name == "component-backend.json":
+                assert argv[1:4] == ["-I", "-c", smoke.BACKEND_INSTALL_CHECK]
+                assert env is not None and "PYTHONPATH" not in env
+                assert cwd == work_dir / "project"
+                assert json.loads(argv[-1]) == {
+                    "component_count": 1,
+                    "proof_tasks": {"proof::dafny::fixture": 1},
+                    "core_tasks": {name: 1 for name in ("repair", "compatibility", "views", "replay_admission")},
+                }
             if stdout_path.suffix == ".json":
                 payload: dict[str, object] = {
                     "status": "passed" if stdout_path.name == "operations.json" else "pass"

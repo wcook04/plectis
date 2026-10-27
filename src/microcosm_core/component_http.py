@@ -1,8 +1,8 @@
 """Read-only, snapshot-backed HTTP API for the existing component claim index.
 
-Only startup and explicit replacement read an index. Requests use immutable
-encoded views and precomputed adjacency, never a filesystem root or runner.
-This module has no dependency beyond the standard library and component_index.
+Only startup and explicit replacement read an index or opt-in saved evidence.
+Requests use immutable encoded views and precomputed adjacency, never a
+filesystem root or runner. Optional saved evidence reuses the admission owner.
 """
 from __future__ import annotations
 
@@ -12,12 +12,14 @@ from collections import OrderedDict, defaultdict, deque
 import copy
 import hashlib
 import ipaddress
+import io
 import json
 from pathlib import Path
 import re
 from socketserver import ThreadingMixIn
 import sys
 import threading
+import time
 from types import MappingProxyType
 from urllib.parse import parse_qsl
 from wsgiref.simple_server import ServerHandler, WSGIRequestHandler, WSGIServer, make_server
@@ -28,6 +30,7 @@ from microcosm_core.schemas import loads_json_strict
 API_SCHEMA = component_api_contract.API_SCHEMA
 API_PREFIX = component_api_contract.API_PREFIX
 MAX_INDEX_BYTES = 16 * 1024 * 1024
+MAX_OVERVIEW_BYTES = component_api_contract.MAX_OVERVIEW_BYTES
 MAX_QUERY_BYTES = 2048
 MAX_CURSOR_BYTES = 512
 MAX_PAGE_SIZE = component_api_contract.MAX_PAGE_SIZE
@@ -36,6 +39,7 @@ MAX_GRAPH_EDGES = component_api_contract.MAX_GRAPH_EDGES
 MAX_SEARCH_LENGTH = component_api_contract.MAX_SEARCH_LENGTH
 _CLASSIFICATION_FIELDS = component_api_contract.CLASSIFICATION_FIELDS
 _LABEL = re.compile(r"[a-z][a-z0-9_]*\Z")
+_CORE = re.compile(r"[a-z][a-z0-9_]*\Z")
 _PROOF = re.compile(r"proof::dafny::[a-z][a-z0-9_]*\Z")
 _CLAIM = re.compile(r"claim::[a-z][a-z0-9_]*\Z")
 _BAD_ESCAPE = re.compile(r"%(?![a-fA-F0-9]{2})")
@@ -43,7 +47,8 @@ _ABSOLUTE = re.compile(r"(?<![A-Za-z0-9_./])/[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)
 _ID_FIELD = {"organ": "organ_id", "claim": "claim_id", "source_file": "path",
              "route": "task_class", "family": "family_id", "guide": "guide_id",
              "replay": "replay_id", "subclaim": "subclaim_id", "proof": "proof_id",
-             "specification": "specification_id", "artifact": "artifact_id"}
+             "specification": "specification_id", "artifact": "artifact_id",
+             "doctrine_ref": "value"}
 
 
 def _json(value):
@@ -100,15 +105,34 @@ class ComponentSnapshot:
             raise AttributeError("component snapshots are immutable")
         object.__setattr__(self, name, value)
 
-    def __init__(self, index):
+    def __init__(self, index, *, fresh_runs=None, evidence_root=None, local_run_evidence=None):
         # Detach before validation: later caller mutation cannot change requests.
         index = copy.deepcopy(index)
         canonical = _json(index)
         if len(canonical) > MAX_INDEX_BYTES:
             raise ValueError("component index exceeds snapshot size limit")
-        _public_text(index)
         views = component_index.compile_views(index)
-        self.revision = hashlib.sha256(canonical).hexdigest()
+        # Source text exceptions are admitted by the strict index validator first.
+        from microcosm_core.component_explorer_validation import public_text_view
+        _public_text(public_text_view(index))
+        from microcosm_core.component_local_evidence import load_local_run_evidence, validate_local_run_evidence
+        if local_run_evidence is not None:
+            if fresh_runs is not None or evidence_root is not None:
+                raise ValueError("choose one explicit local evidence source")
+            local_runs = copy.deepcopy(local_run_evidence)
+        else:
+            if evidence_root is not None and fresh_runs is None:
+                raise ValueError("evidence root requires explicit saved-run directory")
+            root = evidence_root if evidence_root is not None else (
+                resource_root.microcosm_root() if fresh_runs is not None else None)
+            local_runs = load_local_run_evidence(root, index, fresh_runs)
+        validate_local_run_evidence(local_runs, index)
+        encoded_runs = _json(local_runs)
+        if len(encoded_runs) > 1024 * 1024:
+            raise ValueError("local evidence summary exceeds response limit")
+        self.local_runs = encoded_runs
+        revision_bytes = canonical if local_runs["status"] == "disabled" else _json({"index": index, "local_runs": local_runs})
+        self.revision = hashlib.sha256(revision_bytes).hexdigest()
         summaries = views["list"]
         organs = {row["organ_id"]: row for row in index["nodes"]["organ"]}
         self.components, self.summaries = {}, {}
@@ -132,6 +156,9 @@ class ComponentSnapshot:
         for kind, rows in index["nodes"].items():
             for row in rows:
                 self.nodes[(kind, row[_ID_FIELD[kind]])] = _json(row)
+        doctrine = index.get("explorer", {}).get("doctrine", {})
+        for row in doctrine.get("nodes", []):
+            self.nodes[("doctrine_ref", row["id"])] = _json({"value": row["id"], **row})
         artifacts = {row["artifact_id"]: row for row in index["nodes"]["artifact"]}
         receipt_ids = {edge[side] for edge in index["edges"] for side in ("from", "to")
                        if edge[side + "_type"] == "receipt"}
@@ -143,10 +170,47 @@ class ComponentSnapshot:
                                                           *refs["historical_receipt_refs"]}))
             # Validated card evidence can include omitted assets without graph edges.
             receipt_ids.update(self.receipts_by_component[key])
-        self.receipts = {key: _json(artifacts[key]) for key in sorted(receipt_ids)}
+        receipt_summaries = {row["ref"]: row for row in
+                             index.get("explorer", {}).get("receipt_summaries", [])}
+        self.receipts = {key: _json({**artifacts[key], **(
+            {"summary": receipt_summaries[key]} if key in receipt_summaries else {})})
+                         for key in sorted(receipt_ids)}
+        self.cores = {key: _json(value) for key, value in views.get("cores", {}).items()}
         self.coverage = _json(views["coverage"])
-        self.edges = tuple(sorted(index["edges"], key=_edge_key))
-        self.edge_kinds = frozenset(index["graph"]["edge_kinds"])
+        overview_components = []
+        for identity in self.ids:
+            row = json.loads(self.summaries[identity])
+            view = json.loads(self.components[identity])
+            outgoing = [edge for edge in index["edges"]
+                        if edge["from_type"] == "organ" and edge["from"] == identity]
+            row.update(proof_ids=[item["proof"]["proof_id"] for item in view["proofs"]],
+                       receipt_refs=[json.loads(self.receipts[key])
+                                     for key in self.receipts_by_component[identity]],
+                       wires_to=sorted(edge["to"] for edge in outgoing if edge["kind"] == "wires_to"),
+                       doctrine_ref_ids=sorted({edge["to"] for edge in outgoing
+                                                if edge["to_type"] == "doctrine_ref"}),
+                       route_ids=sorted({edge["from"] for edge in index["edges"]
+                                         if edge["from_type"] == "route" and
+                                         edge["to_type"] == "organ" and edge["to"] == identity}))
+            overview_components.append(row)
+        overview = {"components": overview_components,
+                    "kernels": [json.loads(self.proofs[key]) for key in sorted(self.proofs)],
+                    "receipts": [json.loads(self.receipts[key]) for key in sorted(self.receipts)],
+                    "wiring": [dict(edge) for edge in index["edges"] if edge["kind"] == "wires_to"],
+                    "coverage": views["coverage"],
+                    "cores": [json.loads(self.cores[key]) for key in sorted(self.cores)],
+                    "local_runs": local_runs,
+                    "explorer": views.get("explorer", index.get("explorer", {}))}
+        self.overview = _json(self.envelope(overview))
+        if len(self.overview) > MAX_OVERVIEW_BYTES:
+            raise ValueError("component overview exceeds encoded response limit")
+        self.overview_etag = '"' + hashlib.sha256(self.overview).hexdigest() + '"'
+        doctrine_edges = [{"kind": row["kind"], "from_type": "doctrine_ref",
+                           "from": row["from_id"], "to_type": "doctrine_ref", "to": row["to_id"],
+                           "source_ref": row["source_ref"]} for row in doctrine.get("edges", [])]
+        self.edges = tuple(sorted([*index["edges"], *doctrine_edges], key=_edge_key))
+        self.edge_kinds = frozenset([*index["graph"]["edge_kinds"],
+                                    *(row["kind"] for row in doctrine_edges)])
         adjacency = defaultdict(list)
         for position, edge in enumerate(self.edges):
             for side, direction in (("from", "out"), ("to", "in")):
@@ -171,16 +235,39 @@ class ComponentSnapshot:
                                             "fresh_prover": {"status": "not_recorded_by_index"},
                                             "fresh_replay": {"status": "not_recorded_by_index"}},
                          "limits": {"page_size": MAX_PAGE_SIZE, "graph_depth": MAX_GRAPH_DEPTH,
-                                    "graph_edges": MAX_GRAPH_EDGES, "search_length": MAX_SEARCH_LENGTH},
+                                    "graph_edges": MAX_GRAPH_EDGES, "search_length": MAX_SEARCH_LENGTH,
+                                    "overview_bytes": MAX_OVERVIEW_BYTES},
                          "contract": {"openapi": API_PREFIX + "/openapi.json",
                                       "version": component_api_contract.CONTRACT_VERSION},
                          "execution": "unavailable_over_http"}
+        self.metadata["graph"]["edge_kinds"] = sorted(self.edge_kinds)
+        counts = defaultdict(int)
+        for edge in self.edges:
+            counts[edge["kind"]] += 1
+        self.metadata["graph"]["edge_kind_counts"] = dict(sorted(counts.items()))
+        if doctrine_edges:
+            self.metadata["graph"]["edge_semantics"].update({
+                "rests_on": "Authored principle cites an axiom as its basis; not a formal implication.",
+                "violates": "Authored anti-principle identifies an axiom it violates; not an observed incident."})
+        labels = index.get("explorer", {}).get("component_filters", {})
+        for key, rows in self.metadata["component_filters"].items():
+            owned = {row["value"]: row for row in labels.get(key, [])}
+            for row in rows:
+                if row["value"] in owned:
+                    row.update({field: owned[row["value"]][field]
+                                for field in ("label", "description", "label_basis")
+                                if field in owned[row["value"]]})
+        if "source_revision" in index.get("explorer", {}):
+            self.metadata["source_revision"] = copy.deepcopy(index["explorer"]["source_revision"])
+        self.metadata["local_runs"] = {key: value for key, value in local_runs.items() if key != "runs"}
+        self.metadata["local_runs"]["run_count"] = len(local_runs["runs"])
+        self.metadata["core_count"] = len(self.cores)
         self.metadata = _json(self.metadata)
         self.edges = tuple(MappingProxyType(edge) for edge in self.edges)
         self.filters = {key: MappingProxyType({value: frozenset(ids) for value, ids in lookup.items()})
                         for key, lookup in self.filters.items()}
         for name in ("components", "summaries", "claims", "proofs", "filters",
-                     "nodes", "receipts", "receipts_by_component", "adjacency"):
+                     "nodes", "receipts", "receipts_by_component", "adjacency", "cores"):
             setattr(self, name, MappingProxyType(getattr(self, name)))
         self._sealed = True
 
@@ -188,7 +275,7 @@ class ComponentSnapshot:
         return {"schema_version": API_SCHEMA, "snapshot_revision": self.revision, "data": data}
 
 
-def load_snapshot(index_file=None):
+def load_snapshot(index_file=None, *, fresh_runs=None, evidence_root=None):
     """Read one explicitly selected or packaged index; invalid input fails closed."""
     path = (Path(index_file) if index_file is not None
             else resource_root.microcosm_root() / component_index.INDEX_REF)
@@ -198,7 +285,8 @@ def load_snapshot(index_file=None):
         raw = stream.read(MAX_INDEX_BYTES + 1)
     if len(raw) > MAX_INDEX_BYTES:
         raise ValueError("component index exceeds snapshot size limit")
-    return ComponentSnapshot(loads_json_strict(raw.decode("utf-8"), "component index"))
+    return ComponentSnapshot(loads_json_strict(raw.decode("utf-8"), "component index"),
+                             fresh_runs=fresh_runs, evidence_root=evidence_root)
 
 
 def _parameters(raw):
@@ -303,6 +391,9 @@ def _dispatch(snapshot, path, query):
     if path == API_PREFIX:
         _allowed(query, {})
         return json.loads(snapshot.metadata)
+    if path == API_PREFIX + "/local-runs":
+        _allowed(query, {})
+        return json.loads(snapshot.local_runs)
     if path == API_PREFIX + "/graph":
         return _graph(snapshot, query)
     if path == API_PREFIX + "/coverage":
@@ -316,7 +407,8 @@ def _dispatch(snapshot, path, query):
         _allowed(query, {})
         identity = parts[1]
         stores = {"components": (snapshot.components, _LABEL),
-                  "claims": (snapshot.claims, _CLAIM), "proofs": (snapshot.proofs, _PROOF)}
+                  "claims": (snapshot.claims, _CLAIM), "proofs": (snapshot.proofs, _PROOF),
+                  "cores": (snapshot.cores, _CORE)}
         if resource not in stores:
             raise APIError(404, "not_found", "unknown API route")
         store, pattern = stores[resource]
@@ -342,9 +434,9 @@ def _dispatch(snapshot, path, query):
         identity = [resource, *[query.get(key) for key in _CLASSIFICATION_FIELDS]]
         if search:
             identity.append(search)
-    elif resource in {"claims", "proofs"}:
+    elif resource in {"claims", "proofs", "cores"}:
         _allowed(query, {"limit", "cursor"})
-        store = snapshot.claims if resource == "claims" else snapshot.proofs
+        store = {"claims": snapshot.claims, "proofs": snapshot.proofs, "cores": snapshot.cores}[resource]
         rows, identity = [store[key] for key in sorted(store)], resource
     elif resource == "receipts":
         _allowed(query, {"component", "limit", "cursor"})
@@ -374,9 +466,9 @@ class ComponentApplication:
         with self._lock:
             return self._snapshot.revision
 
-    def replace_index(self, index):
+    def replace_index(self, index, *, fresh_runs=None, evidence_root=None):
         """Validate and build off-lock, then atomically replace all derived state."""
-        replacement = ComponentSnapshot(index)
+        replacement = ComponentSnapshot(index, fresh_runs=fresh_runs, evidence_root=evidence_root)
         with self._lock:
             self._snapshot = replacement
             self._cache.clear()
@@ -401,6 +493,9 @@ class ComponentApplication:
                 cached = self._cache.get(key)
                 if cached is not None:
                     self._cache.move_to_end(key)
+            if path == API_PREFIX + "/overview":
+                _allowed(query, {})
+                cached = (snapshot.overview, snapshot.overview_etag)
             if cached is None:
                 data = _dispatch(snapshot, path, query)
                 # Tooling consumes a standard OpenAPI document, not our data envelope.
@@ -444,8 +539,40 @@ class ComponentApplication:
         return [b"" if method == "HEAD" else body]
 
 
+class _HeaderReader(io.RawIOBase):
+    """Recompute the total header budget before each socket receive."""
+
+    def __init__(self, connection, timeout):
+        self.connection = connection
+        self.deadline = time.monotonic() + timeout
+
+    def readable(self):
+        return True
+
+    def readinto(self, buffer):
+        if self.deadline is not None:
+            remaining = self.deadline - time.monotonic()
+            if remaining <= 0:
+                raise TimeoutError("request header deadline exceeded")
+            self.connection.settimeout(min(remaining, 5))
+        return self.connection.recv_into(buffer)
+
+
 class _QuietHandler(WSGIRequestHandler):
+    def setup(self):
+        super().setup()
+        self.rfile.close()
+        self._header_reader = _HeaderReader(self.connection, self.server.header_timeout)
+        self.rfile = io.BufferedReader(self._header_reader)
+
     def handle(self):
+        try:
+            self._handle_request()
+        except (TimeoutError, ConnectionError):
+            # Incomplete or abandoned headers are closed without reflecting input.
+            return
+
+    def _handle_request(self):
         """Adapt the standard-library handler to declare its threaded contract."""
         self.raw_requestline = self.rfile.readline(65537)
         if len(self.raw_requestline) > 65536:
@@ -454,6 +581,8 @@ class _QuietHandler(WSGIRequestHandler):
             return
         if not self.parse_request():
             return
+        self._header_reader.deadline = None
+        self.connection.settimeout(5)
         handler = ServerHandler(self.rfile, self.wfile, self.get_stderr(),
                                 self.get_environ(), multithread=True)
         handler.request_handler = self
@@ -482,6 +611,7 @@ class ComponentHTTPServer(ThreadingMixIn, WSGIServer):
     daemon_threads = True
     block_on_close = False
     request_queue_size = 16
+    header_timeout = 5
 
     def __init__(self, *args, **kwargs):
         self._slots = threading.BoundedSemaphore(8)
@@ -493,7 +623,9 @@ class ComponentHTTPServer(ThreadingMixIn, WSGIServer):
         return connection, address
 
     def process_request(self, request, client_address):
-        self._slots.acquire()
+        if not self._slots.acquire(blocking=False):
+            self.shutdown_request(request)
+            return
         try:
             super().process_request(request, client_address)
         except BaseException:
@@ -510,6 +642,8 @@ class ComponentHTTPServer(ThreadingMixIn, WSGIServer):
 def add_arguments(parser):
     """Share argument ownership between the installed CLI and module entrypoint."""
     parser.add_argument("--index", help="explicit curated v3 index; default is packaged index")
+    parser.add_argument("--fresh-runs", help="explicit bounded saved-run directory; startup admission only, no execution")
+    parser.add_argument("--evidence-root", help="source registry root for explicit saved-run admission; default packaged resource root")
     parser.add_argument("--host", default="127.0.0.1", help="loopback address only")
     parser.add_argument("--port", type=int, default=8766)
 
@@ -520,7 +654,10 @@ def serve(args):
         address = ipaddress.ip_address(args.host)
         if not address.is_loopback or address.version != 4 or not 0 <= args.port <= 65535:
             raise ValueError()
-        application = ComponentApplication(load_snapshot(args.index))
+        if getattr(args, "evidence_root", None) is not None and getattr(args, "fresh_runs", None) is None:
+            raise ValueError("evidence root requires explicit saved-run directory")
+        application = ComponentApplication(load_snapshot(args.index,
+            fresh_runs=getattr(args, "fresh_runs", None), evidence_root=getattr(args, "evidence_root", None)))
     except Exception:
         print("serve-components: invalid loopback configuration or component index", file=sys.stderr)
         return 2
