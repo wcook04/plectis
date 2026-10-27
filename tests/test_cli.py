@@ -695,6 +695,7 @@ def test_cli_comprehension_assay_first_action_red_on_legacy_clone(tmp_path) -> N
                         "organ_id": "alpha_validator",
                         "display_name": "Alpha Validator",
                         "family": "agent_reliability_and_safety",
+                        "paper_module_ref": "paper_module.alpha_validator",
                         "first_command": "plectis alpha-validator validate --input fixtures/x",
                         "claim_ceiling_restated": "Fixture contract only.",
                     }
@@ -705,6 +706,15 @@ def test_cli_comprehension_assay_first_action_red_on_legacy_clone(tmp_path) -> N
     (tmp_path / "core/component_public_synopses.json").write_text(
         json.dumps({"synopses": {"alpha_validator": "Checks fixture binding rows."}})
     )
+    (tmp_path / "core/paper_module_capsules.json").write_text(json.dumps({
+        "paper_modules": [{
+            "id": "paper_module.alpha_validator",
+            "subjects": [{"kind": "organ", "ref": "alpha_validator"}],
+            "compression": {"one_line": "Checks fixture binding rows.",
+                            "card": "Checks fixture binding rows.",
+                            "authority_ceiling": "Fixture contract only."},
+        }],
+    }))
     (tmp_path / "receipts/code_lens/code_lens_join_index_v0.json").write_text(
         json.dumps(
             {
@@ -721,8 +731,77 @@ def test_cli_comprehension_assay_first_action_red_on_legacy_clone(tmp_path) -> N
     )
     assert result.returncode == 1, result.stdout
     payload = json.loads(result.stdout)
+    assert payload["schema_version"] == "microcosm_first_action_assay_v0"
+    assert payload["results"]
     assert payload["degraded"] is True
     assert payload["graph_backed_pct"] == 0.0
+
+
+@pytest.mark.parametrize("mode", [[], ["--hard"], ["--packet-route"], ["--whole-system"], ["--first-action"]])
+def test_cli_comprehension_assay_missing_inputs_are_blocked_json(tmp_path, mode) -> None:
+    root = tmp_path / "private-assay-root-sentinel"
+    root.mkdir()
+    run = _run_microcosm_cli if mode == ["--first-action"] else _run_microcosm_cli_in_process
+    result = run("comprehension-assay", *mode, "--root", str(root))
+    assert result.returncode == 1
+    payload = json.loads(result.stdout)
+    assert payload["status"] == "blocked"
+    assert payload["assessment_status"] == "not_run"
+    assert payload["degraded"] is True
+    assert payload["graph_backed_pct"] is None
+    assert payload["diagnostics"][0]["code"] == "comprehension_inputs_unavailable_or_invalid"
+    assert all(value is False for value in payload["authority_ceiling"].values())
+    assert "private-assay-root-sentinel" not in result.stdout + result.stderr
+    assert result.stderr == ""
+
+
+@pytest.mark.parametrize("defect", ["missing_capsules", "invalid_json", "duplicate_key", "invalid_utf8",
+                                    "wrong_shape", "bad_atlas_shape", "bad_ref", "bad_subject", "missing_compression",
+                                    "bad_join", "bad_join_nodes", "bad_join_organs"])
+def test_cli_comprehension_assay_invalid_canonical_inputs_do_not_leak_or_fallback(tmp_path, defect) -> None:
+    (tmp_path / "core").mkdir()
+    atlas = {"organs": [{"organ_id": "alpha_validator", "paper_module_ref": "paper_module.alpha_validator",
+                         "human_gloss": "legacy-fallback-sentinel"}]}
+    capsules = {"paper_modules": [{"id": "paper_module.alpha_validator",
+                                  "subjects": [{"kind": "organ", "ref": "alpha_validator"}],
+                                  "compression": {"one_line": "Fixture", "card": "Fixture", "authority_ceiling": "Fixture only"}}]}
+    if defect == "bad_ref":
+        atlas["organs"][0]["paper_module_ref"] = "/private/untrusted-ref-sentinel"
+    elif defect == "bad_subject":
+        capsules["paper_modules"][0]["subjects"][0]["ref"] = "untrusted-ref-sentinel"
+    elif defect == "missing_compression":
+        capsules["paper_modules"][0].pop("compression")
+    (tmp_path / "core/organ_atlas.json").write_text(json.dumps([] if defect == "bad_atlas_shape" else atlas))
+    capsule_path = tmp_path / "core/paper_module_capsules.json"
+    if defect == "invalid_json":
+        capsule_path.write_text('{"untrusted-json-sentinel":')
+    elif defect == "duplicate_key":
+        capsule_path.write_text('{"untrusted-json-sentinel": 1, "untrusted-json-sentinel": 2}')
+    elif defect == "invalid_utf8":
+        capsule_path.write_bytes(b'\xffuntrusted-json-sentinel')
+    elif defect == "wrong_shape":
+        capsule_path.write_text('[]')
+    elif defect != "missing_capsules":
+        capsule_path.write_text(json.dumps(capsules))
+    if defect.startswith("bad_join"):
+        join = ["untrusted-json-sentinel"] if defect == "bad_join" else {
+            "nodes": ["untrusted-json-sentinel"] if defect == "bad_join_nodes" else {"organ": 3}}
+        path = tmp_path / "receipts/code_lens/code_lens_join_index_v0.json"
+        path.parent.mkdir(parents=True)
+        path.write_text(json.dumps(join))
+    result = _run_microcosm_cli_in_process("comprehension-assay", "--first-action", "--root", str(tmp_path))
+    assert result.returncode == 1
+    payload = json.loads(result.stdout)
+    assert payload["status"] == "blocked"
+    assert payload["assessment_status"] == "not_run"
+    assert payload["degraded"] is True
+    assert payload["graph_backed_pct"] is None
+    assert all(value is False for value in payload["authority_ceiling"].values())
+    assert "results" not in payload
+    emitted = result.stdout + result.stderr
+    assert str(tmp_path) not in emitted
+    assert all(marker not in emitted for marker in ("untrusted-ref-sentinel", "untrusted-json-sentinel", "legacy-fallback-sentinel", "Traceback"))
+    assert result.stderr == ""
 
 
 def test_cli_comprehension_assay_packet_route_is_green() -> None:

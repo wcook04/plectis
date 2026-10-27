@@ -3,6 +3,9 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from microcosm_core.component_descriptions import load_description_atlas
+from microcosm_core.projections.organ_atlas import NEGATION_CUES, load_model
+
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
@@ -61,15 +64,13 @@ def test_organ_registry_projects_per_organ_evidence_strength() -> None:
     evidence_by_id = {
         row["organ_id"]: row for row in evidence_registry["organ_evidence_classes"]
     }
-    # The authoritative public-facing claim ceiling is organ_atlas.claim_ceiling_restated:
-    # build_microcosm_public_site reads it BEFORE the registry fallback stub, so the atlas
-    # ceiling -- not the internal registry stub -- is what a public reader actually sees.
-    atlas_by_id = {
-        row["organ_id"]: row
-        for row in json.loads(
-            (MICROCOSM_ROOT / "core/organ_atlas.json").read_text(encoding="utf-8")
-        )["organs"]
-    }
+    # Registry claims remain normative. Capsule compression owns the public
+    # restatement; the derived atlas view preserves its compatibility key.
+    atlas_by_id = {row["organ_id"]: row for row in load_description_atlas(MICROCOSM_ROOT)["organs"]}
+    capsules = json.loads((MICROCOSM_ROOT / "core/paper_module_capsules.json").read_text(encoding="utf-8"))
+    capsule_by_id = {row["id"]: row for row in capsules["paper_modules"]}
+    model_cards = {card["organ_id"]: card for family in load_model(MICROCOSM_ROOT)["families"]
+                   for card in family["cards"]}
 
     rows = registry["implemented_organs"]
     assert registry["evidence_class_registry"] == {
@@ -118,14 +119,17 @@ def test_organ_registry_projects_per_organ_evidence_strength() -> None:
             f"organ_evidence_classes[{row['organ_id']}]"
         )
         assert row["evidence_strength_rank"] == profile["evidence_strength_rank"]
-        # The registry row carries a present fallback stub; authority for the
-        # public-visible ceiling lives in the atlas (read first by the public-site
-        # builder). Assert the AUTHORITATIVE source is substantive and states a real
-        # limitation -- not that the internal stub contains four fixed keywords (that
-        # tested the wrong owner; neither stub nor atlas uniformly carries that vocab).
+        # Keep the normative registry ceiling exact in the actual public
+        # model, separately from the canonical descriptive restatement.
         registry_ceiling = row["claim_ceiling"]
         assert isinstance(registry_ceiling, str) and registry_ceiling.strip()
-        public_ceiling = atlas_by_id[row["organ_id"]]["claim_ceiling_restated"]
+        assert model_cards[row["organ_id"]]["claim_ceiling"] == registry_ceiling
+        assert model_cards[row["organ_id"]]["evidence_class"] == evidence_row["evidence_class"]
+        public_row = atlas_by_id[row["organ_id"]]
+        public_ceiling = public_row["claim_ceiling_restated"]
+        canonical_ceiling = capsule_by_id[public_row["capsule_id"]]["compression"]["authority_ceiling"]
+        assert public_ceiling == canonical_ceiling
+        assert model_cards[row["organ_id"]]["claim_ceiling_restated"] == canonical_ceiling
         assert isinstance(public_ceiling, str)
         assert len(public_ceiling.strip()) >= 40, (
             f"{row['organ_id']} public ceiling too thin: {public_ceiling!r}"
@@ -133,10 +137,7 @@ def test_organ_registry_projects_per_organ_evidence_strength() -> None:
         ceiling_lower = public_ceiling.lower()
         assert any(
             cue in ceiling_lower
-            for cue in (
-                "not ", "does not ", "only ", "never ", "no ",
-                "without", "bounded", "synthetic", "fixture", "cannot",
-            )
+            for cue in NEGATION_CUES
         ), f"{row['organ_id']} public ceiling states no limitation: {public_ceiling!r}"
         assert row["truth_accounting_bucket"] == profile["truth_accounting_bucket"]
         assert (

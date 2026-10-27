@@ -16,7 +16,7 @@ from microcosm_core import comprehension as C
 
 
 def _write_fixture(root: Path, *, leaky: bool = False, legacy_graph: bool = False) -> None:
-    """Write a minimal substrate root (atlas + synopses + join index) for tests.
+    """Write a minimal root (atlas + canonical capsules + synopses + join index).
 
     legacy_graph=True writes a pre-v2 join index (no graph block, no claim/route/
     family nodes) so tests can prove the packets re-defer honestly on old clones.
@@ -73,6 +73,20 @@ def _write_fixture(root: Path, *, leaky: bool = False, legacy_graph: bool = Fals
             "beta_projection": "Shows where imported bodies drifted from their owned source.",
         },
     }
+    capsules = {"paper_modules": [
+        {"id": "paper.alpha", "subjects": [{"kind": "organ", "ref": "alpha_validator"}],
+         "compression": {
+             "one_line": "Checks public binding rows and rejects contract breaks.",
+             "card": "Validates declared public bindings and reports findings.",
+             "authority_ceiling": "Validates only the declared public contract.",
+         }},
+        {"id": "paper.beta", "subjects": [{"kind": "organ", "ref": "beta_projection"}],
+         "compression": {
+             "one_line": "Shows where imported bodies drifted from their owned source.",
+             "card": "Projects drift between imported and owned bodies.",
+             "authority_ceiling": "Projects drift only; does not certify release.",
+         }},
+    ]}
     join = {
         "schema_version": "microcosm_code_lens_join_index_v2",
         "export_band": "presence_only",
@@ -224,6 +238,7 @@ def _write_fixture(root: Path, *, leaky: bool = False, legacy_graph: bool = Fals
             "edge_count": len(join["edges"]),
         }
     (root / "core/organ_atlas.json").write_text(json.dumps(atlas))
+    (root / "core/paper_module_capsules.json").write_text(json.dumps(capsules))
     (root / "core/component_public_synopses.json").write_text(json.dumps(synopses))
     (root / "receipts/code_lens/code_lens_join_index_v0.json").write_text(json.dumps(join))
 
@@ -401,6 +416,40 @@ def test_path_excerpts_emit_bounded_owned_atom_values(tmp_path: Path) -> None:
     for value in row["atom_values"].values():
         assert len(value) <= C.MAX_ATOM_CHARS
     assert all(v is False for v in pack["authority_ceiling"].values())
+
+
+@pytest.mark.parametrize("global_inputs", ["absent", "malformed"])
+@pytest.mark.parametrize("selector", ["path", "target", "organ_id"])
+def test_explicit_local_path_does_not_require_global_catalogue(tmp_path: Path, global_inputs: str, selector: str) -> None:
+    rel = "src/microcosm_core/sample_owned.py"
+    _write_owned_module(tmp_path, rel, n_symbols=2)
+    if global_inputs == "malformed":
+        (tmp_path / "core").mkdir()
+        for filename in ("organ_atlas.json", "paper_module_capsules.json", "organ_registry.json"):
+            (tmp_path / "core" / filename).write_text('{"invalid":')
+    pack = C.comprehend(root=tmp_path, mode="path", **{selector: rel})
+    assert pack["found"] is True
+    assert pack["path"] == rel
+    assert len(pack["semantic_excerpts"]) == 2
+    assert pack["export_band"] == "local_semantic_excerpt"
+    assert pack["packet_id"] == "path"
+    assert pack["budget"]["within_budget"] is True
+    assert pack["compile_ms"] >= 0
+    assert all(value is False for value in pack["authority_ceiling"].values())
+
+
+@pytest.mark.parametrize("global_inputs", ["absent", "malformed"])
+@pytest.mark.parametrize("mode, goal", [("path", "read atom values in src/microcosm_core/sample_owned.py"),
+                                       ("path", " "), ("first-contact", None)])
+def test_global_and_goal_routed_requests_still_require_canonical_inputs(tmp_path: Path, global_inputs: str, mode: str, goal: str | None) -> None:
+    rel = "src/microcosm_core/sample_owned.py"
+    _write_owned_module(tmp_path, rel)
+    if global_inputs == "malformed":
+        (tmp_path / "core").mkdir()
+        for filename in ("organ_atlas.json", "paper_module_capsules.json", "organ_registry.json"):
+            (tmp_path / "core" / filename).write_text('{"invalid":')
+    with pytest.raises((OSError, ValueError)):
+        C.comprehend(root=tmp_path, mode=mode, path=rel, goal=goal)
 
 
 def test_path_excerpts_cap_large_owned_files(tmp_path: Path) -> None:

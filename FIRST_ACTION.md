@@ -75,7 +75,7 @@ Goal: “How do I evaluate the finance forecasting system?”
     "validator_command": "python -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
   },
   "reading_boundary": {
-    "allowed_scope": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
+    "allowed_scope": "A lookahead split or a claim that the output authorizes investment-related actions is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment-related actions.",
     "fallback_guidance": null,
     "source": "join_index nodes.route (atlas/agent_task_routes.json)",
     "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."

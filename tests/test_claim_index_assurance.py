@@ -118,6 +118,17 @@ def test_cli_v3_output_is_not_a_v2_base_or_a_reason_to_collect_proofs(owners, jo
     assert out.read_bytes() == before
 
 
+def test_published_navigation_matches_current_route_owner():
+    published = json.loads((SOURCE / component_index.INDEX_REF).read_text())
+    source = json.loads((SOURCE / "atlas/agent_task_routes.json").read_text())
+    current = {row["task_class"]: row for row in source["routes"]}
+    actual = {row["task_class"]: row for row in published["nodes"]["route"]}
+    assert set(actual) == set(current)
+    for task_class, row in actual.items():
+        for field in ("primary_organ_id", "first_command", "allowed_scope", "stop_condition"):
+            assert row.get(field) == current[task_class].get(field), (task_class, field)
+
+
 def test_exact_universe_and_narrow_proof_nodes(owners):
     index = _index(owners)
     base, registry, _, _ = owners

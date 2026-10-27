@@ -34,14 +34,14 @@ Run the review from a checkout. The generator creates the installed copy and exp
 
 The expected values come from the JSON demonstration below. The review also records the size and hash of FIRST_ACTION.md, which explains those values:
 
-- [FIRST_ACTION.md](FIRST_ACTION.md) — 37632 bytes
-- [receipts/code_lens/first_action_demo.json](receipts/code_lens/first_action_demo.json) — 56396 bytes
+- [FIRST_ACTION.md](FIRST_ACTION.md) — 37876 bytes
+- [receipts/code_lens/first_action_demo.json](receipts/code_lens/first_action_demo.json) — 55457 bytes
 
 Their SHA-256 digests, in `shasum -a 256` output form:
 
 ```
-3ab745b01e0aa31671283a814597141059ee57c101509129a167f202a48594ce  FIRST_ACTION.md
-5aa7a851cf4dc8bb510d9a12e9bcf37abff1a13c23b6786c4d158a95a88fff05  receipts/code_lens/first_action_demo.json
+586e4ed01e8f5ede399e0306635aa49b0a2200e163f73795ce14293e05712bcd  FIRST_ACTION.md
+df11f1547ab9c9b3e4de72575b1eba52c315ac21845179df1b0764361de4a53b  receipts/code_lens/first_action_demo.json
 ```
 
 If these hashes differ from the files in your checkout, regenerate this guide with `PYTHONPATH=src python3 scripts/build/build_release_review.py --write` and review the changes. The generated packet records file hashes rather than a Git commit because exports can omit Git history. The JSON version of this guide is `receipts/code_lens/release_review_contract.json`; the builder's `--check` command compares both generated files with a fresh rendering.

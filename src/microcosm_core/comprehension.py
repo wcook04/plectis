@@ -229,6 +229,12 @@ def load_inputs(root: Path | None = None) -> dict[str, Any]:
     join_index = _load_json(base / "receipts/code_lens/code_lens_join_index_v0.json")
     atlas = load_description_atlas(base)
     _membrane_guard(join_index)
+    if join_index is not None and (
+        not isinstance(join_index, dict)
+        or not isinstance(join_index.get("nodes", {}), dict)
+        or not isinstance(join_index.get("nodes", {}).get("organ", []), list)
+    ):
+        raise ValueError("invalid comprehension join input shape")
     atlas_rows = (atlas or {}).get("organs") or []
     join_organs = ((join_index or {}).get("nodes") or {}).get("organ") or []
     # Historical editorial synopses remain a compatibility source on disk.
@@ -4763,8 +4769,10 @@ def comprehend(
     """
     start = time.perf_counter()
     base_root = root or default_root()
-    bundle = inputs if inputs is not None else load_inputs(base_root)
     target = target if target is not None else organ_id
+    bundle = inputs
+    if mode != "path" or goal:
+        bundle = inputs if inputs is not None else load_inputs(base_root)
     routing_note = None
     if goal:
         mode, target, routing_note = route_goal(goal, bundle)
@@ -4966,7 +4974,9 @@ def _symbols_expose_atom(symbols: list[dict[str, Any]], atom: str) -> bool:
     return any(atom in (s.get("atom_values") or {}) for s in symbols)
 
 
-def run_hard_comprehension_assay(root: Path | None = None) -> dict[str, Any]:
+def run_hard_comprehension_assay(
+    root: Path | None = None, inputs: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """
     Measure authored contract-value coverage and excerpt guard behavior.
 
@@ -4976,10 +4986,10 @@ def run_hard_comprehension_assay(root: Path | None = None) -> dict[str, Any]:
     - Fails: a leaking join index can raise ValueError through load_inputs.
     - Non-goal: value presence is not a proof of the authored contract's correctness.
     """
-    base = root or default_root()
+    inputs = inputs if inputs is not None else load_inputs(root)
+    base = root or inputs.get("root") or default_root()
     owned_target = "src/microcosm_core/comprehension.py"
     owned = extract_atom_excerpts(base, owned_target)
-    inputs = load_inputs(base)
     custody_target = next(
         (
             n.get("runner_source_ref")

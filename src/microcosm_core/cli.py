@@ -5233,8 +5233,27 @@ def main(argv: list[str] | None = None) -> int:
         return _print_json(pack, exit_code=0)
     if args.command == "comprehension-assay":
         assay_root = Path(args.root) if args.root else None
+        try:
+            assay_inputs = comprehension.load_inputs(assay_root)
+        except (OSError, ValueError):
+            # Source exceptions may contain host paths or untrusted JSON text.
+            # A blocked assessment has no measured battery result to publish.
+            return _print_json({
+                "schema_version": "microcosm_comprehension_assay_input_error_v0",
+                "status": "blocked",
+                "assessment_status": "not_run",
+                "degraded": True,
+                "graph_backed_pct": None,
+                "diagnostics": [{
+                    "code": "comprehension_inputs_unavailable_or_invalid",
+                    "source_refs": ["core/organ_atlas.json", "core/paper_module_capsules.json",
+                                    "receipts/code_lens/code_lens_join_index_v0.json"],
+                    "message": "The canonical component description inputs are missing or invalid.",
+                }],
+                "authority_ceiling": dict(comprehension.AUTHORITY_CEILING),
+            }, exit_code=1)
         if args.hard:
-            hard = comprehension.run_hard_comprehension_assay(assay_root)
+            hard = comprehension.run_hard_comprehension_assay(assay_root, inputs=assay_inputs)
             hard_ok = (
                 hard["answerable_with_atom_values_pct"] >= 80.0
                 and hard["excerpt_leak_count"] == 0
@@ -5242,7 +5261,7 @@ def main(argv: list[str] | None = None) -> int:
             )
             return _print_json(hard, exit_code=0 if hard_ok else 1)
         if args.packet_route:
-            route = comprehension.run_packet_route_assay(assay_root)
+            route = comprehension.run_packet_route_assay(assay_root, inputs=assay_inputs)
             route_ok = (
                 route["packet_route_accuracy_pct"] >= 90.0
                 and route["authority_overclaim_count"] == 0
@@ -5252,7 +5271,7 @@ def main(argv: list[str] | None = None) -> int:
             )
             return _print_json(route, exit_code=0 if route_ok else 1)
         if args.first_action:
-            first = comprehension.run_first_action_assay(assay_root)
+            first = comprehension.run_first_action_assay(assay_root, inputs=assay_inputs)
             first_ok = (
                 # Exact: one wrong owner in the battery must go red, not round up.
                 first["first_action_selection_pct"] == 100.0
@@ -5264,7 +5283,7 @@ def main(argv: list[str] | None = None) -> int:
             )
             return _print_json(first, exit_code=0 if first_ok else 1)
         if args.whole_system:
-            whole = comprehension.run_whole_system_comprehension_assay(assay_root)
+            whole = comprehension.run_whole_system_comprehension_assay(assay_root, inputs=assay_inputs)
             whole_ok = (
                 whole["whole_system_answerability_pct"] >= 90.0
                 and whole["every_organ_mapped"]
@@ -5275,7 +5294,7 @@ def main(argv: list[str] | None = None) -> int:
                 and whole["tail_recap_present"]
             )
             return _print_json(whole, exit_code=0 if whole_ok else 1)
-        assay = comprehension.run_comprehension_assay(assay_root)
+        assay = comprehension.run_comprehension_assay(assay_root, inputs=assay_inputs)
         assay_ok = (
             assay["answerable_without_source_pct"] >= 80.0
             and assay["wrong_authority_claims"] == 0

@@ -154,7 +154,7 @@
         "validator_command": "python -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
       },
       "reading_boundary": {
-        "allowed_scope": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
+        "allowed_scope": "A lookahead split or a claim that the output authorizes investment-related actions is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment-related actions.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -215,7 +215,7 @@
         "validator_command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
       },
       "reading_boundary": {
-        "allowed_scope": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing.",
+        "allowed_scope": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -276,7 +276,7 @@
         "validator_command": "python -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run --input fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input --out receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay --acceptance-out receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
       },
       "reading_boundary": {
-        "allowed_scope": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+        "allowed_scope": "A digest or passing replay is not a benchmark claims or evidence of algorithm correctness.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -337,7 +337,7 @@
         "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map"
       },
       "reading_boundary": {
-        "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
+        "allowed_scope": "Text checks do not execute every route or establish reader comprehension.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -394,7 +394,7 @@
         "validator_command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay"
       },
       "reading_boundary": {
-        "allowed_scope": "A digest or passing replay is not a benchmark score or evidence of algorithm correctness.",
+        "allowed_scope": "A digest or passing replay is not a benchmark claims or evidence of algorithm correctness.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -455,7 +455,7 @@
         "validator_command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine"
       },
       "reading_boundary": {
-        "allowed_scope": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
+        "allowed_scope": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or launch.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -518,7 +518,7 @@
         "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map"
       },
       "reading_boundary": {
-        "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
+        "allowed_scope": "Text checks do not execute every route or establish reader comprehension.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -827,7 +827,7 @@
         "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map"
       },
       "reading_boundary": {
-        "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
+        "allowed_scope": "Text checks do not execute every route or establish reader comprehension.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."

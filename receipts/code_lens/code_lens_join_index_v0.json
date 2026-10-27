@@ -19,120 +19,7 @@
         "semantic_singleflight_dedup_runtime",
         "spatial_world_model_counterfactual_simulation_replay"
       ],
-      "ignored_cache_fields": [
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "claim",
-          "organ_id": "pattern_binding_contract"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "organ",
-          "organ_id": "pattern_binding_contract"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "claim",
-          "organ_id": "executable_doctrine_grammar"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "organ",
-          "organ_id": "executable_doctrine_grammar"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "claim",
-          "organ_id": "proof_diagnostic_evidence_spine"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "organ",
-          "organ_id": "proof_diagnostic_evidence_spine"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "claim",
-          "organ_id": "verifier_lab_kernel"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "organ",
-          "organ_id": "verifier_lab_kernel"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "claim",
-          "organ_id": "navigation_hologram_route_plane"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "organ",
-          "organ_id": "navigation_hologram_route_plane"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "claim",
-          "organ_id": "mission_transaction_work_spine"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "organ",
-          "organ_id": "mission_transaction_work_spine"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "claim",
-          "organ_id": "agent_route_observability_runtime"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "organ",
-          "organ_id": "agent_route_observability_runtime"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "claim",
-          "organ_id": "pattern_assimilation_step"
-        },
-        {
-          "fields": [
-            "authority_receipt"
-          ],
-          "node_type": "organ",
-          "organ_id": "pattern_assimilation_step"
-        }
-      ],
+      "ignored_cache_fields": [],
       "normative_owner_refs": [
         "core/organ_registry.json",
         "core/organ_evidence_classes.json"
@@ -614,7 +501,7 @@
       "from": "claim::pattern_binding_contract",
       "from_type": "claim",
       "kind": "proven_by",
-      "to": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+      "to": "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
       "to_type": "receipt"
     },
     {
@@ -878,7 +765,7 @@
       "from": "claim::executable_doctrine_grammar",
       "from_type": "claim",
       "kind": "proven_by",
-      "to": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
+      "to": "receipts/first_wave/executable_doctrine_grammar/paper_module_validation_report.json",
       "to_type": "receipt"
     },
     {
@@ -1051,7 +938,7 @@
       "from": "claim::proof_diagnostic_evidence_spine",
       "from_type": "claim",
       "kind": "proven_by",
-      "to": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
+      "to": "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
       "to_type": "receipt"
     },
     {
@@ -3705,7 +3592,7 @@
       "from": "claim::verifier_lab_kernel",
       "from_type": "claim",
       "kind": "proven_by",
-      "to": "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
+      "to": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
       "to_type": "receipt"
     },
     {
@@ -4144,7 +4031,7 @@
       "from": "claim::navigation_hologram_route_plane",
       "from_type": "claim",
       "kind": "proven_by",
-      "to": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
+      "to": "receipts/first_wave/navigation_hologram_route_plane/affordance_passport_selection_receipt.json",
       "to_type": "receipt"
     },
     {
@@ -4456,7 +4343,7 @@
       "from": "claim::mission_transaction_work_spine",
       "from_type": "claim",
       "kind": "proven_by",
-      "to": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
+      "to": "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
       "to_type": "receipt"
     },
     {
@@ -5569,7 +5456,7 @@
       "from": "claim::agent_route_observability_runtime",
       "from_type": "claim",
       "kind": "proven_by",
-      "to": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
+      "to": "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
       "to_type": "receipt"
     },
     {
@@ -6013,7 +5900,7 @@
       "from": "claim::pattern_assimilation_step",
       "from_type": "claim",
       "kind": "proven_by",
-      "to": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
+      "to": "receipts/first_wave/pattern_assimilation_acceptance.json",
       "to_type": "receipt"
     },
     {
@@ -15356,6 +15243,14 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
+      "to": "agent_benchmark_integrity_anti_gaming_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "agent-evaluation",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
       "to": "agent_closeout_faithfulness_audit",
       "to_type": "organ"
     },
@@ -15389,14 +15284,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "batch8_validator_checker_capsule",
-      "to_type": "organ"
-    },
-    {
-      "from": "agent-evaluation",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "agent_benchmark_integrity_anti_gaming_replay",
       "to_type": "organ"
     },
     {
@@ -15508,6 +15395,14 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
+      "to": "agent_benchmark_integrity_anti_gaming_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "ai-safety",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
       "to": "agent_closeout_faithfulness_audit",
       "to_type": "organ"
     },
@@ -15541,14 +15436,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "batch8_validator_checker_capsule",
-      "to_type": "organ"
-    },
-    {
-      "from": "ai-safety",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "agent_benchmark_integrity_anti_gaming_replay",
       "to_type": "organ"
     },
     {
@@ -16284,6 +16171,14 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
+      "to": "proof_diagnostic_evidence_spine",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-methods",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
       "to": "certificate_kernel_execution_lab",
       "to_type": "organ"
     },
@@ -16317,14 +16212,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "batch4_proof_authority_runtime",
-      "to_type": "organ"
-    },
-    {
-      "from": "formal-methods",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "proof_diagnostic_evidence_spine",
       "to_type": "organ"
     },
     {
@@ -16500,6 +16387,14 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
+      "to": "proof_diagnostic_evidence_spine",
+      "to_type": "organ"
+    },
+    {
+      "from": "lean",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
       "to": "certificate_kernel_execution_lab",
       "to_type": "organ"
     },
@@ -16533,14 +16428,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "batch4_proof_authority_runtime",
-      "to_type": "organ"
-    },
-    {
-      "from": "lean",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "proof_diagnostic_evidence_spine",
       "to_type": "organ"
     },
     {
@@ -17220,6 +17107,14 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
+      "to": "agent_benchmark_integrity_anti_gaming_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "red-teaming",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
       "to": "agent_closeout_faithfulness_audit",
       "to_type": "organ"
     },
@@ -17253,14 +17148,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "batch8_validator_checker_capsule",
-      "to_type": "organ"
-    },
-    {
-      "from": "red-teaming",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "agent_benchmark_integrity_anti_gaming_replay",
       "to_type": "organ"
     },
     {
@@ -17356,6 +17243,14 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
+      "to": "research_replication_rubric_artifact_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "research-workflows",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
       "to": "finance_forecast_evaluation_spine",
       "to_type": "organ"
     },
@@ -17389,14 +17284,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "spatial_world_model_counterfactual_simulation_replay",
-      "to_type": "organ"
-    },
-    {
-      "from": "research-workflows",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "research_replication_rubric_artifact_replay",
       "to_type": "organ"
     },
     {
@@ -17660,6 +17547,14 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
+      "to": "proof_diagnostic_evidence_spine",
+      "to_type": "organ"
+    },
+    {
+      "from": "theorem-proving",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
       "to": "certificate_kernel_execution_lab",
       "to_type": "organ"
     },
@@ -17693,14 +17588,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "batch4_proof_authority_runtime",
-      "to_type": "organ"
-    },
-    {
-      "from": "theorem-proving",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "proof_diagnostic_evidence_spine",
       "to_type": "organ"
     },
     {
@@ -45829,8 +45716,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 48,
-          "real_coverage": 48
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -45851,8 +45738,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 49,
-          "real_coverage": 49
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -45873,8 +45760,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 50,
-          "real_coverage": 50
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -45895,8 +45782,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 56,
-          "real_coverage": 56
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -45917,8 +45804,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 51,
-          "real_coverage": 51
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -45939,8 +45826,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 60,
-          "real_coverage": 60
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -45961,8 +45848,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 56,
-          "real_coverage": 56
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -45983,8 +45870,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 36,
-          "real_coverage": 36
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46005,8 +45892,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 48,
-          "real_coverage": 48
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46027,8 +45914,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 50,
-          "real_coverage": 50
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46049,8 +45936,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 55,
-          "real_coverage": 55
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46071,8 +45958,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 47,
-          "real_coverage": 47
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46093,8 +45980,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 42,
-          "real_coverage": 42
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46115,8 +46002,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 37,
-          "real_coverage": 37
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46136,9 +46023,9 @@
         "runner_source_ref": "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 6,
-          "generic_unique": 43,
-          "real_coverage": 49
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46159,8 +46046,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 40,
-          "real_coverage": 40
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -46181,8 +46068,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 50,
-          "real_coverage": 50
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -46203,8 +46090,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 64,
-          "real_coverage": 64
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46225,8 +46112,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 60,
-          "real_coverage": 60
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -46247,8 +46134,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 46,
-          "real_coverage": 46
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46269,8 +46156,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 69,
-          "real_coverage": 69
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -46291,8 +46178,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 35,
-          "real_coverage": 35
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46313,8 +46200,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 48,
-          "real_coverage": 48
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46335,8 +46222,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 43,
-          "real_coverage": 43
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46357,8 +46244,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 38,
-          "real_coverage": 38
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -46379,8 +46266,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 42,
-          "real_coverage": 42
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -46400,9 +46287,9 @@
         "runner_source_ref": "src/microcosm_core/organs/agent_route_observability_runtime.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 11,
-          "generic_unique": 144,
-          "real_coverage": 155
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46423,8 +46310,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 41,
-          "real_coverage": 41
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46445,8 +46332,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 39,
-          "real_coverage": 39
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46467,8 +46354,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 36,
-          "real_coverage": 36
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -46488,9 +46375,9 @@
         "runner_source_ref": "src/microcosm_core/organs/macro_projection_import_protocol.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 1,
-          "generic_unique": 93,
-          "real_coverage": 94
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -46511,8 +46398,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 51,
-          "real_coverage": 51
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46533,8 +46420,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 47,
-          "real_coverage": 47
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46555,8 +46442,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 46,
-          "real_coverage": 46
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46576,9 +46463,9 @@
         "runner_source_ref": "src/microcosm_core/organs/agent_monitor_redteam_falsification_replay.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 10,
-          "generic_unique": 32,
-          "real_coverage": 42
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46599,8 +46486,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 51,
-          "real_coverage": 51
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46621,8 +46508,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 54,
-          "real_coverage": 54
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46643,8 +46530,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 42,
-          "real_coverage": 42
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46665,8 +46552,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 45,
-          "real_coverage": 45
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46687,8 +46574,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 64,
-          "real_coverage": 64
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46709,8 +46596,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 48,
-          "real_coverage": 48
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46731,8 +46618,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 42,
-          "real_coverage": 42
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46753,8 +46640,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 48,
-          "real_coverage": 48
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46775,8 +46662,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 54,
-          "real_coverage": 54
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46797,8 +46684,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 45,
-          "real_coverage": 45
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46819,8 +46706,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 65,
-          "real_coverage": 65
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -46841,8 +46728,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 36,
-          "real_coverage": 36
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46863,8 +46750,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 46,
-          "real_coverage": 46
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46885,8 +46772,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 35,
-          "real_coverage": 35
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46907,8 +46794,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 12,
-          "real_coverage": 12
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -46929,8 +46816,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 14,
-          "real_coverage": 14
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -46951,8 +46838,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 20,
-          "real_coverage": 20
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -46973,8 +46860,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 12,
-          "real_coverage": 12
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -46995,8 +46882,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 15,
-          "real_coverage": 15
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -47017,8 +46904,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 34,
-          "real_coverage": 34
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47039,8 +46926,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 23,
-          "real_coverage": 23
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47061,8 +46948,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 26,
-          "real_coverage": 26
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47083,8 +46970,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 24,
-          "real_coverage": 24
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47105,8 +46992,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 31,
-          "real_coverage": 31
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47127,8 +47014,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 29,
-          "real_coverage": 29
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47149,8 +47036,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 22,
-          "real_coverage": 22
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47171,8 +47058,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 18,
-          "real_coverage": 18
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47193,8 +47080,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 14,
-          "real_coverage": 14
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -47215,8 +47102,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 15,
-          "real_coverage": 15
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47237,8 +47124,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 14,
-          "real_coverage": 14
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -47259,8 +47146,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 56,
-          "real_coverage": 56
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47281,8 +47168,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 57,
-          "real_coverage": 57
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47303,8 +47190,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 80,
-          "real_coverage": 80
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47325,8 +47212,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 46,
-          "real_coverage": 46
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_import_validation",
@@ -47347,8 +47234,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 36,
-          "real_coverage": 36
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "source_faithful_refactor",
@@ -47369,8 +47256,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 23,
-          "real_coverage": 23
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47391,8 +47278,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 23,
-          "real_coverage": 23
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47413,8 +47300,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 23,
-          "real_coverage": 23
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47435,8 +47322,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 31,
-          "real_coverage": 31
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47457,8 +47344,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 17,
-          "real_coverage": 17
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47479,8 +47366,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 20,
-          "real_coverage": 20
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47501,8 +47388,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 16,
-          "real_coverage": 16
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47523,8 +47410,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 24,
-          "real_coverage": 24
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
@@ -47545,8 +47432,8 @@
         "runner_source_resolved": true,
         "runner_specificity": {
           "body_specific": 0,
-          "generic_unique": 14,
-          "real_coverage": 14
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -47566,9 +47453,9 @@
         "runner_source_ref": "src/microcosm_core/organs/finite_erdos_denominator_certificate_strike.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 4,
-          "generic_unique": 8,
-          "real_coverage": 12
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -47588,9 +47475,9 @@
         "runner_source_ref": "src/microcosm_core/organs/bridge_campaign_dag_validation.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 6,
-          "generic_unique": 7,
-          "real_coverage": 13
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -47610,9 +47497,9 @@
         "runner_source_ref": "src/microcosm_core/organs/metabolism_queue_reconciliation.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 5,
-          "generic_unique": 8,
-          "real_coverage": 13
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -47632,9 +47519,9 @@
         "runner_source_ref": "src/microcosm_core/organs/derived_fact_provider_runtime.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 5,
-          "generic_unique": 8,
-          "real_coverage": 13
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -47654,9 +47541,9 @@
         "runner_source_ref": "src/microcosm_core/organs/navigation_fitness_benchmark.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 6,
-          "generic_unique": 7,
-          "real_coverage": 13
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -47676,9 +47563,9 @@
         "runner_source_ref": "src/microcosm_core/organs/annex_knowledge_routing.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 5,
-          "generic_unique": 7,
-          "real_coverage": 12
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -47698,9 +47585,9 @@
         "runner_source_ref": "src/microcosm_core/organs/egress_self_compliance_audit.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 5,
-          "generic_unique": 8,
-          "real_coverage": 13
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -47720,9 +47607,9 @@
         "runner_source_ref": "src/microcosm_core/organs/generated_projection_drift_runtime.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 5,
-          "generic_unique": 8,
-          "real_coverage": 13
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -47742,9 +47629,9 @@
         "runner_source_ref": "src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
         "runner_source_resolved": true,
         "runner_specificity": {
-          "body_specific": 3,
-          "generic_unique": 9,
-          "real_coverage": 12
+          "body_specific": 0,
+          "generic_unique": 0,
+          "real_coverage": 0
         },
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "real_runtime_receipt",
@@ -54998,7 +54885,7 @@
     ],
     "route": [
       {
-        "allowed_scope": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
+        "allowed_scope": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or launch.",
         "first_command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
         "organ_count": 3,
         "primary_display_name": "Mission Transaction Work Spine",
@@ -55008,7 +54895,7 @@
         "task_class": "agent-concurrency"
       },
       {
-        "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
+        "allowed_scope": "Text checks do not execute every route or establish reader comprehension.",
         "first_command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
         "organ_count": 4,
         "primary_display_name": "Cold Reader Route Map",
@@ -55018,17 +54905,17 @@
         "task_class": "agent-entry"
       },
       {
-        "allowed_scope": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
-        "first_command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+        "allowed_scope": "A digest or passing replay is not a benchmark claims or evidence of algorithm correctness.",
+        "first_command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
         "organ_count": 16,
-        "primary_display_name": "Agent Closeout Faithfulness Audit",
-        "primary_organ_id": "agent_closeout_faithfulness_audit",
+        "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+        "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "agent-evaluation"
       },
       {
-        "allowed_scope": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence.",
+        "allowed_scope": "The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.",
         "first_command": "microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Bridge Campaign DAG Validation",
@@ -55038,7 +54925,7 @@
         "task_class": "agent-orchestration"
       },
       {
-        "allowed_scope": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.",
+        "allowed_scope": "Phrase matching on supplied examples; not complete semantic or safety analysis.",
         "first_command": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Egress Self-Compliance Audit",
@@ -55048,7 +54935,7 @@
         "task_class": "agent-reliability"
       },
       {
-        "allowed_scope": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.",
+        "allowed_scope": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.",
         "first_command": "microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Metabolism Queue Reconciliation",
@@ -55058,17 +54945,17 @@
         "task_class": "agent-runtime"
       },
       {
-        "allowed_scope": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
-        "first_command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+        "allowed_scope": "A digest or passing replay is not a benchmark claims or evidence of algorithm correctness.",
+        "first_command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
         "organ_count": 16,
-        "primary_display_name": "Agent Closeout Faithfulness Audit",
-        "primary_organ_id": "agent_closeout_faithfulness_audit",
+        "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+        "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "ai-safety"
       },
       {
-        "allowed_scope": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.",
+        "allowed_scope": "Keyword matches are not semantic retrieval or a licence or provenance assessment.",
         "first_command": "microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Annex Knowledge Routing",
@@ -55078,7 +54965,7 @@
         "task_class": "annex-catalog"
       },
       {
-        "allowed_scope": "It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).",
+        "allowed_scope": "A passing binding is a consistent record under these checks; it does not establish that the pattern is useful or that copied source is correct.",
         "first_command": "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
         "organ_count": 12,
         "primary_display_name": "Pattern Binding Contract",
@@ -55088,7 +54975,7 @@
         "task_class": "architecture"
       },
       {
-        "allowed_scope": "projection mechanics only, not domain-level conclusions",
+        "allowed_scope": "This checks the Python calculation on the supplied cases; it does not establish sample-buffer parity on a device, microphone permissions, session behavior or audio capture.",
         "first_command": "microcosm batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Audio Level RMS Port",
@@ -55098,7 +54985,7 @@
         "task_class": "audio"
       },
       {
-        "allowed_scope": "It validates only public-safe copied Batch 5 authority-system source bodies and bounded deterministic exercises; it does not dispatch providers, prove Lean success, send live process signals, mutate generated state, change source files, authorize public sharing, include launch operations, or claim private-system equivalence.",
+        "allowed_scope": "These are bounded exercises of the supplied cases. A digest confirms a source copy against its manifest; it does not establish authorization, formal-result correctness or safe process management in a live system.",
         "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch5_authority_systems_capsule run --input fixtures/first_wave/batch5_authority_systems_capsule/input --out receipts/first_wave/batch5_authority_systems_capsule --acceptance-out receipts/acceptance/first_wave/batch5_authority_systems_capsule_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Authority Systems Source Capsule",
@@ -55108,7 +54995,7 @@
         "task_class": "authority-boundary"
       },
       {
-        "allowed_scope": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not launch-scope decision.",
+        "allowed_scope": "These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.",
         "first_command": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Navigation Fitness Benchmark",
@@ -55118,7 +55005,7 @@
         "task_class": "benchmark-recomputation"
       },
       {
-        "allowed_scope": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence.",
+        "allowed_scope": "The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.",
         "first_command": "microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
         "organ_count": 2,
         "primary_display_name": "Bridge Campaign DAG Validation",
@@ -55128,7 +55015,7 @@
         "task_class": "bounded-fixture"
       },
       {
-        "allowed_scope": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence.",
+        "allowed_scope": "The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.",
         "first_command": "microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Bridge Campaign DAG Validation",
@@ -55138,7 +55025,7 @@
         "task_class": "campaign-dag"
       },
       {
-        "allowed_scope": "validates declared public Batch 8 compliance pipeline capsule contract only; no full compliance-ledger freshness, external model access, model dispatch, source-file changes, source note mutation, launch, public sharing, private data equivalence, or whole-system correctness",
+        "allowed_scope": "A passing fixture is evidence about these specific source contracts and helper inputs, not a fresh full compliance ledger or permission to dispatch a pipeline.",
         "first_command": "microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule",
         "organ_count": 1,
         "primary_display_name": "Compliance Pipeline Capsule",
@@ -55148,7 +55035,7 @@
         "task_class": "compliance"
       },
       {
-        "allowed_scope": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
+        "allowed_scope": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or launch.",
         "first_command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
         "organ_count": 5,
         "primary_display_name": "Mission Transaction Work Spine",
@@ -55158,7 +55045,7 @@
         "task_class": "continuity"
       },
       {
-        "allowed_scope": "It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or launch-scope decision.",
+        "allowed_scope": "Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.",
         "first_command": "microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Semantic Singleflight Dedup Runtime",
@@ -55168,7 +55055,7 @@
         "task_class": "deduplication"
       },
       {
-        "allowed_scope": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.",
+        "allowed_scope": "Resolution does not judge prose truth or a complete external registry.",
         "first_command": "microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Derived Fact Provider Runtime",
@@ -55178,7 +55065,7 @@
         "task_class": "derived-facts"
       },
       {
-        "allowed_scope": "It validates only public-safe Demo Take Console copied Swift source bodies and bounded deterministic exercises; it does not launch the app, authorize screen or microphone capture, export recording sessions, execute FFmpeg, dispatch WhisperKit or other models, change source files, prove complete UI coverage, authorize public sharing, or include launch operations.",
+        "allowed_scope": "The build witness needs Swift and a compatible macOS environment with the required Apple frameworks. SwiftPM writes build scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset. A successful build and fixture checks do not establish capture quality or transcription accuracy.",
         "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch7_demo_take_console_capsule run --input fixtures/first_wave/batch7_demo_take_console_capsule/input --out receipts/first_wave/batch7_demo_take_console_capsule --acceptance-out receipts/acceptance/first_wave/batch7_demo_take_console_capsule_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Demo Take Console Source Capsule",
@@ -55188,7 +55075,7 @@
         "task_class": "desktop-capture-boundary"
       },
       {
-        "allowed_scope": "It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).",
+        "allowed_scope": "A passing binding is a consistent record under these checks; it does not establish that the pattern is useful or that copied source is correct.",
         "first_command": "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
         "organ_count": 10,
         "primary_display_name": "Pattern Binding Contract",
@@ -55198,7 +55085,7 @@
         "task_class": "doctrine"
       },
       {
-        "allowed_scope": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim",
+        "allowed_scope": "These checks establish the named fixture behavior, not live-market accuracy, investment-related actions, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.",
         "first_command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
         "organ_count": 20,
         "primary_display_name": "Secondary Runtime Source Capsule",
@@ -55208,7 +55095,7 @@
         "task_class": "drift-control"
       },
       {
-        "allowed_scope": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.",
+        "allowed_scope": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.",
         "first_command": "microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Metabolism Queue Reconciliation",
@@ -55218,7 +55105,7 @@
         "task_class": "durable-queue"
       },
       {
-        "allowed_scope": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.",
+        "allowed_scope": "Phrase matching on supplied examples; not complete semantic or safety analysis.",
         "first_command": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Egress Self-Compliance Audit",
@@ -55228,7 +55115,7 @@
         "task_class": "egress-policy"
       },
       {
-        "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
+        "allowed_scope": "Text checks do not execute every route or establish reader comprehension.",
         "first_command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
         "organ_count": 2,
         "primary_display_name": "Cold Reader Route Map",
@@ -55238,7 +55125,7 @@
         "task_class": "evaluation"
       },
       {
-        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "allowed_scope": "The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erd\u0151s problem 257.",
         "first_command": "microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Finite Erdos Denominator-Order Certificate Strike",
@@ -55248,7 +55135,7 @@
         "task_class": "exact-arithmetic"
       },
       {
-        "allowed_scope": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
+        "allowed_scope": "A lookahead split or a claim that the output authorizes investment-related actions is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment-related actions.",
         "first_command": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
         "organ_count": 7,
         "primary_display_name": "Finance Forecast Evaluation Spine",
@@ -55258,7 +55145,7 @@
         "task_class": "finance"
       },
       {
-        "allowed_scope": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.",
+        "allowed_scope": "Resolution does not judge prose truth or a complete external registry.",
         "first_command": "microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Derived Fact Provider Runtime",
@@ -55268,7 +55155,7 @@
         "task_class": "fixture-runtime"
       },
       {
-        "allowed_scope": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
+        "allowed_scope": "A lookahead split or a claim that the output authorizes investment-related actions is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment-related actions.",
         "first_command": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
         "organ_count": 8,
         "primary_display_name": "Finance Forecast Evaluation Spine",
@@ -55278,7 +55165,7 @@
         "task_class": "forecasting"
       },
       {
-        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "allowed_scope": "The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erd\u0151s problem 257.",
         "first_command": "microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
         "organ_count": 2,
         "primary_display_name": "Finite Erdos Denominator-Order Certificate Strike",
@@ -55288,17 +55175,17 @@
         "task_class": "formal-math"
       },
       {
-        "allowed_scope": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
-        "first_command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+        "allowed_scope": "A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.",
+        "first_command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
         "organ_count": 18,
-        "primary_display_name": "Certificate Kernel Execution Lab",
-        "primary_organ_id": "certificate_kernel_execution_lab",
+        "primary_display_name": "Proof Diagnostic Evidence Spine",
+        "primary_organ_id": "proof_diagnostic_evidence_spine",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "formal-methods"
       },
       {
-        "allowed_scope": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim",
+        "allowed_scope": "These checks establish the named fixture behavior, not live-market accuracy, investment-related actions, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.",
         "first_command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
         "organ_count": 3,
         "primary_display_name": "Secondary Runtime Source Capsule",
@@ -55308,7 +55195,7 @@
         "task_class": "frontend"
       },
       {
-        "allowed_scope": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch.",
+        "allowed_scope": "Checks declared artifacts and owner commands; it neither repairs files nor proves semantic correctness.",
         "first_command": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Generated Projection Drift Runtime",
@@ -55318,7 +55205,7 @@
         "task_class": "generated-surfaces"
       },
       {
-        "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
+        "allowed_scope": "Text checks do not execute every route or establish reader comprehension.",
         "first_command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
         "organ_count": 2,
         "primary_display_name": "Cold Reader Route Map",
@@ -55328,7 +55215,7 @@
         "task_class": "getting-started"
       },
       {
-        "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
+        "allowed_scope": "Text checks do not execute every route or establish reader comprehension.",
         "first_command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
         "organ_count": 2,
         "primary_display_name": "Cold Reader Route Map",
@@ -55338,7 +55225,7 @@
         "task_class": "interesting-parts"
       },
       {
-        "allowed_scope": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.",
+        "allowed_scope": "Resolution does not judge prose truth or a complete external registry.",
         "first_command": "microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Derived Fact Provider Runtime",
@@ -55348,17 +55235,17 @@
         "task_class": "json-pointer"
       },
       {
-        "allowed_scope": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
-        "first_command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+        "allowed_scope": "A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.",
+        "first_command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
         "organ_count": 18,
-        "primary_display_name": "Certificate Kernel Execution Lab",
-        "primary_organ_id": "certificate_kernel_execution_lab",
+        "primary_display_name": "Proof Diagnostic Evidence Spine",
+        "primary_organ_id": "proof_diagnostic_evidence_spine",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "lean"
       },
       {
-        "allowed_scope": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing.",
+        "allowed_scope": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
         "first_command": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Lean Proof-Search Lab Runtime",
@@ -55368,7 +55255,7 @@
         "task_class": "lean-subprocess"
       },
       {
-        "allowed_scope": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim",
+        "allowed_scope": "These checks establish the named fixture behavior, not live-market accuracy, investment-related actions, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.",
         "first_command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Secondary Runtime Source Capsule",
@@ -55378,7 +55265,7 @@
         "task_class": "market-boundary"
       },
       {
-        "allowed_scope": "It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).",
+        "allowed_scope": "A passing binding is a consistent record under these checks; it does not establish that the pattern is useful or that copied source is correct.",
         "first_command": "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
         "organ_count": 11,
         "primary_display_name": "Pattern Binding Contract",
@@ -55388,7 +55275,7 @@
         "task_class": "navigation"
       },
       {
-        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "allowed_scope": "The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erd\u0151s problem 257.",
         "first_command": "microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Finite Erdos Denominator-Order Certificate Strike",
@@ -55398,7 +55285,7 @@
         "task_class": "number-theory"
       },
       {
-        "allowed_scope": "It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or launch-scope decision.",
+        "allowed_scope": "Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.",
         "first_command": "microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Semantic Singleflight Dedup Runtime",
@@ -55408,7 +55295,7 @@
         "task_class": "operational-discipline"
       },
       {
-        "allowed_scope": "It validates only public-safe Oracle sibling copied source bodies and bounded deterministic exercises; it does not run Oracle reasoning, dispatch providers or bridges, invoke GodModeEngine, change source files, prove semantic truth, prove all Oracle paths are covered, authorize public sharing, or include launch operations.",
+        "allowed_scope": "The pytest witness requires pytest and its source dependencies. These examples do not establish semantic truth, live market reasoning or coverage of the full Oracle system.",
         "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch7_oracle_sibling_capsule run --input fixtures/first_wave/batch7_oracle_sibling_capsule/input --out receipts/first_wave/batch7_oracle_sibling_capsule --acceptance-out receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Oracle Sibling Source Capsule",
@@ -55418,7 +55305,7 @@
         "task_class": "oracle-boundary"
       },
       {
-        "allowed_scope": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch.",
+        "allowed_scope": "Checks declared artifacts and owner commands; it neither repairs files nor proves semantic correctness.",
         "first_command": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Generated Projection Drift Runtime",
@@ -55428,7 +55315,7 @@
         "task_class": "owner-checks"
       },
       {
-        "allowed_scope": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.",
+        "allowed_scope": "Phrase matching on supplied examples; not complete semantic or safety analysis.",
         "first_command": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Egress Self-Compliance Audit",
@@ -55438,7 +55325,7 @@
         "task_class": "phrase-membership"
       },
       {
-        "allowed_scope": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch.",
+        "allowed_scope": "Checks declared artifacts and owner commands; it neither repairs files nor proves semantic correctness.",
         "first_command": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Generated Projection Drift Runtime",
@@ -55448,7 +55335,7 @@
         "task_class": "projection-drift"
       },
       {
-        "allowed_scope": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing.",
+        "allowed_scope": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
         "first_command": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Lean Proof-Search Lab Runtime",
@@ -55458,7 +55345,7 @@
         "task_class": "proof-search"
       },
       {
-        "allowed_scope": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim",
+        "allowed_scope": "These checks establish the named fixture behavior, not live-market accuracy, investment-related actions, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.",
         "first_command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
         "organ_count": 20,
         "primary_display_name": "Secondary Runtime Source Capsule",
@@ -55468,7 +55355,7 @@
         "task_class": "provenance"
       },
       {
-        "allowed_scope": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence.",
+        "allowed_scope": "The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.",
         "first_command": "microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Bridge Campaign DAG Validation",
@@ -55478,7 +55365,7 @@
         "task_class": "provider-boundary"
       },
       {
-        "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
+        "allowed_scope": "Text checks do not execute every route or establish reader comprehension.",
         "first_command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
         "organ_count": 31,
         "primary_display_name": "Cold Reader Route Map",
@@ -55488,17 +55375,17 @@
         "task_class": "provider-ops"
       },
       {
-        "allowed_scope": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
-        "first_command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+        "allowed_scope": "A digest or passing replay is not a benchmark claims or evidence of algorithm correctness.",
+        "first_command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
         "organ_count": 16,
-        "primary_display_name": "Agent Closeout Faithfulness Audit",
-        "primary_organ_id": "agent_closeout_faithfulness_audit",
+        "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+        "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "red-teaming"
       },
       {
-        "allowed_scope": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.",
+        "allowed_scope": "Resolution does not judge prose truth or a complete external registry.",
         "first_command": "microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Derived Fact Provider Runtime",
@@ -55508,17 +55395,17 @@
         "task_class": "research-infrastructure"
       },
       {
-        "allowed_scope": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
-        "first_command": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
+        "allowed_scope": "Supports a bounded sum_field metric, not arbitrary scripts, independent reproduction of an outside study, or benchmark performance.",
+        "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay",
         "organ_count": 8,
-        "primary_display_name": "Finance Forecast Evaluation Spine",
-        "primary_organ_id": "finance_forecast_evaluation_spine",
+        "primary_display_name": "Research Replication Rubric Artifact Replay",
+        "primary_organ_id": "research_replication_rubric_artifact_replay",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "research-workflows"
       },
       {
-        "allowed_scope": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not launch-scope decision.",
+        "allowed_scope": "These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.",
         "first_command": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Navigation Fitness Benchmark",
@@ -55528,7 +55415,7 @@
         "task_class": "route-packet"
       },
       {
-        "allowed_scope": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.",
+        "allowed_scope": "Keyword matches are not semantic retrieval or a licence or provenance assessment.",
         "first_command": "microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Annex Knowledge Routing",
@@ -55538,7 +55425,7 @@
         "task_class": "routing"
       },
       {
-        "allowed_scope": "It validates the projection mechanics of a synthetic memory fixture only \u2014 that the required refs, decisions, paired replays, negative cases, and secret-exclusion scan line up and that receipts are body-free. It does not claim live-memory product quality, judge whether memory decisions were domain-correct, treat memory recall as source authority, adopt active injection, export private transcripts, use external model services, change source files, or include launch operations.",
+        "allowed_scope": "A fixture replay does not establish the quality or safety of a deployed memory system.",
         "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out /tmp/agent_memory_temporal_conflict_replay_out",
         "organ_count": 3,
         "primary_display_name": "Agent Memory Temporal Conflict Replay",
@@ -55548,7 +55435,7 @@
         "task_class": "security"
       },
       {
-        "allowed_scope": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.",
+        "allowed_scope": "Phrase matching on supplied examples; not complete semantic or safety analysis.",
         "first_command": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Egress Self-Compliance Audit",
@@ -55558,7 +55445,7 @@
         "task_class": "self-compliance"
       },
       {
-        "allowed_scope": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing.",
+        "allowed_scope": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
         "first_command": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Lean Proof-Search Lab Runtime",
@@ -55568,7 +55455,7 @@
         "task_class": "self-falsifying"
       },
       {
-        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "allowed_scope": "The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erd\u0151s problem 257.",
         "first_command": "microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Finite Erdos Denominator-Order Certificate Strike",
@@ -55578,7 +55465,7 @@
         "task_class": "self-falsifying-certificate"
       },
       {
-        "allowed_scope": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim",
+        "allowed_scope": "These checks establish the named fixture behavior, not live-market accuracy, investment-related actions, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.",
         "first_command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
         "organ_count": 20,
         "primary_display_name": "Secondary Runtime Source Capsule",
@@ -55588,7 +55475,7 @@
         "task_class": "source-import"
       },
       {
-        "allowed_scope": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.",
+        "allowed_scope": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.",
         "first_command": "microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Metabolism Queue Reconciliation",
@@ -55598,7 +55485,7 @@
         "task_class": "sqlite-reconciliation"
       },
       {
-        "allowed_scope": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch.",
+        "allowed_scope": "Checks declared artifacts and owner commands; it neither repairs files nor proves semantic correctness.",
         "first_command": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Generated Projection Drift Runtime",
@@ -55608,17 +55495,17 @@
         "task_class": "subprocess-witness"
       },
       {
-        "allowed_scope": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
-        "first_command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+        "allowed_scope": "A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.",
+        "first_command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
         "organ_count": 19,
-        "primary_display_name": "Certificate Kernel Execution Lab",
-        "primary_organ_id": "certificate_kernel_execution_lab",
+        "primary_display_name": "Proof Diagnostic Evidence Spine",
+        "primary_organ_id": "proof_diagnostic_evidence_spine",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "theorem-proving"
       },
       {
-        "allowed_scope": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.",
+        "allowed_scope": "Keyword matches are not semantic retrieval or a licence or provenance assessment.",
         "first_command": "microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
         "organ_count": 1,
         "primary_display_name": "Annex Knowledge Routing",
@@ -55628,7 +55515,7 @@
         "task_class": "weighted-token-retrieval"
       },
       {
-        "allowed_scope": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
+        "allowed_scope": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or launch.",
         "first_command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
         "organ_count": 2,
         "primary_display_name": "Mission Transaction Work Spine",
@@ -55638,7 +55525,7 @@
         "task_class": "work-ledger"
       },
       {
-        "allowed_scope": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
+        "allowed_scope": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or launch.",
         "first_command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
         "organ_count": 4,
         "primary_display_name": "Mission Transaction Work Spine",
@@ -55650,882 +55537,882 @@
     ],
     "source_file": [
       {
-        "body_specific": 6,
+        "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 43,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
-        "real_coverage": 49,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 49
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 12,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/agent_closeout_faithfulness_audit.py",
-        "real_coverage": 12,
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 12
+        "symbol_count": 13
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 54,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/agent_memory_temporal_conflict_replay.py",
-        "real_coverage": 54,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 54
       },
       {
-        "body_specific": 10,
+        "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 32,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/agent_monitor_redteam_falsification_replay.py",
-        "real_coverage": 42,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 42
       },
       {
-        "body_specific": 11,
+        "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 144,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/agent_route_observability_runtime.py",
-        "real_coverage": 155,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 155
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 51,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/agent_sabotage_scheming_monitor_replay.py",
-        "real_coverage": 51,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 51
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 42,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/agent_sandbox_policy_escape_replay.py",
-        "real_coverage": 42,
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 42
+        "symbol_count": 44
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 54,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/agentic_vulnerability_discovery_patch_proof_replay.py",
-        "real_coverage": 54,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 54
       },
       {
-        "body_specific": 5,
+        "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 7,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/annex_knowledge_routing.py",
-        "real_coverage": 12,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 12
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 23,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch10_cold_eval_honesty_capsule.py",
-        "real_coverage": 23,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 23
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 57,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch10_governance_compilers_capsule.py",
-        "real_coverage": 57,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 57
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 23,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch10_live_source_drift_capsule.py",
-        "real_coverage": 23,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 23
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 80,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch11_saturation_engines_capsule.py",
-        "real_coverage": 80,
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 80
+        "symbol_count": 78
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 20,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch12_market_dashboard_read_model_capsule.py",
-        "real_coverage": 20,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 20
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 16,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch12_prediction_market_board_capsule.py",
-        "real_coverage": 16,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 16
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 24,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch12_release_claim_language_gate.py",
-        "real_coverage": 24,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 24
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 34,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch4_proof_authority_runtime.py",
-        "real_coverage": 34,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 34
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 26,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch5_authority_systems_capsule.py",
-        "real_coverage": 26,
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 26
+        "symbol_count": 25
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 23,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch6_unsurfaced_primitives_capsule.py",
-        "real_coverage": 23,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 23
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 29,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch7_demo_take_console_capsule.py",
-        "real_coverage": 29,
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 29
+        "symbol_count": 30
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 24,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch7_macro_engines_capsule.py",
-        "real_coverage": 24,
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 24
+        "symbol_count": 21
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 31,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch7_oracle_sibling_capsule.py",
-        "real_coverage": 31,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 31
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 17,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch7_secondary_runtime_capsule.py",
-        "real_coverage": 17,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 17
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 14,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch8_audio_level_rms_port.py",
-        "real_coverage": 14,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 14
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 36,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch8_compliance_pipeline_capsule.py",
-        "real_coverage": 36,
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 36
+        "symbol_count": 29
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 18,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch8_policy_engines_capsule.py",
-        "real_coverage": 18,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 18
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 15,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch8_structural_theses_capsule.py",
-        "real_coverage": 15,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 15
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 22,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch8_tools_tail_primitives_capsule.py",
-        "real_coverage": 22,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 22
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 23,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch8_validator_checker_capsule.py",
-        "real_coverage": 23,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 23
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 56,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/batch9_macro_engines_capsule.py",
-        "real_coverage": 56,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 56
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 48,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/belief_state_process_reward_replay.py",
-        "real_coverage": 48,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 48
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 12,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/bounded_autonomy_campaign_packet.py",
-        "real_coverage": 12,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 12
       },
       {
-        "body_specific": 6,
+        "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 7,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/bridge_campaign_dag_validation.py",
-        "real_coverage": 13,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 13
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 41,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/bridge_phase_continuity_runtime.py",
-        "real_coverage": 41,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 41
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 65,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/certificate_kernel_execution_lab.py",
-        "real_coverage": 65,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 65
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 46,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/cognitive_operator_registry.py",
-        "real_coverage": 46,
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 46
+        "symbol_count": 48
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 46,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/cold_reader_route_map.py",
-        "real_coverage": 46,
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 46
+        "symbol_count": 48
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 31,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/concurrency_mission_control.py",
-        "real_coverage": 31,
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 31
+        "symbol_count": 33
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 51,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py",
-        "real_coverage": 51,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 51
       },
       {
-        "body_specific": 5,
+        "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 8,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/derived_fact_provider_runtime.py",
-        "real_coverage": 13,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 13
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 14,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/doctrine_fact_claim_audit.py",
-        "real_coverage": 14,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 14
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 35,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/durable_agent_work_landing_replay.py",
-        "real_coverage": 35,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 35
       },
       {
-        "body_specific": 5,
+        "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 8,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/egress_self_compliance_audit.py",
-        "real_coverage": 13,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 13
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 14,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/engine_room_demo.py",
-        "real_coverage": 14,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 14
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 49,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/executable_doctrine_grammar.py",
-        "real_coverage": 49,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 49
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 15,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/finance_forecast_evaluation_spine.py",
-        "real_coverage": 15,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 15
       },
       {
-        "body_specific": 4,
+        "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 8,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/finite_erdos_denominator_certificate_strike.py",
-        "real_coverage": 12,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 12
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 47,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/formal_evidence_cell_anchor_resolver.py",
-        "real_coverage": 47,
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 47
+        "symbol_count": 48
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 50,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/formal_math_lean_proof_witness.py",
-        "real_coverage": 50,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 50
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 50,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/formal_math_premise_retrieval.py",
-        "real_coverage": 50,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 50
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 56,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/formal_math_readiness_gate.py",
-        "real_coverage": 56,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 56
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 55,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/formal_math_verifier_trace_repair_loop.py",
-        "real_coverage": 55,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 55
       },
       {
-        "body_specific": 5,
+        "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 8,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/generated_projection_drift_runtime.py",
-        "real_coverage": 13,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 13
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 48,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py",
-        "real_coverage": 48,
-        "source_class": "source_module",
-        "symbol_count": 48
-      },
-      {
-        "body_specific": 3,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 9,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
-        "real_coverage": 12,
-        "source_class": "source_module",
-        "symbol_count": 12
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 48,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/lean_std_premise_index.py",
-        "real_coverage": 48,
-        "source_class": "source_module",
-        "symbol_count": 48
-      },
-      {
-        "body_specific": 1,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 93,
-        "has_non_goal": 2,
-        "path": "src/microcosm_core/organs/macro_projection_import_protocol.py",
-        "real_coverage": 94,
-        "source_class": "source_module",
-        "symbol_count": 94
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 45,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/materials_chemistry_closed_loop_lab_safety_replay.py",
-        "real_coverage": 45,
-        "source_class": "source_module",
-        "symbol_count": 45
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 60,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/mathematical_strategy_atlas_hypothesis_scorer.py",
-        "real_coverage": 60,
-        "source_class": "source_module",
-        "symbol_count": 60
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 45,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/mcp_tool_authority_replay.py",
-        "real_coverage": 45,
-        "source_class": "source_module",
-        "symbol_count": 45
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 42,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
-        "real_coverage": 42,
-        "source_class": "source_module",
-        "symbol_count": 42
-      },
-      {
-        "body_specific": 5,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 8,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/metabolism_queue_reconciliation.py",
-        "real_coverage": 13,
-        "source_class": "source_module",
-        "symbol_count": 13
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 69,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/mission_transaction_work_spine.py",
-        "real_coverage": 69,
-        "source_class": "source_module",
-        "symbol_count": 69
-      },
-      {
-        "body_specific": 6,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 7,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/navigation_fitness_benchmark.py",
-        "real_coverage": 13,
-        "source_class": "source_module",
-        "symbol_count": 13
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 46,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/navigation_hologram_route_plane.py",
-        "real_coverage": 46,
-        "source_class": "source_module",
-        "symbol_count": 46
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 48,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/pattern_binding_contract.py",
-        "real_coverage": 48,
-        "source_class": "source_module",
-        "symbol_count": 48
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 51,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/prediction_oracle_reconciliation.py",
-        "real_coverage": 51,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 51
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 64,
+        "generic_unique": 0,
         "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
-        "real_coverage": 64,
+        "path": "src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 64
+        "symbol_count": 12
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 50,
+        "generic_unique": 0,
         "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
-        "real_coverage": 50,
+        "path": "src/microcosm_core/organs/lean_std_premise_index.py",
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 50
+        "symbol_count": 49
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 40,
+        "generic_unique": 0,
         "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/provider_context_recipe_budget_policy.py",
-        "real_coverage": 40,
+        "path": "src/microcosm_core/organs/macro_projection_import_protocol.py",
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 40
+        "symbol_count": 95
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 36,
+        "generic_unique": 0,
         "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/public_reveal_walkthrough.py",
-        "real_coverage": 36,
+        "path": "src/microcosm_core/organs/materials_chemistry_closed_loop_lab_safety_replay.py",
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 36
+        "symbol_count": 45
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 48,
+        "generic_unique": 0,
         "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/research_replication_rubric_artifact_replay.py",
-        "real_coverage": 48,
-        "source_class": "source_module",
-        "symbol_count": 48
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 37,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/ring2_premise_retrieval_precision_recall_harness.py",
-        "real_coverage": 37,
-        "source_class": "source_module",
-        "symbol_count": 37
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 35,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/routing_anti_patterns_registry.py",
-        "real_coverage": 35,
-        "source_class": "source_module",
-        "symbol_count": 35
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 20,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/self_ignorance_coverage_ledger.py",
-        "real_coverage": 20,
-        "source_class": "source_module",
-        "symbol_count": 20
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 14,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/semantic_singleflight_dedup_runtime.py",
-        "real_coverage": 14,
-        "source_class": "source_module",
-        "symbol_count": 14
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 42,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/sleeper_memory_poisoning_quarantine_replay.py",
-        "real_coverage": 42,
-        "source_class": "source_module",
-        "symbol_count": 42
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 38,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/spatial_world_model_counterfactual_simulation_replay.py",
-        "real_coverage": 38,
-        "source_class": "source_module",
-        "symbol_count": 38
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 47,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/standards_meta_diagnostics.py",
-        "real_coverage": 47,
-        "source_class": "source_module",
-        "symbol_count": 47
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 56,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/tactic_portfolio_availability_probe.py",
-        "real_coverage": 56,
-        "source_class": "source_module",
-        "symbol_count": 56
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 36,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/target_shape_tactic_routing_gate.py",
-        "real_coverage": 36,
-        "source_class": "source_module",
-        "symbol_count": 36
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 46,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/tool_server_pressure_inventory.py",
-        "real_coverage": 46,
-        "source_class": "source_module",
-        "symbol_count": 46
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 42,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/undeclared_library_prior_symbol_classifier.py",
-        "real_coverage": 42,
-        "source_class": "source_module",
-        "symbol_count": 42
-      },
-      {
-        "body_specific": 0,
-        "custody_basis": "directory_coupling_marker",
-        "generic_unique": 60,
-        "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/verifier_lab_execution_spine.py",
-        "real_coverage": 60,
+        "path": "src/microcosm_core/organs/mathematical_strategy_atlas_hypothesis_scorer.py",
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 60
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 64,
+        "generic_unique": 0,
         "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/verifier_lab_kernel.py",
-        "real_coverage": 64,
+        "path": "src/microcosm_core/organs/mcp_tool_authority_replay.py",
+        "real_coverage": 0,
         "source_class": "source_module",
-        "symbol_count": 64
+        "symbol_count": 50
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 36,
+        "generic_unique": 0,
         "has_non_goal": 0,
-        "path": "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
-        "real_coverage": 36,
+        "path": "src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 42
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/metabolism_queue_reconciliation.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 13
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/mission_transaction_work_spine.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 70
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/navigation_fitness_benchmark.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 13
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/navigation_hologram_route_plane.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 46
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/pattern_binding_contract.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 48
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/prediction_oracle_reconciliation.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 51
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 67
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 54
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/provider_context_recipe_budget_policy.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 42
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/public_reveal_walkthrough.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 39
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/research_replication_rubric_artifact_replay.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 47
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/ring2_premise_retrieval_precision_recall_harness.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 37
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/routing_anti_patterns_registry.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 35
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/self_ignorance_coverage_ledger.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 20
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/semantic_singleflight_dedup_runtime.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 14
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/sleeper_memory_poisoning_quarantine_replay.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 42
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/spatial_world_model_counterfactual_simulation_replay.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 38
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/standards_meta_diagnostics.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 47
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/tactic_portfolio_availability_probe.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 56
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/target_shape_tactic_routing_gate.py",
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 36
       },
       {
         "body_specific": 0,
         "custody_basis": "directory_coupling_marker",
-        "generic_unique": 43,
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/tool_server_pressure_inventory.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 46
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/undeclared_library_prior_symbol_classifier.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 42
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/verifier_lab_execution_spine.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 61
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/verifier_lab_kernel.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 64
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
+        "has_non_goal": 0,
+        "path": "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
+        "real_coverage": 0,
+        "source_class": "source_module",
+        "symbol_count": 36
+      },
+      {
+        "body_specific": 0,
+        "custody_basis": "directory_coupling_marker",
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/organs/world_model_projection_drift_control_room.py",
-        "real_coverage": 43,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 43
       },
       {
         "body_specific": 0,
         "custody_basis": "owned",
-        "generic_unique": 39,
+        "generic_unique": 0,
         "has_non_goal": 0,
         "path": "src/microcosm_core/validators/acceptance.py",
-        "real_coverage": 39,
+        "real_coverage": 0,
         "source_class": "source_module",
         "symbol_count": 39
       }
