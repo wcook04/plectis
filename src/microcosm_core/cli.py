@@ -3134,7 +3134,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     public_site_parity_parser.add_argument(
         "--live-url",
-        default="https://wcook04.github.io/plectis/",
+        default="https://wcook04.github.io/practical-formal-verification/",
         help="deployed site URL to byte-compare against the primary source",
     )
     public_site_parity_parser.add_argument("--timeout", type=float, default=20.0)

@@ -48,7 +48,7 @@ the broader test suite runs.
 - [**Choose a problem paper**](https://github.com/wcook04/plectis-erdos#problem-papers):
   the companion README lists one short paper for each covered problem and
   states the partial results beside it.
-- [**Read the systems paper**](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf):
+- [**Read the systems paper**](https://wcook04.github.io/practical-formal-verification/papers/claim-faithful-publication-systems-paper.pdf):
   how the authors compare the claims in the papers with the statements
   proved in Lean, and record which source version they used.
 - [**Browse the Lean source**](https://github.com/wcook04/plectis-erdos/tree/a08529a329578d172a9a2e602bacba4a8cc760cd):

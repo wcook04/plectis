@@ -3224,7 +3224,7 @@ def _compile_first_action(
             "https://github.com/wcook04/plectis-erdos/blob/main/"
             "docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md"
             if math_proposal
-            else "https://github.com/wcook04/plectis/blob/main/CONTRIBUTING.md"
+            else "https://github.com/wcook04/practical-formal-verification/blob/main/CONTRIBUTING.md"
         )
         command = "cat CONTRIBUTING.md"
         pack["routing"] = {"basis": "public_infrastructure_proposal"}
@@ -3245,7 +3245,7 @@ def _compile_first_action(
             "scope": "public_mathematics_companion" if math_proposal else "public_toolkit",
             "repository": (
                 LEAN_COMPANION_REPOSITORY["repository"]
-                if math_proposal else "https://github.com/wcook04/plectis"
+                if math_proposal else "https://github.com/wcook04/practical-formal-verification"
             ),
             "contribution_guide": guide,
         }

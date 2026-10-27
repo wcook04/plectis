@@ -58,7 +58,7 @@ paths so existing tools and links continue to work.
 ## Use your own coding agent
 
 To research the agent-readable website without a clone, use its
-[navigation guide](https://wcook04.github.io/plectis/llms.txt).
+[navigation guide](https://wcook04.github.io/practical-formal-verification/llms.txt).
 It links text indexes and the data behind the visual maps.
 
 Open a clone in a coding agent that can read files and run shell commands.

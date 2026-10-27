@@ -17,7 +17,7 @@ Pick one concrete discrepancy or improvement and keep the change focused on it.
 
 ## Propose a public infrastructure change
 
-An idea does not need a patch. Open a [toolkit issue](https://github.com/wcook04/plectis/issues)
+An idea does not need a patch. Open a [toolkit issue](https://github.com/wcook04/practical-formal-verification/issues)
 with one observable problem, the change you suggest, and how another reader
 could tell whether it helped. Name a public command or file when you can, and
 say how you would like your idea, code, test, or review credited if adopted.
@@ -66,7 +66,7 @@ Lean proofs, or paper questions, use the
 Report an output that differs from the documented expected result, a validator
 that accepts an invalid input, or a generated table whose entries differ from
 its source JSON. Open a GitHub issue at
-<https://github.com/wcook04/plectis/issues> with:
+<https://github.com/wcook04/practical-formal-verification/issues> with:
 
 - the commit you ran (`git rev-parse HEAD`);
 - the exact command and the operating system and Python version;
@@ -85,7 +85,7 @@ Clone the repository, run the prepared examples, then install the development
 tools. These commands use a macOS or Linux shell (or WSL):
 
 ```bash
-git clone https://github.com/wcook04/plectis && cd plectis
+git clone https://github.com/wcook04/practical-formal-verification && cd practical-formal-verification
 ./bootstrap.sh
 VENV=/tmp/plectis-dev-venv make install
 ```

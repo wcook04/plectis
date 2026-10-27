@@ -24,7 +24,7 @@ names the source and generator for each one.
 
 ## The doctrine in the map
 
-The [interactive system map](https://wcook04.github.io/plectis/docs/system-map.html)
+The [interactive system map](https://wcook04.github.io/practical-formal-verification/docs/system-map.html)
 places software components around the rules their explanations cite. Its centre
 links three kinds of document:
 
@@ -32,7 +32,7 @@ links three kinds of document:
 - [Principles](../../PRINCIPLES.md): rules for designing and checking the tools.
 - [Failure modes](../../ANTI_PRINCIPLES.md): mistakes those rules are intended to prevent.
 
-The website is also agent-readable: its [navigation guide](https://wcook04.github.io/plectis/llms.txt)
+The website is also agent-readable: its [navigation guide](https://wcook04.github.io/practical-formal-verification/llms.txt)
 points to structured map data and text indexes.
 
 The [generated diagram](../../atlas/doctrine_lattice_graph.mmd) and

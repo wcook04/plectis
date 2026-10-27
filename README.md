@@ -24,7 +24,7 @@ The current experiment asks a simple question: **“I changed this workflow.
 Which results can I keep, and what must run again?”** With Python 3.11+, try:
 
 ```bash
-git clone --depth 1 https://github.com/wcook04/plectis && cd plectis
+git clone --depth 1 https://github.com/wcook04/practical-formal-verification && cd practical-formal-verification
 PYTHONPATH=src python3 examples/operations/evaluation.py --format text
 ```
 
@@ -144,7 +144,7 @@ contribute a correction or direction without operating the AI themselves.
 
 This toolkit publishes selected parts of that effort. The
 [mathematics repository](https://github.com/wcook04/plectis-erdos) contains the
-papers, proofs and open questions; the [website](https://wcook04.github.io/plectis/)
+papers, proofs and open questions; the [website](https://wcook04.github.io/practical-formal-verification/)
 explains both. The [project overview](docs/overview.md) relates these parts to
 other research tools.
 
@@ -217,22 +217,22 @@ files, and the runner reports unavailable requirements.
 | [Source and generated files](ORGANS.md#import-projection--drift) | Comparing file fingerprints and checking that declared outputs exist. |
 | [Work and continuity](ORGANS.md#work-landing--continuity) | Checking that a work record names its changes, validation results and commits. |
 
-<a href="https://wcook04.github.io/plectis/docs/system-map.html">
+<a href="https://wcook04.github.io/practical-formal-verification/docs/system-map.html">
   <img src="assets/system-map-dark.png" alt="Plectis system map: seven families of software components surround the axioms, principles and failure modes they cite." width="100%">
 </a>
 
-[**Explore the system map →**](https://wcook04.github.io/plectis/docs/system-map.html)
+[**Explore the system map →**](https://wcook04.github.io/practical-formal-verification/docs/system-map.html)
 <br>
 <sub>Select a component or rule on the website to follow its connections.</sub>
 
-Browse the live [component pages](https://wcook04.github.io/plectis/docs/components.html),
-[papers](https://wcook04.github.io/plectis/#papers) and
-[films](https://wcook04.github.io/plectis/#videos) on the
-[Plectis website](https://wcook04.github.io/plectis/). For text indexes and
-source links, use the [agent navigation guide](https://wcook04.github.io/plectis/llms.txt).
+Browse the live [component pages](https://wcook04.github.io/practical-formal-verification/docs/components.html),
+[papers](https://wcook04.github.io/practical-formal-verification/#papers) and
+[films](https://wcook04.github.io/practical-formal-verification/#videos) on the
+[Plectis website](https://wcook04.github.io/practical-formal-verification/). For text indexes and
+source links, use the [agent navigation guide](https://wcook04.github.io/practical-formal-verification/llms.txt).
 For mathematical papers, Lean proofs and open questions, follow the
 [Plectis Erdős reader's guide](https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md)
-or the [mathematics map](https://wcook04.github.io/plectis/maths/universe.html).
+or the [mathematics map](https://wcook04.github.io/practical-formal-verification/maths/universe.html).
 
 To search component descriptions from the terminal:
 
@@ -471,7 +471,7 @@ The [release review](RELEASE_REVIEW.md) records the candidate’s checks;
 
 ## Videos and related projects
 
-The [project videos page](https://wcook04.github.io/plectis/#videos) describes the
+The [project videos page](https://wcook04.github.io/practical-formal-verification/#videos) describes the
 recordings and their subjects. In the introduction, Will explains the wider
 programme: AI produces much of the research and code, and he uses it to prepare
 papers, maps and explanations that other people can inspect. The toolkit in
@@ -492,7 +492,7 @@ and evidence. Follow the project that matches what you want to read or run.
 
 | Related project | Start there for |
 |---|---|
-| [Plectis Erdős](https://github.com/wcook04/plectis-erdos) · [research website](https://wcook04.github.io/plectis/maths/) | The current mathematical papers, Lean proofs and open questions. |
+| [Plectis Erdős](https://github.com/wcook04/plectis-erdos) · [research website](https://wcook04.github.io/practical-formal-verification/maths/) | The current mathematical papers, Lean proofs and open questions. |
 | [Plectis Erdős Lean](https://github.com/wcook04/plectis-erdos-lean) | Selected checking entries that pair a separately written statement with its proof. |
 | [Plectis Atlas](https://github.com/wcook04/plectis-atlas) · [website](https://wcook04.github.io/plectis-atlas/) | Read OpenAI's maths papers alongside attributed outside assessments and proof-checking reports. |
 | [Safety Core](https://github.com/wcook04/safety-core) | Editable agent rules, hooks and a local map of where checks apply. |
@@ -500,7 +500,7 @@ and evidence. Follow the project that matches what you want to read or run.
 | [Plectis Zenith](https://github.com/wcook04/plectis-zenith) | Experiments on AI testers, earlier mistakes and code repair, with saved results and replay instructions. |
 
 Code Map and Demo Take, also shown in the films, are private tools. The
-[Plectis website](https://wcook04.github.io/plectis/) links the public projects
+[Plectis website](https://wcook04.github.io/practical-formal-verification/) links the public projects
 and demonstrations; this clone does not install the private workbench.
 
 ## Name and history

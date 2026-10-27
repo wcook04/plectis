@@ -10,8 +10,8 @@ authors:
 version: "0.6.2"
 date-released: "2026-08-17"
 license: "Apache-2.0"
-repository-code: "https://github.com/wcook04/plectis"
-url: "https://wcook04.github.io/plectis/"
+repository-code: "https://github.com/wcook04/practical-formal-verification"
+url: "https://wcook04.github.io/practical-formal-verification/"
 keywords:
   - "developer-tools"
   - "ai-agents"

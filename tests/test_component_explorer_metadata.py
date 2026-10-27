@@ -112,11 +112,11 @@ def test_ssh_remote_identity_is_normalized_without_false_clean_claim(tmp_path, m
         values = {('rev-parse', '--show-toplevel'): str(tmp_path),
                   ('rev-parse', 'HEAD'): 'a' * 40,
                   ('status', '--porcelain', '--untracked-files=normal'): ' M source.py',
-                  ('remote', 'get-url', 'origin'): 'git@github.com:wcook04/plectis.git'}
+                  ('remote', 'get-url', 'origin'): 'git@github.com:wcook04/practical-formal-verification.git'}
         return subprocess.CompletedProcess(args, 0, values[tuple(command)], '')
     monkeypatch.setattr(subprocess, 'run', fake_run)
     result = _source_revision(tmp_path)
-    assert result['repository'] == 'https://github.com/wcook04/plectis'
+    assert result['repository'] == 'https://github.com/wcook04/practical-formal-verification'
     assert result['dirty'] is True
     assert result['exact_source_links'] is False
 

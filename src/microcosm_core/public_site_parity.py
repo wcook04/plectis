@@ -21,8 +21,8 @@ from pathlib import Path
 from typing import Any
 
 
-SITE_ROOT_URL = "https://wcook04.github.io/plectis/"
-SOURCE_OF_RECORD = "https://github.com/wcook04/plectis"
+SITE_ROOT_URL = "https://wcook04.github.io/practical-formal-verification/"
+SOURCE_OF_RECORD = "https://github.com/wcook04/practical-formal-verification"
 
 CANONICAL_PACKET_PATHS = (
     "plectis-ai-reader-digest.json",

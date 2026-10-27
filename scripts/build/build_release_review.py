@@ -230,7 +230,7 @@ def build_contract(root: Path) -> tuple[str, str]:
     )
     lines.append("")
     lines.append(
-        "Plectis has [published GitHub releases](https://github.com/wcook04/plectis/releases). This review packet has no "
+        "Plectis has [published GitHub releases](https://github.com/wcook04/practical-formal-verification/releases). This review packet has no "
         "external signature or attestation. Its legacy field value "
         f"`external_signature_status: {EXTERNAL_SIGNATURE_STATUS}` describes "
         "that unsigned packet; it is not a statement that no GitHub release exists."

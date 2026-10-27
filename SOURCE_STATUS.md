@@ -17,10 +17,10 @@ paths, fixture names, and previously published links.
 ## What is public here
 
 - The public source of record is the canonical Plectis
-  repository at <https://github.com/wcook04/plectis>.
+  repository at <https://github.com/wcook04/practical-formal-verification>.
 - You can inspect the source and run the commands below from a fresh clone
   without access to the private development repository.
-- The website at <https://wcook04.github.io/plectis/> presents this public source
+- The website at <https://wcook04.github.io/practical-formal-verification/> presents this public source
   and its release documents. If the website and repository
   disagree, the repository files and committed release receipts are the source
   of record.
@@ -35,7 +35,7 @@ paths, fixture names, and previously published links.
   state, account material, secrets, recipient-send state, and unpublished
   reference material are outside this repository.
 - Private raw video/capture sources are not part of the public source release.
-  The [recorded walkthroughs](https://wcook04.github.io/plectis/#demo-videos)
+  The [recorded walkthroughs](https://wcook04.github.io/practical-formal-verification/#demo-videos)
   are hosted separately and linked from the README.
 - This repository is not a hosted service, production security product, legal or
   financial advice system, trading system, or whole-system correctness proof.

@@ -14,7 +14,7 @@ def test_security_doc_is_a_concise_reporting_contract() -> None:
     assert len(security.splitlines()) <= 70
 
     for phrase in (
-        "https://github.com/wcook04/plectis/security/advisories/new",
+        "https://github.com/wcook04/practical-formal-verification/security/advisories/new",
         "do not open a public issue with vulnerability details",
         "No `security@` email route is published yet",
         "real secrets, credentials, tokens, cookies, private keys",

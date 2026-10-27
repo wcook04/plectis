@@ -15,7 +15,7 @@ bounty (this is an unfunded solo student project).
 Use GitHub Private Vulnerability Reporting on this repository:
 
 ```text
-https://github.com/wcook04/plectis/security/advisories/new
+https://github.com/wcook04/practical-formal-verification/security/advisories/new
 ```
 
 If the "Report a vulnerability" button is not visible on the Security page, do
