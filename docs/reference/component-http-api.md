@@ -3,6 +3,7 @@
 `plectis serve-components` exposes the existing validated public component index
 on `127.0.0.1:8766`. It serves JSON for a future website or another local client.
 It creates no project state and executes no component, command or prover.
+For the client to build, use the [frontend implementation brief](../guides/frontend-implementation.md).
 
 The library entrypoint is `microcosm_core.component_http.ComponentApplication`.
 Create it from `load_snapshot()` for the packaged index, or from an explicitly
@@ -26,7 +27,8 @@ material; they do not permit reading those files through this service. Local
 | Route | Result and parameters |
 |---|---|
 | `/api/v1` | Snapshot metadata, graph semantics, limits and evidence boundaries |
-| `/api/v1/components` | Component summaries; optional `family`, `evidence_class`, `real_substrate_disposition`, `truth_accounting_bucket`, `limit`, `cursor` |
+| `/api/v1/openapi.json` | Standard OpenAPI 3.1 document, without the data envelope |
+| `/api/v1/components` | Component summaries; optional `q`, `family`, `evidence_class`, `real_substrate_disposition`, `truth_accounting_bucket`, `limit`, `cursor` |
 | `/api/v1/components/<organ_id>` | Claim, primary guide, declared replay, modeled subclaims, retained proofs, indexed artifacts and evidence state |
 | `/api/v1/claims` | Claim records; optional `limit`, `cursor` |
 | `/api/v1/claims/<claim_id>` | One stable `claim::<organ_id>` record |
@@ -45,7 +47,7 @@ The metadata route lists their available filter values and component counts.
 Capabilities remain the recorded claim summary, primary guide, replay
 configuration and graph relations; the service adds no separate capability taxonomy.
 
-Every successful response has `schema_version: plectis_component_http_v1`,
+Every successful data response (except the raw OpenAPI document) has `schema_version: plectis_component_http_v1`,
 `snapshot_revision`, and `data`. The revision is SHA-256 of the canonical JSON
 for the complete validated input. List results have `items`, `total`, `limit`
 and `next_cursor`. Ordering is deterministic. The default page size is 25 and
@@ -86,3 +88,28 @@ pass. Mutation source references do not imply a successful mutation run, and
 an available historical receipt does not establish the truth or freshness of
 its payload. The coverage view derives from the same shared index fields and
 does not collapse these states into an overall correctness percentage.
+
+## Search and contract changes
+
+`q` is a literal substring of the component ID, canonical title or summary.
+Matching ignores case and leading/trailing query whitespace, and combines with
+all selected classification filters. Results remain sorted by component ID.
+It is neither a regular expression nor relevance ranking. Omit `q` for an
+unfiltered text query; blank, whitespace-only and over-160-character values
+return `400 invalid_parameters`. An unmatched query returns a normal empty page.
+Search text is precomputed in memory with the snapshot, with no filesystem read
+per request. The normalized search is part of cursor identity.
+
+Metadata advertises the contract URL/version and search limit. Protocol limits
+and the OpenAPI document share the owner
+[`component_api_contract.py`](../../src/microcosm_core/component_api_contract.py).
+The document can be consumed directly by OpenAPI tools. It specifies supported
+client fields while allowing additive response fields. Full index admission
+still belongs to `component_index.py`; the public schema is not a replacement
+for that stricter validator. Incompatible API changes require a new versioned
+route and schema; additive optional queries and fields retain `/api/v1`.
+
+Use a same-origin development proxy for browser requests. The service does not
+provide CORS, static frontend assets, authentication, remote execution or hosting.
+Keep the default listener on loopback. A successful HTTP read demonstrates
+snapshot availability, not the freshness or correctness of its recorded results.

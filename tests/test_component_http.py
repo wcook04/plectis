@@ -14,6 +14,8 @@ from urllib.parse import quote, urlencode
 from wsgiref.simple_server import make_server
 
 import pytest
+from jsonschema import Draft202012Validator
+from openapi_spec_validator import validate as validate_openapi
 
 from microcosm_core import component_http as api, component_index
 
@@ -94,6 +96,75 @@ def test_http_metadata_head_conditional_and_no_false_freshness(transport):
         status, conditional, empty = transport(headers={"If-None-Match": etag})
         assert status == 304 and not empty
         assert conditional["ETag"] == headers["ETag"]
+
+
+def test_discoverable_contract_matches_real_http_responses(transport):
+    _, _, body = transport()
+    metadata = json.loads(body)["data"]
+    status, headers, body = transport(metadata["contract"]["openapi"])
+    contract = json.loads(body)
+    assert status == 200 and contract["info"]["version"] == metadata["contract"]["version"]
+    validate_openapi(contract)
+    samples = {
+        "/components/{organ_id}": "/components/mcp_tool_authority_replay",
+        "/claims/{claim_id}": "/claims/claim::mcp_tool_authority_replay",
+        "/proofs/{proof_id}": "/proofs/proof::dafny::mcp_authority",
+        "/graph": "/graph?type=organ&id=mcp_tool_authority_replay&max_edges=1",
+    }
+    for route, operations in contract["paths"].items():
+        suffix = route.removeprefix(api.API_PREFIX)
+        path = api.API_PREFIX + samples.get(suffix, suffix)
+        code, _, payload = transport(path)
+        assert code == 200, (route, payload)
+        schema = operations["get"]["responses"]["200"]["content"]["application/json"]["schema"]
+        Draft202012Validator({**schema, "components": contract["components"]}).validate(json.loads(payload))
+        code, head, empty = transport(path, method="HEAD")
+        assert code == 200 and empty == b"" and head["Content-Length"] == str(len(payload))
+    assert transport("/api/v1/openapi.json", headers={"If-None-Match": headers["ETag"]})[0] == 304
+    assert transport("/api/v1/openapi.json?unused=1")[0] == 400
+    assert transport("/api/v1/openapi.json", method="POST")[0] == 405
+
+
+def test_search_pagination_filters_and_query_identity(transport, snapshot):
+    # Deliberately search visible text rather than a known component identifier.
+    query = {"q": "  THE  ", "limit": 1}
+    expected = [key for key in snapshot.ids if "the" in snapshot.search_text[key]]
+    assert len(expected) > 1
+    rows = []
+    while True:
+        status, _, body = transport("/api/v1/components?" + urlencode(query))
+        page = json.loads(body)["data"]
+        assert status == 200 and page["total"] == len(expected)
+        rows.extend(row["organ_id"] for row in page["items"])
+        cursor = page["next_cursor"]
+        if cursor is None:
+            break
+        # Equivalent casing and outer whitespace preserve the search identity.
+        query.update(q="the", cursor=cursor)
+    assert rows == expected
+    status, _, body = transport("/api/v1/components?" + urlencode({"q": "the", "limit": 1}))
+    cursor = json.loads(body)["data"]["next_cursor"]
+    status, _, body = transport("/api/v1/components?" + urlencode({"q": "and", "limit": 1, "cursor": cursor}))
+    assert status == 400 and json.loads(body)["error"]["code"] == "invalid_cursor"
+    family = json.loads(snapshot.summaries[expected[0]])["classification"]["family"]
+    status, _, body = transport("/api/v1/components?" + urlencode({"q": "the", "family": family, "limit": 100}))
+    filtered = json.loads(body)["data"]
+    assert status == 200 and filtered["items"]
+    assert all(row["classification"]["family"] == family for row in filtered["items"])
+    assert all(row["organ_id"] in expected for row in filtered["items"])
+
+
+@pytest.mark.parametrize("query", ["", "   ", "x" * 161, "\x00", "\n"])
+def test_invalid_search_is_bounded_client_error(transport, query):
+    status, _, body = transport("/api/v1/components?" + urlencode({"q": query}))
+    assert status == 400 and json.loads(body)["error"]["code"] == "invalid_parameters"
+
+
+def test_search_no_matches_and_literal_metacharacters(transport):
+    for query in ("does-not-exist-in-the-component-catalogue", ".*", "[a-z]+"):
+        status, _, body = transport("/api/v1/components?" + urlencode({"q": query}))
+        page = json.loads(body)["data"]
+        assert status == 200 and page == {"items": [], "total": 0, "limit": 25, "next_cursor": None}
 
 
 def test_component_claim_proof_and_receipt_views(transport, snapshot):

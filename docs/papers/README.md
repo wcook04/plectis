@@ -199,7 +199,7 @@ Start here (selected for this guide): [The strategy](full-text/open-source-mathe
 
 **Plectis: Verifying Code and Recording Its Execution**
 
-[full text](full-text/plectis-public-system.md) · [PDF](../../plectis-public-system.pdf) · [LaTeX source](../../paper/plectis-public-system.tex) · 7 sections · `plectis-public-system` · native to this repository
+[full text](full-text/plectis-public-system.md) · [PDF](../../plectis-public-system.pdf) · [LaTeX source](../../paper/plectis-public-system.tex) · 8 sections · `plectis-public-system` · native to this repository
 
 Start here (selected for this guide): [Architecture: from a property to an observed run](full-text/plectis-public-system.md#sec:architecture), [Worked behavior: protecting a live owner](full-text/plectis-public-system.md#sec:ownership), [Verification method and evidence](full-text/plectis-public-system.md#sec:evidence), [Boundaries](full-text/plectis-public-system.md#sec:scope).
 

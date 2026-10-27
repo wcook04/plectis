@@ -22,18 +22,19 @@ from types import MappingProxyType
 from urllib.parse import parse_qsl
 from wsgiref.simple_server import ServerHandler, WSGIRequestHandler, WSGIServer, make_server
 
-from microcosm_core import component_index, resource_root
+from microcosm_core import component_api_contract, component_index, resource_root
 from microcosm_core.schemas import loads_json_strict
 
-API_SCHEMA = "plectis_component_http_v1"
-API_PREFIX = "/api/v1"
+API_SCHEMA = component_api_contract.API_SCHEMA
+API_PREFIX = component_api_contract.API_PREFIX
 MAX_INDEX_BYTES = 16 * 1024 * 1024
 MAX_QUERY_BYTES = 2048
 MAX_CURSOR_BYTES = 512
-MAX_PAGE_SIZE = 100
-MAX_GRAPH_DEPTH = 3
-MAX_GRAPH_EDGES = 500
-_CLASSIFICATION_FIELDS = ("family", "evidence_class", "real_substrate_disposition", "truth_accounting_bucket")
+MAX_PAGE_SIZE = component_api_contract.MAX_PAGE_SIZE
+MAX_GRAPH_DEPTH = component_api_contract.MAX_GRAPH_DEPTH
+MAX_GRAPH_EDGES = component_api_contract.MAX_GRAPH_EDGES
+MAX_SEARCH_LENGTH = component_api_contract.MAX_SEARCH_LENGTH
+_CLASSIFICATION_FIELDS = component_api_contract.CLASSIFICATION_FIELDS
 _LABEL = re.compile(r"[a-z][a-z0-9_]*\Z")
 _PROOF = re.compile(r"proof::dafny::[a-z][a-z0-9_]*\Z")
 _CLAIM = re.compile(r"claim::[a-z][a-z0-9_]*\Z")
@@ -124,6 +125,9 @@ class ComponentSnapshot:
             for key in _CLASSIFICATION_FIELDS:
                 self.filters[key][row[key]].add(row["organ_id"])
         self.ids = tuple(sorted(self.components))
+        self.search_text = MappingProxyType({row["organ_id"]: "\n".join(
+            row[field] for field in ("organ_id", "title", "summary")).casefold()
+            for row in summaries})
         self.nodes = {}
         for kind, rows in index["nodes"].items():
             for row in rows:
@@ -167,7 +171,9 @@ class ComponentSnapshot:
                                             "fresh_prover": {"status": "not_recorded_by_index"},
                                             "fresh_replay": {"status": "not_recorded_by_index"}},
                          "limits": {"page_size": MAX_PAGE_SIZE, "graph_depth": MAX_GRAPH_DEPTH,
-                                    "graph_edges": MAX_GRAPH_EDGES},
+                                    "graph_edges": MAX_GRAPH_EDGES, "search_length": MAX_SEARCH_LENGTH},
+                         "contract": {"openapi": API_PREFIX + "/openapi.json",
+                                      "version": component_api_contract.CONTRACT_VERSION},
                          "execution": "unavailable_over_http"}
         self.metadata = _json(self.metadata)
         self.edges = tuple(MappingProxyType(edge) for edge in self.edges)
@@ -291,6 +297,9 @@ def _graph(snapshot, query):
 
 
 def _dispatch(snapshot, path, query):
+    if path == API_PREFIX + "/openapi.json":
+        _allowed(query, {})
+        return component_api_contract.openapi_document()
     if path == API_PREFIX:
         _allowed(query, {})
         return json.loads(snapshot.metadata)
@@ -317,8 +326,13 @@ def _dispatch(snapshot, path, query):
             raise APIError(404, "unknown_id", "unknown resource ID")
         return json.loads(store[identity])
     if resource == "components":
-        _allowed(query, {*_CLASSIFICATION_FIELDS, "limit", "cursor"})
+        _allowed(query, {*_CLASSIFICATION_FIELDS, "q", "limit", "cursor"})
         ids = set(snapshot.ids)
+        search = query.get("q", "").strip().casefold()
+        if "q" in query:
+            if not search or len(query["q"]) > MAX_SEARCH_LENGTH:
+                _bad("search must contain 1 to 160 characters with non-whitespace text")
+            ids = {identity for identity in ids if search in snapshot.search_text[identity]}
         for name, lookup in snapshot.filters.items():
             if name in query:
                 if not _LABEL.fullmatch(query[name]) or query[name] not in lookup:
@@ -326,6 +340,8 @@ def _dispatch(snapshot, path, query):
                 ids.intersection_update(lookup[query[name]])
         rows = [snapshot.summaries[key] for key in sorted(ids)]
         identity = [resource, *[query.get(key) for key in _CLASSIFICATION_FIELDS]]
+        if search:
+            identity.append(search)
     elif resource in {"claims", "proofs"}:
         _allowed(query, {"limit", "cursor"})
         store = snapshot.claims if resource == "claims" else snapshot.proofs
@@ -386,7 +402,9 @@ class ComponentApplication:
                 if cached is not None:
                     self._cache.move_to_end(key)
             if cached is None:
-                body = _json(snapshot.envelope(_dispatch(snapshot, path, query)))
+                data = _dispatch(snapshot, path, query)
+                # Tooling consumes a standard OpenAPI document, not our data envelope.
+                body = _json(data if path == API_PREFIX + "/openapi.json" else snapshot.envelope(data))
                 etag = '"' + hashlib.sha256(body).hexdigest() + '"'
                 cached = (body, etag)
                 with self._lock:

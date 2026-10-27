@@ -126,6 +126,34 @@ changes also need `make package-smoke`: a source import alone cannot show
 whether a distribution contains its required files. The
 [validation runbook](validation.md) describes the wider release checks.
 
+## Component backend ownership
+
+The component explorer reads a single validated index. It does not assemble a
+second catalogue or invoke a runner when a page loads. Keep these boundaries:
+
+| Owner | Responsibility | May depend on |
+|---|---|---|
+| `component_descriptions.py` and index builder | Canonical descriptions and source-bound generated data | Registered public source owners |
+| `component_index.py` | Validate the full index; derive component, proof and coverage views | Resource lookup and strict JSON |
+| `component_api_contract.py` | Public protocol, shared limits and OpenAPI schemas | Standard library only; no data loading |
+| `component_http.py` | Immutable snapshots, search, bounded graph queries, pagination, caching and HTTP | Index reader and protocol contract |
+| Frontend | Navigation, rendering and user interaction | HTTP contract; no imports of Python runners or private state |
+| `component_replay_worker.py` | Explicit isolated replay requested by a trusted local caller | Existing replay host and admission core |
+
+The HTTP listener has no execution route. Its immutable snapshot captures data
+once; atomic replacement creates a new revision. Cursor identity covers the
+query and revision. The frontend must also compare revisions when combining
+separate responses. Search uses the canonical component ID, title and summary;
+it does not scan the repository or introduce another search index on disk.
+
+The [API reference](../reference/component-http-api.md) describes implemented
+behavior. The [frontend brief](../guides/frontend-implementation.md) specifies
+the client to build. OpenAPI is generated in memory by the protocol owner and
+served as a standard document. Do not hand-maintain a JSON copy. Transport tests
+validate the document and actual responses, including HEAD, errors and paging.
+Nested evidence schemas name the supported client fields and allow additive
+records; the stricter index validator remains the data-admission authority.
+
 ## Maintenance program placement
 
 The [script guide](../../scripts/README.md) owns the role map: `build`, `check`,

@@ -20,7 +20,10 @@
     "examples/operations/README.md",
     "formal/components/README.md",
     "src/plectis/components/_registry.py",
-    "scripts/check/check_component_kernels.py"
+    "scripts/check/check_component_kernels.py",
+    "src/microcosm_core/component_api_contract.py",
+    "docs/reference/component-http-api.md",
+    "docs/guides/frontend-implementation.md"
   ],
   "exceptions": {}
 }

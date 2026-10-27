@@ -14,6 +14,7 @@ computations also have [their own specifications and proofs](formal/components/R
 [Run the workflow example](#formally-checked-workflow-operations) ·
 [Check component replays](#checking-a-component-result) ·
 [Inspect the proofs](formal/README.md) ·
+[Build a frontend](docs/guides/frontend-implementation.md) ·
 [Browse the reference toolkit](#try-the-repository-tour) ·
 [Documentation](docs/README.md) · [Source map](#repository-layout)
 
@@ -314,17 +315,35 @@ installation commands and other options, see [Quickstart](QUICKSTART.md),
 [Contributing](CONTRIBUTING.md) and [troubleshooting](docs/README.md#troubleshooting).
 The older `microcosm` command remains an alias.
 
-## Repository layout
+## Build a frontend against the component backend
 
-The [component HTTP API](docs/reference/component-http-api.md) serves the validated public
-component index as read-only JSON for component, claim, proof, coverage and graph queries.
-Run `plectis serve-components` for a loopback listener; its retained evidence remains
-separate from current byte checks and fresh proof or replay results.
+The local API lets a client search components, read their claims and guides,
+inspect modeled proofs and saved results, and follow typed relationships.
+Start it from this clone with Python 3.11 or newer:
+
+```sh
+PYTHONPATH=src python3 -m plectis serve-components
+curl 'http://127.0.0.1:8766/api/v1/components?q=ownership&limit=10'
+```
+
+The first command stays running; issue the request in another terminal.
+The response includes matching components and the revision of the index they
+came from. `/api/v1/openapi.json` supplies the machine-readable contract.
+There are no third-party runtime dependencies for this server.
+
+Give a frontend developer or Claude the
+[frontend implementation brief](docs/guides/frontend-implementation.md) and
+[API reference](docs/reference/component-http-api.md). The brief defines the
+catalogue, detail, proof, coverage and related-record views, browser proxy setup,
+loading states and acceptance checks. The API reads a validated snapshot;
+it does not run components, recheck proofs or serve arbitrary files. Retained
+verification and current execution are displayed as separate facts.
+
+## Repository layout
 
 Component descriptions are read from capsule compression through
 [`component_descriptions.py`](src/microcosm_core/component_descriptions.py).
 The atlas owns structure and commands; the registry retains normative claims.
-
 
 For the verified operations, start with `formal/`, `src/plectis/` and
 `examples/operations/`. The broader component catalogue, generated indexes and

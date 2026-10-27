@@ -7824,12 +7824,12 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/plectis-public-system.md",
       "local_source": "paper/plectis-public-system.tex",
-      "source_sha256": "sha256:52e7c97966c47837ba514eebda1a05a0975ef1b55445cda9c911c5d21b36f8c7",
+      "source_sha256": "sha256:9331357088b301c5c4feceb59de384a1a2046a836ef859171ab70fcd7aeec900",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "local_unpublished",
       "canonical_source_url": null,
       "canonical_source_raw_url": null,
-      "section_count": 7,
+      "section_count": 8,
       "sections": [
         {
           "level": 1,
@@ -7863,21 +7863,27 @@
         },
         {
           "level": 1,
+          "id": "sec:inspection",
+          "title": "Reading the evidence through the backend",
+          "line": 83
+        },
+        {
+          "level": 1,
           "id": "sec:related",
           "title": "Context and related work",
-          "line": 83
+          "line": 95
         },
         {
           "level": 1,
           "id": "sec:scope",
           "title": "Boundaries",
-          "line": 93
+          "line": 105
         }
       ],
       "citations_rendered": 6,
       "local_pdf": "plectis-public-system.pdf",
-      "pdf_sha256": "sha256:4dbbdfb10c1e2578494f14c475b61391f06c03b6149aa1ea974647f929e69810",
-      "pdf_byte_count": 41264,
+      "pdf_sha256": "sha256:7f4cbb2a3861411e3eacf10547f375adfb176981adb3ea2ad96e991b3ff35d6e",
+      "pdf_byte_count": 44179,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection for this guide",
@@ -7900,7 +7906,7 @@
           {
             "id": "sec:scope",
             "title": "Boundaries",
-            "line": 93
+            "line": 105
           }
         ],
         "unresolved_count": 0
