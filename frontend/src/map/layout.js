@@ -1,39 +1,57 @@
 // Where everything on the evidence map stands, in layout units.
 //
-// The picture follows the paper's chain (paper/plectis-public-system.tex,
-// figure "chain"): a stated property is specified, verified and compiled,
-// and an application caller runs the generated code and saves a record. On
-// the map that chain runs from the centre outward. The core is the retained
-// Dafny verification; the twelve kernels stand on an inner ring, each a
-// specification with one dot for every verified task; a thread leaves each
-// kernel, passes its generated code and its caller, and reaches its component
-// on the outer ring. The 88 components stand in their seven family sectors,
-// as on the system map, each with its saved records stacked outward. A
-// component without a modeled contract has no thread: the gap toward the
-// centre is the honest picture of formal coverage.
+// Inside the ring the picture follows the paper's chain
+// (paper/plectis-public-system.tex, figure "chain"), from the centre outward.
+// The replay-admission core stands at the centre: every component's replay
+// route runs to it as a hairline spoke. The three other workflow cores
+// (repair, compatibility, views) stand round it. The twelve component kernels
+// stand on an inner ring, each a specification with one petal for every
+// verified task; a thread leaves each kernel, passes its generated code and
+// its caller, and reaches its component. The 88 components stand in their
+// family sectors, as on the system map.
+//
+// Outside the ring stand the coverage rings (evidence.js TRACKS): one ring
+// per kind of check, one cell per component, so reading round a ring shows
+// which components have that check and reading outward along a spoke shows
+// what one component has. A wedge at the top is kept clear for the rings'
+// names. A component without a modeled contract has no thread and empty
+// inner cells: the gaps are the honest picture of formal coverage.
 //
 // Coordinates are deterministic, so the drawing is the same on every visit.
 
-import { BACKING_ORDER, FAMILY_ORDER } from '../evidence.js';
+import { BACKING_ORDER, FAMILY_ORDER, TRACKS } from '../evidence.js';
 
 export const R = {
   core: 0,
-  kernel: 282,
-  petal: 19,
-  generated: 324,
-  caller: 362,
-  component: 400,
-  record0: 416,
-  recordStep: 6.6,
-  scale: 478,
-  labels: 502,
+  cores: 100,
+  kernel: 258,
+  petal: 21,
+  generated: 292,
+  caller: 326,
+  component: 360,
+  track0: 374,
+  trackH: 10,
+  trackGap: 2.6,
+  labels: 0,
 };
+R.trackOuter = R.track0 + TRACKS.length * (R.trackH + R.trackGap) - R.trackGap;
+R.scale = R.trackOuter + 4;
+R.labels = R.scale + 22;
+
+/** Inner and outer radius of a coverage ring. */
+export function trackBand(i) {
+  const r0 = R.track0 + i * (R.trackH + R.trackGap);
+  return [r0, r0 + R.trackH];
+}
+
 const SLOT_PAD = 1.1;
 const SECTOR_GAP = 0.05;
-const KERNEL_SPACING = 104;
+export const KEY_GAP = 0.24;
+const KERNEL_SPACING = 100;
 const EVEN_PULL = 0.5;
+const TURN = Math.PI * 2;
 
-/** Sector and slot order: families clockwise from the top, members by backing then title. */
+/** Sector and slot order: families clockwise after the key wedge, members by backing then title. */
 export function arrange(components) {
   const families = FAMILY_ORDER.filter((f) => components.some((c) => c.family === f));
   for (const c of components) if (!families.includes(c.family)) families.push(c.family);
@@ -45,26 +63,21 @@ export function arrange(components) {
     }),
   }));
   const slots = groups.reduce((n, g) => n + g.members.length + SLOT_PAD, 0);
-  const pitch = (Math.PI * 2 - SECTOR_GAP * groups.length) / slots;
-  let at = 0;
+  const gaps = SECTOR_GAP * Math.max(0, groups.length - 1) + KEY_GAP;
+  const pitch = (TURN - gaps) / slots;
+  // The ring starts just clockwise of the key wedge, which is centred at the top.
+  let at = -Math.PI / 2 + KEY_GAP / 2;
+  const angleOf = new Map();
   const sectors = groups.map((g) => {
     const lo = at;
     const hi = lo + (g.members.length + SLOT_PAD) * pitch;
     at = hi + SECTOR_GAP;
-    return { family: g.family, lo, hi, members: g.members.map((c) => c.id), count: g.members.length };
+    g.members.forEach((c, j) => angleOf.set(c.id, lo + (SLOT_PAD / 2 + j + 0.5) * pitch));
+    return { family: g.family, lo, hi, mid: (lo + hi) / 2, members: g.members.map((c) => c.id), count: g.members.length };
   });
-  // Turn the ring so the first family's middle stands at the top.
-  const turn = -Math.PI / 2 - (sectors[0].lo + sectors[0].hi) / 2;
-  const angleOf = new Map();
-  for (const s of sectors) {
-    s.lo += turn; s.hi += turn;
-    s.members.forEach((id, j) => angleOf.set(id, s.lo + (SLOT_PAD / 2 + j + 0.5) * pitch));
-    s.mid = (s.lo + s.hi) / 2;
-  }
   return { sectors, angleOf, pitch };
 }
 
-const TURN = Math.PI * 2;
 export function shortArc(from, to) {
   let d = (to - from) % TURN;
   if (d > Math.PI) d -= TURN;
@@ -114,6 +127,10 @@ export function threadAngle(from, to, r) {
 
 export const polar = (angle, r) => [Math.cos(angle) * r, Math.sin(angle) * r];
 
+// The workflow cores round the replay-admission core: either side and below,
+// so each can name itself on its outer side.
+const CORE_ANGLES = { repair: Math.PI, compatibility: 0, views: Math.PI / 2 };
+
 /** The whole layout for a model from data.js. */
 export function layout(model) {
   const { sectors, angleOf, pitch } = arrange(model.components);
@@ -132,17 +149,18 @@ export function layout(model) {
     const [cx, cy] = polar(threadAngle(angle, to, R.caller), R.caller);
     return { id: k.id, componentId: k.componentId, angle, x, y, generated: [gx, gy], caller: [cx, cy], to };
   });
-  // Unlinked kernels (none today) wait on a small arc under the core.
+  // Unlinked kernels (none today) wait on a small arc under the cores.
   model.kernels.filter((k) => !linked.includes(k)).forEach((k, i) => {
     const angle = Math.PI / 2 + (i - 0.5) * 0.3;
     const [x, y] = polar(angle, R.kernel);
     kernels.push({ id: k.id, componentId: null, angle, x, y, generated: null, caller: null, to: null });
   });
-  // The two satellites stand under the core, as Comparator and Palomar
-  // stand under the universe map's core.
-  const satellites = [
-    { id: 'retained', x: -112, y: 72 },
-    { id: 'fresh', x: 112, y: 72 },
-  ];
-  return { sectors, pitch, comps, kernels, satellites, radius: R.labels + 40 };
+  const others = model.cores.filter((c) => c.id !== 'replay_admission');
+  const cores = model.cores.map((c) => {
+    if (c.id === 'replay_admission') return { id: c.id, x: 0, y: 0, angle: 0 };
+    const angle = CORE_ANGLES[c.id] ?? (-Math.PI / 2 + (others.indexOf(c) / Math.max(1, others.length)) * TURN);
+    const [x, y] = polar(angle, R.cores);
+    return { id: c.id, x, y, angle };
+  });
+  return { sectors, pitch, comps, kernels, cores, radius: R.labels + 44 };
 }

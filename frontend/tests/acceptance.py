@@ -64,14 +64,17 @@ def main(argv=None):
         # 2. Direct component links.
         page.goto(f"{base}/components/mcp_tool_authority_replay", wait_until="load")
         page.wait_for_selector("#s-contract")
-        check("a component with a modeled proof opens directly",
-              page.locator("#s-proof").count() == 1 and page.get_by_role("link", name="Read the proof").count() >= 1)
+        page.wait_for_selector("#s-writeup .writeup")
+        check("a component with a proved part opens directly, with its write-up",
+              page.get_by_role("link", name="Open the proof page").count() >= 1 and page.locator(".page-plain").inner_text().startswith("Changes an automated assistant"))
+        writeup = page.locator("#s-writeup").inner_text()
+        check("the write-up shows no file path or command", "src/" not in writeup and "PYTHONPATH" not in writeup and "--input" not in writeup)
         page.screenshot(path=str(args.out / "component-mcp.png"))
         page.goto(f"{base}/components/pattern_assimilation_step", wait_until="load")
-        page.wait_for_selector("#s-records")
-        absent = page.locator("#s-records .ref.absent").count()
-        linked = page.locator("#s-records ul.ref-list a").count()
-        check("unavailable records are named without a link", absent >= 2 and linked == 0, f"{absent} absent, {linked} links")
+        page.wait_for_selector("#s-records .run")
+        absent = page.locator("#s-records .run.is-absent").count()
+        linked = page.locator("#s-records .run.is-absent a").count()
+        check("missing records are shown without a link", absent >= 2 and linked == 0, f"{absent} missing, {linked} links")
         page.goto(f"{base}/components/no_such_component", wait_until="load")
         page.wait_for_selector("h1")
         check("an unknown ID is a missing resource", page.locator("h1").inner_text() == "No component with this ID")
@@ -103,11 +106,11 @@ def main(argv=None):
             body["snapshot_revision"] = "0" * 64
             route.fulfill(response=response, body=json.dumps(body))
 
-        page.route("**/api/v1/receipts?*", other_revision)
+        page.route("**/api/v1/components/mcp_tool_authority_replay", other_revision)
         page.goto(f"{base}/components/mcp_tool_authority_replay", wait_until="load")
         page.wait_for_selector("h1")
         check("a revision change is an explicit state", page.locator("h1").inner_text() == "The index changed while loading")
-        page.unroute("**/api/v1/receipts?*")
+        page.unroute("**/api/v1/components/mcp_tool_authority_replay")
 
         # 5. A slow earlier search cannot overwrite a later one (controlled delay).
         def slow(route):
@@ -138,15 +141,15 @@ def main(argv=None):
         # 7. Network failure and schema mismatch (controlled).
         page.route("**/api/v1**", lambda route: route.abort())
         page.goto(f"{base}/", wait_until="load")
-        page.wait_for_selector("text=The component API is not reachable")
+        page.wait_for_selector("text=The data server is not running")
         check("a network failure is its own state", True)
         page.unroute("**/api/v1**")
-        page.route("**/api/v1", lambda route: route.fulfill(status=200, content_type="application/json",
-                                                             body=json.dumps({"schema_version": "plectis_component_http_v2", "snapshot_revision": "x", "data": {}})))
+        page.route("**/api/v1/overview", lambda route: route.fulfill(status=200, content_type="application/json",
+                                                                      body=json.dumps({"schema_version": "plectis_component_http_v2", "snapshot_revision": "x", "data": {}})))
         page.goto(f"{base}/", wait_until="load")
         page.wait_for_selector("text=contract this explorer does not read")
         check("an incompatible schema is its own state", True)
-        page.unroute("**/api/v1")
+        page.unroute("**/api/v1/overview")
 
         # 8. Keyboard: skip link first, the map walks by arrow and lets go on Escape.
         page.goto(f"{base}/", wait_until="load")
@@ -165,6 +168,40 @@ def main(argv=None):
         page.wait_for_timeout(1400)
         page.screenshot(path=str(args.out / "map-selected.png"))
         check("a map selection is addressable", page.locator(".card-title").inner_text() == "MCP Tool Authority Replay")
+        page.wait_for_selector(".card-plain")
+        page.wait_for_function("document.querySelector('.card-plain').textContent.startsWith('Changes an automated')")
+        check("the card leads with the plain description", True)
+        page.locator(".explorer__body").click(position={"x": 8, "y": 8})
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(300)
+        check("Escape lets go even when the panel has focus", page.locator(".card-title").count() == 0)
+
+        # 8b. Pointing at a component shows its plain description in the panel.
+        page.goto(f"{base}/", wait_until="load")
+        page.wait_for_selector(".explorer__status", state="hidden", timeout=20000)
+        page.wait_for_timeout(2600)
+        box = page.locator("canvas").bounding_box()
+        cx, cy, base_r = box["x"] + box["width"] / 2, box["y"] + box["height"] / 2, min(box["width"], box["height"]) / 2
+        shown = False
+        for f in [x / 100 for x in range(40, 80)]:
+            page.mouse.move(cx + base_r * f, cy + 1)
+            page.wait_for_timeout(110)
+            if page.locator(".peek.is-on").count():
+                shown = True
+                break
+        page.wait_for_timeout(500)
+        check("hovering a component shows its plain description", shown and len(page.locator(".peek__plain").inner_text()) > 200)
+        check("the ring key names all eight rings", page.locator(".explorer__rings .ringkey__row").count() == 8)
+        page.get_by_role("button", name="What do these mean?").first.click()
+        page.wait_for_selector("dialog.explain[open]")
+        rings = page.locator("dialog.explain .explain__ring").count()
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(250)
+        check("the key opens as a window that explains every ring and closes on Escape",
+              rings == 8 and page.locator("dialog.explain[open]").count() == 0, f"{rings} rings explained")
+        page.goto(f"{base}/coverage", wait_until="load")
+        page.wait_for_selector(".measure")
+        check("the coverage page lays the eight rings flat", page.locator(".measure").count() == 8 and page.locator(".measure .sq").count() == 8 * 88)
 
         # 9. Narrow screens read without the drawing.
         phone = browser.new_context(viewport={"width": 390, "height": 844}, color_scheme="light", device_scale_factor=3)

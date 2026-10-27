@@ -61,6 +61,7 @@ export function keyGlyph(kind) {
   if (kind === 'kernel') root.append(svg('circle', { cx: 6, cy: 6, r: 4.4, fill: 'none', stroke: 'var(--weave-azure-glow)', 'stroke-width': 1.5 }), svg('circle', { cx: 6, cy: 6, r: 1.7, fill: 'var(--home-ember)' }));
   if (kind === 'task') root.append(svg('circle', { cx: 6, cy: 6, r: 1.6, fill: 'var(--home-ember)' }));
   if (kind === 'variant') root.append(svg('path', { d: 'M3.5 3.5l5 5M8.5 3.5l-5 5', stroke: 'currentColor', 'stroke-width': 1.2 }));
+  if (kind === 'spoke') root.append(svg('path', { d: 'M1 6h10', stroke: 'var(--weave-azure-glow)', 'stroke-width': 0.9 }), svg('circle', { cx: 1.6, cy: 6, r: 1.3, fill: 'var(--weave-azure-glow)' }));
   if (kind === 'thread') root.append(svg('path', { d: 'M1 6h10', stroke: 'var(--home-ember)', 'stroke-width': 1.3 }));
   if (kind === 'wiring') root.append(svg('path', { d: 'M1 9 Q6 1 11 9', fill: 'none', stroke: 'var(--weave-azure-glow)', 'stroke-width': 1.2 }));
   if (kind === 'generated') root.append(svg('rect', { x: 3, y: 3, width: 6, height: 6, fill: 'none', stroke: 'var(--home-ember)', 'stroke-width': 1.2 }));
@@ -69,6 +70,15 @@ export function keyGlyph(kind) {
 }
 
 export function clear(el) { while (el.firstChild) el.firstChild.remove(); return el; }
+
+/** The CSS that gives an element a coverage ring's own colour (tokens.css --ring-*). */
+export const ringStyle = (track) => (track.ink === 'unknown' ? '' : `--ink-fill: var(--ring-${track.id})`);
+
+/** A swatch in a ring's colour: filled, empty, or hatched for unknown. */
+export function ringSwatch(track, state = 'has', extraClass = '') {
+  const cls = `swatch${track.ink === 'unknown' ? ' ink-unknown' : ''}${state === 'empty' ? ' is-empty' : ''}${extraClass ? ` ${extraClass}` : ''}`;
+  return h('span', { class: cls, style: state === 'empty' ? null : ringStyle(track) || null, 'aria-hidden': 'true' });
+}
 
 /** A copy button for a declared command; it copies text and runs nothing. */
 export function copyButton(text, label = 'Copy command') {

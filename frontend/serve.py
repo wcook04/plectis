@@ -2,14 +2,19 @@
 
 The explorer is static files. Its browser code fetches relative ``/api/v1``
 URLs; this server forwards those requests to ``plectis serve-components``
-unchanged, so the page and the API share an origin without CORS. It adds no
-route, executes nothing and reads no repository file outside ``frontend/``.
+unchanged, so the page and the API share an origin without CORS. It executes
+nothing. Its one route of its own, ``/guides/component/<id>`` and
+``/guides/core/<id>``, serves the write-up the snapshot names for that
+component or core, read from this checkout only while its bytes match the
+SHA-256 the served snapshot records for it; otherwise it answers 409.
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import http.client
+import json
 import ipaddress
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -31,6 +36,9 @@ TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=u
          ".woff2": "font/woff2", ".png": "image/png", ".ico": "image/x-icon",
          ".txt": "text/plain; charset=utf-8"}
 STATIC_DIRS = ("assets", "src")
+GUIDE_PREFIX = "/guides/"
+GUIDE_ROOTS = ("paper_modules/", "formal/")
+GUIDE_LIMIT = 256 * 1024
 
 
 class ExplorerHandler(BaseHTTPRequestHandler):
@@ -53,6 +61,8 @@ class ExplorerHandler(BaseHTTPRequestHandler):
         path = urllib.parse.urlsplit(self.path).path
         if path == API_PREFIX or path.startswith(API_PREFIX + "/"):
             self._proxy(send_body)
+        elif path.startswith(GUIDE_PREFIX):
+            self._guide(path, send_body)
         else:
             self._static(path, send_body)
 
@@ -72,6 +82,57 @@ class ExplorerHandler(BaseHTTPRequestHandler):
                                                            "Cache-Control": "no-store"}, send_body)
         finally:
             connection.close()
+
+    def _problem(self, status, code, message, send_body):
+        body = json.dumps({"error": {"code": code, "message": message}}).encode()
+        self._send(status, body, {"Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store"}, send_body)
+
+    def _guide(self, path, send_body):
+        """Serve one write-up, only while it matches the hash the snapshot records."""
+        parts = path[len(GUIDE_PREFIX):].split("/")
+        if len(parts) != 2 or parts[0] not in ("component", "core") or not parts[1]:
+            self._problem(404, "not_found", "no such write-up route", send_body)
+            return
+        kind, ident = parts[0], urllib.parse.unquote(parts[1])
+        route = "components" if kind == "component" else "cores"
+        connection = http.client.HTTPConnection(self.server.backend_host, self.server.backend_port, timeout=15)
+        try:
+            connection.request("GET", f"{API_PREFIX}/{route}/{urllib.parse.quote(ident, safe='')}")
+            response = connection.getresponse()
+            status, raw = response.status, response.read()
+        except OSError:
+            self._send(502, b"component API unreachable", {"Content-Type": "text/plain; charset=utf-8",
+                                                           "Cache-Control": "no-store"}, send_body)
+            return
+        finally:
+            connection.close()
+        if status != 200:
+            self._problem(404 if status == 404 else 502, "not_found" if status == 404 else "api_error",
+                          f"the component API answered {status}", send_body)
+            return
+        envelope = json.loads(raw)
+        data = envelope.get("data") or {}
+        if kind == "component":
+            ref = (data.get("guide") or {}).get("ref")
+            rows = [a for a in data.get("artifacts") or [] if a.get("availability") == "available"]
+        else:
+            ref = data.get("guide_ref")
+            rows = data.get("artifact_bindings") or []
+        digest = next((row.get("sha256") for row in rows if row.get("ref") == ref), None)
+        if not ref or not digest or not ref.endswith(".md") or not ref.startswith(GUIDE_ROOTS) or ".." in ref:
+            self._problem(404, "no_guide", "the snapshot records no write-up for this", send_body)
+            return
+        target = (ROOT / ref).resolve()
+        if ROOT not in target.parents or not target.is_file() or target.stat().st_size > GUIDE_LIMIT:
+            self._problem(404, "no_guide", "the write-up is not in this checkout", send_body)
+            return
+        body = target.read_bytes()
+        if hashlib.sha256(body).hexdigest() != digest:
+            self._problem(409, "stale_guide", "the write-up changed after the index was built", send_body)
+            return
+        self._send(200, body, {"Content-Type": "text/markdown; charset=utf-8", "Cache-Control": "no-cache",
+                               "ETag": f'"{digest}"', "X-Plectis-Guide-Ref": ref,
+                               "X-Plectis-Snapshot-Revision": str(envelope.get("snapshot_revision", ""))}, send_body)
 
     def _static(self, path, send_body):
         """Serve a file below frontend/, or the app shell for any page route."""

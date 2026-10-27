@@ -1,10 +1,11 @@
-# Component explorer
+# Practical formal verification: the component explorer
 
 A local browser client for the [component API](../docs/reference/component-http-api.md),
 built to the [frontend brief](../docs/guides/frontend-implementation.md). It
-reads the validated component index and shows what each piece of evidence
-establishes, and where it stops. It runs nothing: the API has no execution
-route, and declared commands are shown as text to copy.
+shows which computations in Plectis are proved with Dafny, how the proved code
+reaches the components that call it, and every other check each component has,
+with each component's write-up in plain words. It runs nothing: the API has no
+execution route, and declared commands are folded away as text to copy.
 
 ## Start it
 
@@ -27,15 +28,23 @@ It accepts only `GET` and `HEAD`, listens on loopback only, and answers `502`
 in plain text when the API is down. `--backend` and `--port` change the
 addresses.
 
+Its one route of its own, `/guides/component/<id>` and `/guides/core/<id>`,
+serves the write-up the snapshot names for a component or a core
+(`paper_modules/*.md`, or a core's formal README). It reads the file from this
+checkout only after asking the API for the write-up's recorded SHA-256, and
+answers `409 stale_guide` when the bytes no longer match, so a write-up is
+never newer than the snapshot it is shown with. Each write-up opens with a
+five-sentence block quote, "In plain terms", which the map shows on hover.
+
 ## What it shows
 
 | Route | Screen |
 |---|---|
-| `/` | The evidence map: every component in its family, the twelve Dafny-verified kernels at the centre, the thread from each kernel to the component that calls its generated code, and each component's saved records. Selection is kept in `#o=`; search and filters in the query. |
+| `/` | The map. Inside the ring: the replay checker and the three workflow cores at the centre, the twelve component kernels as flowers (one petal per proof check, a cross per rejected broken version), and a thread from each kernel to the component that calls its generated code. Outside the ring: eight coverage rings, one per kind of check, one cell per component. Hovering a component shows its plain description in the panel; choosing it opens its card. Escape or a click on empty space lets go. Selection is kept in `#o=`; search and filters in the query. |
 | `/catalogue` | Search and combined filters, the matching total and further pages, all kept in the URL. |
-| `/components/<organ_id>` | One component: its claim and limit first, then its modeled contract, retained proof, generated code, caller, declared replay and saved records, beside a chain figure that follows the reading position. |
-| `/proofs/<proof_id>` | One retained proof: statement, assumptions and limits, retained verification, broken variants, generated code and fresh-check state. |
-| `/coverage` | Each presence measure with its denominator and the API's own meaning; whole-claim coverage shown as unknown. |
+| `/components/<organ_id>` | One component: its plain description, its limit, its proved part, the rendered write-up, past runs as dated marks, the principles it cites and its connections, beside its column of checks. |
+| `/proofs/<proof_id>` | One proved computation (a component kernel or a workflow core): what it promises, the ownership repair played through where it applies, the Dafny rules as retained text, the broken versions as changed lines, the compiled code and who calls it, and what is not checked. |
+| `/coverage` | The map's rings laid flat: one row of squares per kind of check, grouped by family. |
 | `/graph?type=&id=` | Related records within a bounded neighbourhood, drawn and listed, with truncation stated. |
 
 Every page shows its snapshot revision as a digest of the index, never as a
@@ -63,8 +72,10 @@ and `report.json`.
 There is no build step and no dependency. `src/main.js` routes; `src/api.js`
 holds the loading rules (schema check, error kinds, superseded requests,
 cursor paging within one revision, parts that must share a revision);
-`src/data.js` assembles the map's model; `src/evidence.js` words every state;
-`src/map/` draws the map; `src/views/` holds the pages.
+`src/data.js` builds the model from one `/api/v1/overview` response;
+`src/evidence.js` words every state and defines the coverage rings;
+`src/markdown.js` renders write-ups as text, never as HTML; `src/map/` draws
+the map; `src/views/` holds the pages.
 
 `BACKEND_REQUESTS.md` lists what this pass needed from the API and could not
 get.
@@ -82,5 +93,6 @@ The map and pages adapt existing Plectis front ends rather than new drawings:
 | Lean Exposition, `site/src/checks/CheckMap.tsx` and `site/src/reader/ReaderPage.tsx` at `6f62294` | One square per item for coverage; the figure that follows the reading position (`src/views/coverage.js`, `src/views/chain.js`) |
 | Plectis Atlas, `DESIGN.md` "Evidence states stay distinct" at `3f0f093a` | Unknown is neither red nor green; an unrecognised value is named, not coloured (`src/evidence.js`) |
 
-The layout of the evidence map is new: it follows the paper's chain from a
-stated property to a saved run, from the centre outward.
+The layout of the map is new. Inside the ring it follows the paper's chain from
+a stated property to the component that runs the proved code; outside it, the
+coverage rings read like the tracks of a circular genome plot.

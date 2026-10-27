@@ -14,6 +14,7 @@ import { mountComponent } from './views/component.js';
 import { mountProof } from './views/proof.js';
 import { mountCoverage } from './views/coverage.js';
 import { mountGraph } from './views/graph.js';
+import { loadFacets } from './views/catalogue-core.js';
 
 const main = document.getElementById('main');
 let unmount = null;
@@ -91,4 +92,7 @@ toggle.addEventListener('click', () => {
 });
 syncToggle();
 
-render();
+// Classification labels come from the API's metadata; every page reads them
+// through evidence.js, so they are loaded once before the first page. A page
+// still renders when the API is down, and shows its own error.
+loadFacets().catch(() => {}).finally(render);

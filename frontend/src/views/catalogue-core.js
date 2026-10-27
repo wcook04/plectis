@@ -6,14 +6,14 @@
 
 import { ApiError, Collection, apiPath, getEnvelope, latestOnly, withQuery } from '../api.js';
 import { backingGlyph, clear, h } from '../dom.js';
-import { BACKING_OF, FAMILY_NAME, classWords, count } from '../evidence.js';
+import { BACKING_OF, classWords, count, familyName, setLabels } from '../evidence.js';
 
 export const FACETS = ['family', 'evidence_class', 'truth_accounting_bucket', 'real_substrate_disposition'];
 export const FACET_TITLES = {
   family: 'Family',
-  evidence_class: 'How it is backed',
-  truth_accounting_bucket: 'Kind of saved evidence',
-  real_substrate_disposition: 'Source',
+  evidence_class: 'Kind of component',
+  truth_accounting_bucket: 'Kind of saved result',
+  real_substrate_disposition: 'Where its code comes from',
 };
 
 /** Read q and facet filters from a URL's query string. */
@@ -53,7 +53,7 @@ export function componentRow(item, { href, onEnter, onLeave, onPick } = {}) {
   const inner = [
     backingGlyph(backing, formal ? 'mark--proved' : 'mark'),
     h('span', { class: 'row__title' }, item.title || item.organ_id),
-    h('span', { class: 'row__sub' }, `${FAMILY_NAME[item.classification?.family] || item.classification?.family || ''}. ${item.summary || ''}`),
+    h('span', { class: 'row__sub' }, `${item.classification?.family ? familyName(item.classification.family) : ''}. ${item.summary || ''}`),
   ];
   const el = onPick
     ? h('button', { type: 'button', class: 'row__go', onclick: () => onPick(item) }, inner)
@@ -183,5 +183,6 @@ export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset }
 /** Metadata's advertised filter values with their counts. */
 export async function loadFacets() {
   const env = await getEnvelope('/api/v1');
+  setLabels(env.data.component_filters);
   return { revision: env.revision, filters: env.data.component_filters || {}, meta: env.data };
 }

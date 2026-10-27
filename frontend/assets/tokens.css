@@ -83,6 +83,20 @@
   --m-edge-hot: rgba(42, 89, 130, 0.55);
   --m-halo: rgba(25, 21, 32, 0.10);
   --m-faint: #9894a0;
+  /* Saved historical runs: warm, but not the red of a kept proof. */
+  --m-ember: #9c6a26;
+  /* One colour per coverage ring, far enough apart on the wheel to read in
+     the key: the proof in the maps' red, its broken versions in magenta, the
+     fingerprint match in orange, the call link in teal, Lean in violet, the
+     rerun in blue and past runs in gold. Green is left out: no ring means
+     "passed". */
+  --ring-proof: #b3261e;
+  --ring-variants: #a8326f;
+  --ring-bound: #b8560f;
+  --ring-caller: #13776a;
+  --ring-lean: #6a45b8;
+  --ring-replay: #2a63a8;
+  --ring-saved: #8a6a0a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -120,6 +134,14 @@
     --m-edge-hot: rgba(151, 193, 223, 0.7);
     --m-halo: rgba(242, 230, 212, 0.12);
     --m-faint: #85818e;
+    --m-ember: #d6a05e;
+    --ring-proof: #f2655a;
+    --ring-variants: #e46aa8;
+    --ring-bound: #f08a3c;
+    --ring-caller: #45b5a5;
+    --ring-lean: #a98bf0;
+    --ring-replay: #6aa6e8;
+    --ring-saved: #e2c25e;
   }
 }
 :root[data-theme="dark"] {
@@ -156,4 +178,12 @@
   --m-edge-hot: rgba(151, 193, 223, 0.7);
   --m-halo: rgba(242, 230, 212, 0.12);
   --m-faint: #85818e;
+  --m-ember: #d6a05e;
+  --ring-proof: #f2655a;
+  --ring-variants: #e46aa8;
+  --ring-bound: #f08a3c;
+  --ring-caller: #45b5a5;
+  --ring-lean: #a98bf0;
+  --ring-replay: #6aa6e8;
+  --ring-saved: #e2c25e;
 }

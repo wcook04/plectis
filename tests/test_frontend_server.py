@@ -3,9 +3,12 @@
 The browser client fetches relative /api/v1 URLs. frontend/serve.py must pass
 them to `plectis serve-components` unchanged (path, query, status, ETag,
 snapshot revision, 304 and error bodies), serve only files below frontend/,
-and answer client routes with the app shell.
+and answer client routes with the app shell. Its one route of its own serves
+a component's or core's write-up only while the file's bytes match the
+SHA-256 the served snapshot records for it.
 """
 
+import hashlib
 from http.client import HTTPConnection
 import importlib.util
 import json
@@ -120,6 +123,44 @@ def test_an_unreachable_backend_is_a_gateway_error_not_data():
         assert response.getheader("Content-Type").startswith("text/plain")
         assert b"unreachable" in response.read()
         client.close()
+    finally:
+        server.shutdown()
+        server.server_close()
+        worker.join(timeout=5)
+
+
+def test_write_ups_are_served_when_they_match_the_snapshot(explorer):
+    status, headers, body = explorer("/guides/component/mcp_tool_authority_replay")
+    assert status == 200
+    assert headers["content-type"].startswith("text/markdown")
+    ref = headers["x-plectis-guide-ref"]
+    assert ref == "paper_modules/mcp_tool_authority_replay.md"
+    assert headers["etag"] == f'"{hashlib.sha256(body).hexdigest()}"'
+    assert body == (ROOT / ref).read_bytes()
+    status, headers, body = explorer("/guides/core/views")
+    assert status == 200 and headers["x-plectis-guide-ref"].startswith("formal/")
+    for path in ("/guides/component/no_such_component", "/guides/other/views", "/guides/component", "/guides/component/a/b"):
+        status, _, body = explorer(path)
+        assert status == 404 and json.loads(body)["error"]["code"] in ("not_found", "no_guide")
+
+
+def test_a_changed_write_up_is_refused_not_served(backend, tmp_path):
+    serve = _load_serve()
+    guide = tmp_path / "paper_modules" / "mcp_tool_authority_replay.md"
+    guide.parent.mkdir(parents=True)
+    guide.write_text("# Edited after the index was built\n")
+    serve.ROOT = tmp_path
+    server = serve.ExplorerServer(("127.0.0.1", 0), backend)
+    worker = _start(server)
+    try:
+        client = HTTPConnection("127.0.0.1", server.server_port, timeout=10)
+        client.request("GET", "/guides/component/mcp_tool_authority_replay")
+        response = client.getresponse()
+        body = response.read()
+        client.close()
+        assert response.status == 409
+        assert json.loads(body)["error"]["code"] == "stale_guide"
+        assert b"Edited after" not in body
     finally:
         server.shutdown()
         server.server_close()

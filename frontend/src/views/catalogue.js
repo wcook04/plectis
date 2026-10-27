@@ -12,9 +12,9 @@ export async function mountCatalogue(root, { url }) {
   const sentence = h('p', { class: 'small muted', 'aria-live': 'polite' });
   const listHost = h('div', {});
   const page = h('div', { class: 'page' },
-    h('nav', { class: 'trail', 'aria-label': 'Breadcrumb' }, h('a', { href: '/', 'data-route': '' }, 'Evidence map'), h('span', { 'aria-hidden': 'true' }, '/'), h('span', {}, 'Catalogue')),
-    h('h1', { class: 'page-title' }, 'The component catalogue'),
-    h('p', { class: 'page-lede' }, 'Search matches a literal piece of a component\'s ID, title or summary, ignoring case. Filters combine with the search and with each other.'),
+    h('nav', { class: 'trail', 'aria-label': 'Breadcrumb' }, h('a', { href: '/', 'data-route': '' }, 'Map'), h('span', { 'aria-hidden': 'true' }, '/'), h('span', {}, 'Catalogue')),
+    h('h1', { class: 'page-title' }, 'Components'),
+    h('p', { class: 'page-lede' }, 'Every component in the system. Search by name or by words from its description, and narrow the list with the filters.'),
     h('div', { class: 'graph-layout' },
       h('div', {},
         h('div', { class: 'find', style: 'margin-top:0' }, h('label', { class: 'sr-only', for: 'cat-find' }, 'Search components'), search),

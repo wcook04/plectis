@@ -39,15 +39,15 @@ export async function mountGraph(root, { url, navigate }) {
   const semantics = meta.graph?.edge_semantics || {};
   const select = (name, options, value) => h('select', { name, 'aria-label': name.replace(/_/g, ' ') }, options.map(([v, label]) => h('option', { value: v, selected: v === value ? 'selected' : null }, label)));
   const controls = h('form', { class: 'controls', onsubmit: (e) => e.preventDefault() },
-    h('label', {}, 'Depth ', select('depth', Array.from({ length: limits.graph_depth }, (_, i) => [String(i + 1), String(i + 1)]), params.depth)),
+    h('label', {}, 'Steps ', select('depth', Array.from({ length: limits.graph_depth }, (_, i) => [String(i + 1), String(i + 1)]), params.depth)),
     h('label', {}, 'Direction ', select('direction', [['both', 'both'], ['out', 'outgoing'], ['in', 'incoming']], params.direction)),
-    h('label', {}, 'Edge kind ', select('edge_kind', [['', 'any'], ...(meta.graph?.edge_kinds || []).map((k) => [k, words(k)])], params.edge_kind)),
+    h('label', {}, 'Kind of link ', select('edge_kind', [['', 'any'], ...(meta.graph?.edge_kinds || []).map((k) => [k, words(k)])], params.edge_kind)),
     h('label', {}, 'At most ', h('input', { name: 'max_edges', type: 'number', min: 1, max: limits.graph_edges, value: params.max_edges, style: 'width:6em' }), ' edges'));
   const out = h('div', {});
   page.append(
-    h('nav', { class: 'trail', 'aria-label': 'Breadcrumb' }, h('a', { href: '/', 'data-route': '' }, 'Evidence map'), h('span', { 'aria-hidden': 'true' }, '/'), h('span', {}, 'Related records')),
+    h('nav', { class: 'trail', 'aria-label': 'Breadcrumb' }, h('a', { href: '/', 'data-route': '' }, 'Map'), h('span', { 'aria-hidden': 'true' }, '/'), h('span', {}, 'Related records')),
     h('h1', { class: 'page-title' }, 'Related records'),
-    h('p', { class: 'page-lede' }, h('span', {}, `Starting at the ${words(params.type)} `), h('code', {}, params.id), '. Each record is named by its type and ID; each line by the kind of relation the index records.'),
+    h('p', { class: 'page-lede' }, `Everything linked to this ${words(params.type)}, up to a few steps away. Each line is labelled with what the link means.`),
     controls, out);
   const run = latestOnly();
   controls.addEventListener('change', () => {
@@ -154,9 +154,9 @@ export async function mountGraph(root, { url, navigate }) {
     }
     return h('div', {},
       g.truncated
-        ? h('div', { class: 'state state--error', role: 'status' }, h('strong', {}, `Truncated at ${g.max_edges} edges. `), 'The index has more relations within this depth; this view makes no claim to be complete. Raise the limit or choose one edge kind.')
+        ? h('div', { class: 'state state--error', role: 'status' }, h('strong', {}, `Truncated at ${g.max_edges} edges. `), 'There are more links within this many steps, so this view is not complete. Raise the limit or pick one kind of link.')
         : h('p', { class: 'note figures' }, `${g.edges.length} relations among ${g.nodes.length} records, within ${g.depth} ${g.depth === 1 ? 'step' : 'steps'}, ${g.direction === 'both' ? 'in both directions' : g.direction === 'in' ? 'incoming' : 'outgoing'}. Snapshot ${revision.slice(0, 12)}.`),
-      h('div', { class: 'graph-layout' }, h('div', {}, fig, h('p', { class: 'note' }, 'Red lines join retained formal evidence; azure lines are stated relations (claims, doctrine, declared wiring, dashed); grey lines are navigation and saved records.')), groups));
+      h('div', { class: 'graph-layout' }, h('div', {}, fig, h('p', { class: 'note' }, 'Red lines lead to saved proof results; blue lines are links written down by people (claims, principles and declared connections, dashed); grey lines are the rest. Choose a record to start from it.')), groups));
   }
 
   function endLink(type, id) {

@@ -9,24 +9,28 @@
 // (arcLetters, drawArcText), device-pixel hairlines, the capped backing store
 // and the centre-out opening. The marks for how a component is backed are the
 // system map's five glyphs (sites/microcosm/assets/system-map.js GLYPHS).
-// What is new is the picture itself: the chain from a specification to a
-// saved run, drawn from the centre outward (see layout.js).
+// What is new is the picture itself (see layout.js): the verified
+// computations inside the ring, drawn as flowers with one petal per verified
+// task, and the coverage rings outside it, read like the tracks of a
+// circular genome plot, one ring per kind of check.
 
 import { glowSprite, isDark, mixOklab, parseColor, rgbText } from './color.js';
-import { layout, polar, R, shortArc, threadAngle } from './layout.js';
-import { BACKING_WORDS, FAMILY_NAME, count, proofShortName } from '../evidence.js';
+import { KEY_GAP, layout, polar, R, shortArc, threadAngle, trackBand } from './layout.js';
+import { CORE_NAMES, TRACKS, classWords, count, familyName, moduleWords, proofShortName } from '../evidence.js';
 
 const SERIF = '"Plectis Serif", "Plectis Math", "Plectis Serif Fallback", Georgia, serif';
 const SANS = '"Plectis Sans", "Plectis Sans Fallback", -apple-system, "Segoe UI", Arial, sans-serif';
 const face = (weight, size, italic, family = SERIF) => `${italic ? 'italic ' : ''}${weight} ${size}px ${family}`;
-const TYPE = { title: 14, count: 12.5, rowGap: 16, plate: 13.5, sub: 11.5, anchor: 14.5, kernel: 12, name: 11.5 };
+const TYPE = { title: 14, count: 12.5, rowGap: 16, plate: 13.5, sub: 11.5, anchor: 13.5, kernel: 12, name: 11.5 };
 
 const FOCUS_IN = 180, FOCUS_HOLD = 140, FOCUS_OUT = 220;
 const PULSE_WAIT = 110, PULSE_RIPPLE = 720, PULSE_TRAVEL = 620, PULSE_STAGGER = 70, PULSE_BLOOM = 560;
-const REVEAL = { core: 0, kernels: 160, threads: 360, threadDur: 520, pen: 520, penDur: 900, records: 700, words: 1150, fade: 360, end: 1750 };
+// The opening runs from the centre out: the cores flower, the replay spokes
+// reach the ring, the kernels flower, their threads grow, the components
+// appear round the ring, then each coverage ring is read clockwise in turn.
+const REVEAL = { core: 0, cores: 140, spokes: 260, spokeDur: 520, kernels: 380, threads: 560, threadDur: 520, pen: 640, penDur: 900, tracks: 900, trackLag: 110, trackDur: 760, words: 1500, fade: 380, end: 2500 };
 const GROW_MS = 260;
 const COMPACT_SCALE = 190;
-const EMBER_REST = 0.26, EMBER_LIT = 0.42;
 const TURN = Math.PI * 2;
 
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
@@ -43,8 +47,14 @@ export function createMap(canvas, model, hooks = {}) {
   const objects = [];
   const byKey = new Map();
   const add = (o) => { o.index = objects.length; objects.push(o); byKey.set(o.key, o); return o; };
-  add({ key: 'core', type: 'core', x: 0, y: 0, r: 13 });
-  for (const s of L.satellites) add({ key: `sat:${s.id}`, type: 'satellite', id: s.id, x: s.x, y: s.y, r: 7.5 });
+  const coreObj = new Map();
+  for (const p of L.cores) {
+    const core = model.coreById.get(p.id);
+    const centre = p.id === 'replay_admission';
+    coreObj.set(p.id, add({ key: `core:${p.id}`, type: 'core', id: p.id, core, x: p.x, y: p.y, angle: p.angle, r: centre ? 11 : 8, centre,
+      tasks: core.verifiedTasks || 0, mutants: core.mutants.length }));
+  }
+  const replayCore = coreObj.get('replay_admission') || null;
   const kernelObj = new Map();
   for (const k of L.kernels) {
     const kernel = model.kernelById.get(k.id);
@@ -55,19 +65,19 @@ export function createMap(canvas, model, hooks = {}) {
         thread.push(polar(threadAngle(k.angle, k.to, r), r));
       }
     }
-    const o = add({ key: `kernel:${k.id}`, type: 'kernel', id: k.id, kernel, x: k.x, y: k.y, angle: k.angle, r: 8.5,
-      componentId: k.componentId, thread, generated: k.generated, caller: k.caller });
-    kernelObj.set(k.id, o);
+    kernelObj.set(k.id, add({ key: `kernel:${k.id}`, type: 'kernel', id: k.id, kernel, x: k.x, y: k.y, angle: k.angle, r: 8,
+      componentId: k.componentId, thread, generated: k.generated, caller: k.caller,
+      tasks: kernel.verifiedTasks || 0, mutants: kernel.mutants.length }));
   }
   const sectorOf = new Map();
   for (const s of L.sectors) for (const id of s.members) sectorOf.set(id, s);
   const compObj = new Map();
   for (const p of L.comps) {
     const c = model.byId.get(p.id);
-    const o = add({ key: `comp:${c.id}`, type: 'component', id: c.id, comp: c, x: p.x, y: p.y, angle: p.angle,
-      r: c.kernelId ? 6 : 5.2, formal: !!c.kernelId, sector: sectorOf.get(c.id) });
-    compObj.set(c.id, o);
+    compObj.set(c.id, add({ key: `comp:${c.id}`, type: 'component', id: c.id, comp: c, x: p.x, y: p.y, angle: p.angle,
+      r: c.kernelId ? 5.6 : 4.9, formal: !!c.kernelId, sector: sectorOf.get(c.id) }));
   }
+  const routed = new Set(replayCore ? replayCore.core.admitted.map((a) => a.componentId) : []);
   const wiresOf = new Map();
   for (const [a, b] of model.wires) {
     if (!wiresOf.has(a)) wiresOf.set(a, []);
@@ -75,19 +85,29 @@ export function createMap(canvas, model, hooks = {}) {
     wiresOf.get(a).push(b);
     wiresOf.get(b).push(a);
   }
+  const importsOf = new Map();
+  for (const e of model.imports) {
+    for (const [x, y] of [[e.from, e.to], [e.to, e.from]]) {
+      if (!importsOf.has(x)) importsOf.set(x, []);
+      importsOf.get(x).push(y);
+    }
+  }
 
   /* ---- State -------------------------------------------------------------- */
   const view = { k: 1, tx: 0, ty: 0 };
   let fittedK = 1, viewIsFitted = true;
-  let hover = null, selected = null;
+  let hover = null, selected = null, hoverTrack = -1;
   let matches = null; // Set of component ids, or null for "all"
+  let emphasis = null; // a track id lit from the panel, or null
+  let allWiring = false;
   let palette = {};
   let darkGround = false;
+  let hatch = null;
   let labelBoxes = [];
   let hairPx = 0.5;
   let frame = 0;
   let destroyed = false;
-  let onScreen = true;
+  const onScreen = true;
 
   /* ---- Palette ------------------------------------------------------------ */
   function cssColor(styles, name, fallback) {
@@ -106,16 +126,41 @@ export function createMap(canvas, model, hooks = {}) {
       stated: cssColor(styles, '--m-stated', '#93c5e6'),
       plate: cssColor(styles, '--m-plate', 'rgba(242,230,212,0.05)'),
       edge: cssColor(styles, '--m-edge', 'rgba(242,230,212,0.14)'),
-      edgeHot: cssColor(styles, '--m-edge-hot', 'rgba(151,193,223,0.7)'),
       halo: cssColor(styles, '--m-halo', 'rgba(242,230,212,0.12)'),
+      ember: cssColor(styles, '--m-ember', '#d9a48d'),
     };
     darkGround = isDark(palette.ground);
     // Red is drawn at its glow step on the dark ground, where the base step
     // reads muddy at mark size, and at its base step on paper.
     palette.red = darkGround ? palette.provedGlow : palette.proved;
     const ground = parseColor(palette.ground) || [0, 0, 0, 1];
-    palette.tone = mixOklab(palette.ink, rgbText(ground), 0.84, ground) || palette.faint;
-    palette.record = mixOklab(palette.ink, rgbText(ground), 0.55, ground) || palette.faint;
+    palette.groundText = rgbText(ground);
+    palette.tone = mixOklab(palette.ink, palette.groundText, 0.84, ground) || palette.faint;
+    palette.empty = mixOklab(palette.ink, palette.groundText, darkGround ? 0.9 : 0.92, ground) || palette.plate;
+    palette.redSoft = mixOklab(palette.red, palette.groundText, 0.55, ground) || palette.red;
+    palette.statedSoft = mixOklab(palette.stated, palette.groundText, darkGround ? 0.42 : 0.5, ground) || palette.stated;
+    hatch = makeHatch(mixOklab(palette.ink, palette.groundText, 0.62, ground) || palette.faint);
+    // Each coverage ring has its own colour (tokens.css --ring-*).
+    palette.ring = {};
+    for (const t of TRACKS) palette.ring[t.id] = cssColor(styles, `--ring-${t.id}`, t.ink === 'stated' ? palette.stated : t.ink === 'saved' ? palette.ember : palette.red);
+  }
+  function makeHatch(color) {
+    const tile = document.createElement('canvas');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const n = Math.round(5 * dpr);
+    tile.width = tile.height = n;
+    const g = tile.getContext('2d');
+    if (!g) return null;
+    g.strokeStyle = color;
+    g.lineWidth = Math.max(1, dpr * 0.8);
+    g.beginPath();
+    g.moveTo(-1, n + 1); g.lineTo(n + 1, -1);
+    g.moveTo(-1, 1); g.lineTo(1, -1);
+    g.moveTo(n - 1, n + 1); g.lineTo(n + 1, n - 1);
+    g.stroke();
+    const pattern = ctx.createPattern(tile, 'repeat');
+    if (pattern && pattern.setTransform && window.DOMMatrix) pattern.setTransform(new DOMMatrix().scale(1 / dpr));
+    return pattern;
   }
 
   /* ---- Camera ------------------------------------------------------------- */
@@ -123,7 +168,7 @@ export function createMap(canvas, model, hooks = {}) {
   function chromeBoxes() {
     if (!stage || !canvas.getBoundingClientRect) return [];
     const base = canvas.getBoundingClientRect();
-    return Array.from(stage.querySelectorAll('.explorer__tools, .explorer__legend > *')).map((el) => {
+    return Array.from(stage.querySelectorAll('.explorer__tools, .explorer__legend > *, .explorer__rings')).map((el) => {
       const r = el.getBoundingClientRect();
       return { x0: r.left - base.left, x1: r.right - base.left, y0: r.top - base.top, y1: r.bottom - base.top };
     }).filter((b) => b.x1 > b.x0 && b.y1 > b.y0);
@@ -137,8 +182,8 @@ export function createMap(canvas, model, hooks = {}) {
       const dx = Math.max(b.x0 - cx, 0, cx - b.x1), dy = Math.max(b.y0 - cy, 0, cy - b.y1);
       limit = Math.min(limit, Math.max(Math.min(w, h) * 0.36, Math.sqrt(dx * dx + dy * dy) - 6));
     }
-    // The family titles stand a fixed number of pixels beyond the scale, so
-    // the fit holds the scale's radius plus their reach, not a layout radius.
+    // The family titles stand a fixed number of pixels beyond the rings, so
+    // the fit holds the rings' radius plus their reach, not a layout radius.
     const full = 16 + TYPE.rowGap * 2 + 12;
     let k = Math.max(0.05, Math.min(limit / reach, (limit - full) / R.scale));
     // A small drawing names each family on one line, so it keeps its size.
@@ -221,8 +266,13 @@ export function createMap(canvas, model, hooks = {}) {
   }
   function centerOn(o) {
     if (!o) return;
-    if (o.type === 'core' || o.type === 'satellite') { cameraTo(fitTarget(), true); return; }
     const pts = [];
+    if (o.type === 'core') {
+      if (o.centre) { cameraTo(fitTarget(), true); return; }
+      for (let a = 0; a < TURN; a += TURN / 8) pts.push(polar(a, R.cores + 70));
+      cameraTo(frameOf(pts, 2.4), false, 90);
+      return;
+    }
     if (o.type === 'component') {
       const s = o.sector;
       for (let a = s.lo; a <= s.hi; a += (s.hi - s.lo) / 6) {
@@ -236,12 +286,12 @@ export function createMap(canvas, model, hooks = {}) {
       return;
     }
     if (o.type === 'kernel') {
-      // A kernel frames its whole chain: the core, the kernel, the thread and
-      // the component it reaches.
-      pts.push([0, 0], [o.x, o.y], polar(o.angle, R.kernel + 40));
+      // A kernel frames its whole chain: the kernel, the thread, the component
+      // it reaches and that component's coverage rings.
+      pts.push([o.x, o.y], polar(o.angle, R.kernel - 60));
       const c = o.componentId && compObj.get(o.componentId);
       if (c) pts.push([c.x, c.y], polar(c.angle, R.scale + 20));
-      cameraTo(frameOf(pts, 2.4), false, 90);
+      cameraTo(frameOf(pts, 2.6), false, 90);
     }
   }
 
@@ -291,29 +341,35 @@ export function createMap(canvas, model, hooks = {}) {
     set.add(key);
     if (o.type === 'component') {
       for (const w of wiresOf.get(o.id) || []) set.add(`comp:${w}`);
-      if (o.formal) { set.add(`kernel:${o.comp.kernelId}`); set.add('core'); set.add('sat:retained'); }
+      for (const w of importsOf.get(o.id) || []) set.add(`comp:${w}`);
+      if (o.formal) set.add(`kernel:${o.comp.kernelId}`);
+      if (replayCore && routed.has(o.id)) set.add(replayCore.key);
     } else if (o.type === 'kernel') {
       if (o.componentId) set.add(`comp:${o.componentId}`);
-      set.add('core'); set.add('sat:retained');
-    } else if (o.type === 'core' || o.id === 'retained') {
-      for (const k of kernelObj.values()) { set.add(k.key); if (k.componentId) set.add(`comp:${k.componentId}`); }
-      set.add('core'); set.add('sat:retained'); set.add('sat:fresh');
-    } else if (o.id === 'fresh') {
-      set.add('core');
+    } else if (o.type === 'core' && o.centre) {
+      for (const c of compObj.values()) if (routed.has(c.id)) set.add(c.key);
     }
     return set;
   }
 
-  /* ---- Opening: the core, the kernels, the threads, then the ring -------- */
+  /* ---- Opening ------------------------------------------------------------- */
   let reveal = 1, revealMs = 1e9, revealFrame = 0;
   const revealAlpha = (delay) => (reveal >= 1 ? 1 : 1 - 2 ** (-10 * clamp01((revealMs - delay) / REVEAL.fade)));
   const threadReach = () => (reveal >= 1 ? 1 : ease(clamp01((revealMs - REVEAL.threads) / REVEAL.threadDur)));
+  const spokeReach = () => (reveal >= 1 ? 1 : ease(clamp01((revealMs - REVEAL.spokes) / REVEAL.spokeDur)));
+  // Share of the way round the ring, clockwise from the key wedge.
+  const share = (angle) => ((((angle + Math.PI / 2 - KEY_GAP / 2) % TURN) + TURN) % TURN) / (TURN - KEY_GAP);
   function penAt(angle, lag = 0) {
     if (reveal >= 1) return 1;
-    const share = (((angle + Math.PI / 2) % TURN) + TURN) % TURN / TURN;
     const pen = (revealMs - REVEAL.pen - lag) / REVEAL.penDur;
-    const t = (pen - share) / 0.08;
+    const t = (pen - share(angle)) / 0.08;
     return t <= 0 ? 0 : t >= 1 ? 1 : 1 - (1 - t) ** 3;
+  }
+  function trackPen(angle, i) {
+    if (reveal >= 1) return 1;
+    const pen = (revealMs - REVEAL.tracks - i * REVEAL.trackLag) / REVEAL.trackDur;
+    const t = (pen - share(angle)) / 0.05;
+    return t <= 0 ? 0 : t >= 1 ? 1 : 1 - (1 - t) ** 2;
   }
   function startReveal() {
     if (reduceMotion || document.hidden) { reveal = 1; request(); return; }
@@ -330,7 +386,7 @@ export function createMap(canvas, model, hooks = {}) {
     revealFrame = requestAnimationFrame(step);
   }
 
-  /* ---- Lit threads grow out from the focus -------------------------------- */
+  /* ---- Lit lines grow out from the focus ----------------------------------- */
   let growth = 1, growthFrame = 0;
   function startGrowth() {
     if (reduceMotion) { growth = 1; return; }
@@ -348,11 +404,12 @@ export function createMap(canvas, model, hooks = {}) {
   }
 
   /* ---- The evidence pulse ------------------------------------------------- */
-  // A chosen component sends a ripple and beads along where its evidence
-  // goes: inward along its chain to its kernel and the retained verification,
-  // which answers; or, with no modeled contract, outward to its saved records,
-  // and nothing at the centre answers.
+  // A chosen component sends beads where its checks run: inward along its
+  // thread to its kernel, which answers, and along its replay spoke to the
+  // admission core. A chosen kernel sends beads out along its thread to the
+  // component that calls it. The admission core sends a bead down every spoke.
   const pulse = { key: null, ms: 1e9, frame: 0, legs: [], blooms: [], end: 0 };
+  const spokeOf = (c) => [polar(c.angle, R.component - 10), polar(c.angle, 22)];
   function startPulse(key) {
     if (pulse.frame) cancelAnimationFrame(pulse.frame);
     pulse.frame = 0; pulse.key = key; pulse.ms = 1e9;
@@ -360,24 +417,26 @@ export function createMap(canvas, model, hooks = {}) {
     const o = byKey.get(key);
     const legs = [];
     const blooms = [];
-    const toCore = (k) => [[k.x, k.y], [k.x * 0.5, k.y * 0.5], [0, 0]];
-    if (o.type === 'component' && o.formal) {
-      const k = kernelObj.get(o.comp.kernelId);
-      legs.push({ pts: [...k.thread].reverse(), delay: PULSE_WAIT, dur: PULSE_TRAVEL });
-      blooms.push({ key: k.key, at: PULSE_WAIT + PULSE_TRAVEL });
-      legs.push({ pts: toCore(k), delay: PULSE_WAIT + PULSE_TRAVEL + 60, dur: PULSE_TRAVEL * 0.6 });
-      blooms.push({ key: 'sat:retained', at: PULSE_WAIT + PULSE_TRAVEL * 1.6 + 60 });
-    } else if (o.type === 'component') {
-      const n = Math.max(1, o.comp.receipts.length);
-      legs.push({ pts: [polar(o.angle, R.component), polar(o.angle, R.record0 + (n - 1) * R.recordStep)], delay: PULSE_WAIT, dur: PULSE_TRAVEL * 0.7 });
+    if (o.type === 'component') {
+      if (o.formal) {
+        const k = kernelObj.get(o.comp.kernelId);
+        legs.push({ pts: [...k.thread].reverse(), delay: PULSE_WAIT, dur: PULSE_TRAVEL, ink: 'red' });
+        blooms.push({ key: k.key, at: PULSE_WAIT + PULSE_TRAVEL });
+      }
+      if (replayCore && routed.has(o.id)) {
+        legs.push({ pts: spokeOf(o), delay: PULSE_WAIT + PULSE_STAGGER, dur: PULSE_TRAVEL * 1.1, ink: 'stated' });
+        blooms.push({ key: replayCore.key, at: PULSE_WAIT + PULSE_STAGGER + PULSE_TRAVEL * 1.1, ink: 'stated' });
+      }
     } else if (o.type === 'kernel') {
-      if (o.thread.length) legs.push({ pts: o.thread, delay: PULSE_WAIT, dur: PULSE_TRAVEL });
-      legs.push({ pts: toCore(o), delay: PULSE_WAIT + PULSE_STAGGER, dur: PULSE_TRAVEL * 0.6 });
-      blooms.push({ key: 'sat:retained', at: PULSE_WAIT + PULSE_STAGGER + PULSE_TRAVEL * 0.6 });
-    } else if (o.type === 'core' || o.id === 'retained') {
+      if (o.thread.length) {
+        legs.push({ pts: o.thread, delay: PULSE_WAIT, dur: PULSE_TRAVEL, ink: 'red' });
+        blooms.push({ key: `comp:${o.componentId}`, at: PULSE_WAIT + PULSE_TRAVEL });
+      }
+    } else if (o.type === 'core' && o.centre) {
       let i = 0;
-      for (const k of kernelObj.values()) {
-        legs.push({ pts: [[0, 0], [k.x * 0.5, k.y * 0.5], [k.x, k.y]], delay: PULSE_WAIT + (i % 4) * PULSE_STAGGER, dur: PULSE_TRAVEL * 0.7 });
+      for (const c of compObj.values()) {
+        if (!routed.has(c.id)) continue;
+        legs.push({ pts: [...spokeOf(c)].reverse(), delay: PULSE_WAIT + (i % 6) * PULSE_STAGGER, dur: PULSE_TRAVEL * 1.1, ink: 'stated' });
         i += 1;
       }
     }
@@ -469,6 +528,58 @@ export function createMap(canvas, model, hooks = {}) {
         ctx.arc(x, y, r * 0.45, 0, TURN); ctx.fill();
     }
   }
+  // A verified computation as a flower: one thin petal per verified task in
+  // the retained record, its specification as an azure ring round a red
+  // point, and a cross outside for each broken variant the verifier rejected.
+  function drawFlower(o, x, y, len, alpha, bloomAt) {
+    const n = o.tasks;
+    const base = o.angle + Math.PI;
+    const thin = n > 24 ? 0.085 : n > 14 ? 0.11 : 0.14;
+    ctx.lineWidth = Math.max(hairPx, Math.min(1.05, len / 24));
+    ctx.strokeStyle = palette.red;
+    ctx.fillStyle = palette.red;
+    for (let i = 0; i < n; i += 1) {
+      const unfold = reveal >= 1 ? 1 : clamp01((revealMs - bloomAt - i * 14) / 260);
+      if (unfold <= 0) continue;
+      const l = len * (0.5 + 0.5 * unfold);
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(base + (i / n) * TURN);
+      ctx.beginPath();
+      ctx.ellipse(l * 0.5 + len * 0.06, 0, l * 0.5, Math.max(0.7, l * thin), 0, 0, TURN);
+      ctx.globalAlpha = alpha * (darkGround ? 0.1 : 0.07) * unfold;
+      ctx.fill();
+      ctx.globalAlpha = alpha * (darkGround ? 0.7 : 0.62) * unfold;
+      ctx.stroke();
+      ctx.restore();
+    }
+    const ring = Math.max(3, len * 0.3);
+    ctx.globalAlpha = alpha;
+    ctx.beginPath(); ctx.arc(x, y, ring, 0, TURN);
+    ctx.fillStyle = palette.ground; ctx.fill();
+    ctx.lineWidth = Math.max(1.1, len * 0.075);
+    ctx.strokeStyle = palette.stated; ctx.stroke();
+    ctx.beginPath(); ctx.arc(x, y, Math.max(1.5, ring * 0.42), 0, TURN);
+    ctx.fillStyle = palette.red; ctx.fill();
+    const m = o.mutants;
+    if (m) {
+      const out = Math.hypot(o.x, o.y) > 1 ? Math.atan2(o.y, o.x) : -Math.PI / 2;
+      const arm = Math.max(1.7, len * 0.11);
+      ctx.strokeStyle = palette.ink;
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = alpha * 0.8 * (reveal >= 1 ? 1 : clamp01((revealMs - bloomAt - n * 14) / 260));
+      for (let i = 0; i < m; i += 1) {
+        const ang = out + (i - (m - 1) / 2) * 0.42;
+        const mx = x + Math.cos(ang) * (len + arm + 4), my = y + Math.sin(ang) * (len + arm + 4);
+        ctx.beginPath();
+        ctx.moveTo(mx - arm, my - arm); ctx.lineTo(mx + arm, my + arm);
+        ctx.moveTo(mx + arm, my - arm); ctx.lineTo(mx - arm, my + arm);
+        ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+  const petalPx = (o, rs) => R.petal * (o.type === 'core' ? (o.centre ? 1.45 : 1.08) : 1) * view.k * Math.max(1, rs * 0.9);
   // A kernel's name stays inside the component band, never over its marks.
   function insideRing(box) {
     const limit = (R.component - 22) * view.k;
@@ -510,7 +621,7 @@ export function createMap(canvas, model, hooks = {}) {
   }
   // Upright text along a circle about the centre: the upper half reads
   // clockwise, the lower half anticlockwise, so neither runs upside down.
-  function drawArcText(text, font, color, alpha, radius, mid, lower) {
+  function drawArcText(text, font, color, alpha, radius, mid, lower, halo = true) {
     ctx.font = font;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -519,7 +630,7 @@ export function createMap(canvas, model, hooks = {}) {
     const dir = lower ? -1 : 1;
     const run = arcLetters(text);
     const at = mid - dir * (run.width / radius) / 2;
-    for (let pass = 0; pass < 2; pass += 1) {
+    for (let pass = halo ? 0 : 1; pass < 2; pass += 1) {
       for (const [ch, offset] of run.letters) {
         const angle = at + dir * offset / radius;
         ctx.save();
@@ -537,6 +648,15 @@ export function createMap(canvas, model, hooks = {}) {
       const ex = view.tx + radius * Math.cos(a), ey = view.ty + radius * Math.sin(a);
       labelBoxes.push({ x0: ex - 9, x1: ex + 9, y0: ey - 9, y1: ey + 9 });
     }
+  }
+  // One cell: an annular sector of the component's slot, less a fixed gap.
+  function cellPath(angle, halfAngle, gap, r0, r1) {
+    const k = view.k;
+    const h1 = halfAngle - gap / r1, h0 = halfAngle - gap / r0;
+    ctx.beginPath();
+    ctx.arc(view.tx, view.ty, r1 * k, angle - h1, angle + h1);
+    ctx.arc(view.tx, view.ty, r0 * k, angle + h0, angle - h0, true);
+    ctx.closePath();
   }
 
   /* ---- Paint ------------------------------------------------------------- */
@@ -561,129 +681,143 @@ export function createMap(canvas, model, hooks = {}) {
     const focus = trackFocus(hover || selected);
     const lit = near(focus);
     const rs = rScale();
-    const searching = !!matches;
     const shown = (c) => !matches || matches.has(c.id);
     const fade = (key) => (focus && !lit.has(key) ? dimmed(0.22) : 1);
 
-    drawPlates(focus, lit);
-    drawScale(focus, rs, w, h);
-    drawSpokes(focus, lit);
-    drawThreads(focus, lit, shown);
-    drawWiring(focus, rs);
+    drawDepth(w, h);
+    drawOrbits();
+    drawSpokes(focus, lit, shown);
+    drawWiring(focus, shown);
+    drawThreads(focus, lit, shown, rs);
     if (darkGround) drawEmbers(focus, lit, rs, shown);
-    drawFamilyWords(focus, lit);
-    drawRecords(focus, lit, rs, shown, fade);
+    drawTracks(focus, shown);
+    drawTrackKey(focus);
+    drawFamilyWords(focus);
     drawKernels(focus, lit, rs, shown, fade);
-    drawCore(focus, lit, rs, fade);
-    drawComponents(focus, lit, rs, shown, fade, searching);
+    drawCores(focus, lit, rs, fade);
+    drawComponents(focus, lit, rs, shown, fade);
     drawAnchorWords(focus, lit, rs);
-    drawComponentNames(focus, lit, rs, shown);
+    drawComponentNames(focus, lit, shown);
     drawPulse(rs);
     drawPlatesFor(focus, rs, w, h);
     drawReticles(rs);
     ctx.globalAlpha = 1;
   }
 
-  // The family sectors as faint plates, a lit sector as one wash.
-  function drawPlates(focus, lit) {
-    const k = view.k;
-    const fo = focus ? byKey.get(focus) : null;
-    const top = R.record0 + 9 * R.recordStep;
-    for (const s of L.sectors) {
-      const on = fo && fo.type === 'component' && fo.sector === s;
-      const a = revealAlpha(REVEAL.records);
-      ctx.globalAlpha = (on ? 0.9 * focusMix + 1 * (1 - focusMix) : 1) * a;
-      ctx.fillStyle = on ? palette.halo : palette.plate;
-      ctx.beginPath();
-      ctx.arc(view.tx, view.ty, (top + 8) * k, s.lo + 0.01, s.hi - 0.01);
-      ctx.arc(view.tx, view.ty, (R.component - 16) * k, s.hi - 0.01, s.lo + 0.01, true);
-      ctx.closePath();
-      ctx.fill();
-      ctx.globalAlpha = (on ? 0.5 : 0.85) * a;
-      ctx.strokeStyle = on ? palette.muted : palette.edge;
-      ctx.lineWidth = hairPx;
-      ctx.stroke();
-    }
-    // The kernels' orbit: one hairline, so the inner ring reads as a structure.
-    ctx.globalAlpha = 0.9 * revealAlpha(REVEAL.kernels);
+  // A faint light at the centre, so the drawing has depth without a frame.
+  function drawDepth() {
+    const r = R.component * view.k;
+    if (r < 40) return;
+    const g = ctx.createRadialGradient(view.tx, view.ty, 0, view.tx, view.ty, r * 1.05);
+    const tone = parseColor(palette.ink) || [1, 1, 1, 1];
+    const rgb = `${Math.round(tone[0] * 255)},${Math.round(tone[1] * 255)},${Math.round(tone[2] * 255)}`;
+    g.addColorStop(0, `rgba(${rgb},${darkGround ? 0.05 : 0.035})`);
+    g.addColorStop(0.55, `rgba(${rgb},${darkGround ? 0.022 : 0.015})`);
+    g.addColorStop(1, `rgba(${rgb},0)`);
+    ctx.globalAlpha = revealAlpha(REVEAL.core);
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(view.tx, view.ty, r * 1.05, 0, TURN); ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  // The kernels' orbit and the cores' orbit as hairlines, so the inner rings
+  // read as structure.
+  function drawOrbits() {
     ctx.strokeStyle = palette.edge;
     ctx.lineWidth = hairPx;
-    ctx.beginPath();
-    ctx.arc(view.tx, view.ty, R.kernel * k, 0, TURN);
-    ctx.stroke();
+    ctx.globalAlpha = 0.9 * revealAlpha(REVEAL.kernels);
+    ctx.beginPath(); ctx.arc(view.tx, view.ty, R.kernel * view.k, 0, TURN); ctx.stroke();
+    ctx.globalAlpha = 0.6 * revealAlpha(REVEAL.cores);
+    ctx.setLineDash([2, 3]);
+    ctx.beginPath(); ctx.arc(view.tx, view.ty, R.cores * view.k, 0, TURN); ctx.stroke();
+    ctx.setLineDash([]);
     ctx.globalAlpha = 1;
   }
 
-  // One tick per component round the ring, every fifth longer, and the
-  // boundaries between families as its strongest marks. A cursor bar stands
-  // on the selected component's tick.
-  function drawScale(focus, rs, w, h) {
-    const Rpx = R.scale * view.k;
-    if (Rpx < 60) return;
-    const a = revealAlpha(REVEAL.words);
-    ctx.strokeStyle = palette.ink;
-    ctx.lineWidth = hairPx;
-    for (const s of L.sectors) {
-      s.members.forEach((id, j) => {
-        const o = compObj.get(id);
-        const len = (j + 1) % 5 === 0 ? 4.5 : 2.6;
-        const c = Math.cos(o.angle), sn = Math.sin(o.angle);
-        ctx.globalAlpha = (j + 1) % 5 === 0 ? 0.42 * a : 0.26 * a;
-        ctx.beginPath();
-        ctx.moveTo(view.tx + c * Rpx, view.ty + sn * Rpx);
-        ctx.lineTo(view.tx + c * (Rpx + len), view.ty + sn * (Rpx + len));
-        ctx.stroke();
-      });
-    }
-    ctx.globalAlpha = 0.7 * a;
-    ctx.lineWidth = hairPx * 2;
-    for (let i = 0; i < L.sectors.length; i += 1) {
-      const cur = L.sectors[i], next = L.sectors[(i + 1) % L.sectors.length];
-      const mid = cur.hi + ((((next.lo - cur.hi) % TURN) + TURN) % TURN) / 2;
-      const c = Math.cos(mid), sn = Math.sin(mid);
-      ctx.beginPath();
-      ctx.moveTo(view.tx + c * (Rpx - 2), view.ty + sn * (Rpx - 2));
-      ctx.lineTo(view.tx + c * (Rpx + 8), view.ty + sn * (Rpx + 8));
-      ctx.stroke();
-    }
-    const sel = selected && byKey.get(selected);
-    if (sel && sel.type === 'component') {
-      const c = Math.cos(sel.angle), sn = Math.sin(sel.angle);
-      ctx.globalAlpha = 1;
-      ctx.strokeStyle = palette.ink;
-      ctx.lineWidth = hairPx * 2.4;
-      ctx.beginPath();
-      ctx.moveTo(view.tx + c * (Rpx - 4), view.ty + sn * (Rpx - 4));
-      ctx.lineTo(view.tx + c * (Rpx + 9), view.ty + sn * (Rpx + 9));
-      ctx.stroke();
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  // From the core to each kernel: the retained verification each kernel stands on.
-  function drawSpokes(focus, lit) {
-    const a = revealAlpha(REVEAL.kernels);
+  // Every component's configured replay route, as a hairline spoke to the
+  // admission core at the centre. Azure: configured, not run here.
+  function drawSpokes(focus, lit, shown) {
+    if (!replayCore) return;
+    const reach = spokeReach();
+    if (reach <= 0) return;
     const fo = focus ? byKey.get(focus) : null;
-    const allLit = fo && (fo.type === 'core' || fo.id === 'retained');
-    for (const k of kernelObj.values()) {
-      const on = allLit || (fo && lit.has(k.key) && (fo.type === 'kernel' || fo.type === 'component'));
-      ctx.strokeStyle = on ? palette.red : palette.edge;
-      ctx.lineWidth = on ? 1.1 : hairPx;
-      ctx.globalAlpha = (on ? 0.85 : (focus ? dimmed(0.6) : 0.9)) * a;
-      const inner = 14 / view.k, outer = k.r * 1.6 / view.k;
-      const d = Math.hypot(k.x, k.y);
-      const ux = k.x / d, uy = k.y / d;
-      const upto = on ? growth : 1;
-      strokePath([[ux * inner, uy * inner], [ux * (inner + (d - outer - inner) * upto), uy * (inner + (d - outer - inner) * upto)]]);
+    const all = fo === replayCore;
+    const emph = emphasis === 'replay';
+    ctx.strokeStyle = palette.stated;
+    for (const c of compObj.values()) {
+      if (!routed.has(c.id)) continue;
+      const on = all || (fo && fo.type === 'component' && fo === c);
+      let alpha = on ? 0.62 : emph ? 0.32 : darkGround ? 0.085 : 0.11;
+      if (fo && !on) alpha *= dimmed(0.5);
+      if (!shown(c.comp)) alpha *= 0.3;
+      ctx.lineWidth = on ? 1.05 : hairPx;
+      ctx.globalAlpha = alpha;
+      const [a, b] = spokeOf(c);
+      // The spoke grows out from the centre in the opening.
+      strokePath([b, a], reach * (on ? growth : 1));
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // Declared wiring, bundled round inside the ring: azure, because it is
+  // stated in source, not observed in a run, and untyped. Lexical imports
+  // between runner modules are drawn solid on top.
+  const wirePaths = new Map();
+  function wirePath(a, b) {
+    const key = `${a.id}|${b.id}`;
+    if (wirePaths.has(key)) return wirePaths.get(key);
+    const d = shortArc(a.angle, b.angle);
+    const depth = Math.min(150, 26 + 150 * Math.abs(d) / Math.PI);
+    const r0 = R.component - 9;
+    const pts = [];
+    for (let i = 0; i <= 28; i += 1) {
+      const t = i / 28;
+      const r = r0 - depth * (4 * t * (1 - t)) ** 0.8;
+      pts.push(polar(a.angle + d * t, r));
+    }
+    wirePaths.set(key, pts);
+    return pts;
+  }
+  function drawWiring(focus, shown) {
+    const fo = focus ? byKey.get(focus) : null;
+    const component = fo && fo.type === 'component' ? fo : null;
+    if (allWiring) {
+      ctx.strokeStyle = palette.stated;
+      ctx.lineWidth = hairPx * 1.4;
+      for (const [x, y] of model.wires) {
+        const a = compObj.get(x), b = compObj.get(y);
+        const on = component && (component === a || component === b);
+        if (on) continue;
+        ctx.globalAlpha = (darkGround ? 0.3 : 0.34) * (component ? dimmed(0.4) : 1) * (shown(a.comp) || shown(b.comp) ? 1 : 0.25);
+        strokePath(wirePath(a, b));
+      }
+    }
+    if (!component) return;
+    ctx.strokeStyle = palette.stated;
+    ctx.lineWidth = 1.1;
+    for (const id of wiresOf.get(component.id) || []) {
+      const o = compObj.get(id);
+      if (!o) continue;
+      ctx.globalAlpha = 0.85 * focusMix;
+      strokePath(wirePath(component, o), growth);
+    }
+    ctx.lineWidth = 1.7;
+    for (const e of model.imports) {
+      if (e.from !== component.id && e.to !== component.id) continue;
+      const a = compObj.get(e.from), b = compObj.get(e.to);
+      if (!a || !b) continue;
+      ctx.globalAlpha = 0.95 * focusMix;
+      strokePath(wirePath(a, b), growth);
     }
     ctx.globalAlpha = 1;
   }
 
   // Each kernel's thread out to its component, through its generated code
   // and its caller: the paper's chain, drawn radially.
-  function drawThreads(focus, lit, shown) {
+  function drawThreads(focus, lit, shown, rs) {
     const reach = threadReach();
     if (reach <= 0) return;
+    const close = view.k >= fittedK * 1.6;
     for (const k of kernelObj.values()) {
       if (!k.thread.length) continue;
       const comp = compObj.get(k.componentId);
@@ -691,23 +825,24 @@ export function createMap(canvas, model, hooks = {}) {
       const off = focus && !on;
       const matchFade = comp && !shown(comp.comp) ? 0.25 : 1;
       ctx.strokeStyle = palette.red;
-      ctx.lineWidth = on ? 1.6 : 1;
-      ctx.globalAlpha = (on ? 0.95 : off ? dimmed(0.5) * 0.55 : 0.55) * matchFade;
+      ctx.lineWidth = on ? 1.7 : 1.05;
+      ctx.globalAlpha = (on ? 0.95 : off ? dimmed(0.5) * 0.6 : 0.62) * matchFade;
       strokePath(k.thread, reach * (on ? growth : 1));
+      if (!on && !close) continue;
       // Generated code: a small square; the caller: a diamond.
-      const at = (pt, r0) => (reach >= (r0 - R.kernel) / (R.component - R.kernel));
-      const rr = on ? 3.6 : 3;
-      if (k.generated && at(k.generated, R.generated)) {
+      const rr = (on ? 3.4 : 2.8) * Math.min(1.3, rs);
+      const at = (r0) => reach >= (r0 - R.kernel) / (R.component - R.kernel);
+      if (k.generated && at(R.generated)) {
         const x = sx(k.generated[0]), y = sy(k.generated[1]);
-        ctx.globalAlpha = (on ? 1 : off ? dimmed(0.4) : 0.85) * matchFade;
+        ctx.globalAlpha = (on ? 1 : 0.8) * matchFade;
         ctx.fillStyle = palette.ground;
         ctx.fillRect(x - rr, y - rr, rr * 2, rr * 2);
         ctx.lineWidth = 1.1;
         ctx.strokeRect(x - rr, y - rr, rr * 2, rr * 2);
       }
-      if (k.caller && at(k.caller, R.caller)) {
+      if (k.caller && at(R.caller)) {
         const x = sx(k.caller[0]), y = sy(k.caller[1]);
-        ctx.globalAlpha = (on ? 1 : off ? dimmed(0.4) : 0.85) * matchFade;
+        ctx.globalAlpha = (on ? 1 : 0.8) * matchFade;
         ctx.beginPath();
         ctx.moveTo(x, y - rr * 1.25); ctx.lineTo(x + rr * 1.25, y); ctx.lineTo(x, y + rr * 1.25); ctx.lineTo(x - rr * 1.25, y);
         ctx.closePath();
@@ -721,51 +856,127 @@ export function createMap(canvas, model, hooks = {}) {
     ctx.globalAlpha = 1;
   }
 
-  // Declared wiring of the component in focus: azure, because it is stated
-  // in source, not observed in a run, and untyped (component_index.py).
-  function drawWiring(focus) {
-    const fo = focus ? byKey.get(focus) : null;
-    if (!fo || fo.type !== 'component') return;
-    const others = wiresOf.get(fo.id) || [];
-    if (!others.length) return;
-    ctx.strokeStyle = palette.stated;
-    ctx.lineWidth = 1.05;
-    for (const id of others) {
-      const o = compObj.get(id);
-      if (!o) continue;
-      const d = Math.abs(shortArc(fo.angle, o.angle));
-      const mid = fo.angle + shortArc(fo.angle, o.angle) / 2;
-      const cr = R.component * (0.96 - 0.5 * (d / Math.PI));
-      const c = polar(mid, cr);
-      const pts = [];
-      for (let i = 0; i <= 20; i += 1) {
-        const t = i / 20, u = 1 - t;
-        pts.push([u * u * fo.x * 0.985 + 2 * u * t * c[0] + t * t * o.x * 0.985, u * u * fo.y * 0.985 + 2 * u * t * c[1] + t * t * o.y * 0.985]);
-      }
-      ctx.globalAlpha = 0.78 * focusMix;
-      strokePath(pts, growth);
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  // Light belongs to machine-checked evidence: on the dark ground the twelve
-  // components with a retained proof and their kernels glow faintly, an
-  // ember each, and nothing else does.
+  // Light belongs to machine-checked evidence: on the dark ground the
+  // verified computations and the components that call them glow faintly.
   function drawEmbers(focus, lit, rs, shown) {
     ctx.globalCompositeOperation = 'lighter';
     for (const c of compObj.values()) {
       if (!c.formal || !shown(c.comp)) continue;
       const on = focus && lit.has(c.key);
-      const a = (on ? EMBER_LIT : EMBER_REST) * (focus && !on ? 1 - focusMix : 1) * penAt(c.angle);
-      drawGlow(sx(c.x), sy(c.y), c.r * rs * 2.9, palette.red, a);
+      drawGlow(sx(c.x), sy(c.y), c.r * rs * 3, palette.red, (on ? 0.42 : 0.24) * (focus && !on ? 1 - focusMix : 1) * penAt(c.angle));
     }
-    for (const k of kernelObj.values()) {
-      const on = focus && lit.has(k.key);
-      drawGlow(sx(k.x), sy(k.y), k.r * rs * 2.4, palette.red, (on ? 0.34 : 0.2) * (focus && !on ? 1 - focusMix : 1) * revealAlpha(REVEAL.kernels));
+    for (const o of [...kernelObj.values(), ...coreObj.values()]) {
+      const on = focus && lit.has(o.key);
+      const len = petalPx(o, rs);
+      drawGlow(sx(o.x), sy(o.y), len * 1.5, palette.red, (on ? 0.3 : 0.16) * (focus && !on ? 1 - focusMix : 1) * revealAlpha(o.type === 'core' ? REVEAL.core : REVEAL.kernels));
     }
-    const sat = byKey.get('sat:retained');
-    drawGlow(sx(sat.x), sy(sat.y), sat.r * rs * 3, palette.red, 0.3 * revealAlpha(REVEAL.core));
     ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+  }
+
+  // The coverage rings: one cell per component per kind of check. Red where a
+  // machine checked and the result was kept, azure where it is stated or
+  // configured, ember for saved runs, a hatch where nothing is established,
+  // and an empty cell where the index lists no such check.
+  function cellInk(track, c) {
+    if (track.ink === 'unknown') return 'unknown';
+    if (!c.comp.checks[track.id]) return 'empty';
+    return track.ink;
+  }
+  function drawTracks(focus, shown) {
+    const fo = focus ? byKey.get(focus) : null;
+    const column = fo && fo.type === 'component' ? fo : fo && fo.type === 'kernel' ? compObj.get(fo.componentId) : null;
+    const k = view.k;
+    const close = k >= fittedK * 1.3;
+    const halfCell = L.pitch / 2;
+    TRACKS.forEach((track, i) => {
+      const [r0, r1] = trackBand(i);
+      const emph = !emphasis || emphasis === track.id;
+      for (const c of compObj.values()) {
+        const p = trackPen(c.angle, i);
+        if (p <= 0) continue;
+        const ink = cellInk(track, c);
+        const inColumn = column === c;
+        let alpha = p * (shown(c.comp) ? 1 : 0.16) * (emph ? 1 : 0.28);
+        if (column && !inColumn) alpha *= dimmed(0.45);
+        cellPath(c.angle, halfCell, 0.75, r0, r1);
+        if (ink === 'empty') {
+          ctx.globalAlpha = alpha * (darkGround ? 0.9 : 1);
+          ctx.fillStyle = palette.empty;
+          ctx.fill();
+        } else if (ink === 'unknown') {
+          ctx.globalAlpha = alpha * 0.85;
+          ctx.fillStyle = hatch || palette.empty;
+          ctx.fill();
+        } else {
+          ctx.globalAlpha = alpha * 0.95;
+          ctx.fillStyle = palette.ring[track.id];
+          ctx.fill();
+          if (ink === 'saved' && close) {
+            // One notch per saved record; an absent one as a hollow notch.
+            const recs = c.comp.receipts;
+            const n = recs.length;
+            const rm = (r0 + r1) / 2;
+            const span = 2 * (halfCell - 0.75 / rm);
+            recs.forEach((rec, j) => {
+              const a = c.angle + ((j + 0.5) / n - 0.5) * span * 0.86;
+              const x = view.tx + Math.cos(a) * rm * k, y = view.ty + Math.sin(a) * rm * k;
+              const dot = Math.max(0.8, Math.min(2.2, (span * rm * k) / (n * 2.6)));
+              ctx.globalAlpha = alpha;
+              ctx.beginPath(); ctx.arc(x, y, dot, 0, TURN);
+              if (rec.availability === 'available' && rec.status !== 'blocked') { ctx.fillStyle = palette.ground; ctx.fill(); }
+              else { ctx.strokeStyle = palette.ground; ctx.lineWidth = 1; ctx.stroke(); }
+            });
+          }
+        }
+      }
+    });
+    if (column) {
+      // The chosen component's column, outlined from its mark to the last ring.
+      const [, rOut] = trackBand(TRACKS.length - 1);
+      ctx.globalAlpha = 0.9;
+      ctx.strokeStyle = palette.ink;
+      ctx.lineWidth = Math.max(1, hairPx * 2.2);
+      cellPath(column.angle, halfCell, -0.9, R.track0 - 2.2, rOut + 2.2);
+      ctx.stroke();
+      if (hoverTrack >= 0 && hover === column.key) {
+        const [a0, a1] = trackBand(hoverTrack);
+        cellPath(column.angle, halfCell, -0.4, a0 - 1.3, a1 + 1.3);
+        ctx.lineWidth = Math.max(1.4, hairPx * 3);
+        ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // The rings' names, in the wedge kept clear at the top: each name in its
+  // ring's own ink, so the wedge is also the key.
+  function drawTrackKey(focus) {
+    const a = revealAlpha(REVEAL.words);
+    if (a <= 0.01) return;
+    const k = view.k;
+    const pitchPx = (R.trackH + R.trackGap) * k;
+    const size = Math.min(10.5, pitchPx * 0.8);
+    if (size < 8.4) return;
+    const fo = focus ? byKey.get(focus) : null;
+    TRACKS.forEach((track, i) => {
+      const [r0, r1] = trackBand(i);
+      const rm = ((r0 + r1) / 2) * k;
+      const room = (KEY_GAP * r0 * k) - 10;
+      let px = size;
+      ctx.font = face(600, px, false, SANS);
+      const w = ctx.measureText(track.short).width;
+      if (w > room) px = size * room / w;
+      if (px < 6.2) return;
+      const color = track.ink === 'unknown' ? palette.muted : palette.ring[track.id];
+      const on = !emphasis || emphasis === track.id;
+      const alpha = a * (on ? 1 : 0.4) * (fo && fo.type === 'component' ? dimmed(0.7) : 1);
+      drawArcText(track.short, face(600, px, false, SANS), color, alpha, rm, -Math.PI / 2, false, false);
+    });
+    // "Checks" just inside the first ring names the rings as one key.
+    if (size >= 7.4) {
+      drawArcText('CHECKS', face(700, Math.min(9, size * 0.88), false, SANS), palette.muted, a * 0.85, (R.track0 - 9) * k, -Math.PI / 2, false, false);
+    }
     ctx.globalAlpha = 1;
   }
 
@@ -773,8 +984,6 @@ export function createMap(canvas, model, hooks = {}) {
   // what it holds. A name that would run into a neighbour's steps out a band.
   function drawFamilyWords(focus) {
     const a = revealAlpha(REVEAL.words);
-    // Close enough for the components to name themselves, the panel names
-    // the family instead, so the two never run across each other.
     if (a <= 0.01 || R.scale * view.k < 90 || namesShown()) return;
     const fo = focus ? byKey.get(focus) : null;
     const base = R.scale * view.k + 16;
@@ -783,20 +992,23 @@ export function createMap(canvas, model, hooks = {}) {
     const plans = L.sectors.map((s) => {
       const lower = Math.sin(s.mid) > 0.08;
       const formal = s.members.filter((id) => compObj.get(id).formal).length;
-      const name = FAMILY_NAME[s.family] || s.family;
-      const tally = `${count(s.count, 'component')}${formal ? `, ${formal} with a verified kernel` : ''}`;
+      const name = familyName(s.family);
+      const tally = `${count(s.count, 'component')}${formal ? `, ${formal} with a proved part` : ''}`;
       ctx.font = face(600, TYPE.title);
       const nameW = ctx.measureText(name).width;
       ctx.font = face(400, TYPE.count, true);
       const tallyW = ctx.measureText(tally).width;
-      return { s, lower, name, tally, half: ((compact ? nameW : Math.max(nameW, tallyW)) / 2 + 10) / base, shift: 0 };
+      return { s, lower, name, tally, half: ((compact ? nameW : Math.max(nameW, tallyW)) / 2 + 10) / base, nameHalf: (nameW / 2 + 10) / base, shift: 0 };
     });
     const order = [...plans].sort((p, q) => q.s.count - p.s.count);
     const placed = [];
+    const clashes = (p, shift) => placed.some((q) => q.shift === shift && Math.abs(shortArc(q.s.mid, p.s.mid)) < q.half + p.half);
     for (const p of order) {
+      // A name that would run into a neighbour first drops its tally line,
+      // then steps out a band.
+      if (!compact && clashes(p, 0)) { p.nameOnly = true; p.half = p.nameHalf; }
       for (let shift = 0; shift < 3; shift += 1) {
-        const clash = placed.some((q) => q.shift === shift && Math.abs(shortArc(q.s.mid, p.s.mid)) < q.half + p.half);
-        if (!clash) { p.shift = shift; break; }
+        if (!clashes(p, shift)) { p.shift = shift; break; }
         p.shift = shift + 1;
       }
       placed.push(p);
@@ -805,8 +1017,8 @@ export function createMap(canvas, model, hooks = {}) {
       const on = !fo || (fo.type === 'component' && fo.sector === p.s);
       const alpha = (on ? 0.95 : dimmed(0.55)) * a;
       const r0 = base + p.shift * band;
-      const rows = compact
-        ? [[p.name, face(600, TYPE.title - 1.5), r0 + TYPE.title * 0.5]]
+      const rows = compact || p.nameOnly
+        ? [[p.name, face(600, compact ? TYPE.title - 1.5 : TYPE.title), r0 + TYPE.title * 0.5]]
         : p.lower
           ? [[p.name, face(600, TYPE.title), r0 + TYPE.title * 0.55], [p.tally, face(400, TYPE.count, true), r0 + TYPE.title * 0.55 + TYPE.rowGap]]
           : [[p.tally, face(400, TYPE.count, true), r0 + TYPE.count * 0.5], [p.name, face(600, TYPE.title), r0 + TYPE.count * 0.5 + TYPE.rowGap]];
@@ -817,122 +1029,29 @@ export function createMap(canvas, model, hooks = {}) {
     ctx.globalAlpha = 1;
   }
 
-  // Saved records stacked outward from each component: a filled dot for one
-  // listed as available, a broken ring for one this snapshot does not include.
-  function drawRecords(focus, lit, rs, shown, fade) {
-    const k = view.k;
-    const dot = Math.max(1.1, 1.55 * rs);
-    for (const c of compObj.values()) {
-      const p = penAt(c.angle, REVEAL.records - REVEAL.pen);
-      if (p <= 0) continue;
-      const alphaBase = (shown(c.comp) ? 1 : 0.14) * fade(c.key) * p;
-      const cs = Math.cos(c.angle), sn = Math.sin(c.angle);
-      c.comp.receipts.forEach((rec, i) => {
-        const r = (R.record0 + i * R.recordStep) * k;
-        const x = view.tx + cs * r, y = view.ty + sn * r;
-        ctx.globalAlpha = alphaBase * (i === 0 ? 0.95 : 0.8);
-        if (rec.availability === 'available') {
-          ctx.fillStyle = i === 0 ? palette.ink : palette.record;
-          ctx.beginPath();
-          ctx.arc(x, y, i === 0 ? dot * 1.25 : dot, 0, TURN);
-          ctx.fill();
-        } else {
-          ctx.strokeStyle = palette.muted;
-          ctx.lineWidth = 1;
-          ctx.setLineDash([1.2, 1.4]);
-          ctx.beginPath();
-          ctx.arc(x, y, dot * 1.35, 0, TURN);
-          ctx.stroke();
-          ctx.setLineDash([]);
-        }
-      });
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  // A kernel: its specification is a ring in the stated ink round a point in
-  // the machine ink, and one petal per retained verified task round it; the
-  // deliberately broken variants the verifier rejected stand outside as
-  // small crosses.
   function drawKernels(focus, lit, rs, shown, fade) {
     const a = revealAlpha(REVEAL.kernels);
     for (const k of kernelObj.values()) {
       const comp = k.componentId ? compObj.get(k.componentId) : null;
       const alpha = a * fade(k.key) * (comp && !shown(comp.comp) ? 0.3 : 1);
-      const x = sx(k.x), y = sy(k.y);
-      const r = k.r * rs;
-      const tasks = k.kernel?.verifiedTasks || 0;
-      const pr = (R.petal * view.k) * Math.max(1, rs * 0.9);
-      ctx.fillStyle = palette.red;
-      for (let i = 0; i < tasks; i += 1) {
-        const ang = k.angle + Math.PI + (i / tasks) * TURN;
-        const unfold = reveal >= 1 ? 1 : clamp01((revealMs - REVEAL.kernels - i * 18) / 260);
-        if (unfold <= 0) continue;
-        ctx.globalAlpha = alpha * 0.9 * unfold;
-        ctx.beginPath();
-        ctx.arc(x + Math.cos(ang) * pr * (0.6 + 0.4 * unfold), y + Math.sin(ang) * pr * (0.6 + 0.4 * unfold), Math.max(0.9, 1.25 * rs), 0, TURN);
-        ctx.fill();
-      }
-      const mutants = k.kernel?.mutants || [];
-      ctx.strokeStyle = palette.ink;
-      ctx.lineWidth = 1;
-      mutants.forEach((_, i) => {
-        const ang = k.angle + (i - (mutants.length - 1) / 2) * 0.42;
-        const mx = x + Math.cos(ang) * (pr + 9 * rs), my = y + Math.sin(ang) * (pr + 9 * rs);
-        const m = 2.4 * rs;
-        ctx.globalAlpha = alpha * 0.75;
-        ctx.beginPath();
-        ctx.moveTo(mx - m, my - m); ctx.lineTo(mx + m, my + m);
-        ctx.moveTo(mx + m, my - m); ctx.lineTo(mx - m, my + m);
-        ctx.stroke();
-      });
-      ctx.globalAlpha = alpha;
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, TURN);
-      ctx.fillStyle = palette.ground;
-      ctx.fill();
-      ctx.lineWidth = 1.6;
-      ctx.strokeStyle = palette.stated;
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(x, y, Math.max(1.6, r * 0.36), 0, TURN);
-      ctx.fillStyle = palette.red;
-      ctx.fill();
+      drawFlower(k, sx(k.x), sy(k.y), petalPx(k, rs), alpha, REVEAL.kernels);
     }
-    ctx.globalAlpha = 1;
   }
 
-  // The core, a ring round a point in ink, and its two satellites: the
-  // retained verification, filled, and a fresh prover run, a hollow ring,
-  // because this view records none.
-  function drawCore(focus, lit, rs, fade) {
-    const a = revealAlpha(REVEAL.core);
-    const core = byKey.get('core');
-    const x = sx(0), y = sy(0), r = core.r * rs;
-    ctx.globalAlpha = a * fade('core');
-    ctx.beginPath(); ctx.arc(x, y, r, 0, TURN);
-    ctx.fillStyle = palette.ground; ctx.fill();
-    ctx.lineWidth = 1.8; ctx.strokeStyle = palette.ink; ctx.stroke();
-    ctx.beginPath(); ctx.arc(x, y, r * 0.3, 0, TURN); ctx.fillStyle = palette.ink; ctx.fill();
-    ctx.globalAlpha = a * fade('core') * 0.35;
-    ctx.lineWidth = hairPx;
-    ctx.beginPath(); ctx.arc(x, y, r + 5, 0, TURN); ctx.stroke();
-    const ret = byKey.get('sat:retained'), fresh = byKey.get('sat:fresh');
-    ctx.globalAlpha = a * fade(ret.key);
-    ctx.beginPath(); ctx.arc(sx(ret.x), sy(ret.y), ret.r * rs, 0, TURN);
-    ctx.fillStyle = palette.red; ctx.fill();
-    ctx.globalAlpha = a * fade(fresh.key);
-    ctx.beginPath(); ctx.arc(sx(fresh.x), sy(fresh.y), fresh.r * rs, 0, TURN);
-    ctx.lineWidth = 1.6; ctx.strokeStyle = palette.red; ctx.stroke();
-    ctx.globalAlpha = 1;
+  function drawCores(focus, lit, rs, fade) {
+    for (const o of coreObj.values()) {
+      const at = o.centre ? REVEAL.core : REVEAL.cores;
+      const a = revealAlpha(at);
+      drawFlower(o, sx(o.x), sy(o.y), petalPx(o, rs), a * fade(o.key), at);
+    }
   }
 
-  function drawComponents(focus, lit, rs, shown, fade, searching) {
+  function drawComponents(focus, lit, rs, shown, fade) {
     for (const c of compObj.values()) {
       const p = penAt(c.angle);
       if (p <= 0) continue;
       let alpha = p * fade(c.key);
-      if (searching && !shown(c.comp)) alpha *= 0.13;
+      if (matches && !shown(c.comp)) alpha *= 0.13;
       const x = sx(c.x), y = sy(c.y);
       let r = c.r * rs * (1 + 0.35 * (1 - p));
       if (c.key === hover || c.key === selected) r += 1.2;
@@ -946,72 +1065,70 @@ export function createMap(canvas, model, hooks = {}) {
     ctx.globalAlpha = 1;
   }
 
-  // Where each satellite's name goes in this frame, or nothing for no room.
-  let satNames = {};
-  function satellitePlacement(rows) {
-    const rs = rScale();
-    const width = (name, sub, sizePx) => {
-      ctx.font = face(600, sizePx); const a = ctx.measureText(name).width;
-      ctx.font = face(400, TYPE.sub, true); return Math.max(a, ctx.measureText(sub).width) + 4;
-    };
-    const [[left, ln, lsub, lsize], [right, rn, rsub, rsize]] = rows;
-    const lw = width(ln, lsub, lsize), rw = width(rn, rsub, rsize);
-    const lx = sx(left.x), rx = sx(right.x), sep = rx - lx;
-    if (sep >= (lw + rw) / 2 + 12) return { retained: { x: lx, align: 'center' }, fresh: { x: rx, align: 'center' } };
-    const inner = (R.kernel - R.petal - 8) * view.k;
-    const reach = Math.max(Math.abs(lx - view.tx) + lw, Math.abs(rx - view.tx) + rw);
-    if (reach < inner && rs > 0) return { retained: { x: lx + 6, align: 'right' }, fresh: { x: rx - 6, align: 'left' } };
-    return {};
-  }
-
-  // Names that stand at rest: the core, the satellites and the kernels.
-  // Every mark near the centre is room taken first, so no name covers one.
+  // Names that stand at rest: the cores and the kernels. Every mark near the
+  // centre is room taken first, so no name covers one.
+  const coreName = (core) => CORE_NAMES[core.id]?.[0] || moduleWords(core.id);
+  const coreSub = (core) => {
+    if (CORE_NAMES[core.id]) return CORE_NAMES[core.id][1];
+    const caller = core.callers[0] ? String(core.callers[0]).split('#')[0].replace(/^src\//, '').replace(/\/_[a-z]+\.py$/, '').replace(/\//g, '.') : '';
+    return caller ? `used by ${caller}` : 'part of the toolkit';
+  };
   function drawAnchorWords(focus, lit, rs) {
     const a = revealAlpha(REVEAL.words);
     if (a <= 0.01) return;
-    const t = model.totals;
-    const marks = [byKey.get('core'), byKey.get('sat:retained'), byKey.get('sat:fresh'), ...kernelObj.values()];
-    for (const o of marks) {
-      const reach = o.type === 'kernel' ? R.petal * view.k * Math.max(1, rs * 0.9) + 5 : o.r * rs + 4;
+    const marks = [...coreObj.values(), ...kernelObj.values()];
+    const markBox = (o) => {
+      const reach = petalPx(o, rs) + 5;
       labelBoxes.push({ x0: sx(o.x) - reach, x1: sx(o.x) + reach, y0: sy(o.y) - reach, y1: sy(o.y) + reach });
-    }
-    // The core names itself above its mark; each satellite under its own.
-    const words = [
-      [byKey.get('core'), 'Formal contracts', `${count(t.kernels, 'specification')} in Dafny`, TYPE.anchor, true],
-      [byKey.get('sat:retained'), 'Retained proofs', `${t.tasks} tasks verified`, TYPE.anchor - 1.5, false],
-      [byKey.get('sat:fresh'), 'Fresh prover run', 'not recorded here', TYPE.anchor - 1.5, false],
-    ];
-    // The satellites' names stand centred under them where there is room,
-    // turn outward where there is less, and give way on a small drawing, where
-    // each mark names itself on a plate instead.
-    satNames = satellitePlacement(words.slice(1));
-    for (const [o, name, sub, sizePx, above] of words) {
+    };
+    // The centre's own flower is room taken only after the cores round it
+    // have named themselves just beyond its petals.
+    for (const o of marks) if (o !== replayCore) markBox(o);
+    // Each core names itself under its flower, or above it when it stands
+    // below the centre; on a small drawing the plate names it instead.
+    const roomy = petalPx(replayCore || marks[0] || { type: 'kernel' }, rs) >= 15;
+    // The centre names itself first, so the cores round it step around its name.
+    const coresInOrder = [...coreObj.values()].sort((a, b) => (b.centre ? 1 : 0) - (a.centre ? 1 : 0));
+    for (const o of coresInOrder) {
+      const len = petalPx(o, rs);
+      const side = 0;
+      const name = coreName(o.core);
+      const sub = roomy ? coreSub(o.core) : '';
+      const nameFont = face(600, o.centre ? TYPE.anchor : TYPE.kernel);
+      ctx.font = nameFont;
+      let wdt = ctx.measureText(name).width;
+      ctx.font = face(400, TYPE.sub, true);
+      if (sub) wdt = Math.max(wdt, ctx.measureText(sub).width);
+      const lines = sub ? 2 : 1;
+      // The centre core names itself above its flower; another core under
+      // its own, or above it when that is taken, running away from the centre
+      // when it stands to one side.
       let x = sx(o.x), align = 'center';
-      if (o.type === 'satellite') {
-        const place = satNames[o.id];
-        if (!place) continue;
-        ({ x, align } = place);
+      if (side) { x += side * (len + 8); align = side > 0 ? 'left' : 'right'; }
+      const x0 = align === 'left' ? x : align === 'right' ? x - wdt : x - wdt / 2;
+      const places = o.centre ? [sy(o.y) - len - 12 - (lines - 1) * 14] : [sy(o.y) + len + 14, sy(o.y) - len - 12 - (lines - 1) * 14];
+      let y = null, box = null;
+      for (const at of places) {
+        const b = { x0: x0 - 3, x1: x0 + wdt + 3, y0: at - 9, y1: at + 9 + (lines - 1) * 14 };
+        if (o.centre || !boxHit(b)) { y = at; box = b; break; }
       }
-      const y = above ? sy(o.y) - o.r * rs - 30 : sy(o.y) + o.r * rs + 13;
+      if (y === null) continue;
       const alpha = a * (focus && !lit.has(o.key) ? dimmed(0.4) : 1);
-      textWithHalo(name, x, y, face(600, sizePx), palette.ink, alpha, align);
-      textWithHalo(sub, x, y + 15, face(400, TYPE.sub, true), palette.muted, alpha, align);
-      ctx.font = face(600, sizePx);
-      const wdt = Math.max(ctx.measureText(name).width, ctx.measureText(sub).width) + 4;
-      const x0 = align === 'center' ? x - wdt / 2 : align === 'right' ? x - wdt : x;
-      labelBoxes.push({ x0, x1: x0 + wdt, y0: y - 9, y1: y + 23 });
+      textWithHalo(name, x, y, nameFont, palette.ink, alpha, align);
+      if (sub) textWithHalo(sub, x, y + 14, face(400, TYPE.sub, true), palette.muted, alpha, align);
+      labelBoxes.push(box);
     }
-    // Kernel names stand beside their petals, trying eight places from the
-    // side away from the centre round to the side toward it, and step aside
-    // from any name or mark already standing; one with no room waits for a
-    // closer view or the pointer.
+    if (replayCore) markBox(replayCore);
+    // Kernel names stand beside their petals, trying places from the side
+    // away from the centre round to the side toward it, and step aside from
+    // any name or mark already standing; one with no room waits for a closer
+    // view or the pointer.
     const font = face(600, TYPE.kernel);
     ctx.font = font;
-    const kernels = [...kernelObj.values()];
-    for (const k of kernels) {
+    for (const k of kernelObj.values()) {
       const name = proofShortName(k.kernel);
       const wdt = ctx.measureText(name).width;
-      const reach = R.petal * view.k * Math.max(1, rs * 0.9) + 6;
+      const reach = petalPx(k, rs) + 6;
       const x = sx(k.x), y = sy(k.y);
       const out = Math.atan2(k.y, k.x);
       const tries = [];
@@ -1036,18 +1153,18 @@ export function createMap(canvas, model, hooks = {}) {
   }
 
   // Zoomed in, each component names itself along its radius, outside its
-  // saved records, wherever the name has room.
+  // coverage rings, wherever the name has room.
   function namesShown() { return view.k >= fittedK * 1.55; }
-  function drawComponentNames(focus, lit, rs, shown) {
+  function drawComponentNames(focus, lit, shown) {
     if (!namesShown()) return;
     const font = face(500, TYPE.name);
     ctx.font = font;
-    const r0 = (R.record0 + 9 * R.recordStep + 10) * view.k;
+    const r0 = (R.scale + 8) * view.k;
+    const [w, h] = size();
     for (const c of compObj.values()) {
       if (matches && !shown(c.comp)) continue;
       const cs = Math.cos(c.angle), sn = Math.sin(c.angle);
       const x = view.tx + cs * r0, y = view.ty + sn * r0;
-      const [w, h] = size();
       if (x < -200 || y < -200 || x > w + 200 || y > h + 200) continue;
       const flip = cs < 0;
       const text = c.comp.title.length > 44 ? `${c.comp.title.slice(0, 43)}…` : c.comp.title;
@@ -1076,39 +1193,41 @@ export function createMap(canvas, model, hooks = {}) {
     if (!o) return;
     const phase = (delay, length) => clamp01((pulse.ms - delay) / length);
     const t = phase(PULSE_WAIT, PULSE_RIPPLE);
-    const x = sx(o.x), y = sy(o.y), r = (o.r || 6) * rs + 1.5;
-    const color = o.type === 'component' && !o.formal ? palette.ink : palette.red;
+    const x = sx(o.x), y = sy(o.y), r = (o.type === 'component' ? o.r * rs : petalPx(o, rs) * 0.5) + 1.5;
+    const inkOf = (name) => (name === 'stated' ? palette.stated : palette.red);
     if (t > 0 && t < 1) {
       const e = 1 - (1 - t) ** 3;
       ctx.globalAlpha = 0.6 * (1 - e);
       ctx.lineWidth = 1.3;
-      ctx.strokeStyle = color;
+      ctx.strokeStyle = o.type === 'component' && !o.formal ? palette.ink : palette.red;
       ctx.beginPath(); ctx.arc(x, y, r + 3 + e * Math.max(16, r * 1.6), 0, TURN); ctx.stroke();
     }
-    const size = Math.max(0.8, rs);
+    const sizePx = Math.max(0.8, rs);
     for (const leg of pulse.legs) {
       const p = phase(leg.delay, leg.dur);
       if (p <= 0 || p >= 1) continue;
-      const fade = Math.min(1, p * 6, (1 - p) * 6);
+      const fadeIn = Math.min(1, p * 6, (1 - p) * 6);
+      const color = inkOf(leg.ink);
       ctx.fillStyle = color;
       for (let d = 3; d >= 1; d -= 1) {
         const tail = alongPath(leg.pts, ease(Math.max(0, p - d * 0.035)));
-        ctx.globalAlpha = fade * (0.56 - d * 0.14);
-        ctx.beginPath(); ctx.arc(sx(tail[0]), sy(tail[1]), Math.max(0.7, (2.2 - d * 0.4) * size), 0, TURN); ctx.fill();
+        ctx.globalAlpha = fadeIn * (0.56 - d * 0.14);
+        ctx.beginPath(); ctx.arc(sx(tail[0]), sy(tail[1]), Math.max(0.7, (2.2 - d * 0.4) * sizePx), 0, TURN); ctx.fill();
       }
       const bead = alongPath(leg.pts, ease(p));
-      ctx.globalAlpha = fade;
+      ctx.globalAlpha = fadeIn;
       ctx.fillStyle = darkGround ? palette.ink : color;
-      ctx.beginPath(); ctx.arc(sx(bead[0]), sy(bead[1]), 2.2 * size, 0, TURN); ctx.fill();
+      ctx.beginPath(); ctx.arc(sx(bead[0]), sy(bead[1]), 2.1 * sizePx, 0, TURN); ctx.fill();
     }
     for (const b of pulse.blooms) {
       const m = byKey.get(b.key);
       const p = phase(b.at, PULSE_BLOOM);
       if (!m || p <= 0 || p >= 1) continue;
-      const e = 1 - (1 - p) ** 3, mr = (m.r || 6) * rs;
+      const e = 1 - (1 - p) ** 3;
+      const mr = m.type === 'component' ? m.r * rs : petalPx(m, rs) * 0.6;
       ctx.globalAlpha = 0.7 * (1 - e);
       ctx.lineWidth = 1.3;
-      ctx.strokeStyle = palette.red;
+      ctx.strokeStyle = inkOf(b.ink);
       ctx.beginPath(); ctx.arc(sx(m.x), sy(m.y), mr + 2 + e * Math.max(12, mr * 1.1), 0, TURN); ctx.stroke();
     }
     ctx.globalAlpha = 1;
@@ -1116,33 +1235,60 @@ export function createMap(canvas, model, hooks = {}) {
 
   // A plate names what the pointer is on, or what is kept, on a hairline
   // leader; the pinned plate is placed first.
+  function cellWords(track, c) {
+    const comp = c.comp;
+    if (track.id === 'saved') {
+      const kept = comp.receipts.filter((r) => r.availability === 'available').length;
+      const gone = comp.receipts.length - kept;
+      return gone ? `${count(kept, 'past run')}; ${gone} missing from this snapshot` : `${count(kept, 'past run')} saved`;
+    }
+    if (track.id === 'whole') return 'Unknown, for every component';
+    if (track.id === 'replay') return comp.checks.replay ? 'Set up; nothing rerun here' : 'No rerun set up';
+    if (!comp.checks[track.id]) return 'Not checked this way';
+    if (track.id === 'proof') {
+      const k = model.kernelById.get(comp.kernelId);
+      return k ? `${proofShortName(k)}: ${count(k.verifiedTasks || 0, 'proof check')} passed` : 'Proof saved';
+    }
+    if (track.id === 'variants') {
+      const k = model.kernelById.get(comp.kernelId);
+      return k ? `${count(k.mutants.length, 'broken version')} rejected` : 'Broken versions rejected';
+    }
+    return `${track.checker}, ${track.when}`;
+  }
   function plateLines(o) {
     if (o.type === 'component') {
       const c = o.comp;
-      const lines = [c.title, BACKING_WORDS[c.backing] || 'How it is backed is not recognised'];
-      const kept = c.receipts.filter((r) => r.availability === 'available').length;
-      const gone = c.receipts.length - kept;
-      lines.push(gone ? `${count(kept, 'saved record')} listed; ${gone} not in this snapshot` : `${count(kept, 'saved record')} listed`);
-      if (o.formal) lines.push(`Modeled contract: ${proofShortName(model.kernelById.get(c.kernelId))}`);
+      if (o.key === hover && hoverTrack >= 0) {
+        const track = TRACKS[hoverTrack];
+        return [c.title, `${track.title} · ${track.checker}`, cellWords(track, o)];
+      }
+      const checked = TRACKS.filter((t) => t.ink === 'ran' && c.checks[t.id]).map((t) => t.short.toLowerCase());
+      const lines = [c.title, classWords('evidence_class', c.evidenceClass)];
+      lines.push(checked.length ? `Checked by tools: ${checked.join(', ')}` : 'No tool checks beyond its past runs');
+      lines.push(cellWords(TRACKS.find((t) => t.id === 'saved'), o));
       return lines;
     }
     if (o.type === 'kernel') {
       const k = o.kernel;
-      return [proofShortName(k), `${count(k.verifiedTasks || 0, 'task')} verified in the retained record`,
-        `${count(k.mutants.length, 'broken variant')} rejected`, k.componentId ? `In: ${model.byId.get(k.componentId)?.title}` : 'No component linked'];
+      return [proofShortName(k), `${count(k.verifiedTasks || 0, 'proof check')} passed`,
+        `${count(k.mutants.length, 'broken version')} rejected`, k.componentId ? `Used by: ${model.byId.get(k.componentId)?.title}` : 'Not used by a component'];
     }
-    if (o.type === 'core') return ['Formal contracts', 'Select to light every kernel and its thread'];
-    if (o.id === 'retained') return ['Retained proofs', `Dafny ${(model.kernels[0]?.dafnyVersion || '').split('+')[0]}`, 'Recorded results, not a run in this view'];
-    return ['Fresh prover run', 'This view runs nothing and records none'];
+    if (o.type === 'core') {
+      const c = o.core;
+      return [coreName(c), `${count(c.verifiedTasks || 0, 'proof check')} passed, ${count(c.mutants.length, 'broken version')} rejected`, coreSub(c)];
+    }
+    return [];
   }
   function drawPlatesFor(focus, rs, w, h) {
     const keys = [];
     if (selected) keys.push(selected);
     if (hover && hover !== selected) keys.push(hover);
+    if (hover && hover === selected && hoverTrack >= 0) keys.splice(0, 1, hover);
     for (const key of keys) {
       const o = byKey.get(key);
-      if (!o || o.type === 'core' || (o.type === 'satellite' && satNames[o.id])) continue;
+      if (!o) continue;
       const lines = plateLines(o);
+      if (!lines.length) continue;
       const x = sx(o.x), y = sy(o.y);
       if (x < -40 || y < -40 || x > w + 40 || y > h + 40) continue;
       const fonts = [face(600, TYPE.plate), ...lines.slice(1).map(() => face(400, TYPE.sub, false, SANS))];
@@ -1150,13 +1296,13 @@ export function createMap(canvas, model, hooks = {}) {
       lines.forEach((line, i) => { ctx.font = fonts[i]; wd = Math.max(wd, ctx.measureText(line).width); });
       const pw = wd + 20, ph = 12 + 18 + (lines.length - 1) * 16;
       const out = Math.atan2(o.y, o.x);
-      const reach = (o.r * rs) + 22;
-      // A kernel's thread leaves it outward, and a zoomed component's name
-      // runs outward, so their plates stand to the side first.
-      const sideFirst = o.type === 'kernel' || namesShown();
+      const reach = (o.type === 'component' ? o.r * rs : petalPx(o, rs)) + 22;
+      // A kernel's thread leaves it outward and a component's rings stand
+      // outside it, so their plates stand to the side or inward first.
+      const sideFirst = o.type !== 'core';
       const tries = sideFirst
-        ? [out + Math.PI / 2, out - Math.PI / 2, out + Math.PI, out + 0.5, out - 0.5, out]
-        : [out, out + 0.5, out - 0.5, out + Math.PI / 2, out - Math.PI / 2, out + Math.PI];
+        ? [out + Math.PI, out + Math.PI / 2, out - Math.PI / 2, out + Math.PI - 0.5, out + Math.PI + 0.5, out]
+        : [out + Math.PI / 2, out - Math.PI / 2, out, out + Math.PI];
       let best = null;
       for (const ang of tries) {
         const ax = x + Math.cos(ang) * reach, ay = y + Math.sin(ang) * reach;
@@ -1172,16 +1318,17 @@ export function createMap(canvas, model, hooks = {}) {
       // Leader from the mark's edge to the nearest point of the plate.
       const lx = Math.max(box.x0, Math.min(box.x1, x)), ly = Math.max(box.y0, Math.min(box.y1, y));
       const d = Math.hypot(lx - x, ly - y);
-      if (d > o.r * rs + 4) {
+      const edge = o.type === 'component' ? o.r * rs : petalPx(o, rs) * 0.4;
+      if (d > edge + 4) {
         ctx.globalAlpha = 0.6;
         ctx.strokeStyle = palette.ink;
         ctx.lineWidth = hairPx;
         ctx.beginPath();
-        ctx.moveTo(x + (lx - x) / d * (o.r * rs + 3), y + (ly - y) / d * (o.r * rs + 3));
+        ctx.moveTo(x + (lx - x) / d * (edge + 3), y + (ly - y) / d * (edge + 3));
         ctx.lineTo(lx, ly);
         ctx.stroke();
       }
-      ctx.globalAlpha = key === selected ? 0.97 : 0.92;
+      ctx.globalAlpha = key === selected ? 0.97 : 0.93;
       ctx.fillStyle = palette.ground;
       ctx.beginPath();
       if (ctx.roundRect) ctx.roundRect(box.x0, box.y0, pw, ph, 6); else ctx.rect(box.x0, box.y0, pw, ph);
@@ -1190,11 +1337,16 @@ export function createMap(canvas, model, hooks = {}) {
       ctx.lineWidth = hairPx * (key === selected ? 2 : 1);
       ctx.stroke();
       ctx.globalAlpha = 1;
+      const trackLine = o.type === 'component' && o.key === hover && hoverTrack >= 0 ? TRACKS[hoverTrack] : null;
       lines.forEach((line, i) => {
         ctx.font = fonts[i];
         ctx.textAlign = 'left';
         ctx.textBaseline = 'alphabetic';
-        ctx.fillStyle = i === 0 ? palette.ink : (o.formal || o.type === 'kernel') && i === lines.length - 1 && i > 1 ? palette.red : palette.muted;
+        let color = i === 0 ? palette.ink : palette.muted;
+        if (trackLine && i === 1) color = trackLine.ink === 'unknown' ? palette.muted : palette.ring[trackLine.id];
+        else if (!trackLine && o.type === 'component' && i === 2 && o.formal) color = palette.red;
+        else if (o.type !== 'component' && i === 1) color = palette.red;
+        ctx.fillStyle = color;
         ctx.fillText(line, box.x0 + 10, box.y0 + 22 + i * 16);
       });
     }
@@ -1206,7 +1358,7 @@ export function createMap(canvas, model, hooks = {}) {
       if (!key) continue;
       const o = byKey.get(key);
       if (!o) continue;
-      const s = (o.r || 6) * rs + (o.type === 'kernel' ? 8 : 5);
+      const s = o.type === 'component' ? o.r * rs + 5 : petalPx(o, rs) * 0.55 + 6;
       const x = sx(o.x), y = sy(o.y);
       const arm = Math.max(3, Math.min(7, s * 0.35));
       ctx.globalAlpha = key === selected ? 0.92 : 0.7;
@@ -1220,34 +1372,43 @@ export function createMap(canvas, model, hooks = {}) {
   }
 
   /* ---- Hit testing --------------------------------------------------------- */
+  // Returns [object, track index or -1].
   function hit(px, py) {
     const rs = rScale();
+    const k = view.k;
+    const dx = px - view.tx, dy = py - view.ty;
+    const rr = Math.hypot(dx, dy) / k;
+    // Within the rings, the pointer is on a component's column.
+    if (rr >= R.component - 8 && rr <= R.scale + 2) {
+      const ang = Math.atan2(dy, dx);
+      let best = null, bestD = Infinity;
+      for (const c of compObj.values()) {
+        const d = Math.abs(shortArc(c.angle, ang));
+        if (d < bestD) { best = c; bestD = d; }
+      }
+      if (best && bestD <= L.pitch * 0.62) {
+        let track = -1;
+        TRACKS.forEach((t, i) => { const [r0, r1] = trackBand(i); if (rr >= r0 - 1.3 && rr <= r1 + 1.3) track = i; });
+        return [best, track];
+      }
+    }
     let best = null, bestD = Infinity;
     for (const o of objects) {
-      let x = sx(o.x), y = sy(o.y);
-      let reach = Math.max(12, (o.r || 6) * rs + 6);
-      if (o.type === 'component') {
-        // A component's saved records answer for it too.
-        const cs = Math.cos(o.angle), sn = Math.sin(o.angle);
-        const r1 = R.component * view.k, r2 = (R.record0 + Math.max(0, o.comp.receipts.length - 1) * R.recordStep) * view.k;
-        const along = (px - view.tx) * cs + (py - view.ty) * sn;
-        const t = Math.max(r1, Math.min(r2, along));
-        x = view.tx + cs * t; y = view.ty + sn * t;
-        reach = Math.max(10, Math.min(reach, (L.pitch * R.component * view.k) / 2 + 1));
-      }
-      if (o.type === 'kernel') reach = Math.max(reach, R.petal * view.k * 0.8);
+      if (o.type === 'component') continue;
+      const x = sx(o.x), y = sy(o.y);
+      const reach = Math.max(12, petalPx(o, rs) * 0.85);
       const d = Math.hypot(px - x, py - y);
       if (d <= reach && d < bestD) { best = o; bestD = d; }
     }
     if (!best) {
       // The chain's markers belong to their kernel.
-      for (const k of kernelObj.values()) {
-        for (const pt of [k.generated, k.caller]) {
-          if (pt && Math.hypot(px - sx(pt[0]), py - sy(pt[1])) < 10) return k;
+      for (const kk of kernelObj.values()) {
+        for (const pt of [kk.generated, kk.caller]) {
+          if (pt && Math.hypot(px - sx(pt[0]), py - sy(pt[1])) < 10) return [kk, -1];
         }
       }
     }
-    return best;
+    return [best, -1];
   }
 
   /* ---- Public operations --------------------------------------------------- */
@@ -1260,12 +1421,14 @@ export function createMap(canvas, model, hooks = {}) {
     if (emit && hooks.onSelect) hooks.onSelect(o);
     request();
   }
-  function setHover(o) {
+  function setHover(o, track = -1) {
     const key = o ? o.key : null;
-    if (key === hover) return;
+    if (key === hover && track === hoverTrack) return;
+    const changed = key !== hover;
     hover = key;
+    hoverTrack = key ? track : -1;
     canvas.style.cursor = key ? 'pointer' : '';
-    if (hooks.onHover) hooks.onHover(o);
+    if (changed && hooks.onHover) hooks.onHover(o);
     request();
   }
   function zoomAt(px, py, factor) {
@@ -1310,7 +1473,7 @@ export function createMap(canvas, model, hooks = {}) {
       request();
       return;
     }
-    if (!pointers.size) setHover(hit(e.offsetX, e.offsetY));
+    if (!pointers.size) setHover(...hit(e.offsetX, e.offsetY));
   });
   const release = (e) => {
     pointers.delete(e.pointerId);
@@ -1321,14 +1484,14 @@ export function createMap(canvas, model, hooks = {}) {
     const wasMoved = moved;
     release(e);
     if (wasMoved) return;
-    const o = hit(e.offsetX, e.offsetY);
+    const [o] = hit(e.offsetX, e.offsetY);
     if (o) select(o.key);
     else if (selected) select(null);
   });
   canvas.addEventListener('pointercancel', release);
   canvas.addEventListener('pointerleave', () => { if (!pointers.size) setHover(null); });
   canvas.addEventListener('dblclick', (e) => {
-    const o = hit(e.offsetX, e.offsetY);
+    const [o] = hit(e.offsetX, e.offsetY);
     if (o && hooks.onOpen) hooks.onOpen(o);
   });
   canvas.addEventListener('wheel', (e) => {
@@ -1349,6 +1512,8 @@ export function createMap(canvas, model, hooks = {}) {
     } else if (e.key === 'Enter' && cur && hooks.onOpen) {
       hooks.onOpen(cur);
     } else if (e.key === 'Escape' && selected) {
+      // The page's own Escape handler lets go too; this one only stops the
+      // key reaching it twice.
       e.preventDefault();
       select(null);
     } else if (e.key === '+' || e.key === '=') {
@@ -1393,8 +1558,10 @@ export function createMap(canvas, model, hooks = {}) {
   return {
     select,
     selectedKey: () => selected,
-    hoverKey: (key) => { hover = key; request(); },
+    hoverKey: (key) => { hover = key; hoverTrack = -1; request(); },
     setMatches(set) { matches = set; request(); },
+    emphasise(trackId) { emphasis = trackId || null; request(); },
+    showWiring(on) { allWiring = !!on; request(); return allWiring; },
     fit: () => cameraTo(fitTarget(), true),
     zoomBy: (f) => zoomAt(canvas.clientWidth / 2, canvas.clientHeight / 2, f),
     resize,

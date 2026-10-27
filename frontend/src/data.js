@@ -1,130 +1,164 @@
-// The map's model, assembled from the existing API routes.
+// The map's model, from one overview response.
 //
-// One drawing needs every component, every retained proof, each component's
-// saved records and its declared wiring, all from one snapshot. The API has
-// no single overview route yet, so this module makes about 190 local
-// requests (components, proofs, coverage, then receipts and wiring per
-// component, then the detail of each component with a modeled contract) and
-// refuses to mix revisions: a mismatch restarts once, then fails as an
-// explicit 'revision' error. A single overview route is request 1 in
-// frontend/BACKEND_REQUESTS.md.
+// GET /api/v1/overview carries every component, every retained proof view,
+// the workflow cores, the saved records, the declared wiring, the coverage
+// view and the explorer extension (labels, specification excerpts, broken
+// variants, doctrine, receipt summaries, typed imports, the ownership repair
+// and the source revision) in one envelope, so the map is drawn from a single
+// snapshot. Older indexes may have no cores and no explorer extension; the
+// model then keeps those parts empty and the pages say so.
 
-import { API_ROOT, ApiError, apiPath, getEnvelope, withQuery } from './api.js';
-import { BACKING_OF, FAMILY_ORDER } from './evidence.js';
+import { ApiError, apiPath, getEnvelope } from './api.js';
+import { BACKING_OF, FAMILY_ORDER, TRACKS } from './evidence.js';
 
-async function inPool(tasks, limit) {
-  const results = new Array(tasks.length);
-  let next = 0;
-  async function worker() {
-    while (next < tasks.length) {
-      const at = next++;
-      results[at] = await tasks[at]();
-    }
+/** Load the overview. One request, so no revision can be mixed. */
+export async function loadOverview({ signal, fetchImpl } = {}) {
+  const envelope = await getEnvelope(apiPath('overview'), { signal, fetchImpl });
+  if (!envelope.data || !Array.isArray(envelope.data.components)) {
+    throw new ApiError('schema', 'The overview response has no component list.');
   }
-  await Promise.all(Array.from({ length: Math.min(limit, tasks.length) }, worker));
-  return results;
+  return build(envelope.data, envelope.revision);
 }
 
-async function loadOnce({ signal, fetchImpl, onProgress }) {
-  const opts = { signal, fetchImpl };
-  const meta = await getEnvelope(API_ROOT, opts);
-  const revision = meta.revision;
-  const take = (envelope) => {
-    if (envelope.revision !== revision) {
-      throw new ApiError('revision', 'The component index changed while the map was loading.', { revision: envelope.revision });
-    }
-    return envelope.data;
-  };
-  const all = async (path, params = {}) => {
-    let page = take(await getEnvelope(withQuery(path, { ...params, limit: 100 }), opts));
-    const items = [...page.items];
-    while (page.next_cursor) {
-      page = take(await getEnvelope(withQuery(path, { ...params, limit: 100, cursor: page.next_cursor }), opts));
-      items.push(...page.items);
-    }
-    return { items, total: page.total };
-  };
-
-  const [summaries, proofPage, coverage] = await Promise.all([
-    all(apiPath('components')),
-    all(apiPath('proofs')),
-    getEnvelope(apiPath('coverage'), opts).then(take),
-  ]);
-  const ids = summaries.items.map((c) => c.organ_id);
-  let done = 0;
-  const step = () => { done += 1; if (onProgress) onProgress(done, ids.length); };
-
-  const perComponent = await inPool(ids.map((id) => async () => {
-    const receipts = await all(apiPath('receipts'), { component: id });
-    const wiring = take(await getEnvelope(withQuery(apiPath('graph'), {
-      type: 'organ', id, edge_kind: 'wires_to', direction: 'out', max_edges: 100,
-    }), opts));
-    step();
-    return {
-      id,
-      receipts: receipts.items,
-      wires: wiring.edges.filter((e) => e.kind === 'wires_to' && e.from === id && e.to_type === 'organ').map((e) => e.to),
-      wiringTruncated: !!wiring.truncated,
-    };
-  }), 6);
-  const formalIds = summaries.items.filter((c) => (c.formal_subclaim_ids || []).length).map((c) => c.organ_id);
-  const details = await inPool(formalIds.map((id) => async () => take(await getEnvelope(apiPath('components', id), opts))), 6);
-  return build({ revision, meta: meta.data, summaries: summaries.items, proofs: proofPage.items, coverage, perComponent, details });
-}
-
-/** Load the whole overview, restarting once if the snapshot changes mid-load. */
-export async function loadOverview(options = {}) {
-  try {
-    return await loadOnce(options);
-  } catch (error) {
-    if (error instanceof ApiError && error.kind === 'revision') return loadOnce(options);
-    throw error;
+// One model per session, shared by the map and the proof pages. A later
+// visit checks the snapshot revision first and reloads only when it moved.
+let cached = null;
+export async function getModel(options = {}) {
+  if (cached) {
+    const meta = await getEnvelope(apiPath(), options);
+    if (meta.revision === cached.revision) return cached;
   }
+  cached = await loadOverview(options);
+  return cached;
 }
 
-/** Join the responses into the map's model. Exported for tests. */
-export function build({ revision, meta, summaries, proofs, coverage, perComponent, details }) {
-  const extra = new Map(perComponent.map((p) => [p.id, p]));
-  const detailOf = new Map(details.map((d) => [d.component_id, d]));
-  const kernelOfSubclaim = new Map();
-  const kernels = proofs.map((view) => {
+
+const list = (v) => (Array.isArray(v) ? v : v ? [v] : []);
+const text = (v) => (Array.isArray(v) ? v.filter(Boolean).join(' ') : v || '');
+
+function mutantsOf(controls) {
+  return list(controls).map((c) => ({
+    ref: c.source_ref,
+    errors: c.retained_result?.errors ?? null,
+    verifiedTasks: c.retained_result?.verified_tasks ?? null,
+    fresh: c.fresh_result?.status || 'not_run_by_index',
+    description: c.description || '',
+    changedLines: list(c.changed_lines).map((l) => ({ line: l.line, original: l.original, mutated: l.mutated })),
+  }));
+}
+
+function excerptsOf(rows) {
+  return list(rows).map((e) => ({
+    ref: e.ref, kind: e.kind, name: e.name, lineStart: e.line_start, lineEnd: e.line_end, text: e.text || '',
+  }));
+}
+
+function recordOf(r) {
+  const s = r.summary || {};
+  const fields = s.recorded_fields || {};
+  return {
+    ref: r.ref || r.artifact_id,
+    availability: r.availability,
+    kind: r.kind,
+    reason: r.reason || s.availability_reason || '',
+    status: fields.status || null,
+    fixtureId: fields.fixture_id || null,
+    cases: fields.case_count ?? null,
+    createdAt: s.created_at || null,
+    dated: s.date_status === 'recorded',
+  };
+}
+
+/** Join the overview into the map's model. Exported for tests. */
+export function build(data, revision) {
+  const explorer = data.explorer || {};
+  const details = explorer.proof_details || {};
+  const cov = data.coverage || {};
+  const presence = new Map();
+  for (const [measure, row] of Object.entries(cov.component_presence || {})) {
+    presence.set(measure, new Set(list(row.component_ids)));
+  }
+
+  const labels = {};
+  for (const [facet, values] of Object.entries(explorer.component_filters || {})) {
+    labels[facet] = new Map(list(values).map((v) => [v.value, { label: v.label, description: v.description || '', count: v.component_count }]));
+  }
+
+  const kernels = list(data.kernels).map((view) => {
     const proof = view.proof || {};
-    const contract = (view.modeled_contracts || [])[0] || {};
-    const kernel = {
+    const contract = list(view.modeled_contracts)[0] || {};
+    const extra = details[proof.proof_id] || {};
+    const retained = proof.retained_verification || {};
+    const variantDetail = extra.negative_control_details || {};
+    const controls = list(proof.negative_controls).map((c) => ({ ...variantDetail[c.source_ref], ...c }));
+    return {
       id: proof.proof_id,
       module: proof.module,
       language: proof.language,
+      componentIds: list(view.component_ids || proof.component_ids),
+      claimIds: list(view.claim_ids || proof.claim_ids),
       subclaimId: contract.subclaim_id || null,
       statement: contract.statement || '',
       inputModel: contract.input_model || '',
-      assumptions: contract.assumptions || '',
-      limits: contract.limits || '',
+      assumptions: text(contract.assumptions),
+      limits: text(contract.limits),
       requirementsReview: contract.requirements_review?.status || 'unrecorded',
-      specificationRefs: contract.specification_refs || [],
-      entryTheoremRefs: proof.entry_theorem_refs || contract.entry_theorem_refs || [],
-      verifiedTasks: proof.retained_verification?.verified_tasks ?? null,
-      dafnyVersion: proof.retained_verification?.dafny_version || '',
-      mutants: (proof.negative_controls || []).map((c) => ({
-        ref: c.source_ref, retained: c.retained_result || {}, fresh: c.fresh_result || {},
-      })),
-      generatedRefs: proof.generated_refs || [],
-      trustedHostRefs: proof.trusted_host_refs || [],
+      specificationRefs: list(contract.specification_refs),
+      entryTheoremRefs: list(proof.entry_theorem_refs || contract.entry_theorem_refs),
+      verifiedTasks: retained.verified_tasks ?? null,
+      tasksAvailability: retained.tasks_availability || extra.retained_verification_details?.tasks_availability || 'unrecorded',
+      dafnyVersion: retained.dafny_version || '',
+      mutants: mutantsOf(controls),
+      excerpts: excerptsOf(proof.excerpts || extra.excerpts),
+      generatedRefs: list(proof.generated_refs),
+      trustedHostRefs: list(proof.trusted_host_refs),
       adapterRef: proof.adapter_ref || '',
+      checkerRef: proof.current_binding?.checker_ref || '',
       binding: proof.current_binding?.status || 'unrecorded',
       freshProver: proof.fresh_prover_result?.status || view.fresh_prover?.status || 'not_run_by_index',
       componentId: null,
-      consumerRefs: [],
     };
-    if (kernel.subclaimId) kernelOfSubclaim.set(kernel.subclaimId, kernel);
-    return kernel;
   });
+  const kernelById = new Map(kernels.map((k) => [k.id, k]));
 
-  const components = summaries.map((s) => {
-    const more = extra.get(s.organ_id) || { receipts: [], wires: [] };
+  const coreRows = list(explorer.cores).length ? list(explorer.cores) : list(data.cores);
+  const cores = coreRows.map((c) => ({
+    id: c.core_id,
+    proofId: c.proof_id,
+    module: c.module,
+    statement: c.statement || '',
+    assumptions: text(c.assumptions),
+    limits: text(c.limits),
+    verifiedTasks: c.retained_verification?.verified_tasks ?? null,
+    dafnyVersion: c.retained_verification?.dafny_version || '',
+    mutants: mutantsOf(c.negative_controls),
+    excerpts: excerptsOf(c.excerpts),
+    generatedRefs: list(c.generated_refs),
+    specificationRefs: list(c.specification_refs),
+    entryTheoremRefs: list(c.entry_theorem_refs),
+    callers: list(c.public_caller_refs),
+    guideRef: c.guide_ref || '',
+    checkerRef: c.current_binding?.checker_ref || '',
+    binding: c.current_binding?.status || 'unrecorded',
+    freshProver: c.fresh_prover_result?.status || 'not_run_by_index',
+    requirementsReview: c.requirements_review?.status || 'unrecorded',
+    admitted: list(c.admitted_replay_routes).map((r) => ({ componentId: r.component_id, route: r.route })),
+  }));
+  const coreById = new Map(cores.map((c) => [c.id, c]));
+
+  const imports = list(explorer.typed_relations?.edges).map((e) => ({
+    from: e.from_id, to: e.to_id, kind: e.kind, ref: e.source_ref, line: e.line,
+  }));
+  const routeOf = new Map();
+  for (const core of cores) for (const r of core.admitted) routeOf.set(r.componentId, r.route);
+
+  const components = list(data.components).map((s) => {
     const family = s.classification?.family || 'unclassified';
     const evidenceClass = s.classification?.evidence_class || s.evidence_class;
-    const kernel = (s.formal_subclaim_ids || []).map((id) => kernelOfSubclaim.get(id)).find(Boolean) || null;
-    const component = {
+    const proofIds = list(s.proof_ids);
+    const kernel = proofIds.map((id) => kernelById.get(id)).find(Boolean)
+      || kernels.find((k) => k.componentIds.includes(s.organ_id)) || null;
+    const c = {
       id: s.organ_id,
       title: s.title || s.organ_id,
       summary: s.summary || '',
@@ -134,24 +168,24 @@ export function build({ revision, meta, summaries, proofs, coverage, perComponen
       backing: BACKING_OF[evidenceClass] || 'unknown',
       bucket: s.classification?.truth_accounting_bucket || '',
       claimId: s.claim_id,
-      subclaimIds: s.formal_subclaim_ids || [],
+      subclaimIds: list(s.formal_subclaim_ids),
+      proofIds,
       kernelId: kernel ? kernel.id : null,
-      receipts: more.receipts.map((r) => ({
-        ref: r.ref || r.artifact_id, availability: r.availability, kind: r.kind, reason: r.reason || '',
-      })),
-      wires: more.wires,
-      wiringTruncated: !!more.wiringTruncated,
+      receipts: list(s.receipt_refs).map(recordOf),
+      wires: list(s.wires_to),
+      doctrineIds: list(s.doctrine_ref_ids),
+      routeIds: list(s.route_ids),
+      replayRoute: routeOf.get(s.organ_id) || null,
+      importsOut: imports.filter((e) => e.from === s.organ_id),
+      importsIn: imports.filter((e) => e.to === s.organ_id),
     };
-    if (kernel) {
-      kernel.componentId = component.id;
-      const facets = detailOf.get(component.id)?.claim?.card?.assurance_facets || {};
-      kernel.consumerRefs = facets.generated_runtime_binding?.consumer_refs || [];
-      kernel.hostTests = facets.host_tests?.refs || [];
-    }
-    return component;
+    c.checks = {};
+    for (const t of TRACKS) c.checks[t.id] = t.measure ? !!presence.get(t.measure)?.has(c.id) : null;
+    if (kernel && !kernel.componentId) kernel.componentId = c.id;
+    return c;
   });
-
   const byId = new Map(components.map((c) => [c.id, c]));
+
   // Wiring is declared from one side; keep each pair once, between known ends.
   const wires = [];
   const seen = new Set();
@@ -164,26 +198,59 @@ export function build({ revision, meta, summaries, proofs, coverage, perComponen
       wires.push([c.id, to]);
     }
   }
-  const receipts = components.reduce((n, c) => n + c.receipts.length, 0);
-  const unavailable = components.reduce((n, c) => n + c.receipts.filter((r) => r.availability !== 'available').length, 0);
+
+  const doctrine = new Map(list(explorer.doctrine?.nodes).map((n) => [n.id, n]));
+  const doctrineEdges = list(explorer.doctrine?.edges);
+  const source = explorer.source_revision || null;
+  const records = components.flatMap((c) => c.receipts);
+  const dated = records.filter((r) => r.createdAt).map((r) => r.createdAt).sort();
+
+  // What a write-up's links can open inside the explorer.
+  const proofIdOfDir = new Map(kernels.map((k) => [String(k.id).split('::').pop(), k.id]));
+  for (const c of cores) {
+    const dir = /^formal\/([\w-]+)\/README\.md$/.exec(c.guideRef || '');
+    if (dir) proofIdOfDir.set(dir[1], c.proofId);
+  }
+  const sourceRevision = source && source.status === 'recorded' && source.exact_source_links && /^https:\/\/github\.com\/[\w.-]+\/[\w.-]+$/.test(source.repository || '')
+    && /^[0-9a-f]{40}$/.test(source.commit || '') ? { repository: source.repository, commit: source.commit } : null;
+
   return {
     revision,
-    meta,
-    coverage,
+    labels,
+    filters: explorer.component_filters || null,
+    coverage: cov,
+    presence,
     components,
     byId,
     kernels,
-    kernelById: new Map(kernels.map((k) => [k.id, k])),
+    kernelById,
+    cores,
+    coreById,
+    imports,
     wires,
+    doctrine,
+    doctrineEdges,
+    ownership: explorer.ownership_example || null,
+    reviews: list(explorer.requirements_reviews),
+    clauses: list(explorer.claim_clause_coverage),
+    localRuns: data.local_runs || null,
+    source: sourceRevision,
+    links: { componentIds: new Set(byId.keys()), proofIdOfDir, source: sourceRevision },
     totals: {
       components: components.length,
       kernels: kernels.length,
       linkedKernels: kernels.filter((k) => k.componentId).length,
+      cores: cores.length,
       tasks: kernels.reduce((n, k) => n + (k.verifiedTasks || 0), 0),
-      mutants: kernels.reduce((n, k) => n + k.mutants.length, 0),
-      receipts,
-      unavailable,
+      coreTasks: cores.reduce((n, k) => n + (k.verifiedTasks || 0), 0),
+      mutants: kernels.reduce((n, k) => n + k.mutants.length, 0) + cores.reduce((n, k) => n + k.mutants.length, 0),
+      receipts: records.length,
+      unavailable: records.filter((r) => r.availability !== 'available').length,
       wires: wires.length,
+      imports: imports.length,
+      firstRecord: dated[0] || null,
+      lastRecord: dated[dated.length - 1] || null,
+      excerpts: kernels.reduce((n, k) => n + k.excerpts.length, 0),
     },
   };
 }
