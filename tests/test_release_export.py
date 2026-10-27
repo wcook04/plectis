@@ -406,6 +406,7 @@ where = ["src"]
         "lemma Identity(value: int)\n  ensures value == value\n{\n}\n",
     )
     _write(root / "formal/components/README.md", "# Component proof fixtures\n")
+    _write(root / "frontend/README.md", "# Component explorer\n")
     _write(root / "scripts/check/check_component_kernels.py", "# Component checker fixture\n")
     _write(root / "paper_modules/cold_clone_probe.md", "# Cold clone\n")
     _write(root / "scripts/inspect/first_screen_composition_card.py", "print('ok')\n")
