@@ -131,14 +131,16 @@ class ComponentSnapshot:
         artifacts = {row["artifact_id"]: row for row in index["nodes"]["artifact"]}
         receipt_ids = {edge[side] for edge in index["edges"] for side in ("from", "to")
                        if edge[side + "_type"] == "receipt"}
-        self.receipts = {key: _json(artifacts[key]) for key in sorted(receipt_ids)}
-        self.coverage = _json(views["coverage"])
         self.receipts_by_component = {}
         for key, encoded in self.components.items():
             view = json.loads(encoded)
             refs = view["claim"]["card"]["evidence"]
             self.receipts_by_component[key] = tuple(sorted({refs["authority_receipt_ref"],
                                                           *refs["historical_receipt_refs"]}))
+            # Validated card evidence can include omitted assets without graph edges.
+            receipt_ids.update(self.receipts_by_component[key])
+        self.receipts = {key: _json(artifacts[key]) for key in sorted(receipt_ids)}
+        self.coverage = _json(views["coverage"])
         self.edges = tuple(sorted(index["edges"], key=_edge_key))
         self.edge_kinds = frozenset(index["graph"]["edge_kinds"])
         adjacency = defaultdict(list)

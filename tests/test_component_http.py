@@ -116,6 +116,61 @@ def test_component_claim_proof_and_receipt_views(transport, snapshot):
     assert absent and all("href" not in row for row in absent)
 
 
+def test_receipt_queries_cover_every_registered_component(transport, raw):
+    artifacts = {row["artifact_id"]: row for row in raw["nodes"]["artifact"]}
+    claims = {row["organ_id"]: row for row in raw["nodes"]["claim"]}
+    registered = {row["organ_id"] for row in raw["nodes"]["organ"]}
+    assert set(claims) == registered
+    for component in sorted(registered):
+        evidence = claims[component]["card"]["evidence"]
+        expected = {evidence["authority_receipt_ref"], *evidence["historical_receipt_refs"]}
+        rows, cursor = [], None
+        while True:
+            query = {"component": component, "limit": 100}
+            if cursor is not None:
+                query["cursor"] = cursor
+            status, _, body = transport("/api/v1/receipts?" + urlencode(query))
+            assert status == 200, (component, body)
+            page = json.loads(body)["data"]
+            assert page["total"] == len(expected)
+            rows.extend(page["items"])
+            cursor = page["next_cursor"]
+            if cursor is None:
+                break
+        assert rows == [artifacts[reference] for reference in sorted(expected)]
+        assert all("href" not in row for row in rows if row["availability"] == "unavailable")
+
+
+def test_receipt_catalog_is_exact_authorized_union(transport, raw):
+    artifacts = {row["artifact_id"]: row for row in raw["nodes"]["artifact"]}
+    graph_refs = {edge[side] for edge in raw["edges"] for side in ("from", "to")
+                  if edge[side + "_type"] == "receipt"}
+    evidence_refs = set()
+    for claim in raw["nodes"]["claim"]:
+        evidence = claim["card"]["evidence"]
+        evidence_refs.update({evidence["authority_receipt_ref"], *evidence["historical_receipt_refs"]})
+    expected = graph_refs | evidence_refs
+    unrelated_source_refs = {reference for reference, row in artifacts.items()
+                             if reference not in expected and row.get("kind") == "file"
+                             and reference.startswith("src/")}
+    assert unrelated_source_refs
+    rows, cursor = [], None
+    while True:
+        query = {"limit": 100}
+        if cursor is not None:
+            query["cursor"] = cursor
+        status, _, body = transport("/api/v1/receipts?" + urlencode(query))
+        assert status == 200
+        page = json.loads(body)["data"]
+        assert page["total"] == len(expected)
+        rows.extend(page["items"])
+        cursor = page["next_cursor"]
+        if cursor is None:
+            break
+    assert rows == [artifacts[reference] for reference in sorted(expected)]
+    assert not unrelated_source_refs.intersection(row["artifact_id"] for row in rows)
+
+
 def test_existing_component_categories_filters_and_counts(transport, raw):
     status, _, body = transport()
     filters = json.loads(body)["data"]["component_filters"]
