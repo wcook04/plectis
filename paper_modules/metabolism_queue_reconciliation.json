@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.",
     "card": "The cases exercise idempotent enqueue, leases and expired-lease recovery, plus a blackboard projection. The reconciler examines job, run and log records. A running job without a run row, or a finalised run whose job is still running, is a named negative case. A negative case succeeds when the expected rule fires; the inconsistent queue is not thereby healthy.",
-    "one_line": "Runs queue scenarios in temporary SQLite stores and reports whether the reconciliation rules match each case’s expectation."
+    "one_line": "Runs temporary SQLite queue cases and checks their reconciliation outcomes."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.metabolism_queue_reconciliation",
@@ -87,7 +87,7 @@
       "compression": {
         "authority_ceiling": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.",
         "card": "The cases exercise idempotent enqueue, leases and expired-lease recovery, plus a blackboard projection. The reconciler examines job, run and log records. A running job without a run row, or a finalised run whose job is still running, is a named negative case. A negative case succeeds when the expected rule fires; the inconsistent queue is not thereby healthy.",
-        "one_line": "Runs queue scenarios in temporary SQLite stores and reports whether the reconciliation rules match each case’s expectation."
+        "one_line": "Runs temporary SQLite queue cases and checks their reconciliation outcomes."
       },
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
@@ -280,7 +280,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Runs queue scenarios in temporary SQLite stores and reports whether the reconciliation rules match each case’s expectation.",
+  "statement": "Runs temporary SQLite queue cases and checks their reconciliation outcomes.",
   "status": "active",
   "subjects": [
     {

@@ -1,36 +1,19 @@
-"""Card calibration gate -- public one-line claims stay isomorphic to evidence.
+"""Bind public one-line descriptions to their canonical source and evidence.
 
-Reader-belief parity: a fast public reader's belief after scanning a component's
-one-line must not be materially stronger OR weaker than its evidence class
-warrants. This is the durable guard installed by the 2026-06-14 calibration wave
-(commits fe224427a0 + 15431bef31). It is not generic word-policing -- it binds a
-small set of unambiguous execution verbs to the evidence class that licenses
-them, in both directions.
-
-* OVERSELL guard: an ``algorithmic_projection`` organ does projection /
-  consistency checks over recorded or synthetic data -- it performs no real
-  runtime action on a live target. Its one-line must not assert an unqualified
-  real-runtime verb (recomputes / authorizes / proves / compiles). Such a verb
-  is permitted only when a qualifier (recorded / synthetic / declared / replay /
-  fixture / copied ...) marks it as acting over recorded data, not a live target.
-  This is the exact failure the wave corrected (e.g. "recomputes benchmark
-  verdicts", "proves each change ... before it was allowed to run").
-
-* UNDERSELL guard: a real-execution class (``bounded_runtime_computation`` /
-  ``external_subprocess_witness``) must signal that real work happens (runs /
-  imports / executes / compiles / measures / replays ...), so a sharp reader
-  does not misfile a real engine with the thin projection linters. This is the
-  inverse failure the wave corrected (e.g. a real work-ledger engine or a live
-  Lean probe whose one-line read like a passive fixture check).
-
-If either guard fails, fix the SOURCE one-line in
-``core/component_public_synopses.json`` (or correct the organ's evidence class if
-the code genuinely changed) -- do not weaken this gate.
+The projection overclaim guard remains separate. Real execution is disclosed
+through the canonical mechanism card, its resolved runner locus, evidence
+classification and scope ceiling; a list of approved verbs cannot establish
+that relationship. Synopsis budgets are the deployed 100/108/120 contract.
+Refine capsule compression at its source, then regenerate the compatibility
+synopses through the atlas owner. These checks do not execute a component or
+turn a saved evidence classification into a fresh result.
 """
 from __future__ import annotations
 
 import json
 from pathlib import Path
+
+from microcosm_core.component_descriptions import load_description_atlas, resolve_component_capsules
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = ROOT / "core"
@@ -44,12 +27,6 @@ OVERCLAIM_VERBS = ("recomputes", "authorizes", "proves", "compiles")
 QUALIFIERS = (
     "recorded", "declared", "synthetic", "replay", "fixture",
     "copied", "make-believe", "stated", "projection",
-)
-# Any of these in a real-execution one-line signals the real work to a reader.
-EXEC_SIGNALS = (
-    "runs", "imports", "executes", "compiles", "recomputes", "measures",
-    "computes", "replays", "records", "drafts", "binds", "lean",
-    "gridworld", "forward pass",
 )
 
 
@@ -81,16 +58,43 @@ def test_projection_one_lines_make_no_unqualified_execution_claim() -> None:
 
 
 def test_real_execution_one_lines_signal_the_real_work() -> None:
-    """UNDERSELL guard: real-execution cards must name the real work."""
+    """Check canonical mechanism/evidence fidelity, not an editorial verb list."""
+    synopsis_doc = json.loads((CORE / "component_public_synopses.json").read_text())
     syn, reg = _load()
-    violations = []
-    for organ_id, line in syn.items():
-        if reg.get(organ_id, {}).get("evidence_class") not in REAL_EXECUTION:
-            continue
-        if not any(sig in line.lower() for sig in EXEC_SIGNALS):
-            violations.append(f"  {organ_id} [{reg[organ_id]['evidence_class']}]: {line}")
-    assert not violations, (
-        "real-execution organs hide their work in the one-line; "
-        "name the execution (runs/imports/executes/measures/...):\n"
-        + "\n".join(violations)
-    )
+    atlas_doc = json.loads((CORE / "organ_atlas.json").read_text())
+    capsule_doc = json.loads((CORE / "paper_module_capsules.json").read_text())
+    resolved = resolve_component_capsules(atlas_doc["organs"], capsule_doc["paper_modules"])
+    public_by_id = {row["organ_id"]: row for row in load_description_atlas(ROOT)["organs"]}
+    evidence = json.loads((CORE / "organ_evidence_classes.json").read_text())
+    evidence_by_id = {row["organ_id"]: row for row in evidence["organ_evidence_classes"]}
+
+    assert set(syn) == set(reg) == set(public_by_id) == set(resolved)
+    assert synopsis_doc["generation"]["method"] == "canonical_capsule_synopsis"
+    assert synopsis_doc["source_ref"] == "core/paper_module_capsules.json::paper_modules[].compression.one_line"
+    budget = synopsis_doc["budget"]
+    assert (budget["target_max_chars"], budget["warn_over_chars"], budget["hard_ceiling_chars"]) == (100, 108, 120)
+    assert all(0 < len(line) <= budget["hard_ceiling_chars"] for line in syn.values())
+    real_ids = {oid for oid, row in reg.items() if row["evidence_class"] in REAL_EXECUTION}
+    assert {reg[oid]["evidence_class"] for oid in real_ids} == REAL_EXECUTION
+    for oid in sorted(real_ids):
+        capsule = resolved[oid][0]
+        compression = capsule["compression"]
+        public = public_by_id[oid]
+        row = reg[oid]
+        evidence_row = evidence_by_id[oid]
+        profile = evidence["class_profiles"][row["evidence_class"]]
+        assert syn[oid] == compression["one_line"] == public["one_line"], oid
+        assert public["agent_gloss"] == compression["card"] and compression["card"].strip(), oid
+        assert public["claim_ceiling_restated"] == compression["authority_ceiling"], oid
+        assert compression["authority_ceiling"].strip(), oid
+        assert row["evidence_class"] == evidence_row["evidence_class"], oid
+        assert row["classification_basis"] == evidence_row["classification_basis"], oid
+        assert row["classification_basis"].strip(), oid
+        assert row["evidence_strength_rank"] == profile["evidence_strength_rank"], oid
+        assert row["truth_accounting_bucket"] == profile["truth_accounting_bucket"] == "real_runtime_receipt", oid
+        # A canonical description must retain a concrete source route to the
+        # declared engine/witness. This is source availability, not execution.
+        runner_ref = "src/" + row["runner"].replace(".", "/") + ".py"
+        assert (ROOT / runner_ref).is_file(), (oid, runner_ref)
+        assert any(locus.get("path") == runner_ref and locus.get("resolution") == "resolved"
+                   and locus.get("symbols") for locus in capsule["code_loci"]), oid

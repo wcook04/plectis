@@ -20,6 +20,7 @@ from microcosm_core.projections.concept_mechanism_read_model import (
 )
 from microcosm_core.receipts import write_json_atomic
 from microcosm_core.resource_root import microcosm_root
+from microcosm_core.component_descriptions import load_description_atlas, enrich_organ_route_rows
 from microcosm_core.schemas import read_json_strict
 
 
@@ -4426,9 +4427,12 @@ def _organ_card(
         "claim_ceiling": registry.get("claim_ceiling") or atlas.get("claim_ceiling_restated"),
         "wiring_note": atlas.get("wiring_note"),
         "agent_gloss": atlas.get("agent_gloss"),
+        "claim_ceiling_restated": atlas.get("claim_ceiling_restated"),
+        "description_source_ref": atlas.get("description_source_ref"),
         "evidence_refs": {
             "registry": _source_ref(ORGAN_REGISTRY_REF, organ_id),
             "atlas": _source_ref(ORGAN_ATLAS_REF, organ_id),
+            "description": atlas.get("description_source_ref"),
             "evidence_class": _source_ref(EVIDENCE_CLASSES_REF, organ_id),
             "current_authority_receipt": current_authority,
             "receipt_refs": receipt_refs,
@@ -4806,7 +4810,8 @@ def build_agent_entry_composition(
     entry_packet = _load_json(resolved_root / ENTRY_PACKET_REF)
     task_routes = _load_json(resolved_root / TASK_ROUTES_REF)
     registry = _load_json(resolved_root / "core/organ_registry.json")
-    atlas = _load_json(resolved_root / "core/organ_atlas.json")
+    atlas = load_description_atlas(resolved_root)
+    task_routes = enrich_organ_route_rows(task_routes, atlas)
     evidence = _load_json(resolved_root / "core/organ_evidence_classes.json")
 
     registry_by_id = _rows_by_id(registry, "implemented_organs")

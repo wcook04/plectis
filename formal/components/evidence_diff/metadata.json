@@ -32,5 +32,40 @@
   "slug": "evidence_diff",
   "source": "EvidenceDiff.dfy",
   "source_sha256": "d752cd10b557ee247c249990a2dac160971ac972f5cb6579a34cec6ef920fa48",
-  "verified_tasks": 4
+  "verified_tasks": 4,
+  "contract": {
+    "schema_version": "plectis_formal_contract_v1",
+    "contract_id": "contract::evidence_diff",
+    "statement": "For each normalized ID, the core assigns absent, lab-only, oracle-only or shared and returns the last occurrence index.",
+    "input_model": "Two finite sequences of integer ranks and a universe covering those ranks.",
+    "assumptions": "Trusted host supplies normalized observations; adapter, isolated worker, Dafny, compiler and runtime remain trusted.",
+    "limits": "Host ID normalization, Python equality, sorting and projected rows are trusted; prediction comparison is separate.",
+    "specification_refs": [
+      "formal/components/evidence_diff/EvidenceDiff.dfy#LastAt",
+      "formal/components/evidence_diff/EvidenceDiff.dfy#Classified"
+    ],
+    "entry_theorem_refs": [
+      "formal/components/evidence_diff/EvidenceDiff.dfy#FindLast",
+      "formal/components/evidence_diff/EvidenceDiff.dfy#Compute"
+    ],
+    "component_bindings": [
+      {
+        "organ_id": "batch8_tools_tail_primitives_capsule",
+        "runtime_refs": [
+          "src/microcosm_core/organs/batch8_tools_tail_primitives_capsule.py#_exercise_observer_diff"
+        ],
+        "primary_guide_ref": "paper_modules/batch8_tools_tail_primitives_capsule.md",
+        "test_refs": [
+          "tests/test_component_evidence_diff.py::test_normalized_rows_match_frozen_source",
+          "tests/test_component_evidence_diff.py::test_adapter_rejects_invalid_payloads_before_kernel"
+        ]
+      }
+    ],
+    "positive_test_ref": "tests/test_component_evidence_diff.py::test_normalized_rows_match_frozen_source",
+    "adversarial_test_ref": "tests/test_component_evidence_diff.py::test_adapter_rejects_invalid_payloads_before_kernel",
+    "mutant_refs": [
+      "formal/components/evidence_diff/negative/OverlapMutant.dfy"
+    ],
+    "formal_readme_ref": "formal/components/evidence_diff/README.md"
+  }
 }

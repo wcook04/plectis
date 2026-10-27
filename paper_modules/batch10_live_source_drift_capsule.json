@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "The fixture is a source-integrity exercise, not a check of a live private runtime.",
     "card": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them. It produces a result, a board and a validation receipt for the supplied fixture. The digest matrix requires each current digest to match and each stale digest to differ. A replay using a stale digest is rejected; the compile gate also rejects a bypass. Matching bytes and successful compilation do not prove the program behaves correctly or authorize changes to source, ledgers or routes.",
-    "one_line": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them."
+    "one_line": "Checks copied Python files against recorded digests and anchors, then compiles them."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch10_live_source_drift_capsule",
@@ -87,7 +87,7 @@
       "compression": {
         "authority_ceiling": "The fixture is a source-integrity exercise, not a check of a live private runtime.",
         "card": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them. It produces a result, a board and a validation receipt for the supplied fixture. The digest matrix requires each current digest to match and each stale digest to differ. A replay using a stale digest is rejected; the compile gate also rejects a bypass. Matching bytes and successful compilation do not prove the program behaves correctly or authorize changes to source, ledgers or routes.",
-        "one_line": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them."
+        "one_line": "Checks copied Python files against recorded digests and anchors, then compiles them."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -412,7 +412,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them.",
+  "statement": "Checks copied Python files against recorded digests and anchors, then compiles them.",
   "status": "active",
   "subjects": [
     {

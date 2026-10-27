@@ -32,5 +32,40 @@
   "slug": "budget_packing",
   "source": "BudgetPacking.dfy",
   "source_sha256": "326a2d8615ad2f126f9049d57476057ee2d18946d607e66b01081cc1c4f41f0e",
-  "verified_tasks": 8
+  "verified_tasks": 8,
+  "contract": {
+    "schema_version": "plectis_formal_contract_v1",
+    "contract_id": "contract::budget_packing",
+    "statement": "Each item is included exactly when its size plus earlier included sizes fits the budget; the total is the sum of included sizes.",
+    "input_model": "Finite nonnegative integer sizes and a signed integer budget; ordering is significant.",
+    "assumptions": "Trusted host supplies normalized observations; adapter, isolated worker, Dafny, compiler and runtime remain trusted.",
+    "limits": "Size extraction, UTF-8 counting, batching, metadata assembly and provider behavior are trusted or separate.",
+    "specification_refs": [
+      "formal/components/budget_packing/BudgetPacking.dfy#IncludedTotal",
+      "formal/components/budget_packing/BudgetPacking.dfy#OrderedGreedy"
+    ],
+    "entry_theorem_refs": [
+      "formal/components/budget_packing/BudgetPacking.dfy#Pack",
+      "formal/components/budget_packing/BudgetPacking.dfy#GreedyConcat"
+    ],
+    "component_bindings": [
+      {
+        "organ_id": "provider_context_recipe_budget_policy",
+        "runtime_refs": [
+          "src/microcosm_core/organs/provider_context_recipe_budget_policy.py#_recipe_projection"
+        ],
+        "primary_guide_ref": "paper_modules/provider_context_recipe_budget.md",
+        "test_refs": [
+          "tests/test_component_budget_packing.py::test_ordered_budget_packing_and_negative_budget",
+          "tests/test_component_budget_packing.py::test_strict_adapter_rejects_invalid_types_without_coercion"
+        ]
+      }
+    ],
+    "positive_test_ref": "tests/test_component_budget_packing.py::test_ordered_budget_packing_and_negative_budget",
+    "adversarial_test_ref": "tests/test_component_budget_packing.py::test_strict_adapter_rejects_invalid_types_without_coercion",
+    "mutant_refs": [
+      "formal/components/budget_packing/negative/FullBudgetPerItem.dfy"
+    ],
+    "formal_readme_ref": "formal/components/budget_packing/README.md"
+  }
 }

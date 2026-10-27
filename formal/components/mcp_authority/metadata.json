@@ -56,5 +56,46 @@
   "slug": "mcp_authority",
   "source": "McpAuthority.dfy",
   "source_sha256": "6368a5ce00a120a8e733ca3d64f6e91757abfc693d78d9419631a55f0d897007",
-  "verified_tasks": 16
+  "verified_tasks": 16,
+  "contract": {
+    "schema_version": "plectis_formal_contract_v1",
+    "contract_id": "contract::mcp_authority",
+    "statement": "Each of ten ordered fault flags matches its rule; a three-call batch passes exactly with all rows accepted, one qualifying write and one untrusted-result row.",
+    "input_model": "Normalized call observations include five required textual citations: scope, argument hash, source capsule, instruction/data split and cold replay. Write and external mutation also require approval, ledger and rollback text.",
+    "assumptions": "Trusted host supplies normalized observations; adapter, isolated worker, Dafny, compiler and runtime remain trusted.",
+    "limits": "Normalization, declared-tool membership and receipt rendering are host responsibilities; nonempty text does not authenticate approvals, resolve references or validate a cryptographic hash.",
+    "specification_refs": [
+      "formal/components/mcp_authority/McpAuthority.dfy#CompleteCitations",
+      "formal/components/mcp_authority/McpAuthority.dfy#Allowed",
+      "formal/components/mcp_authority/McpAuthority.dfy#FaultSpec",
+      "formal/components/mcp_authority/McpAuthority.dfy#BatchSpec"
+    ],
+    "entry_theorem_refs": [
+      "formal/components/mcp_authority/McpAuthority.dfy#RowExact",
+      "formal/components/mcp_authority/McpAuthority.dfy#BatchExact",
+      "formal/components/mcp_authority/McpAuthority.dfy#Batch",
+      "formal/components/mcp_authority/McpAuthority.dfy#ConcreteBoundary"
+    ],
+    "component_bindings": [
+      {
+        "organ_id": "mcp_tool_authority_replay",
+        "runtime_refs": [
+          "src/microcosm_core/organs/mcp_tool_authority_replay.py#validate_tool_calls"
+        ],
+        "primary_guide_ref": "paper_modules/mcp_tool_authority_replay.md",
+        "test_refs": [
+          "tests/test_component_mcp_authority.py::test_accepted_floor_and_rollback_missing",
+          "tests/test_component_mcp_authority.py::test_write_evidence_must_be_textual_nonempty_citations"
+        ]
+      }
+    ],
+    "positive_test_ref": "tests/test_component_mcp_authority.py::test_accepted_floor_and_rollback_missing",
+    "adversarial_test_ref": "tests/test_component_mcp_authority.py::test_write_evidence_must_be_textual_nonempty_citations",
+    "mutant_refs": [
+      "formal/components/mcp_authority/negative/MissingRollbackMutant.dfy",
+      "formal/components/mcp_authority/negative/SwappedFaultMutant.dfy",
+      "formal/components/mcp_authority/negative/EmptyScopeMutant.dfy"
+    ],
+    "formal_readme_ref": "formal/components/mcp_authority/README.md"
+  }
 }

@@ -44,5 +44,46 @@
   "slug": "information_flow",
   "source": "InformationFlow.dfy",
   "source_sha256": "f8019e0d5c694199eb53bdc5e9a51f7efa27a93bbc9a07b18e5b534a6ff114a5",
-  "verified_tasks": 20
+  "verified_tasks": 20,
+  "contract": {
+    "schema_version": "plectis_formal_contract_v1",
+    "contract_id": "contract::information_flow",
+    "statement": "The core returns the specified flow-policy verdicts and exact finite taint closure, including hidden-policy promotion seeds.",
+    "input_model": "Normalized policy flags, finite directed edges, seed vertices and hidden-label flag.",
+    "assumptions": "Trusted host supplies normalized observations; adapter, isolated worker, Dafny, compiler and runtime remain trusted.",
+    "limits": "Host episode graph and labels, sanitizer observations, witness construction and input authenticity are outside the proof.",
+    "specification_refs": [
+      "formal/components/information_flow/InformationFlow.dfy#Policy",
+      "formal/components/information_flow/InformationFlow.dfy#SeedNode",
+      "formal/components/information_flow/InformationFlow.dfy#Reaches"
+    ],
+    "entry_theorem_refs": [
+      "formal/components/information_flow/InformationFlow.dfy#Decide",
+      "formal/components/information_flow/InformationFlow.dfy#DecideMany",
+      "formal/components/information_flow/InformationFlow.dfy#Closure",
+      "formal/components/information_flow/InformationFlow.dfy#ReachMonotone",
+      "formal/components/information_flow/InformationFlow.dfy#ReachWithinEpisode"
+    ],
+    "component_bindings": [
+      {
+        "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+        "runtime_refs": [
+          "src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py#_taint_propagation_receipt",
+          "src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py#_derived_policy_verdict"
+        ],
+        "primary_guide_ref": "paper_modules/indirect_prompt_injection_information_flow_policy_replay.md",
+        "test_refs": [
+          "tests/test_component_information_flow.py::test_cycles_terminate_and_episode_labels_do_not_leak",
+          "tests/test_component_information_flow.py::test_out_of_order_chain_cannot_pass_an_unsanitized_privileged_flow"
+        ]
+      }
+    ],
+    "positive_test_ref": "tests/test_component_information_flow.py::test_cycles_terminate_and_episode_labels_do_not_leak",
+    "adversarial_test_ref": "tests/test_component_information_flow.py::test_out_of_order_chain_cannot_pass_an_unsanitized_privileged_flow",
+    "mutant_refs": [
+      "formal/components/information_flow/negative/UntrustedWriteMutant.dfy",
+      "formal/components/information_flow/negative/HiddenSeedMutant.dfy"
+    ],
+    "formal_readme_ref": "formal/components/information_flow/README.md"
+  }
 }

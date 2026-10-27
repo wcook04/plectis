@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "The pytest witness requires pytest and its source dependencies. These examples do not establish semantic truth, live market reasoning or coverage of the full Oracle system.",
     "card": "This fixture loads copied modules from Oracle, a market-evidence system, to index artifacts from a sample subject run, build a snapshot and compare a macroeconomic series. It also tests a plan for filling missing artifacts in a related truth run and runs an original pytest witness. It writes summaries of these local exercises. The subject index requires a run directory and artifact identity. In the repair example, the plan remains blocked because source nodes are missing, but writes a `prediction_reconciliation` alias of the existing `oracle_truth_diff_equity` artifact. It excludes the missing-quartet execution path and does not construct the bridge-backed reasoning engine. Missing artifact identity is a rejected case.",
-    "one_line": "This fixture loads copied modules from Oracle, a market-evidence system, to index artifacts from a sample subject run, build a snapshot and compare a macroeconomic series."
+    "one_line": "Exercises copied Oracle modules for artifact indexing, snapshots and comparisons."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch7_oracle_sibling_capsule",
@@ -91,7 +91,7 @@
       "compression": {
         "authority_ceiling": "The pytest witness requires pytest and its source dependencies. These examples do not establish semantic truth, live market reasoning or coverage of the full Oracle system.",
         "card": "This fixture loads copied modules from Oracle, a market-evidence system, to index artifacts from a sample subject run, build a snapshot and compare a macroeconomic series. It also tests a plan for filling missing artifacts in a related truth run and runs an original pytest witness. It writes summaries of these local exercises. The subject index requires a run directory and artifact identity. In the repair example, the plan remains blocked because source nodes are missing, but writes a `prediction_reconciliation` alias of the existing `oracle_truth_diff_equity` artifact. It excludes the missing-quartet execution path and does not construct the bridge-backed reasoning engine. Missing artifact identity is a rejected case.",
-        "one_line": "This fixture loads copied modules from Oracle, a market-evidence system, to index artifacts from a sample subject run, build a snapshot and compare a macroeconomic series."
+        "one_line": "Exercises copied Oracle modules for artifact indexing, snapshots and comparisons."
       },
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -369,7 +369,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "This fixture loads copied modules from Oracle, a market-evidence system, to index artifacts from a sample subject run, build a snapshot and compare a macroeconomic series.",
+  "statement": "Exercises copied Oracle modules for artifact indexing, snapshots and comparisons.",
   "status": "active",
   "subjects": [
     {

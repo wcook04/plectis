@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "The run checks existing evidence; it does not run Lean or Lake. Availability and timing are scoped to the recorded environment and do not prove a theorem or establish benchmark performance.",
     "card": "The validator compares public tactic and environment rows with source-backed probe artifacts. A row claiming an available tactic without a compile status, or claiming Mathlib availability without supporting evidence, is rejected. Source changes can invalidate a recorded availability label.",
-    "one_line": "This component reads recorded tactic compile statuses, durations and environment information and produces an availability report for later routing."
+    "one_line": "Summarizes recorded tactic availability, timing and environment."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.tactic_portfolio_availability",
@@ -84,7 +84,7 @@
       "compression": {
         "authority_ceiling": "The run checks existing evidence; it does not run Lean or Lake. Availability and timing are scoped to the recorded environment and do not prove a theorem or establish benchmark performance.",
         "card": "The validator compares public tactic and environment rows with source-backed probe artifacts. A row claiming an available tactic without a compile status, or claiming Mathlib availability without supporting evidence, is rejected. Source changes can invalidate a recorded availability label.",
-        "one_line": "This component reads recorded tactic compile statuses, durations and environment information and produces an availability report for later routing."
+        "one_line": "Summarizes recorded tactic availability, timing and environment."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -456,7 +456,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "This component reads recorded tactic compile statuses, durations and environment information and produces an availability report for later routing.",
+  "statement": "Summarizes recorded tactic availability, timing and environment.",
   "status": "active",
   "subjects": [
     {

@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "This is a bounded public witness and policy experiment. It does not establish correctness of arbitrary proofs or authorize arbitrary source changes. The command requires compatible `lean` and `lake` on PATH and can take time to build.",
     "card": "The fixture includes a Lake project and deliberate negative cases. The validator rejects transitions exposing candidate bodies or mixing provider/oracle visibility into the forward path, and rejects an Evolve candidate claiming arbitrary source mutation. Its tests exercise Lean execution and the candidate checks.",
-    "one_line": "The execution spine runs a small public Lean project and checks recorded transitions, translation candidates and bounded policy-change candidates."
+    "one_line": "Checks verifier transitions and policy candidates; the direct fixture runs Lean."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.verifier_lab_execution_spine",
@@ -86,7 +86,7 @@
       "compression": {
         "authority_ceiling": "This is a bounded public witness and policy experiment. It does not establish correctness of arbitrary proofs or authorize arbitrary source changes. The command requires compatible `lean` and `lake` on PATH and can take time to build.",
         "card": "The fixture includes a Lake project and deliberate negative cases. The validator rejects transitions exposing candidate bodies or mixing provider/oracle visibility into the forward path, and rejects an Evolve candidate claiming arbitrary source mutation. Its tests exercise Lean execution and the candidate checks.",
-        "one_line": "The execution spine runs a small public Lean project and checks recorded transitions, translation candidates and bounded policy-change candidates."
+        "one_line": "Checks verifier transitions and policy candidates; the direct fixture runs Lean."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -468,7 +468,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The execution spine runs a small public Lean project and checks recorded transitions, translation candidates and bounded policy-change candidates.",
+  "statement": "Checks verifier transitions and policy candidates; the direct fixture runs Lean.",
   "status": "active",
   "subjects": [
     {

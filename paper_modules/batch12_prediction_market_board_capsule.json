@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "The examples do not validate live market prices, provider data, forecast accuracy or calibration; they are not trading advice.",
     "card": "This fixture exercises copied board and quantitative-mart helpers using synthetic market rows, identity records and helper cases. It records deduplication and aggregate results alongside diagnostics for data availability and provider drift. For duplicate listings, the fixture checks that the higher-volume row is retained and aggregates are deduplicated. A market slug without a matching identity record must not acquire an invented identity. Other cases flag a feed with zero rows and leave the change in feed evidence unavailable when there is no previous successful run to compare against.",
-    "one_line": "This fixture exercises copied board and quantitative-mart helpers using synthetic market rows, identity records and helper cases."
+    "one_line": "Exercises copied market-board helpers on synthetic rows and identity records."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.batch12_prediction_market_board_capsule",
@@ -85,7 +85,7 @@
       "compression": {
         "authority_ceiling": "The examples do not validate live market prices, provider data, forecast accuracy or calibration; they are not trading advice.",
         "card": "This fixture exercises copied board and quantitative-mart helpers using synthetic market rows, identity records and helper cases. It records deduplication and aggregate results alongside diagnostics for data availability and provider drift. For duplicate listings, the fixture checks that the higher-volume row is retained and aggregates are deduplicated. A market slug without a matching identity record must not acquire an invented identity. Other cases flag a feed with zero rows and leave the change in feed evidence unavailable when there is no previous successful run to compare against.",
-        "one_line": "This fixture exercises copied board and quantitative-mart helpers using synthetic market rows, identity records and helper cases."
+        "one_line": "Exercises copied market-board helpers on synthetic rows and identity records."
       },
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
@@ -408,7 +408,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "This fixture exercises copied board and quantitative-mart helpers using synthetic market rows, identity records and helper cases.",
+  "statement": "Exercises copied market-board helpers on synthetic rows and identity records.",
   "status": "active",
   "subjects": [
     {

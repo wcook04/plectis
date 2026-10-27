@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "The result concerns the supplied evidence and synthetic proposals. It grants no credential or permission to mutate a live system. A source hash or Git witness is not proof that the underlying change is correct.",
     "card": "For each proposal, the validator resolves proof cells and visible policy verdicts, recomputes an evidence-chain hash and checks the associated record. Write and rollback proposals require side-effect and rollback records. It also checks a Git commit witness and its changed paths; Git must be installed and the referenced commit available. A proposal with one visible verdict, a stale hash or no rollback for a reversible write is rejected.",
-    "one_line": "Checks synthetic mutation proposals against linked proof, policy, side-effect, rollback and replay records, then writes an authorization replay receipt."
+    "one_line": "Checks synthetic mutation proposals against proof, policy, rollback and replay records."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.proof_derived_governed_mutation_authorization",
@@ -86,7 +86,7 @@
       "compression": {
         "authority_ceiling": "The result concerns the supplied evidence and synthetic proposals. It grants no credential or permission to mutate a live system. A source hash or Git witness is not proof that the underlying change is correct.",
         "card": "For each proposal, the validator resolves proof cells and visible policy verdicts, recomputes an evidence-chain hash and checks the associated record. Write and rollback proposals require side-effect and rollback records. It also checks a Git commit witness and its changed paths; Git must be installed and the referenced commit available. A proposal with one visible verdict, a stale hash or no rollback for a reversible write is rejected.",
-        "one_line": "Checks synthetic mutation proposals against linked proof, policy, side-effect, rollback and replay records, then writes an authorization replay receipt."
+        "one_line": "Checks synthetic mutation proposals against proof, policy, rollback and replay records."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -311,7 +311,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "Checks synthetic mutation proposals against linked proof, policy, side-effect, rollback and replay records, then writes an authorization replay receipt.",
+  "statement": "Checks synthetic mutation proposals against proof, policy, rollback and replay records.",
   "status": "active",
   "subjects": [
     {

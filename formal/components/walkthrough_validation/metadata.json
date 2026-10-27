@@ -44,5 +44,43 @@
   "slug": "walkthrough_validation",
   "source": "WalkthroughValidation.dfy",
   "source_sha256": "8dcc149cec9bd16d399fb2cc044d44a82579689a59bc079c34f69338d40c253e",
-  "verified_tasks": 5
+  "verified_tasks": 5,
+  "contract": {
+    "schema_version": "plectis_formal_contract_v1",
+    "contract_id": "contract::walkthrough_validation",
+    "statement": "A normalized walkthrough is accepted exactly when its positive rational budget is at most ten minutes and all step and distinct-reference floors hold.",
+    "input_model": "Finite normalized steps; positive denominator and numerator, numerator \u2264 10\u00d7denominator; at least five steps, four distinct commands and four distinct evidence refs, with each step carrying a command, inspection ref and evidence ref.",
+    "assumptions": "Trusted host supplies normalized observations; adapter, isolated worker, Dafny, compiler and runtime remain trusted.",
+    "limits": "Observed numeric conversion and host reference locality are trusted; the theorem does not establish elapsed time, file existence or command execution.",
+    "specification_refs": [
+      "formal/components/walkthrough_validation/WalkthroughValidation.dfy#WithinTenMinutes",
+      "formal/components/walkthrough_validation/WalkthroughValidation.dfy#ExactCommands",
+      "formal/components/walkthrough_validation/WalkthroughValidation.dfy#ExactEvidence",
+      "formal/components/walkthrough_validation/WalkthroughValidation.dfy#Declared"
+    ],
+    "entry_theorem_refs": [
+      "formal/components/walkthrough_validation/WalkthroughValidation.dfy#Evaluate",
+      "formal/components/walkthrough_validation/WalkthroughValidation.dfy#OverBudgetCannotBeDeclared"
+    ],
+    "component_bindings": [
+      {
+        "organ_id": "public_reveal_walkthrough",
+        "runtime_refs": [
+          "src/microcosm_core/organs/public_reveal_walkthrough.py#validate_walkthrough"
+        ],
+        "primary_guide_ref": "paper_modules/public_reveal_walkthrough.md",
+        "test_refs": [
+          "tests/test_component_walkthrough_validation.py::test_generated_acceptance_uses_the_actual_numeric_budget",
+          "tests/test_component_walkthrough_validation.py::test_missing_required_budget_reaches_generated_rejection_and_host_diagnostic"
+        ]
+      }
+    ],
+    "positive_test_ref": "tests/test_component_walkthrough_validation.py::test_generated_acceptance_uses_the_actual_numeric_budget",
+    "adversarial_test_ref": "tests/test_component_walkthrough_validation.py::test_missing_required_budget_reaches_generated_rejection_and_host_diagnostic",
+    "mutant_refs": [
+      "formal/components/walkthrough_validation/negative/MissingEvidenceMutant.dfy",
+      "formal/components/walkthrough_validation/negative/MissingTimeLimitMutant.dfy"
+    ],
+    "formal_readme_ref": "formal/components/walkthrough_validation/README.md"
+  }
 }

@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "A stale predicted state that disagrees with the computed step is rejected. This is a small synthetic gridworld check, not evidence of geographic accuracy, robot operation or a production simulator.",
     "card": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction. It writes findings and a board for inspecting mismatches.",
-    "one_line": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction."
+    "one_line": "Compares predicted counterfactual transitions with a deterministic toy gridworld."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.spatial_world_model_counterfactual_simulation_replay",
@@ -90,7 +90,7 @@
       "compression": {
         "authority_ceiling": "A stale predicted state that disagrees with the computed step is rejected. This is a small synthetic gridworld check, not evidence of geographic accuracy, robot operation or a production simulator.",
         "card": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction. It writes findings and a board for inspecting mismatches.",
-        "one_line": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction."
+        "one_line": "Compares predicted counterfactual transitions with a deterministic toy gridworld."
       },
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
@@ -489,7 +489,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction.",
+  "statement": "Compares predicted counterfactual transitions with a deterministic toy gridworld.",
   "status": "active",
   "subjects": [
     {

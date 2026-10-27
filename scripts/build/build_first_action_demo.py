@@ -85,7 +85,7 @@ SECTIONS: list[dict[str, object]] = [
         "bases": ("organ_named_in_goal", "organ_token_match", "task_class_route_match"),
         "note": (
             "Each contract below resolved a freeform goal to its owning component, "
-            "a runnable first command, the validator that proves it, and a stop "
+            "a runnable first command, the validator that checks its result, and a stop "
             "condition -- without source search."
         ),
     },

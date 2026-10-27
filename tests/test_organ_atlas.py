@@ -18,6 +18,7 @@ from microcosm_core.projections.organ_atlas import (
     build,
     load_model,
 )
+from microcosm_core.component_descriptions import load_description_atlas
 from microcosm_core.schemas import read_json_strict
 
 
@@ -65,7 +66,7 @@ def _registry_claims() -> dict[str, str]:
 
 
 def _atlas_rows() -> dict[str, dict]:
-    atlas = read_json_strict(MICROCOSM_ROOT / "core/organ_atlas.json")
+    atlas = load_description_atlas(MICROCOSM_ROOT)
     return {
         str(row.get("organ_id")): row
         for row in atlas.get("organs", [])
@@ -151,10 +152,10 @@ def test_sentinel_claim_ceilings_bind_to_registry_source() -> None:
 
     for organ_id in SENTINEL_CLAIM_BINDING_IDS:
         registry_claim = registry_claims[organ_id]
-        public_claim = _public_scope_text(registry_claim)
-        assert atlas_rows[organ_id]["claim_ceiling_restated"] == registry_claim
+        public_claim = _public_scope_text(atlas_rows[organ_id]["claim_ceiling_restated"])
+        assert atlas_rows[organ_id]["claim_ceiling_restated"] == model_cards[organ_id]["compression_authority_ceiling"]
         assert model_cards[organ_id]["claim_ceiling"] == registry_claim
-        assert model_cards[organ_id]["claim_ceiling_restated"] == registry_claim
+        assert model_cards[organ_id]["claim_ceiling_restated"] == atlas_rows[organ_id]["claim_ceiling_restated"]
         assert generated_organs[organ_id]["claim_ceiling_restated"] == public_claim
         assert generated_organs[organ_id]["authority_boundary"] == public_claim
 
@@ -326,7 +327,7 @@ def test_every_organ_card_exposes_doctrine_drilldowns() -> None:
 
 
 def test_non_1_to_1_paper_module_links_are_data_declared() -> None:
-    atlas = read_json_strict(MICROCOSM_ROOT / "core/organ_atlas.json")
+    atlas = load_description_atlas(MICROCOSM_ROOT)
     declared = {
         str(row.get("organ_id")): str(row.get("paper_module_ref"))
         for row in atlas.get("organs", [])
@@ -684,10 +685,10 @@ def test_agent_task_routes_project_from_specialty_tags() -> None:
         "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle "
         "--out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card"
     )
-    assert (
-        "financial decisions" in interesting_parts["allowed_scope"]
-        and "whole-system correctness" in interesting_parts["allowed_scope"]
-    )
+    capsules = read_json_strict(MICROCOSM_ROOT / "core/paper_module_capsules.json")["paper_modules"]
+    cold_reader = next(row for row in capsules
+                       if row["legacy_markdown_projection"] == "paper_modules/cold_reader_route_map.md")
+    assert interesting_parts["allowed_scope"] == cold_reader["compression"]["authority_ceiling"]
 
     finance = {row["task_class"]: row for row in route_model["routes"]}["finance"]
     assert finance["primary_organ_id"] == "finance_forecast_evaluation_spine"
@@ -739,11 +740,13 @@ def test_agent_concurrency_routes_bind_seed_speed_topology_to_work_spine() -> No
     work_spine = cards["mission_transaction_work_spine"]
 
     assert "mission_transaction_work_spine" in concurrency["wires_to"]
-    assert "Work Ledger seed-speed topology fixture" in concurrency["agent_gloss"]
     assert "source-import anchor enforcement" in concurrency["wiring_note"]
-    assert "Work Ledger seed-speed source-import" in work_spine["agent_gloss"]
-    assert "session heartbeat" in work_spine["human_gloss"]
-    assert "mutation-check" in work_spine["human_gloss"]
+    canonical = _atlas_rows()
+    for card in (concurrency, work_spine):
+        row = canonical[card["organ_id"]]
+        assert card["human_gloss"] == card["agent_gloss"] == row["compression_card"]
+        assert card["claim_ceiling_restated"] == row["compression_authority_ceiling"]
+        assert card["description_source_ref"] == row["description_source_ref"]
 
 
 def test_agent_routes_md_exposes_task_table_and_deferral_targets() -> None:

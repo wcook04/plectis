@@ -50,6 +50,8 @@ _LINKED_SIBLINGS = (
     "docs/guides/README.md",
     "docs/guides/prompt-injection.md",
     "docs/reference/README.md",
+    "docs/reference/component-http-api.md",
+    "src/microcosm_core/component_descriptions.py",
     "docs/reference/terminology.md",
     "docs/reference/lean-companion.md",
     "docs/maintainers/README.md",
@@ -273,6 +275,19 @@ def test_blocks_broken_link(tmp_path: Path) -> None:
     _mutate(root, "(ARCHITECTURE.md)", "(ARCHITECTURE_GONE.md)")
     receipt = validate_readme_front_door(root)
     assert "README_BROKEN_LINK" in receipt["blocking_codes"]
+    assert receipt["findings"]["broken_links"] == ["ARCHITECTURE_GONE.md"]
+
+
+@pytest.mark.parametrize("relative", [
+    "docs/reference/component-http-api.md",
+    "src/microcosm_core/component_descriptions.py",
+])
+def test_blocks_missing_component_owner_link_target(tmp_path: Path, relative: str) -> None:
+    root = _front_door_tree(tmp_path)
+    (root / relative).unlink()
+    receipt = validate_readme_front_door(root)
+    assert "README_BROKEN_LINK" in receipt["blocking_codes"]
+    assert receipt["findings"]["broken_links"] == [relative]
 
 
 def test_blocks_former_name_in_hero(tmp_path: Path) -> None:

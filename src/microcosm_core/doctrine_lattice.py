@@ -25,6 +25,7 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.resource_root import microcosm_root
+from microcosm_core.component_descriptions import load_description_atlas
 from microcosm_core.schemas import loads_json_strict, read_json_strict
 from microcosm_core.validators.axiom_support_cover import evaluate_axiom_support_cover
 
@@ -817,7 +818,7 @@ def _atlas_organs(root: str | Path | None) -> list[dict[str, Any]]:
 
     Inputs are `root`; notable helpers are `_as_dict`, `_load`, `_as_list`, and `get`.
     """
-    atlas = _as_dict(_load(root, "core/organ_atlas.json"))
+    atlas = load_description_atlas(_root(root))
     return [row for row in _as_list(atlas.get("organs")) if isinstance(row, dict)]
 
 
@@ -5402,7 +5403,7 @@ _SOURCE_PROJECTION_INPUTS = {
     "anti_principle": (ANTI_PRINCIPLES_REL, AXIOM_ROUTING_REL),
     "concept": (CONCEPT_ENTRY_PACKET_REL, PRINCIPLES_REL, AXIOM_ROUTING_REL, MECHANISM_REGISTRY_REL),
     "mechanism": (MECHANISM_REGISTRY_REL, CONCEPT_ENTRY_PACKET_REL, PRINCIPLES_REL, AXIOM_ROUTING_REL, "core/organ_atlas.json"),
-    "organ": ("core/organ_atlas.json", "core/organ_registry.json", MECHANISM_REGISTRY_REL, CONCEPT_ENTRY_PACKET_REL, PRINCIPLES_REL, AXIOM_ROUTING_REL),
+    "organ": ("core/organ_atlas.json", PAPER_MODULE_CAPSULES_REL, "core/organ_registry.json", MECHANISM_REGISTRY_REL, CONCEPT_ENTRY_PACKET_REL, PRINCIPLES_REL, AXIOM_ROUTING_REL),
 }
 
 
@@ -8097,6 +8098,10 @@ def build_organ_instance_from_source_row(
                 "path": registry_ref,
                 "role": "accepted_current_authority_registry_row",
             },
+            *([{
+                "path": row["description_source_ref"],
+                "role": "canonical_capsule_description",
+            }] if row.get("description_source_ref") else []),
             {
                 "path": _organ_instance_rel(organ_id),
                 "role": "governed_json_parity_seed",
@@ -8178,7 +8183,7 @@ def build_organ_instance_from_source_row(
                 "generated_markdown_rel": _organ_markdown_rel(organ_id),
             },
             "migration_contract": {
-                "source_of_record": "core/organ_atlas.json + core/organ_registry.json",
+                "source_of_record": "core/organ_atlas.json + core/paper_module_capsules.json + core/organ_registry.json",
                 "authority_flip_status": "not_flipped",
                 "parity_validator": "microcosm-substrate/scripts/build/build_doctrine_projection.py --check",
                 "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -8284,7 +8289,7 @@ def build_organ_instance_corpus(root: str | Path | None = None) -> dict[str, Any
     ]
     return {
         "schema_version": "microcosm_organ_instance_corpus_v1",
-        "source_of_record": "core/organ_atlas.json + core/organ_registry.json",
+        "source_of_record": "core/organ_atlas.json + core/paper_module_capsules.json + core/organ_registry.json",
         "authority_flip_status": "not_flipped_organ_atlas_registry_still_source_of_record",
         "json_authority_migration_status": "parity_seeded" if validation["status"] == "pass" and actual else "not_seeded_or_not_parity_fresh",
         "expected_organ_count": len(expected),

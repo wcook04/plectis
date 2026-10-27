@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "A pass describes checked public coverage; it does not establish that every component works correctly or authorize registry changes or a release.",
     "card": "The checker compares accepted component IDs against inventory and runtime-contract rows, checks standard and receipt references, and scans inputs for forbidden material. A missing standard reference or a claimed release authorization is rejected. The exported bundle uses supplied rows and checks a source-module manifest.",
-    "one_line": "This validator checks whether accepted components have the declared standards, runtime commands and receipt references needed to describe their public contracts."
+    "one_line": "Checks accepted components for declared standards, commands and receipt references."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.standards_meta_diagnostics",
@@ -81,7 +81,7 @@
       "compression": {
         "authority_ceiling": "A pass describes checked public coverage; it does not establish that every component works correctly or authorize registry changes or a release.",
         "card": "The checker compares accepted component IDs against inventory and runtime-contract rows, checks standard and receipt references, and scans inputs for forbidden material. A missing standard reference or a claimed release authorization is rejected. The exported bundle uses supplied rows and checks a source-module manifest.",
-        "one_line": "This validator checks whether accepted components have the declared standards, runtime commands and receipt references needed to describe their public contracts."
+        "one_line": "Checks accepted components for declared standards, commands and receipt references."
       },
       "concept_refs": [
         "concept.standards_meta_diagnostics_bundle",
@@ -357,7 +357,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "This validator checks whether accepted components have the declared standards, runtime commands and receipt references needed to describe their public contracts.",
+  "statement": "Checks accepted components for declared standards, commands and receipt references.",
   "status": "active",
   "subjects": [
     {

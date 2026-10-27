@@ -1,90 +1,71 @@
-<!-- SPDX-FileCopyrightText: 2026 Will Cook -->
-<!-- SPDX-License-Identifier: Apache-2.0 -->
+# Plectis prototype paper
 
-# Plectis paper
+The [paper PDF](../plectis-public-system.pdf), *Plectis: Verifying Code and Recording Its Execution*, explains selected Dafny computations, their generated Python and actual callers. Its ownership example shows how a stale first match could hide a live owner, why the requirement changed, and how the repaired contract connects to the application. The separate replay-admission core checks recorded observations rather than proving the component algorithm.
 
-Read [the current PDF](../plectis-public-system.pdf) for the argument.
-[plectis-public-system.tex](plectis-public-system.tex) is its source.
+The manuscript is [plectis-public-system.tex](plectis-public-system.tex); [paper-house-style.sty](paper-house-style.sty) supplies the shared typography. This prototype paper is distinct from the system paper maintained in `wcook04/plectis-erdos`.
 
-In the paper, I examine what a stranger can reasonably conclude from running
-the published parts of a private system. I trace one component from input to
-result and distinguish the observed result from the broader claims a reader
-might make about it. The subject is one author-selected software collection.
+## Check the source bindings
 
-The argument concerns the relationship between claims, evidence and limits;
-the choices I made as the author; and ways an independent evaluator could
-test those choices. The figures and worked example explain the component's
-required fields, the published material, and the additional evidence needed
-for broader claims. The final section gives a review procedure. The appendix
-records commands, environment details and counts for the version examined.
-
-The paper does not statistically evaluate the private system or establish
-that it is reliable. Its discussion of assurance cases and
-Claims–Arguments–Evidence notation does not claim conformance to either.
-
-<a id="check-and-build"></a>
-## Compare the manuscript with its recorded evidence
-
-Use Python 3.11 or newer and Git from the clone root, in a macOS/Linux shell or
-WSL. The [quickstart](../QUICKSTART.md#1-first-result) gives the clone command.
-This command needs no Python package installation:
+From the clone root, using Python 3.11 or newer:
 
 ```sh
 python3 scripts/check/check_public_system_paper.py
 ```
 
-The script compares manuscript counts and references with files at the Git
-commit named in the manuscript. It also compares the saved
-[test-run record](public-test-receipt.json), required explanations, bibliography
-identifiers and prohibited claims with prescribed values. It prints
-`Public-system paper check: pass` followed by the comparison details on success
-and exits with status `0`; disagreements produce error messages and status `1`.
+The checker compares the paper's selected counts with maintained formal metadata, checks source and generated-code bindings through the existing formal checkers, follows the paper's human-readable guide citation, validates this guide's implementation links, and confirms that the reproduction commands here still name the maintained Make targets. It also rejects code and command blocks in the article. Success prints `Public-system paper check: pass` and exits with status `0`; a mismatch prints diagnostics and exits with status `1`.
 
-These are comparisons of recorded material. The script does not rerun the
-recorded tests or Lean proofs, or look up publications to verify their
-bibliography entries. For commands that run the current software, use the
-[validation guide](../docs/maintainers/validation.md).
+This static comparison does not rerun proofs, component replays, tests or CI. It cannot establish that the prose accurately explains a specification or that the specification meets the intended requirement. The [formal overview](../formal/README.md) and [validation runbook](../docs/maintainers/validation.md) describe those separate checks. No historical Git commit or archived test receipt is required by the paper check.
 
-A full Git clone provides the historical files used for these comparisons.
-If the script reports that the named commit is missing from a shallow clone,
-run `git fetch --unshallow` and retry. A ZIP download has no Git history: the
-script can compare its local files, but cannot reproduce the comparison with
-the historical commit.
+## Build and review the PDF
 
-## Build a preview PDF
-
-Install [Tectonic](https://tectonic-typesetting.github.io/book/latest/getting-started/install.html)
-and confirm that `tectonic --help` runs. Tectonic downloads TeX support files
-when they are missing from its cache, so a first build may need network access.
-From the clone root, run:
+Install [Tectonic](https://tectonic-typesetting.github.io/book/latest/getting-started/install.html) and confirm `tectonic --help` runs. A first build may download TeX support files into Tectonic's cache. From the clone root:
 
 ```sh
 mkdir -p /tmp/plectis-paper
 tectonic --outdir /tmp/plectis-paper paper/plectis-public-system.tex
 ```
 
-Open `/tmp/plectis-paper/plectis-public-system.pdf` to read the result. This
-command writes the preview outside the checkout and leaves the published PDF
-unchanged. Rerunning it replaces the previous preview at that path.
-
-## Replace the published PDF
-
-After reviewing the preview, copy it over the tracked PDF if you are preparing
-an updated paper for the repository:
+Inspect every page of `/tmp/plectis-paper/plectis-public-system.pdf`, including the figure, source links and bibliography. The editorial target is four to six pages at the shared style's normal text size. After review, an authorized publication update replaces the stable root PDF:
 
 ```sh
 cp /tmp/plectis-paper/plectis-public-system.pdf plectis-public-system.pdf
 ```
 
-This replaces the PDF linked from the root README. Review that file along with
-any manuscript edits before committing them.
+The root PDF is the public copy. Do not add a second PDF under `paper/`. Changes to the manuscript also require the existing paper-corpus refresh and checks, and the repository's normal release validation. Return to the [README](../README.md) for runnable examples and to the [code guide](../ARCHITECTURE.md) for implementation paths.
 
-The editorial page limit is twenty-two pages. This updates the previous
-twenty-one-page limit to retain the already published manuscript, appendix,
-authorship disclosure and bibliography at their current type size. Record a
-reason here before raising the limit again.
+## Inspect the worked examples
 
-Return to the [README](../README.md) to choose an example, or read
-[the code guide](../ARCHITECTURE.md) to find its implementation. The PDF explains
-the evidence and conclusions for the recorded version; those guides describe
-how to use the current checkout.
+The paper explains the architecture and behavior. This guide supplies the exact implementation and test objects:
+
+| Object | Source and checks |
+|---|---|
+| Ownership requirement and computation | [Dafny source](../formal/components/ownership_classification/OwnershipClassification.dfy) |
+| Ownership normalization and application caller | [Concurrency component](../src/microcosm_core/organs/concurrency_mission_control.py) |
+| Same-file, cross-file and conflicting-owner cases | [Ownership tests](../tests/test_component_ownership_classification.py) |
+| Evidence comparison computation | [Dafny source](../formal/components/evidence_diff/EvidenceDiff.dfy) |
+| Evidence normalization | [Python adapter](../src/plectis/components/evidence_diff/_adapter.py) |
+| Duplicate-ID and actual-caller cases | [Evidence-comparison tests](../tests/test_component_evidence_diff.py) |
+| Replay-admission contract | [Dafny source](../formal/replay/ReplayAdmission.dfy) |
+| Capture and receipt observations | [Shared replay host](../src/microcosm_core/component_replay.py) |
+| Formal inventory and trust limits | [Component computations](../formal/components/README.md) and [workflow cores](../formal/README.md) |
+
+The ownership postcondition in the maintained source requires any matching live claim on a generated path to yield classification `2` and action `11`. The host maps these to `owned_live` and `do_not_patch_from_sibling_lane`. Read the whole input model and priority contract alongside that implication; it concerns supplied normalized observations, not authenticated locks or live sessions.
+
+## Reproduce the formal checks and execution
+
+Install the pinned Dafny 4.11.0 distribution named by the formal guides. From the clone root, replacing the executable path with your installation:
+
+```sh
+make verify-components DAFNY=/absolute/path/to/dafny
+make verify-operations DAFNY=/absolute/path/to/dafny
+```
+
+These commands invoke the maintained formal checkers, rerun native proofs, regenerate deployed Python, compare its bytes and require selected source mutants to fail. They do not replace requirements review or application tests.
+
+To attempt fresh component execution with each route's declared native prerequisites:
+
+```sh
+make component-replays
+```
+
+Follow the [validation runbook](../docs/maintainers/validation.md) for application tests, native prerequisites, package checks and release validation. The paper's summary counts are bound to retained metadata; a current hash-only comparison is not evidence that these commands or CI have just run.

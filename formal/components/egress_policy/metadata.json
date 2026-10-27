@@ -57,5 +57,44 @@
   "source": "EgressPolicy.dfy",
   "source_sha256": "73d960cbdd0c7861a47405f29a577197769f8685c61b59b182d9cf981483a814",
   "trust": "Python normalization, Unicode code-point and edge-flag conversion, generated runtime, sealed loader, process host, Dafny and solver remain trusted. Phrase rules do not establish semantic safety.",
-  "verified_tasks": 8
+  "verified_tasks": 8,
+  "contract": {
+    "schema_version": "plectis_formal_contract_v1",
+    "contract_id": "contract::egress_policy",
+    "statement": "Literal phrase matches obey the specified edge rules; a tripwire without its legitimizer produces a violation and red means at least one violation.",
+    "input_model": "Text and phrase code points, edge flags and ordered tripwire/legitimizer observations.",
+    "assumptions": "Trusted host supplies normalized observations; adapter, isolated worker, Dafny, compiler and runtime remain trusted.",
+    "limits": "Lowercasing, Python boundary flags and phrase selection are trusted; a match does not establish semantic safety.",
+    "specification_refs": [
+      "formal/components/egress_policy/EgressPolicy.dfy#Occurrence",
+      "formal/components/egress_policy/EgressPolicy.dfy#HasOccurrence",
+      "formal/components/egress_policy/EgressPolicy.dfy#Violations"
+    ],
+    "entry_theorem_refs": [
+      "formal/components/egress_policy/EgressPolicy.dfy#Find",
+      "formal/components/egress_policy/EgressPolicy.dfy#PolicyExact",
+      "formal/components/egress_policy/EgressPolicy.dfy#EvaluatePolicy"
+    ],
+    "component_bindings": [
+      {
+        "organ_id": "egress_self_compliance_audit",
+        "runtime_refs": [
+          "src/microcosm_core/engine_room/egress_self_compliance_gate.py#_verified_policy"
+        ],
+        "primary_guide_ref": "paper_modules/egress_self_compliance_audit.md",
+        "test_refs": [
+          "tests/test_component_egress_policy.py::test_real_matcher_matches_original_regex_on_boundaries_and_unicode",
+          "tests/test_component_egress_policy.py::test_adapter_rejects_bad_shapes_without_a_fallback"
+        ]
+      }
+    ],
+    "positive_test_ref": "tests/test_component_egress_policy.py::test_real_matcher_matches_original_regex_on_boundaries_and_unicode",
+    "adversarial_test_ref": "tests/test_component_egress_policy.py::test_adapter_rejects_bad_shapes_without_a_fallback",
+    "mutant_refs": [
+      "formal/components/egress_policy/negative/MissingLeftGuard.dfy",
+      "formal/components/egress_policy/negative/MissingRightGuard.dfy",
+      "formal/components/egress_policy/negative/MissingLegitimizerGuard.dfy"
+    ],
+    "formal_readme_ref": "formal/components/egress_policy/README.md"
+  }
 }

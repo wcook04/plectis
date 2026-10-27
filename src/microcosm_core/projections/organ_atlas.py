@@ -24,6 +24,7 @@ from microcosm_core.projections.concept_mechanism_read_model import (
 from microcosm_core.projections.organ_surface_contract import (
     build_organ_surface_contract,
 )
+from microcosm_core.component_descriptions import capsule_index, capsule_for_atlas_row, load_description_atlas
 from microcosm_core.schemas import read_json_strict
 
 
@@ -132,6 +133,7 @@ NEGATION_CUES = (
     "n't",
     " no ",
     "never",
+    "neither ",
     "without",
     "reject",
     "forbid",
@@ -315,73 +317,16 @@ def _paper_module_capsules(root: Path) -> list[dict[str, Any]]:
 
 
 def _capsule_index(capsules: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    """
-    Derive capsule index without touching module import state.
-
-    Inputs are `capsules`; notable helpers are `strip`, `get`, `add`, and `setdefault`.
-    """
-    index: dict[str, dict[str, Any]] = {}
-    for row in capsules:
-        capsule_id = str(row.get("id") or "").strip()
-        legacy_projection = str(row.get("legacy_markdown_projection") or "").strip()
-        keys = {
-            capsule_id,
-            f"{PAPER_MODULE_CAPSULES_REL}#{capsule_id}" if capsule_id else "",
-            legacy_projection,
-        }
-        for subject in row.get("subjects") or []:
-            if not isinstance(subject, dict):
-                continue
-            if subject.get("kind") == "organ" and subject.get("ref"):
-                ref = str(subject.get("ref"))
-                keys.add(ref)
-                keys.add(f"paper_module.{ref}")
-        for key in keys:
-            if key:
-                index.setdefault(key, row)
-    return index
+    """Compatibility name for the shared strict capsule index."""
+    return capsule_index(capsules)
 
 
 def _capsule_for_gloss(
-    root: Path,
-    organ_id: str,
-    gloss: dict[str, Any],
+    root: Path, organ_id: str, gloss: dict[str, Any],
     capsule_by_key: dict[str, dict[str, Any]],
-) -> tuple[dict[str, Any] | None, str]:
-    """
-    Produce the capsule for gloss value used by `microcosm_core.projections.organ_atlas`.
-
-    Inputs are `root`, `organ_id`, `gloss`, and `capsule_by_key`; notable helpers are
-    `strip`, `_paper_module_ref`, `extend`, `append`, and 3 more.
-    """
-    declared = str(gloss.get("paper_module_ref") or "").strip()
-    lookup_keys: list[str] = []
-    if declared:
-        lookup_keys.append(declared)
-        declared_path, _, fragment = declared.partition("#")
-        if fragment:
-            lookup_keys.extend([fragment, f"{declared_path}#{fragment}"])
-        if declared_path:
-            lookup_keys.append(declared_path)
-    resolved_module = _paper_module_ref(root, organ_id, gloss)
-    if resolved_module:
-        lookup_keys.append(resolved_module)
-    lookup_keys.extend([f"paper_module.{organ_id}", organ_id])
-
-    seen: set[str] = set()
-    for key in lookup_keys:
-        if not key or key in seen:
-            continue
-        seen.add(key)
-        row = capsule_by_key.get(key)
-        if not row:
-            continue
-        capsule_id = str(row.get("id") or "")
-        status = "direct"
-        if capsule_id != f"paper_module.{organ_id}":
-            status = "paper_module_ref_bridge"
-        return row, status
-    return None, "missing"
+) -> tuple[dict[str, Any], str]:
+    """Compatibility name for the shared explicit-ref/subject resolver."""
+    return capsule_for_atlas_row(organ_id, gloss, capsule_by_key)
 
 
 def _capsule_subject_refs(row: dict[str, Any], kind: str) -> set[str]:
@@ -833,12 +778,8 @@ def load_model(root: str | Path) -> dict[str, Any]:
     families_doc = read_json_strict(root / FAMILIES_REL)
     families = [f for f in families_doc.get("families", []) if isinstance(f, dict)]
 
-    glosses_doc: dict[str, Any]
     glosses_path = root / GLOSSES_REL
-    if glosses_path.is_file():
-        glosses_doc = read_json_strict(glosses_path)
-    else:
-        glosses_doc = {"organs": []}
+    glosses_doc = load_description_atlas(root)
     gloss_by_id = {
         str(g.get("organ_id")): g
         for g in glosses_doc.get("organs", [])
@@ -916,7 +857,11 @@ def load_model(root: str | Path) -> dict[str, Any]:
             str(g.get(f, ""))
             for f in ("display_name", "human_gloss", "agent_gloss", "first_command")
         ).lower()
-        if any(phrase in described for phrase in OVERCLAIM_PHRASES):
+        # Naming a blocked claim is not an affirmative grant of that claim.
+        if any(
+            phrase in described.replace(f"{phrase} claim is blocked", "")
+            for phrase in OVERCLAIM_PHRASES
+        ):
             overclaim_cards.append(oid)
         # honesty: every card must state a negated claim ceiling
         ceiling = str(g.get("claim_ceiling_restated", "")).lower()
@@ -1072,6 +1017,7 @@ def load_model(root: str | Path) -> dict[str, Any]:
                         else None
                     ),
                     "human_gloss": gloss.get("human_gloss", ""),
+                    "description_source_ref": gloss["description_source_ref"],
                     "agent_gloss": gloss.get("agent_gloss", ""),
                     "one_line": compression.get("one_line", ""),
                     "compression_card": compression.get("card", ""),
@@ -1081,6 +1027,8 @@ def load_model(root: str | Path) -> dict[str, Any]:
                     ),
                     "capsule_id": capsule_id,
                     "capsule_join_status": capsule_join_status,
+                    "capsule_subject_status": gloss["capsule_subject_status"],
+                    "description_join_ref": gloss["description_join_ref"],
                     "capsule_legacy_markdown_projection": (
                         str(capsule.get("legacy_markdown_projection") or "")
                         if isinstance(capsule, dict)
@@ -1915,7 +1863,6 @@ def render_organs_md(model: dict[str, Any]) -> str:
             out.append(
                 f"- **What it makes visible:** {_public_scope_text(card['human_gloss'])}"
             )
-            out.append(f"- **For agents:** {_public_scope_text(card['agent_gloss'])}")
             out.append(f"- **First command:** `{card['first_command']}`")
             out.append(f"- **Scope limit:** {_public_scope_text(card['claim_ceiling_restated'])}")
             wiring = card.get("standalone_or_wired") or "standalone_specimen"
@@ -2590,6 +2537,49 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     return "\n".join(out)
 
 
+COMPONENT_SYNOPSES_REL = "core/component_public_synopses.json"
+
+
+def render_component_public_synopses_json(model: dict[str, Any]) -> dict[str, Any]:
+    """Project exact canonical one_lines into the existing standalone schema.
+
+    The atlas builder is the sole writer. No editorial copy, inferred primary,
+    clipping or verification badge is introduced here.
+    """
+    synopses = {
+        card["organ_id"]: card["one_line"]
+        for family in model["families"] for card in family["cards"]
+    }
+    return {
+        "schema_version": "microcosm_component_public_synopses_v1",
+        "purpose": "Generated compatibility view of canonical capsule compression.one_line for component rows.",
+        "source_ref": "core/paper_module_capsules.json::paper_modules[].compression.one_line",
+        "generation": {
+            "do_not_hand_edit": "Run PYTHONPATH=src python3 scripts/build/build_organ_atlas.py --write after refining canonical capsule compression.one_line.",
+            "method": "canonical_capsule_synopsis",
+            "producer": "microcosm_core.projections.organ_atlas.render_component_public_synopses_json",
+            "join_source": "core/organ_atlas.json::organs[].paper_module_ref",
+        },
+        "budget": {
+            "layout": "two_line_row_synopsis_on_own_line_below_name",
+            "measure_basis": "--prose 660px content column, synopsis at 0.85rem",
+            "target_max_chars": 100, "warn_over_chars": 108, "hard_ceiling_chars": 120,
+        },
+        "synopses": dict(sorted(synopses.items())),
+    }
+
+
+def _component_synopsis_errors(payload: dict[str, Any]) -> list[str]:
+    """Keep the deployed length and complete-sentence boundary before writing."""
+    errors = []
+    for organ_id, line in payload["synopses"].items():
+        if len(line) > 120:
+            errors.append(f"{organ_id}:over_hard_ceiling")
+        if not line.endswith((".", "?")) or line.endswith(("...", "…")):
+            errors.append(f"{organ_id}:not_complete_sentence")
+    return errors
+
+
 def build(root: str | Path, *, write: bool) -> dict[str, Any]:
     """
     Serialize `microcosm_core.projections.organ_atlas.build` into the payload shape expected
@@ -2600,6 +2590,15 @@ def build(root: str | Path, *, write: bool) -> dict[str, Any]:
     root = Path(root)
     model = load_model(root)
     model["runtime_witness"] = _load_runtime_witness(root)
+    component_synopses = render_component_public_synopses_json(model)
+    synopsis_errors = _component_synopsis_errors(component_synopses)
+    model["coverage"]["component_synopsis_errors"] = synopsis_errors
+    if synopsis_errors:
+        model["status"] = "blocked"
+        model["blocking_reasons"].append("component_synopsis_contract")
+    component_synopses_json = json.dumps(component_synopses, ensure_ascii=True, indent=2) + "\n"
+    synopsis_path = root / COMPONENT_SYNOPSES_REL
+    on_disk_synopses = synopsis_path.read_text(encoding="utf-8") if synopsis_path.is_file() else None
     organs_md = render_organs_md(model)
     architecture_md = render_architecture_md(model)
     agent_routes_md = render_agent_routes_md(model)
@@ -2614,6 +2613,8 @@ def build(root: str | Path, *, write: bool) -> dict[str, Any]:
     agent_task_routes_path = root / AGENT_TASK_ROUTES_JSON_REL
     on_disk_agent_task_routes = agent_task_routes_path.read_text(encoding="utf-8") if agent_task_routes_path.is_file() else None
     drift = []
+    if on_disk_synopses != component_synopses_json:
+        drift.append(COMPONENT_SYNOPSES_REL)
     if on_disk_organs is not None and on_disk_organs != organs_md:
         drift.append(ORGANS_MD_REL)
     if on_disk_arch is not None and on_disk_arch != architecture_md:
@@ -2632,7 +2633,10 @@ def build(root: str | Path, *, write: bool) -> dict[str, Any]:
         (root / AGENT_ROUTES_MD_REL).write_text(agent_routes_md, encoding="utf-8")
         agent_task_routes_path.parent.mkdir(parents=True, exist_ok=True)
         agent_task_routes_path.write_text(agent_task_routes_json, encoding="utf-8")
+        synopsis_path.parent.mkdir(parents=True, exist_ok=True)
+        synopsis_path.write_text(component_synopses_json, encoding="utf-8")
         wrote = [
+            COMPONENT_SYNOPSES_REL,
             ORGANS_MD_REL,
             ARCHITECTURE_MD_REL,
             AGENT_ROUTES_MD_REL,
@@ -2650,4 +2654,6 @@ def build(root: str | Path, *, write: bool) -> dict[str, Any]:
         "agent_routes_md": agent_routes_md,
         "agent_task_routes": agent_task_routes,
         "agent_task_routes_json": agent_task_routes_json,
+        "component_public_synopses": component_synopses,
+        "component_public_synopses_json": component_synopses_json,
     }

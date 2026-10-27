@@ -9,6 +9,7 @@ particular release. For a guided introduction, start with the
 | Reference | What it tells you |
 |---|---|
 | [Component map](../../ORGANS.md) | Component descriptions, commands, inputs, source files and recorded results. |
+| [Component HTTP API](component-http-api.md) | Read-only component, claim, proof, coverage and graph JSON from one validated public index. |
 | [Architecture map](../../ARCHITECTURE.md) | Shared runtime and recorded connections between components. |
 | [Agent task routes](../../AGENT_ROUTES.md) | Commands and implementation files associated with a coding task. |
 | [First-action examples](../../FIRST_ACTION.md) | How words in a task description select a suggested command. |

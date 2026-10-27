@@ -32,5 +32,41 @@
   "slug": "dependency_reachability",
   "source": "DependencyReachability.dfy",
   "source_sha256": "8bbf881721beef39fea61585811654eeaa39dff2f36b13ba10deeabb922b0892",
-  "verified_tasks": 10
+  "verified_tasks": 10,
+  "contract": {
+    "schema_version": "plectis_formal_contract_v1",
+    "contract_id": "contract::dependency_reachability",
+    "statement": "The result is exactly the vertices reachable from the start by a path of at least one edge.",
+    "input_model": "Finite directed graph with normalized integer IDs; the caller points edges from dependency to dependent.",
+    "assumptions": "Trusted host supplies normalized observations; adapter, isolated worker, Dafny, compiler and runtime remain trusted.",
+    "limits": "The supplied graph may omit real dependencies; host normalization and graph construction are not proved.",
+    "specification_refs": [
+      "formal/components/dependency_reachability/DependencyReachability.dfy#Walk",
+      "formal/components/dependency_reachability/DependencyReachability.dfy#Reach"
+    ],
+    "entry_theorem_refs": [
+      "formal/components/dependency_reachability/DependencyReachability.dfy#Compute",
+      "formal/components/dependency_reachability/DependencyReachability.dfy#PathExtension",
+      "formal/components/dependency_reachability/DependencyReachability.dfy#ClosedWalk"
+    ],
+    "component_bindings": [
+      {
+        "organ_id": "batch5_authority_systems_capsule",
+        "runtime_refs": [
+          "src/microcosm_core/organs/batch5_authority_systems_capsule.py#_blast_radius_exercise"
+        ],
+        "primary_guide_ref": "paper_modules/batch5_authority_systems_capsule.md",
+        "test_refs": [
+          "tests/test_component_dependency_reachability.py::test_paths_cycles_and_positive_length",
+          "tests/test_component_dependency_reachability.py::test_adapter_rejects_malformed_inputs"
+        ]
+      }
+    ],
+    "positive_test_ref": "tests/test_component_dependency_reachability.py::test_paths_cycles_and_positive_length",
+    "adversarial_test_ref": "tests/test_component_dependency_reachability.py::test_adapter_rejects_malformed_inputs",
+    "mutant_refs": [
+      "formal/components/dependency_reachability/negative/OneHopMutant.dfy"
+    ],
+    "formal_readme_ref": "formal/components/dependency_reachability/README.md"
+  }
 }

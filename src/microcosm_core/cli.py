@@ -2925,6 +2925,15 @@ def main(argv: list[str] | None = None) -> int:
         version=f"%(prog)s {__version__}",
     )
     subparsers = parser.add_subparsers(dest="command", metavar="<command>")
+    component_replay_parser = subparsers.add_parser(
+        "component-replay", help="replay one exact component ID over its declared public inputs",
+    )
+    component_replay_parser.add_argument("organ_id")
+    component_replay_parser.add_argument("--root", type=Path, default=None,
+                                         help="public checkout root (defaults to the current directory)")
+    component_replay_parser.add_argument("--out", type=Path, default=None,
+                                         help="output parent under the selected root's .microcosm")
+    component_replay_parser.add_argument("--format", choices=("json", "text"), default="json")
     init_parser = subparsers.add_parser(
         "init",
         help="create project-local .microcosm state",
@@ -3232,6 +3241,13 @@ def main(argv: list[str] | None = None) -> int:
         default=DEFAULT_PROJECT_REL,
         help="runtime demo project path; defaults to examples/runtime_shell/demo_project",
     )
+    components_parser = subparsers.add_parser(
+        "serve-components",
+        help="serve the validated public component index (read-only)",
+    )
+    if raw_argv and raw_argv[0] == "serve-components":
+        from microcosm_core.component_http import add_arguments
+        add_arguments(components_parser)
     serve_parser = subparsers.add_parser(
         "serve",
         help="serve the local observatory over project state",
@@ -4257,6 +4273,9 @@ def main(argv: list[str] | None = None) -> int:
     if project_error is not None:
         print(f"{display_program}: {project_error}", file=sys.stderr)
         return 2
+    if args.command == "component-replay":
+        from microcosm_core.component_replay import run_component_replay_command
+        return run_component_replay_command(args.organ_id, root=args.root, out=args.out, format=args.format)
     if args.command == "init":
         return project_substrate.main(["init", args.project])
     if args.command == "index":
@@ -4453,6 +4472,9 @@ def main(argv: list[str] | None = None) -> int:
             command_args.append("--card")
         command_args.append(args.project)
         return runtime_shell.main(command_args)
+    if args.command == "serve-components":
+        from microcosm_core.component_http import serve
+        return serve(args)
     if args.command == "serve":
         serve_args = ["serve", "--host", args.host, "--port", str(args.port)]
         if args.max_requests is not None:
@@ -5211,8 +5233,27 @@ def main(argv: list[str] | None = None) -> int:
         return _print_json(pack, exit_code=0)
     if args.command == "comprehension-assay":
         assay_root = Path(args.root) if args.root else None
+        try:
+            assay_inputs = comprehension.load_inputs(assay_root)
+        except (OSError, ValueError):
+            # Source exceptions may contain host paths or untrusted JSON text.
+            # A blocked assessment has no measured battery result to publish.
+            return _print_json({
+                "schema_version": "microcosm_comprehension_assay_input_error_v0",
+                "status": "blocked",
+                "assessment_status": "not_run",
+                "degraded": True,
+                "graph_backed_pct": None,
+                "diagnostics": [{
+                    "code": "comprehension_inputs_unavailable_or_invalid",
+                    "source_refs": ["core/organ_atlas.json", "core/paper_module_capsules.json",
+                                    "receipts/code_lens/code_lens_join_index_v0.json"],
+                    "message": "The canonical component description inputs are missing or invalid.",
+                }],
+                "authority_ceiling": dict(comprehension.AUTHORITY_CEILING),
+            }, exit_code=1)
         if args.hard:
-            hard = comprehension.run_hard_comprehension_assay(assay_root)
+            hard = comprehension.run_hard_comprehension_assay(assay_root, inputs=assay_inputs)
             hard_ok = (
                 hard["answerable_with_atom_values_pct"] >= 80.0
                 and hard["excerpt_leak_count"] == 0
@@ -5220,7 +5261,7 @@ def main(argv: list[str] | None = None) -> int:
             )
             return _print_json(hard, exit_code=0 if hard_ok else 1)
         if args.packet_route:
-            route = comprehension.run_packet_route_assay(assay_root)
+            route = comprehension.run_packet_route_assay(assay_root, inputs=assay_inputs)
             route_ok = (
                 route["packet_route_accuracy_pct"] >= 90.0
                 and route["authority_overclaim_count"] == 0
@@ -5230,7 +5271,7 @@ def main(argv: list[str] | None = None) -> int:
             )
             return _print_json(route, exit_code=0 if route_ok else 1)
         if args.first_action:
-            first = comprehension.run_first_action_assay(assay_root)
+            first = comprehension.run_first_action_assay(assay_root, inputs=assay_inputs)
             first_ok = (
                 # Exact: one wrong owner in the battery must go red, not round up.
                 first["first_action_selection_pct"] == 100.0
@@ -5242,7 +5283,7 @@ def main(argv: list[str] | None = None) -> int:
             )
             return _print_json(first, exit_code=0 if first_ok else 1)
         if args.whole_system:
-            whole = comprehension.run_whole_system_comprehension_assay(assay_root)
+            whole = comprehension.run_whole_system_comprehension_assay(assay_root, inputs=assay_inputs)
             whole_ok = (
                 whole["whole_system_answerability_pct"] >= 90.0
                 and whole["every_organ_mapped"]
@@ -5253,7 +5294,7 @@ def main(argv: list[str] | None = None) -> int:
                 and whole["tail_recap_present"]
             )
             return _print_json(whole, exit_code=0 if whole_ok else 1)
-        assay = comprehension.run_comprehension_assay(assay_root)
+        assay = comprehension.run_comprehension_assay(assay_root, inputs=assay_inputs)
         assay_ok = (
             assay["answerable_without_source_pct"] >= 80.0
             and assay["wrong_authority_claims"] == 0

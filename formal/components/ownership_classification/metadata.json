@@ -44,5 +44,45 @@
   "slug": "ownership_classification",
   "source": "OwnershipClassification.dfy",
   "source_sha256": "5200f9333b569ffee72e239008c1114350c63919d0d60bb4ea153e74c45e819f",
-  "verified_tasks": 9
+  "verified_tasks": 9,
+  "contract": {
+    "schema_version": "plectis_formal_contract_v1",
+    "contract_id": "contract::ownership_classification",
+    "statement": "Every generated path with a matching live claim is protected regardless of claim order; selection chooses the earliest match at the highest freshness priority.",
+    "input_model": "Finite exact normalized path IDs and supplied live, unknown or stale claim observations; priority is live then unknown then stale.",
+    "assumptions": "Trusted host supplies normalized observations; adapter, isolated worker, Dafny, compiler and runtime remain trusted.",
+    "limits": "The host must supply truthful freshness and identity; path overlap, real locks and concurrency safety are not proved.",
+    "specification_refs": [
+      "formal/components/ownership_classification/OwnershipClassification.dfy#SelectedPrefix",
+      "formal/components/ownership_classification/OwnershipClassification.dfy#HasLive",
+      "formal/components/ownership_classification/OwnershipClassification.dfy#RowSpec",
+      "formal/components/ownership_classification/OwnershipClassification.dfy#ClassificationSpec",
+      "formal/components/ownership_classification/OwnershipClassification.dfy#ActionSpec"
+    ],
+    "entry_theorem_refs": [
+      "formal/components/ownership_classification/OwnershipClassification.dfy#FindOwner",
+      "formal/components/ownership_classification/OwnershipClassification.dfy#LiveRowExact",
+      "formal/components/ownership_classification/OwnershipClassification.dfy#Compute"
+    ],
+    "component_bindings": [
+      {
+        "organ_id": "concurrency_mission_control",
+        "runtime_refs": [
+          "src/microcosm_core/organs/concurrency_mission_control.py#classify_generated_surface_claim_lens"
+        ],
+        "primary_guide_ref": "paper_modules/concurrency_mission_control.md",
+        "test_refs": [
+          "tests/test_component_ownership_classification.py::test_verified_core_partitions_and_selects_live_claim_over_earlier_stale",
+          "tests/test_component_ownership_classification.py::test_core_unknown_freshness_does_not_authorize_stale_reentry"
+        ]
+      }
+    ],
+    "positive_test_ref": "tests/test_component_ownership_classification.py::test_verified_core_partitions_and_selects_live_claim_over_earlier_stale",
+    "adversarial_test_ref": "tests/test_component_ownership_classification.py::test_core_unknown_freshness_does_not_authorize_stale_reentry",
+    "mutant_refs": [
+      "formal/components/ownership_classification/negative/FirstClaimMutant.dfy",
+      "formal/components/ownership_classification/negative/ReversedPriority.dfy"
+    ],
+    "formal_readme_ref": "formal/components/ownership_classification/README.md"
+  }
 }

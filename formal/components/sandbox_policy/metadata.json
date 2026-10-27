@@ -32,5 +32,41 @@
   "slug": "sandbox_policy",
   "source": "SandboxPolicy.dfy",
   "source_sha256": "17dd2c94f6b511ea63edb8a86b75c7dedc2cc981b67e141813d36baf21fe3892",
-  "verified_tasks": 4
+  "verified_tasks": 4,
+  "contract": {
+    "schema_version": "plectis_formal_contract_v1",
+    "contract_id": "contract::sandbox_policy",
+    "statement": "Six recognized action shapes receive their exact verdict and rule; all other normalized shapes fail closed.",
+    "input_model": "Four normalized risk, action, capability and source-trust strings.",
+    "assumptions": "Trusted host supplies normalized observations; adapter, isolated worker, Dafny, compiler and runtime remain trusted.",
+    "limits": "Host normalization is trusted; the proof does not establish real sandbox containment or the authenticity of action records.",
+    "specification_refs": [
+      "formal/components/sandbox_policy/SandboxPolicy.dfy#PolicySpec",
+      "formal/components/sandbox_policy/SandboxPolicy.dfy#OutputSpec"
+    ],
+    "entry_theorem_refs": [
+      "formal/components/sandbox_policy/SandboxPolicy.dfy#DecisionExact",
+      "formal/components/sandbox_policy/SandboxPolicy.dfy#FullOutputExact",
+      "formal/components/sandbox_policy/SandboxPolicy.dfy#UntrustedFixtureFailsClosed"
+    ],
+    "component_bindings": [
+      {
+        "organ_id": "agent_sandbox_policy_escape_replay",
+        "runtime_refs": [
+          "src/microcosm_core/organs/agent_sandbox_policy_escape_replay.py#_derived_sandbox_policy_verdict"
+        ],
+        "primary_guide_ref": "paper_modules/agent_sandbox_policy_escape_replay.md",
+        "test_refs": [
+          "tests/test_component_sandbox_policy.py::test_all_policy_literal_combinations_match_the_decision_table",
+          "tests/test_component_sandbox_policy.py::test_production_exact_trust_boundary"
+        ]
+      }
+    ],
+    "positive_test_ref": "tests/test_component_sandbox_policy.py::test_all_policy_literal_combinations_match_the_decision_table",
+    "adversarial_test_ref": "tests/test_component_sandbox_policy.py::test_production_exact_trust_boundary",
+    "mutant_refs": [
+      "formal/components/sandbox_policy/negative/TrustGuardMutant.dfy"
+    ],
+    "formal_readme_ref": "formal/components/sandbox_policy/README.md"
+  }
 }

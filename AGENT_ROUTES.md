@@ -105,7 +105,7 @@ First command:
 microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine
 ```
 
-Scope limit: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.
+Scope limit: The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or launch.
 
 Source relation: `159` edges, `21` files, `104` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
 
@@ -135,7 +135,7 @@ First command:
 microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card
 ```
 
-Scope limit: It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.
+Scope limit: Text checks do not execute every route or establish reader comprehension.
 
 Source relation: `263` edges, `16` files, `54` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
 
@@ -177,7 +177,7 @@ First command:
 microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay
 ```
 
-Scope limit: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.
+Scope limit: A digest or passing replay is not a benchmark claims or evidence of algorithm correctness.
 
 Source relation: `1530` edges, `54` files, `196` shards. Drill down with `microcosm organ-topology --organ bounded_autonomy_campaign_packet`.
 
@@ -202,7 +202,7 @@ First command:
 microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json
 ```
 
-Scope limit: Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence.
+Scope limit: The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ bridge_campaign_dag_validation`.
 
@@ -227,7 +227,7 @@ First command:
 microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json
 ```
 
-Scope limit: Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.
+Scope limit: Phrase matching on supplied examples; not complete semantic or safety analysis.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ egress_self_compliance_audit`.
 
@@ -252,7 +252,7 @@ First command:
 microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json
 ```
 
-Scope limit: Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.
+Scope limit: The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ metabolism_queue_reconciliation`.
 
@@ -294,7 +294,7 @@ First command:
 microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay
 ```
 
-Scope limit: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.
+Scope limit: A digest or passing replay is not a benchmark claims or evidence of algorithm correctness.
 
 Source relation: `1530` edges, `54` files, `196` shards. Drill down with `microcosm organ-topology --organ bounded_autonomy_campaign_packet`.
 
@@ -319,7 +319,7 @@ First command:
 microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json
 ```
 
-Scope limit: Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.
+Scope limit: Keyword matches are not semantic retrieval or a licence or provenance assessment.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ annex_knowledge_routing`.
 
@@ -357,7 +357,7 @@ First command:
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 ```
 
-Scope limit: It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).
+Scope limit: A passing binding is a consistent record under these checks; it does not establish that the pattern is useful or that copied source is correct.
 
 Source relation: `432` edges, `42` files, `123` shards. Drill down with `microcosm organ-topology --organ pattern_binding_contract`.
 
@@ -382,7 +382,7 @@ First command:
 microcosm batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json
 ```
 
-Scope limit: projection mechanics only, not domain-level conclusions
+Scope limit: This checks the Python calculation on the supplied cases; it does not establish sample-buffer parity on a device, microphone permissions, session behavior or audio capture.
 
 Source relation: `6` edges, `1` files, `4` shards. Drill down with `microcosm organ-topology --organ batch8_audio_level_rms_port`.
 
@@ -407,7 +407,7 @@ First command:
 PYTHONPATH=src python3 -m microcosm_core.organs.batch5_authority_systems_capsule run --input fixtures/first_wave/batch5_authority_systems_capsule/input --out receipts/first_wave/batch5_authority_systems_capsule --acceptance-out receipts/acceptance/first_wave/batch5_authority_systems_capsule_fixture_acceptance.json
 ```
 
-Scope limit: It validates only public-safe copied Batch 5 authority-system source bodies and bounded deterministic exercises; it does not dispatch providers, prove Lean success, send live process signals, mutate generated state, change source files, authorize public sharing, include launch operations, or claim private-system equivalence.
+Scope limit: These are bounded exercises of the supplied cases. A digest confirms a source copy against its manifest; it does not establish authorization, formal-result correctness or safe process management in a live system.
 
 Source relation: `129` edges, `10` files, `30` shards. Drill down with `microcosm organ-topology --organ batch5_authority_systems_capsule`.
 
@@ -432,7 +432,7 @@ First command:
 microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json
 ```
 
-Scope limit: Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not launch-scope decision.
+Scope limit: These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ navigation_fitness_benchmark`.
 
@@ -460,7 +460,7 @@ First command:
 microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json
 ```
 
-Scope limit: Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence.
+Scope limit: The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.
 
 Source relation: `55` edges, `4` files, `7` shards. Drill down with `microcosm organ-topology --organ bridge_campaign_dag_validation`.
 
@@ -485,7 +485,7 @@ First command:
 microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json
 ```
 
-Scope limit: Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence.
+Scope limit: The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ bridge_campaign_dag_validation`.
 
@@ -510,7 +510,7 @@ First command:
 microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule
 ```
 
-Scope limit: validates declared public Batch 8 compliance pipeline capsule contract only; no full compliance-ledger freshness, external model access, model dispatch, source-file changes, source note mutation, launch, public sharing, private data equivalence, or whole-system correctness
+Scope limit: A passing fixture is evidence about these specific source contracts and helper inputs, not a fresh full compliance ledger or permission to dispatch a pipeline.
 
 Source relation: `130` edges, `36` files, `40` shards. Drill down with `microcosm organ-topology --organ batch8_compliance_pipeline_capsule`.
 
@@ -541,7 +541,7 @@ First command:
 microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine
 ```
 
-Scope limit: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.
+Scope limit: The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or launch.
 
 Source relation: `337` edges, `32` files, `152` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
 
@@ -566,7 +566,7 @@ First command:
 microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json
 ```
 
-Scope limit: It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or launch-scope decision.
+Scope limit: Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ semantic_singleflight_dedup_runtime`.
 
@@ -591,7 +591,7 @@ First command:
 microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json
 ```
 
-Scope limit: Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.
+Scope limit: Resolution does not judge prose truth or a complete external registry.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ derived_fact_provider_runtime`.
 
@@ -616,7 +616,7 @@ First command:
 PYTHONPATH=src python3 -m microcosm_core.organs.batch7_demo_take_console_capsule run --input fixtures/first_wave/batch7_demo_take_console_capsule/input --out receipts/first_wave/batch7_demo_take_console_capsule --acceptance-out receipts/acceptance/first_wave/batch7_demo_take_console_capsule_fixture_acceptance.json
 ```
 
-Scope limit: It validates only public-safe Demo Take Console copied Swift source bodies and bounded deterministic exercises; it does not launch the app, authorize screen or microphone capture, export recording sessions, execute FFmpeg, dispatch WhisperKit or other models, change source files, prove complete UI coverage, authorize public sharing, or include launch operations.
+Scope limit: The build witness needs Swift and a compatible macOS environment with the required Apple frameworks. SwiftPM writes build scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset. A successful build and fixture checks do not establish capture quality or transcription accuracy.
 
 Source relation: `84` edges, `51` files, `32` shards. Drill down with `microcosm organ-topology --organ batch7_demo_take_console_capsule`.
 
@@ -652,7 +652,7 @@ First command:
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 ```
 
-Scope limit: It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).
+Scope limit: A passing binding is a consistent record under these checks; it does not establish that the pattern is useful or that copied source is correct.
 
 Source relation: `377` edges, `38` files, `116` shards. Drill down with `microcosm organ-topology --organ pattern_binding_contract`.
 
@@ -698,7 +698,7 @@ First command:
 microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
 ```
 
-Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
+Scope limit: These checks establish the named fixture behavior, not live-market accuracy, investment-related actions, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.
 
 Source relation: `2608` edges, `482` files, `1420` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
@@ -723,7 +723,7 @@ First command:
 microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json
 ```
 
-Scope limit: Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.
+Scope limit: The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ metabolism_queue_reconciliation`.
 
@@ -748,7 +748,7 @@ First command:
 microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json
 ```
 
-Scope limit: Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.
+Scope limit: Phrase matching on supplied examples; not complete semantic or safety analysis.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ egress_self_compliance_audit`.
 
@@ -776,7 +776,7 @@ First command:
 microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card
 ```
 
-Scope limit: It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.
+Scope limit: Text checks do not execute every route or establish reader comprehension.
 
 Source relation: `160` edges, `5` files, `19` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
 
@@ -801,7 +801,7 @@ First command:
 microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json
 ```
 
-Scope limit: It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.
+Scope limit: The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erdős problem 257.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ finite_erdos_denominator_certificate_strike`.
 
@@ -834,7 +834,7 @@ First command:
 microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine
 ```
 
-Scope limit: synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim
+Scope limit: A lookahead split or a claim that the output authorizes investment-related actions is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment-related actions.
 
 Source relation: `445` edges, `66` files, `146` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
 
@@ -859,7 +859,7 @@ First command:
 microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json
 ```
 
-Scope limit: Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.
+Scope limit: Resolution does not judge prose truth or a complete external registry.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ derived_fact_provider_runtime`.
 
@@ -893,7 +893,7 @@ First command:
 microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine
 ```
 
-Scope limit: synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim
+Scope limit: A lookahead split or a claim that the output authorizes investment-related actions is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment-related actions.
 
 Source relation: `379` edges, `48` files, `83` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
 
@@ -921,7 +921,7 @@ First command:
 microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json
 ```
 
-Scope limit: It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.
+Scope limit: The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erdős problem 257.
 
 Source relation: `60` edges, `4` files, `8` shards. Drill down with `microcosm organ-topology --organ finite_erdos_denominator_certificate_strike`.
 
@@ -965,7 +965,7 @@ First command:
 microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card
 ```
 
-Scope limit: It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.
+Scope limit: A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.
 
 Source relation: `1318` edges, `125` files, `238` shards. Drill down with `microcosm organ-topology --organ certificate_kernel_execution_lab`.
 
@@ -994,7 +994,7 @@ First command:
 microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
 ```
 
-Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
+Scope limit: These checks establish the named fixture behavior, not live-market accuracy, investment-related actions, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.
 
 Source relation: `263` edges, `55` files, `34` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
@@ -1019,7 +1019,7 @@ First command:
 microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json
 ```
 
-Scope limit: Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch.
+Scope limit: Checks declared artifacts and owner commands; it neither repairs files nor proves semantic correctness.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ generated_projection_drift_runtime`.
 
@@ -1047,7 +1047,7 @@ First command:
 microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card
 ```
 
-Scope limit: It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.
+Scope limit: Text checks do not execute every route or establish reader comprehension.
 
 Source relation: `160` edges, `5` files, `19` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
 
@@ -1075,7 +1075,7 @@ First command:
 microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card
 ```
 
-Scope limit: It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.
+Scope limit: Text checks do not execute every route or establish reader comprehension.
 
 Source relation: `160` edges, `5` files, `19` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
 
@@ -1100,7 +1100,7 @@ First command:
 microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json
 ```
 
-Scope limit: Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.
+Scope limit: Resolution does not judge prose truth or a complete external registry.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ derived_fact_provider_runtime`.
 
@@ -1144,7 +1144,7 @@ First command:
 microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card
 ```
 
-Scope limit: It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.
+Scope limit: A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.
 
 Source relation: `1318` edges, `125` files, `238` shards. Drill down with `microcosm organ-topology --organ certificate_kernel_execution_lab`.
 
@@ -1169,7 +1169,7 @@ First command:
 microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json
 ```
 
-Scope limit: Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing.
+Scope limit: Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ lean_proof_search_lab_runtime`.
 
@@ -1194,7 +1194,7 @@ First command:
 microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
 ```
 
-Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
+Scope limit: These checks establish the named fixture behavior, not live-market accuracy, investment-related actions, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.
 
 Source relation: `26` edges, `11` files, `0` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
@@ -1231,7 +1231,7 @@ First command:
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 ```
 
-Scope limit: It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays organ-first and fixture-bound).
+Scope limit: A passing binding is a consistent record under these checks; it does not establish that the pattern is useful or that copied source is correct.
 
 Source relation: `407` edges, `40` files, `120` shards. Drill down with `microcosm organ-topology --organ pattern_binding_contract`.
 
@@ -1256,7 +1256,7 @@ First command:
 microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json
 ```
 
-Scope limit: It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.
+Scope limit: The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erdős problem 257.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ finite_erdos_denominator_certificate_strike`.
 
@@ -1281,7 +1281,7 @@ First command:
 microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json
 ```
 
-Scope limit: It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or launch-scope decision.
+Scope limit: Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ semantic_singleflight_dedup_runtime`.
 
@@ -1306,7 +1306,7 @@ First command:
 PYTHONPATH=src python3 -m microcosm_core.organs.batch7_oracle_sibling_capsule run --input fixtures/first_wave/batch7_oracle_sibling_capsule/input --out receipts/first_wave/batch7_oracle_sibling_capsule --acceptance-out receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json
 ```
 
-Scope limit: It validates only public-safe Oracle sibling copied source bodies and bounded deterministic exercises; it does not run Oracle reasoning, dispatch providers or bridges, invoke GodModeEngine, change source files, prove semantic truth, prove all Oracle paths are covered, authorize public sharing, or include launch operations.
+Scope limit: The pytest witness requires pytest and its source dependencies. These examples do not establish semantic truth, live market reasoning or coverage of the full Oracle system.
 
 Source relation: `120` edges, `41` files, `22` shards. Drill down with `microcosm organ-topology --organ batch7_oracle_sibling_capsule`.
 
@@ -1331,7 +1331,7 @@ First command:
 microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json
 ```
 
-Scope limit: Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch.
+Scope limit: Checks declared artifacts and owner commands; it neither repairs files nor proves semantic correctness.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ generated_projection_drift_runtime`.
 
@@ -1356,7 +1356,7 @@ First command:
 microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json
 ```
 
-Scope limit: Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.
+Scope limit: Phrase matching on supplied examples; not complete semantic or safety analysis.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ egress_self_compliance_audit`.
 
@@ -1381,7 +1381,7 @@ First command:
 microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json
 ```
 
-Scope limit: Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch.
+Scope limit: Checks declared artifacts and owner commands; it neither repairs files nor proves semantic correctness.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ generated_projection_drift_runtime`.
 
@@ -1406,7 +1406,7 @@ First command:
 microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json
 ```
 
-Scope limit: Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing.
+Scope limit: Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ lean_proof_search_lab_runtime`.
 
@@ -1452,7 +1452,7 @@ First command:
 microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
 ```
 
-Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
+Scope limit: These checks establish the named fixture behavior, not live-market accuracy, investment-related actions, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.
 
 Source relation: `2608` edges, `482` files, `1420` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
@@ -1477,7 +1477,7 @@ First command:
 microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json
 ```
 
-Scope limit: Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, include launch operations or public sharing, or claim full private-system equivalence.
+Scope limit: The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ bridge_campaign_dag_validation`.
 
@@ -1534,7 +1534,7 @@ First command:
 microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card
 ```
 
-Scope limit: It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.
+Scope limit: Text checks do not execute every route or establish reader comprehension.
 
 Source relation: `2452` edges, `167` files, `473` shards. Drill down with `microcosm organ-topology --organ cold_reader_route_map`.
 
@@ -1576,7 +1576,7 @@ First command:
 microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay
 ```
 
-Scope limit: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.
+Scope limit: A digest or passing replay is not a benchmark claims or evidence of algorithm correctness.
 
 Source relation: `1530` edges, `54` files, `196` shards. Drill down with `microcosm organ-topology --organ bounded_autonomy_campaign_packet`.
 
@@ -1601,7 +1601,7 @@ First command:
 microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json
 ```
 
-Scope limit: Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.
+Scope limit: Resolution does not judge prose truth or a complete external registry.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ derived_fact_provider_runtime`.
 
@@ -1635,7 +1635,7 @@ First command:
 PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay
 ```
 
-Scope limit: It validates the shape and presence of synthetic replay metadata and receipt references only - it does not run any experiment, metric script, or rerun, excludes any claim that a paper was actually replicated, that a benchmark claims was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes public sharing or launch.
+Scope limit: Supports a bounded sum_field metric, not arbitrary scripts, independent reproduction of an outside study, or benchmark performance.
 
 Source relation: `379` edges, `48` files, `83` shards. Drill down with `microcosm organ-topology --organ finance_forecast_evaluation_spine`.
 
@@ -1660,7 +1660,7 @@ First command:
 microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json
 ```
 
-Scope limit: Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not launch-scope decision.
+Scope limit: These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ navigation_fitness_benchmark`.
 
@@ -1685,7 +1685,7 @@ First command:
 microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json
 ```
 
-Scope limit: Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.
+Scope limit: Keyword matches are not semantic retrieval or a licence or provenance assessment.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ annex_knowledge_routing`.
 
@@ -1714,7 +1714,7 @@ First command:
 PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out /tmp/agent_memory_temporal_conflict_replay_out
 ```
 
-Scope limit: It validates the projection mechanics of a synthetic memory fixture only — that the required refs, decisions, paired replays, negative cases, and secret-exclusion scan line up and that receipts are body-free. It does not claim live-memory product quality, judge whether memory decisions were domain-correct, treat memory recall as source authority, adopt active injection, export private transcripts, use external model services, change source files, or include launch operations.
+Scope limit: A fixture replay does not establish the quality or safety of a deployed memory system.
 
 Source relation: `161` edges, `9` files, `17` shards. Drill down with `microcosm organ-topology --organ agent_memory_temporal_conflict_replay`.
 
@@ -1739,7 +1739,7 @@ First command:
 microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json
 ```
 
-Scope limit: Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.
+Scope limit: Phrase matching on supplied examples; not complete semantic or safety analysis.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ egress_self_compliance_audit`.
 
@@ -1764,7 +1764,7 @@ First command:
 microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json
 ```
 
-Scope limit: Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing.
+Scope limit: Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ lean_proof_search_lab_runtime`.
 
@@ -1789,7 +1789,7 @@ First command:
 microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json
 ```
 
-Scope limit: It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.
+Scope limit: The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erdős problem 257.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ finite_erdos_denominator_certificate_strike`.
 
@@ -1835,7 +1835,7 @@ First command:
 microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json
 ```
 
-Scope limit: verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim
+Scope limit: These checks establish the named fixture behavior, not live-market accuracy, investment-related actions, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.
 
 Source relation: `2608` edges, `482` files, `1420` shards. Drill down with `microcosm organ-topology --organ batch7_secondary_runtime_capsule`.
 
@@ -1860,7 +1860,7 @@ First command:
 microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json
 ```
 
-Scope limit: Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.
+Scope limit: The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ metabolism_queue_reconciliation`.
 
@@ -1885,7 +1885,7 @@ First command:
 microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json
 ```
 
-Scope limit: Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not establish that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and excludes public launch.
+Scope limit: Checks declared artifacts and owner commands; it neither repairs files nor proves semantic correctness.
 
 Source relation: `30` edges, `2` files, `4` shards. Drill down with `microcosm organ-topology --organ generated_projection_drift_runtime`.
 
@@ -1930,7 +1930,7 @@ First command:
 microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card
 ```
 
-Scope limit: It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.
+Scope limit: A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.
 
 Source relation: `1348` edges, `127` files, `242` shards. Drill down with `microcosm organ-topology --organ certificate_kernel_execution_lab`.
 
@@ -1955,7 +1955,7 @@ First command:
 microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json
 ```
 
-Scope limit: Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.
+Scope limit: Keyword matches are not semantic retrieval or a licence or provenance assessment.
 
 Source relation: `25` edges, `2` files, `3` shards. Drill down with `microcosm organ-topology --organ annex_knowledge_routing`.
 
@@ -1983,7 +1983,7 @@ First command:
 microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine
 ```
 
-Scope limit: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.
+Scope limit: The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or launch.
 
 Source relation: `129` edges, `19` files, `100` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
 
@@ -2013,7 +2013,7 @@ First command:
 microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine
 ```
 
-Scope limit: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.
+Scope limit: The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or launch.
 
 Source relation: `307` edges, `30` files, `148` shards. Drill down with `microcosm organ-topology --organ mission_transaction_work_spine`.
 

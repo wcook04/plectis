@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "Scores strategy hypotheses from supplied features; it does not prove a statement or measure benchmark performance.",
     "card": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution. The score weights matching triggers, penalizes negative triggers, and adds a capped bonus for retrieval-term matches. The fixture includes an `iff_goal` case selecting `iff_split`; an unmapped case can yield a typed selection miss.",
-    "one_line": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution."
+    "one_line": "Scores public problem features against strategy cards to select a first strategy."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.mathematical_strategy_atlas",
@@ -87,7 +87,7 @@
       "compression": {
         "authority_ceiling": "Scores strategy hypotheses from supplied features; it does not prove a statement or measure benchmark performance.",
         "card": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution. The score weights matching triggers, penalizes negative triggers, and adds a capped bonus for retrieval-term matches. The fixture includes an `iff_goal` case selecting `iff_split`; an unmapped case can yield a typed selection miss.",
-        "one_line": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution."
+        "one_line": "Scores public problem features against strategy cards to select a first strategy."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -468,7 +468,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution.",
+  "statement": "Scores public problem features against strategy cards to select a first strategy.",
   "status": "active",
   "subjects": [
     {

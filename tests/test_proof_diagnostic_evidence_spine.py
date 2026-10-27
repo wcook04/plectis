@@ -1467,3 +1467,165 @@ def test_proof_diagnostic_evidence_spine_receipts_satisfy_macro_field_floor(
         "receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json"
         in validation_receipt["upstream_reference_capsule_receipt_refs"]
     )
+
+
+def _path_boundary_public_tree(tmp_path: Path) -> tuple[Path, Path]:
+    public_root = tmp_path / "permitted" / "public"
+    public_root.mkdir(parents=True)
+    outside = tmp_path / "outside" / "external.json"
+    outside.parent.mkdir()
+    outside.write_text('{"marker": true}\n')
+    return public_root, outside
+
+
+def _path_boundary_bundle_manifest(public_root: Path, source_ref: str, target_ref: str, target_digest: str) -> Path:
+    manifest = public_root / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json"
+    manifest.parent.mkdir(parents=True, exist_ok=True)
+    manifest.write_text(json.dumps({"copied_macro_body_artifacts": [{
+        "source_ref": source_ref, "target_ref": target_ref,
+        "target_sha256": target_digest, "source_sha256": "sha256:source-provenance",
+    }]}))
+    return manifest
+
+
+def test_public_ref_path_boundary_preserves_public_parent_and_internal_symlink(tmp_path: Path) -> None:
+    public_root, _outside = _path_boundary_public_tree(tmp_path)
+    direct = public_root / "direct.json"
+    direct.write_text('{"marker": true}')
+    sibling = public_root.parent / "sibling.json"
+    sibling.write_text('{"marker": true}')
+    (public_root / "internal.json").symlink_to(direct)
+    assert proof_spine._resolve_public_ref(public_root, "direct.json::marker") == direct
+    assert proof_spine._resolve_public_ref(public_root, "sibling.json::marker") == sibling
+    assert proof_spine._resolve_public_ref(public_root, "internal.json::marker").resolve() == direct
+
+
+def test_public_ref_path_boundary_rejects_absolute_traversal_and_symlink_escape(
+    tmp_path: Path, monkeypatch: Any,
+) -> None:
+    public_root, outside = _path_boundary_public_tree(tmp_path)
+    for root in (public_root, public_root.parent):
+        (root / "linked.json").symlink_to(outside)
+    (public_root / "linked_dir").symlink_to(outside.parent, target_is_directory=True)
+
+    def forbidden(*_args: Any, **_kwargs: Any) -> Any:
+        raise AssertionError("an escaped reference must not be opened or hashed")
+
+    monkeypatch.setattr(proof_spine, "read_json_strict", forbidden)
+    monkeypatch.setattr(proof_spine, "_sha256_file", forbidden)
+    for ref in (str(outside), "../outside/external.json", "linked.json::marker", "linked_dir/external.json", "bad\x00name"):
+        assert proof_spine._resolve_public_ref(public_root, ref) is None
+        assert proof_spine._read_json_anchor_ref(public_root, ref) == (None, None, False)
+
+
+def test_public_ref_path_boundary_preserves_bundle_attestation_and_digest_fallback(tmp_path: Path) -> None:
+    public_root, _outside = _path_boundary_public_tree(tmp_path)
+    target = public_root / "copied" / "evidence.json"
+    target.parent.mkdir()
+    target.write_text('{"marker": true}')
+    source_ref = "macro/evidence.json"
+    manifest = _path_boundary_bundle_manifest(public_root, source_ref, "copied/evidence.json", _sha256_file(target))
+    attestation = proof_spine._bundle_artifact_attestation(public_root, source_ref)
+    assert attestation is not None
+    assert attestation["path"] == target
+    assert proof_spine._resolve_public_ref(public_root, source_ref + "::marker") == target
+    assert proof_spine._source_digest_for_ref(public_root, source_ref, target) == "sha256:source-provenance"
+    payload = json.loads(manifest.read_text())
+    payload["copied_macro_body_artifacts"][0]["target_sha256"] = "sha256:deliberate-mismatch"
+    manifest.write_text(json.dumps(payload))
+    assert proof_spine._bundle_artifact_attestation(public_root, source_ref) is None
+    assert proof_spine._bundle_artifact_target_path(public_root, source_ref) == target
+    assert proof_spine._resolve_public_ref(public_root, source_ref) == target
+
+
+def test_public_ref_path_boundary_rejects_bundle_target_escape_before_hash(
+    tmp_path: Path, monkeypatch: Any,
+) -> None:
+    public_root, outside = _path_boundary_public_tree(tmp_path)
+    (public_root / "linked.json").symlink_to(outside)
+    sibling = public_root.parent / "parent.json"
+    sibling.write_text("parent evidence")
+    (public_root / "linked_parent.json").symlink_to(sibling)
+    source_ref = "macro/missing.json"
+
+    def forbidden(*_args: Any, **_kwargs: Any) -> Any:
+        raise AssertionError("an escaped bundle target must not be hashed")
+
+    monkeypatch.setattr(proof_spine, "_sha256_file", forbidden)
+    for target_ref in ("linked.json", "linked_parent.json", str(outside), "../parent.json"):
+        _path_boundary_bundle_manifest(public_root, source_ref, target_ref, "sha256:not-read")
+        assert proof_spine._bundle_artifact_attestation(public_root, source_ref) is None
+        assert proof_spine._bundle_artifact_target_path(public_root, source_ref) is None
+        assert proof_spine._resolve_public_ref(public_root, source_ref) is None
+        result = proof_spine.validate_copied_macro_body_artifacts(
+            {"copied_macro_body_artifacts": [{"source_ref": source_ref, "target_ref": target_ref}]},
+            public_root=public_root,
+        )
+        assert result["copied_macro_body_artifacts"][0]["file_present"] is False
+
+
+def test_public_ref_path_boundary_rejects_bundle_manifest_symlink_before_read(
+    tmp_path: Path, monkeypatch: Any,
+) -> None:
+    public_root, outside = _path_boundary_public_tree(tmp_path)
+    manifest = _path_boundary_bundle_manifest(public_root, "macro/missing.json", "valid.json", "sha256:unused")
+    manifest.unlink()
+    manifest.symlink_to(outside)
+
+    def forbidden(*_args: Any, **_kwargs: Any) -> Any:
+        raise AssertionError("an escaped manifest must not be read")
+
+    monkeypatch.setattr(proof_spine, "read_json_strict", forbidden)
+    assert proof_spine._bundle_artifact_attestation(public_root, "macro/missing.json") is None
+    assert proof_spine._bundle_artifact_target_path(public_root, "macro/missing.json") is None
+    assert proof_spine._resolve_public_ref(public_root, "macro/missing.json") is None
+
+
+def test_public_ref_path_boundary_source_floor_fallback_stays_in_floor_root(
+    tmp_path: Path, monkeypatch: Any,
+) -> None:
+    public_root, outside = _path_boundary_public_tree(tmp_path)
+    input_dir = public_root / "input"
+    floor = input_dir / "source_body_floor"
+    floor.mkdir(parents=True)
+    (floor / "linked.json").symlink_to(outside)
+
+    def forbidden(*_args: Any, **_kwargs: Any) -> Any:
+        raise AssertionError("an escaped source-floor file must not be read or hashed")
+
+    monkeypatch.setattr(proof_spine, "_sha256_file", forbidden)
+    for path_ref in (str(outside), "../source_body_floor/linked.json", "linked.json"):
+        (floor / "source_module_manifest.json").write_text(json.dumps({"modules": [{
+            "path": path_ref, "source_ref": "macro/missing.json", "required_anchors": [],
+        }]}))
+        result = proof_spine.validate_source_body_floor_artifacts(input_dir, public_root=public_root)
+        assert result["source_body_floor_artifacts"][0]["file_present"] is False
+
+
+
+def test_public_ref_path_boundary_bundle_internal_symlink_stays_usable(tmp_path: Path) -> None:
+    public_root, _outside = _path_boundary_public_tree(tmp_path)
+    direct = public_root / "evidence.json"
+    direct.write_text('{"marker": true}')
+    (public_root / "linked.json").symlink_to(direct)
+    _path_boundary_bundle_manifest(public_root, "macro/evidence.json", "linked.json", _sha256_file(direct))
+    attestation = proof_spine._bundle_artifact_attestation(public_root, "macro/evidence.json")
+    assert attestation is not None
+    assert attestation["path"].resolve() == direct
+
+
+def test_public_ref_path_boundary_source_floor_directory_symlink_is_not_opened(
+    tmp_path: Path, monkeypatch: Any,
+) -> None:
+    public_root, outside = _path_boundary_public_tree(tmp_path)
+    input_dir = public_root / "input"
+    input_dir.mkdir()
+    (input_dir / "source_body_floor").symlink_to(outside.parent, target_is_directory=True)
+    (outside.parent / "source_module_manifest.json").write_text('{"modules": []}')
+
+    def forbidden(*_args: Any, **_kwargs: Any) -> Any:
+        raise AssertionError("an escaped source-floor manifest must not be read")
+
+    monkeypatch.setattr(proof_spine, "read_json_strict", forbidden)
+    result = proof_spine.validate_source_body_floor_artifacts(input_dir, public_root=public_root)
+    assert result["source_body_floor_artifacts"] == []

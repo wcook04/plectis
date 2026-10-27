@@ -15,6 +15,8 @@ from pathlib import Path
 
 import pytest
 
+from microcosm_core.component_descriptions import resolve_component_capsules
+
 _SCRIPT = (
     Path(__file__).resolve().parents[1] / "scripts/build" / "build_first_action_demo.py"
 )
@@ -40,14 +42,22 @@ def _write_min_root(tmp_path: Path) -> Path:
                         "display_name": "Alpha Validator",
                         "family": "agent_reliability_and_safety",
                         "first_command": "microcosm alpha-validator validate --input fixtures/x",
-                        "claim_ceiling_restated": "Fixture contract only.",
+                        "paper_module_ref": "core/paper_module_capsules.json#paper_module.alpha_validator",
                     }
                 ],
             }
         )
     )
-    (tmp_path / "core/component_public_synopses.json").write_text(
-        json.dumps({"synopses": {"alpha_validator": "Checks fixture binding rows."}})
+    (tmp_path / "core/paper_module_capsules.json").write_text(
+        json.dumps({"paper_modules": [{
+            "id": "paper_module.alpha_validator",
+            "subjects": [{"kind": "organ", "ref": "alpha_validator"}],
+            "compression": {
+                "one_line": "Checks fixture binding rows.",
+                "card": "Checks fixture binding rows without runtime authority.",
+                "authority_ceiling": "Fixture contract only.",
+            },
+        }]})
     )
     (tmp_path / "receipts/code_lens/code_lens_join_index_v0.json").write_text(
         json.dumps(
@@ -61,6 +71,20 @@ def _write_min_root(tmp_path: Path) -> Path:
         )
     )
     return tmp_path
+
+
+def test_demo_minimal_fixture_uses_canonical_scope_and_requires_its_source(tmp_path: Path) -> None:
+    root = _write_min_root(tmp_path)
+    bundle = demo_mod.C.load_inputs(root)
+    contract = demo_mod.C.compile_first_action(bundle, root, "alpha_validator")
+    assert contract["owner"]["organ_id"] == "alpha_validator"
+    assert contract["do_not_claim"] == "Fixture contract only."
+    row = bundle["atlas_by_organ"]["alpha_validator"]
+    assert row["agent_gloss"] == "Checks fixture binding rows without runtime authority."
+    assert row["description_source_ref"] == "core/paper_module_capsules.json#paper_module.alpha_validator"
+    (root / "core/paper_module_capsules.json").unlink()
+    with pytest.raises(FileNotFoundError):
+        demo_mod.C.load_inputs(root)
 
 
 def test_demo_check_is_green_on_committed_tree() -> None:
@@ -134,8 +158,17 @@ def test_demo_lean_first_action_uses_lean_ceiling_not_erdos_ceiling() -> None:
     assert "microcosm_core.organs.lean_proof_search_lab_runtime" in str(
         contract["first_action"]["command"]
     )
-    do_not_claim = str(contract.get("do_not_claim") or "").lower()
-    assert "lean proof-search lab" in do_not_claim
+    # The caption may change, but this contract must retain the exact ceiling
+    # of the explicitly referenced Lean capsule, rather than another organ's.
+    atlas = json.loads((_ROOT / "core/organ_atlas.json").read_text())
+    capsules = json.loads((_ROOT / "core/paper_module_capsules.json").read_text())
+    resolved = resolve_component_capsules(atlas["organs"], capsules["paper_modules"])
+    lean_capsule = resolved["lean_proof_search_lab_runtime"][0]
+    erdos_capsule = resolved["finite_erdos_denominator_certificate_strike"][0]
+    expected = lean_capsule["compression"]["authority_ceiling"]
+    assert expected and expected != erdos_capsule["compression"]["authority_ceiling"]
+    assert contract["do_not_claim"] == expected
+    do_not_claim = contract["do_not_claim"].lower()
     assert "erdos" not in do_not_claim
     assert "denominator-order" not in do_not_claim
 
@@ -212,6 +245,7 @@ def test_demo_guard_refuses_secret_shaped_output(
         demo_mod.main(["--write", "--root", str(root)])
     assert excinfo.value.code == 3
     assert not (root / demo_mod.DOC_REL).exists()
+    assert not (root / demo_mod.RECEIPT_REL).exists()
 
 
 def test_demo_guard_refuses_overclaim_prose(
@@ -230,6 +264,7 @@ def test_demo_guard_refuses_overclaim_prose(
         demo_mod.main(["--write", "--root", str(root)])
     assert excinfo.value.code == 3
     assert not (root / demo_mod.DOC_REL).exists()
+    assert not (root / demo_mod.RECEIPT_REL).exists()
 
 
 def test_demo_refuses_root_without_join_index(tmp_path: Path) -> None:

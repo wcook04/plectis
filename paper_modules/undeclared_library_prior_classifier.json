@@ -8,7 +8,7 @@
   "compression": {
     "authority_ceiling": "The result depends on the supplied index and extracted symbols. It is advisory metadata, not proof checking or a claim that an unqualified name resolves to a particular declaration.",
     "card": "A cited unallowed premise takes precedence as a premise-budget violation; otherwise a known qualified symbol absent from both lists is classified as an undeclared library prior. Unqualified names are handled separately. A row that omits escalation for a known undeclared symbol is rejected.",
-    "one_line": "This classifier compares qualified symbols in public observations with a premise index and each observation’s allowed and cited premise IDs."
+    "one_line": "Classifies observed library symbols against allowed and cited premise IDs."
   },
   "created_at": "2026-06-02T00:00:00Z",
   "id": "paper_module.undeclared_library_prior_classifier",
@@ -92,7 +92,7 @@
       "compression": {
         "authority_ceiling": "The result depends on the supplied index and extracted symbols. It is advisory metadata, not proof checking or a claim that an unqualified name resolves to a particular declaration.",
         "card": "A cited unallowed premise takes precedence as a premise-budget violation; otherwise a known qualified symbol absent from both lists is classified as an undeclared library prior. Unqualified names are handled separately. A row that omits escalation for a known undeclared symbol is rejected.",
-        "one_line": "This classifier compares qualified symbols in public observations with a premise index and each observation’s allowed and cited premise IDs."
+        "one_line": "Classifies observed library symbols against allowed and cited premise IDs."
       },
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
@@ -478,7 +478,7 @@
       "role": "legacy_markdown_projection_not_source_authority"
     }
   ],
-  "statement": "This classifier compares qualified symbols in public observations with a premise index and each observation’s allowed and cited premise IDs.",
+  "statement": "Classifies observed library symbols against allowed and cited premise IDs.",
   "status": "active",
   "subjects": [
     {

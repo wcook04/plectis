@@ -19,6 +19,7 @@ import re
 import shlex
 import sys
 import time
+from microcosm_core.component_descriptions import enrich_description_atlas, load_description_atlas
 from pathlib import Path
 from typing import Any
 
@@ -226,12 +227,19 @@ def load_inputs(root: Path | None = None) -> dict[str, Any]:
     """
     base = root or default_root()
     join_index = _load_json(base / "receipts/code_lens/code_lens_join_index_v0.json")
-    atlas = _load_json(base / "core/organ_atlas.json")
-    synopses_doc = _load_json(base / "core/component_public_synopses.json")
+    atlas = load_description_atlas(base)
     _membrane_guard(join_index)
+    if join_index is not None and (
+        not isinstance(join_index, dict)
+        or not isinstance(join_index.get("nodes", {}), dict)
+        or not isinstance(join_index.get("nodes", {}).get("organ", []), list)
+    ):
+        raise ValueError("invalid comprehension join input shape")
     atlas_rows = (atlas or {}).get("organs") or []
     join_organs = ((join_index or {}).get("nodes") or {}).get("organ") or []
-    synopses = (synopses_doc or {}).get("synopses") or {}
+    # Historical editorial synopses remain a compatibility source on disk.
+    # Current component summaries use the same canonical capsule one_line.
+    synopses = {row["organ_id"]: row["one_line"] for row in atlas_rows}
     atlas_by = {str(r.get("organ_id")): r for r in atlas_rows if isinstance(r, dict)}
     capsules = _load_json(base / "core/paper_module_capsules.json")
     mechanisms_doc = _load_json(base / "core/mechanism_sources.json")
@@ -294,46 +302,15 @@ def _mechanism_index(
     Inputs are `capsules_doc`, `mechanism_doc`, and `atlas_by`; notable helpers are `get`,
     `append`, `_first_clause`, `_public_scope_text`, and 2 more.
     """
-    cards: dict[str, str] = {}
-    one_lines: dict[str, str] = {}
-    ceilings: dict[str, str] = {}
-    for entry in (capsules_doc or {}).get("paper_modules") or []:
-        if not isinstance(entry, dict):
-            continue
-        comp = entry.get("compression") or {}
-        for subject in entry.get("subjects") or []:
-            if not isinstance(subject, dict) or subject.get("kind") != "organ":
-                continue
-            ref = str(subject.get("ref") or "")
-            if not ref:
-                continue
-            if comp.get("card") and ref not in cards:
-                cards[ref] = str(comp["card"])
-            if comp.get("one_line") and ref not in one_lines:
-                one_lines[ref] = str(comp["one_line"])
-            if comp.get("authority_ceiling") and ref not in ceilings:
-                ceilings[ref] = str(comp["authority_ceiling"])
-    statements: dict[str, list[str]] = {}
-    for mech in (mechanism_doc or {}).get("mechanisms") or []:
-        if not isinstance(mech, dict) or not mech.get("statement"):
-            continue
-        for organ_id in mech.get("runs_in") or []:
-            statements.setdefault(str(organ_id), []).append(str(mech["statement"]))
-
+    # Resolve through the same explicit primary as every other reader. Short
+    # canonical cards remain canonical; mechanism prose is a separate surface.
+    enriched = enrich_description_atlas({"organs": list(atlas_by.values())}, capsules_doc)
     out: dict[str, dict[str, str]] = {}
-    for organ_id in atlas_by:
-        atlas_row = atlas_by.get(organ_id) or {}
-        card = cards.get(organ_id, "")
-        if len(card) >= 120:
-            body = card
-        elif statements.get(organ_id):
-            body = " ".join(statements[organ_id])
-        else:
-            body = str(atlas_row.get("agent_gloss") or "")
-        if not body:
-            continue
-        line = one_lines.get(organ_id) or _first_clause(body, 180)
-        ceiling = ceilings.get(organ_id) or str(atlas_row.get("claim_ceiling_restated") or "")
+    for atlas_row in enriched["organs"]:
+        organ_id = atlas_row["organ_id"]
+        body = atlas_row["agent_gloss"]
+        line = atlas_row["one_line"]
+        ceiling = atlas_row["claim_ceiling_restated"]
         # Route through the public-scope scrub so the mechanism slice matches the
         # ORGANS.md / organ_atlas reader surfaces (organ_atlas applies the same
         # _public_scope_text to card/one_line/authority_ceiling). The scrub only
@@ -457,7 +434,7 @@ def compile_first_contact(inputs: dict[str, Any]) -> dict[str, Any]:
     ]
     pack["evidence_refs"] = [
         "core/organ_atlas.json",
-        "core/component_public_synopses.json",
+        "core/paper_module_capsules.json",
         "receipts/code_lens/code_lens_join_index_v0.json",
     ]
     pack["specificity_risks"] = [_substrate_specificity_note(join_organs)]
@@ -974,6 +951,7 @@ def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
             "specialty": atlas_row.get("specialty"),
             "family": atlas_row.get("family"),
             "agent_gloss": atlas_row.get("agent_gloss"),
+            "description_source_ref": atlas_row.get("description_source_ref"),
             "evidence_class": join_node.get("evidence_class") or atlas_row.get("evidence_class"),
             "claim_ceiling": join_node.get("claim_ceiling"),
             "status": join_node.get("status"),
@@ -4749,7 +4727,7 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     pack["evidence_refs"] = [
         "core/organ_atlas.json",
         "receipts/code_lens/code_lens_join_index_v0.json",
-        "core/component_public_synopses.json",
+        "core/paper_module_capsules.json",
         "src/microcosm_core/comprehension.py#PACKET_SPECS",
     ]
     return pack
@@ -4791,8 +4769,10 @@ def comprehend(
     """
     start = time.perf_counter()
     base_root = root or default_root()
-    bundle = inputs if inputs is not None else load_inputs(base_root)
     target = target if target is not None else organ_id
+    bundle = inputs
+    if mode != "path" or goal:
+        bundle = inputs if inputs is not None else load_inputs(base_root)
     routing_note = None
     if goal:
         mode, target, routing_note = route_goal(goal, bundle)
@@ -4994,7 +4974,9 @@ def _symbols_expose_atom(symbols: list[dict[str, Any]], atom: str) -> bool:
     return any(atom in (s.get("atom_values") or {}) for s in symbols)
 
 
-def run_hard_comprehension_assay(root: Path | None = None) -> dict[str, Any]:
+def run_hard_comprehension_assay(
+    root: Path | None = None, inputs: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """
     Measure authored contract-value coverage and excerpt guard behavior.
 
@@ -5004,10 +4986,10 @@ def run_hard_comprehension_assay(root: Path | None = None) -> dict[str, Any]:
     - Fails: a leaking join index can raise ValueError through load_inputs.
     - Non-goal: value presence is not a proof of the authored contract's correctness.
     """
-    base = root or default_root()
+    inputs = inputs if inputs is not None else load_inputs(root)
+    base = root or inputs.get("root") or default_root()
     owned_target = "src/microcosm_core/comprehension.py"
     owned = extract_atom_excerpts(base, owned_target)
-    inputs = load_inputs(base)
     custody_target = next(
         (
             n.get("runner_source_ref")

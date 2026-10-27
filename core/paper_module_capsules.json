@@ -11,7 +11,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/verifier_lab_kernel.md",
       "compression": {
-        "one_line": "The verifier-lab kernel combines a public component stack with a packet of forward problems, oracle sidecars, provider hypotheses and candidate actions.",
+        "one_line": "Checks verifier-lab fixtures, keeping oracle and provider data separate from forward results.",
         "card": "The fixture checks component results alongside packet rules. It rejects an oracle result counted as forward success, a provider hypothesis claiming proof authority, and candidate bodies in fields that must remain body-free. Tests also exercise the standalone exported-bundle contract.",
         "authority_ceiling": "The fixture path can invoke its bounded public Lean/Lake witness; compatible `lean` and `lake` are prerequisites. Provider suggestions and translated actions are not proofs, and the kernel does not validate arbitrary private proofs."
       },
@@ -714,7 +714,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/pattern_binding_contract.md",
       "compression": {
-        "one_line": "Checks pattern rows and their source, reference and authority-chain records, producing a validation result and related receipts.",
+        "one_line": "Validates pattern bindings, source references and authority records.",
         "card": "A pattern binding links a pattern ID to its governing standard, source references and limits. In the fixture, `pb_valid_synthetic_binding` points to `capsule.synthetic_pattern_contract`, a provenance record for the regression harness. The validator checks required fields, reference resolution, duplicate conflicts and private-body markers. It rejects missing references, conflicting duplicate patterns, private source bodies and public claims that exceed their evidence. A separate route-readiness bundle checks whether selector rows resolve through their owning routes.",
         "authority_ceiling": "A passing binding is a consistent record under these checks; it does not prove that the pattern is useful or that copied source is correct."
       },
@@ -1192,7 +1192,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/proof_derived_governed_mutation_authorization.md",
       "compression": {
-        "one_line": "Checks synthetic mutation proposals against linked proof, policy, side-effect, rollback and replay records, then writes an authorization replay receipt.",
+        "one_line": "Checks synthetic mutation proposals against proof, policy, rollback and replay records.",
         "card": "For each proposal, the validator resolves proof cells and visible policy verdicts, recomputes an evidence-chain hash and checks the associated record. Write and rollback proposals require side-effect and rollback records. It also checks a Git commit witness and its changed paths; Git must be installed and the referenced commit available. A proposal with one visible verdict, a stale hash or no rollback for a reversible write is rejected.",
         "authority_ceiling": "The result concerns the supplied evidence and synthetic proposals. It grants no credential or permission to mutate a live system. A source hash or Git witness is not proof that the underlying change is correct."
       },
@@ -1573,7 +1573,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/mission_transaction_work_spine.md",
       "compression": {
-        "one_line": "Validates a public work-transaction fixture containing path claims, dependencies, preflight and checkpoint policy, and writes receipts.",
+        "one_line": "Checks work-transaction claims, dependencies and checkpoint policy in a public fixture.",
         "card": "The replay reconstructs an active-claims snapshot using imported public-safe Work Ledger code. It checks claims against paths and expected parent state, dependency unlocks and scoped checkpoint policy. Tests change a same-path conflict to a disjoint claim and change an expected parent to check that the verdict follows the input. A stale expected parent or conflicting claim is rejected.",
         "authority_ceiling": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release."
       },
@@ -2037,7 +2037,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/lean_std_premise_index.md",
       "compression": {
-        "one_line": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references.",
+        "one_line": "Validates public Lean and Std premise descriptors against source metadata.",
         "card": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references. It compares public rows with copied source metadata by premise ID and checks declared source digests. A toolchain path may be represented by a public `lean-toolchain://` reference.",
         "authority_ceiling": "Checks copied Lean/Std premise metadata, not Mathlib availability or theorem correctness."
       },
@@ -2199,7 +2199,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/public_reveal_walkthrough.md",
       "compression": {
-        "one_line": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references.",
+        "one_line": "Checks walkthrough claims and their links to public evidence.",
         "card": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references. It produces a board and findings to help a reader follow a claim to supporting material.",
         "authority_ceiling": "A walkthrough that claims a capability without a matching evidence route is rejected. A passing walkthrough does not establish private-system equivalence or authorize a release."
       },
@@ -2284,7 +2284,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/standards_meta_diagnostics.md",
       "compression": {
-        "one_line": "This validator checks whether accepted components have the declared standards, runtime commands and receipt references needed to describe their public contracts.",
+        "one_line": "Checks accepted components for declared standards, commands and receipt references.",
         "card": "The checker compares accepted component IDs against inventory and runtime-contract rows, checks standard and receipt references, and scans inputs for forbidden material. A missing standard reference or a claimed release authorization is rejected. The exported bundle uses supplied rows and checks a source-module manifest.",
         "authority_ceiling": "A pass describes checked public coverage; it does not establish that every component works correctly or authorize registry changes or a release."
       },
@@ -3082,7 +3082,7 @@
         }
       ],
       "compression": {
-        "one_line": "This component reads recorded tactic compile statuses, durations and environment information and produces an availability report for later routing.",
+        "one_line": "Summarizes recorded tactic availability, timing and environment.",
         "card": "The validator compares public tactic and environment rows with source-backed probe artifacts. A row claiming an available tactic without a compile status, or claiming Mathlib availability without supporting evidence, is rejected. Source changes can invalidate a recorded availability label.",
         "authority_ceiling": "The run checks existing evidence; it does not run Lean or Lake. Availability and timing are scoped to the recorded environment and do not prove a theorem or establish benchmark performance."
       },
@@ -3160,7 +3160,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/target_shape_tactic_routing.md",
       "compression": {
-        "one_line": "This gate reads recorded tactic availability and target-shape route cases, then checks the selected tactic against the candidates, availability and shape-specific preferences.",
+        "one_line": "Checks tactic choices against recorded availability and target-shape preferences.",
         "card": "For example, the test for a Boolean double-negation goal checks that the preferred available tactic is `decide`. The gate rejects selecting an unavailable tactic and requires a fallback for an unknown shape or an unavailable preferred tactic. The input includes invalid post-execution and proof-body cases.",
         "authority_ceiling": "A selected tactic is a routing suggestion, not a proof or a guarantee that the tactic will solve a goal. This validator does not execute Lean or Lake."
       },
@@ -3318,7 +3318,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/mathematical_strategy_atlas.md",
       "compression": {
-        "one_line": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution.",
+        "one_line": "Scores public problem features against strategy cards to select a first strategy.",
         "card": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution. The score weights matching triggers, penalizes negative triggers, and adds a capped bonus for retrieval-term matches. The fixture includes an `iff_goal` case selecting `iff_split`; an unmapped case can yield a typed selection miss.",
         "authority_ceiling": "Scores strategy hypotheses from supplied features; it does not prove a statement or measure benchmark performance."
       },
@@ -3399,7 +3399,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/verifier_lab_execution_spine.md",
       "compression": {
-        "one_line": "The execution spine runs a small public Lean project and checks recorded transitions, translation candidates and bounded policy-change candidates.",
+        "one_line": "Checks verifier transitions and policy candidates; the direct fixture runs Lean.",
         "card": "The fixture includes a Lake project and deliberate negative cases. The validator rejects transitions exposing candidate bodies or mixing provider/oracle visibility into the forward path, and rejects an Evolve candidate claiming arbitrary source mutation. Its tests exercise Lean execution and the candidate checks.",
         "authority_ceiling": "This is a bounded public witness and policy experiment. It does not establish correctness of arbitrary proofs or authorize arbitrary source changes. The command requires compatible `lean` and `lake` on PATH and can take time to build."
       },
@@ -3855,7 +3855,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/tool_server_pressure_inventory.md",
       "compression": {
-        "one_line": "This component takes a supplied process table, owner classifications and pressure policy and produces an inventory and a relief recommendation.",
+        "one_line": "Classifies supplied tool-server processes and recommends pressure relief.",
         "card": "The classifier follows owner relationships, distinguishes active, unknown and detached owners, and applies the supplied policy. Tests cover cycles and active-owner descendants. It rejects a claim that an unknown-owner process is safe to close, and rejects recorded process signals or exposed command previews.",
         "authority_ceiling": "The implementation does not inspect the live process table or send signals. A recommendation in a receipt is not permission to stop a process."
       },
@@ -3933,7 +3933,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/mechanistic_interpretability_circuit_attribution_replay.md",
       "compression": {
-        "one_line": "Checks a public circuit-attribution fixture and a small numerical model, recording whether the declared feature attribution agrees with its inputs.",
+        "one_line": "Checks feature attribution in a public fixture and small numerical model.",
         "card": "The synthetic fixture supplies token IDs, embeddings and weights. The code averages embeddings, applies a linear layer, tanh and a second linear layer, then recomputes gradients and feature ablations for this small network. Despite its `toy_transformer` identifier, this network has no attention. It checks the declared top feature, graph paths and intervention references. A stale top-feature claim or disconnected graph is rejected.",
         "authority_ceiling": "This toy replay does not establish transparency for a trained model or access private activations. Source digests check copied inputs, not the correctness of interpretability methods."
       },
@@ -4012,7 +4012,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/spatial_world_model_counterfactual_simulation_replay.md",
       "compression": {
-        "one_line": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction.",
+        "one_line": "Compares predicted counterfactual transitions with a deterministic toy gridworld.",
         "card": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction. It writes findings and a board for inspecting mismatches.",
         "authority_ceiling": "A stale predicted state that disagrees with the computed step is rejected. This is a small synthetic gridworld check, not evidence of geographic accuracy, robot operation or a production simulator."
       },
@@ -4097,7 +4097,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/prediction_oracle_reconciliation.md",
       "compression": {
-        "one_line": "Checks a synthetic prediction packet against supplied evidence and realised outcomes, then emits a reconciliation result.",
+        "one_line": "Compares synthetic predictions with supplied evidence and outcomes.",
         "card": "The validator checks prediction targets and evidence timing, recomputes numeric rankings and grades supplied realised directions. It keeps stock and ETF counts separate and constrains dossier mutations to declared types and evidence. It rejects an oracle row without a supporting prediction, a claimed grade contradicting recomputation, and post-prediction evidence used as prior evidence.",
         "authority_ceiling": "The packet and outcomes are synthetic. This replay does not establish forecasting accuracy, access market feeds, or provide investment advice."
       },
@@ -4176,7 +4176,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/provider_context_recipe_budget.md",
       "compression": {
-        "one_line": "This validator takes ordered context recipes and section material, measures available section bodies and includes each section if it fits the remaining byte budget.",
+        "one_line": "Packs ordered context sections within a byte budget and reports omissions.",
         "card": "This validator takes ordered context recipes and section material, measures available section bodies, falling back to a declared byte size when a body is unavailable, and includes each section if it fits the remaining byte budget. Its result lists included and omitted sections with sizes, while redacting their bodies. The token count is a rough estimate of one token per four bytes.",
         "authority_ceiling": "A recipe that suppresses its omitted-sections manifest or permits proof bodies is rejected. This checks recipe accounting and policy, not a provider call or model performance."
       },
@@ -4259,7 +4259,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/undeclared_library_prior_classifier.md",
       "compression": {
-        "one_line": "This classifier compares qualified symbols in public observations with a premise index and each observation’s allowed and cited premise IDs.",
+        "one_line": "Classifies observed library symbols against allowed and cited premise IDs.",
         "card": "A cited unallowed premise takes precedence as a premise-budget violation; otherwise a known qualified symbol absent from both lists is classified as an undeclared library prior. Unqualified names are handled separately. A row that omits escalation for a known undeclared symbol is rejected.",
         "authority_ceiling": "The result depends on the supplied index and extracted symbols. It is advisory metadata, not proof checking or a claim that an unqualified name resolves to a particular declaration."
       },
@@ -5022,7 +5022,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/batch12_market_dashboard_read_model_capsule.md",
       "compression": {
-        "one_line": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status.",
+        "one_line": "Checks synthetic dashboard data, feed freshness and related situations.",
         "card": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status. It also checks feed freshness and which situations the dashboard treats as related. It writes the three mechanism results and their negative-case observations. The validator rejects a graph edge with no destination and unsafe traversal references. The freshness classifier distinguishes a stale feed from a fresh one and blocks missing readiness evidence; the related-situation check returns no match for two situations with neither shared entities nor the same type. The fixture also allows a same-type match without shared entities.",
         "authority_ceiling": "These cases test the read model and its labels, not current market data, investment advice or the accuracy of a forecast."
       },
@@ -5100,7 +5100,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/batch12_prediction_market_board_capsule.md",
       "compression": {
-        "one_line": "This fixture exercises copied board and quantitative-mart helpers using synthetic market rows, identity records and helper cases.",
+        "one_line": "Exercises copied market-board helpers on synthetic rows and identity records.",
         "card": "This fixture exercises copied board and quantitative-mart helpers using synthetic market rows, identity records and helper cases. It records deduplication and aggregate results alongside diagnostics for data availability and provider drift. For duplicate listings, the fixture checks that the higher-volume row is retained and aggregates are deduplicated. A market slug without a matching identity record must not acquire an invented identity. Other cases flag a feed with zero rows and leave the change in feed evidence unavailable when there is no previous successful run to compare against.",
         "authority_ceiling": "The examples do not validate live market prices, provider data, forecast accuracy or calibration; they are not trading advice."
       },
@@ -5177,7 +5177,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/batch12_release_claim_language_gate.md",
       "compression": {
-        "one_line": "This fixture writes two sample documents in temporary directories: one warns against an open-source claim, while the other affirmatively claims production readiness.",
+        "one_line": "Tests a claim-language gate on sample documents with contrasting release claims.",
         "card": "This fixture writes two sample documents in temporary directories: one warns against an open-source claim, while the other affirmatively claims production readiness. It runs the declared public fallback claim-language gate against both. The result records matched phrase IDs, gate status and the assert-clear exit code. The affirmative production-ready claim is blocked; the assert-clear path returns exit code 2. The fixture also checks a public-facing private-control-plane claim and rejects unsafe fixture filenames. A phrase match is a limited rule-based check, not a general review of every claim.",
         "authority_ceiling": "A passing fixture does not approve a release, publication or the truth of a document. This checkout’s source manifest declares a public-safe stub in place of the original source, so this example exercises the fallback rather than the copied gate. An undeclared missing source blocks the check."
       },
@@ -5333,7 +5333,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/batch10_live_source_drift_capsule.md",
       "compression": {
-        "one_line": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them.",
+        "one_line": "Checks copied Python files against recorded digests and anchors, then compiles them.",
         "card": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them. It produces a result, a board and a validation receipt for the supplied fixture. The digest matrix requires each current digest to match and each stale digest to differ. A replay using a stale digest is rejected; the compile gate also rejects a bypass. Matching bytes and successful compilation do not prove the program behaves correctly or authorize changes to source, ledgers or routes.",
         "authority_ceiling": "The fixture is a source-integrity exercise, not a check of a live private runtime."
       },
@@ -5412,7 +5412,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/batch7_macro_engines_capsule.md",
       "compression": {
-        "one_line": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection.",
+        "one_line": "Exercises copied engines for traces, scheduling, patch checks and other workflows.",
         "card": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection. Its result combines source checks with the outcomes of the individual witnesses. A cyclic dependency graph is rejected, a patch with mismatched context fails, and an unknown PageRank source is refused. When regression selection would be empty, the example checks the fallback selection. The trace parser also runs its original Node test witness.",
         "authority_ceiling": "The fixture is not a general guarantee of safe patches, complete test selection or whole-system correctness. The original witnesses require Node and their declared JavaScript dependencies; `numpy` is required for the numeric exercise."
       },
@@ -5578,7 +5578,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/pattern_assimilation.md",
       "compression": {
-        "one_line": "Checks whether each landed component in an input set has a linked, same-lane closeout decision and writes a validation receipt.",
+        "one_line": "Checks landed components for linked, same-lane closeout decisions.",
         "card": "A decision can point to a refinement receipt naming an owner and artifact, or to a `nothing_to_refine` receipt with stewardship, next-lane and re-entry checks. The validator resolves those references and checks duplicate IDs. It rejects a landed row with a missing closeout or a dead receipt reference; a local refinement cannot claim global doctrine authority.",
         "authority_ceiling": "The check establishes the recorded closeout contract for supplied rows. It does not establish that a refinement improved the system or that every lesson has been found."
       },
@@ -5744,7 +5744,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/batch11_saturation_engines_capsule.md",
       "compression": {
-        "one_line": "This fixture runs thirteen selected checks on examples ranging from run affinity and navigation to market data, research evidence and recording segments.",
+        "one_line": "Exercises thirteen selected checks across navigation, research and market data.",
         "card": "This fixture runs thirteen selected checks on examples ranging from run affinity and navigation to market data, research evidence and recording segments. It checks source manifests and records each exercise and its negative cases. For example, the run selector chooses a working feed run over a stale failed run, even when the latter is marked as the preferred run. A scan of sample public file contents and paths blocks a key-shaped token; an unreachable navigation target fails its route check. The market examples normalize units and route unknown macro categories to an other bucket. Each result is specific to its test inputs.",
         "authority_ceiling": "The collection mixes copied source with declared public refactors; a matching digest or passing synthetic case does not establish production performance, market truth or security."
       },
@@ -5909,7 +5909,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/batch6_unsurfaced_primitives_capsule.md",
       "compression": {
-        "one_line": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing.",
+        "one_line": "Exercises copied primitives for text, memory, policy, markets and recording timing.",
         "card": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing. It checks the selected mechanism set and returns individual exercise results. The negative cases include a stopword-only phrase that yields no keyphrase, a finance unit-scale mismatch that blocks, and a missing counterevidence case. The concurrency case identifies a parent-child conflict; the recording case checks pause-time remapping.",
         "authority_ceiling": "These synthetic examples do not establish market truth, policy effectiveness or correctness for other inputs. Source hashes and anchors establish identity checks, not algorithm correctness."
       },
@@ -6063,7 +6063,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/batch5_authority_systems_capsule.md",
       "compression": {
-        "one_line": "This fixture runs examples of receipt validation, replay scope, proof-contract checks, process classification, state convergence, trace recording, dependency impact and doctrine drift.",
+        "one_line": "Exercises receipt, replay, proof-contract and dependency-impact checks.",
         "card": "This fixture runs examples of receipt validation, replay scope, proof-contract checks, process classification, state convergence, trace recording, dependency impact and doctrine drift. It records each outcome alongside source-manifest evidence. A receipt with provider-context drift is rejected, and a proof contract containing `sorry` is rejected. A live descendant must not be signalled by the orphan classifier. When a generated projection remains unresolved and its source signature changes between checks, the fixture classifies it as a source-moved residual.",
         "authority_ceiling": "These are bounded exercises of the supplied cases. A digest confirms a source copy against its manifest; it does not prove authorization, proof correctness or safe process management in a live system."
       },
@@ -6147,7 +6147,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/batch7_oracle_sibling_capsule.md",
       "compression": {
-        "one_line": "This fixture loads copied modules from Oracle, a market-evidence system, to index artifacts from a sample subject run, build a snapshot and compare a macroeconomic series.",
+        "one_line": "Exercises copied Oracle modules for artifact indexing, snapshots and comparisons.",
         "card": "This fixture loads copied modules from Oracle, a market-evidence system, to index artifacts from a sample subject run, build a snapshot and compare a macroeconomic series. It also tests a plan for filling missing artifacts in a related truth run and runs an original pytest witness. It writes summaries of these local exercises. The subject index requires a run directory and artifact identity. In the repair example, the plan remains blocked because source nodes are missing, but writes a `prediction_reconciliation` alias of the existing `oracle_truth_diff_equity` artifact. It excludes the missing-quartet execution path and does not construct the bridge-backed reasoning engine. Missing artifact identity is a rejected case.",
         "authority_ceiling": "The pytest witness requires pytest and its source dependencies. These examples do not establish semantic truth, live market reasoning or coverage of the full Oracle system."
       },
@@ -6224,7 +6224,7 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/batch7_demo_take_console_capsule.md",
       "compression": {
-        "one_line": "This fixture checks copied Swift sources for a recording console and exercises a build witness, capture state, helper bridge, hotkey, audio meter and transcription payload contracts.",
+        "one_line": "Checks recording-console source contracts and a Swift build witness.",
         "card": "This fixture checks copied Swift sources for a recording console and exercises a build witness, capture state, helper bridge, hotkey, audio meter and transcription payload contracts. It records summaries rather than source or build-log bodies. The source checks reject mutations that remove the guard requiring at least one screen, audio or webcam source, the required hotkey modifiers, the audio-meter clamp or the transcription audio guard. These are checks of source contracts, not simulated recording actions. A SwiftPM build witness checks that the selected app target builds; it does not launch the app or record a screen.",
         "authority_ceiling": "The build witness needs Swift and a compatible macOS environment with the required Apple frameworks. SwiftPM writes build scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset. A successful build and fixture checks do not establish capture quality or transcription accuracy."
       },
@@ -7347,7 +7347,7 @@
       "title": "Deduplicate matching local command runs",
       "source_authority": "json_capsule",
       "compression": {
-        "one_line": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content and environment.",
+        "one_line": "Exercises command-run deduplication using keys derived from inputs and environment.",
         "card": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content, resource class, and the `PYTHONPATH` and `PYTEST_ADDOPTS` environment values. Matching runs can share or reuse a result; the fixture also checks that a scoped file change changes the key. It writes a result, board and validation receipt.",
         "authority_ceiling": "Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee."
       },
@@ -7556,7 +7556,7 @@
       "title": "Queue reconciliation in a temporary SQLite store",
       "source_authority": "json_capsule",
       "compression": {
-        "one_line": "Runs queue scenarios in temporary SQLite stores and reports whether the reconciliation rules match each case’s expectation.",
+        "one_line": "Runs temporary SQLite queue cases and checks their reconciliation outcomes.",
         "card": "The cases exercise idempotent enqueue, leases and expired-lease recovery, plus a blackboard projection. The reconciler examines job, run and log records. A running job without a run row, or a finalised run whose job is still running, is a named negative case. A negative case succeeds when the expected rule fires; the inconsistent queue is not thereby healthy.",
         "authority_ceiling": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability."
       },
@@ -7691,7 +7691,7 @@
       "title": "Route-packet fitness benchmark",
       "source_authority": "json_capsule",
       "compression": {
-        "one_line": "Scores supplied route packets against task-specific expected IDs and rules, then checks whether each computed verdict matches its fixture expectation. A packet records the choices returned for a task: the first command, selected artifacts, summary and elapsed time.",
+        "one_line": "Scores route packets against task-specific artifacts, rules and time budgets.",
         "card": "The evaluator calculates recall and precision for expected artifacts, checks forbidden first routes, checks how many task-specific cue words appear in the packet summary and compares elapsed time with a budget. The fixture calls those cue words scent terms. A budget overrun is latency debt and is recorded separately from whether the selected artifacts are sufficient. A packet missing an expected stable ID or selecting a forbidden first route is rejected when it claims to pass.",
         "authority_ceiling": "These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement."
       },

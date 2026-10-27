@@ -53,7 +53,7 @@ PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"
 ```
 
 It returns one graph-backed contract: the runnable command, the owning
-component, the validator that proves it, the shipped receipts, the stop
+component, the validator that checks its result, the shipped receipts, the stop
 condition, and the do-not-edit boundary. [FIRST_ACTION.md](FIRST_ACTION.md)
 demonstrates this across a goal battery — localization, change-shaped goals,
 authority refusals, vocabulary traps — and is regenerated from the live
@@ -179,8 +179,10 @@ Use [scripts/README.md](scripts/README.md) and the
 [architecture guide](docs/maintainers/architecture.md) before moving files.
 Keep programs in `scripts/<role>/`, tests in `tests/`, and paper text in
 `docs/papers/`. Change producers, callers, imports, package destinations and
-generated navigation together. Stage intended files, then run `make check`;
-the index-based layout check is also required by CI.
+generated navigation together. Stage intended files, then run `make check`.
+Its layout check uses Git’s indexed path inventory and the working-tree layout
+policy; it does not inspect staged file contents. CI runs the same check via
+`make ci`.
 
 ## Default Reflexes
 
