@@ -1073,7 +1073,7 @@ for (const action of ['text', '']) {
     button.setAttribute('data-page-export', action);
     article.appendChild(button);
     const page = loadPage(makeTab(), {
-      path: '/plectis/maths/papers/sample.html', bodyChildren: [article],
+      path: '/practical-formal-verification/maths/papers/sample.html', bodyChildren: [article],
       clipboard: { writeText(value) { writes.push(String(value)); return Promise.resolve(); } },
     });
     assert.equal(page.error, null);

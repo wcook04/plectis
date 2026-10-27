@@ -32,8 +32,8 @@
         "sha256": "sha256:2d636d4b46efb6367606428712e411b64e79299eb5b133dd109dc0a0193bb38d"
       },
       "404.html": {
-        "byte_count": 1099,
-        "sha256": "sha256:e123b7a56be574873fd56c3b08b22a733d1a29f67392c2abc63fd1cfc4b3797f",
+        "byte_count": 1231,
+        "sha256": "sha256:d5228aff871f5fbe0fc58c811411f930bf1930fd174cff3ec5be251935a494d3",
         "term_markup_neutral_byte_count": 1099
       },
       "_headers": {
