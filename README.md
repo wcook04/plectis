@@ -339,6 +339,11 @@ loading states and acceptance checks. The API reads a validated snapshot;
 it does not run components, recheck proofs or serve arbitrary files. Retained
 verification and current execution are displayed as separate facts.
 
+A first explorer built to that brief is in [frontend/](frontend/README.md).
+`python3 frontend/serve.py --start-backend` starts the API and opens an
+evidence map of the components and their verified kernels, with catalogue,
+component, proof, coverage and related-record pages. It is a draft for review.
+
 ## Repository layout
 
 Component descriptions are read from capsule compression through

@@ -4,7 +4,9 @@ This is the implementation brief for a frontend developer or coding agent,
 including Claude. Build a local interface that lets a reader find a Plectis
 component, understand its claim, inspect the evidence and follow the source.
 The backend described here is implemented. The screens below are the frontend
-to build; this guide does not claim that they already exist.
+to build. A first draft of them is in [frontend/](../../frontend/README.md);
+its open questions for the backend are in
+[`BACKEND_REQUESTS.md`](../../frontend/BACKEND_REQUESTS.md).
 
 Start from the current repository's [README](../../README.md), then read the
 [HTTP reference](../reference/component-http-api.md). Use the existing website's
