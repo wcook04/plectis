@@ -6,10 +6,11 @@
 // route runs to it as a hairline spoke. The three other workflow cores
 // (repair, compatibility, views) stand round it: they belong to the toolkit,
 // not to any one component. Each of the twelve component kernels, a
-// specification with one petal for every verified task, grows on its own
-// component's radius, on a stem in from the component through its caller and
-// its generated code, so the chain reads straight along one spoke; where two
-// flowers would touch, the later one stands a bloom further in. The 88
+// specification drawn as a proof dial with one tick for every verified task,
+// stands on its own component's radius, on a stem in from the component
+// through its caller and its generated code, so the chain reads straight
+// along one spoke; where two dials would touch, the later one stands a step
+// further in. The 88
 // components stand in their family sectors, as on the system map.
 //
 // Outside the ring stand the coverage rings (evidence.js TRACKS): one ring
@@ -25,14 +26,14 @@ import { BACKING_ORDER, FAMILY_ORDER, TRACKS } from '../evidence.js';
 
 export const R = {
   core: 0,
-  cores: 100,
-  kernel: 300, // the outermost bloom; crowded flowers step in from here
-  bloom: 52, // one step in
-  petal: 21,
-  component: 360,
-  track0: 374,
-  trackH: 10,
-  trackGap: 2.6,
+  cores: 70,
+  kernel: 222, // the outermost dial; crowded dials step in from here
+  bloom: 36, // one step in
+  petal: 12,
+  component: 262,
+  track0: 276,
+  trackH: 15,
+  trackGap: 2.4,
   labels: 0,
 };
 R.trackOuter = R.track0 + TRACKS.length * (R.trackH + R.trackGap) - R.trackGap;
@@ -64,7 +65,7 @@ export function trackBand(i) {
 
 const SLOT_PAD = 1.1;
 const SECTOR_GAP = 0.05;
-export const KEY_GAP = 0.24;
+export const KEY_GAP = 0.42;
 const TURN = Math.PI * 2;
 
 /** Sector and slot order: families clockwise after the key wedge, members by backing then title. */
@@ -101,25 +102,31 @@ export function shortArc(from, to) {
   return d;
 }
 
-/* ---- Flowers: one footprint for painting, hit testing, placement, labels -- */
+/* ---- Proof dials: one footprint for painting, hit testing, placement, labels */
 //
-// A flower's screen radius is min(cap, 24·k) px: 24 layout units until it
-// reaches its cap (46 px, or 62 px for the replay checker at the centre), so
-// zooming in never balloons it into its neighbours. Its broken copies stand
-// as small crosses on an arc just outside the petal tips, on the side away
-// from its stem. Its footprint is the petal radius, plus that ring of
-// crosses, plus 6 px of air; below FLOWER.refK every pixel measure shrinks
-// with the drawing, so the footprint is bounded in layout units at every zoom
-// and the placement below can guarantee that no two footprints meet.
-export const FLOWER = {
-  world: 24, // petal radius in layout units, until the cap
-  cap: 46, replayCap: 62, // px
+// A proved computation is drawn as a dial: a red ring graduated with one
+// fine tick per passed proof check, round a blue ring (the written rules) and
+// a red centre dot (the checked code). Its screen radius is min(cap, world·k)
+// px: 12 layout units until it reaches 18 px (the replay checker at the
+// centre: 16 units, 24 px), so zooming in never balloons it into its
+// neighbours. Its broken copies stand as small crosses on an arc just outside
+// the ring, on the side away from its stem. Its footprint is the ring radius,
+// plus that ring of crosses, plus air; below DIAL.refK every pixel measure
+// shrinks with the drawing, so the footprint is bounded in layout units at
+// every zoom and the placement below can guarantee no two footprints meet.
+export const DIAL = {
+  world: 12, replayWorld: 16, // ring radius in layout units, until the cap
+  cap: 18, replayCap: 24, // px
   refK: 0.6, // below this zoom the pixel measures scale with the drawing
-  crossGap: 3, crossArm: 5, crossPitch: 9, // px: gap past the tips, × arm, spacing
-  pad: 6, // px of air round the drawn flower
-  stemAir: 4, // px a stem keeps clear of another flower's footprint
+  crossGap: 2, crossArm: 4, crossPitch: 7, // px: gap past the ring, × arm, spacing
+  pad: 5, // px of air round the drawn dial
+  stemAir: 3, // px a stem keeps clear of another dial's footprint
+  numeral: 11, // px: the dial is large enough to carry its count from here
+  maxCrosses: 4, // more broken copies than this are written ×M
 };
-const CROSS_HALF = FLOWER.crossArm / Math.SQRT2; // half the × box for a 5 px arm
+// The old name, kept for callers outside the map.
+export const FLOWER = DIAL;
+const CROSS_HALF = DIAL.crossArm / Math.SQRT2; // half the × box for a 4 px arm
 
 /**
  * A flower's measures in screen px at zoom k: petal radius r, the radius of
@@ -128,14 +135,15 @@ const CROSS_HALF = FLOWER.crossArm / Math.SQRT2; // half the × box for a 5 px a
  * fixed pixel measures (1 at or above FLOWER.refK).
  */
 export function flowerPx(k, { replay = false, mutants = 0 } = {}) {
-  const s = Math.min(1, k / FLOWER.refK);
-  const r = Math.min(replay ? FLOWER.replayCap : FLOWER.cap, FLOWER.world * k);
+  const s = Math.min(1, k / DIAL.refK);
+  const r = Math.min(replay ? DIAL.replayCap : DIAL.cap, (replay ? DIAL.replayWorld : DIAL.world) * k);
   const half = CROSS_HALF * s;
-  const ring = mutants ? FLOWER.crossGap * s + 2 * half : 0;
-  const crossR = r + FLOWER.crossGap * s + half;
+  const ring = mutants ? DIAL.crossGap * s + 2 * half : 0;
+  const crossR = r + DIAL.crossGap * s + half;
   const reach = r + ring;
-  return { r, s, half, crossR, ring, reach, footprint: reach + FLOWER.pad * s };
+  return { r, s, half, crossR, ring, reach, footprint: reach + DIAL.pad * s };
 }
+export const dialPx = flowerPx;
 /**
  * The angular half-span (radians, about the cross direction) of a flower's
  * cross arc at zoom k, with the cross box itself; 0 when it has none.
@@ -143,7 +151,8 @@ export function flowerPx(k, { replay = false, mutants = 0 } = {}) {
 export function crossSpan(k, mutants) {
   if (!mutants) return 0;
   const f = flowerPx(k, { mutants });
-  return (((mutants - 1) / 2) * FLOWER.crossPitch * f.s + f.half) / f.crossR;
+  const shown = mutants > DIAL.maxCrosses ? 2 : mutants; // ×M stands where two crosses would
+  return (((shown - 1) / 2) * DIAL.crossPitch * f.s + f.half) / f.crossR;
 }
 // The pixel measures and the petals are both proportional to k below refK and
 // shrink in layout units above it, so refK is the worst case in layout units.
@@ -165,7 +174,7 @@ export function stemClearance(mutants, crossDir, dir) {
 }
 
 export const BLOOM_ROOM = flowerRoom(3, 3);
-/** The radial candidates for a kernel flower: outermost first (300, 248, 196). */
+/** The radial candidates for a kernel dial: outermost first (222, 186, 150). */
 export const BLOOM_RADII = [R.kernel, R.kernel - R.bloom, R.kernel - 2 * R.bloom];
 
 /**
@@ -283,8 +292,8 @@ function stemMargin(pts, skip, flowers) {
  */
 export function stemFor(k, sector, pitch, flowers) {
   const end = R.component;
-  const skip = FLOWER.world; // the stem leaves the flower at its petal tips
-  const t1 = k.r + FLOWER.world + 4, t2 = R.component - 16;
+  const skip = DIAL.world; // the stem leaves the dial at its ring
+  const t1 = k.r + DIAL.world + 4, t2 = R.component - 16;
   const options = [{ dogleg: 0, legs: [{ radial: [k.angle, k.r, end] }] }];
   for (const steps of [1, 2]) {
     for (const sign of [1, -1]) {
@@ -347,7 +356,7 @@ export function layout(model) {
   // Unlinked kernels (none today) wait on a small arc under the cores.
   model.kernels.filter((k) => !linked.includes(k)).forEach((k, i) => {
     const angle = Math.PI / 2 + (i - 0.5) * 0.3;
-    const r = R.cores + 90;
+    const r = R.cores + 60;
     const [x, y] = polar(angle, r);
     kernels.push({ id: k.id, componentId: null, angle, x, y, r, depth: 0, mutants: (k.mutants || []).length,
       stem: [], dogleg: 0, clearance: Infinity, generated: null, caller: null, generatedR: null, callerR: null, to: null });

@@ -7,7 +7,7 @@
 
 import { ApiError, apiPath, getEnvelope, withQuery } from '../api.js';
 import { getModel } from '../data.js';
-import { announce, backingGlyph, clear, copyButton, flowerGlyph, h, keyGlyph, ringStyle, ringSwatch, ruleGlyph, svg } from '../dom.js';
+import { announce, backingGlyph, clear, copyButton, dialGlyph, h, keyGlyph, ringStyle, ringSwatch, ruleGlyph, svg } from '../dom.js';
 import {
   BACKING_ORDER, CITATION_WORDS, CLASS_OF_BACKING, DOCTRINE_KINDS, FAMILY_ORDER, TRACKS, callerWords, classDescription, classWords, count, dayWords, familyName, moduleWords,
   obligationWords, proofShortName, ruleKindPlain, ruleKindWords, setLabels, sourceHref, stateWords, supportWords, CORE_NAMES, flowerWords, ordinal, ringState,
@@ -369,7 +369,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     const example = model.byId.get('mcp_tool_authority_replay');
     return h('div', { class: 'overview' },
       h('h1', { class: 'explorer__title' }, 'What’s proved, and what isn’t'),
-      h('p', { class: 'overview__lead' }, `Plectis is a toolkit of ${t.components} software mechanisms for AI research and engineering. Only the flowers are proofs: small computations a prover checked. Everything else is recorded evidence. Nothing runs on this page.`),
+      h('p', { class: 'overview__lead' }, `Plectis is a toolkit of ${t.components} software mechanisms for AI research and engineering. Only the proof dials are proofs: small computations a prover checked. Everything else is recorded evidence. Nothing runs on this page.`),
       layersGuide(),
       h('div', { class: 'section-head' }, h('h2', { class: 'section-title' }, 'The eight rings'),
         h('button', { type: 'button', class: 'textbtn', onclick: () => openExplainer() }, 'What do these mean?')),
@@ -393,7 +393,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     const t = model.totals;
     const sample = model.kernels.find((k) => k.verifiedTasks) || model.kernels[0];
     const rows = [
-      [flowerGlyph(sample?.verifiedTasks || 6, sample?.mutants.length || 2, 26), 'Flowers', `Proved computations, ${t.cores} at the centre and ${t.kernels} on stems from the component that runs them. A petal is a proof check that passed; a cross, a broken copy the prover rejected.`],
+      [dialGlyph(sample?.verifiedTasks || 6, sample?.mutants.length || 2, 26, { numeral: false }), 'Proof dials', `Proved computations, ${t.cores} at the centre and ${t.kernels} on stems from the component that runs them. Each tick round a dial is one proof check that passed; each small cross is a broken copy the prover rejected.`],
       [backingGlyph('computes', 'mark'), 'Components', `The ${t.components} mechanisms on the ring, in ${count(new Set(model.components.map((c) => c.family)).size, 'family', 'families')}. A mark’s shape says how the component is backed.`],
       [h('span', { class: 'guide__rings' }, TRACKS.map((tr) => ringSwatch(tr, tr.ink === 'unknown' ? 'unknown' : 'has'))), 'Eight rings', 'Kinds of recorded evidence, one cell per component. An empty cell means not recorded in this snapshot, not a failure.'],
     ];
@@ -743,9 +743,9 @@ export async function mountExplorer(root, { url, navigate, signal }) {
   function limitBlock(label, text, attrs = {}) {
     return h('div', { class: 'limit', ...attrs }, h('span', { class: 'limit__label' }, label), text);
   }
-  // "N proof checks passed · M broken copies rejected", with the flower.
+  // "N proof checks passed · M broken copies rejected", with the dial.
   function proofCounts(p, size = 44) {
-    return h('div', { class: 'proofcount' }, flowerGlyph(p.verifiedTasks || 0, p.mutants.length, size),
+    return h('div', { class: 'proofcount' }, dialGlyph(p.verifiedTasks || 0, p.mutants.length, size),
       h('p', { class: 'proofcount__text figures' }, h('strong', {}, count(p.verifiedTasks || 0, 'proof check')), ' passed · ',
         h('strong', {}, count(p.mutants.length, 'broken copy', 'broken copies')), ' rejected',
         h('span', { class: 'proofcount__note' }, `Saved results${p.dafnyVersion ? ` from Dafny ${p.dafnyVersion.split('+')[0]}` : ''}; this page does not run the prover.`)));

@@ -58,7 +58,7 @@ export function keyGlyph(kind) {
   const root = svg('svg', { viewBox: '0 0 12 12', width: 12, height: 12, 'aria-hidden': 'true', focusable: 'false' });
   if (kind === 'record') root.append(svg('circle', { cx: 6, cy: 6, r: 2, fill: 'currentColor' }));
   if (kind === 'absent') root.append(svg('circle', { cx: 6, cy: 6, r: 2.8, fill: 'none', stroke: 'currentColor', 'stroke-dasharray': '1.2 1.3' }));
-  if (kind === 'kernel') root.append(svg('circle', { cx: 6, cy: 6, r: 4.4, fill: 'none', stroke: 'var(--weave-azure-glow)', 'stroke-width': 1.5 }), svg('circle', { cx: 6, cy: 6, r: 1.7, fill: 'var(--home-ember)' }));
+  if (kind === 'kernel') root.append(svg('circle', { cx: 6, cy: 6, r: 5, fill: 'none', stroke: 'var(--weave-red)', 'stroke-width': 1.1 }), svg('circle', { cx: 6, cy: 6, r: 2.6, fill: 'none', stroke: 'var(--weave-azure-glow)', 'stroke-width': 1 }), svg('circle', { cx: 6, cy: 6, r: 1, fill: 'var(--weave-red)' }));
   if (kind === 'task') root.append(svg('circle', { cx: 6, cy: 6, r: 1.6, fill: 'var(--home-ember)' }));
   if (kind === 'variant') root.append(svg('path', { d: 'M3.5 3.5l5 5M8.5 3.5l-5 5', stroke: 'currentColor', 'stroke-width': 1.2 }));
   if (kind === 'spoke') root.append(svg('path', { d: 'M1 6h10', stroke: 'var(--weave-azure-glow)', 'stroke-width': 0.9 }), svg('circle', { cx: 1.6, cy: 6, r: 1.3, fill: 'var(--weave-azure-glow)' }));
@@ -116,37 +116,52 @@ export function announce(text) {
 }
 
 /**
- * A proved computation as the map draws it (art direction §7): N separate
- * petals, one per passed proof check, each in its own sector from the hub
- * out; the hub's blue ring (written rules) and red dot (code); M small
- * crosses, the broken copies the prover rejected, on an arc past the tips
- * opposite the stem. Always the exact counts; fine rays when N is large.
+ * A proved computation as the map draws it: a proof dial. A red ring
+ * graduated with N fine ticks, one per passed proof check (the exact count);
+ * a blue inner ring (the written rules) round a red dot (the checked code),
+ * or the count N as a numeral when `numeral` is set; and M small crosses, the
+ * broken copies the prover rejected, on an arc outside the ring (×M when M
+ * is more than 4).
  */
-export function flowerGlyph(n = 0, m = 0, size = 44) {
+export function dialGlyph(n = 0, m = 0, size = 44, { numeral = size >= 36 } = {}) {
   const r = 15, c = 22;
-  const root = svg('svg', { class: 'flower', viewBox: '0 0 44 44', width: size, height: size, 'aria-hidden': 'true', focusable: 'false' });
-  const petals = svg('g', { class: 'flower__petals' });
+  const root = svg('svg', { class: 'dial', viewBox: '0 0 44 44', width: size, height: size, 'aria-hidden': 'true', focusable: 'false' });
   const N = Math.max(0, n | 0);
-  for (let i = 0; i < N; i += 1) {
-    const a = -Math.PI / 2 + (i + 0.5) * (2 * Math.PI / N);
-    const deg = (a * 180) / Math.PI;
-    if ((2 * Math.PI * r) / N < 3.5) {
-      petals.append(svg('line', { x1: c + Math.cos(a) * r * 0.3, y1: c + Math.sin(a) * r * 0.3, x2: c + Math.cos(a) * r, y2: c + Math.sin(a) * r }));
-    } else {
-      const half = Math.min(0.62 * Math.PI / N * r * 0.65, r * 0.32);
-      const mid = r * 0.65;
-      petals.append(svg('ellipse', { cx: c + Math.cos(a) * mid, cy: c + Math.sin(a) * mid, rx: r * 0.35, ry: Math.max(0.8, half), transform: `rotate(${deg} ${c + Math.cos(a) * mid} ${c + Math.sin(a) * mid})` }));
+  const ticks = svg('g', { class: 'dial__ticks' });
+  const tick = r * 0.26;
+  if (N && (2 * Math.PI * (r - tick / 2)) / N >= 1.7) {
+    for (let i = 0; i < N; i += 1) {
+      const a = -Math.PI / 2 + (i / N) * 2 * Math.PI;
+      ticks.append(svg('line', { x1: c + Math.cos(a) * (r - tick), y1: c + Math.sin(a) * (r - tick), x2: c + Math.cos(a) * r, y2: c + Math.sin(a) * r }));
     }
+  } else if (N) {
+    ticks.append(svg('circle', { class: 'dial__band', cx: c, cy: c, r: r - tick / 2, 'stroke-width': tick }));
   }
-  root.append(petals,
-    svg('circle', { class: 'flower__rules', cx: c, cy: c, r: 4.2 }),
-    svg('circle', { class: 'flower__code', cx: c, cy: c, r: 1.9 }));
+  const inner = numeral && N ? r * 0.58 : r * 0.46;
+  root.append(svg('circle', { class: 'dial__face', cx: c, cy: c, r }), ticks,
+    svg('circle', { class: 'dial__ring', cx: c, cy: c, r }),
+    svg('circle', { class: 'dial__rules', cx: c, cy: c, r: inner }));
+  if (numeral && N) {
+    const t = svg('text', { class: 'dial__num', x: c, y: c + 0.3, 'text-anchor': 'middle', 'dominant-baseline': 'central', 'font-size': Math.min(10, inner * (String(N).length > 2 ? 1.0 : 1.2)) });
+    t.textContent = String(N);
+    root.append(t);
+  } else {
+    root.append(svg('circle', { class: 'dial__code', cx: c, cy: c, r: Math.max(1.6, inner * 0.42) }));
+  }
   const M = Math.max(0, m | 0);
-  const arm = 1.9, R = r + 4.5, step = 0.36;
-  for (let j = 0; j < M; j += 1) {
-    const a = Math.PI / 2 + Math.PI + (j - (M - 1) / 2) * step;
-    const x = c + Math.cos(a) * R, y = c + Math.sin(a) * R;
-    root.append(svg('path', { class: 'flower__cross', d: `M${x - arm} ${y - arm}L${x + arm} ${y + arm}M${x + arm} ${y - arm}L${x - arm} ${y + arm}` }));
+  const arm = 1.7, R = r + 4.2, step = 0.34;
+  if (M > 4) {
+    const t = svg('text', { class: 'dial__many', x: c, y: c + R + 0.5, 'text-anchor': 'middle', 'dominant-baseline': 'central', 'font-size': 6 });
+    t.textContent = `×${M}`;
+    root.append(t);
+  } else {
+    for (let j = 0; j < M; j += 1) {
+      const a = Math.PI / 2 + (j - (M - 1) / 2) * step;
+      const x = c + Math.cos(a) * R, y = c + Math.sin(a) * R;
+      root.append(svg('path', { class: 'dial__cross', d: `M${x - arm} ${y - arm}L${x + arm} ${y + arm}M${x + arm} ${y - arm}L${x - arm} ${y + arm}` }));
+    }
   }
   return root;
 }
+/** The old name, kept for any caller not yet moved. */
+export const flowerGlyph = dialGlyph;

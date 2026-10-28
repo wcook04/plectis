@@ -99,7 +99,7 @@ function kernelReadout(model, k) {
   const comp = k.componentId ? model.byId.get(k.componentId) : null;
   const lines = [];
   if (comp) lines.push({ ink: 'red', mark: 'Red stem', text: `out to ${comp.title}, whose code calls this computation’s generated code.` });
-  lines.push({ ink: 'red', mark: 'Petals', text: `${count(k.verifiedTasks || 0, 'proof check')} Dafny passed, in a saved result.` });
+  lines.push({ ink: 'red', mark: 'Ticks', text: `${count(k.verifiedTasks || 0, 'proof check')} Dafny passed, in a saved result: one tick each.` });
   lines.push({ ink: 'ink', mark: 'Crosses', text: `${count(k.mutants.length, 'deliberately broken version')} the prover rejected.` });
   return { lines, limit: 'The proof covers this one computation, not the component around it.' };
 }
@@ -111,7 +111,7 @@ function coreReadout(model, c) {
   } else {
     lines.push({ ink: 'ink', mark: 'At the centre', text: `part of the toolkit itself: it ${CORE_NAMES[c.id]?.[1] || moduleWords(c.id)}.` });
   }
-  lines.push({ ink: 'red', mark: 'Petals', text: `${count(c.verifiedTasks || 0, 'proof check')} Dafny passed, in a saved result.` });
+  lines.push({ ink: 'red', mark: 'Ticks', text: `${count(c.verifiedTasks || 0, 'proof check')} Dafny passed, in a saved result: one tick each.` });
   lines.push({ ink: 'ink', mark: 'Crosses', text: `${count(c.mutants.length, 'deliberately broken version')} the prover rejected.` });
   return { lines, limit: 'Its proof covers the modelled computation; the code around it is tested, not proved.' };
 }
@@ -221,7 +221,7 @@ export function placement(model, o) {
   if (o.type === 'kernel') {
     const comp = o.componentId ? model.byId.get(o.componentId) : null;
     if (!comp) return 'It is used by no component, so it waits under the centre.';
-    return `On ${comp.title}’s own radius${o.depth ? `, ${o.depth === 1 ? 'one step' : `${o.depth} steps`} further in so it does not touch a neighbour’s flower` : ''}.`;
+    return `On ${comp.title}’s own radius${o.depth ? `, ${o.depth === 1 ? 'one step' : `${o.depth} steps`} further in so it does not touch a neighbour’s dial` : ''}.`;
   }
   if (o.type === 'core') {
     return o.core.id === 'replay_admission'

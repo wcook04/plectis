@@ -773,7 +773,7 @@ a.ref:hover { text-decoration: underline; }
 .overview .explorer__title { margin: 0.25rem 0 0.4rem; font-family: var(--font-serif); font-size: 28px; line-height: 32px; font-weight: 500; }
 .overview__lead { margin: 0 0 0.6rem; font-family: var(--font-serif); font-size: 17px; line-height: 25px; color: var(--ink); }
 .guide__row { grid-template-columns: 34px 5.9em minmax(0, 1fr); }
-.guide__mark .flower { width: 26px; height: 26px; }
+.guide__mark .dial { width: 26px; height: 26px; }
 .guide__rings { display: inline-grid; grid-template-columns: repeat(2, 12px); gap: 1px; }
 .guide__rings .swatch { width: 12px; height: 4px; border-radius: 1px; }
 .ring-key .ring-row__go { grid-template-columns: minmax(0, 1fr) auto; }
@@ -794,13 +794,18 @@ a.ref:hover { text-decoration: underline; }
 .explorer__rings.is-compact:not(.is-open) .ringkey__panel { display: none; }
 .explorer__rings.is-compact.is-open .ringkey__panel { margin-top: 0.35rem; }
 .explorer__rings.is-compact.is-open { padding: 0.35rem 0.65rem 0.45rem; }
-.flower__petals ellipse { fill: color-mix(in srgb, var(--weave-red) 18%, transparent); stroke: var(--weave-red); stroke-width: 0.9; }
-.flower__petals line { stroke: var(--weave-red); stroke-width: 0.8; }
-.flower__rules { fill: none; stroke: var(--weave-azure-glow); stroke-width: 1.3; }
-.flower__code { fill: var(--weave-red); }
-.flower__cross { stroke: var(--ink); stroke-width: 1.1; stroke-linecap: round; fill: none; }
-:root[data-theme="dark"] .flower__petals ellipse { fill: color-mix(in srgb, #ff8a7a 20%, transparent); stroke: #ff8a7a; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .flower__petals ellipse { fill: color-mix(in srgb, #ff8a7a 20%, transparent); stroke: #ff8a7a; } :root:not([data-theme="light"]) .flower__code { fill: #ff8a7a; } }
+.dial__face { fill: var(--page, transparent); stroke: none; }
+.dial__ticks line { stroke: var(--weave-red); stroke-width: 0.8; }
+.dial__band { fill: none; stroke: var(--weave-red); opacity: 0.32; }
+.dial__ring { fill: none; stroke: var(--weave-red); stroke-width: 1.3; }
+.dial__rules { fill: none; stroke: var(--weave-azure-glow); stroke-width: 1.2; }
+.dial__code { fill: var(--weave-red); }
+.dial__num { fill: var(--weave-red); font-family: var(--font-sans); font-weight: 700; }
+.dial__many { fill: var(--ink); font-family: var(--font-sans); font-weight: 600; }
+.dial__cross { stroke: var(--ink); stroke-width: 1.1; stroke-linecap: round; fill: none; }
+:root[data-theme="dark"] .dial__ticks line, :root[data-theme="dark"] .dial__ring { stroke: #ff8a7a; }
+:root[data-theme="dark"] .dial__code, :root[data-theme="dark"] .dial__num { fill: #ff8a7a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .dial__ticks line, :root:not([data-theme="light"]) .dial__ring, :root:not([data-theme="light"]) .dial__band { stroke: #ff8a7a; } :root:not([data-theme="light"]) .dial__code, :root:not([data-theme="light"]) .dial__num { fill: #ff8a7a; } }
 
 /* A rule's map fact, ties and citers by family. */
 .mapfact { margin: 0.9rem 0 0.2rem; padding: 0.65rem 0.8rem; border-radius: var(--r-md); background: color-mix(in srgb, var(--m-doctrine) 8%, transparent); border-left: 2px solid var(--m-doctrine); }
@@ -842,7 +847,7 @@ a.ref:hover { text-decoration: underline; }
 .evidence__row--empty .evidence__name, .evidence__row--empty .evidence__state { color: var(--muted); font-weight: 450; }
 .evidence__row--unknown .evidence__state { font-style: italic; font-weight: 500; color: var(--ink-soft); }
 
-/* A proof's counts, with its flower. */
+/* A proof's counts, with its dial. */
 .proofcount { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.75rem; align-items: center; margin: 0.8rem 0 0.2rem; }
 .proofcount__text { margin: 0; font-size: 0.98rem; line-height: 1.4; color: var(--ink); }
 .proofcount__text strong { font-weight: 700; }

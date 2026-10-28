@@ -10,8 +10,8 @@
 // and the centre-out opening. The marks for how a component is backed are the
 // system map's five glyphs (sites/microcosm/assets/system-map.js GLYPHS).
 // What is new is the picture itself (see layout.js): the verified
-// computations inside the ring, drawn as flowers with one petal per verified
-// task, and the coverage rings outside it, read like the tracks of a
+// computations inside the ring, drawn as proof dials with one tick per
+// verified task, and the coverage rings outside it, read like the tracks of a
 // circular genome plot, one ring per kind of check. Beyond the family names
 // stands the doctrine's halo, moved out from the system map's centre: its
 // three marks (system-map.js ruleGlyph), principles on the inner orbit, the
@@ -23,7 +23,7 @@
 // the chosen object's radius.
 
 import { glowSprite, isDark, mixOklab, parseColor, rgbText } from './color.js';
-import { angleShare, crossSpan, flowerPx, FLOWER, KEY_GAP, layout, planRoutes, polar, R, shortArc, trackBand } from './layout.js';
+import { angleShare, crossSpan, DIAL, flowerPx, FLOWER, KEY_GAP, layout, planRoutes, polar, R, shortArc, trackBand } from './layout.js';
 import { arcDiscs, createPlanner, fitText, levelOfDetail, localPitch, LOD, PRIORITY } from './labels.js';
 import {
   CORE_NAMES, TRACKS, classWords, count, familyName, moduleWords, obligationWords, proofShortName, ruleKindWords, supportWords,
@@ -35,7 +35,7 @@ const face = (weight, size, italic, family = SERIF) => `${italic ? 'italic ' : '
 const TYPE = { title: 14, count: 12.5, rowGap: 16, plate: 13.5, sub: 11.5, anchor: 13.5, kernel: 12, name: 11.5 };
 
 const FOCUS_IN = 180, FOCUS_HOLD = 140, FOCUS_OUT = 220;
-const PULSE_WAIT = 110, PULSE_RIPPLE = 720, PULSE_TRAVEL = 620, PULSE_STAGGER = 70, PULSE_BLOOM = 560;
+const PULSE_WAIT = 110, CHOSEN_RING = 400, PULSE_TRAVEL = 620, PULSE_STAGGER = 70, PULSE_BLOOM = 560;
 // The opening runs from the centre out: the cores flower, the replay spokes
 // reach the ring, the kernels flower, their threads grow, the components
 // appear round the ring, then each coverage ring is read clockwise in turn.
@@ -124,6 +124,7 @@ export function createMap(canvas, model, hooks = {}) {
   let fittedK = 1, viewIsFitted = true;
   let hover = null, selected = null, hoverTrack = -1;
   let matches = null; // Set of component ids, or null for "all"
+  let matchesGen = 0, paletteGen = 0, fontGen = 0; // label-plan cache keys
   let emphasis = null; // a track id lit from the panel, or null
   let allWiring = false;
   let palette = {};
@@ -479,7 +480,7 @@ viewIsFitted = false;
   function settleReveal() {
     if (reveal >= 1) return;
     reveal = 1;
-    request();
+    requestFull();
   }
   function startReveal() {
     if (reduceMotion || document.hidden) { reveal = 1; request(); return; }
@@ -591,7 +592,7 @@ viewIsFitted = false;
     }
     pulse.legs = legs;
     pulse.blooms = blooms;
-    pulse.end = Math.max(PULSE_WAIT + PULSE_RIPPLE, ...legs.map((l) => l.delay + l.dur), ...blooms.map((b) => b.at + PULSE_BLOOM));
+    pulse.end = Math.max(CHOSEN_RING, ...legs.map((l) => l.delay + l.dur), ...blooms.map((b) => b.at + PULSE_BLOOM));
     pulse.ms = 0;
     let start = null;
     const step = (now) => {
@@ -692,19 +693,15 @@ viewIsFitted = false;
         ctx.arc(x, y, r * 0.45, 0, TURN); ctx.fill();
     }
   }
-  // A verified computation as a flower, drawn like an engraved botanical
-  // plate: one lanceolate petal per passed proof check (the exact count),
-  // each inside its own sector; its written rules as an azure ring round a red
-  // point (the code); and a small cross for each deliberately broken copy the
-  // prover rejected, on an arc just past the petal tips, away from the stem.
-  // Too small for distinct petals, the same count is drawn as fine rays, and
-  // smaller still as a corolla disc. The flower unfolds as a whole: nothing
-  // accumulates petal by petal.
-  const PETAL = (() => {
-    const out = [];
-    for (let i = 0; i <= 12; i += 1) { const t = i / 12; out.push([t, Math.sin(Math.PI * t ** 0.75) ** 1.1]); }
-    return out;
-  })();
+  // A verified computation as a proof dial, engraved like an instrument
+  // scale: a red ring (the proved computation) graduated with one fine tick
+  // per passed proof check (the exact count), round a blue ring (its written
+  // rules) and a red centre dot (the checked code). Large enough, the count is
+  // written as a numeral in the centre, in the code's red. Each deliberately
+  // broken copy the prover rejected is a small cross on an arc just outside
+  // the ring, away from the stem; more than DIAL.maxCrosses are written ×M.
+  // Too fine for distinct ticks, the graduation is a faint band (the count is
+  // in the panel). The dial opens as a whole: nothing accumulates tick by tick.
   const flowerOf = (o) => flowerPx(view.k, { replay: o.type === 'core' && !!o.centre, mutants: o.mutants });
   // Crosses stand opposite the stem: inward for a kernel (its stem runs out),
   // outward for a toolkit core, upward for the centre.
@@ -715,123 +712,129 @@ viewIsFitted = false;
     if (unfold <= 0) return;
     const f = flowerOf(o);
     const n = o.tasks;
-    const r = len * (0.6 + 0.4 * unfold);
-    const r0 = r * 0.3;
-    const base = o.type === 'kernel' ? o.angle : -Math.PI / 2; // one petal on the stem's axis
+    const r = len * (0.7 + 0.3 * unfold);
     const a = alpha * unfold;
     const glow = darkGround;
-    ctx.lineJoin = 'round';
-    ctx.lineCap = 'round';
-    if (n > 0 && r < 9) {
-      // A corolla disc with a fine ring.
-      ctx.globalAlpha = a * (glow ? 0.34 : 0.26);
-      ctx.fillStyle = palette.red;
-      ctx.beginPath(); ctx.arc(x, y, r, 0, TURN); ctx.fill();
-      ctx.globalAlpha = a * 0.9;
-      ctx.strokeStyle = palette.red;
-      ctx.lineWidth = 0.75;
-      ctx.stroke();
-    } else if (n > 0 && (TURN * r) / n < 3.5) {
-      // Too fine for petals: the same count as rays over a faint corolla.
-      ctx.globalAlpha = a * (glow ? 0.12 : 0.08);
-      ctx.fillStyle = palette.red;
-      ctx.beginPath(); ctx.arc(x, y, r, 0, TURN); ctx.fill();
-      ctx.strokeStyle = palette.red;
-      ctx.lineWidth = 0.8;
-      ctx.globalAlpha = a * 0.88;
-      ctx.beginPath();
-      for (let i = 0; i < n; i += 1) {
-        const t = base + (i / n) * TURN, c = Math.cos(t), sn = Math.sin(t);
-        ctx.moveTo(x + c * r0, y + sn * r0); ctx.lineTo(x + c * r, y + sn * r);
-      }
-      ctx.stroke();
-    } else if (n > 0) {
-      const sector = TURN / n;
-      const phi = Math.min(0.42, sector * 0.31); // half of 62% of the sector
-      const trace = () => {
-        ctx.beginPath();
-        for (let i = 0; i < n; i += 1) {
-          const t = base + i * sector;
-          for (let j = 0; j < PETAL.length; j += 1) {
-            const [u, w] = PETAL[j];
-            const d = r0 + u * (r - r0), q = t + phi * w;
-            if (j === 0) ctx.moveTo(x + Math.cos(q) * d, y + Math.sin(q) * d); else ctx.lineTo(x + Math.cos(q) * d, y + Math.sin(q) * d);
-          }
-          for (let j = PETAL.length - 2; j >= 0; j -= 1) {
-            const [u, w] = PETAL[j];
-            const d = r0 + u * (r - r0), q = t - phi * w;
-            ctx.lineTo(x + Math.cos(q) * d, y + Math.sin(q) * d);
-          }
-          ctx.closePath();
-        }
-      };
-      trace();
-      ctx.fillStyle = palette.red;
-      ctx.globalAlpha = a * (glow ? 0.16 : 0.11);
-      ctx.fill();
-      if (glow) {
-        ctx.globalCompositeOperation = 'lighter';
-        ctx.strokeStyle = palette.red;
-        ctx.lineWidth = 2.6;
-        ctx.globalAlpha = a * 0.09;
-        ctx.stroke();
-        ctx.globalCompositeOperation = 'source-over';
-      }
-      ctx.strokeStyle = palette.red;
-      ctx.lineWidth = 0.9;
-      ctx.globalAlpha = a * (glow ? 0.9 : 0.86);
-      ctx.stroke();
-      if (r >= 26) {
-        // A midrib in each petal, as on an engraved plate.
-        ctx.beginPath();
-        for (let i = 0; i < n; i += 1) {
-          const t = base + i * sector, c = Math.cos(t), sn = Math.sin(t);
-          ctx.moveTo(x + c * (r0 + (r - r0) * 0.12), y + sn * (r0 + (r - r0) * 0.12));
-          ctx.lineTo(x + c * (r0 + (r - r0) * 0.8), y + sn * (r0 + (r - r0) * 0.8));
-        }
-        ctx.lineWidth = Math.max(hairPx, 0.5);
-        ctx.globalAlpha = a * 0.38;
-        ctx.stroke();
-      }
-    }
-    // The hub: the written rules (azure ring) round the code (red point).
-    const hub = r < 9 ? Math.max(1.7, r * 0.46) : Math.max(2.4, r0 * 0.8);
-    ctx.globalAlpha = alpha;
-    ctx.beginPath(); ctx.arc(x, y, hub, 0, TURN);
-    ctx.fillStyle = palette.ground; ctx.fill();
-    ctx.lineWidth = Math.max(0.9, Math.min(2.2, r * 0.055));
-    ctx.strokeStyle = palette.stated; ctx.stroke();
-    const dot = Math.max(1.1, hub * 0.42);
+    const ringW = Math.max(0.9, Math.min(1.6, r * 0.085));
+    // The face: ground inside the ring, so spokes and stems stop at its edge.
+    ctx.globalAlpha = a;
+    ctx.fillStyle = palette.ground;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, TURN); ctx.fill();
     if (glow) {
       ctx.globalCompositeOperation = 'lighter';
-      drawGlow(x, y, dot * 4.5, palette.red, alpha * 0.32);
+      drawGlow(x, y, r * 1.05, palette.red, a * 0.22);
       ctx.globalCompositeOperation = 'source-over';
-      ctx.globalAlpha = alpha;
     }
-    ctx.beginPath(); ctx.arc(x, y, dot, 0, TURN);
-    ctx.fillStyle = palette.red; ctx.fill();
+    // The graduation: N ticks inward from the ring, one per passed check,
+    // the first at 12 o'clock.
+    const tickIn = Math.max(1.4, r * 0.26);
+    const lit = o.key === selected || o.key === hover;
+    if (n > 0) {
+      ctx.strokeStyle = palette.red;
+      if ((TURN * (r - tickIn / 2)) / n >= 1.7) {
+        const fine = Math.max(hairPx, Math.min(0.9, r * 0.05));
+        ctx.lineWidth = fine;
+        ctx.globalAlpha = a * (lit ? 1 : 0.85);
+        ctx.beginPath();
+        for (let i = 0; i < n; i += 1) {
+          if (i % 5 === 0 && n > 5) continue;
+          const t = -Math.PI / 2 + (i / n) * TURN, c = Math.cos(t), sn = Math.sin(t);
+          ctx.moveTo(x + c * (r - tickIn), y + sn * (r - tickIn)); ctx.lineTo(x + c * r, y + sn * r);
+        }
+        ctx.stroke();
+        if (n > 5) {
+          // Every fifth check, a longer, firmer tick: 41 reads as eight
+          // fives and one.
+          ctx.lineWidth = fine * 1.7;
+          ctx.beginPath();
+          for (let i = 0; i < n; i += 5) {
+            const t = -Math.PI / 2 + (i / n) * TURN, c = Math.cos(t), sn = Math.sin(t);
+            ctx.moveTo(x + c * (r - tickIn * 1.55), y + sn * (r - tickIn * 1.55)); ctx.lineTo(x + c * r, y + sn * r);
+          }
+          ctx.stroke();
+        }
+        if (r >= 9) {
+          // The graduation's inner track, a hair inside the ticks.
+          ctx.lineWidth = hairPx;
+          ctx.globalAlpha = a * 0.3;
+          ctx.beginPath(); ctx.arc(x, y, r - tickIn - 0.8, 0, TURN); ctx.stroke();
+        }
+      } else {
+        ctx.lineWidth = tickIn;
+        ctx.globalAlpha = a * 0.32;
+        ctx.beginPath(); ctx.arc(x, y, r - tickIn / 2, 0, TURN); ctx.stroke();
+      }
+    }
+    ctx.strokeStyle = palette.red;
+    ctx.lineWidth = ringW;
+    ctx.globalAlpha = a * 0.95;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, TURN); ctx.stroke();
+    if (r >= 6) {
+      // An engraved second rim just outside, as on a gauge's bezel; firmer
+      // on the dial pointed at or chosen.
+      ctx.lineWidth = hairPx * (lit ? 1.6 : 1);
+      ctx.globalAlpha = a * (lit ? 0.75 : 0.32);
+      ctx.beginPath(); ctx.arc(x, y, r + Math.max(1.5, r * 0.13), 0, TURN); ctx.stroke();
+    }
+    // The written rules (blue ring) round the code (red dot, or the count).
+    const numeral = r >= DIAL.numeral && n > 0;
+    const inner = numeral ? r * 0.58 : Math.max(1.6, r * 0.46);
+    ctx.lineWidth = Math.max(0.8, Math.min(1.3, r * 0.07));
+    ctx.strokeStyle = palette.stated;
+    ctx.globalAlpha = a;
+    ctx.beginPath(); ctx.arc(x, y, inner, 0, TURN); ctx.stroke();
+    if (numeral) {
+      const text = String(n);
+      let px = Math.min(11.5, inner * 1.15);
+      ctx.font = face(700, px, false, SANS);
+      const wd = ctx.measureText(text).width;
+      if (wd > inner * 1.55) { px *= (inner * 1.55) / wd; ctx.font = face(700, px, false, SANS); }
+      ctx.fillStyle = palette.red;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, x, y + px * 0.04);
+    } else {
+      ctx.beginPath(); ctx.arc(x, y, Math.max(1.1, inner * 0.42), 0, TURN);
+      ctx.fillStyle = palette.red; ctx.fill();
+    }
     const m = o.mutants;
     if (m) {
       const cr = f.crossR - f.r + r, half = f.half;
-      const step = (FLOWER.crossPitch * f.s) / cr;
       const dir = crossDirOf(o);
       ctx.strokeStyle = palette.ink;
-      ctx.lineWidth = Math.max(0.8, f.s);
+      ctx.fillStyle = palette.ink;
+      ctx.lineWidth = Math.max(0.8, 0.9 * f.s);
       ctx.lineCap = 'round';
       ctx.globalAlpha = alpha * 0.85 * unfold;
-      ctx.beginPath();
-      for (let i = 0; i < m; i += 1) {
-        const ang = dir + (i - (m - 1) / 2) * step;
-        const mx = x + Math.cos(ang) * cr, my = y + Math.sin(ang) * cr;
-        ctx.moveTo(mx - half, my - half); ctx.lineTo(mx + half, my + half);
-        ctx.moveTo(mx + half, my - half); ctx.lineTo(mx - half, my + half);
+      if (m > DIAL.maxCrosses) {
+        // ×M on the cross side, level type.
+        const px = Math.max(6.5, 9 * f.s);
+        ctx.font = face(600, px, false, SANS);
+        const text = `×${m}`;
+        const wd = ctx.measureText(text).width;
+        const c = Math.cos(dir), sn = Math.sin(dir);
+        // Push the box's centre out until its near edge clears the ring.
+        const reachBox = Math.abs(c) * wd / 2 + Math.abs(sn) * px / 2;
+        const d = r + DIAL.crossGap * f.s + reachBox;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, x + c * d, y + sn * d);
+      } else {
+        const step = (DIAL.crossPitch * f.s) / cr;
+        ctx.beginPath();
+        for (let i = 0; i < m; i += 1) {
+          const ang = dir + (i - (m - 1) / 2) * step;
+          const mx = x + Math.cos(ang) * cr, my = y + Math.sin(ang) * cr;
+          ctx.moveTo(mx - half, my - half); ctx.lineTo(mx + half, my + half);
+          ctx.moveTo(mx + half, my - half); ctx.lineTo(mx - half, my + half);
+        }
+        ctx.stroke();
       }
-      ctx.stroke();
     }
     ctx.lineCap = 'butt';
     ctx.globalAlpha = 1;
   }
-  // Petal radius in px: min(cap, 24·k); zoom never inflates it further. The
+  // Dial radius in px: min(cap, 12·k); zoom never inflates it further. The
   // second argument is ignored (kept for callers that pass rScale()).
   const petalPx = (o) => flowerOf(o).r;
   /**
@@ -904,17 +907,32 @@ viewIsFitted = false;
     const dir = lower ? -1 : 1;
     const run = arcLetters(text);
     const at = mid - dir * (run.width / radius) / 2;
+    // Each letter is placed with one setTransform composed onto the current
+    // matrix (no save/restore per letter); style and alpha are set per pass.
+    const m = ctx.getTransform ? ctx.getTransform() : null;
+    const turn = lower ? -Math.PI / 2 : Math.PI / 2;
+    const was = [ctx.globalAlpha, ctx.strokeStyle, ctx.fillStyle];
+    ctx.globalAlpha = alpha;
     for (let pass = halo ? 0 : 1; pass < 2; pass += 1) {
+      if (pass === 0) ctx.strokeStyle = palette.ground; else ctx.fillStyle = color;
       for (const [ch, offset] of run.letters) {
         const angle = at + dir * offset / radius;
-        ctx.save();
-        ctx.translate(view.tx + radius * Math.cos(angle), view.ty + radius * Math.sin(angle));
-        ctx.rotate(angle + (lower ? -Math.PI / 2 : Math.PI / 2));
-        ctx.globalAlpha = alpha;
-        if (pass === 0) { ctx.strokeStyle = palette.ground; ctx.strokeText(ch, 0, 0); } else { ctx.fillStyle = color; ctx.fillText(ch, 0, 0); }
-        ctx.restore();
+        const x = view.tx + radius * Math.cos(angle), y = view.ty + radius * Math.sin(angle);
+        if (m) {
+          const cs = Math.cos(angle + turn), sn = Math.sin(angle + turn);
+          ctx.setTransform(m.a * cs + m.c * sn, m.b * cs + m.d * sn, m.c * cs - m.a * sn, m.d * cs - m.b * sn, m.a * x + m.c * y + m.e, m.b * x + m.d * y + m.f);
+          if (pass === 0) ctx.strokeText(ch, 0, 0); else ctx.fillText(ch, 0, 0);
+        } else {
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(angle + turn);
+          if (pass === 0) ctx.strokeText(ch, 0, 0); else ctx.fillText(ch, 0, 0);
+          ctx.restore();
+        }
       }
     }
+    if (m) ctx.setTransform(m);
+    [ctx.globalAlpha, ctx.strokeStyle, ctx.fillStyle] = was;
     if (!register) return;
     const span = run.width / radius;
     const steps = Math.max(1, Math.ceil(span * radius / 10));
@@ -966,6 +984,73 @@ viewIsFitted = false;
       if (paintRequested || animations.size) request();
     }
   }
+  /* ---- Interaction bitmap cache ------------------------------------------ */
+  // While the user drags, pinches or wheels (and while a camera flight runs
+  // with no other effect in play), a frame is the last crisp full frame from
+  // an offscreen copy, moved and scaled by the camera delta: one drawImage.
+  // The ground shows through where the copy does not reach (the canvas is
+  // transparent over the stage's own ground). A crisp full paint runs
+  // SETTLE_MS after the last input, mid-gesture whenever the copy has been
+  // scaled outside [SNAP_MIN, SNAP_MAX] or leaves too wide a strip uncovered,
+  // and always after a change of choice, preview, focus, matches, emphasis,
+  // wiring, palette or fonts (requestFull). Hit testing reads the camera, not
+  // the bitmap, so hover keeps working throughout.
+  const SETTLE_MS = 120, SNAP_MIN = 0.6, SNAP_MAX = 1.7, SNAP_EDGE = 0.16;
+  const snap = { canvas: null, ctx: null, valid: false, k: 1, tx: 0, ty: 0, bw: 0, bh: 0 };
+  const painted = { k: 1, tx: 0, ty: 0, bw: 0, bh: 0, full: false };
+  const stats = { full: 0, blit: 0, last: 'none' };
+  let gesturing = false, settleTimer = 0, needFull = true;
+  function requestFull() { needFull = true; request(); }
+  function markGesture() {
+    if (destroyed) return;
+    gesturing = true;
+    if (settleTimer) clearTimeout(settleTimer);
+    settleTimer = setTimeout(endGesture, SETTLE_MS);
+  }
+  function endGesture() {
+    settleTimer = 0;
+    gesturing = false;
+    if (destroyed) return;
+    requestFull();
+  }
+  // Effects that change the picture itself, not just the camera.
+  const effectsActive = () => !!focusFade || growth < 1 || tweens.size > 0 || pulse.ms < pulse.end || reveal < 1;
+  function takeSnap() {
+    if (!painted.full) return false;
+    if (!snap.canvas) {
+      snap.canvas = typeof document !== 'undefined' && document.createElement ? document.createElement('canvas') : null;
+      snap.ctx = snap.canvas && snap.canvas.getContext ? snap.canvas.getContext('2d') : null;
+      if (!snap.ctx) { snap.canvas = null; return false; }
+    }
+    if (snap.canvas.width !== painted.bw || snap.canvas.height !== painted.bh) { snap.canvas.width = painted.bw; snap.canvas.height = painted.bh; }
+    const g = snap.ctx;
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    g.globalAlpha = 1;
+    g.globalCompositeOperation = 'copy';
+    g.drawImage(canvas, 0, 0);
+    g.globalCompositeOperation = 'source-over';
+    Object.assign(snap, { valid: true, k: painted.k, tx: painted.tx, ty: painted.ty, bw: painted.bw, bh: painted.bh });
+    return true;
+  }
+  // One cached frame, or false when only a full paint will do.
+  function blitNow(w, h, bw, bh) {
+    if (canvas.width !== bw || canvas.height !== bh) return false;
+    if (!snap.valid && !takeSnap()) return false;
+    if (snap.bw !== bw || snap.bh !== bh) return false;
+    const s = view.k / snap.k;
+    if (!(s >= SNAP_MIN && s <= SNAP_MAX)) return false;
+    const dx = view.tx - snap.tx * s, dy = view.ty - snap.ty * s;
+    const edge = SNAP_EDGE * Math.min(w, h);
+    if (dx > edge || dy > edge || w - (dx + w * s) > edge || h - (dy + h * s) > edge) return false;
+    ctx.setTransform(bw / (w || 1), 0, 0, bh / (h || 1), 0, 0);
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(snap.canvas, 0, 0, snap.bw, snap.bh, dx, dy, w * s, h * s);
+    painted.full = false;
+    stats.blit += 1; stats.last = 'blit';
+    return true;
+  }
   function paintNow() {
     if (destroyed) return;
     if (!onScreen || document.hidden) return;
@@ -974,6 +1059,17 @@ viewIsFitted = false;
       stage.classList.toggle('is-explored', explored);
       invalidateGeometry();
     }
+    if (!needFull && (gesturing || (cameraFrame && !effectsActive()))) {
+      const dprB = Math.min(window.devicePixelRatio || 1, 2);
+      const [wB, hB] = size();
+      if (blitNow(wB, hB, Math.round(wB * dprB), Math.round(hB * dprB))) return;
+    }
+    needFull = false;
+    paintFull();
+    snap.valid = false;
+    stats.full += 1; stats.last = 'full';
+  }
+  function paintFull() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const [w, h] = size();
     const bw = Math.round(w * dpr), bh = Math.round(h * dpr);
@@ -996,7 +1092,7 @@ viewIsFitted = false;
     const fo = focus ? byKey.get(focus) : null;
     const cmp = chosen && preview ? byKey.get(preview) : null; // the comparison
     planRoutesFor(fo, cmp, rs);
-    ins = planInscriptions(focus, rs, w, h);
+    ins = cachedInscriptions(focus, rs, w, h);
     const shown = (c) => !matches || matches.has(c.id);
     const fade = (key) => (focus && !lit.has(key) ? dimmed(0.22) : 1);
     const members = fo && fo.type === 'rule' ? new Set(fo.rule.citedBy) : null;
@@ -1015,7 +1111,7 @@ viewIsFitted = false;
     drawRegister(fo, cmp, shown);
     drawLanes(focus, cmp);
     drawRoutes(fo, cmp, shown, rs);
-    drawTrackKey(focus);
+    drawWedge(focus);
     drawFamilyWords();
     drawRules(focus, rs);
     drawKernels(focus, lit, rs, shown, fade);
@@ -1027,6 +1123,7 @@ viewIsFitted = false;
     drawReticles(rs);
     drawStageChips();
     ctx.globalAlpha = 1;
+    Object.assign(painted, { k: view.k, tx: view.tx, ty: view.ty, bw, bh, full: true });
   }
 
   // What a preview says against the chosen object: a short typed descriptor
@@ -1092,17 +1189,27 @@ viewIsFitted = false;
     const k = view.k;
     const outer = halo ? R.haloOuter : R.labels;
     const rIn = (outer + 6) * k, rOut = (outer + 14) * k;
+    const line = (cs, sn) => {
+      ctx.beginPath();
+      ctx.moveTo(view.tx - cs * rOut, view.ty - sn * rOut);
+      ctx.lineTo(view.tx + cs * rOut, view.ty + sn * rOut);
+      ctx.stroke();
+    };
     const arm = (ang, alpha, ghost) => {
       if (alpha <= 0.005) return;
       const cs = Math.cos(ang), sn = Math.sin(ang);
       const nx = -sn, ny = cs;
       ctx.save();
       if (darkGround) {
+        // The glow is two wide, faint under-strokes added in light (no
+        // shadow blur: a blur re-rasterises the whole arm every frame).
         ctx.globalCompositeOperation = 'lighter';
-        ctx.shadowColor = palette.doctrine;
-        ctx.shadowBlur = 7;
         ctx.strokeStyle = palette.doctrine;
         ctx.fillStyle = palette.doctrine;
+        ctx.lineCap = 'round';
+        ctx.globalAlpha = alpha * 0.06; ctx.lineWidth = 6; line(cs, sn);
+        ctx.globalAlpha = alpha * 0.11; ctx.lineWidth = 2.6; line(cs, sn);
+        ctx.lineCap = 'butt';
         ctx.globalAlpha = alpha * 0.42;
       } else {
         ctx.strokeStyle = palette.ink;
@@ -1110,11 +1217,9 @@ viewIsFitted = false;
         ctx.globalAlpha = alpha * 0.26;
       }
       ctx.lineWidth = darkGround ? 0.9 : Math.max(hairPx, 0.6);
-      ctx.beginPath();
-      ctx.moveTo(view.tx - cs * rOut, view.ty - sn * rOut);
-      ctx.lineTo(view.tx + cs * rOut, view.ty + sn * rOut);
-      ctx.stroke();
+      line(cs, sn);
       // Index notch: a fine wedge at the bezel, pointing in.
+      if (darkGround) drawGlow(view.tx + cs * rOut, view.ty + sn * rOut, 11, palette.doctrine, alpha * (ghost ? 0.25 : 0.55));
       ctx.globalAlpha = alpha * (darkGround ? 0.85 : 0.75) * (ghost ? 0.6 : 1);
       ctx.beginPath();
       ctx.moveTo(view.tx + cs * (rIn - 3), view.ty + sn * (rIn - 3));
@@ -1134,24 +1239,79 @@ viewIsFitted = false;
     const f = elapsed('alidade-fade');
     const t = f === Infinity ? 1 : clamp01(f / ALIDADE_FADE);
     const alpha = alid.on ? t : 1 - t;
-    if (alpha > 0) arm(alidadeAngle(), alpha * show, false);
+    if (alpha > 0) {
+      const ang = alidadeAngle();
+      // While it swings, a faint motion trail: a sweep along the bezel from
+      // where the arm was a moment ago, and two ghost arms behind it, all
+      // gone by the end of the swing.
+      const e = elapsed('alidade');
+      if (e !== Infinity && alid.to !== alid.from) {
+        const st = clamp01(e / ALIDADE_SWING);
+        const fadeOut = (1 - st) ** 1.4;
+        const at = (lag) => alid.from + (alid.to - alid.from) * ease(clamp01(st - lag));
+        ctx.save();
+        if (darkGround) ctx.globalCompositeOperation = 'lighter';
+        ctx.strokeStyle = darkGround ? palette.doctrine : palette.ink;
+        ctx.lineCap = 'butt';
+        const rc = (rIn + rOut) / 2;
+        const seg = 6;
+        for (let i = 0; i < seg; i += 1) {
+          const a0 = at(0.22 * (1 - i / seg)), a1 = at(0.22 * (1 - (i + 1) / seg));
+          if (Math.abs(a1 - a0) < 1e-4) continue;
+          ctx.globalAlpha = alpha * show * fadeOut * (darkGround ? 0.5 : 0.32) * ((i + 1) / seg);
+          ctx.lineWidth = rOut - rIn;
+          ctx.beginPath(); ctx.arc(view.tx, view.ty, rc, Math.min(a0, a1), Math.max(a0, a1)); ctx.stroke();
+        }
+        ctx.lineWidth = darkGround ? 0.8 : Math.max(hairPx, 0.5);
+        for (const [lag, g] of [[0.12, 0.16], [0.06, 0.26]]) {
+          const ga = at(lag);
+          ctx.globalAlpha = alpha * show * fadeOut * g * (darkGround ? 1 : 0.7);
+          line(Math.cos(ga), Math.sin(ga));
+        }
+        ctx.restore();
+      }
+      arm(ang, alpha * show, false);
+    }
     const pa = preview && preview !== chosen ? angleFor(byKey.get(preview)) : null;
     if (pa !== null) arm(pa, 0.25 * show, true);
     ctx.globalAlpha = 1;
+  }
+  // Smooth radial lights (the centre's depth, the halo's cold light) are
+  // painted once per palette into a small sprite and scaled into place: a
+  // linear ramp upsampled bilinearly is indistinguishable from the gradient,
+  // and one textured quad is far cheaper than shading the gradient over the
+  // whole retina backing store every frame.
+  const lightSprites = new Map();
+  function lightSprite(name, size, stops, inner = 0) {
+    const key = `${name}|${palette.ground}|${palette.ink}|${palette.doctrine}`;
+    if (lightSprites.has(key)) return lightSprites.get(key);
+    if (lightSprites.size > 12) lightSprites.clear();
+    let sprite = typeof document !== 'undefined' && document.createElement ? document.createElement('canvas') : null;
+    const g = sprite && sprite.getContext ? sprite.getContext('2d') : null;
+    if (g && g.createRadialGradient) {
+      sprite.width = sprite.height = size;
+      const c = size / 2;
+      const grad = g.createRadialGradient(c, c, inner * c, c, c, c);
+      for (const [at, color] of stops) grad.addColorStop(at, color);
+      g.fillStyle = grad;
+      g.beginPath(); g.arc(c, c, c, 0, TURN); g.fill();
+    } else sprite = null;
+    lightSprites.set(key, sprite);
+    return sprite;
+  }
+  function drawLight(sprite, r, alpha) {
+    if (!sprite || alpha <= 0.002) return;
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(sprite, view.tx - r, view.ty - r, r * 2, r * 2);
   }
   // A faint light at the centre, so the drawing has depth without a frame.
   function drawDepth() {
     const r = R.component * view.k;
     if (r < 40) return;
-    const g = ctx.createRadialGradient(view.tx, view.ty, 0, view.tx, view.ty, r * 1.05);
     const tone = parseColor(palette.ink) || [1, 1, 1, 1];
     const rgb = `${Math.round(tone[0] * 255)},${Math.round(tone[1] * 255)},${Math.round(tone[2] * 255)}`;
-    g.addColorStop(0, `rgba(${rgb},${darkGround ? 0.05 : 0.035})`);
-    g.addColorStop(0.55, `rgba(${rgb},${darkGround ? 0.022 : 0.015})`);
-    g.addColorStop(1, `rgba(${rgb},0)`);
-    ctx.globalAlpha = revealAlpha(REVEAL.core);
-    ctx.fillStyle = g;
-    ctx.beginPath(); ctx.arc(view.tx, view.ty, r * 1.05, 0, TURN); ctx.fill();
+    const sprite = lightSprite('depth', 256, [[0, `rgba(${rgb},${darkGround ? 0.05 : 0.035})`], [0.55, `rgba(${rgb},${darkGround ? 0.022 : 0.015})`], [1, `rgba(${rgb},0)`]]);
+    drawLight(sprite, r * 1.05, revealAlpha(REVEAL.core));
     ctx.globalAlpha = 1;
   }
 
@@ -1258,8 +1418,8 @@ viewIsFitted = false;
   }
   // Each kernel's stem out to its component, through its generated code
   // (a square at 40% of its length) and its caller (a diamond at 70%): the
-  // paper's chain. It leaves the flower at its drawn petal tips, so it never
-  // runs under the petals, and doglegs round a neighbour (layout.js stemFor).
+  // paper's chain. It leaves the dial at its drawn ring, so it never
+  // runs under the dial, and doglegs round a neighbour (layout.js stemFor).
   function subPath(pts, from, to) {
     const out = [];
     let walked = 0;
@@ -1512,40 +1672,183 @@ viewIsFitted = false;
     ctx.globalAlpha = 1;
   }
 
-  // The rings' names, in the wedge kept clear at the top: each name in its
-  // ring's own ink, so the wedge is also the key.
-  function drawTrackKey(focus) {
+  // The layer scale in the key wedge at 12 o'clock, top to bottom: the
+  // three orbits, the citation band, the eight rings (each name at its own
+  // ring's radius, in its ring's colour), the components and the proved
+  // computations in the dial field. Every name is planned by the label
+  // planner (wedgeCandidates, in planInscriptions) and drawn here (drawWedge).
+  // It is also a live readout: a chosen rule lights its orbit's name and
+  // CITATIONS; a chosen component turns the ring names into its own readout
+  // (ring colour and a filled dot = recorded; muted and a hollow dot = not
+  // recorded; italic and a dashed dot = unknown) and lights COMPONENTS (and
+  // PROVED COMPUTATIONS when it has one); a hovered ring cell lights its
+  // ring's name, with one faint guide arc along the ring to the cell.
+  const luminance = (c) => {
+    const lin = (v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+    return 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]);
+  };
+  const contrastOf = (a, b) => { const la = luminance(a), lb = luminance(b); return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05); };
+  const legibleCache = new Map();
+  /** The colour itself, or the nearest step towards the ink that reads at 4.5:1 on the ground. */
+  function legible(color) {
+    const key = `${palette.ground}|${palette.ink}|${color}`;
+    if (legibleCache.has(key)) return legibleCache.get(key);
+    const ground = parseColor(palette.ground) || [0, 0, 0, 1];
+    let out = color;
+    for (let t = 0; t <= 1.0001; t += 0.05) {
+      const c = t ? mixOklab(color, palette.ink, t, ground) : color;
+      const pc = c && parseColor(c);
+      if (!pc) break;
+      const flat = pc[3] < 1 ? [pc[0] * pc[3] + ground[0] * (1 - pc[3]), pc[1] * pc[3] + ground[1] * (1 - pc[3]), pc[2] * pc[3] + ground[2] * (1 - pc[3])] : pc;
+      out = c;
+      if (contrastOf(flat, ground) >= 4.6) break;
+    }
+    legibleCache.set(key, out);
+    return out;
+  }
+  const WEDGE_SPARE = 4; // px kept clear at each end of a name's chord
+  function wedgeState(fo) {
+    const comp = fo && fo.type === 'component' ? fo : fo && fo.type === 'kernel' && fo.componentId ? compObj.get(fo.componentId) : null;
+    const rule = fo && fo.type === 'rule' ? fo : null;
+    const dialed = fo && (fo.type === 'kernel' || fo.type === 'core' || (comp && [...kernelObj.values()].some((x) => x.componentId === comp.id)));
+    const cell = hoverTrack >= 0 && hover ? byKey.get(hover) : null;
+    return { comp, rule, dialed: !!dialed, cell: cell && cell.type === 'component' ? cell : null, track: hoverTrack };
+  }
+  function wedgeCandidates(fo, cx, cy) {
+    const k = view.k;
+    const st = wedgeState(fo);
+    const out = [];
+    const capsPx = Math.min(10, Math.max(8.5, k * 15));
+    const caps = face(700, capsPx, false, SANS);
+    const add = (id, text, font, px, radius, color, extra = {}) => {
+      const W = textWidth(font, text) + (extra.dotW || 0);
+      const room = KEY_GAP * radius - 2 * WEDGE_SPARE;
+      if (!extra.free && W > room) return;
+      const anchors = (extra.radii || [radius]).map((r) => ({ kind: 'arc', cx, cy, radius: r, mid: -Math.PI / 2, width: W, height: extra.height || px + 2 }));
+      out.push({ id: `wedge:${id}`, priority: PRIORITY.wedge, ignore: extra.inside ? ['ring'] : undefined, anchors,
+        data: { text, font, px, color, W, lit: !!extra.lit, dim: !!extra.dim, dotW: extra.dotW || 0, state: extra.state || null, track: extra.track ?? -1, lines: extra.lines || null } });
+    };
+    const anyLit = !!(st.rule || st.comp || (fo && (fo.type === 'kernel' || fo.type === 'core')) || st.track >= 0);
+    if (halo) {
+      const orbitLit = (kind) => !!(st.rule && st.rule.kind === kind);
+      for (const [id, text, r, color, kind] of [['failures', 'FAILURE MODES', R.failures, palette.threat, 'anti_principle'], ['axioms', 'AXIOMS', R.axioms, palette.doctrine, 'axiom'], ['principles', 'PRINCIPLES', R.principles, palette.doctrine, 'principle']]) {
+        add(id, text, caps, capsPx, r * k, legible(color), { lit: orbitLit(kind), dim: anyLit && !orbitLit(kind) });
+      }
+      add('citations', 'CITATIONS', caps, capsPx, (R.cap1 ?? R.scale + 12) * k + 9, legible(palette.muted), { lit: !!st.rule, dim: anyLit && !st.rule });
+    }
+    // The ring names, each at its own ring's centre line.
+    const pitchPx = (R.trackH + R.trackGap) * k;
+    const ringPx = Math.min(10, pitchPx * 0.8);
+    if (ringPx >= 7) {
+      const font = face(600, ringPx, false, SANS);
+      const dotW = ringPx * 0.95;
+      TRACKS.forEach((track, i) => {
+        const [r0, r1] = trackBand(i);
+        let state = null;
+        if (st.comp) state = cellInk(track, st.comp);
+        const lit = st.track === i;
+        const color = legible(track.ink === 'unknown' ? palette.muted : palette.ring[track.id]);
+        const text = track.wedge || track.short;
+        const f = state === 'unknown' ? face(600, ringPx, true, SANS) : state && state !== 'empty' ? face(700, ringPx, false, SANS) : font;
+        add(`ring:${track.id}`, text, f, ringPx, ((r0 + r1) / 2) * k, state === 'empty' || state === 'unknown' ? legible(palette.muted) : color,
+          { inside: true, dotW, state, track: i, lit, dim: !st.comp && anyLit && !lit && !(emphasis === track.id),
+            // Each name keeps to its own ring's band, so neighbours never meet.
+            height: Math.min(ringPx + 2, pitchPx - 4.5) });
+      });
+    }
+    add('components', 'COMPONENTS', caps, capsPx, R.component * k, legible(palette.ink), { inside: true, lit: !!st.comp, dim: anyLit && !st.comp });
+    // The dial field: under the components, on one line where the field
+    // allows it, else on two; wider than the wedge, since nothing but dials
+    // and stems stands inside the ring (the planner keeps it off both).
+    // It is shown with the ring names, as one scale, or not at all.
+    if (ringPx >= 7) {
+      const lit = st.dialed;
+      const dim = anyLit && !lit;
+      const color = legible(palette.red);
+      const one = 'PROVED COMPUTATIONS';
+      const W1 = textWidth(caps, one);
+      const radii = [];
+      for (let r = R.component * k - capsPx - 10; r >= (R.cores * k) + 18; r -= 6) radii.push(r);
+      const lh = capsPx + 3;
+      const wA = textWidth(caps, 'PROVED'), wB = textWidth(caps, 'COMPUTATIONS');
+      // Nearest the components first: one line, else two, at each radius.
+      const anchors = [];
+      for (const r of radii) {
+        anchors.push({ kind: 'arc', cx, cy, radius: r, mid: -Math.PI / 2, width: W1, height: capsPx + 2, lines: null });
+        if (r - lh < R.cores * k + 18) continue;
+        const shape = [...arcDiscs(cx, cy, r, -Math.PI / 2, wA, capsPx + 2), ...arcDiscs(cx, cy, r - lh, -Math.PI / 2, wB, capsPx + 2)];
+        anchors.push({ kind: 'shape', shape, radius: r, lines: [['PROVED', r], ['COMPUTATIONS', r - lh]] });
+      }
+      out.push({ id: 'wedge:dials', priority: PRIORITY.wedge, ignore: ['ring'], anchors,
+        data: { text: one, font: caps, px: capsPx, color, W: W1, lit, dim, dotW: 0, state: null, track: -1 } });
+    }
+    return out;
+  }
+  function drawWedge(focus) {
+    if (!ins || !ins.wedge.length) return;
     const a = revealAlpha(REVEAL.words);
     if (a <= 0.01) return;
     const k = view.k;
-    const pitchPx = (R.trackH + R.trackGap) * k;
-    const size = Math.min(10.5, pitchPx * 0.8);
-    if (size < 8.4) return;
-    const fo = focus ? byKey.get(focus) : null;
-    // The wedge is inside the ring, its own territory, so only chrome and
-    // labels already placed can block a ring's name there.
-    const blocked = (text, font, radius, px) => !!(ins && ins.planner.test(arcDiscs(view.tx, view.ty, radius, -Math.PI / 2, textWidth(font, text), px + 2), ['ring', 'flower']));
-    TRACKS.forEach((track, i) => {
-      const [r0, r1] = trackBand(i);
-      const rm = ((r0 + r1) / 2) * k;
-      const room = (KEY_GAP * r0 * k) - 10;
-      let px = size;
-      ctx.font = face(600, px, false, SANS);
-      const w = ctx.measureText(track.short).width;
-      if (w > room) px = size * room / w;
-      if (px < 6.2) return;
-      // A ring's name that would stand under chrome or a placed label waits.
-      if (blocked(track.short, face(600, px, false, SANS), rm, px)) return;
-      const color = track.ink === 'unknown' ? palette.muted : palette.ring[track.id];
-      const on = !emphasis || emphasis === track.id;
-      const alpha = a * (on ? 1 : 0.4) * (fo && fo.type === 'component' ? dimmed(0.7) : 1);
-      drawArcText(track.short, face(600, px, false, SANS), color, alpha, rm, -Math.PI / 2, false, false);
-    });
-    // "Checks" just inside the first ring names the rings as one key.
-    if (size >= 7.4 && !blocked('CHECKS', face(700, Math.min(9, size * 0.88), false, SANS), (R.track0 - 9) * k, Math.min(9, size * 0.88))) {
-      drawArcText('CHECKS', face(700, Math.min(9, size * 0.88), false, SANS), palette.muted, a * 0.85, (R.track0 - 9) * k, -Math.PI / 2, false, false);
+    const top = -Math.PI / 2;
+    for (const p of ins.wedge) {
+      const d = p.data || {};
+      const an = p.anchor;
+      const alpha = a * (d.dim ? 0.5 : 1);
+      const font = d.lit ? d.font.replace(/^(italic )?\d+/, (m, it) => `${it || ''}800`) : d.font;
+      const radius = an.radius;
+      if (an.lines) {
+        for (const [text, r] of an.lines) drawArcText(text, font, d.color, alpha, r, top, false, true, false);
+        if (d.lit) for (const [text, r] of an.lines) wedgeRule(text, font, d.color, alpha, r, d.px);
+        continue;
+      }
+      // The readout dot (or nothing at rest) stands before the name.
+      const textW = d.W - d.dotW;
+      const shift = d.state ? d.dotW / 2 : 0; // the name moves right of its dot
+      const mid = top + shift / radius;
+      drawArcText(d.text, font, d.color, alpha, radius, mid, false, true, false);
+      if (d.state) {
+        const ang = top - (textW / 2 + d.dotW / 2 - shift) / radius - (d.dotW * 0.1) / radius;
+        const x = view.tx + Math.cos(ang) * radius, y = view.ty + Math.sin(ang) * radius;
+        const rr = Math.max(1.8, d.px * 0.27);
+        ctx.globalAlpha = alpha;
+        ctx.beginPath(); ctx.arc(x, y, rr, 0, TURN);
+        if (d.state === 'empty' || d.state === 'unknown') {
+          ctx.fillStyle = palette.ground; ctx.fill();
+          ctx.strokeStyle = d.color; ctx.lineWidth = 1;
+          if (d.state === 'unknown') ctx.setLineDash([1.2, 1.2]);
+          ctx.stroke(); ctx.setLineDash([]);
+        } else { ctx.fillStyle = d.color; ctx.fill(); }
+      }
+      if (d.lit && d.track < 0) wedgeRule(d.text, font, d.color, alpha, radius, d.px, mid);
+      // A hovered ring cell: one faint guide arc along its ring from the
+      // name to the cell, round the side the cell is on.
+      if (d.track >= 0 && d.track === hoverTrack && hover && byKey.get(hover)?.type === 'component') {
+        const c = byKey.get(hover);
+        const half = (d.W / 2 + 3) / radius;
+        const clockwise = share(c.angle) < 0.5;
+        const from = clockwise ? top + half : top - half;
+        let to = c.angle;
+        if (clockwise) { while (to < from) to += TURN; } else { while (to > from) to -= TURN; }
+        const end = to - (clockwise ? 1 : -1) * (L.pitch * 0.5);
+        ctx.strokeStyle = d.color;
+        ctx.lineWidth = 1;
+        ctx.globalAlpha = a * 0.5;
+        ctx.setLineDash([2, 3]);
+        ctx.beginPath(); ctx.arc(view.tx, view.ty, radius, Math.min(from, end), Math.max(from, end)); ctx.stroke();
+        ctx.setLineDash([]);
+      }
     }
     ctx.globalAlpha = 1;
+  }
+  // A lit name gets a fine rule under it, its own width.
+  function wedgeRule(text, font, color, alpha, radius, px, mid = -Math.PI / 2) {
+    ctx.font = font;
+    const w = ctx.measureText(text).width;
+    const r = radius - px * 0.62;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1;
+    ctx.globalAlpha = alpha * 0.9;
+    ctx.beginPath(); ctx.arc(view.tx, view.ty, r, mid - w / 2 / r, mid + w / 2 / r); ctx.stroke();
   }
 
   /* ---- The doctrine halo ---------------------------------------------------- */
@@ -1621,15 +1924,12 @@ viewIsFitted = false;
     const lo = -Math.PI / 2 + KEY_GAP / 2, span = TURN - KEY_GAP;
     const pen = reveal >= 1 ? 1 : ease(clamp01((revealMs - REVEAL.halo) / REVEAL.haloDur));
     if (darkGround) {
-      const r0 = (R.principles - 18) * k, r1 = (R.failures + 16) * k;
-      const g = ctx.createRadialGradient(view.tx, view.ty, r0, view.tx, view.ty, r1);
+      // The ring of cold light along the axioms' orbit; its proportions do
+      // not depend on the zoom, so one sprite serves every camera.
+      const r0 = R.principles - 18, r1 = R.failures + 16;
       const rgb = rgbOf(palette.doctrine);
-      g.addColorStop(0, `rgba(${rgb},0)`);
-      g.addColorStop(((R.axioms * k) - r0) / (r1 - r0), `rgba(${rgb},0.05)`);
-      g.addColorStop(1, `rgba(${rgb},0)`);
-      ctx.globalAlpha = a * pen;
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(view.tx, view.ty, r1, 0, TURN); ctx.arc(view.tx, view.ty, r0, 0, TURN, true); ctx.fill();
+      const sprite = lightSprite('halo', 768, [[0, `rgba(${rgb},0)`], [(R.axioms - r0) / (r1 - r0), `rgba(${rgb},0.05)`], [1, `rgba(${rgb},0)`]], r0 / r1);
+      drawLight(sprite, r1 * k, a * pen);
     }
     ctx.strokeStyle = palette.doctrineSoft;
     ctx.lineWidth = hairPx;
@@ -1667,14 +1967,6 @@ viewIsFitted = false;
     }
     ctx.stroke();
     ctx.setLineDash([]);
-    // The orbits' names in the key wedge (planned with the inscriptions).
-    const wa = revealAlpha(REVEAL.halo + 260);
-    if (wa > 0.01 && ins) {
-      for (const p of ins.wedge) {
-        const d = p.anchor;
-        drawArcText(d.text, d.font, d.color, wa, d.radius, d.mid, false, true, false);
-      }
-    }
     ctx.globalAlpha = 1;
   }
 
@@ -1726,16 +2018,19 @@ viewIsFitted = false;
     const caps = members ? [...members].map((id) => compObj.get(id)).filter(Boolean) : comp ? [comp] : [];
     const far = rule ? Math.max(1e-6, ...caps.map((c) => Math.abs(shortArc(rule.angle, c.angle)))) : 1;
     const rc = CAP_MID * k;
-    for (const glow of darkGround ? [true, false] : [false]) {
+    // On the dark ground each cap glows: two wide, faint under-strokes in
+    // added light stand in for a shadow blur at a fraction of its cost.
+    for (const glow of darkGround ? [2, 1, 0] : [0]) {
       ctx.save();
-      if (glow) { ctx.globalCompositeOperation = 'lighter'; ctx.shadowColor = palette.doctrine; ctx.shadowBlur = 7; }
+      if (glow) ctx.globalCompositeOperation = 'lighter';
       ctx.strokeStyle = palette.doctrine;
       for (const c of caps) {
         const v = ignition(rule ? IGNITE_STAGGER * Math.abs(shortArc(rule.angle, c.angle)) / far : 0);
         if (v <= 0) continue;
-        const alpha = Math.min(1, v) * focusMix * (shown(c.comp) ? 1 : 0.35) * (glow ? 0.35 : 1);
+        const alpha = Math.min(1, v) * focusMix * (shown(c.comp) ? 1 : 0.35) * (glow === 2 ? 0.1 : glow === 1 ? 0.2 : 1);
         ctx.globalAlpha = alpha;
-        capArc(c, rc, half * (v > 1 ? 1 + (v - 1) * 0.6 : 1), 2 * Math.max(1, v));
+        const width = 2 * Math.max(1, v);
+        capArc(c, rc, half * (v > 1 ? 1 + (v - 1) * 0.6 : 1) + (glow ? glow * 1.4 / rc : 0), width + (glow === 2 ? 7 : glow === 1 ? 3 : 0));
       }
       ctx.restore();
     }
@@ -1847,23 +2142,26 @@ viewIsFitted = false;
     return plan;
   }
   function strokeUpto(pts, upto) {
-    if (pts.length < 2) return;
+    if (pts.length < 2) return null;
     let total = 0;
     for (let i = 1; i < pts.length; i += 1) total += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
     let left = total * upto;
+    let end = pts[pts.length - 1];
     ctx.beginPath();
     ctx.moveTo(pts[0][0], pts[0][1]);
     for (let i = 1; i < pts.length; i += 1) {
       const d = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
       if (d >= left) {
         const f = d ? left / d : 0;
-        ctx.lineTo(pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * f, pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * f);
+        end = [pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * f, pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * f];
+        ctx.lineTo(end[0], end[1]);
         break;
       }
       ctx.lineTo(pts[i][0], pts[i][1]);
       left -= d;
     }
     ctx.stroke();
+    return end;
   }
   // Which routes show this frame, decided before anything is painted: the
   // label planner treats their full polylines as obstacles.
@@ -1899,30 +2197,48 @@ viewIsFitted = false;
     const show = routeShow, pick = routePick;
     if (!show.length || fo !== routeHub) return;
     const screen = show.map((r) => ({ r, pts: r.pts.map(([x, y]) => [sx(x), sy(y)]) }));
-    for (const glow of darkGround ? [true, false] : [false]) {
+    const tips = [];
+    // On the dark ground a route glows: two wide, faint under-strokes in
+    // added light (pass 2, then 1) under the crisp line (pass 0).
+    for (const glow of darkGround ? [2, 1, 0] : [0]) {
       ctx.save();
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
       ctx.strokeStyle = palette.doctrine;
       ctx.fillStyle = palette.doctrine;
-      if (glow) { ctx.globalCompositeOperation = 'lighter'; ctx.shadowColor = palette.doctrine; ctx.shadowBlur = 7; }
+      if (glow) ctx.globalCompositeOperation = 'lighter';
       for (const { r, pts } of screen) {
         const e = elapsed(`route:${fo.key}>${r.id}`);
-        const p = e === Infinity ? 1 : 1 - (1 - clamp01(e / ROUTE_DRAW)) ** 3;
+        const t = e === Infinity ? 1 : clamp01(e / ROUTE_DRAW);
+        const p = 1 - (1 - t) ** 3;
         const c = fo.type === 'rule' ? compObj.get(r.id) : fo;
         const hot = r.id === pick;
         const width = hot ? 2 : 1.5;
-        ctx.globalAlpha = focusMix * (c && !shown(c.comp) ? 0.35 : 1) * (pick && !hot ? 0.45 : 0.95) * (glow ? 0.3 : 1);
-        ctx.lineWidth = width;
-        strokeUpto(pts, p);
+        const base = focusMix * (c && !shown(c.comp) ? 0.35 : 1) * (pick && !hot ? 0.45 : 0.95);
+        ctx.globalAlpha = base * (glow === 2 ? 0.09 : glow === 1 ? 0.2 : 1);
+        ctx.lineWidth = width + (glow === 2 ? 6 : glow === 1 ? 2.6 : 0);
+        const end = strokeUpto(pts, p);
         if (!glow) {
           if (p >= 1) {
             const [x, y] = pts[pts.length - 1];
             ctx.beginPath(); ctx.arc(x, y, hot ? 2 : 1.5, 0, TURN); ctx.fill();
-          }
+          } else if (end) tips.push([end[0], end[1], base * (1 - clamp01((t - 0.7) / 0.3)), width]);
         }
       }
       ctx.restore();
+    }
+    // The pen: a bright point at the drawing front of each route while it
+    // draws on, gone as the route completes (it never travels on its own).
+    for (const [x, y, alpha, width] of tips) {
+      if (alpha <= 0.01) continue;
+      if (darkGround) {
+        ctx.globalCompositeOperation = 'lighter';
+        drawGlow(x, y, 9 + width * 2, palette.doctrine, alpha * 0.9);
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.fillStyle = palette.ink;
+      } else ctx.fillStyle = palette.doctrine;
+      ctx.globalAlpha = alpha;
+      ctx.beginPath(); ctx.arc(x, y, width * (darkGround ? 0.95 : 1.25), 0, TURN); ctx.fill();
     }
     ctx.globalAlpha = 1;
   }
@@ -2099,7 +2415,7 @@ viewIsFitted = false;
   }
 
   function drawComponents(focus, lit, rs, shown, fade) {
-    const pitchPx = localPitch(view.k, L.pitch);
+    const pitchPx = localPitch(view.k, L.pitch, R.component);
     const markScale = pitchPx >= 11 ? 1 : Math.max(0.55, pitchPx / 11);
     for (const c of compObj.values()) {
       const p = penAt(c.angle);
@@ -2129,7 +2445,7 @@ viewIsFitted = false;
   };
   // Names inside the ring: the four cores and the kernels, horizontal, sans
   // 12.5 px, beside their own flower (below, above, right, then left: the
-  // first place clear of every petal, cross, stem and placed name). A name
+  // first place clear of every dial, cross, stem and placed name). A name
   // pushed further out than 6 px keeps a hairline leader to its flower. The
   // core names are placed first and are never omitted.
   const segHitsBox = (x0, y0, x1, y1, b) => {
@@ -2151,14 +2467,17 @@ viewIsFitted = false;
     const a = revealAlpha(REVEAL.words);
     const k = view.k;
     const prints = flowerFootprints();
-    // Every petal disc and every cross is room taken; so is every stem.
+    // Every dial and every cross is room taken; so is every stem.
     const discs = [];
     for (const fp of prints) {
       const o = byKey.get(fp.key);
       discs.push([fp.x, fp.y, fp.petal + 2.5]);
       const f = flowerOf(o);
-      if (o.mutants) {
-        const cr = f.crossR, step = (FLOWER.crossPitch * f.s) / cr;
+      if (o.mutants > DIAL.maxCrosses) {
+        // The ×M inscription, a little wider than one cross.
+        discs.push([fp.x + Math.cos(fp.crossDir) * (f.crossR + 2), fp.y + Math.sin(fp.crossDir) * (f.crossR + 2), Math.max(9, 9 * f.s)]);
+      } else if (o.mutants) {
+        const cr = f.crossR, step = (DIAL.crossPitch * f.s) / cr;
         for (let i = 0; i < o.mutants; i += 1) {
           const ang = fp.crossDir + (i - (o.mutants - 1) / 2) * step;
           discs.push([fp.x + Math.cos(ang) * cr, fp.y + Math.sin(ang) * cr, f.half * 1.45 + 2]);
@@ -2182,7 +2501,7 @@ viewIsFitted = false;
     const reading = R.component * k * L.pitch >= 34;
     const nameFont = face(600, 12.5, false, SANS);
     const subFont = face(400, 11, true, SANS);
-    const place = (o, name, sub, must) => {
+    const place = (o, name, sub, must, fixed = false) => {
       const fp = prints.find((p) => p.key === o.key);
       const f = flowerOf(o);
       ctx.font = nameFont;
@@ -2214,11 +2533,11 @@ viewIsFitted = false;
       // over another name or its own flower.
       const own = discs.filter(([x, y]) => Math.hypot(x - fp.x, y - fp.y) <= f.reach + 1);
       const loose = (b) => !boxHit(b) && !own.some(([x, y, r]) => circleHitsBox(x, y, r, b));
-      const passes = must ? [[extras, free], [[0, 8, 16, 26, 38, 52, 70, 90], loose]] : [[extras, free]];
+      const passes = fixed ? [[[0, 4, 9], free]] : must ? [[extras, free], [[0, 8, 16, 26, 38, 52, 70, 90], loose]] : [[extras, free]];
       outer: for (const [list, test] of passes) {
         for (const extra of list) {
           // Diagonals only right beside the flower, and never on its cross side.
-          const tryDirs = extra ? dirs.slice(0, 4) : dirs.filter((d, i) => i < 4 || !o.mutants || Math.abs(shortArc(fp.crossDir, d)) > fp.crossSpan + 0.6);
+          const tryDirs = fixed ? [dirs[0]] : extra ? dirs.slice(0, 4) : dirs.filter((d, i) => i < 4 || !o.mutants || Math.abs(shortArc(fp.crossDir, d)) > fp.crossSpan + 0.6);
           for (const dir of tryDirs) {
             const b = boxAt(dir, extra);
             const padded = { x0: b.x0 - 2, x1: b.x1 + 2, y0: b.y0 - 1, y1: b.y1 + 1 };
@@ -2231,7 +2550,7 @@ viewIsFitted = false;
         chosenBox = boxAt(dirs[0], 0); moved = 0; dirOf = dirs[0];
       }
       const alpha = a * (focus && !lit.has(o.key) ? dimmed(0.4) : 1);
-      if (moved > 6) {
+      if (moved > 6 && !fixed) {
         // A hairline leader from the flower's edge to the name.
         const bx = Math.max(chosenBox.x0, Math.min(chosenBox.x1, fp.x)), by = Math.max(chosenBox.y0, Math.min(chosenBox.y1, fp.y));
         const d = Math.hypot(bx - fp.x, by - fp.y) || 1;
@@ -2247,12 +2566,15 @@ viewIsFitted = false;
       labelBoxes.push({ x0: chosenBox.x0 - 2, x1: chosenBox.x1 + 2, y0: chosenBox.y0 - 1, y1: chosenBox.y1 + 1 });
     };
     if (a > 0.01) {
-      // Cores first, the centre's own name first of all; then the kernels.
-      const coresInOrder = [...coreObj.values()].sort((p, q) => (q.centre ? 1 : 0) - (p.centre ? 1 : 0) || p.index - q.index);
-      for (const o of coresInOrder) place(o, coreName(o.core), reading ? coreSub(o.core) : '', true);
-      if (R.component * k >= 170) {
-        const ks = [...kernelObj.values()].sort((p, q) => p.angle - q.angle || p.index - q.index);
-        for (const o of ks) place(o, proofShortName(o.kernel), '', false);
+      // The words live in the panel, in one place. On the map a dial is
+      // named only while it is pointed at or chosen, and always the same
+      // way: centred under it, its role beneath for the toolkit's own.
+      const named = new Set();
+      for (const key of [selected, hover]) {
+        const o = key ? byKey.get(key) : null;
+        if (!o || named.has(o.key) || (o.type !== 'core' && o.type !== 'kernel')) continue;
+        named.add(o.key);
+        place(o, o.type === 'core' ? coreName(o.core) : proofShortName(o.kernel), o.type === 'core' ? coreSub(o.core) : '', true, true);
       }
     }
     // The flowers are room taken for every label placed after these.
@@ -2343,7 +2665,7 @@ viewIsFitted = false;
   // A flower's footprint for the planner until lane 3 supplies its own.
 
   /** The level of detail now (labels.js LOD), from the local pitch with hysteresis. */
-  function currentLod() { return lodLevel ?? levelOfDetail(localPitch(view.k, L.pitch)); }
+  function currentLod() { return lodLevel ?? levelOfDetail(localPitch(view.k, L.pitch, R.component)); }
   // Kept for callers elsewhere in the engine: true once names are in view.
   function namesShown() { return currentLod() >= LOD.neighbourhood; }
 
@@ -2405,9 +2727,30 @@ viewIsFitted = false;
     return null;
   }
 
+  // The label plan is a pure function of the camera, the size and chrome,
+  // what is chosen, previewed and in focus, the search matches, the routes
+  // shown, the level of detail and the fonts and palette. Animation frames
+  // with a still camera (focus fades, ignition, route draw-on, the pulse)
+  // reuse the last plan and re-file its boxes instead of re-planning.
+  let planKey = '', planBoxes = [], planChrome = null;
+  function cachedInscriptions(focus, rs, w, h) {
+    const chromeNow = chromeBoxes();
+    const routes = routeLines.map((l) => `${l.id}:${l.width}`).join(',');
+    const key = reveal < 1 ? '' : [view.k, view.tx, view.ty, w, h, fittedK, rs, selected, hover, focus, matchesGen, emphasis, lodLevel,
+      fontGen, paletteGen, panelHidden, routeInfo.mode, routes, obstacleSources.length, candidateSources.length].join('|');
+    if (key && key === planKey && chromeNow === planChrome && ins) {
+      for (const b of planBoxes) labelBoxes.push(b);
+      return ins;
+    }
+    const before = labelBoxes.length;
+    const out = planInscriptions(focus, rs, w, h);
+    planBoxes = labelBoxes.slice(before);
+    planKey = key; planChrome = chromeNow;
+    return out;
+  }
   function planInscriptions(focus, rs, w, h) {
     const k = view.k, cx = view.tx, cy = view.ty;
-    lodLevel = levelOfDetail(localPitch(k, L.pitch), lodLevel);
+    lodLevel = levelOfDetail(localPitch(k, L.pitch, R.component), lodLevel);
     const lod = lodLevel;
     const planner = createPlanner({ bounds: { x0: 2, y0: 2, x1: w - 2, y1: h - 2 }, gap: 4 });
     const boxes = chromeBoxes();
@@ -2434,6 +2777,7 @@ viewIsFitted = false;
     const glyphR = (o) => rulePx(o, rs) / 2 + (o.kind === 'axiom' && o.rule.obligations.length && rulePx(o, rs) >= 11 ? 5.1 : 1.8);
     for (const o of ruleObj.values()) planner.block({ kind: 'circle', x: sx(o.x), y: sy(o.y), r: glyphR(o), pad: 3, tag: 'glyph' });
     for (const fp of flowerFootprints()) planner.block({ kind: 'circle', x: fp.x, y: fp.y, r: fp.r, tag: 'flower' });
+    for (const kk of kernelObj.values()) if (kk.thread && kk.thread.length > 1) planner.block({ kind: 'polyline', points: kk.thread.map(([x, y]) => [sx(x), sy(y)]), pad: 3, tag: 'stem' });
     for (const line of routeLines) planner.block({ kind: 'polyline', points: line.pts, pad: 6, tag: 'route' });
     for (const source of obstacleSources) for (const ob of source({ k, cx, cy, w, h }) || []) planner.block(ob);
 
@@ -2642,16 +2986,7 @@ viewIsFitted = false;
         else if (lod >= LOD.reading && (o.kind === 'axiom' || (o.kind === 'principle' && lit))) rest.push(titleCand(o, PRIORITY.title));
       }
     }
-    if (halo) {
-      const px = Math.min(10, Math.max(8.5, (R.axioms - R.principles) * k * 0.42));
-      const font = face(700, px, false, SANS);
-      for (const [text, r, color] of [['CITATIONS', (R.cap1 ?? R.scale + 12) + 9 / k, palette.muted], ['PRINCIPLES', R.principles, palette.doctrine], ['AXIOMS', R.axioms, palette.doctrine], ['FAILURE MODES', R.failures, palette.threat]]) {
-        const W = textWidth(font, text);
-        if (W > KEY_GAP * r * k - 8) continue;
-        rest.push({ id: `wedge:${text}`, priority: PRIORITY.wedge,
-          anchors: [{ kind: 'arc', cx, cy, radius: r * k, mid: -Math.PI / 2, width: W, height: px + 2, text, font, color }] });
-      }
-    }
+    for (const c of wedgeCandidates(fo, cx, cy)) rest.push(c);
     const placedRest = planner.plan(rest);
 
     for (const [id, p] of [...placedFirst, ...placedRest]) {
@@ -2674,6 +3009,7 @@ viewIsFitted = false;
     const a = revealAlpha(REVEAL.words);
     if (a <= 0.01) return;
     const r0 = ins.nameFrom;
+    const m = ctx.getTransform ? ctx.getTransform() : null;
     ctx.font = FONT.name;
     ctx.textBaseline = 'middle';
     ctx.lineWidth = 3;
@@ -2682,6 +3018,7 @@ viewIsFitted = false;
       const c = p.data.c;
       const text = p.fitted.text;
       if (p.anchor.level) {
+        if (m) ctx.setTransform(m);
         const { x0, y0, x1, y1, foot } = p.anchor;
         const lx = Math.max(x0, Math.min(x1, foot[0])), ly = Math.max(y0, Math.min(y1, foot[1]));
         ctx.save();
@@ -2706,17 +3043,19 @@ viewIsFitted = false;
       const cs = Math.cos(c.angle), sn = Math.sin(c.angle);
       const flip = cs < 0;
       const context = focus && !lit.has(c.key) && p.priority > PRIORITY.preview;
-      ctx.save();
-      ctx.translate(view.tx + cs * r0, view.ty + sn * r0);
-      ctx.rotate(flip ? c.angle + Math.PI : c.angle);
+      const x = view.tx + cs * r0, y = view.ty + sn * r0;
+      const rc = flip ? -cs : cs, rsn = flip ? -sn : sn; // the rotation's cos and sin
+      if (m) ctx.setTransform(m.a * rc + m.c * rsn, m.b * rc + m.d * rsn, m.c * rc - m.a * rsn, m.d * rc - m.b * rsn, m.a * x + m.c * y + m.e, m.b * x + m.d * y + m.f);
+      else { ctx.save(); ctx.translate(x, y); ctx.rotate(flip ? c.angle + Math.PI : c.angle); }
       ctx.textAlign = flip ? 'right' : 'left';
       ctx.globalAlpha = a * (context ? 0.5 : 1);
       ctx.strokeStyle = palette.ground;
       ctx.strokeText(text, 0, 0);
       ctx.fillStyle = c.formal ? palette.red : palette.ink;
       ctx.fillText(text, 0, 0);
-      ctx.restore();
+      if (!m) ctx.restore();
     }
+    if (m) ctx.setTransform(m);
     ctx.globalAlpha = 1;
   }
 
@@ -2763,15 +3102,24 @@ viewIsFitted = false;
     const o = byKey.get(pulse.key);
     if (!o) return;
     const phase = (delay, length) => clamp01((pulse.ms - delay) / length);
-    const t = phase(PULSE_WAIT, PULSE_RIPPLE);
+    const t = phase(0, CHOSEN_RING);
     const x = sx(o.x), y = sy(o.y), r = (o.type === 'component' ? o.r * rs : o.type === 'rule' ? rulePx(o, rs) / 2 : petalPx(o, rs) * 0.5) + 1.5;
     const inkOf = (name) => (name === 'stated' ? palette.stated : name === 'doctrine' ? palette.doctrine : palette.red);
     if (t > 0 && t < 1) {
+      // "This was chosen": one soft ring leaves the mark at once and expands
+      // as it fades, a wide faint band under a fine bright edge.
       const e = 1 - (1 - t) ** 3;
-      ctx.globalAlpha = 0.6 * (1 - e);
+      const rr = r + 2 + e * Math.max(18, r * 1.8);
+      const fadeOut = (1 - t) ** 1.6;
+      ctx.strokeStyle = o.type === 'rule' ? palette.doctrine : o.type === 'component' && !o.formal ? (darkGround ? palette.stated : palette.ink) : palette.red;
+      if (darkGround) ctx.globalCompositeOperation = 'lighter';
+      ctx.globalAlpha = (darkGround ? 0.2 : 0.12) * fadeOut;
+      ctx.lineWidth = 3 + 6 * e;
+      ctx.beginPath(); ctx.arc(x, y, rr, 0, TURN); ctx.stroke();
+      ctx.globalAlpha = (darkGround ? 0.85 : 0.7) * fadeOut;
       ctx.lineWidth = 1.3;
-      ctx.strokeStyle = o.type === 'rule' ? palette.doctrine : o.type === 'component' && !o.formal ? palette.ink : palette.red;
-      ctx.beginPath(); ctx.arc(x, y, r + 3 + e * Math.max(16, r * 1.6), 0, TURN); ctx.stroke();
+      ctx.beginPath(); ctx.arc(x, y, rr, 0, TURN); ctx.stroke();
+      ctx.globalCompositeOperation = 'source-over';
     }
     const sizePx = Math.max(0.8, rs);
     for (const leg of pulse.legs) {
@@ -2875,7 +3223,7 @@ viewIsFitted = false;
     pulsedSelection = null;
     if (o && camera) ensureVisible(o);
     if (emit && hooks.onSelect) hooks.onSelect(o);
-    request();
+    requestFull();
   }
   // A preview (pointer, or a panel row) only adds a comparison. Every change
   // of object or ring is told, with the ring and the relation to the chosen
@@ -2888,7 +3236,7 @@ viewIsFitted = false;
     hoverTrack = t;
     if (source === 'pointer') canvas.style.cursor = key ? 'pointer' : '';
     if (hooks.onHover) hooks.onHover(o, { track: t, relation: relationOf(selected ? byKey.get(selected) : null, o), source });
-    request();
+    requestFull();
   }  function zoomAt(px, py, factor) {
     const k = Math.max(fittedK * 0.8, Math.min(fittedK * 9, view.k * factor));
     const f = k / view.k;
@@ -2919,12 +3267,14 @@ viewIsFitted = false;
     if (pinch && pointers.size === 2) {
       const [a, b] = [...pointers.values()];
       const d = Math.hypot(a[0] - b[0], a[1] - b[1]);
+      markGesture();
       zoomAt(pinch.cx, pinch.cy, (pinch.k * d / pinch.d) / view.k);
       moved = true;
       return;
     }
     if (drag && (Math.abs(e.offsetX - drag.x) > 4 || Math.abs(e.offsetY - drag.y) > 4 || moved)) {
       moved = true;
+      markGesture();
       view.tx = drag.tx + e.offsetX - drag.x;
       view.ty = drag.ty + e.offsetY - drag.y;
       viewIsFitted = false;
@@ -2957,6 +3307,7 @@ viewIsFitted = false;
     settleReveal();
     e.preventDefault();
     const factor = Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0016));
+    markGesture();
     zoomAt(e.offsetX, e.offsetY, factor);
   }, { passive: false });
   // Keys: arrows walk the ring, Enter opens, Escape lets go, +/- zoom, 0 fits.
@@ -2987,7 +3338,7 @@ viewIsFitted = false;
   });
 
   /* ---- Lifecycle ------------------------------------------------------------ */
-  const onTheme = () => { if (destroyed) return; readPalette(); invalidateGeometry(); request(); };
+  const onTheme = () => { if (destroyed) return; readPalette(); paletteGen += 1; invalidateGeometry(); requestFull(); };
   const schemeQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
   schemeQuery?.addEventListener?.('change', onTheme);
   document.addEventListener('plectis:theme', onTheme);
@@ -3008,6 +3359,7 @@ viewIsFitted = false;
     const [oldW, oldH] = size();
     const keepCentre = !viewIsFitted ? [(oldW / 2 - view.tx) / view.k, (oldH / 2 - view.ty) / view.k] : null;
     invalidateGeometry();
+    needFull = true;
     if (viewIsFitted) fit();
     else if (keepCentre) {
       fittedK = fitTarget().k;
@@ -3031,7 +3383,7 @@ viewIsFitted = false;
   window.addEventListener('resize', resize);
   const visibility = () => { if (!document.hidden) resize(); };
   document.addEventListener('visibilitychange', visibility);
-  const fontsReady = () => { if (destroyed) return; arcCache.clear(); widthCache.clear(); prefixCache.clear(); resize(); };
+  const fontsReady = () => { if (destroyed) return; arcCache.clear(); widthCache.clear(); prefixCache.clear(); fontGen += 1; needFull = true; resize(); };
   document.fonts?.ready?.then(fontsReady);
   document.fonts?.addEventListener?.('loadingdone', fontsReady);
 
@@ -3053,9 +3405,11 @@ viewIsFitted = false;
     activeRoutePolylines: () => routeLines,
     shared,
 
-    setMatches(set) { matches = set; request(); },
-    emphasise(trackId) { emphasis = trackId || null; request(); },
-    showWiring(on) { allWiring = !!on; request(); return allWiring; },
+    setMatches(set) { matches = set; matchesGen += 1; requestFull(); },
+    emphasise(trackId) { emphasis = trackId || null; requestFull(); },
+    showWiring(on) { allWiring = !!on; requestFull(); return allWiring; },
+    // How the last frames were made: full paints and cached (blit) frames.
+    paintStats: () => ({ ...stats, gesturing }),
     hasHalo: !!halo,
     fit: () => cameraTo(fitTarget(), true),
     zoomBy: (f) => zoomAt(canvas.clientWidth / 2, canvas.clientHeight / 2, f),
@@ -3074,6 +3428,8 @@ viewIsFitted = false;
       document.removeEventListener('visibilitychange', visibility);
       schemeQuery?.removeEventListener?.('change', onTheme);
       if (frame) cancelAnimationFrame(frame);
+      if (settleTimer) clearTimeout(settleTimer);
+      settleTimer = 0;
       animations.clear();
     },
   };

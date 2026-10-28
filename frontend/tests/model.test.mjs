@@ -6,7 +6,7 @@ import {
   availabilityWords, callerWords, classWords, fileWords, lastRunWords, moduleWords, recordWords, setLabels, sourceHref, stateWords,
 } from '../src/evidence.js';
 import { plainLead, renderWriteup } from '../src/markdown.js';
-import { arrange, bloomDepths, layout, R, KEY_GAP, BLOOM_ROOM } from '../src/map/layout.js';
+import { arrange, bloomDepths, crossSpan, DIAL, flowerPx, layout, R, KEY_GAP, BLOOM_ROOM, BLOOM_RADII, trackBand } from '../src/map/layout.js';
 
 test('write-up fences reserve command actions for explicit shell languages', (t) => {
   const originalDocument = globalThis.document, originalNode = globalThis.Node;
@@ -119,17 +119,17 @@ test('source links go to the recorded commit, and never for state or unsafe path
   assert.equal(sourceHref(null, 'formal/x/K.dfy'), null);
 });
 
-test('the layout puts every family in its own sector, leaves the key wedge open and keeps flowers apart', () => {
+test('the layout puts every family in its own sector, leaves the key wedge open and keeps proof dials apart', () => {
   const comps = ['a', 'b', 'c', 'd'].map((id, i) => ({ id, title: id, family: i < 2 ? 'entry_and_reveal' : 'formal_math_and_proof', backing: 'tool' }));
   const { sectors, angleOf } = arrange(comps);
   assert.equal(sectors.length, 2);
   for (const s of sectors) for (const id of s.members) assert.ok(angleOf.get(id) > s.lo && angleOf.get(id) < s.hi);
   const top = -Math.PI / 2;
   for (const s of sectors) assert.ok(s.lo >= top + KEY_GAP / 2 - 1e-9 && s.hi <= top + Math.PI * 2 - KEY_GAP / 2 + 1e-9, 'the wedge at the top holds no family');
-  // Placement uses true footprints across all depths (radial candidates 300,
-  // 248, 196): one bloom in (52 units) is not enough room, so a close
+  // Placement uses true footprints across all depths (radial candidates 222,
+  // 186, 150): one step in (36 units) is not enough room, so a close
   // neighbour takes two; distant ones stay outermost. When every pair can be
-  // cleared, no two flowers stand nearer than BLOOM_ROOM, and the result is
+  // cleared, no two dials stand nearer than BLOOM_ROOM, and the result is
   // the same for the same input.
   assert.deepEqual(bloomDepths([0.1, 0.11, 2]), [0, 2, 0]);
   const spread = [0.1, 0.16, 0.6, 0.66, 1.2, 2];
@@ -206,4 +206,43 @@ test('each evidence row reads as a state word in the key order, never a fraction
   const runs = { checks: { saved: true }, receipts: [{ availability: 'available' }, { availability: 'available' }, { availability: 'available' }, { availability: 'unavailable' }] };
   assert.equal(ringState(track('saved'), runs).word, '3 available · 1 missing');
   for (const t of TRACKS) assert.doesNotMatch(ringState(t, runs).word, /\b\d+ (of|\/) \d+\b|score|pass/i);
+});
+
+test('the geometry nests inward: dials, components, eight thicker rings, caps, halo', () => {
+  assert.deepEqual(BLOOM_RADII, [222, 186, 150]);
+  assert.ok(R.cores < BLOOM_RADII[2] - BLOOM_ROOM / 2, 'the toolkit cores stand clear of the innermost dial');
+  assert.ok(BLOOM_RADII[0] + BLOOM_ROOM / 2 < R.component, 'the outermost dial stays inside the ring of components');
+  assert.ok(R.component < R.track0 && R.trackH >= 15, 'the rings start outside the components, each 15 units deep');
+  assert.ok(Math.abs(R.trackOuter - 412.8) < 1e-9);
+  assert.equal(R.scale, R.trackOuter + 4);
+  for (let i = 1; i < 8; i += 1) assert.ok(trackBand(i)[0] > trackBand(i - 1)[1], 'the rings never touch');
+  assert.ok(R.cap1 < R.principles && R.principles < R.axioms && R.axioms < R.failures && R.failures < R.haloOuter);
+  assert.ok(KEY_GAP >= 0.3 && KEY_GAP <= 0.45, 'the key wedge is wide enough for the layer scale');
+});
+
+test('a proof dial has one bounded footprint, its count of crosses, and ×M past four', () => {
+  // min(18, 12·k) px; the replay checker min(24, 16·k).
+  assert.ok(Math.abs(flowerPx(0.5).r - 6) < 1e-9);
+  assert.equal(flowerPx(4).r, DIAL.cap);
+  assert.equal(flowerPx(4, { replay: true }).r, DIAL.replayCap);
+  assert.ok(Math.abs(flowerPx(1, { replay: true }).r - 16) < 1e-9);
+  const plain = flowerPx(1), crossed = flowerPx(1, { mutants: 2 });
+  assert.ok(crossed.reach > plain.reach && crossed.footprint > crossed.reach, 'crosses widen the reach; the footprint adds air');
+  assert.equal(crossSpan(1, 0), 0);
+  assert.ok(crossSpan(1, 3) > crossSpan(1, 1));
+  assert.equal(crossSpan(1, 9), crossSpan(1, 2), 'more than four broken copies are written ×M, the width of two crosses');
+});
+
+test('every ring has a short wedge name for the key wedge', async () => {
+  const { TRACKS } = await import('../src/evidence.js');
+  assert.deepEqual(TRACKS.map((t) => t.wedge), ['Proved', 'Broken caught', 'Matches proof', 'Calls proved', 'Lean run', 'Rerun set up', 'Past runs', 'Whole claim']);
+  for (const t of TRACKS) assert.ok(t.wedge.length <= 14);
+});
+
+test('the proof dial is worded as a dial, never a flower', async () => {
+  const { flowerWords } = await import('../src/evidence.js');
+  const text = flowerWords({ verifiedTasks: 9, mutants: [1] }, 'Used by X.');
+  assert.match(text, /This dial is one small computation/);
+  assert.match(text, /9 ticks are the proof checks that passed/);
+  assert.doesNotMatch(text, /flower|petal/i);
 });

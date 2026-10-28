@@ -37,7 +37,7 @@ const LOD_EDGES = [18, 34];
 const HYSTERESIS = 0.1; // the band is 10% wide, centred on each edge
 
 /** The local projected pitch p = 360·k·pitch (pitch ≈ 0.0600 rad). */
-export function localPitch(k, pitch = 0.06) { return 360 * k * pitch; }
+export function localPitch(k, pitch = 0.06, radius = 360) { return radius * k * pitch; }
 
 /**
  * The level of detail for pitch p. With a previous level, an edge must be

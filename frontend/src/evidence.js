@@ -175,7 +175,7 @@ export function count(n, noun, plural = `${noun}s`) {
 // hatch where nothing has been established.
 export const TRACKS = [
   {
-    id: 'proof', measure: 'retained_proof_metadata', ink: 'ran', short: 'Proved',
+    id: 'proof', measure: 'retained_proof_metadata', ink: 'ran', short: 'Proved', wedge: 'Proved',
     line: 'One small computation inside it is proved in Dafny.',
     title: 'Proved with Dafny', checker: 'Dafny prover', when: 'saved result',
     words: 'A small computation inside the component is proved to follow its written rules.',
@@ -186,7 +186,7 @@ export const TRACKS = [
     example: 'In the ownership component, the rule that a live claim on a file always beats a stale one is proved.',
   },
   {
-    id: 'variants', measure: 'source_linked_mutation_controls', ink: 'ran', short: 'Broken versions caught',
+    id: 'variants', measure: 'source_linked_mutation_controls', ink: 'ran', short: 'Broken versions caught', wedge: 'Broken caught',
     line: 'Copies with one deliberate mistake were rejected by the prover.',
     title: 'Broken versions caught', checker: 'Dafny prover', when: 'saved result',
     words: 'Copies of that computation with one deliberate mistake were rejected by the prover, so the rules really do constrain the code.',
@@ -197,7 +197,7 @@ export const TRACKS = [
     example: 'For the ownership component, one broken copy went back to the old rule of picking the first claim; the prover rejected it.',
   },
   {
-    id: 'bound', measure: 'index_time_hash_bindings', ink: 'ran', short: 'Code matches proof',
+    id: 'bound', measure: 'index_time_hash_bindings', ink: 'ran', short: 'Code matches proof', wedge: 'Matches proof',
     line: "The running code matched the proved code's fingerprint.",
     title: 'Running code matches the proof', checker: 'SHA-256 fingerprints', when: 'when the snapshot was made',
     words: 'The code that runs is the code the proof was about: their fingerprints matched.',
@@ -208,7 +208,7 @@ export const TRACKS = [
     example: 'The ownership component\'s five generated Python files all matched their saved fingerprints.',
   },
   {
-    id: 'caller', measure: 'generated_runtime_bindings', ink: 'stated', short: 'Calls proved code',
+    id: 'caller', measure: 'generated_runtime_bindings', ink: 'stated', short: 'Calls proved code', wedge: 'Calls proved',
     line: 'Its own code calls the proved computation directly.',
     title: 'Calls the proved code', checker: 'Link in the source', when: 'declared',
     words: "The component's own code calls the proved computation directly.",
@@ -219,7 +219,7 @@ export const TRACKS = [
     example: 'The ownership component hands every claim to the proved computation and acts on its answer.',
   },
   {
-    id: 'lean', measure: 'historical_lean_receipt_observations', ink: 'ran', short: 'Lean run',
+    id: 'lean', measure: 'historical_lean_receipt_observations', ink: 'ran', short: 'Lean run', wedge: 'Lean run',
     line: 'A past run saved Lean accepting an example proof.',
     title: 'Lean proof run saved', checker: 'Lean', when: 'past run',
     words: 'A past run saved the Lean proof checker accepting a proof. That is not a proof about the component\'s own code.',
@@ -230,7 +230,7 @@ export const TRACKS = [
     example: 'The Lean and Lake proof witness ran Lean on a small project and saved that a wrong proof was rejected.',
   },
   {
-    id: 'replay', measure: 'configured_replay_routes', ink: 'stated', short: 'Rerun set up',
+    id: 'replay', measure: 'configured_replay_routes', ink: 'stated', short: 'Rerun set up', wedge: 'Rerun set up',
     line: 'A rerun is configured for it; none is run here.',
     title: 'Rerun set up', checker: 'Replay checker', when: 'set up, not run here',
     words: 'Everything needed to rerun the component is declared, and the replay checker at the centre would judge the rerun. Nothing has been rerun here.',
@@ -241,7 +241,7 @@ export const TRACKS = [
     example: 'Every spoke on the map is one component\'s rerun, leading to the replay checker.',
   },
   {
-    id: 'saved', measure: 'available_authority_artifacts', ink: 'saved', short: 'Past runs',
+    id: 'saved', measure: 'available_authority_artifacts', ink: 'saved', short: 'Past runs', wedge: 'Past runs',
     line: 'Results of its earlier test runs are available.',
     title: 'Past runs saved', checker: 'Its own tests', when: 'earlier',
     words: "Results from earlier runs are saved. They are not rerun against today's code.",
@@ -252,7 +252,7 @@ export const TRACKS = [
     example: 'The MCP tool authority component has four saved passes, the latest from 27 May 2026.',
   },
   {
-    id: 'whole', measure: null, ink: 'unknown', short: 'Whole claim',
+    id: 'whole', measure: null, ink: 'unknown', short: 'Whole claim', wedge: 'Whole claim',
     line: 'How much of its whole claim is covered: unknown for every component.',
     title: 'Whole claim covered?', checker: 'Nobody yet', when: '',
     words: "Nobody has worked out how much of any component's whole claim is covered. That is unknown, not zero.",
@@ -334,12 +334,12 @@ export const CORE_NAMES = {
   views: ['Public views', 'makes reports without private data'],
 };
 
-/** One plain sentence on what a flower is, for a kernel or a core. */
+/** One plain sentence on what a proof dial is, for a kernel or a core. */
 export function flowerWords(p, usedBy) {
   const n = p.verifiedTasks || 0;
   const m = p.mutants.length;
-  return `This flower is one small computation proved correct against written rules. ${usedBy} `
-    + `Its ${n} petals are the ${n} proof checks that passed, and its ${m} ${m === 1 ? 'cross is a broken copy' : 'crosses are broken copies'} the prover rejected.`;
+  return `This dial is one small computation proved correct against written rules. ${usedBy} `
+    + `Its ${n} ${n === 1 ? 'tick is the proof check' : 'ticks are the proof checks'} that passed, and its ${m} ${m === 1 ? 'cross is a broken copy' : 'crosses are broken copies'} the prover rejected.`;
 }
 
 // The doctrine: the written rules the components cite, drawn as the halo

@@ -139,3 +139,30 @@ test('choosing never zooms; a preview never moves the camera or restarts the cho
   f.map.hoverKey(null);
   assert.equal(told.length, 2, 'only a change is told');
 });
+
+test('gestures paint cached frames, one per display frame, then settle with one crisp full paint', async (t) => {
+  const f = fixture(t, false, { skipReveal: true });
+  for (let now = 0; now <= 400; now += 16) f.tick(now);
+  assert.equal(f.pending(), 0);
+  assert.equal(f.map.paintStats().last, 'full');
+  const wheel = () => f.canvas.emit('wheel', { deltaY: -40, offsetX: 450, offsetY: 350, ctrlKey: false, preventDefault() {} });
+  let now = 416;
+  for (let i = 0; i < 4; i += 1) {
+    wheel();
+    assert.ok(f.pending() <= 1, 'one browser frame callback per display frame');
+    const before = f.paints();
+    f.tick(now += 16);
+    assert.ok(f.paints() - before <= 1, 'one canvas paint per display frame');
+    assert.equal(f.map.paintStats().last, 'blit', 'a wheel frame reuses the last crisp frame');
+  }
+  // A change of choice mid-gesture is always painted in full.
+  f.map.select('comp:a');
+  f.tick(now += 16);
+  assert.equal(f.map.paintStats().last, 'full');
+  assert.ok(f.map.paintStats().gesturing);
+  await new Promise((resolve) => setTimeout(resolve, 160));
+  assert.equal(f.map.paintStats().gesturing, false);
+  for (let i = 0; i < 120; i += 1) f.tick(now += 16);
+  assert.equal(f.map.paintStats().last, 'full', 'the gesture settles on a crisp full paint');
+  assert.equal(f.pending(), 0, 'and then stops asking for frames');
+});

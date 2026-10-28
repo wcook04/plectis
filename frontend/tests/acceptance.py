@@ -373,7 +373,7 @@ def main(argv=None):
         page.wait_for_selector(".overview .guide__name")
         check("the overview states the page's purpose once, then reads the map from the centre out",
               page.locator(".overview h1").is_visible()
-              and page.locator(".guide__name").all_text_contents() == ["Flowers", "Components", "Eight rings", "Citations", "Doctrine"]
+              and page.locator(".guide__name").all_text_contents() == ["Proof dials", "Components", "Eight rings", "Citations", "Doctrine"]
               and page.locator(".ring-key .ring-row").count() == 8)
         check("the unfiltered map does not request a hidden catalogue",
               not any("/api/v1/components?" in url for url in map_requests))
