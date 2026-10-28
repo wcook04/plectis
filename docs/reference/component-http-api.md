@@ -27,7 +27,7 @@ material; they do not permit reading those files through this service. Local
 | Route | Result and parameters |
 |---|---|
 | `/api/v1` | Snapshot metadata, graph semantics, limits and evidence boundaries |
-| `/api/v1/overview` | One complete map: enriched component summaries, proof views as `kernels`, public receipts, declared wiring and coverage; no query parameters |
+| `/api/v1/overview` | Complete overview by default; optional `view=map` selects the smaller initial-map projection |
 | `/api/v1/openapi.json` | Standard OpenAPI 3.1 document, without the data envelope |
 | `/api/v1/components` | Component summaries; optional `q`, `family`, `evidence_class`, `real_substrate_disposition`, `truth_accounting_bucket`, `limit`, `cursor` |
 | `/api/v1/components/<organ_id>` | Claim, primary guide, declared replay, modeled subclaims, retained proofs, indexed artifacts and evidence state |
@@ -41,6 +41,8 @@ material; they do not permit reading those files through this service. Local
 | `/api/v1/cores/<core_id>` | One workflow core |
 | `/api/v1/coverage` | Shared index owner's coverage view, with explicit denominators and distinct evidence states |
 | `/api/v1/graph` | Typed neighborhood; required `type`, `id`; optional `depth`, `max_edges`, `direction`, `edge_kind` |
+| `/api/v1/doctrine` | All 49 doctrine rules (axioms, principles, failure modes) with citing components and related rule IDs; unpaged; no query parameters |
+| `/api/v1/doctrine/<rule_id>` | One rule (`AX-n`, `P-n` or `AP-n`): its source statement, axiom routing and support where present, and each component citation |
 
 Component and claim IDs come from the existing component registry and join
 index. This API creates no new registry. Graph type and ID together identify a
@@ -68,14 +70,51 @@ tactic graph is inferred where the index records that structure as deferred.
 The overview is one immutable encoded response compiled at snapshot admission.
 Its component rows preserve every component-summary field and add `proof_ids`,
 `receipt_refs` (the same artifact records as the receipts route), `wires_to`,
-`doctrine_ref_ids` and `route_ids`. `kernels` contains the same proof views as
-`/proofs`; `receipts`, `wiring` and `coverage` preserve the corresponding snapshot
+`doctrine_ref_ids` and `route_ids`. `kernels` contains the proof views with full guide text deferred to
+`/proofs/<proof_id>`; `receipts`, `wiring` and `coverage` preserve the corresponding snapshot
 records. The complete encoded envelope must fit within 8 MiB or admission fails.
 It supports the same HEAD and ETag rules and remains available with a disabled
 response cache. Classification labels and descriptions, when supplied by the
 validated index's explorer metadata, accompany metadata filter values; the HTTP
 layer creates no display-label registry. A supplied source revision remains
 separate from the content-derived snapshot revision.
+
+`GET /api/v1/overview?view=map` selects a smaller precomputed initial-map
+projection from the same snapshot. The default `/overview` response is unchanged.
+The map view omits top-level `receipts` and `wiring`, and the duplicated
+`explorer.receipt_summaries`, `explorer.proof_details` and `explorer.cores`.
+Each component's `receipt_refs` keeps `ref`, `artifact_id`, `availability`,
+`kind`, and `reason` when recorded; its optional summary keeps `created_at`,
+`date_status`, `availability_reason`, and the recorded `status`, `fixture_id`
+and `case_count`. The top-level `cores` records follow the retained
+`explorer.cores` order, which the map reader uses when both lists exist; if that
+list is absent, their existing order is preserved. All other overview values
+are preserved. Full receipt data remains available through the default
+overview and receipt routes.
+
+Only `view=map` is accepted; omitted `view` selects the full response. Empty,
+unsupported, repeated, or additional query parameters return `400
+invalid_parameters`. Both views have precomputed identity and gzip bytes,
+separate representation ETags, and the same snapshot revision. HEAD and
+conditional GET select the requested view and encoding without building a
+projection, serializing JSON, compressing data, or reading source files.
+
+The map includes each component's authored `plain` introduction and its
+`plain_availability`. Component, kernel and workflow-core details carry a
+`guide` with bounded Markdown `text`, its source `ref` and SHA-256. Extraction
+and source binding happen when the index is built. Requests never reopen guide
+files. Older indexes explicitly return unrecorded reader content. The overview
+omits the full guide manifest and sets embedded guide text to null; it preserves
+plain introductions so hovering needs no network request.
+
+Clients may send `Accept-Encoding: gzip`. Identity and deterministic gzip
+representations have distinct strong ETags and `Vary: Accept-Encoding`.
+The overview's compressed bytes are prepared once at snapshot admission;
+other compressed responses share the bounded response cache. A conditional
+request compares the selected representation, and HEAD reports its GET length
+without sending a body. If neither gzip nor identity is accepted, the API
+returns `406 encoding_not_acceptable`. The explorer proxy preserves these
+headers and the original representation length.
 
 The service preindexes IDs, component views and adjacency once at startup.
 Requests perform no filesystem search or current byte checks. Encoded responses
@@ -188,13 +227,70 @@ deadline as well as socket inactivity timeouts. Sending header bytes slowly
 does not renew that deadline. Incomplete timed-out requests are closed; no
 partial request text is reflected in an error or log.
 
-Doctrine graph nodes retain their declared IDs and include `title`, `plain`,
-`kind` and `source_ref` from the index owner. The graph also traverses the
+Doctrine graph nodes retain their declared IDs and carry the index owner's
+doctrine node record (see [Doctrine](#doctrine)). The graph also traverses the
 owner's `rests_on` and `violates` doctrine edges; metadata advertises those
 edge kinds. Available receipt summaries are attached as `summary` on receipt
 records, consistently across paginated receipts and overview receipt refs.
 Component detail exposes requirements-review records and clause coverage as
 separate optional fields. Unknown mapped-clause counts remain `null`.
+
+## Doctrine
+
+The index builder writes `explorer.doctrine` with
+`schema_version: plectis_explorer_doctrine_v2`. `sources` lists `AXIOMS.md`,
+`PRINCIPLES.md`, `ANTI_PRINCIPLES.md`, `core/axiom_organ_routing.json` and
+`core/doctrine_enrichment.json` with the SHA-256 of the bytes read at build time. Each node keeps `id`, `kind`,
+`title`, `plain` and `source_ref`, and adds `statement`: the rule's own section
+of its source file (for a failure mode, its table row under the table header),
+at most 4000 bytes, with `statement_sha256`. A longer section fails the build
+rather than being cut.
+
+Every node has `reader`, copied from the hand-authored
+`core/doctrine_enrichment.json` (`basis: authored_reader_enrichment`): a plain
+reading, an analogy with its mapping and limits, why the rule matters, a likely
+misreading, what it governs, requires and refuses, an example with the
+components it names, a counterexample, `enforced_in_component_ids` and
+`does_not_prove`. This is reader content, not support evidence. In particular
+`enforced_in_component_ids` is the enrichment author's statement of where the
+rule is applied, not a test result or a checked enforcement. Every named
+component must be registered and every rule must have a record, or the build
+fails.
+
+Only axiom nodes have `axiom`. Its `formal_clause`, `lineage`, `anti_axiom`
+and `routing` come from the authored routing registry
+(`routing.basis: authored_routing_registry`). `routing.witness_strength` is a
+hand-stamped label, not a computed result. Each obligation keeps its declared
+status next to `computed_status`, its witness component IDs, surfaces, negative
+case codes and the checker's `witness_gaps` IDs. `support` has
+`basis: index_time_computed`: the build ran
+`microcosm_core.validators.axiom_support_cover` once and records its `checker_id`,
+`verdict`, the hand-stamped strength, whether that stamp can be certified, and
+up to 16 reasons that block a strong claim. The verdict was computed when the
+index was built; the server does not rerun the checker, so it says nothing
+about later source changes. Every witness component ID must be a registered
+component and a checker error fails the build.
+
+`/api/v1/doctrine` returns `rules`, `edges`, `sources` and `counts` (`axiom`,
+`principle`, `anti_principle`, `citations`). Each rule row has `component_ids`:
+the sorted components whose `grounded_in_doctrine` edge names that rule, and
+`cited_by_count`. `witness_component_ids` is the routing registry's list for an
+axiom and empty otherwise. `rests_on` and `violates` list the axioms a principle
+or failure mode names; `principles` and `failure_modes` list, for an axiom, the
+rules naming it. `support_verdict` is the axiom's index-time verdict and `null`
+for other rules. `reader_plain` and `enforced_in_component_ids` repeat the
+node's authored `reader.plain` and `reader.enforced_in_component_ids`.
+
+`/api/v1/doctrine/<rule_id>` returns the full node, the same related lists, and
+`citations`. Each citation has `component_id`, `ref_kind` (`axiom` or
+`principle`), `basis: authored_atlas_row` and a `source_ref` such as
+`core/organ_atlas.json::organs[<organ_id>].axiom_refs`. A citation means the
+component's atlas row lists the rule. It is not a check that the component
+enforces the rule; metadata states this as
+`graph.edge_semantics.grounded_in_doctrine`. A malformed ID returns
+`400 invalid_parameters`, an unknown one `404 unknown_id`. Both routes support
+HEAD and ETag. Metadata reports `doctrine_count`, and the overview's
+`explorer.doctrine` carries the same v2 record.
 
 Optional authored annotations come from `core/component_claim_annotations.json`
 with `schema_version: plectis_component_annotations_v1`. Review records require

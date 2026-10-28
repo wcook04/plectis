@@ -6,7 +6,7 @@ The index owner still validates the complete evidence records at startup.
 """
 from __future__ import annotations
 
-CONTRACT_VERSION = "1.2.0"
+CONTRACT_VERSION = "1.5.0"
 API_SCHEMA = "plectis_component_http_v1"
 API_PREFIX = "/api/v1"
 MAX_PAGE_SIZE = 100
@@ -14,6 +14,9 @@ MAX_GRAPH_DEPTH = 3
 MAX_GRAPH_EDGES = 500
 MAX_SEARCH_LENGTH = 160
 MAX_OVERVIEW_BYTES = 8 * 1024 * 1024
+MAX_GUIDE_BYTES = 256 * 1024
+MAX_PLAIN_BYTES = 8 * 1024
+MAX_GUIDES_BYTES = 1024 * 1024
 CLASSIFICATION_FIELDS = ("family", "evidence_class", "real_substrate_disposition", "truth_accounting_bucket")
 
 
@@ -106,6 +109,17 @@ def openapi_document():
             recorded_fields={"type": "object", "additionalProperties": {"type": ["string", "integer", "boolean"]}}),
         "FilterValue": _object(value=text, component_count={"type": "integer", "minimum": 0}),
     })
+    schemas["Guide"] = _object(ref=text,
+        sha256={"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        text={"type": ["string", "null"], "maxLength": MAX_GUIDE_BYTES},
+        availability={"enum": ["available", "unrecorded"]},
+        plain={"type": ["string", "null"], "maxLength": MAX_PLAIN_BYTES},
+        plain_availability={"enum": ["available", "unrecorded"]})
+    for name in ("Component", "Core", "Proof"):
+        schemas[name]["properties"]["guide"] = _ref("Guide")
+    schemas["ComponentSummary"]["properties"].update(
+        plain={"type": ["string", "null"], "maxLength": MAX_PLAIN_BYTES},
+        plain_availability={"enum": ["available", "unrecorded"]})
     schemas["SourceExcerpt"]["properties"].update(source_sha256=_ref("SnapshotRevision"),
         text_sha256=_ref("SnapshotRevision"))
     schemas["SourceExcerpt"]["required"].extend(["source_sha256", "text_sha256"])
@@ -117,6 +131,7 @@ def openapi_document():
         negative_controls=_array(_ref("NegativeControl")))
     proof_record = {"type": "object", "properties": {
         "component_ids": _array(text), "claim_ids": _array(text),
+        "guide": _ref("Guide"),
         "excerpts": _array(_ref("SourceExcerpt")),
         "negative_controls": _array(_ref("NegativeControl")),
         "retained_verification": {"type": "object", "properties": {
@@ -127,6 +142,7 @@ def openapi_document():
     schemas["Artifact"]["properties"]["summary"] = _ref("ReceiptSummary")
     schemas["Explorer"] = {"type": "object", "properties": {
         "source_revision": _ref("SourceRevision"),
+        "guides": {"type": "object", "maxProperties": 128, "additionalProperties": _ref("Guide")},
         "doctrine": _object(nodes=_array(_ref("DoctrineNode")), edges=_array(_ref("DoctrineEdge"))),
         "cores": _array(_ref("Core")), "ownership_example": record,
         "typed_relations": _object(status=text, edges=_array(_ref("TypedRelation")),
@@ -162,13 +178,74 @@ def openapi_document():
     schemas["Overview"] = _object(components=_array(_ref("OverviewComponent")),
         kernels=_array(_ref("Proof")), receipts=_array(_ref("Artifact")),
         wiring=_array(record), coverage=_ref("Coverage"), cores=_array(_ref("Core")), explorer=_ref("Explorer"), local_runs=_ref("LocalRuns"))
+    schemas["MapReceiptSummary"] = _object(
+        created_at={"type": ["string", "null"]}, date_status={"enum": ["recorded", "unrecorded"]},
+        availability_reason={"type": ["string", "null"]},
+        recorded_fields={"type": "object", "properties": {
+            "status": {"type": ["string", "integer", "boolean"]},
+            "fixture_id": {"type": ["string", "integer", "boolean"]},
+            "case_count": {"type": ["string", "integer", "boolean"]}}})
+    schemas["MapReceiptRef"] = _object(artifact_id=text, ref=text, kind=text,
+        availability={"enum": ["available", "unavailable"]})
+    schemas["MapReceiptRef"]["properties"].update(reason=text, summary=_ref("MapReceiptSummary"))
+    schemas["MapOverviewComponent"] = _object(**{
+        **schemas["OverviewComponent"]["properties"], "receipt_refs": _array(_ref("MapReceiptRef"))})
+    schemas["MapOverview"] = _object(**{
+        key: value for key, value in schemas["Overview"]["properties"].items() if key not in {"receipts", "wiring"}})
+    schemas["MapOverview"]["properties"]["components"] = _array(_ref("MapOverviewComponent"))
+    schemas["MapOverview"]["properties"]["cores"] = {
+        **_array(_ref("Core")), "description": "Top-level core records in retained explorer.cores order when present."}
+    sha = {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+    rule_id = {"type": "string", "pattern": "^(AX|P|AP)-[0-9]{1,3}$"}
+    rule_kind = {"enum": ["axiom", "principle", "anti_principle"]}
+    texts = _array(text)
+    schemas["DoctrineSource"] = _object(ref=text, sha256=sha)
+    schemas["AxiomObligation"] = _object(obligation_id=text, predicate=text, required={"type": "boolean"},
+        declared_status=text, computed_status=text, witness_component_ids=texts,
+        witness_surfaces=texts, negative_case_codes=texts, witness_gaps=texts)
+    schemas["AxiomDetail"] = _object(formal_clause=text, lineage=texts, anti_axiom=text,
+        routing=_object(basis={"const": "authored_routing_registry"}, source_ref=text, witness_strength=text,
+            witness_component_ids=texts, witness_surfaces=texts, negative_case_codes=texts),
+        obligations=_array(_ref("AxiomObligation")),
+        support=_object(basis={"const": "index_time_computed"}, checker_id=text, verdict=text,
+            hand_stamped_witness_strength=text, hand_stamped_strong_not_certifiable={"type": "boolean"},
+            strong_blocked_reasons=texts))
+    schemas["DoctrineReader"] = _object(basis={"const": "authored_reader_enrichment"}, source_ref=text,
+        plain=text, analogy=_object(text=text, maps=_array(_object(doctrine=text, analogy=text)), boundary=text),
+        why_it_matters=text, potential_misread=text, governs=text, requires=text, refuses=text,
+        example=_object(text=text, component_ids=texts), counterexample=text,
+        enforced_in_component_ids=texts, does_not_prove=text)
+    schemas["DoctrineNode"]["properties"].update(id=rule_id, kind=rule_kind, reader=_ref("DoctrineReader"),
+        statement={"type": "string", "maxLength": 4000}, statement_sha256=sha, axiom=_ref("AxiomDetail"))
+    schemas["DoctrineNode"]["required"].extend(["statement", "statement_sha256", "reader"])
+    related = {"rests_on": _array(rule_id), "violates": _array(rule_id),
+               "principles": _array(rule_id), "failure_modes": _array(rule_id)}
+    schemas["DoctrineRule"] = _object(id=rule_id, kind=rule_kind, title=text, plain=text, source_ref=text,
+        component_ids=texts, cited_by_count={"type": "integer", "minimum": 0},
+        witness_component_ids=texts, **related, support_verdict={"type": ["string", "null"]},
+        reader_plain=text, enforced_in_component_ids=texts)
+    schemas["DoctrineCitation"] = _object(component_id=text, ref_kind={"enum": ["axiom", "principle"]},
+        basis={"const": "authored_atlas_row"}, source_ref=text)
+    schemas["Doctrine"] = _object(rules=_array(_ref("DoctrineRule")), edges=_array(_ref("DoctrineEdge")),
+        sources=_array(_ref("DoctrineSource")), counts=_object(**{key: {"type": "integer", "minimum": 0}
+            for key in ("axiom", "principle", "anti_principle", "citations")}))
+    schemas["DoctrineRuleDetail"] = {"allOf": [_ref("DoctrineNode"), _object(component_ids=texts,
+        cited_by_count={"type": "integer", "minimum": 0}, citations=_array(_ref("DoctrineCitation")), **related)]}
+    schemas["Explorer"]["properties"]["doctrine"] = _object(schema_version={"const": "plectis_explorer_doctrine_v2"},
+        sources=_array(_ref("DoctrineSource")), nodes=_array(_ref("DoctrineNode")), edges=_array(_ref("DoctrineEdge")))
+    schemas["Metadata"]["properties"]["doctrine_count"] = {"type": "integer", "minimum": 0}
+    for name in ("Doctrine", "DoctrineRuleDetail"):
+        schemas[name + "Response"] = _object(schema_version={"const": API_SCHEMA},
+                                              snapshot_revision=_ref("SnapshotRevision"), data=_ref(name))
     schemas["Error"]["properties"]["snapshot_revision"] = _ref("SnapshotRevision")
     for name in ("ComponentSummary", "Claim", "Proof", "Artifact", "Core"):
         schemas[name + "Page"] = _page(_ref(name))
     for name in ("Metadata", "ComponentSummaryPage", "Component", "ClaimPage", "Claim",
-                 "ProofPage", "Proof", "ArtifactPage", "Coverage", "Graph", "Overview", "CorePage", "Core", "LocalRuns"):
+                 "ProofPage", "Proof", "ArtifactPage", "Coverage", "Graph", "Overview", "MapOverview", "CorePage", "Core", "LocalRuns"):
         schemas[name + "Response"] = _object(schema_version={"const": API_SCHEMA},
                                               snapshot_revision=_ref("SnapshotRevision"), data=_ref(name))
+
+    schemas["OverviewSelectionResponse"] = {"anyOf": [_ref("OverviewResponse"), _ref("MapOverviewResponse")]}
 
     def parameter(name, schema, description="", *, required=False, location="query"):
         return {"name": name, "in": location, "required": required,
@@ -182,7 +259,8 @@ def openapi_document():
                          for name in CLASSIFICATION_FIELDS]
     routes = [
         ("", "metadata", "MetadataResponse", []),
-        ("/overview", "overview", "OverviewResponse", []),
+        ("/overview", "overview", "OverviewSelectionResponse", [parameter("view", {"enum": ["map"]},
+            "Omit for the complete overview. map removes duplicated collections and limits receipt summaries to map fields.")]),
         ("/components", "listComponents", "ComponentSummaryPageResponse", [
             *filter_parameters, parameter("q", {"type": "string", "minLength": 1, "maxLength": MAX_SEARCH_LENGTH},
                 "Trimmed, case-insensitive literal substring of ID, title or summary. No regex or ranking."), *pagination]),
@@ -200,6 +278,9 @@ def openapi_document():
         ("/cores/{core_id}", "getCore", "CoreResponse", [
             parameter("core_id", {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}, required=True, location="path")]),
         ("/coverage", "coverage", "CoverageResponse", []),
+        ("/doctrine", "listDoctrine", "DoctrineResponse", []),
+        ("/doctrine/{rule_id}", "getDoctrineRule", "DoctrineRuleDetailResponse", [
+            parameter("rule_id", {"type": "string", "pattern": "^(AX|P|AP)-[0-9]{1,3}$"}, required=True, location="path")]),
         ("/graph", "graph", "GraphResponse", [
             parameter("type", text, "Use a node type declared in metadata.graph.", required=True),
             parameter("id", {"type": "string", "maxLength": 1000}, required=True),
@@ -218,6 +299,7 @@ def openapi_document():
         errors = {str(code): {"description": description, "content": {"application/json": {"schema": _ref("Error")}}}
                   for code, description in ((400, "Malformed ID, parameters or cursor."),
                       (404, "Unknown route or resource."), (405, "Only GET and HEAD are supported."),
+                      (406, "No acceptable response encoding."),
                       (409, "Snapshot changed; restart pagination."), (500, "Bounded internal error."))}
         head_responses = {key: {k: v for k, v in value.items() if k != "content"}
                           for key, value in {"200": success, **errors}.items()}

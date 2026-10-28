@@ -11,6 +11,7 @@ import base64
 from collections import OrderedDict, defaultdict, deque
 import copy
 import hashlib
+import gzip
 import ipaddress
 import io
 import json
@@ -42,6 +43,9 @@ _LABEL = re.compile(r"[a-z][a-z0-9_]*\Z")
 _CORE = re.compile(r"[a-z][a-z0-9_]*\Z")
 _PROOF = re.compile(r"proof::dafny::[a-z][a-z0-9_]*\Z")
 _CLAIM = re.compile(r"claim::[a-z][a-z0-9_]*\Z")
+_RULE = re.compile(r"(?:AX|P|AP)-[0-9]{1,3}\Z")
+_RULE_KINDS = ("axiom", "principle", "anti_principle")
+_CITATION_FIELDS = {"axiom": "axiom_refs", "principle": "principle_refs"}
 _BAD_ESCAPE = re.compile(r"%(?![a-fA-F0-9]{2})")
 _ABSOLUTE = re.compile(r"(?<![A-Za-z0-9_./])/[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*")
 _ID_FIELD = {"organ": "organ_id", "claim": "claim_id", "source_file": "path",
@@ -54,6 +58,39 @@ _ID_FIELD = {"organ": "organ_id", "claim": "claim_id", "source_file": "path",
 def _json(value):
     return json.dumps(value, sort_keys=True, separators=(",", ":"),
                       ensure_ascii=True, allow_nan=False).encode("utf-8")
+
+
+def _response_encoding(value):
+    """Select an accepted representation; absent negotiation means identity."""
+    if not value:
+        return "identity"
+    if len(value) > 2048:
+        _bad("encoding header exceeds permitted length")
+    qualities = {}
+    for entry in value.split(","):
+        token, *parameters = entry.lower().strip().split(";")
+        quality = 1.0
+        for parameter in parameters:
+            name, sep, raw = parameter.strip().partition("=")
+            if name == "q" and sep:
+                if not re.fullmatch(r"(?:0(?:\.[0-9]{0,3})?|1(?:\.0{0,3})?)", raw):
+                    quality = 0.0
+                else:
+                    quality = float(raw)
+        qualities[token.strip()] = quality
+    gz = qualities.get("gzip", qualities.get("*", 0.0))
+    identity = qualities.get("identity", 0.0 if qualities.get("*") == 0 else 1.0)
+    if gz > 0 and ("identity" not in qualities or gz >= identity):
+        return "gzip"
+    if identity > 0:
+        return "identity"
+    raise APIError(406, "encoding_not_acceptable", "accept gzip or identity encoding")
+
+
+def _encoded_response(body, encoding):
+    if encoding == "gzip":
+        body = gzip.compress(body, compresslevel=6, mtime=0)
+    return body, '"' + hashlib.sha256(body).hexdigest() + '"'
 
 
 class APIError(Exception):
@@ -77,6 +114,104 @@ def _number(value, default, maximum):
 
 def _edge_key(edge):
     return tuple(sorted(edge.items()))
+
+
+def _rule_key(identity):
+    prefix, _, number = identity.partition("-")
+    return (prefix, int(number))
+
+
+def _doctrine_views(index):
+    """Precompute rule rows and details from validated doctrine and citation edges."""
+    doctrine = index.get("explorer", {}).get("doctrine", {})
+    nodes = doctrine.get("nodes", [])
+    kinds = {row["id"]: row["kind"] for row in nodes}
+    citations = defaultdict(list)
+    for edge in index["edges"]:
+        if (edge["kind"] == "grounded_in_doctrine" and edge["to"] in kinds
+                and edge.get("ref_kind") in _CITATION_FIELDS):
+            citations[edge["to"]].append({
+                "component_id": edge["from"], "ref_kind": edge["ref_kind"],
+                "basis": "authored_atlas_row",
+                "source_ref": "core/organ_atlas.json::organs[{}].{}".format(
+                    edge["from"], _CITATION_FIELDS[edge["ref_kind"]])})
+    related = {identity: {"rests_on": set(), "violates": set(), "principles": set(), "failure_modes": set()}
+               for identity in kinds}
+    for edge in doctrine.get("edges", []):
+        source, target = edge["from_id"], edge["to_id"]
+        if edge["kind"] == "rests_on":
+            related[source]["rests_on"].add(target)
+            related[target]["principles"].add(source)
+        else:
+            related[source]["violates"].add(target)
+            related[target]["failure_modes"].add(source)
+    rules, details = [], {}
+    for node in nodes:
+        identity = node["id"]
+        cited = sorted(citations[identity], key=lambda row: (row["component_id"], row["ref_kind"]))
+        component_ids = sorted({row["component_id"] for row in cited})
+        lists = {key: sorted(value, key=_rule_key) for key, value in related[identity].items()}
+        axiom = node.get("axiom")
+        rules.append({**{key: node[key] for key in ("id", "kind", "title", "plain", "source_ref")},
+                      "component_ids": component_ids, "cited_by_count": len(component_ids),
+                      "witness_component_ids": list(axiom["routing"]["witness_component_ids"]) if axiom else [],
+                      **lists, "support_verdict": axiom["support"]["verdict"] if axiom else None,
+                      "reader_plain": node["reader"]["plain"],
+                      "enforced_in_component_ids": list(node["reader"]["enforced_in_component_ids"])})
+        details[identity] = {**copy.deepcopy(node), "component_ids": component_ids,
+                             "cited_by_count": len(component_ids), "citations": cited, **lists}
+    counts = {kind: sum(1 for row in nodes if row["kind"] == kind) for kind in _RULE_KINDS}
+    counts["citations"] = sum(len(rows) for rows in citations.values())
+    listing = {"rules": rules, "edges": copy.deepcopy(doctrine.get("edges", [])),
+               "sources": copy.deepcopy(doctrine.get("sources", [])), "counts": counts}
+    return listing, details
+
+
+def _overview_record(record):
+    """Retain guide identity and plain lead; full Markdown belongs to detail."""
+    result = dict(record)
+    if isinstance(result.get("guide"), dict):
+        result["guide"] = {**result["guide"], "text": None}
+    if isinstance(result.get("proof"), dict):
+        result["proof"] = _overview_record(result["proof"])
+    return result
+
+
+def _overview_explorer(explorer):
+    result = {key: value for key, value in explorer.items() if key != "guides"}
+    if "cores" in result:
+        result["cores"] = [_overview_record(row) for row in result["cores"]]
+    return result
+
+
+def _map_receipt(receipt):
+    """Keep only the receipt identity and recorded facts read by the map."""
+    result = {key: value for key, value in receipt.items()
+              if key in {"ref", "artifact_id", "availability", "kind", "reason"}}
+    if "summary" in receipt:
+        summary = receipt["summary"]
+        result["summary"] = {key: value for key, value in summary.items()
+                             if key in {"created_at", "date_status", "availability_reason"}}
+        result["summary"]["recorded_fields"] = {
+            key: value for key, value in summary["recorded_fields"].items()
+            if key in {"status", "fixture_id", "case_count"}}
+    return result
+
+
+def _map_overview(overview):
+    """Project the initial map payload once; the complete overview stays intact."""
+    result = {key: value for key, value in overview.items() if key not in {"receipts", "wiring"}}
+    result["components"] = [{**row, "receipt_refs": [_map_receipt(receipt) for receipt in row["receipt_refs"]]}
+                            for row in overview["components"]]
+    retained_cores = overview["explorer"].get("cores", [])
+    if retained_cores:
+        # The map reader gives explorer.cores precedence. Preserve that order
+        # when replacing the duplicate with the enriched top-level records.
+        cores_by_id = {row["core_id"]: row for row in overview["cores"]}
+        result["cores"] = [cores_by_id[row["core_id"]] for row in retained_cores]
+    result["explorer"] = {key: value for key, value in overview["explorer"].items()
+                          if key not in {"receipt_summaries", "proof_details", "cores"}}
+    return result
 
 
 def _public_text(value, field=""):
@@ -163,8 +298,7 @@ class ComponentSnapshot:
         receipt_ids = {edge[side] for edge in index["edges"] for side in ("from", "to")
                        if edge[side + "_type"] == "receipt"}
         self.receipts_by_component = {}
-        for key, encoded in self.components.items():
-            view = json.loads(encoded)
+        for key, view in views["by_component"].items():
             refs = view["claim"]["card"]["evidence"]
             self.receipts_by_component[key] = tuple(sorted({refs["authority_receipt_ref"],
                                                           *refs["historical_receipt_refs"]}))
@@ -172,39 +306,51 @@ class ComponentSnapshot:
             receipt_ids.update(self.receipts_by_component[key])
         receipt_summaries = {row["ref"]: row for row in
                              index.get("explorer", {}).get("receipt_summaries", [])}
-        self.receipts = {key: _json({**artifacts[key], **(
-            {"summary": receipt_summaries[key]} if key in receipt_summaries else {})})
+        receipt_views = {key: {**artifacts[key], **(
+            {"summary": receipt_summaries[key]} if key in receipt_summaries else {})}
                          for key in sorted(receipt_ids)}
+        self.receipts = {key: _json(value) for key, value in receipt_views.items()}
         self.cores = {key: _json(value) for key, value in views.get("cores", {}).items()}
         self.coverage = _json(views["coverage"])
+        doctrine_listing, doctrine_details = _doctrine_views(index)
+        self.doctrine = _json(doctrine_listing)
+        self.rules = {key: _json(value) for key, value in doctrine_details.items()}
+        outgoing_by_component, routes_by_component = defaultdict(list), defaultdict(set)
+        for edge in index["edges"]:
+            if edge["from_type"] == "organ":
+                outgoing_by_component[edge["from"]].append(edge)
+            if edge["from_type"] == "route" and edge["to_type"] == "organ":
+                routes_by_component[edge["to"]].add(edge["from"])
+        summary_by_id = {row["organ_id"]: row for row in summaries}
         overview_components = []
         for identity in self.ids:
-            row = json.loads(self.summaries[identity])
-            view = json.loads(self.components[identity])
-            outgoing = [edge for edge in index["edges"]
-                        if edge["from_type"] == "organ" and edge["from"] == identity]
+            row = dict(summary_by_id[identity])
+            view = views["by_component"][identity]
+            outgoing = outgoing_by_component[identity]
             row.update(proof_ids=[item["proof"]["proof_id"] for item in view["proofs"]],
-                       receipt_refs=[json.loads(self.receipts[key])
+                       receipt_refs=[receipt_views[key]
                                      for key in self.receipts_by_component[identity]],
                        wires_to=sorted(edge["to"] for edge in outgoing if edge["kind"] == "wires_to"),
                        doctrine_ref_ids=sorted({edge["to"] for edge in outgoing
                                                 if edge["to_type"] == "doctrine_ref"}),
-                       route_ids=sorted({edge["from"] for edge in index["edges"]
-                                         if edge["from_type"] == "route" and
-                                         edge["to_type"] == "organ" and edge["to"] == identity}))
+                       route_ids=sorted(routes_by_component[identity]))
             overview_components.append(row)
         overview = {"components": overview_components,
-                    "kernels": [json.loads(self.proofs[key]) for key in sorted(self.proofs)],
-                    "receipts": [json.loads(self.receipts[key]) for key in sorted(self.receipts)],
+                    "kernels": [_overview_record(views["by_proof"][key]) for key in sorted(self.proofs)],
+                    "receipts": [receipt_views[key] for key in sorted(self.receipts)],
                     "wiring": [dict(edge) for edge in index["edges"] if edge["kind"] == "wires_to"],
                     "coverage": views["coverage"],
-                    "cores": [json.loads(self.cores[key]) for key in sorted(self.cores)],
+                    "cores": [_overview_record(views["cores"][key]) for key in sorted(self.cores)],
                     "local_runs": local_runs,
-                    "explorer": views.get("explorer", index.get("explorer", {}))}
+                    "explorer": _overview_explorer(views.get("explorer", index.get("explorer", {})))}
         self.overview = _json(self.envelope(overview))
         if len(self.overview) > MAX_OVERVIEW_BYTES:
             raise ValueError("component overview exceeds encoded response limit")
         self.overview_etag = '"' + hashlib.sha256(self.overview).hexdigest() + '"'
+        self.overview_gzip, self.overview_gzip_etag = _encoded_response(self.overview, "gzip")
+        self.map_overview, self.map_overview_etag = _encoded_response(
+            _json(self.envelope(_map_overview(overview))), "identity")
+        self.map_overview_gzip, self.map_overview_gzip_etag = _encoded_response(self.map_overview, "gzip")
         doctrine_edges = [{"kind": row["kind"], "from_type": "doctrine_ref",
                            "from": row["from_id"], "to_type": "doctrine_ref", "to": row["to_id"],
                            "source_ref": row["source_ref"]} for row in doctrine.get("edges", [])]
@@ -262,12 +408,13 @@ class ComponentSnapshot:
         self.metadata["local_runs"] = {key: value for key, value in local_runs.items() if key != "runs"}
         self.metadata["local_runs"]["run_count"] = len(local_runs["runs"])
         self.metadata["core_count"] = len(self.cores)
+        self.metadata["doctrine_count"] = len(self.rules)
         self.metadata = _json(self.metadata)
         self.edges = tuple(MappingProxyType(edge) for edge in self.edges)
         self.filters = {key: MappingProxyType({value: frozenset(ids) for value, ids in lookup.items()})
                         for key, lookup in self.filters.items()}
         for name in ("components", "summaries", "claims", "proofs", "filters",
-                     "nodes", "receipts", "receipts_by_component", "adjacency", "cores"):
+                     "nodes", "receipts", "receipts_by_component", "adjacency", "cores", "rules"):
             setattr(self, name, MappingProxyType(getattr(self, name)))
         self._sealed = True
 
@@ -399,6 +546,9 @@ def _dispatch(snapshot, path, query):
     if path == API_PREFIX + "/coverage":
         _allowed(query, {})
         return json.loads(snapshot.coverage)
+    if path == API_PREFIX + "/doctrine":
+        _allowed(query, {})
+        return json.loads(snapshot.doctrine)
     parts = path.removeprefix(API_PREFIX + "/").split("/")
     if not path.startswith(API_PREFIX + "/") or len(parts) not in (1, 2):
         raise APIError(404, "not_found", "unknown API route")
@@ -408,7 +558,7 @@ def _dispatch(snapshot, path, query):
         identity = parts[1]
         stores = {"components": (snapshot.components, _LABEL),
                   "claims": (snapshot.claims, _CLAIM), "proofs": (snapshot.proofs, _PROOF),
-                  "cores": (snapshot.cores, _CORE)}
+                  "cores": (snapshot.cores, _CORE), "doctrine": (snapshot.rules, _RULE)}
         if resource not in stores:
             raise APIError(404, "not_found", "unknown API route")
         store, pattern = stores[resource]
@@ -488,19 +638,27 @@ class ComponentApplication:
                     or any(ord(c) < 32 or ord(c) > 126 for c in path)):
                 _bad("malformed API path")
             query = _parameters(environ.get("QUERY_STRING", ""))
-            key = (snapshot.revision, path, tuple(sorted(query.items())))
+            encoding = _response_encoding(environ.get("HTTP_ACCEPT_ENCODING", ""))
+            key = (snapshot.revision, path, tuple(sorted(query.items())), encoding)
             with self._lock:
                 cached = self._cache.get(key)
                 if cached is not None:
                     self._cache.move_to_end(key)
             if path == API_PREFIX + "/overview":
-                _allowed(query, {})
-                cached = (snapshot.overview, snapshot.overview_etag)
+                _allowed(query, {"view"})
+                if "view" in query and query["view"] != "map":
+                    _bad("unsupported overview view")
+                if query.get("view") == "map":
+                    cached = ((snapshot.map_overview_gzip, snapshot.map_overview_gzip_etag) if encoding == "gzip"
+                              else (snapshot.map_overview, snapshot.map_overview_etag))
+                else:
+                    cached = ((snapshot.overview_gzip, snapshot.overview_gzip_etag) if encoding == "gzip"
+                              else (snapshot.overview, snapshot.overview_etag))
             if cached is None:
                 data = _dispatch(snapshot, path, query)
                 # Tooling consumes a standard OpenAPI document, not our data envelope.
                 body = _json(data if path == API_PREFIX + "/openapi.json" else snapshot.envelope(data))
-                etag = '"' + hashlib.sha256(body).hexdigest() + '"'
+                body, etag = _encoded_response(body, encoding)
                 cached = (body, etag)
                 with self._lock:
                     if self._snapshot is snapshot and self._cache_size and len(body) <= self._cache_bytes:
@@ -512,7 +670,10 @@ class ComponentApplication:
                         while len(self._cache) > self._cache_size or self._cached_bytes > self._cache_bytes:
                             self._cached_bytes -= len(self._cache.popitem(last=False)[1][0])
             body, etag = cached
-            headers.extend([("ETag", etag), ("Cache-Control", "public, max-age=0, must-revalidate")])
+            headers.extend([("ETag", etag), ("Cache-Control", "public, max-age=0, must-revalidate"),
+                            ("Vary", "Accept-Encoding")])
+            if encoding == "gzip":
+                headers.append(("Content-Encoding", "gzip"))
             incoming = environ.get("HTTP_IF_NONE_MATCH", "")
             if incoming and len(incoming) <= 2048 and any(
                     token.strip().removeprefix("W/") in {etag, "*"} for token in incoming.split(",")):
@@ -530,7 +691,7 @@ class ComponentApplication:
                                       "error": {"code": "internal_error", "message": "request could not be completed"}})
             headers.append(("Cache-Control", "no-store"))
         phrases = {200: "OK", 304: "Not Modified", 400: "Bad Request", 404: "Not Found",
-                   405: "Method Not Allowed", 409: "Conflict", 500: "Internal Server Error"}
+                   405: "Method Not Allowed", 406: "Not Acceptable", 409: "Conflict", 500: "Internal Server Error"}
         headers.extend([("X-Content-Type-Options", "nosniff"),
                         ("X-Plectis-Snapshot-Revision", snapshot.revision)])
         if status != 304:

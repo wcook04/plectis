@@ -531,6 +531,18 @@ def load_index(root=None):
     return validate_index(read_json_strict(base / INDEX_REF))
 
 
+def _guide_view_validated(index, ref, **extra):
+    retained = index.get("explorer", {}).get("guides", {}).get(ref)
+    if retained is not None:
+        return {**extra, **copy.deepcopy(retained)}
+    digest = next((row.get("sha256") for row in index["nodes"]["artifact"] if row["ref"] == ref), None)
+    if digest is None:
+        digest = next((binding["sha256"] for core in index.get("explorer", {}).get("cores", [])
+                       for binding in core["artifact_bindings"] if binding["ref"] == ref), None)
+    return {**extra, "ref": ref, "sha256": digest, "text": None, "availability": "unrecorded",
+            "plain": None, "plain_availability": "unrecorded"}
+
+
 def _list_components_validated(index, *, evidence_class=None, family=None):
     organs = _by(index["nodes"]["organ"], "organ_id")
     rows = []
@@ -539,7 +551,9 @@ def _list_components_validated(index, *, evidence_class=None, family=None):
             continue
         if family is not None and organs[row["organ_id"]].get("family") != family:
             continue
-        rows.append({"organ_id": row["organ_id"], "claim_id": row["claim_id"],
+        guide = index.get("explorer", {}).get("guides", {}).get(row["card"]["primary_guide_ref"], {})
+        rows.append({"plain": guide.get("plain"), "plain_availability": guide.get("plain_availability", "unrecorded"),
+                     "organ_id": row["organ_id"], "claim_id": row["claim_id"],
                      "title": row["card"]["title"], "summary": row["card"]["summary"],
                      "evidence_class": row["evidence_class"], "formal_subclaim_ids": row["card"]["formal_subclaim_ids"]})
     return copy.deepcopy(sorted(rows, key=lambda row: row["organ_id"]))
@@ -569,14 +583,17 @@ def _proof_view_validated(index, proof_id):
     component_ids = sorted(claim["organ_id"] for claim in claims)
     claim_ids = sorted(claim["claim_id"] for claim in claims)
     proof = copy.deepcopy(row)
-    proof.update(component_ids=component_ids, claim_ids=claim_ids)
+    guide_ref = next(contract["formal_readme_ref"] for contract in index["nodes"]["subclaim"]
+                     if contract["subclaim_id"] in subclaim_ids)
+    guide = _guide_view_validated(index, guide_ref)
+    proof.update(component_ids=component_ids, claim_ids=claim_ids, guide=guide)
     details = index.get("explorer", {}).get("proof_details", {}).get(proof_id, {})
     if details:
         proof["excerpts"] = copy.deepcopy(details["excerpts"])
         proof["retained_verification"].update(copy.deepcopy(details["retained_verification_details"]))
         for control in proof["negative_controls"]:
             control.update(copy.deepcopy(details["negative_control_details"][control["source_ref"]]))
-    return {"proof": proof, "component_ids": component_ids, "claim_ids": claim_ids,
+    return {"proof": proof, "guide": copy.deepcopy(guide), "component_ids": component_ids, "claim_ids": claim_ids,
             "index_state": "retained_generated_snapshot",
             "modeled_contracts": contracts,
             "current_backend_binding": {"status": "not_checked"},
@@ -608,7 +625,7 @@ def _get_component_validated(index, organ_id):
     artifacts = [copy.deepcopy(row) for row in nodes["artifact"] if row["artifact_id"] in references]
     return {"component_id": organ_id, "claim": claim,
             **copy.deepcopy(component_annotation_view(index, organ_id)),
-            "guide": copy.deepcopy(next(row for row in nodes["guide"] if row["guide_id"] == claim["card"]["primary_guide_id"])),
+            "guide": _guide_view_validated(index, claim["card"]["primary_guide_ref"], guide_id=claim["card"]["primary_guide_id"]),
             "replay": copy.deepcopy(next(row for row in nodes["replay"] if row["organ_id"] == organ_id)),
             "subclaims": copy.deepcopy(subclaims), "proofs": [_proof_view_validated(index, key) for key in sorted(proof_ids)],
             "artifacts": artifacts,
@@ -647,7 +664,8 @@ def compile_views(index):
             "by_proof": {row["proof_id"]: _proof_view_validated(index, row["proof_id"])
                          for row in index["nodes"]["proof"]},
             "coverage": copy.deepcopy(_coverage_from_facets(index)),
-            "cores": {row["core_id"]: copy.deepcopy(row) for row in index.get("explorer", {}).get("cores", [])},
+            "cores": {row["core_id"]: {**copy.deepcopy(row), "guide": _guide_view_validated(index, row["guide_ref"])}
+                      for row in index.get("explorer", {}).get("cores", [])},
             "explorer": copy.deepcopy(index.get("explorer", {}))}
 
 
