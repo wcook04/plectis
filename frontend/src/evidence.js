@@ -176,6 +176,7 @@ export function count(n, noun, plural = `${noun}s`) {
 export const TRACKS = [
   {
     id: 'proof', measure: 'retained_proof_metadata', ink: 'ran', short: 'Proved', wedge: 'Proved',
+    lay: 'A small part of it is proved',
     line: 'One small computation inside it is proved in Dafny.',
     title: 'Proved with Dafny', checker: 'Dafny prover', when: 'saved result',
     words: 'A small computation inside the component is proved to follow its written rules.',
@@ -187,6 +188,7 @@ export const TRACKS = [
   },
   {
     id: 'variants', measure: 'source_linked_mutation_controls', ink: 'ran', short: 'Broken versions caught', wedge: 'Broken caught',
+    lay: 'Broken copies failed the proof',
     line: 'Copies with one deliberate mistake were rejected by the prover.',
     title: 'Broken versions caught', checker: 'Dafny prover', when: 'saved result',
     words: 'Copies of that computation with one deliberate mistake were rejected by the prover, so the rules really do constrain the code.',
@@ -198,6 +200,7 @@ export const TRACKS = [
   },
   {
     id: 'bound', measure: 'index_time_hash_bindings', ink: 'ran', short: 'Code matches proof', wedge: 'Matches proof',
+    lay: 'The code it runs is the proved code',
     line: "The running code matched the proved code's fingerprint.",
     title: 'Running code matches the proof', checker: 'SHA-256 fingerprints', when: 'when the snapshot was made',
     words: 'The code that runs is the code the proof was about: their fingerprints matched.',
@@ -209,6 +212,7 @@ export const TRACKS = [
   },
   {
     id: 'caller', measure: 'generated_runtime_bindings', ink: 'stated', short: 'Calls proved code', wedge: 'Calls proved',
+    lay: 'Its own code calls proved code',
     line: 'Its own code calls the proved computation directly.',
     title: 'Calls the proved code', checker: 'Link in the source', when: 'declared',
     words: "The component's own code calls the proved computation directly.",
@@ -220,6 +224,7 @@ export const TRACKS = [
   },
   {
     id: 'lean', measure: 'historical_lean_receipt_observations', ink: 'ran', short: 'Lean run', wedge: 'Lean run',
+    lay: 'Lean checked an example proof',
     line: 'A past run saved Lean accepting an example proof.',
     title: 'Lean proof run saved', checker: 'Lean', when: 'past run',
     words: 'A past run saved the Lean proof checker accepting a proof. That is not a proof about the component\'s own code.',
@@ -231,6 +236,7 @@ export const TRACKS = [
   },
   {
     id: 'replay', measure: 'configured_replay_routes', ink: 'stated', short: 'Rerun set up', wedge: 'Rerun set up',
+    lay: 'A rerun is set up, not run here',
     line: 'A rerun is configured for it; none is run here.',
     title: 'Rerun set up', checker: 'Replay checker', when: 'set up, not run here',
     words: 'Everything needed to rerun the component is declared, and the replay checker at the centre would judge the rerun. Nothing has been rerun here.',
@@ -242,6 +248,7 @@ export const TRACKS = [
   },
   {
     id: 'saved', measure: 'available_authority_artifacts', ink: 'saved', short: 'Past runs', wedge: 'Past runs',
+    lay: 'Earlier test results are saved',
     line: 'Results of its earlier test runs are available.',
     title: 'Past runs saved', checker: 'Its own tests', when: 'earlier',
     words: "Results from earlier runs are saved. They are not rerun against today's code.",
@@ -253,6 +260,7 @@ export const TRACKS = [
   },
   {
     id: 'whole', measure: null, ink: 'unknown', short: 'Whole claim', wedge: 'Whole claim',
+    lay: 'How much of its claim is checked',
     line: 'How much of its whole claim is covered: unknown for every component.',
     title: 'Whole claim covered?', checker: 'Nobody yet', when: '',
     words: "Nobody has worked out how much of any component's whole claim is covered. That is unknown, not zero.",

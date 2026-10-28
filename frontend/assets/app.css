@@ -915,3 +915,9 @@ a.ref:hover { text-decoration: underline; }
 .mapfact--threat { background: color-mix(in srgb, var(--m-threat) 9%, transparent); border-left-color: var(--m-threat); }
 .citers--threat .citers__bar i.on { background: var(--m-threat); }
 .row__via { margin-left: auto; padding-left: 0.6rem; font-size: 0.78rem; color: var(--m-threat); white-space: nowrap; }
+
+/* The ring key in plain words: one short sentence per ring, on one line
+   (the wedge on the map carries each ring's name). */
+.ringkey__title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.45rem; font-size: 0.78rem; color: var(--ink); }
+.ringkey__sub { font-weight: 400; color: var(--muted); }
+.ringkey__name { white-space: nowrap; }

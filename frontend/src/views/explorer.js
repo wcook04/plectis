@@ -58,7 +58,9 @@ export async function mountExplorer(root, { url, navigate, signal }) {
   const ringKey = h('div', { class: 'explorer__rings' },
     ringKeyChip,
     h('div', { class: 'ringkey__panel', id: 'ringkey-panel' },
-      h('p', { class: 'ringkey__title', id: 'ringkey-title' }, 'Rings, from each component outward'),
+      // The map names each ring in the wedge; here each line says, in plain
+      // words and on one line, what a filled cell in that ring means.
+      h('p', { class: 'ringkey__title', id: 'ringkey-title' }, 'What a filled cell means', h('span', { class: 'ringkey__sub' }, 'from the component outward')),
       h('ol', { class: 'ringkey', 'aria-labelledby': 'ringkey-title', reversed: true },
         [...TRACKS].reverse().map((t) => {
           const n = h('span', { class: 'ringkey__n figures' });
@@ -69,7 +71,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
             onclick: () => openExplainer(t.id),
             onpointerenter: () => { if (!pinnedTrack) map?.emphasise(t.id); },
             onpointerleave: () => { if (!pinnedTrack) map?.emphasise(null); },
-          }, h('span', { class: 'ringkey__no figures' }, ordinal(TRACKS.indexOf(t))), swatch(t, t.ink === 'unknown' ? 'unknown' : 'has'), h('span', { class: 'ringkey__name' }, t.short), n);
+          }, h('span', { class: 'ringkey__no figures' }, ordinal(TRACKS.indexOf(t))), swatch(t, t.ink === 'unknown' ? 'unknown' : 'has'), h('span', { class: 'ringkey__name' }, t.lay || t.short), n);
         })),
       h('p', { class: 'ringkey__base' }, h('span', { class: 'ringkey__mark', 'aria-hidden': 'true' }), 'The component'),
       h('button', { type: 'button', class: 'ringkey__more', onclick: () => openExplainer() }, 'What do these mean?')));
