@@ -909,3 +909,9 @@ a.ref:hover { text-decoration: underline; }
 /* The pointer arm's swatch in the key window: a fine rule with an index
    notch, as the map draws it. */
 .explain__arm { display: inline-block; flex: none; width: 22px; height: 12px; margin-top: 4px; background: linear-gradient(var(--muted), var(--muted)) center / 100% 1px no-repeat, linear-gradient(var(--muted), var(--muted)) right center / 1.5px 9px no-repeat; }
+
+/* A failure mode's reach is exposure, derived through its axioms: the card's
+   fact and its family strips take the threat ink, never the citation ink. */
+.mapfact--threat { background: color-mix(in srgb, var(--m-threat) 9%, transparent); border-left-color: var(--m-threat); }
+.citers--threat .citers__bar i.on { background: var(--m-threat); }
+.row__via { margin-left: auto; padding-left: 0.6rem; font-size: 0.78rem; color: var(--m-threat); white-space: nowrap; }

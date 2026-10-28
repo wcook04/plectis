@@ -348,5 +348,19 @@ function rulesOf(doctrine, edges, components, byId) {
     c.ruleIds = c.doctrineIds.filter((id) => ruleById.has(id));
     for (const id of c.ruleIds) ruleById.get(id).citedBy.push(c.id);
   }
+  // Components never cite a failure mode. A failure mode's exposure is
+  // derived, as the API derives it: the components whose records cite an
+  // axiom it would break, each with the axioms it runs through. That joins
+  // two authored relations; it is not a check and not an incident.
+  for (const r of rules) {
+    r.exposed = new Map();
+    if (r.kind !== 'anti_principle') continue;
+    for (const ax of r.threatens) {
+      for (const id of ruleById.get(ax)?.citedBy || []) {
+        if (!r.exposed.has(id)) r.exposed.set(id, []);
+        r.exposed.get(id).push(ax);
+      }
+    }
+  }
   return { rules, ruleById };
 }

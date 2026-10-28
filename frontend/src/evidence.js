@@ -348,6 +348,13 @@ export function flowerWords(p, usedBy) {
 // diamond, a failure mode a cross. Azure, because every line to a rule is
 // stated in source, never observed in a run.
 export const DOCTRINE_KINDS = ['principle', 'axiom', 'anti_principle'];
+/**
+ * The components a rule lights: the ones whose records cite it, or for a
+ * failure mode (which no record cites) the ones exposed through the axioms
+ * it would break.
+ */
+export const membersOf = (rule) => (rule?.kind === 'anti_principle' ? [...(rule.exposed?.keys() || [])] : rule?.citedBy || []);
+export const EXPOSURE_WORDS = 'Exposure is derived: the component’s own record cites an axiom this failure mode would break. It is not a check that the component is vulnerable, and it is not an observed incident.';
 const KIND_WORDS = {
   axiom: ['Axiom', 'Axioms', 'axiom'],
   principle: ['Principle', 'Principles', 'principle'],

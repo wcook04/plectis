@@ -775,9 +775,41 @@ def test_doctrine_list_counts_match_graph_citations(raw, transport):
         assert row["enforced_in_component_ids"] == nodes[row["id"]]["reader"]["enforced_in_component_ids"]
         assert row["failure_modes"] == sorted({e["from_id"] for e in data["edges"] if e["to_id"] == row["id"] and e["kind"] == "violates"},
                                               key=api._rule_key)
+    # A failure mode's exposure is derived: the components citing any axiom it
+    # violates. Every other rule has none.
+    citers = {row["id"]: set(row["component_ids"]) for row in data["rules"]}
+    for row in data["rules"]:
+        if row["kind"] == "anti_principle":
+            expected = sorted(set().union(*(citers[axiom] for axiom in row["violates"])))
+            assert row["violates"] and row["exposed_component_ids"] == expected
+        else:
+            assert row["exposed_component_ids"] == []
+        assert row["exposed_count"] == len(row["exposed_component_ids"])
+    assert any(row["exposed_count"] for row in data["rules"] if row["kind"] == "anti_principle")
     assert data["sources"] == raw["explorer"]["doctrine"]["sources"]
     assert transport("/api/v1/doctrine", headers={"If-None-Match": headers["ETag"]})[0] == 304
     assert transport("/api/v1/doctrine?limit=5")[0] == 400
+
+
+def test_failure_mode_exposure_runs_through_cited_violated_axioms(transport):
+    listing = json.loads(transport("/api/v1/doctrine")[2])["data"]
+    citers = {row["id"]: set(row["component_ids"]) for row in listing["rules"]}
+    failure_modes = [row for row in listing["rules"] if row["kind"] == "anti_principle"]
+    assert len(failure_modes) == 17
+    for row in failure_modes:
+        status, _, body = transport(f"/api/v1/doctrine/{row['id']}")
+        assert status == 200
+        detail = json.loads(body)["data"]
+        assert detail["exposed_count"] == row["exposed_count"] == len(detail["exposure"])
+        assert [entry["component_id"] for entry in detail["exposure"]] == row["exposed_component_ids"]
+        for entry in detail["exposure"]:
+            assert entry["basis"] == "derived_from_violated_axiom_citations"
+            assert entry["through_axiom_ids"] == sorted(entry["through_axiom_ids"], key=api._rule_key)
+            for axiom in entry["through_axiom_ids"]:
+                assert axiom in row["violates"] and entry["component_id"] in citers[axiom]
+    axiom = next(row for row in listing["rules"] if row["kind"] == "axiom")
+    detail = json.loads(transport(f"/api/v1/doctrine/{axiom['id']}")[2])["data"]
+    assert detail["exposure"] == [] and detail["exposed_count"] == 0
 
 
 def test_doctrine_rule_detail_citations_and_errors(raw, snapshot, transport):

@@ -280,9 +280,17 @@ or failure mode names; `principles` and `failure_modes` list, for an axiom, the
 rules naming it. `support_verdict` is the axiom's index-time verdict and `null`
 for other rules. `reader_plain` and `enforced_in_component_ids` repeat the
 node's authored `reader.plain` and `reader.enforced_in_component_ids`.
+`exposed_component_ids` and `exposed_count` are derived for a failure mode:
+the components whose atlas row cites an axiom the failure mode `violates`.
+They are empty for axioms and principles. Exposure combines two authored
+relations; it is not a check that the component is vulnerable, and it is not
+an observed incident. Metadata states this as
+`graph.edge_semantics.failure_mode_exposure`.
 
-`/api/v1/doctrine/<rule_id>` returns the full node, the same related lists, and
-`citations`. Each citation has `component_id`, `ref_kind` (`axiom` or
+`/api/v1/doctrine/<rule_id>` returns the full node, the same related lists,
+`citations`, and for a failure mode its `exposure`: one entry per exposed
+component with `component_id`, `through_axiom_ids` (the violated axioms that
+component cites) and `basis: derived_from_violated_axiom_citations`. Each citation has `component_id`, `ref_kind` (`axiom` or
 `principle`), `basis: authored_atlas_row` and a `source_ref` such as
 `core/organ_atlas.json::organs[<organ_id>].axiom_refs`. A citation means the
 component's atlas row lists the rule. It is not a check that the component

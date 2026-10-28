@@ -9,7 +9,7 @@ import { ApiError, apiPath, getEnvelope, withQuery } from '../api.js';
 import { getModel } from '../data.js';
 import { announce, backingGlyph, clear, copyButton, dialGlyph, h, keyGlyph, ringStyle, ringSwatch, ruleGlyph, svg } from '../dom.js';
 import {
-  BACKING_ORDER, CITATION_WORDS, CLASS_OF_BACKING, DOCTRINE_KINDS, FAMILY_ORDER, TRACKS, callerWords, classDescription, classWords, count, dayWords, familyName, moduleWords,
+  BACKING_ORDER, CITATION_WORDS, CLASS_OF_BACKING, DOCTRINE_KINDS, EXPOSURE_WORDS, FAMILY_ORDER, TRACKS, callerWords, classDescription, classWords, count, dayWords, familyName, moduleWords,
   obligationWords, proofShortName, ruleKindPlain, ruleKindWords, setLabels, sourceHref, stateWords, supportWords, CORE_NAMES, flowerWords, ordinal, ringState,
 } from '../evidence.js';
 import { loadWriteup, renderGuide, renderWriteup } from '../markdown.js';
@@ -544,8 +544,12 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     const n = r.citedBy.length;
     const fact = h('div', { class: 'mapfact' });
     if (r.kind === 'anti_principle') {
-      fact.append(h('p', { class: 'mapfact__n' }, h('strong', {}, 'No component cites it'), ' · failure modes are never cited'),
-        h('p', { class: 'mapfact__limit' }, 'A failure mode names a way to break an axiom. It is not an observed incident.'));
+      // No record cites a failure mode; its reach is derived through the
+      // axioms it would break, and the card says so in the same breath.
+      const e = r.exposed.size;
+      fact.classList.add('mapfact--threat');
+      fact.append(h('p', { class: 'mapfact__n figures' }, h('strong', {}, `${e} / ${total}`), ` components exposed through ${r.threatens.join(', ') || 'its axioms'} · ${total - e} are not`),
+        h('p', { class: 'mapfact__limit' }, `${EXPOSURE_WORDS} No component’s record cites a failure mode itself.`));
     } else {
       fact.append(h('p', { class: 'mapfact__n figures' }, h('strong', {}, `${n} / ${total}`), ` components cite this rule · ${total - n} do not`),
         h('p', { class: 'mapfact__limit' }, 'A citation is the component’s own record listing the rule; it is not a check that the component follows it.'));
@@ -564,10 +568,13 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     if (r.kind === 'anti_principle') card.append(chipRow('Threatens', r.threatens));
     if (r.kind === 'axiom') card.append(chipRow('Held up by', r.principles), chipRow('Threatened by', r.failures));
 
-    // Citers by family: n of the family's m, each expanding to its citers.
-    if (r.kind !== 'anti_principle' && n) {
-      const cited = new Set(r.citedBy);
-      const fams = h('ul', { class: 'citers' });
+    // Citers by family: n of the family's m, each expanding to its citers
+    // (for a failure mode, the components exposed through its axioms).
+    const exposing = r.kind === 'anti_principle';
+    const memberIds = exposing ? [...r.exposed.keys()] : r.citedBy;
+    if (memberIds.length) {
+      const cited = new Set(memberIds);
+      const fams = h('ul', { class: exposing ? 'citers citers--threat' : 'citers' });
       const groups = arrange(model.components).sectors;
       for (const sector of groups) {
         const members = sector.members.map((id) => model.byId.get(id)).filter(Boolean);
@@ -579,7 +586,8 @@ export async function mountExplorer(root, { url, navigate, signal }) {
             type: 'button', class: 'row__go', onclick: () => map.select(`comp:${c.id}`),
             onpointerenter: () => map?.hoverKey(`comp:${c.id}`), onpointerleave: () => map?.hoverKey(null),
             onfocus: () => map?.hoverKey(`comp:${c.id}`), onblur: () => map?.hoverKey(null),
-          }, backingGlyph(c.backing, c.kernelId ? 'mark--proved' : 'mark'), h('span', { class: 'row__title' }, c.title))));
+          }, backingGlyph(c.backing, c.kernelId ? 'mark--proved' : 'mark'), h('span', { class: 'row__title' }, c.title),
+            exposing ? h('span', { class: 'row__via figures' }, `via ${r.exposed.get(c.id).join(', ')}`) : null)));
         }
         const toggle = h('button', { type: 'button', class: 'citers__go', 'aria-expanded': 'false', disabled: citers.length ? null : true },
           h('span', { class: 'citers__name' }, familyName(members[0].family)),
@@ -592,8 +600,10 @@ export async function mountExplorer(root, { url, navigate, signal }) {
         });
         fams.append(h('li', { class: 'citers__fam' }, toggle, list));
       }
-      card.append(h('h3', { class: 'section-title' }, 'Citers by family'),
-        h('p', { class: 'small muted' }, 'Open a family to list its citers. Point at one to trace its route on the map; click to read it.'), fams);
+      card.append(h('h3', { class: 'section-title' }, exposing ? 'Exposed by family' : 'Citers by family'),
+        h('p', { class: 'small muted' }, exposing
+          ? 'Open a family to list the components exposed through this failure mode’s axioms. Point at one to trace the citation its exposure runs through; click to read it.'
+          : 'Open a family to list its citers. Point at one to trace its route on the map; click to read it.'), fams);
     }
 
     // Then the reader's explanation.

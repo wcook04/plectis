@@ -6,7 +6,7 @@ The index owner still validates the complete evidence records at startup.
 """
 from __future__ import annotations
 
-CONTRACT_VERSION = "1.5.0"
+CONTRACT_VERSION = "1.6.0"
 API_SCHEMA = "plectis_component_http_v1"
 API_PREFIX = "/api/v1"
 MAX_PAGE_SIZE = 100
@@ -223,14 +223,18 @@ def openapi_document():
     schemas["DoctrineRule"] = _object(id=rule_id, kind=rule_kind, title=text, plain=text, source_ref=text,
         component_ids=texts, cited_by_count={"type": "integer", "minimum": 0},
         witness_component_ids=texts, **related, support_verdict={"type": ["string", "null"]},
-        reader_plain=text, enforced_in_component_ids=texts)
+        reader_plain=text, enforced_in_component_ids=texts, exposed_component_ids=texts,
+        exposed_count={"type": "integer", "minimum": 0})
+    schemas["DoctrineExposure"] = _object(component_id=text, through_axiom_ids=_array(rule_id),
+        basis={"const": "derived_from_violated_axiom_citations"})
     schemas["DoctrineCitation"] = _object(component_id=text, ref_kind={"enum": ["axiom", "principle"]},
         basis={"const": "authored_atlas_row"}, source_ref=text)
     schemas["Doctrine"] = _object(rules=_array(_ref("DoctrineRule")), edges=_array(_ref("DoctrineEdge")),
         sources=_array(_ref("DoctrineSource")), counts=_object(**{key: {"type": "integer", "minimum": 0}
             for key in ("axiom", "principle", "anti_principle", "citations")}))
     schemas["DoctrineRuleDetail"] = {"allOf": [_ref("DoctrineNode"), _object(component_ids=texts,
-        cited_by_count={"type": "integer", "minimum": 0}, citations=_array(_ref("DoctrineCitation")), **related)]}
+        cited_by_count={"type": "integer", "minimum": 0}, citations=_array(_ref("DoctrineCitation")), **related,
+        exposure=_array(_ref("DoctrineExposure")), exposed_count={"type": "integer", "minimum": 0})]}
     schemas["Explorer"]["properties"]["doctrine"] = _object(schema_version={"const": "plectis_explorer_doctrine_v2"},
         sources=_array(_ref("DoctrineSource")), nodes=_array(_ref("DoctrineNode")), edges=_array(_ref("DoctrineEdge")))
     schemas["Metadata"]["properties"]["doctrine_count"] = {"type": "integer", "minimum": 0}

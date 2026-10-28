@@ -11,7 +11,7 @@
 // relationText): one sentence per level, absence stated as a count rather
 // than left silent, and a pointed object restated against the chosen one.
 
-import { CITATION_WORDS, TRACKS, count, familyName, obligationWords, proofShortName, ruleKindWords, supportWords, CORE_NAMES, moduleWords } from '../evidence.js';
+import { CITATION_WORDS, TRACKS, count, familyName, membersOf, obligationWords, proofShortName, ruleKindWords, supportWords, CORE_NAMES, moduleWords } from '../evidence.js';
 
 const list = (ids) => (ids.length <= 4 ? ids.join(', ') : `${ids.slice(0, 3).join(', ')} and ${ids.length - 3} more`);
 
@@ -73,7 +73,11 @@ function ruleReadout(model, r) {
   }
   if (r.kind === 'anti_principle') {
     lines.push({ ink: 'threat', mark: 'Dashed lines in', text: `to ${list(r.threatens)}, the ${r.threatens.length === 1 ? 'axiom' : 'axioms'} it would break.` });
-    lines.push({ ink: 'absent', mark: 'No lit columns', text: 'components list axioms and principles, never failure modes.' });
+    const e = r.exposed.size;
+    lines.push(e
+      ? { ink: 'threat', mark: 'Dashed marks', text: `the ${e} of ${total} components exposed through ${r.threatens.length === 1 ? 'that axiom' : 'those axioms'}: each one’s record cites an axiom it would break. The other ${total - e} are dimmed. Point at one to trace the citation its exposure runs through.` }
+      : { ink: 'absent', mark: 'No exposed columns', text: `no component’s record cites ${list(r.threatens)}.` });
+    lines.push({ ink: 'absent', mark: 'Not cited', text: 'records cite axioms and principles, never failure modes; exposure is derived, not a check.' });
   }
   if (r.kind === 'axiom') {
     if (r.witnesses.length) {
@@ -128,7 +132,14 @@ export function relation(model, hovered, chosen, info) {
   const comp = hovered.type === 'component' ? hovered.comp : chosen.type === 'component' ? chosen.comp : null;
   if (rule && comp) {
     const subject = hovered.type === 'component' ? 'Its record' : 'The chosen component’s record';
-    if (rule.kind === 'anti_principle') return `${subject} cannot cite ${rule.id}: records cite axioms and principles, never failure modes.`;
+    if (rule.kind === 'anti_principle') {
+      // A failure mode is never cited; a component is exposed to it through
+      // the axioms it would break that the component's record cites.
+      const via = rule.threatens.filter((id) => (comp.ruleIds || []).includes(id));
+      return via.length
+        ? `${subject} cites ${via.join(' and ')}, which ${rule.id} would break: exposed through ${via.length === 1 ? 'that axiom' : 'those axioms'}. Derived, not a check.`
+        : `${subject} cites none of ${rule.threatens.join(', ') || 'the axioms it would break'}: not exposed to ${rule.id}.`;
+    }
     const cites = (comp.ruleIds || []).includes(rule.id);
     const head = `${subject} ${cites ? 'cites' : 'does not cite'} ${rule.id}.`;
     return rule.witnesses.includes(comp.id) ? `${head} The routing registry also names it as a witness.` : head;
@@ -139,8 +150,15 @@ export function relation(model, hovered, chosen, info) {
       if (p.restsOn.includes(q.id)) return `${p.id} rests on ${q.id}.`;
       if (p.threatens.includes(q.id)) return `${p.id} threatens ${q.id}.`;
     }
-    const computed = a.citedBy.filter((id) => b.citedBy.includes(id)).length;
+    const bm = new Set(membersOf(b));
+    const computed = membersOf(a).filter((id) => bm.has(id)).length;
     const shared = Number.isFinite(info?.relation?.count) && info.relation.kind === 'shared' ? info.relation.count : computed;
+    const fa = a.kind === 'anti_principle', fb = b.kind === 'anti_principle';
+    if (fa || fb) {
+      // At least one is a failure mode: its side of the overlap is exposure.
+      const both = fa && fb ? `exposed to both ${a.id} and ${b.id}` : `exposed to ${fa ? a.id : b.id} and citing ${fa ? b.id : a.id}`;
+      return shared ? `${count(shared, 'component')} ${shared === 1 ? 'is' : 'are'} ${both}. An overlap does not link the rules.` : `No component is ${both}.`;
+    }
     if (!shared) return `No component cites both ${a.id} and ${b.id}.`;
     return `${count(shared, 'component')} ${shared === 1 ? 'cites' : 'cite'} both ${a.id} and ${b.id}. Shared citations do not link the rules.`;
   }
@@ -185,12 +203,12 @@ export function preview(model, o, chosen = null, info = undefined) {
     const r = o.rule;
     const n = r.citedBy.length;
     const counts = r.kind === 'anti_principle'
-      ? [`Threatens ${r.threatens.join(', ') || 'no recorded axiom'}`, 'Components do not cite failure modes']
+      ? [`Threatens ${r.threatens.join(', ') || 'no recorded axiom'}`, `${r.exposed.size} of ${total} components exposed through ${r.threatens.length === 1 ? 'it' : 'them'}`]
       : [`${n} of ${total} components cite it`];
     if (r.kind === 'principle' && r.restsOn.length) counts.push(`Rests on ${r.restsOn.join(', ')}`);
     if (r.kind === 'axiom') counts.push(`${count(r.principles.length, 'principle')} rest on it`);
     return { kind: `${ruleKindWords(r.kind)} · ${r.id}`, name: r.title, relation: rel, purpose: r.reader?.plain || r.plain || '', counts,
-      limit: r.kind === 'anti_principle' ? 'A failure mode names a way to break an axiom; it is not an observed incident.' : 'A citation is the component’s own record listing the rule; it is not a check.' };
+      limit: r.kind === 'anti_principle' ? 'Exposure is derived from citations of the axioms it would break; it is not a check and not an incident.' : 'A citation is the component’s own record listing the rule; it is not a check.' };
   }
   const p = o.type === 'kernel' ? o.kernel : o.core;
   const comp = o.type === 'kernel' && o.componentId ? model.byId.get(o.componentId) : null;

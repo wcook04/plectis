@@ -26,7 +26,7 @@ import { glowSprite, isDark, mixOklab, parseColor, rgbText } from './color.js';
 import { angleShare, crossSpan, DIAL, flowerPx, FLOWER, KEY_GAP, layout, planRoutes, polar, R, shortArc, trackBand } from './layout.js';
 import { arcDiscs, createPlanner, fitText, levelOfDetail, localPitch, LOD, PRIORITY } from './labels.js';
 import {
-  CORE_NAMES, TRACKS, classWords, count, familyName, moduleWords, obligationWords, proofShortName, ruleKindWords, supportWords,
+  CORE_NAMES, TRACKS, classWords, count, familyName, membersOf, moduleWords, obligationWords, proofShortName, ruleKindWords, supportWords,
 } from '../evidence.js';
 
 const SERIF = '"Plectis Serif", "Plectis Math", "Plectis Serif Fallback", Georgia, serif';
@@ -446,10 +446,11 @@ viewIsFitted = false;
       if (replayCore && routed.has(o.id)) set.add(replayCore.key);
       for (const id of o.comp.ruleIds || []) if (ruleObj.has(id)) set.add(`rule:${id}`);
     } else if (o.type === 'rule') {
-      // A rule lights exactly the components whose records cite it, and the
-      // rules it is tied to. Witnesses are a separate relation, never members.
+      // A rule lights exactly the components whose records cite it (for a
+      // failure mode, those exposed through the axioms it would break), and
+      // the rules it is tied to. Witnesses are a separate relation, never members.
       const r = o.rule;
-      for (const id of r.citedBy) set.add(`comp:${id}`);
+      for (const id of membersOf(r)) set.add(`comp:${id}`);
       for (const id of [...r.restsOn, ...r.threatens, ...r.principles, ...r.failures]) set.add(`rule:${id}`);
     } else if (o.type === 'kernel') {
       if (o.componentId) set.add(`comp:${o.componentId}`);
@@ -1095,7 +1096,7 @@ viewIsFitted = false;
     ins = cachedInscriptions(focus, rs, w, h);
     const shown = (c) => !matches || matches.has(c.id);
     const fade = (key) => (focus && !lit.has(key) ? dimmed(0.22) : 1);
-    const members = fo && fo.type === 'rule' ? new Set(fo.rule.citedBy) : null;
+    const members = fo && fo.type === 'rule' ? new Set(membersOf(fo.rule)) : null;
     Object.assign(shared, { chosen, preview, focus, lit, previewLit, members, relation: relationOf(chosen ? byKey.get(chosen) : null, cmp) });
 
     drawDepth(w, h);
@@ -1132,10 +1133,15 @@ viewIsFitted = false;
   function relationOf(c, p) {
     if (!c || !p || c === p) return null;
     const rulesOf = (o) => o.comp.ruleIds || [];
-    if (c.type === 'rule' && p.type === 'component') return { kind: c.rule.citedBy.includes(p.id) ? 'cites' : 'not-cites', rule: c.id, component: p.id };
-    if (c.type === 'component' && p.type === 'rule') return { kind: rulesOf(c).includes(p.id) ? 'cites' : 'not-cites', rule: p.id, component: c.id };
+    const exposure = (rule, comp) => {
+      const through = rule.rule.exposed.get(comp.id) || [];
+      return { kind: through.length ? 'exposed' : 'not-exposed', rule: rule.id, component: comp.id, through, axioms: [...rule.rule.threatens] };
+    };
+    if (c.type === 'rule' && p.type === 'component') return c.rule.kind === 'anti_principle' ? exposure(c, p) : { kind: c.rule.citedBy.includes(p.id) ? 'cites' : 'not-cites', rule: c.id, component: p.id };
+    if (c.type === 'component' && p.type === 'rule') return p.rule.kind === 'anti_principle' ? exposure(p, c) : { kind: rulesOf(c).includes(p.id) ? 'cites' : 'not-cites', rule: p.id, component: c.id };
     if (c.type === 'rule' && p.type === 'rule') {
-      const count = c.rule.citedBy.filter((id) => p.rule.citedBy.includes(id)).length;
+      const pm = new Set(membersOf(p.rule));
+      const count = membersOf(c.rule).filter((id) => pm.has(id)).length;
       const direct = c.rule.restsOn.includes(p.id) || p.rule.restsOn.includes(c.id) ? 'rests-on'
         : c.rule.threatens.includes(p.id) || p.rule.threatens.includes(c.id) ? 'threatens' : null;
       return { kind: 'shared', count, direct, rules: [c.id, p.id] };
@@ -1990,8 +1996,13 @@ viewIsFitted = false;
     const k = view.k;
     const rule = fo && fo.type === 'rule' ? fo : null;
     const comp = fo && fo.type === 'component' ? fo : fo && fo.type === 'kernel' && fo.componentId ? compObj.get(fo.componentId) : null;
-    const members = rule ? new Set(rule.rule.citedBy) : null;
-    const second = rule && cmp && cmp.type === 'rule' ? new Set(cmp.rule.citedBy) : null;
+    const members = rule ? new Set(membersOf(rule.rule)) : null;
+    const second = rule && cmp && cmp.type === 'rule' ? new Set(membersOf(cmp.rule)) : null;
+    // A failure mode's members are exposed, not citing: their caps are
+    // dashed, in the threat ink, so the indirect relation never reads as a
+    // citation.
+    const exposing = !!rule && rule.rule.kind === 'anti_principle';
+    const capInk = exposing ? palette.threat : palette.doctrine;
     const half = L.pitch * 0.35;
     const colPx = L.pitch * R.cap0 * k;
     ctx.lineCap = 'butt';
@@ -2023,7 +2034,8 @@ viewIsFitted = false;
     for (const glow of darkGround ? [2, 1, 0] : [0]) {
       ctx.save();
       if (glow) ctx.globalCompositeOperation = 'lighter';
-      ctx.strokeStyle = palette.doctrine;
+      ctx.strokeStyle = capInk;
+      if (exposing && !glow) ctx.setLineDash([2.4, 1.6]);
       for (const c of caps) {
         const v = ignition(rule ? IGNITE_STAGGER * Math.abs(shortArc(rule.angle, c.angle)) / far : 0);
         if (v <= 0) continue;
@@ -2035,8 +2047,8 @@ viewIsFitted = false;
       ctx.restore();
     }
     if (second) {
-      // Hollow caps for the previewed rule's citers, just outside the solid ones.
-      ctx.strokeStyle = palette.doctrine;
+      // Hollow caps for the previewed rule's members, just outside the solid ones.
+      ctx.strokeStyle = cmp.rule.kind === 'anti_principle' ? palette.threat : palette.doctrine;
       ctx.lineWidth = 1;
       ctx.globalAlpha = 0.95;
       const r0 = rc + 2.2, r1 = rc + 5;
@@ -2171,7 +2183,22 @@ viewIsFitted = false;
     const info = { mode: 'none', hub: fo ? fo.key : null, total: 0, drawn: 0, reason: null, tracing: null };
     let show = [];
     let pick = null;
-    if (halo && fo && (fo.type === 'rule' || fo.type === 'component') && reveal >= 1) {
+    if (halo && fo && fo.type === 'rule' && fo.rule.kind === 'anti_principle' && reveal >= 1) {
+      // A failure mode has no lines of its own: nothing cites it. Pointing at
+      // an exposed component traces the citation leg of its path, from the
+      // axiom it runs through (the threat lane to that axiom stays lit).
+      info.total = fo.rule.exposed.size;
+      info.mode = 'point';
+      const through = cmp && cmp.type === 'component' ? fo.rule.exposed.get(cmp.id) : null;
+      const axiom = through ? ruleObj.get(through[0]) : null;
+      if (axiom) {
+        show = routePlan(axiom, [cmp.id], rs).routes;
+        pick = cmp.id;
+        info.mode = 'trace';
+        info.tracing = pick;
+        info.through = axiom.id;
+      }
+    } else if (halo && fo && (fo.type === 'rule' || fo.type === 'component') && reveal >= 1) {
       const leaves = fo.type === 'rule' ? fo.rule.citedBy.filter((id) => compObj.has(id)) : (teethOf.get(fo.id) || []);
       info.total = leaves.length;
       if (leaves.length) {
@@ -2382,7 +2409,7 @@ viewIsFitted = false;
       if (d.flat) {
         const y = d.y0 + 8;
         textWithHalo(d.name, d.x0, y, d.nameFont, palette.ink, a, 'left');
-        textWithHalo(d.num, d.x0 + d.nameW + d.gapW, y, d.numFont, d.citeInline ? palette.doctrine : palette.muted, a, 'left');
+        textWithHalo(d.num, d.x0 + d.nameW + d.gapW, y, d.numFont, d.citeInline ? ins.citeInk || palette.doctrine : palette.muted, a, 'left');
         if (d.cite) textWithHalo(d.cite, d.x0, y + 14, FONT.cite, palette.doctrine, a, 'left');
         continue;
       }
@@ -2391,7 +2418,7 @@ viewIsFitted = false;
       const nameMid = d.mid - dir * (d.W / 2 - d.nameW / 2) / r;
       const numMid = d.mid + dir * (d.W / 2 - d.numW / 2) / r;
       drawArcText(d.name, d.nameFont, palette.ink, a, r, nameMid, d.lower, true, false);
-      drawArcText(d.num, d.numFont, d.citeInline ? palette.doctrine : palette.muted, a, r, numMid, d.lower, true, false);
+      drawArcText(d.num, d.numFont, d.citeInline ? ins.citeInk || palette.doctrine : palette.muted, a, r, numMid, d.lower, true, false);
       if (d.cite) drawArcText(d.cite, FONT.cite, palette.doctrine, a, r + CITE_STEP, d.mid, d.lower, true, false);
     }
     ctx.globalAlpha = 1;
@@ -2608,7 +2635,7 @@ viewIsFitted = false;
     if (!halo || R.scale * k < 90) return [];
     const famR = (R.cap1 ?? R.scale + 12) * k + 15;
     const chosen = selected ? byKey.get(selected) : null;
-    const citers = chosen && chosen.type === 'rule' ? new Set(chosen.rule.citedBy) : null;
+    const citers = chosen && chosen.type === 'rule' ? new Set(membersOf(chosen.rule)) : null;
     return L.sectors.map((s) => {
       const num = citers ? `${s.members.filter((id) => citers.has(id)).length} of ${s.count}` : String(s.count);
       const W = textWidth(FONT.family, familyName(s.family)) + textWidth(FONT.family, '  ') + textWidth(citers ? FONT.cite : FONT.familyCount, num);
@@ -2675,7 +2702,9 @@ viewIsFitted = false;
       return ['Component', o.comp.title, `${familyName(o.comp.family)} · its record cites ${count(n, 'rule')}`];
     }
     if (o.type === 'rule') {
-      return [ruleKindWords(o.kind), `${o.id}  ${o.rule.title}`, `${o.rule.citedBy.length} of ${compObj.size} components cite it`];
+      return [ruleKindWords(o.kind), `${o.id}  ${o.rule.title}`, o.rule.kind === 'anti_principle'
+        ? `${o.rule.exposed.size} of ${compObj.size} components exposed through its axioms`
+        : `${o.rule.citedBy.length} of ${compObj.size} components cite it`];
     }
     if (o.type === 'kernel') {
       return ['Proof', proofShortName(o.kernel), `${count(o.tasks, 'proof check')} passed · ${count(o.mutants, 'broken copy', 'broken copies')} rejected`];
@@ -2898,7 +2927,8 @@ viewIsFitted = false;
         first.push(nameCand(c, PRIORITY.search)); named.add(id);
       }
     }
-    const citers = ruleChosen ? new Set(ruleChosen.rule.citedBy) : null;
+    const citers = ruleChosen ? new Set(membersOf(ruleChosen.rule)) : null;
+    out.citeInk = ruleChosen && ruleChosen.rule.kind === 'anti_principle' ? palette.threat : palette.doctrine;
     for (const s of L.sectors) {
       const name = familyName(s.family);
       const num = citers ? `${s.members.filter((id) => citers.has(id)).length} of ${s.count}` : String(s.count);

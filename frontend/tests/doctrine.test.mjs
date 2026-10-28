@@ -56,6 +56,9 @@ test('the doctrine joins its rules to each other and to the components that cite
   assert.deepEqual(r('AX-1').principles, ['P-1', 'P-2']);
   assert.deepEqual(r('AX-1').failures, ['AP-1']);
   assert.deepEqual(r('AP-1').threatens, ['AX-1', 'AX-5']);
+  // Exposure is derived: the components citing an axiom it would break, with the axioms it runs through.
+  assert.deepEqual([...r('AP-1').exposed], [['a', ['AX-1']]]);
+  assert.equal(r('AX-1').exposed.size, 0);
   assert.deepEqual(m.byId.get('a').ruleIds, ['AX-1', 'P-1', 'P-2'], 'concepts and paper modules are not rules');
   assert.deepEqual(r('P-2').citedBy, ['a', 'b']);
   assert.deepEqual(r('AX-1').witnesses, ['a', 'c'], 'a witness that is not a component is dropped');
@@ -140,7 +143,8 @@ test('the readout names each lit thing and its limit, and a pointed object is sa
   assert.match(ax, /Thicker lines: the 2 components its routing names by hand as computing part of it; dashed where that component does not list it \(1\)/);
   assert.match(ax, /3 checkable parts: 1 bound to witnesses that exist, 1 carrying declared layer debt, 1 blocked/);
   assert.match(ax, /Support checker: at build time: partial: layer debt/);
-  assert.match(text(rule(m, 'AP-1')), /No lit columns: components list axioms and principles, never failure modes/);
+  assert.match(text(rule(m, 'AP-1')), /Dashed marks: the 1 of 3 components exposed through those axioms/);
+  assert.match(text(rule(m, 'AP-1')), /Not cited: records cite axioms and principles, never failure modes; exposure is derived, not a check/);
   for (const o of [comp(m, 'a'), comp(m, 'b'), comp(m, 'c'), ...m.rules.map((r) => rule(m, r.id))]) {
     const r = readout(m, o);
     assert.ok(r.lines.length && r.lines.every((l) => l.mark && l.text), o.key);
@@ -149,7 +153,8 @@ test('the readout names each lit thing and its limit, and a pointed object is sa
   assert.equal(relation(m, comp(m, 'b'), rule(m, 'P-1')), 'Its record does not cite P-1.');
   assert.equal(relation(m, rule(m, 'P-2'), comp(m, 'a')), 'The chosen component’s record cites P-2.');
   assert.match(relation(m, rule(m, 'AX-1'), comp(m, 'a')), /cites AX-1\. The routing registry also names it as a witness\./);
-  assert.match(relation(m, comp(m, 'a'), rule(m, 'AP-1')), /cannot cite AP-1/);
+  assert.match(relation(m, comp(m, 'a'), rule(m, 'AP-1')), /Its record cites AX-1, which AP-1 would break: exposed through that axiom\. Derived, not a check\./);
+  assert.match(relation(m, comp(m, 'b'), rule(m, 'AP-1')), /cites none of AX-1, AX-5: not exposed to AP-1/);
   assert.equal(relation(m, rule(m, 'P-2'), rule(m, 'AX-5')), 'P-2 rests on AX-5.');
   assert.match(relation(m, comp(m, 'a'), comp(m, 'b')), /cite 1 rule|both cite 1 rule/);
   assert.equal(relation(m, comp(m, 'a'), comp(m, 'a')), null);

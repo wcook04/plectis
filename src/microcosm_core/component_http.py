@@ -145,9 +145,25 @@ def _doctrine_views(index):
         else:
             related[source]["violates"].add(target)
             related[target]["failure_modes"].add(source)
+    # A failure mode names the axioms it would break. A component is exposed
+    # to it when its atlas row cites one of those axioms: derived from two
+    # authored relations, not a check and not an observed incident.
+    exposure = {}
+    for identity, kind in kinds.items():
+        if kind != "anti_principle":
+            continue
+        through = defaultdict(set)
+        for axiom_id in related[identity]["violates"]:
+            for row in citations[axiom_id]:
+                through[row["component_id"]].add(axiom_id)
+        exposure[identity] = [{"component_id": component_id,
+                               "through_axiom_ids": sorted(axioms, key=_rule_key),
+                               "basis": "derived_from_violated_axiom_citations"}
+                              for component_id, axioms in sorted(through.items())]
     rules, details = [], {}
     for node in nodes:
         identity = node["id"]
+        exposed = exposure.get(identity, [])
         cited = sorted(citations[identity], key=lambda row: (row["component_id"], row["ref_kind"]))
         component_ids = sorted({row["component_id"] for row in cited})
         lists = {key: sorted(value, key=_rule_key) for key, value in related[identity].items()}
@@ -157,9 +173,12 @@ def _doctrine_views(index):
                       "witness_component_ids": list(axiom["routing"]["witness_component_ids"]) if axiom else [],
                       **lists, "support_verdict": axiom["support"]["verdict"] if axiom else None,
                       "reader_plain": node["reader"]["plain"],
-                      "enforced_in_component_ids": list(node["reader"]["enforced_in_component_ids"])})
+                      "enforced_in_component_ids": list(node["reader"]["enforced_in_component_ids"]),
+                      "exposed_component_ids": [row["component_id"] for row in exposed],
+                      "exposed_count": len(exposed)})
         details[identity] = {**copy.deepcopy(node), "component_ids": component_ids,
-                             "cited_by_count": len(component_ids), "citations": cited, **lists}
+                             "cited_by_count": len(component_ids), "citations": cited, **lists,
+                             "exposure": copy.deepcopy(exposed), "exposed_count": len(exposed)}
     counts = {kind: sum(1 for row in nodes if row["kind"] == kind) for kind in _RULE_KINDS}
     counts["citations"] = sum(len(rows) for rows in citations.values())
     listing = {"rules": rules, "edges": copy.deepcopy(doctrine.get("edges", [])),
@@ -394,7 +413,10 @@ class ComponentSnapshot:
         if doctrine_edges:
             self.metadata["graph"]["edge_semantics"].update({
                 "rests_on": "Authored principle cites an axiom as its basis; not a formal implication.",
-                "violates": "Authored anti-principle identifies an axiom it violates; not an observed incident."})
+                "violates": "Authored anti-principle identifies an axiom it violates; not an observed incident.",
+                "failure_mode_exposure": ("Derived: a component is exposed to a failure mode when its atlas row "
+                                          "cites an axiom the failure mode violates; not a check and not an "
+                                          "observed incident.")})
         labels = index.get("explorer", {}).get("component_filters", {})
         for key, rows in self.metadata["component_filters"].items():
             owned = {row["value"]: row for row in labels.get(key, [])}
