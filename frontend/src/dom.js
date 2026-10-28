@@ -66,6 +66,21 @@ export function keyGlyph(kind) {
   if (kind === 'wiring') root.append(svg('path', { d: 'M1 9 Q6 1 11 9', fill: 'none', stroke: 'var(--weave-azure-glow)', 'stroke-width': 1.2 }));
   if (kind === 'generated') root.append(svg('rect', { x: 3, y: 3, width: 6, height: 6, fill: 'none', stroke: 'var(--home-ember)', 'stroke-width': 1.2 }));
   if (kind === 'caller') root.append(svg('path', { d: 'M6 2.2L9.8 6 6 9.8 2.2 6z', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.2 }));
+  // A citation as the map draws it: round the rim, then down into a column.
+  if (kind === 'cites') root.append(svg('path', { d: 'M1 2.5h9.5M8 2.5v8.5', fill: 'none', stroke: 'var(--m-doctrine)', 'stroke-width': 1.2 }), svg('circle', { cx: 8, cy: 2.5, r: 1.5, fill: 'var(--m-doctrine)' }));
+  return root;
+}
+
+// The doctrine's three marks (system-map.js DOCTRINE_GLYPHS): an axiom a
+// ringed dot, a principle a diamond, a failure mode a cross.
+const RULE_MARKS = {
+  axiom: () => [svg('circle', { cx: 6, cy: 6, r: 4.6, fill: 'none', 'stroke-width': 1.5 }), svg('circle', { cx: 6, cy: 6, r: 1.9 })],
+  principle: () => [svg('path', { d: 'M6 1.3L10.7 6L6 10.7L1.3 6Z', fill: 'none', 'stroke-width': 1.6 })],
+  anti_principle: () => [svg('path', { d: 'M2.4 2.4L9.6 9.6M9.6 2.4L2.4 9.6', fill: 'none', 'stroke-width': 1.8, 'stroke-linecap': 'round' })],
+};
+export function ruleGlyph(kind, extraClass = '') {
+  const root = svg('svg', { class: `glyph rule-mark rule-mark--${kind} ${extraClass}`.trim(), viewBox: '0 0 12 12', width: 12, height: 12, 'aria-hidden': 'true', focusable: 'false', fill: 'currentColor', stroke: 'currentColor', 'stroke-width': 0 });
+  root.append(...(RULE_MARKS[kind] || RULE_MARKS.principle)());
   return root;
 }
 
@@ -98,4 +113,40 @@ export function copyButton(text, label = 'Copy command') {
 export function announce(text) {
   const live = document.querySelector('[data-announce]');
   if (live) { live.textContent = ''; setTimeout(() => { live.textContent = text; }, 30); }
+}
+
+/**
+ * A proved computation as the map draws it (art direction §7): N separate
+ * petals, one per passed proof check, each in its own sector from the hub
+ * out; the hub's blue ring (written rules) and red dot (code); M small
+ * crosses, the broken copies the prover rejected, on an arc past the tips
+ * opposite the stem. Always the exact counts; fine rays when N is large.
+ */
+export function flowerGlyph(n = 0, m = 0, size = 44) {
+  const r = 15, c = 22;
+  const root = svg('svg', { class: 'flower', viewBox: '0 0 44 44', width: size, height: size, 'aria-hidden': 'true', focusable: 'false' });
+  const petals = svg('g', { class: 'flower__petals' });
+  const N = Math.max(0, n | 0);
+  for (let i = 0; i < N; i += 1) {
+    const a = -Math.PI / 2 + (i + 0.5) * (2 * Math.PI / N);
+    const deg = (a * 180) / Math.PI;
+    if ((2 * Math.PI * r) / N < 3.5) {
+      petals.append(svg('line', { x1: c + Math.cos(a) * r * 0.3, y1: c + Math.sin(a) * r * 0.3, x2: c + Math.cos(a) * r, y2: c + Math.sin(a) * r }));
+    } else {
+      const half = Math.min(0.62 * Math.PI / N * r * 0.65, r * 0.32);
+      const mid = r * 0.65;
+      petals.append(svg('ellipse', { cx: c + Math.cos(a) * mid, cy: c + Math.sin(a) * mid, rx: r * 0.35, ry: Math.max(0.8, half), transform: `rotate(${deg} ${c + Math.cos(a) * mid} ${c + Math.sin(a) * mid})` }));
+    }
+  }
+  root.append(petals,
+    svg('circle', { class: 'flower__rules', cx: c, cy: c, r: 4.2 }),
+    svg('circle', { class: 'flower__code', cx: c, cy: c, r: 1.9 }));
+  const M = Math.max(0, m | 0);
+  const arm = 1.9, R = r + 4.5, step = 0.36;
+  for (let j = 0; j < M; j += 1) {
+    const a = Math.PI / 2 + Math.PI + (j - (M - 1) / 2) * step;
+    const x = c + Math.cos(a) * R, y = c + Math.sin(a) * R;
+    root.append(svg('path', { class: 'flower__cross', d: `M${x - arm} ${y - arm}L${x + arm} ${y + arm}M${x + arm} ${y - arm}L${x - arm} ${y + arm}` }));
+  }
+  return root;
 }

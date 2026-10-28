@@ -28,19 +28,21 @@ It accepts only `GET` and `HEAD`, listens on loopback only, and answers `502`
 in plain text when the API is down. `--backend` and `--port` change the
 addresses.
 
-Its one route of its own, `/guides/component/<id>` and `/guides/core/<id>`,
-serves the write-up the snapshot names for a component or a core
-(`paper_modules/*.md`, or a core's formal README). It reads the file from this
-checkout only after asking the API for the write-up's recorded SHA-256, and
-answers `409 stale_guide` when the bytes no longer match, so a write-up is
-never newer than the snapshot it is shown with. Each write-up opens with a
-five-sentence block quote, "In plain terms", which the map shows on hover.
+Write-ups now come from the API snapshot. Overview component rows carry the
+plain-language lead and its availability; component, core and proof detail
+responses carry the bounded guide text, source reference, SHA-256 and
+availability. The browser requests a full guide only when the reader selects
+or opens that record. It neither prefetches every component's write-up nor
+reads a guide from the checkout. Older indexes without retained guide text
+show that absence explicitly. The `/guides/component/<id>` and
+`/guides/core/<id>` development routes remain for compatibility, but the
+browser client does not use them.
 
 ## What it shows
 
 | Route | Screen |
 |---|---|
-| `/` | The map. Inside the ring: the replay checker and the three workflow cores at the centre, the twelve component kernels as flowers (one petal per proof check, a cross per rejected broken version), and a thread from each kernel to the component that calls its generated code. Outside the ring: eight coverage rings, one per kind of check, one cell per component. Hovering a component shows its plain description in the panel; choosing it opens its card. Escape or a click on empty space lets go. Selection is kept in `#o=`; search and filters in the query. |
+| `/` | The map, drawn as an instrument whose layers each keep their own territory. Inside the ring: the replay checker and the three workflow cores at the centre, and each of the twelve component kernels as a flower (one separate petal per proof check, a cross per rejected broken version) on a stem from the component that calls its generated code, along that component's own radius; flowers keep a bounded size at every zoom and never overlap. Outside the ring: eight coverage rings, one per kind of check, one cell per component; then one citation tick per component; then the family names; then the doctrine's halo of 20 principles, 12 axioms and 17 failure modes; and a graduated rim. Choosing a rule marks exactly the components whose records cite it and draws a line to each when the lines fit their nested lanes, else traces one citer at a time as you point at it; choosing a component draws its lines up to its rules. A pointer arm swings through the centre to whatever is chosen. Hovering adds a comparison and never replaces the choice or moves the camera. Every label is placed by one planner (`src/map/labels.js`) that keeps text off marks, flowers, lines and controls, with more names as you zoom. The panel opens with what the map is and how to read it, and the eight-ring key. A chosen item's card leads with its meaning, its exact count and its limit, and a preview of whatever you point at docks at the bottom of the panel, stating its relation to the choice. Escape dismisses the preview, then the choice, then returns to the overview. Selection is kept in `#o=`; search and filters in the query. |
 | `/catalogue` | Search and combined filters, the matching total and further pages, all kept in the URL. |
 | `/components/<organ_id>` | One component: its plain description, its limit, its proved part, the rendered write-up, past runs as dated marks, the principles it cites and its connections, beside its column of checks. |
 | `/proofs/<proof_id>` | One proved computation (a component kernel or a workflow core): what it promises, the ownership repair played through where it applies, the Dafny rules as retained text, the broken versions as changed lines, the compiled code and who calls it, and what is not checked. |
@@ -64,17 +66,20 @@ Python. It uses real responses for search, paging, combined filters, empty
 results, direct links, unavailable records, unknown IDs and truncated graphs,
 and controlled responses for a stale cursor, a revision change between parts
 of a page, a slow superseded search, network failure and an incompatible
-schema. It also checks keyboard use and phone width, and writes screenshots
+schema. Guide tests cover unavailable older indexes and snapshot conflicts;
+route cancellation prevents a late mount from replacing the page the reader
+has navigated to. It also checks keyboard use and phone width, and writes screenshots
 and `report.json`.
 
 ## Source
 
-There is no build step and no dependency. `src/main.js` routes; `src/api.js`
+There is no build step and no dependency. `src/main.js` routes and cancels superseded mounts; `src/api.js`
 holds the loading rules (schema check, error kinds, superseded requests,
 cursor paging within one revision, parts that must share a revision);
-`src/data.js` builds the model from one `/api/v1/overview` response;
+`src/data.js` builds the model from one `/api/v1/overview?view=map` response;
 `src/evidence.js` words every state and defines the coverage rings;
-`src/markdown.js` renders write-ups as text, never as HTML; `src/map/` draws
+`src/markdown.js` loads retained guide bodies from the API and renders them
+as text, never as HTML; `src/map/` draws
 the map; `src/views/` holds the pages.
 
 `BACKEND_REQUESTS.md` lists what this pass needed from the API and could not
@@ -92,7 +97,46 @@ The map and pages adapt existing Plectis front ends rather than new drawings:
 | Plectis web fonts, `sites/microcosm/assets/fonts` at `4aff507d35` | STIX Two Text and Source Sans 3 subsets, under the SIL Open Font Licence (`assets/fonts/`) |
 | Lean Exposition, `site/src/checks/CheckMap.tsx` and `site/src/reader/ReaderPage.tsx` at `6f62294` | One square per item for coverage; the figure that follows the reading position (`src/views/coverage.js`, `src/views/chain.js`) |
 | Plectis Atlas, `DESIGN.md` "Evidence states stay distinct" at `3f0f093a` | Unknown is neither red nor green; an unrecognised value is named, not coloured (`src/evidence.js`) |
+| Plectis system map, `sites/microcosm/assets/system-map.js` at `17c49004bd`: `coreLayout`, `ruleGlyph`, `captionParts`, `relationText` | The doctrine's three marks and its hub order, moved out of the centre into the halo, with its chords opened into ruled lanes (`src/map/layout.js` haloLayout); one sentence per lit thing and a pointed object restated against the chosen one (`src/views/readout.js`) |
+| Lean Exposition, `site/src/panels/EdgePanel.tsx` at `6f62294` | The panel adds wording, not facts (`src/views/readout.js`) |
+
+The newcomer introduction adapts the existing `guide__rows` explanation and
+`row__go` selection patterns in `src/views/explorer.js`; the compact preview
+adapts its existing `peek` card. The full selected-item readout and the map's
+visual marks are retained. Both use the existing frame, tokens and fonts.
 
 The layout of the map is new. Inside the ring it follows the paper's chain from
 a stated property to the component that runs the proved code; outside it, the
 coverage rings read like the tracks of a circular genome plot.
+
+## Performance checks
+
+The map requests `GET /api/v1/overview?view=map`, a compact projection of the
+same snapshot. It keeps the fields used by the frontend model, including
+retained core order, and omits duplicated proof/core records and unused receipt
+fields. The original overview remains available unchanged. Browser acceptance
+compares the complete models built from both responses, including Map and Set
+iteration order.
+
+The overview carries authored plain introductions; full guide Markdown is loaded
+only for a selected detail. Keep hover and idle states free of guide requests.
+Routes import their own JavaScript, and the map requests the catalogue only when
+its index or a filter is used. Component pages load the overview and detail in
+parallel and still refuse mismatched snapshot revisions. In selected map cards,
+proof actions and claim limits precede the longer explanation and write-up;
+Markdown renders when the write-up is opened.
+
+The API prepares identity and gzip overview representations when admitting its
+immutable snapshot. The local server uses HTTP/1.1 so browsers can revalidate
+ETag-only API responses; the proxy preserves encoding, ETag and HEAD length.
+Static assets use gzip and content ETags, with a bounded in-memory cache (64
+entries / 8 MiB). File identity changes invalidate cached bytes immediately,
+including edits that preserve size and modification time. Every visit revalidates;
+there is no time window that knowingly serves stale code.
+
+The canvas advances all active effects on one animation clock and paints at most
+once per display frame. Geometry is invalidated by layout changes, not every
+paint. `tests/canvas.test.mjs` checks overlapping animations, settled idle,
+geometry changes, reduced motion and disposal; browser acceptance checks that
+navigation cancels an unfinished mount and that previews leave the reading panel
+clear. Preserve those behaviors when adding visual layers.

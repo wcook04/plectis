@@ -5,7 +5,7 @@ import { h } from '../dom.js';
 import { classWords } from '../evidence.js';
 import { FACETS, FACET_TITLES, componentRow, createCatalogue, filterSentence, loadFacets, readQuery, writeQuery } from './catalogue-core.js';
 
-export async function mountCatalogue(root, { url }) {
+export async function mountCatalogue(root, { url, signal }) {
   const state = readQuery(url);
   const search = h('input', { type: 'search', id: 'cat-find', value: state.q, maxlength: '160', placeholder: 'Search component IDs, titles and summaries…', autocomplete: 'off', spellcheck: 'false' });
   const facetsHost = h('div', {}, h('p', { class: 'muted small' }, 'Loading the filters…'));
@@ -27,10 +27,14 @@ export async function mountCatalogue(root, { url }) {
     onReset: () => reset(),
   });
   let facets = null;
-  function commit() {
-    history.replaceState(null, '', writeQuery(new URL(window.location.href), state).href);
+  let destroyed = false;
+  function updateSentence() {
     const s = filterSentence(state);
     sentence.textContent = s ? `Showing components ${s}.` : 'Showing every component.';
+  }
+  function commit() {
+    history.replaceState(null, '', writeQuery(new URL(window.location.href), state).href);
+    updateSentence();
     catalogue.load(state);
     renderFacets();
   }
@@ -61,9 +65,16 @@ export async function mountCatalogue(root, { url }) {
     clearTimeout(debounce);
     debounce = setTimeout(() => { state.q = search.value; commit(); }, 220);
   });
-  loadFacets().then((f) => { facets = f; renderFacets(); }).catch(() => {
+  loadFacets({ signal }).then((f) => {
+    if (destroyed || signal?.aborted) return;
+    facets = f;
+    updateSentence();
+    renderFacets();
+    catalogue.refreshLabels();
+  }).catch(() => {
+    if (destroyed || signal?.aborted) return;
     facetsHost.replaceChildren(h('p', { class: 'state state--error' }, 'The filter values could not be loaded; search still works.'));
   });
   commit();
-  return () => { clearTimeout(debounce); catalogue.destroy(); };
+  return () => { destroyed = true; clearTimeout(debounce); catalogue.destroy(); };
 }

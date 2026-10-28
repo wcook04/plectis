@@ -14,17 +14,19 @@ import { failure } from './component.js';
 import { loadWriteup } from '../markdown.js';
 import { ownershipFigure, specificationParts, variantsPart } from './proofparts.js';
 
-export async function mountProof(root, { id }) {
+export async function mountProof(root, { id, signal }) {
   const page = h('div', { class: 'page' }, h('p', { class: 'muted', role: 'status' }, 'Loading the proof…'));
   root.append(page);
   let model;
   try {
-    model = await getModel();
+    model = await getModel({ signal });
     setLabels(model.filters);
   } catch (error) {
+    if (signal?.aborted) return () => {};
     page.replaceChildren(failure(error, id));
     return () => {};
   }
+  if (signal?.aborted) return () => {};
   const kernel = model.kernelById.get(id);
   const core = kernel ? null : model.cores.find((c) => c.proofId === id || c.id === id);
   const p = kernel || core;
@@ -69,11 +71,9 @@ export async function mountProof(root, { id }) {
       h('div', {}, h('h3', {}, 'Assumptions'), h('p', { class: 'small' }, kernel.assumptions)))
       : h('div', {}, h('h3', {}, 'Assumptions'), h('p', { class: 'small' }, core.assumptions)),
     h('div', { class: 'limit' }, h('span', { class: 'limit__label' }, 'What the proof leaves out'), p.limits || 'No limit is written down.')));
-  if (core) {
-    const holder = h('div', {}, h('p', { class: 'muted small' }, 'Loading the write-up…'));
-    loadWriteup('core', core.id, model.links).then((el) => holder.replaceChildren(el));
-    body.append(section('writeup', 'The write-up', holder));
-  }
+  const holder = h('div', {}, h('p', { class: 'muted small' }, 'Loading the write-up…'));
+  loadWriteup(core ? 'core' : 'proof', core ? core.id : p.id, model.links, { signal }).then((el) => { if (!signal?.aborted) holder.replaceChildren(el); });
+  body.append(section('writeup', 'The write-up', holder));
   if (model.ownership && model.ownership.proof_id === id) {
     body.append(section('repair', 'Why the rules had to change',
       h('p', { class: 'small' }, 'This is the worked example from the paper. The old rule picked the first matching claim, so its advice depended on the order of the records. The fixed rules give a live claim priority whatever the order.'),

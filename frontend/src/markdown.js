@@ -5,9 +5,10 @@
 // elements built from text, never parsed as HTML. A link to another
 // component's write-up or to a formal README opens that page in the explorer;
 // a link to a file opens it at the index's source revision under its own
-// words, never as a path; a command block folds away behind "Run it
-// yourself", because a reader of the write-up is not asked to read commands.
+// words, never as a path. Explicit shell blocks fold away behind "Run it
+// yourself"; other fences remain readable code or text, without command actions.
 
+import { apiPath, getEnvelope } from './api.js';
 import { copyButton, h } from './dom.js';
 import { sourceHref } from './evidence.js';
 
@@ -104,9 +105,13 @@ export function renderWriteup(markdown, { base = '', skipTitle = true, skipPlain
       while (i < lines.length && !/^```\s*$/.test(lines[i])) { body.push(lines[i]); i += 1; }
       i += 1;
       const text = body.join('\n');
-      section.append(h('details', { class: 'md-run' },
-        h('summary', {}, 'Run it yourself'),
-        h('pre', { class: 'cmd' }, text), copyButton(text)));
+      if (['sh', 'bash', 'zsh', 'shell'].includes(fence[1].toLowerCase())) {
+        section.append(h('details', { class: 'md-run' },
+          h('summary', {}, 'Run it yourself'),
+          h('pre', { class: 'cmd' }, text), copyButton(text)));
+      } else {
+        section.append(h('pre', { class: 'cmd' }, h('code', {}, text)));
+      }
       continue;
     }
     const head = /^(#{1,4})\s+(.*)$/.exec(line);
@@ -161,38 +166,44 @@ export function renderWriteup(markdown, { base = '', skipTitle = true, skipPlain
   return root;
 }
 
-// Successful write-ups are cached within their expected model revision.
+// Guide bodies belong to the API snapshot. No browser read reaches into the
+// checkout: an old index with no retained text must remain explicitly absent.
 const fetched = new Map();
-export function fetchWriteup(kind, id, expectedRevision = '') {
-  const key = JSON.stringify([expectedRevision, kind, id]);
-  if (!fetched.has(key)) {
-    const pending = fetch(`/guides/${kind}/${encodeURIComponent(id)}`, { headers: { Accept: 'text/markdown' } })
-      .then(async (r) => {
-        const revision = r.headers.get('X-Plectis-Snapshot-Revision') || '';
-        const status = r.ok && expectedRevision && revision !== expectedRevision ? 409 : r.status;
-        return { status, text: status === 200 ? await r.text() : '', base: r.headers.get('X-Plectis-Guide-Ref') || '', revision };
-      })
-      .catch(() => ({ status: 0, text: '', base: '', revision: '' }))
-      .then((result) => {
-        if (result.status !== 200 && fetched.get(key) === pending) fetched.delete(key);
-        return result;
-      });
-    fetched.set(key, pending);
-  }
-  return fetched.get(key);
+export function guideResult(guide, revision = '') {
+  const available = guide?.availability === 'available' && typeof guide.text === 'string';
+  return {
+    status: available ? 200 : 404,
+    text: available ? guide.text : '',
+    base: guide?.ref || '', revision,
+    availability: guide?.availability || 'unrecorded',
+  };
 }
 
-/** Fetch and render the write-up for a component or a core; resolves to an element or a note. */
-export async function loadWriteup(kind, id, ctx, options = {}) {
-  const { status, text, base } = await fetchWriteup(kind, id, ctx.revision);
-  if (status === 0) return h('p', { class: 'note' }, 'The write-up could not be read: the explorer server is not reachable.');
-  if (status === 409) return h('p', { class: 'note' }, 'The write-up and this view no longer share a snapshot, so the write-up is not shown. Reload the view; rebuild the index if its recorded guide has changed.');
-  if (status !== 200) return h('p', { class: 'note' }, 'No write-up is recorded for this in the index.');
+export function fetchWriteup(kind, id, expectedRevision = '', { signal } = {}) {
+  const key = JSON.stringify([expectedRevision, kind, id]);
+  if (fetched.has(key)) return Promise.resolve(fetched.get(key));
+  const route = { component: 'components', core: 'cores', proof: 'proofs' }[kind];
+  return getEnvelope(apiPath(route, id), { signal })
+    .then(({ data, revision }) => {
+      if (expectedRevision && revision !== expectedRevision) return { status: 409, text: '', base: '', revision };
+      const result = guideResult(data.guide, revision);
+      if (result.status === 200 && !signal?.aborted) fetched.set(key, result);
+      return result;
+    })
+    .catch((error) => ({ status: error.kind === 'revision' || error.status === 409 ? 409 : error.kind === 'not_found' ? 404 : 0, text: '', base: '', revision: '' }));
+}
+
+/** Render a retained guide, keeping an absent old-index guide explicit. */
+export function renderGuide(guide, ctx, options = {}) {
+  return renderGuideResult(guideResult(guide, ctx.revision), ctx, options);
+}
+function renderGuideResult({ status, text, base }, ctx, options) {
+  if (status === 0) return h('p', { class: 'note' }, 'The write-up could not be read: the component API is not reachable.');
+  if (status === 409) return h('p', { class: 'note' }, 'The write-up and this view no longer share a snapshot, so the write-up is not shown. Reload the view.');
+  if (status !== 200) return h('p', { class: 'note' }, 'The write-up text is not retained in this snapshot. Rebuild the component index to include the guide.');
   return renderWriteup(text, { base, ...ctx, ...options });
 }
-
-/** The plain-language lead for a component, or null while there is none. */
-export async function loadPlain(kind, id, revision = '') {
-  const { status, text } = await fetchWriteup(kind, id, revision);
-  return status === 200 ? plainLead(text) : null;
+export async function loadWriteup(kind, id, ctx, options = {}) {
+  const result = await fetchWriteup(kind, id, ctx.revision, options);
+  return renderGuideResult(result, ctx, options);
 }

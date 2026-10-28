@@ -66,7 +66,7 @@ export function componentRow(item, { href, onEnter, onLeave, onPick } = {}) {
 }
 
 /**
- * Renders into `host` and returns { load(state), destroy() }. `onMatches`
+ * Renders into `host` and returns { load(state), refreshLabels(), destroy() }. `onMatches`
  * receives every matching ID (fetched separately, all pages) so the map
  * can light them; `row` builds one list row.
  */
@@ -76,6 +76,7 @@ export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset, 
   let list = null;
   let state = {};
   let restarted = false;
+  let destroyed = false;
   const status = h('p', { class: 'small muted figures', role: 'status', 'aria-live': 'polite' });
   const items = h('ul', { class: 'rows', 'aria-label': 'Components' });
   const actions = h('div', { class: 'more' });
@@ -99,7 +100,15 @@ export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset, 
     actions.append(box);
   }
 
+  function refreshLabels() {
+    if (destroyed || !list?.items.length) return;
+    // Reword retained rows without restarting pagination or clearing errors.
+    clear(items);
+    for (const item of list.items) items.append(row(item));
+  }
+
   function render() {
+    if (destroyed) return;
     clear(items);
     for (const item of list.items) items.append(row(item));
     const shown = list.items.length;
@@ -116,6 +125,7 @@ export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset, 
   }
 
   async function load(next) {
+    if (destroyed) return;
     state = next;
     restarted = false;
     list = new Collection(apiPath('components'), apiParams(state), { pageSize });
@@ -126,7 +136,7 @@ export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset, 
       await run((signal) => list.first(signal));
       render();
     } catch (error) {
-      if (error.kind === 'aborted') return;
+      if (destroyed || error.kind === 'aborted') return;
       clear(items);
       status.textContent = '';
       showError(error, () => load(state));
@@ -136,11 +146,12 @@ export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset, 
   }
 
   async function more() {
+    if (destroyed) return;
     try {
       await run((signal) => list.more(signal));
       render();
     } catch (error) {
-      if (error.kind === 'aborted') return;
+      if (destroyed || error.kind === 'aborted') return;
       if ((error.kind === 'stale_cursor' || error.kind === 'revision') && !restarted) {
         // The snapshot changed: discard the list and start once from page one.
         const keep = state;
@@ -154,7 +165,7 @@ export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset, 
   }
 
   async function loadMatches() {
-    if (!onMatches) return;
+    if (destroyed || !onMatches) return;
     const params = apiParams(state);
     try {
       const ids = await matchRun(async (signal) => {
@@ -171,18 +182,19 @@ export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset, 
         } while (cursor);
         return out;
       });
+      if (destroyed) return;
       onMatches(ids === null ? null : new Set(ids));
     } catch (error) {
-      if (error.kind !== 'aborted') onMatches(null, error);
+      if (!destroyed && error.kind !== 'aborted') onMatches(null, error);
     }
   }
 
-  return { load, destroy() { host.replaceChildren(); } };
+  return { load, refreshLabels, destroy() { destroyed = true; run.abort(); matchRun.abort(); host.replaceChildren(); } };
 }
 
 /** Metadata's advertised filter values with their counts. */
-export async function loadFacets() {
-  const env = await getEnvelope('/api/v1');
+export async function loadFacets(options = {}) {
+  const env = await getEnvelope('/api/v1', options);
   setLabels(env.data.component_filters);
   return { revision: env.revision, filters: env.data.component_filters || {}, meta: env.data };
 }

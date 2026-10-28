@@ -45,6 +45,7 @@ function bounded(text) {
 
 /** Fetch one API URL and return {revision, data}, or throw an ApiError. */
 export async function getEnvelope(url, { signal, fetchImpl = globalThis.fetch } = {}) {
+  if (signal?.aborted) throw new ApiError('aborted', 'request superseded');
   let response;
   try {
     response = await fetchImpl(url, { signal, headers: { Accept: 'application/json' } });
@@ -78,6 +79,7 @@ export async function getEnvelope(url, { signal, fetchImpl = globalThis.fetch } 
   if (typeof body.snapshot_revision !== 'string' || !('data' in body)) {
     throw new ApiError('schema', 'The response envelope is incomplete.', { status: response.status });
   }
+  if (signal?.aborted) throw new ApiError('aborted', 'request superseded');
   return { revision: body.snapshot_revision, data: body.data };
 }
 
@@ -89,7 +91,7 @@ export async function getEnvelope(url, { signal, fetchImpl = globalThis.fetch } 
 export function latestOnly() {
   let controller = null;
   let sequence = 0;
-  return async function run(task) {
+  const run = async function (task) {
     controller?.abort();
     controller = new AbortController();
     const mine = ++sequence;
@@ -97,6 +99,8 @@ export function latestOnly() {
     if (mine !== sequence) throw new ApiError('aborted', 'request superseded');
     return result;
   };
+  run.abort = () => { sequence += 1; controller?.abort(); };
+  return run;
 }
 
 /**

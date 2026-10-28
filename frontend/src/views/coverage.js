@@ -10,17 +10,19 @@ import { failure } from './component.js';
 
 const INK_CLASS = { ran: 'ink-ran', stated: 'ink-stated', saved: 'ink-saved', unknown: 'ink-unknown' };
 
-export async function mountCoverage(root) {
+export async function mountCoverage(root, { signal } = {}) {
   const page = h('div', { class: 'page' }, h('p', { class: 'muted', role: 'status' }, 'Loading…'));
   root.append(page);
   let model;
   try {
-    model = await getModel();
+    model = await getModel({ signal });
     setLabels(model.filters);
   } catch (error) {
+    if (signal?.aborted) return () => {};
     page.replaceChildren(failure(error, 'coverage'));
     return () => {};
   }
+  if (signal?.aborted) return () => {};
   document.title = 'Coverage · Practical formal verification';
   const families = [...new Set(model.components.map((c) => c.family))]
     .sort((a, b) => (FAMILY_ORDER.indexOf(a) + 1 || 99) - (FAMILY_ORDER.indexOf(b) + 1 || 99));

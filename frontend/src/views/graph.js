@@ -17,7 +17,7 @@ const KIND_INK = {
 const INK = { red: 'var(--home-ember)', azure: 'var(--weave-azure-glow)', ink: 'var(--edge)' };
 const words = (k) => String(k || '').replace(/_/g, ' ');
 
-export async function mountGraph(root, { url, navigate }) {
+export async function mountGraph(root, { url, navigate, signal }) {
   const page = h('div', { class: 'page' });
   root.append(page);
   const params = {
@@ -34,7 +34,8 @@ export async function mountGraph(root, { url, navigate }) {
     return () => {};
   }
   let meta;
-  try { meta = (await getEnvelope('/api/v1')).data; } catch (error) { page.append(failure(error, params.id)); return () => {}; }
+  try { meta = (await getEnvelope('/api/v1', { signal })).data; } catch (error) { if (signal?.aborted) return () => {}; page.append(failure(error, params.id)); return () => {}; }
+  if (signal?.aborted) return () => {};
   const limits = meta.limits || { graph_depth: 3, graph_edges: 500 };
   const semantics = meta.graph?.edge_semantics || {};
   const select = (name, options, value) => h('select', { name, 'aria-label': name.replace(/_/g, ' ') }, options.map(([v, label]) => h('option', { value: v, selected: v === value ? 'selected' : null }, label)));
@@ -50,6 +51,8 @@ export async function mountGraph(root, { url, navigate }) {
     h('p', { class: 'page-lede' }, `Everything linked to this ${words(params.type)}, up to a few steps away. Each line is labelled with what the link means.`),
     controls, out);
   const run = latestOnly();
+  const dispose = () => run.abort();
+  signal?.addEventListener('abort', dispose, { once: true });
   controls.addEventListener('change', () => {
     const form = new FormData(controls);
     for (const key of ['depth', 'direction', 'edge_kind', 'max_edges']) params[key] = String(form.get(key) || '');
@@ -65,7 +68,7 @@ export async function mountGraph(root, { url, navigate }) {
     try {
       env = await run((signal) => getEnvelope(withQuery(apiPath('graph'), params), { signal }));
     } catch (error) {
-      if (error.kind === 'aborted') return;
+      if (signal?.aborted || error.kind === 'aborted') return;
       const box = failure(error, params.id);
       if (error.kind === 'not_found') box.querySelector('h1').textContent = 'No record with this type and ID';
       if (error.kind === 'request') {
@@ -75,6 +78,7 @@ export async function mountGraph(root, { url, navigate }) {
       out.replaceChildren(box);
       return;
     }
+    if (signal?.aborted) return;
     out.replaceChildren(render(env.data, env.revision));
   }
 
@@ -170,7 +174,7 @@ export async function mountGraph(root, { url, navigate }) {
   }
 
   load();
-  return () => {};
+  return dispose;
 }
 
 function shortId(id) {
