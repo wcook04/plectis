@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Validates readiness declarations and cited probes, without running Lean or proving a theorem.",
+    "authority_ceiling": "Checks the fixture's readiness declarations and the probes they cite, and rejects a claim that Mathlib is available without a passing probe.",
     "card": "The readiness gate checks declared formal-math inputs before a proof workflow consumes them. It reads corpus availability, tactic probes, a premise index, target-to-tactic routes, and provider context recipes, then writes a board and validation receipt. For example, the fixture reports Mathlib unavailable; a claim that it is available without a passing probe is rejected.",
     "one_line": "The readiness gate checks declared formal-math inputs before a proof workflow consumes them."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Validates readiness declarations and cited probes, without running Lean or proving a theorem.",
+    "authority_ceiling": "Checks the fixture's readiness declarations and the probes they cite, and rejects a claim that Mathlib is available without a passing probe.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,7 +82,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Validates readiness declarations and cited probes, without running Lean or proving a theorem.",
+        "authority_ceiling": "Checks the fixture's readiness declarations and the probes they cite, and rejects a claim that Mathlib is available without a passing probe.",
         "card": "The readiness gate checks declared formal-math inputs before a proof workflow consumes them. It reads corpus availability, tactic probes, a premise index, target-to-tactic routes, and provider context recipes, then writes a board and validation receipt. For example, the fixture reports Mathlib unavailable; a claim that it is available without a passing probe is rejected.",
         "one_line": "The readiness gate checks declared formal-math inputs before a proof workflow consumes them."
       },

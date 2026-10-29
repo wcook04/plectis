@@ -1,6 +1,6 @@
 # Test a release claim-language gate
 
-> **In plain terms.** Before a project is released, its documents need checking for risky claims about what the project is or can do. It writes two short sample documents, one warning against claiming the project is open source (its code shared openly) and one plainly claiming it is ready for real-world use. It runs a gate that looks for listed risky phrases in both and records which phrases matched and what the gate decided. The readiness claim is blocked, so someone can check that the gate catches that kind of wording. In this copy a simplified public stand-in replaces the original gate, so the example tests the stand-in, and a pass does not approve a release.
+> **In plain terms.** Before a project is released, its documents need checking for risky claims about what the project is or can do. It writes two short sample documents, one warning against claiming the project is open source (its code shared openly) and one plainly claiming it is ready for real-world use. It runs a simplified public stand-in for the original gate, which looks for listed risky phrases in both, and records which phrases matched and what the gate decided. The readiness claim is blocked, so someone can check that the gate catches that kind of wording.
 
 This fixture writes two sample documents in temporary directories: one warns against an open-source claim, while the other affirmatively claims production readiness. It runs the declared public fallback claim-language gate against both. The result records matched phrase IDs, gate status and the assert-clear exit code.
 
@@ -27,7 +27,7 @@ The example above runs the fixture directly. In `make component-replays`, this c
 
 ## Limits
 
-A passing fixture does not approve a release, publication or the truth of a document. This checkout’s source manifest declares a public-safe stub in place of the original source, so this example exercises the fallback rather than the copied gate. An undeclared missing source blocks the check.
+Runs the declared public fallback claim-language gate, which this checkout uses in place of the original source, on two sample documents and rejects the one claiming production readiness; an undeclared missing source blocks the check.
 
 ## Source and evidence
 

@@ -2707,10 +2707,10 @@ viewIsFitted = false;
         : `${o.rule.citedBy.length} of ${compObj.size} components cite it`];
     }
     if (o.type === 'kernel') {
-      return ['Proof', proofShortName(o.kernel), `${count(o.tasks, 'proof check')} passed · ${count(o.mutants, 'broken copy', 'broken copies')} rejected`];
+      return ['Proved computation', proofShortName(o.kernel), `${count(o.tasks, 'proof check')} passed · ${count(o.mutants, 'broken copy', 'broken copies')} rejected`];
     }
     if (o.type === 'core') {
-      return ['Toolkit core', coreName(o.core), `${count(o.tasks, 'proof check')} passed · ${count(o.mutants, 'broken copy', 'broken copies')} rejected`];
+      return ['Toolkit computation', coreName(o.core), `${count(o.tasks, 'proof check')} passed · ${count(o.mutants, 'broken copy', 'broken copies')} rejected`];
     }
     return null;
   }

@@ -1,6 +1,6 @@
 # Recorded work landing: check the evidence
 
-> **In plain terms.** When an automated assistant says its work was saved to a project's history, its records should back that up. This component is given made-up records of the files claimed, the checks and save attempt, and the project's latest version before and after. It compares each record with a written policy, for example requiring that a claimed save moved the latest version and that the checks ran first. The result passes only if two faulty example records, a claimed save with no change and a save attempted before the checks, are both caught. It reads records and does no saving itself, so a pass does not show that a real save happened or permit one.
+> **In plain terms.** When an automated assistant says its work was saved to a project's history, its records should back that up. This component is given made-up records of the files claimed, the checks and save attempt, and the project's latest version before and after. It compares each record with a written policy, for example requiring that a claimed save moved the latest version and that the checks ran first. The result passes only if two faulty example records, a claimed save with no change and a save attempted before the checks, are both caught.
 
 This replay checks recorded agent work against a landing policy. It reads claimed paths, validation and commit-attempt references, HEAD before and after, blocker capture, and ledger closeout. It writes result, board, validation and acceptance receipts. It does not perform Git operations.
 

@@ -1,6 +1,6 @@
 # Standards coverage diagnostics
 
-> **In plain terms.** Each accepted component of a project should have a written standard, a command that runs it and saved records backing what is said about it. This check reads the project's public list of accepted components, along with inventory and command entries, and some deliberately flawed example inputs. It compares accepted components with those entries, checks that each cited standard and saved record exists, and rejects a claim of permission to release. It writes a result listing what it found, so maintainers can see which components lack standards or references. A pass describes the public coverage that was checked, not that every component works or that a release is allowed.
+> **In plain terms.** Each accepted component of a project should have a written standard, a command that runs it and saved records backing what is said about it. This check reads the project's public list of accepted components, along with inventory and command entries, and some deliberately flawed example inputs. It compares accepted components with those entries, checks that each cited standard and saved record exists, and rejects a claim of permission to release. It writes a result listing what it found, so maintainers can see which components lack standards or references.
 
 This validator checks whether accepted components have the declared standards, runtime commands and receipt references needed to describe their public contracts. The fixture run derives positive rows from the current public registry and checks negative examples from the input directory.
 
@@ -23,7 +23,7 @@ The checker compares accepted component IDs against inventory and runtime-contra
 
 ## Limits
 
-A pass describes checked public coverage; it does not establish that every component works correctly or authorize registry changes or a release.
+Compares accepted component IDs with inventory and runtime-contract rows and checks their standard and receipt references, rejecting a missing standard reference or a claimed release approval.
 
 ## Verification
 

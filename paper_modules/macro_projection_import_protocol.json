@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Checks declared provenance and omission rules, not algorithm correctness, completeness, or release authority.",
+    "authority_ceiling": "Checks each import record's source and target references, material classes, digests, omissions and validation references, and rejects a request to copy a forbidden body or to raise a record's standing.",
     "card": "This protocol checks records for copying or refactoring selected source material into the public repository. The input identifies source and target references, material classes, digests, omissions, and validation references. It produces a plan or validation receipt so a reviewer can inspect the claimed provenance and boundaries.",
     "one_line": "This protocol checks records for copying or refactoring selected source material into the public repository."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Checks declared provenance and omission rules, not algorithm correctness, completeness, or release authority.",
+    "authority_ceiling": "Checks each import record's source and target references, material classes, digests, omissions and validation references, and rejects a request to copy a forbidden body or to raise a record's standing.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -79,7 +79,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Checks declared provenance and omission rules, not algorithm correctness, completeness, or release authority.",
+        "authority_ceiling": "Checks each import record's source and target references, material classes, digests, omissions and validation references, and rejects a request to copy a forbidden body or to raise a record's standing.",
         "card": "This protocol checks records for copying or refactoring selected source material into the public repository. The input identifies source and target references, material classes, digests, omissions, and validation references. It produces a plan or validation receipt so a reviewer can inspect the claimed provenance and boundaries.",
         "one_line": "This protocol checks records for copying or refactoring selected source material into the public repository."
       },

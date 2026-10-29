@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "These are bounded exercises of the supplied cases. A digest confirms a source copy against its manifest; it does not prove authorization, proof correctness or safe process management in a live system.",
+    "authority_ceiling": "Runs examples of receipt validation, replay scope, proof contracts, process classification, state convergence, trace recording, dependency impact and doctrine drift, and checks each copied source against its manifest digest, rejecting a receipt with provider-context drift and a proof contract containing `sorry`.",
     "card": "This fixture runs examples of receipt validation, replay scope, proof-contract checks, process classification, state convergence, trace recording, dependency impact and doctrine drift. It records each outcome alongside source-manifest evidence. A receipt with provider-context drift is rejected, and a proof contract containing `sorry` is rejected. A live descendant must not be signalled by the orphan classifier. When a generated projection remains unresolved and its source signature changes between checks, the fixture classifies it as a source-moved residual.",
     "one_line": "Exercises receipt, replay, proof-contract and dependency-impact checks."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "These are bounded exercises of the supplied cases. A digest confirms a source copy against its manifest; it does not prove authorization, proof correctness or safe process management in a live system.",
+    "authority_ceiling": "Runs examples of receipt validation, replay scope, proof contracts, process classification, state convergence, trace recording, dependency impact and doctrine drift, and checks each copied source against its manifest digest, rejecting a receipt with provider-context drift and a proof contract containing `sorry`.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -92,7 +92,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "These are bounded exercises of the supplied cases. A digest confirms a source copy against its manifest; it does not prove authorization, proof correctness or safe process management in a live system.",
+        "authority_ceiling": "Runs examples of receipt validation, replay scope, proof contracts, process classification, state convergence, trace recording, dependency impact and doctrine drift, and checks each copied source against its manifest digest, rejecting a receipt with provider-context drift and a proof contract containing `sorry`.",
         "card": "This fixture runs examples of receipt validation, replay scope, proof-contract checks, process classification, state convergence, trace recording, dependency impact and doctrine drift. It records each outcome alongside source-manifest evidence. A receipt with provider-context drift is rejected, and a proof contract containing `sorry` is rejected. A live descendant must not be signalled by the orphan classifier. When a generated projection remains unresolved and its source signature changes between checks, the fixture classifies it as a source-moved residual.",
         "one_line": "Exercises receipt, replay, proof-contract and dependency-impact checks."
       },

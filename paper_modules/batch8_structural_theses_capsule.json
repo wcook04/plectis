@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Synthetic examples check the validation rules, not predictive performance or investment advice. A frozen claim and a complete sampling frame matter to the interpretation of any real study.",
+    "authority_ceiling": "Runs a synthetic thesis family through loss, control and forward-gate checks, rejecting a survivor-only sample, a promoted refuted pattern and a confirmed negative control.",
     "card": "A survivor-only sample, a promoted refuted pattern and a confirmed negative control produce validation findings.",
     "one_line": "A synthetic thesis family tests losses, controls and forward gates."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Synthetic examples check the validation rules, not predictive performance or investment advice. A frozen claim and a complete sampling frame matter to the interpretation of any real study.",
+    "authority_ceiling": "Runs a synthetic thesis family through loss, control and forward-gate checks, rejecting a survivor-only sample, a promoted refuted pattern and a confirmed negative control.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,7 +86,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Synthetic examples check the validation rules, not predictive performance or investment advice. A frozen claim and a complete sampling frame matter to the interpretation of any real study.",
+        "authority_ceiling": "Runs a synthetic thesis family through loss, control and forward-gate checks, rejecting a survivor-only sample, a promoted refuted pattern and a confirmed negative control.",
         "card": "A survivor-only sample, a promoted refuted pattern and a confirmed negative control produce validation findings.",
         "one_line": "A synthetic thesis family tests losses, controls and forward gates."
       },

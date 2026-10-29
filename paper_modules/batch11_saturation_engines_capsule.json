@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The collection mixes copied source with declared public refactors; a matching digest or passing synthetic case does not establish production performance, market truth or security.",
+    "authority_ceiling": "Runs thirteen selected checks, built from copied source and declared public refactors, on example inputs from run selection and navigation to market data, research evidence and recording segments, rejecting a key-shaped token in sample file contents and an unreachable navigation target.",
     "card": "This fixture runs thirteen selected checks on examples ranging from run affinity and navigation to market data, research evidence and recording segments. It checks source manifests and records each exercise and its negative cases. For example, the run selector chooses a working feed run over a stale failed run, even when the latter is marked as the preferred run. A scan of sample public file contents and paths blocks a key-shaped token; an unreachable navigation target fails its route check. The market examples normalize units and route unknown macro categories to an other bucket. Each result is specific to its test inputs.",
     "one_line": "Exercises thirteen selected checks across navigation, research and market data."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The collection mixes copied source with declared public refactors; a matching digest or passing synthetic case does not establish production performance, market truth or security.",
+    "authority_ceiling": "Runs thirteen selected checks, built from copied source and declared public refactors, on example inputs from run selection and navigation to market data, research evidence and recording segments, rejecting a key-shaped token in sample file contents and an unreachable navigation target.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,7 +85,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The collection mixes copied source with declared public refactors; a matching digest or passing synthetic case does not establish production performance, market truth or security.",
+        "authority_ceiling": "Runs thirteen selected checks, built from copied source and declared public refactors, on example inputs from run selection and navigation to market data, research evidence and recording segments, rejecting a key-shaped token in sample file contents and an unreachable navigation target.",
         "card": "This fixture runs thirteen selected checks on examples ranging from run affinity and navigation to market data, research evidence and recording segments. It checks source manifests and records each exercise and its negative cases. For example, the run selector chooses a working feed run over a stale failed run, even when the latter is marked as the preferred run. A scan of sample public file contents and paths blocks a key-shaped token; an unreachable navigation target fails its route check. The market examples normalize units and route unknown macro categories to an other bucket. Each result is specific to its test inputs.",
         "one_line": "Exercises thirteen selected checks across navigation, research and market data."
       },

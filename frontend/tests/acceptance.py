@@ -198,7 +198,7 @@ def main(argv=None):
         page.route("**/api/v1/components/mcp_tool_authority_replay", other_revision)
         page.goto(f"{base}/components/mcp_tool_authority_replay", wait_until="load")
         page.wait_for_selector("h1")
-        check("a revision change is an explicit state", page.locator("h1").inner_text() == "The index changed while loading")
+        check("a revision change is an explicit state", page.locator("h1").inner_text() == "The data changed while loading")
         page.goto(f"{base}/#o=comp%3Amcp_tool_authority_replay", wait_until="load")
         page.wait_for_function("document.querySelector('[data-limit]')?.textContent.includes('Reload the map')")
         check("a map card refuses details from another revision",
@@ -328,7 +328,7 @@ def main(argv=None):
         page.route("**/api/v1/overview*", lambda route: route.fulfill(status=200, content_type="application/json",
                                                                       body=json.dumps({"schema_version": "plectis_component_http_v2", "snapshot_revision": "x", "data": {}})))
         page.goto(f"{base}/", wait_until="load")
-        page.wait_for_selector("text=contract this explorer does not read")
+        page.wait_for_selector("text=format this explorer cannot read")
         check("an incompatible schema is its own state", True)
         page.unroute("**/api/v1/overview*")
 
@@ -357,7 +357,7 @@ def main(argv=None):
         page.locator(".plain-explanation > summary").click()
         check("the complete authored plain explanation stays available",
               page.locator("[data-plain]").inner_text().startswith("Changes an automated assistant")
-              and "not for being genuine" in page.locator("[data-plain]").inner_text())
+              and "an approval and a way to undo it are recorded" in page.locator("[data-plain]").inner_text())
         page.locator(".plain-explanation > summary").click()
         page.locator(".explorer__body").click(position={"x": 8, "y": 8})
         page.keyboard.press("Escape")
@@ -373,7 +373,7 @@ def main(argv=None):
         page.wait_for_selector(".overview .guide__name")
         check("the overview states the page's purpose once, then reads the map from the centre out",
               page.locator(".overview h1").is_visible()
-              and page.locator(".guide__name").all_text_contents() == ["Proof dials", "Components", "Eight rings", "Citations", "Doctrine"]
+              and page.locator(".guide__name").all_text_contents() == ["Proof dials", "Components", "Eight rings", "Citations", "Rules"]
               and page.locator(".ring-key .ring-row").count() == 8)
         check("the unfiltered map does not request a hidden catalogue",
               not any("/api/v1/components?" in url for url in map_requests))
@@ -407,9 +407,9 @@ def main(argv=None):
                 shown = True
                 break
         page.wait_for_timeout(500)
-        check("hovering a component shows its name, purpose, counts and limit in the dock",
+        check("hovering a component shows its name, purpose and counts in the dock",
               shown and page.locator(".dock__name").inner_text() != "" and len(page.locator(".dock__purpose").inner_text()) > 30
-              and page.locator(".dock__counts li").count() >= 1 and page.locator(".dock__limit").inner_text() != "")
+              and page.locator(".dock__counts li").count() >= 1)
         panel_box = page.locator(".explorer__panel").bounding_box()
         preview_box = page.locator(".dock").bounding_box()
         check("the preview dock sits in the panel, never over the map, and is readable by assistive tech",

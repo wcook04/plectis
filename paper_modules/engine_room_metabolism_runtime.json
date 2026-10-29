@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "This is a synthetic local SQLite exercise. It does not dispatch workers or providers, reproduce a distributed database, or automatically repair ambiguous state.",
+    "authority_ceiling": "Runs a job queue, expiring leases, a claim event log and reconciliation in temporary local SQLite databases, and leaves ambiguous state, such as a running job with no run row, for operator review.",
     "card": "The fixture evaluator creates temporary SQLite databases to exercise a job queue, expiring leases, a claim event log with an active view, and reconciliation. The queue rejects a duplicate idempotency key while its job is active. An expired claim can be requeued; a running job without a run row instead produces an operator-review finding.",
     "one_line": "Exercise synthetic SQLite queues, leases, claim events and reconciliation."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "This is a synthetic local SQLite exercise. It does not dispatch workers or providers, reproduce a distributed database, or automatically repair ambiguous state.",
+    "authority_ceiling": "Runs a job queue, expiring leases, a claim event log and reconciliation in temporary local SQLite databases, and leaves ambiguous state, such as a running job with no run row, for operator review.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -91,7 +91,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "This is a synthetic local SQLite exercise. It does not dispatch workers or providers, reproduce a distributed database, or automatically repair ambiguous state.",
+        "authority_ceiling": "Runs a job queue, expiring leases, a claim event log and reconciliation in temporary local SQLite databases, and leaves ambiguous state, such as a running job with no run row, for operator review.",
         "card": "The fixture evaluator creates temporary SQLite databases to exercise a job queue, expiring leases, a claim event log with an active view, and reconciliation. The queue rejects a duplicate idempotency key while its job is active. An expired claim can be requeued; a running job without a run row instead produces an operator-review finding.",
         "one_line": "Exercise synthetic SQLite queues, leases, claim events and reconciliation."
       },

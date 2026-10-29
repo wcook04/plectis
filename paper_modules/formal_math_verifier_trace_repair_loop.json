@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Checks recorded repair traces and evaluates four toy inputs; it does not perform a fresh Lean proof check.",
+    "authority_ceiling": "Checks recorded attempt, verifier-trace, repair and promotion metadata and evaluates four toy inputs, rejecting a promotion that cites no cold rerun.",
     "card": "This validator examines recorded attempt, verifier trace, repair, and promotion metadata. It connects a reported failure class to a repair action and checks a claim that a repaired attempt succeeded. That claim of promotion requires a reference to a cold rerun: a separate recorded check of the repaired attempt. The validator checks the reference and source records; it does not rerun the verifier. It writes a board and a validation receipt for inspection.",
     "one_line": "This validator examines recorded attempt, verifier trace, repair, and promotion metadata."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Checks recorded repair traces and evaluates four toy inputs; it does not perform a fresh Lean proof check.",
+    "authority_ceiling": "Checks recorded attempt, verifier-trace, repair and promotion metadata and evaluates four toy inputs, rejecting a promotion that cites no cold rerun.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,7 +83,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Checks recorded repair traces and evaluates four toy inputs; it does not perform a fresh Lean proof check.",
+        "authority_ceiling": "Checks recorded attempt, verifier-trace, repair and promotion metadata and evaluates four toy inputs, rejecting a promotion that cites no cold rerun.",
         "card": "This validator examines recorded attempt, verifier trace, repair, and promotion metadata. It connects a reported failure class to a repair action and checks a claim that a repaired attempt succeeded. That claim of promotion requires a reference to a cold rerun: a separate recorded check of the repaired attempt. The validator checks the reference and source records; it does not rerun the verifier. It writes a board and a validation receipt for inspection.",
         "one_line": "This validator examines recorded attempt, verifier trace, repair, and promotion metadata."
       },

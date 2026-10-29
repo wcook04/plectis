@@ -1,6 +1,6 @@
 # Inspect validator source and available checker exercises
 
-> **In plain terms.** A pass from a project's checking program means little until someone knows what it was able to check where it ran. This component is given a copy of that checking program's written code. It reports on six groups of checks, such as required markers in the code, and runs the checkers themselves only when the larger system the code was copied from is present. In a public copy it confirms only the required markers and labels the other groups as source-only, so a reader can tell which results come from running checkers. Having the right code alone cannot show how the checkers behave, how fully they cover their job or whether anything is ready for release.
+> **In plain terms.** A pass from a project's checking program means little until someone knows what it was able to check where it ran. This component is given a copy of that checking program's written code. It reports on six groups of checks, such as required markers in the code, and runs the checkers themselves only when the larger system the code was copied from is present. In a public copy it confirms only the required markers and labels the other groups as source-only, so a reader can tell which results come from running checkers.
 
 This fixture examines a copied validator module and reports six checker groups, including source anchors, status policy, private-boundary scanning, specimen checks, release-gate checks and an entrypoint witness. What a passing row means depends on the available runtime.
 
@@ -25,7 +25,7 @@ Source checks and available checker exercises do not formally prove the validato
 
 ## Limits
 
-Read the witness mode before interpreting a pass. Source identity alone cannot establish checker behavior, full validator coverage, or release readiness.
+Checks the copied checker sources' anchors and digests and rejects a missing validator source or a bypassed entry point; the other five checker groups run only when the parent runtime state is available.
 
 ## Sources
 

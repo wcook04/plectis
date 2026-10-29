@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Matching hashes establish consistency with referenced bytes, not that the routes are useful or correct. This fixture does not exercise a live private navigation system.",
+    "authority_ceiling": "Compares the hash and row count in the source-coupling manifest with the fixture's route rows, and rejects a row without a command or a stale projection that claims to be current.",
     "card": "A route row describes a navigation option and its command. For example, the fixture’s `route_card_candidate` gives a safe drilldown command and conditions for opening it. The validator also checks the required entry-packet fields, the actions a route lease permits, and conditions that demote unsuitable options. A source-coupling manifest contains a hash and row count; the validator compares these with the route rows. It rejects a row without a command and a projection claiming current authority when coupling is stale. The selected fixture card is a small routing example.",
     "one_line": "Checks public route rows and records that bind them to an entry route, then writes a validation receipt."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Matching hashes establish consistency with referenced bytes, not that the routes are useful or correct. This fixture does not exercise a live private navigation system.",
+    "authority_ceiling": "Compares the hash and row count in the source-coupling manifest with the fixture's route rows, and rejects a row without a command or a stale projection that claims to be current.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,7 +82,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Matching hashes establish consistency with referenced bytes, not that the routes are useful or correct. This fixture does not exercise a live private navigation system.",
+        "authority_ceiling": "Compares the hash and row count in the source-coupling manifest with the fixture's route rows, and rejects a row without a command or a stale projection that claims to be current.",
         "card": "A route row describes a navigation option and its command. For example, the fixture’s `route_card_candidate` gives a safe drilldown command and conditions for opening it. The validator also checks the required entry-packet fields, the actions a route lease permits, and conditions that demote unsuitable options. A source-coupling manifest contains a hash and row count; the validator compares these with the route rows. It rejects a row without a command and a projection claiming current authority when coupling is stale. The selected fixture card is a small routing example.",
         "one_line": "Checks public route rows and records that bind them to an entry route, then writes a validation receipt."
       },

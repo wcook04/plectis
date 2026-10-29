@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The fixture is a source-integrity exercise, not a check of a live private runtime.",
+    "authority_ceiling": "Compares four copied Python files with their recorded digests and anchors and compiles them without importing them, rejecting a replay with a stale digest and a compile-gate bypass.",
     "card": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them. It produces a result, a board and a validation receipt for the supplied fixture. The digest matrix requires each current digest to match and each stale digest to differ. A replay using a stale digest is rejected; the compile gate also rejects a bypass. Matching bytes and successful compilation do not prove the program behaves correctly or authorize changes to source, ledgers or routes.",
     "one_line": "Checks copied Python files against recorded digests and anchors, then compiles them."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The fixture is a source-integrity exercise, not a check of a live private runtime.",
+    "authority_ceiling": "Compares four copied Python files with their recorded digests and anchors and compiles them without importing them, rejecting a replay with a stale digest and a compile-gate bypass.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,7 +85,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The fixture is a source-integrity exercise, not a check of a live private runtime.",
+        "authority_ceiling": "Compares four copied Python files with their recorded digests and anchors and compiles them without importing them, rejecting a replay with a stale digest and a compile-gate bypass.",
         "card": "This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them. It produces a result, a board and a validation receipt for the supplied fixture. The digest matrix requires each current digest to match and each stale digest to differ. A replay using a stale digest is rejected; the compile gate also rejects a bypass. Matching bytes and successful compilation do not prove the program behaves correctly or authorize changes to source, ledgers or routes.",
         "one_line": "Checks copied Python files against recorded digests and anchors, then compiles them."
       },

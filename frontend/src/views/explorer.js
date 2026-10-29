@@ -29,7 +29,7 @@ const INK_CLASS = { ran: 'ink-ran', stated: 'ink-stated', saved: 'ink-saved', un
 const swatch = (track, state) => ringSwatch(track, state);
 
 export async function mountExplorer(root, { url, navigate, signal }) {
-  const canvas = h('canvas', { tabindex: '0', role: 'img', 'aria-label': 'Map of the Plectis components and their checks. The panel lists everything the map draws.' });
+  const canvas = h('canvas', { tabindex: '0', role: 'img', 'aria-label': 'Map of the Plectis components and their checks. The panel beside it gives the same information as text.' });
   const status = h('div', { class: 'explorer__status', role: 'status' }, 'Reading the component index…');
   const legend = h('div', { class: 'explorer__legend', 'aria-label': 'Key' },
     h('span', { class: 'key' }, keyGlyph('kernel'), 'Proved computation'),
@@ -38,7 +38,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     h('span', { class: 'key', title: 'A mark’s shape says how the component is backed' }, backingGlyph('computes', 'mark'), 'Component'),
     h('span', { class: 'key' }, h('span', { class: 'swatch is-empty', 'aria-hidden': 'true' }), 'Not recorded'),
     h('span', { class: 'key' }, h('span', { class: 'swatch ink-unknown', 'aria-hidden': 'true' }), 'Unknown'),
-    h('span', { class: 'key key--rules', 'data-halo-key': '', title: 'Principle, axiom and failure mode' }, ruleGlyph('principle'), ruleGlyph('axiom'), ruleGlyph('anti_principle'), 'Doctrine'),
+    h('span', { class: 'key key--rules', 'data-halo-key': '', title: 'Principle, axiom and failure mode' }, ruleGlyph('principle'), ruleGlyph('axiom'), ruleGlyph('anti_principle'), 'Rules'),
     h('span', { class: 'key', 'data-halo-key': '', title: 'A rule the component’s own record cites' }, keyGlyph('cites'), 'Citation'));
   const wiringBtn = h('button', { type: 'button', class: 'explorer-tool', 'aria-pressed': 'false', title: 'Show every declared connection between components' }, 'Wiring');
   const tools = h('div', { class: 'explorer__tools' },
@@ -87,7 +87,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
   const search = h('input', { type: 'search', id: 'map-find', placeholder: 'Search the components…', value: state.q, maxlength: '160', autocomplete: 'off', spellcheck: 'false' });
   const tabOverview = h('button', { type: 'button', class: 'tab', 'aria-pressed': 'true' }, 'Overview');
   const tabIndex = h('button', { type: 'button', class: 'tab', 'aria-pressed': 'false' }, 'Components');
-  const tabDoctrine = h('button', { type: 'button', class: 'tab', 'aria-pressed': 'false' }, 'Doctrine');
+  const tabDoctrine = h('button', { type: 'button', class: 'tab', 'aria-pressed': 'false' }, 'Rules');
   const utilFilters = h('button', { type: 'button', class: 'util', 'aria-pressed': 'false' }, 'Filters');
   const utilKey = h('button', { type: 'button', class: 'util', 'aria-pressed': 'false' }, 'Key');
   const filteredText = h('span', {});
@@ -100,13 +100,13 @@ export async function mountExplorer(root, { url, navigate, signal }) {
   // The page's name, for assistive tech, whenever the overview (which shows
   // it as its heading) is not in the panel.
   const srTitle = h('h1', { class: 'sr-only' }, 'What’s proved, and what isn’t');
-  const panel = h('aside', { class: 'explorer__panel', 'aria-label': 'Reading the map' },
+  const panel = h('aside', { class: 'explorer__panel', 'aria-label': 'Map details' },
     // A compact head: search, the three views and the key. The title lives
     // in the overview, which returns after Escape.
     h('div', { class: 'explorer__head explorer__head--compact' },
       h('div', { class: 'find' }, h('label', { class: 'sr-only', for: 'map-find' }, 'Find a component'), search),
       h('div', { class: 'tabs' },
-        h('div', { class: 'tabs__group', role: 'group', 'aria-label': 'Read the map by' }, tabOverview, tabIndex, tabDoctrine),
+        h('div', { class: 'tabs__group', role: 'group', 'aria-label': 'Panel view' }, tabOverview, tabIndex, tabDoctrine),
         h('div', { class: 'tabs__group', role: 'group', 'aria-label': 'Map tools' }, utilFilters, utilKey)),
       filtered),
     h('div', { class: 'sheetbar' },
@@ -125,8 +125,8 @@ export async function mountExplorer(root, { url, navigate, signal }) {
   let panelView = 'overview';
   // The view a card was opened from, so letting go returns there.
   let cameFrom = 'overview';
-  const VIEW_TITLES = { overview: 'the overview', index: 'all components', doctrine: 'the doctrine', filters: 'the filters' };
-  const VIEW_SHORT = { overview: 'Overview', index: 'Components', doctrine: 'Doctrine', filters: 'Filters' };
+  const VIEW_TITLES = { overview: 'the overview', index: 'all components', doctrine: 'the rules', filters: 'the filters' };
+  const VIEW_SHORT = { overview: 'Overview', index: 'Components', doctrine: 'Rules', filters: 'Filters' };
   let destroyed = false;
   let peekTimer = 0, peekKey = null, dismissedKey = null, indexHeading = null;
   let cardRun = 0;
@@ -154,7 +154,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     if (!map) return;
     const on = map.showWiring(wiringBtn.getAttribute('aria-pressed') !== 'true');
     wiringBtn.setAttribute('aria-pressed', String(on));
-    announce(on ? `Showing all ${model.totals.wires} declared wires` : 'Wiring hidden');
+    announce(on ? `Showing all ${model.totals.wires} declared connections` : 'Connections hidden');
   });
 
   const dispose = () => {
@@ -325,7 +325,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       const row = h('li', { class: `ring-row${pinnedTrack === track.id ? ' is-pinned' : ''}` });
       row.append(h('button', {
         type: 'button', class: 'ring-row__go', 'aria-pressed': String(pinnedTrack === track.id),
-        title: measure?.kind ? `The coverage view: ${measure.kind}` : '',
+        title: measure?.kind ? `Counted as: ${measure.kind}` : '',
         onclick: () => pinTrack(track, row),
         onpointerenter: () => { if (!pinnedTrack) map?.emphasise(track.id); },
         onpointerleave: () => { if (!pinnedTrack) map?.emphasise(null); },
@@ -375,17 +375,17 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       layersGuide(),
       h('div', { class: 'section-head' }, h('h2', { class: 'section-title' }, 'The eight rings'),
         h('button', { type: 'button', class: 'textbtn', onclick: () => openExplainer() }, 'What do these mean?')),
-      h('p', { class: 'small muted' }, `Numbered from the component outward. Each cell is one component, in the map’s order; the count says how many of the ${t.components} have it. Hover over a row to light its ring, or click to keep it lit.`),
+      h('p', { class: 'small muted' }, `Numbered from the component outward. Each cell is one component, in the map’s order; the count says how many of the ${t.components} have it. Hover over a row to highlight its ring on the map, or click to keep it highlighted.`),
       rows,
       h('p', { class: 'note' }, 'These are not a score. The rings overlap, their counts do not add up, and none of them means a whole component is proved.'),
-      example ? h('section', { class: 'introduction', 'aria-label': 'Start here' }, h('ul', { class: 'rows' }, h('li', { class: 'row' }, h('button', { type: 'button', class: 'row__go row__go--start', 'data-start-example': '', onclick: () => map?.select(`comp:${example.id}`) },
+      example ? h('section', { class: 'introduction', 'aria-label': 'Example' }, h('ul', { class: 'rows' }, h('li', { class: 'row' }, h('button', { type: 'button', class: 'row__go row__go--start', 'data-start-example': '', onclick: () => map?.select(`comp:${example.id}`) },
         backingGlyph(example.backing, example.kernelId ? 'mark--proved' : 'mark'),
         h('span', { class: 'row__title' }, 'Start with a tool-permission check'),
-        h('span', { class: 'row__sub' }, 'Choose the MCP tool authority component to read its job, its proof and where its evidence stops.'))))) : null,
+        h('span', { class: 'row__sub' }, 'Open the MCP tool authority component to read what it does, and what is proved about it.'))))) : null,
       h('h2', { class: 'section-title' }, 'Families'),
       famRows,
       h('h2', { class: 'section-title' }, `The ${t.kernels + t.cores} proved computations`),
-      h('p', { class: 'small muted' }, `Four sit at the centre and are part of the toolkit itself; the other ${t.kernels} sit inside components, on stems in from the ring.`),
+      h('p', { class: 'small muted' }, `Four are at the centre and belong to the toolkit itself; the other ${t.kernels} are inside components, each joined to its component by a stem.`),
       computations);
   }
 
@@ -396,23 +396,23 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     const sample = model.kernels.find((k) => k.verifiedTasks) || model.kernels[0];
     const rows = [
       [dialGlyph(sample?.verifiedTasks || 6, sample?.mutants.length || 2, 26, { numeral: false }), 'Proof dials', `Proved computations, ${t.cores} at the centre and ${t.kernels} on stems from the component that runs them. Each tick round a dial is one proof check that passed; each small cross is a broken copy the prover rejected.`],
-      [backingGlyph('computes', 'mark'), 'Components', `The ${t.components} mechanisms on the ring, in ${count(new Set(model.components.map((c) => c.family)).size, 'family', 'families')}. A mark’s shape says how the component is backed.`],
-      [h('span', { class: 'guide__rings' }, TRACKS.map((tr) => ringSwatch(tr, tr.ink === 'unknown' ? 'unknown' : 'has'))), 'Eight rings', 'Kinds of recorded evidence, one cell per component. An empty cell means not recorded in this snapshot, not a failure.'],
+      [backingGlyph('computes', 'mark'), 'Components', `The ${t.components} mechanisms on the ring, in ${count(new Set(model.components.map((c) => c.family)).size, 'family', 'families')}. The shape of each mark stands for how the component is backed.`],
+      [h('span', { class: 'guide__rings' }, TRACKS.map((tr) => ringSwatch(tr, tr.ink === 'unknown' ? 'unknown' : 'has'))), 'Eight rings', 'Kinds of recorded evidence, one cell per component. An empty cell means nothing of that kind is recorded for the component.'],
     ];
     if (t.rules) {
-      rows.push([keyGlyph('cites'), 'Citations', `A tick per component, longer the more rules its own record cites: ${t.citations} citations in all. A citation is not a check.`],
-        [h('span', { class: 'guide__rules' }, ruleGlyph('principle'), ruleGlyph('axiom'), ruleGlyph('anti_principle')), 'Doctrine', `The written rules on the outer orbits: ${t.principles} principles, the ${t.axioms} axioms they rest on, and ${t.failures} failure modes.`]);
+      rows.push([keyGlyph('cites'), 'Citations', `A tick per component, longer the more rules its own record cites: ${t.citations} citations in all.`],
+        [h('span', { class: 'guide__rules' }, ruleGlyph('principle'), ruleGlyph('axiom'), ruleGlyph('anti_principle')), 'Rules', `The written rules on the outer circles: ${t.principles} principles, the ${t.axioms} axioms they rest on, and ${t.failures} failure modes.`]);
     }
     return h('div', { class: 'guide' },
-      h('h2', { class: 'section-title guide__title' }, 'Reading it from the centre out'),
+      h('h2', { class: 'section-title guide__title' }, 'From the centre of the map outward'),
       h('ol', { class: 'guide__rows' }, rows.map(([mark, name, words]) => h('li', { class: 'guide__row' },
         h('span', { class: 'guide__mark' }, mark), h('span', { class: 'guide__name' }, name), h('span', { class: 'guide__words' }, words)))),
-      t.rules ? h('button', { type: 'button', class: 'textbtn', onclick: () => showView('doctrine') }, 'Read the doctrine') : null);
+      t.rules ? h('button', { type: 'button', class: 'textbtn', onclick: () => showView('doctrine') }, 'List the rules') : null);
   }
 
   function filtersView() {
     const wrap = h('div', {}, h('h2', { class: 'section-title' }, 'Filters'),
-      h('p', { class: 'small muted' }, 'Pick one value per filter. Filters combine with each other and with the search; the counts cover every component.'));
+      h('p', { class: 'small muted' }, 'Pick one value per filter. Filters combine with each other and with the search. Each number counts all the components, not only those shown.'));
     const data = model?.filters;
     if (!data) { wrap.append(h('p', { class: 'muted' }, 'Loading the filter values…')); return wrap; }
     for (const f of FACETS) {
@@ -430,7 +430,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       group.append(choices);
       wrap.append(group);
     }
-    wrap.append(h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn', onclick: () => showView('index') }, 'Show the matching list')));
+    wrap.append(h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn', onclick: () => showView('index') }, 'List the matching components')));
     return wrap;
   }
 
@@ -478,8 +478,8 @@ export async function mountExplorer(root, { url, navigate, signal }) {
   function doctrineView() {
     if (!model) return h('p', { class: 'muted' }, 'Loading…');
     if (!model.rules.length) {
-      return h('div', {}, h('h2', { class: 'section-title' }, 'The doctrine'),
-        h('p', { class: 'muted' }, 'This index carries no doctrine. Rebuild it from this repository to read the rules here.'));
+      return h('div', {}, h('h2', { class: 'section-title' }, 'Rules'),
+        h('p', { class: 'muted' }, 'This snapshot has no written rules. Rebuild the component index from this repository to include them.'));
     }
     const t = model.totals;
     const order = ringOrder();
@@ -488,14 +488,14 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       h('ol', { class: 'rings' }, model.rules.filter((r) => r.kind === kind).map((r) => ruleRow(r, order)))];
     return h('div', {},
       h('div', { class: 'ledger' },
-        h('div', { class: 'ledger__item' }, h('span', { class: 'ledger__n ink-doctrine-text' }, String(t.axioms)), h('span', { class: 'ledger__l' }, 'axioms, the basis')),
+        h('div', { class: 'ledger__item' }, h('span', { class: 'ledger__n ink-doctrine-text' }, String(t.axioms)), h('span', { class: 'ledger__l' }, 'axioms (basic assumptions)')),
         h('div', { class: 'ledger__item' }, h('span', { class: 'ledger__n ink-doctrine-text' }, String(t.principles)), h('span', { class: 'ledger__l' }, 'principles resting on them')),
-        h('div', { class: 'ledger__item' }, h('span', { class: 'ledger__n ink-threat-text' }, String(t.failures)), h('span', { class: 'ledger__l' }, 'failure modes that threaten them')),
+        h('div', { class: 'ledger__item' }, h('span', { class: 'ledger__n ink-threat-text' }, String(t.failures)), h('span', { class: 'ledger__l' }, 'failure modes that would break them')),
         h('div', { class: 'ledger__item' }, h('span', { class: 'ledger__n' }, String(t.citations)), h('span', { class: 'ledger__l' }, `citations from ${count(model.components.filter((c) => c.ruleIds?.length).length, 'component')}`))),
-      h('p', { class: 'small muted' }, 'Axioms are the basic assumptions, principles the working rules that follow from them, failure modes the known ways of breaking them. A strip shows which components list a rule; listing it is not a check.'),
-      ...part('axiom', `The ${t.axioms} axioms`, 'The middle orbit. The arcs round each axiom are its obligations, coloured by what the support checker found when this snapshot was built; none of its verdicts is a pass.'),
-      ...part('principle', `The ${t.principles} principles`, 'The inner orbit. Each rests on one or more axioms, tied to them by a lane.'),
-      ...part('anti_principle', `The ${t.failures} failure modes`, 'The outer orbit. Each names a way of breaking the axioms it is tied to by a dashed lane. Components do not cite failure modes.'));
+      h('p', { class: 'small muted' }, 'Axioms are the basic assumptions, principles the working rules that follow from them, failure modes the known ways of breaking them. A strip shows which components list a rule.'),
+      ...part('axiom', `The ${t.axioms} axioms`, 'On the middle circle. The arcs around each axiom are its obligations, coloured by what the support checker found when this snapshot was built.'),
+      ...part('principle', `The ${t.principles} principles`, 'On the inner circle. Each rests on one or more axioms and is joined to them by a line.'),
+      ...part('anti_principle', `The ${t.failures} failure modes`, 'On the outer circle. Each names a way of breaking the axioms it is joined to by a dashed line. Components do not cite failure modes.'));
   }
 
   function ruleRows(ids, note) {
@@ -551,10 +551,10 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       const e = r.exposed.size;
       fact.classList.add('mapfact--threat');
       fact.append(h('p', { class: 'mapfact__n figures' }, h('strong', {}, `${e} / ${total}`), ` components exposed through ${r.threatens.join(', ') || 'its axioms'} · ${total - e} are not`),
-        h('p', { class: 'mapfact__limit' }, `${EXPOSURE_WORDS} No component’s record cites a failure mode itself.`));
+        h('p', { class: 'mapfact__limit' }, EXPOSURE_WORDS));
     } else {
       fact.append(h('p', { class: 'mapfact__n figures' }, h('strong', {}, `${n} / ${total}`), ` components cite this rule · ${total - n} do not`),
-        h('p', { class: 'mapfact__limit' }, 'A citation is the component’s own record listing the rule; it is not a check that the component follows it.'));
+        h('p', { class: 'mapfact__limit' }, CITATION_WORDS));
     }
     card.append(fact);
 
@@ -567,8 +567,8 @@ export async function mountExplorer(root, { url, navigate, signal }) {
           onfocus: () => map?.hoverKey(ruleKey(t)), onblur: () => map?.hoverKey(null) }, id) : null;
       }))) : null);
     if (r.kind === 'principle') card.append(chipRow('Rests on', r.restsOn) || h('p', { class: 'small muted' }, 'Rests on no recorded axiom.'));
-    if (r.kind === 'anti_principle') card.append(chipRow('Threatens', r.threatens));
-    if (r.kind === 'axiom') card.append(chipRow('Held up by', r.principles), chipRow('Threatened by', r.failures));
+    if (r.kind === 'anti_principle') card.append(chipRow('Would break', r.threatens));
+    if (r.kind === 'axiom') card.append(chipRow('Resting on it', r.principles), chipRow('Would be broken by', r.failures));
 
     // Citers by family: n of the family's m, each expanding to its citers
     // (for a failure mode, the components exposed through its axioms).
@@ -602,16 +602,15 @@ export async function mountExplorer(root, { url, navigate, signal }) {
         });
         fams.append(h('li', { class: 'citers__fam' }, toggle, list));
       }
-      card.append(h('h3', { class: 'section-title' }, exposing ? 'Exposed by family' : 'Citers by family'),
+      card.append(h('h3', { class: 'section-title' }, exposing ? 'Exposed components, by family' : 'Components that cite it, by family'),
         h('p', { class: 'small muted' }, exposing
-          ? 'Open a family to list the components exposed through this failure mode’s axioms. Point at one to trace the citation its exposure runs through; click to read it.'
-          : 'Open a family to list its citers. Point at one to trace its route on the map; click to read it.'), fams);
+          ? 'Open a family to list the components exposed through this failure mode’s axioms. Point at one to draw the citation that exposes it on the map; click it to open it.'
+          : 'Open a family to list the components that cite this rule. Point at one to draw its line on the map; click it to open it.'), fams);
     }
 
     // Then the reader's explanation.
     if (rd?.analogy) {
-      card.append(h('div', { class: 'rule-analogy' }, h('span', { class: 'rule-analogy__label' }, 'Think of it like this'), h('p', {}, rd.analogy),
-        rd.analogyBoundary ? h('p', { class: 'rule-analogy__limit' }, rd.analogyBoundary) : null));
+      card.append(h('div', { class: 'rule-analogy' }, h('span', { class: 'rule-analogy__label' }, 'Think of it like this'), h('p', {}, rd.analogy)));
     }
     if (rd?.whyItMatters) card.append(h('h3', { class: 'section-title' }, 'Why it matters'), h('p', { class: 'rule-why' }, rd.whyItMatters));
     if (rd?.example) {
@@ -622,8 +621,6 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     if (rd?.counterexample) card.append(h('h3', { class: 'section-title' }, 'What breaking it looks like'), h('p', { class: 'rule-counter' }, rd.counterexample));
     if (rd?.misread) card.append(h('h3', { class: 'section-title' }, 'Easy to misread'), h('p', { class: 'small' }, rd.misread));
     if (!rd) card.append(h('p', { class: 'note' }, 'This index carries no reader wording for the rules, so their own text is shown. Rebuild it from this repository for the plain version.'));
-    card.append(h('div', { class: 'limit' }, h('span', { class: 'limit__label' }, 'What it does not prove'),
-      rd?.doesNotProve || (r.kind === 'anti_principle' ? 'A failure mode names a way to break an axiom; it is not an observed incident.' : CITATION_WORDS)));
 
     // What else this snapshot records about it.
     const facts = h('ol', { class: 'stations' });
@@ -631,14 +628,15 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       const guard = r.kind === 'anti_principle';
       const where = rd.enforcedIn.map((id) => model.byId.get(id)?.title).filter(Boolean).join('; ');
       facts.append(station(keyGlyph('caller'), guard ? 'Guarded' : 'Enforced', rd.enforcedIn.length
-        ? `Its write-up names ${count(rd.enforcedIn.length, 'component')} ${guard ? 'that guard against it' : 'where it is enforced'}: ${where}. Named in the write-up, not tested here.`
+        ? `Its write-up names ${count(rd.enforcedIn.length, 'component')} ${guard ? 'that guard against it' : 'where it is enforced'}: ${where}.`
         : `Its write-up names nowhere it is ${guard ? 'guarded against' : 'enforced'}.`, rd.enforcedIn.length ? 'has' : 'empty'));
     }
     if (r.kind === 'axiom') {
       facts.append(station(ruleGlyph('axiom'), 'Support checker', r.support ? `${supportWords(r.support.verdict)[0]} Computed when this snapshot was built.` : 'No verdict is recorded in this snapshot.', r.support ? 'has' : 'unknown'));
       if (r.witnesses.length) facts.append(station(keyGlyph('caller'), 'Witnesses', `Its routing names ${count(r.witnesses.length, 'component')} by hand as computing part of it.`));
     }
-    if (facts.childElementCount) card.append(h('h3', { class: 'section-title' }, 'What this snapshot records'), facts);
+    const factsTitle = r.kind === 'axiom' ? (rd ? 'Where it is enforced, and its support' : 'Its support') : r.kind === 'anti_principle' ? 'What guards against it' : 'Where it is enforced';
+    if (facts.childElementCount) card.append(h('h3', { class: 'section-title' }, factsTitle), facts);
 
     if (r.kind === 'axiom' && r.obligations.length) {
       const list = h('ol', { class: 'obligations' });
@@ -647,22 +645,22 @@ export async function mountExplorer(root, { url, navigate, signal }) {
         list.append(h('li', { class: `obligation obligation--${ink}` }, h('span', { class: 'obligation__arc', 'aria-hidden': 'true' }),
           h('span', {}, h('span', { class: 'obligation__predicate' }, ob.predicate || ob.id), h('span', { class: 'obligation__status' }, `${words}${ob.required ? '' : ' · optional'}`))));
       }
-      card.append(h('h3', { class: 'section-title' }, `The parts it is checked by (${r.obligations.length})`),
-        h('p', { class: 'note' }, 'Its formal clause split into checkable parts, each drawn as an arc round its mark, in the colour of what the support checker found when the snapshot was built. None of these states is a pass.'), list);
+      card.append(h('h3', { class: 'section-title' }, `Its checkable parts (${r.obligations.length})`),
+        h('p', { class: 'note' }, 'Its formal clause split into checkable parts, each drawn as an arc around its mark, in the colour of what the support checker found when the snapshot was built. None of these states is a pass.'), list);
     }
     if (r.kind === 'axiom') {
       if (r.principles.length) card.append(h('h3', { class: 'section-title' }, `Principles resting on it (${r.principles.length})`), ruleRows(r.principles, (p) => plainSub(p)));
       if (r.failures.length) card.append(h('h3', { class: 'section-title' }, `Failure modes that would break it (${r.failures.length})`), ruleRows(r.failures, (p) => plainSub(p)));
       if (r.witnesses.length) {
         const cites = new Set(r.citedBy);
-        card.append(h('h3', { class: 'section-title' }, `Witnesses its routing names (${r.witnesses.length})`),
+        card.append(h('h3', { class: 'section-title' }, `Components named as witnesses (${r.witnesses.length})`),
           h('p', { class: 'note' }, 'Named by hand as computing part of this axiom from lower-level evidence; not checked here. A witness is a separate relation from a citation.'),
           componentRows(r.witnesses, (c) => (cites.has(c.id) ? `${familyName(c.family)} · also cites it` : `${familyName(c.family)} · does not cite it`)));
       }
     }
     if (r.kind !== 'anti_principle' && n) {
-      card.append(h('details', { class: 'fullwriteup' }, h('summary', {}, `All ${count(n, 'citer')}, in the map’s order`),
-        citeStrip(r, order), h('p', { class: 'note', 'data-cite-note': '' }, 'Each is read from that component’s own record. Citing a rule is not a check that the component follows it.'),
+      card.append(h('details', { class: 'fullwriteup' }, h('summary', {}, `All ${count(n, 'component')} that cite it, in map order`),
+        citeStrip(r, order), h('p', { class: 'note', 'data-cite-note': '' }, 'Each is read from that component’s own record.'),
         componentRows(r.citedBy)));
     }
     card.append(mapDetails(o));
@@ -681,7 +679,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       if (mine !== cardRun || destroyed || envelope.revision !== model.revision) return;
       const detail = envelope.data || {};
       const basis = [...new Set((detail.citations || []).map((c) => c.basis).filter(Boolean))];
-      if (basis.includes('authored_atlas_row')) card.querySelector('[data-cite-note]')?.replaceChildren('Each is read from that component’s row in core/organ_atlas.json. Citing a rule is not a check that the component follows it.');
+      if (basis.includes('authored_atlas_row')) card.querySelector('[data-cite-note]')?.replaceChildren('Each is read from that component’s row in core/organ_atlas.json.');
     } catch {
       // An older backend has no doctrine route; the snapshot's overview stands.
     }
@@ -739,11 +737,11 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     const r = readout(model, o);
     if (!r) return null;
     const text = placement(model, o);
-    return h('details', { class: 'fullwriteup map-details' }, h('summary', {}, 'What the map shows for it'),
+    return h('details', { class: 'fullwriteup map-details' }, h('summary', {}, 'How it is drawn on the map'),
       h('div', { class: 'readout' },
         h('ul', { class: 'readout__lines' }, r.lines.map((l) => h('li', { class: `readout__line readout--${l.ink}` }, h('span', { class: 'readout__ink', 'aria-hidden': 'true' }),
           h('span', {}, l.mark ? h('strong', { class: 'readout__mark' }, `${l.mark}: `) : null, l.text)))),
-        h('p', { class: 'readout__limit' }, r.limit)),
+      ),
       text ? h('p', { class: 'card-placed' }, h('span', { class: 'card-placed__mark', 'aria-hidden': 'true' }), text) : null);
   }
   function fact(facet, status, glyph) {
@@ -760,7 +758,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     return h('div', { class: 'proofcount' }, dialGlyph(p.verifiedTasks || 0, p.mutants.length, size),
       h('p', { class: 'proofcount__text figures' }, h('strong', {}, count(p.verifiedTasks || 0, 'proof check')), ' passed · ',
         h('strong', {}, count(p.mutants.length, 'broken copy', 'broken copies')), ' rejected',
-        h('span', { class: 'proofcount__note' }, `Saved results${p.dafnyVersion ? ` from Dafny ${p.dafnyVersion.split('+')[0]}` : ''}; this page does not run the prover.`)));
+        h('span', { class: 'proofcount__note' }, `Saved results${p.dafnyVersion ? ` from Dafny ${p.dafnyVersion.split('+')[0]}` : ''}.`)));
   }
 
   // One component's column of the rings, as eight evidence rows in the
@@ -777,7 +775,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       lean: 'About the example mathematics, not this component’s code.',
       replay: 'Set up is not the same as passed.',
       saved: kept.length ? (dated.length ? `Latest ${dayWords(dated[dated.length - 1])}. Not rerun against today’s code.` : 'Dates not saved. Not rerun against today’s code.') : '',
-      whole: 'Nobody has matched its whole claim to checks. Unknown, not zero.',
+      whole: 'Nobody has matched its whole claim to checks.',
     };
     const list = h('ol', { class: 'evidence' });
     TRACKS.forEach((t, i) => {
@@ -790,7 +788,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     });
     if (facets?.host_tests?.status === 'linked_not_run') {
       list.append(h('li', { class: 'evidence__row evidence__row--extra' }, h('span', { class: 'evidence__no' }), h('span', { class: 'swatch', style: '--ink-fill: var(--ring-caller)', 'aria-hidden': 'true' }),
-        h('span', { class: 'evidence__name' }, 'Tests linked'), h('span', { class: 'evidence__state' }, 'Not run here')));
+        h('span', { class: 'evidence__name' }, 'Tests listed'), h('span', { class: 'evidence__state' }, 'Not run for this page')));
     }
     return list;
   }
@@ -812,8 +810,8 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       contextLine(familyName(c.family)),
       h('h2', { class: 'card-title' }, c.title),
       h('p', { class: 'card-plain component-summary' }, c.summary || c.plain || 'No description is recorded.'),
-      limitBlock('Where this stops', 'Loading…', { 'data-limit': '' }),
-      h('div', { class: 'section-head' }, h('h3', { class: 'section-title' }, 'Recorded evidence'), h('span', { class: 'section-aside' }, 'From the component outward')),
+      limitBlock('What it covers', 'Loading…', { 'data-limit': '' }),
+      h('div', { class: 'section-head' }, h('h3', { class: 'section-title' }, 'Checks recorded for it'), h('span', { class: 'section-aside' }, 'Numbered from the component outward')),
       column,
       h('p', { class: 'note' }, '“Not recorded” means absent from this snapshot, not a failed check.'));
     if (c.kernelId) {
@@ -821,17 +819,17 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       card.append(h('section', { class: 'component-proof', 'aria-label': 'Proved part' },
         h('h3', { class: 'section-title' }, `Proved part: ${proofShortName(k)}`),
         proofCounts(k, 40),
-        h('p', { class: 'small' }, 'The proof covers this one computation under its written assumptions. The rest of the component is outside that proof.'),
+        h('p', { class: 'small' }, 'The proof covers this one computation under its written assumptions.'),
         h('div', { class: 'actions' },
-          h('button', { type: 'button', class: 'btn btn--ink', onclick: () => map.select(`kernel:${k.id}`) }, 'Open proof'),
-          h('a', { class: 'btn', href: `/proofs/${encodeURIComponent(k.id)}`, 'data-route': '' }, 'Proof page'))));
+          h('button', { type: 'button', class: 'btn btn--ink', onclick: () => map.select(`kernel:${k.id}`) }, 'Read the proof'),
+          h('a', { class: 'btn', href: `/proofs/${encodeURIComponent(k.id)}`, 'data-route': '' }, 'Open the proof page'))));
     }
     if (c.plain) card.append(h('details', { class: 'fullwriteup plain-explanation' }, h('summary', {}, 'Explanation in plain words'), h('p', { class: 'small', 'data-plain': '' }, c.plain)));
     const cites = c.ruleIds || [];
     const witnessFor = model.rules.filter((r) => r.witnesses.includes(c.id)).map((r) => r.id);
     if (cites.length || witnessFor.length) {
       card.append(h('h3', { class: 'section-title' }, `Rules its record cites (${cites.length})`),
-        h('p', { class: 'note' }, `${CITATION_WORDS} Point at one to trace its route on the map.`),
+        h('p', { class: 'note' }, `${CITATION_WORDS} Point at one to draw its line on the map.`),
         ruleRows(cites, (r) => plainSub(r)));
       if (witnessFor.length) {
         card.append(h('p', { class: 'note' }, `The routing registry also names it as a witness for ${witnessFor.join(', ')}: a component said, by hand, to compute part of that axiom from lower-level evidence.`));
@@ -865,7 +863,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     }
     card.append(h('h3', { class: 'section-title' }, `Past runs (${c.receipts.length})`),
       runsStrip(c.receipts, model.source),
-      h('p', { class: 'note' }, 'Newest first. Saved results of earlier runs; this page does not rerun them.'),
+      h('p', { class: 'note' }, 'Newest first. Saved results of earlier runs.'),
       fullWriteup, mapDetails(o));
     card.append(h('div', { class: 'actions' },
       focusButton(o),
@@ -880,7 +878,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       detail = envelope.data;
     } catch (error) {
       if (mine !== cardRun || destroyed) return;
-      card.querySelector('[data-limit]').replaceChildren(h('span', { class: 'limit__label' }, 'Where this stops'), `This component's details could not be loaded: ${error.message}`);
+      card.querySelector('[data-limit]').replaceChildren(h('span', { class: 'limit__label' }, 'What it covers'), `This component’s details could not be loaded: ${error.message}`);
       card.querySelector('[data-writeup]').replaceChildren(h('p', { class: 'note' }, 'The write-up could not be loaded with this component.'));
       return;
     }
@@ -890,13 +888,13 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     showGuide();
     const claim = detail.claim || {};
     const facets = claim.card?.assurance_facets || {};
-    card.querySelector('[data-limit]').replaceChildren(h('span', { class: 'limit__label' }, 'Where this stops'), claim.claim_ceiling_restated || claim.claim_ceiling || 'No limit is written down.');
+    card.querySelector('[data-limit]').replaceChildren(h('span', { class: 'limit__label' }, 'What it covers'), claim.claim_ceiling_restated || claim.claim_ceiling || 'No limit is written down.');
     column.replaceChildren(columnFacts(c, facets));
   }
 
   function proofFacts(p) {
     return h('ul', { class: 'facts' },
-      h('li', { class: 'fact' }, keyGlyph('task'), h('span', {}, `Dafny ${p.dafnyVersion.split('+')[0] || ''} passed ${count(p.verifiedTasks || 0, 'proof check')}.`, h('span', { class: 'fact__caution' }, 'A saved result from when the proof was last run; this page does not run the prover.'))),
+      h('li', { class: 'fact' }, keyGlyph('task'), h('span', {}, `Dafny ${p.dafnyVersion.split('+')[0] || ''} passed ${count(p.verifiedTasks || 0, 'proof check')}.`)),
       h('li', { class: 'fact' }, keyGlyph('variant'), h('span', {}, `${count(p.mutants.length, 'deliberately broken copy', 'deliberately broken copies')} failed the proof, as they should.`)),
       fact('proof_binding', p.binding, keyGlyph('generated')),
       fact('fresh_prover', p.freshProver, keyGlyph('absent')),
@@ -924,7 +922,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       cardHead([keyGlyph('kernel'), 'Proved computation'], comp ? { back: { key: `comp:${comp.id}`, label: 'Its component' } } : {}),
       comp ? contextLine(`Inside ${comp.title}`, () => map.select(`comp:${comp.id}`)) : null,
       h('h2', { class: 'card-title' }, proofShortName(k)),
-      h('div', { class: 'promise' }, h('span', { class: 'promise__label' }, 'The exact promise'), h('p', { class: 'promise__text' }, k.statement || 'No statement is recorded.')),
+      h('div', { class: 'promise' }, h('span', { class: 'promise__label' }, 'The statement proved'), h('p', { class: 'promise__text' }, k.statement || 'No statement is recorded.')),
       proofCounts(k),
       limitBlock('What the proof leaves out', k.limits || 'No limit is written down.'),
       h('h3', { class: 'section-title' }, 'From written rules to the component'),
@@ -932,7 +930,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
       h('div', { class: 'actions' },
         focusButton(o),
         h('a', { class: 'btn btn--ink', href: `/proofs/${encodeURIComponent(k.id)}`, 'data-route': '' }, 'Open the proof page')),
-      isOwnership ? h('div', {}, h('h3', { class: 'section-title' }, 'Why the requirement mattered'), ownershipFigure(model.ownership, model.source)) : null,
+      isOwnership ? h('div', {}, h('h3', { class: 'section-title' }, 'Why the rule had to change'), ownershipFigure(model.ownership, model.source)) : null,
       h('details', { class: 'fullwriteup tech' }, h('summary', {}, 'Technical detail'),
         h('h4', {}, 'The written rules, in Dafny'), specificationParts(k, model.source),
         h('h4', {}, 'Broken copies the prover rejected'), variantsPart(k, model.source),
@@ -950,18 +948,18 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     const total = model.totals.components;
     const wrap = h('div', { class: 'kernel-card' },
       cardHead([keyGlyph('kernel'), centre ? 'The replay checker' : 'Proved computation in the toolkit']),
-      contextLine(centre ? 'At the centre of the map' : 'Part of the toolkit itself; no one component owns it'),
+      contextLine(centre ? 'At the centre of the map' : 'Part of the toolkit itself, not of any one component'),
       h('h2', { class: 'card-title' }, CORE_NAMES[c.id]?.[0] || moduleWords(c.id)),
       h('p', { class: 'card-plain' }, `It ${CORE_NAMES[c.id]?.[1] || 'is part of the toolkit'}, and the toolkit calls it directly.`),
       proofCounts(c));
     if (centre) {
       const n = c.admitted.length;
       wrap.append(h('div', { class: 'mapfact' },
-        h('p', { class: 'mapfact__n figures' }, h('strong', {}, `${n} / ${total}`), ` components have a rerun route configured; none is run here`),
+        h('p', { class: 'mapfact__n figures' }, h('strong', {}, `${n} / ${total}`), ` components have a rerun set up; none is run on this page`),
         h('p', { class: 'mapfact__limit' }, 'Configured is not the same as passed. It accepts a rerun only if every component is covered and each result matches what was saved.')));
     }
     wrap.append(limitBlock('What the proof leaves out', c.limits || 'No limit is written down.'),
-      h('div', { class: 'promise' }, h('span', { class: 'promise__label' }, 'The exact promise'), h('p', { class: 'promise__text' }, c.statement || 'No statement is recorded.')),
+      h('div', { class: 'promise' }, h('span', { class: 'promise__label' }, 'The statement proved'), h('p', { class: 'promise__text' }, c.statement || 'No statement is recorded.')),
       h('div', { class: 'actions' },
         focusButton(o),
         h('a', { class: 'btn btn--ink', href: `/proofs/${encodeURIComponent(c.proofId || c.id)}`, 'data-route': '' }, 'Open the proof page')));
@@ -974,7 +972,7 @@ export async function mountExplorer(root, { url, navigate, signal }) {
           comp ? backingGlyph(comp.backing, comp.kernelId ? 'mark--proved' : 'mark') : keyGlyph('absent'),
           h('span', { class: 'row__title' }, comp ? comp.title : a.componentId), h('code', { class: 'row__sub row__code' }, a.route))));
       }
-      wrap.append(h('h3', { class: 'section-title' }, `The ${c.admitted.length} configured reruns it would judge`), list);
+      wrap.append(h('h3', { class: 'section-title' }, `The ${c.admitted.length} reruns it would judge`), list);
     }
     wrap.append(h('details', { class: 'fullwriteup tech' }, h('summary', {}, 'Technical detail'),
       h('h4', {}, 'What is checked, and what is not'), proofFacts(c),
@@ -1013,8 +1011,8 @@ export async function mountExplorer(root, { url, navigate, signal }) {
     for (const b of [tabOverview, tabIndex, tabDoctrine, utilFilters, utilKey]) press(b, false);
     explorer.dispatchEvent(new CustomEvent('explorer:selected', { bubbles: true }));
     if (o.type === 'component') { componentCard(o); announce(`${o.comp.title} selected`); }
-    else if (o.type === 'kernel') { kernelCard(o); announce(`${proofShortName(o.kernel)} kernel selected`); }
-    else if (o.type === 'core') { coreCard(o); announce(`${o.core.id === 'replay_admission' ? 'Replay admission' : moduleWords(o.core.id)} core selected`); }
+    else if (o.type === 'kernel') { kernelCard(o); announce(`${proofShortName(o.kernel)}, a proved computation, selected`); }
+    else if (o.type === 'core') { coreCard(o); announce(`${CORE_NAMES[o.core.id]?.[0] || moduleWords(o.core.id)} selected`); }
     else if (o.type === 'rule') { ruleCard(o); announce(`${ruleKindWords(o.rule.kind)} ${o.rule.id}, ${o.rule.title}, selected`); }
   }
 
@@ -1084,7 +1082,6 @@ export async function mountExplorer(root, { url, navigate, signal }) {
         return h('span', { class: 'dock__ring', title: `${t.short}: ${st.word}` }, swatch(t, st.state));
       })) : null,
       h('ul', { class: 'dock__counts figures' }, p.counts.map((c) => h('li', {}, c))),
-      h('p', { class: 'dock__limit' }, p.limit),
       h('p', { class: 'dock__hint' }, 'Click to choose · ', h('kbd', {}, 'Esc'), ' to dismiss'));
   }
   // The stage's ring key opens in full when its corner has room beside the
@@ -1138,11 +1135,11 @@ export function errorBlock(error, retry) {
   if (error.kind === 'network') {
     box.append(h('strong', {}, 'The data server is not running. '), 'From the repository, start the explorer with ', h('code', {}, 'make explorer'), ' and reload.');
   } else if (error.kind === 'schema') {
-    box.append(h('strong', {}, 'The API answered with a contract this explorer does not read. '), error.message);
+    box.append(h('strong', {}, 'The data server sent a format this explorer cannot read. '), error.message);
   } else if (error.kind === 'not_found') {
     box.append(h('strong', {}, 'This data server is older than the explorer. '), 'Start both from this repository with ', h('code', {}, 'make explorer'), '.');
   } else if (error.kind === 'revision') {
-    box.append(h('strong', {}, 'The component index changed twice while loading. '), 'Nothing from the two snapshots was combined.');
+    box.append(h('strong', {}, 'The data changed twice while the map was loading. '), 'Nothing from the two versions was combined.');
   } else {
     box.append(h('strong', {}, 'The map could not be loaded. '), error.message);
   }

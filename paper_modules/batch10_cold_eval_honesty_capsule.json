@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The fixture scorecard does not establish real-world navigation performance.",
+    "authority_ceiling": "Runs a copied cold-eval simulator over a synthetic workspace and audits its route-comparison scorecard, rejecting a scorecard with missing tasks.",
     "card": "Runs a copied cold-eval simulator over a synthetic workspace and audits its comparison, which combines reference coverage and other scoring heuristics.",
     "one_line": "Runs and audits a fixture route-comparison scorecard."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The fixture scorecard does not establish real-world navigation performance.",
+    "authority_ceiling": "Runs a copied cold-eval simulator over a synthetic workspace and audits its route-comparison scorecard, rejecting a scorecard with missing tasks.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,7 +84,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The fixture scorecard does not establish real-world navigation performance.",
+        "authority_ceiling": "Runs a copied cold-eval simulator over a synthetic workspace and audits its route-comparison scorecard, rejecting a scorecard with missing tasks.",
         "card": "Runs a copied cold-eval simulator over a synthetic workspace and audits its comparison, which combines reference coverage and other scoring heuristics.",
         "one_line": "Runs and audits a fixture route-comparison scorecard."
       },

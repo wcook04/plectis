@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Checks synthetic tool records, not live-account security or credential certification.",
+    "authority_ceiling": "Links each synthetic tool and call to its scope, approval, side-effect, rollback and instruction/data boundary records, and rejects cases such as an over-broad scope, an unapproved side effect or tool output treated as an instruction.",
     "card": "This replay validates synthetic MCP-like tool records. The fixture describes a read-only lookup, a write-capable ticket update, and an untrusted result source. The validator connects declared tools and calls to scope, approval, side-effect, rollback, and instruction/data boundary references, then checks the recorded replay evidence.",
     "one_line": "This replay validates synthetic MCP-like tool records."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Checks synthetic tool records, not live-account security or credential certification.",
+    "authority_ceiling": "Links each synthetic tool and call to its scope, approval, side-effect, rollback and instruction/data boundary records, and rejects cases such as an over-broad scope, an unapproved side effect or tool output treated as an instruction.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,7 +77,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Checks synthetic tool records, not live-account security or credential certification.",
+        "authority_ceiling": "Links each synthetic tool and call to its scope, approval, side-effect, rollback and instruction/data boundary records, and rejects cases such as an over-broad scope, an unapproved side effect or tool output treated as an instruction.",
         "card": "This replay validates synthetic MCP-like tool records. The fixture describes a read-only lookup, a write-capable ticket update, and an untrusted result source. The validator connects declared tools and calls to scope, approval, side-effect, rollback, and instruction/data boundary references, then checks the recorded replay evidence.",
         "one_line": "This replay validates synthetic MCP-like tool records."
       },

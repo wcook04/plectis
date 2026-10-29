@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Phrase matching on supplied examples; not complete semantic or safety analysis.",
+    "authority_ceiling": "Runs phrase rules over the supplied response fixtures and records expected positives and negatives, flagging a permission request without a named blocker.",
     "card": "A passing matrix includes correctly flagged permission requests without a blocker.",
     "one_line": "Runs phrase-based checks against response fixtures and records expected positives and negatives."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Phrase matching on supplied examples; not complete semantic or safety analysis.",
+    "authority_ceiling": "Runs phrase rules over the supplied response fixtures and records expected positives and negatives, flagging a permission request without a named blocker.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,7 +86,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Phrase matching on supplied examples; not complete semantic or safety analysis.",
+        "authority_ceiling": "Runs phrase rules over the supplied response fixtures and records expected positives and negatives, flagging a permission request without a named blocker.",
         "card": "A passing matrix includes correctly flagged permission requests without a blocker.",
         "one_line": "Runs phrase-based checks against response fixtures and records expected positives and negatives."
       },

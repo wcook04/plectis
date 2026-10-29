@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The run checks existing evidence; it does not run Lean or Lake. Availability and timing are scoped to the recorded environment and do not prove a theorem or establish benchmark performance.",
+    "authority_ceiling": "Compares the recorded tactic and environment rows with probe artifacts from source, and rejects a tactic marked available without a compile status or Mathlib marked available without evidence.",
     "card": "The validator compares public tactic and environment rows with source-backed probe artifacts. A row claiming an available tactic without a compile status, or claiming Mathlib availability without supporting evidence, is rejected. Source changes can invalidate a recorded availability label.",
     "one_line": "Summarizes recorded tactic availability, timing and environment."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The run checks existing evidence; it does not run Lean or Lake. Availability and timing are scoped to the recorded environment and do not prove a theorem or establish benchmark performance.",
+    "authority_ceiling": "Compares the recorded tactic and environment rows with probe artifacts from source, and rejects a tactic marked available without a compile status or Mathlib marked available without evidence.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,7 +82,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The run checks existing evidence; it does not run Lean or Lake. Availability and timing are scoped to the recorded environment and do not prove a theorem or establish benchmark performance.",
+        "authority_ceiling": "Compares the recorded tactic and environment rows with probe artifacts from source, and rejects a tactic marked available without a compile status or Mathlib marked available without evidence.",
         "card": "The validator compares public tactic and environment rows with source-backed probe artifacts. A row claiming an available tactic without a compile status, or claiming Mathlib availability without supporting evidence, is rejected. Source changes can invalidate a recorded availability label.",
         "one_line": "Summarizes recorded tactic availability, timing and environment."
       },

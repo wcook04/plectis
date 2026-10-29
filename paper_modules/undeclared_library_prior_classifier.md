@@ -1,6 +1,6 @@
 # Classify undeclared library symbols
 
-> **In plain terms.** A proof attempt may lean on a library fact that was never declared as allowed. This component is given records of proof attempts, each listing the library names used, the facts allowed and the facts cited, plus an index of known facts. Citing a fact outside the allowed list counts as a budget violation and takes priority; otherwise a known full library name on neither list counts as undeclared. Each record gets a label and a review outcome, showing someone which attempts leaned on facts nobody had listed. The labels depend on the supplied index and the names pulled from each proof, and are advice rather than proof checking.
+> **In plain terms.** A proof attempt may lean on a library fact that was never declared as allowed. This component is given records of proof attempts, each listing the library names used, the facts allowed and the facts cited, plus an index of known facts. Citing a fact outside the allowed list counts as a budget violation and takes priority; otherwise a known full library name on neither list counts as undeclared. Each record gets an advisory label and a review outcome, showing someone which attempts leaned on facts nobody had listed.
 
 This classifier compares qualified symbols in public observations with a premise index and each observation’s allowed and cited premise IDs. It records a classification and review outcome for each row.
 
@@ -23,7 +23,7 @@ A cited unallowed premise takes precedence as a premise-budget violation; otherw
 
 ## Limits
 
-The result depends on the supplied index and extracted symbols. It is advisory metadata, not proof checking or a claim that an unqualified name resolves to a particular declaration.
+Classifies observed library symbols against the supplied index and the allowed and cited premise IDs, and rejects a row that omits escalation for a known undeclared symbol.
 
 ## Verification
 

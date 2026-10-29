@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A claim that an absent entry proves the underlying thing does not exist is rejected; a mismatched debt count also blocks the result. The comparison cannot discover everything missing from both inputs. The small static fixture lacks the graph and is expected to block.",
+    "authority_ceiling": "Compares the kind-atlas counts and required IDs with the saved system graph and reports each category's shortfall, rejecting a mismatched debt count or a claim that an absent entry proves something does not exist. The small static fixture lacks the graph and is expected to block.",
     "card": "The exported bundle contains counts and IDs for categories such as concepts and standards, plus a saved system graph representing some of those entities. This component compares the two: for each category it reports the shortfall between the listed count and the number represented in the graph, and checks required IDs. The resulting coverage debt helps locate known gaps in that graph.",
     "one_line": "The exported bundle contains kind-atlas rows and a materialized system graph."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A claim that an absent entry proves the underlying thing does not exist is rejected; a mismatched debt count also blocks the result. The comparison cannot discover everything missing from both inputs. The small static fixture lacks the graph and is expected to block.",
+    "authority_ceiling": "Compares the kind-atlas counts and required IDs with the saved system graph and reports each category's shortfall, rejecting a mismatched debt count or a claim that an absent entry proves something does not exist. The small static fixture lacks the graph and is expected to block.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -80,7 +80,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A claim that an absent entry proves the underlying thing does not exist is rejected; a mismatched debt count also blocks the result. The comparison cannot discover everything missing from both inputs. The small static fixture lacks the graph and is expected to block.",
+        "authority_ceiling": "Compares the kind-atlas counts and required IDs with the saved system graph and reports each category's shortfall, rejecting a mismatched debt count or a claim that an absent entry proves something does not exist. The small static fixture lacks the graph and is expected to block.",
         "card": "The exported bundle contains counts and IDs for categories such as concepts and standards, plus a saved system graph representing some of those entities. This component compares the two: for each category it reports the shortfall between the listed count and the number represented in the graph, and checks required IDs. The resulting coverage debt helps locate known gaps in that graph.",
         "one_line": "The exported bundle contains kind-atlas rows and a materialized system graph."
       },

@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The bundled source checks also compare imported module digests. These checks establish that references and configured copies match; they do not prove theorem correctness or independently validate the mathematics.",
+    "authority_ceiling": "Checks that each paper claim names a known evidence cell and that its source paths, markers and imported module digests match, rejecting a missing anchor, a private source reference or human approval offered as proof evidence.",
     "card": "The resolver reads paper claims, evidence-cell records and public source anchors, then checks that claims name known cells and that referenced paths and markers resolve. Its result records the resolution without copying proof bodies into the receipt. The fixture includes deliberately invalid claims: a missing source anchor, a private source reference and a claim that human approval is proof evidence are rejected.",
     "one_line": "Resolve claims to public evidence cells and source markers."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The bundled source checks also compare imported module digests. These checks establish that references and configured copies match; they do not prove theorem correctness or independently validate the mathematics.",
+    "authority_ceiling": "Checks that each paper claim names a known evidence cell and that its source paths, markers and imported module digests match, rejecting a missing anchor, a private source reference or human approval offered as proof evidence.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,7 +85,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The bundled source checks also compare imported module digests. These checks establish that references and configured copies match; they do not prove theorem correctness or independently validate the mathematics.",
+        "authority_ceiling": "Checks that each paper claim names a known evidence cell and that its source paths, markers and imported module digests match, rejecting a missing anchor, a private source reference or human approval offered as proof evidence.",
         "card": "The resolver reads paper claims, evidence-cell records and public source anchors, then checks that claims name known cells and that referenced paths and markers resolve. Its result records the resolution without copying proof bodies into the receipt. The fixture includes deliberately invalid claims: a missing source anchor, a private source reference and a claim that human approval is proof evidence are rejected.",
         "one_line": "Resolve claims to public evidence cells and source markers."
       },

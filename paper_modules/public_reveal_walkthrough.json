@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A walkthrough that claims a capability without a matching evidence route is rejected. A passing walkthrough does not establish private-system equivalence or authorize a release.",
+    "authority_ceiling": "Follows each audience-specific claim in the walkthrough to its runtime and source evidence, and rejects a claim that has no matching evidence route.",
     "card": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references. It produces a board and findings to help a reader follow a claim to supporting material.",
     "one_line": "Checks walkthrough claims and their links to public evidence."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A walkthrough that claims a capability without a matching evidence route is rejected. A passing walkthrough does not establish private-system equivalence or authorize a release.",
+    "authority_ceiling": "Follows each audience-specific claim in the walkthrough to its runtime and source evidence, and rejects a claim that has no matching evidence route.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,7 +84,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A walkthrough that claims a capability without a matching evidence route is rejected. A passing walkthrough does not establish private-system equivalence or authorize a release.",
+        "authority_ceiling": "Follows each audience-specific claim in the walkthrough to its runtime and source evidence, and rejects a claim that has no matching evidence route.",
         "card": "The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references. It produces a board and findings to help a reader follow a claim to supporting material.",
         "one_line": "Checks walkthrough claims and their links to public evidence."
       },

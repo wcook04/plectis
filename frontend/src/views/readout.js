@@ -1,7 +1,6 @@
 // What the map is showing, in words: for whatever the pointer is on or is
 // chosen, one line for each kind of thing the drawing lights, naming its
-// ink, where it comes from and how many, then the limit of what the lit
-// lines establish. The panel adds wording, not facts (Lean Exposition
+// ink, where it comes from and how many. The panel adds wording, not facts (Lean Exposition
 // panels/EdgePanel.tsx): every line here is a count or a relation the
 // overview already carries, and each corresponds to something map/engine.js
 // draws for the same focus (near, haloFocus).
@@ -11,11 +10,11 @@
 // relationText): one sentence per level, absence stated as a count rather
 // than left silent, and a pointed object restated against the chosen one.
 
-import { CITATION_WORDS, TRACKS, count, familyName, membersOf, obligationWords, proofShortName, ruleKindWords, supportWords, CORE_NAMES, moduleWords } from '../evidence.js';
+import { TRACKS, count, familyName, membersOf, obligationWords, proofShortName, ruleKindWords, supportWords, CORE_NAMES, moduleWords } from '../evidence.js';
 
 const list = (ids) => (ids.length <= 4 ? ids.join(', ') : `${ids.slice(0, 3).join(', ')} and ${ids.length - 3} more`);
 
-/** { lines: [{ ink, text }], limit } for one map object (engine objectFor). */
+/** { lines: [{ ink, text }] } for one map object (engine objectFor). */
 export function readout(model, o) {
   if (!o) return null;
   if (o.type === 'component') return componentReadout(model, o.comp);
@@ -45,16 +44,16 @@ function componentReadout(model, c) {
   if (rules.length) {
     const axioms = rules.filter((r) => r.kind === 'axiom');
     const principles = rules.filter((r) => r.kind === 'principle');
-    lines.push({ ink: 'doctrine', mark: 'Lines up to the halo', text: `the ${count(rules.length, 'rule')} its record lists: ${count(axioms.length, 'axiom')} (basic ${axioms.length === 1 ? 'assumption' : 'assumptions'}) and ${count(principles.length, 'principle')} (working ${principles.length === 1 ? 'rule' : 'rules'}).` });
+    lines.push({ ink: 'doctrine', mark: 'Lines to its rules', text: `the ${count(rules.length, 'rule')} its record lists: ${count(axioms.length, 'axiom')} (basic ${axioms.length === 1 ? 'assumption' : 'assumptions'}) and ${count(principles.length, 'principle')} (working ${principles.length === 1 ? 'rule' : 'rules'}).` });
     const cited = new Set(rules.map((r) => r.id));
     const basis = [...new Set(principles.flatMap((r) => r.restsOn))].filter((id) => !cited.has(id));
     if (basis.length) lines.push({ ink: 'doctrine-soft', mark: 'Fainter', text: `${list(basis)}, ${basis.length === 1 ? 'an axiom' : 'axioms'} those principles rest on; its record does not list ${basis.length === 1 ? 'it' : 'them'} itself.` });
   } else if (model.rules.length) {
-    lines.push({ ink: 'absent', mark: 'Nothing on the halo', text: 'its record lists no rule.' });
+    lines.push({ ink: 'absent', mark: 'No lines to rules', text: 'its record lists no rule.' });
   }
   const witnessFor = model.rules.filter((r) => r.witnesses.includes(c.id)).map((r) => r.id);
   if (witnessFor.length) lines.push({ ink: 'doctrine', mark: 'Witness', text: `the routing registry names it, by hand, as a witness for ${list(witnessFor)}.` });
-  return { lines, limit: 'None of these lines shows that its whole claim holds; that is unknown for every component.' };
+  return { lines };
 }
 
 function ruleReadout(model, r) {
@@ -63,7 +62,7 @@ function ruleReadout(model, r) {
   if (r.kind !== 'anti_principle') {
     const n = r.citedBy.length;
     lines.push(n
-      ? { ink: 'doctrine', mark: 'Lit columns', text: `the ${n} of ${total} components whose records cite it, each marked at its column. The other ${total - n} are dimmed. ${n > 12 ? 'Point at one to trace its route.' : 'Each has its own route to the rule.'}` }
+      ? { ink: 'doctrine', mark: 'Lit columns', text: `the ${n} of ${total} components whose records cite it, each marked at its column. The other ${total - n} are dimmed. ${n > 12 ? 'Point at one to draw its line.' : 'Each has its own line to the rule.'}` }
       : { ink: 'absent', mark: 'No lit columns', text: 'no component lists it.' });
   }
   if (r.kind === 'principle') {
@@ -75,9 +74,9 @@ function ruleReadout(model, r) {
     lines.push({ ink: 'threat', mark: 'Dashed lines in', text: `to ${list(r.threatens)}, the ${r.threatens.length === 1 ? 'axiom' : 'axioms'} it would break.` });
     const e = r.exposed.size;
     lines.push(e
-      ? { ink: 'threat', mark: 'Dashed marks', text: `the ${e} of ${total} components exposed through ${r.threatens.length === 1 ? 'that axiom' : 'those axioms'}: each one’s record cites an axiom it would break. The other ${total - e} are dimmed. Point at one to trace the citation its exposure runs through.` }
+      ? { ink: 'threat', mark: 'Dashed marks', text: `the ${e} of ${total} components exposed through ${r.threatens.length === 1 ? 'that axiom' : 'those axioms'}: each one’s record cites an axiom it would break. The other ${total - e} are dimmed. Point at one to draw the citation that exposes it.` }
       : { ink: 'absent', mark: 'No exposed columns', text: `no component’s record cites ${list(r.threatens)}.` });
-    lines.push({ ink: 'absent', mark: 'Not cited', text: 'records cite axioms and principles, never failure modes; exposure is derived, not a check.' });
+    lines.push({ ink: 'absent', mark: 'Not cited', text: 'records cite axioms and principles, never failure modes.' });
   }
   if (r.kind === 'axiom') {
     if (r.witnesses.length) {
@@ -89,14 +88,11 @@ function ruleReadout(model, r) {
     if (r.obligations.length) {
       const by = (ink) => r.obligations.filter((ob) => obligationWords(ob.computed)[1] === ink).length;
       const parts = [[by('stated'), 'bound to witnesses that exist'], [by('debt'), 'carrying declared layer debt'], [by('blocked'), 'blocked'], [by('unknown'), 'not computed']].filter(([n]) => n);
-      lines.push({ ink: 'obligations', mark: 'Arcs round its mark', text: `its ${count(r.obligations.length, 'checkable part')}: ${parts.map(([n, w]) => `${n} ${w}`).join(', ')}.` });
+      lines.push({ ink: 'obligations', mark: 'Arcs around its mark', text: `its ${count(r.obligations.length, 'checkable part')}: ${parts.map(([n, w]) => `${n} ${w}`).join(', ')}.` });
     }
     if (r.support) lines.push({ ink: 'doctrine', mark: 'Support checker', text: `at build time: ${supportWords(r.support.verdict)[2].toLowerCase()}.` });
   }
-  const limit = r.kind === 'axiom'
-    ? 'No verdict here is a pass: the support checker could not compute how strong any support is.'
-    : r.kind === 'anti_principle' ? 'A failure mode names a way to break an axiom; it is not an observed incident.' : CITATION_WORDS;
-  return { lines, limit };
+  return { lines };
 }
 
 function kernelReadout(model, k) {
@@ -105,7 +101,7 @@ function kernelReadout(model, k) {
   if (comp) lines.push({ ink: 'red', mark: 'Red stem', text: `out to ${comp.title}, whose code calls this computation’s generated code.` });
   lines.push({ ink: 'red', mark: 'Ticks', text: `${count(k.verifiedTasks || 0, 'proof check')} Dafny passed, in a saved result: one tick each.` });
   lines.push({ ink: 'ink', mark: 'Crosses', text: `${count(k.mutants.length, 'deliberately broken version')} the prover rejected.` });
-  return { lines, limit: 'The proof covers this one computation, not the component around it.' };
+  return { lines };
 }
 
 function coreReadout(model, c) {
@@ -117,7 +113,7 @@ function coreReadout(model, c) {
   }
   lines.push({ ink: 'red', mark: 'Ticks', text: `${count(c.verifiedTasks || 0, 'proof check')} Dafny passed, in a saved result: one tick each.` });
   lines.push({ ink: 'ink', mark: 'Crosses', text: `${count(c.mutants.length, 'deliberately broken version')} the prover rejected.` });
-  return { lines, limit: 'Its proof covers the modelled computation; the code around it is tested, not proved.' };
+  return { lines };
 }
 
 /**
@@ -137,7 +133,7 @@ export function relation(model, hovered, chosen, info) {
       // the axioms it would break that the component's record cites.
       const via = rule.threatens.filter((id) => (comp.ruleIds || []).includes(id));
       return via.length
-        ? `${subject} cites ${via.join(' and ')}, which ${rule.id} would break: exposed through ${via.length === 1 ? 'that axiom' : 'those axioms'}. Derived, not a check.`
+        ? `${subject} cites ${via.join(' and ')}, which ${rule.id} would break: exposed through ${via.length === 1 ? 'that axiom' : 'those axioms'}.`
         : `${subject} cites none of ${rule.threatens.join(', ') || 'the axioms it would break'}: not exposed to ${rule.id}.`;
     }
     const cites = (comp.ruleIds || []).includes(rule.id);
@@ -160,7 +156,7 @@ export function relation(model, hovered, chosen, info) {
       return shared ? `${count(shared, 'component')} ${shared === 1 ? 'is' : 'are'} ${both}. An overlap does not link the rules.` : `No component is ${both}.`;
     }
     if (!shared) return `No component cites both ${a.id} and ${b.id}.`;
-    return `${count(shared, 'component')} ${shared === 1 ? 'cites' : 'cite'} both ${a.id} and ${b.id}. Shared citations do not link the rules.`;
+    return `${count(shared, 'component')} ${shared === 1 ? 'cites' : 'cite'} both ${a.id} and ${b.id}.`;
   }
   if (hovered.type === 'component' && chosen.type === 'component') {
     const a = hovered.comp, b = chosen.comp;
@@ -183,7 +179,7 @@ export function relation(model, hovered, chosen, info) {
 
 /**
  * What the preview dock says about a previewed object, in reading order:
- * { kind, name, relation, purpose, counts: [text], limit }.
+ * { kind, name, relation, purpose, counts: [text] }.
  */
 export function preview(model, o, chosen = null, info = undefined) {
   if (!o) return null;
@@ -196,8 +192,7 @@ export function preview(model, o, chosen = null, info = undefined) {
     const counts = [];
     if (model.rules.length) counts.push(cites ? `Its record cites ${count(cites, 'rule')}` : 'Its record cites no rule');
     counts.push(k ? `Contains a proved computation: ${proofShortName(k)}` : 'No proved computation inside it');
-    return { kind: `Component · ${familyName(c.family)}`, name: c.title, relation: rel, purpose: c.summary || c.plain || '', counts,
-      limit: 'How much of its whole claim the checks cover is unknown.' };
+    return { kind: `Component · ${familyName(c.family)}`, name: c.title, relation: rel, purpose: c.summary || c.plain || '', counts };
   }
   if (o.type === 'rule') {
     const r = o.rule;
@@ -207,16 +202,14 @@ export function preview(model, o, chosen = null, info = undefined) {
       : [`${n} of ${total} components cite it`];
     if (r.kind === 'principle' && r.restsOn.length) counts.push(`Rests on ${r.restsOn.join(', ')}`);
     if (r.kind === 'axiom') counts.push(`${count(r.principles.length, 'principle')} rest on it`);
-    return { kind: `${ruleKindWords(r.kind)} · ${r.id}`, name: r.title, relation: rel, purpose: r.reader?.plain || r.plain || '', counts,
-      limit: r.kind === 'anti_principle' ? 'Exposure is derived from citations of the axioms it would break; it is not a check and not an incident.' : 'A citation is the component’s own record listing the rule; it is not a check.' };
+    return { kind: `${ruleKindWords(r.kind)} · ${r.id}`, name: r.title, relation: rel, purpose: r.reader?.plain || r.plain || '', counts };
   }
   const p = o.type === 'kernel' ? o.kernel : o.core;
   const comp = o.type === 'kernel' && o.componentId ? model.byId.get(o.componentId) : null;
   const name = o.type === 'kernel' ? proofShortName(p) : CORE_NAMES[p.id]?.[0] || moduleWords(p.id);
   const purpose = o.type === 'kernel' ? (comp ? `It makes one decision inside “${comp.title}”.` : 'It is used by no component.') : `It ${CORE_NAMES[p.id]?.[1] || 'is part of the toolkit'}.`;
   return { kind: o.type === 'kernel' ? 'Proved computation' : 'Proved computation in the toolkit', name, relation: rel, purpose,
-    counts: [`${count(p.verifiedTasks || 0, 'proof check')} passed · ${count(p.mutants.length, 'broken copy', 'broken copies')} rejected`],
-    limit: o.type === 'kernel' ? 'The proof covers this one computation, not the component around it.' : 'The proof covers the modelled computation; the code around it is tested, not proved.' };
+    counts: [`${count(p.verifiedTasks || 0, 'proof check')} passed · ${count(p.mutants.length, 'broken copy', 'broken copies')} rejected`] };
 }
 
 /** A short identity line for a map object: kind and, for a rule, its number. */
@@ -234,23 +227,23 @@ export function kindLine(model, o) {
 export function placement(model, o) {
   const and = (ids) => (ids.length === 1 ? ids[0] : `${ids.slice(0, -1).join(', ')} and ${ids[ids.length - 1]}`);
   if (o.type === 'component') {
-    return `In the ${familyName(o.comp.family)} sector, grouped with the components backed the same way.`;
+    return `In the ${familyName(o.comp.family)} part of the ring, next to the components backed the same way.`;
   }
   if (o.type === 'kernel') {
     const comp = o.componentId ? model.byId.get(o.componentId) : null;
-    if (!comp) return 'It is used by no component, so it waits under the centre.';
-    return `On ${comp.title}’s own radius${o.depth ? `, ${o.depth === 1 ? 'one step' : `${o.depth} steps`} further in so it does not touch a neighbour’s dial` : ''}.`;
+    if (!comp) return 'No component uses it, so it is drawn below the centre.';
+    return `On the line from the centre to ${comp.title}${o.depth ? `, ${o.depth === 1 ? 'one step' : `${o.depth} steps`} further in so it does not touch a neighbour’s dial` : ''}.`;
   }
   if (o.type === 'core') {
     return o.core.id === 'replay_admission'
       ? 'At the centre, where every component’s rerun route leads.'
-      : 'Round the centre with the toolkit’s other proved computations; none of them belongs to one component.';
+      : 'Around the centre, with the toolkit’s other proved computations; none of them belongs to one component.';
   }
   if (o.type === 'rule') {
     const r = o.rule;
-    if (r.kind === 'axiom') return 'On the middle orbit. The axioms are ordered so that rules tied to several of them sit close together, then the ring is turned toward the components that list them.';
+    if (r.kind === 'axiom') return 'On the middle circle. The axioms are ordered so that rules tied to several of them sit close together, then the circle is turned toward the components that list them.';
     const ties = r.kind === 'principle' ? r.restsOn : r.threatens;
-    const orbit = r.kind === 'principle' ? 'On the inner orbit' : 'On the outer orbit';
+    const orbit = r.kind === 'principle' ? 'On the inner circle' : 'On the outer circle';
     if (!ties.length) return `${orbit}, near the components that list it.`;
     const where = ties.length === 1 ? (r.kind === 'principle' ? 'just inside' : 'just outside') : 'between';
     return `${orbit}, ${where} ${and(ties)}, the ${ties.length === 1 ? 'axiom' : 'axioms'} it ${r.kind === 'principle' ? 'rests on' : 'would break'}.`;

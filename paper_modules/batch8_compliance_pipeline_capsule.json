@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A passing fixture is evidence about these specific source contracts and helper inputs, not a fresh full compliance ledger or permission to dispatch a pipeline.",
+    "authority_ceiling": "Inspects the copied compliance source contracts and runs selected pipeline helpers on synthetic data, rejecting a missing compliance registry or standard.",
     "card": "Public compliance rows inspect source contracts; selected pipeline helpers run on synthetic data, including a directive-preservation example.",
     "one_line": "A fixture checks copied compliance contracts and pipeline helpers."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A passing fixture is evidence about these specific source contracts and helper inputs, not a fresh full compliance ledger or permission to dispatch a pipeline.",
+    "authority_ceiling": "Inspects the copied compliance source contracts and runs selected pipeline helpers on synthetic data, rejecting a missing compliance registry or standard.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -89,7 +89,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A passing fixture is evidence about these specific source contracts and helper inputs, not a fresh full compliance ledger or permission to dispatch a pipeline.",
+        "authority_ceiling": "Inspects the copied compliance source contracts and runs selected pipeline helpers on synthetic data, rejecting a missing compliance registry or standard.",
         "card": "Public compliance rows inspect source contracts; selected pipeline helpers run on synthetic data, including a directive-preservation example.",
         "one_line": "A fixture checks copied compliance contracts and pipeline helpers."
       },

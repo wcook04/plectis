@@ -65,8 +65,8 @@ export async function mountCoverage(root, { signal } = {}) {
     h('p', { class: 'page-lede' }, `Each row below is one kind of check, and each square is one of the ${total} components, grouped by family. These are the same rings as on the map, laid out flat. The rows overlap, so they do not add up, and none of them is a score.`),
     h('p', { class: 'note figures' }, `Read from snapshot ${model.revision.slice(0, 12)}. Click a square to open that component.`),
     h('div', { class: 'measures' }, rows),
-    h('h2', {}, 'Nothing is run by this page'),
-    h('p', { class: 'prose' }, 'Every result here was saved earlier. This page does not run the prover, the tests or any rerun, so it cannot say whether today\'s code still matches the saved results.'),
+    h('h2', {}, 'Where these results come from'),
+    h('p', { class: 'prose' }, 'Every result here was saved when it was last run.'),
     h('h2', {}, 'What kinds of component there are'),
     classRows);
   return () => {};

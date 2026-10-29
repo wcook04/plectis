@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The report checks declared public evidence; it does not repair a live route, mutate a source, promote doctrine or authorize a release. Source digest checks do not prove the copied algorithms correct.",
+    "authority_ceiling": "Recomputes the projection-drift rows from the supplied evidence and compares them with the snapshot, rejecting a drift row without a source reference or a repair route without a validation reference.",
     "card": "Checks source evidence, snapshot agreement, runtime receipt witnesses, repair and validation references, and boundary claims.",
     "one_line": "Recomputes public projection-drift rows and compares them with a supplied snapshot and supporting evidence."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The report checks declared public evidence; it does not repair a live route, mutate a source, promote doctrine or authorize a release. Source digest checks do not prove the copied algorithms correct.",
+    "authority_ceiling": "Recomputes the projection-drift rows from the supplied evidence and compares them with the snapshot, rejecting a drift row without a source reference or a repair route without a validation reference.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,7 +86,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The report checks declared public evidence; it does not repair a live route, mutate a source, promote doctrine or authorize a release. Source digest checks do not prove the copied algorithms correct.",
+        "authority_ceiling": "Recomputes the projection-drift rows from the supplied evidence and compares them with the snapshot, rejecting a drift row without a source reference or a repair route without a validation reference.",
         "card": "Checks source evidence, snapshot agreement, runtime receipt witnesses, repair and validation references, and boundary claims.",
         "one_line": "Recomputes public projection-drift rows and compares them with a supplied snapshot and supporting evidence."
       },

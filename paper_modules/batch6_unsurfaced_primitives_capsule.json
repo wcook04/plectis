@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "These synthetic examples do not establish market truth, policy effectiveness or correctness for other inputs. Source hashes and anchors establish identity checks, not algorithm correctness.",
+    "authority_ceiling": "Runs selected copied modules on small text, memory, market, finance-unit, policy, concurrency and recording-timing exercises, blocking a finance unit-scale mismatch and a case without counterevidence.",
     "card": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing. It checks the selected mechanism set and returns individual exercise results. The negative cases include a stopword-only phrase that yields no keyphrase, a finance unit-scale mismatch that blocks, and a missing counterevidence case. The concurrency case identifies a parent-child conflict; the recording case checks pause-time remapping.",
     "one_line": "Exercises copied primitives for text, memory, policy, markets and recording timing."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "These synthetic examples do not establish market truth, policy effectiveness or correctness for other inputs. Source hashes and anchors establish identity checks, not algorithm correctness.",
+    "authority_ceiling": "Runs selected copied modules on small text, memory, market, finance-unit, policy, concurrency and recording-timing exercises, blocking a finance unit-scale mismatch and a case without counterevidence.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -89,7 +89,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "These synthetic examples do not establish market truth, policy effectiveness or correctness for other inputs. Source hashes and anchors establish identity checks, not algorithm correctness.",
+        "authority_ceiling": "Runs selected copied modules on small text, memory, market, finance-unit, policy, concurrency and recording-timing exercises, blocking a finance unit-scale mismatch and a case without counterevidence.",
         "card": "This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing. It checks the selected mechanism set and returns individual exercise results. The negative cases include a stopword-only phrase that yields no keyphrase, a finance unit-scale mismatch that blocks, and a missing counterevidence case. The concurrency case identifies a parent-child conflict; the recording case checks pause-time remapping.",
         "one_line": "Exercises copied primitives for text, memory, policy, markets and recording timing."
       },

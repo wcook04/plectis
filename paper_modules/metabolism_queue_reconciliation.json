@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.",
+    "authority_ceiling": "Runs synthetic queue cases in temporary SQLite databases and checks that the reconciler rejects a running job with no run row and a finished run whose job is still running.",
     "card": "The cases exercise idempotent enqueue, leases and expired-lease recovery, plus a blackboard projection. The reconciler examines job, run and log records. A running job without a run row, or a finalised run whose job is still running, is a named negative case. A negative case succeeds when the expected rule fires; the inconsistent queue is not thereby healthy.",
     "one_line": "Runs temporary SQLite queue cases and checks their reconciliation outcomes."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.",
+    "authority_ceiling": "Runs synthetic queue cases in temporary SQLite databases and checks that the reconciler rejects a running job with no run row and a finished run whose job is still running.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,7 +85,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The cases are synthetic. The component does not inspect or repair a live queue, and a passing fixture does not establish production reliability.",
+        "authority_ceiling": "Runs synthetic queue cases in temporary SQLite databases and checks that the reconciler rejects a running job with no run row and a finished run whose job is still running.",
         "card": "The cases exercise idempotent enqueue, leases and expired-lease recovery, plus a blackboard projection. The reconciler examines job, run and log records. A running job without a run row, or a finalised run whose job is still running, is a named negative case. A negative case succeeds when the expected rule fires; the inconsistent queue is not thereby healthy.",
         "one_line": "Runs temporary SQLite queue cases and checks their reconciliation outcomes."
       },

@@ -1,6 +1,6 @@
 # Work-landing transaction replay
 
-> **In plain terms.** Workers saving changes to one project can claim the same files or build on an outdated version. This component reads a made-up example of workers' claims on files, the project version each expected, which tasks wait on which, and rules for a limited save. It lists the active claims, compares each with its files and expected version, and tests whether finished tasks unlock waiting ones and the save rules are met. The output is a verdict with findings, and it rejects a claim built on an outdated version or two claims on one file. It uses supplied records only, never the live private work record, and passing is not permission to save or release.
+> **In plain terms.** Workers saving changes to one project can claim the same files or build on an outdated version. This component reads a made-up example of workers' claims on files, the project version each expected, which tasks wait on which, and rules for a limited save. It lists the active claims, compares each with its files and expected version, and tests whether finished tasks unlock waiting ones and the save rules are met. The output is a verdict with findings, and it rejects a claim built on an outdated version or two claims on one file.
 
 Validates a public work-transaction fixture containing path claims, dependencies, preflight and checkpoint policy, and writes receipts.
 
@@ -20,7 +20,7 @@ The replay reconstructs an active-claims snapshot using imported public-safe Wor
 
 ## Limits
 
-The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release.
+Rebuilds an active-claims snapshot from the fixture with copied Work Ledger code and checks claims, parent state, dependency unlocks and checkpoint policy, rejecting a stale expected parent or a conflicting claim.
 
 ## Verification
 

@@ -1,6 +1,6 @@
 # Run a small Lean certificate lab
 
-> **In plain terms.** Small mathematical claims should be settled by a strict checker, not by taking someone's word. The lab is given small claims about whole numbers, such as 2 + 3 = 5, with some of them deliberately wrong. It builds a small project for Lean, a program that checks mathematical proofs, and has Lean accept or reject each claim, so 2 + 3 = 6 must be refused. The output is a saved record of the build and each result that keeps what Lean accepted apart from other suggestions and leaves out proof text. A good run supports only these checks on these claims, not other theorems or the original research problem.
+> **In plain terms.** Small mathematical claims should be settled by a strict checker, not by taking someone's word. The lab is given small claims about whole numbers, such as 2 + 3 = 5, with some of them deliberately wrong. It builds a small project for Lean, a program that checks mathematical proofs, and has Lean accept or reject each claim, so 2 + 3 = 6 must be refused. The output is a saved record of the build and each result that keeps what Lean accepted apart from other suggestions and leaves out proof text.
 
 The certificate lab checks supplied finite certificate examples with a Lean project. Its fixture includes natural-number sum certificates and bounded-order certificates, including deliberately invalid rows. The runner records build and certificate transition results and analyzer metadata in JSON.
 

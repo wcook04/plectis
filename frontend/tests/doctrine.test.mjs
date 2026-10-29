@@ -127,15 +127,15 @@ test('every doctrine state has its own words, and none of them is worded as a pa
   assert.deepEqual(DOCTRINE_KINDS.map((k) => ruleKindWords(k, { glyph: true })), ['principle', 'axiom', 'failure']);
 });
 
-test('the readout names each lit thing and its limit, and a pointed object is said against the chosen one', () => {
+test('the readout names each lit thing, and a pointed object is said against the chosen one', () => {
   const m = build(overview(), 'rev');
   const marks = (o) => readout(m, o).lines.map((l) => l.mark);
   const text = (o) => readout(m, o).lines.map((l) => `${l.mark}: ${l.text}`).join('\n');
-  assert.ok(marks(comp(m, 'a')).includes('Lines up to the halo'));
+  assert.ok(marks(comp(m, 'a')).includes('Lines to its rules'));
   assert.match(text(comp(m, 'a')), /3 rules its record lists: 1 axiom \(basic assumption\) and 2 principles \(working rules\)/);
   assert.match(text(comp(m, 'a')), /Fainter: AX-5/, 'an axiom its principles rest on, which it does not cite');
   assert.match(text(comp(m, 'a')), /witness for AX-1/);
-  assert.ok(marks(comp(m, 'c')).includes('Nothing on the halo'));
+  assert.ok(marks(comp(m, 'c')).includes('No lines to rules'));
   assert.match(text(rule(m, 'P-2')), /Lit columns: the 2 of 3 components whose records cite it, each marked at its column\. The other 1 are dimmed/);
   assert.doesNotMatch(text(rule(m, 'P-2')), /round the edge|sweep/);
   assert.match(text(rule(m, 'P-2')), /Lines out: to AX-1, AX-5, the axioms \(basic assumptions\) it rests on/);
@@ -144,32 +144,32 @@ test('the readout names each lit thing and its limit, and a pointed object is sa
   assert.match(ax, /3 checkable parts: 1 bound to witnesses that exist, 1 carrying declared layer debt, 1 blocked/);
   assert.match(ax, /Support checker: at build time: partial: layer debt/);
   assert.match(text(rule(m, 'AP-1')), /Dashed marks: the 1 of 3 components exposed through those axioms/);
-  assert.match(text(rule(m, 'AP-1')), /Not cited: records cite axioms and principles, never failure modes; exposure is derived, not a check/);
+  assert.match(text(rule(m, 'AP-1')), /Not cited: records cite axioms and principles, never failure modes\./);
   for (const o of [comp(m, 'a'), comp(m, 'b'), comp(m, 'c'), ...m.rules.map((r) => rule(m, r.id))]) {
     const r = readout(m, o);
     assert.ok(r.lines.length && r.lines.every((l) => l.mark && l.text), o.key);
-    assert.ok(r.limit && r.limit.length > 20, `${o.key} states its limit`);
+    assert.equal(r.limit, undefined, `${o.key} closes on no caveat`);
   }
   assert.equal(relation(m, comp(m, 'b'), rule(m, 'P-1')), 'Its record does not cite P-1.');
   assert.equal(relation(m, rule(m, 'P-2'), comp(m, 'a')), 'The chosen component’s record cites P-2.');
   assert.match(relation(m, rule(m, 'AX-1'), comp(m, 'a')), /cites AX-1\. The routing registry also names it as a witness\./);
-  assert.match(relation(m, comp(m, 'a'), rule(m, 'AP-1')), /Its record cites AX-1, which AP-1 would break: exposed through that axiom\. Derived, not a check\./);
+  assert.match(relation(m, comp(m, 'a'), rule(m, 'AP-1')), /Its record cites AX-1, which AP-1 would break: exposed through that axiom\./);
   assert.match(relation(m, comp(m, 'b'), rule(m, 'AP-1')), /cites none of AX-1, AX-5: not exposed to AP-1/);
   assert.equal(relation(m, rule(m, 'P-2'), rule(m, 'AX-5')), 'P-2 rests on AX-5.');
   assert.match(relation(m, comp(m, 'a'), comp(m, 'b')), /cite 1 rule|both cite 1 rule/);
   assert.equal(relation(m, comp(m, 'a'), comp(m, 'a')), null);
-  // Two rules with no direct tie: the shared citers, and that sharing is not a link.
+  // Two rules with no direct tie: the shared citers.
   const shared = m.rules.filter((r) => r.kind !== 'anti_principle');
   for (const a of shared) for (const b of shared) {
     if (a === b || a.restsOn.includes(b.id) || b.restsOn.includes(a.id)) continue;
     const n = a.citedBy.filter((id) => b.citedBy.includes(id)).length;
-    assert.equal(relation(m, rule(m, a.id), rule(m, b.id)), n ? `${n} component${n === 1 ? '' : 's'} ${n === 1 ? 'cites' : 'cite'} both ${a.id} and ${b.id}. Shared citations do not link the rules.` : `No component cites both ${a.id} and ${b.id}.`);
+    assert.equal(relation(m, rule(m, a.id), rule(m, b.id)), n ? `${n} component${n === 1 ? '' : 's'} ${n === 1 ? 'cites' : 'cite'} both ${a.id} and ${b.id}.` : `No component cites both ${a.id} and ${b.id}.`);
   }
   assert.match(relation(m, rule(m, 'P-1'), rule(m, 'P-2'), { relation: { kind: 'shared', count: 7 } }) || '', /^(7 components cite both|P-\d (rests on|threatens))/);
-  // The dock reads identity, relation, purpose, counts and limit in that order.
+  // The dock reads identity, relation, purpose and counts in that order.
   const p = preview(m, comp(m, 'b'), rule(m, 'P-1'));
   assert.equal(p.relation, 'Its record does not cite P-1.');
-  assert.ok(p.kind.startsWith('Component') && p.name && p.counts.length && p.limit);
+  assert.ok(p.kind.startsWith('Component') && p.name && p.counts.length);
   assert.doesNotMatch(p.counts.join(' '), /\b\d+ of \d+ (kinds|rings)\b/, 'no progress fractions');
   const rp = preview(m, rule(m, 'P-2'), null);
   assert.equal(rp.relation, null);

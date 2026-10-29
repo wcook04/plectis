@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The implementation does not inspect the live process table or send signals. A recommendation in a receipt is not permission to stop a process.",
+    "authority_ceiling": "Classifies the supplied tool-server process list by owner and policy and recommends pressure relief, rejecting a claim that an unknown-owner process is safe to close and any recorded process signal.",
     "card": "The classifier follows owner relationships, distinguishes active, unknown and detached owners, and applies the supplied policy. Tests cover cycles and active-owner descendants. It rejects a claim that an unknown-owner process is safe to close, and rejects recorded process signals or exposed command previews.",
     "one_line": "Classifies supplied tool-server processes and recommends pressure relief."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The implementation does not inspect the live process table or send signals. A recommendation in a receipt is not permission to stop a process.",
+    "authority_ceiling": "Classifies the supplied tool-server process list by owner and policy and recommends pressure relief, rejecting a claim that an unknown-owner process is safe to close and any recorded process signal.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,7 +84,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The implementation does not inspect the live process table or send signals. A recommendation in a receipt is not permission to stop a process.",
+        "authority_ceiling": "Classifies the supplied tool-server process list by owner and policy and recommends pressure relief, rejecting a claim that an unknown-owner process is safe to close and any recorded process signal.",
         "card": "The classifier follows owner relationships, distinguishes active, unknown and detached owners, and applies the supplied policy. Tests cover cycles and active-owner descendants. It rejects a claim that an unknown-owner process is safe to close, and rejects recorded process signals or exposed command previews.",
         "one_line": "Classifies supplied tool-server processes and recommends pressure relief."
       },

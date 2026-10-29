@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Checks synthetic simulator records, not laboratory safety or a discovery.",
+    "authority_ceiling": "Recomputes the selected candidate from synthetic assay, active-learning and safety-gate scores and compares it with the declared selection, rejecting cases such as wet-lab protocol steps or a discovery claim.",
     "card": "This validator reads synthetic candidate, simulator assay, safety-screen, and selection records. It recomputes the selected candidate using assay proxy, active-learning, and safety-gate scores, then compares the result with the declared selection. It also checks the replay graph, source manifests, and negative-case refusals before writing a result and board.",
     "one_line": "This validator reads synthetic candidate, simulator assay, safety-screen, and selection records."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Checks synthetic simulator records, not laboratory safety or a discovery.",
+    "authority_ceiling": "Recomputes the selected candidate from synthetic assay, active-learning and safety-gate scores and compares it with the declared selection, rejecting cases such as wet-lab protocol steps or a discovery claim.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,7 +86,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Checks synthetic simulator records, not laboratory safety or a discovery.",
+        "authority_ceiling": "Recomputes the selected candidate from synthetic assay, active-learning and safety-gate scores and compares it with the declared selection, rejecting cases such as wet-lab protocol steps or a discovery claim.",
         "card": "This validator reads synthetic candidate, simulator assay, safety-screen, and selection records. It recomputes the selected candidate using assay proxy, active-learning, and safety-gate scores, then compares the result with the declared selection. It also checks the replay graph, source manifests, and negative-case refusals before writing a result and board.",
         "one_line": "This validator reads synthetic candidate, simulator assay, safety-screen, and selection records."
       },

@@ -1,10 +1,10 @@
 # Check a finite denominator and multiplicative order
 
-> **In plain terms.** A claimed answer to a fraction sum can be checked by redoing it exactly. The input is a short list of positive whole numbers, a base of at least 2, and the claimed values. For each number n it adds 1 divided by (base to the power n, minus 1), finds the smallest power of the base leaving a remainder of 1 when divided by the sum's bottom number, and compares that power with the list's least common multiple. It recomputes the claimed values and rejects a forged bottom number or power. A pass is an exact calculation for that input, not a proof of the general claim or a solution to Erdős problem 257.
+> **In plain terms.** A claimed answer to one finite case of the fraction sum in Erdős problem 257 can be checked by redoing it exactly. The input is a short list of positive whole numbers, a base of at least 2, and the claimed values. For each number n it adds 1 divided by (base to the power n, minus 1), finds the smallest power of the base leaving a remainder of 1 when divided by the sum's bottom number, and compares that power with the list's least common multiple. It recomputes the claimed values and rejects a forged bottom number or power.
 
 For a finite set of positive integers F and base b ≥ 2, the component computes the exact rational sum S = Σ 1/(bⁿ − 1) = P/Q. It calculates the multiplicative order of b modulo Q, compares it with lcm(F), and independently checks Q using a common denominator. Duplicate support entries are normalized to a set.
 
-The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erdős problem 257.
+Recomputes the claimed integer fields exactly for one finite set and base, and rejects a forged denominator or order, an empty support, a base below two and the degenerate unit denominator. A pass is an exact computation for that one input.
 
 ## Run the example
 

@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Checks declared artifacts and owner commands; it neither repairs files nor proves semantic correctness.",
+    "authority_ceiling": "Fingerprints each fixture owner's sources and generated files, reuses a matching clean receipt, and otherwise checks that the artifacts exist and runs the owner's check command, reporting a missing artifact as drift instead of regenerating it.",
     "card": "This runtime exercises a generated-file drift gate using fixture owners. An owner names source files, generated artifacts, and a no-write check. The gate fingerprints the inputs and outputs, can reuse a prior clean receipt when its fingerprint matches, and otherwise checks artifact presence and the owner's command. It reports the outcome; it does not repair or regenerate files.",
     "one_line": "This runtime exercises a generated-file drift gate using fixture owners."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Checks declared artifacts and owner commands; it neither repairs files nor proves semantic correctness.",
+    "authority_ceiling": "Fingerprints each fixture owner's sources and generated files, reuses a matching clean receipt, and otherwise checks that the artifacts exist and runs the owner's check command, reporting a missing artifact as drift instead of regenerating it.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,7 +86,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Checks declared artifacts and owner commands; it neither repairs files nor proves semantic correctness.",
+        "authority_ceiling": "Fingerprints each fixture owner's sources and generated files, reuses a matching clean receipt, and otherwise checks that the artifacts exist and runs the owner's check command, reporting a missing artifact as drift instead of regenerating it.",
         "card": "This runtime exercises a generated-file drift gate using fixture owners. An owner names source files, generated artifacts, and a no-write check. The gate fingerprints the inputs and outputs, can reuse a prior clean receipt when its fingerprint matches, and otherwise checks artifact presence and the owner's command. It reports the outcome; it does not repair or regenerate files.",
         "one_line": "This runtime exercises a generated-file drift gate using fixture owners."
       },

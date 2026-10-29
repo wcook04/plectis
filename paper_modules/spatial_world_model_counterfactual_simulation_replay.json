@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A stale predicted state that disagrees with the computed step is rejected. This is a small synthetic gridworld check, not evidence of geographic accuracy, robot operation or a production simulator.",
+    "authority_ceiling": "Steps a deterministic toy gridworld for each synthetic scene and counterfactual event and compares the result with the supplied prediction, rejecting a stale predicted state.",
     "card": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction. It writes findings and a board for inspecting mismatches.",
     "one_line": "Compares predicted counterfactual transitions with a deterministic toy gridworld."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A stale predicted state that disagrees with the computed step is rejected. This is a small synthetic gridworld check, not evidence of geographic accuracy, robot operation or a production simulator.",
+    "authority_ceiling": "Steps a deterministic toy gridworld for each synthetic scene and counterfactual event and compares the result with the supplied prediction, rejecting a stale predicted state.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -88,7 +88,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A stale predicted state that disagrees with the computed step is rejected. This is a small synthetic gridworld check, not evidence of geographic accuracy, robot operation or a production simulator.",
+        "authority_ceiling": "Steps a deterministic toy gridworld for each synthetic scene and counterfactual event and compares the result with the supplied prediction, rejecting a stale predicted state.",
         "card": "For each synthetic scene and counterfactual event, this replay constructs a deterministic gridworld step and compares its computed next state and transition differences with the supplied prediction. It writes findings and a board for inspecting mismatches.",
         "one_line": "Compares predicted counterfactual transitions with a deterministic toy gridworld."
       },

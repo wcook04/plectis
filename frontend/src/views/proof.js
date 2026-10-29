@@ -33,7 +33,7 @@ export async function mountProof(root, { id, signal }) {
   if (!p) {
     const box = failure({ kind: 'not_found' }, id);
     box.querySelector('h1').textContent = 'No proof with this ID';
-    box.querySelector('.page-lede').textContent = `The index has no verified computation “${id}”.`;
+    box.querySelector('.page-lede').textContent = `There is no proved computation with the ID “${id}”.`;
     page.replaceChildren(box);
     return () => {};
   }
@@ -64,7 +64,7 @@ export async function mountProof(root, { id, signal }) {
   };
 
   const body = h('div', { class: 'reader__steps prose' });
-  body.append(section('statement', 'What it promises',
+  body.append(section('statement', 'What is proved',
     h('p', { class: 'statement' }, p.statement),
     kernel ? h('div', { class: 'split' },
       h('div', {}, h('h3', {}, 'What it takes in'), h('p', { class: 'small' }, kernel.inputModel)),
@@ -84,8 +84,7 @@ export async function mountProof(root, { id, signal }) {
     specificationParts(p, source)));
   body.append(section('verified', 'What the prover found',
     h('ul', { class: 'facts' },
-      h('li', { class: 'fact' }, keyGlyph('task'), h('span', {}, `Dafny ${String(p.dafnyVersion).split('+')[0]} passed ${count(p.verifiedTasks || 0, 'proof check')}.`,
-        h('span', { class: 'fact__caution' }, 'A saved result from when the proof was last run; this page does not run the prover.'))),
+      h('li', { class: 'fact' }, keyGlyph('task'), h('span', {}, `Dafny ${String(p.dafnyVersion).split('+')[0]} passed ${count(p.verifiedTasks || 0, 'proof check')}.`)),
       fact('proof_binding', p.binding, keyGlyph('generated')))));
   body.append(section('variants', 'Broken versions it rejected', variantsPart(p, source)));
   const generatedLink = folder(p.generatedRefs);
@@ -93,7 +92,7 @@ export async function mountProof(root, { id, signal }) {
     const trusted = [kernel.adapterRef, ...kernel.trustedHostRefs].filter(Boolean);
     body.append(section('generated', 'Generated code and its caller',
       h('p', {}, `The Dafny compiler turned the verified module into ${count(kernel.generatedRefs.length, 'Python file')}. `,
-        component ? h('span', {}, h('a', { href: `/components/${encodeURIComponent(component.id)}`, 'data-route': '' }, component.title), ' calls that code; it does not run a hand-written copy of the decision.') : null,
+        component ? h('span', {}, h('a', { href: `/components/${encodeURIComponent(component.id)}`, 'data-route': '' }, component.title), ' calls that code directly.') : null,
         generatedLink ? h('span', {}, ' ', h('a', { href: generatedLink, rel: 'noopener', target: '_blank' }, 'Browse the generated code ↗')) : null),
       trusted.length ? h('p', { class: 'small muted' }, 'Outside the proof, and trusted to work: its ', andList(trusted.map((r) => named(r))), ', plus the Dafny compiler and Python itself.') : null));
   } else {
@@ -122,7 +121,7 @@ export async function mountProof(root, { id, signal }) {
       kernel ? h('a', { class: 'btn', href: withQuery('/graph', { type: 'proof', id }), 'data-route': '' }, 'Related records') : null)));
 
   const steps = [
-    { id: 'statement', title: 'The promise', note: 'what one computation must do', state: 'stated', ink: 'azure', shape: 'kernel' },
+    { id: 'statement', title: 'What is proved', note: 'what one computation must do', state: 'stated', ink: 'azure', shape: 'kernel' },
     ...(model.ownership && model.ownership.proof_id === id ? [{ id: 'repair', title: 'The fix', note: 'why the rules changed', state: 'stated', ink: 'azure' }] : []),
     { id: 'spec', title: 'Written rules', note: count(p.excerpts?.length || 0, 'piece') + ' of Dafny', state: 'stated', ink: 'azure' },
     { id: 'verified', title: 'Proved', note: `${count(p.verifiedTasks || 0, 'proof check')} passed`, state: 'recorded', ink: 'red' },
@@ -131,11 +130,11 @@ export async function mountProof(root, { id, signal }) {
     ...(core && core.admitted.length ? [{ id: 'routes', title: 'Reruns it judges', note: count(core.admitted.length, 'component'), state: 'configured', ink: 'azure' }] : []),
     { id: 'fresh', title: 'Not checked', note: 'no new run, no review of the rules', state: 'absent', ink: 'faint' },
   ];
-  const figure = chainFigure(steps, { label: `The evidence for ${name}` });
+  const figure = chainFigure(steps, { label: `How ${name} is checked` });
   page.replaceChildren(
     h('nav', { class: 'trail', 'aria-label': 'Breadcrumb' },
       h('a', { href: '/', 'data-route': '' }, 'Map'), h('span', { 'aria-hidden': 'true' }, '/'),
-      component ? h('a', { href: `/components/${encodeURIComponent(component.id)}`, 'data-route': '' }, component.title) : h('span', {}, kernel ? 'No component found' : 'Workflow cores'),
+      component ? h('a', { href: `/components/${encodeURIComponent(component.id)}`, 'data-route': '' }, component.title) : h('span', {}, kernel ? 'No component' : 'Toolkit computations'),
       h('span', { 'aria-hidden': 'true' }, '/'), h('span', {}, id)),
     h('h1', { class: 'page-title' }, name),
     h('p', { class: 'page-lede' }, kernel

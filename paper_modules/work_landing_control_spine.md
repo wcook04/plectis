@@ -25,7 +25,7 @@ The validator compares the required source-module roster, digests, line counts a
 
 ## Limits
 
-The helper validates an exported bundle; it does not perform a live Git commit, mutate a task ledger or authorize publication.
+Checks the exported work-landing bundle's source roster, digests, line counts, anchors and flags against its manifest and runtime contract.
 
 ## Verification
 

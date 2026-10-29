@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public fixture composition only; no production or general security claim.",
+    "authority_ceiling": "Runs a controller audit and a fixture composition over the Engine Room modules, and rejects a run in which an expected target is missing.",
     "card": "A missing expected target must be detected; acceptance of the wrapper does not admit each staged module.",
     "one_line": "Runs a controller audit and fixture composition over Engine Room modules."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public fixture composition only; no production or general security claim.",
+    "authority_ceiling": "Runs a controller audit and a fixture composition over the Engine Room modules, and rejects a run in which an expected target is missing.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -79,7 +79,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public fixture composition only; no production or general security claim.",
+        "authority_ceiling": "Runs a controller audit and a fixture composition over the Engine Room modules, and rejects a run in which an expected target is missing.",
         "card": "A missing expected target must be detected; acceptance of the wrapper does not admit each staged module.",
         "one_line": "Runs a controller audit and fixture composition over Engine Room modules."
       },

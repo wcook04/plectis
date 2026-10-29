@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "This is a check of the supplied public records and policy, not live reinforcement learning, a benchmark result or evidence of improved model performance. It does not export hidden reasoning.",
+    "authority_ceiling": "Checks the links between synthetic episodes, belief states, verifier feedback, rewards and trajectory groups, and rejects a verifier bypass or reward hacking.",
     "card": "Checks episodes, belief states, verifier feedback, rewards and trajectory groups, with bypass and reward-hacking negatives.",
     "one_line": "Replay checks links and policy constraints in synthetic process-reward records."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "This is a check of the supplied public records and policy, not live reinforcement learning, a benchmark result or evidence of improved model performance. It does not export hidden reasoning.",
+    "authority_ceiling": "Checks the links between synthetic episodes, belief states, verifier feedback, rewards and trajectory groups, and rejects a verifier bypass or reward hacking.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,7 +77,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "This is a check of the supplied public records and policy, not live reinforcement learning, a benchmark result or evidence of improved model performance. It does not export hidden reasoning.",
+        "authority_ceiling": "Checks the links between synthetic episodes, belief states, verifier feedback, rewards and trajectory groups, and rejects a verifier bypass or reward hacking.",
         "card": "Checks episodes, belief states, verifier feedback, rewards and trajectory groups, with bypass and reward-hacking negatives.",
         "one_line": "Replay checks links and policy constraints in synthetic process-reward records."
       },

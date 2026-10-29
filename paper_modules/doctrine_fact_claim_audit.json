@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture relations do not establish assertion truth or comprehension.",
+    "authority_ceiling": "Checks supplied fact assertions against their counts, code locations, graph references and numeric bindings, and rejects an assertion with a missing code location.",
     "card": "Audits supplied fact assertions, source anchors and numeric claim cases.",
     "one_line": "Checks fact counts, code locations, graph references and numeric bindings."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture relations do not establish assertion truth or comprehension.",
+    "authority_ceiling": "Checks supplied fact assertions against their counts, code locations, graph references and numeric bindings, and rejects an assertion with a missing code location.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,7 +82,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture relations do not establish assertion truth or comprehension.",
+        "authority_ceiling": "Checks supplied fact assertions against their counts, code locations, graph references and numeric bindings, and rejects an assertion with a missing code location.",
         "card": "Audits supplied fact assertions, source anchors and numeric claim cases.",
         "one_line": "Checks fact counts, code locations, graph references and numeric bindings."
       },

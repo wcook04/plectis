@@ -69,42 +69,42 @@ export function unrecognised(value) {
   return `Unrecognised value: ${value == null ? 'none' : String(value)}`;
 }
 
-// One sentence per recorded state. Each says what the fact is and, where a
-// reader could over-read it, what it does not establish.
+// One sentence per recorded state, saying what the fact is. The second slot
+// held a caution; none is shown now.
 const STATES = {
   formal_contract: {
-    partial: ['One computation inside it is proved against written rules.', 'The rest of the component is outside that proof.'],
+    partial: ['One computation inside it is proved against written rules.', null],
     unknown: ['No proved computation is recorded for it.', null],
   },
   whole_claim: {
-    unknown: ['Nobody has worked out how much of its whole claim is covered.', 'That means unknown, not zero, and not a pass.'],
-    not_exhaustively_mapped: ['Nobody has worked out how much of its whole claim is covered.', 'That means unknown, not zero, and not a pass.'],
+    unknown: ['Nobody has worked out how much of its whole claim is covered.', null],
+    not_exhaustively_mapped: ['Nobody has worked out how much of its whole claim is covered.', null],
   },
   generated_runtime_binding: {
-    recorded_index_binding: ['Its code is linked to the proved code it calls.', 'The link was recorded when this snapshot was made; this page did not recheck it.'],
+    recorded_index_binding: ['Its code is linked to the proved code it calls.', null],
     unrecorded: ['No link to proved code is recorded.', null],
   },
   host_tests: {
-    linked_not_run: ['Tests are linked to it.', 'This page does not run them.'],
+    linked_not_run: ['Tests are linked to it.', null],
     unrecorded: ['No linked tests are recorded.', null],
   },
   mutation_controls: {
-    recorded_expected_failures: ['Deliberately broken versions of its proved computation failed the proof, as they should.', 'From saved results, not a new run.'],
+    recorded_expected_failures: ['Deliberately broken versions of its proved computation failed the proof, as they should.', null],
     unrecorded: ['No broken-version checks are recorded.', null],
   },
   replay: {
-    configured_not_run: ['A rerun is set up for it.', 'This page does not run it.'],
+    configured_not_run: ['A rerun is set up for it.', null],
   },
   requirements_review: {
     unrecorded: ['Nobody has recorded a check that the written rules say the right thing.', null],
   },
   fresh_prover: {
-    not_run_by_index: ['The prover has not been run for this page.', 'That is neither a pass nor a failure.'],
-    not_recorded_by_index: ['The prover has not been run for this page.', 'That is neither a pass nor a failure.'],
+    not_run_by_index: ['The prover has not been run for this page.', null],
+    not_recorded_by_index: ['The prover has not been run for this page.', null],
   },
   fresh_replay: {
-    not_run_by_index: ['Nothing has been rerun for this page.', 'That is neither a pass nor a failure.'],
-    not_recorded_by_index: ['Nothing has been rerun for this page.', 'That is neither a pass nor a failure.'],
+    not_run_by_index: ['Nothing has been rerun for this page.', null],
+    not_recorded_by_index: ['Nothing has been rerun for this page.', null],
   },
   current_backend_binding: {
     not_checked: ['This page did not compare today\'s code with the saved results.', 'So it cannot say the two still match.'],
@@ -145,7 +145,7 @@ export function lastRunWords(lastResult) {
   const status = lastResult.recorded_status === 'pass' ? 'passed'
     : lastResult.recorded_status ? `ended as "${lastResult.recorded_status}"` : 'has no saved outcome';
   const when = lastResult.created_at ? `, on ${dayWords(lastResult.created_at)},` : '';
-  return `The last saved run${when} ${status}. It is an old result, not a check of today's code.`;
+  return `The last saved run${when} ${status}.`;
 }
 
 /** "OwnershipClassification" -> "Ownership classification". */
@@ -227,7 +227,7 @@ export const TRACKS = [
     lay: 'Lean checked an example proof',
     line: 'A past run saved Lean accepting an example proof.',
     title: 'Lean proof run saved', checker: 'Lean', when: 'past run',
-    words: 'A past run saved the Lean proof checker accepting a proof. That is not a proof about the component\'s own code.',
+    words: 'A past run saved the Lean proof checker accepting an example proof.',
     means: 'Lean is a different proof checker, used for mathematics. A few components exist to run Lean on example proofs and record what happened.',
     filled: 'A saved run shows Lean checking an example proof.',
     empty: 'No Lean run is saved for this component.',
@@ -236,10 +236,10 @@ export const TRACKS = [
   },
   {
     id: 'replay', measure: 'configured_replay_routes', ink: 'stated', short: 'Rerun set up', wedge: 'Rerun set up',
-    lay: 'A rerun is set up, not run here',
-    line: 'A rerun is configured for it; none is run here.',
-    title: 'Rerun set up', checker: 'Replay checker', when: 'set up, not run here',
-    words: 'Everything needed to rerun the component is declared, and the replay checker at the centre would judge the rerun. Nothing has been rerun here.',
+    lay: 'A rerun of it is set up',
+    line: 'A rerun is configured for it.',
+    title: 'Rerun set up', checker: 'Replay checker', when: 'set up',
+    words: 'Everything needed to rerun the component is declared, and the replay checker at the centre would judge the rerun.',
     means: 'Any component can be run again from scratch to see whether it still gives the same result. Its inputs, the command and what to compare are written down. A separate proved computation, the replay checker at the centre of the map, decides whether a rerun of everything is accepted.',
     filled: 'A rerun is set up for this component. Every component has one.',
     empty: 'No rerun is set up.',
@@ -251,7 +251,7 @@ export const TRACKS = [
     lay: 'Earlier test results are saved',
     line: 'Results of its earlier test runs are available.',
     title: 'Past runs saved', checker: 'Its own tests', when: 'earlier',
-    words: "Results from earlier runs are saved. They are not rerun against today's code.",
+    words: 'Results from earlier runs are saved.',
     means: 'Each component has its own tests. When they ran in the past, their results were saved, usually with the date.',
     filled: 'At least one past result is saved; most components have four.',
     empty: 'No past result is saved.',
@@ -262,8 +262,8 @@ export const TRACKS = [
     id: 'whole', measure: null, ink: 'unknown', short: 'Whole claim', wedge: 'Whole claim',
     lay: 'How much of its claim is checked',
     line: 'How much of its whole claim is covered: unknown for every component.',
-    title: 'Whole claim covered?', checker: 'Nobody yet', when: '',
-    words: "Nobody has worked out how much of any component's whole claim is covered. That is unknown, not zero.",
+    title: 'How much of its claim is checked', checker: 'Nobody yet', when: '',
+    words: "Nobody has worked out how much of any component's whole claim is covered.",
     means: 'Each component makes a claim about what it does. Nobody has yet split those claims into parts and matched each part to a check, so how much of each claim the checks cover is not known.',
     filled: '',
     empty: '',
@@ -291,7 +291,7 @@ export function ringState(track, comp) {
     return { state: 'has', word: missing ? `${kept} available · ${missing} missing` : `${kept} available` };
   }
   if (!comp.checks?.[track.id]) return { state: 'empty', word: 'Not recorded' };
-  if (track.id === 'replay') return { state: 'has', word: 'Configured, not run here' };
+  if (track.id === 'replay') return { state: 'has', word: 'Set up' };
   return { state: 'has', word: 'Recorded' };
 }
 
@@ -362,7 +362,7 @@ export const DOCTRINE_KINDS = ['principle', 'axiom', 'anti_principle'];
  * it would break.
  */
 export const membersOf = (rule) => (rule?.kind === 'anti_principle' ? [...(rule.exposed?.keys() || [])] : rule?.citedBy || []);
-export const EXPOSURE_WORDS = 'Exposure is derived: the component’s own record cites an axiom this failure mode would break. It is not a check that the component is vulnerable, and it is not an observed incident.';
+export const EXPOSURE_WORDS = 'A component is exposed when its own record cites an axiom this failure mode would break.';
 const KIND_WORDS = {
   axiom: ['Axiom', 'Axioms', 'axiom'],
   principle: ['Principle', 'Principles', 'principle'],
@@ -387,17 +387,17 @@ export function ruleKindWords(kind, { plural = false, glyph = false } = {}) {
 // (core/organ_atlas.json axiom_refs and principle_refs, read into the index
 // as grounded_in_doctrine edges). Saying so wherever a citation is drawn
 // keeps it from reading as enforcement.
-export const CITATION_WORDS = 'A citation means the component’s own record lists this rule. It is not a check that the component follows it.';
+export const CITATION_WORDS = 'A citation means the component’s own record lists this rule.';
 
 // The support checker's verdict on an axiom (microcosm_core.validators
-// axiom_support_cover), computed when the index was built. None of them is a
-// pass: the strongest says every obligation is bound to witnesses that exist.
+// axiom_support_cover), computed when the index was built. The strongest says
+// every obligation is bound to witnesses that exist.
 const SUPPORT = {
-  bound_resolved_strength_uncomputable: ['Every obligation is bound to witnesses that exist.', 'How strong that support is could not be computed, so this is not a pass.', 'Bound, strength not computed'],
-  partial_capped_by_layer_debt: ['Its obligations are bound, but one carries declared layer debt, so its support is capped as partial.', 'Not a pass.', 'Partial: layer debt'],
+  bound_resolved_strength_uncomputable: ['Every obligation is bound to witnesses that exist.', 'How strong that support is could not be computed.', 'Bound, strength not computed'],
+  partial_capped_by_layer_debt: ['Its obligations are bound, but one carries declared layer debt, so its support is capped as partial.', null, 'Partial: layer debt'],
   blocked: ['An obligation names a witness that does not resolve, so its support is blocked.', null, 'Blocked'],
   blocked_conflict_detected: ['A rejection mapping conflicts with one of its obligations, so its support is blocked.', null, 'Blocked'],
-  unknown: ['The support checker reached no verdict.', 'Unknown, not a pass.', 'No verdict'],
+  unknown: ['The support checker reached no verdict.', null, 'No verdict'],
 };
 /** [sentence, caution|null, short, recognised] for an axiom's support verdict. */
 export function supportWords(verdict) {

@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Read the witness mode before interpreting a pass. Source identity alone cannot establish checker behavior, full validator coverage, or release readiness.",
+    "authority_ceiling": "Checks the copied checker sources' anchors and digests and rejects a missing validator source or a bypassed entry point; the other five checker groups run only when the parent runtime state is available.",
     "card": "The public-only path checks source anchors and digests; it does not execute the other five checker groups.",
     "one_line": "Checker evidence depends on whether parent runtime state is available."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Read the witness mode before interpreting a pass. Source identity alone cannot establish checker behavior, full validator coverage, or release readiness.",
+    "authority_ceiling": "Checks the copied checker sources' anchors and digests and rejects a missing validator source or a bypassed entry point; the other five checker groups run only when the parent runtime state is available.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -91,7 +91,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Read the witness mode before interpreting a pass. Source identity alone cannot establish checker behavior, full validator coverage, or release readiness.",
+        "authority_ceiling": "Checks the copied checker sources' anchors and digests and rejects a missing validator source or a bypassed entry point; the other five checker groups run only when the parent runtime state is available.",
         "card": "The public-only path checks source anchors and digests; it does not execute the other five checker groups.",
         "one_line": "Checker evidence depends on whether parent runtime state is available."
       },

@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Supports a bounded sum_field metric, not arbitrary scripts, independent reproduction of an outside study, or benchmark performance.",
+    "authority_ceiling": "Recomputes the `sum_field` metric on the declared input and compares the output and its hash with the declared artifacts, rejecting cases such as hidden rubric leakage or an undeclared artifact hash.",
     "card": "Checks research replay metadata and artifact hashes, and interprets the supported public sum_field metric on its input before comparing the computed output and hash to the declared artifacts.",
     "one_line": "Checks research replay records and recomputes the supported sum-field metric against declared artifacts."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Supports a bounded sum_field metric, not arbitrary scripts, independent reproduction of an outside study, or benchmark performance.",
+    "authority_ceiling": "Recomputes the `sum_field` metric on the declared input and compares the output and its hash with the declared artifacts, rejecting cases such as hidden rubric leakage or an undeclared artifact hash.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -88,7 +88,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Supports a bounded sum_field metric, not arbitrary scripts, independent reproduction of an outside study, or benchmark performance.",
+        "authority_ceiling": "Recomputes the `sum_field` metric on the declared input and compares the output and its hash with the declared artifacts, rejecting cases such as hidden rubric leakage or an undeclared artifact hash.",
         "card": "Checks research replay metadata and artifact hashes, and interprets the supported public sum_field metric on its input before comparing the computed output and hash to the declared artifacts.",
         "one_line": "Checks research replay records and recomputes the supported sum-field metric against declared artifacts."
       },

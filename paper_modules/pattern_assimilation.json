@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The check establishes the recorded closeout contract for supplied rows. It does not establish that a refinement improved the system or that every lesson has been found.",
+    "authority_ceiling": "Resolves each landed component's closeout decision to a refinement receipt or a `nothing_to_refine` receipt and checks duplicate IDs, rejecting a missing closeout or a dead receipt reference.",
     "card": "A decision can point to a refinement receipt naming an owner and artifact, or to a `nothing_to_refine` receipt with stewardship, next-lane and re-entry checks. The validator resolves those references and checks duplicate IDs. It rejects a landed row with a missing closeout or a dead receipt reference; a local refinement cannot claim global doctrine authority.",
     "one_line": "Checks landed components for linked, same-lane closeout decisions."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The check establishes the recorded closeout contract for supplied rows. It does not establish that a refinement improved the system or that every lesson has been found.",
+    "authority_ceiling": "Resolves each landed component's closeout decision to a refinement receipt or a `nothing_to_refine` receipt and checks duplicate IDs, rejecting a missing closeout or a dead receipt reference.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,7 +86,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The check establishes the recorded closeout contract for supplied rows. It does not establish that a refinement improved the system or that every lesson has been found.",
+        "authority_ceiling": "Resolves each landed component's closeout decision to a refinement receipt or a `nothing_to_refine` receipt and checks duplicate IDs, rejecting a missing closeout or a dead receipt reference.",
         "card": "A decision can point to a refinement receipt naming an owner and artifact, or to a `nothing_to_refine` receipt with stewardship, next-lane and re-entry checks. The validator resolves those references and checks duplicate IDs. It rejects a landed row with a missing closeout or a dead receipt reference; a local refinement cannot claim global doctrine authority.",
         "one_line": "Checks landed components for linked, same-lane closeout decisions."
       },

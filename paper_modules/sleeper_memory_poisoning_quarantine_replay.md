@@ -1,6 +1,6 @@
 # Check a memory quarantine and rollback record
 
-> **In plain terms.** An assistant with long-term memory can save a poisoned note that does harm when retrieved later. This component is given made-up records, holding references rather than the notes themselves, of a poisoned write, its quarantine, a later retrieval and a rollback, meaning removal. It checks where the memory came from and the links between the quarantined note, the retrieval check, the quarantine decision record and the re-run record. The output lists findings, and a retrieval that admits a quarantined note or fails to cite that decision record is rejected. These invented records test the policy checks only, not what happens in a real session or whether a live memory system is secure.
+> **In plain terms.** An assistant with long-term memory can save a poisoned note that does harm when retrieved later. This component is given made-up records, holding references rather than the notes themselves, of a poisoned write, its quarantine, a later retrieval and a rollback, meaning removal. It checks where the memory came from and the links between the quarantined note, the retrieval check, the quarantine decision record and the re-run record. The output lists findings, and a retrieval that admits a quarantined note or fails to cite that decision record is rejected.
 
 This replay examines public metadata for a poisoned memory write, quarantine, later retrieval and rollback. It checks provenance and links between the quarantined memory, retrieval gate, audit reference and cold-rerun record. Results contain references and findings rather than memory bodies.
 
@@ -21,7 +21,7 @@ The fixture contains intentionally bad records as well as the example chain. A p
 
 ## What the result means
 
-A retrieval that admits a quarantined memory or fails to cite its quarantine audit is rejected. These synthetic records test the policy checks; they do not demonstrate security of a live memory system.
+Checks the provenance links between a synthetic poisoned memory write, its quarantine, the retrieval gate, the audit record and the cold rerun, and rejects a retrieval that admits the quarantined memory or omits the audit.
 
 Related reading: [Sleeper Agents](https://arxiv.org/abs/2401.05566), [AgentPoison](https://arxiv.org/abs/2407.12784), [MemoryGraft](https://arxiv.org/abs/2512.16962), [Hidden in Memory](https://arxiv.org/abs/2605.15338).
 

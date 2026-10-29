@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A retrieval that admits a quarantined memory or fails to cite its quarantine audit is rejected. These synthetic records test the policy checks; they do not demonstrate security of a live memory system.",
+    "authority_ceiling": "Checks the provenance links between a synthetic poisoned memory write, its quarantine, the retrieval gate, the audit record and the cold rerun, and rejects a retrieval that admits the quarantined memory or omits the audit.",
     "card": "This replay examines public metadata for a poisoned memory write, quarantine, later retrieval and rollback. It checks provenance and links between the quarantined memory, retrieval gate, audit reference and cold-rerun record. Results contain references and findings rather than memory bodies.",
     "one_line": "This replay examines public metadata for a poisoned memory write, quarantine, later retrieval and rollback."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A retrieval that admits a quarantined memory or fails to cite its quarantine audit is rejected. These synthetic records test the policy checks; they do not demonstrate security of a live memory system.",
+    "authority_ceiling": "Checks the provenance links between a synthetic poisoned memory write, its quarantine, the retrieval gate, the audit record and the cold rerun, and rejects a retrieval that admits the quarantined memory or omits the audit.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,7 +77,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A retrieval that admits a quarantined memory or fails to cite its quarantine audit is rejected. These synthetic records test the policy checks; they do not demonstrate security of a live memory system.",
+        "authority_ceiling": "Checks the provenance links between a synthetic poisoned memory write, its quarantine, the retrieval gate, the audit record and the cold rerun, and rejects a retrieval that admits the quarantined memory or omits the audit.",
         "card": "This replay examines public metadata for a poisoned memory write, quarantine, later retrieval and rollback. It checks provenance and links between the quarantined memory, retrieval gate, audit reference and cold-rerun record. Results contain references and findings rather than memory bodies.",
         "one_line": "This replay examines public metadata for a poisoned memory write, quarantine, later retrieval and rollback."
       },

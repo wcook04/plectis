@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A passing fixture does not approve a release, publication or the truth of a document. This checkout’s source manifest declares a public-safe stub in place of the original source, so this example exercises the fallback rather than the copied gate. An undeclared missing source blocks the check.",
+    "authority_ceiling": "Runs the declared public fallback claim-language gate, which this checkout uses in place of the original source, on two sample documents and rejects the one claiming production readiness; an undeclared missing source blocks the check.",
     "card": "This fixture writes two sample documents in temporary directories: one warns against an open-source claim, while the other affirmatively claims production readiness. It runs the declared public fallback claim-language gate against both. The result records matched phrase IDs, gate status and the assert-clear exit code. The affirmative production-ready claim is blocked; the assert-clear path returns exit code 2. The fixture also checks a public-facing private-control-plane claim and rejects unsafe fixture filenames. A phrase match is a limited rule-based check, not a general review of every claim.",
     "one_line": "Tests a claim-language gate on sample documents with contrasting release claims."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A passing fixture does not approve a release, publication or the truth of a document. This checkout’s source manifest declares a public-safe stub in place of the original source, so this example exercises the fallback rather than the copied gate. An undeclared missing source blocks the check.",
+    "authority_ceiling": "Runs the declared public fallback claim-language gate, which this checkout uses in place of the original source, on two sample documents and rejects the one claiming production readiness; an undeclared missing source blocks the check.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,7 +84,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A passing fixture does not approve a release, publication or the truth of a document. This checkout’s source manifest declares a public-safe stub in place of the original source, so this example exercises the fallback rather than the copied gate. An undeclared missing source blocks the check.",
+        "authority_ceiling": "Runs the declared public fallback claim-language gate, which this checkout uses in place of the original source, on two sample documents and rejects the one claiming production readiness; an undeclared missing source blocks the check.",
         "card": "This fixture writes two sample documents in temporary directories: one warns against an open-source claim, while the other affirmatively claims production readiness. It runs the declared public fallback claim-language gate against both. The result records matched phrase IDs, gate status and the assert-clear exit code. The affirmative production-ready claim is blocked; the assert-clear path returns exit code 2. The fixture also checks a public-facing private-control-plane claim and rejects unsafe fixture filenames. A phrase match is a limited rule-based check, not a general review of every claim.",
         "one_line": "Tests a claim-language gate on sample documents with contrasting release claims."
       },

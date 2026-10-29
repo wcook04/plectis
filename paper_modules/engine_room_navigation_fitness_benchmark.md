@@ -4,7 +4,7 @@ A route packet records the artifacts selected for a task, the first command and 
 
 The fixture suite includes missing-ID and forbidden-route failures. A benchmark result of `pass` means it contained tasks, not that every task passed: inspect its sufficiency and latency counts and the tasks marked for follow-up. The fixture evaluator instead checks that cases produce their expected outcomes.
 
-The inputs are curated packets, not live private-kernel calls. Their scores do not establish general navigation or embedding performance.
+Scores curated route packets against their task fixtures for artifact recall, precision, forbidden first routes, required words and latency.
 
 ## Run the example
 

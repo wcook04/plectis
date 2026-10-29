@@ -1,6 +1,6 @@
 # Validate a registry of reusable reasoning procedures
 
-> **In plain terms.** A list of reusable reasoning procedures can mark an entry as active without any record that it ever changed a decision. This check reads descriptions of each procedure, with a status, and the use records cited for the active ones. It checks each entry has the required fields and a recognised status, and that every active entry's use record cites evidence that can be found. It writes a result and a summary sheet, so a maintainer can find unsupported entries before presenting them as tested. Finding a cited record shows only that it exists, not that the procedure improved anything, and the example does not run the procedures.
+> **In plain terms.** A list of reusable reasoning procedures can mark an entry as active without any record that it ever changed a decision. This check reads descriptions of each procedure, with a status, and the use records cited for the active ones. It checks each entry has the required fields and a recognised status, and that every active entry's use record cites evidence that can be found. It writes a result and a summary sheet, so a maintainer can find unsupported entries before presenting them as tested.
 
 `cognitive_operator_registry` checks JSON descriptions of reasoning procedures and the records cited for their use. An entry marked `active` must include a use record with resolvable references to the claimed change in a decision. This helps a registry maintainer find unsupported entries before presenting them as tested procedures.
 

@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Local coordination for the chosen key, not a scheduler or command safety guarantee.",
+    "authority_ceiling": "Coordinates duplicate commands on this machine by a key built from the command and its scoped content, and can reuse a completed result.",
     "card": "An empty command is rejected; changed scoped content changes the key.",
     "one_line": "Coordinates duplicate local commands and can reuse a completed result."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Local coordination for the chosen key, not a scheduler or command safety guarantee.",
+    "authority_ceiling": "Coordinates duplicate commands on this machine by a key built from the command and its scoped content, and can reuse a completed result.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -81,7 +81,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Local coordination for the chosen key, not a scheduler or command safety guarantee.",
+        "authority_ceiling": "Coordinates duplicate commands on this machine by a key built from the command and its scoped content, and can reuse a completed result.",
         "card": "An empty command is rejected; changed scoped content changes the key.",
         "one_line": "Coordinates duplicate local commands and can reuse a completed result."
       },

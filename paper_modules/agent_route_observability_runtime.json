@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Recorded fixture validation does not establish live agent behaviour.",
+    "authority_ceiling": "Checks the recorded route events, actor permissions, route leases and hook-shadow cases in its fixture trace, and rejects a trace step that has no route lease.",
     "card": "Validates public route-observability metadata, actor authority, route leases, hook-shadow cases and source-copy digests in an exported example.",
     "one_line": "Checks recorded route events, actor authority and evidence references."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Recorded fixture validation does not establish live agent behaviour.",
+    "authority_ceiling": "Checks the recorded route events, actor permissions, route leases and hook-shadow cases in its fixture trace, and rejects a trace step that has no route lease.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -78,7 +78,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Recorded fixture validation does not establish live agent behaviour.",
+        "authority_ceiling": "Checks the recorded route events, actor permissions, route leases and hook-shadow cases in its fixture trace, and rejects a trace step that has no route lease.",
         "card": "Validates public route-observability metadata, actor authority, route leases, hook-shadow cases and source-copy digests in an exported example.",
         "one_line": "Checks recorded route events, actor authority and evidence references."
       },

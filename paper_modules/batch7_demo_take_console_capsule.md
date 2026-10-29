@@ -1,6 +1,6 @@
 # Check Demo Take capture contracts
 
-> **In plain terms.** A recording app relies on a few small guards in its code, and an edit could remove one unnoticed. Its input is the program code of the Demo Take recording console. It checks the code for guards such as the rule that a recording needs at least one screen, audio or webcam source, confirms that altered copies with a guard removed are rejected, and tries to build the app. The output is a short summary of each check, which someone can use to see that the guards are still in place. These check written rules, not real recording, and the build neither launches the app nor shows anything about capture quality or transcription accuracy.
+> **In plain terms.** A recording app relies on a few small guards in its code, and an edit could remove one unnoticed. Its input is the program code of the Demo Take recording console. It checks the code for guards such as the rule that a recording needs at least one screen, audio or webcam source, confirms that altered copies with a guard removed are rejected, and tries to build the app without launching it. The output is a short summary of each check, which someone can use to see that the guards are still in place.
 
 This fixture checks copied Swift sources for a recording console and exercises a build witness, capture state, helper bridge, hotkey, audio meter and transcription payload contracts. It records summaries rather than source or build-log bodies.
 
@@ -27,7 +27,7 @@ The example above runs the fixture directly. In `make component-replays`, this c
 
 ## Limits
 
-The build witness needs Swift and a compatible macOS environment with the required Apple frameworks. SwiftPM writes build scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset. A successful build and fixture checks do not establish capture quality or transcription accuracy.
+Checks the copied Swift recording-console sources for their capture, hotkey, audio-meter and transcription guards, rejecting mutations that remove them, and builds the selected app target with SwiftPM, which needs Swift and the required Apple frameworks on macOS. SwiftPM writes scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset.
 
 ## Source and evidence
 

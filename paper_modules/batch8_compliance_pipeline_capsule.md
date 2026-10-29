@@ -1,6 +1,6 @@
 # Check copied compliance and pipeline helpers
 
-> **In plain terms.** Code copied from one project into another can stop following the rules it came with. This check takes six groups of copied compliance and processing-pipeline code, plus a few small example inputs. It reads each copy to check its stated promises still hold and runs selected helpers, such as shortening a long text that hides one instruction among filler lines, then checking the instruction survives. It also removes an instruction marker from a copy to confirm the check fails, then writes a status with findings showing whether the copies hold up. A pass covers only these copies and inputs, not a fresh full compliance ledger or permission to start a pipeline.
+> **In plain terms.** Code copied from one project into another can stop following the rules it came with. This check takes six groups of copied compliance and processing-pipeline code, plus a few small example inputs. It reads each copy to check its stated promises still hold and runs selected helpers, such as shortening a long text that hides one instruction among filler lines, then checking the instruction survives. It also removes an instruction marker from a copy to confirm the check fails, then writes a status with findings showing whether the copies hold up.
 
 This fixture checks six groups of copied compliance and pipeline code. It combines source-contract checks with selected executed helper exercises. For example, a pipeline helper summarizes a long seed into a short text digest. The exercise puts a directive among many low-signal lines and checks that the summary retains it for later processing; it also checks shard-status normalization and selection diversity.
 
@@ -25,7 +25,7 @@ Source-contract checks and helper exercises do not formally prove the compliance
 
 ## Limits
 
-A passing fixture is evidence about these specific source contracts and helper inputs, not a fresh full compliance ledger or permission to dispatch a pipeline.
+Inspects the copied compliance source contracts and runs selected pipeline helpers on synthetic data, rejecting a missing compliance registry or standard.
 
 ## Sources
 

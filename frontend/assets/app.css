@@ -668,7 +668,6 @@ a.ref:hover { text-decoration: underline; }
 .readout--column .readout__ink { height: 9px; margin-top: 0.3em; width: 7px; margin-left: 2px; border: 1.4px solid var(--ink); background: none; }
 .readout--obligations .readout__ink { height: 10px; width: 10px; margin-top: 0.25em; border-radius: 50%; background: none; border: 2px solid transparent; border-top-color: var(--m-doctrine); border-right-color: var(--m-doctrine); }
 .readout--ink .readout__ink { background: var(--ink); }
-.readout__limit { margin: 0.5rem 0 0; padding-top: 0.45rem; border-top: 1px solid var(--home-line); font-size: var(--fs-meta); color: var(--muted); font-style: italic; line-height: 1.4; }
 .guide { margin: 0.6rem 0 0.4rem; }
 .guide__rows { list-style: none; margin: 0.3rem 0 0.5rem; padding: 0; }
 .guide__row { display: grid; grid-template-columns: 34px 5.6em 1fr; gap: 0.55rem; align-items: start; padding: 0.42rem 0; border-bottom: 1px solid var(--home-line); font-size: 0.88rem; line-height: 1.42; }
@@ -694,7 +693,6 @@ a.ref:hover { text-decoration: underline; }
 .rule-analogy { margin: 0.9rem 0 0; padding: 0.7rem 0.85rem; border-radius: 8px; background: color-mix(in srgb, var(--m-doctrine) 8%, transparent); border-left: 2px solid var(--m-doctrine); }
 .rule-analogy__label { display: block; font-size: 0.72rem; font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
 .rule-analogy p { margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--ink-soft); }
-.rule-analogy .rule-analogy__limit { margin-top: 0.45rem; font-size: var(--fs-meta); font-style: italic; color: var(--muted); }
 .rule-why { margin: 0.8rem 0 0; font-size: 0.95rem; line-height: 1.5; color: var(--ink-soft); }
 .rule-facts { list-style: none; margin: 0.3rem 0 0; padding: 0; }
 .rule-facts li { display: grid; grid-template-columns: 16px 1fr; gap: 0.6rem; padding: 0.45rem 0; border-bottom: 1px solid var(--home-line); font-size: 0.92rem; line-height: 1.45; }
@@ -876,7 +874,6 @@ a.ref:hover { text-decoration: underline; }
 .dock__rings { display: flex; gap: 3px; margin: 0.45rem 0 0; }
 .dock__ring .swatch { width: 16px; height: 7px; border-radius: 2px; display: block; }
 .dock__counts { list-style: none; margin: 0.4rem 0 0; padding: 0; font-size: var(--fs-meta); color: var(--ink); line-height: 1.45; }
-.dock__limit { margin: 0.35rem 0 0; font-size: var(--fs-small); line-height: 1.4; color: var(--muted); }
 .dock__hint { margin: 0.4rem 0 0; font-size: var(--fs-small); color: var(--faint); }
 .dock__hint kbd { font: inherit; padding: 0 0.3rem; border-radius: 4px; box-shadow: 0 0 0 1px var(--home-line-strong); }
 @media (prefers-reduced-motion: reduce) { .dock, .dock.is-on { transition: none; } }

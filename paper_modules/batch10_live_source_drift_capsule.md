@@ -1,6 +1,6 @@
 # Check copied source for drift
 
-> **In plain terms.** A copied program file can quietly change or go out of date. Its input is four copied program files, the fingerprint recorded for each (a short code worked out from its exact contents), and text each file must still contain. It recomputes each fingerprint and compares it with the record, checks the required text, confirms old fingerprints no longer match, and checks that each file is valid program text without running it. The result is a pass or blocked verdict with a summary board, showing whether the copies still match the record. It examines supplied sample files, not a live private system, and a matching copy says nothing about whether the program behaves correctly.
+> **In plain terms.** A copied program file can quietly change or go out of date. Its input is a sample set of four copied program files, the fingerprint recorded for each (a short code worked out from its exact contents), and text each file must still contain. It recomputes each fingerprint and compares it with the record, checks the required text, confirms old fingerprints no longer match, and checks that each file is valid program text without running it. The result is a pass or blocked verdict with a summary board, showing whether the copies still match the record.
 
 This check compares four copied Python source files with their recorded digests, checks required anchors, and compiles the copies without importing them. It produces a result, a board and a validation receipt for the supplied fixture.
 
@@ -27,7 +27,7 @@ The example above runs the fixture directly. In `make component-replays`, this c
 
 ## Limits
 
-The fixture is a source-integrity exercise, not a check of a live private runtime.
+Compares four copied Python files with their recorded digests and anchors and compiles them without importing them, rejecting a replay with a stale digest and a compile-gate bypass.
 
 ## Source and evidence
 

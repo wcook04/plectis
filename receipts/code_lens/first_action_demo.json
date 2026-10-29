@@ -105,7 +105,7 @@
       "routing_note": "No task-class route or organ matched this goal; opening the first_contact packet is the safe default first action."
     },
     {
-      "do_not_claim": "A lookahead split or a claim that the output authorizes investment advice is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment decision.",
+      "do_not_claim": "Runs the stationary bootstrap, reality check, superior predictive ability, model confidence set and Diebold\u2013Mariano tests on 40 synthetic loss observations, and rejects a lookahead split. The exported bundle reports its declared statistics contract instead of recomputing the tests.",
       "do_not_edit": {
         "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
         "paths": [
@@ -154,7 +154,7 @@
         "validator_command": "python -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
       },
       "reading_boundary": {
-        "allowed_scope": "A lookahead split or a claim that the output authorizes investment-related actions is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment-related actions.",
+        "allowed_scope": "Runs the stationary bootstrap, reality check, superior predictive ability, model confidence set and Diebold\u2013Mariano tests on 40 synthetic loss observations, and rejects a lookahead split. The exported bundle reports its declared statistics contract instead of recomputing the tests.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -166,7 +166,7 @@
       "routing_note": null
     },
     {
-      "do_not_claim": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
+      "do_not_claim": "Searches small toy Lean propositions with a symbolic AND/OR procedure and checks candidate proofs with Lean, rejecting oracle fields, ID-memorising policies and `sorry`-tainted proofs; the exported bundle checks only file presence and counts.",
       "do_not_edit": {
         "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
         "paths": [
@@ -215,7 +215,7 @@
         "validator_command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
       },
       "reading_boundary": {
-        "allowed_scope": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
+        "allowed_scope": "Searches small toy Lean propositions with a symbolic AND/OR procedure and checks candidate proofs with Lean, rejecting oracle fields, ID-memorising policies and `sorry`-tainted proofs; the exported bundle checks only file presence and counts.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -227,7 +227,7 @@
       "routing_note": null
     },
     {
-      "do_not_claim": "Checks synthetic information-flow records, not general prompt-injection resistance or live accounts.",
+      "do_not_claim": "Derives the taint labels along each synthetic chain from document or tool output to an action or answer and compares them with the recorded labels and policy verdicts, rejecting tool output treated as an instruction.",
       "do_not_edit": {
         "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
         "paths": [
@@ -276,7 +276,7 @@
         "validator_command": "python -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run --input fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input --out receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay --acceptance-out receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
       },
       "reading_boundary": {
-        "allowed_scope": "A digest or passing replay is not a benchmark claims or evidence of algorithm correctness.",
+        "allowed_scope": "Checks recorded benchmark runs against the locked evaluator IDs and configuration hashes and recomputes their integrity verdicts from file-access and contamination evidence, rejecting cases such as an evaluator edit or train\u2013test leakage.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -288,7 +288,7 @@
       "routing_note": null
     },
     {
-      "do_not_claim": "Text checks do not execute every route or establish reader comprehension.",
+      "do_not_claim": "Matches the introductory commands and descriptions to the public text and resolves their documentation anchors, rejecting an entry with a missing command or receipt reference.",
       "do_not_edit": {
         "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
         "paths": [
@@ -337,7 +337,7 @@
         "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map"
       },
       "reading_boundary": {
-        "allowed_scope": "Text checks do not execute every route or establish reader comprehension.",
+        "allowed_scope": "Matches the introductory commands and descriptions to the public text and resolves their documentation anchors, rejecting an entry with a missing command or receipt reference.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -349,7 +349,7 @@
       "routing_note": null
     },
     {
-      "do_not_claim": "A digest or passing replay is not a benchmark score or evidence of algorithm correctness.",
+      "do_not_claim": "Checks recorded benchmark runs against the locked evaluator IDs and configuration hashes and recomputes their integrity verdicts from file-access and contamination evidence, rejecting cases such as an evaluator edit or train\u2013test leakage.",
       "do_not_edit": {
         "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
         "paths": [
@@ -394,7 +394,7 @@
         "validator_command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay"
       },
       "reading_boundary": {
-        "allowed_scope": "A digest or passing replay is not a benchmark claims or evidence of algorithm correctness.",
+        "allowed_scope": "Checks recorded benchmark runs against the locked evaluator IDs and configuration hashes and recomputes their integrity verdicts from file-access and contamination evidence, rejecting cases such as an evaluator edit or train\u2013test leakage.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -406,7 +406,7 @@
       "routing_note": null
     },
     {
-      "do_not_claim": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release.",
+      "do_not_claim": "Rebuilds an active-claims snapshot from the fixture with copied Work Ledger code and checks claims, parent state, dependency unlocks and checkpoint policy, rejecting a stale expected parent or a conflicting claim.",
       "do_not_edit": {
         "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
         "paths": [
@@ -455,7 +455,7 @@
         "validator_command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine"
       },
       "reading_boundary": {
-        "allowed_scope": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or launch.",
+        "allowed_scope": "Rebuilds an active-claims snapshot from the fixture with copied work log code and checks claims, parent state, dependency unlocks and checkpoint policy, rejecting a stale expected parent or a conflicting claim.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -469,7 +469,7 @@
       "routing_note": null
     },
     {
-      "do_not_claim": "Text checks do not execute every route or establish reader comprehension.",
+      "do_not_claim": "Matches the introductory commands and descriptions to the public text and resolves their documentation anchors, rejecting an entry with a missing command or receipt reference.",
       "do_not_edit": {
         "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
         "paths": [
@@ -518,7 +518,7 @@
         "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map"
       },
       "reading_boundary": {
-        "allowed_scope": "Text checks do not execute every route or establish reader comprehension.",
+        "allowed_scope": "Matches the introductory commands and descriptions to the public text and resolves their documentation anchors, rejecting an entry with a missing command or receipt reference.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -778,7 +778,7 @@
       "routing_note": "No task-class route or organ matched this goal; opening the first_contact packet is the safe default first action."
     },
     {
-      "do_not_claim": "Text checks do not execute every route or establish reader comprehension.",
+      "do_not_claim": "Matches the introductory commands and descriptions to the public text and resolves their documentation anchors, rejecting an entry with a missing command or receipt reference.",
       "do_not_edit": {
         "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
         "paths": [
@@ -827,7 +827,7 @@
         "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map"
       },
       "reading_boundary": {
-        "allowed_scope": "Text checks do not execute every route or establish reader comprehension.",
+        "allowed_scope": "Matches the introductory commands and descriptions to the public text and resolves their documentation anchors, rejecting an entry with a missing command or receipt reference.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."

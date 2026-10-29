@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Draft candidates and source-only or parent-builder witness; no autonomous repair or source mutation.",
+    "authority_ceiling": "Drafts review-only candidates from a synthetic campaign and, in public-only mode, checks the copied source and derives the candidate count from policy, rejecting a repeated failed campaign digest.",
     "card": "The parent builder may run read-only; public-only mode verifies copied source and derives the candidate count from policy.",
     "one_line": "A synthetic campaign fixture drafts review-only candidates."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Draft candidates and source-only or parent-builder witness; no autonomous repair or source mutation.",
+    "authority_ceiling": "Drafts review-only candidates from a synthetic campaign and, in public-only mode, checks the copied source and derives the candidate count from policy, rejecting a repeated failed campaign digest.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,7 +83,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Draft candidates and source-only or parent-builder witness; no autonomous repair or source mutation.",
+        "authority_ceiling": "Drafts review-only candidates from a synthetic campaign and, in public-only mode, checks the copied source and derives the candidate count from policy, rejecting a repeated failed campaign digest.",
         "card": "The parent builder may run read-only; public-only mode verifies copied source and derives the candidate count from policy.",
         "one_line": "A synthetic campaign fixture drafts review-only candidates."
       },

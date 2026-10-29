@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The result depends on the supplied index and extracted symbols. It is advisory metadata, not proof checking or a claim that an unqualified name resolves to a particular declaration.",
+    "authority_ceiling": "Classifies observed library symbols against the supplied index and the allowed and cited premise IDs, and rejects a row that omits escalation for a known undeclared symbol.",
     "card": "A cited unallowed premise takes precedence as a premise-budget violation; otherwise a known qualified symbol absent from both lists is classified as an undeclared library prior. Unqualified names are handled separately. A row that omits escalation for a known undeclared symbol is rejected.",
     "one_line": "Classifies observed library symbols against allowed and cited premise IDs."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The result depends on the supplied index and extracted symbols. It is advisory metadata, not proof checking or a claim that an unqualified name resolves to a particular declaration.",
+    "authority_ceiling": "Classifies observed library symbols against the supplied index and the allowed and cited premise IDs, and rejects a row that omits escalation for a known undeclared symbol.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -90,7 +90,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The result depends on the supplied index and extracted symbols. It is advisory metadata, not proof checking or a claim that an unqualified name resolves to a particular declaration.",
+        "authority_ceiling": "Classifies observed library symbols against the supplied index and the allowed and cited premise IDs, and rejects a row that omits escalation for a known undeclared symbol.",
         "card": "A cited unallowed premise takes precedence as a premise-budget violation; otherwise a known qualified symbol absent from both lists is classified as an undeclared library prior. Unqualified names are handled separately. A row that omits escalation for a known undeclared symbol is rejected.",
         "one_line": "Classifies observed library symbols against allowed and cited premise IDs."
       },

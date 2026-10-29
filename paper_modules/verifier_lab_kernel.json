@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The fixture path can invoke its bounded public Lean/Lake witness; compatible `lean` and `lake` are prerequisites. Provider suggestions and translated actions are not proofs, and the kernel does not validate arbitrary private proofs.",
+    "authority_ceiling": "Runs its bundled public Lean project through Lean and Lake, which must be installed, and checks the packet's forward problems, oracle notes, provider hypotheses and candidate actions against its rules, rejecting a provider suggestion presented as a proof.",
     "card": "The fixture checks component results alongside packet rules. It rejects an oracle result counted as forward success, a provider hypothesis claiming proof authority, and candidate bodies in fields that must remain body-free. Tests also exercise the standalone exported-bundle contract.",
     "one_line": "Checks verifier-lab fixtures, keeping oracle and provider data separate from forward results."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The fixture path can invoke its bounded public Lean/Lake witness; compatible `lean` and `lake` are prerequisites. Provider suggestions and translated actions are not proofs, and the kernel does not validate arbitrary private proofs.",
+    "authority_ceiling": "Runs its bundled public Lean project through Lean and Lake, which must be installed, and checks the packet's forward problems, oracle notes, provider hypotheses and candidate actions against its rules, rejecting a provider suggestion presented as a proof.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -79,7 +79,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The fixture path can invoke its bounded public Lean/Lake witness; compatible `lean` and `lake` are prerequisites. Provider suggestions and translated actions are not proofs, and the kernel does not validate arbitrary private proofs.",
+        "authority_ceiling": "Runs its bundled public Lean project through Lean and Lake, which must be installed, and checks the packet's forward problems, oracle notes, provider hypotheses and candidate actions against its rules, rejecting a provider suggestion presented as a proof.",
         "card": "The fixture checks component results alongside packet rules. It rejects an oracle result counted as forward success, a provider hypothesis claiming proof authority, and candidate bodies in fields that must remain body-free. Tests also exercise the standalone exported-bundle contract.",
         "one_line": "Checks verifier-lab fixtures, keeping oracle and provider data separate from forward results."
       },

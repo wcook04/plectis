@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Resolving a reference does not prove the procedure caused improvement.",
+    "authority_ceiling": "Checks each procedure's required fields, status and cited use records, flags unresolved references, and rejects a record that claims more than its evidence shows.",
     "card": "Validates required fields, statuses and evidence references, including unresolved references.",
     "one_line": "Checks a registry of procedures and cited use records."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Resolving a reference does not prove the procedure caused improvement.",
+    "authority_ceiling": "Checks each procedure's required fields, status and cited use records, flags unresolved references, and rejects a record that claims more than its evidence shows.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,7 +82,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Resolving a reference does not prove the procedure caused improvement.",
+        "authority_ceiling": "Checks each procedure's required fields, status and cited use records, flags unresolved references, and rejects a record that claims more than its evidence shows.",
         "card": "Validates required fields, statuses and evidence references, including unresolved references.",
         "one_line": "Checks a registry of procedures and cited use records."
       },

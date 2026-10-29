@@ -1,6 +1,6 @@
 # Calculate a normalized audio level
 
-> **In plain terms.** A loudness meter must turn many tiny sound measurements into one number, and this component is a rewrite of that calculation in another programming language. It is given lists of sound measurements, stored as decimals or whole numbers, each with the loudness it should give. For each list it squares the measurements, averages them, takes the square root, multiplies by eight and limits the answer to between zero and one, after dividing whole numbers by 32767. An empty list gives zero, an unknown format is rejected, and the output shows whether the rewrite matches the expected levels. It covers only the supplied cases, not how sound is captured on a real device or microphone permissions.
+> **In plain terms.** A loudness meter must turn many tiny sound measurements into one number, and this component is a rewrite of that calculation in another programming language. It is given lists of sound measurements, stored as decimals or whole numbers, each with the loudness it should give. For each list it squares the measurements, averages them, takes the square root, multiplies by eight and limits the answer to between zero and one, after dividing whole numbers by 32767. An empty list gives zero, an unknown format is rejected, and the output shows whether the rewrite matches the expected levels.
 
 `normalized_level` is a Python port of a Swift audio-level calculation. Given float32 samples or int16 samples, it calculates the root mean square, multiplies it by eight and clamps the result to 0–1. Int16 values are divided by 32767. An empty buffer returns zero; an unsupported format raises `ValueError`.
 
@@ -25,7 +25,7 @@ The sample and byte tests do not constitute a formal proof of the audio calculat
 
 ## Limits
 
-This checks the Python calculation on the supplied cases; it does not establish sample-buffer parity on a device, microphone permissions, session behavior or audio capture.
+Runs the Python port of the Swift RMS level calculation on the supplied float32 and int16 samples, returning zero for an empty buffer and rejecting an unsupported format with `ValueError`.
 
 ## Sources
 

@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A replay result does not measure detection performance or establish real-world safety.",
+    "authority_ceiling": "Recomputes probe coverage and monitor verdicts from the recorded trajectories, probes and escalation evidence and compares them with the recorded labels, rejecting coverage claimed without an adversarial probe.",
     "card": "This replay joins public trajectory metadata, adversarial probes, monitor observations, escalation and mitigation evidence. It recomputes coverage and monitor verdicts and compares them with the recorded labels. The output identifies whether the supplied evidence satisfies the fixture contract, with findings for mismatches.",
     "one_line": "Recomputes fixture monitor verdicts and probe coverage from recorded evidence."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A replay result does not measure detection performance or establish real-world safety.",
+    "authority_ceiling": "Recomputes probe coverage and monitor verdicts from the recorded trajectories, probes and escalation evidence and compares them with the recorded labels, rejecting coverage claimed without an adversarial probe.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,7 +77,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A replay result does not measure detection performance or establish real-world safety.",
+        "authority_ceiling": "Recomputes probe coverage and monitor verdicts from the recorded trajectories, probes and escalation evidence and compares them with the recorded labels, rejecting coverage claimed without an adversarial probe.",
         "card": "This replay joins public trajectory metadata, adversarial probes, monitor observations, escalation and mitigation evidence. It recomputes coverage and monitor verdicts and compares them with the recorded labels. The output identifies whether the supplied evidence satisfies the fixture contract, with findings for mismatches.",
         "one_line": "Recomputes fixture monitor verdicts and probe coverage from recorded evidence."
       },

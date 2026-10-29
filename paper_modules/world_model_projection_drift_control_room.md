@@ -1,6 +1,6 @@
 # Check projection-drift records
 
-> **In plain terms.** A public view built from source material can stop agreeing with the source. This check takes the rules for building the view, the source evidence and a saved list of mismatches, each tying a source signal to a target, a proposed repair and a check. It recomputes the mismatches from the rules and evidence, compares them with the saved list, checks saved records of the source and of a running program, and rejects entries missing a source or check reference. The output is a report of these checks, showing whether the view still agrees with the evidence. It checks only declared public evidence and does not repair anything, change a source or authorize a release.
+> **In plain terms.** A public view built from source material can stop agreeing with the source. This check takes the rules for building the view, the declared public source evidence and a saved list of mismatches, each tying a source signal to a target, a proposed repair and a check. It recomputes the mismatches from the rules and evidence, compares them with the saved list, checks saved records of the source and of a running program, and rejects entries missing a source or check reference. The output is a report of these checks, showing whether the view still agrees with the evidence.
 
 A projection is a derived public view of source information. Drift can occur when that view or its references no longer agree with the source evidence. This component recomputes public drift rows from the projection protocol and source evidence, compares them with a supplied snapshot, and checks source state and runtime receipt witnesses. Each row connects a source signal to a target, a proposed repair route and a validation reference; the component writes a report of the checks.
 
@@ -23,7 +23,7 @@ A row missing a source reference or a validation reference is rejected. Tests al
 
 ## Limits
 
-The report checks declared public evidence; it does not repair a live route, mutate a source, promote doctrine or authorize a release. Source digest checks do not prove the copied algorithms correct.
+Recomputes the projection-drift rows from the supplied evidence and compares them with the snapshot, rejecting a drift row without a source reference or a repair route without a validation reference.
 
 ## Verification
 

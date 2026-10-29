@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The validator checks records and references; it does not itself make the changes described by a lesson. It cannot establish that private operator speech or private thread content has been faithfully represented.",
+    "authority_ceiling": "Resolves the public paths and anchors that link each lesson to its owner, validation and closeout, rejecting a global promotion without owner validation or a receipt counted as progress on its own.",
     "card": "The checks resolve referenced public paths and anchors and compare each lesson with the declared sequence and allowed outcomes. A record claiming global promotion without owner validation is rejected, as is treating a receipt alone as progress. Tests mutate references to ensure the result follows the actual target rather than a stored expected label.",
     "one_line": "This validator checks public records that connect a local lesson to an owner surface, validation and closeout."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The validator checks records and references; it does not itself make the changes described by a lesson. It cannot establish that private operator speech or private thread content has been faithfully represented.",
+    "authority_ceiling": "Resolves the public paths and anchors that link each lesson to its owner, validation and closeout, rejecting a global promotion without owner validation or a receipt counted as progress on its own.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,7 +86,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The validator checks records and references; it does not itself make the changes described by a lesson. It cannot establish that private operator speech or private thread content has been faithfully represented.",
+        "authority_ceiling": "Resolves the public paths and anchors that link each lesson to its owner, validation and closeout, rejecting a global promotion without owner validation or a receipt counted as progress on its own.",
         "card": "The checks resolve referenced public paths and anchors and compare each lesson with the declared sequence and allowed outcomes. A record claiming global promotion without owner validation is rejected, as is treating a receipt alone as progress. Tests mutate references to ensure the result follows the actual target rather than a stored expected label.",
         "one_line": "This validator checks public records that connect a local lesson to an owner surface, validation and closeout."
       },

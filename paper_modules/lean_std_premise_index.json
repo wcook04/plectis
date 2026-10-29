@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Checks copied Lean/Std premise metadata, not Mathlib availability or theorem correctness.",
+    "authority_ceiling": "Compares the public Lean and Std premise rows with copied source metadata by premise ID and checks their source digests, rejecting a Mathlib premise in the index.",
     "card": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references. It compares public rows with copied source metadata by premise ID and checks declared source digests. A toolchain path may be represented by a public `lean-toolchain://` reference.",
     "one_line": "Validates public Lean and Std premise descriptors against source metadata."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Checks copied Lean/Std premise metadata, not Mathlib availability or theorem correctness.",
+    "authority_ceiling": "Compares the public Lean and Std premise rows with copied source metadata by premise ID and checks their source digests, rejecting a Mathlib premise in the index.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,7 +82,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Checks copied Lean/Std premise metadata, not Mathlib availability or theorem correctness.",
+        "authority_ceiling": "Compares the public Lean and Std premise rows with copied source metadata by premise ID and checks their source digests, rejecting a Mathlib premise in the index.",
         "card": "This component validates a public index of Lean and Std premise descriptors: names, namespaces, retrieval terms, split eligibility, and source references. It compares public rows with copied source metadata by premise ID and checks declared source digests. A toolchain path may be represented by a public `lean-toolchain://` reference.",
         "one_line": "Validates public Lean and Std premise descriptors against source metadata."
       },

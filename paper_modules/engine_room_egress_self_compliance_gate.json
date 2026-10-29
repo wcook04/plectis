@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Specified phrase rules only; no general semantic or information-flow guarantee.",
+    "authority_ceiling": "Applies three specified phrase rules to response text, flagging a permission request that names no recognised blocker phrase.",
     "card": "A permission request without a recognized blocker phrase is flagged red; matching does not verify an actual blocker.",
     "one_line": "Runs three phrase-based diagnostics over response text."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Specified phrase rules only; no general semantic or information-flow guarantee.",
+    "authority_ceiling": "Applies three specified phrase rules to response text, flagging a permission request that names no recognised blocker phrase.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -94,7 +94,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Specified phrase rules only; no general semantic or information-flow guarantee.",
+        "authority_ceiling": "Applies three specified phrase rules to response text, flagging a permission request that names no recognised blocker phrase.",
         "card": "A permission request without a recognized blocker phrase is flagged red; matching does not verify an actual blocker.",
         "one_line": "Runs three phrase-based diagnostics over response text."
       },

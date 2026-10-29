@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A pass describes checked public coverage; it does not establish that every component works correctly or authorize registry changes or a release.",
+    "authority_ceiling": "Compares accepted component IDs with inventory and runtime-contract rows and checks their standard and receipt references, rejecting a missing standard reference or a claimed release approval.",
     "card": "The checker compares accepted component IDs against inventory and runtime-contract rows, checks standard and receipt references, and scans inputs for forbidden material. A missing standard reference or a claimed release authorization is rejected. The exported bundle uses supplied rows and checks a source-module manifest.",
     "one_line": "Checks accepted components for declared standards, commands and receipt references."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A pass describes checked public coverage; it does not establish that every component works correctly or authorize registry changes or a release.",
+    "authority_ceiling": "Compares accepted component IDs with inventory and runtime-contract rows and checks their standard and receipt references, rejecting a missing standard reference or a claimed release approval.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -79,7 +79,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A pass describes checked public coverage; it does not establish that every component works correctly or authorize registry changes or a release.",
+        "authority_ceiling": "Compares accepted component IDs with inventory and runtime-contract rows and checks their standard and receipt references, rejecting a missing standard reference or a claimed release approval.",
         "card": "The checker compares accepted component IDs against inventory and runtime-contract rows, checks standard and receipt references, and scans inputs for forbidden material. A missing standard reference or a claimed release authorization is rejected. The exported bundle uses supplied rows and checks a source-module manifest.",
         "one_line": "Checks accepted components for declared standards, commands and receipt references."
       },

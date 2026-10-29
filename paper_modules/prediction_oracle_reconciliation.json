@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The packet and outcomes are synthetic. This replay does not establish forecasting accuracy, access market feeds, or provide investment advice.",
+    "authority_ceiling": "Recomputes rankings and grades for synthetic predictions against supplied evidence and outcomes, rejecting an oracle row without a prediction, a grade that contradicts recomputation, and evidence dated after the prediction used as prior evidence.",
     "card": "The validator checks prediction targets and evidence timing, recomputes numeric rankings and grades supplied realised directions. It keeps stock and ETF counts separate and constrains dossier mutations to declared types and evidence. It rejects an oracle row without a supporting prediction, a claimed grade contradicting recomputation, and post-prediction evidence used as prior evidence.",
     "one_line": "Compares synthetic predictions with supplied evidence and outcomes."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The packet and outcomes are synthetic. This replay does not establish forecasting accuracy, access market feeds, or provide investment advice.",
+    "authority_ceiling": "Recomputes rankings and grades for synthetic predictions against supplied evidence and outcomes, rejecting an oracle row without a prediction, a grade that contradicts recomputation, and evidence dated after the prediction used as prior evidence.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,7 +85,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The packet and outcomes are synthetic. This replay does not establish forecasting accuracy, access market feeds, or provide investment advice.",
+        "authority_ceiling": "Recomputes rankings and grades for synthetic predictions against supplied evidence and outcomes, rejecting an oracle row without a prediction, a grade that contradicts recomputation, and evidence dated after the prediction used as prior evidence.",
         "card": "The validator checks prediction targets and evidence timing, recomputes numeric rankings and grades supplied realised directions. It keeps stock and ETF counts separate and constrains dossier mutations to declared types and evidence. It rejects an oracle row without a supporting prediction, a claimed grade contradicting recomputation, and post-prediction evidence used as prior evidence.",
         "one_line": "Compares synthetic predictions with supplied evidence and outcomes."
       },

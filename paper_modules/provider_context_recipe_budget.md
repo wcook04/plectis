@@ -1,6 +1,6 @@
 # Pack context sections within a byte budget
 
-> **In plain terms.** An assistant program can take in only so much text at once, so what it is given must be chosen to fit. This component is given ordered recipes listing sections of material, each with its text or a stated size, and a size limit. It goes down each list adding a section only if it fits in the space left, and skips any that do not. The result lists included and left-out sections with sizes but not text, so a reader can see what was dropped. One small decision step, whether a section fits, is checked by a mathematical proof against written rules, but the rest is outside that proof, and no real model is called.
+> **In plain terms.** An assistant program can take in only so much text at once, so what it is given must be chosen to fit. This component is given ordered recipes listing sections of material, each with its text or a stated size, and a size limit. It goes down each list adding a section only if it fits in the space left, and skips any that do not. The result lists included and left-out sections with sizes but not text, so a reader can see what was dropped. One small decision step, whether a section fits, is checked by a mathematical proof against written rules.
 
 This validator takes ordered context recipes and section material, measures available section bodies, falling back to a declared byte size when a body is unavailable, and includes each section if it fits the remaining byte budget. Its result lists included and omitted sections with sizes, while redacting their bodies. The token count is a rough estimate of one token per four bytes.
 
@@ -20,7 +20,7 @@ The recipes fill sections in the declared order, skipping a section that does no
 
 ## What the result means
 
-A recipe that suppresses its omitted-sections manifest or permits proof bodies is rejected. This checks recipe accounting and policy, not a provider call or model performance.
+Packs each ordered context recipe into its byte budget and lists included and omitted sections with sizes, rejecting a recipe that hides its omissions or permits proof bodies.
 
 Related reading: [Retrieval-Augmented Generation](https://arxiv.org/abs/2005.11401), [Command Line Interface Guidelines](https://clig.dev/).
 

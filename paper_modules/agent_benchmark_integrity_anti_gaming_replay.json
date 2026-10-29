@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A digest or passing replay is not a benchmark score or evidence of algorithm correctness.",
+    "authority_ceiling": "Checks recorded benchmark runs against the locked evaluator IDs and configuration hashes and recomputes their integrity verdicts from file-access and contamination evidence, rejecting cases such as an evaluator edit or train–test leakage.",
     "card": "This replay checks whether recorded benchmark runs agree with a locked evaluator policy and their supporting evidence. It reads public case and replay records, checks evaluator IDs and configuration hashes, and recomputes integrity verdicts from file-access and contamination evidence. Its result is useful when examining how a benchmark claim was recorded; it does not calculate a benchmark score.",
     "one_line": "Checks benchmark replay evidence against locked evaluator configuration and recomputed integrity verdicts."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A digest or passing replay is not a benchmark score or evidence of algorithm correctness.",
+    "authority_ceiling": "Checks recorded benchmark runs against the locked evaluator IDs and configuration hashes and recomputes their integrity verdicts from file-access and contamination evidence, rejecting cases such as an evaluator edit or train–test leakage.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,7 +83,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A digest or passing replay is not a benchmark score or evidence of algorithm correctness.",
+        "authority_ceiling": "Checks recorded benchmark runs against the locked evaluator IDs and configuration hashes and recomputes their integrity verdicts from file-access and contamination evidence, rejecting cases such as an evaluator edit or train–test leakage.",
         "card": "This replay checks whether recorded benchmark runs agree with a locked evaluator policy and their supporting evidence. It reads public case and replay records, checks evaluator IDs and configuration hashes, and recomputes integrity verdicts from file-access and contamination evidence. Its result is useful when examining how a benchmark claim was recorded; it does not calculate a benchmark score.",
         "one_line": "Checks benchmark replay evidence against locked evaluator configuration and recomputed integrity verdicts."
       },

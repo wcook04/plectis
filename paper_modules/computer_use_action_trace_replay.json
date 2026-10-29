@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Trace consistency only; no independent desktop observation or safety benchmark.",
+    "authority_ceiling": "Checks the supplied observation references, pre-action permission records and state transitions for consistency with each other.",
     "card": "An offline validator checks observation references, declared pre-action permission records and transition consistency, without independently observing the desktop.",
     "one_line": "Checks consistency of supplied computer-use observations and actions."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Trace consistency only; no independent desktop observation or safety benchmark.",
+    "authority_ceiling": "Checks the supplied observation references, pre-action permission records and state transitions for consistency with each other.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -76,7 +76,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Trace consistency only; no independent desktop observation or safety benchmark.",
+        "authority_ceiling": "Checks the supplied observation references, pre-action permission records and state transitions for consistency with each other.",
         "card": "An offline validator checks observation references, declared pre-action permission records and transition consistency, without independently observing the desktop.",
         "one_line": "Checks consistency of supplied computer-use observations and actions."
       },

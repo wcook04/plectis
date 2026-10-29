@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The helper validates an exported bundle; it does not perform a live Git commit, mutate a task ledger or authorize publication.",
+    "authority_ceiling": "Checks the exported work-landing bundle's source roster, digests, line counts, anchors and flags against its manifest and runtime contract.",
     "card": "Validates source roster, digests, line counts, anchors and authority flags; a local run after source-bundle repair passed.",
     "one_line": "Checks work-landing bundle files against their manifest and runtime contract."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The helper validates an exported bundle; it does not perform a live Git commit, mutate a task ledger or authorize publication.",
+    "authority_ceiling": "Checks the exported work-landing bundle's source roster, digests, line counts, anchors and flags against its manifest and runtime contract.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -88,7 +88,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The helper validates an exported bundle; it does not perform a live Git commit, mutate a task ledger or authorize publication.",
+        "authority_ceiling": "Checks the exported work-landing bundle's source roster, digests, line counts, anchors and flags against its manifest and runtime contract.",
         "card": "Validates source roster, digests, line counts, anchors and authority flags; a local run after source-bundle repair passed.",
         "one_line": "Checks work-landing bundle files against their manifest and runtime contract."
       },

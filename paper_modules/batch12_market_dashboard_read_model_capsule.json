@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "These cases test the read model and its labels, not current market data, investment advice or the accuracy of a forecast.",
+    "authority_ceiling": "Checks a synthetic dashboard payload, feed freshness and related-situation matching with the copied dashboard module, rejecting a graph edge with no destination and unsafe traversal references.",
     "card": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status. It also checks feed freshness and which situations the dashboard treats as related. It writes the three mechanism results and their negative-case observations. The validator rejects a graph edge with no destination and unsafe traversal references. The freshness classifier distinguishes a stale feed from a fresh one and blocks missing readiness evidence; the related-situation check returns no match for two situations with neither shared entities nor the same type. The fixture also allows a same-type match without shared entities.",
     "one_line": "Checks synthetic dashboard data, feed freshness and related situations."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "These cases test the read model and its labels, not current market data, investment advice or the accuracy of a forecast.",
+    "authority_ceiling": "Checks a synthetic dashboard payload, feed freshness and related-situation matching with the copied dashboard module, rejecting a graph edge with no destination and unsafe traversal references.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,7 +85,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "These cases test the read model and its labels, not current market data, investment advice or the accuracy of a forecast.",
+        "authority_ceiling": "Checks a synthetic dashboard payload, feed freshness and related-situation matching with the copied dashboard module, rejecting a graph edge with no destination and unsafe traversal references.",
         "card": "This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status. It also checks feed freshness and which situations the dashboard treats as related. It writes the three mechanism results and their negative-case observations. The validator rejects a graph edge with no destination and unsafe traversal references. The freshness classifier distinguishes a stale feed from a fresh one and blocks missing readiness evidence; the related-situation check returns no match for two situations with neither shared entities nor the same type. The fixture also allows a same-type match without shared entities.",
         "one_line": "Checks synthetic dashboard data, feed freshness and related situations."
       },

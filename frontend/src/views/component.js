@@ -56,7 +56,7 @@ export async function mountComponent(root, { id, signal }) {
   const writeup = renderGuide(detail.guide, model.links, { skipPlain: !!c.plain });
 
   const main = h('div', { class: 'reader__steps' },
-    section('claim', 'What it does not claim',
+    section('claim', 'What it covers',
       h('div', { class: 'limit' }, claim.claim_ceiling_restated || claim.claim_ceiling || 'No limit is written down.')),
     kernel ? section('contract', 'Its proved part',
       h('p', { class: 'small' }, 'One decision inside this component is made by a small computation whose code a prover has checked against written rules. The component calls that checked code; the rest of the component is outside the proof.'),
@@ -81,8 +81,8 @@ export async function mountComponent(root, { id, signal }) {
         h('a', { class: 'btn btn--ink', href: `/#o=${encodeURIComponent(`comp:${id}`)}`, 'data-route': '' }, 'Show it on the map'),
         h('a', { class: 'btn', href: withQuery('/graph', { type: 'organ', id }), 'data-route': '' }, 'Related records'))));
 
-  const aside = h('aside', { class: 'reader__figure checks-aside', 'aria-label': 'Its checks' },
-    h('p', { class: 'checks-aside__title' }, 'What checks it'),
+  const aside = h('aside', { class: 'reader__figure checks-aside', 'aria-label': 'Checks recorded for it' },
+    h('p', { class: 'checks-aside__title' }, 'Checks recorded for it'),
     h('ul', { class: 'column' }, [...TRACKS].map((t) => {
       const has = t.ink === 'unknown' ? 'unknown' : c.checks[t.id] ? 'has' : 'empty';
       return h('li', { class: `column__row${has === 'empty' ? ' is-empty' : ''}` },
@@ -110,8 +110,8 @@ export async function mountComponent(root, { id, signal }) {
 function doctrineSection(model, c) {
   const rules = (c.ruleIds || []).map((id) => model.ruleById.get(id)).filter(Boolean);
   if (!rules.length) return null;
-  return h('section', { id: 's-rules' }, h('h2', {}, `Rules it is built on (${rules.length})`),
-    h('p', { class: 'small muted' }, 'The axioms (basic assumptions) and principles (working rules) its own record lists. Listing a rule states an intent; it is not a check that the component follows it.'),
+  return h('section', { id: 's-rules' }, h('h2', {}, `Rules its record lists (${rules.length})`),
+    h('p', { class: 'small muted' }, 'The axioms (basic assumptions) and principles (working rules) its own record lists.'),
     h('ul', { class: 'doctrine' }, rules.map((r) => h('li', {},
       h('a', { href: `/#o=${encodeURIComponent(`rule:${r.id}`)}`, 'data-route': '' }, ruleGlyph(r.kind), ' ', h('span', { class: `doc-id doc-id--${r.kind}` }, r.id), ' ', h('strong', {}, r.title)),
       h('span', { class: 'muted small' }, ` · ${ruleKindWords(r.kind)}`),
@@ -140,19 +140,19 @@ export function failure(error, id) {
   const wrap = h('div', {});
   if (error.kind === 'not_found') {
     wrap.append(h('h1', { class: 'page-title' }, 'No component with this ID'),
-      h('p', { class: 'page-lede' }, `The index has no component “${id}”. IDs come from the component registry; they are not derived from titles.`));
+      h('p', { class: 'page-lede' }, `There is no component with the ID “${id}”. IDs come from the project’s list of components and are not made from titles.`));
   } else if (error.kind === 'network') {
-    wrap.append(h('h1', { class: 'page-title' }, 'The component API is not reachable'),
+    wrap.append(h('h1', { class: 'page-title' }, 'The data server is not reachable'),
       h('p', { class: 'page-lede' }, 'Start the explorer from the repository with make explorer, then reload this page.'));
   } else if (error.kind === 'schema') {
-    wrap.append(h('h1', { class: 'page-title' }, 'An API this explorer cannot read'), h('p', { class: 'page-lede' }, error.message));
+    wrap.append(h('h1', { class: 'page-title' }, 'The data server sent a format this explorer cannot read'), h('p', { class: 'page-lede' }, error.message));
   } else if (error.kind === 'revision') {
-    wrap.append(h('h1', { class: 'page-title' }, 'The index changed while loading'),
+    wrap.append(h('h1', { class: 'page-title' }, 'The data changed while loading'),
       h('p', { class: 'page-lede' }, 'The parts of this page came from different snapshots twice, so none of them is shown. ', h('a', { href: window.location.href, 'data-route': '' }, 'Load it again'), '.'));
   } else {
     wrap.append(h('h1', { class: 'page-title' }, 'This page could not be loaded'), h('p', { class: 'page-lede' }, error.message));
   }
-  wrap.append(h('div', { class: 'actions' }, h('a', { class: 'btn', href: '/', 'data-route': '' }, 'Open the map'), h('a', { class: 'btn', href: '/catalogue', 'data-route': '' }, 'Search the catalogue')));
+  wrap.append(h('div', { class: 'actions' }, h('a', { class: 'btn', href: '/', 'data-route': '' }, 'Open the map'), h('a', { class: 'btn', href: '/catalogue', 'data-route': '' }, 'Search the components')));
   return wrap;
 }
 

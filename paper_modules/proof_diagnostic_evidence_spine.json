@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.",
+    "authority_ceiling": "Resolves the bundle's source and receipt references, compares source digests and checks its diagnostic rows, rejecting a provider row that contains a proof body and reporting a stale source fingerprint.",
     "card": "Checks in a public evidence bundle point to source files and receipt anchors. This validator resolves those references, compares source digests and checks the receipt bindings; it also checks diagnostic rows and provider payload policy. For example, a diagnostic row links a failure-taxonomy report to a receipt anchor. Provider rows must not contain proof bodies. The validator writes a body-free result for inspecting which evidence is supported.",
     "one_line": "Checks in a public evidence bundle point to source files and receipt anchors."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.",
+    "authority_ceiling": "Resolves the bundle's source and receipt references, compares source digests and checks its diagnostic rows, rejecting a provider row that contains a proof body and reporting a stale source fingerprint.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,7 +83,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A provider row containing a proof body is rejected. A stale source fingerprint is reported instead of being treated as current evidence. Digest and anchor agreement do not prove the algorithm or any theorem correct; this component does not run Lean.",
+        "authority_ceiling": "Resolves the bundle's source and receipt references, compares source digests and checks its diagnostic rows, rejecting a provider row that contains a proof body and reporting a stale source fingerprint.",
         "card": "Checks in a public evidence bundle point to source files and receipt anchors. This validator resolves those references, compares source digests and checks the receipt bindings; it also checks diagnostic rows and provider payload policy. For example, a diagnostic row links a failure-taxonomy report to a receipt anchor. Provider rows must not contain proof bodies. The validator writes a body-free result for inspecting which evidence is supported.",
         "one_line": "Checks in a public evidence bundle point to source files and receipt anchors."
       },

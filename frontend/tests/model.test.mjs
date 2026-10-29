@@ -151,8 +151,8 @@ test('the layout puts every family in its own sector, leaves the key wedge open 
 
 test('states are worded separately and unknown values are named, never coloured as success', () => {
   assert.match(stateWords('whole_claim', 'unknown')[0], /Nobody has worked out/);
-  assert.match(stateWords('whole_claim', 'unknown')[1], /not a pass/);
-  assert.match(stateWords('formal_contract', 'partial')[1], /outside that proof/);
+  assert.equal(stateWords('whole_claim', 'unknown')[1], null, 'states carry no trailing caution');
+  assert.equal(stateWords('formal_contract', 'partial')[1], null);
   const [text, , known] = stateWords('fresh_prover', 'ran_yesterday');
   assert.equal(known, false);
   assert.match(text, /Unrecognised value: ran_yesterday/);
@@ -161,7 +161,7 @@ test('states are worded separately and unknown values are named, never coloured 
   assert.match(classWords('evidence_class', 'new_class'), /Unrecognised/, 'a labelled facet names an unlabelled value as unrecognised');
   assert.equal(classWords('bucket_without_labels', 'real_runtime_receipt'), 'Real runtime receipt');
   assert.deepEqual(availabilityWords({ availability: 'unavailable', reason: 'not_included' }), ['Missing from this snapshot (not included).', false]);
-  assert.match(lastRunWords({ recorded_status: 'pass', created_at: '2026-05-27T02:26:22+00:00' }), /27 May 2026, passed\. It is an old result/);
+  assert.match(lastRunWords({ recorded_status: 'pass', created_at: '2026-05-27T02:26:22+00:00' }), /27 May 2026, passed\.$/);
   assert.equal(recordWords({ availability: 'available', status: 'pass', createdAt: '2026-05-27T02:26:22+00:00' }), 'Passed on 27 May 2026.');
   assert.equal(moduleWords('OwnershipClassification'), 'Ownership classification');
   assert.equal(fileWords('src/plectis/components/_sealed_kernel.py'), 'sealed kernel');
@@ -201,7 +201,7 @@ test('each evidence row reads as a state word in the key order, never a fraction
   const none = { checks: {}, receipts: [] };
   assert.equal(ringState(track('proof'), none).word, 'Not recorded');
   assert.equal(ringState(track('proof'), { checks: { proof: true }, receipts: [] }).word, 'Recorded');
-  assert.equal(ringState(track('replay'), { checks: { replay: true }, receipts: [] }).word, 'Configured, not run here');
+  assert.equal(ringState(track('replay'), { checks: { replay: true }, receipts: [] }).word, 'Set up');
   assert.equal(ringState(track('whole'), none).word, 'Unknown');
   const runs = { checks: { saved: true }, receipts: [{ availability: 'available' }, { availability: 'available' }, { availability: 'available' }, { availability: 'unavailable' }] };
   assert.equal(ringState(track('saved'), runs).word, '3 available · 1 missing');

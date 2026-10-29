@@ -1,6 +1,6 @@
 # Exercise text, policy and timing primitives
 
-> **In plain terms.** Small building blocks inside a large project, like one that picks key phrases out of text, can fail on odd inputs. It is given copies of selected blocks and small made-up cases covering text, money units, tasks running at once, recording timing and more. It runs each block on its cases, and a phrase made only of filler words yields no key phrase while amounts whose unit scales do not match are blocked. Each exercise gets its own result, so someone can see how every block handles these cases. The cases are made up, so they say nothing about market truth, policy effectiveness or how the blocks behave on other inputs.
+> **In plain terms.** Small building blocks inside a large project, like one that picks key phrases out of text, can fail on odd inputs. It is given copies of selected blocks and small made-up cases covering text, money units, tasks running at once, recording timing and more. It runs each block on its cases, and a phrase made only of filler words yields no key phrase while amounts whose unit scales do not match are blocked. Each exercise gets its own result, so someone can see how every block handles these cases.
 
 This fixture loads selected copied modules and runs small exercises across text extraction, memory, market situations, finance units, policy, concurrency and recording timing. It checks the selected mechanism set and returns individual exercise results.
 
@@ -27,7 +27,7 @@ The example above runs the fixture directly. In `make component-replays`, this c
 
 ## Limits
 
-These synthetic examples do not establish market truth, policy effectiveness or correctness for other inputs. Source hashes and anchors establish identity checks, not algorithm correctness.
+Runs selected copied modules on small text, memory, market, finance-unit, policy, concurrency and recording-timing exercises, blocking a finance unit-scale mismatch and a case without counterevidence.
 
 ## Source and evidence
 

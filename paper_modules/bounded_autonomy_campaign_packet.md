@@ -1,6 +1,6 @@
 # Draft a bounded campaign packet
 
-> **In plain terms.** A program that proposes its own work needs firm limits, so a person can review each proposal first. This component is given a made-up list of gaps in what a project checks, a policy of limits and a ledger of failed plans. It drafts candidate work items for people to review, each naming one gap and none allowed to change code, using the project's plan-building tool in read-only mode. It blocks a policy that would allow code changes, an empty draft, or a ledger listing the same failed plan more than once. It repairs nothing and authorizes no change, and in the public copy the plan-building tool is only inspected, not run.
+> **In plain terms.** A program that proposes its own work needs firm limits, so a person can review each proposal first. This component is given a made-up list of gaps in what a project checks, a policy of limits and a ledger of failed plans. It drafts candidate work items for people to review, each naming one gap and none allowed to change code, using the project's plan-building tool in read-only mode, which the public copy inspects rather than runs. It blocks a policy that would allow code changes, an empty draft, or a ledger listing the same failed plan more than once.
 
 This fixture reads synthetic coverage gaps, a campaign policy and a failed-digest ledger, then drafts candidate records for human review. Each candidate names a gap and specifies no source-write surface.
 

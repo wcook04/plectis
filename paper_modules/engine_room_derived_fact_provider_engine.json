@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Facts depend on declared source data and do not prove its truth or completeness.",
+    "authority_ceiling": "Computes facts from the declared source data through each declared provider, reporting an error row for an unknown provider; Git counters read the index.",
     "card": "Unknown providers produce error rows and degraded status; Git counters use the index.",
     "one_line": "Evaluates declared fact providers and reports values or provider errors."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Facts depend on declared source data and do not prove its truth or completeness.",
+    "authority_ceiling": "Computes facts from the declared source data through each declared provider, reporting an error row for an unknown provider; Git counters read the index.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -93,7 +93,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Facts depend on declared source data and do not prove its truth or completeness.",
+        "authority_ceiling": "Computes facts from the declared source data through each declared provider, reporting an error row for an unknown provider; Git counters read the index.",
         "card": "Unknown providers produce error rows and degraded status; Git counters use the index.",
         "one_line": "Evaluates declared fact providers and reports values or provider errors."
       },

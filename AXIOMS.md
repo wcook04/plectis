@@ -1,30 +1,32 @@
 # Axioms
 
-These are Microcosm's root laws. They are not release slogans and not
-capability claims. Each axiom expands through
-`core/axiom_organ_routing.json` into principles, witness organs, witness
-surfaces, anti-principle guards, negative cases, claim ceilings, and layer-debt
-receipts.
+These axioms are the basic rules of Microcosm, and every principle rests on
+one or more of them. An axiom states a rule the code is meant to follow; how
+well the code follows it is computed separately for each axiom by the support
+checker in `src/microcosm_core/validators/axiom_support_cover.py`.
 
-This markdown file is the readable projection. The JSON routing registry is the
-checkable map.
+For each axiom, `core/axiom_organ_routing.json` lists the principles that
+apply it, the components and files that test it, the failure modes that break
+it, its negative test cases, the limit on what its support may claim, and any
+unfinished work recorded as a layer-debt receipt. This file is the readable
+version. The automated checks read the JSON file.
 
 ## Axioms At A Glance
 
 | ID | Axiom | Anti-axiom |
 | --- | --- | --- |
-| AX-1 | Derivation before assertion | An asserted label is truth. |
-| AX-2 | Kernelized verification | Producer trust replaces checker trust. |
-| AX-3 | Authority by derivation, not possession | A standing credential is authority. |
-| AX-4 | Content-addressed determinism | Cache by name across drift. |
-| AX-5 | Fail-closed monotone lattice | Silent default pass. |
-| AX-6 | Open-world epistemics | Absence of evidence is evidence of absence. |
-| AX-7 | Typed partiality and refusal | Inadmissible number or silent NaN. |
-| AX-8 | Provenance propagation and non-interference | Endpoint label assertion without propagation. |
-| AX-9 | Compensable transactional effects | Blind irreversible write. |
-| AX-10 | Temporal validity and freshness contracts | Frozen live count without refresh basis. |
-| AX-11 | Executable grammar before doctrine authority | Prose claims executable authority. |
-| AX-12 | Reflexive accountability / no privileged meta-layer | Meta artifact exemption. |
+| AX-1 | Derivation before assertion | A label is true because someone asserted it. |
+| AX-2 | Kernelized verification | Trust in the producer stands in for a check. |
+| AX-3 | Authority by derivation, not possession | Holding a standing credential is enough to act. |
+| AX-4 | Content-addressed determinism | A cached result is reused by name after its inputs change. |
+| AX-5 | Fail-closed monotone lattice | A part with no evidence passes by default. |
+| AX-6 | Open-world epistemics | Finding no evidence of something shows it is absent. |
+| AX-7 | Typed partiality and refusal | An invalid input still yields a number, or a silent NaN. |
+| AX-8 | Provenance propagation and non-interference | A label asserted at the end replaces tracking the data's origin. |
+| AX-9 | Compensable transactional effects | An irreversible write is made with no way to undo it. |
+| AX-10 | Temporal validity and freshness contracts | A live count is written down with no way to refresh it. |
+| AX-11 | Executable grammar before doctrine authority | Prose claims the authority of an executable rule. |
+| AX-12 | Reflexive accountability / no privileged meta-layer | Microcosm's own files are exempt from its rules. |
 
 ## AX-1 Derivation before assertion
 
@@ -34,12 +36,13 @@ derivation certificate `c` and checker `K` such that `K(B,c,phi)=accept`, with
 
 Lineage: Curry-Howard proof terms, proof-carrying code, verifiable computation.
 
-Route: strong witness through `agent_sabotage_scheming_monitor_replay`,
-`belief_state_process_reward_replay`, `evidence_truth_floor.py`, evidence-class
-rows, and negative fixtures where a declared verdict is caught when it does not
-derive from lower-level evidence.
+Route: recorded as strongly witnessed by
+`agent_sabotage_scheming_monitor_replay`, `belief_state_process_reward_replay`,
+`evidence_truth_floor.py` and the evidence-class rows. Its negative fixtures
+declare a verdict that does not follow from the lower-level evidence, and the
+replay has to catch it.
 
-Anti-axiom: an asserted label is truth.
+Anti-axiom: a label is true because someone asserted it.
 
 ## AX-2 Kernelized verification
 
@@ -48,11 +51,12 @@ certificates `c`; producers emit certificates and the checker decides.
 
 Lineage: de Bruijn criterion, LCF/Lean kernel architecture, proof by reflection.
 
-Route: strong witness through `certificate_kernel_execution_lab`,
-`formal_math_lean_proof_witness`, the Crown Jewel common harness, generated Lean
-certificate modules, and tests that reject invalid proof witnesses.
+Route: recorded as strongly witnessed by `certificate_kernel_execution_lab`,
+`formal_math_lean_proof_witness`, the Crown Jewel common harness and the
+generated Lean certificate modules. The tests feed in invalid proof witnesses
+and require the checker to reject them.
 
-Anti-axiom: producer trust replaces checker trust.
+Anti-axiom: trust in whoever produced a result stands in for a check.
 
 ## AX-3 Authority by derivation, not possession
 
@@ -61,11 +65,13 @@ policy, proof refs, and world state; ambient identity is insufficient.
 
 Lineage: object-capability systems, least authority, confused-deputy defenses.
 
-Route: strong witness through `proof_derived_governed_mutation_authorization`
-and `mcp_tool_authority_replay`, where the authorizer dereferences proof,
-policy, receipt, and rollback evidence instead of trusting standing credentials.
+Route: recorded as strongly witnessed by
+`proof_derived_governed_mutation_authorization` and `mcp_tool_authority_replay`.
+Before allowing a change, the authorizer opens the referenced proof, policy,
+result record and rollback evidence and checks them, whatever credential the
+caller holds.
 
-Anti-axiom: a standing credential is authority.
+Anti-axiom: holding a standing credential is enough to act.
 
 ## AX-4 Content-addressed determinism
 
@@ -75,13 +81,14 @@ may reuse, basis drift forces recompute, and missing basis is bottom.
 Lineage: referential transparency, Merkle/content-addressed storage, hermetic
 builds.
 
-Route: strong witness through `durable_agent_work_landing_replay`,
-`macro_projection_import_protocol`, `command_run_singleflight.py`, Crown Jewel
-source-manifest checks, and tests that reject source digest or freshness-basis
-mismatch. The registry records one layer-debt receipt for a semantic freshness
-code that still needs exact public-code materialization.
+Route: recorded as strongly witnessed by `durable_agent_work_landing_replay`,
+`macro_projection_import_protocol`, `command_run_singleflight.py` and the Crown
+Jewel source-manifest checks. The tests reject a run whose source digest or
+freshness inputs do not match the recorded ones. One layer-debt receipt is
+open: a semantic freshness code that has not yet been written out as exact
+public code.
 
-Anti-axiom: cache by name across drift.
+Anti-axiom: a cached result is reused by name after its inputs have changed.
 
 ## AX-5 Fail-closed monotone lattice
 
@@ -91,12 +98,12 @@ derivation.
 
 Lineage: lattice information flow, fail-safe defaults, monotone dataflow.
 
-Route: strong witness through the Crown Jewel harness, `release_export`,
-`organ_evidence_classes.json::fail_closed_no_default`, private-state scans,
-secret-exclusion scans, and release tests that block receipt-body leakage or
-overclaiming language.
+Route: recorded as strongly witnessed by the Crown Jewel harness,
+`release_export`, `organ_evidence_classes.json::fail_closed_no_default`, and
+the private-state and secret-exclusion scans. The release tests block an
+export that would leak a result record's body or use overclaiming language.
 
-Anti-axiom: silent default pass.
+Anti-axiom: a part with no evidence passes silently by default.
 
 ## AX-6 Open-world epistemics
 
@@ -106,11 +113,12 @@ closed-world only inside declared finite domains.
 Lineage: open-world assumption, bounded closed-world assumption, soundness
 versus completeness.
 
-Route: strong witness through `self_ignorance_coverage_ledger` and
-`doctrine_fact_claim_audit`, where declared-vs-materialized gaps are tracked
-without claiming that unmapped space is exhausted.
+Route: recorded as strongly witnessed by `self_ignorance_coverage_ledger` and
+`doctrine_fact_claim_audit`. Both record the gaps between what was declared and
+what has been built, and leave everything outside the declared domains marked
+unknown.
 
-Anti-axiom: absence of evidence is evidence of absence.
+Anti-axiom: finding no evidence of something shows it is absent.
 
 ## AX-7 Typed partiality and refusal
 
@@ -119,12 +127,14 @@ Formal clause: a partial computation `g` is totalized as `Result`: `Ok(y)` when
 
 Lineage: partial functions, domain theory, Result/Maybe types.
 
-Route: strong witness through `finance_forecast_evaluation_spine`,
-`corpus_readiness_mathlib_absence_gate`, metabolism runtime, finance statistics
-modules, and tests that return typed refusals for invalid horizons, missing
-SciPy support, or Mathlib availability overclaims.
+Route: recorded as strongly witnessed by `finance_forecast_evaluation_spine`,
+`corpus_readiness_mathlib_absence_gate`, the metabolism runtime and the finance
+statistics modules. The tests require a typed refusal for an invalid forecast
+horizon, for missing SciPy support, and for a claim that Mathlib is available
+when it is not.
 
-Anti-axiom: inadmissible number or silent NaN.
+Anti-axiom: a computation given invalid input still returns a number, or a
+silent NaN.
 
 ## AX-8 Provenance propagation and non-interference
 
@@ -134,13 +144,15 @@ privileged sinks only through declared transforms satisfying sink policy.
 Lineage: Denning information-flow lattice, Biba integrity, taint tracking,
 non-interference.
 
-Route: partial witness through `indirect_prompt_injection_information_flow_policy_replay`,
-private-state scans, secret-exclusion scans, release export gates, engine-room
-egress/public-projection paper modules, and negative cases for private-state
-classes and public projection leaks. The registry records layer debt for full
-general graph propagation.
+Route: recorded as partially witnessed by
+`indirect_prompt_injection_information_flow_policy_replay`, the private-state
+and secret-exclusion scans, the release export gates, and the engine-room paper
+modules on egress and public projection. Negative cases cover private-state
+classes and leaks into public pages. One layer-debt receipt is open: labels are
+not yet tracked across a general graph of flows.
 
-Anti-axiom: endpoint label assertion without propagation.
+Anti-axiom: a label asserted at the end of a pipeline replaces tracking where
+the data came from.
 
 ## AX-9 Compensable transactional effects
 
@@ -150,12 +162,13 @@ single-writer constraints.
 
 Lineage: ACID, saga pattern, optimistic concurrency control.
 
-Route: strong witness through `mission_transaction_work_spine`,
-`durable_agent_work_landing_replay`, `concurrency_mission_control`, work-landing
-tools, mission preflight, and tests that block parent mismatch, same-path claim
-conflict, or missing head-advance evidence.
+Route: recorded as strongly witnessed by `mission_transaction_work_spine`,
+`durable_agent_work_landing_replay`, `concurrency_mission_control`, the
+work-landing tools and mission preflight. The tests block a change whose
+parent commit does not match, two claims on the same path, and a change with
+no evidence that the branch head moved.
 
-Anti-axiom: blind irreversible write.
+Anti-axiom: an irreversible write is made with no way to undo it.
 
 ## AX-10 Temporal validity and freshness contracts
 
@@ -164,12 +177,12 @@ Formal clause: claims over live state are cached reads valid only under
 
 Lineage: cache invalidation, bitemporal state, staleness bounds.
 
-Route: strong witness through `doctrine_fact_claim_audit`, metabolism runtime,
-derived-fact hologram source, and tests for volatile numeric claims. The
-registry records one layer-debt receipt for materializing the stable semantic
-code used by the route.
+Route: recorded as strongly witnessed by `doctrine_fact_claim_audit`, the
+metabolism runtime, the derived-fact hologram source, and tests on numbers that
+change over time. One layer-debt receipt is open: the stable semantic code this
+route uses has not yet been written out.
 
-Anti-axiom: frozen live count without refresh basis.
+Anti-axiom: a live count is written down with no way to refresh it.
 
 ## AX-11 Executable grammar before doctrine authority
 
@@ -179,11 +192,12 @@ obligations, and anti-claim are present; prose alone is projection.
 Lineage: formal languages, type systems, operational semantics, Hoare
 contracts.
 
-Route: strong witness through `executable_doctrine_grammar`,
-`standards_meta_diagnostics`, all public paper modules, and tests that reject
-prose standards without executable authority or grammar-pass overclaims.
+Route: recorded as strongly witnessed by `executable_doctrine_grammar`,
+`standards_meta_diagnostics` and all public paper modules. The tests reject a
+prose standard that claims executable authority, and a claim that passing the
+grammar check means more than it does.
 
-Anti-axiom: prose claims executable authority.
+Anti-axiom: prose claims the authority of an executable rule.
 
 ## AX-12 Reflexive accountability / no privileged meta-layer
 
@@ -193,10 +207,12 @@ must satisfy the same admissibility relation as external claims.
 Lineage: reflective systems, self-hosting checks, no-special-pleading
 evaluation.
 
-Route: strong witness through `batch12_release_claim_language_gate`,
-`executable_doctrine_grammar`, release export, Crown Jewel self-scans,
-`evidence_truth_floor.py`, and tests that block release overclaim language,
-receipt-body leakage, and doctrine completeness overclaim. The registry records
-layer debt for making evidence-truth-floor blocking at the release boundary.
+Route: recorded as strongly witnessed by
+`batch12_release_claim_language_gate`, `executable_doctrine_grammar`, release
+export, the Crown Jewel self-scans and `evidence_truth_floor.py`. The tests
+block overclaiming release language, leaks of result-record bodies, and claims
+that the doctrine is complete. One layer-debt receipt is open: the evidence
+truth floor does not yet block at the release boundary.
 
-Anti-axiom: meta artifact exemption.
+Anti-axiom: Microcosm's own files are exempt from the rules it applies to
+everything else.

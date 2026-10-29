@@ -197,7 +197,7 @@ export function ownershipFigure(example, source) {
     rows.map((r) => r.row),
     verdict,
     h('figcaption', { class: 'note' },
-      'Each claim says a session is working on the file; one session has gone stale and the other is live. The example is saved with the snapshot; the old rule\'s code is not run here. ',
+      'Each claim says a session is working on the file; one session has gone stale and the other is live. The example is saved with the snapshot. ',
       example.limits.join(' '),
       tests.length ? h('span', {}, ' The tests ', h('ul', { class: 'inline-list' }, tests), ' run both orders through the real code.') : null));
 }

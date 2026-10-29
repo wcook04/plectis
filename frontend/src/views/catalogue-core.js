@@ -86,12 +86,12 @@ export function createCatalogue(host, { pageSize = 25, row, onMatches, onReset, 
     clear(actions);
     const box = h('div', { class: 'state state--error', role: 'alert' });
     if (error.kind === 'request') {
-      box.append(h('strong', {}, 'The API could not use this search. '), error.message, ' ');
+      box.append(h('strong', {}, 'The data server could not use this search. '), error.message, ' ');
       if (onReset) box.append(h('button', { type: 'button', class: 'textbtn', onclick: onReset }, 'Reset search and filters'));
     } else if (error.kind === 'schema') {
-      box.append(h('strong', {}, 'This API speaks a different contract. '), error.message);
+      box.append(h('strong', {}, 'The data server sent a format this explorer cannot read. '), error.message);
     } else if (error.kind === 'network') {
-      box.append(h('strong', {}, 'The component API is not reachable. '), 'Start it with ', h('code', {}, 'plectis serve-components'), ' and try again. ');
+      box.append(h('strong', {}, 'The data server is not reachable. '), 'Start it with ', h('code', {}, 'plectis serve-components'), ' and try again. ');
       box.append(h('button', { type: 'button', class: 'textbtn', onclick: retry }, 'Try again'));
     } else {
       box.append(h('strong', {}, 'The list could not be loaded. '), error.message, ' ', h('button', { type: 'button', class: 'textbtn', onclick: retry }, 'Try again'));
