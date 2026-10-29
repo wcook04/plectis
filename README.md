@@ -479,10 +479,11 @@ this clone is one part of that work.
 
 | Film | What it shows |
 |---|---|
-| [Plectis introduction](https://www.youtube.com/watch?v=U1z2-XaLe_w) | The research programme and why its results need to be inspectable by other people. |
-| [Code Map](https://www.youtube.com/watch?v=Srrnh6D94E8) | A private interface for exploring saved source descriptions and code connections. Cloning this toolkit does not install that interface. |
-| [One Checkout](https://www.youtube.com/watch?v=hIUgqeg1_Mw) | A selected patch committed while other edits stay in the shared folder. The standalone tool has its [own repository](https://github.com/wcook04/one-checkout). |
-| [Safety Core](https://www.youtube.com/watch?v=oN4ZaCWqfhY) | Editable agent rules and a narrow check tested against an invented-setting workaround. The rulebook toolkit has its [own repository](https://github.com/wcook04/safety-core). |
+| [Plectis introduction](https://www.youtube.com/watch?v=MBmVMMogXTA) | The research programme and why its results need to be inspectable by other people. |
+| [Practical formal verification](https://www.youtube.com/watch?v=u3dad1v-o8c) | A map of Python components and what their proofs and saved checks cover. |
+| [Code Map](https://www.youtube.com/watch?v=OnBO9U9T2IQ) | A private interface for exploring saved source descriptions and code connections. Cloning this toolkit does not install that interface. |
+| [One Checkout](https://www.youtube.com/watch?v=MHBxGPLDqt4) | A selected patch committed while other edits stay in the shared folder. The standalone tool has its [own repository](https://github.com/wcook04/one-checkout). |
+| [Safety Core](https://www.youtube.com/watch?v=ayl3sOCwaHQ) | Editable agent rules and a narrow check tested against an invented-setting workaround. The rulebook toolkit has its [own repository](https://github.com/wcook04/safety-core). |
 
 ### Where this toolkit fits
 
