@@ -1,5 +1,7 @@
 # Rank public premise metadata for a query
 
+> **In plain terms.** Proving a statement relies on earlier results, which must be found among many. It is given short public descriptions of known results, without proofs, and a query of keywords for what is to be proved. It scores each description by how many keywords it shares with the query, adds a bonus for a matching strategy tag, drops disallowed ones, and sorts from highest score to lowest. The result is a ranked shortlist, checked against the list the example expects, and inputs carrying a full proof are rejected. One small step, the scoring and sorting, is checked by a mathematical proof against written rules, but the rest lies outside it, and nothing shows the ranking is useful.
+
 The retrieval fixture scores public Lean/Std premise metadata by token overlap with the query and adds a strategy-tag bonus. It filters candidates by allowed split, sorts by score and checks the shortlist against fixture expectations. The tests show that changing a premise can change the ranking and cause expected recall to fail.
 
 The validator rejects a premise containing a proof body, a query carrying oracle premise IDs, test-split tuning, an unknown strategy and context recipes over budget. This is a small transparent retrieval exercise, not a benchmark of retrieval quality. It does not execute Lean or establish theorem correctness.

@@ -1,5 +1,7 @@
 # Inspect proof and authority boundaries
 
+> **In plain terms.** Having the code for a proof or permission check is not the same as that check making a decision. The component reads a list of copied program files and a few example cases. It only looks in the files for the code behind decisions such as rejecting a bundle whose fingerprint does not match, and scans a copied proof file for placeholders standing in for missing proofs. It also checks an example where Erdős problem 257 is wrongly claimed solved and, if the tools are installed, reports whether the proof file builds, fails or could not be tried. A placeholder scan is not a proof check, and even a successful build would not solve that problem.
+
 This fixture checks source manifests and exercises selected proof, permission and runtime cases. Its result distinguishes source and fixture observations from claims about an actual proof or authorization decision.
 
 ## Run the example

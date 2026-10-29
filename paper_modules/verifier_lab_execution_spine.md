@@ -1,5 +1,7 @@
 # Run the bounded verifier-lab execution spine
 
+> **In plain terms.** A fair test of an automatic prover must run its steps for real, with no answers leaking in. This component is given a small public project for Lean, a proof-checking program, with recorded proof steps, a retry that supplies a missing fact, and a proposed change to failure handling. It runs Lean on the project, rejecting steps that expose a full proof or let comparison notes or provider suggestions in, and any change that claims unlimited power over source files. It writes saved records of the run and the checks, without candidate proofs, showing whether the inputs pass or are blocked. It is a small public experiment and does not show that arbitrary proofs are correct.
+
 The execution spine runs a small public Lean project and checks recorded transitions, translation candidates and bounded policy-change candidates. It produces receipts with execution and validation results without including candidate proof bodies.
 
 ## Run the example

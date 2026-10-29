@@ -1,0 +1,10 @@
+{
+  "name": "plectis-component-explorer",
+  "private": true,
+  "description": "Local browser client for the Plectis component API. No dependencies or build step.",
+  "type": "module",
+  "scripts": {
+    "start": "python3 serve.py --start-backend",
+    "test": "node --test tests/*.test.mjs"
+  }
+}

@@ -1,5 +1,7 @@
 # Inspect the verifier-lab kernel
 
+> **In plain terms.** Testing an automatic prover goes wrong if a comparison note is counted as the prover's success or an outside suggestion is counted as a proof. This component is given results from smaller checks and a packet of public problems, comparison notes, provider hypotheses and proposed actions. It checks these against the packet's rules and rejects a comparison result counted as a success, a provider hypothesis claiming to be a proof, and full proofs where none belong. The output is a pass or blocked status with findings, showing whether the parts of this test keep their roles apart. It does not check arbitrary private proofs, and an outside suggestion is never treated as one.
+
 The verifier-lab kernel combines a public component stack with a packet of forward problems, oracle sidecars, provider hypotheses and candidate actions. A forward problem is a public task to be attempted; an oracle sidecar records comparison information about that task separately. For example, a sidecar may identify a missing commutativity premise, but that observation is not counted as a forward success. The kernel also separates the bounded Lean witness from advisory or translated candidates.
 
 ## Run the example

@@ -1,5 +1,7 @@
 # Inspect validator source and available checker exercises
 
+> **In plain terms.** A pass from a project's checking program means little until someone knows what it was able to check where it ran. This component is given a copy of that checking program's written code. It reports on six groups of checks, such as required markers in the code, and runs the checkers themselves only when the larger system the code was copied from is present. In a public copy it confirms only the required markers and labels the other groups as source-only, so a reader can tell which results come from running checkers. Having the right code alone cannot show how the checkers behave, how fully they cover their job or whether anything is ready for release.
+
 This fixture examines a copied validator module and reports six checker groups, including source anchors, status policy, private-boundary scanning, specimen checks, release-gate checks and an entrypoint witness. What a passing row means depends on the available runtime.
 
 With the parent macro state available and a non-bundle fixture, the evaluator runs the checker exercises. For an exported bundle or a public checkout without that state, it checks the source anchor matrix and marks the other rows `public_runtime_source_only`: those rows provide source-anchor and digest evidence, not executed checker results. Removing a required validator source or anchor is a negative case.

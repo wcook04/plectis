@@ -1,5 +1,7 @@
 # Check prediction-market row aggregation
 
+> **In plain terms.** Prediction markets let people trade on whether an event will happen, and a list of them can repeat a market or hide missing data. This component is given made-up market rows and records of which market is which, plus small test cases for data problems. Among duplicate listings it keeps the row with more trading, totals without double counting, and refuses to invent an identity for a market with no matching record. The output is totals plus data warnings, such as a feed with no rows or a change marked unavailable for lack of an earlier successful run. The examples do not test live prices, real data providers or forecast accuracy, and they are not trading advice.
+
 This fixture exercises copied board and quantitative-mart helpers using synthetic market rows, identity records and helper cases. It records deduplication and aggregate results alongside diagnostics for data availability and provider drift.
 
 ## Run the example

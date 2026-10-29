@@ -1,5 +1,7 @@
 # Exercise four copied tooling primitives
 
+> **In plain terms.** Small helper tools can fail on odd input, so they need trying on known cases. This check loads four copied helpers and gives them small example inputs. It divides the labels from two evidence lists into shared, missed and extra ones, edits a temporary document, tidies names, and notes a badly formed entry as a gap when reading sample files. The result is a status with findings, and only the step that divides the labels is checked by a mathematical proof against written rules, with the rest of the component outside that proof. These examples do not show that the inputs are true, that edits are right in meaning, or that predictions will succeed.
+
 This fixture loads four copied modules and checks their output on small inputs. The observer diff divides evidence IDs into overlap, missed and extra sets and compares prediction rows; malformed rows without the required key are skipped. A patch helper applies `set`, `merge` and `append` to a temporary document. An identity helper normalizes lane names and derives IDs. A parser records coverage for synthetic miner, spine and prediction artifacts.
 
 The negative cases check, among other things, that traversing a scalar during a patch raises an error, a stock record without its identity is refused, and a malformed tuple appears as a parser coverage gap.

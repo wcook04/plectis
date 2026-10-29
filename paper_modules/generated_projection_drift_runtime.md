@@ -1,5 +1,7 @@
 # Generated Projection Drift Runtime
 
+> **In plain terms.** Files made automatically from other files can fall out of step with their sources. This check is given example setups, each naming source files, the files generated from them, and a check that changes nothing. It fingerprints the sources and generated files, reuses an earlier clean result if the fingerprint matches, and otherwise checks that each generated file exists and runs the setup's own check. It reports the outcome without repairing or regenerating anything, and it treats a missing file as out of step even when the setup's own check passes. A clean result covers only the declared files and checks, and a matching fingerprint does not show the content is correct.
+
 This runtime exercises a generated-file drift gate using fixture owners. An owner names source files, generated artifacts, and a no-write check. The gate fingerprints the inputs and outputs, can reuse a prior clean receipt when its fingerprint matches, and otherwise checks artifact presence and the owner's command. It reports the outcome; it does not repair or regenerate files.
 
 The fixture includes a planted extra byte and a missing artifact. The missing artifact is drift even when the owner's check command returns success. A clean result is limited to the declared files and checks: a hash match is not a proof of semantic correctness or a validation of every generated file in the repository.

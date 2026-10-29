@@ -1,0 +1,189 @@
+/* Plectis design tokens for the component explorer.
+   Adapted from the public site's stylesheet (ai_workflow
+   sites/microcosm/assets/style.css, the source of the deployed
+   wcook04.github.io/plectis/assets/style.css): the same faces, the same wine
+   ground and bone ink at night, paper and ink by day, and the two identity
+   inks of the maps. On every figure red marks what a machine ran and azure
+   what is stated; neither colour means "verified". The light and dark blocks
+   must stay in step, and the dark block is written twice: once for the
+   system's choice and once for the reader's own. */
+
+@font-face { font-family: "Plectis Serif"; src: url("fonts/plectis-serif.woff2") format("woff2"); font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Plectis Serif"; src: url("fonts/plectis-serif-italic.woff2") format("woff2"); font-weight: 400 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Plectis Sans"; src: url("fonts/plectis-sans.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Plectis Sans"; src: url("fonts/plectis-sans-italic.woff2") format("woff2"); font-weight: 200 900; font-style: italic; font-display: swap; }
+@font-face { font-family: "Plectis Math"; src: url("fonts/plectis-math.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; unicode-range: U+2190-21FF, U+2200-2211, U+2213-22FF; }
+@font-face { font-family: "Plectis Serif Fallback"; src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif"); size-adjust: 105.63%; ascent-override: 72.14%; descent-override: 22.53%; line-gap-override: 23.67%; }
+@font-face { font-family: "Plectis Sans Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"); size-adjust: 94.72%; ascent-override: 108.11%; descent-override: 42.23%; line-gap-override: 0%; }
+
+:root {
+  color-scheme: light;
+  --page: #f8f0e2;
+  --surface: #fffdf7;
+  --surface-sunk: #f1e7d4;
+  --ink: #191520;
+  --ink-soft: #342d3d;
+  --muted: #544d5d;
+  --faint: #6d6473;
+  --rule: #eaddc9;
+  --rule-strong: #d9c7ae;
+  --rule-control: #96836a;
+  --accent: #29527b;
+  --accent-strong: #1b3f65;
+  --accent-wash: #e1ebf4;
+  --select-bg: #f6e2b2;
+  --edge: #8d8072;
+  --code-bg: #f2e8d2;
+  --code-ink: #37232c;
+  --on-accent: #ffffff;
+  --link-ext: #8f6212;
+  --ink-rgb: 27, 20, 35;
+  /* The maps' identity inks (style.css "weave" tokens). */
+  --weave-red: #9a322c;
+  --weave-azure: #2a5982;
+  --weave-red-glow: #9a322c;
+  --weave-azure-glow: #2a5982;
+  --home-ember: #9a322c;
+  --home-line: rgba(25, 21, 32, 0.10);
+  --home-line-strong: rgba(25, 21, 32, 0.18);
+
+  --font-serif: "Plectis Serif", "Plectis Math", "Plectis Serif Fallback", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Plectis Sans", "Plectis Math", "Plectis Sans Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --fs-micro: 0.75rem;
+  --fs-small: 0.8125rem;
+  --fs-meta: 0.875rem;
+  --fs-body: 0.9375rem;
+  --fs-base: 1rem;
+  --fs-h3: 1.0625rem;
+  --fs-lede: 1.125rem;
+  --fs-h2: 1.1875rem;
+  --lh-tight: 1.2;
+  --lh-snug: 1.4;
+  --lh-body: 1.62;
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 10px;
+  --r-pill: 999px;
+  --topbar-h: 58px;
+  --motion-fast: 140ms;
+  --motion-state: 180ms;
+  --ease-out: cubic-bezier(0.2, 0.75, 0.25, 1);
+  --ease-emph: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-move: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Map inks (maths.css --u-* tokens, renamed for components). Every figure
+     reads these as references, never as hexes of its own. */
+  --m-ground: var(--page);
+  --m-proved: var(--weave-red);
+  --m-stated: var(--weave-azure-glow);
+  --m-core: var(--ink);
+  --m-plate: rgba(25, 21, 32, 0.045);
+  --m-edge: rgba(25, 21, 32, 0.14);
+  --m-edge-hot: rgba(42, 89, 130, 0.55);
+  --m-halo: rgba(25, 21, 32, 0.10);
+  --m-faint: #9894a0;
+  /* Saved historical runs: warm, but not the red of a kept proof. */
+  --m-ember: #9c6a26;
+  /* One colour per coverage ring, far enough apart on the wheel to read in
+     the key: the proof in the maps' red, its broken versions in magenta, the
+     fingerprint match in orange, the call link in teal, Lean in violet, the
+     rerun in blue and past runs in gold. Green is left out: no ring means
+     "passed". */
+  --ring-proof: #b3261e;
+  --ring-variants: #a8326f;
+  --ring-bound: #b8560f;
+  --ring-caller: #13776a;
+  --ring-lean: #6a45b8;
+  --ring-replay: #2a63a8;
+  --ring-saved: #8a6a0a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #1c1526;
+    --surface: #272132;
+    --surface-sunk: #2f2839;
+    --ink: #f2e6d4;
+    --ink-soft: #ddcdbb;
+    --muted: #bcb8c6;
+    --faint: #a6a2b1;
+    --rule: #363040;
+    --rule-strong: #484251;
+    --rule-control: #757080;
+    --accent: #97c1df;
+    --accent-strong: #bdd8ec;
+    --accent-wash: #203244;
+    --select-bg: #58411b;
+    --edge: #817b8c;
+    --code-bg: #221c2c;
+    --code-ink: #e4d3bd;
+    --on-accent: #1c1526;
+    --link-ext: #e6b264;
+    --ink-rgb: 0, 0, 0;
+    --weave-red: #b84e45;
+    --weave-azure: #4d7fa9;
+    --weave-red-glow: #e67b6d;
+    --weave-azure-glow: #93c5e6;
+    --home-ember: #e18a79;
+    --home-line: rgba(242, 230, 212, 0.09);
+    --home-line-strong: rgba(242, 230, 212, 0.16);
+    --m-plate: rgba(242, 230, 212, 0.05);
+    --m-edge: rgba(242, 230, 212, 0.14);
+    --m-edge-hot: rgba(151, 193, 223, 0.7);
+    --m-halo: rgba(242, 230, 212, 0.12);
+    --m-faint: #85818e;
+    --m-ember: #d6a05e;
+    --ring-proof: #f2655a;
+    --ring-variants: #e46aa8;
+    --ring-bound: #f08a3c;
+    --ring-caller: #45b5a5;
+    --ring-lean: #a98bf0;
+    --ring-replay: #6aa6e8;
+    --ring-saved: #e2c25e;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #1c1526;
+  --surface: #272132;
+  --surface-sunk: #2f2839;
+  --ink: #f2e6d4;
+  --ink-soft: #ddcdbb;
+  --muted: #bcb8c6;
+  --faint: #a6a2b1;
+  --rule: #363040;
+  --rule-strong: #484251;
+  --rule-control: #757080;
+  --accent: #97c1df;
+  --accent-strong: #bdd8ec;
+  --accent-wash: #203244;
+  --select-bg: #58411b;
+  --edge: #817b8c;
+  --code-bg: #221c2c;
+  --code-ink: #e4d3bd;
+  --on-accent: #1c1526;
+  --link-ext: #e6b264;
+  --ink-rgb: 0, 0, 0;
+  --weave-red: #b84e45;
+  --weave-azure: #4d7fa9;
+  --weave-red-glow: #e67b6d;
+  --weave-azure-glow: #93c5e6;
+  --home-ember: #e18a79;
+  --home-line: rgba(242, 230, 212, 0.09);
+  --home-line-strong: rgba(242, 230, 212, 0.16);
+  --m-plate: rgba(242, 230, 212, 0.05);
+  --m-edge: rgba(242, 230, 212, 0.14);
+  --m-edge-hot: rgba(151, 193, 223, 0.7);
+  --m-halo: rgba(242, 230, 212, 0.12);
+  --m-faint: #85818e;
+  --m-ember: #d6a05e;
+  --ring-proof: #f2655a;
+  --ring-variants: #e46aa8;
+  --ring-bound: #f08a3c;
+  --ring-caller: #45b5a5;
+  --ring-lean: #a98bf0;
+  --ring-replay: #6aa6e8;
+  --ring-saved: #e2c25e;
+}

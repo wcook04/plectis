@@ -1,5 +1,7 @@
 # Run the Engine Room fixture composition
 
+> **In plain terms.** A toolkit built from small modules needs a way to see whether they still cover everything it should. This check is given a list of modules, an example exercise for each, the capabilities the set should cover, and a bad case naming a capability that does not exist. An audit goes through the modules, their exercises and the capabilities they cover, and the outcome is compared with what was expected, including catching the missing capability. It writes a result and validation record, and its tests show that changing one module's example changes the combined result. A pass describes only these public examples, not readiness for real use or complete security.
+
 The Engine Room demo composes bounded fixture checks from several Engine Room modules. Its accepted wrapper runs a controller audit of the configured modules, their fixture exercises and the named capabilities they cover. For example, `bridge_campaign_dag` is one expected capability, called a target in the audit. It writes a result, board and validation receipt, with an optional acceptance receipt.
 
 ## Run the example

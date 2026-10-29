@@ -1,5 +1,7 @@
 # Check a market dashboard read model
 
+> **In plain terms.** A market dashboard can mislead if its data has broken links, unsafe references or stale feeds. This component is given a made-up bundle of dashboard data, covering a queue of situations, a diagram of points and links, and feed status. It rejects a link with no destination or a reference that climbs out of its folder, tells a stale feed from a fresh one, and treats two situations as unrelated when they share no subject and differ in type. It writes a result for each of the three checks and notes how each broken example was handled. The examples concern only the dashboard's data and labels, not current market data, forecast accuracy or investment advice.
+
 This fixture loads a copied dashboard module and checks a synthetic dashboard payload containing a situation queue, graph nodes and links, evidence references and feed status. It also checks feed freshness and which situations the dashboard treats as related. It writes the three mechanism results and their negative-case observations.
 
 ## Run the example

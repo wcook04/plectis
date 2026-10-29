@@ -1,5 +1,7 @@
 # Test a structural-thesis family with losses and controls
 
+> **In plain terms.** A report on investment ideas can look better than it is when it shows only the ideas that worked. This check uses copied finance code to build made-up market claims, including winners, losers and a comparison case that should not count as a success. A validator rejects a set with only winners, and it flags a failed pattern promoted into the ideas to pursue and a comparison case relabeled as a confirmed claim. The output is a status with named findings, which shows whether the rules catch one-sided evidence. Because the claims are made up, it tests the rules only, not whether any prediction works, and it is not investment advice.
+
 This fixture builds a family of synthetic market theses using copied finance code and validates the resulting record. It includes winning and losing claims and a negative control, so the validator can check whether failed claims and controls remain visible in the sample.
 
 A survivor-only family is rejected with findings including `SURVIVORSHIP_SAMPLE`, `NO_LOSER_FLOWED_THROUGH`, and `NO_NEGATIVE_CONTROL`. Separate mutations promote a refuted pattern into forward candidates or mark a control as a confirmed claim; the validator reports `FORWARD_GATE_BREACH` or `CONTROL_LEAK`, respectively.

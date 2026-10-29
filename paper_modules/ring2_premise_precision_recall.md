@@ -1,5 +1,7 @@
 # Measure premise retrieval against labelled examples
 
+> **In plain terms.** A tool that suggests facts for a proof can be scored on how well its suggestions match what the proof needed. This component is given, for each problem, the tool's ranked suggestions, with a fixed number of places, and a separate list of the facts needed. It counts the needed facts found, then computes precision, the share of places holding a needed fact, and recall, the share of needed facts found. It reports both for each problem and overall, so the tool can be judged, and rejects any row that admits using the answer key. It cannot prove how the rankings were made, and its scores cover only the supplied examples.
+
 This harness compares retrieved premise rankings with separately supplied needed-premise labels. It recomputes hits, precision and recall from the public examples and reports aggregate metrics. For each row, precision is the number of unique hits divided by its declared top-k slots; recall is hits divided by needed premises. Aggregate precision uses total hits divided by total declared top-k slots, while aggregate recall uses total hits divided by total needed premises.
 
 ## Run the example

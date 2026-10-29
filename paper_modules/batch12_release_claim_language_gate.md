@@ -1,5 +1,7 @@
 # Test a release claim-language gate
 
+> **In plain terms.** Before a project is released, its documents need checking for risky claims about what the project is or can do. It writes two short sample documents, one warning against claiming the project is open source (its code shared openly) and one plainly claiming it is ready for real-world use. It runs a gate that looks for listed risky phrases in both and records which phrases matched and what the gate decided. The readiness claim is blocked, so someone can check that the gate catches that kind of wording. In this copy a simplified public stand-in replaces the original gate, so the example tests the stand-in, and a pass does not approve a release.
+
 This fixture writes two sample documents in temporary directories: one warns against an open-source claim, while the other affirmatively claims production readiness. It runs the declared public fallback claim-language gate against both. The result records matched phrase IDs, gate status and the assert-clear exit code.
 
 ## Run the example

@@ -1,5 +1,7 @@
 # Check monitor verdicts against adversarial probes
 
+> **In plain terms.** A monitor program that watches an automated assistant for problems should be tested against deliberate attempts to fool it. This component is given example records of the watched assistant's actions, the test attacks aimed at the monitor, the monitor's observations, and how flagged problems were handled. It works out again which cases the test attacks cover and what the monitor's verdict should be, then compares both with the recorded labels. The output says whether the evidence meets the example's requirements and lists mismatches, such as a coverage claim with no matching test attack. These are fixed example records, not a live monitor, so a pass says nothing about how often a real monitor catches problems.
+
 This replay joins public trajectory metadata, adversarial probes, monitor observations, escalation and mitigation evidence. It recomputes coverage and monitor verdicts and compares them with the recorded labels. The output identifies whether the supplied evidence satisfies the fixture contract, with findings for mismatches.
 
 For example, a declared coverage claim without a corresponding probe is rejected. The regression tests also change evidence and verify that the computed verdict changes. The examples are bounded public replay records, not a live monitor or an estimate of a monitor’s detection rate. A passing receipt cannot establish real-world safety.

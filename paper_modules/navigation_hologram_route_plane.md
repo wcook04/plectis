@@ -1,5 +1,7 @@
 # Navigation route-plane validation
 
+> **In plain terms.** A list of suggested ways to dig deeper into a project can go stale or include an option with no command. This check reads the options, each meant to name a command, plus a note recording a fingerprint (a short code that changes if the list changes) and a row count. It rejects an option without a command, compares the fingerprint and count with the list, and refuses a derived summary that claims to be current when they differ. It writes a status and a list of problems, so a maintainer can see what needs fixing. Matching fingerprints show only that contents agree with what was referenced, not that the routes are useful or correct.
+
 Checks public route rows and records that bind them to an entry route, then writes a validation receipt.
 
 ## Run the example

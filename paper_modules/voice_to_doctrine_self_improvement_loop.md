@@ -1,5 +1,7 @@
 # Validate a lesson-to-owner record
 
+> **In plain terms.** A lesson learned on a project should reach whoever owns the relevant guidance, be checked and be closed out. This check reads a policy for how lessons may spread, plus records naming each lesson's trigger, owner, action, check and closing step. It follows each reference, compares each lesson with the allowed sequence, and rejects a lesson promoted project-wide without its owner's check. It writes a report with no private text so the records can be inspected, and it rejects raw spoken remarks or private discussions in the input. It checks records and references only, so it does not make the change a lesson describes or show that private remarks were represented faithfully.
+
 This validator checks public records that connect a local lesson to an owner surface, validation and closeout. It reads a propagation policy, owner-surface references and lesson rows, and writes a body-free report.
 
 ## Run the example

@@ -1,5 +1,7 @@
 # Pattern binding validation
 
+> **In plain terms.** A reusable pattern should be tied to the written rule that governs it, to its sources and to its limits. This check reads pattern entries that each name the governing rule, source references and limits, plus records of where its authority comes from. It rejects entries with missing fields or references, conflicting duplicates, private source text, or public claims that go beyond their evidence. It writes a validation result and related saved records, so a maintainer can see which pattern entries are consistent. A passing entry is only a consistent record, which does not show that the pattern is useful or that the copied source is correct.
+
 Checks pattern rows and their source, reference and authority-chain records, producing a validation result and related receipts.
 
 ## Run the example

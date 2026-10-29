@@ -1,5 +1,7 @@
 # Choose tactics for a target shape
 
+> **In plain terms.** Different kinds of statement call for different automatic proof methods, called tactics, so a program must choose among them. This component is given notes on which tactics are available and example cases giving a statement's shape, the candidates and the tactic chosen. It checks each choice against availability and the preferences for that shape, and requires a fallback when the shape is unknown or the preferred tactic is unavailable. It writes a routing report for use before a proof attempt. Only the small step that picks the first usable preferred tactic is checked by a mathematical proof against written rules; the rest of the component lies outside that proof, and a chosen tactic is only a suggestion.
+
 This gate reads recorded tactic availability and target-shape route cases, then checks the selected tactic against the candidates, availability and shape-specific preferences. It writes a routing report for use before proof execution.
 
 ## Run the example

@@ -1,5 +1,7 @@
 # Check a memory quarantine and rollback record
 
+> **In plain terms.** An assistant with long-term memory can save a poisoned note that does harm when retrieved later. This component is given made-up records, holding references rather than the notes themselves, of a poisoned write, its quarantine, a later retrieval and a rollback, meaning removal. It checks where the memory came from and the links between the quarantined note, the retrieval check, the quarantine decision record and the re-run record. The output lists findings, and a retrieval that admits a quarantined note or fails to cite that decision record is rejected. These invented records test the policy checks only, not what happens in a real session or whether a live memory system is secure.
+
 This replay examines public metadata for a poisoned memory write, quarantine, later retrieval and rollback. It checks provenance and links between the quarantined memory, retrieval gate, audit reference and cold-rerun record. Results contain references and findings rather than memory bodies.
 
 ## Run the example

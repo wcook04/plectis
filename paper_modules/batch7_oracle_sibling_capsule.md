@@ -1,5 +1,7 @@
 # Exercise Oracle indexing and repair planning
 
+> **In plain terms.** A system that produces many output files needs a way to list them and fill gaps. It is given copied code from Oracle, a market-evidence system, and the output files of a small sample run. It lists those files, builds a snapshot, compares an economic data series and tests a plan for filling in files missing from a related run. The plan stays blocked because some inputs it needs are missing, and the output is a set of short summaries of how the copied code behaves on the sample. The examples do not show that the files' contents are true, that Oracle reasons well about live markets, or that the full system is covered.
+
 This fixture loads copied modules from Oracle, a market-evidence system, to index artifacts from a sample subject run, build a snapshot and compare a macroeconomic series. It also tests a plan for filling missing artifacts in a related truth run and runs an original pytest witness. It writes summaries of these local exercises.
 
 ## Run the example

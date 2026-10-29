@@ -1,5 +1,7 @@
 # Replay a process-reward record with verifier feedback
 
+> **In plain terms.** When a program is trained with scores for each step and for its final result, careless scoring can reward the wrong things. This component is given made-up records of task attempts, covering the program's beliefs, the feedback it received, the scores awarded and a stored re-run. It follows each link between these records and checks them against a written rule, under which every step score must rest on an automatic checker or observed feedback. It reports a pass or a block with findings, for example rejecting a bypassed checker or a score for neat formatting. It checks only the supplied records, not a live training run, a benchmark result or evidence that any model improved.
+
 This replay checks synthetic records of task episodes, belief states, feedback and rewards. Process rewards refer to intermediate steps; outcome rewards refer to the final result. A trajectory group links those rewards with an episode and a stored cold-replay record, which names replay evidence and records a status.
 
 For example, the terminal-investigation fixture links its first belief state and process reward to `fb_terminal_1`, a deterministic-verifier feedback record. Its trajectory group also names a second process reward and an outcome reward. The validator checks these references and their relationships. Its policy permits process rewards based on deterministic verification or observed environment feedback, and requires a cold-replay record, an outcome reward and a reward-hacking trap.

@@ -132,7 +132,7 @@ PUBLIC_TESTS += tests/test_doctrine_source_projection.py
 PUBLIC_TESTS += tests/test_cognitive_operator_registry.py tests/test_proof_derived_governed_mutation_authorization.py
 PUBLIC_TESTS += tests/test_world_model_projection_drift_control_room.py
 
-.PHONY: operations-demo operations-test verify-operations
+.PHONY: explorer operations-demo operations-test verify-operations
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card
 .PHONY: flight-recorder flight-recorder-verify
@@ -144,6 +144,7 @@ help:
 	@printf '%s\n' \
 		"Plectis commands:" \
 		"  make operations-demo     run the local workflow-change experiment" \
+		"  make explorer            start the component API and the browser explorer" \
 		"  make operations-test     test the portable operation APIs" \
 		"  make verify-operations   recheck proofs with DAFNY=/path/to/dafny" \
 		"  make verify-components   recheck component proofs with DAFNY=/path/to/dafny" \
@@ -234,6 +235,9 @@ public-site-parity:
 package-smoke:
 	@# Preserve rejected paths and failed-run evidence; clean only a successful run.
 	@status=0; "$(PYTHON)" scripts/release/package_install_smoke.py --source-root . --work-dir "$(PACKAGE_SMOKE_TMP)" --python "$(PYTHON)" || status=$$?; if [ "$$status" -eq 0 ] && [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status
+
+explorer:
+	@"$(PYTHON)" frontend/serve.py --start-backend
 
 operations-demo:
 	@PYTHONPATH=src "$(PYTHON)" examples/operations/evaluation.py --format text

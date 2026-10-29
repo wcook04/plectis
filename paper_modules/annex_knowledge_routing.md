@@ -1,5 +1,7 @@
 # Rank a small catalogue by keyword overlap
 
+> **In plain terms.** A catalogue of entries only helps if a person can find the ones that fit their problem. This ranking tool reads a written problem and a small catalogue, where each entry has routing labels, family text, a summary and notes. It counts the words and phrases the problem shares with each entry, weighting routing labels most, then family text, then summary and notes. It returns a ranked list showing what matched in each entry, so a person can pick the best fit, or reports no match when nothing overlaps or a chosen filter excludes every entry. It matches words and phrases, not meaning, and it searches only the catalogue it is given.
+
 The annex router takes a problem statement and an in-memory catalogue, scores matching terms and returns ranked entries with a breakdown of their matches. Structured routing fields receive the highest weight, followed by family text, summaries and notes. Optional domain and cluster filters restrict the candidates.
 
 The fixture runner checks positive matches and two negative cases: no overlapping terms and a domain filter that excludes the candidates. In both cases the router returns `no_match`. The component uses weighted token and phrase matching, not semantic or embedding search. It searches only the supplied catalogue and does not establish licensing or provenance.

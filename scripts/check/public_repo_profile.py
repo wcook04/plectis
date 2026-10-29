@@ -50,7 +50,7 @@ PYTHON_TOOL_ALLOWED = {
     "QUICKSTART.md", "README.md", "SECURITY.md", "bootstrap.sh", "pyproject.toml",
     # setuptools adds these standard metadata files to source distributions.
     "PKG-INFO", "setup.cfg",
-    "assets", "atlas", "core", "docs", "examples", "fixtures", "formal", "paper",
+    "assets", "atlas", "core", "docs", "examples", "fixtures", "formal", "frontend", "paper",
     "paper_modules", "plectis-public-system.pdf",
     "receipts", "scripts", "skills", "src", "standards", "tests",
 }

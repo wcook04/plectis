@@ -1,5 +1,7 @@
 # Check a public walkthrough against its evidence
 
+> **In plain terms.** A public walkthrough can make claims that nothing in it backs up. This check reads a walkthrough's steps, each naming a command, something to inspect and a reference to evidence, plus a declared time budget. It rejects a walkthrough with a budget over ten minutes, fewer than five steps, too few different commands or evidence references, or a step missing a part. It writes a summary sheet and a list of problems, helping a reader follow each claim to its evidence. One small decision step is checked by a mathematical proof against written rules, while the rest lies outside that proof, and the proof does not cover real running time or whether evidence supports a claim.
+
 The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references. It produces a board and findings to help a reader follow a claim to supporting material.
 
 ## Run the example
