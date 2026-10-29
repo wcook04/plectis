@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Plectis">
+  <!-- The site's identity at tab scale. Plectis is plectere — to plait — so the
+       mark is a plait: two strands crossing three times, over and under, cut off
+       by the tile rather than tucked inside it.
+
+       One geometry, two palettes, because the sheet has two registers and the
+       mark should obey the same law as the page it heads:
+
+         night — after the photograph of two entangled photons the site is
+         keyed to (a red half and a blue half on violet), held at a mature
+         chroma: the warm strand enters plum, rises through brick red to a
+         coral peak at the centre crossing and cools back to plum; the cold
+         strand answers in the same shape (deep steel entering, steel blue
+         rising, pale sky at the centre crossing where it rides over).
+         Violet-black ground.
+
+         day — the printed register. No temperature to spend, so the strands
+         separate on value alone: one goes to ink exactly where the other goes to
+         bone, so they are furthest apart at the crossings. Paper ground, and a
+         real edge, because on a white search card the paper tile would otherwise
+         have no boundary at all.
+
+       Both strands take their light from the same direction in both palettes, so
+       the tile reads as one object under one source rather than as two ribbons.
+
+       Geometry: strands are cosines about x=32, amplitude 13, pitch 24 — so the
+       crossings land at y=8, 32 and 56, symmetric about the centre. Over/under
+       alternates (cold over at 32, warm over at 8 and 56); that alternation is
+       the whole reason it reads as woven and not as a pair of stripes.
+
+       Both palettes put their extremes at the centre of the tile — the cold
+       strand's ice and the ink strand's black land on the y=32 crossing they
+       ride over. That shared centre is what keeps the plait legible down at
+       16px, where each strand is four pixels wide and only value survives, and
+       it is what Google's circle crop keeps.
+
+       Switching: the media query is the auto case, and is what the browser tab
+       reads. The .force-day / .force-night classes are for consumers that must
+       pin a palette — tools/brand/plectis_favicon.py stamps one on the root to
+       render the rasters and to project the two pinned sibling files that the
+       site's own theme toggle swaps between (the site's toggle can be set
+       against the OS preference, and an <img> cannot see data-theme). -->
+  <style>
+    /* Each palette is written once. Everything below is plumbing. */
+    :root {
+      --night-ground: #140c1e;
+      --night-warm: url(#p-ember);
+      --night-cold: url(#p-night);
+      --night-edge: #f2e6d4;
+      --night-edge-a: 0.16;
+
+      --day-ground: #f4ead6;
+      --day-warm: url(#p-ink);
+      --day-cold: url(#p-bone);
+      --day-edge: #211318;
+      --day-edge-a: 0.24;
+
+      --ground: var(--night-ground);
+      --warm: var(--night-warm);
+      --cold: var(--night-cold);
+      --edge: var(--night-edge);
+      --edge-a: var(--night-edge-a);
+    }
+    @media (prefers-color-scheme: light) {
+      :root:not(.force-night) {
+        --ground: var(--day-ground); --warm: var(--day-warm); --cold: var(--day-cold);
+        --edge: var(--day-edge); --edge-a: var(--day-edge-a);
+      }
+    }
+    .force-day {
+      --ground: var(--day-ground); --warm: var(--day-warm); --cold: var(--day-cold);
+      --edge: var(--day-edge); --edge-a: var(--day-edge-a);
+    }
+    .force-night {
+      --ground: var(--night-ground); --warm: var(--night-warm); --cold: var(--night-cold);
+      --edge: var(--night-edge); --edge-a: var(--night-edge-a);
+    }
+    .tile { fill: var(--ground); }
+    /* The knockout is the ground redrawn wider, which is what cuts the gap that
+       makes one strand read as passing behind the other. */
+    .knock { stroke: var(--ground); stroke-width: 22; }
+    .warm { stroke: var(--warm); }
+    .cold { stroke: var(--cold); }
+    .edge { stroke: var(--edge); stroke-opacity: var(--edge-a); }
+  </style>
+  <defs>
+    <linearGradient id="p-ember" x1="0.18" y1="0" x2="0.82" y2="1">
+      <stop offset="0" stop-color="#3a1d42"/>
+      <stop offset="0.16" stop-color="#6e2630"/>
+      <stop offset="0.34" stop-color="#a8443d"/>
+      <stop offset="0.5" stop-color="#e08070"/>
+      <stop offset="0.66" stop-color="#a8443d"/>
+      <stop offset="0.82" stop-color="#6c2a40"/>
+      <stop offset="1" stop-color="#352142"/>
+    </linearGradient>
+    <!-- The cold key, azure, on the warm strand's own light axis. Deep enough at the ends to
+         read as night rather than as pale blue plastic; the ice at 0.5 is the
+         only near-white in the tile and it is spent on the centre crossing. -->
+    <linearGradient id="p-night" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#1b2a44"/>
+      <stop offset="0.18" stop-color="#2c4a6c"/>
+      <stop offset="0.34" stop-color="#4d7fa9"/>
+      <stop offset="0.5" stop-color="#bad6ea"/>
+      <stop offset="0.66" stop-color="#4d7fa9"/>
+      <stop offset="0.82" stop-color="#2a4668"/>
+      <stop offset="1" stop-color="#1c2a46"/>
+    </linearGradient>
+    <!-- Day: the ember's slot, taken to ink. Darkest at the centre crossing,
+         lifting to graphite where the tile cuts it. -->
+    <linearGradient id="p-ink" x1="0.18" y1="0" x2="0.82" y2="1">
+      <stop offset="0" stop-color="#4a3f39"/>
+      <stop offset="0.18" stop-color="#2d2422"/>
+      <stop offset="0.34" stop-color="#1c1516"/>
+      <stop offset="0.5" stop-color="#100c0d"/>
+      <stop offset="0.66" stop-color="#1c1516"/>
+      <stop offset="0.82" stop-color="#302623"/>
+      <stop offset="1" stop-color="#4d423b"/>
+    </linearGradient>
+    <!-- Day: the cold strand's slot, taken to bone. Held clearly above the paper
+         ground at every offset, or the strand stops existing. -->
+    <linearGradient id="p-bone" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#c2b29a"/>
+      <stop offset="0.16" stop-color="#ddd0ba"/>
+      <stop offset="0.32" stop-color="#f7f0e4"/>
+      <stop offset="0.5" stop-color="#ffffff"/>
+      <stop offset="0.68" stop-color="#f4ece0"/>
+      <stop offset="0.84" stop-color="#d8cab4"/>
+      <stop offset="1" stop-color="#bdac94"/>
+    </linearGradient>
+    <clipPath id="p-tile"><rect width="64" height="64" rx="32"/></clipPath>
+    <!-- The two bands where the warm strand is the one on top. -->
+    <clipPath id="p-over"><rect x="-12" y="-4" width="88" height="24"/><rect x="-12" y="44" width="88" height="24"/></clipPath>
+  </defs>
+  <rect class="tile" width="64" height="64" rx="32"/>
+  <g clip-path="url(#p-tile)">
+    <g fill="none" stroke-width="16">
+      <path class="warm" d="M17 -4 C17 2.5 47 13.5 47 20 C47 26.5 17 37.5 17 44 C17 50.5 47 61.5 47 68"/>
+      <path class="knock" d="M47 -4 C47 2.5 17 13.5 17 20 C17 26.5 47 37.5 47 44 C47 50.5 17 61.5 17 68"/>
+      <path class="cold" d="M47 -4 C47 2.5 17 13.5 17 20 C17 26.5 47 37.5 47 44 C47 50.5 17 61.5 17 68"/>
+      <g clip-path="url(#p-over)">
+        <path class="knock" d="M17 -4 C17 2.5 47 13.5 47 20 C47 26.5 17 37.5 17 44 C17 50.5 47 61.5 47 68"/>
+        <path class="warm" d="M17 -4 C17 2.5 47 13.5 47 20 C47 26.5 17 37.5 17 44 C17 50.5 47 61.5 47 68"/>
+      </g>
+    </g>
+  </g>
+  <!-- id and class are both load-bearing: tools/brand/plectis_favicon.py hides
+       this rect and squares every rx via injected CSS when it renders the
+       maskable rasters, so the tile stays a single source of truth. -->
+  <rect id="p-edge" class="edge" x="0.5" y="0.5" width="63" height="63" rx="31.5" fill="none"/>
+</svg>

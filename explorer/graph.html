@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="plectis-static-export" content="{&quot;exported_at&quot;:&quot;2026-10-29T14:15:54+00:00&quot;,&quot;snapshot_revision&quot;:&quot;45be1deb333ad57cd9ae093229455d0a52d3bf23a9064cde09f1a6e16f4c7044&quot;,&quot;source_commit&quot;:&quot;753387dd399c8c2b837945a48d4b2e816e0ca8dc&quot;,&quot;source_dirty&quot;:false}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Practical formal verification · Plectis</title>
+  <meta name="description" content="A map of the Plectis system: which of its computations are proved, by a computer, to follow written rules, how the proved code reaches the parts that use it, and what nothing has checked yet.">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1526">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script>
+    // Stamp the saved or system theme before first paint (the site's theme-init.js).
+    (function () {
+      var s = null;
+      try { s = localStorage.getItem('plectis-theme'); } catch (e) {}
+      var dark = s === 'dark' || (s !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    })();
+  </script>
+  <link rel="preload" href="assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/tokens.css">
+  <link rel="stylesheet" href="assets/app.css">
+  <link rel="modulepreload" href="src/dom.js">
+  <script type="module" src="src/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="wordmark" href="./" data-route><img src="assets/favicon.svg" alt="" width="26" height="26">Plectis <span class="wordmark__sub">Practical formal verification</span></a>
+      <nav class="topbar__links" aria-label="Primary">
+        <a href="./" data-route data-nav="map">Map</a>
+        <a href="catalogue" data-route data-nav="catalogue">Components</a>
+        <a href="coverage" data-route data-nav="coverage">Coverage</a>
+        <button type="button" class="theme-toggle" role="switch" aria-checked="false" aria-label="Dark theme" data-theme-toggle>
+          <span class="theme-toggle__track"><span class="theme-toggle__knob"></span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+  <main id="main" tabindex="-1"></main>
+  <p class="sr-only" aria-live="polite" data-announce></p>
+  <noscript><p style="padding:24px">The component explorer needs JavaScript to draw the map.</p></noscript>
+</body>
+</html>
