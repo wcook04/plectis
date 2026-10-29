@@ -282,8 +282,11 @@ def test_runtime_library_views_and_current_check_are_distinct(owners):
     stale = copy.deepcopy(index)
     guide = view["claim"]["card"]["primary_guide_ref"]
     next(row for row in stale["nodes"]["artifact"] if row["ref"] == guide)["sha256"] = "0" * 64
-    assert component_index.check_component_bindings(stale, SOURCE, view["component_id"])["status"] == "mismatch"
-    assert component_index.get_component(stale, view["component_id"])["evidence_state"]["fresh_prover"]["status"] == "not_recorded_by_index"
+    # The explorer retains each guide's text with its hash, so an index whose
+    # artifact hash no longer matches that retained guide is refused outright.
+    with pytest.raises(ValueError, match="guide source binding mismatch"):
+        component_index.check_component_bindings(stale, SOURCE, view["component_id"])
+    assert view["evidence_state"]["fresh_prover"]["status"] == "not_recorded_by_index"
     for value in ("../arbitrary", "invented_component"):
         with pytest.raises(component_index.UnknownComponent):
             component_index.get_component(index, value)
