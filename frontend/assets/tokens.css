@@ -72,6 +72,19 @@
   --ease-emph: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-move: cubic-bezier(0.65, 0, 0.35, 1);
 
+  /* The family lockup (app.css, copied from wcook04.github.io
+     assets/family/family.css) reads these --fam-* names. The two mark inks
+     are the Plectis brick and steel, already this site's glow inks in both
+     themes. */
+  --fam-page: var(--page);
+  --fam-ink: var(--ink);
+  --fam-rule-strong: var(--rule-strong);
+  --fam-accent: var(--accent);
+  --fam-mark-warm: var(--weave-red-glow);
+  --fam-mark-cool: var(--weave-azure-glow);
+  --fam-serif: var(--font-serif);
+  --fam-ease: var(--ease-out);
+
   /* Map inks (maths.css --u-* tokens, renamed for components). Every figure
      reads these as references, never as hexes of its own. */
   --m-ground: var(--page);
