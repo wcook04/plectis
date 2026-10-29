@@ -14,8 +14,19 @@ from urllib.parse import quote, urlencode
 from wsgiref.simple_server import make_server
 
 import pytest
+from jsonschema import Draft202012Validator
+from openapi_spec_validator import validate as validate_openapi
 
 from microcosm_core import component_http as api, component_index
+
+
+def test_advertised_graph_counts_match_the_traversable_snapshot(snapshot):
+    from collections import Counter
+    graph = json.loads(snapshot.metadata)["graph"]
+    assert graph["edge_kind_counts"] == dict(Counter(edge["kind"] for edge in snapshot.edges))
+    assert set(graph["edge_kinds"]) == set(graph["edge_kind_counts"])
+    for kind in {"rests_on", "violates"} & set(graph["edge_kinds"]):
+        assert graph["edge_semantics"][kind]
 
 
 @pytest.fixture(scope="session")
@@ -96,6 +107,79 @@ def test_http_metadata_head_conditional_and_no_false_freshness(transport):
         assert conditional["ETag"] == headers["ETag"]
 
 
+def test_discoverable_contract_matches_real_http_responses(transport):
+    _, _, body = transport()
+    metadata = json.loads(body)["data"]
+    status, headers, body = transport(metadata["contract"]["openapi"])
+    contract = json.loads(body)
+    assert status == 200 and contract["info"]["version"] == metadata["contract"]["version"]
+    validate_openapi(contract)
+    samples = {
+        "/components/{organ_id}": "/components/mcp_tool_authority_replay",
+        "/claims/{claim_id}": "/claims/claim::mcp_tool_authority_replay",
+        "/proofs/{proof_id}": "/proofs/proof::dafny::mcp_authority",
+        "/cores/{core_id}": "/cores/repair",
+        "/graph": "/graph?type=organ&id=mcp_tool_authority_replay&max_edges=1",
+    }
+    for route, operations in contract["paths"].items():
+        suffix = route.removeprefix(api.API_PREFIX)
+        path = api.API_PREFIX + samples.get(suffix, suffix)
+        if suffix == "/cores/{core_id}" and metadata.get("core_count", 0) == 0:
+            assert transport(path)[0] == 404
+            continue
+        code, _, payload = transport(path)
+        assert code == 200, (route, payload)
+        schema = operations["get"]["responses"]["200"]["content"]["application/json"]["schema"]
+        Draft202012Validator({**schema, "components": contract["components"]}).validate(json.loads(payload))
+        code, head, empty = transport(path, method="HEAD")
+        assert code == 200 and empty == b"" and head["Content-Length"] == str(len(payload))
+    assert transport("/api/v1/openapi.json", headers={"If-None-Match": headers["ETag"]})[0] == 304
+    assert transport("/api/v1/openapi.json?unused=1")[0] == 400
+    assert transport("/api/v1/openapi.json", method="POST")[0] == 405
+
+
+def test_search_pagination_filters_and_query_identity(transport, snapshot):
+    # Deliberately search visible text rather than a known component identifier.
+    query = {"q": "  THE  ", "limit": 1}
+    expected = [key for key in snapshot.ids if "the" in snapshot.search_text[key]]
+    assert len(expected) > 1
+    rows = []
+    while True:
+        status, _, body = transport("/api/v1/components?" + urlencode(query))
+        page = json.loads(body)["data"]
+        assert status == 200 and page["total"] == len(expected)
+        rows.extend(row["organ_id"] for row in page["items"])
+        cursor = page["next_cursor"]
+        if cursor is None:
+            break
+        # Equivalent casing and outer whitespace preserve the search identity.
+        query.update(q="the", cursor=cursor)
+    assert rows == expected
+    status, _, body = transport("/api/v1/components?" + urlencode({"q": "the", "limit": 1}))
+    cursor = json.loads(body)["data"]["next_cursor"]
+    status, _, body = transport("/api/v1/components?" + urlencode({"q": "and", "limit": 1, "cursor": cursor}))
+    assert status == 400 and json.loads(body)["error"]["code"] == "invalid_cursor"
+    family = json.loads(snapshot.summaries[expected[0]])["classification"]["family"]
+    status, _, body = transport("/api/v1/components?" + urlencode({"q": "the", "family": family, "limit": 100}))
+    filtered = json.loads(body)["data"]
+    assert status == 200 and filtered["items"]
+    assert all(row["classification"]["family"] == family for row in filtered["items"])
+    assert all(row["organ_id"] in expected for row in filtered["items"])
+
+
+@pytest.mark.parametrize("query", ["", "   ", "x" * 161, "\x00", "\n"])
+def test_invalid_search_is_bounded_client_error(transport, query):
+    status, _, body = transport("/api/v1/components?" + urlencode({"q": query}))
+    assert status == 400 and json.loads(body)["error"]["code"] == "invalid_parameters"
+
+
+def test_search_no_matches_and_literal_metacharacters(transport):
+    for query in ("does-not-exist-in-the-component-catalogue", ".*", "[a-z]+"):
+        status, _, body = transport("/api/v1/components?" + urlencode({"q": query}))
+        page = json.loads(body)["data"]
+        assert status == 200 and page == {"items": [], "total": 0, "limit": 25, "next_cursor": None}
+
+
 def test_component_claim_proof_and_receipt_views(transport, snapshot):
     key = "mcp_tool_authority_replay"
     status, _, body = transport("/api/v1/components/" + key)
@@ -117,7 +201,9 @@ def test_component_claim_proof_and_receipt_views(transport, snapshot):
 
 
 def test_receipt_queries_cover_every_registered_component(transport, raw):
-    artifacts = {row["artifact_id"]: row for row in raw["nodes"]["artifact"]}
+    summaries = {row['ref']: row for row in raw.get('explorer', {}).get('receipt_summaries', [])}
+    artifacts = {row["artifact_id"]: {**row, **({'summary': summaries[row['artifact_id']]}
+                 if row['artifact_id'] in summaries else {})} for row in raw["nodes"]["artifact"]}
     claims = {row["organ_id"]: row for row in raw["nodes"]["claim"]}
     registered = {row["organ_id"] for row in raw["nodes"]["organ"]}
     assert set(claims) == registered
@@ -142,7 +228,9 @@ def test_receipt_queries_cover_every_registered_component(transport, raw):
 
 
 def test_receipt_catalog_is_exact_authorized_union(transport, raw):
-    artifacts = {row["artifact_id"]: row for row in raw["nodes"]["artifact"]}
+    summaries = {row['ref']: row for row in raw.get('explorer', {}).get('receipt_summaries', [])}
+    artifacts = {row["artifact_id"]: {**row, **({'summary': summaries[row['artifact_id']]}
+                 if row['artifact_id'] in summaries else {})} for row in raw["nodes"]["artifact"]}
     graph_refs = {edge[side] for edge in raw["edges"] for side in ("from", "to")
                   if edge[side + "_type"] == "receipt"}
     evidence_refs = set()
@@ -407,3 +495,232 @@ def test_coverage_facets_keep_denominators_and_unknowns(transport, raw):
     assert data["whole_claim_coverage"]["percentage"] is None
     for result in data["fresh_results"].values():
         assert result == {"status": "not_run_by_index", "recorded_count": 0}
+
+
+def test_overview_agrees_with_existing_routes_and_transport(transport, snapshot):
+    status, headers, body = transport('/api/v1/overview')
+    assert status == 200 and len(body) <= api.MAX_OVERVIEW_BYTES
+    overview = json.loads(body)
+    assert overview['snapshot_revision'] == snapshot.revision
+    data = overview['data']
+    assert data['coverage'] == json.loads(transport('/api/v1/coverage')[2])['data']
+    assert data['kernels'] == json.loads(transport('/api/v1/proofs?limit=100')[2])['data']['items']
+    assert data['receipts'] == [json.loads(snapshot.receipts[key]) for key in sorted(snapshot.receipts)]
+    for row in data['components']:
+        component = json.loads(transport('/api/v1/components/' + row['organ_id'])[2])['data']
+        summary = json.loads(snapshot.summaries[row['organ_id']])
+        assert all(row[key] == value for key, value in summary.items())
+        assert row['proof_ids'] == [proof['proof']['proof_id'] for proof in component['proofs']]
+        assert row['receipt_refs'] == [json.loads(snapshot.receipts[key])
+                                      for key in snapshot.receipts_by_component[row['organ_id']]]
+        expected = [edge['to'] for edge in snapshot.edges if edge['kind'] == 'wires_to'
+                    and edge['from'] == row['organ_id']]
+        assert row['wires_to'] == sorted(expected)
+    status, head, empty = transport('/api/v1/overview', method='HEAD')
+    assert status == 200 and empty == b''
+    assert head['Content-Length'] == str(len(body)) and head['ETag'] == headers['ETag']
+    assert transport('/api/v1/overview', headers={'If-None-Match': headers['ETag']})[0] == 304
+    assert transport('/api/v1/overview?limit=1')[0] == 400
+
+
+def test_overview_is_preencoded_without_io_or_request_compilation(snapshot, monkeypatch):
+    app = api.ComponentApplication(snapshot, cache_size=0, cache_bytes=0)
+    def forbidden(*args, **kwargs):
+        raise AssertionError('request attempted source IO or view compilation')
+    monkeypatch.setattr(Path, 'open', forbidden)
+    monkeypatch.setattr(component_index, 'compile_views', forbidden)
+    monkeypatch.setattr(api, '_dispatch', forbidden)
+    status, _, body = wsgi(app, '/api/v1/overview')
+    assert status == 200 and body is snapshot.overview
+    assert not app._cache and app._cached_bytes == 0
+
+
+def test_overview_encoded_limit_is_admission_boundary(raw, monkeypatch):
+    monkeypatch.setattr(api, 'MAX_OVERVIEW_BYTES', 1)
+    with pytest.raises(ValueError, match='overview exceeds encoded response limit'):
+        api.ComponentSnapshot(raw)
+
+
+
+def test_cores_and_explorer_use_same_snapshot_views(transport, snapshot):
+    _, _, body = transport('/api/v1/overview')
+    overview = json.loads(body)['data']
+    status, _, body = transport('/api/v1/cores?limit=100')
+    assert status == 200
+    assert json.loads(body)['data']['items'] == overview['cores']
+    for row in overview['cores']:
+        status, headers, body = transport('/api/v1/cores/' + row['core_id'])
+        assert status == 200 and json.loads(body)['data'] == row
+        assert headers['X-Plectis-Snapshot-Revision'] == snapshot.revision
+    assert transport('/api/v1/cores/absent')[0] == 404
+    assert transport('/api/v1/cores/core::dafny::repair')[0] == 400
+    assert transport('/api/v1/cores?component=x')[0] == 400
+
+
+
+def test_explorer_contract_declares_bounded_source_and_evidence_shapes():
+    schemas = api.component_api_contract.openapi_document()['components']['schemas']
+    for name in ('SourceExcerpt', 'ChangedLine', 'NegativeControl', 'DoctrineNode',
+                 'DoctrineEdge', 'SourceRevision', 'ReceiptSummary', 'ArtifactBinding'):
+        Draft202012Validator.check_schema(schemas[name])
+    excerpt = {'ref': 'formal/example.dfy#Exact', 'kind': 'lemma', 'name': 'Exact',
+               'line_start': 1, 'line_end': 2, 'text': 'lemma Exact() {}',
+               'source_sha256': 'a' * 64, 'text_sha256': 'b' * 64}
+    validator = Draft202012Validator({**schemas['SourceExcerpt'], 'components': {'schemas': schemas}})
+    validator.validate(excerpt)
+    assert list(validator.iter_errors({**excerpt, 'line_start': 0}))
+    assert list(validator.iter_errors({**excerpt, 'text': 'x' * (24 * 1024 + 1)}))
+    Draft202012Validator(schemas['ChangedLine']).validate(
+        {'line': 1, 'original': None, 'mutated': '// added line'})
+    proof = schemas['Proof']['properties']
+    assert 'component_ids' in proof and 'claim_ids' in proof
+    assert 'excerpts' in proof['proof']['properties']
+
+
+def test_server_overload_never_blocks_accept_loop_or_shutdown(app):
+    import socket
+    import time
+    server = make_server('127.0.0.1', 0, app, server_class=api.ComponentHTTPServer,
+                         handler_class=api._QuietHandler)
+    worker = threading.Thread(target=server.serve_forever, kwargs={'poll_interval': .01}, daemon=True)
+    worker.start()
+    clients = []
+    shutdown = None
+    try:
+        for _ in range(8):
+            client = socket.create_connection(server.server_address, timeout=1)
+            client.sendall(b'GET /api/v1 HTTP/1.1\r\nX-Held: ')
+            clients.append(client)
+        deadline = time.monotonic() + 1
+        while server._slots._value and time.monotonic() < deadline:
+            threading.Event().wait(.005)
+        assert server._slots._value == 0
+        overload = socket.create_connection(server.server_address, timeout=1)
+        clients.append(overload)
+        try:
+            assert overload.recv(1) == b''
+        except ConnectionResetError:
+            pass
+        shutdown = threading.Thread(target=server.shutdown, daemon=True)
+        shutdown.start()
+        shutdown.join(timeout=.5)
+        assert not shutdown.is_alive(), 'overload blocked the server accept loop'
+    finally:
+        for client in clients:
+            client.close()
+        if shutdown is None:
+            server.shutdown()
+        else:
+            shutdown.join(timeout=2)
+        server.server_close()
+        worker.join(timeout=2)
+    assert not worker.is_alive()
+
+
+def test_trickle_headers_have_absolute_deadline(app):
+    import socket
+    import time
+    server = make_server('127.0.0.1', 0, app, server_class=api.ComponentHTTPServer,
+                         handler_class=api._QuietHandler)
+    server.header_timeout = .25
+    worker = threading.Thread(target=server.serve_forever, kwargs={'poll_interval': .01}, daemon=True)
+    worker.start()
+    client = socket.create_connection(server.server_address, timeout=1)
+    client.settimeout(.04)
+    started, sent, closed = time.monotonic(), 0, False
+    try:
+        client.sendall(b'GET /api/v1 HTTP/1.1\r\nX-Trickle: ')
+        while time.monotonic() - started < 1:
+            try:
+                client.sendall(b'x')
+                sent += 1
+                if client.recv(1) == b'':
+                    closed = True
+                    break
+            except socket.timeout:
+                continue
+            except (BrokenPipeError, ConnectionResetError):
+                closed = True
+                break
+        elapsed = time.monotonic() - started
+        assert closed and sent >= 3
+        assert .15 <= elapsed < .8, elapsed
+    finally:
+        client.close()
+        server.shutdown()
+        server.server_close()
+        worker.join(timeout=2)
+    assert not worker.is_alive()
+
+
+def test_explorer_doctrine_and_receipt_summaries_survive_transport(raw, snapshot, transport):
+    explorer = raw.get('explorer', {})
+    metadata = json.loads(transport()[2])['data']
+    for row in explorer.get('doctrine', {}).get('nodes', []):
+        query = urlencode({'type': 'doctrine_ref', 'id': row['id'], 'max_edges': 500})
+        status, _, body = transport('/api/v1/graph?' + query)
+        assert status == 200
+        graph = json.loads(body)['data']
+        record = next(item['record'] for item in graph['nodes'] if item['id'] == row['id'])
+        assert all(record[key] == value for key, value in row.items())
+        for edge in explorer['doctrine']['edges']:
+            if edge['from_id'] == row['id'] or edge['to_id'] == row['id']:
+                assert edge['kind'] in metadata['graph']['edge_kinds']
+                assert any(item['kind'] == edge['kind'] and item['from'] == edge['from_id']
+                           and item['to'] == edge['to_id'] for item in graph['edges'])
+    for row in explorer.get('receipt_summaries', []):
+        if row['ref'] in snapshot.receipts:
+            assert json.loads(snapshot.receipts[row['ref']])['summary'] == row
+
+
+@pytest.fixture
+def saved_local_runs(tmp_path):
+    # Reuse the source owner's real admission fixture without executing a runner.
+    from test_component_local_evidence import saved
+    return saved.__wrapped__(tmp_path)
+
+
+def test_explicit_saved_runs_bind_snapshot_and_serve_without_io(raw, saved_local_runs, monkeypatch):
+    root, _, run, _, _, _ = saved_local_runs
+    base = api.ComponentSnapshot(raw)
+    snapshot = api.ComponentSnapshot(raw, fresh_runs=run, evidence_root=root)
+    assert snapshot.revision != base.revision
+    app = api.ComponentApplication(snapshot)
+    def forbidden(*args, **kwargs):
+        raise AssertionError('local evidence request attempted IO or execution')
+    monkeypatch.setattr(Path, 'open', forbidden)
+    monkeypatch.setattr(Path, 'read_bytes', forbidden)
+    from microcosm_core import component_local_evidence, component_replay
+    monkeypatch.setattr(component_local_evidence, 'load_local_run_evidence', forbidden)
+    monkeypatch.setattr(component_replay, 'replay_components', forbidden)
+    status, headers, body = wsgi(app, '/api/v1/local-runs')
+    assert status == 200
+    payload = json.loads(body)
+    data = payload['data']
+    assert data['status'] == 'loaded' and len(data['runs']) == 1
+    assert data['fresh_execution']['status'] == 'not_run_by_server'
+    assert data['runs'][0]['admission']['rechecked_accepted'] is True
+    assert data['runs'][0]['current_source_binding']['status'] == 'unknown'
+    assert str(root) not in body.decode()
+    overview = json.loads(wsgi(app, '/api/v1/overview')[2])
+    assert overview['snapshot_revision'] == payload['snapshot_revision']
+    assert overview['data']['local_runs'] == data
+    status, head, empty = wsgi(app, '/api/v1/local-runs', method='HEAD')
+    assert status == 200 and empty == b'' and head['ETag'] == headers['ETag']
+    assert head['Content-Length'] == str(len(body))
+
+
+def test_local_runs_disabled_and_untrusted_overlay_rejected(raw, monkeypatch):
+    def forbidden(*args, **kwargs):
+        raise AssertionError('default snapshot attempted filesystem IO')
+    monkeypatch.setattr(Path, 'open', forbidden)
+    monkeypatch.setattr(Path, 'stat', forbidden)
+    snapshot = api.ComponentSnapshot(raw)
+    assert snapshot.revision == hashlib.sha256(api._json(raw)).hexdigest()
+    value = json.loads(snapshot.local_runs)
+    assert value['status'] == 'disabled' and not value['runs']
+    assert wsgi(api.ComponentApplication(snapshot), '/api/v1/local-runs', 'path=private')[0] == 400
+    for malicious in ({**value, 'path': '/private/run'}, {**value, 'runs': [{'source_body': 'private'}]},
+                      {**value, 'status': 'fresh_proof_pass'}):
+        with pytest.raises(ValueError):
+            api.ComponentSnapshot(raw, local_run_evidence=malicious)

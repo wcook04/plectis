@@ -2,6 +2,12 @@
 
 The [paper PDF](../plectis-public-system.pdf), *Plectis: Verifying Code and Recording Its Execution*, explains selected Dafny computations, their generated Python and actual callers. Its ownership example shows how a stale first match could hide a live owner, why the requirement changed, and how the repaired contract connects to the application. The separate replay-admission core checks recorded observations rather than proving the component algorithm.
 
+The backend section follows the same evidence into a validated snapshot and a
+read-only API. It explains revision consistency and why a frontend must keep
+retained proofs, current source checks and fresh runs distinct. The
+[frontend implementation brief](../docs/guides/frontend-implementation.md) and
+[API reference](../docs/reference/component-http-api.md) supply the client contract.
+
 The manuscript is [plectis-public-system.tex](plectis-public-system.tex); [paper-house-style.sty](paper-house-style.sty) supplies the shared typography. This prototype paper is distinct from the system paper maintained in `wcook04/plectis-erdos`.
 
 ## Check the source bindings

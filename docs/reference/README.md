@@ -15,9 +15,11 @@ particular release. For a guided introduction, start with the
 | [First-action examples](../../FIRST_ACTION.md) | How words in a task description select a suggested command. |
 | [Terminology](terminology.md) | Ordinary-language explanations of older names used in the code and maps. |
 
-The first four pages are generated from code and component records. They stay
-at their established repository paths because commands, packages and incoming
-links use those paths. Their [maintainer guide](../maintainers/architecture.md#keep-each-document-in-its-role)
+The component map, architecture map, agent task routes and first-action examples
+are generated from code and component records. They stay at their established
+repository paths because commands, packages and incoming links use those paths.
+The API reference is authored documentation; its machine-readable OpenAPI
+contract comes from the backend protocol owner. Their [maintainer guide](../maintainers/architecture.md#keep-each-document-in-its-role)
 names the source and generator for each one.
 
 ## The doctrine in the map

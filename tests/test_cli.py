@@ -331,6 +331,8 @@ def test_package_metadata_describes_runtime_spine() -> None:
         {"name": "William Cook", "email": "williamwkcook@gmail.com"}
     ]
     assert project["optional-dependencies"]["test"] == [
+        "jsonschema>=4,<5",
+        "openapi-spec-validator>=0.7,<0.8",
         "numpy>=2,<3",
         "pandas>=3,<4",
         "pydantic>=2,<3",

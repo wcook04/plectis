@@ -218,6 +218,69 @@ def _assert_status_pass(payload: dict[str, Any], *, label: str) -> None:
         raise SystemExit(f"{label} status is not pass: {payload.get('status')!r}")
 
 
+# Executed by the fresh installed interpreter under -I, away from the source tree.
+BACKEND_INSTALL_CHECK = r"""
+import builtins, json, pathlib, sys, sysconfig
+from microcosm_core import component_http, component_index, component_api_contract, component_explorer_validation
+expected = json.loads(sys.argv[1])
+purelib = pathlib.Path(sysconfig.get_path("purelib")).resolve()
+for module in (component_http, component_index, component_api_contract, component_explorer_validation):
+    assert pathlib.Path(module.__file__).resolve().is_relative_to(purelib), "backend imported outside installation"
+snapshot = component_http.load_snapshot()
+application = component_http.ComponentApplication(snapshot)
+def request(path):
+    responses = []
+    body = b"".join(application({"REQUEST_METHOD": "GET", "PATH_INFO": path, "QUERY_STRING": ""},
+                               lambda status, headers: responses.append((status, dict(headers)))))
+    assert responses[0][0] == "200 OK", body
+    result = json.loads(body)
+    assert result["snapshot_revision"] == snapshot.revision
+    assert responses[0][1]["X-Plectis-Snapshot-Revision"] == snapshot.revision
+    return result["data"]
+def reject_io(*args, **kwargs):
+    raise AssertionError("request attempted filesystem I/O")
+# Startup may read packaged resources; requests must use the validated snapshot only.
+builtins.open = reject_io
+pathlib.Path.open = reject_io
+pathlib.Path.read_text = reject_io
+pathlib.Path.read_bytes = reject_io
+overview = request("/api/v1/overview")
+cores = request("/api/v1/cores")
+metadata = request("/api/v1")
+assert len(overview["components"]) == expected["component_count"]
+assert overview["explorer"]["schema_version"]
+assert {row["proof_id"]: row["retained_verification"]["verified_tasks"] for row in (view["proof"] for view in overview["kernels"])} == expected["proof_tasks"]
+assert {row["core_id"]: row["retained_verification"]["verified_tasks"] for row in cores["items"]} == expected["core_tasks"]
+assert {row["core_id"] for row in overview["cores"]} == set(expected["core_tasks"])
+assert metadata["execution"] == "unavailable_over_http"
+assert metadata["evidence_state"]["fresh_prover"]["status"] == "not_recorded_by_index"
+assert metadata["evidence_state"]["fresh_replay"]["status"] == "not_recorded_by_index"
+for proof in [*(view["proof"] for view in overview["kernels"]), *overview["cores"]]:
+    assert proof["fresh_prover_result"] == {"status": "not_run_by_index"}
+print(json.dumps({"status": "pass", "component_count": len(overview["components"]),
+                  "proof_count": len(overview["kernels"]), "core_count": len(cores["items"]),
+                  "request_filesystem_io": "blocked", "snapshot_revision": snapshot.revision}))
+"""
+
+
+def _backend_expectations(source_root: Path) -> dict[str, Any]:
+    """Expected installed inventory from source registry and retained proof owners."""
+    registry = json.loads((source_root / "core/organ_registry.json").read_text(encoding="utf-8"))
+    proof_tasks = {}
+    for path in sorted((source_root / "formal/components").glob("*/metadata.json")):
+        row = json.loads(path.read_text(encoding="utf-8"))
+        if row.get("contract"):
+            proof_tasks["proof::dafny::" + path.parent.name] = row["verified_tasks"]
+    core_tasks = {}
+    for name in ("repair", "compatibility", "views", "replay"):
+        row = json.loads((source_root / "formal" / name / "metadata.json").read_text(encoding="utf-8"))
+        core_tasks["replay_admission" if name == "replay" else name] = row["verified_tasks"]
+    if not proof_tasks:
+        raise SystemExit("source component proof metadata is missing")
+    return {"component_count": len(registry["implemented_organs"]),
+            "proof_tasks": proof_tasks, "core_tasks": core_tasks}
+
+
 def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     """
     Run run package smoke for the scripts package install smoke flow.
@@ -339,6 +402,13 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     _assert_no_private_markers(operations_output, label="operations")
     if _json_payload(operations_output, label="operations").get("status") != "passed":
         raise SystemExit("installed operations check did not pass")
+
+    backend_output = output_dir / "component-backend.json"
+    _run([str(venv_python), "-I", "-c", BACKEND_INSTALL_CHECK,
+          json.dumps(_backend_expectations(work_dir / "source-after-install"), sort_keys=True)],
+         cwd=project_dir, env=env, stdout_path=backend_output)
+    _assert_no_private_markers(backend_output, label="component backend")
+    _assert_status_pass(_json_payload(backend_output, label="component backend"), label="component backend")
 
     # Directory guides linked by the installed README must travel with it.
     for reference in (
@@ -508,7 +578,7 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     print("workdir: <work-dir>")
     print(f"version: {version_text}")
     print(
-        "checks: operations and component formal resources, version, hello, first-screen, tour, status, authority, "
+        "checks: operations and component formal resources, installed component backend without request I/O, version, hello, first-screen, tour, status, authority, "
         "workingness, legibility, first-action, first-action-assay, "
         "hypothesis-handoff, "
         "prompt-injection execution, voice-to-doctrine execution, finance execution"

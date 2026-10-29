@@ -177,7 +177,8 @@ def coverage_view(index):
 
 def _nested_schema(index):
     _keys(index, {"schema_version", "export_band", "source_bodies_exported", "generated_from", "nodes", "edges",
-                  "graph", "rollup", "authority_ceiling", "non_goals", "assurance"}, "index fields")
+                  "graph", "rollup", "authority_ceiling", "non_goals", "assurance"}
+          | ({"explorer"} if "explorer" in index else set()), "index fields")
     _keys(index["graph"], {"edge_kinds", "edge_kind_counts", "edge_semantics", "resolved_edge_classes",
                           "deferred_edge_classes", "atlas_plane_present", "route_plane_present", "leak_guard"}, "graph fields")
     if set(index["generated_from"]) - {"python_lens", "organ_registry", "organ_atlas", "agent_task_routes", "claim_assurance", "component_descriptions"}:
@@ -322,7 +323,8 @@ def validate_index(index):
     if (type(index) is not dict or index.get("schema_version") != SCHEMA
             or index.get("source_bodies_exported") is not False):
         raise ValueError("unsupported component index")
-    _safe(index)
+    from microcosm_core.component_explorer_validation import public_text_view
+    _safe(public_text_view(index))
     nodes = index.get("nodes", {})
     if set(nodes) != set(_NODE_FIELDS) or any(
             type(row) is not dict or set(row) - fields
@@ -519,6 +521,8 @@ def validate_index(index):
         raise ValueError("graph edge counts disagree with records")
     if index["assurance"]["coverage"] != _coverage_from_facets(index):
         raise ValueError("coverage aggregates disagree with component facets")
+    from microcosm_core.component_annotations import validate_annotations
+    validate_annotations(index)
     return index
 
 
@@ -560,13 +564,27 @@ def _proof_view_validated(index, proof_id):
         "subclaim_id", "statement", "input_model", "assumptions", "limits", "specification_refs",
         "entry_theorem_refs", "descriptor_origin", "contract_sha256", "requirements_review")}
         for contract in index["nodes"]["subclaim"] if contract["subclaim_id"] in subclaim_ids]
-    return {"proof": copy.deepcopy(row), "index_state": "retained_generated_snapshot",
+    claims = [claim for claim in index["nodes"]["claim"]
+              if subclaim_ids.intersection(claim["card"]["formal_subclaim_ids"])]
+    component_ids = sorted(claim["organ_id"] for claim in claims)
+    claim_ids = sorted(claim["claim_id"] for claim in claims)
+    proof = copy.deepcopy(row)
+    proof.update(component_ids=component_ids, claim_ids=claim_ids)
+    details = index.get("explorer", {}).get("proof_details", {}).get(proof_id, {})
+    if details:
+        proof["excerpts"] = copy.deepcopy(details["excerpts"])
+        proof["retained_verification"].update(copy.deepcopy(details["retained_verification_details"]))
+        for control in proof["negative_controls"]:
+            control.update(copy.deepcopy(details["negative_control_details"][control["source_ref"]]))
+    return {"proof": proof, "component_ids": component_ids, "claim_ids": claim_ids,
+            "index_state": "retained_generated_snapshot",
             "modeled_contracts": contracts,
             "current_backend_binding": {"status": "not_checked"},
             "fresh_prover": {"status": "not_recorded_by_index"}}
 
 
 def _get_component_validated(index, organ_id):
+    from microcosm_core.component_annotations import component_annotation_view
     claim = _claim_view_validated(index, organ_id)
     nodes = index["nodes"]
     subclaims = [row for row in nodes["subclaim"] if row["subclaim_id"] in claim["card"]["formal_subclaim_ids"]]
@@ -589,6 +607,7 @@ def _get_component_validated(index, organ_id):
             references.add(edge["to"])
     artifacts = [copy.deepcopy(row) for row in nodes["artifact"] if row["artifact_id"] in references]
     return {"component_id": organ_id, "claim": claim,
+            **copy.deepcopy(component_annotation_view(index, organ_id)),
             "guide": copy.deepcopy(next(row for row in nodes["guide"] if row["guide_id"] == claim["card"]["primary_guide_id"])),
             "replay": copy.deepcopy(next(row for row in nodes["replay"] if row["organ_id"] == organ_id)),
             "subclaims": copy.deepcopy(subclaims), "proofs": [_proof_view_validated(index, key) for key in sorted(proof_ids)],
@@ -627,7 +646,9 @@ def compile_views(index):
                              for row in index["nodes"]["claim"]},
             "by_proof": {row["proof_id"]: _proof_view_validated(index, row["proof_id"])
                          for row in index["nodes"]["proof"]},
-            "coverage": copy.deepcopy(_coverage_from_facets(index))}
+            "coverage": copy.deepcopy(_coverage_from_facets(index)),
+            "cores": {row["core_id"]: copy.deepcopy(row) for row in index.get("explorer", {}).get("cores", [])},
+            "explorer": copy.deepcopy(index.get("explorer", {}))}
 
 
 def check_component_bindings(index, root, organ_id):

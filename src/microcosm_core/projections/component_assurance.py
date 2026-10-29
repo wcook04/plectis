@@ -893,7 +893,7 @@ def _read_replay_descriptors(root, registry_by):
     return descriptors
 
 
-def collect_claim_assurance_inputs(root, registry, atlas, *, proof_tools, metadata_proposals=None):
+def collect_claim_assurance_inputs(root, registry, atlas, *, proof_tools, metadata_proposals=None, include_explorer=True):
     """Bounded file/AST validation, distinct from the pure index join below.
 
     metadata_proposals is an external prototype seam. Every proposed metadata
@@ -1045,10 +1045,30 @@ def collect_claim_assurance_inputs(root, registry, atlas, *, proof_tools, metada
         proof_rows.append({"slug": slug, "module": module, "metadata": metadata,
                            "contract": copy.deepcopy(contract), "descriptor_origin":
                            "proposed_metadata_contract" if slug in (metadata_proposals or {}) else "metadata_contract"})
-    return {"schema_version": ASSURANCE_SCHEMA, "evidence_classes": evidence,
+    inputs = {"schema_version": ASSURANCE_SCHEMA, "evidence_classes": evidence,
             "capsules": capsules, "replays": replays, "proofs": proof_rows, "references": facts,
             "owner_refs": owner_refs, "replay_prerequisites": replay_prerequisites,
             "historical_results": historical_results, "historical_native_records": native_records}
+    if include_explorer:
+        from microcosm_core.projections.component_explorer_metadata import collect_explorer_metadata
+        from microcosm_core.projections.component_proof_excerpts import build_proof_enrichments
+        from microcosm_core.projections.component_workflow_cores import build_workflow_cores, build_ownership_counterexample
+        explorer = collect_explorer_metadata(root)
+        explorer.update(schema_version="plectis_component_explorer_v1",
+                        proof_details={"proof::dafny::" + row["slug"]: build_proof_enrichments(root, row["metadata"])
+                                       for row in proof_rows},
+                        cores=build_workflow_cores(root), ownership_example=build_ownership_counterexample(root))
+        annotations_path = root / "core/component_claim_annotations.json"
+        annotations = (_strict_json(annotations_path, root=root) if annotations_path.exists()
+                       else {"schema_version": "plectis_component_annotations_v1",
+                             "requirements_reviews": [], "claim_clause_coverage": []})
+        if (type(annotations) is not dict or set(annotations) != {
+                "schema_version", "requirements_reviews", "claim_clause_coverage"}
+                or annotations["schema_version"] != "plectis_component_annotations_v1"):
+            raise ValueError("invalid component claim annotation owner")
+        explorer.update({key: annotations[key] for key in ("requirements_reviews", "claim_clause_coverage")})
+        inputs["explorer"] = explorer
+    return inputs
 
 
 def extend_claim_index(base, registry, atlas, assurance):
@@ -1392,5 +1412,7 @@ def extend_claim_index(base, registry, atlas, assurance):
         claim["card"]["assurance_facets"] = _component_facets(
             result, claim["organ_id"], assurance["historical_native_records"][claim["organ_id"]])
     result["assurance"]["coverage"] = _coverage_from_facets(result)
+    if "explorer" in assurance:
+        result["explorer"] = copy.deepcopy(assurance["explorer"])
     _validate_assurance_export(result)
     return copy.deepcopy(result)

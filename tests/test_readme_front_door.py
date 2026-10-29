@@ -50,6 +50,7 @@ _LINKED_SIBLINGS = (
     "docs/guides/README.md",
     "docs/guides/prompt-injection.md",
     "docs/reference/README.md",
+    "docs/guides/frontend-implementation.md",
     "docs/reference/component-http-api.md",
     "src/microcosm_core/component_descriptions.py",
     "docs/reference/terminology.md",

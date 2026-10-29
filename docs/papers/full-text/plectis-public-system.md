@@ -8,7 +8,7 @@
 
 </div>
 
-Plectis verifies selected executable computations against explicit specifications and links them to their runtime callers and recorded executions. Its aim is to make a code guarantee understandable in the application that uses it. We describe the architecture through an ownership classifier that formerly gave unsafe advice when a stale claim preceded a live claim for the same file. The repaired computation gives live observations priority regardless of claim order, and the application calls the generated implementation. A separate replay-admission computation checks observations of component runs and their public records. The prototype contains 12 verified component computations and 4 further workflow and replay cores. We explain how specifications, generated code, application behavior and run evidence fit together, using the repair to show why a proof must be paired with review of the requirement it establishes.
+Plectis verifies selected executable computations against explicit specifications and links them to their runtime callers and recorded executions. Its aim is to make a code guarantee understandable in the application that uses it. We describe the architecture through an ownership classifier that formerly gave unsafe advice when a stale claim preceded a live claim for the same file. The repaired computation gives live observations priority regardless of claim order, and the application calls the generated implementation. A separate replay-admission computation checks observations of component runs and their public records. The prototype contains 12 verified component computations and 4 further workflow and replay cores. We explain how specifications, generated code, application behavior and run evidence fit together, using the repair to show why a proof must be paired with review of the requirement it establishes. A snapshot-backed inspection API preserves these distinctions for a future frontend.
 
 <a id="sec:purpose"></a>
 
@@ -79,6 +79,18 @@ Other components illustrate different local guarantees. An evidence-comparison c
 The replay-admission core has its own contract. It requires exactly one observation for each component in a nonempty declared selection, rejects unknown observations, and checks identities, status, required witness information and agreement of public payloads. Its proved decision is equivalent to that stated admission relation. It establishes a property of the supplied observations, not the truth of every domain claim made by a component.
 
 The published records use Dafny 4.11.0. Native verification, reproduction of generated code, application tests and fresh replay are separate checks. Ordinary source and generated-byte comparisons detect drift without rerunning the prover. The [Plectis artifact and reproduction guide](https://github.com/wcook04/plectis/blob/main/paper/README.md) names the toolchain, source objects and checks needed to repeat each part.
+
+<a id="sec:inspection"></a>
+
+# Reading the evidence through the backend
+
+A reader needs to follow the connection from a component’s stated purpose to its modeled contract, generated implementation and recorded runs. The backend provides that inspection path through a typed index. Component descriptions come from their maintained source, while the registry supplies identities and claim limits. The index joins these records to guides, replay configurations, formal subclaims, proof metadata and artifact references. It records absent artifacts explicitly instead of constructing links to material it does not have.
+
+The local HTTP service validates this index once and creates an immutable snapshot. It then answers component searches, detail and coverage queries, and bounded graph-neighborhood requests from that snapshot. It does not read arbitrary files or invoke a component when a reader opens a page. Explicit replacement validates a new index before swapping it into service. Requests already in progress finish on their captured snapshot.
+
+Each data response identifies its snapshot by a digest. Pagination binds its cursor to that revision, query and page size; a client must also compare revisions when combining a component with separately fetched proofs or records. This prevents a display from silently treating two different snapshots as one. The digest identifies the index, not a Git revision or a new verification run. A machine-readable API contract and client implementation guide specify these loading rules and the fields a frontend can consume. The interface itself is future client work; it is not part of the proved computation.
+
+The distinction between evidence classes must survive presentation. A retained proof result, a source-byte comparison, a host test and a fresh component run answer different questions. The backend preserves those fields separately and leaves whole-claim coverage unknown when it has not been mapped. For example, an ownership component may expose a proved priority rule and its caller links without establishing that today’s observed owner is authentic or still live. A frontend should make that combination visible, rather than reducing it to a single verified-component label. Transport and contract tests check the reading interface; they do not extend the formal guarantees described above.
 
 <a id="sec:related"></a>
 

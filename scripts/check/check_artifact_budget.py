@@ -68,7 +68,12 @@ ARTIFACT_BUDGET = {
     # Typed component descriptions, index/compiler, isolated worker and HTTP
     # add five runtime modules plus one API reference page (4,350 -> 4,356).
     # Preserve the existing one-file headroom and both byte ceilings.
-    "max_total_files": 4_357,
+    # The frontend contract adds one protocol module and one implementation
+    # guide (4,356 -> 4,358). Preserve one-file headroom and both byte ceilings.
+    # Explorer evidence adds six runtime modules (4,358 -> 4,364): three
+    # build-time collectors, strict admission, explicit annotations and local
+    # saved-run loading. Preserve one-file headroom and both byte ceilings.
+    "max_total_files": 4_365,
     "max_data_files_bytes": 120_000_000,  # ~114.4 MiB
 }
 
