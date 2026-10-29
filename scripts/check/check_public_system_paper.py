@@ -18,7 +18,7 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parents[2]
 PAPER = ROOT / "paper/plectis-public-system.tex"
 GUIDE = "paper/README.md"
-REPOSITORY_URL = "https://github.com/wcook04/plectis"
+REPOSITORY_URL = "https://github.com/wcook04/practical-formal-verification"
 MACRO_RE = re.compile(r"\\newcommand\{\\([A-Za-z]+)\}\{([^{}]*)\}")
 GUIDE_CITATION_RE = re.compile(
     r"\\newcommand\{\\artifactguide\}\s*\{\s*\\href\s*"

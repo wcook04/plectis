@@ -10,7 +10,7 @@ You need Git and Python 3.11 or newer. These commands use a macOS / Linux shell
 (or WSL on Windows), and every later source command runs from the clone root:
 
 ```bash
-git clone https://github.com/wcook04/plectis && cd plectis
+git clone https://github.com/wcook04/practical-formal-verification && cd practical-formal-verification
 PYTHONPATH=src python3 -m plectis tour --format text .
 ```
 

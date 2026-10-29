@@ -317,7 +317,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "SMOKE_OUT ?= .microcosm/smoke",
         "SMOKE_ENV ?= MICROCOSM_RUNTIME_RECEIPT_WRITES=0",
         "PUBLIC_SITE_PARITY_REF ?= origin/gh-pages",
-        "PUBLIC_SITE_URL ?= https://wcook04.github.io/plectis/",
+        "PUBLIC_SITE_URL ?= https://wcook04.github.io/practical-formal-verification/",
         'PUBLIC_SITE_PARITY_ARGS ?= --gh-pages-ref "$(PUBLIC_SITE_PARITY_REF)" --live-url "$(PUBLIC_SITE_URL)"',
         "PYTEST_TMP_ROOT ?= $(TMPDIR)/microcosm-substrate-test-tmp-$(PYTEST_TMP_KEY)",
         'PYTEST_RUN_ID ?= $(shell "$(PYTHON)" -c \'import os, time; print("%s-%s" % (os.getpid(), time.time_ns()))\')',

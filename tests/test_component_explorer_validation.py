@@ -137,10 +137,10 @@ def test_metadata_cross_bindings_fail_closed(explorer_index, attack):
 
 def test_repository_mask_is_narrow_and_copy_only(explorer_index):
     index = copy.deepcopy(explorer_index)
-    index['explorer']['source_revision']['repository'] = 'https://github.com/wcook04/plectis'
+    index['explorer']['source_revision']['repository'] = 'https://github.com/wcook04/practical-formal-verification'
     view = public_text_view(index)
     assert view['explorer']['source_revision']['repository'] == 'VALIDATED_PUBLIC_REPOSITORY_URL'
-    assert index['explorer']['source_revision']['repository'] == 'https://github.com/wcook04/plectis'
+    assert index['explorer']['source_revision']['repository'] == 'https://github.com/wcook04/practical-formal-verification'
     index['explorer']['source_revision']['repository'] = 'https://example.com/private'
     with pytest.raises(ValueError):
         public_text_view(index)

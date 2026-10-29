@@ -1130,12 +1130,12 @@ def test_erdos_research_first_action_uses_companion(goal: str) -> None:
     ),
     (
         "I have an idea for the toolkit infrastructure",
-        "plectis/blob/main/CONTRIBUTING.md",
+        "practical-formal-verification/blob/main/CONTRIBUTING.md",
         "public_toolkit",
     ),
     (
         "Can I propose infra changes?",
-        "plectis/blob/main/CONTRIBUTING.md",
+        "practical-formal-verification/blob/main/CONTRIBUTING.md",
         "public_toolkit",
     ),
 ])

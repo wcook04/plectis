@@ -18,7 +18,7 @@ Formal verification is most useful when the proved computation is the one the ap
 
 Plectis is a software prototype built around that problem. For selected local operations, it connects an explicit requirement to a verified computation, generated executable code, an application caller and a record of execution. The contribution is this connected implementation and an account of its boundaries. The ownership example below makes the connection concrete: a requirements review exposed an unsafe first-match rule, the specification and computation were repaired together, and the changed behavior was checked through the actual application path.
 
-The wider catalogue contains 88 reference components. Formal coverage concerns 12 selected computations and 4 further workflow and replay cores. Each has a stated property and input model; their presence does not make every operation in the catalogue verified. The public [Plectis artifact and reproduction guide](https://github.com/wcook04/plectis/blob/main/paper/README.md) provides the implementation map, formal sources and reproduction instructions separately from this explanation.
+The wider catalogue contains 88 reference components. Formal coverage concerns 12 selected computations and 4 further workflow and replay cores. Each has a stated property and input model; their presence does not make every operation in the catalogue verified. The public [Plectis artifact and reproduction guide](https://github.com/wcook04/practical-formal-verification/blob/main/paper/README.md) provides the implementation map, formal sources and reproduction instructions separately from this explanation.
 
 <a id="sec:architecture"></a>
 
@@ -78,7 +78,7 @@ Other components illustrate different local guarantees. An evidence-comparison c
 
 The replay-admission core has its own contract. It requires exactly one observation for each component in a nonempty declared selection, rejects unknown observations, and checks identities, status, required witness information and agreement of public payloads. Its proved decision is equivalent to that stated admission relation. It establishes a property of the supplied observations, not the truth of every domain claim made by a component.
 
-The published records use Dafny 4.11.0. Native verification, reproduction of generated code, application tests and fresh replay are separate checks. Ordinary source and generated-byte comparisons detect drift without rerunning the prover. The [Plectis artifact and reproduction guide](https://github.com/wcook04/plectis/blob/main/paper/README.md) names the toolchain, source objects and checks needed to repeat each part.
+The published records use Dafny 4.11.0. Native verification, reproduction of generated code, application tests and fresh replay are separate checks. Ordinary source and generated-byte comparisons detect drift without rerunning the prover. The [Plectis artifact and reproduction guide](https://github.com/wcook04/practical-formal-verification/blob/main/paper/README.md) names the toolchain, source objects and checks needed to repeat each part.
 
 <a id="sec:inspection"></a>
 

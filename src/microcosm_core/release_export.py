@@ -231,7 +231,7 @@ FINANCE_PROMOTION_REVIEW_PATTERNS = (
 PUBLICATION_REVIEW_CHECKLISTS = {
     "github_repository": [
         "initialize_public_repo_from_generated_artifact_not_private_root_history",
-        "verify_public_remote_points_to_github.com/wcook04/plectis",
+        "verify_public_remote_points_to_github.com/wcook04/practical-formal-verification",
         "enable_secret_scanning_and_push_protection_where_available",
         "protect_default_branch_and_require_public_ci",
         "publish_SECURITY_md_and_issue_reporting_policy",
@@ -2190,7 +2190,7 @@ def _artifact_publication_history_receipt(target: Path) -> dict[str, Any]:
             "generate_standalone_export",
             "scan_exported_artifact",
             "initialize_new_public_repository_from_artifact",
-            "set_public_remote_to_github.com/wcook04/plectis",
+            "set_public_remote_to_github.com/wcook04/practical-formal-verification",
             "push_clean_initial_history_after_operator_release_authorization",
         ],
         "body_in_receipt": False,

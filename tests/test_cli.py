@@ -340,8 +340,8 @@ def test_package_metadata_describes_runtime_spine() -> None:
         "requests>=2,<3",
     ]
     assert "License :: OSI Approved :: Apache Software License" not in project["classifiers"]
-    assert payload["project"]["urls"]["Homepage"] == "https://github.com/wcook04/plectis"
-    assert payload["project"]["urls"]["Source"].endswith("/plectis")
+    assert payload["project"]["urls"]["Homepage"] == "https://github.com/wcook04/practical-formal-verification"
+    assert payload["project"]["urls"]["Source"].endswith("/practical-formal-verification")
     assert "Macro-System" not in payload["project"]["urls"]
     assert (MICROCOSM_ROOT / "LICENSE").read_text(encoding="utf-8").startswith("Apache License")
 

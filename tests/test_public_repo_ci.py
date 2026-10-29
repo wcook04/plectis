@@ -246,11 +246,11 @@ def test_pyproject_urls_point_to_standalone_public_repository() -> None:
     pyproject = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
 
     assert pyproject["project"]["urls"] == {
-        "Homepage": "https://github.com/wcook04/plectis",
-        "Documentation": "https://wcook04.github.io/plectis/",
-        "Source": "https://github.com/wcook04/plectis",
-        "Issues": "https://github.com/wcook04/plectis/issues",
-        "Repository": "https://github.com/wcook04/plectis",
+        "Homepage": "https://github.com/wcook04/practical-formal-verification",
+        "Documentation": "https://wcook04.github.io/practical-formal-verification/",
+        "Source": "https://github.com/wcook04/practical-formal-verification",
+        "Issues": "https://github.com/wcook04/practical-formal-verification/issues",
+        "Repository": "https://github.com/wcook04/practical-formal-verification",
     }
     assert all("zenith" not in url for url in pyproject["project"]["urls"].values())
 

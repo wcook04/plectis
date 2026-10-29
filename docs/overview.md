@@ -29,7 +29,7 @@ unfinished work that people can understand and continue. Human experts should
 be able to suggest a direction or correct an argument without having to run
 the AI themselves. They might identify a missing assumption, point to earlier
 work or suggest a better question. The
-[one-page introduction](https://wcook04.github.io/plectis/docs/introduction.html)
+[one-page introduction](https://wcook04.github.io/practical-formal-verification/docs/introduction.html)
 explains that aim and the collaboration it is intended to support.
 
 That is why apparently different tools appear in one repository:
@@ -93,8 +93,8 @@ other parts of the project.
 |---|---|
 | **This repository: `plectis`** | Software, example inputs, tests and recorded results. Use it to understand a mechanism, rerun an example or adapt a tool. |
 | **[Mathematics: `plectis-erdos`](https://github.com/wcook04/plectis-erdos)** | Research on eight Erdős problems: papers, proofs, computations, failed approaches and open questions. Lean, a proof assistant, checks that proofs establish the formal statements written in the source. |
-| **[Website](https://wcook04.github.io/plectis/)** | Readable introductions, mathematical problem pages, papers, component pages and maps linking to their sources. |
-| **[Private workbench shown in the videos](https://wcook04.github.io/plectis/#demo-videos)** | The larger environment where the work developed, including interfaces for exploring code and agent activity. Those recordings are demonstrations; this clone does not install that environment. |
+| **[Website](https://wcook04.github.io/practical-formal-verification/)** | Readable introductions, mathematical problem pages, papers, component pages and maps linking to their sources. |
+| **[Private workbench shown in the videos](https://wcook04.github.io/practical-formal-verification/#demo-videos)** | The larger environment where the work developed, including interfaces for exploring code and agent activity. Those recordings are demonstrations; this clone does not install that environment. |
 
 The mathematics gives a concrete reason to preserve more than a final answer.
 A partial result can be useful even when the original problem remains open;

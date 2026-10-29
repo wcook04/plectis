@@ -99,9 +99,9 @@ def _write_snapshot(site_dir: Path, *, component_count: int | None = None) -> No
     )
     (site_dir / "index.html").write_text(html, encoding="utf-8")
     legacy_html = (
-        '<link rel="canonical" href="https://wcook04.github.io/plectis/">'
-        '<meta http-equiv="refresh" content="0; url=https://wcook04.github.io/plectis/">'
-        '<a href="https://wcook04.github.io/plectis/">https://wcook04.github.io/plectis/</a>'
+        '<link rel="canonical" href="https://wcook04.github.io/practical-formal-verification/">'
+        '<meta http-equiv="refresh" content="0; url=https://wcook04.github.io/practical-formal-verification/">'
+        '<a href="https://wcook04.github.io/practical-formal-verification/">https://wcook04.github.io/practical-formal-verification/</a>'
     )
     (site_dir / "plectis.html").write_text(legacy_html, encoding="utf-8")
     (site_dir / "llms.txt").write_text("Plectis public packet\n", encoding="utf-8")

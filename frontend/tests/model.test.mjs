@@ -44,7 +44,7 @@ const overview = () => ({
       admitted_replay_routes: [{ component_id: 'a', route: 'a.validate' }] }],
     doctrine: { nodes: [{ id: 'AX-1', kind: 'axiom', title: 'Derivation before assertion' }], edges: [] },
     typed_relations: { edges: [{ from_id: 'b', to_id: 'a', kind: 'imports_runner', source_ref: 'src/b.py#L3', line: 3 }] },
-    source_revision: { status: 'recorded', exact_source_links: true, repository: 'https://github.com/wcook04/plectis', commit: 'a'.repeat(40) },
+    source_revision: { status: 'recorded', exact_source_links: true, repository: 'https://github.com/wcook04/practical-formal-verification', commit: 'a'.repeat(40) },
     component_filters: { family: [{ value: 'formal_math_and_proof', label: 'Formal Math & Proof', description: 'd', component_count: 2 }] },
   },
 });
@@ -83,8 +83,8 @@ test('an old index without the explorer extension still builds', () => {
 });
 
 test('source links go to the recorded commit, and never for state or unsafe paths', () => {
-  const source = { repository: 'https://github.com/wcook04/plectis', commit: 'b'.repeat(40) };
-  assert.equal(sourceHref(source, 'formal/x/K.dfy#Spec', [3, 5]), `https://github.com/wcook04/plectis/blob/${'b'.repeat(40)}/formal/x/K.dfy#L3-L5`);
+  const source = { repository: 'https://github.com/wcook04/practical-formal-verification', commit: 'b'.repeat(40) };
+  assert.equal(sourceHref(source, 'formal/x/K.dfy#Spec', [3, 5]), `https://github.com/wcook04/practical-formal-verification/blob/${'b'.repeat(40)}/formal/x/K.dfy#L3-L5`);
   assert.equal(sourceHref(source, 'state/private.json'), null);
   assert.equal(sourceHref(source, '../escape.py'), null);
   assert.equal(sourceHref(null, 'formal/x/K.dfy'), null);
