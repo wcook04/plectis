@@ -10,6 +10,7 @@
 
 import { apiPath, getEnvelope } from './api.js';
 import { copyButton, h } from './dom.js';
+import { fileId } from './static-api.js';
 import { sourceHref } from './evidence.js';
 
 /** Resolve a link in a write-up at `base` (a repository path) to a repository path. */

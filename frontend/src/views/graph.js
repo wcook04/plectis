@@ -5,6 +5,7 @@
 // about completeness.
 
 import { apiPath, getEnvelope, latestOnly, withQuery } from '../api.js';
+import { at } from '../base.js';
 import { backingGlyph, h, svg } from '../dom.js';
 import { BACKING_OF } from '../evidence.js';
 import { failure } from './component.js';
@@ -58,7 +59,7 @@ export async function mountGraph(root, { url, navigate, signal }) {
     for (const key of ['depth', 'direction', 'edge_kind', 'max_edges']) params[key] = String(form.get(key) || '');
     const n = Math.max(1, Math.min(limits.graph_edges, Number(params.max_edges) || 100));
     params.max_edges = String(n);
-    history.replaceState(null, '', withQuery('/graph', params));
+    history.replaceState(null, '', at(withQuery('/graph', params)));
     load();
   });
 

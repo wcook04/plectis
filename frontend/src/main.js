@@ -7,6 +7,7 @@
 //   /coverage                 each measure with its denominator
 //   /graph?type=&id=          one-hop related records, drawn and listed
 
+import { at, routePath } from './base.js';
 import { clear, h } from './dom.js';
 // Each route owns its data and labels. A catalogue visit does not download
 // the map engine or wait for unrelated overview metadata.
@@ -25,7 +26,7 @@ let activeMount = null;
 let renderRun = 0;
 
 function route(url) {
-  const path = url.pathname.replace(/\/+$/, '') || '/';
+  const path = routePath(url.pathname);
   const parts = path.split('/').filter(Boolean).map((s) => decodeURIComponent(s));
   if (path === '/') return { name: 'map', load: pages.map };
   if (parts[0] === 'catalogue' && parts.length === 1) return { name: 'catalogue', load: pages.catalogue };
@@ -78,7 +79,7 @@ async function render() {
 }
 
 export function navigate(href, { replace = false } = {}) {
-  const url = new URL(href, window.location.href);
+  const url = new URL(at(href), window.location.href);
   if (url.origin !== window.location.origin) { window.location.href = url.href; return; }
   if (replace) history.replaceState(null, '', url.href); else history.pushState(null, '', url.href);
   const pending = render();

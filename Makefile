@@ -132,7 +132,7 @@ PUBLIC_TESTS += tests/test_doctrine_source_projection.py
 PUBLIC_TESTS += tests/test_cognitive_operator_registry.py tests/test_proof_derived_governed_mutation_authorization.py
 PUBLIC_TESTS += tests/test_world_model_projection_drift_control_room.py
 
-.PHONY: explorer operations-demo operations-test verify-operations
+.PHONY: explorer explorer-static operations-demo operations-test verify-operations
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card
 .PHONY: flight-recorder flight-recorder-verify
@@ -145,6 +145,7 @@ help:
 		"Plectis commands:" \
 		"  make operations-demo     run the local workflow-change experiment" \
 		"  make explorer            start the component API and the browser explorer" \
+		"  make explorer-static     export the explorer as static files to frontend/dist" \
 		"  make operations-test     test the portable operation APIs" \
 		"  make verify-operations   recheck proofs with DAFNY=/path/to/dafny" \
 		"  make verify-components   recheck component proofs with DAFNY=/path/to/dafny" \
@@ -238,6 +239,9 @@ package-smoke:
 
 explorer:
 	@"$(PYTHON)" frontend/serve.py --start-backend
+
+explorer-static:
+	@"$(PYTHON)" frontend/export_static.py --out frontend/dist
 
 operations-demo:
 	@PYTHONPATH=src "$(PYTHON)" examples/operations/evaluation.py --format text

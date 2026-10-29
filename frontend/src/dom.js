@@ -1,6 +1,8 @@
 // Building DOM from data. Recorded text is always set as text, never parsed
 // as HTML; commands and paths are shown, never interpreted.
 
+import { at } from './base.js';
+
 export function h(tag, attrs = {}, ...children) {
   const el = document.createElement(tag);
   for (const [key, value] of Object.entries(attrs || {})) {
@@ -9,6 +11,8 @@ export function h(tag, attrs = {}, ...children) {
     else if (key === 'text') el.textContent = value;
     else if (key.startsWith('on') && typeof value === 'function') el.addEventListener(key.slice(2), value);
     else if (key === 'dataset') Object.assign(el.dataset, value);
+    // Page paths are written root-relative; at() places them under the mount point.
+    else if (key === 'href') el.setAttribute(key, at(String(value)));
     else el.setAttribute(key, value === true ? '' : String(value));
   }
   append(el, children);

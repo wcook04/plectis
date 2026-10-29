@@ -7,9 +7,21 @@
 // kinds, superseded requests, cursor paging within one revision, and combined
 // views whose parts must come from the same snapshot.
 
+import { BASE, STATIC_EXPORT } from './base.js';
+import { createStaticApi, fileLoader } from './static-api.js';
+
 export const API_SCHEMA = 'plectis_component_http_v1';
 export const API_ROOT = '/api/v1';
 const MESSAGE_LIMIT = 240;
+
+// Under the development server requests go to the API through its proxy. In
+// a static export (base.js) the same URLs are answered from exported files.
+let staticFetch = null;
+function defaultFetch() {
+  if (!STATIC_EXPORT) return globalThis.fetch;
+  staticFetch ??= createStaticApi(fileLoader(BASE));
+  return staticFetch;
+}
 
 /**
  * kind is one of: network, schema, request (400), not_found (404),
@@ -44,7 +56,7 @@ function bounded(text) {
 }
 
 /** Fetch one API URL and return {revision, data}, or throw an ApiError. */
-export async function getEnvelope(url, { signal, fetchImpl = globalThis.fetch } = {}) {
+export async function getEnvelope(url, { signal, fetchImpl = defaultFetch() } = {}) {
   if (signal?.aborted) throw new ApiError('aborted', 'request superseded');
   let response;
   try {

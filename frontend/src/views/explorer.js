@@ -6,6 +6,7 @@
 // query string.
 
 import { ApiError, apiPath, getEnvelope, withQuery } from '../api.js';
+import { STATIC_EXPORT } from '../base.js';
 import { getModel } from '../data.js';
 import { announce, backingGlyph, clear, copyButton, dialGlyph, h, keyGlyph, ringStyle, ringSwatch, ruleGlyph, svg } from '../dom.js';
 import {
@@ -1035,7 +1036,9 @@ export async function mountExplorer(root, { url, navigate, signal }) {
   if (destroyed) return () => {};
   status.hidden = true;
   const src = model.source ? `, built from commit ${model.source.commit.slice(0, 10)}` : '';
-  foot.textContent = `Snapshot ${model.revision.slice(0, 12)}${src}.`;
+  // A static copy says so: the snapshot is the same digest, but nothing here is served live.
+  const copy = STATIC_EXPORT?.exported_at ? ` A static copy, exported ${STATIC_EXPORT.exported_at.slice(0, 10)}.` : '';
+  foot.textContent = `Snapshot ${model.revision.slice(0, 12)}${src}.${copy}`;
   foot.title = model.revision;
   const t = model.totals;
   if (revealPlayed) document.documentElement.classList.add('map-seen');

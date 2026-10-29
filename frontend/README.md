@@ -38,6 +38,37 @@ show that absence explicitly. The `/guides/component/<id>` and
 `/guides/core/<id>` development routes remain for compatibility, but the
 browser client does not use them.
 
+## Static copy
+
+```sh
+python3 frontend/export_static.py --out /path/to/explorer   # or: make explorer-static
+```
+
+writes the explorer as plain files for a host with no server, such as GitHub
+Pages. It starts the API and `serve.py` from this checkout on free loopback
+ports, saves every answer the explorer can request under `api/v1/` (metadata,
+the overview and its map view, coverage, every component, proof and core with
+its write-up, the doctrine and every rule, the full component list and the
+typed graph), and copies `assets/` and `src/`. In the copy, `src/static-api.js` answers the same API URLs from
+those files and works out search, filters, paging and graph neighbourhoods
+in the browser. The export fails, and writes nothing, unless those answers
+equal the server's for every graph node, every filter value, a set of
+searches at three page sizes, every doctrine rule, and the error cases.
+
+Each page has its own HTML file with relative paths (`catalogue.html`,
+`components/<id>.html`, `proofs/<id>.html`), so the copy works under any
+subpath and a direct link opens the right page. `src/base.js` reads the mount
+point from its own URL. The snapshot revision on every page is the served
+index's digest, unchanged; the map's footer adds that it is a static copy and
+the date it was exported. `export.json` records the revision, the commit, the
+time and the SHA-256 of every file.
+
+The public copy is at
+<https://wcook04.github.io/practical-formal-verification/explorer/>, in the
+`explorer/` folder of the `gh-pages` branch. The site deploy adds and updates
+files there without deleting others, so the folder stays until it is replaced:
+export again into a clone of `gh-pages` and push the `explorer/` change.
+
 ## What it shows
 
 | Route | Screen |
