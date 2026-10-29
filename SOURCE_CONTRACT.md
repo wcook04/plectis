@@ -2020,6 +2020,30 @@ reading pages; only the universe map keeps the wide workbench layout.
 - A known audit warning that stays: headline length on long manuscript
   titles (three balanced lines).
 
+### Family of websites (28 October 2026)
+
+Will asked for one landing page that links every website and film, with a
+place for each site's video ("placeholder for the YouTube video once that's
+loaded in"), and for the sites to look like one family. The landing is now
+the host root, wcook04.github.io, built from that repository's `sites.json`
+(every website, film and tool). Its `docs/family.md` defines what each site
+carries: the "Will Cook / site" ladder this header already has, the family
+film slot and the sister-site list.
+
+These pages show the family film slot, rendered by
+`tools/meta/dissemination/plectis_family.py` from
+`plectis_family_sites.json` (this site's copy of `sites.json`) and styled by
+`assets/family.css` (a copy, linked only where a slot appears):
+- the maths overview's map of results: the Maths Map film, inline;
+- problem #257's page, under its question: the Erdős #257 film;
+- the software overview (`docs/index.html`), under its lede: the Practical
+  formal verification film, held "In preparation" until its release.
+A film without a YouTube address keeps the held frame and no link. When one
+is released, update `sites.json` in the home page repository, copy it here
+and add its two stills under `assets/films/family/`. The landing's film map
+keeps its own eight films; the new films appear on the home page and on their
+own sites rather than as extra branches here.
+
 ### Glossary (October 2026)
 
 `docs/glossary.html` is a reference publication: one continuous alphabetical

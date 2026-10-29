@@ -4,7 +4,7 @@
   "root_node_id": "universe:plectis-lean",
   "counts": {
     "nodes": 2907,
-    "edges": 9145,
+    "edges": 8536,
     "node_kinds": {
       "human_document": 18,
       "integration_surface": 2,
@@ -24,7 +24,6 @@
       "eliminates_case": 1,
       "explained_by": 22,
       "formalized_in": 43,
-      "holds_prepared": 616,
       "imports": 3883,
       "instantiates": 2,
       "interpreted_by": 18,
@@ -33,6 +32,7 @@
       "publishes": 160,
       "queued": 24,
       "re_expresses_open_branch": 6,
+      "registers_selected_editions_for": 7,
       "replayed": 616,
       "same_lean_declaration": 92,
       "stated_in_lean": 765,
@@ -1799,7 +1799,7 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md",
       "registry_status": {
         "schema": "plectis_palomar_registry_status_v1",
-        "observed_at": "2026-10-09T15:50:27.855436+00:00",
+        "observed_at": "2026-10-22T17:58:21.357873+00:00",
         "entries": [
           {
             "entry": "PalomarCorpus_E257_01",
@@ -1819,7 +1819,7 @@
               "PalomarCorpus.E257.WeightedCloseReturn.weighted_displacement_cofinal_close_return"
             ],
             "status": "registered",
-            "observed_at": "2026-10-09T14:42:56Z",
+            "observed_at": "2026-10-21T15:47:16Z",
             "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-09-25-000009&version=1",
             "verification_run_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/36009433226",
             "observation_basis": "public_registry_and_authenticated_status"
@@ -1843,17 +1843,11 @@
               "Erdos249257.ExternalVerification269ThreePrimeStructure.kernel_235_minor_eq_neg_one_fifteen",
               "Erdos249257.ExternalVerification269ThreePrimeStructure.threePrimeKernel_infiniteRank_and_noFiniteSeparation"
             ],
-            "status": "registration_requested",
-            "observed_at": "2026-10-09T15:33:02Z",
-            "registered_url": null,
+            "status": "registered",
+            "observed_at": "2026-10-21T15:54:00Z",
+            "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-21-000019&version=1",
             "verification_run_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/35190946875",
-            "observation_basis": "maintainer_authenticated_status",
-            "publication_blocker": {
-              "reason": "unsupported_lean_version",
-              "summary": "The publication renderer rejected the reviewed Lean 4.29.0 source because its current minimum is Lean 4.35.0-rc2. Palomar must repair rendering and retry this registration; sending consent again does not resume it.",
-              "evidence_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/37948913697",
-              "observed_at": "2026-10-09T15:33:02Z"
-            }
+            "observation_basis": "public_registry_and_authenticated_status"
           },
           {
             "entry": "PalomarCorpus_E257",
@@ -1917,17 +1911,11 @@
               "PalomarCorpus.E257.TwentyOneFatalBranch.twentyOneFatalAlignedBranch_eventually_strict_supercapacity",
               "PalomarCorpus.E257.VariableExponentCover.strengthenedPositiveCoverClaim"
             ],
-            "status": "registration_requested",
-            "observed_at": "2026-10-09T15:50:27.855436+00:00",
-            "registered_url": null,
+            "status": "registered",
+            "observed_at": "2026-10-21T16:31:08.494194+00:00",
+            "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-21-000020&version=1",
             "verification_run_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/35186739364",
-            "observation_basis": "maintainer_authenticated_status",
-            "publication_blocker": {
-              "reason": "unsupported_lean_version",
-              "summary": "The publication renderer rejected the reviewed Lean 4.30.0 source because its current minimum is Lean 4.35.0-rc2. Palomar must repair rendering and retry this registration; sending consent again does not resume it.",
-              "evidence_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/37953891799",
-              "observed_at": "2026-10-09T15:50:27.855436+00:00"
-            }
+            "observation_basis": "public_registry_and_authenticated_status"
           },
           {
             "entry": "ExternalVerification257ReciprocalSupport",
@@ -1942,24 +1930,199 @@
             "theorem_names": [
               "Erdos249257.ExternalVerification257ReciprocalSupport.irrational_supportPowerSeries_of_summable_reciprocal"
             ],
-            "status": "registration_requested",
-            "observed_at": "2026-10-09T15:33:04Z",
-            "registered_url": null,
+            "status": "registered",
+            "observed_at": "2026-10-21T15:54:00Z",
+            "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-21-000018&version=1",
             "verification_run_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/35192583926",
-            "observation_basis": "maintainer_authenticated_status",
-            "publication_blocker": {
-              "reason": "unsupported_lean_version",
-              "summary": "The publication renderer rejected the reviewed Lean 4.29.0 source because its current minimum is Lean 4.35.0-rc2. Palomar must repair rendering and retry this registration; sending consent again does not resume it.",
-              "evidence_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/37949424576",
-              "observed_at": "2026-10-09T15:33:04Z"
-            }
+            "observation_basis": "public_registry_and_authenticated_status"
+          },
+          {
+            "entry": "PalomarCorpus_E249_29",
+            "title": "All-base bases and integral relations for the totient kernel",
+            "problem_ids": [
+              "erdos_249"
+            ],
+            "repository": "wcook04/plectis-erdos-lean",
+            "commit": "9ab395cda99d13f8fcd16cf655fc17458b3eaa38",
+            "comparator_config_path": "PalomarCorpus/E249_29/comparator.json",
+            "formalization_metadata_path": "PalomarCorpus/E249_29/formalization.yaml",
+            "theorem_names": [
+              "PalomarCorpus.E249.CompleteKernelBases.displayed_all_base_kernel",
+              "PalomarCorpus.E249.CompleteKernelBases.displayed_full_dyadic_basis",
+              "PalomarCorpus.E249.TotientKernelBasis.allBaseTotientKernelBasisRankAndRelationDimension",
+              "PalomarCorpus.E249.TotientKernelBasis.allSlopeAffineTotientFormsLinearIndependent",
+              "PalomarCorpus.E249.TotientKernelBasis.displayed_integral_normal_form"
+            ],
+            "status": "registered",
+            "observed_at": "2026-10-22T15:44:45.944204+00:00",
+            "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-21-000021&version=1",
+            "verification_run_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/37973490141",
+            "observation_basis": "public_registry_and_authenticated_status"
+          },
+          {
+            "entry": "PalomarCorpus_E1049_01",
+            "title": "An explicit rational-base irrationality region for Zudilin's Lambert series",
+            "problem_ids": [
+              "erdos_1049"
+            ],
+            "repository": "wcook04/plectis-erdos-lean",
+            "commit": "8d47efd230e041b76b8233a49164ca798977053c",
+            "comparator_config_path": "PalomarCorpus/E1049_01/comparator.json",
+            "formalization_metadata_path": "PalomarCorpus/E1049_01/formalization.yaml",
+            "theorem_names": [
+              "PalomarCorpus.E1049.PaperStatementsA.contour_enclosure",
+              "PalomarCorpus.E1049.PaperStatementsA.four_rpow_mu_lt_thirtyOne",
+              "PalomarCorpus.E1049.PaperStatementsA.inv_bvMu_eq",
+              "PalomarCorpus.E1049.PaperStatementsA.omega_indicator",
+              "PalomarCorpus.E1049.PaperStatementsA.paperBvMu_eq",
+              "PalomarCorpus.E1049.PaperStatementsA.printed_bvMu",
+              "PalomarCorpus.E1049.PaperStatementsA.printed_bv_cutoff",
+              "PalomarCorpus.E1049.PaperStatementsA.printed_contour",
+              "PalomarCorpus.E1049.PaperStatementsA.printed_four_rpow_bvMu",
+              "PalomarCorpus.E1049.PaperStatementsA.printed_four_rpow_mu",
+              "PalomarCorpus.E1049.PaperStatementsA.printed_log_ratio",
+              "PalomarCorpus.E1049.PaperStatementsA.thirtyoneFour_between_rpow",
+              "PalomarCorpus.E1049.PaperStatementsA.thirtyoneFour_ratio_chain",
+              "PalomarCorpus.E1049.PaperStatementsA.zudilinC0_enclosure",
+              "PalomarCorpus.E1049.PaperStatementsA.zudilinJ_enclosure",
+              "PalomarCorpus.E1049.PaperStatementsA.zudilin_rpow_lt_iff_contourRegion",
+              "PalomarCorpus.E1049.PaperStatementsG.thirtyoneFour_outside_bv_inside_contour",
+              "PalomarCorpus.E1049.PaperStatementsI.rational_base_measure_uniform",
+              "PalomarCorpus.E1049.PaperStatementsI.thirtyoneFour_power_measure_lt_301",
+              "PalomarCorpus.E1049.PaperStatementsJ.rational_base_threshold",
+              "PalomarCorpus.E1049.PaperStatementsJ.rational_base_threshold_log",
+              "PalomarCorpus.E1049.PaperStatementsJ.thirtyoneFour_irrational",
+              "PalomarCorpus.E1049.PaperStatementsJ.thirtyoneFour_pow_irrational",
+              "PalomarCorpus.E1049.RationalBaseRegion.rational_base_power_measure",
+              "PalomarCorpus.E1049.RationalBaseRegion.thirtyone_four_power_measure_lt_301"
+            ],
+            "status": "registered",
+            "observed_at": "2026-10-22T17:58:21.357873+00:00",
+            "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-22-000039&version=1",
+            "verification_run_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/39649415901",
+            "observation_basis": "public_registry_and_authenticated_status"
+          },
+          {
+            "entry": "PalomarCorpus_E243_01",
+            "title": "Cubic-rate irrationality for reciprocal sums",
+            "problem_ids": [
+              "erdos_243"
+            ],
+            "repository": "wcook04/plectis-erdos-lean",
+            "commit": "eb6cd7ceae9ff5c5bceeb514cac749c30861d8c6",
+            "comparator_config_path": "PalomarCorpus/E243_01/comparator.json",
+            "formalization_metadata_path": "PalomarCorpus/E243_01/formalization.yaml",
+            "theorem_names": [
+              "PalomarCorpus.E243.CompletePaperRecords.fixed_offsets_periodic_lowerDensity",
+              "PalomarCorpus.E243.PaperStatementsA.cubic_profile_gcd_stabilisation_and_primitive_shape",
+              "PalomarCorpus.E243.PaperStatementsA.primitive_zero_density_paper_multiplier_lemma",
+              "PalomarCorpus.E243.PaperStatementsG.regular_rate_extraction",
+              "PalomarCorpus.E243.PaperStatementsL.canonical_tail_ratio_quantitative",
+              "PalomarCorpus.E243.PaperStatementsN.regular_rate_extraction_cubic",
+              "PalomarCorpus.E243.PaperStatementsP.scale_twelve_of_square_in_rootField",
+              "PalomarCorpus.E243.PaperStructuresAC.cubic_exclusion_unconditional",
+              "PalomarCorpus.E243.PaperStructuresAC.cubic_rate_irrationality_unconditional",
+              "PalomarCorpus.E243.PaperStructuresAC.squareSpecialisation",
+              "PalomarCorpus.E243.PaperStructuresAC.transport_square_unconditional",
+              "PalomarCorpus.E243.PaperStructuresAD.minus_one_forbidden_word",
+              "PalomarCorpus.E243.PaperStructuresAD.plus_one_forbidden_word"
+            ],
+            "status": "registered",
+            "observed_at": "2026-10-22T17:58:21.357873+00:00",
+            "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-22-000036&version=1",
+            "verification_run_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/39630984306",
+            "observation_basis": "public_registry_and_authenticated_status"
+          },
+          {
+            "entry": "PalomarCorpus_E251_01",
+            "title": "Uniform sparse rationalisation of dyadic series",
+            "problem_ids": [
+              "erdos_251"
+            ],
+            "repository": "wcook04/plectis-erdos-lean",
+            "commit": "34ab2ba6304c936a3537fd1cd8a91f23bbf2e575",
+            "comparator_config_path": "PalomarCorpus/E251_01/comparator.json",
+            "formalization_metadata_path": "PalomarCorpus/E251_01/formalization.yaml",
+            "theorem_names": [
+              "PalomarCorpus.E251.PaperStatementsA.bounded_test_finite_coupling",
+              "PalomarCorpus.E251.PaperStatementsC.real_dyadic_orbit_eq_true_tail_iff",
+              "PalomarCorpus.E251.PaperStatementsG.dyadicPartialSumQ_eq_start_add_differences",
+              "PalomarCorpus.E251.PaperStatementsG.infinite_prime_gap_identity",
+              "PalomarCorpus.E251.PaperStatementsG.irrationality_reformulation",
+              "PalomarCorpus.E251.PaperStatementsG.prime0_dyadic_summation_by_parts",
+              "PalomarCorpus.E251.PaperStatementsG.rationality_classification",
+              "PalomarCorpus.E251.PaperStatementsH.real_block_identity",
+              "PalomarCorpus.E251.PaperStatementsI.local_target_interval",
+              "PalomarCorpus.E251.UniformSparseRationalisation.arbitrary_word_sparse_rationalisation_uniform",
+              "PalomarCorpus.E251.UniformSparseRationalisation.polylogarithmic_word_interval_uniform"
+            ],
+            "status": "registered",
+            "observed_at": "2026-10-22T17:58:21.357873+00:00",
+            "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-22-000037&version=1",
+            "verification_run_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/39643951047",
+            "observation_basis": "public_registry_and_authenticated_status"
+          },
+          {
+            "entry": "PalomarCorpus_E269_02",
+            "title": "Infinite rank of the three-prime running-LCM kernel",
+            "problem_ids": [
+              "erdos_269"
+            ],
+            "repository": "wcook04/plectis-erdos-lean",
+            "commit": "80024c64bc77a95249e34824a36bf43989f62ae6",
+            "comparator_config_path": "PalomarCorpus/E269_02/comparator.json",
+            "formalization_metadata_path": "PalomarCorpus/E269_02/formalization.yaml",
+            "theorem_names": [
+              "PalomarCorpus.E269.PaperStatementsA.dyadicBlockBase235_cases",
+              "PalomarCorpus.E269.PaperStatementsA.dyadicBlockBase235_mem_interval",
+              "PalomarCorpus.E269.PaperStatementsA.dyadicInternalPower_exponent_unique",
+              "PalomarCorpus.E269.PaperStatementsA.exists_dyadicInternalPower_iff_log_succ",
+              "PalomarCorpus.E269.PaperStatementsA.log_dyadic_succ_eq_of_no_internalPower",
+              "PalomarCorpus.E269.PaperStatementsA.paper_two_by_two_fixture",
+              "PalomarCorpus.E269.PaperStatementsA.paper_uniform_rank_and_nonseparation",
+              "PalomarCorpus.E269.PaperStatementsA.radix_eq_height_ratio",
+              "PalomarCorpus.E269.PaperStatementsA.threePrimeHeight_dyadicBlock_succ",
+              "PalomarCorpus.E269.PaperStatementsB.real_two_prime_separation",
+              "PalomarCorpus.E269.PaperStatementsC.long_actual_orbit",
+              "PalomarCorpus.E269.PaperStatementsE.uniform_rank_complete",
+              "PalomarCorpus.E269.PaperStructuresH.rank_cutMatrix"
+            ],
+            "status": "registered",
+            "observed_at": "2026-10-22T17:58:21.357873+00:00",
+            "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-22-000038&version=1",
+            "verification_run_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/39646911715",
+            "observation_basis": "public_registry_and_authenticated_status"
+          },
+          {
+            "entry": "PalomarCorpus_E68_05",
+            "title": "Carry and divisor-channel criteria for the factorial-minus-one reciprocal series",
+            "problem_ids": [
+              "erdos_68"
+            ],
+            "repository": "wcook04/plectis-erdos-lean",
+            "commit": "d8db022f33199491ba88d47fac6d66f8690f2c1a",
+            "comparator_config_path": "PalomarCorpus/E68_05/comparator.json",
+            "formalization_metadata_path": "PalomarCorpus/E68_05/formalization.yaml",
+            "theorem_names": [
+              "PalomarCorpus.E68.PaperStatementsA.carry_characterisation",
+              "PalomarCorpus.E68.PaperStatementsA.companion_orbit_boundary",
+              "PalomarCorpus.E68.PaperStatementsA.divisor_channel_coordinates",
+              "PalomarCorpus.E68.PaperStatementsA.finite_channel_moment_certificate",
+              "PalomarCorpus.E68.PaperStatementsA.finite_channel_moment_certificate_eq",
+              "PalomarCorpus.E68.PaperStatementsA.global_complementary_criterion_nat"
+            ],
+            "status": "registered",
+            "observed_at": "2026-10-22T17:58:21.357873+00:00",
+            "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-22-000040&version=1",
+            "verification_run_url": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/39652409857",
+            "observation_basis": "public_registry_and_authenticated_status"
           }
         ],
-        "boundary": "Dated observations of separately identified historical submission editions. One edition is registered. Three existing reviews have registration consent, and all three have failed publication renders under the newer Lean minimum. These are not three published records. Overlapping selections do not count as new mathematics, and no outcome transfers to another commit, repository or declaration by name alone. This inventory covers the registered edition and the three requests of 9 October, not every historical submission.",
+        "boundary": "Dated observations of ten separately identified registered submission editions. Overlapping selections do not count as new mathematics, and no outcome transfers to another commit, repository or declaration by name alone. This inventory covers these ten editions. The E1041_01 intake has not been registered and is excluded.",
         "counts": {
-          "registered": 1,
-          "registration_requested": 3,
-          "publication_blocked": 3
+          "registered": 10,
+          "registration_requested": 0,
+          "publication_blocked": 0
         },
         "source": "../palomar-registry-status.json",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/palomar_registry_status.json"
@@ -19973,11 +20136,11 @@
     {
       "id": "paper:plectis-public-system",
       "kind": "paper",
-      "label": "Plectis: What a Stranger Can Check",
+      "label": "Plectis: Verifying Code and Recording Its Execution",
       "subject": "Systems paper",
-      "form": "Evidence boundary",
+      "form": "Prototype paper",
       "href": "papers/plectis-public-system.json",
-      "source_github": "https://github.com/wcook04/practical-formal-verification/blob/main/paper/plectis-public-system.tex"
+      "source_github": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex"
     },
     {
       "id": "paper:writing-a-good-mathematical-paper",
@@ -53289,3083 +53452,285 @@
     },
     {
       "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-1041-lemniscate-newton-flow#res:sextic-spoke"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-1041-lemniscate-newton-flow#res:trinomial-all-degree"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-1049-rational-base-lambert#cor:rational-base-measure"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-1049-rational-base-lambert#prop:weight-factorisation"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-1049-rational-base-lambert#res:rational-base-threshold"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-1049-rational-base-lambert#res:sharp-fixed-base"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-1049-rational-base-lambert#res:thirtyone-four"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-1049-rational-base-lambert#res:zudilin-sharp-qorder"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:absorb"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:barrier"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:bounded"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:cor"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:crt"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:cubicrate"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:frontier"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:gcdstab"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:inclusiveone"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:lcmbounded"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:massscalar"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:originalbounded"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:reduced"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:residue"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:step"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:update"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:weightedrecord"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-243-reciprocal-tail-rigidity#res:weights"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-249-binary-totient-series#cor:integral-normal-form"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-249-binary-totient-series#cor:periodic-freezing"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-249-binary-totient-series#lem:bounded-pulse"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-249-binary-totient-series#res:basis"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-249-binary-totient-series#res:fulldepth"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-249-binary-totient-series#res:rankonefloor"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-249-binary-totient-series#res:residueseries"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-249-binary-totient-series#thm:kkernelrank"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-251-prime-gap-dyadic-series#res:escape-irrational"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-251-prime-gap-dyadic-series#res:gap-nonperiodic"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-251-prime-gap-dyadic-series#res:infinite"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-251-prime-gap-dyadic-series#res:irr-equivalence"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-251-prime-gap-dyadic-series#res:signedwindow"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-251-prime-gap-dyadic-series#res:sparserationalisation"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-251-prime-gap-dyadic-series#res:true-tail"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-251-prime-gap-dyadic-series#res:truncation"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-257-mersenne-support-subseries#res:cylinderhalf"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-257-mersenne-support-subseries#res:general-repair"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-257-mersenne-support-subseries#res:mixed-supports"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-257-mersenne-support-subseries#res:one-over-twenty-one-frontier"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-257-mersenne-support-subseries#res:period"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-257-mersenne-support-subseries#res:reciprocal-support"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-257-mersenne-support-subseries#res:weighted-support"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-257-mersenne-support-subseries#thm:variable-fractional-cover"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-269-three-prime-running-lcm#res:actual-orbit"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-269-three-prime-running-lcm#res:admissible-modular-minors"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-269-three-prime-running-lcm#res:cell"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-269-three-prime-running-lcm#res:consumer"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-269-three-prime-running-lcm#res:denominator-reduction"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-269-three-prime-running-lcm#res:dyadic-alphabet"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-269-three-prime-running-lcm#res:exact-onset"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-269-three-prime-running-lcm#res:fibre-prop"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-269-three-prime-running-lcm#res:finite-cut-rank"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-269-three-prime-running-lcm#res:infinite-rank"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-269-three-prime-running-lcm#res:lcm"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-269-three-prime-running-lcm#res:windowconsumer"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-68-factorial-denominator-irrationality#res:divisor-channel-coordinates"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos-68-factorial-denominator-irrationality#res:finite-channel-moment-certificate"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#cor:collinear-erdos-1041"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#lem:cubic-safe-root-spoke"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#prop:primitive-quintic-two-tail-energy-selector"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#prop:sharp-collinear-chebyshev-comparator"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:circle-slice-packing"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:complementary-binomial-chords"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:critical-proximity"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:critical-value-budget"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:degree-three"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:fp-weighted-all-degree"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:locus"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:one-root-gamma-false"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:orlicz-currency"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:ray"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:reflected-critical-value"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:sep-or-false"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:straight-no-go"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:trinomial-all-degree"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:two-nearest-roots"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#res:value"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#thm:primitive-quintic-two-tail"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#thm:sharp-collinear-diameter"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1041-lemniscate-reasoning-surface#thm:translated-cubic-quotient-fibres"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:cor:no-decay-below-square"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:cor:rational-base-measure"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:prop:rogers-factorisation"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:31over4"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:allrowinitial"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:archcap"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:boundedfibre"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:chargeceilings"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:commonmult"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:content"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:corridorbound"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:cyclounit"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:endpoints"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:exp"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:finite-pencil"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:forcing"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:jetkernel"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:nocorridor"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:nomahler"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:nomult"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:omega-indicator"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:pade"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:plucker-collapse"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:powerbracket"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:rankfortyone"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:region"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:scalar"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:sevenhalves"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:sharpgaps"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:sourceheight"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:tail-lattice"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:tailrec"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:res:zudilin-sharp-qorder"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:thm:geometric-universality"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#long1049:thm:sharp-fixed-base"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#res:bottomjet"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos1049-rational-base-lambert-reasoning-surface#res:boundedfibre"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:absorb"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:arithmeticrecord"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:barrier"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:bounded"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:classicalhalfspace"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:constant"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:coprimalitycap"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:cor"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:criticalrate"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:crt"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:cubicexclusion"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:cubicrate"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:curvature"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:defect"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:descent"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:energycriterion"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:epochenergy"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:eventual"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:extraction"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:frontier"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:gapconstant"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:gcdshape"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:gcdsparse"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:gcdstab"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:loglogboundary"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:mass"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:modseven"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:oddpowersupply"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:oldmodulussaturation"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:onethreshold"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:periodic"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:periodicobstruction"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:powerpersistence"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:recordamplified"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:recorddichotomy"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:reduced"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:reduciblecase"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:residue"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:scale"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:scaletwelve"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:secondorder"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:slownegative"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:step"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:strausbounded"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:tailratio"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:transportsquare"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:unitrecord"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:update"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:valuationtransition"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:variablerise"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos243-reciprocal-tail-reasoning-surface#long243:res:weightedrecord"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:a10"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:a11"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:a12"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:a2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:a5"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:a6"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:a7"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:a8"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:a9"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:b10a"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:b10b"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:b11"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:b12"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:b2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:b3"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:b4"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:b5"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:b6"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:b7"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:b8"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:b9a"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:c1"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:d1"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:d2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:d3"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:d4"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:d5"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:d7"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:cert:d9"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:a1a"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:a1b"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:a2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:a5"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:a7"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:a8"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:a9a"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:a9b"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:b1"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:b2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:b3"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:b4"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:b5"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:b6"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:b7a"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:b7b"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:b8a"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:b8b"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:d3"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:e1"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:e2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:e3"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#catalogue:mob:f1"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#cor:b1"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#cor:digitform"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#cor:numerator-polynomial-explicit-positive-coefficients"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#lem:complement-divisibility-after-multiplication"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#lem:farey"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#lem:gperiod"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#lem:gsound"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#lem:nonvanishing-unique-largest-denominator-exponent"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#lem:orbit"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#lem:squared-distance-bound-separated-pairs"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:A10"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:A5-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:A9-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:AR-03-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:AR-04-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:AR-05-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:AR-06-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:AR-07"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:B10"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:B11-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:B12cons"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:B3"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:B6-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:B7"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:C1-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:C2-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:C2sup"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:C3-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:CP-01-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:CP-02"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:CP-05-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:CP-06"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:CP-07"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:D1D2-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:D4-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:D5cons"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:D9-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:FR-01"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:FR-02-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:MP-01-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:NI-01"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:SEP-01-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:SEP-02-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:SEP-03"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:SGN-01"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:SGN-03"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:SK-01-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:SK-02"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:TA-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:TE-02-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:TE-03-inv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:TE-04"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:TE-05"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:TE-06"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:additional-approximation-hypothesis"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:additional-hypothesis-totient-specific-rank"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:b2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:b4"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:b5"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:b6"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:b7"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:bound-preserved-positive-normalised-averaging"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:coprime"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:deposits"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:dickman"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:divisor-sum-complement"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:doubling-identity-two-portions-sum"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:exact-rational-approximation-formula"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:finite-divisor-sum"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:finite-grid-certificate-gives-nonintegral"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:gapwindow"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:gcdlayer"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:geometric-remainder-bound"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:geometric-tail-bound"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:iffs"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:lambertengine"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:mobsq"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:nonzero-minor-survives-inverse-phase"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:parity"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:period-not-rank"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:pillai"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:rank"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:rational-series-preserving-totient-parity"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:route4"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:separation-larger-than-error-implies"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:shift"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:sign"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:simultaneous-certificates-unrestricted-depth"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:squared-distance-phase-one"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:sufficient-accumulated-residue-condition"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:sufficient-extension"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:sufficient-extension-2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:sufficient-extension-3"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:sufficient-inequality"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:sum-over-divisor-indices"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:tail-integrality-lcm-grid"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:te-chain"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:transfer"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:two-lattice-sums"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#prop:uniqueness-under-growth-condition"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#res:fulldepth"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#res:rankonefloor"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:arbitrarily-large-prime-power-lcm"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:binary-carry-criterion"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:certificate-four-tail-combination"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:classical-coprime-pair-lambert-identity"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:concatenation-specified-period-multiples"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:coprime-pair-counting-totient"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:denom"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:denom-record"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:denomcoprime"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:denominators-mobius-sums"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:denommobsq"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:diagonal-certificate-table"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:doubling-full-totient-difference"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:exact-dyadic-rank-infinite-dimensionality"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:first-two-summands-give-positive"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:fixed-farey-bound"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:gamma"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:hgap-norm"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:hgap-real"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:hgap-subset"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:lacunary"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:nondivisors-short-lcm-window"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:one-common-certificate-sixteen-shifts"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:one-explicit-witness"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:positive-coefficients-numerator-polynomial"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:positivity-remaining-residue-inequality"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:prime-satisfying-stated-cyclotomic-conditions"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:proved-implication"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:proved-implications"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:rationality-carry-rank"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:rationality-carry-rank-2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:separation-rational-approximation"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:short-window-examples-through-exponent"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:strict-log-concavity-all-integer"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:sufficient-order-hypothesis-unbounded-prime"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:two-adic-congruence-that-does"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:unbounded-prime-support-mersenne-factors"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:uniform-positive-gap-rank-one"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos249-totient-reasoning-surface#thm:values-exponents-one-two"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:abel"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:affinecollapse"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:block"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:boundedperturbation"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:complete-truncation"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:denominatorfloor"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:escape-irrational"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:explicit-remainder"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:finite-smallpair"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:freepair"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:gap-nonperiodic"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:infinite"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:irr-equivalence"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:lcmdiagonal"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:local-targets"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:nonconcentration"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:one-tail-certificate"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:parts"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:polignacfail"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:polynomialcountermodel"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:shiftedcount"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:signedwindow"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:smallpair"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:smallpair-real"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:sparse-nonconcentration"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:sparse-rationalisation"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:telescope"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:res:true-tail"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:xr:boundedpolignac"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:xr:propagate"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:xr:totient"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos251-prime-gap-reasoning-surface#long251:xr:truncation"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#cor:257-logarithmic-separation"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#cor:cd-remaining"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#cor:mersenne-height"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#cor:negative-mobius-overshoot"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#cor:tr-half-lcm"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:collapse-mech"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:denominator-survival"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:eventually-right-impossible"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:fatal-gap-exclusion"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:gap-mass-summability"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:half-divisor-unit-drop"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:half-endpoint-kills"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:largest-false-rank-algebra"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:linear-channel-nogo"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:mersenne-tail-weight"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:mixed-prime-power-layer"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:no-ties"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:odometer"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:reverse-carry-word"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:scalar-localization"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:seam-upper-or-middle"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:skipped-endpoint-trichotomy"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:sqrt-witness"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:sqwitness"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:straddle-agrees-greedy"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:tail-transfer"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:tr-mod12"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#lem:tr-parity"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:257-logarithmic-initial-interval"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:2adic-nogo"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:achievement-set-topology"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:canon"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:carry-survivor-extinction"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:collapse"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:collapsed-list"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:cpgs-equiv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:critical-band-index"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:exact-lebesgue-measure-dichotomy"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:exponent-gap"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:finite-approximations-without-compatibility"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:finite-boolSupport-and-onesided"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:finite-state-nogo"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:mobius-nogo"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:one-orbit"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:squarefree"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:strip-equiv"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:unsafe-middle-range-exactly-three"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#prop:upper-unconditional"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c1"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c10"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c11"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c12"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c14"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c15"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c19"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c20"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c3"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c4"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c6"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c6a"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c6b"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c7"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c8"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-c9"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i-bridge"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i-cross2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i-mob"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i-rank2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i-t7"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i10"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i11a"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i11b"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i11c"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i12"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i13"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i14"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i15"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i16"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i17"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i1a"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i1b"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i1c"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i5"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i6"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i7"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-i9"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-k-dich"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-k1"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-k2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-k4"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257bm-k9"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257hg-i2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257hg-i4"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257hg-i5"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257hg-i6"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257hg-i7"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257hg-k12"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257rig-c16"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257rig-c17"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257rig-c18"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257rig-i2"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257rig-i3"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257rig-i4a"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257rig-i4b"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257rig-i5"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#record:257rig-k6"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:257-logarithmic-counterexample"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:257-mixed-supports"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:257-variable-fractional-cover"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:257-weighted"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:cd-neg3-impossible"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:critical-dyadic-band"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:dynamics"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:eventually-periodic"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:eventually-periodic-support"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:factorial-twopow-support"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:fatal-absorbing"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:final-middle-cell"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:frozen-margin"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:full-support"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:full-support-catalogue"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:geometry"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:greedy-survival"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:greedy-survival-catalogue"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:greedy-survival-record"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:half-skip-dichotomy"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:largest-skip-late"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:last-skip-iff-fatal"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:lcm-gap-engine"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:lower-bound-every-reset"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:master-dichotomy"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:master-identity"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:mersenne-channel-growth"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:mersenne-channel-survival"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:middle-allright-defect"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:middle-producer-escape"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:mobius-centred-nonneg"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:mobius-lambert-identity"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:multiples-support"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:nine-way-hub"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:odd-support"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:one-sided"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:one-sided-finite-decision-boundary"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:pairwise-coprime"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:purely-periodic-support"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:real-form"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:residue-class-support"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:residue-odd"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:seam-limit"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:second-channel"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:sharp-fatal-gap"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:signed-periodic"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:sqrt-bound-route"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:straddle-closed-set"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:supported-dichotomy"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:tempered-orbit-rigidity"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:topology"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:tr-finite-decision"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:tr-witness-exclusion"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:two-channel-cap"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:two-sided-dyadic"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:two-thirds-band"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:upper-reset-band"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos257-mersenne-reasoning-surface#thm:weighted-coeff-engine"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:long:denominator-reduction"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:long:windowconsumer"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:actual-cancellation"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:actual-dichotomy"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:actual-escape-endpoint"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:actual-orbit"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:actual-tail-bound"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:all-scale-lattice"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:cell"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:consumer"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:count"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:drop"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:dyadic-alphabet"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:exact-denominator"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:fibre"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:finite-cut-rank"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:fixed-base-recoding"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:infinite-rank"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:jump-constrained-bound"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:lcm"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:literal-triangle"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:no-bounded-length"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:pinning"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:rank"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:residue-limit"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:short"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:strip-decomposition"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:tails-equivalence"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:two-prime-rank"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:uniform-rank"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:weighted-shift-identity"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos269-running-lcm-reasoning-surface#long269:res:window-growth"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:bandbreakpoint"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:carry-equivalence"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:channel-radius"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:companion-orbit"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:gap-gcd"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:global-residue"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:lcm-growth"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:lower-escape"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:moment-ideal"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:normalform"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:prime-pole"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:product-lcm"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:radius-constant"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:residual-transparency"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:segment"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:shift-family"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:translator"
-    },
-    {
-      "source": "integration:palomar",
-      "relation": "holds_prepared",
-      "target": "statement:erdos68-factorial-reasoning-surface#long68:res:wilson-cofinality"
+      "relation": "registers_selected_editions_for",
+      "target": "problem:erdos_1049",
+      "editions": [
+        {
+          "entry": "PalomarCorpus_E1049_01",
+          "repository": "wcook04/plectis-erdos-lean",
+          "commit": "8d47efd230e041b76b8233a49164ca798977053c",
+          "comparator_config_path": "PalomarCorpus/E1049_01/comparator.json",
+          "theorem_names": [
+            "PalomarCorpus.E1049.PaperStatementsA.contour_enclosure",
+            "PalomarCorpus.E1049.PaperStatementsA.four_rpow_mu_lt_thirtyOne",
+            "PalomarCorpus.E1049.PaperStatementsA.inv_bvMu_eq",
+            "PalomarCorpus.E1049.PaperStatementsA.omega_indicator",
+            "PalomarCorpus.E1049.PaperStatementsA.paperBvMu_eq",
+            "PalomarCorpus.E1049.PaperStatementsA.printed_bvMu",
+            "PalomarCorpus.E1049.PaperStatementsA.printed_bv_cutoff",
+            "PalomarCorpus.E1049.PaperStatementsA.printed_contour",
+            "PalomarCorpus.E1049.PaperStatementsA.printed_four_rpow_bvMu",
+            "PalomarCorpus.E1049.PaperStatementsA.printed_four_rpow_mu",
+            "PalomarCorpus.E1049.PaperStatementsA.printed_log_ratio",
+            "PalomarCorpus.E1049.PaperStatementsA.thirtyoneFour_between_rpow",
+            "PalomarCorpus.E1049.PaperStatementsA.thirtyoneFour_ratio_chain",
+            "PalomarCorpus.E1049.PaperStatementsA.zudilinC0_enclosure",
+            "PalomarCorpus.E1049.PaperStatementsA.zudilinJ_enclosure",
+            "PalomarCorpus.E1049.PaperStatementsA.zudilin_rpow_lt_iff_contourRegion",
+            "PalomarCorpus.E1049.PaperStatementsG.thirtyoneFour_outside_bv_inside_contour",
+            "PalomarCorpus.E1049.PaperStatementsI.rational_base_measure_uniform",
+            "PalomarCorpus.E1049.PaperStatementsI.thirtyoneFour_power_measure_lt_301",
+            "PalomarCorpus.E1049.PaperStatementsJ.rational_base_threshold",
+            "PalomarCorpus.E1049.PaperStatementsJ.rational_base_threshold_log",
+            "PalomarCorpus.E1049.PaperStatementsJ.thirtyoneFour_irrational",
+            "PalomarCorpus.E1049.PaperStatementsJ.thirtyoneFour_pow_irrational",
+            "PalomarCorpus.E1049.RationalBaseRegion.rational_base_power_measure",
+            "PalomarCorpus.E1049.RationalBaseRegion.thirtyone_four_power_measure_lt_301"
+          ],
+          "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-22-000039&version=1"
+        }
+      ],
+      "scope": "selected_historical_editions_not_current_problem_proof"
+    },
+    {
+      "source": "integration:palomar",
+      "relation": "registers_selected_editions_for",
+      "target": "problem:erdos_243",
+      "editions": [
+        {
+          "entry": "PalomarCorpus_E243_01",
+          "repository": "wcook04/plectis-erdos-lean",
+          "commit": "eb6cd7ceae9ff5c5bceeb514cac749c30861d8c6",
+          "comparator_config_path": "PalomarCorpus/E243_01/comparator.json",
+          "theorem_names": [
+            "PalomarCorpus.E243.CompletePaperRecords.fixed_offsets_periodic_lowerDensity",
+            "PalomarCorpus.E243.PaperStatementsA.cubic_profile_gcd_stabilisation_and_primitive_shape",
+            "PalomarCorpus.E243.PaperStatementsA.primitive_zero_density_paper_multiplier_lemma",
+            "PalomarCorpus.E243.PaperStatementsG.regular_rate_extraction",
+            "PalomarCorpus.E243.PaperStatementsL.canonical_tail_ratio_quantitative",
+            "PalomarCorpus.E243.PaperStatementsN.regular_rate_extraction_cubic",
+            "PalomarCorpus.E243.PaperStatementsP.scale_twelve_of_square_in_rootField",
+            "PalomarCorpus.E243.PaperStructuresAC.cubic_exclusion_unconditional",
+            "PalomarCorpus.E243.PaperStructuresAC.cubic_rate_irrationality_unconditional",
+            "PalomarCorpus.E243.PaperStructuresAC.squareSpecialisation",
+            "PalomarCorpus.E243.PaperStructuresAC.transport_square_unconditional",
+            "PalomarCorpus.E243.PaperStructuresAD.minus_one_forbidden_word",
+            "PalomarCorpus.E243.PaperStructuresAD.plus_one_forbidden_word"
+          ],
+          "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-22-000036&version=1"
+        }
+      ],
+      "scope": "selected_historical_editions_not_current_problem_proof"
+    },
+    {
+      "source": "integration:palomar",
+      "relation": "registers_selected_editions_for",
+      "target": "problem:erdos_249",
+      "editions": [
+        {
+          "entry": "PalomarCorpus_E249_29",
+          "repository": "wcook04/plectis-erdos-lean",
+          "commit": "9ab395cda99d13f8fcd16cf655fc17458b3eaa38",
+          "comparator_config_path": "PalomarCorpus/E249_29/comparator.json",
+          "theorem_names": [
+            "PalomarCorpus.E249.CompleteKernelBases.displayed_all_base_kernel",
+            "PalomarCorpus.E249.CompleteKernelBases.displayed_full_dyadic_basis",
+            "PalomarCorpus.E249.TotientKernelBasis.allBaseTotientKernelBasisRankAndRelationDimension",
+            "PalomarCorpus.E249.TotientKernelBasis.allSlopeAffineTotientFormsLinearIndependent",
+            "PalomarCorpus.E249.TotientKernelBasis.displayed_integral_normal_form"
+          ],
+          "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-21-000021&version=1"
+        }
+      ],
+      "scope": "selected_historical_editions_not_current_problem_proof"
+    },
+    {
+      "source": "integration:palomar",
+      "relation": "registers_selected_editions_for",
+      "target": "problem:erdos_251",
+      "editions": [
+        {
+          "entry": "PalomarCorpus_E251_01",
+          "repository": "wcook04/plectis-erdos-lean",
+          "commit": "34ab2ba6304c936a3537fd1cd8a91f23bbf2e575",
+          "comparator_config_path": "PalomarCorpus/E251_01/comparator.json",
+          "theorem_names": [
+            "PalomarCorpus.E251.PaperStatementsA.bounded_test_finite_coupling",
+            "PalomarCorpus.E251.PaperStatementsC.real_dyadic_orbit_eq_true_tail_iff",
+            "PalomarCorpus.E251.PaperStatementsG.dyadicPartialSumQ_eq_start_add_differences",
+            "PalomarCorpus.E251.PaperStatementsG.infinite_prime_gap_identity",
+            "PalomarCorpus.E251.PaperStatementsG.irrationality_reformulation",
+            "PalomarCorpus.E251.PaperStatementsG.prime0_dyadic_summation_by_parts",
+            "PalomarCorpus.E251.PaperStatementsG.rationality_classification",
+            "PalomarCorpus.E251.PaperStatementsH.real_block_identity",
+            "PalomarCorpus.E251.PaperStatementsI.local_target_interval",
+            "PalomarCorpus.E251.UniformSparseRationalisation.arbitrary_word_sparse_rationalisation_uniform",
+            "PalomarCorpus.E251.UniformSparseRationalisation.polylogarithmic_word_interval_uniform"
+          ],
+          "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-22-000037&version=1"
+        }
+      ],
+      "scope": "selected_historical_editions_not_current_problem_proof"
+    },
+    {
+      "source": "integration:palomar",
+      "relation": "registers_selected_editions_for",
+      "target": "problem:erdos_257",
+      "editions": [
+        {
+          "entry": "PalomarCorpus_E257_01",
+          "repository": "wcook04/plectis-erdos-lean",
+          "commit": "b85ed30805188eb4390a686b111294b24363418e",
+          "comparator_config_path": "PalomarCorpus/E257_01/comparator.json",
+          "theorem_names": [
+            "PalomarCorpus.E257.DivisibilityWeightedSupport.divisibilityWeightedClaim",
+            "PalomarCorpus.E257.MixedWeightedCover.mixedSupportClaim",
+            "PalomarCorpus.E257.PaperStructuresBO.arbitraryWeightMixedSupport_allBase_hereditary",
+            "PalomarCorpus.E257.VariableExponentCover.strengthenedPositiveCoverClaim",
+            "PalomarCorpus.E257.WeightedCloseReturn.weighted_displacement_cofinal_close_return"
+          ],
+          "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-09-25-000009&version=1"
+        },
+        {
+          "entry": "PalomarCorpus_E257",
+          "repository": "wcook04/plectis-erdos-lean",
+          "commit": "52f29ad173b04e3bac941b3663f2b9aebe5de0bb",
+          "comparator_config_path": "PalomarCorpus/E257/comparator.json",
+          "theorem_names": [
+            "PalomarCorpus.E257.AchievementSetGeometry.supportedMersenneAchievementSet_geometry_and_volume",
+            "PalomarCorpus.E257.AchievementSetGeometry.volume_supportedMersenneAchievementSet_eq_zero_of_rat_value",
+            "PalomarCorpus.E257.ActualUpperSuccessor.actualUpperRightPacketLinearEscape_iff_successorLinearEscape",
+            "PalomarCorpus.E257.ActualUpperSuccessor.actualUpperSuccessorLinearEscape_completeCounterexample",
+            "PalomarCorpus.E257.BooleanMobiusCarry.BooleanMobiusCarryCertificate.reconstructsSupport",
+            "PalomarCorpus.E257.BooleanMobiusCarry.exists_booleanMobiusCarry_of_support_fraction",
+            "PalomarCorpus.E257.BooleanMobiusCarry.exists_normalized_support_fraction_iff_exists_booleanMobiusCarry",
+            "PalomarCorpus.E257.BooleanMobiusCarry.support_fraction_of_booleanMobiusCarry",
+            "PalomarCorpus.E257.DivisibilityWeightedSupport.divisibilityWeightedClaim",
+            "PalomarCorpus.E257.DyadicObservationSummability.dyadic_supportObservationMass_sum_le",
+            "PalomarCorpus.E257.DyadicObservationSummability.summable_dyadic_supportObservationMass",
+            "PalomarCorpus.E257.DyadicObservationSummability.tendsto_dyadic_supportObservationMass_mean",
+            "PalomarCorpus.E257.FairCoding.fairCoding_pushforward_eq_volume_restrict",
+            "PalomarCorpus.E257.FairCoding.fairCoding_rational_values_null",
+            "PalomarCorpus.E257.FairCoding.measurePreserving_fairCoding",
+            "PalomarCorpus.E257.FinitePeriodNoncollapse.finite_period_noncollapse_rat_den",
+            "PalomarCorpus.E257.FinitePeriodNoncollapse.lcm_lt_den_finiteErdosSum",
+            "PalomarCorpus.E257.FourNinthsRepairWindows.exists_repair_in_sqrt_window",
+            "PalomarCorpus.E257.FourNinthsRepairWindows.four_ninths_mem_iff_repairCofinal",
+            "PalomarCorpus.E257.FourNinthsRepairWindows.four_ninths_mem_iff_repair_sqrt_windows",
+            "PalomarCorpus.E257.FourNinthsRepairWindows.four_ninths_not_mem_of_strict_sqrt_window",
+            "PalomarCorpus.E257.GeneralRepairCriterion.mem_iff_greedyBinaryDefect_cofinal_repairs",
+            "PalomarCorpus.E257.GeneralRepairCriterion.mem_iff_greedyBinaryDefect_sqrt_windows",
+            "PalomarCorpus.E257.LiteralWeightedCover.exists_weighted_not_strengthened_host",
+            "PalomarCorpus.E257.LiteralWeightedCover.exists_weighted_obstruction_with_mixed_heredity",
+            "PalomarCorpus.E257.MixedWeightedCover.mixedSupportClaim",
+            "PalomarCorpus.E257.PositiveSkipEquivalence.cofinalPositiveHalfGreedySkips_iff_half_mem",
+            "PalomarCorpus.E257.PositiveSkipEquivalence.greedyMersenneRemainderRat_half_pos",
+            "PalomarCorpus.E257.RationalMembership.greedyMersenneSkippedSupport_infinite_iff_cofinal_skips",
+            "PalomarCorpus.E257.RationalMembership.infinite_greedyMersenneSkippedSupport_of_rat_mem",
+            "PalomarCorpus.E257.RationalMembership.rat_mem_mersenneAchievementSet_iff_cofinal_greedy_skips",
+            "PalomarCorpus.E257.RationalMembership.rat_mem_mersenneAchievementSet_iff_greedySkippedSupport_infinite",
+            "PalomarCorpus.E257.RationalTailRigidity.dyadic_support_fraction_reciprocalMass_diverges_or_gt_one",
+            "PalomarCorpus.E257.RationalTailRigidity.exists_unbounded_shifted_odd_tail_nat_state_of_support_fraction",
+            "PalomarCorpus.E257.RationalTailRigidity.one_div_oddOrder_le_reciprocalMass_of_support_fraction",
+            "PalomarCorpus.E257.RationalTailRigidity.supportCoeffZeroWindow_length_le_eps_logb_add",
+            "PalomarCorpus.E257.ReciprocalSupport.irrational_supportPowerSeries_of_summable_reciprocal",
+            "PalomarCorpus.E257.ScaledGreedyTrap.mem_mersenneAchievementSet_iff_scaledRemainder_cofinallyBounded",
+            "PalomarCorpus.E257.ScaledGreedyTrap.mersenneAchievementSet_eq_scaledGreedyTrap",
+            "PalomarCorpus.E257.ScaledGreedyTrap.one_div_twentyOne_mem_iff_scaledLowerBranchCofinally",
+            "PalomarCorpus.E257.ScaledGreedyTrap.one_div_twentyOne_mem_iff_scaledRemainder_cofinallyBounded",
+            "PalomarCorpus.E257.ScaledGreedyTrap.rat_mem_mersenneAchievementSet_iff_scaledLowerBranchCofinally",
+            "PalomarCorpus.E257.ScaledGreedyTrap.scaledGreedyRemainder_tendsto_atTop_of_not_mem",
+            "PalomarCorpus.E257.TerminalScaledVanishing.terminalScaledVanishing_completeCounterexample",
+            "PalomarCorpus.E257.TwentyOneFatalBranch.one_div_twenty_one_mem_iff_not_fatalAlignedBranch",
+            "PalomarCorpus.E257.TwentyOneFatalBranch.one_div_twenty_one_mem_mersenneAchievementSet_of_closedLowerStates",
+            "PalomarCorpus.E257.TwentyOneFatalBranch.twentyOneClosedRow_forces_quotientGreedy",
+            "PalomarCorpus.E257.TwentyOneFatalBranch.twentyOneFatalAlignedBranch_eventually_affine_supercapacity",
+            "PalomarCorpus.E257.TwentyOneFatalBranch.twentyOneFatalAlignedBranch_eventually_strict_supercapacity",
+            "PalomarCorpus.E257.VariableExponentCover.strengthenedPositiveCoverClaim"
+          ],
+          "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-21-000020&version=1"
+        },
+        {
+          "entry": "ExternalVerification257ReciprocalSupport",
+          "repository": "wcook04/plectis-erdos-lean",
+          "commit": "c39cea6a976747d132a848d26f110b9c608d5a45",
+          "comparator_config_path": "ExternalVerification257ReciprocalSupport/comparator.json",
+          "theorem_names": [
+            "Erdos249257.ExternalVerification257ReciprocalSupport.irrational_supportPowerSeries_of_summable_reciprocal"
+          ],
+          "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-21-000018&version=1"
+        }
+      ],
+      "scope": "selected_historical_editions_not_current_problem_proof"
+    },
+    {
+      "source": "integration:palomar",
+      "relation": "registers_selected_editions_for",
+      "target": "problem:erdos_269",
+      "editions": [
+        {
+          "entry": "ExternalVerification269ThreePrimeStructure",
+          "repository": "wcook04/plectis-erdos-lean",
+          "commit": "c39cea6a976747d132a848d26f110b9c608d5a45",
+          "comparator_config_path": "ExternalVerification269ThreePrimeStructure/comparator.json",
+          "theorem_names": [
+            "Erdos249257.ExternalVerification269ThreePrimeStructure.smoothPrefixLcm_eq_threePrimeHeight",
+            "Erdos249257.ExternalVerification269ThreePrimeStructure.threePrimeKernelQ_eq_of_sameLogCell",
+            "Erdos249257.ExternalVerification269ThreePrimeStructure.threePrimePositiveJumpSet_card",
+            "Erdos249257.ExternalVerification269ThreePrimeStructure.finiteSmoothKernelSum_groupedByHeight",
+            "Erdos249257.ExternalVerification269ThreePrimeStructure.smoothExponentShell_card_quadratic",
+            "Erdos249257.ExternalVerification269ThreePrimeStructure.kernel_235_minor_eq_neg_one_fifteen",
+            "Erdos249257.ExternalVerification269ThreePrimeStructure.threePrimeKernel_infiniteRank_and_noFiniteSeparation"
+          ],
+          "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-21-000019&version=1"
+        },
+        {
+          "entry": "PalomarCorpus_E269_02",
+          "repository": "wcook04/plectis-erdos-lean",
+          "commit": "80024c64bc77a95249e34824a36bf43989f62ae6",
+          "comparator_config_path": "PalomarCorpus/E269_02/comparator.json",
+          "theorem_names": [
+            "PalomarCorpus.E269.PaperStatementsA.dyadicBlockBase235_cases",
+            "PalomarCorpus.E269.PaperStatementsA.dyadicBlockBase235_mem_interval",
+            "PalomarCorpus.E269.PaperStatementsA.dyadicInternalPower_exponent_unique",
+            "PalomarCorpus.E269.PaperStatementsA.exists_dyadicInternalPower_iff_log_succ",
+            "PalomarCorpus.E269.PaperStatementsA.log_dyadic_succ_eq_of_no_internalPower",
+            "PalomarCorpus.E269.PaperStatementsA.paper_two_by_two_fixture",
+            "PalomarCorpus.E269.PaperStatementsA.paper_uniform_rank_and_nonseparation",
+            "PalomarCorpus.E269.PaperStatementsA.radix_eq_height_ratio",
+            "PalomarCorpus.E269.PaperStatementsA.threePrimeHeight_dyadicBlock_succ",
+            "PalomarCorpus.E269.PaperStatementsB.real_two_prime_separation",
+            "PalomarCorpus.E269.PaperStatementsC.long_actual_orbit",
+            "PalomarCorpus.E269.PaperStatementsE.uniform_rank_complete",
+            "PalomarCorpus.E269.PaperStructuresH.rank_cutMatrix"
+          ],
+          "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-22-000038&version=1"
+        }
+      ],
+      "scope": "selected_historical_editions_not_current_problem_proof"
+    },
+    {
+      "source": "integration:palomar",
+      "relation": "registers_selected_editions_for",
+      "target": "problem:erdos_68",
+      "editions": [
+        {
+          "entry": "PalomarCorpus_E68_05",
+          "repository": "wcook04/plectis-erdos-lean",
+          "commit": "d8db022f33199491ba88d47fac6d66f8690f2c1a",
+          "comparator_config_path": "PalomarCorpus/E68_05/comparator.json",
+          "theorem_names": [
+            "PalomarCorpus.E68.PaperStatementsA.carry_characterisation",
+            "PalomarCorpus.E68.PaperStatementsA.companion_orbit_boundary",
+            "PalomarCorpus.E68.PaperStatementsA.divisor_channel_coordinates",
+            "PalomarCorpus.E68.PaperStatementsA.finite_channel_moment_certificate",
+            "PalomarCorpus.E68.PaperStatementsA.finite_channel_moment_certificate_eq",
+            "PalomarCorpus.E68.PaperStatementsA.global_complementary_criterion_nat"
+          ],
+          "registered_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-22-000040&version=1"
+        }
+      ],
+      "scope": "selected_historical_editions_not_current_problem_proof"
     },
     {
       "source": "lean-module:Erdos249257.ActualForeignResidueProjection",

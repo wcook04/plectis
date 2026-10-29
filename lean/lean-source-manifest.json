@@ -69,8 +69,8 @@
       "source_ref": "main",
       "source_path": "docs/verification/palomar_registry_status.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/palomar_registry_status.json",
-      "source_sha256": "9b78da156e77f20b6aab43c5019c1883ac184418f510e6e3eb5d9cfd5ce0a47a",
-      "bytes": 11470
+      "source_sha256": "5c1228eb83f28adf3b74243c1f271650646b2d0391b72092fbb9c2c91209c514",
+      "bytes": 20786
     },
     {
       "hosted_path": "lean/human-source/README.md",
@@ -78,8 +78,8 @@
       "source_ref": "main",
       "source_path": "README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/README.md",
-      "source_sha256": "799039e31a9db6698fa5b16ae7478ffb9668b4ffcb8e76c9d647f26424491bfa",
-      "bytes": 18184
+      "source_sha256": "2fd22301fcee59a375aa2ff6fff0bae2c17ab58806db1555a80ff28c54f76b86",
+      "bytes": 18287
     },
     {
       "hosted_path": "lean/human-source/docs/READING_GUIDE.md",
@@ -213,8 +213,8 @@
       "source_ref": "main",
       "source_path": "docs/ARCHITECTURE.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ARCHITECTURE.md",
-      "source_sha256": "21c7ec9dbc7c7078149d2248965620d88065ab6d1f276ba71192459f907906bb",
-      "bytes": 18015
+      "source_sha256": "e79a63ea29765fcba7455a5486d444436eced30378e797132a31e949a1d14f81",
+      "bytes": 17971
     },
     {
       "hosted_path": "lean/human-source/docs/reference/RESIDUAL_PROGRESS.md",

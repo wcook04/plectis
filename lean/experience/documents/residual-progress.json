@@ -11,7 +11,7 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/RESIDUAL_PROGRESS.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "240b0ff3087fad317713cc7a10a00beabc19bebdf2a6ca25a303f5bbb62787f2",
+    "navigation_fingerprint": "d3ab6801b8d0c1db080bb1b32f0efc6a68db2d399d6027acfceb23801ea88c90",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -19,7 +19,7 @@
     "source_sha256": "d9bc78d21dcbe5c57b088d82edb321aa090dea33074d3d00f23d0feb267c8d6c",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "7d92a620c0a6f310",
+    "renderer_fingerprint": "d264019ae46e5b6f",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",

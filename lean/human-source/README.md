@@ -3,21 +3,22 @@
 
 # Plectis
 
-### Mathematical research and the system behind it
+<a id="mathematical-research-and-the-system-behind-it"></a>
+
+**Mathematical research and the system behind it**
 
 Plectis collects research on eight problems posed by Paul Erdős: papers,
 Lean proofs of selected statements, experiments and failed approaches.
-The aim is to make AI-assisted research easier to understand, check and continue.
+Inspect and continue the research.
 
-**[Explore the research](#problem-papers)** · **[Read the system paper](paper/systems/claim-faithful-publication-systems-paper.pdf)** · **[Watch the videos](#videos)** · **[Open the maths map](https://wcook04.github.io/practical-formal-verification/maths/universe.html)**
+**[Explore the research](#problem-papers)** · **[Watch the maths tour](https://www.youtube.com/watch?v=J2sX6nj3jOk)** · **[Read the system paper](paper/systems/claim-faithful-publication-systems-paper.pdf)** · **[Repository map](#repository-map)**
 
 [![Eight Erdős problem programmes: the interactive maths map connects papers, results and their formal evidence](.github/maths-map.png)](https://wcook04.github.io/practical-formal-verification/maths/universe.html)
 
 <sub>The maths map on 9 October 2026. Open the image to explore the current edition.</sub>
 
-Plectis is an independent, AI-assisted prototype built and maintained by Will Cook.
-[A reader's way in](docs/READING_GUIDE.md) introduces the mathematics without
-requiring Lean. The [glossary](https://wcook04.github.io/practical-formal-verification/docs/glossary.html)
+Will Cook maintains this independent, AI-assisted prototype.
+Start without Lean: [A reader's way in](docs/READING_GUIDE.md). The [glossary](https://wcook04.github.io/practical-formal-verification/docs/glossary.html)
 explains project terminology.
 
 ---
@@ -74,14 +75,6 @@ historical correspondence.
 is credited in the [#1041 case study](docs/case-studies/formal-conjectures-1041.md).
 [Results and limits](docs/RESULTS.md) keeps each programme's statements beside
 its assumptions, earlier work and remaining questions.
-
-<a id="videos"></a>
-
-## Watch the videos
-
-- [Plectis introduction](https://www.youtube.com/watch?v=U1z2-XaLe_w): why I use AI to explain its research and software.
-- [The maths map](https://www.youtube.com/watch?v=J2sX6nj3jOk): a tour from checked statements through research records and papers to explanations.
-- [Erdős #257 explanation](https://www.youtube.com/watch?v=vXgIBy5C5X0): examples and a proof under Erdős's reciprocal-summability condition; the unrestricted problem remains open.
 
 <a id="about-the-project"></a>
 
@@ -234,6 +227,18 @@ The paper links each headline result to the relevant source. For a particular
 topic, start with the [source map](docs/SOURCE_MAP.md); it gives the module
 order without asking you to decode Lean declaration names first.
 <!-- END generated_principal_declaration_anchors -->
+
+<a id="videos"></a>
+
+## Watch the videos
+
+| Film | Read alongside it |
+|---|---|
+| [Maths map](https://www.youtube.com/watch?v=J2sX6nj3jOk) | [Paper list](#problem-papers) · [Source map](docs/SOURCE_MAP.md) |
+| [Erdős #257](https://www.youtube.com/watch?v=vXgIBy5C5X0) | [Introductory paper](paper/257/erdos257-expository-sums-never-fractions.pdf) · [Short paper](paper/257/erdos-257-mersenne-support-subseries.pdf) |
+| [Plectis introduction](https://www.youtube.com/watch?v=U1z2-XaLe_w) | [System paper](paper/systems/claim-faithful-publication-systems-paper.pdf) |
+
+The #257 film covers reciprocal-summable supports; the unrestricted problem remains open.
 
 <a id="citation-and-prior-work"></a>
 

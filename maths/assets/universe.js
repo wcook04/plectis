@@ -276,6 +276,7 @@
     replayed: ['Replayed', 'Replayed by'],
     queued: ['Will replay', 'Queued for a replay by'],
     holds_prepared: ['Holds prepared', 'Prepared for'],
+    registers_selected_editions_for: ['Holds registered editions on', 'Has selected editions registered with'],
     states: ['States', 'Stated in'],
     same_lean_declaration: ['Shares a Lean declaration with', 'Shares a Lean declaration with'],
     explained_by: ['Written up in', 'Writes up'],
@@ -1917,13 +1918,16 @@
        the very objects they connect. The full adjacency stays inspectable. */
     function incidentEdges(focus) {
       if (focus < 0) return [];
-      // A hub's reach is the lit band; two dozen spokes to arbitrary
-      // members of it would misstate which results it reaches.
-      if (nodes[focus] && nodes[focus].kind === 'integration_surface') return [];
+      // Comparator's reach is the lit band. Palomar's small set of exact
+      // registered-edition topic links uses these same incident threads.
+      if (nodes[focus] && nodes[focus].kind === 'integration_surface' &&
+          nodes[focus].id !== 'integration:palomar') return [];
       var rows = [];
       for (var i = 0; i < edges.length; i++) {
         var e = edges[i];
         if (e[0] !== focus && e[1] !== focus) continue;
+        if (nodes[focus].id === 'integration:palomar' &&
+            relations[e[2]] !== 'registers_selected_editions_for') continue;
         var other = e[0] === focus ? e[1] : e[0];
         if (!visible(nodes[focus]) || !visible(nodes[other])) continue;
         if (nodes[focus].kind === 'universe' && nodes[other].kind !== 'problem') continue;
@@ -3004,6 +3008,7 @@
        The same places serve the labels and the plates that keep clear of
        them. */
     function anchorText(n, w, isFocus) {
+      if (n.id === 'integration:palomar') return 'Palomar';
       /* At rest a problem's two papers are named by what they are, "Short
          paper" and "Long paper", the way the card's tabs name them: a
          title cut to fit ("Reciprocal Sums and the Sylv…") said less, and
@@ -3511,7 +3516,8 @@
           ctx.stroke();
           ctx.globalAlpha = alpha;
         } else if (n.id === 'integration:palomar') {
-          // Palomar holds a prepared corpus, nothing submitted: a ring.
+          // The ring remains distinct from a theorem's proof mark; a filled
+          // centre means this dated inventory contains registered editions.
           ctx.beginPath();
           ctx.arc(x, y, r - 1, 0, Math.PI * 2);
           ctx.fillStyle = palette.ground;
@@ -3519,6 +3525,12 @@
           ctx.lineWidth = 2;
           ctx.strokeStyle = shade(palette.integration_surface);
           ctx.stroke();
+          if (n.registry_status && n.registry_status.counts && n.registry_status.counts.registered > 0) {
+            ctx.beginPath();
+            ctx.arc(x, y, Math.max(2, r * 0.38), 0, Math.PI * 2);
+            ctx.fillStyle = shade(palette.integration_surface);
+            ctx.fill();
+          }
         } else if (n.kind === 'problem') {
           if (ghost && !faded && focusMix < 1) {
             ctx.globalAlpha = undimmed * (1 - focusMix);
@@ -5035,7 +5047,7 @@
       } else {
         text = 'No Lean statement is recorded for it yet.';
       }
-      if (n.palomar_status === 'prepared') text += ' It is in the corpus prepared for Palomar; nothing has been submitted.';
+      if (n.palomar_status === 'prepared') text += ' Its proof files are prepared for Palomar; this preparation record does not establish registration of the current statement.';
       else if (n.palomar_status === 'pending') text += ' Preparation for Palomar is pending.';
       return text;
     }
@@ -5048,25 +5060,33 @@
       var observed = new Date(record.observed_at).toLocaleString('en-GB', {
         timeZone: 'UTC', dateStyle: 'medium', timeStyle: 'short'
       }) + ' UTC';
-      var rows = (record.entries || []).map(function (entry) {
+      var registeredRows = [], pendingRows = [];
+      (record.entries || []).forEach(function (entry) {
         var source = 'https://github.com/' + entry.repository + '/blob/' + entry.commit + '/' +
           entry.comparator_config_path.split('/').map(encodeURIComponent).join('/');
         var blocker = entry.publication_blocker;
+        var mapLinks = entry.status === 'registered' ? (entry.problem_ids || []).map(problemChipHtml).join(', ') : '';
         var label = entry.status === 'registered' ? 'Registered' : blocker ?
           'Registration requested; publication blocked' : 'Registration requested; publication pending';
-        return '<p class="universe-inspector__note"><strong>' + escapeHtml(entry.title) + '</strong><br>' +
-          label + '. ' + extLink(source, 'Source <code>' + escapeHtml(entry.commit.slice(0, 12)) + '</code>') +
+        var row = '<li class="universe-check universe-check--palomar universe-check--' +
+          (entry.status === 'registered' ? 'done' : 'queued') + '"><span class="universe-check__mark" aria-hidden="true"></span>' +
+          '<div class="universe-check__body"><p class="universe-check__text"><b>' + escapeHtml(entry.title) + '</b></p><p class="universe-check__more">' +
+          label + '. ' + (mapLinks ? 'On the map: ' + mapLinks + '. ' : '') + extLink(source, 'Source <code>' + escapeHtml(entry.commit.slice(0, 12)) + '</code>') +
           (entry.status === 'registered' && entry.registered_url ?
             '; ' + extLink(entry.registered_url, 'Registry entry') : '') +
           '; ' + extLink(entry.verification_run_url, 'Verification run') + '.' +
           (blocker ? '<br>' + escapeHtml(blocker.summary) + ' ' +
-            extLink(blocker.evidence_url, 'Publication failure') + '.' : '') + '</p>';
-      }).join('');
+            extLink(blocker.evidence_url, 'Publication failure') + '.' : '') + '</p></div></li>';
+        (entry.status === 'registered' ? registeredRows : pendingRows).push(row);
+      });
+      var rows = (registeredRows.length ? '<h3 class="universe-inspector__sub">In Palomar (' + registeredRows.length + ')</h3><ul class="universe-checks">' + registeredRows.join('') + '</ul>' : '') +
+        (pendingRows.length ? '<h3 class="universe-inspector__sub">Awaiting publication (' + pendingRows.length + ')</h3><ul class="universe-checks">' + pendingRows.join('') + '</ul>' : '');
       return '<p class="universe-inspector__body">' + fmtCount(registered) +
         ' registered ' + (registered === 1 ? 'entry' : 'entries') + '. ' + fmtCount(requested) +
         ' registration ' + (requested === 1 ? 'request' : 'requests') + ' recorded' +
         (blocked ? '; ' + fmtCount(blocked) + (blocked === 1 ? ' has a publication blocker' : ' have publication blockers') : '') +
-        '. Observed ' + escapeHtml(observed) + '.</p>' + rows +
+        '. Observed ' + escapeHtml(observed) + '.</p>' +
+        '<p class="universe-inspector__note">The lines connect Palomar to the problems named by its registered editions. Each entry below identifies the selected source edition; the lines do not certify every current result on that problem.</p>' + rows +
         '<p class="universe-inspector__boundary">' + escapeHtml(record.boundary) + '</p>' +
         '<p class="universe-inspector__note">' + extLink(record.source_github, 'Dated registry status') + '</p>';
     }
@@ -5448,7 +5468,7 @@
       } else {
         rows.push(checkHtml('none', 'Comparator', 'A comparison test requires an exact Lean statement; none is recorded here.'));
       }
-      // Palomar: a prepared corpus; nothing has been submitted.
+      // Per-statement preparation does not establish registry coverage.
       if (n.palomar_status === 'prepared') {
         rows.push(checkHtml('ready', 'Palomar', 'Its proof files are prepared for Palomar, an external registry for formally verified results. This record does not report a submission.', '',
           pinned ? hubAttr(n, 'integration:palomar') : ''));
@@ -5690,7 +5710,9 @@
         if (rows.total) {
           parts.push('<h3 class="universe-inspector__sub">How it connects</h3>');
           if (n.kind === 'integration_surface') {
-            parts.push('<p class="universe-inspector__hint">The map lights every result it reaches.</p>');
+            parts.push('<p class="universe-inspector__hint">' + (n.id === 'integration:palomar' && n.registry_status ?
+              'The lines show the problems with registered editions. Choose an entry’s map link to inspect its problem.' :
+              'The map lights every result it reaches.') + '</p>');
           }
           parts.push(rows.html);
         }
@@ -6412,7 +6434,7 @@
           sector: n.sector || null, placedBy: n.placed_by || null,
           paper: n.paper || null, paperTitle: n.paper_title || null,
           paperLabel: n.paper_label || null, lean: n.lean || [],
-          sub: n.sub || null,
+          sub: n.id === 'integration:palomar' ? null : n.sub || null,
           x: n.x, y: n.y, r: KIND_RADIUS[n.kind] || 2
         };
         // An expository paper's role is on its own node (paperSideOf).
@@ -7781,7 +7803,7 @@
             paper_label: link.paper_label, lean: link.lean,
             id: n.id, kind: n.kind, label: n.label,
             short: layout.short && layout.short[n.id] || n.label,
-            sub: subs[n.id] || null,
+            sub: n.id === 'integration:palomar' ? null : subs[n.id] || null,
             status: n.status, statement: n.statement, boundary: n.boundary,
             proof_status: n.proof_status, proof_note: n.proof_note,
             registry_status: n.registry_status,

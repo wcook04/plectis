@@ -1508,6 +1508,8 @@ a.video-card:hover .video-card__go { text-decoration: underline; }
 
 .docs-lede { font-size: var(--fs-lede); line-height: var(--lh-snug); color: var(--ink-soft); }
 
+.docs-film { margin: 1.25rem 0 0.25rem; max-width: 46rem; }
+
 pre {
   background: var(--code-bg); border: 1px solid var(--rule);
   border-radius: 10px; padding: 1rem 1.15rem;

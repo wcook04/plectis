@@ -2,7 +2,7 @@
   "schema": "plectis_lean_experience_manifest_v1",
   "experience_version": "plectis_lean_experience_v1",
   "generated_by": "tools/meta/dissemination/build_plectis_lean_experience.py",
-  "source_fingerprint": "b0ebeb9add15758421ee10d0b8ac56444cc6781cc542b370fb9e2e1cff38eae5",
+  "source_fingerprint": "a97e6ed19f8627d8f7142227aae47fc0429157fde2118061cfd5081668e8f0ee",
   "publication_state": "published_source",
   "public_parity": true,
   "authority_model": {
@@ -33,7 +33,7 @@
     "papers": 22,
     "human_documents": 18,
     "graph_nodes": 2907,
-    "graph_edges": 9145
+    "graph_edges": 8536
   },
   "paper_statements": {
     "source": "../paper-lean-coverage.json",
@@ -88,15 +88,15 @@
     ]
   },
   "source_identity": {
-    "human_document_navigation": "240b0ff3087fad317713cc7a10a00beabc19bebdf2a6ca25a303f5bbb62787f2",
-    "lean_manifest": "0d44ac25bf4b7bc41e2efd8a2a1d3a760285831fed10909615b9bd4fc2b74128",
-    "paper_manifest": "287bf6dfeaf75cb8317f8d7ba14d71f1cb0e149855c942a35297bf3a24bae143",
+    "human_document_navigation": "d3ab6801b8d0c1db080bb1b32f0efc6a68db2d399d6027acfceb23801ea88c90",
+    "lean_manifest": "6d48d576b673f6145d6af13dd5d240b16c3ce09f355b98964db5427013b36030",
+    "paper_manifest": "f741a68fdcadce2cc454fb79dce32a1b419312cdfd0fdcb6cab6a6c5dd146655",
     "claims": "b92af9f98a8743f48cf40c399d0c03eee322b7195e48c96eb14721ecb92fce9a",
     "problems": "131d897d99eb4de075e7e4c4269f3431005638e6028519a813944b13dcb8d904",
     "problem_library": "c5dfe78dfa4d5d1f478a458a55a4e65868d60fb827c8e5184aee32a0079f2b8f",
     "paper_lean_coverage": "633921ae2018e3e674609382150b4733ae6f071793a1589a1ab7f0b4985878a9",
     "paper_evidence": "8c7de6f8f5e082fa91698d0c8314620207603080c348a526aa31fa250042b423",
-    "palomar_registry_status": "9b78da156e77f20b6aab43c5019c1883ac184418f510e6e3eb5d9cfd5ce0a47a",
+    "palomar_registry_status": "5c1228eb83f28adf3b74243c1f271650646b2d0391b72092fbb9c2c91209c514",
     "comparator_palomar_route_map": "4925dc5378edcaecc1e3b21b03eca61c3d0c3ff64fae8cc64e4ec1c02efde965",
     "palomar_release_receipt": "b6876a4a0207ddca8b498ea213784e4bc3ea7a01c3701355c9a1863bb9f29c3a"
   },

@@ -3,19 +3,32 @@
   "reviewed_on": "2026-10-15",
   "presentation": {
     "human_credit": "primary",
-    "human_identity": "anonymous_for_now",
+    "human_identity": "name_only_with_permission",
     "agent_acknowledgements": "secondary_collapsed"
   },
   "human_advice": {
     "artifact_role": "generated_credit_ledger_for_implemented_advice",
     "authority_boundary": "Acknowledges advice that changed public files in this repository. It does not say that the person reviewed, checked or endorsed any mathematics, and it does not make them an author.",
     "counts": {
-      "entries": 9,
-      "named_with_permission": 0,
+      "entries": 10,
+      "withheld_pending_confirmation": 9,
       "anonymous_by_request": 0,
-      "withheld_pending_confirmation": 9
+      "named_with_permission": 1
     },
     "entries": [
+      {
+        "id": "jasmine-otto-foc-explanation-feedback-20261016",
+        "anchor": "credit-jasmine-otto-number-line",
+        "title": "Explaining the calculation behind the number line",
+        "received_on": "2026-10-16",
+        "credited_as": "Jasmine Otto",
+        "told": "Jasmine Otto pointed out that the dots on the number line did not make the remainder calculation clear in an early #257 preview.",
+        "changed": "Her feedback helped focus the new lesson on multiplying the fraction, subtracting the whole part, and connecting the remainder to the number line.",
+        "credit_url": "https://www.youtube.com/watch?v=crpv9N4R7qw",
+        "naming": {
+          "state": "named_with_permission"
+        }
+      },
       {
         "anchor": "credit-correspondence-007",
         "artifacts": [
@@ -879,7 +892,7 @@
     {
       "repository": "wcook04/plectis",
       "label": "Project history, AI assistance and third-party sources",
-      "url": "https://github.com/wcook04/practical-formal-verification/blob/89e36b0970f285ca585a13b082656ce17b113f26/PROVENANCE.md"
+      "url": "https://github.com/wcook04/plectis/blob/89e36b0970f285ca585a13b082656ce17b113f26/PROVENANCE.md"
     },
     {
       "repository": "wcook04/plectis-atlas",

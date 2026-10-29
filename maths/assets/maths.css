@@ -389,6 +389,10 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 .universe-teaser__head h2 a:hover { color: var(--accent); }
 .universe-teaser__lede { margin: 0; max-width: 60ch; color: var(--muted); font-size: var(--fs-small); line-height: var(--lh-body); }
 .universe-teaser__cta { flex: none; }
+/* The map's film (the family film slot, inline) under the teaser's lede, and
+   a problem's own film under its question. */
+.universe-teaser__head .film-slot { margin-top: var(--space-4); max-width: 46rem; }
+.problem-film { margin: 0 0 var(--space-6); max-width: 46rem; }
 .universe-teaser__stage { position: relative; background: var(--surface); }
 .universe-canvas--teaser { height: 380px; cursor: pointer; }
 @media (max-width: 720px) { .universe-canvas--teaser { height: 300px; } }

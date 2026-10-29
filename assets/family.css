@@ -1,0 +1,215 @@
+/* Will Cook's websites: the parts every site shares.
+
+   One stylesheet for the three things that make the sites read as one family:
+   the header's ladder up to the home page, the film slot, and the footer's
+   list of sister sites. Each site copies this file unchanged and maps its own
+   colour and type tokens onto the --fam-* names below (see docs/family.md).
+
+   Adapted, not new. Every rule here comes from the Plectis site's accepted
+   components (ai_workflow sites/microcosm/assets/style.css and film-map.css,
+   28 October 2026):
+     .fam-ladder          <- .brand-ladder, .brand-ladder__up, .brand-ladder__sep
+     .film-slot__frame    <- .film-poster
+     .film-slot__play     <- .film-poster .home-video__play (the plum chip)
+     .film-slot__time     <- .film-poster .home-video__duration (solid chip)
+     .film-slot--pending  <- .film-poster.film-pending (registration marks)
+     .film-slot__title    <- .film__title and its outbound arrow
+   Changes: the selectors are namespaced so they cannot collide with a site's
+   own classes, colours read --fam-* tokens with the Plectis values as the
+   fallback, and the frame's hover follows the film map's rule that a
+   recording of a real screen never zooms. */
+
+:where(.fam-root, :root) {
+  --fam-page: var(--page, #f8f0e2);
+  --fam-surface: var(--surface, #fffdf7);
+  --fam-ink: var(--ink, #191520);
+  --fam-ink-soft: var(--ink-soft, #342d3d);
+  --fam-muted: var(--muted, #544d5d);
+  --fam-faint: var(--faint, #6d6473);
+  --fam-rule: var(--rule, #eaddc9);
+  --fam-rule-strong: var(--rule-strong, #d9c7ae);
+  --fam-accent: var(--accent, #29527b);
+  --fam-serif: var(--font-serif, "Plectis Serif", "STIX Two Text", Georgia, serif);
+  --fam-sans: var(--font-sans, "Plectis Sans", "Source Sans 3", system-ui, sans-serif);
+  --fam-ease: cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+/* ---------------------------------------------------------------- ladder
+   The ladder names the site this one hangs under: "Will Cook / <site>". The
+   parent rung is quiet sans; the site's own wordmark keeps its own style.
+   Baseline alignment, not centre, so the small parent text sits on the
+   wordmark's line rather than floating at a mark's optical middle. */
+.fam-ladder { display: inline-flex; align-items: baseline; gap: 0.5rem; min-width: 0; }
+.fam-ladder__up {
+  font-family: var(--fam-sans); font-size: 0.84rem; font-weight: 400;
+  color: var(--fam-muted); white-space: nowrap; text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 160ms var(--fam-ease), border-color 160ms var(--fam-ease);
+}
+.fam-ladder__up:hover { color: var(--fam-accent); border-bottom-color: var(--fam-accent); text-decoration: none; }
+.fam-ladder__up:focus-visible { outline: 2px solid var(--fam-accent); outline-offset: 2px; border-radius: 2px; }
+.fam-ladder__sep { color: var(--fam-faint); font-size: 0.95rem; user-select: none; }
+
+/* ---------------------------------------------------------------- film slot
+   A film's place on a page. A released film shows its still, the play chip
+   and its running time; the picture and the title open the same video, so
+   the title is the one link in the Tab order and the picture is hidden from
+   assistive technology. A film in preparation holds its place with the
+   site's registration marks and its short name, and has no link. */
+.film-slot { margin: 0; min-width: 0; }
+.film-slot__frame {
+  position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden;
+  border-radius: 10px; background: #0d0a12;
+  box-shadow: 0 0 0 1px var(--fam-rule-strong);
+  /* The play mark is the film's control, not part of its picture, so it keeps
+     one look over every still and in both themes: a chip in plum ink, a cream
+     mark, a hairline and a short lift. */
+  --play: 46px;
+  --film-chip: rgba(18, 12, 24, 0.76);
+  --film-chip-solid: #15101b;
+  --film-mark: #f8f0e2;
+  transition: box-shadow 160ms var(--fam-ease);
+}
+.film-slot__frame > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.film-slot__play {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  width: var(--play); height: var(--play); border-radius: 50%;
+  background: var(--film-chip);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 0 1px rgba(248, 240, 226, 0.3), 0 6px 16px -8px rgba(8, 5, 12, 0.8);
+}
+.film-slot__play::after {
+  content: ""; position: absolute; left: 53.5%; top: 50%; translate: -50% -50%;
+  border-left: calc(var(--play) * 0.27) solid var(--film-mark);
+  border-top: calc(var(--play) * 0.165) solid transparent;
+  border-bottom: calc(var(--play) * 0.165) solid transparent;
+}
+/* Solid, unlike the mark: it carries words, and through a translucent fill a
+   recording's own text showed through it. */
+.film-slot__time {
+  position: absolute; right: 0.6rem; bottom: 0.6rem;
+  padding: 0.14rem 0.45rem; border-radius: 6px;
+  font-family: var(--fam-sans); font-size: 0.75rem; font-weight: 600; font-variant-numeric: tabular-nums;
+  background: var(--film-chip-solid); color: var(--film-mark);
+  box-shadow: inset 0 0 0 1px rgba(248, 240, 226, 0.14);
+}
+.film-slot--small .film-slot__frame { --play: 34px; }
+.film-slot--small .film-slot__time { right: 0.4rem; bottom: 0.4rem; padding: 0.05rem 0.35rem; font-size: 0.7rem; }
+.film-slot--large .film-slot__frame { --play: 56px; }
+
+/* The title is the link and carries the focus ring; the picture echoes it
+   quietly, its hairline taking the accent. */
+/* Caption rules carry .film-slot twice over a bare class, so a host page's
+   paragraph margins (.docs-main p, say) cannot pull the caption apart. */
+.film-slot .film-slot__caption { margin-top: 0.8rem; display: grid; gap: 0.3rem; }
+.film-slot .film-slot__title {
+  margin: 0; font-family: var(--fam-serif); font-weight: 400; color: var(--fam-ink);
+  font-size: 1.12rem; line-height: 1.22; letter-spacing: -0.005em; text-wrap: balance;
+}
+.film-slot--large .film-slot__title, .film-slot.film-slot--large .film-slot__title { font-size: clamp(1.3rem, 1.02rem + 0.62vw, 1.6rem); line-height: 1.16; }
+.film-slot.film-slot--small .film-slot__title { font-size: 1rem; }
+.film-slot__title a { color: inherit; text-decoration: none; display: inline-block; }
+.film-slot__title a::after {
+  content: "\00a0\2197"; color: var(--fam-faint); font-family: var(--fam-sans); font-size: 0.62em;
+}
+.film-slot__title a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
+.film-slot__title a:focus-visible { outline: 2px solid var(--fam-accent); outline-offset: 3px; border-radius: 2px; }
+.film-slot:has(.film-slot__title a:hover) .film-slot__frame,
+.film-slot:has(.film-slot__title a:focus-visible) .film-slot__frame { box-shadow: 0 0 0 1px var(--fam-accent); }
+@media (hover: hover) and (pointer: fine) {
+  a.film-slot__frame:hover { box-shadow: 0 0 0 1px var(--fam-accent); }
+}
+.film-slot .film-slot__meta {
+  margin: 0; font-family: var(--fam-sans); font-size: 0.84rem; line-height: 1.4;
+  color: var(--fam-faint); font-variant-numeric: tabular-nums;
+}
+.film-slot .film-slot__text {
+  margin: 0.1rem 0 0; max-width: 60ch; font-size: 0.95rem; line-height: 1.55;
+  color: var(--fam-ink-soft); text-wrap: pretty;
+}
+
+/* A film in preparation: the frame held for it wears the site's registration
+   marks at two corners (in print they mark where a picture will be laid
+   down), a short rule in the site's ink along the top, the series name, the
+   film's short name in the serif and its status. No image bytes. */
+.film-slot__frame--pending {
+  display: flex; flex-direction: column; justify-content: space-between; gap: 0.35em;
+  padding: 7% 8% 6%; color: var(--fam-ink); text-decoration: none;
+  background:
+    linear-gradient(var(--fam-film-ink, var(--fam-accent)), var(--fam-film-ink, var(--fam-accent))) 8% 0 / 30% 2px no-repeat,
+    color-mix(in srgb, var(--fam-film-ink, var(--fam-accent)) 7%, color-mix(in srgb, var(--fam-surface) 70%, var(--fam-page)));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fam-ink) 12%, transparent);
+  border-radius: 8px;
+}
+.film-slot__frame--pending::before, .film-slot__frame--pending::after {
+  content: ""; position: absolute; width: 10px; height: 10px; pointer-events: none;
+  border: 0 solid color-mix(in srgb, var(--fam-ink) 40%, transparent);
+  transition: transform 160ms var(--fam-ease), border-color 160ms var(--fam-ease);
+}
+.film-slot__frame--pending::before { right: 7px; top: 7px; border-width: 1px 1px 0 0; }
+.film-slot__frame--pending::after { left: 7px; bottom: 7px; border-width: 0 0 1px 1px; }
+.film-slot__frame--pending > span { display: block; min-width: 0; }
+.film-slot__series, .film-slot__status {
+  font-family: var(--fam-sans); font-size: 0.82rem; line-height: 1.3;
+}
+.film-slot__series { color: var(--fam-muted); }
+.film-slot__status { color: var(--fam-film-ink, var(--fam-accent)); }
+.film-slot__name {
+  font-family: var(--fam-serif); font-weight: 500; line-height: 1.12; letter-spacing: -0.01em;
+  font-size: clamp(1.15rem, 0.8rem + 1.2vw, 1.75rem); color: var(--fam-ink);
+  text-wrap: balance; overflow-wrap: anywhere;
+}
+.film-slot--small .film-slot__name { font-size: 1rem; }
+.film-slot--large .film-slot__name { font-size: clamp(1.5rem, 1rem + 2vw, 2.4rem); }
+/* A held frame answers the pointer the way a print's registration marks close
+   on the place for its picture: the two marks step in and take the ink. */
+.film-slot:hover .film-slot__frame--pending::before { transform: translate(-3px, 3px); border-color: var(--fam-film-ink, var(--fam-accent)); }
+.film-slot:hover .film-slot__frame--pending::after { transform: translate(3px, -3px); border-color: var(--fam-film-ink, var(--fam-accent)); }
+
+/* Inline: a film about the apparatus, on a page whose subject is something
+   else, is a small still beside its title rather than a frame of its own. */
+.film-slot--inline { display: grid; grid-template-columns: minmax(8rem, 11rem) minmax(0, 1fr); gap: 0.4rem 1rem; align-items: start; }
+.film-slot--inline .film-slot__frame { --play: 30px; border-radius: 7px; }
+.film-slot--inline .film-slot__time { right: 0.35rem; bottom: 0.35rem; padding: 0.02rem 0.32rem; font-size: 0.68rem; }
+/* Small and inline held frames carry the film's name alone, as the Plectis
+   film map's small frames do; the caption beside them says "in preparation". */
+.film-slot--small .film-slot__frame--pending, .film-slot--inline .film-slot__frame--pending { justify-content: center; padding: 6% 9%; }
+.film-slot--small .film-slot__series, .film-slot--small .film-slot__status,
+.film-slot--inline .film-slot__series, .film-slot--inline .film-slot__status { display: none; }
+.film-slot.film-slot--inline .film-slot__name { font-size: 0.86rem; line-height: 1.15; }
+.film-slot.film-slot--inline .film-slot__caption { margin-top: 0; }
+.film-slot.film-slot--inline .film-slot__title { font-size: 1.02rem; }
+.film-slot.film-slot--inline .film-slot__text { font-size: 0.9rem; }
+/* On a phone the inline slot stacks: beside a small still the description
+   became a column a dozen lines tall. */
+@media (max-width: 40rem) {
+  .film-slot--inline { display: block; }
+  .film-slot--inline .film-slot__frame { max-width: 22rem; --play: 40px; }
+  .film-slot.film-slot--inline .film-slot__caption { margin-top: 0.7rem; }
+  .film-slot.film-slot--inline .film-slot__name { font-size: 1.15rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fam-ladder__up, .film-slot__frame, .film-slot__frame--pending::before, .film-slot__frame--pending::after { transition: none; }
+}
+/* Readers who ask for less transparency or more contrast get opaque chips. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  :root .film-slot__play, :root .film-slot__time {
+    -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--film-chip-solid);
+  }
+}
+@media (forced-colors: active) {
+  .film-slot__frame, .film-slot__frame--pending { border: 1px solid CanvasText; }
+  .film-slot__play { border: 1px solid CanvasText; }
+}
+
+/* ---------------------------------------------------------------- sister sites
+   The footer's list of the other websites, the same on every site. The site
+   being read is marked, not linked. */
+.fam-sites { font-family: var(--fam-sans); font-size: 0.9rem; line-height: 1.5; color: var(--fam-muted); }
+.fam-sites__title { margin: 0 0 0.4rem; font-size: 0.9rem; font-weight: 600; color: var(--fam-ink); }
+.fam-sites__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 1.4rem; }
+.fam-sites__list a { color: var(--fam-ink); text-decoration: none; border-bottom: 1px solid var(--fam-rule-strong); }
+.fam-sites__list a:hover { color: var(--fam-accent); border-bottom-color: var(--fam-accent); }
+.fam-sites__list a:focus-visible { outline: 2px solid var(--fam-accent); outline-offset: 2px; border-radius: 2px; }
+.fam-sites__list [aria-current="page"] { color: var(--fam-muted); }

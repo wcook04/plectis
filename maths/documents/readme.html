@@ -30,8 +30,8 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/style.css?v=f5f72ee8567b">
-  <link rel="stylesheet" href="../assets/maths.css?v=fd537faac0c4">
+  <link rel="stylesheet" href="../../assets/style.css?v=829154652d32">
+  <link rel="stylesheet" href="../assets/maths.css?v=799bfb0301d6">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=c3621e6fc76c"></script></template>
   <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
   <script defer src="../assets/maths.js?v=eb35fe169ca1"></script>
@@ -93,7 +93,7 @@
         <p class="doc-source-line">Rendered from <code>README.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> repository. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/README.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
-<details class="reader-contents reader-contents--all"><summary>All sections</summary><nav aria-label="Document contents"><a class="toc-l3" href="#mathematical-research-and-the-system-behind-it">Mathematical research and the system behind it</a><a class="toc-l2" href="#papers-tools-and-explanations">Papers, tools and explanations</a><a class="toc-l2" href="#for-a-first-look-257">For a first look: #257</a><a class="toc-l2" href="#results-and-their-limits">Results and their limits</a><a class="toc-l2" href="#watch-the-videos">Watch the videos</a><a class="toc-l2" href="#why-keep-the-whole-research-record">Why keep the whole research record?</a><a class="toc-l2" href="#problem-papers">Problem papers</a><a class="toc-l3" href="#reading-across-the-problems">Reading across the problems</a><a class="toc-l2" href="#what-lean-and-comparator-verify">What Lean and Comparator verify</a><a class="toc-l2" href="#contribute">Contribute</a><a class="toc-l2" href="#read-or-verify-locally">Read or verify locally</a><a class="toc-l3" href="#repository-map">Repository map</a><a class="toc-l2" href="#corpus-at-a-glance">Corpus at a glance</a><a class="toc-l2" href="#following-a-result-into-lean">Following a result into Lean</a><a class="toc-l2" href="#formal-conjectures-contributions">Formal Conjectures contributions</a><a class="toc-l2" href="#reading-routes">Reading routes</a><a class="toc-l2" href="#credit">Credit</a><a class="toc-l2" href="#citation-and-licence">Citation and licence</a></nav></details>
+<details class="reader-contents reader-contents--all"><summary>All sections</summary><nav aria-label="Document contents"><a class="toc-l2" href="#papers-tools-and-explanations">Papers, tools and explanations</a><a class="toc-l2" href="#for-a-first-look-257">For a first look: #257</a><a class="toc-l2" href="#results-and-their-limits">Results and their limits</a><a class="toc-l2" href="#why-keep-the-whole-research-record">Why keep the whole research record?</a><a class="toc-l2" href="#problem-papers">Problem papers</a><a class="toc-l3" href="#reading-across-the-problems">Reading across the problems</a><a class="toc-l2" href="#what-lean-and-comparator-verify">What Lean and Comparator verify</a><a class="toc-l2" href="#contribute">Contribute</a><a class="toc-l2" href="#read-or-verify-locally">Read or verify locally</a><a class="toc-l3" href="#repository-map">Repository map</a><a class="toc-l2" href="#corpus-at-a-glance">Corpus at a glance</a><a class="toc-l2" href="#following-a-result-into-lean">Following a result into Lean</a><a class="toc-l2" href="#watch-the-videos">Watch the videos</a><a class="toc-l2" href="#formal-conjectures-contributions">Formal Conjectures contributions</a><a class="toc-l2" href="#reading-routes">Reading routes</a><a class="toc-l2" href="#credit">Credit</a><a class="toc-l2" href="#citation-and-licence">Citation and licence</a></nav></details>
       <div class="paper-stage">
 <article class="lean-document" data-document-id="readme" data-document-role="human_front_door" data-math-mode="mathml">
   <div class="lean-document__body" data-source="README.md">
@@ -101,31 +101,28 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <section class="level1 lean-doc-titled">
 <h2>Plectis</h2>
-<section id="mathematical-research-and-the-system-behind-it"
-class="level3">
-<h2 class="paper-minor-head">Mathematical research and the system behind it</h2>
+<p><a id="mathematical-research-and-the-system-behind-it"></a></p>
+<p><strong>Mathematical research and the system behind it</strong></p>
 <p>Plectis collects research on eight problems posed by Paul Erdős:
 papers, Lean proofs of selected statements, experiments and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed
-approaches</a>. The aim is to make AI-assisted research easier to
-understand, check and continue.</p>
+approaches</a>. Inspect and continue the research.</p>
 <p><strong><a href="#problem-papers">Explore the research</a></strong> ·
-<strong><a
+<strong><a href="https://www.youtube.com/watch?v=J2sX6nj3jOk" data-link-kind="exogenous" rel="external noopener">Watch the
+maths tour</a></strong> · <strong><a
 href="../../papers/claim-faithful-publication-systems-paper.pdf">Read
-the system paper</a></strong> · <strong><a href="#videos">Watch the
-videos</a></strong> · <strong><a
-href="https://wcook04.github.io/practical-formal-verification/maths/universe.html" data-link-kind="exogenous" rel="external noopener">Open the
-maths map</a></strong></p>
-<p><a href="https://wcook04.github.io/practical-formal-verification/maths/universe.html" data-link-kind="exogenous" rel="external noopener">Eight Erdős problem programmes: the interactive maths map connects papers, results and their formal evidence</a></p>
+the system paper</a></strong> · <strong><a
+href="#repository-map">Repository map</a></strong></p>
+<p><a
+href="https://wcook04.github.io/practical-formal-verification/maths/universe.html" data-link-kind="exogenous" rel="external noopener">Eight Erdős problem programmes: the interactive maths map connects papers, results and their formal evidence</a></p>
 <p><sub>The maths map on 9 October 2026. Open the image to explore the
 current edition.</sub></p>
-<p>Plectis is an independent, AI-assisted prototype built and maintained
-by Will Cook. <a href="reading-guide.html">A reader’s way in</a>
-introduces the mathematics without requiring Lean. The <a
+<p>Will Cook maintains this independent, AI-assisted prototype. Start
+without Lean: <a href="reading-guide.html">A reader’s way in</a>. The
+<a
 href="https://wcook04.github.io/practical-formal-verification/docs/glossary.html" data-link-kind="exogenous" rel="external noopener">glossary</a>
 explains project terminology.</p>
 <hr />
 <p><a id="choose-a-way-in"></a></p>
-</section>
 <section id="papers-tools-and-explanations" class="level2">
 <h2>Papers, tools and explanations</h2>
 <ul>
@@ -148,7 +145,8 @@ paper</a>.</li>
 source</a> and <a href="external-verification.html">Comparator
 checks</a>.</li>
 </ul>
-<p>The <a href="https://wcook04.github.io/practical-formal-verification/maths/" data-link-kind="exogenous" rel="external noopener">mathematics
+<p>The <a
+href="https://wcook04.github.io/practical-formal-verification/maths/" data-link-kind="exogenous" rel="external noopener">mathematics
 website</a> connects each problem’s papers, results and sources. The
 films also show private interfaces. Do not infer results from private or
 unreleased work.</p>
@@ -198,22 +196,6 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/case-studies/forma
 study</a>. <a href="results.html">Results and limits</a> keeps each
 programme’s statements beside its assumptions, earlier work and
 remaining questions.</p>
-<p><a id="videos"></a></p>
-</section>
-<section id="watch-the-videos" class="level2">
-<h2>Watch the videos</h2>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=U1z2-XaLe_w" data-link-kind="exogenous" rel="external noopener">Plectis
-introduction</a>: why I use AI to explain its research and
-software.</li>
-<li><a href="https://www.youtube.com/watch?v=J2sX6nj3jOk" data-link-kind="exogenous" rel="external noopener">The maths
-map</a>: a tour from checked statements through research records and
-papers to explanations.</li>
-<li><a href="https://www.youtube.com/watch?v=vXgIBy5C5X0" data-link-kind="exogenous" rel="external noopener">Erdős #257
-explanation</a>: examples and a proof under Erdős’s
-reciprocal-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-summability" data-term="summability" data-term-auto="1">summability</a> condition; the unrestricted problem remains
-open.</li>
-</ul>
 <p><a id="about-the-project"></a></p>
 </section>
 <section id="why-keep-the-whole-research-record" class="level2">
@@ -387,7 +369,8 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/A
 contribution guide</a>.</li>
 <li><strong>A question or correction:</strong> use the <a
 href="https://github.com/wcook04/plectis-erdos/issues/new?template=research_progress.yml" data-link-kind="exogenous" rel="external noopener">research-progress
-form</a> or <a href="https://wcook04.github.io/practical-formal-verification/#contact" data-link-kind="exogenous" rel="external noopener">email
+form</a> or <a
+href="https://wcook04.github.io/practical-formal-verification/#contact" data-link-kind="exogenous" rel="external noopener">email
 me</a>.</li>
 <li><strong>An investigation with your own agent:</strong> the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/FRONTIER_RELAY.md" data-link-kind="exogenous" rel="external noopener">frontier relay</a> explains how to return
@@ -536,6 +519,48 @@ particular topic, start with the <a href="source-map.html">source
 map</a>; it gives the module order without asking you to decode Lean
 declaration names first.
 <!-- END generated_principal_declaration_anchors --></p>
+<p><a id="videos"></a></p>
+</section>
+<section id="watch-the-videos" class="level2">
+<h2>Watch the videos</h2>
+<table>
+<colgroup>
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Film</th>
+<th>Read alongside it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.youtube.com/watch?v=J2sX6nj3jOk" data-link-kind="exogenous" rel="external noopener">Maths
+map</a></td>
+<td><a href="#problem-papers">Paper list</a> · <a
+href="source-map.html">Source map</a></td>
+</tr>
+<tr>
+<td><a href="https://www.youtube.com/watch?v=vXgIBy5C5X0" data-link-kind="exogenous" rel="external noopener">Erdős
+#257</a></td>
+<td><a
+href="../../papers/erdos257-expository-sums-never-fractions.pdf">Introductory
+paper</a> · <a
+href="../../papers/erdos-257-mersenne-support-subseries.pdf">Short
+paper</a></td>
+</tr>
+<tr>
+<td><a href="https://www.youtube.com/watch?v=U1z2-XaLe_w" data-link-kind="exogenous" rel="external noopener">Plectis
+introduction</a></td>
+<td><a
+href="../../papers/claim-faithful-publication-systems-paper.pdf">System
+paper</a></td>
+</tr>
+</tbody>
+</table>
+<p>The #257 film covers <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-summable-support" data-term="reciprocal_summable_support" data-term-auto="1">reciprocal-summable supports</a>; the unrestricted
+problem remains open.</p>
 <p><a id="citation-and-prior-work"></a></p>
 </section>
 <section id="formal-conjectures-contributions" class="level2">
@@ -544,7 +569,7 @@ declaration names first.
 href="formal-conjectures.html#merged-mathematical-contributions">Five
 mathematical contributions</a> have merged into Formal Conjectures. <a
 href="https://github.com/google-deepmind/formal-conjectures/pull/6529" data-link-kind="exogenous" rel="external noopener">#6529</a>
-covers <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-summable-support" data-term="reciprocal_summable_support" data-term-auto="1">reciprocal-summable supports</a> for integer bases at least two;
+covers reciprocal-summable supports for integer bases at least two;
 arbitrary infinite supports remain open.</p>
 <p><a
 href="https://github.com/google-deepmind/formal-conjectures/pull/6971" data-link-kind="exogenous" rel="external noopener">#6971</a>
@@ -627,7 +652,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/.github/CODE_OF_CONDUCT
       <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><span class="maths-pager__spacer"></span><a class="maths-pager__link maths-pager__link--next" rel="next" href="reading-guide.html"><span class="maths-pager__dir">Next</span>A reader&#x27;s way in</a></nav>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#papers-tools-and-explanations">Papers, tools and explanations</a><a class="toc-l2" href="#for-a-first-look-257">For a first look: #257</a><a class="toc-l2" href="#results-and-their-limits">Results and their limits</a><a class="toc-l2" href="#watch-the-videos">Watch the videos</a><a class="toc-l2" href="#why-keep-the-whole-research-record">Why keep the whole research record?</a><a class="toc-l2" href="#problem-papers">Problem papers</a><a class="toc-l2" href="#what-lean-and-comparator-verify">What Lean and Comparator verify</a><a class="toc-l2" href="#contribute">Contribute</a><a class="toc-l2" href="#read-or-verify-locally">Read or verify locally</a><a class="toc-l2" href="#corpus-at-a-glance">Corpus at a glance</a><a class="toc-l2" href="#following-a-result-into-lean">Following a result into Lean</a><a class="toc-l2" href="#formal-conjectures-contributions">Formal Conjectures contributions</a><a class="toc-l2" href="#reading-routes">Reading routes</a><a class="toc-l2" href="#credit">Credit</a><a class="toc-l2" href="#citation-and-licence">Citation and licence</a></aside>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#papers-tools-and-explanations">Papers, tools and explanations</a><a class="toc-l2" href="#for-a-first-look-257">For a first look: #257</a><a class="toc-l2" href="#results-and-their-limits">Results and their limits</a><a class="toc-l2" href="#why-keep-the-whole-research-record">Why keep the whole research record?</a><a class="toc-l2" href="#problem-papers">Problem papers</a><a class="toc-l2" href="#what-lean-and-comparator-verify">What Lean and Comparator verify</a><a class="toc-l2" href="#contribute">Contribute</a><a class="toc-l2" href="#read-or-verify-locally">Read or verify locally</a><a class="toc-l2" href="#corpus-at-a-glance">Corpus at a glance</a><a class="toc-l2" href="#following-a-result-into-lean">Following a result into Lean</a><a class="toc-l2" href="#watch-the-videos">Watch the videos</a><a class="toc-l2" href="#formal-conjectures-contributions">Formal Conjectures contributions</a><a class="toc-l2" href="#reading-routes">Reading routes</a><a class="toc-l2" href="#credit">Credit</a><a class="toc-l2" href="#citation-and-licence">Citation and licence</a></aside>
   </div>
 </body>
 </html>

@@ -1,22 +1,22 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "plectis-public-system",
-  "title": "Plectis: What a Stranger Can Check",
+  "title": "Plectis: Verifying Code and Recording Its Execution",
   "subject": "Systems paper",
   "subject_kind": "system",
-  "form": "Evidence boundary",
-  "pages": 22,
-  "question": "What may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?",
-  "precis": "The author publishes selected code, fixed inputs, expected results, decision rules, and run records while the larger system stays private. What can a stranger conclude after rerunning them? A matching result shows repeatability for one stated public case. It does not establish where the code came from, whether the expected answer is correct, whether the published selection resembles the private whole, or whether the private system works reliably. The contribution is a method for making one selected disagreement local, not a score.",
-  "owns": "the evidence boundary: what a passing public run does and does not establish",
-  "not_authority_for": "the private system's internal state, which is not public, and the mathematical results it cites as evidence",
+  "form": "Prototype paper",
+  "pages": 5,
+  "question": "How can a verified computation be tied to the application code that calls it and to a record of what ran?",
+  "precis": "Plectis verifies selected computations against explicit specifications and links them to the application code that calls them and to recorded runs. Its worked example is an ownership classifier that gave unsafe advice when a stale claim came before a live claim for the same file: the repaired computation gives live observations priority whatever the order, and the application calls the generated code. A separate computation checks observations of component runs against their public records. The prototype has 12 verified component computations and 4 further workflow and replay cores, and the repair shows why a proof must be paired with review of the requirement it establishes.",
+  "owns": "how a verified computation connects to its specification, the Python generated from it, the application that calls it and the record of its runs, shown through one repaired ownership rule",
+  "not_authority_for": "the adequacy of each requirement, the parts outside the proofs (input normalisation, observations, compilation and the platform), production readiness, or an independent evaluation",
   "problem_id": null,
   "routes": {
     "html_mathml": "papers/plectis-public-system.html",
     "html_exact_tex": "papers/plectis-public-system.mathjax.html",
     "pdf": "../../papers/plectis-public-system.pdf",
     "latex": "../../papers/source/plectis/paper/plectis-public-system.tex",
-    "source_github": "https://github.com/wcook04/practical-formal-verification/blob/main/paper/plectis-public-system.tex",
+    "source_github": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex",
     "source_raw": "https://raw.githubusercontent.com/wcook04/plectis/main/paper/plectis-public-system.tex"
   },
   "render_contract": {
@@ -28,174 +28,49 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "7d92a620c0a6f310",
-    "source_sha256": "b7193e6bece8bae9c183388ea97736cff7c67e45f3fffcb549dd5c551b596c92",
+    "renderer_fingerprint": "d264019ae46e5b6f",
+    "source_sha256": "52e7c97966c47837ba514eebda1a05a0975ef1b55445cda9c911c5d21b36f8c7",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 24,
+    "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "8cc28806e3538e5345b179af2dfa31846afce772a9c174596e7e4d39e620c07e",
-    "html_exact_tex_sha256": "c2e6404667288444eb9e9bd2f032c989c68b8658204ee61c2bc38625c5b14587"
+    "html_mathml_sha256": "a88cbc26ef0d3c0fc5fd383a9eb7d1accc155c30ada2f07cfe477ce1d9245e86",
+    "html_exact_tex_sha256": "94395a0ec1df2a713930e1d5bfadf2885a47a2d9af83b46b63b0648cca03a2d1"
   },
   "sections": [
     {
       "level": 2,
-      "anchor": "sec:problem",
-      "label": "The problem"
-    },
-    {
-      "level": 5,
-      "anchor": "who-made-the-decisions.",
-      "label": "Who made the decisions."
-    },
-    {
-      "level": 5,
-      "anchor": "what-i-examined.",
-      "label": "What I examined."
+      "anchor": "sec:purpose",
+      "label": "Aim and contribution"
     },
     {
       "level": 2,
-      "anchor": "sec:early-example",
-      "label": "One public test before the general design"
+      "anchor": "sec:architecture",
+      "label": "Architecture: from a property to an observed run"
     },
     {
       "level": 2,
-      "anchor": "sec:contract",
-      "label": "The component contract"
+      "anchor": "sec:ownership",
+      "label": "Worked behavior: protecting a live owner"
     },
     {
       "level": 2,
-      "anchor": "sec:run",
-      "label": "One run, examined"
+      "anchor": "sec:evidence",
+      "label": "Verification method and evidence"
     },
     {
       "level": 2,
-      "anchor": "sec:distinctions",
-      "label": "Five distinctions"
-    },
-    {
-      "level": 3,
-      "anchor": "public-execution-versus-where-the-code-came-from",
-      "label": "Public execution versus where the code came from"
-    },
-    {
-      "level": 3,
-      "anchor": "repeatability-versus-correctness",
-      "label": "Repeatability versus correctness"
-    },
-    {
-      "level": 3,
-      "anchor": "a-validators-rule-versus-the-stated-claim",
-      "label": "A validator’s rule versus the stated claim"
-    },
-    {
-      "level": 3,
-      "anchor": "selected-cases-versus-general-behaviour",
-      "label": "Selected cases versus general behaviour"
-    },
-    {
-      "level": 3,
-      "anchor": "risk-reduction-versus-guarantee",
-      "label": "Risk reduction versus guarantee"
+      "anchor": "sec:related",
+      "label": "Context and related work"
     },
     {
       "level": 2,
-      "anchor": "sec:collection",
-      "label": "What the collection contains"
-    },
-    {
-      "level": 2,
-      "anchor": "sec:hand",
-      "label": "The author’s hand"
-    },
-    {
-      "level": 2,
-      "anchor": "sec:stronger",
-      "label": "What stronger evidence would look like"
-    },
-    {
-      "level": 3,
-      "anchor": "a-falsifiable-comparison",
-      "label": "A falsifiable comparison"
-    },
-    {
-      "level": 3,
-      "anchor": "sec:hypothesis-handoff",
-      "label": "From an open question to a falsifiable handoff"
-    },
-    {
-      "level": 3,
-      "anchor": "how-the-record-should-age",
-      "label": "How the record should age"
-    },
-    {
-      "level": 2,
-      "anchor": "sec:conclusion",
-      "label": "Conclusion"
-    },
-    {
-      "level": 2,
-      "anchor": "sec:appendix",
-      "label": "Dated reproduction record"
-    },
-    {
-      "level": 5,
-      "anchor": "later-public-entry-check.",
-      "label": "Later public-entry check."
-    },
-    {
-      "level": 5,
-      "anchor": "a-first-review.",
-      "label": "A first review."
-    },
-    {
-      "level": 5,
-      "anchor": "names.",
-      "label": "Names."
-    },
-    {
-      "level": 5,
-      "anchor": "getting-the-code-and-running-without-installing.",
-      "label": "Getting the code and running without installing."
-    },
-    {
-      "level": 5,
-      "anchor": "installing.",
-      "label": "Installing."
-    },
-    {
-      "level": 5,
-      "anchor": "the-worked-example.",
-      "label": "The worked example."
-    },
-    {
-      "level": 5,
-      "anchor": "a-second-python-version.",
-      "label": "A second Python version."
-    },
-    {
-      "level": 5,
-      "anchor": "project-wide-checks.",
-      "label": "Project-wide checks."
-    },
-    {
-      "level": 2,
-      "anchor": "statements-and-declarations",
-      "label": "Statements and declarations"
-    },
-    {
-      "level": 5,
-      "anchor": "declaration-of-generative-ai-use.",
-      "label": "Declaration of generative AI use."
-    },
-    {
-      "level": 5,
-      "anchor": "authority-boundary.",
-      "label": "Authority boundary."
+      "anchor": "sec:scope",
+      "label": "Boundaries"
     },
     {
       "level": 2,
@@ -208,23 +83,23 @@
     "provenance": "editorial selection for this guide",
     "sections": [
       {
-        "id": "sec:problem",
-        "title": "The problem",
+        "id": "sec:purpose",
+        "title": "Aim and contribution",
         "level": 2
       },
       {
-        "id": "sec:early-example",
-        "title": "One public test before the general design",
+        "id": "sec:ownership",
+        "title": "Worked behavior: protecting a live owner",
         "level": 2
       },
       {
-        "id": "sec:distinctions",
-        "title": "Five distinctions",
+        "id": "sec:evidence",
+        "title": "Verification method and evidence",
         "level": 2
       },
       {
-        "id": "sec:stronger",
-        "title": "What stronger evidence would look like",
+        "id": "sec:scope",
+        "title": "Boundaries",
         "level": 2
       }
     ]
