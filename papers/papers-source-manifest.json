@@ -284,13 +284,13 @@
       "source_repo": "plectis",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis/blob/main/plectis-public-system.pdf",
-      "source_sha256": "4dbbdfb10c1e2578494f14c475b61391f06c03b6149aa1ea974647f929e69810",
-      "bytes": 41264,
+      "source_sha256": "7f4cbb2a3861411e3eacf10547f375adfb176981adb3ea2ad96e991b3ff35d6e",
+      "bytes": 44179,
       "source_tex_path": "paper/plectis-public-system.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis/main/paper/plectis-public-system.tex",
       "hosted_tex_path": "papers/source/plectis/paper/plectis-public-system.tex",
-      "hosted_tex_sha256": "52e7c97966c47837ba514eebda1a05a0975ef1b55445cda9c911c5d21b36f8c7",
-      "tex_bytes": 17208
+      "hosted_tex_sha256": "9331357088b301c5c4feceb59de384a1a2046a836ef859171ab70fcd7aeec900",
+      "tex_bytes": 19647
     }
   ],
   "shared_sources": [

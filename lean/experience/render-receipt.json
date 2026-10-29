@@ -301,7 +301,7 @@
     "policy": "Exact TeX HTML is the public page. Native MathML is always generated beside it as a no-JS fallback artifact; it is not the reader-facing route because Chromium MathML plus display overrides flatten the corpus, and Pandoc MathML drops \\eqref/\\ref."
   },
   "human_documents": {
-    "navigation_fingerprint": "d3ab6801b8d0c1db080bb1b32f0efc6a68db2d399d6027acfceb23801ea88c90",
+    "navigation_fingerprint": "1129004b22f943472dd2bb701cce27e6a9e4d34a2d0ad14945399db9133359f7",
     "document_count": 18,
     "documents_with_warnings": 0,
     "warnings": {}

@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <!-- Films use external Watch links; no third-party player is embedded. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'self' 'sha256-KD9vpD6WyFRpqR8II98GPMpiDdPEy/k5nyr+3Q1wz+k='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none'; child-src 'none'">
+  <!-- Colon, not an em dash. The title is the line a stranger reads first in a
+       search result, and an em dash there reads as machine-written. -->
+  <title>Plectis Mathematics</title>
+  <!-- Two sentences: purpose, then the standing status. Google chooses
+       its own snippet length, so the first sentence stands alone. -->
+  <meta name="description" content="Tools and research by Will Cook for understanding the work AI produces. Explore the videos, code maps, mathematics, agent tools and their source.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wcook04.github.io/practical-formal-verification/map/">
+  <link rel="describedby" href="../llms.txt" type="text/plain" title="Agent navigation and map data">
+  <meta property="og:title" content="Plectis Mathematics">
+  <meta property="og:description" content="Tools and research by Will Cook for understanding the work AI produces. Explore the videos, code maps, mathematics, agent tools and their source.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:url" content="https://wcook04.github.io/practical-formal-verification/map/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Plectis Mathematics">
+  <meta name="twitter:description" content="Tools and research by Will Cook for understanding the work AI produces. Explore the videos, code maps, mathematics, agent tools and their source.">
+  <meta property="og:image" content="https://wcook04.github.io/practical-formal-verification/assets/plectis-social-card.png?v=9adc988a01e6">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis by Will Cook: AI-assisted research on Erdős problems, with Lean proofs, papers and open questions.">
+  <meta name="twitter:image" content="https://wcook04.github.io/practical-formal-verification/assets/plectis-social-card.png?v=9adc988a01e6">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1526">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://wcook04.github.io/practical-formal-verification/#website",
+      "name": "Plectis",
+      "url": "https://wcook04.github.io/practical-formal-verification/",
+      "description": "Tools and research by Will Cook for understanding the work AI produces. Explore the videos, code maps, mathematics, agent tools and their source.",
+      "author": {
+        "@id": "https://wcook04.github.io/practical-formal-verification/#author"
+      },
+      "sameAs": [
+        "https://github.com/wcook04/practical-formal-verification",
+        "https://github.com/wcook04/plectis-erdos"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://wcook04.github.io/practical-formal-verification/#author",
+      "name": "Will Cook",
+      "url": "https://wcook04.github.io/",
+      "description": "Builder of Plectis: tools and research for understanding the work AI produces.",
+      "sameAs": [
+        "https://github.com/wcook04",
+        "https://www.linkedin.com/in/will-cook-278127234/"
+      ]
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://github.com/wcook04/practical-formal-verification#source",
+      "name": "Plectis",
+      "url": "https://wcook04.github.io/practical-formal-verification/",
+      "codeRepository": "https://github.com/wcook04/practical-formal-verification",
+      "programmingLanguage": "Python",
+      "license": "https://www.apache.org/licenses/LICENSE-2.0",
+      "description": "Public research software with source code, instructions, reproducible tests and records describing what each test establishes."
+    }
+  ]
+}
+</script>
+  <!-- Icon set. SVG first for anything modern; favicon.ico sits at the site root
+       because crawlers and older browsers probe /favicon.ico directly whether or
+       not a link tag names it. apple-touch-icon is squared and opaque, because iOS
+       applies its own mask and renders transparent corners black. All five are
+       projected from assets/favicon.svg by tools/brand/plectis_favicon.py. -->
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <!-- Pre-paint theme apply (blocking, same-origin, CSP 'self'): stamps the
+       saved/system theme on <html> before the stylesheet applies, so a
+       returning visitor never flashes the other theme. Toggle logic is in docs.js. -->
+  <script data-plectis-theme="prepaint">/* Pre-paint theme apply. Loaded as a blocking <script src> in <head> so the
+   saved (or system) theme is stamped on <html> before first paint — a returning
+   visitor who chose a non-system theme never sees a flash of the other one.
+   Tiny and dependency-free on purpose; the header toggle itself lives in
+   docs.js. Keep the storage key ('plectis-theme') in sync with docs.js. */
+(function () {
+  /* Only the storage read can throw (Safari private mode, blocked storage).
+     Wrapping the whole body in one try meant a throw there also skipped the
+     stamp, and with it style.colorScheme — so a dark-mode visitor got a light
+     scrollbar and light form controls until docs.js loaded 219KB later. The
+     stylesheet's :root:not([data-theme]) rules cover the page colours in that
+     case; the UA-level colour scheme is what needs stamping regardless. */
+  var s = null;
+  try { s = localStorage.getItem('plectis-theme'); } catch (e) {}
+  var dark = s === 'dark' ||
+    (s !== 'light' && window.matchMedia &&
+     window.matchMedia('(prefers-color-scheme: dark)').matches);
+  var t = dark ? 'dark' : 'light';
+  var root = document.documentElement;
+  root.setAttribute('data-theme', t);
+  try { root.style.colorScheme = t; } catch (e) {}
+
+  /* Two different questions get two different flags, and conflating them costs
+     something either way.
+       .js       (added by docs.js)   = the shared runtime is READY.
+       .scripting (added right here)  = scripting is AVAILABLE.
+     The stylesheet uses .js to keep the page tools invisible until they
+     actually work, so that one must stay late. But the term layer's JS-off
+     fallback is the opposite: html:not(.scripting) is the one place a term link
+     still draws an underline, because without JS there is no hover preview and
+     the rule is the only signal the word leads to a definition. Keyed on .js it
+     would paint an underline under every term on the page until docs.js ran a
+     second later, then flash them all away. Stamped here, in the blocking head
+     script, a reader with JS never matches the fallback at all. */
+  root.classList.add('scripting');
+})();
+</script>
+  <!-- The two faces the first screen sets, fetched alongside the stylesheet
+       instead of after it (fonts load in CORS mode, so crossorigin is required
+       even from the same origin). -->
+  <link rel="preload" href="../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/style.css?v=73d13803b333">
+<link rel="stylesheet" href="../assets/plectis-finish.css">
+</head>
+<body class="home">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" data-term-auto="off">
+    <div class="wrap site-header__inner">
+      <!-- The lockup (wcook04.github.io docs/family.md, 29 October 2026): the
+           plait opens the home page, every website and film; the mathematics
+           mark and name open this page, the maths front door. The nav row is the same destinations
+           every page on the site carries, in the same order. -->
+      <span class="fam-lockup"><a class="fam-lockup__home" href="https://wcook04.github.io/" rel="author" data-link-kind="parent" title="All of Will Cook's websites and films"><img src="../assets/plectis.svg" alt="Will Cook: all websites and films" width="26" height="26" decoding="async"></a><span class="fam-lockup__rule" aria-hidden="true"></span><a class="fam-lockup__site" href="./" aria-current="page"><svg class="fam-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path class="fam-mark__cool" d="M1.5 4h21"/><circle class="fam-mark__warm-fill" cx="4.2" cy="18.8" r="3"/><circle class="fam-mark__warm-fill" cx="11" cy="11" r="2.4"/><circle class="fam-mark__warm-fill" cx="16.6" cy="7.4" r="1.9"/><circle class="fam-mark__warm-fill" cx="21" cy="5.7" r="1.4"/></svg><span class="fam-lockup__name" translate="no">Plectis Mathematics</span></a></span>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../maths/index.html">Mathematics</a>
+        <a href="../docs/papers.html">Papers</a>
+        <a href="https://wcook04.github.io/#videos" data-link-kind="exogenous" rel="external noopener">Videos</a>
+        <a href="../docs/glossary.html">Glossary</a>
+        <a href="../docs/introduction.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- The maths front door (Will, 29 October 2026), at map/ since the site
+         root became a redirect to the home page: it keeps the
+         plait and its five routes, the eight programmes with their map, and
+         the papers. The opening, the films (every film is on the home page,
+         https://wcook04.github.io/#videos), the sibling site and the bands
+         after the papers left; assets/landing-anchors.js sends their old
+         fragments to where that content now lives. -->
+    <span class="anchor-alias" id="top" aria-hidden="true"></span>
+    <!-- The woven band: assets/art.js draws the plait inside this empty
+         element, so the weave never sits under a line of text. The byline
+         over it names what the plait is. -->
+    <div class="home-weave-row" data-term-auto="off">
+      <div class="home-weave" data-plait-band aria-hidden="true"></div>
+    </div>
+
+    <div class="home-band home-maths home-atlas" id="mathematics" data-atlas>
+      <!-- One control row opens the band (5 October 2026): the three counts on
+           the left, under the plait; on the right the switch between the two
+           drawings and the way into the shown drawing at full window. The
+           expand link stays put whatever is selected in the drawing below,
+           and the drawing's script keeps its href on the current selection
+           (maths/assets/universe.js for data-universe-expand,
+           assets/system-map.js for data-system-expand). -->
+      <div class="wrap home-atlas__bar" data-term-auto="off">
+        <!-- The funnel (Will, 7 October 2026): each problem from its widest
+             layer to its narrowest, the order the work is prepared in, each
+             step a link to where that layer is: the Lean repository, the long
+             and the short papers in the catalogue, the Videos band and
+             the eight problems' results. The plait above is drawn as this funnel
+             (assets/art.js reads each step's data-plait-node): a crossing
+             stands over every name, and the cables close on Results. -->
+        <nav class="home-funnel" aria-label="Proof sources, research records, papers, videos and results">
+          <ol class="home-funnel__steps">
+            <li data-plait-node><a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener"><span class="home-funnel__name">Proof sources</span><span class="sr-only">: </span><span class="home-funnel__what">statements and proofs</span></a></li>
+            <li data-plait-node><a href="../docs/papers.html#reasoning-records"><span class="home-funnel__name">Long records</span><span class="sr-only">: </span><span class="home-funnel__what">attempts that failed, too</span></a></li>
+            <li data-plait-node><a href="../docs/papers.html#short-papers"><span class="home-funnel__name">Short papers</span><span class="sr-only">: </span><span class="home-funnel__what">results and their proofs</span></a></li>
+            <li data-plait-node><a href="https://wcook04.github.io/#videos" data-link-kind="exogenous" rel="external noopener"><span class="home-funnel__name">Maths videos</span><span class="sr-only">: </span><span class="home-funnel__what">explanations you can follow</span></a></li>
+            <li data-plait-node><a href="#problems"><span class="home-funnel__name">Results</span><span class="sr-only">: </span><span class="home-funnel__what">one per problem</span></a></li>
+          </ol>
+        </nav>
+        <div class="home-atlas__controls">
+          <div class="home-atlas__switch" role="tablist" aria-label="Drawings in this band">
+            <button class="home-atlas__tab" type="button" role="tab" id="atlas-tab-mathematics" aria-controls="maths-slide" aria-selected="true" data-atlas-go="mathematics">Mathematics</button>
+            <button class="home-atlas__tab" type="button" role="tab" id="atlas-tab-system" aria-controls="system" aria-selected="false" tabindex="-1" data-atlas-go="system">System</button>
+            <span class="home-atlas__thumb" aria-hidden="true"></span>
+          </div>
+          <a class="home-atlas__expand" href="../maths/universe.html" data-atlas-for="mathematics" data-universe-expand><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5 9 7M6.5 13.5h-4v-4M2.5 13.5 7 9"/></svg><span>Expand<span class="home-atlas__expand-which"> the mathematics</span> map</span></a>
+          <!-- mc:landing-depth:start -->
+          <a class="home-atlas__expand" href="../docs/system-map.html" data-atlas-for="system" data-system-expand><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5 9 7M6.5 13.5h-4v-4M2.5 13.5 7 9"/></svg><span>Expand<span class="home-atlas__expand-which"> the system</span> map</span></a>
+          <!-- mc:landing-depth:end -->
+        </div>
+      </div>
+      <div class="home-atlas__viewport">
+        <div class="home-atlas__track" data-atlas-track>
+    <section class="home-atlas__slide" id="maths-slide" data-atlas-slide="mathematics" role="tabpanel" aria-labelledby="maths-title">
+      <div class="wrap home-split">
+        <div class="home-split__text">
+          <h1 id="maths-title"><span data-mc-fact="lean_problem_count_word_titlecase">Eight</span> Erdős problem programmes</h1>
+          <p>Each page gives the original question, the results <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in the <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-proof-assistant" data-term="proof_assistant" data-term-auto="1">proof assistant</a>, the approaches that failed and what remains unproved.</p>
+          <!-- The results carousel's old fragment lands on the problem list. -->
+          <span class="anchor-alias" id="result" aria-hidden="true"></span>
+          <!-- mc:landing-problems:start -->
+          <ol class="home-problems" id="problems" data-problem-row-count="8" aria-label="The Eight problems">
+            <li class="home-problem" data-problem-id="erdos_68" data-problem-status="open" data-problem-question="Is the series sum_{n &gt;= 2} 1/(n! - 1) irrational?"><a href="../maths/problems/erdos_68.html"><span class="home-problem__num">#68</span><span class="home-problem__title">The <span data-term-preview-only data-term="factorial" data-term-auto="1">factorial</span>-<span data-term-preview-only data-term="denominator" data-term-auto="1">denominator</span> <span data-term-preview-only data-term="series" data-term-auto="1">series</span></span><span class="home-problem__status" data-term-auto="off">Open</span></a></li>
+            <li class="home-problem" data-problem-id="erdos_243" data-problem-status="open" data-problem-question="Under a rapid-growth hypothesis on an integer sequence, does rationality of its reciprocal sum force the sequence to satisfy the Sylvester recurrence eventually?"><a href="../maths/problems/erdos_243.html"><span class="home-problem__num">#243</span><span class="home-problem__title"><span data-term-preview-only data-term="reciprocal" data-term-auto="1">Reciprocal</span>-tail <span data-term-preview-only data-term="rigidity" data-term-auto="1">rigidity</span> near the <span data-term-preview-only data-term="sylvester_sequence" data-term-auto="1">Sylvester recurrence</span></span><span class="home-problem__status" data-term-auto="off">Open</span></a></li>
+            <li class="home-problem" data-problem-id="erdos_249" data-problem-status="open" data-problem-question="Is the binary Lambert series sum phi(n)/2^n irrational?"><a href="../maths/problems/erdos_249.html"><span class="home-problem__num">#249</span><span class="home-problem__title">The binary <span data-term-preview-only data-term="totient" data-term-auto="1">totient</span> <span data-term-preview-only data-term="series" data-term-auto="1">series</span></span><span class="home-problem__status" data-term-auto="off">Open</span></a></li>
+            <li class="home-problem" data-problem-id="erdos_251" data-problem-status="open" data-problem-question="Is the dyadic series of consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?"><a href="../maths/problems/erdos_251.html"><span class="home-problem__num">#251</span><span class="home-problem__title">The <span data-term-preview-only data-term="prime" data-term-auto="1">prime</span>-gap <span data-term-preview-only data-term="dyadic" data-term-auto="1">dyadic</span> <span data-term-preview-only data-term="series" data-term-auto="1">series</span></span><span class="home-problem__status" data-term-auto="off">Open</span></a></li>
+            <li class="home-problem" data-problem-id="erdos_257" data-problem-status="open" data-problem-question="Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational?"><a href="../maths/problems/erdos_257.html"><span class="home-problem__num">#257</span><span class="home-problem__title"><span data-term-preview-only data-term="reciprocal_series" data-term-auto="1">Reciprocal sums</span> over <span data-term-preview-only data-term="infinite" data-term-auto="1">infinite</span> <span data-term-preview-only data-term="support" data-term-auto="1">exponent supports</span></span><span class="home-problem__status" data-term-auto="off">Open</span></a></li>
+            <li class="home-problem" data-problem-id="erdos_269" data-problem-status="open" data-problem-question="For a finite set of at least two primes, is the sum of reciprocals of the running least common multiples of the smooth numbers irrational? This library treats the three-prime case."><a href="../maths/problems/erdos_269.html"><span class="home-problem__num">#269</span><span class="home-problem__title">Three-<span data-term-preview-only data-term="prime" data-term-auto="1">prime</span> <span data-term-preview-only data-term="running_lcm" data-term-auto="1">running least common multiples</span></span><span class="home-problem__status" data-term-auto="off">Open</span></a></li>
+            <li class="home-problem" data-problem-id="erdos_1041" data-problem-status="formal statement refuted" data-problem-question="Must two roots of a monic polynomial in the open unit disc be joined by a sub-two-length curve inside its unit lemniscate? Ani’s degree-seven example refutes the exact Formal Conjectures statement; correspondence with the 1958 wording awaits human review."><a href="../maths/problems/erdos_1041.html"><span class="home-problem__num">#1041</span><span class="home-problem__title">Short connections inside <span data-term-preview-only data-term="lemniscate" data-term-auto="1">polynomial lemniscates</span></span><span class="home-problem__status" data-term-auto="off">Formal statement refuted</span></a></li>
+            <li class="home-problem" data-problem-id="erdos_1049" data-problem-status="open" data-problem-question="For which rational bases is the corresponding series irrational? The first resistant explicit base is three halves."><a href="../maths/problems/erdos_1049.html"><span class="home-problem__num">#1049</span><span class="home-problem__title"><span data-term-preview-only data-term="lambert_series" data-term-auto="1">Lambert-type series</span> at <span data-term-preview-only data-term="base" data-term-auto="1">rational bases</span></span><span class="home-problem__status" data-term-auto="off">Open</span></a></li>
+          </ol>
+          <p class="home-problems__note" id="boundaries">“Open” means the <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a> itself is unsolved. “<a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> statement refuted” means <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> disproves the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a> statement; whether it matches the historical wording needs separate human review.</p>
+          <!-- mc:landing-problems:end -->
+        </div>
+        <figure class="home-split__figure home-universe" data-universe-stage data-term-auto="off">
+          <!-- The plate's head (Type B review, 6 October 2026): what the
+               count beside each problem means is said on the map, above the
+               drawing it explains, and the Lean source sits at its right.
+               The foot below is then the key's alone, so all four of its
+               marks fit the line. The canvas takes the height between. -->
+          <div class="home-universe__head">
+            <p class="home-universe__legend">Each dot is a result stated in one of the papers; red ones have a Lean proof re-checked by a separate program.</p>
+            <a class="home-universe__repo" href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">Lean source</a>
+          </div>
+          <canvas class="universe-canvas universe-canvas--teaser" data-universe-src="../maths/assets/universe-data.json?v=1d77e75fd402" data-universe-href="../maths/universe.html" data-universe-base="../maths/" aria-label="Preview of the universe map. Open the full map for the interactive version."></canvas>
+          <figcaption class="home-universe__caption">
+            <p class="universe-caption" aria-live="polite"></p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+    <!-- mc:landing-depth:start -->
+    <section class="home-atlas__slide" id="system" data-atlas-slide="system" role="tabpanel" aria-labelledby="system-title">
+      <div class="wrap home-split home-split--system">
+        <div class="home-split__text">
+          <h2 id="system-title"><span data-mc-fact="component_count_word_titlecase">Eighty-eight</span> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-software" data-term="software" data-term-auto="1">software</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-component" data-term="component" data-term-auto="1">components</a></h2>
+          <p>The earlier Plectis <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-software" data-term="software" data-term-auto="1">software</a>: <span data-mc-fact="component_count">88</span> <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-component" data-term="component" data-term-auto="1">components</a> from my research system, in <span data-mc-fact="area_count_word">seven</span> families.</p>
+          <!-- mc:landing-families:start -->
+          <ol class="home-families" data-family-row-count="7" aria-label="The seven families">
+            <li class="home-family" data-system-family="area:entry_and_reveal"><a href="../docs/area-entry.html"><span class="home-family__name"><span data-term-preview-only data-term="entry" data-term-auto="1">Entry</span> &amp; <span data-term-preview-only data-term="orientation" data-term-auto="1">orientation</span></span><span class="home-family__count">2</span></a></li>
+            <li class="home-family" data-system-family="area:architecture_and_navigation"><a href="../docs/area-architecture.html"><span class="home-family__name"><span data-term-preview-only data-term="architecture" data-term-auto="1">Architecture</span> &amp; <span data-term-preview-only data-term="navigation" data-term-auto="1">navigation</span></span><span class="home-family__count">12</span></a></li>
+            <li class="home-family" data-system-family="area:formal_math_and_proof"><a href="../docs/area-formal-math.html"><span class="home-family__name"><span data-term-preview-only data-term="formal_mathematics" data-term-auto="1">Formal math</span> &amp; <span data-term-preview-only data-term="proof" data-term-auto="1">proof</span></span><span class="home-family__count">20</span></a></li>
+            <li class="home-family" data-system-family="area:agent_reliability_and_safety"><a href="../docs/area-agent-reliability.html"><span class="home-family__name"><span data-term-preview-only data-term="agent_reliability" data-term-auto="1">Agent reliability</span> &amp; safety</span><span class="home-family__count">20</span></a></li>
+            <li class="home-family" data-system-family="area:research_and_science_replays"><a href="../docs/area-research.html"><span class="home-family__name">Research &amp; science</span><span class="home-family__count">9</span></a></li>
+            <li class="home-family" data-system-family="area:import_projection_and_drift"><a href="../docs/area-import-drift.html"><span class="home-family__name">Import &amp; <span data-term-preview-only data-term="projection_drift" data-term-auto="1">drift control</span></span><span class="home-family__count">20</span></a></li>
+            <li class="home-family" data-system-family="area:work_landing_and_continuity"><a href="../docs/area-continuity.html"><span class="home-family__name">Work &amp; continuity</span><span class="home-family__count">5</span></a></li>
+          </ol>
+          <!-- mc:landing-families:end -->
+        </div>
+        <figure class="home-split__figure home-system" data-system-stage data-term-auto="off">
+          <div class="sm-mount" data-system-src="../docs/architecture-graph-scene.json" data-system-doctrine="../docs/doctrine-manifest.json" data-system-base="../docs/">
+            <p class="sm-fallback">The map of the system draws here when its script runs. The list beside it gives the same families as text, and the full map opens every component.</p>
+          </div>
+          <figcaption class="home-system__caption">
+            <span class="sm-keyslot"></span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+    <!-- mc:landing-depth:end -->
+        </div>
+        <button class="home-atlas__edge home-atlas__edge--prev" type="button" data-atlas-prev aria-hidden="true" tabindex="-1" hidden><span class="home-atlas__edge-arrow">&larr;</span><span class="home-atlas__edge-label">Mathematics</span></button>
+        <button class="home-atlas__edge home-atlas__edge--next" type="button" data-atlas-next aria-hidden="true" tabindex="-1" hidden><span class="home-atlas__edge-arrow">&rarr;</span><span class="home-atlas__edge-label">System</span></button>
+      </div>
+    </div>
+
+    <!-- The papers are projected from plectis_paper_registry.py. Curated prose
+         stays outside these markers. -->
+    <!-- mc:landing-papers:start -->
+    <section class="wrap home-papers" id="papers" aria-labelledby="papers-title">
+      <div class="home-papers__inner" data-paper-row-count="3">
+        <div class="home-papers__head">
+          <h2 id="papers-title"><a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-paper" data-term="paper" data-term-auto="1">Papers</a></h2>
+          <a class="home-papers__all" href="../docs/papers.html" data-paper-registry-count="22">All 22 <span data-term-preview-only data-term="paper" data-term-auto="1">papers</span>, with abstracts and <span data-term-preview-only data-term="source" data-term-auto="1">sources</span>&nbsp;&rarr;</a>
+        </div>
+        <p class="home-papers__lede">Each problem has a short <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-paper" data-term="paper" data-term-auto="1">paper</a>, which contains the compressed ideas, and a long <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-paper" data-term="paper" data-term-auto="1">paper</a>, which is a reasoning <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-record" data-term="record" data-term-auto="1">record</a> of all the <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed routes</a> and attempted avenues. The three below are good places to start.</p>
+        <ol class="home-papers__shelf">
+        <li class="home-pair" data-pair="erdos-257">
+          <a class="home-pair__sheets" href="../maths/papers/erdos257-expository-sums-never-fractions.html" aria-hidden="true" tabindex="-1"><span class="home-pair__sheet home-pair__sheet--companion"><img src="../assets/paper-sheets/erdos-257-mersenne-support-subseries.webp" alt="" width="352" height="498" loading="lazy" decoding="async"></span><span class="home-pair__sheet home-pair__sheet--lead"><img src="../assets/paper-sheets/erdos257-expository-sums-never-fractions.webp" alt="" width="352" height="498" loading="lazy" decoding="async"></span></a>
+          <article class="home-paper" data-paper-id="erdos257-expository-sums-never-fractions" data-subject-kind="problem">
+            <p class="home-paper__kind" data-term-auto="off">Erdős #257, explained</p>
+            <h3 class="home-paper__heading"><a class="home-paper__title" href="../maths/papers/erdos257-expository-sums-never-fractions.html">Why certain sums of <span class="math" data-term-auto="off">1/(2<sup>n</sup>−1)</span> are <span data-term-preview-only data-term="irrational" data-term-auto="1">irrational</span></a></h3>
+            <p class="home-paper__routes" data-term-auto="off"><a href="https://wcook04.github.io/practical-formal-verification/papers/erdos257-expository-sums-never-fractions.pdf" aria-label="PDF of Why certain sums of 1/(2^n-1) are irrational, 16 pages">PDF, 16 pages</a></p>
+          </article>
+          <p class="home-pair__companion" data-paper-id="erdos-257-mersenne-support-subseries" data-term-auto="off"><span class="home-pair__role">Research paper, 26 pages</span> <a href="../maths/papers/erdos-257-mersenne-support-subseries.html">Irrationality criteria for Lambert subseries</a></p>
+        </li>
+        <li class="home-pair" data-pair="system">
+          <a class="home-pair__sheets" href="../maths/papers/claim-faithful-publication-systems.html" aria-hidden="true" tabindex="-1"><span class="home-pair__sheet home-pair__sheet--companion"><img src="../assets/paper-sheets/plectis-public-system.webp" alt="" width="352" height="498" loading="lazy" decoding="async"></span><span class="home-pair__sheet home-pair__sheet--lead"><img src="../assets/paper-sheets/claim-faithful-publication-systems.webp" alt="" width="352" height="498" loading="lazy" decoding="async"></span></a>
+          <article class="home-paper" data-paper-id="claim-faithful-publication-systems" data-subject-kind="system">
+            <p class="home-paper__kind" data-term-auto="off">The research system</p>
+            <h3 class="home-paper__heading"><a class="home-paper__title" href="../maths/papers/claim-faithful-publication-systems.html">A <span data-term-preview-only data-term="repository" data-term-auto="1">Repository</span>-Based System for Research and Publication</a></h3>
+            <p class="home-paper__routes" data-term-auto="off"><a href="https://wcook04.github.io/practical-formal-verification/papers/claim-faithful-publication-systems-paper.pdf" aria-label="PDF of A Repository-Based System for Research and Publication, 25 pages">PDF, 25 pages</a></p>
+          </article>
+          <p class="home-pair__companion" data-paper-id="plectis-public-system" data-term-auto="off"><span class="home-pair__role">Companion, 6 pages</span> <a href="../maths/papers/plectis-public-system.html">Plectis: Verifying Code and Recording Its Execution</a></p>
+        </li>
+        <li class="home-pair" data-pair="zenith">
+          <a class="home-pair__sheets" href="https://wcook04.github.io/plectis-zenith/" aria-hidden="true" tabindex="-1"><span class="home-pair__sheet home-pair__sheet--lead"><img src="../assets/paper-sheets/zenith.webp" alt="" width="352" height="498" loading="lazy" decoding="async"></span></a>
+          <article class="home-paper" data-paper-id="zenith" data-subject-kind="system">
+            <p class="home-paper__kind" data-term-auto="off">AI models that test code</p>
+            <h3 class="home-paper__heading"><a class="home-paper__title" href="https://wcook04.github.io/plectis-zenith/">Zenith: <span data-term-preview-only data-term="program" data-term-auto="1">programs</span>, experiments and useful memory</a></h3>
+            <p class="home-paper__routes" data-term-auto="off"><a href="https://github.com/wcook04/plectis-zenith/blob/main/paper/zenith.pdf" aria-label="PDF of Zenith: programs, experiments and useful memory, 3 pages">PDF, 3 pages</a></p>
+          </article>
+        </li>
+        </ol>
+        <p class="home-papers__note">These author-released <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-paper" data-term="paper" data-term-auto="1">papers</a> are not externally <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-peer-review" data-term="peer_review" data-term-auto="1">peer reviewed</a> and have no DOI. <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> statements; <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">readers</a> judge novelty and significance.</p>
+      </div>
+    </section>
+    <!-- mc:landing-papers:end -->
+  </main>
+
+  <footer class="site-footer" data-term-auto="off">
+    <div class="wrap site-footer__grid">
+      <div class="site-footer__brand">
+        <p class="site-footer__name"><a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-plectis" data-term="plectis">Plectis</a></p>
+        <p>Research with AI, mathematics and software. Built and maintained by Will Cook. Plectis is Latin for “you weave”.</p>
+      </div>
+      <nav class="site-footer__col" aria-label="Mathematics">
+        <p class="site-footer__head">Mathematics</p>
+        <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">Maths repository</a>
+      </nav>
+      <nav class="site-footer__col" aria-label="Earlier software">
+        <p class="site-footer__head">Earlier software</p>
+        <a href="../docs/index.html">Overview</a>
+        <a href="../docs/quickstart.html">Quickstart</a>
+        <a href="https://github.com/wcook04/plectis" data-link-kind="exogenous" rel="external noopener">Software repository</a>
+      </nav>
+      <nav class="site-footer__col" aria-label="Project">
+        <p class="site-footer__head">Project</p>
+        <a href="../docs/updates.html">Updates</a>
+        <a href="../docs/contact.html">Contact</a>
+        <a href="../docs/credit-ledger.html">Credit ledger</a>
+      </nav>
+      <!-- The AI hand-off (29 October 2026): its card left with the bands
+           after the papers; the packets keep a route from the front door. -->
+      <nav class="site-footer__col" aria-label="For AI readers">
+        <p class="site-footer__head">For AI readers</p>
+        <a href="../plectis-ai-review-packet.json" download="plectis-ai-review-packet.json" data-site-download data-site-packet-kind="review-packet" data-download-url="../plectis-ai-review-packet.json" data-download-filename="plectis-ai-review-packet.json" data-link-kind="internal">AI packet (JSON)</a>
+        <a href="../plectis-reviewer-brief.json" download="plectis-reviewer-brief.json" data-link-kind="internal">Source brief (JSON)</a>
+        <a href="../plectis-ai-reader-digest.json" download="plectis-ai-reader-digest.json" data-link-kind="internal">Overview digest (JSON)</a>
+        <a href="../docs/coding-agents.html">Working with a coding agent</a>
+      </nav>
+    </div>
+    <!-- The host front door at wcook04.github.io lists this site; this row
+         names it back for the reader who has reached the bottom. -->
+    <p class="wrap site-footer__lineage"><span>21 June 2026: Microcosm became Plectis. The rename avoids confusion with the earlier Southampton Microcosm hypermedia system and acknowledges that lineage without implying endorsement or affiliation. <a href="../docs/lineage.html">Read the lineage note and changelog</a>.</span></p>
+    <p class="wrap site-footer__parent">
+      <span class="site-footer__parent-kind">Front door</span>
+      <a href="https://wcook04.github.io/" rel="author">Will Cook: public work</a>
+    </p>
+  </footer>
+
+  <!-- The landing is complete HTML before its enhancements arrive. Keep the
+       shared docs controls, the plait and the universe teaser as inert,
+       fingerprinted references; landing.js starts docs after first paint or
+       real user intent, the plait after docs settles, and the universe teaser
+       only when the mathematics band comes near the viewport. -->
+  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=c3621e6fc76c"></script></template>
+  <template data-plectis-runtime="art"><script src="../assets/art.js?v=5e2cbba7c90b"></script></template>
+  <template data-plectis-runtime="universe"><script src="../maths/assets/universe.js?v=374450a18407"></script></template>
+  <template data-plectis-runtime="system"><script src="../assets/system-map.js?v=f67fe4bb3791"></script></template>
+  <script async src="../assets/landing.js?v=9c3bcf18d338"></script>
+</body>
+</html>

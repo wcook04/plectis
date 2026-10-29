@@ -5,7 +5,7 @@
   "subject": "Systems paper",
   "subject_kind": "system",
   "form": "Prototype paper",
-  "pages": 5,
+  "pages": 6,
   "question": "How can a verified computation be tied to the application code that calls it and to a record of what ran?",
   "precis": "Plectis verifies selected computations against explicit specifications and links them to the application code that calls them and to recorded runs. Its worked example is an ownership classifier that gave unsafe advice when a stale claim came before a live claim for the same file: the repaired computation gives live observations priority whatever the order, and the application calls the generated code. A separate computation checks observations of component runs against their public records. The prototype has 12 verified component computations and 4 further workflow and replay cores, and the repair shows why a proof must be paired with review of the requirement it establishes.",
   "owns": "how a verified computation connects to its specification, the Python generated from it, the application that calls it and the record of its runs, shown through one repaired ownership rule",
@@ -29,7 +29,7 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "d264019ae46e5b6f",
-    "source_sha256": "52e7c97966c47837ba514eebda1a05a0975ef1b55445cda9c911c5d21b36f8c7",
+    "source_sha256": "9331357088b301c5c4feceb59de384a1a2046a836ef859171ab70fcd7aeec900",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
@@ -38,8 +38,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "a88cbc26ef0d3c0fc5fd383a9eb7d1accc155c30ada2f07cfe477ce1d9245e86",
-    "html_exact_tex_sha256": "94395a0ec1df2a713930e1d5bfadf2885a47a2d9af83b46b63b0648cca03a2d1"
+    "html_mathml_sha256": "2eaf944c11e44814242426712b3ad9b1a25ae62fa91cd369e5cc3d6320cf895d",
+    "html_exact_tex_sha256": "25b6bad1b7afda7f9f2584b0f8b0e6cb8dc8280ed7572366feff3b0a08df0b22"
   },
   "sections": [
     {
@@ -61,6 +61,11 @@
       "level": 2,
       "anchor": "sec:evidence",
       "label": "Verification method and evidence"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:inspection",
+      "label": "Reading the evidence through the backend"
     },
     {
       "level": 2,

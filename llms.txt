@@ -69,7 +69,7 @@ Objects: 780 across 16 kinds.
 
 ## Pages
 
-- [Landing](index.html)
+- [Plectis Mathematics: the eight programmes and the map](map/index.html)
 - [The papers](docs/papers.html)
 - [Working with a coding agent](docs/coding-agents.html)
 - [Quickstart](docs/quickstart.html)
@@ -119,7 +119,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [writing-a-good-mathematical-paper (Compact writing guide, 2 pp.)](maths/papers/writing-a-good-mathematical-paper.html)
 - [writing-mathematics-from-reviewed-revisions (Editorial method companion, 21 pp.)](maths/papers/writing-mathematics-from-reviewed-revisions.html)
 - [claim-faithful-publication-systems (Research architecture, 25 pp.)](maths/papers/claim-faithful-publication-systems.html)
-- [plectis-public-system (Prototype paper, 5 pp.)](maths/papers/plectis-public-system.html)
+- [plectis-public-system (Prototype paper, 6 pp.)](maths/papers/plectis-public-system.html)
 - [Repository overview](maths/documents/readme.html)
 - [A reader's way in](maths/documents/reading-guide.html)
 - [Apply a result and change a hypothesis](maths/documents/weighted-257-task.html)

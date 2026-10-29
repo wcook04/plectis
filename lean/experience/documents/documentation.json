@@ -11,7 +11,7 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/README.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "d3ab6801b8d0c1db080bb1b32f0efc6a68db2d399d6027acfceb23801ea88c90",
+    "navigation_fingerprint": "1129004b22f943472dd2bb701cce27e6a9e4d34a2d0ad14945399db9133359f7",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",

@@ -137969,7 +137969,7 @@
             "page": "paper-module-generated-projection-drift-runtime.html"
           }
         ],
-        "total_occurrences": 2160
+        "total_occurrences": 2162
       },
       "visible_text_byte_count": 754
     },
@@ -149609,12 +149609,8 @@
       "term_kind": "public_projection",
       "used_in": {
         "page_count": 3,
-        "top_page": "index.html",
+        "top_page": "papers.html",
         "top_pages": [
-          {
-            "count": 3,
-            "page": "index.html"
-          },
           {
             "count": 2,
             "page": "papers.html"
@@ -149622,9 +149618,13 @@
           {
             "count": 1,
             "page": "doctrine.html"
+          },
+          {
+            "count": 1,
+            "page": "index.html"
           }
         ],
-        "total_occurrences": 6
+        "total_occurrences": 4
       },
       "visible_text_byte_count": 1106
     },
@@ -157754,7 +157754,7 @@
             "page": "paper-module-world-model-projection-drift-control-room.html"
           }
         ],
-        "total_occurrences": 352
+        "total_occurrences": 353
       },
       "visible_text_byte_count": 862
     },
@@ -281710,7 +281710,7 @@
         "credit-ledger.html": 5,
         "doctrine.html": 154,
         "evidence.html": 16,
-        "index.html": 2,
+        "index.html": 4,
         "introduction.html": 7,
         "lineage.html": 1,
         "open-questions.html": 15,
@@ -281829,7 +281829,7 @@
       },
       "page_count": 183,
       "top_page": "doctrine.html",
-      "total_occurrences": 2160
+      "total_occurrences": 2162
     },
     "checker": {
       "by_page": {
@@ -285670,12 +285670,12 @@
     "formal_verification": {
       "by_page": {
         "doctrine.html": 1,
-        "index.html": 3,
+        "index.html": 1,
         "papers.html": 2
       },
       "page_count": 3,
-      "top_page": "index.html",
-      "total_occurrences": 6
+      "top_page": "papers.html",
+      "total_occurrences": 4
     },
     "formalisation": {
       "by_page": {
@@ -288269,7 +288269,7 @@
         "components.html": 6,
         "doctrine.html": 16,
         "evidence.html": 2,
-        "index.html": 1,
+        "index.html": 2,
         "lineage.html": 2,
         "paper-module-agent-route-observability-runtime.html": 2,
         "paper-module-batch4-proof-authority-runtime.html": 2,
@@ -288298,7 +288298,7 @@
       },
       "page_count": 122,
       "top_page": "paper-module-cold-reader-route-map.html",
-      "total_occurrences": 352
+      "total_occurrences": 353
     },
     "mathematical_limit": {
       "by_page": {

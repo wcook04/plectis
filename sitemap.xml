@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://wcook04.github.io/practical-formal-verification/</loc></url>
   <url><loc>https://wcook04.github.io/practical-formal-verification/docs/architecture.html</loc></url>
   <url><loc>https://wcook04.github.io/practical-formal-verification/docs/area-agent-reliability.html</loc></url>
   <url><loc>https://wcook04.github.io/practical-formal-verification/docs/area-architecture.html</loc></url>
@@ -221,6 +220,7 @@
   <url><loc>https://wcook04.github.io/practical-formal-verification/docs/tour.html</loc></url>
   <url><loc>https://wcook04.github.io/practical-formal-verification/docs/updates.html</loc></url>
   <url><loc>https://wcook04.github.io/practical-formal-verification/docs/vulnerability-disclosure.html</loc></url>
+  <url><loc>https://wcook04.github.io/practical-formal-verification/map/</loc></url>
   <url><loc>https://wcook04.github.io/practical-formal-verification/maths/documents/architecture.html</loc></url>
   <url><loc>https://wcook04.github.io/practical-formal-verification/maths/documents/comparator-1049.html</loc></url>
   <url><loc>https://wcook04.github.io/practical-formal-verification/maths/documents/documentation.html</loc></url>

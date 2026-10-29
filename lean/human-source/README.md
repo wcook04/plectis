@@ -11,7 +11,7 @@ Plectis collects research on eight problems posed by Paul Erdős: papers,
 Lean proofs of selected statements, experiments and failed approaches.
 Inspect and continue the research.
 
-**[Explore the research](#problem-papers)** · **[Watch the maths tour](https://www.youtube.com/watch?v=J2sX6nj3jOk)** · **[Read the system paper](paper/systems/claim-faithful-publication-systems-paper.pdf)** · **[Repository map](#repository-map)**
+**[Explore the research](#problem-papers)** · **[Watch the maths tour](https://www.youtube.com/watch?v=u4f-fk1o13k)** · **[Read the system paper](paper/systems/claim-faithful-publication-systems-paper.pdf)** · **[Repository map](#repository-map)**
 
 [![Eight Erdős problem programmes: the interactive maths map connects papers, results and their formal evidence](.github/maths-map.png)](https://wcook04.github.io/practical-formal-verification/maths/universe.html)
 
@@ -40,7 +40,7 @@ Do not infer results from private or unreleased work.
 ## For a first look: #257
 
 Start with the [introductory paper](paper/257/erdos257-expository-sums-never-fractions.pdf)
-or [#257 video](https://www.youtube.com/watch?v=vXgIBy5C5X0): examples followed by
+or [#257 video](https://www.youtube.com/watch?v=uWCqtRkJ8P0): examples followed by
 a proof for infinite choices of exponents whose reciprocals have a finite sum.
 Erdős stated this result in 1968.
 
@@ -234,9 +234,9 @@ order without asking you to decode Lean declaration names first.
 
 | Film | Read alongside it |
 |---|---|
-| [Maths map](https://www.youtube.com/watch?v=J2sX6nj3jOk) | [Paper list](#problem-papers) · [Source map](docs/SOURCE_MAP.md) |
-| [Erdős #257](https://www.youtube.com/watch?v=vXgIBy5C5X0) | [Introductory paper](paper/257/erdos257-expository-sums-never-fractions.pdf) · [Short paper](paper/257/erdos-257-mersenne-support-subseries.pdf) |
-| [Plectis introduction](https://www.youtube.com/watch?v=U1z2-XaLe_w) | [System paper](paper/systems/claim-faithful-publication-systems-paper.pdf) |
+| [Maths map](https://www.youtube.com/watch?v=u4f-fk1o13k) | [Paper list](#problem-papers) · [Source map](docs/SOURCE_MAP.md) |
+| [Erdős #257](https://www.youtube.com/watch?v=uWCqtRkJ8P0) | [Introductory paper](paper/257/erdos257-expository-sums-never-fractions.pdf) · [Short paper](paper/257/erdos-257-mersenne-support-subseries.pdf) |
+| [Plectis introduction](https://www.youtube.com/watch?v=MBmVMMogXTA) | [System paper](paper/systems/claim-faithful-publication-systems-paper.pdf) |
 
 The #257 film covers reciprocal-summable supports; the unrestricted problem remains open.
 
