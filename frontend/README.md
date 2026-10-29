@@ -69,6 +69,18 @@ The public copy is at
 files there without deleting others, so the folder stays until it is replaced:
 export again into a clone of `gh-pages` and push the `explorer/` change.
 
+## Header
+
+The header starts with the family lockup shared by Will Cook's websites
+(`docs/family.md`, "The lockup", in
+[wcook04.github.io](https://github.com/wcook04/wcook04.github.io)): the
+Plectis plait, which opens the home page <https://wcook04.github.io/>, a short
+upright rule, then the proof flower and "Practical Formal Verification", which
+open the map. `assets/plectis.svg` is a copy of that repository's
+`assets/family/marks/plectis.svg`; the lockup rules in `assets/app.css` are a
+copy of its `family.css` block, with the `--fam-*` names mapped in
+`assets/tokens.css`.
+
 ## What it shows
 
 | Route | Screen |
