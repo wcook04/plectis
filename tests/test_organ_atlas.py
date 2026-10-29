@@ -697,7 +697,7 @@ def test_agent_task_routes_project_from_specialty_tags() -> None:
     assert "public_reveal_walkthrough" not in finance_organs
     assert "mathematical_strategy_atlas_hypothesis_scorer" not in finance_organs
     assert "agentic_vulnerability_discovery_patch_proof_replay" not in finance_organs
-    assert "investment-related actions" in finance["allowed_scope"]
+    assert "rejects a lookahead split" in finance["allowed_scope"]
 
     stable_entry_primaries = {
         "agent-evaluation": "agent_benchmark_integrity_anti_gaming_replay",

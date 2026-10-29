@@ -6,34 +6,39 @@
 
 import { ApiError, apiPath, getEnvelope, withQuery } from '../api.js';
 import { getModel } from '../data.js';
-import { backingGlyph, h, keyGlyph, ringSwatch } from '../dom.js';
+import { backingGlyph, h, keyGlyph, ringSwatch, ruleGlyph } from '../dom.js';
 import {
-  TRACKS, classDescription, classWords, count, dayWords, familyName, proofShortName, setLabels, stateWords,
+  TRACKS, classDescription, classWords, count, dayWords, familyName, proofShortName, ruleKindWords, setLabels, stateWords,
 } from '../evidence.js';
-import { loadPlain, loadWriteup } from '../markdown.js';
+import { renderGuide } from '../markdown.js';
 import { runsStrip } from './proofparts.js';
 
 const INK_CLASS = { ran: 'ink-ran', stated: 'ink-stated', saved: 'ink-saved', unknown: 'ink-unknown' };
 
-export async function mountComponent(root, { id }) {
+export async function mountComponent(root, { id, signal }) {
   const page = h('div', { class: 'page' }, h('p', { class: 'muted', role: 'status' }, 'Loading the component…'));
   root.append(page);
   let model, detail;
   try {
-    model = await getModel();
-    setLabels(model.filters);
-    if (!model.byId.has(id)) throw new ApiError('not_found', `No component ${id}`);
-    let envelope = await getEnvelope(apiPath('components', id));
+    // Both reads use the same cancellation signal; neither depends on the other.
+    const readParts = () => Promise.all([
+      getModel({ signal }), getEnvelope(apiPath('components', id), { signal }),
+    ]);
+    let envelope;
+    [model, envelope] = await readParts();
     if (envelope.revision !== model.revision) {
-      model = await getModel();
-      envelope = await getEnvelope(apiPath('components', id));
+      [model, envelope] = await readParts();
       if (envelope.revision !== model.revision) throw new ApiError('revision', 'The component index changed while loading.');
     }
+    setLabels(model.filters);
+    if (!model.byId.has(id)) throw new ApiError('not_found', `No component ${id}`);
     detail = envelope.data;
   } catch (error) {
+    if (signal?.aborted) return () => {};
     page.replaceChildren(failure(error, id));
     return () => {};
   }
+  if (signal?.aborted) return () => {};
   const c = model.byId.get(id);
   const claim = detail.claim || {};
   const facets = claim.card?.assurance_facets || {};
@@ -47,13 +52,11 @@ export async function mountComponent(root, { id }) {
   };
   const section = (sid, title, ...content) => h('section', { id: `s-${sid}`, 'aria-labelledby': `h-${sid}` }, h('h2', { id: `h-${sid}` }, title), ...content);
 
-  const plain = h('p', { class: 'page-plain' }, c.summary);
-  loadPlain('component', c.id).then((text) => { if (text) plain.textContent = text; });
-  const writeup = h('div', {}, h('p', { class: 'muted small' }, 'Loading the write-up…'));
-  loadWriteup('component', c.id, model.links, { skipPlain: true }).then((el) => writeup.replaceChildren(el));
+  const plain = h('p', { class: 'page-plain' }, c.plain || c.summary);
+  const writeup = renderGuide(detail.guide, model.links, { skipPlain: !!c.plain });
 
   const main = h('div', { class: 'reader__steps' },
-    section('claim', 'What it does not claim',
+    section('claim', 'What it covers',
       h('div', { class: 'limit' }, claim.claim_ceiling_restated || claim.claim_ceiling || 'No limit is written down.')),
     kernel ? section('contract', 'Its proved part',
       h('p', { class: 'small' }, 'One decision inside this component is made by a small computation whose code a prover has checked against written rules. The component calls that checked code; the rest of the component is outside the proof.'),
@@ -78,8 +81,8 @@ export async function mountComponent(root, { id }) {
         h('a', { class: 'btn btn--ink', href: `/#o=${encodeURIComponent(`comp:${id}`)}`, 'data-route': '' }, 'Show it on the map'),
         h('a', { class: 'btn', href: withQuery('/graph', { type: 'organ', id }), 'data-route': '' }, 'Related records'))));
 
-  const aside = h('aside', { class: 'reader__figure checks-aside', 'aria-label': 'Its checks' },
-    h('p', { class: 'checks-aside__title' }, 'What checks it'),
+  const aside = h('aside', { class: 'reader__figure checks-aside', 'aria-label': 'Checks recorded for it' },
+    h('p', { class: 'checks-aside__title' }, 'Checks recorded for it'),
     h('ul', { class: 'column' }, [...TRACKS].map((t) => {
       const has = t.ink === 'unknown' ? 'unknown' : c.checks[t.id] ? 'has' : 'empty';
       return h('li', { class: `column__row${has === 'empty' ? ' is-empty' : ''}` },
@@ -102,14 +105,17 @@ export async function mountComponent(root, { id }) {
   return () => {};
 }
 
+// The rules its record lists, each in plain words where the doctrine's
+// reader content has them, and each opening that rule on the map's halo.
 function doctrineSection(model, c) {
-  const rows = c.doctrineIds.map((d) => model.doctrine.get(d)).filter(Boolean);
-  if (!rows.length) return null;
-  return h('section', { id: 's-rules' }, h('h2', {}, 'Principles it cites'),
-    h('p', { class: 'small muted' }, 'Project principles this component says it follows. Naming a principle states an intent; it is not a check.'),
-    h('ul', { class: 'doctrine' }, rows.map((d) => h('li', {},
-      h('strong', {}, d.title),
-      h('span', { class: 'muted small' }, ` ${d.kind === 'anti_principle' ? 'A failure mode it guards against' : d.kind === 'axiom' ? 'Axiom' : 'Principle'}`)))));
+  const rules = (c.ruleIds || []).map((id) => model.ruleById.get(id)).filter(Boolean);
+  if (!rules.length) return null;
+  return h('section', { id: 's-rules' }, h('h2', {}, `Rules its record lists (${rules.length})`),
+    h('p', { class: 'small muted' }, 'The axioms (basic assumptions) and principles (working rules) its own record lists.'),
+    h('ul', { class: 'doctrine' }, rules.map((r) => h('li', {},
+      h('a', { href: `/#o=${encodeURIComponent(`rule:${r.id}`)}`, 'data-route': '' }, ruleGlyph(r.kind), ' ', h('span', { class: `doc-id doc-id--${r.kind}` }, r.id), ' ', h('strong', {}, r.title)),
+      h('span', { class: 'muted small' }, ` · ${ruleKindWords(r.kind)}`),
+      r.reader?.plain ? h('p', { class: 'small', style: 'margin:0.25rem 0 0' }, r.reader.plain) : null))));
 }
 
 function connectionsSection(model, c) {
@@ -134,19 +140,19 @@ export function failure(error, id) {
   const wrap = h('div', {});
   if (error.kind === 'not_found') {
     wrap.append(h('h1', { class: 'page-title' }, 'No component with this ID'),
-      h('p', { class: 'page-lede' }, `The index has no component “${id}”. IDs come from the component registry; they are not derived from titles.`));
+      h('p', { class: 'page-lede' }, `There is no component with the ID “${id}”. IDs come from the project’s list of components and are not made from titles.`));
   } else if (error.kind === 'network') {
-    wrap.append(h('h1', { class: 'page-title' }, 'The component API is not reachable'),
+    wrap.append(h('h1', { class: 'page-title' }, 'The data server is not reachable'),
       h('p', { class: 'page-lede' }, 'Start the explorer from the repository with make explorer, then reload this page.'));
   } else if (error.kind === 'schema') {
-    wrap.append(h('h1', { class: 'page-title' }, 'An API this explorer cannot read'), h('p', { class: 'page-lede' }, error.message));
+    wrap.append(h('h1', { class: 'page-title' }, 'The data server sent a format this explorer cannot read'), h('p', { class: 'page-lede' }, error.message));
   } else if (error.kind === 'revision') {
-    wrap.append(h('h1', { class: 'page-title' }, 'The index changed while loading'),
+    wrap.append(h('h1', { class: 'page-title' }, 'The data changed while loading'),
       h('p', { class: 'page-lede' }, 'The parts of this page came from different snapshots twice, so none of them is shown. ', h('a', { href: window.location.href, 'data-route': '' }, 'Load it again'), '.'));
   } else {
     wrap.append(h('h1', { class: 'page-title' }, 'This page could not be loaded'), h('p', { class: 'page-lede' }, error.message));
   }
-  wrap.append(h('div', { class: 'actions' }, h('a', { class: 'btn', href: '/', 'data-route': '' }, 'Open the map'), h('a', { class: 'btn', href: '/catalogue', 'data-route': '' }, 'Search the catalogue')));
+  wrap.append(h('div', { class: 'actions' }, h('a', { class: 'btn', href: '/', 'data-route': '' }, 'Open the map'), h('a', { class: 'btn', href: '/catalogue', 'data-route': '' }, 'Search the components')));
   return wrap;
 }
 

@@ -165,3 +165,143 @@ def test_a_changed_write_up_is_refused_not_served(backend, tmp_path):
         server.shutdown()
         server.server_close()
         worker.join(timeout=5)
+
+
+def test_proxy_preserves_gzip_conditional_and_head_representation(explorer):
+    import gzip
+    path = "/api/v1/overview"
+    status, headers, body = explorer(path, headers={"Accept-Encoding": "gzip"})
+    assert status == 200 and headers["content-encoding"] == "gzip"
+    assert headers["vary"] == "Accept-Encoding"
+    assert json.loads(gzip.decompress(body))["data"]["components"]
+    assert headers["content-length"] == str(len(body))
+    status, head, empty = explorer(path, method="HEAD", headers={"Accept-Encoding": "gzip"})
+    assert status == 200 and empty == b"" and head["content-length"] == str(len(body))
+    status, conditional, empty = explorer(path, headers={"Accept-Encoding": "gzip", "If-None-Match": headers["etag"]})
+    assert status == 304 and empty == b"" and conditional["vary"] == "Accept-Encoding"
+
+
+def test_static_assets_compress_revalidate_and_preserve_head(explorer):
+    import gzip
+    path = '/src/map/engine.js'
+    status, plain_headers, plain = explorer(path)
+    assert status == 200 and 'content-encoding' not in plain_headers
+    status, headers, body = explorer(path, headers={'Accept-Encoding': 'gzip'})
+    assert status == 200 and gzip.decompress(body) == plain
+    assert len(body) < len(plain) // 2 and headers['etag'] != plain_headers['etag']
+    assert headers['vary'] == 'Accept-Encoding' and headers['cache-control'] == 'no-cache'
+    status, _, empty = explorer(path, headers={'Accept-Encoding': 'gzip', 'If-None-Match': 'W/' + headers['etag']})
+    assert status == 304 and empty == b''
+    status, head, empty = explorer(path, method='HEAD', headers={'Accept-Encoding': 'gzip'})
+    assert status == 200 and empty == b'' and head['content-length'] == str(len(body))
+    status, fallback, original = explorer(path, headers={'Accept-Encoding': 'gzip;q=0'})
+    assert status == 200 and original == plain and fallback['etag'] == plain_headers['etag']
+    assert explorer(path, headers={'Accept-Encoding': 'identity;q=0,gzip;q=0'})[0] == 406
+
+
+def test_asset_cache_avoids_repeat_reads_and_refreshes_same_size_edits(tmp_path, monkeypatch):
+    import os
+    serve = _load_serve()
+    server = serve.ExplorerServer(('127.0.0.1', 0), 'http://127.0.0.1:9')
+    path = tmp_path / 'module.js'
+    path.write_text('export const number = 1;')
+    stat = path.stat()
+    try:
+        first = server.static_asset(path, 'gzip')
+        with monkeypatch.context() as cached:
+            cached.setattr(Path, 'read_bytes', lambda *a: pytest.fail('unchanged asset reopened'))
+            cached.setattr(serve.gzip, 'compress', lambda *a, **k: pytest.fail('unchanged asset recompressed'))
+            assert server.static_asset(path, 'gzip') == first
+        path.write_text('export const number = 2;')
+        os.utime(path, ns=(stat.st_atime_ns, stat.st_mtime_ns))
+        second = server.static_asset(path, 'gzip')
+        assert second != first
+        assert server.static_asset(path, 'identity')[0] == b'export const number = 2;'
+    finally:
+        server.server_close()
+
+
+def test_asset_cache_is_bounded_and_coalesces_concurrent_reads(tmp_path, monkeypatch):
+    from concurrent.futures import ThreadPoolExecutor
+    serve = _load_serve()
+    monkeypatch.setattr(serve, 'STATIC_CACHE_ENTRIES', 2)
+    server = serve.ExplorerServer(('127.0.0.1', 0), 'http://127.0.0.1:9')
+    paths = [tmp_path / f'asset{i}.js' for i in range(3)]
+    for i, path in enumerate(paths):
+        path.write_text(f'export const value={i};' * 50)
+    reads = []
+    original = Path.read_bytes
+    def read(path):
+        reads.append(path)
+        return original(path)
+    monkeypatch.setattr(Path, 'read_bytes', read)
+    try:
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            results = list(pool.map(lambda _: server.static_asset(paths[0], 'gzip'), range(16)))
+        assert len(reads) == 1 and len(set(results)) == 1
+        server.static_asset(paths[1], 'identity')
+        server.static_asset(paths[2], 'gzip')
+        server.static_asset(paths[0], 'gzip')
+        assert reads.count(paths[0]) == 2
+        monkeypatch.setattr(serve, 'STATIC_CACHE_BYTES', 1)
+        uncached = tmp_path / 'large.js'
+        uncached.write_text('unchanged')
+        assert server.static_asset(uncached, 'identity') == server.static_asset(uncached, 'identity')
+        assert reads.count(uncached) == 2
+    finally:
+        server.server_close()
+
+
+def test_http11_revalidation_and_head_keep_the_connection_framed(backend):
+    serve = _load_serve()
+    server = serve.ExplorerServer(("127.0.0.1", 0), backend)
+    worker = _start(server)
+    client = HTTPConnection("127.0.0.1", server.server_port, timeout=5)
+    try:
+        path = "/api/v1/overview?view=map"
+        client.request("GET", path, headers={"Accept-Encoding": "gzip"})
+        response = client.getresponse()
+        body = response.read()
+        etag = response.getheader("ETag")
+        assert response.version == 11 and response.status == 200
+        socket = client.sock
+        client.request("GET", path, headers={"Accept-Encoding": "gzip", "If-None-Match": etag})
+        response = client.getresponse()
+        assert response.status == 304 and response.read() == b""
+        assert client.sock is socket
+        client.request("HEAD", path, headers={"Accept-Encoding": "gzip"})
+        response = client.getresponse()
+        assert response.status == 200 and response.read() == b""
+        assert response.getheader("Content-Length") == str(len(body))
+        client.request("GET", "/src/main.js")
+        response = client.getresponse()
+        assert response.status == 200 and b"render()" in response.read()
+        assert client.sock is socket
+    finally:
+        client.close()
+        server.shutdown()
+        server.server_close()
+        worker.join(timeout=5)
+
+
+def test_cold_asset_reads_for_different_files_do_not_block_each_other(tmp_path, monkeypatch):
+    from concurrent.futures import ThreadPoolExecutor
+    serve = _load_serve()
+    server = serve.ExplorerServer(("127.0.0.1", 0), "http://127.0.0.1:9")
+    paths = [tmp_path / f"module{i}.js" for i in range(2)]
+    for i, path in enumerate(paths):
+        path.write_text(f"export const value={i};")
+    both_reading = threading.Barrier(2)
+    original = Path.read_bytes
+    def read(path):
+        both_reading.wait(timeout=5)
+        return original(path)
+    monkeypatch.setattr(Path, "read_bytes", read)
+    try:
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            results = list(pool.map(lambda path: server.static_asset(path, "identity"), paths))
+        assert results[0][0] == b"export const value=0;"
+        assert results[1][0] == b"export const value=1;"
+        assert server._asset_pending == {}
+    finally:
+        server.server_close()

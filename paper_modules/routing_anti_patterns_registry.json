@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A duplicate ID or a missing required entry is rejected. This verifies the registry projection; it does not change routing policy or demonstrate that a real route is correct.",
+    "authority_ceiling": "Checks the JSON registry's kind, version, required entries, unique IDs and non-empty descriptions, rejecting a duplicate ID or a missing required entry.",
     "card": "The input is a JSON registry of named routing mistakes and explanatory text. The validator checks its kind and version, required named entries, unique IDs and nonempty descriptions, then writes findings and a board.",
     "one_line": "The input is a JSON registry of named routing mistakes and explanatory text."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A duplicate ID or a missing required entry is rejected. This verifies the registry projection; it does not change routing policy or demonstrate that a real route is correct.",
+    "authority_ceiling": "Checks the JSON registry's kind, version, required entries, unique IDs and non-empty descriptions, rejecting a duplicate ID or a missing required entry.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -87,7 +87,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A duplicate ID or a missing required entry is rejected. This verifies the registry projection; it does not change routing policy or demonstrate that a real route is correct.",
+        "authority_ceiling": "Checks the JSON registry's kind, version, required entries, unique IDs and non-empty descriptions, rejecting a duplicate ID or a missing required entry.",
         "card": "The input is a JSON registry of named routing mistakes and explanatory text. The validator checks its kind and version, required named entries, unique IDs and nonempty descriptions, then writes findings and a board.",
         "one_line": "The input is a JSON registry of named routing mistakes and explanatory text."
       },

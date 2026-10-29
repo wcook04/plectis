@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A passing fixture run means the expected negative cases were observed and the input scan passed; it does not mean every example input is valid or that the doctrine is complete. Imported-source digest checks establish byte identity, not correctness of the imported algorithms.",
+    "authority_ceiling": "Checks the fixture standards registry and Markdown modules for required fields and references, expects its deliberately invalid cases to be rejected, and compares imported source with recorded digests.",
     "card": "The validator reads a standards registry and Markdown module fixtures, checks their required fields and references, and writes findings and coverage summaries. The fixture run also expects deliberately invalid cases to be detected. For example, a standard that claims prose is executable authority is rejected, as is a duplicate standard slug with conflicting definitions.",
     "one_line": "Validate fixture standards and paper-module grammar, including negative cases."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A passing fixture run means the expected negative cases were observed and the input scan passed; it does not mean every example input is valid or that the doctrine is complete. Imported-source digest checks establish byte identity, not correctness of the imported algorithms.",
+    "authority_ceiling": "Checks the fixture standards registry and Markdown modules for required fields and references, expects its deliberately invalid cases to be rejected, and compares imported source with recorded digests.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -81,7 +81,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A passing fixture run means the expected negative cases were observed and the input scan passed; it does not mean every example input is valid or that the doctrine is complete. Imported-source digest checks establish byte identity, not correctness of the imported algorithms.",
+        "authority_ceiling": "Checks the fixture standards registry and Markdown modules for required fields and references, expects its deliberately invalid cases to be rejected, and compares imported source with recorded digests.",
         "card": "The validator reads a standards registry and Markdown module fixtures, checks their required fields and references, and writes findings and coverage summaries. The fixture run also expects deliberately invalid cases to be detected. For example, a standard that claims prose is executable authority is rejected, as is a duplicate standard slug with conflicting definitions.",
         "one_line": "Validate fixture standards and paper-module grammar, including negative cases."
       },

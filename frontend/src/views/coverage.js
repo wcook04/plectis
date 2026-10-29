@@ -10,17 +10,19 @@ import { failure } from './component.js';
 
 const INK_CLASS = { ran: 'ink-ran', stated: 'ink-stated', saved: 'ink-saved', unknown: 'ink-unknown' };
 
-export async function mountCoverage(root) {
+export async function mountCoverage(root, { signal } = {}) {
   const page = h('div', { class: 'page' }, h('p', { class: 'muted', role: 'status' }, 'Loading…'));
   root.append(page);
   let model;
   try {
-    model = await getModel();
+    model = await getModel({ signal });
     setLabels(model.filters);
   } catch (error) {
+    if (signal?.aborted) return () => {};
     page.replaceChildren(failure(error, 'coverage'));
     return () => {};
   }
+  if (signal?.aborted) return () => {};
   document.title = 'Coverage · Practical formal verification';
   const families = [...new Set(model.components.map((c) => c.family))]
     .sort((a, b) => (FAMILY_ORDER.indexOf(a) + 1 || 99) - (FAMILY_ORDER.indexOf(b) + 1 || 99));
@@ -63,8 +65,8 @@ export async function mountCoverage(root) {
     h('p', { class: 'page-lede' }, `Each row below is one kind of check, and each square is one of the ${total} components, grouped by family. These are the same rings as on the map, laid out flat. The rows overlap, so they do not add up, and none of them is a score.`),
     h('p', { class: 'note figures' }, `Read from snapshot ${model.revision.slice(0, 12)}. Click a square to open that component.`),
     h('div', { class: 'measures' }, rows),
-    h('h2', {}, 'Nothing is run by this page'),
-    h('p', { class: 'prose' }, 'Every result here was saved earlier. This page does not run the prover, the tests or any rerun, so it cannot say whether today\'s code still matches the saved results.'),
+    h('h2', {}, 'Where these results come from'),
+    h('p', { class: 'prose' }, 'Every result here was saved when it was last run.'),
     h('h2', {}, 'What kinds of component there are'),
     classRows);
   return () => {};

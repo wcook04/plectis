@@ -167,6 +167,17 @@ def _evaluate_case(case: Mapping[str, Any]) -> dict[str, Any]:
         "observed_ok": observed_ok,
         "observed_owner_count": outcome.get("observed_owner_count"),
         "drift_reasons": drift_reasons,
+        "owners": [
+            {
+                "owner_id": owner.get("owner_id"),
+                "status": owner.get("status"),
+                "status_reasons": owner.get("status_reasons", []),
+                "check_mode": owner.get("check_mode"),
+                "check_returncode": (owner.get("check_result") or {}).get("returncode"),
+            }
+            for owner in receipt.get("owners", [])
+            if isinstance(owner, Mapping)
+        ],
     }
 
 

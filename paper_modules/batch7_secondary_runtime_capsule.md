@@ -1,6 +1,6 @@
 # Synthetic market primitives: stock momentum and order books
 
-> **In plain terms.** Market programs rely on small calculations that can go wrong on awkward data. It is given copied code for three such calculations and made-up data to run them on. It measures a stock's momentum, scores a market from four angles, and finds the highest buying price and lowest selling price in an order book, which is a list of offers to buy and sell. The output records each result, including a test book in which taking the first row would be wrong and a price drop so extreme that the formula rejects it. It shows only how the code behaves on these made-up inputs, not how accurate it is on real markets.
+> **In plain terms.** Market programs rely on small calculations that can go wrong on awkward data. It is given copied code for three such calculations and made-up data to run them on. It measures a stock's momentum, scores a market from four angles, and finds the highest buying price and lowest selling price in an order book, which is a list of offers to buy and sell. The output records each result, including a test book in which taking the first row would be wrong and a price drop so extreme that the formula rejects it.
 
 This fixture runs three copied market-code exercises: a stock momentum calculation, order-book price and depth extraction, and four-lens market scoring. It checks the copied sources and records results for synthetic inputs. The current implementation does not exercise the UI and graph components described by earlier versions of this page.
 
@@ -25,7 +25,7 @@ The synthetic market exercises and source checks do not formally prove the marke
 
 ## Limits
 
-These checks establish the named fixture behavior, not live-market accuracy, investment advice, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.
+Runs three copied market primitives on synthetic data: momentum on extreme values, scoring of a resolved market, and an order book whose prices are not sorted.
 
 ## Sources
 

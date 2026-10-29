@@ -1,6 +1,6 @@
 # Check a public walkthrough against its evidence
 
-> **In plain terms.** A public walkthrough can make claims that nothing in it backs up. This check reads a walkthrough's steps, each naming a command, something to inspect and a reference to evidence, plus a declared time budget. It rejects a walkthrough with a budget over ten minutes, fewer than five steps, too few different commands or evidence references, or a step missing a part. It writes a summary sheet and a list of problems, helping a reader follow each claim to its evidence. One small decision step is checked by a mathematical proof against written rules, while the rest lies outside that proof, and the proof does not cover real running time or whether evidence supports a claim.
+> **In plain terms.** A public walkthrough can make claims that nothing in it backs up. This check reads a walkthrough's steps, each naming a command, something to inspect and a reference to evidence, plus a declared time budget. It rejects a walkthrough with a budget over ten minutes, fewer than five steps, too few different commands or evidence references, or a step missing a part. It writes a summary sheet and a list of problems, helping a reader follow each claim to its evidence. One small decision step is checked by a mathematical proof against written rules.
 
 The walkthrough validator checks audience-specific claim rows and their links to public evidence, including runtime and source references. It produces a board and findings to help a reader follow a claim to supporting material.
 
@@ -21,7 +21,7 @@ The fixture includes deliberate overclaims and missing-evidence examples. A pass
 
 ## What the result means
 
-A walkthrough that claims a capability without a matching evidence route is rejected. A passing walkthrough does not establish private-system equivalence or authorize a release.
+Follows each audience-specific claim in the walkthrough to its runtime and source evidence, and rejects a claim that has no matching evidence route.
 
 Related reading: [Command Line Interface Guidelines](https://clig.dev/), [progressive disclosure](https://www.nngroup.com/articles/progressive-disclosure/), [W3C PROV](https://www.w3.org/TR/prov-overview/), [OpenTelemetry traces](https://opentelemetry.io/docs/concepts/signals/traces/).
 

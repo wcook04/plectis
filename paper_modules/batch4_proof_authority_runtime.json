@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A token scan is not a proof check, and even successful local compilation does not establish a solution to Erdős #257. The optional probe needs Lean, Lake, the source Lake project and its dependencies; unavailable is distinct from a successful compilation.",
+    "authority_ceiling": "Checks copied-source manifests and anchors, scans the copied Lean source for placeholder tokens and rejects an overclaimed Erdős solution. An optional probe compiles that file when Lean, Lake, the source Lake project and its dependencies are present, and reports compiled, failed or unavailable.",
     "card": "This fixture checks source manifests and exercises selected proof, permission and runtime cases. Its result distinguishes source and fixture observations from claims about an actual proof or authorization decision. The fixture checks copied-source anchors for packet digest rejection, forbidden context grants and stale closeout handling; those checks do not execute the corresponding decisions. It scans the copied Lean source for placeholder tokens and checks an Erdős solution-overclaim case. An optional Lean/Lake probe can report whether the copied file compiles, fails or is unavailable.",
     "one_line": "This fixture checks source manifests and exercises selected proof, permission and runtime cases."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A token scan is not a proof check, and even successful local compilation does not establish a solution to Erdős #257. The optional probe needs Lean, Lake, the source Lake project and its dependencies; unavailable is distinct from a successful compilation.",
+    "authority_ceiling": "Checks copied-source manifests and anchors, scans the copied Lean source for placeholder tokens and rejects an overclaimed Erdős solution. An optional probe compiles that file when Lean, Lake, the source Lake project and its dependencies are present, and reports compiled, failed or unavailable.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -89,7 +89,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A token scan is not a proof check, and even successful local compilation does not establish a solution to Erdős #257. The optional probe needs Lean, Lake, the source Lake project and its dependencies; unavailable is distinct from a successful compilation.",
+        "authority_ceiling": "Checks copied-source manifests and anchors, scans the copied Lean source for placeholder tokens and rejects an overclaimed Erdős solution. An optional probe compiles that file when Lean, Lake, the source Lake project and its dependencies are present, and reports compiled, failed or unavailable.",
         "card": "This fixture checks source manifests and exercises selected proof, permission and runtime cases. Its result distinguishes source and fixture observations from claims about an actual proof or authorization decision. The fixture checks copied-source anchors for packet digest rejection, forbidden context grants and stale closeout handling; those checks do not execute the corresponding decisions. It scans the copied Lean source for placeholder tokens and checks an Erdős solution-overclaim case. An optional Lean/Lake probe can report whether the copied file compiles, fails or is unavailable.",
         "one_line": "This fixture checks source manifests and exercises selected proof, permission and runtime cases."
       },

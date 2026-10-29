@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The replay does not establish the effectiveness of a deployed monitor.",
+    "authority_ceiling": "Checks whether the recorded monitor scores and action steps support each declared caught or not-caught verdict, including a benign counterfactual replay, and rejects a verdict that disagrees with them.",
     "card": "This replay checks whether recorded monitor scores and action steps support declared caught or not-caught verdicts. It joins episodes, action traces and evidence references, then checks a benign counterfactual replay intended to remove the side objective while retaining the main task. It also checks cold-replay references and source-artifact digests.",
     "one_line": "Checks monitor verdicts and counterfactual evidence in recorded episodes."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The replay does not establish the effectiveness of a deployed monitor.",
+    "authority_ceiling": "Checks whether the recorded monitor scores and action steps support each declared caught or not-caught verdict, including a benign counterfactual replay, and rejects a verdict that disagrees with them.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,7 +77,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The replay does not establish the effectiveness of a deployed monitor.",
+        "authority_ceiling": "Checks whether the recorded monitor scores and action steps support each declared caught or not-caught verdict, including a benign counterfactual replay, and rejects a verdict that disagrees with them.",
         "card": "This replay checks whether recorded monitor scores and action steps support declared caught or not-caught verdicts. It joins episodes, action traces and evidence references, then checks a benign counterfactual replay intended to remove the side objective while retaining the main task. It also checks cold-replay references and source-artifact digests.",
         "one_line": "Checks monitor verdicts and counterfactual evidence in recorded episodes."
       },

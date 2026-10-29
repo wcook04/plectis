@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture routing only; no BM25 implementation or demonstrated real-world retrieval performance.",
+    "authority_ceiling": "Scores and filters the supplied catalogue entries for a problem description with keyword and phrase matching.",
     "card": "Structured matches and note IDs explain ranking; an empty query returns no match.",
     "one_line": "Scores and filters supplied catalogue entries for a problem description."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture routing only; no BM25 implementation or demonstrated real-world retrieval performance.",
+    "authority_ceiling": "Scores and filters the supplied catalogue entries for a problem description with keyword and phrase matching.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -92,7 +92,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture routing only; no BM25 implementation or demonstrated real-world retrieval performance.",
+        "authority_ceiling": "Scores and filters the supplied catalogue entries for a problem description with keyword and phrase matching.",
         "card": "Structured matches and note IDs explain ranking; an empty query returns no match.",
         "one_line": "Scores and filters supplied catalogue entries for a problem description."
       },

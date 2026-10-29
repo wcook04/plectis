@@ -32,32 +32,69 @@ The explorer now uses all of these:
   (played through as an interactive figure).
 - `source_revision`, so references open the exact commit on GitHub.
 
+## Delivered in the third pass
+
+- The doctrine as its own routes: `GET /api/v1/doctrine` (every rule with the
+  components that list it, its ties and its support verdict) and
+  `GET /api/v1/doctrine/{rule_id}` (one rule, with each citation and its basis,
+  `authored_atlas_row`). `grounded_in_doctrine` is described in the graph's
+  edge semantics: a citation, not a check.
+- Doctrine v2 in the overview: each rule's own section of its source file,
+  hash-bound; for each axiom its formal clause, the routing registry's
+  witnesses (named by hand), its obligations with the status the support
+  checker computed when the index was built, and that checker's verdict, which
+  is never a pass; and for every rule the hand-written reader content of
+  `core/doctrine_enrichment.json` (plain words, an analogy and where it stops,
+  why it matters, an example and a counterexample, a likely misreading, and what
+  it does not prove), served as reader content, not as evidence.
+
+The map draws all of it: the halo, the comb, the lit citations, the arcs of an
+axiom's obligations, and the rule cards in the panel. An index without doctrine
+v2 still draws the halo from the v1 rules and says that the reader wording is
+missing. Contract 1.3.0; the doctrine's five sources (the three rule files,
+`core/axiom_organ_routing.json` and `core/doctrine_enrichment.json`) are listed
+with their SHA-256 hashes, and the build fails on an unknown witness, example or
+enforced-in component, a rule without reader content, or a raising support
+checker.
+
+Two things to know after this pass. An index built from a worktree with
+uncommitted changes records `exact_source_links: false`, so source links do not
+appear until it is rebuilt from a clean commit. And
+`receipts/release/release_export_receipt.json` pins an older index hash (it was
+already stale before this pass); refreshing it is a release decision.
+
+## Delivered: snapshot write-ups and plain descriptions
+
+The API retains each component and core write-up, and each kernel's formal
+README, at index build time. Overview component rows expose `plain` and
+`plain_availability`. Component, core and proof detail exposes
+`guide.ref`, `guide.sha256`, `guide.text` and `guide.availability`; the
+snapshot's `explorer.guides` manifest retains the bound guide content. The
+overview omits that manifest and full guide bodies.
+
+The browser uses the plain lead already in the snapshot for hover and loads
+full text only on selection or a detail page. It makes no `/guides` request
+and no all-component prefetch. The development server retains its old guide
+routes for compatibility. An old index without the new text fields stays
+explicitly unrecorded; it does not acquire current file contents during an
+HTTP request. Bodies from a different snapshot are withheld.
+
+This delivers the earlier requests for snapshot write-ups, plain leads and
+kernel write-ups. The map now introduces the subject and a real selectable
+example before the visual key, and keeps compact previews clear of the full
+selected-item reading panel.
+
+## Delivered: compact transport and repeat-visit caching
+
+`GET /api/v1/overview?view=map` supplies the map's complete model with redundant
+records and unused receipt fields removed. It preserves core order and every
+reader-facing model field. The unqualified overview remains unchanged. Both
+representations are prepared once per snapshot with separate identity/gzip ETags.
+Full guides remain on the existing detail routes. The frontend's HTTP/1.1 proxy
+allows browsers to revalidate API responses and reuse unchanged bodies; static
+code, styles and fonts also have ETags and bounded server-side caching.
+
 ## Next pass
-
-### 1. Write-up text and the plain lead in the snapshot
-
-**Picture.** Hovering a component shows a five-sentence plain description in
-the panel; choosing it shows the rendered write-up.
-
-**Gap.** The API names each write-up (`guide.ref`) and records its SHA-256,
-but serves no text. As a stopgap, `frontend/serve.py` reads the file from the
-checkout after checking that hash (`/guides/component/<id>`), and the map
-fetches all 88 write-ups to show the plain lead on hover.
-
-**Shape.** At index build, extract each write-up's bounded text (the
-component's `paper_modules/*.md`, each core's formal README) and its opening
-"In plain terms" block quote. Serve `plain` on overview component rows and the
-full text as `guide.text` on component and core detail, bound to the recorded
-SHA-256. Fail the build when a write-up has no plain lead.
-
-**Acceptance.** The explorer needs no file read and no request per component;
-the `/guides` route in `serve.py` can be deleted.
-
-### 2. Kernel write-ups
-
-Each component kernel has a formal README (`formal/components/<slug>/README.md`)
-that its component's write-up links to. Name it on the proof view as `guide`
-with its SHA-256, like the cores, so the proof page can show it.
 
 ### 3. Excerpts for the four workflow cores
 

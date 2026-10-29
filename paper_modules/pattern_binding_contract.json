@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A passing binding is a consistent record under these checks; it does not prove that the pattern is useful or that copied source is correct.",
+    "authority_ceiling": "Checks each binding's required fields, references and duplicates, and rejects a missing reference, a conflicting duplicate pattern, a private source body or a public claim larger than its evidence.",
     "card": "A pattern binding links a pattern ID to its governing standard, source references and limits. In the fixture, `pb_valid_synthetic_binding` points to `capsule.synthetic_pattern_contract`, a provenance record for the regression harness. The validator checks required fields, reference resolution, duplicate conflicts and private-body markers. It rejects missing references, conflicting duplicate patterns, private source bodies and public claims that exceed their evidence. A separate route-readiness bundle checks whether selector rows resolve through their owning routes.",
     "one_line": "Validates pattern bindings, source references and authority records."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A passing binding is a consistent record under these checks; it does not prove that the pattern is useful or that copied source is correct.",
+    "authority_ceiling": "Checks each binding's required fields, references and duplicates, and rejects a missing reference, a conflicting duplicate pattern, a private source body or a public claim larger than its evidence.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -94,7 +94,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A passing binding is a consistent record under these checks; it does not prove that the pattern is useful or that copied source is correct.",
+        "authority_ceiling": "Checks each binding's required fields, references and duplicates, and rejects a missing reference, a conflicting duplicate pattern, a private source body or a public claim larger than its evidence.",
         "card": "A pattern binding links a pattern ID to its governing standard, source references and limits. In the fixture, `pb_valid_synthetic_binding` points to `capsule.synthetic_pattern_contract`, a provenance record for the regression harness. The validator checks required fields, reference resolution, duplicate conflicts and private-body markers. It rejects missing references, conflicting duplicate patterns, private source bodies and public claims that exceed their evidence. A separate route-readiness bundle checks whether selector rows resolve through their owning routes.",
         "one_line": "Validates pattern bindings, source references and authority records."
       },

@@ -1,6 +1,6 @@
 # Replay a process-reward record with verifier feedback
 
-> **In plain terms.** When a program is trained with scores for each step and for its final result, careless scoring can reward the wrong things. This component is given made-up records of task attempts, covering the program's beliefs, the feedback it received, the scores awarded and a stored re-run. It follows each link between these records and checks them against a written rule, under which every step score must rest on an automatic checker or observed feedback. It reports a pass or a block with findings, for example rejecting a bypassed checker or a score for neat formatting. It checks only the supplied records, not a live training run, a benchmark result or evidence that any model improved.
+> **In plain terms.** When a program is trained with scores for each step and for its final result, careless scoring can reward the wrong things. This component is given made-up records of task attempts, covering the program's beliefs, the feedback it received, the scores awarded and a stored re-run. It follows each link between these records and checks them against a written rule, under which every step score must rest on an automatic checker or observed feedback. It reports a pass or a block with findings, for example rejecting a bypassed checker or a score for neat formatting.
 
 This replay checks synthetic records of task episodes, belief states, feedback and rewards. Process rewards refer to intermediate steps; outcome rewards refer to the final result. A trajectory group links those rewards with an episode and a stored cold-replay record, which names replay evidence and records a status.
 
@@ -27,7 +27,7 @@ Checks on the synthetic records do not formally prove the reward policy or model
 
 ## Limits
 
-This is a check of the supplied public records and policy, not live reinforcement learning, a benchmark result or evidence of improved model performance. It does not export hidden reasoning.
+Checks the links between synthetic episodes, belief states, verifier feedback, rewards and trajectory groups, and rejects a verifier bypass or reward hacking.
 
 ## Sources
 

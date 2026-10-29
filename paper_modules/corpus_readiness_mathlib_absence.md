@@ -1,6 +1,6 @@
 # Check corpus readiness and a Mathlib absence case
 
-> **In plain terms.** A written claim that Mathlib, a large shared library of mathematics, is ready to use can be wrong. The checker is given a saved record of which libraries were available and what each example user needs. It compares those claims with saved evidence and runs a small test in which Lean, a proof-checking program, must load its basic library but fail to load Mathlib with a 'module missing' message. It marks each example user as allowed or blocked and rejects any record that says Mathlib is available without evidence. The test only tries loading, so a pass does not show the collection is complete or that Mathlib is available elsewhere.
+> **In plain terms.** A written claim that Mathlib, a large shared library of mathematics, is ready to use can be wrong. The checker is given a saved record of which libraries were available and what each example user needs. It compares those claims with saved evidence and runs a small test in which Lean, a proof-checking program, must load its basic library but fail to load Mathlib with a 'module missing' message. It marks each example user as allowed or blocked and rejects any record that says Mathlib is available without evidence.
 
 This checker compares declared formal-math corpus readiness and consumer decisions with supplied source artifacts and a narrow Lean import probe. It records which fixture consumers are allowed or blocked, so an absent corpus or unsupported Mathlib claim cannot silently become a readiness result.
 

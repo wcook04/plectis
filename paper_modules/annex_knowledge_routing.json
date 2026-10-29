@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Keyword matches are not semantic retrieval or a licence or provenance assessment.",
+    "authority_ceiling": "Ranks an in-memory catalogue by weighted keyword and phrase matches against a problem statement, rejecting a candidate with no overlapping terms or outside the domain filter.",
     "card": "The annex router takes a problem statement and an in-memory catalogue, scores matching terms and returns ranked entries with a breakdown of their matches. Structured routing fields receive the highest weight, followed by family text, summaries and notes. Optional domain and cluster filters restrict the candidates.",
     "one_line": "Ranks a supplied catalogue with explainable weighted keyword and phrase matching."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Keyword matches are not semantic retrieval or a licence or provenance assessment.",
+    "authority_ceiling": "Ranks an in-memory catalogue by weighted keyword and phrase matches against a problem statement, rejecting a candidate with no overlapping terms or outside the domain filter.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,7 +86,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Keyword matches are not semantic retrieval or a licence or provenance assessment.",
+        "authority_ceiling": "Ranks an in-memory catalogue by weighted keyword and phrase matches against a problem statement, rejecting a candidate with no overlapping terms or outside the domain filter.",
         "card": "The annex router takes a problem statement and an in-memory catalogue, scores matching terms and returns ranked entries with a breakdown of their matches. Structured routing fields receive the highest weight, followed by family text, summaries and notes. Optional domain and cluster filters restrict the candidates.",
         "one_line": "Ranks a supplied catalogue with explainable weighted keyword and phrase matching."
       },

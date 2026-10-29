@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release.",
+    "authority_ceiling": "Rebuilds an active-claims snapshot from the fixture with copied Work Ledger code and checks claims, parent state, dependency unlocks and checkpoint policy, rejecting a stale expected parent or a conflicting claim.",
     "card": "The replay reconstructs an active-claims snapshot using imported public-safe Work Ledger code. It checks claims against paths and expected parent state, dependency unlocks and scoped checkpoint policy. Tests change a same-path conflict to a disjoint claim and change an expected parent to check that the verdict follows the input. A stale expected parent or conflicting claim is rejected.",
     "one_line": "Checks work-transaction claims, dependencies and checkpoint policy in a public fixture."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release.",
+    "authority_ceiling": "Rebuilds an active-claims snapshot from the fixture with copied Work Ledger code and checks claims, parent state, dependency unlocks and checkpoint policy, rejecting a stale expected parent or a conflicting claim.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -81,7 +81,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release.",
+        "authority_ceiling": "Rebuilds an active-claims snapshot from the fixture with copied Work Ledger code and checks claims, parent state, dependency unlocks and checkpoint policy, rejecting a stale expected parent or a conflicting claim.",
         "card": "The replay reconstructs an active-claims snapshot using imported public-safe Work Ledger code. It checks claims against paths and expected parent state, dependency unlocks and scoped checkpoint policy. Tests change a same-path conflict to a disjoint claim and change an expected parent to check that the verdict follows the input. A stale expected parent or conflicting claim is rejected.",
         "one_line": "Checks work-transaction claims, dependencies and checkpoint policy in a public fixture."
       },

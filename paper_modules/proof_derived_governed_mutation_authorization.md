@@ -1,6 +1,6 @@
 # Governed mutation evidence replay
 
-> **In plain terms.** A system that changes things automatically needs evidence that each change was checked, allowed by policy and can be undone. This component is given made-up change proposals, each linked to proof records, policy rulings, an undo record and a version-control record. It looks up each record, recalculates a fingerprint summarizing the evidence, checks the version-control record, and rejects a proposal with only one visible policy ruling, a stale fingerprint or no undo record for a reversible write. It writes a saved record of whether each proposal's evidence holds together, showing which are properly backed. It covers only supplied evidence and made-up proposals, and grants no permission to change a live system.
+> **In plain terms.** A system that changes things automatically needs evidence that each change was checked, allowed by policy and can be undone. This component is given made-up change proposals, each linked to proof records, policy rulings, an undo record and a version-control record. It looks up each record, recalculates a fingerprint summarizing the evidence, checks the version-control record, and rejects a proposal with only one visible policy ruling, a stale fingerprint or no undo record for a reversible write. It writes a saved record of whether each proposal's evidence holds together, showing which are properly backed.
 
 Checks synthetic mutation proposals against linked proof, policy, side-effect, rollback and replay records, then writes an authorization replay receipt.
 
@@ -20,7 +20,7 @@ For each proposal, the validator resolves proof cells and visible policy verdict
 
 ## Limits
 
-The result concerns the supplied evidence and synthetic proposals. It grants no credential or permission to mutate a live system. A source hash or Git witness is not proof that the underlying change is correct.
+Checks synthetic mutation proposals against their proof cells, policy verdicts, evidence-chain hash, rollback records and a Git commit, and rejects a proposal with a single verdict, a stale hash or a missing rollback.
 
 ## Verification
 

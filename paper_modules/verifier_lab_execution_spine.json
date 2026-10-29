@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "This is a bounded public witness and policy experiment. It does not establish correctness of arbitrary proofs or authorize arbitrary source changes. The command requires compatible `lean` and `lake` on PATH and can take time to build.",
+    "authority_ceiling": "Builds the fixture's Lake project with `lean` and `lake`, which must be on PATH and can take time to build. It rejects transitions that expose candidate bodies or mix provider or oracle data into the forward path, and an Evolve candidate claiming arbitrary source changes.",
     "card": "The fixture includes a Lake project and deliberate negative cases. The validator rejects transitions exposing candidate bodies or mixing provider/oracle visibility into the forward path, and rejects an Evolve candidate claiming arbitrary source mutation. Its tests exercise Lean execution and the candidate checks.",
     "one_line": "Checks verifier transitions and policy candidates; the direct fixture runs Lean."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "This is a bounded public witness and policy experiment. It does not establish correctness of arbitrary proofs or authorize arbitrary source changes. The command requires compatible `lean` and `lake` on PATH and can take time to build.",
+    "authority_ceiling": "Builds the fixture's Lake project with `lean` and `lake`, which must be on PATH and can take time to build. It rejects transitions that expose candidate bodies or mix provider or oracle data into the forward path, and an Evolve candidate claiming arbitrary source changes.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,7 +84,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "This is a bounded public witness and policy experiment. It does not establish correctness of arbitrary proofs or authorize arbitrary source changes. The command requires compatible `lean` and `lake` on PATH and can take time to build.",
+        "authority_ceiling": "Builds the fixture's Lake project with `lean` and `lake`, which must be on PATH and can take time to build. It rejects transitions that expose candidate bodies or mix provider or oracle data into the forward path, and an Evolve candidate claiming arbitrary source changes.",
         "card": "The fixture includes a Lake project and deliberate negative cases. The validator rejects transitions exposing candidate bodies or mixing provider/oracle visibility into the forward path, and rejects an Evolve candidate claiming arbitrary source mutation. Its tests exercise Lean execution and the candidate checks.",
         "one_line": "Checks verifier transitions and policy candidates; the direct fixture runs Lean."
       },

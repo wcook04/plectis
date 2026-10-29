@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.",
+    "authority_ceiling": "Checks a campaign plan's dependencies, cycles, barrier alignment, worker ceiling and the single synthesis that reaches a probe, rejecting a cycle or a second synthesis.",
     "card": "Checks dependencies, cycles, one synthesis reaching a probe, barrier alignment and the configured worker ceiling.",
     "one_line": "A campaign graph validator rejects malformed dependency plans."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.",
+    "authority_ceiling": "Checks a campaign plan's dependencies, cycles, barrier alignment, worker ceiling and the single synthesis that reaches a probe, rejecting a cycle or a second synthesis.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -87,7 +87,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.",
+        "authority_ceiling": "Checks a campaign plan's dependencies, cycles, barrier alignment, worker ceiling and the single synthesis that reaches a probe, rejecting a cycle or a second synthesis.",
         "card": "Checks dependencies, cycles, one synthesis reaching a probe, barrier alignment and the configured worker ceiling.",
         "one_line": "A campaign graph validator rejects malformed dependency plans."
       },

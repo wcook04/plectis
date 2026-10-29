@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A lookahead split or a claim that the output authorizes investment advice is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment decision.",
+    "authority_ceiling": "Runs the stationary bootstrap, reality check, superior predictive ability, model confidence set and Diebold–Mariano tests on 40 synthetic loss observations, and rejects a lookahead split. The exported bundle reports its declared statistics contract instead of recomputing the tests.",
     "card": "This component reads a matrix of synthetic losses for a baseline and candidate forecasts, paired loss series and a boundary policy. The fixture exercises stationary bootstrap, reality check, superior predictive ability and model confidence set calculations, as well as a Diebold–Mariano comparison. The test fixture has 40 observations. Its reality check, superior predictive ability and model confidence set calls each use 40 bootstrap replicates; a separate stationary-bootstrap index demonstration uses five. The fixture deliberately blocks SciPy imports to exercise a typed refusal of the Harvey–Leybourne–Newbold correction to the paired comparison, regardless of whether SciPy is installed.",
     "one_line": "Evaluate synthetic forecast-loss fixtures and boundary checks."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A lookahead split or a claim that the output authorizes investment advice is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment decision.",
+    "authority_ceiling": "Runs the stationary bootstrap, reality check, superior predictive ability, model confidence set and Diebold–Mariano tests on 40 synthetic loss observations, and rejects a lookahead split. The exported bundle reports its declared statistics contract instead of recomputing the tests.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -74,7 +74,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A lookahead split or a claim that the output authorizes investment advice is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment decision.",
+        "authority_ceiling": "Runs the stationary bootstrap, reality check, superior predictive ability, model confidence set and Diebold–Mariano tests on 40 synthetic loss observations, and rejects a lookahead split. The exported bundle reports its declared statistics contract instead of recomputing the tests.",
         "card": "This component reads a matrix of synthetic losses for a baseline and candidate forecasts, paired loss series and a boundary policy. The fixture exercises stationary bootstrap, reality check, superior predictive ability and model confidence set calculations, as well as a Diebold–Mariano comparison. The test fixture has 40 observations. Its reality check, superior predictive ability and model confidence set calls each use 40 bootstrap replicates; a separate stationary-bootstrap index demonstration uses five. The fixture deliberately blocks SciPy imports to exercise a typed refusal of the Harvey–Leybourne–Newbold correction to the paired comparison, regardless of whether SciPy is installed.",
         "one_line": "Evaluate synthetic forecast-loss fixtures and boundary checks."
       },

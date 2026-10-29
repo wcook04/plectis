@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The result concerns the supplied fixture and does not verify a real project closeout.",
+    "authority_ceiling": "Checks the fixture's commit, ledger and test claims by inspecting a temporary Git copy and running the named pytest test, rejecting a fake commit, ledger or test claim and a pass that was never checked.",
     "card": "This audit checks structured claims about a commit, a ledger entry and a test against a public fixture. It copies the fixture repository into a temporary directory, uses Git to create and inspect its HEAD, and runs the named pytest test. A test-pass claim needs both a zero exit status and an explicit indication that the status was checked. The ledger claim is checked against the supplied fixture ledger.",
     "one_line": "Checks fixture commit, ledger and test claims using a temporary Git repository and a pytest subprocess."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The result concerns the supplied fixture and does not verify a real project closeout.",
+    "authority_ceiling": "Checks the fixture's commit, ledger and test claims by inspecting a temporary Git copy and running the named pytest test, rejecting a fake commit, ledger or test claim and a pass that was never checked.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -76,7 +76,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The result concerns the supplied fixture and does not verify a real project closeout.",
+        "authority_ceiling": "Checks the fixture's commit, ledger and test claims by inspecting a temporary Git copy and running the named pytest test, rejecting a fake commit, ledger or test claim and a pass that was never checked.",
         "card": "This audit checks structured claims about a commit, a ledger entry and a test against a public fixture. It copies the fixture repository into a temporary directory, uses Git to create and inspect its HEAD, and runs the named pytest test. A test-pass claim needs both a zero exit status and an explicit indication that the status was checked. The ledger claim is checked against the supplied fixture ledger.",
         "one_line": "Checks fixture commit, ledger and test claims using a temporary Git repository and a pytest subprocess."
       },

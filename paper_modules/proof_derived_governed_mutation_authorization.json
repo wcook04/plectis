@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The result concerns the supplied evidence and synthetic proposals. It grants no credential or permission to mutate a live system. A source hash or Git witness is not proof that the underlying change is correct.",
+    "authority_ceiling": "Checks synthetic mutation proposals against their proof cells, policy verdicts, evidence-chain hash, rollback records and a Git commit, and rejects a proposal with a single verdict, a stale hash or a missing rollback.",
     "card": "For each proposal, the validator resolves proof cells and visible policy verdicts, recomputes an evidence-chain hash and checks the associated record. Write and rollback proposals require side-effect and rollback records. It also checks a Git commit witness and its changed paths; Git must be installed and the referenced commit available. A proposal with one visible verdict, a stale hash or no rollback for a reversible write is rejected.",
     "one_line": "Checks synthetic mutation proposals against proof, policy, rollback and replay records."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The result concerns the supplied evidence and synthetic proposals. It grants no credential or permission to mutate a live system. A source hash or Git witness is not proof that the underlying change is correct.",
+    "authority_ceiling": "Checks synthetic mutation proposals against their proof cells, policy verdicts, evidence-chain hash, rollback records and a Git commit, and rejects a proposal with a single verdict, a stale hash or a missing rollback.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,7 +84,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The result concerns the supplied evidence and synthetic proposals. It grants no credential or permission to mutate a live system. A source hash or Git witness is not proof that the underlying change is correct.",
+        "authority_ceiling": "Checks synthetic mutation proposals against their proof cells, policy verdicts, evidence-chain hash, rollback records and a Git commit, and rejects a proposal with a single verdict, a stale hash or a missing rollback.",
         "card": "For each proposal, the validator resolves proof cells and visible policy verdicts, recomputes an evidence-chain hash and checks the associated record. Write and rollback proposals require side-effect and rollback records. It also checks a Git commit witness and its changed paths; Git must be installed and the referenced commit available. A proposal with one visible verdict, a stale hash or no rollback for a reversible write is rejected.",
         "one_line": "Checks synthetic mutation proposals against proof, policy, rollback and replay records."
       },

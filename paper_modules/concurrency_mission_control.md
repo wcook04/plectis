@@ -1,6 +1,6 @@
 # Replay concurrent-work ownership cases
 
-> **In plain terms.** People and programs sharing one project can claim the same files, and someone must decide who owns each. This component is given made-up cases of who claimed which files, each claim marked live, stale or unknown. For each automatically generated file it ranks a live claim above an unknown or stale one, even when the stale one came first. It writes advice for each case, such as handing the file to its live owner, releasing stale claims or looking closer. The cases are made up and the advice is not enforced, and only that ranking step is checked by a mathematical proof against written rules, with the rest of the component outside that proof.
+> **In plain terms.** People and programs sharing one project can claim the same files, and someone must decide who owns each. This component is given made-up cases of who claimed which files, each claim marked live, stale or unknown. For each automatically generated file it ranks a live claim above an unknown or stale one, even when the stale one came first. It writes advice for each case, such as handing the file to its live owner, releasing stale claims or looking closer. That ranking step is checked by a mathematical proof against written rules.
 
 `concurrency_mission_control` runs a copied mission-control builder against a temporary example directory. It then evaluates fixture cases about overlapping file claims, stale owners, deferred validation and commit status. The output is a JSON account of how those supplied cases are classified.
 

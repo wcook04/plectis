@@ -5,10 +5,53 @@ import assert from 'node:assert/strict';
 import {
   API_SCHEMA, ApiError, apiPath, withQuery, getEnvelope, latestOnly, loadTogether, Collection,
 } from '../src/api.js';
+import { fetchWriteup, guideResult } from '../src/markdown.js';
 
 const envelope = (data, revision = 'r1') => ({ schema_version: API_SCHEMA, snapshot_revision: revision, data });
 const reply = (status, body) => new Response(typeof body === 'string' ? body : JSON.stringify(body), { status });
 const fetchFrom = (handler) => async (url, init) => handler(url, init);
+
+test('write-ups cache only successful text bound to the expected snapshot', async (t) => {
+  const original = globalThis.fetch;
+  t.after(() => { globalThis.fetch = original; });
+  let revision = 'guide-A';
+  let calls = 0;
+  globalThis.fetch = async (url) => {
+    calls += 1;
+    assert.match(url, /^\/api\/v1\/components\//);
+    return reply(200, envelope({ guide: { text: `text ${revision}`, availability: 'available', ref: 'paper_modules/example.md' } }, revision));
+  };
+  const a = await fetchWriteup('component', 'revision-cache-probe', 'guide-A');
+  assert.equal(a.text, 'text guide-A');
+  assert.equal(await fetchWriteup('component', 'revision-cache-probe', 'guide-A'), a);
+  assert.equal(calls, 1);
+  revision = 'guide-B';
+  const b = await fetchWriteup('component', 'revision-cache-probe', 'guide-B');
+  assert.equal(b.text, 'text guide-B');
+  assert.equal(calls, 2, 'a new model revision fetches its own guide');
+  const mismatch = await fetchWriteup('component', 'revision-mismatch-probe', 'guide-A');
+  assert.equal(mismatch.status, 409);
+  assert.equal(mismatch.text, '', 'a stale model cannot render a different snapshot guide');
+  revision = 'guide-A';
+  assert.equal((await fetchWriteup('component', 'revision-mismatch-probe', 'guide-A')).status, 200);
+  let failed = true;
+  globalThis.fetch = async () => {
+    if (failed) throw new TypeError('offline');
+    return reply(200, envelope({ guide: { text: 'recovered', availability: 'available' } }, 'retry'));
+  };
+  assert.equal((await fetchWriteup('component', 'network-retry-probe', 'retry')).status, 0);
+  failed = false;
+  assert.equal((await fetchWriteup('component', 'network-retry-probe', 'retry')).text, 'recovered');
+  let status = 409;
+  globalThis.fetch = async () => reply(status, status === 200
+    ? envelope({ guide: { text: 'changed', availability: 'available' } }, 'retry')
+    : { ...envelope({}, 'retry'), error: { code: 'revision', message: 'changed' } });
+  assert.equal((await fetchWriteup('component', 'conflict-retry-probe', 'retry')).status, 409);
+  status = 200;
+  assert.equal((await fetchWriteup('component', 'conflict-retry-probe', 'retry')).status, 200);
+  globalThis.fetch = async () => reply(200, envelope({ guide: { text: 'unbound', availability: 'available' } }, ''));
+  assert.notEqual((await fetchWriteup('component', 'missing-revision-probe', 'retry')).status, 200);
+});
 
 test('IDs are encoded as one path segment', () => {
   assert.equal(apiPath('proofs', 'proof::dafny::mcp_authority'), '/api/v1/proofs/proof%3A%3Adafny%3A%3Amcp_authority');
@@ -83,4 +126,45 @@ test('a page from a new revision is not appended', async () => {
   assert.equal(second.get('family'), 'formal_math_and_proof');
   assert.equal(second.get('limit'), '1');
   assert.equal(second.get('cursor'), 'c1');
+});
+
+
+test('old indexes and unavailable guides cannot become live-file text', async (t) => {
+  const original = globalThis.fetch;
+  t.after(() => { globalThis.fetch = original; });
+  const requests = [];
+  globalThis.fetch = async (url) => {
+    requests.push(url);
+    return reply(200, envelope({ guide: { ref: 'paper_modules/old.md' } }, 'old'));
+  };
+  const absent = await fetchWriteup('component', 'old-index', 'old');
+  assert.equal(absent.status, 404);
+  assert.equal(absent.text, '');
+  assert.equal(absent.availability, 'unrecorded');
+  assert.deepEqual(requests, ['/api/v1/components/old-index']);
+  assert.equal(guideResult({ text: 'do not show', availability: 'unavailable' }).text, '');
+  assert.equal(guideResult({ text: null, availability: 'available' }).status, 404);
+});
+
+test('leaving a view aborts its latest request even when the transport ignores abort', async () => {
+  const run = latestOnly();
+  let resolve, signal;
+  const pending = run((s) => { signal = s; return new Promise((r) => { resolve = r; }); });
+  run.abort();
+  assert.equal(signal.aborted, true);
+  resolve('late');
+  await assert.rejects(pending, (error) => error.kind === 'aborted');
+});
+
+
+test('an aborted route cannot consume a transport that returns late', async () => {
+  const controller = new AbortController();
+  let finish;
+  const pending = getEnvelope('/api/v1/overview', {
+    signal: controller.signal,
+    fetchImpl: () => new Promise((resolve) => { finish = resolve; }),
+  });
+  controller.abort();
+  finish(reply(200, envelope({ components: [] })));
+  await assert.rejects(pending, (error) => error.kind === 'aborted');
 });

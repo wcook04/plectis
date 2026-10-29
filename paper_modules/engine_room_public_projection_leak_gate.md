@@ -2,7 +2,7 @@
 
 The gate scans rendered file paths and contents for configured private-path and secret patterns, and checks symlink escapes. Findings are reported without reproducing matching secret values. The optional Gitleaks integration needs an installed `gitleaks` binary; requiring it when unavailable fails closed.
 
-The fixture suite checks both clean and blocked projections, including a private home path and secret-shaped text. `scan --fail-on-blocking` is needed if a blocked scan should produce a nonzero exit; without it the scan command can return zero even for a non-green result. Policy exception paths change the scan outcome and should be reviewed carefully.
+Scans rendered file paths and contents for configured private-path and secret patterns and for symlink escapes. Run `scan --fail-on-blocking` to get a nonzero exit on a blocked scan; policy exception paths change the outcome.
 
 A green scan means the configured checks found no blocking match. It is not a general security scan, a sandbox, or a proof that information cannot leak.
 

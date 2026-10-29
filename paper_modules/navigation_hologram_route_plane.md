@@ -1,6 +1,6 @@
 # Navigation route-plane validation
 
-> **In plain terms.** A list of suggested ways to dig deeper into a project can go stale or include an option with no command. This check reads the options, each meant to name a command, plus a note recording a fingerprint (a short code that changes if the list changes) and a row count. It rejects an option without a command, compares the fingerprint and count with the list, and refuses a derived summary that claims to be current when they differ. It writes a status and a list of problems, so a maintainer can see what needs fixing. Matching fingerprints show only that contents agree with what was referenced, not that the routes are useful or correct.
+> **In plain terms.** A list of suggested ways to dig deeper into a project can go stale or include an option with no command. This check reads the options, each meant to name a command, plus a note recording a fingerprint (a short code that changes if the list changes) and a row count. It rejects an option without a command, compares the fingerprint and count with the list, and refuses a derived summary that claims to be current when they differ. It writes a status and a list of problems, so a maintainer can see what needs fixing.
 
 Checks public route rows and records that bind them to an entry route, then writes a validation receipt.
 
@@ -20,7 +20,7 @@ A route row describes a navigation option and its command. For example, the fixt
 
 ## Limits
 
-Matching hashes establish consistency with referenced bytes, not that the routes are useful or correct. This fixture does not exercise a live private navigation system.
+Compares the hash and row count in the source-coupling manifest with the fixture's route rows, and rejects a row without a command or a stale projection that claims to be current.
 
 ## Verification
 

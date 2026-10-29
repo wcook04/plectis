@@ -119,6 +119,7 @@ def test_discoverable_contract_matches_real_http_responses(transport):
         "/claims/{claim_id}": "/claims/claim::mcp_tool_authority_replay",
         "/proofs/{proof_id}": "/proofs/proof::dafny::mcp_authority",
         "/cores/{core_id}": "/cores/repair",
+        "/doctrine/{rule_id}": "/doctrine/AX-4",
         "/graph": "/graph?type=organ&id=mcp_tool_authority_replay&max_edges=1",
     }
     for route, operations in contract["paths"].items():
@@ -504,7 +505,16 @@ def test_overview_agrees_with_existing_routes_and_transport(transport, snapshot)
     assert overview['snapshot_revision'] == snapshot.revision
     data = overview['data']
     assert data['coverage'] == json.loads(transport('/api/v1/coverage')[2])['data']
-    assert data['kernels'] == json.loads(transport('/api/v1/proofs?limit=100')[2])['data']['items']
+    detailed = json.loads(transport('/api/v1/proofs?limit=100')[2])['data']['items']
+    for compact, full in zip(data['kernels'], detailed, strict=True):
+        for owner in (full, full['proof']):
+            if owner.get('guide'):
+                guide = owner['guide']
+                if guide['availability'] == 'available':
+                    assert hashlib.sha256(guide['text'].encode()).hexdigest() == guide['sha256']
+                guide['text'] = None
+        assert compact == full
+    assert 'guides' not in data.get('explorer', {})
     assert data['receipts'] == [json.loads(snapshot.receipts[key]) for key in sorted(snapshot.receipts)]
     for row in data['components']:
         component = json.loads(transport('/api/v1/components/' + row['organ_id'])[2])['data']
@@ -547,10 +557,17 @@ def test_cores_and_explorer_use_same_snapshot_views(transport, snapshot):
     overview = json.loads(body)['data']
     status, _, body = transport('/api/v1/cores?limit=100')
     assert status == 200
-    assert json.loads(body)['data']['items'] == overview['cores']
-    for row in overview['cores']:
+    full_cores = json.loads(body)['data']['items']
+    assert len(full_cores) == len(overview['cores'])
+    for row, full in zip(overview['cores'], full_cores, strict=True):
         status, headers, body = transport('/api/v1/cores/' + row['core_id'])
-        assert status == 200 and json.loads(body)['data'] == row
+        assert status == 200 and json.loads(body)['data'] == full
+        if full.get('guide'):
+            guide = full['guide']
+            if guide['availability'] == 'available':
+                assert hashlib.sha256(guide['text'].encode()).hexdigest() == guide['sha256']
+            guide['text'] = None
+        assert full == row
         assert headers['X-Plectis-Snapshot-Revision'] == snapshot.revision
     assert transport('/api/v1/cores/absent')[0] == 404
     assert transport('/api/v1/cores/core::dafny::repair')[0] == 400
@@ -724,3 +741,328 @@ def test_local_runs_disabled_and_untrusted_overlay_rejected(raw, monkeypatch):
                       {**value, 'status': 'fresh_proof_pass'}):
         with pytest.raises(ValueError):
             api.ComponentSnapshot(raw, local_run_evidence=malicious)
+
+
+def _doctrine_nodes(raw):
+    return {row["id"]: row for row in raw["explorer"]["doctrine"]["nodes"]}
+
+
+def test_doctrine_list_counts_match_graph_citations(raw, transport):
+    from collections import Counter
+    status, headers, body = transport("/api/v1/doctrine")
+    assert status == 200
+    data = json.loads(body)["data"]
+    nodes = _doctrine_nodes(raw)
+    assert [row["id"] for row in data["rules"]] == list(nodes)
+    assert data["counts"] == {"axiom": 12, "principle": 20, "anti_principle": 17,
+                              "citations": data["counts"]["citations"]}
+    citations = [edge for edge in raw["edges"] if edge["kind"] == "grounded_in_doctrine"
+                 and edge["ref_kind"] in {"axiom", "principle"} and edge["to"] in nodes]
+    assert data["counts"]["citations"] == len(citations)
+    by_rule = Counter(edge["to"] for edge in citations)
+    for row in data["rules"]:
+        expected = sorted({edge["from"] for edge in citations if edge["to"] == row["id"]})
+        assert row["component_ids"] == expected and row["cited_by_count"] == len(expected)
+        assert by_rule[row["id"]] == len(expected)
+        if row["kind"] == "axiom":
+            assert row["support_verdict"] == nodes[row["id"]]["axiom"]["support"]["verdict"]
+            assert row["witness_component_ids"] == nodes[row["id"]]["axiom"]["routing"]["witness_component_ids"]
+        else:
+            assert row["support_verdict"] is None and row["witness_component_ids"] == []
+        assert row["rests_on"] == sorted({e["to_id"] for e in data["edges"] if e["from_id"] == row["id"] and e["kind"] == "rests_on"},
+                                         key=api._rule_key)
+        assert row["reader_plain"] == nodes[row["id"]]["reader"]["plain"]
+        assert row["enforced_in_component_ids"] == nodes[row["id"]]["reader"]["enforced_in_component_ids"]
+        assert row["failure_modes"] == sorted({e["from_id"] for e in data["edges"] if e["to_id"] == row["id"] and e["kind"] == "violates"},
+                                              key=api._rule_key)
+    # A failure mode's exposure is derived: the components citing any axiom it
+    # violates. Every other rule has none.
+    citers = {row["id"]: set(row["component_ids"]) for row in data["rules"]}
+    for row in data["rules"]:
+        if row["kind"] == "anti_principle":
+            expected = sorted(set().union(*(citers[axiom] for axiom in row["violates"])))
+            assert row["violates"] and row["exposed_component_ids"] == expected
+        else:
+            assert row["exposed_component_ids"] == []
+        assert row["exposed_count"] == len(row["exposed_component_ids"])
+    assert any(row["exposed_count"] for row in data["rules"] if row["kind"] == "anti_principle")
+    assert data["sources"] == raw["explorer"]["doctrine"]["sources"]
+    assert transport("/api/v1/doctrine", headers={"If-None-Match": headers["ETag"]})[0] == 304
+    assert transport("/api/v1/doctrine?limit=5")[0] == 400
+
+
+def test_failure_mode_exposure_runs_through_cited_violated_axioms(transport):
+    listing = json.loads(transport("/api/v1/doctrine")[2])["data"]
+    citers = {row["id"]: set(row["component_ids"]) for row in listing["rules"]}
+    failure_modes = [row for row in listing["rules"] if row["kind"] == "anti_principle"]
+    assert len(failure_modes) == 17
+    for row in failure_modes:
+        status, _, body = transport(f"/api/v1/doctrine/{row['id']}")
+        assert status == 200
+        detail = json.loads(body)["data"]
+        assert detail["exposed_count"] == row["exposed_count"] == len(detail["exposure"])
+        assert [entry["component_id"] for entry in detail["exposure"]] == row["exposed_component_ids"]
+        for entry in detail["exposure"]:
+            assert entry["basis"] == "derived_from_violated_axiom_citations"
+            assert entry["through_axiom_ids"] == sorted(entry["through_axiom_ids"], key=api._rule_key)
+            for axiom in entry["through_axiom_ids"]:
+                assert axiom in row["violates"] and entry["component_id"] in citers[axiom]
+    axiom = next(row for row in listing["rules"] if row["kind"] == "axiom")
+    detail = json.loads(transport(f"/api/v1/doctrine/{axiom['id']}")[2])["data"]
+    assert detail["exposure"] == [] and detail["exposed_count"] == 0
+
+
+def test_doctrine_rule_detail_citations_and_errors(raw, snapshot, transport):
+    nodes = _doctrine_nodes(raw)
+    for identity in ("AX-4", "P-15", "AP-4"):
+        status, headers, body = transport("/api/v1/doctrine/" + identity)
+        assert status == 200
+        data = json.loads(body)["data"]
+        assert {key: data[key] for key in nodes[identity]} == nodes[identity]
+        assert data["component_ids"] == sorted({row["component_id"] for row in data["citations"]})
+        for row in data["citations"]:
+            assert row["basis"] == "authored_atlas_row" and row["component_id"] in snapshot.components
+            assert row["source_ref"] == "core/organ_atlas.json::organs[{}].{}_refs".format(
+                row["component_id"], row["ref_kind"])
+        assert ("axiom" in data) == (identity == "AX-4")
+        assert transport("/api/v1/doctrine/" + identity, headers={"If-None-Match": headers["ETag"]})[0] == 304
+    for malformed in ("ax-4", "AX-", "X-1", "AX-1000", "P-1.5"):
+        status, _, body = transport("/api/v1/doctrine/" + malformed)
+        assert status == 400 and json.loads(body)["error"]["code"] == "invalid_parameters"
+    status, _, body = transport("/api/v1/doctrine/AX-99")
+    assert status == 404 and json.loads(body)["error"]["code"] == "unknown_id"
+    assert transport("/api/v1/doctrine/AX-4?x=1")[0] == 400
+
+
+def test_axiom_support_and_witnesses_are_bounded_and_registered(raw, snapshot):
+    nodes = _doctrine_nodes(raw)
+    axioms = [row for row in nodes.values() if row["kind"] == "axiom"]
+    assert len(axioms) == 12
+    for row in nodes.values():
+        assert ("axiom" in row) == (row["kind"] == "axiom")
+        assert hashlib.sha256(row["statement"].encode()).hexdigest() == row["statement_sha256"]
+        assert len(row["statement"].encode()) <= 4000
+    for row in axioms:
+        detail = row["axiom"]
+        support = detail["support"]
+        assert support["basis"] == "index_time_computed"
+        assert support["checker_id"] == "checker.microcosm.validators.axiom_support_cover"
+        assert support["verdict"]
+        assert detail["routing"]["basis"] == "authored_routing_registry"
+        witnesses = set(detail["routing"]["witness_component_ids"])
+        for obligation in detail["obligations"]:
+            witnesses.update(obligation["witness_component_ids"])
+        assert witnesses <= set(snapshot.components)
+
+
+def test_doctrine_edge_semantics_and_metadata_count(snapshot):
+    metadata = json.loads(snapshot.metadata)
+    semantics = metadata["graph"]["edge_semantics"]["grounded_in_doctrine"]
+    assert "citation" in semantics and "not a check" in semantics
+    assert metadata["doctrine_count"] == 49
+    overview = json.loads(snapshot.overview)["data"]["explorer"]["doctrine"]
+    assert overview["schema_version"] == "plectis_explorer_doctrine_v2"
+    assert len(snapshot.overview) <= api.MAX_OVERVIEW_BYTES
+
+
+def test_doctrine_routes_are_declared_in_openapi():
+    from microcosm_core import component_api_contract as contract
+    document = contract.openapi_document()
+    assert {"/api/v1/doctrine", "/api/v1/doctrine/{rule_id}"} <= set(document["paths"])
+    parameter = document["paths"]["/api/v1/doctrine/{rule_id}"]["get"]["parameters"][0]
+    assert parameter["schema"]["pattern"] == "^(AX|P|AP)-[0-9]{1,3}$"
+    schemas = document["components"]["schemas"]
+    assert {"Doctrine", "DoctrineRule", "DoctrineRuleDetail", "AxiomDetail"} <= set(schemas)
+
+
+@pytest.mark.parametrize("attack", ["witness", "statement", "support_basis", "extra", "schema", "reader_component", "reader_basis"])
+def test_malformed_doctrine_snapshot_is_rejected(raw, attack):
+    index = copy.deepcopy(raw)
+    doctrine = index["explorer"]["doctrine"]
+    axiom = doctrine["nodes"][0]
+    if attack == "witness":
+        axiom["axiom"]["routing"]["witness_component_ids"].append("not_a_component")
+    elif attack == "statement":
+        axiom["statement"] += " changed"
+    elif attack == "support_basis":
+        axiom["axiom"]["support"]["basis"] = "fresh_check"
+    elif attack == "extra":
+        doctrine["nodes"][-1]["axiom"] = axiom["axiom"]
+    elif attack == "reader_component":
+        doctrine["nodes"][-1]["reader"]["enforced_in_component_ids"].append("not_a_component")
+    elif attack == "reader_basis":
+        doctrine["nodes"][-1]["reader"]["basis"] = "test_result"
+    else:
+        doctrine["schema_version"] = "plectis_explorer_doctrine_v1"
+    with pytest.raises(ValueError):
+        api.ComponentSnapshot(index)
+
+
+def test_encoded_overview_is_precomputed_and_has_distinct_validators(snapshot, monkeypatch):
+    import gzip
+    application = api.ComponentApplication(snapshot)
+
+    def call(encoding, method="GET", etag=""):
+        result = []
+        body = b"".join(application({"REQUEST_METHOD": method, "PATH_INFO": "/api/v1/overview",
+            "HTTP_ACCEPT_ENCODING": encoding, "HTTP_IF_NONE_MATCH": etag},
+            lambda status, headers: result.append((int(status[:3]), dict(headers)))))
+        return *result[0], body
+
+    # Neither serialization nor compression may run on the overview read path.
+    monkeypatch.setattr(api, "_encoded_response", lambda *args: pytest.fail("request-time compression"))
+    status, headers, body = call("gzip")
+    assert status == 200 and gzip.decompress(body) == snapshot.overview
+    assert headers["Content-Encoding"] == "gzip" and headers["Vary"] == "Accept-Encoding"
+    assert len(body) < len(snapshot.overview) // 2
+    assert headers["ETag"] != snapshot.overview_etag
+    status, head, empty = call("gzip", method="HEAD")
+    assert status == 200 and empty == b"" and head["Content-Length"] == str(len(body))
+    status, conditional, empty = call("gzip", etag=headers["ETag"])
+    assert status == 304 and empty == b"" and "Content-Length" not in conditional
+    assert conditional["Vary"] == "Accept-Encoding"
+    status, identity, original = call("gzip;q=0")
+    assert status == 200 and original == snapshot.overview and "Content-Encoding" not in identity
+    status, _, original = call("identity", etag=headers["ETag"])
+    assert status == 200 and original == snapshot.overview
+
+
+@pytest.mark.parametrize("header,expected", [
+    ("", "identity"), ("br, gzip;q=0.8", "gzip"), ("gzip;q=0, *;q=1", "identity"),
+    ("*;q=1", "gzip"), ("gzip;q=0.2, identity;q=1", "identity"),
+    ("gzip;q=1, identity;q=0", "gzip"), ("gzip;q=broken", "identity"),
+])
+def test_compression_negotiation(header, expected):
+    assert api._response_encoding(header) == expected
+
+
+def test_unacceptable_encoding_and_dynamic_cache_replacement(raw, transport, app):
+    import gzip
+    status, _, body = transport("/api/v1/components", headers={"Accept-Encoding": "gzip;q=0, identity;q=0"})
+    assert status == 406 and json.loads(body)["error"]["code"] == "encoding_not_acceptable"
+    status, first_headers, first = transport("/api/v1/components", headers={"Accept-Encoding": "gzip"})
+    assert status == 200
+    first_data = json.loads(gzip.decompress(first))
+    app.replace_index(changed_index(raw))
+    status, second_headers, second = transport("/api/v1/components", headers={"Accept-Encoding": "gzip", "If-None-Match": first_headers["ETag"]})
+    assert status == 200 and second_headers["ETag"] != first_headers["ETag"]
+    assert json.loads(gzip.decompress(second))["snapshot_revision"] != first_data["snapshot_revision"]
+
+
+def test_map_overview_preserves_retained_fields_and_full_response(transport, snapshot):
+    full_before = snapshot.overview
+    full = json.loads(full_before)
+    status, headers, body = transport('/api/v1/overview?view=map')
+    assert status == 200 and body == snapshot.map_overview
+    compact = json.loads(body)
+    assert compact['snapshot_revision'] == full['snapshot_revision'] == snapshot.revision
+    expected = copy.deepcopy(full)
+    data = expected['data']
+    del data['receipts'], data['wiring']
+    cores_by_id = {row['core_id']: row for row in data['cores']}
+    if data['explorer'].get('cores'):
+        data['cores'] = [cores_by_id[row['core_id']] for row in data['explorer']['cores']]
+    for key in ('receipt_summaries', 'proof_details', 'cores'):
+        data['explorer'].pop(key, None)
+    for component in data['components']:
+        for receipt in component['receipt_refs']:
+            for key in list(receipt):
+                if key not in {'ref', 'artifact_id', 'availability', 'kind', 'reason', 'summary'}:
+                    del receipt[key]
+            if 'summary' in receipt:
+                for key in list(receipt['summary']):
+                    if key not in {'created_at', 'date_status', 'availability_reason', 'recorded_fields'}:
+                        del receipt['summary'][key]
+                fields = receipt['summary']['recorded_fields']
+                for key in list(fields):
+                    if key not in {'status', 'fixture_id', 'case_count'}:
+                        del fields[key]
+    assert compact == expected
+    assert len(body) < len(full_before)
+    assert headers['ETag'] != snapshot.overview_etag
+    assert transport('/api/v1/overview')[2] == full_before == snapshot.overview
+
+
+@pytest.mark.parametrize('query', ['view=', 'view=full', 'view=Map', 'view=map&view=map',
+                                  'view=map&limit=1', 'view=map&extra=1', 'view=map%00'])
+def test_map_overview_rejects_unsupported_query(app, query):
+    status, _, body = wsgi(app, '/api/v1/overview', query)
+    assert status == 400 and json.loads(body)['error']['code'] == 'invalid_parameters'
+
+
+def test_map_overview_is_preencoded_for_get_head_and_conditional(snapshot, monkeypatch):
+    import gzip
+    application = api.ComponentApplication(snapshot, cache_size=0, cache_bytes=0)
+    def forbidden(*args, **kwargs):
+        pytest.fail('request attempted IO, compilation, serialization or compression')
+    monkeypatch.setattr(Path, 'open', forbidden)
+    monkeypatch.setattr(component_index, 'compile_views', forbidden)
+    monkeypatch.setattr(api, '_dispatch', forbidden)
+    monkeypatch.setattr(api, '_json', forbidden)
+    monkeypatch.setattr(api, '_map_overview', forbidden)
+    monkeypatch.setattr(api, '_encoded_response', forbidden)
+    def call(encoding, method='GET', etag=''):
+        result = []
+        body = b''.join(application({'REQUEST_METHOD': method, 'PATH_INFO': '/api/v1/overview',
+            'QUERY_STRING': 'view=map', 'HTTP_ACCEPT_ENCODING': encoding, 'HTTP_IF_NONE_MATCH': etag},
+            lambda status, headers: result.append((int(status[:3]), dict(headers)))))
+        return *result[0], body
+    validators = {snapshot.overview_etag, snapshot.overview_gzip_etag}
+    for encoding in ('identity', 'gzip'):
+        status, headers, body = call(encoding)
+        assert status == 200 and headers['Vary'] == 'Accept-Encoding'
+        assert headers['X-Plectis-Snapshot-Revision'] == snapshot.revision
+        if encoding == 'gzip':
+            assert body is snapshot.map_overview_gzip
+            assert gzip.decompress(body) == snapshot.map_overview
+            assert headers['Content-Encoding'] == 'gzip'
+        else:
+            assert body is snapshot.map_overview and 'Content-Encoding' not in headers
+        assert headers['ETag'] not in validators
+        validators.add(headers['ETag'])
+        status, head, empty = call(encoding, 'HEAD')
+        assert status == 200 and empty == b'' and head == headers
+        assert head['Content-Length'] == str(len(body))
+        status, conditional, empty = call(encoding, etag=headers['ETag'])
+        assert status == 304 and empty == b'' and 'Content-Length' not in conditional
+        assert conditional['ETag'] == headers['ETag']
+        assert call(encoding, etag=snapshot.overview_etag)[0] == 200
+    assert not application._cache and application._cached_bytes == 0
+
+
+def test_map_overview_replacement_invalidates_both_representations(raw, app):
+    previous = app._snapshot
+    app.replace_index(changed_index(raw))
+    current = app._snapshot
+    assert current.revision != previous.revision
+    assert current.map_overview_etag != previous.map_overview_etag
+    assert current.map_overview_gzip_etag != previous.map_overview_gzip_etag
+    status, headers, body = wsgi(app, '/api/v1/overview', 'view=map')
+    assert status == 200 and body is current.map_overview
+    assert json.loads(body)['snapshot_revision'] == current.revision
+
+
+def test_map_overview_contract_describes_and_validates_both_views(snapshot):
+    document = api.component_api_contract.openapi_document()
+    validate_openapi(document)
+    operation = document['paths']['/api/v1/overview']['get']
+    view = next(row for row in operation['parameters'] if row['name'] == 'view')
+    assert view['schema'] == {'enum': ['map']} and view['required'] is False
+    schemas = document['components']['schemas']
+    for name, payload in [('MapOverviewResponse', snapshot.map_overview), ('OverviewResponse', snapshot.overview)]:
+        schema = {**schemas[name], 'components': {'schemas': schemas}}
+        Draft202012Validator(schema).validate(json.loads(payload))
+    schema = {**schemas['OverviewSelectionResponse'], 'components': {'schemas': schemas}}
+    for payload in (snapshot.map_overview, snapshot.overview):
+        Draft202012Validator(schema).validate(json.loads(payload))
+
+
+def test_map_overview_preserves_retained_core_order_and_enriched_records(snapshot):
+    full = json.loads(snapshot.overview)['data']
+    compact = json.loads(snapshot.map_overview)['data']
+    preferred = full['explorer'].get('cores') or full['cores']
+    assert [row['core_id'] for row in compact['cores']] == [row['core_id'] for row in preferred]
+    assert {row['core_id']: row for row in compact['cores']} == {row['core_id']: row for row in full['cores']}
+    # Older indexes without the explorer list retain their top-level ordering.
+    legacy = {**full, 'explorer': {key: value for key, value in full['explorer'].items() if key != 'cores'}}
+    assert api._map_overview(legacy)['cores'] == full['cores']

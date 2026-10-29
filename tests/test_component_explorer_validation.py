@@ -144,3 +144,84 @@ def test_repository_mask_is_narrow_and_copy_only(explorer_index):
     index['explorer']['source_revision']['repository'] = 'https://example.com/private'
     with pytest.raises(ValueError):
         public_text_view(index)
+
+
+@pytest.fixture(scope='module')
+def reader_index():
+    from microcosm_core.projections.component_explorer_metadata import collect_reader_guides
+    index = json.loads((ROOT / 'receipts/code_lens/code_lens_join_index_v0.json').read_text())
+    component_refs = {row['ref'] for row in index['nodes']['guide']}
+    refs = component_refs | {row['formal_readme_ref'] for row in index['nodes']['subclaim']}
+    facts = {row['ref']: row for row in index['nodes']['artifact']}
+    bindings = {ref: facts[ref]['sha256'] for ref in refs}
+    bindings.update({row['guide_ref']: next(b['sha256'] for b in row['artifact_bindings']
+                                          if b['ref'] == row['guide_ref'])
+                     for row in index['explorer']['cores']})
+    index['explorer']['guides'] = collect_reader_guides(ROOT, component_refs, bindings)
+    return index
+
+
+def test_reader_views_are_snapshot_only_and_detached(reader_index, monkeypatch):
+    from microcosm_core.component_index import compile_views
+    def no_io(*args, **kwargs):
+        raise AssertionError('reader views must not read source files')
+    monkeypatch.setattr(Path, 'open', no_io)
+    monkeypatch.setattr(Path, 'read_text', no_io)
+    monkeypatch.setattr(Path, 'read_bytes', no_io)
+    views = compile_views(reader_index)
+    assert all(row['plain'] and row['plain_availability'] == 'available' for row in views['list'])
+    for kind in ('by_component', 'by_proof', 'cores'):
+        assert all(row['guide']['text'] and row['guide']['availability'] == 'available'
+                   for row in views[kind].values())
+    component = next(iter(views['by_component'].values()))
+    ref = component['guide']['ref']
+    component['guide']['text'] = 'changed by caller'
+    assert reader_index['explorer']['guides'][ref]['text'] != 'changed by caller'
+    masked = public_text_view(reader_index)
+    assert masked['explorer']['guides'][ref]['text'] == 'VALIDATED_PUBLIC_GUIDE_TEXT'
+
+
+@pytest.mark.parametrize('attack', ['text', 'plain', 'hash', 'missing', 'extra', 'oversize', 'private', 'no_lead'])
+def test_reader_manifest_rejects_tampering(reader_index, attack):
+    index = copy.deepcopy(reader_index)
+    guides = index['explorer']['guides']
+    ref = next(ref for ref in guides if ref.startswith('paper_modules/'))
+    guide = guides[ref]
+    if attack == 'text':
+        guide['text'] += ' changed'
+    elif attack == 'plain':
+        guide['plain'] = 'Invented explanation'
+    elif attack == 'hash':
+        guide['sha256'] = '0' * 64
+    elif attack == 'missing':
+        del guides[ref]
+    elif attack == 'extra':
+        guides['paper_modules/unowned.md'] = copy.deepcopy(guide)
+    elif attack == 'oversize':
+        from microcosm_core.component_api_contract import MAX_GUIDE_BYTES
+        guide['text'] = 'x' * (MAX_GUIDE_BYTES + 1)
+    elif attack == 'private':
+        guide['text'] = '/home/example/private-key'
+        guide['sha256'] = hashlib.sha256(guide['text'].encode()).hexdigest()
+    elif attack == 'no_lead':
+        guide['text'] = '# Missing explanation\n'
+        guide['sha256'] = hashlib.sha256(guide['text'].encode()).hexdigest()
+        next(row for row in index['nodes']['artifact'] if row['ref'] == ref)['sha256'] = guide['sha256']
+        guide['plain'] = None
+        guide['plain_availability'] = 'unrecorded'
+    with pytest.raises(ValueError):
+        validate_explorer(index)
+
+
+@pytest.mark.parametrize("without_explorer", [False, True])
+def test_legacy_indexes_keep_explicit_unrecorded_guides(reader_index, without_explorer):
+    from microcosm_core.component_index import compile_views
+    index = copy.deepcopy(reader_index)
+    del index['explorer']['guides']
+    if without_explorer:
+        del index['explorer']
+    views = compile_views(index)
+    assert all(row['plain'] is None and row['plain_availability'] == 'unrecorded' for row in views['list'])
+    for kind in ('by_component', 'by_proof', 'cores'):
+        assert all(row['guide']['text'] is None and row['guide']['availability'] == 'unrecorded'
+                   for row in views[kind].values())

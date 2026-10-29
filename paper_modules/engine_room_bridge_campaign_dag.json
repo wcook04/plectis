@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Validation of supplied plans only; no scheduling or provider dispatch.",
+    "authority_ceiling": "Checks the structure, continuation fields and worker limits of a supplied campaign plan before anything is dispatched.",
     "card": "A cyclic or dangling dependency graph is rejected before dispatch.",
     "one_line": "Checks campaign graph structure, continuation fields and configured worker limits."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Validation of supplied plans only; no scheduling or provider dispatch.",
+    "authority_ceiling": "Checks the structure, continuation fields and worker limits of a supplied campaign plan before anything is dispatched.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -91,7 +91,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Validation of supplied plans only; no scheduling or provider dispatch.",
+        "authority_ceiling": "Checks the structure, continuation fields and worker limits of a supplied campaign plan before anything is dispatched.",
         "card": "A cyclic or dangling dependency graph is rejected before dispatch.",
         "one_line": "Checks campaign graph structure, continuation fields and configured worker limits."
       },

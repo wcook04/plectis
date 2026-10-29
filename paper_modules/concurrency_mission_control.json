@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture classifications do not enforce rules on live agents.",
+    "authority_ceiling": "Runs a copied builder over supplied owner, path, validation and commit records and classifies each concurrent-work case, rejecting a fixture with a missing seed root.",
     "card": "Runs a copied builder and derives classifications from supplied owner, path, validation and commit records.",
     "one_line": "Classifies concurrent-work ownership and closure fixture cases."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture classifications do not enforce rules on live agents.",
+    "authority_ceiling": "Runs a copied builder over supplied owner, path, validation and commit records and classifies each concurrent-work case, rejecting a fixture with a missing seed root.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,7 +83,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture classifications do not enforce rules on live agents.",
+        "authority_ceiling": "Runs a copied builder over supplied owner, path, validation and commit records and classifies each concurrent-work case, rejecting a fixture with a missing seed root.",
         "card": "Runs a copied builder and derives classifications from supplied owner, path, validation and commit records.",
         "one_line": "Classifies concurrent-work ownership and closure fixture cases."
       },

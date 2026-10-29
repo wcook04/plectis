@@ -887,21 +887,20 @@ def test_principle_and_anti_principle_corpora_are_seeded_with_parity() -> None:
         if edge["relation_id"] == "principle.governs.concept"
     } == set(p19["relationships"]["governs_concept_ids"])
     assert p19["relationships"]["unpopulated_selective_relations"] == []
-    assert "typed pressure route, not an edge" in p19["statement"]
-    assert "candidate route" in p19["statement"]
-    assert "current source authority row" in p19["statement"]
-    assert "names the relation" in p19["statement"]
     p19_statement = " ".join(p19["statement"].split())
-    assert "Bidirectional substrate representation follows the same floor" in p19_statement
-    assert "principle-to-substrate edges must be source-derived" in p19_statement
+    assert "A residual is a recorded, typed gap where a link might belong" in p19_statement
+    assert "candidate route" in p19_statement
+    assert "A gap becomes a link only when the current source row names the relation" in p19_statement
+    assert "The same rule applies in both directions between principles and the system's code" in p19_statement
+    assert "a link from a principle to the code must come from a source row" in p19_statement
     assert (
-        "substrate-to-principle evidence may refine governed ids only when "
+        "evidence from the code may narrow which ids a principle governs only when "
         "current source rows name the relation"
     ) in p19_statement
-    assert "Neither direction is support proof, projection authority" in p19_statement
-    assert "permission to launder residual pressure into an edge" in p19_statement
-    p19_markdown = _source_markdown_view("principle", "P-19")
-    assert "Bidirectional\nsubstrate representation follows the same floor" in p19_markdown
+    assert "Neither kind of link counts as support for the principle" in p19_statement
+    assert "neither may be used to turn a gap into a link" in p19_statement
+    p19_markdown = " ".join(_source_markdown_view("principle", "P-19").split())
+    assert "The same rule applies in both directions" in p19_markdown
 
     p20 = _effective_source_instances("principle")["P-20"]
     assert p20["schema_version"] == "microcosm_principle_instance_v1"
@@ -964,7 +963,7 @@ def test_root_doctrine_markdown_has_public_glance_tables() -> None:
     assert axioms_text.count("| AX-") == 12
     assert (
         "| AX-12 | Reflexive accountability / no privileged meta-layer | "
-        "Meta artifact exemption. |"
+        "Microcosm's own files are exempt from its rules. |"
     ) in axioms_text
 
     assert "## Principles At A Glance" in principles_text

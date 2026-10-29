@@ -18,7 +18,7 @@ The registry breaks each axiom into obligations: smaller clauses to check. A sup
 
 ## Limits
 
-The report describes checked repository records; it does not prove the axioms or grant release authority. A negative suite alone does not establish that a particular anti-axiom was rejected.
+Reads the axiom routing, witness and receipt records and reports support and remaining gaps for the piloted axioms, keeping `strong_certified` false; a negative suite counts only when its evidence maps to rejection of the named anti-axiom.
 
 ## Verification
 

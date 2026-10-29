@@ -328,7 +328,7 @@ def _goal_block(surface: dict) -> list[str]:
     if claim_ceiling:
         if len(claim_ceiling) > _WHY_CHAR_CAP:
             claim_ceiling = claim_ceiling[: _WHY_CHAR_CAP - 3].rstrip() + "..."
-        lines.append(f"- do not claim: {claim_ceiling}")
+        lines.append(f"- scope: {claim_ceiling}")
     note = str(edit.get("note") or "")
     if edit.get("paths"):
         lines.append(

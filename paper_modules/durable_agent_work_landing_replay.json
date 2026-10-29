@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture replay only; neither real commit truth nor live Git authority.",
+    "authority_ceiling": "Checks recorded landing evidence and source-copy digests, rejecting a landed claim with no HEAD advance and a commit attempt made before validation.",
     "card": "Rejects a landed claim without HEAD advance and a commit attempt preceding validation; checks source-copy digests separately.",
     "one_line": "Checks recorded landing evidence and negative fixtures without executing Git."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture replay only; neither real commit truth nor live Git authority.",
+    "authority_ceiling": "Checks recorded landing evidence and source-copy digests, rejecting a landed claim with no HEAD advance and a commit attempt made before validation.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -81,7 +81,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture replay only; neither real commit truth nor live Git authority.",
+        "authority_ceiling": "Checks recorded landing evidence and source-copy digests, rejecting a landed claim with no HEAD advance and a commit attempt made before validation.",
         "card": "Rejects a landed claim without HEAD advance and a commit attempt preceding validation; checks source-copy digests separately.",
         "one_line": "Checks recorded landing evidence and negative fixtures without executing Git."
       },

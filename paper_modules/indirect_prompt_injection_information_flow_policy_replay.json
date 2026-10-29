@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Checks synthetic information-flow records, not general prompt-injection resistance or live accounts.",
+    "authority_ceiling": "Derives the taint labels along each synthetic chain from document or tool output to an action or answer and compares them with the recorded labels and policy verdicts, rejecting tool output treated as an instruction.",
     "card": "This replay checks synthetic records of information moving from documents and tool output to actions or answers. It tracks data from each source through a chain to an action or answer. It derives the trust labels carried along that chain, called taint, and compares them with recorded labels and policy verdicts. It also checks sanitized output and replay evidence. The result is a validation receipt over the supplied trace metadata.",
     "one_line": "This replay checks synthetic records of information moving from documents and tool output to actions or answers."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Checks synthetic information-flow records, not general prompt-injection resistance or live accounts.",
+    "authority_ceiling": "Derives the taint labels along each synthetic chain from document or tool output to an action or answer and compares them with the recorded labels and policy verdicts, rejecting tool output treated as an instruction.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,7 +77,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Checks synthetic information-flow records, not general prompt-injection resistance or live accounts.",
+        "authority_ceiling": "Derives the taint labels along each synthetic chain from document or tool output to an action or answer and compares them with the recorded labels and policy verdicts, rejecting tool output treated as an instruction.",
         "card": "This replay checks synthetic records of information moving from documents and tool output to actions or answers. It tracks data from each source through a chain to an action or answer. It derives the trust labels carried along that chain, called taint, and compares them with recorded labels and policy verdicts. It also checks sanitized output and replay evidence. The result is a validation receipt over the supplied trace metadata.",
         "one_line": "This replay checks synthetic records of information moving from documents and tool output to actions or answers."
       },

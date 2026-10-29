@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Not a Mathlib project build, theorem proof or complete corpus inventory.",
+    "authority_ceiling": "Compares the fixture's corpus and consumer records with anchored evidence and runs a temporary Lean import probe, in which `Std` imports and a Mathlib import is rejected.",
     "card": "Compares fixture corpus and consumer records with anchored evidence and a temporary import probe.",
     "one_line": "Checks corpus readiness with source artifacts and a Lean import probe."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Not a Mathlib project build, theorem proof or complete corpus inventory.",
+    "authority_ceiling": "Compares the fixture's corpus and consumer records with anchored evidence and runs a temporary Lean import probe, in which `Std` imports and a Mathlib import is rejected.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,7 +85,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Not a Mathlib project build, theorem proof or complete corpus inventory.",
+        "authority_ceiling": "Compares the fixture's corpus and consumer records with anchored evidence and runs a temporary Lean import probe, in which `Std` imports and a Mathlib import is rejected.",
         "card": "Compares fixture corpus and consumer records with anchored evidence and a temporary import probe.",
         "one_line": "Checks corpus readiness with source artifacts and a Lean import probe."
       },

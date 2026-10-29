@@ -49,7 +49,7 @@ export function chainFigure(steps, { label }) {
     root.append(g);
   });
   const el = h('figure', { class: 'chain', style: 'margin:0' }, root,
-    h('figcaption', { class: 'note' }, 'Filled: recorded in the index. Hollow: declared, or not recorded. Hatched: unknown. Red marks what a machine ran; azure what is stated.'));
+    h('figcaption', { class: 'note' }, 'Filled: recorded in the snapshot. Hollow: only written down, or not recorded. Hatched: unknown. Red marks something a program ran; blue marks something written down.'));
   return {
     el,
     setCurrent(id) {

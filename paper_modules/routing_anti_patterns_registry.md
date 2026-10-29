@@ -1,6 +1,6 @@
 # Validate a routing anti-pattern registry
 
-> **In plain terms.** A list of common mistakes in choosing where to go next for a task should name each expected mistake once and explain it. This check reads that list, saved as a data file, with a name and a written explanation for each mistake. It checks that the list declares its type and version, includes every required mistake, repeats no identifier and has no empty explanation. It writes findings and a summary sheet for a maintainer to act on, and the example set includes broken lists it must catch. It checks the list's contents only, so it does not change how anything is routed or show that a real route is correct.
+> **In plain terms.** A list of common mistakes in choosing where to go next for a task should name each expected mistake once and explain it. This check reads that list, saved as a data file, with a name and a written explanation for each mistake. It checks that the list declares its type and version, includes every required mistake, repeats no identifier and has no empty explanation. It writes findings and a summary sheet for a maintainer to act on, and the example set includes broken lists it must catch.
 
 The input is a JSON registry of named routing mistakes and explanatory text. The validator checks its kind and version, required named entries, unique IDs and nonempty descriptions, then writes findings and a board.
 
@@ -21,7 +21,7 @@ The bundled fixture contains deliberately invalid registries. A passing run reco
 
 ## What the result means
 
-A duplicate ID or a missing required entry is rejected. This verifies the registry projection; it does not change routing policy or demonstrate that a real route is correct.
+Checks the JSON registry's kind, version, required entries, unique IDs and non-empty descriptions, rejecting a duplicate ID or a missing required entry.
 
 Related reading: [Hillside patterns library](https://hillside.net/patterns/), [Command Line Interface Guidelines](https://clig.dev/).
 

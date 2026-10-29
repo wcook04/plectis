@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The build witness needs Swift and a compatible macOS environment with the required Apple frameworks. SwiftPM writes build scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset. A successful build and fixture checks do not establish capture quality or transcription accuracy.",
+    "authority_ceiling": "Checks the copied Swift recording-console sources for their capture, hotkey, audio-meter and transcription guards, rejecting mutations that remove them, and builds the selected app target with SwiftPM, which needs Swift and the required Apple frameworks on macOS. SwiftPM writes scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset.",
     "card": "This fixture checks copied Swift sources for a recording console and exercises a build witness, capture state, helper bridge, hotkey, audio meter and transcription payload contracts. It records summaries rather than source or build-log bodies. The source checks reject mutations that remove the guard requiring at least one screen, audio or webcam source, the required hotkey modifiers, the audio-meter clamp or the transcription audio guard. These are checks of source contracts, not simulated recording actions. A SwiftPM build witness checks that the selected app target builds; it does not launch the app or record a screen.",
     "one_line": "Checks recording-console source contracts and a Swift build witness."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The build witness needs Swift and a compatible macOS environment with the required Apple frameworks. SwiftPM writes build scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset. A successful build and fixture checks do not establish capture quality or transcription accuracy.",
+    "authority_ceiling": "Checks the copied Swift recording-console sources for their capture, hotkey, audio-meter and transcription guards, rejecting mutations that remove them, and builds the selected app target with SwiftPM, which needs Swift and the required Apple frameworks on macOS. SwiftPM writes scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -89,7 +89,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The build witness needs Swift and a compatible macOS environment with the required Apple frameworks. SwiftPM writes build scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset. A successful build and fixture checks do not establish capture quality or transcription accuracy.",
+        "authority_ceiling": "Checks the copied Swift recording-console sources for their capture, hotkey, audio-meter and transcription guards, rejecting mutations that remove them, and builds the selected app target with SwiftPM, which needs Swift and the required Apple frameworks on macOS. SwiftPM writes scratch and cache files under `PLECTIS_SWIFT_BUILD_ROOT`, or the system temporary directory when that variable is unset.",
         "card": "This fixture checks copied Swift sources for a recording console and exercises a build witness, capture state, helper bridge, hotkey, audio meter and transcription payload contracts. It records summaries rather than source or build-log bodies. The source checks reject mutations that remove the guard requiring at least one screen, audio or webcam source, the required hotkey modifiers, the audio-meter clamp or the transcription audio guard. These are checks of source contracts, not simulated recording actions. A SwiftPM build witness checks that the selected app target builds; it does not launch the app or record a screen.",
         "one_line": "Checks recording-console source contracts and a Swift build witness."
       },

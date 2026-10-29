@@ -1,6 +1,6 @@
 # Pattern assimilation closeout check
 
-> **In plain terms.** Work that has been finished and added to a project should end with a recorded decision about what to improve, if anything. This check reads a list of finished components, each with a closing decision pointing to a saved record of an improvement or of why none was needed. It follows each pointer and rejects a finished component with no closing decision, a dead pointer, or a local improvement claiming to change the project's overall guidance. It writes a validation record, so maintainers can see which finished work lacks a proper closing decision. It checks that the closing records are in order, not that an improvement helped or that every lesson was found.
+> **In plain terms.** Work that has been finished and added to a project should end with a recorded decision about what to improve, if anything. This check reads a list of finished components, each with a closing decision pointing to a saved record of an improvement or of why none was needed. It follows each pointer and rejects a finished component with no closing decision, a dead pointer, or a local improvement claiming to change the project's overall guidance. It writes a validation record, so maintainers can see which finished work lacks a proper closing decision.
 
 Checks whether each landed component in an input set has a linked, same-lane closeout decision and writes a validation receipt.
 
@@ -20,7 +20,7 @@ A decision can point to a refinement receipt naming an owner and artifact, or to
 
 ## Limits
 
-The check establishes the recorded closeout contract for supplied rows. It does not establish that a refinement improved the system or that every lesson has been found.
+Resolves each landed component's closeout decision to a refinement receipt or a `nothing_to_refine` receipt and checks duplicate IDs, rejecting a missing closeout or a dead receipt reference.
 
 ## Verification
 

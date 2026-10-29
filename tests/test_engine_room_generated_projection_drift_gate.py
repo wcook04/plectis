@@ -5,6 +5,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from microcosm_core.engine_room.generated_projection_drift_gate import (
     ANTI_CLAIMS,
     CLAIM_CEILING,
@@ -94,6 +96,86 @@ def test_glob_pattern_selection_agrees_with_fingerprint_matcher() -> None:
     # already selects non-glob dir patterns.
     assert projection_pattern_matches_path("docs/generated/*.md", "docs") is True
     assert projection_pattern_matches_path("docs/generated/*.md", "unrelated") is False
+
+
+@pytest.mark.parametrize("pattern", [
+    "**/*.md", "**/report.md", "*.md", "docs/**/*.md",
+    "docs/gen*/*.md", "docs/gen?/*.md", "docs/gen[ab]/*.md",
+])
+@pytest.mark.parametrize("field", ["artifacts", "source_authorities"])
+def test_every_fingerprinted_glob_member_selects_its_owner(
+    tmp_path: Path, pattern: str, field: str,
+) -> None:
+    for path in ["report.md", "docs/report.md", "docs/gena/report.md", "docs/gena/deep/report.md"]:
+        _write(tmp_path / path, "report\n")
+    owner = ProjectionOwner(
+        owner_id="glob_projection", description="Glob membership regression.",
+        artifacts=(pattern,) if field == "artifacts" else (),
+        source_authorities=(pattern,) if field == "source_authorities" else (),
+        check_command=("builtin:pass",),
+    )
+    unscoped = check_projection_drift(tmp_path, [owner])
+    fingerprint = unscoped["owners"][0]["source_hash_receipt"]
+    members = fingerprint["artifact_files" if field == "artifacts" else "source_files"]
+    assert members, "The test must exercise actual Path.glob membership."
+    for member in members:
+        scoped = check_projection_drift(tmp_path, [owner], changed_paths=[member["path"]])
+        assert scoped["selection"]["selected_owner_ids"] == [owner.owner_id], member["path"]
+        # Deleted files must still route to their owner without consulting the filesystem.
+        (tmp_path / member["path"]).unlink()
+        assert projection_pattern_matches_path(pattern, member["path"])
+
+
+def test_root_recursive_glob_drift_is_not_skipped_by_changed_path(tmp_path: Path) -> None:
+    _write(tmp_path / "source/expected.txt", "expected\n")
+    _write(tmp_path / "generated.md", "changed\n")
+    owner = ProjectionOwner(
+        owner_id="recursive_report", description="A root report covered by a recursive glob.",
+        artifacts=("**/*.md",), source_authorities=("source/expected.txt",),
+        check_command=("builtin:assert-file-equals", "source/expected.txt", "generated.md"),
+    )
+    for paths in [None, ["generated.md"]]:
+        receipt = check_projection_drift(tmp_path, [owner], changed_paths=paths)
+        assert receipt["status"] == "drift"
+        assert receipt["owner_count"] == receipt["drift_owner_count"] == 1
+        assert receipt["owners"][0]["status_reasons"] == ["check_command_failed"]
+
+
+def test_glob_fallback_uses_complete_fixed_directories() -> None:
+    assert projection_pattern_matches_path("docs/gen*/*.md", "docs")
+    assert projection_pattern_matches_path("docs/gen*/*.md", "docs/gena")
+    assert not projection_pattern_matches_path("docs/gen*/*.md", "unrelated/report.md")
+    # Conservative fallback may select an extra path within a fixed directory.
+    assert projection_pattern_matches_path("docs/**/*.md", "docs/other.txt")
+
+
+def test_saved_runtime_result_preserves_which_owner_failed(tmp_path: Path) -> None:
+    from microcosm_core.organs.generated_projection_drift_runtime import RESULT_NAME, run
+
+    outcomes = []
+    for failing in ["left", "right"]:
+        case = {
+            "case_id": "swapped_owner", "case_type": "negative",
+            "expected_status": "drift", "expected_owner_count": 2,
+            "files": [{"path": f"{name}.txt", "text": "report body"} for name in ["left", "right"]],
+            "owners": [{
+                "owner_id": name, "artifacts": [f"{name}.txt"],
+                "check_command": ["builtin:fail" if name == failing else "builtin:pass"],
+            } for name in ["left", "right"]],
+        }
+        inputs = tmp_path / failing / "inputs"
+        _write(inputs / "case.json", json.dumps(case))
+        out = tmp_path / failing / "out"
+        run(inputs, out)
+        saved = json.loads((out / RESULT_NAME).read_text())["cases"][0]
+        assert {row["owner_id"] for row in saved["owners"] if row["status"] == "drift"} == {failing}
+        for row in saved["owners"]:
+            assert set(row) == {"owner_id", "status", "status_reasons", "check_mode", "check_returncode"}
+            assert row["check_returncode"] == (7 if row["owner_id"] == failing else 0)
+        outcomes.append(saved)
+    assert {k: v for k, v in outcomes[0].items() if k != "owners"} == {
+        k: v for k, v in outcomes[1].items() if k != "owners"
+    }
 
 
 def test_required_fact_authority_lineage_drifts_when_incomplete(tmp_path: Path) -> None:

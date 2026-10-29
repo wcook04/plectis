@@ -2,7 +2,7 @@
 
 The first-screen composition reads its public standard and assembles a card describing reader routes, source-checkout commands, a pre-install probe and the local-state trail. Its validation checks the assembled fields against the standard. The human-facing `hello` command displays a first screen without writing project state; `tour --card` is the separate state-writing behavior demonstration.
 
-A missing required section or a disallowed authority claim is a validation failure. A passing card checks this composition contract; it does not demonstrate that a reader understands the project or that a behavioral command was actually run.
+Assembles the first-screen command card from its public standard and checks each field against it, rejecting a missing required section or a disallowed authority claim.
 
 ## Run the example
 

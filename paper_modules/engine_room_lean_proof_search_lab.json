@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Tiny public examples only; no neural or frontier-scale theorem-proving claim.",
+    "authority_ceiling": "Searches a few tiny public Lean propositions with symbolic candidates and checks the proofs and their axioms.",
     "card": "Oracle-body fields, ID-memorizing behavior and sorry-tainted candidates are negative fixtures.",
     "one_line": "Searches tiny Lean fixtures with symbolic candidates and checks proofs and axioms."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Tiny public examples only; no neural or frontier-scale theorem-proving claim.",
+    "authority_ceiling": "Searches a few tiny public Lean propositions with symbolic candidates and checks the proofs and their axioms.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -96,7 +96,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Tiny public examples only; no neural or frontier-scale theorem-proving claim.",
+        "authority_ceiling": "Searches a few tiny public Lean propositions with symbolic candidates and checks the proofs and their axioms.",
         "card": "Oracle-body fields, ID-memorizing behavior and sorry-tainted candidates are negative fixtures.",
         "one_line": "Searches tiny Lean fixtures with symbolic candidates and checks proofs and axioms."
       },

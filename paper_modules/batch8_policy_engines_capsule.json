@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The examples do not establish the semantic correctness of Lab output, the validity of live market claims, or the safety of campaign execution.",
+    "authority_ceiling": "Runs three copied policy engines on synthetic cases, checking that the Lab audit marks a question-mark output red and that a market fusion without its readiness gate and a terminal campaign transition are refused.",
     "card": "Checks a red Lab output, a missing market-readiness gate and a refused terminal campaign transition.",
     "one_line": "Three copied policy engines decide synthetic cases."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The examples do not establish the semantic correctness of Lab output, the validity of live market claims, or the safety of campaign execution.",
+    "authority_ceiling": "Runs three copied policy engines on synthetic cases, checking that the Lab audit marks a question-mark output red and that a market fusion without its readiness gate and a terminal campaign transition are refused.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,7 +86,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The examples do not establish the semantic correctness of Lab output, the validity of live market claims, or the safety of campaign execution.",
+        "authority_ceiling": "Runs three copied policy engines on synthetic cases, checking that the Lab audit marks a question-mark output red and that a market fusion without its readiness gate and a terminal campaign transition are refused.",
         "card": "Checks a red Lab output, a missing market-readiness gate and a refused terminal campaign transition.",
         "one_line": "Three copied policy engines decide synthetic cases."
       },

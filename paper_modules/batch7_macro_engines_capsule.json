@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The fixture is not a general guarantee of safe patches, complete test selection or whole-system correctness. The original witnesses require Node and their declared JavaScript dependencies; `numpy` is required for the numeric exercise.",
+    "authority_ceiling": "Runs copied trace-parsing, scheduling, indexing, patch-validation, clean-clone, scoring, PageRank and test-selection code on fixture inputs, rejecting a cyclic graph, a patch with mismatched context and an unknown PageRank source. The original Node tests need Node and their JavaScript dependencies, and the numeric exercise needs `numpy`.",
     "card": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection. Its result combines source checks with the outcomes of the individual witnesses. A cyclic dependency graph is rejected, a patch with mismatched context fails, and an unknown PageRank source is refused. When regression selection would be empty, the example checks the fallback selection. The trace parser also runs its original Node test witness.",
     "one_line": "Exercises copied engines for traces, scheduling, patch checks and other workflows."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The fixture is not a general guarantee of safe patches, complete test selection or whole-system correctness. The original witnesses require Node and their declared JavaScript dependencies; `numpy` is required for the numeric exercise.",
+    "authority_ceiling": "Runs copied trace-parsing, scheduling, indexing, patch-validation, clean-clone, scoring, PageRank and test-selection code on fixture inputs, rejecting a cyclic graph, a patch with mismatched context and an unknown PageRank source. The original Node tests need Node and their JavaScript dependencies, and the numeric exercise needs `numpy`.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -90,7 +90,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The fixture is not a general guarantee of safe patches, complete test selection or whole-system correctness. The original witnesses require Node and their declared JavaScript dependencies; `numpy` is required for the numeric exercise.",
+        "authority_ceiling": "Runs copied trace-parsing, scheduling, indexing, patch-validation, clean-clone, scoring, PageRank and test-selection code on fixture inputs, rejecting a cyclic graph, a patch with mismatched context and an unknown PageRank source. The original Node tests need Node and their JavaScript dependencies, and the numeric exercise needs `numpy`.",
         "card": "This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection. Its result combines source checks with the outcomes of the individual witnesses. A cyclic dependency graph is rejected, a patch with mismatched context fails, and an unknown PageRank source is refused. When regression selection would be empty, the example checks the fallback selection. The trace parser also runs its original Node test witness.",
         "one_line": "Exercises copied engines for traces, scheduling, patch checks and other workflows."
       },

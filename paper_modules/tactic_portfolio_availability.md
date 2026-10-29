@@ -1,6 +1,6 @@
 # Tactic availability from recorded probes
 
-> **In plain terms.** Lean, a program that checks proofs, has automatic methods called tactics, and which of them work depends on the setup. This component is given a table of tactics with their recorded outcomes, timings and environment details, such as whether the Mathlib library was present, plus the original test files behind them. It checks the table against those files, rejecting a tactic called available with no recorded outcome and a Mathlib claim with no evidence. The output is an availability report that a later step can use when choosing which tactic to try. It only checks existing records and does not run Lean, and the results hold only for the recorded setup.
+> **In plain terms.** Lean, a program that checks proofs, has automatic methods called tactics, and which of them work depends on the setup. This component is given a table of tactics with their recorded outcomes, timings and environment details, such as whether the Mathlib library was present, plus the original test files behind them. It checks the table against those files, rejecting a tactic called available with no recorded outcome and a Mathlib claim with no evidence. The output is an availability report that a later step can use when choosing which tactic to try.
 
 This component reads recorded tactic compile statuses, durations and environment information and produces an availability report for later routing. The included records describe a particular Lean/Std probe, including whether Mathlib was available.
 
@@ -23,7 +23,7 @@ The validator compares public tactic and environment rows with source-backed pro
 
 ## Limits
 
-The run checks existing evidence; it does not run Lean or Lake. Availability and timing are scoped to the recorded environment and do not prove a theorem or establish benchmark performance.
+Compares the recorded tactic and environment rows with probe artifacts from source, and rejects a tactic marked available without a compile status or Mathlib marked available without evidence.
 
 ## Verification
 

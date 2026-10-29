@@ -1,6 +1,6 @@
 # Inspect proof and authority boundaries
 
-> **In plain terms.** Having the code for a proof or permission check is not the same as that check making a decision. The component reads a list of copied program files and a few example cases. It only looks in the files for the code behind decisions such as rejecting a bundle whose fingerprint does not match, and scans a copied proof file for placeholders standing in for missing proofs. It also checks an example where Erdős problem 257 is wrongly claimed solved and, if the tools are installed, reports whether the proof file builds, fails or could not be tried. A placeholder scan is not a proof check, and even a successful build would not solve that problem.
+> **In plain terms.** Having the code for a proof or permission check is not the same as that check making a decision. The component reads a list of copied program files and a few example cases. It searches the files for the code behind decisions such as rejecting a bundle whose fingerprint does not match, and scans a copied proof file for placeholders standing in for missing proofs. It also checks an example where Erdős problem 257 is wrongly claimed solved and, if the tools are installed, reports whether the proof file builds, fails or could not be tried.
 
 This fixture checks source manifests and exercises selected proof, permission and runtime cases. Its result distinguishes source and fixture observations from claims about an actual proof or authorization decision.
 
@@ -27,7 +27,7 @@ The direct example runs the fixture; its optional Lean probe checks whether the 
 
 ## Limits
 
-A token scan is not a proof check, and even successful local compilation does not establish a solution to Erdős #257. The optional probe needs Lean, Lake, the source Lake project and its dependencies; unavailable is distinct from a successful compilation.
+Checks copied-source manifests and anchors, scans the copied Lean source for placeholder tokens and rejects an overclaimed Erdős solution. An optional probe compiles that file when Lean, Lake, the source Lake project and its dependencies are present, and reports compiled, failed or unavailable.
 
 ## Source and evidence
 

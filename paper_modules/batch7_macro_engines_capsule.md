@@ -1,6 +1,6 @@
 # Run selected macro-engine exercises
 
-> **In plain terms.** Tools that run a software project rely on helper routines to order tasks, apply edits and choose which tests to rerun. It is given copies of such routines and small example cases for each. It runs each routine on its cases, rejecting tasks that depend on one another in a circle, refusing an edit whose surrounding lines do not match, and checking that an empty test choice falls back to a default. The result combines checks on the copied source with each routine's outcome, showing whether they handle these cases as intended. It does not show that edits are safe, that test selection is complete or that the whole system is correct.
+> **In plain terms.** Tools that run a software project rely on helper routines to order tasks, apply edits and choose which tests to rerun. It is given copies of such routines and small example cases for each. It runs each routine on its cases, rejecting tasks that depend on one another in a circle, refusing an edit whose surrounding lines do not match, and checking that an empty test choice falls back to a default. The result combines checks on the copied source with each routine's outcome, showing whether they handle these cases as intended.
 
 This fixture exercises copied source for trace parsing, dependency scheduling, source indexing, patch validation, clean-clone isolation, numeric scoring, PageRank and regression-test selection. Its result combines source checks with the outcomes of the individual witnesses.
 
@@ -27,7 +27,7 @@ The example above runs the fixture directly. In `make component-replays`, this c
 
 ## Limits
 
-The fixture is not a general guarantee of safe patches, complete test selection or whole-system correctness. The original witnesses require Node and their declared JavaScript dependencies; `numpy` is required for the numeric exercise.
+Runs copied trace-parsing, scheduling, indexing, patch-validation, clean-clone, scoring, PageRank and test-selection code on fixture inputs, rejecting a cyclic graph, a patch with mismatched context and an unknown PageRank source. The original Node tests need Node and their JavaScript dependencies, and the numeric exercise needs `numpy`.
 
 ## Source and evidence
 

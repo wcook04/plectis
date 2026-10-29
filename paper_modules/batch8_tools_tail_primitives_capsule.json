@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "These are fixture-level checks of the functions, not evidence that the input observations are true, edits are semantically correct, or predictions will succeed. The patch helper’s operations should not be assumed to implement all of JSON Patch.",
+    "authority_ceiling": "Runs four copied tools on small set-difference, document-patch, identity-hash and parser examples, and rejects malformed input and a ledger ID without an identity. The patch helper covers a subset of JSON Patch operations.",
     "card": "Exercises set differences, document patching, identity hashes and parser coverage with malformed-input cases.",
     "one_line": "Four copied tools run small diff, patch, identity and parsing examples."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "These are fixture-level checks of the functions, not evidence that the input observations are true, edits are semantically correct, or predictions will succeed. The patch helper’s operations should not be assumed to implement all of JSON Patch.",
+    "authority_ceiling": "Runs four copied tools on small set-difference, document-patch, identity-hash and parser examples, and rejects malformed input and a ledger ID without an identity. The patch helper covers a subset of JSON Patch operations.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -87,7 +87,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "These are fixture-level checks of the functions, not evidence that the input observations are true, edits are semantically correct, or predictions will succeed. The patch helper’s operations should not be assumed to implement all of JSON Patch.",
+        "authority_ceiling": "Runs four copied tools on small set-difference, document-patch, identity-hash and parser examples, and rejects malformed input and a ledger ID without an identity. The patch helper covers a subset of JSON Patch operations.",
         "card": "Exercises set differences, document patching, identity hashes and parser coverage with malformed-input cases.",
         "one_line": "Four copied tools run small diff, patch, identity and parsing examples."
       },

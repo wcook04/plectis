@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Lean and Lake must be available for the fixture run. The exported witness bundle uses a standalone contract that does not perform a fresh Lean/Lake build. A successful witness concerns the supplied project and tool invocation; it does not establish correctness of unrelated theorems, Mathlib availability, or a general proof service. Source digest checks establish copied bytes, not a proof of the copied code.",
+    "authority_ceiling": "Runs Lean and Lake, which must be installed, on the small public fixture project and rejects an invalid proof, a forbidden Mathlib import and a manifest that carries a private source or a proof body. The exported bundle checks the recorded results instead of rebuilding.",
     "card": "This fixture runs Lean and Lake on a small declared public project and records the subprocess outcomes in a bounded witness receipt. The fixture checks that an invalid proof is rejected, and separately checks a source file containing a forbidden Mathlib import. Negative manifest cases include a private source reference and an embedded proof body. The test suite checks the witness and its receipt redaction.",
     "one_line": "Record Lean and Lake results for a small public proof fixture."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Lean and Lake must be available for the fixture run. The exported witness bundle uses a standalone contract that does not perform a fresh Lean/Lake build. A successful witness concerns the supplied project and tool invocation; it does not establish correctness of unrelated theorems, Mathlib availability, or a general proof service. Source digest checks establish copied bytes, not a proof of the copied code.",
+    "authority_ceiling": "Runs Lean and Lake, which must be installed, on the small public fixture project and rejects an invalid proof, a forbidden Mathlib import and a manifest that carries a private source or a proof body. The exported bundle checks the recorded results instead of rebuilding.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -79,7 +79,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Lean and Lake must be available for the fixture run. The exported witness bundle uses a standalone contract that does not perform a fresh Lean/Lake build. A successful witness concerns the supplied project and tool invocation; it does not establish correctness of unrelated theorems, Mathlib availability, or a general proof service. Source digest checks establish copied bytes, not a proof of the copied code.",
+        "authority_ceiling": "Runs Lean and Lake, which must be installed, on the small public fixture project and rejects an invalid proof, a forbidden Mathlib import and a manifest that carries a private source or a proof body. The exported bundle checks the recorded results instead of rebuilding.",
         "card": "This fixture runs Lean and Lake on a small declared public project and records the subprocess outcomes in a bounded witness receipt. The fixture checks that an invalid proof is rejected, and separately checks a source file containing a forbidden Mathlib import. Negative manifest cases include a private source reference and an embedded proof body. The test suite checks the witness and its receipt redaction.",
         "one_line": "Record Lean and Lake results for a small public proof fixture."
       },

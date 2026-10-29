@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Text checks do not execute every route or establish reader comprehension.",
+    "authority_ceiling": "Matches the introductory commands and descriptions to the public text and resolves their documentation anchors, rejecting an entry with a missing command or receipt reference.",
     "card": "Matches commands and descriptions to public text and verifies documentation anchors and linked results.",
     "one_line": "Checks introductory command entries and local references."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Text checks do not execute every route or establish reader comprehension.",
+    "authority_ceiling": "Matches the introductory commands and descriptions to the public text and resolves their documentation anchors, rejecting an entry with a missing command or receipt reference.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,7 +83,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Text checks do not execute every route or establish reader comprehension.",
+        "authority_ceiling": "Matches the introductory commands and descriptions to the public text and resolves their documentation anchors, rejecting an entry with a missing command or receipt reference.",
         "card": "Matches commands and descriptions to public text and verifies documentation anchors and linked results.",
         "one_line": "Checks introductory command entries and local references."
       },

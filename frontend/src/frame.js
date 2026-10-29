@@ -72,6 +72,7 @@ export function wireExplorer(root) {
   const views = [...root.querySelectorAll('[data-explorer-view]')];
   function showView(which) {
     root.setAttribute('data-explorer-shown', which);
+    if (which === 'details' && root.hasAttribute('data-explorer-sheet')) root.removeAttribute('data-explorer-sheet');
     for (const b of views) b.setAttribute('aria-pressed', b.getAttribute('data-explorer-view') === which ? 'true' : 'false');
     if (which === 'map') fire('explorer:resize');
   }
@@ -91,7 +92,30 @@ export function wireExplorer(root) {
     const view = t.closest('[data-explorer-view]');
     if (view) { ev.preventDefault(); showView(view.getAttribute('data-explorer-view')); }
   });
-  on(root, 'explorer:selected', () => { if (narrow.matches) showView('details'); });
+  // On a phone a choice keeps the map in view: the card opens as a short
+  // sheet over the bottom of the drawing, and "Read more" raises it.
+  function setSheet(mode) {
+    if (mode) root.setAttribute('data-explorer-sheet', mode); else root.removeAttribute('data-explorer-sheet');
+    for (const b of root.querySelectorAll('[data-explorer-sheet-toggle]')) {
+      b.setAttribute('aria-expanded', mode === 'full' ? 'true' : 'false');
+      b.textContent = mode === 'full' ? 'Show less' : 'Read more';
+    }
+    fire('explorer:resize');
+  }
+  on(root, 'click', (ev) => {
+    const t = ev.target instanceof Element ? ev.target : null;
+    if (t && t.closest('[data-explorer-sheet-toggle]')) {
+      ev.preventDefault();
+      setSheet(root.getAttribute('data-explorer-sheet') === 'full' ? 'peek' : 'full');
+    }
+  });
+  on(root, 'explorer:selected', () => {
+    if (narrow.matches && root.getAttribute('data-explorer-shown') !== 'details' && !root.hasAttribute('data-explorer-sheet')) setSheet('peek');
+  });
+  on(root, 'explorer:released', () => { if (root.hasAttribute('data-explorer-sheet')) setSheet(null); });
+  const onNarrow = () => { if (!narrow.matches && root.hasAttribute('data-explorer-sheet')) setSheet(null); };
+  narrow.addEventListener?.('change', onNarrow);
+  cleanups.push(() => narrow.removeEventListener?.('change', onNarrow));
   showView(root.getAttribute('data-explorer-shown') || 'map');
 
   return () => {

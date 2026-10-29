@@ -1,10 +1,10 @@
 # Run a Lean and Lake proof witness
 
-> **In plain terms.** Saying a proof was checked is different from showing that a checking program really ran on it. The component takes a small public project of very simple example theorems and needs Lean, a program that checks proofs, and its build tool, Lake. It runs both on the project and records each outcome, then checks that a wrong proof is rejected and that a file importing a forbidden library, Mathlib, is turned away. The result is a short saved record of those outcomes, usable as evidence that the checker really ran. It covers only that project and run, not other theorems or whether Mathlib is available.
+> **In plain terms.** Saying a proof was checked is different from showing that a checking program really ran on it. The component takes a small public project of very simple example theorems and needs Lean, a program that checks proofs, and its build tool, Lake. It runs both on the project and records each outcome, then checks that a wrong proof is rejected and that a file importing a forbidden library, Mathlib, is turned away. The result is a short saved record of those outcomes, usable as evidence that the checker really ran.
 
 This fixture runs Lean and Lake on a small declared public project and records the subprocess outcomes in a bounded witness receipt. The fixture checks that an invalid proof is rejected, and separately checks a source file containing a forbidden Mathlib import. Negative manifest cases include a private source reference and an embedded proof body. The test suite checks the witness and its receipt redaction.
 
-Lean and Lake must be available for the fixture run. The exported witness bundle uses a standalone contract that does not perform a fresh Lean/Lake build. A successful witness concerns the supplied project and tool invocation; it does not establish correctness of unrelated theorems, Mathlib availability, or a general proof service. Source digest checks establish copied bytes, not a proof of the copied code.
+Runs Lean and Lake, which must be installed, on the small public fixture project and rejects an invalid proof, a forbidden Mathlib import and a manifest that carries a private source or a proof body. The exported bundle checks the recorded results instead of rebuilding.
 
 ## Run the example
 

@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Scores strategy hypotheses from supplied features; it does not prove a statement or measure benchmark performance.",
+    "authority_ceiling": "Scores strategy cards against the public problem features it is given to pick a first strategy, rejecting a declared selection that the scores do not reproduce.",
     "card": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution. The score weights matching triggers, penalizes negative triggers, and adds a capped bonus for retrieval-term matches. The fixture includes an `iff_goal` case selecting `iff_split`; an unmapped case can yield a typed selection miss.",
     "one_line": "Scores public problem features against strategy cards to select a first strategy."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Scores strategy hypotheses from supplied features; it does not prove a statement or measure benchmark performance.",
+    "authority_ceiling": "Scores strategy cards against the public problem features it is given to pick a first strategy, rejecting a declared selection that the scores do not reproduce.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,7 +85,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Scores strategy hypotheses from supplied features; it does not prove a statement or measure benchmark performance.",
+        "authority_ceiling": "Scores strategy cards against the public problem features it is given to pick a first strategy, rejecting a declared selection that the scores do not reproduce.",
         "card": "The strategy scorer takes public problem features and strategy cards and recomputes a proposed first strategy before premise retrieval or proof execution. The score weights matching triggers, penalizes negative triggers, and adds a capped bonus for retrieval-term matches. The fixture includes an `iff_goal` case selecting `iff_split`; an unmapped case can yield a typed selection miss.",
         "one_line": "Scores public problem features against strategy cards to select a first strategy."
       },

@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "These examples show selected behavior of the copied code. They do not establish live deployment safety, complete coverage, or correctness for arbitrary repositories.",
+    "authority_ceiling": "Runs ten copied workflow mechanisms, covering lineage, approval, indexing, graphs, drift, admission and accounting, on public examples, with negative cases such as a mission graph missing its target and a worker writing to a forbidden path.",
     "card": "Exercises lineage, approval, indexing, graphs, drift, admission and accounting; mission topology is computed locally against copied-source anchors.",
     "one_line": "Ten workflow mechanisms are checked on bounded public examples."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "These examples show selected behavior of the copied code. They do not establish live deployment safety, complete coverage, or correctness for arbitrary repositories.",
+    "authority_ceiling": "Runs ten copied workflow mechanisms, covering lineage, approval, indexing, graphs, drift, admission and accounting, on public examples, with negative cases such as a mission graph missing its target and a worker writing to a forbidden path.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -88,7 +88,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "These examples show selected behavior of the copied code. They do not establish live deployment safety, complete coverage, or correctness for arbitrary repositories.",
+        "authority_ceiling": "Runs ten copied workflow mechanisms, covering lineage, approval, indexing, graphs, drift, admission and accounting, on public examples, with negative cases such as a mission graph missing its target and a worker writing to a forbidden path.",
         "card": "Exercises lineage, approval, indexing, graphs, drift, admission and accounting; mission topology is computed locally against copied-source anchors.",
         "one_line": "Ten workflow mechanisms are checked on bounded public examples."
       },

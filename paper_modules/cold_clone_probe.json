@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "One checkout example only; no installation or release-readiness guarantee.",
+    "authority_ceiling": "Checks one checkout's bootstrap by running the configured scan and the pattern-binding example, and writes a summary.",
     "card": "Checks inputs, runs the scan and example, writes a summary and can mirror missing receipt files.",
     "one_line": "Checks bootstrap with a pattern-binding fixture and configured scan."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "One checkout example only; no installation or release-readiness guarantee.",
+    "authority_ceiling": "Checks one checkout's bootstrap by running the configured scan and the pattern-binding example, and writes a summary.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,7 +84,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "One checkout example only; no installation or release-readiness guarantee.",
+        "authority_ceiling": "Checks one checkout's bootstrap by running the configured scan and the pattern-binding example, and writes a summary.",
         "card": "Checks inputs, runs the scan and example, writes a summary and can mirror missing receipt files.",
         "one_line": "Checks bootstrap with a pattern-binding fixture and configured scan."
       },

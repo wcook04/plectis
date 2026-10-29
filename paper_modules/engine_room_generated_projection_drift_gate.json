@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Declared freshness checks, not semantic proof or repair; configured check commands must be trusted.",
+    "authority_ceiling": "Fingerprints each declared projection owner's inputs and outputs and runs its configured check command, so that command must be trusted.",
     "card": "Missing artifacts and planted changes are detected in fixtures even when a command can pass.",
     "one_line": "Checks declared projection owners using fingerprints and owner commands."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Declared freshness checks, not semantic proof or repair; configured check commands must be trusted.",
+    "authority_ceiling": "Fingerprints each declared projection owner's inputs and outputs and runs its configured check command, so that command must be trusted.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -81,7 +81,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Declared freshness checks, not semantic proof or repair; configured check commands must be trusted.",
+        "authority_ceiling": "Fingerprints each declared projection owner's inputs and outputs and runs its configured check command, so that command must be trusted.",
         "card": "Missing artifacts and planted changes are detected in fixtures even when a command can pass.",
         "one_line": "Checks declared projection owners using fingerprints and owner commands."
       },

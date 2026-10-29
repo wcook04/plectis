@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.",
+    "authority_ceiling": "Builds a run key from the command arguments, working directory, repository state, scoped file content, resource class and the `PYTHONPATH` and `PYTEST_ADDOPTS` values, shares or reuses results for matching runs on one machine, and rejects an empty command.",
     "card": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content, resource class, and the `PYTHONPATH` and `PYTEST_ADDOPTS` environment values. Matching runs can share or reuse a result; the fixture also checks that a scoped file change changes the key. It writes a result, board and validation receipt.",
     "one_line": "Exercises command-run deduplication using keys derived from inputs and environment."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.",
+    "authority_ceiling": "Builds a run key from the command arguments, working directory, repository state, scoped file content, resource class and the `PYTHONPATH` and `PYTEST_ADDOPTS` values, shares or reuses results for matching runs on one machine, and rejects an empty command.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -87,7 +87,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Local fixture deduplication; only PYTHONPATH and PYTEST_ADDOPTS enter the environment key, with no distributed lock or cross-host correctness guarantee.",
+        "authority_ceiling": "Builds a run key from the command arguments, working directory, repository state, scoped file content, resource class and the `PYTHONPATH` and `PYTEST_ADDOPTS` values, shares or reuses results for matching runs on one machine, and rejects an empty command.",
         "card": "The fixture exercises a command runner that builds a key from command arguments, working directory, repository state, scoped file content, resource class, and the `PYTHONPATH` and `PYTEST_ADDOPTS` environment values. Matching runs can share or reuse a result; the fixture also checks that a scoped file change changes the key. It writes a result, board and validation receipt.",
         "one_line": "Exercises command-run deduplication using keys derived from inputs and environment."
       },

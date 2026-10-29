@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.",
+    "authority_ceiling": "Scores curated route packets against their task definitions for expected artifacts, forbidden first routes, cue words and time budget, rejecting a passing claim for a packet that misses an expected stable ID or picks a forbidden first route.",
     "card": "The evaluator calculates recall and precision for expected artifacts, checks forbidden first routes, checks how many task-specific cue words appear in the packet summary and compares elapsed time with a budget. The fixture calls those cue words scent terms. A budget overrun is latency debt and is recorded separately from whether the selected artifacts are sufficient. A packet missing an expected stable ID or selecting a forbidden first route is rejected when it claims to pass.",
     "one_line": "Scores route packets against task-specific artifacts, rules and time budgets."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.",
+    "authority_ceiling": "Scores curated route packets against their task definitions for expected artifacts, forbidden first routes, cue words and time budget, rejecting a passing claim for a packet that misses an expected stable ID or picks a forbidden first route.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,7 +86,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "These curated cases measure supplied packets against their task definitions. They are not a general navigation benchmark, embedding evaluation or live private-kernel measurement.",
+        "authority_ceiling": "Scores curated route packets against their task definitions for expected artifacts, forbidden first routes, cue words and time budget, rejecting a passing claim for a packet that misses an expected stable ID or picks a forbidden first route.",
         "card": "The evaluator calculates recall and precision for expected artifacts, checks forbidden first routes, checks how many task-specific cue words appear in the packet summary and compares elapsed time with a budget. The fixture calls those cue words scent terms. A budget overrun is latency debt and is recorded separately from whether the selected artifacts are sufficient. A packet missing an expected stable ID or selecting a forbidden first route is rejected when it claims to pass.",
         "one_line": "Scores route packets against task-specific artifacts, rules and time budgets."
       },

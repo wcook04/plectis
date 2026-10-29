@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Checks declared label separation and supplied fixture metrics; does not perform retrieval, prove labels were excluded during ranking, or establish general retrieval performance.",
+    "authority_ceiling": "Computes precision and recall for supplied premise rankings against separately labelled needed premises, and rejects a ranking that uses the oracle labels or an overstated metric.",
     "card": "Evaluates supplied rankings against labelled needed premises. Per-row precision divides unique hits by declared top-k slots; aggregate precision uses total hits over total slots, and recall uses hits over needed premises.",
     "one_line": "This harness compares retrieved premise rankings with separately supplied needed-premise labels."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Checks declared label separation and supplied fixture metrics; does not perform retrieval, prove labels were excluded during ranking, or establish general retrieval performance.",
+    "authority_ceiling": "Computes precision and recall for supplied premise rankings against separately labelled needed premises, and rejects a ranking that uses the oracle labels or an overstated metric.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,7 +83,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Checks declared label separation and supplied fixture metrics; does not perform retrieval, prove labels were excluded during ranking, or establish general retrieval performance.",
+        "authority_ceiling": "Computes precision and recall for supplied premise rankings against separately labelled needed premises, and rejects a ranking that uses the oracle labels or an overstated metric.",
         "card": "Evaluates supplied rankings against labelled needed premises. Per-row precision divides unique hits by declared top-k slots; aggregate precision uses total hits over total slots, and recall uses hits over needed premises.",
         "one_line": "This harness compares retrieved premise rankings with separately supplied needed-premise labels."
       },

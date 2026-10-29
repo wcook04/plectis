@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A selected tactic is a routing suggestion, not a proof or a guarantee that the tactic will solve a goal. This validator does not execute Lean or Lake.",
+    "authority_ceiling": "Checks each tactic choice against recorded availability and target-shape preferences, rejecting an unavailable tactic and requiring a fallback for an unknown shape.",
     "card": "For example, the test for a Boolean double-negation goal checks that the preferred available tactic is `decide`. The gate rejects selecting an unavailable tactic and requires a fallback for an unknown shape or an unavailable preferred tactic. The input includes invalid post-execution and proof-body cases.",
     "one_line": "Checks tactic choices against recorded availability and target-shape preferences."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A selected tactic is a routing suggestion, not a proof or a guarantee that the tactic will solve a goal. This validator does not execute Lean or Lake.",
+    "authority_ceiling": "Checks each tactic choice against recorded availability and target-shape preferences, rejecting an unavailable tactic and requiring a fallback for an unknown shape.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,7 +82,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A selected tactic is a routing suggestion, not a proof or a guarantee that the tactic will solve a goal. This validator does not execute Lean or Lake.",
+        "authority_ceiling": "Checks each tactic choice against recorded availability and target-shape preferences, rejecting an unavailable tactic and requiring a fallback for an unknown shape.",
         "card": "For example, the test for a Boolean double-negation goal checks that the preferred available tactic is `decide`. The gate rejects selecting an unavailable tactic and requires a fallback for an unknown shape or an unavailable preferred tactic. The input includes invalid post-execution and proof-body cases.",
         "one_line": "Checks tactic choices against recorded availability and target-shape preferences."
       },

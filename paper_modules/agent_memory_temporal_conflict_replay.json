@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A fixture replay does not establish the quality or safety of a deployed memory system.",
+    "authority_ceiling": "Checks each ADD, UPDATE, DELETE and NOOP decision in the public memory episodes against earlier writes, evidence handles, temporal order and source trust, rather than accepting the decision label.",
     "card": "This replay checks a sequence of public memory episodes, their conflict edges and their later replay. It validates ADD, UPDATE, DELETE and NOOP decisions and checks whether a later update or deletion is supported by an earlier write, evidence handles and temporal ordering. The checker also examines priority and source-trust evidence rather than accepting the decision label alone.",
     "one_line": "Checks temporal ordering and evidence for memory updates, conflicts and replay."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A fixture replay does not establish the quality or safety of a deployed memory system.",
+    "authority_ceiling": "Checks each ADD, UPDATE, DELETE and NOOP decision in the public memory episodes against earlier writes, evidence handles, temporal order and source trust, rather than accepting the decision label.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,7 +77,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A fixture replay does not establish the quality or safety of a deployed memory system.",
+        "authority_ceiling": "Checks each ADD, UPDATE, DELETE and NOOP decision in the public memory episodes against earlier writes, evidence handles, temporal order and source trust, rather than accepting the decision label.",
         "card": "This replay checks a sequence of public memory episodes, their conflict edges and their later replay. It validates ADD, UPDATE, DELETE and NOOP decisions and checks whether a later update or deletion is supported by an earlier write, evidence handles and temporal ordering. The checker also examines priority and source-trust evidence rather than accepting the decision label alone.",
         "one_line": "Checks temporal ordering and evidence for memory updates, conflicts and replay."
       },

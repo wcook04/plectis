@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "These checks establish the named fixture behavior, not live-market accuracy, investment advice, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.",
+    "authority_ceiling": "Runs three copied market primitives on synthetic data: momentum on extreme values, scoring of a resolved market, and an order book whose prices are not sorted.",
     "card": "Checks momentum, unsorted order-book prices and resolved-market scoring; it runs no UI or graph exercises.",
     "one_line": "Three copied market primitives are exercised on synthetic data."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "These checks establish the named fixture behavior, not live-market accuracy, investment advice, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.",
+    "authority_ceiling": "Runs three copied market primitives on synthetic data: momentum on extreme values, scoring of a resolved market, and an order book whose prices are not sorted.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -91,7 +91,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "These checks establish the named fixture behavior, not live-market accuracy, investment advice, or complete coverage. Matching source hashes and anchors establish identity and expected text, not algorithm correctness.",
+        "authority_ceiling": "Runs three copied market primitives on synthetic data: momentum on extreme values, scoring of a resolved market, and an order book whose prices are not sorted.",
         "card": "Checks momentum, unsorted order-book prices and resolved-market scoring; it runs no UI or graph exercises.",
         "one_line": "Three copied market primitives are exercised on synthetic data."
       },

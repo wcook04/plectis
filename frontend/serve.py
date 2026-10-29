@@ -12,6 +12,10 @@ SHA-256 the served snapshot records for it; otherwise it answers 409.
 from __future__ import annotations
 
 import argparse
+from collections import OrderedDict
+import gzip
+import re
+import threading
 import hashlib
 import http.client
 import json
@@ -27,8 +31,8 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 API_PREFIX = "/api/v1"
 # Request headers worth forwarding, and response headers the client reads.
-FORWARD_REQUEST = ("Accept", "If-None-Match")
-FORWARD_RESPONSE = ("Content-Type", "Content-Length", "ETag", "Cache-Control", "Allow",
+FORWARD_REQUEST = ("Accept", "If-None-Match", "Accept-Encoding")
+FORWARD_RESPONSE = ("Content-Type", "Content-Length", "Content-Encoding", "Vary", "ETag", "Cache-Control", "Allow",
                     "X-Content-Type-Options", "X-Plectis-Snapshot-Revision")
 TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
          ".mjs": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8",
@@ -39,9 +43,37 @@ STATIC_DIRS = ("assets", "src")
 GUIDE_PREFIX = "/guides/"
 GUIDE_ROOTS = ("paper_modules/", "formal/")
 GUIDE_LIMIT = 256 * 1024
+STATIC_CACHE_BYTES = 8 * 1024 * 1024
+STATIC_CACHE_ENTRIES = 64
+COMPRESSIBLE = {".html", ".js", ".mjs", ".css", ".json", ".svg", ".txt"}
+
+
+def _static_encoding(value, compressible):
+    """Negotiate cached text compression without importing the backend runtime."""
+    if not value:
+        return "identity"
+    if len(value) > 2048:
+        return None
+    qualities = {}
+    for entry in value.lower().split(","):
+        token, *params = entry.strip().split(";")
+        quality = 1.0
+        for param in params:
+            name, sep, raw = param.strip().partition("=")
+            if name == "q" and sep:
+                quality = float(raw) if re.fullmatch(r"(?:0(?:\.[0-9]{0,3})?|1(?:\.0{0,3})?)", raw) else 0.0
+        qualities[token.strip()] = quality
+    gz = qualities.get("gzip", qualities.get("*", 0.0)) if compressible else 0.0
+    identity = qualities.get("identity", 0.0 if qualities.get("*") == 0 else 1.0)
+    if gz > 0 and ("identity" not in qualities or gz >= identity):
+        return "gzip"
+    return "identity" if identity > 0 else None
 
 
 class ExplorerHandler(BaseHTTPRequestHandler):
+    # Browsers can revalidate ETag-only API responses over HTTP/1.1.
+    protocol_version = "HTTP/1.1"
+    timeout = 15
     server_version = "PlectisExplorer"
     sys_version = ""
 
@@ -52,6 +84,8 @@ class ExplorerHandler(BaseHTTPRequestHandler):
         self._handle(send_body=False)
 
     def _refuse(self):
+        # Do not parse an unread rejected request body as another request.
+        self.close_connection = True
         self._send(405, b'{"error":{"code":"method_not_allowed","message":"only GET and HEAD are available"}}',
                    {"Content-Type": "application/json; charset=utf-8", "Allow": "GET, HEAD"}, True)
 
@@ -146,8 +180,23 @@ class ExplorerHandler(BaseHTTPRequestHandler):
         else:
             # Client-side routes (/components/<id>, /coverage, ...) all load the shell.
             target = HERE / "index.html"
-        body = target.read_bytes()
-        self._send(200, body, {"Content-Type": TYPES[target.suffix], "Cache-Control": "no-cache"}, send_body)
+        encoding = _static_encoding(self.headers.get("Accept-Encoding", ""), target.suffix in COMPRESSIBLE)
+        if encoding is None:
+            self._send(406, b"no acceptable asset encoding", {"Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store"}, send_body)
+            return
+        try:
+            body, etag = self.server.static_asset(target, encoding)
+        except OSError:
+            self._send(404, b"not found", {"Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store"}, send_body)
+            return
+        headers = {"Content-Type": TYPES[target.suffix], "Cache-Control": "no-cache", "ETag": etag,
+                   "Vary": "Accept-Encoding"}
+        if encoding == "gzip":
+            headers["Content-Encoding"] = "gzip"
+        incoming = self.headers.get("If-None-Match", "")
+        unchanged = len(incoming) <= 2048 and any(
+            part.strip().removeprefix("W/") in {etag, "*"} for part in incoming.split(","))
+        self._send(304 if unchanged else 200, b"" if unchanged else body, headers, send_body)
 
     def _send(self, status, body, headers, send_body):
         self.send_response(status)
@@ -155,7 +204,7 @@ class ExplorerHandler(BaseHTTPRequestHandler):
             if name != "Content-Length":
                 self.send_header(name, value)
         if status != 304:
-            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Content-Length", headers.get("Content-Length", str(len(body))))
         self.send_header("X-Content-Type-Options", "nosniff")
         self.end_headers()
         if send_body and status != 304:
@@ -171,7 +220,49 @@ class ExplorerServer(ThreadingHTTPServer):
     def __init__(self, address, backend):
         parts = urllib.parse.urlsplit(backend)
         self.backend_host, self.backend_port = parts.hostname, parts.port or 80
+        self._assets, self._asset_bytes = OrderedDict(), 0
+        self._asset_pending = {}
+        self._asset_lock = threading.Lock()
         super().__init__(address, ExplorerHandler)
+
+    def static_asset(self, path, encoding):
+        """Cache exact bytes; concurrent misses share work only for the same file."""
+        while True:
+            stat = path.stat()
+            signature = (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+            with self._asset_lock:
+                cached = self._assets.get(path)
+                if cached is not None and cached[0] == signature:
+                    self._assets.move_to_end(path)
+                    return cached[1][encoding]
+                pending = self._asset_pending.get(path)
+                if pending is None:
+                    pending = self._asset_pending[path] = threading.Event()
+                    break
+            pending.wait()
+
+        try:
+            # Disk reads and compression for unrelated files proceed together.
+            body = path.read_bytes()
+            compressed = gzip.compress(body, compresslevel=6, mtime=0) if path.suffix in COMPRESSIBLE else None
+            variants = {"identity": (body, '"' + hashlib.sha256(body).hexdigest() + '"')}
+            if compressed is not None:
+                variants["gzip"] = (compressed, '"' + hashlib.sha256(compressed).hexdigest() + '"')
+            cost = len(body) + (len(compressed) if compressed is not None else 0)
+            with self._asset_lock:
+                previous = self._assets.pop(path, None)
+                if previous is not None:
+                    self._asset_bytes -= previous[2]
+                if cost <= STATIC_CACHE_BYTES:
+                    self._assets[path] = (signature, variants, cost)
+                    self._asset_bytes += cost
+                    while len(self._assets) > STATIC_CACHE_ENTRIES or self._asset_bytes > STATIC_CACHE_BYTES:
+                        self._asset_bytes -= self._assets.popitem(last=False)[1][2]
+            return variants[encoding]
+        finally:
+            with self._asset_lock:
+                self._asset_pending.pop(path, None)
+                pending.set()
 
 
 def _start_backend(port):

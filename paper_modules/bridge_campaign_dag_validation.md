@@ -1,6 +1,6 @@
 # Validate a campaign dependency graph
 
-> **In plain terms.** A job split into dependent tasks can be planned badly, for example with tasks waiting on each other in a circle. This component is given a plan listing evidence-gathering steps, optional steps that combine results, and one final step that pulls everything together. It checks that labels are unique, every dependency exists, no chain of dependencies leads back to itself, and a single final step traces back to an evidence-gathering step. It accepts or rejects the plan before any work starts, recalculating from the plan itself rather than trusting a declared status. The check covers only the plan's shape, so it starts no work and does not show that a service provider is safe.
+> **In plain terms.** A job split into dependent tasks can be planned badly, for example with tasks waiting on each other in a circle. This component is given a plan listing evidence-gathering steps, optional steps that combine results, and one final step that pulls everything together. It checks that labels are unique, every dependency exists, no chain of dependencies leads back to itself, and a single final step traces back to an evidence-gathering step. It accepts or rejects the plan before any work starts, recalculating from the plan itself rather than trusting a declared status.
 
 This validator checks a campaign plan before execution. The plan names probe nodes that gather evidence, optional reducers, and a synthesis node that depends on them. The validator requires the synthesis to reach at least one probe through its dependencies. A barrier names the synthesis that must finish before continuation; a provider-specific worker ceiling bounds requested parallelism.
 
@@ -27,7 +27,7 @@ The graph fixtures test selected cases; they do not formally prove the validator
 
 ## Limits
 
-The check is structural: it does not dispatch agents, execute the plan or prove that a provider is safe.
+Checks a campaign plan's dependencies, cycles, barrier alignment, worker ceiling and the single synthesis that reaches a probe, rejecting a cycle or a second synthesis.
 
 ## Sources
 

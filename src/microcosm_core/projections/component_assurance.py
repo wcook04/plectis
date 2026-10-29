@@ -1050,7 +1050,7 @@ def collect_claim_assurance_inputs(root, registry, atlas, *, proof_tools, metada
             "owner_refs": owner_refs, "replay_prerequisites": replay_prerequisites,
             "historical_results": historical_results, "historical_native_records": native_records}
     if include_explorer:
-        from microcosm_core.projections.component_explorer_metadata import collect_explorer_metadata
+        from microcosm_core.projections.component_explorer_metadata import collect_explorer_metadata, collect_reader_guides
         from microcosm_core.projections.component_proof_excerpts import build_proof_enrichments
         from microcosm_core.projections.component_workflow_cores import build_workflow_cores, build_ownership_counterexample
         explorer = collect_explorer_metadata(root)
@@ -1058,6 +1058,13 @@ def collect_claim_assurance_inputs(root, registry, atlas, *, proof_tools, metada
                         proof_details={"proof::dafny::" + row["slug"]: build_proof_enrichments(root, row["metadata"])
                                        for row in proof_rows},
                         cores=build_workflow_cores(root), ownership_example=build_ownership_counterexample(root))
+        component_refs = {guide["legacy_markdown_projection"] for guide in guides.values()}
+        kernel_refs = {row["contract"]["formal_readme_ref"] for row in proof_rows}
+        guide_bindings = {ref: facts[ref]["sha256"] for ref in component_refs | kernel_refs}
+        guide_bindings.update({row["guide_ref"]: next(binding["sha256"] for binding in row["artifact_bindings"]
+                                                    if binding["ref"] == row["guide_ref"])
+                               for row in explorer["cores"]})
+        explorer["guides"] = collect_reader_guides(root, component_refs, guide_bindings)
         annotations_path = root / "core/component_claim_annotations.json"
         annotations = (_strict_json(annotations_path, root=root) if annotations_path.exists()
                        else {"schema_version": "plectis_component_annotations_v1",
@@ -1398,7 +1405,8 @@ def extend_claim_index(base, registry, atlas, assurance):
         "proven_by": "Legacy compatibility: historical bounded authority receipt; never a domain theorem or fresh proof result.",
         "has_formal_subclaim": "A narrower modeled algorithm contract; never whole-component verification.",
         "has_retained_formal_proof": "Named retained Dafny contract with current source/generated hash binding; no fresh prover run.",
-        "has_replay_configuration": "Declared runner/input/output configuration; no execution, freshness or domain correctness claim."})
+        "has_replay_configuration": "Declared runner/input/output configuration; no execution, freshness or domain correctness claim.",
+        "grounded_in_doctrine": "The component's atlas row lists this rule, concept, mechanism or paper module; an authored citation, not a check that the component enforces it."})
     counts = {}
     for row in result["edges"]:
         counts[row["kind"]] = counts.get(row["kind"], 0) + 1

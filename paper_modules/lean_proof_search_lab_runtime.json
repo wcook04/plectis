@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
+    "authority_ceiling": "Searches small toy Lean propositions with a symbolic AND/OR procedure and checks candidate proofs with Lean, rejecting oracle fields, ID-memorising policies and `sorry`-tainted proofs; the exported bundle checks only file presence and counts.",
     "card": "This lab runs bounded symbolic search on small Lean propositions and checks candidate proofs with Lean. The positive fixture includes `theorem lab_and_intro (p q : Prop) : p -> q -> And p q` and `theorem lab_or_comm (p q : Prop) : Or p q -> Or q p`. Search uses a bounded AND/OR procedure and compares it with a hammer-style baseline; an ID-blind policy ablation checks for dependence on problem identifiers.",
     "one_line": "This lab runs bounded symbolic search on small Lean propositions and checks candidate proofs with Lean."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
+    "authority_ceiling": "Searches small toy Lean propositions with a symbolic AND/OR procedure and checks candidate proofs with Lean, rejecting oracle fields, ID-memorising policies and `sorry`-tainted proofs; the exported bundle checks only file presence and counts.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -92,7 +92,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.",
+        "authority_ceiling": "Searches small toy Lean propositions with a symbolic AND/OR procedure and checks candidate proofs with Lean, rejecting oracle fields, ID-memorising policies and `sorry`-tainted proofs; the exported bundle checks only file presence and counts.",
         "card": "This lab runs bounded symbolic search on small Lean propositions and checks candidate proofs with Lean. The positive fixture includes `theorem lab_and_intro (p q : Prop) : p -> q -> And p q` and `theorem lab_or_comm (p q : Prop) : Or p q -> Or q p`. Search uses a bounded AND/OR procedure and compares it with a hammer-style baseline; an ID-blind policy ablation checks for dependence on problem identifiers.",
         "one_line": "This lab runs bounded symbolic search on small Lean propositions and checks candidate proofs with Lean."
       },

@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "A passing symbolic replay does not demonstrate real sandbox containment.",
+    "authority_ceiling": "Derives a verdict for each synthetic action request from a fixed table of action kind, capability, risk and source trust, blocks unknown shapes, and checks that blocked actions left no diff and permitted ones have diff and rollback records.",
     "card": "This replay checks synthetic action requests, policy decisions and recorded side effects. A fixed table derives a verdict from the action kind, capability, risk and source trust; the validator compares that verdict with the declared one. Unknown action shapes fail closed to `block`. It checks that blocked actions were not executed and had no recorded diff, and that permitted effects have the required diff and rollback records.",
     "one_line": "Derives policy decisions for synthetic action records and checks their side-effect receipts."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "A passing symbolic replay does not demonstrate real sandbox containment.",
+    "authority_ceiling": "Derives a verdict for each synthetic action request from a fixed table of action kind, capability, risk and source trust, blocks unknown shapes, and checks that blocked actions left no diff and permitted ones have diff and rollback records.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -77,7 +77,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "A passing symbolic replay does not demonstrate real sandbox containment.",
+        "authority_ceiling": "Derives a verdict for each synthetic action request from a fixed table of action kind, capability, risk and source trust, blocks unknown shapes, and checks that blocked actions left no diff and permitted ones have diff and rollback records.",
         "card": "This replay checks synthetic action requests, policy decisions and recorded side effects. A fixed table derives a verdict from the action kind, capability, risk and source trust; the validator compares that verdict with the declared one. Unknown action shapes fail closed to `block`. It checks that blocked actions were not executed and had no recorded diff, and that permitted effects have the required diff and rollback records.",
         "one_line": "Derives policy decisions for synthetic action records and checks their side-effect receipts."
       },

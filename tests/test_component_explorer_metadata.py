@@ -165,3 +165,134 @@ def test_present_nonobject_or_malformed_receipt_keeps_artifact_availability(tmp_
     assert row['availability_reason'] == 'source_rejected'
     assert row['artifact_sha256'] is None
     assert _receipt_summary(tmp_path, 'absent.json')['availability_reason'] == 'source_unavailable'
+
+
+def test_doctrine_v2_statements_axiom_detail_and_sources():
+    import hashlib
+    data = collect_explorer_metadata(ROOT)['doctrine']
+    assert data['schema_version'] == 'plectis_explorer_doctrine_v2'
+    assert [row['ref'] for row in data['sources']] == [
+        'AXIOMS.md', 'PRINCIPLES.md', 'ANTI_PRINCIPLES.md', 'core/axiom_organ_routing.json',
+        'core/doctrine_enrichment.json']
+    for row in data['sources']:
+        assert row['sha256'] == hashlib.sha256((ROOT / row['ref']).read_bytes()).hexdigest()
+    nodes = {row['id']: row for row in data['nodes']}
+    assert len(nodes) == 49
+    for row in nodes.values():
+        assert row['statement_sha256'] == hashlib.sha256(row['statement'].encode()).hexdigest()
+        assert ('axiom' in row) == (row['kind'] == 'axiom')
+    assert nodes['P-2']['statement'].startswith('Grounding: AX-1, AX-5.')
+    assert 'AP-4 Cache-across-drift' in nodes['AP-4']['statement']
+    routing = {row['axiom_id']: row for row in json.loads((ROOT / 'core/axiom_organ_routing.json').read_text())['rows']}
+    detail = nodes['AX-4']['axiom']
+    assert detail['routing']['witness_strength'] == routing['AX-4']['witness_strength']
+    assert detail['routing']['witness_component_ids'] == routing['AX-4']['witness_organs']
+    assert [row['obligation_id'] for row in detail['obligations']] == [
+        row['obligation_id'] for row in routing['AX-4']['obligations']]
+    assert detail['support']['basis'] == 'index_time_computed'
+    assert detail['support']['verdict'] == 'partial_capped_by_layer_debt'
+    assert {nodes[f'AX-{n}']['axiom']['support']['verdict'] for n in range(1, 13)} <= {
+        'bound_resolved_strength_uncomputable', 'partial_capped_by_layer_debt'}
+
+
+def test_doctrine_build_fails_on_unknown_witness_component():
+    import pytest
+    from microcosm_core.projections import component_explorer_metadata as metadata
+    organs = {row['organ_id'] for row in json.loads((ROOT / 'core/organ_registry.json').read_text())['implemented_organs']}
+    support = metadata._axiom_support(ROOT)
+    witness = json.loads((ROOT / 'core/axiom_organ_routing.json').read_text())['rows'][0]['witness_organs'][0]
+    with pytest.raises(ValueError, match='unknown witness component id'):
+        metadata._doctrine(ROOT, organs - {witness}, support)
+
+
+def test_doctrine_build_fails_when_support_checker_raises(monkeypatch, tmp_path):
+    import pytest
+    from microcosm_core.projections import component_explorer_metadata as metadata
+    from microcosm_core.validators import axiom_support_cover
+    def broken(root):
+        raise RuntimeError('checker failed')
+    monkeypatch.setattr(axiom_support_cover, 'evaluate_axiom_support_cover', broken)
+    with pytest.raises(RuntimeError, match='checker failed'):
+        metadata._axiom_support(tmp_path)
+
+
+def test_doctrine_reader_comes_from_enrichment_and_names_registered_components():
+    data = collect_explorer_metadata(ROOT)['doctrine']
+    records = {row['id']: row for row in json.loads((ROOT / 'core/doctrine_enrichment.json').read_text())['records']}
+    for node in data['nodes']:
+        reader, record = node['reader'], records[node['id']]
+        assert reader['basis'] == 'authored_reader_enrichment'
+        assert reader['plain'] == ' '.join(record['reader_ladder']['plain'].split())
+        assert reader['enforced_in_component_ids'] == record['enforced_in']
+        assert reader['example']['component_ids'] == record['example']['refs']
+
+
+def test_doctrine_build_fails_on_missing_reader_record_or_unknown_component(monkeypatch):
+    import pytest
+    from microcosm_core.projections import component_explorer_metadata as metadata
+    organs = {row['organ_id'] for row in json.loads((ROOT / 'core/organ_registry.json').read_text())['implemented_organs']}
+    support = metadata._axiom_support(ROOT)
+    original = metadata._read_public
+    def patched(mutate):
+        def read(root, ref):
+            source = original(root, ref)
+            if ref != 'core/doctrine_enrichment.json':
+                return source
+            body = json.loads(source)
+            mutate(body['records'])
+            return json.dumps(body).encode()
+        return read
+    monkeypatch.setattr(metadata, '_read_public', patched(lambda rows: rows.pop()))
+    with pytest.raises(ValueError, match='no reader record'):
+        metadata._doctrine(ROOT, organs, support)
+    monkeypatch.setattr(metadata, '_read_public', patched(lambda rows: rows[0]['enforced_in'].append('not_a_component')))
+    with pytest.raises(ValueError, match='unknown witness component id'):
+        metadata._doctrine(ROOT, organs, support)
+
+
+def test_reader_guides_bind_exact_bytes_and_extract_multiline_lead(tmp_path):
+    import hashlib
+    from microcosm_core.projections.component_explorer_metadata import collect_reader_guides
+    ref = 'paper_modules/example.md'
+    folder = tmp_path / 'paper_modules'
+    folder.mkdir()
+    source = '# Example\r\n\r\n> **In plain terms.** Authored explanation.\r\n> A second sentence.\r\n\r\n## Use\r\nText.\r\n'
+    (tmp_path / ref).write_bytes(source.encode())
+    digest = hashlib.sha256(source.encode()).hexdigest()
+    result = collect_reader_guides(tmp_path, {ref}, {ref: digest})[ref]
+    assert result['text'] == source  # Preserve CRLF for exact source hash.
+    assert result['sha256'] == digest
+    assert result['plain'] == 'Authored explanation. A second sentence.'
+    assert result['plain_availability'] == 'available'
+
+
+def test_reader_guides_fail_missing_plain_stale_hash_and_byte_overflow(tmp_path):
+    import hashlib
+    import pytest
+    from microcosm_core.component_api_contract import MAX_GUIDE_BYTES
+    from microcosm_core.projections.component_explorer_metadata import collect_reader_guides
+    ref = 'paper_modules/example.md'
+    (tmp_path / 'paper_modules').mkdir()
+    path = tmp_path / ref
+    path.write_text('# Example\nNo authored lead.\n')
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    with pytest.raises(ValueError, match='missing plain lead'):
+        collect_reader_guides(tmp_path, {ref}, {ref: digest})
+    with pytest.raises(ValueError, match='changed during collection'):
+        collect_reader_guides(tmp_path, set(), {ref: '0' * 64})
+    path.write_bytes(b'a' * (MAX_GUIDE_BYTES + 1))
+    with pytest.raises(ValueError, match='byte limit'):
+        collect_reader_guides(tmp_path, set(), {ref: '0' * 64})
+
+
+def test_reader_guide_formal_text_does_not_invent_plain_lead(tmp_path):
+    import hashlib
+    from microcosm_core.projections.component_explorer_metadata import collect_reader_guides
+    ref = 'formal/repair/README.md'
+    path = tmp_path / ref
+    path.parent.mkdir(parents=True)
+    path.write_text('# Formal statement\nAn existing author statement.\n')
+    row = collect_reader_guides(tmp_path, set(), {ref: hashlib.sha256(path.read_bytes()).hexdigest()})[ref]
+    assert row['plain'] is None
+    assert row['plain_availability'] == 'unrecorded'
+    assert row['availability'] == 'available'

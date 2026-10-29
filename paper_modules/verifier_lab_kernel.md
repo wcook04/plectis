@@ -1,6 +1,6 @@
 # Inspect the verifier-lab kernel
 
-> **In plain terms.** Testing an automatic prover goes wrong if a comparison note is counted as the prover's success or an outside suggestion is counted as a proof. This component is given results from smaller checks and a packet of public problems, comparison notes, provider hypotheses and proposed actions. It checks these against the packet's rules and rejects a comparison result counted as a success, a provider hypothesis claiming to be a proof, and full proofs where none belong. The output is a pass or blocked status with findings, showing whether the parts of this test keep their roles apart. It does not check arbitrary private proofs, and an outside suggestion is never treated as one.
+> **In plain terms.** Testing an automatic prover goes wrong if a comparison note is counted as the prover's success or an outside suggestion is counted as a proof. This component is given results from smaller checks and a packet of public problems, comparison notes, provider hypotheses and proposed actions. It checks these against the packet's rules and rejects a comparison result counted as a success, a provider hypothesis claiming to be a proof, and full proofs where none belong. The output is a pass or blocked status with findings, showing whether the parts of this test keep their roles apart.
 
 The verifier-lab kernel combines a public component stack with a packet of forward problems, oracle sidecars, provider hypotheses and candidate actions. A forward problem is a public task to be attempted; an oracle sidecar records comparison information about that task separately. For example, a sidecar may identify a missing commutativity premise, but that observation is not counted as a forward success. The kernel also separates the bounded Lean witness from advisory or translated candidates.
 
@@ -23,7 +23,7 @@ The fixture checks component results alongside packet rules. It rejects an oracl
 
 ## Limits
 
-The fixture path can invoke its bounded public Lean/Lake witness; compatible `lean` and `lake` are prerequisites. Provider suggestions and translated actions are not proofs, and the kernel does not validate arbitrary private proofs.
+Runs its bundled public Lean project through Lean and Lake, which must be installed, and checks the packet's forward problems, oracle notes, provider hypotheses and candidate actions against its rules, rejecting a provider suggestion presented as a proof.
 
 ## Verification
 

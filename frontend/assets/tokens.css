@@ -97,6 +97,11 @@
   --ring-lean: #6a45b8;
   --ring-replay: #2a63a8;
   --ring-saved: #8a6a0a;
+  /* The doctrine's halo: its rules in a cold azure of their own, so a rule
+     never reads as the rerun ring's blue, and the failure modes in a muted
+     mauve, a warning without the red of a kept proof. */
+  --m-doctrine: #1f6f86;
+  --m-threat: #7d5a6b;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -142,6 +147,8 @@
     --ring-lean: #a98bf0;
     --ring-replay: #6aa6e8;
     --ring-saved: #e2c25e;
+    --m-doctrine: #a6dcef;
+    --m-threat: #c9a5b6;
   }
 }
 :root[data-theme="dark"] {
@@ -186,4 +193,6 @@
   --ring-lean: #a98bf0;
   --ring-replay: #6aa6e8;
   --ring-saved: #e2c25e;
+  --m-doctrine: #a6dcef;
+  --m-threat: #c9a5b6;
 }

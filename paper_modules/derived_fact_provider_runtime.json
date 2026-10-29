@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Resolution does not judge prose truth or a complete external registry.",
+    "authority_ceiling": "Resolves facts in the fixture registries by JSON pointer, glob and named callable, rejecting a missing source path or an unknown provider type.",
     "card": "Evaluates fixture registries and reports typed errors such as a missing source.",
     "one_line": "Resolves registry facts by JSON pointer, glob and named callable."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Resolution does not judge prose truth or a complete external registry.",
+    "authority_ceiling": "Resolves facts in the fixture registries by JSON pointer, glob and named callable, rejecting a missing source path or an unknown provider type.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,7 +86,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Resolution does not judge prose truth or a complete external registry.",
+        "authority_ceiling": "Resolves facts in the fixture registries by JSON pointer, glob and named callable, rejecting a missing source path or an unknown provider type.",
         "card": "Evaluates fixture registries and reports typed errors such as a missing source.",
         "one_line": "Resolves registry facts by JSON pointer, glob and named callable."
       },

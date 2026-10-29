@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erdős problem 257.",
+    "authority_ceiling": "Recomputes the claimed integer fields exactly for one finite set and base, and rejects a forged denominator or order, an empty support, a base below two and the degenerate unit denominator. A pass is an exact computation for that one input.",
     "card": "For a finite set of positive integers F and base b ≥ 2, the component computes the exact rational sum S = Σ 1/(bⁿ − 1) = P/Q. It calculates the multiplicative order of b modulo Q, compares it with lcm(F), and independently checks Q using a common denominator. Duplicate support entries are normalized to a set.",
     "one_line": "Compute and check a finite rational denominator and multiplicative-order certificate."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erdős problem 257.",
+    "authority_ceiling": "Recomputes the claimed integer fields exactly for one finite set and base, and rejects a forged denominator or order, an empty support, a base below two and the degenerate unit denominator. A pass is an exact computation for that one input.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -86,7 +86,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The verifier recomputes claimed integer fields and rejects a forged denominator or order. An empty support, a base below two, or the degenerate unit denominator is rejected. A passing case is an exact computation for that input; it is neither a proof of the general finite assertion nor a solution of the infinite Erdős problem 257.",
+        "authority_ceiling": "Recomputes the claimed integer fields exactly for one finite set and base, and rejects a forged denominator or order, an empty support, a base below two and the degenerate unit denominator. A pass is an exact computation for that one input.",
         "card": "For a finite set of positive integers F and base b ≥ 2, the component computes the exact rational sum S = Σ 1/(bⁿ − 1) = P/Q. It calculates the multiplicative order of b modulo Q, compares it with lcm(F), and independently checks Q using a common denominator. Duplicate support entries are normalized to a set.",
         "one_line": "Compute and check a finite rational denominator and multiplicative-order certificate."
       },

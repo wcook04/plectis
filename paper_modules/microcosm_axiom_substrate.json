@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The report describes checked repository records; it does not prove the axioms or grant release authority. A negative suite alone does not establish that a particular anti-axiom was rejected.",
+    "authority_ceiling": "Reads the axiom routing, witness and receipt records and reports support and remaining gaps for the piloted axioms, keeping `strong_certified` false; a negative suite counts only when its evidence maps to rejection of the named anti-axiom.",
     "card": "The registry breaks each axiom into obligations: smaller clauses to check. A support case records the witnesses and receipts associated with an obligation. An anti-axiom names the contrary failure the axiom is meant to exclude. The evaluator compiles those support cases and separately checks whether evidence maps to rejection of the named anti-axiom. A principle is not itself a witness. The strong gate requires both sufficient positive support and a suitable rejection mapping; the output keeps `strong_certified` false. A conflict or unverified rejection mapping blocks a strong verdict.",
     "one_line": "Reads axiom routing, witness and receipt records and reports support and remaining gaps for piloted axioms."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The report describes checked repository records; it does not prove the axioms or grant release authority. A negative suite alone does not establish that a particular anti-axiom was rejected.",
+    "authority_ceiling": "Reads the axiom routing, witness and receipt records and reports support and remaining gaps for the piloted axioms, keeping `strong_certified` false; a negative suite counts only when its evidence maps to rejection of the named anti-axiom.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,7 +83,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The report describes checked repository records; it does not prove the axioms or grant release authority. A negative suite alone does not establish that a particular anti-axiom was rejected.",
+        "authority_ceiling": "Reads the axiom routing, witness and receipt records and reports support and remaining gaps for the piloted axioms, keeping `strong_certified` false; a negative suite counts only when its evidence maps to rejection of the named anti-axiom.",
         "card": "The registry breaks each axiom into obligations: smaller clauses to check. A support case records the witnesses and receipts associated with an obligation. An anti-axiom names the contrary failure the axiom is meant to exclude. The evaluator compiles those support cases and separately checks whether evidence maps to rejection of the named anti-axiom. A principle is not itself a witness. The strong gate requires both sufficient positive support and a suitable rejection mapping; the output keeps `strong_certified` false. A conflict or unverified rejection mapping blocks a strong verdict.",
         "one_line": "Reads axiom routing, witness and receipt records and reports support and remaining gaps for piloted axioms."
       },

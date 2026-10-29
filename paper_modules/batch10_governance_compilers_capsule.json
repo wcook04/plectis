@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Passing fixture checks do not authorize a release or prove the whole system correct.",
+    "authority_ceiling": "Runs copied governance and compiler logic on public fixtures, covering mutation intent, observe/apply plans, release blockers, publication paths, receipt reuse, dependency waves and time horizons, and rejects cases such as an invalid finance horizon or a hard-excluded publication path.",
     "card": "This capsule runs bounded examples of governance and compiler logic against public fixtures. The checks include mutation intent, observe/apply plans, release blockers, publication path contracts, receipt reuse, dependency waves and time horizons. It records source-copy digest and anchor checks alongside computed negative-case results.",
     "one_line": "Exercises fixture governance and compiler checks and records a deferred binding repair."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Passing fixture checks do not authorize a release or prove the whole system correct.",
+    "authority_ceiling": "Runs copied governance and compiler logic on public fixtures, covering mutation intent, observe/apply plans, release blockers, publication paths, receipt reuse, dependency waves and time horizons, and rejects cases such as an invalid finance horizon or a hard-excluded publication path.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -85,7 +85,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Passing fixture checks do not authorize a release or prove the whole system correct.",
+        "authority_ceiling": "Runs copied governance and compiler logic on public fixtures, covering mutation intent, observe/apply plans, release blockers, publication paths, receipt reuse, dependency waves and time horizons, and rejects cases such as an invalid finance horizon or a hard-excluded publication path.",
         "card": "This capsule runs bounded examples of governance and compiler logic against public fixtures. The checks include mutation intent, observe/apply plans, release blockers, publication path contracts, receipt reuse, dependency waves and time horizons. It records source-copy digest and anchor checks alongside computed negative-case results.",
         "one_line": "Exercises fixture governance and compiler checks and records a deferred binding repair."
       },

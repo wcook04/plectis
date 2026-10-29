@@ -7,9 +7,21 @@
 // kinds, superseded requests, cursor paging within one revision, and combined
 // views whose parts must come from the same snapshot.
 
+import { BASE, STATIC_EXPORT } from './base.js';
+import { createStaticApi, fileLoader } from './static-api.js';
+
 export const API_SCHEMA = 'plectis_component_http_v1';
 export const API_ROOT = '/api/v1';
 const MESSAGE_LIMIT = 240;
+
+// Under the development server requests go to the API through its proxy. In
+// a static export (base.js) the same URLs are answered from exported files.
+let staticFetch = null;
+function defaultFetch() {
+  if (!STATIC_EXPORT) return globalThis.fetch;
+  staticFetch ??= createStaticApi(fileLoader(BASE));
+  return staticFetch;
+}
 
 /**
  * kind is one of: network, schema, request (400), not_found (404),
@@ -44,7 +56,8 @@ function bounded(text) {
 }
 
 /** Fetch one API URL and return {revision, data}, or throw an ApiError. */
-export async function getEnvelope(url, { signal, fetchImpl = globalThis.fetch } = {}) {
+export async function getEnvelope(url, { signal, fetchImpl = defaultFetch() } = {}) {
+  if (signal?.aborted) throw new ApiError('aborted', 'request superseded');
   let response;
   try {
     response = await fetchImpl(url, { signal, headers: { Accept: 'application/json' } });
@@ -78,6 +91,7 @@ export async function getEnvelope(url, { signal, fetchImpl = globalThis.fetch } 
   if (typeof body.snapshot_revision !== 'string' || !('data' in body)) {
     throw new ApiError('schema', 'The response envelope is incomplete.', { status: response.status });
   }
+  if (signal?.aborted) throw new ApiError('aborted', 'request superseded');
   return { revision: body.snapshot_revision, data: body.data };
 }
 
@@ -89,7 +103,7 @@ export async function getEnvelope(url, { signal, fetchImpl = globalThis.fetch } 
 export function latestOnly() {
   let controller = null;
   let sequence = 0;
-  return async function run(task) {
+  const run = async function (task) {
     controller?.abort();
     controller = new AbortController();
     const mine = ++sequence;
@@ -97,6 +111,8 @@ export function latestOnly() {
     if (mine !== sequence) throw new ApiError('aborted', 'request superseded');
     return result;
   };
+  run.abort = () => { sequence += 1; controller?.abort(); };
+  return run;
 }
 
 /**

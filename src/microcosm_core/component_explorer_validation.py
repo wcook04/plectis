@@ -12,6 +12,8 @@ import json
 from pathlib import PurePosixPath
 import re
 
+from microcosm_core.component_api_contract import MAX_GUIDE_BYTES, MAX_PLAIN_BYTES, MAX_GUIDES_BYTES
+
 SCHEMA = 'plectis_component_explorer_v1'
 _HASH = re.compile(r'[a-f0-9]{64}\Z')
 _SECRET = re.compile(r'sk-[A-Za-z0-9]{16,}|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY')
@@ -231,6 +233,121 @@ def _cores(rows, component_ids):
                 _require(route['component_id'] in component_ids, 'unknown admitted component')
 
 
+_DOCTRINE_SOURCES = ['AXIOMS.md', 'PRINCIPLES.md', 'ANTI_PRINCIPLES.md', 'core/axiom_organ_routing.json', 'core/doctrine_enrichment.json']
+
+
+def _reader(value, component_ids):
+    _keys(value, {'basis', 'source_ref', 'plain', 'analogy', 'why_it_matters', 'potential_misread', 'governs',
+                  'requires', 'refuses', 'example', 'counterexample', 'enforced_in_component_ids', 'does_not_prove'})
+    _require(value['basis'] == 'authored_reader_enrichment' and value['source_ref'] == 'core/doctrine_enrichment.json',
+             'invalid doctrine reader basis')
+    for field in ('plain', 'why_it_matters', 'potential_misread', 'governs', 'requires', 'refuses', 'counterexample', 'does_not_prove'):
+        _text(value[field], 1200)
+    analogy = value['analogy']
+    _keys(analogy, {'text', 'maps', 'boundary'})
+    _text(analogy['text'], 1200)
+    _text(analogy['boundary'], 1200)
+    _list(analogy['maps'], 16)
+    for row in analogy['maps']:
+        _keys(row, {'doctrine', 'analogy'})
+        _text(row['doctrine'], 1200)
+        _text(row['analogy'], 1200)
+    _keys(value['example'], {'text', 'component_ids'})
+    _text(value['example']['text'], 1200)
+    _components(value['example']['component_ids'], component_ids)
+    _components(value['enforced_in_component_ids'], component_ids)
+_DOCTRINE_ID = {'axiom': re.compile(r'AX-[0-9]{1,3}\Z'), 'principle': re.compile(r'P-[0-9]{1,3}\Z'),
+                'anti_principle': re.compile(r'AP-[0-9]{1,3}\Z')}
+
+
+def _strings(value, limit=500, maximum=32):
+    _list(value, maximum)
+    for item in value:
+        _text(item, limit)
+
+
+def _components(value, component_ids):
+    _strings(value, 200)
+    _require(set(value) <= component_ids and len(value) == len(set(value)), 'unknown witness component')
+
+
+def _axiom(value, axiom_id, component_ids):
+    _keys(value, {'formal_clause', 'lineage', 'anti_axiom', 'routing', 'obligations', 'support'})
+    _text(value['formal_clause'], 1000)
+    _strings(value['lineage'], 200)
+    _text(value['anti_axiom'], 200)
+    routing = value['routing']
+    _keys(routing, {'basis', 'source_ref', 'witness_strength', 'witness_component_ids', 'witness_surfaces', 'negative_case_codes'})
+    _require(routing['basis'] == 'authored_routing_registry'
+             and routing['source_ref'] == f'core/axiom_organ_routing.json::rows[{axiom_id}]', 'invalid axiom routing basis')
+    _text(routing['witness_strength'], 100)
+    _components(routing['witness_component_ids'], component_ids)
+    _refs(routing['witness_surfaces'], 32)
+    _strings(routing['negative_case_codes'], 200)
+    _list(value['obligations'], 16)
+    _require(bool(value['obligations']), 'missing axiom obligations')
+    seen = set()
+    for item in value['obligations']:
+        _keys(item, {'obligation_id', 'predicate', 'required', 'declared_status', 'computed_status',
+                     'witness_component_ids', 'witness_surfaces', 'negative_case_codes', 'witness_gaps'})
+        _text(item['obligation_id'], 200)
+        _require(item['obligation_id'].startswith(axiom_id + '.O') and item['obligation_id'] not in seen, 'invalid axiom obligation')
+        seen.add(item['obligation_id'])
+        _text(item['predicate'], 1000)
+        _require(type(item['required']) is bool, 'invalid obligation requirement')
+        for field in ('declared_status', 'computed_status'):
+            _text(item[field], 200)
+        _components(item['witness_component_ids'], component_ids)
+        _refs(item['witness_surfaces'], 32)
+        _strings(item['negative_case_codes'], 200)
+        _strings(item['witness_gaps'], 200, 16)
+    support = value['support']
+    _keys(support, {'basis', 'checker_id', 'verdict', 'hand_stamped_witness_strength',
+                    'hand_stamped_strong_not_certifiable', 'strong_blocked_reasons'})
+    _require(support['basis'] == 'index_time_computed', 'invalid axiom support basis')
+    for field, limit in (('checker_id', 200), ('verdict', 200), ('hand_stamped_witness_strength', 100)):
+        _text(support[field], limit)
+    _require(type(support['hand_stamped_strong_not_certifiable']) is bool, 'invalid hand-stamp flag')
+    _strings(support['strong_blocked_reasons'], 500, 16)
+
+
+def _doctrine(doctrine, component_ids):
+    _keys(doctrine, {'schema_version', 'sources', 'nodes', 'edges'})
+    _require(doctrine['schema_version'] == 'plectis_explorer_doctrine_v2', 'invalid doctrine schema')
+    _require(type(doctrine['sources']) is list and [r.get('ref') if type(r) is dict else None
+             for r in doctrine['sources']] == _DOCTRINE_SOURCES, 'invalid doctrine sources')
+    _manifest(doctrine['sources'])
+    _list(doctrine['nodes'], 200)
+    _list(doctrine['edges'], 1000)
+    ids = {}
+    for node in doctrine['nodes']:
+        base = {'id', 'title', 'plain', 'kind', 'source_ref', 'statement', 'statement_sha256', 'reader'}
+        _require(type(node) is dict, 'invalid doctrine node')
+        _keys(node, base | ({'axiom'} if node.get('kind') == 'axiom' else set()))
+        _require(node['kind'] in _DOCTRINE_ID and type(node['id']) is str and node['id'] not in ids
+                 and bool(_DOCTRINE_ID[node['kind']].fullmatch(node['id'])), 'invalid doctrine node')
+        for field in ('id', 'title', 'plain'):
+            _text(node[field], 1200)
+        ids[node['id']] = node['kind']
+        _ref(node['source_ref'])
+        source = {'axiom': 'AXIOMS.md', 'principle': 'PRINCIPLES.md', 'anti_principle': 'ANTI_PRINCIPLES.md'}[node['kind']]
+        _require(node['source_ref'] == source + '::' + node['id'], 'invalid doctrine source reference')
+        _text(node['statement'], 4000)
+        _require(bool(node['statement'].strip()), 'empty doctrine statement')
+        _hash(node['statement_sha256'])
+        _require(hashlib.sha256(node['statement'].encode('utf-8')).hexdigest() == node['statement_sha256'],
+                 'doctrine statement hash mismatch')
+        _reader(node['reader'], component_ids)
+        if node['kind'] == 'axiom':
+            _axiom(node['axiom'], node['id'], component_ids)
+    for edge in doctrine['edges']:
+        _keys(edge, {'from_id', 'to_id', 'kind', 'source_ref'})
+        _require(edge['from_id'] in ids and edge['to_id'] in ids and edge['kind'] in {'rests_on', 'violates'}, 'invalid doctrine edge')
+        expected = 'principle' if edge['kind'] == 'rests_on' else 'anti_principle'
+        _require(ids[edge['from_id']] == expected and ids[edge['to_id']] == 'axiom', 'invalid doctrine edge endpoints')
+        _ref(edge['source_ref'])
+
+
 def _metadata(row, component_ids):
     _keys(row, {'component_filters', 'doctrine', 'source_revision', 'typed_relations', 'receipt_summaries'})
     filters = row['component_filters']
@@ -243,22 +360,7 @@ def _metadata(row, component_ids):
                 _text(item[field], 1200)
             _int(item['component_count'], 0, len(component_ids))
             _require(item['label_basis'] in {'authored_owner', 'identifier_words'}, 'invalid label basis')
-    doctrine = row['doctrine']
-    _keys(doctrine, {'nodes', 'edges'})
-    _list(doctrine['nodes'], 200)
-    _list(doctrine['edges'], 1000)
-    ids = set()
-    for node in doctrine['nodes']:
-        _keys(node, {'id', 'title', 'plain', 'kind', 'source_ref'})
-        _require(node['id'] not in ids and node['kind'] in {'axiom', 'principle', 'anti_principle'}, 'invalid doctrine node')
-        for field in ('id', 'title', 'plain'):
-            _text(node[field], 1200)
-        ids.add(node['id'])
-        _ref(node['source_ref'])
-    for edge in doctrine['edges']:
-        _keys(edge, {'from_id', 'to_id', 'kind', 'source_ref'})
-        _require(edge['from_id'] in ids and edge['to_id'] in ids and edge['kind'] in {'rests_on', 'violates'}, 'invalid doctrine edge')
-        _ref(edge['source_ref'])
+    _doctrine(row['doctrine'], component_ids)
     revision = row['source_revision']
     _keys(revision, {'status', 'commit', 'dirty', 'repository', 'exact_source_links'})
     _require(revision['status'] in {'recorded', 'unknown'} and type(revision['exact_source_links']) is bool, 'invalid source revision')
@@ -365,15 +467,63 @@ def _metadata_bindings(index, data):
                 _require(summary['artifact_sha256'] == fact['sha256'], 'receipt summary hash mismatch')
 
 
+def plain_lead(text):
+    """Extract the first authored In plain terms block, without synthesizing prose."""
+    lines = text.splitlines()
+    for start, line in enumerate(lines):
+        match = re.fullmatch(r'>\s*\*\*In plain terms\.\*\*\s*(.*)', line)
+        if match:
+            parts = [match.group(1)]
+            for continuation in lines[start + 1:]:
+                if not continuation.startswith('>'):
+                    break
+                parts.append(continuation[1:].strip())
+            plain = ' '.join(' '.join(parts).split())
+            _require(bool(plain), 'empty guide plain lead')
+            _text(plain, MAX_PLAIN_BYTES)
+            return plain
+        # The lead must precede the first subsection, not be buried in examples.
+        if line.startswith('## '):
+            break
+    return None
+
+
+def _guides(index, data):
+    guides = data.get('guides')
+    if 'guides' not in data:
+        return
+    _require(type(guides) is dict and len(guides) <= 128, 'invalid guide manifest')
+    _require(len(json.dumps(guides, ensure_ascii=False).encode()) <= MAX_GUIDES_BYTES, 'guide manifest byte limit')
+    components = {row['ref'] for row in index['nodes']['guide']}
+    proofs = {row['formal_readme_ref'] for row in index['nodes']['subclaim']}
+    cores = {row['guide_ref']: next(b['sha256'] for b in row['artifact_bindings'] if b['ref'] == row['guide_ref'])
+             for row in data['cores']}
+    _require(set(guides) == components | proofs | set(cores), 'guide coverage mismatch')
+    artifacts = {row['ref']: row for row in index['nodes']['artifact']}
+    for ref, guide in guides.items():
+        _keys(guide, {'ref', 'sha256', 'text', 'availability', 'plain', 'plain_availability'})
+        _ref(ref)
+        _require(guide['ref'] == ref and guide['availability'] == 'available', 'invalid retained guide identity')
+        _require(bool(re.fullmatch(r'paper_modules/[a-z][a-z0-9_]*\.md|formal/(?:components/[a-z][a-z0-9_]*|repair|compatibility|views|replay)/README\.md', ref)), 'invalid guide owner')
+        _text(guide['text'], MAX_GUIDE_BYTES)
+        _hash(guide['sha256'])
+        _require(hashlib.sha256(guide['text'].encode('utf-8')).hexdigest() == guide['sha256'], 'guide text hash mismatch')
+        expected = cores.get(ref, artifacts.get(ref, {}).get('sha256'))
+        _require(expected == guide['sha256'], 'guide source binding mismatch')
+        plain = plain_lead(guide['text'])
+        _require(ref not in components or plain is not None, 'component guide missing plain lead')
+        _require(guide['plain'] == plain and guide['plain_availability'] == ('available' if plain else 'unrecorded'), 'guide plain lead mismatch')
+
+
 def validate_explorer(index: dict) -> None:
     """Validate optional explorer data without I/O or proof execution."""
     if 'explorer' not in index:
         return
     data = index['explorer']
-    allowed = {'schema_version', 'proof_details', 'cores', 'ownership_example', 'component_filters', 'doctrine', 'source_revision', 'typed_relations', 'receipt_summaries', 'requirements_reviews', 'claim_clause_coverage'}
+    allowed = {'schema_version', 'proof_details', 'cores', 'ownership_example', 'component_filters', 'doctrine', 'source_revision', 'typed_relations', 'receipt_summaries', 'requirements_reviews', 'claim_clause_coverage', 'guides'}
     _require(type(data) is dict and set(data) <= allowed and {'schema_version', 'proof_details', 'cores', 'ownership_example', 'component_filters', 'doctrine', 'source_revision', 'typed_relations', 'receipt_summaries'} <= set(data), 'invalid explorer root fields')
     _require(data['schema_version'] == SCHEMA, 'invalid explorer schema')
-    _tree(data)
+    _tree({key: value for key, value in data.items() if key != 'guides'})
     _require(len(json.dumps(data, ensure_ascii=False, allow_nan=False).encode()) <= 2 * 1024 * 1024, 'explorer size limit')
     proofs = {p['proof_id']: p for p in index['nodes']['proof']}
     _require(type(data['proof_details']) is dict and set(data['proof_details']) == set(proofs), 'proof-detail coverage mismatch')
@@ -383,6 +533,7 @@ def validate_explorer(index: dict) -> None:
         _proof_detail(detail, proofs[proof_id], subclaims[slug]['specification_refs'])
     components = {o['organ_id'] for o in index['nodes']['organ']}
     _cores(data['cores'], components)
+    _guides(index, data)
     _ownership(data['ownership_example'], set(proofs))
     _metadata({key: data[key] for key in ('component_filters', 'doctrine', 'source_revision', 'typed_relations', 'receipt_summaries')}, components)
     _metadata_bindings(index, data)
@@ -392,6 +543,10 @@ def public_text_view(index: dict) -> dict:
     """Return an independent copy masking only validated source-syntax fields."""
     validate_explorer(index)
     result = copy.deepcopy(index)
+    for guide in result.get('explorer', {}).get('guides', {}).values():
+        guide['text'] = 'VALIDATED_PUBLIC_GUIDE_TEXT'
+        if guide['plain'] is not None:
+            guide['plain'] = 'VALIDATED_PUBLIC_GUIDE_PLAIN'
     if result.get('explorer', {}).get('source_revision', {}).get('repository') is not None:
         result['explorer']['source_revision']['repository'] = 'VALIDATED_PUBLIC_REPOSITORY_URL'
     for detail in result.get('explorer', {}).get('proof_details', {}).values():

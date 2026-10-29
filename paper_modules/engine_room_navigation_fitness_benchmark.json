@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The inputs are curated packets, not live private-kernel calls. Their scores do not establish general navigation or embedding performance.",
+    "authority_ceiling": "Scores curated route packets against their task fixtures for artifact recall, precision, forbidden first routes, required words and latency.",
     "card": "A route packet records the artifacts selected for a task, the first command and timing. Task fixtures specify the stable artifact IDs that should be selected. This evaluator compares saved route packets with those expectations. It matches selected artifact IDs against expected IDs, measures recall and precision, checks forbidden first routes and required words that indicate a useful route description, and records latency against a budget. Latency and sufficiency are separate: a correct packet can be slow, and a fast packet can miss a required ID.",
     "one_line": "Score saved navigation packets for task sufficiency and latency."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The inputs are curated packets, not live private-kernel calls. Their scores do not establish general navigation or embedding performance.",
+    "authority_ceiling": "Scores curated route packets against their task fixtures for artifact recall, precision, forbidden first routes, required words and latency.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -94,7 +94,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The inputs are curated packets, not live private-kernel calls. Their scores do not establish general navigation or embedding performance.",
+        "authority_ceiling": "Scores curated route packets against their task fixtures for artifact recall, precision, forbidden first routes, required words and latency.",
         "card": "A route packet records the artifacts selected for a task, the first command and timing. Task fixtures specify the stable artifact IDs that should be selected. This evaluator compares saved route packets with those expectations. It matches selected artifact IDs against expected IDs, measures recall and precision, checks forbidden first routes and required words that indicate a useful route description, and records latency against a budget. Latency and sufficiency are separate: a correct packet can be slow, and a fast packet can miss a required ID.",
         "one_line": "Score saved navigation packets for task sufficiency and latency."
       },

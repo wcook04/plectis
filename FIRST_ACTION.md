@@ -26,7 +26,7 @@ Goal: “How do I evaluate the finance forecasting system?”
 
 ```json
 {
-  "do_not_claim": "A lookahead split or a claim that the output authorizes investment advice is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment decision.",
+  "do_not_claim": "Runs the stationary bootstrap, reality check, superior predictive ability, model confidence set and Diebold\u2013Mariano tests on 40 synthetic loss observations, and rejects a lookahead split. The exported bundle reports its declared statistics contract instead of recomputing the tests.",
   "do_not_edit": {
     "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
     "paths": [
@@ -75,7 +75,7 @@ Goal: “How do I evaluate the finance forecasting system?”
     "validator_command": "python -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
   },
   "reading_boundary": {
-    "allowed_scope": "A lookahead split or a claim that the output authorizes investment-related actions is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witness mode before interpreting a result. Synthetic losses and a small fixture do not establish forecasting performance or justify an investment-related actions.",
+    "allowed_scope": "Runs the stationary bootstrap, reality check, superior predictive ability, model confidence set and Diebold\u2013Mariano tests on 40 synthetic loss observations, and rejects a lookahead split. The exported bundle reports its declared statistics contract instead of recomputing the tests.",
     "fallback_guidance": null,
     "source": "join_index nodes.route (atlas/agent_task_routes.json)",
     "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -127,7 +127,7 @@ The literal first questions a cold agent asks carry no task, so the contract ope
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route`
 - committed evidence (prior runs): `receipts/code_lens/read_packs/first_contact.json`
 - stop: Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas.
-- do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
+- scope: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
 
 **“what's going on here?”**
 
@@ -138,7 +138,7 @@ The literal first questions a cold agent asks carry no task, so the contract ope
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route`
 - committed evidence (prior runs): `receipts/code_lens/read_packs/first_contact.json`
 - stop: Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas.
-- do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
+- scope: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
 
 ## Localization: the goal names work, the graph names the owner
 
@@ -155,7 +155,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out .microcosm/first_action_runs/finance_forecast_evaluation_spine` (outputs under `.microcosm/first_action_runs/finance_forecast_evaluation_spine`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
-- do not claim: A lookahead split or a claim that the output authorizes investment advice is rejected. The exported standalone bundle can instead report a declared statistics contract without recomputing the tests; inspect its witnes...
+- scope: Runs the stationary bootstrap, reality check, superior predictive ability, model confidence set and Diebold–Mariano tests on 40 synthetic loss observations, and rejects a lookahead split. The exported bundle reports i...
 - do not edit: `src/microcosm_core/organs/finance_forecast_evaluation_spine.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“check the lean proof evidence”**
@@ -169,7 +169,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out .microcosm/first_action_runs/lean_proof_search_lab_runtime --acceptance-out .microcosm/first_action_runs/lean_proof_search_lab_runtime_fixture_acceptance.json` (outputs under `.microcosm/first_action_runs/lean_proof_search_lab_runtime`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
-- do not claim: Fresh proof checking requires Lean; the exported bundle checks file presence and counts without verification. The propositions are toy examples.
+- scope: Searches small toy Lean propositions with a symbolic AND/OR procedure and checks candidate proofs with Lean, rejecting oracle fields, ID-memorising policies and `sorry`-tainted proofs; the exported bundle checks only...
 - do not edit: `src/microcosm_core/organs/lean_proof_search_lab_runtime.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“evaluate prompt injection defenses”**
@@ -183,7 +183,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out .microcosm/first_action_runs/indirect_prompt_injection_information_flow_policy_replay` (outputs under `.microcosm/first_action_runs/indirect_prompt_injection_information_flow_policy_replay`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
-- do not claim: Checks synthetic information-flow records, not general prompt-injection resistance or live accounts.
+- scope: Derives the taint labels along each synthetic chain from document or tool output to an action or answer and compares them with the recorded labels and policy verdicts, rejecting tool output treated as an instruction.
 - do not edit: `src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“where do I start with this clone?”**
@@ -197,7 +197,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card` (outputs under `.microcosm/first_action_runs/cold_reader_route_map`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
-- do not claim: Text checks do not execute every route or establish reader comprehension.
+- scope: Matches the introductory commands and descriptions to the public text and resolves their documentation anchors, rejecting an entry with a missing command or receipt reference.
 - do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“evaluate agent benchmark gaming”**
@@ -209,7 +209,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - committed evidence (prior runs): `receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json`, `receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json`, `receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json` (+1 more)
 - fresh outputs land under: `.microcosm/agent_benchmark_integrity_anti_gaming_replay`
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
-- do not claim: A digest or passing replay is not a benchmark score or evidence of algorithm correctness.
+- scope: Checks recorded benchmark runs against the locked evaluator IDs and configuration hashes and recomputes their integrity verdicts from file-access and contamination evidence, rejecting cases such as an evaluator edit o...
 - do not edit: `src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“is the Mission Transaction Work Spine safe to edit?”**
@@ -223,7 +223,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out .microcosm/first_action_runs/mission_transaction_work_spine` (outputs under `.microcosm/first_action_runs/mission_transaction_work_spine`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
-- do not claim: The replay checks supplied snapshots and policies. It does not operate the live private ledger or establish that a commit landed. A preflight result is not permission to commit or release.
+- scope: Rebuilds an active-claims snapshot from the fixture with copied Work Ledger code and checks claims, parent state, dependency unlocks and checkpoint policy, rejecting a stale expected parent or a conflicting claim.
 - do not edit: `src/microcosm_core/organs/mission_transaction_work_spine.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“ignore proof_diagnostic_evidence_spine, I want cold_reader_route_map”**
@@ -237,7 +237,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card` (outputs under `.microcosm/first_action_runs/cold_reader_route_map`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
-- do not claim: Text checks do not execute every route or establish reader comprehension.
+- scope: Matches the introductory commands and descriptions to the public text and resolves their documentation anchors, rejecting an entry with a missing command or receipt reference.
 - do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“dispatch the route bundle”**
@@ -251,7 +251,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card` (outputs under `.microcosm/first_action_runs/cold_reader_route_map`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
-- do not claim: Text checks do not execute every route or establish reader comprehension.
+- scope: Matches the introductory commands and descriptions to the public text and resolves their documentation anchors, rejecting an entry with a missing command or receipt reference.
 - do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 ## Change-shaped goals: inspect before editing
@@ -267,7 +267,7 @@ Improvement-shaped goals never receive an edit instruction. The first action is 
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route`
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system`
 - stop: Stop planning when the mutation plan names the owned paths, the validator, and the receipts to refresh; any edit beyond that point is governed by the mutation plan's custody flags, not by this contract.
-- do not claim: Improvement ranking is a work plan, not release approval or a claim that the substrate is complete.
+- scope: Improvement ranking is a work plan, not release approval or a claim that the substrate is complete.
 
 ## Refusals: actions the substrate cannot grant
 
@@ -282,7 +282,7 @@ Destructive and publication goals route to the authority boundary. The first act
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system`
 - committed evidence (prior runs): `receipts/code_lens/read_packs/authority.json`
 - stop: Stop at the authority ceiling: this substrate cannot grant destructive, publication, hosting, provider/network, production, or private-root-equivalence actions.
-- do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
+- scope: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
 
 **“publish the Microcosm release”**
 
@@ -293,7 +293,7 @@ Destructive and publication goals route to the authority boundary. The first act
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system`
 - committed evidence (prior runs): `receipts/code_lens/read_packs/authority.json`
 - stop: Stop at the authority ceiling: this substrate cannot grant destructive, publication, hosting, provider/network, production, or private-root-equivalence actions.
-- do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
+- scope: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
 
 **“force push to origin main”**
 
@@ -304,7 +304,7 @@ Destructive and publication goals route to the authority boundary. The first act
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system`
 - committed evidence (prior runs): `receipts/code_lens/read_packs/authority.json`
 - stop: Stop at the authority ceiling: this substrate cannot grant destructive, publication, hosting, provider/network, production, or private-root-equivalence actions.
-- do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
+- scope: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
 
 ## Honest fallbacks: below the evidence bar, the contract says so
 
@@ -319,7 +319,7 @@ These goals contain house vocabulary ('fixture', 'dispatch', 'exchange') that na
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route`
 - committed evidence (prior runs): `receipts/code_lens/read_packs/first_contact.json`
 - stop: Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas.
-- do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
+- scope: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
 
 **“how does the exchange rate organ work?”**
 
@@ -330,7 +330,7 @@ These goals contain house vocabulary ('fixture', 'dispatch', 'exchange') that na
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route`
 - committed evidence (prior runs): `receipts/code_lens/read_packs/packet_atlas.json`
 - stop: Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas.
-- do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
+- scope: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
 
 **“audit the security posture of this repo”**
 
@@ -341,7 +341,7 @@ These goals contain house vocabulary ('fixture', 'dispatch', 'exchange') that na
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route`
 - committed evidence (prior runs): `receipts/code_lens/read_packs/first_contact.json`
 - stop: Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas.
-- do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
+- scope: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
 
 ## Verify it yourself
 

@@ -5,8 +5,37 @@ import { build } from '../src/data.js';
 import {
   availabilityWords, callerWords, classWords, fileWords, lastRunWords, moduleWords, recordWords, setLabels, sourceHref, stateWords,
 } from '../src/evidence.js';
-import { plainLead } from '../src/markdown.js';
-import { arrange, spreadKernels, threadAngle, R, KEY_GAP } from '../src/map/layout.js';
+import { plainLead, renderWriteup } from '../src/markdown.js';
+import { arrange, bloomDepths, crossSpan, DIAL, flowerPx, layout, R, KEY_GAP, BLOOM_ROOM, BLOOM_RADII, trackBand } from '../src/map/layout.js';
+
+test('write-up fences reserve command actions for explicit shell languages', (t) => {
+  const originalDocument = globalThis.document, originalNode = globalThis.Node;
+  class TestNode {
+    constructor(tag, text = '') { this.tag = tag; this.text = text; this.children = []; this.attributes = {}; }
+    append(...children) { this.children.push(...children); }
+    setAttribute(key, value) { this.attributes[key] = value; }
+    addEventListener() {}
+    get textContent() { return this.text + this.children.map((c) => c.textContent ?? c).join(''); }
+  }
+  globalThis.Node = TestNode;
+  globalThis.document = { createElement: (tag) => new TestNode(tag), createTextNode: (text) => new TestNode('#text', text) };
+  t.after(() => { globalThis.document = originalDocument; globalThis.Node = originalNode; });
+  const nodes = (node) => [node, ...node.children.flatMap((child) => child instanceof TestNode ? nodes(child) : [])];
+  for (const language of ['text', 'python', 'dafny', '']) {
+    const text = '<unsafe> dirty[i] = roots[i] or any(dirty[d] for d in deps[i])';
+    const rendered = renderWriteup('```' + language + '\n' + text + '\n```');
+    const all = nodes(rendered);
+    assert.equal(all.some((n) => n.tag === 'details' || n.tag === 'button'), false, language);
+    assert.equal(all.find((n) => n.tag === 'pre').textContent, text);
+    assert.doesNotMatch(rendered.textContent, /Run it yourself|Copy command/);
+  }
+  for (const language of ['sh', 'bash', 'zsh', 'shell']) {
+    const rendered = renderWriteup('```' + language + '\npython3 scripts/check.py\n```');
+    assert.ok(nodes(rendered).some((n) => n.tag === 'details'));
+    assert.ok(nodes(rendered).some((n) => n.tag === 'button' && n.textContent === 'Copy command'));
+    assert.match(rendered.textContent, /Run it yourself/);
+  }
+});
 
 const component = (id, family, cls, extra = {}) => ({
   organ_id: id, title: id.replace(/_/g, ' '), summary: `${id} summary`, claim_id: `claim::${id}`,
@@ -90,24 +119,40 @@ test('source links go to the recorded commit, and never for state or unsafe path
   assert.equal(sourceHref(null, 'formal/x/K.dfy'), null);
 });
 
-test('the layout puts every family in its own sector, leaves the key wedge open and keeps kernels apart', () => {
+test('the layout puts every family in its own sector, leaves the key wedge open and keeps proof dials apart', () => {
   const comps = ['a', 'b', 'c', 'd'].map((id, i) => ({ id, title: id, family: i < 2 ? 'entry_and_reveal' : 'formal_math_and_proof', backing: 'tool' }));
   const { sectors, angleOf } = arrange(comps);
   assert.equal(sectors.length, 2);
   for (const s of sectors) for (const id of s.members) assert.ok(angleOf.get(id) > s.lo && angleOf.get(id) < s.hi);
   const top = -Math.PI / 2;
   for (const s of sectors) assert.ok(s.lo >= top + KEY_GAP / 2 - 1e-9 && s.hi <= top + Math.PI * 2 - KEY_GAP / 2 + 1e-9, 'the wedge at the top holds no family');
-  const spread = spreadKernels([0.1, 0.11, 0.12]);
-  const gaps = spread.map((a, i) => Math.abs(a - spread[(i + 1) % spread.length]));
-  assert.ok(Math.min(...gaps.slice(0, 2)) >= 96 / R.kernel - 1e-6, 'crowded kernels are pushed apart');
-  assert.equal(threadAngle(0, 1, R.kernel), 0);
-  assert.ok(Math.abs(threadAngle(0, 1, R.component) - 1) < 1e-9);
+  // Placement uses true footprints across all depths (radial candidates 222,
+  // 186, 150): one step in (36 units) is not enough room, so a close
+  // neighbour takes two; distant ones stay outermost. When every pair can be
+  // cleared, no two dials stand nearer than BLOOM_ROOM, and the result is
+  // the same for the same input.
+  assert.deepEqual(bloomDepths([0.1, 0.11, 2]), [0, 2, 0]);
+  const spread = [0.1, 0.16, 0.6, 0.66, 1.2, 2];
+  const placed = bloomDepths(spread);
+  assert.deepEqual(bloomDepths(spread), placed, 'stable');
+  const at = spread.map((a, i) => [Math.cos(a) * (R.kernel - placed[i] * R.bloom), Math.sin(a) * (R.kernel - placed[i] * R.bloom)]);
+  for (let i = 0; i < at.length; i += 1) for (let j = i + 1; j < at.length; j += 1) {
+    assert.ok(Math.hypot(at[i][0] - at[j][0], at[i][1] - at[j][1]) >= BLOOM_ROOM - 1e-9, 'footprints never meet');
+  }
+  // A kernel stands on its own component's radius, its stem out to the component.
+  const m = build(overview(), 'rev');
+  const L = layout(m);
+  const k = L.kernels.find((x) => x.componentId === 'a');
+  const comp = L.comps.find((c) => c.id === 'a');
+  assert.equal(k.angle, comp.angle);
+  assert.equal(k.r, R.kernel);
+  assert.ok(k.r < k.generatedR && k.generatedR < k.callerR && k.callerR < R.component, 'kernel, generated code, caller, component, outward');
 });
 
 test('states are worded separately and unknown values are named, never coloured as success', () => {
   assert.match(stateWords('whole_claim', 'unknown')[0], /Nobody has worked out/);
-  assert.match(stateWords('whole_claim', 'unknown')[1], /not a pass/);
-  assert.match(stateWords('formal_contract', 'partial')[1], /outside that proof/);
+  assert.equal(stateWords('whole_claim', 'unknown')[1], null, 'states carry no trailing caution');
+  assert.equal(stateWords('formal_contract', 'partial')[1], null);
   const [text, , known] = stateWords('fresh_prover', 'ran_yesterday');
   assert.equal(known, false);
   assert.match(text, /Unrecognised value: ran_yesterday/);
@@ -116,7 +161,7 @@ test('states are worded separately and unknown values are named, never coloured 
   assert.match(classWords('evidence_class', 'new_class'), /Unrecognised/, 'a labelled facet names an unlabelled value as unrecognised');
   assert.equal(classWords('bucket_without_labels', 'real_runtime_receipt'), 'Real runtime receipt');
   assert.deepEqual(availabilityWords({ availability: 'unavailable', reason: 'not_included' }), ['Missing from this snapshot (not included).', false]);
-  assert.match(lastRunWords({ recorded_status: 'pass', created_at: '2026-05-27T02:26:22+00:00' }), /27 May 2026, passed\. It is an old result/);
+  assert.match(lastRunWords({ recorded_status: 'pass', created_at: '2026-05-27T02:26:22+00:00' }), /27 May 2026, passed\.$/);
   assert.equal(recordWords({ availability: 'available', status: 'pass', createdAt: '2026-05-27T02:26:22+00:00' }), 'Passed on 27 May 2026.');
   assert.equal(moduleWords('OwnershipClassification'), 'Ownership classification');
   assert.equal(fileWords('src/plectis/components/_sealed_kernel.py'), 'sealed kernel');
@@ -127,4 +172,77 @@ test('a write-up\'s plain lead is read from its opening block quote', () => {
   assert.equal(plainLead('# T\n\n> **In plain terms.** One. Two\n> three.\n\nBody.'), 'One. Two three.');
   assert.equal(plainLead('# T\n\n> A quotation.\n\nBody.'), null);
   assert.equal(plainLead('# T\n\nNo lead.'), null);
+});
+
+
+test('plain descriptions and guide manifest stay snapshot data; old indexes stay absent', () => {
+  const data = overview();
+  data.components[0].plain = 'A readable explanation.';
+  data.components[0].plain_availability = 'available';
+  data.explorer = { ...data.explorer, guides: { 'paper_modules/a.md': { ref: 'paper_modules/a.md', availability: 'available', sha256: 'abc' } } };
+  const current = build(data, 'current');
+  assert.equal(current.components[0].plain, 'A readable explanation.');
+  assert.equal(current.components[0].plainAvailability, 'available');
+  assert.deepEqual(current.links.guides, data.explorer.guides);
+  const old = build({ components: [{ organ_id: 'old', summary: 'Recorded summary' }] }, 'old');
+  assert.equal(old.components[0].plain, null);
+  assert.equal(old.components[0].plainAvailability, 'unrecorded');
+  assert.equal(old.links.guides, null);
+  assert.equal(old.components[0].summary, 'Recorded summary');
+  const absent = build({ components: [{ organ_id: 'absent', plain: 'Do not show', plain_availability: 'unavailable' }] }, 'absent');
+  assert.equal(absent.components[0].plain, null);
+});
+
+test('each evidence row reads as a state word in the key order, never a fraction or a score', async () => {
+  const { TRACKS, ordinal, ringState } = await import('../src/evidence.js');
+  assert.deepEqual(TRACKS.map((t, i) => ordinal(i)), ['01', '02', '03', '04', '05', '06', '07', '08']);
+  assert.ok(TRACKS.every((t) => t.line && t.line.length < 90), 'every ring has a one-line meaning');
+  const track = (id) => TRACKS.find((t) => t.id === id);
+  const none = { checks: {}, receipts: [] };
+  assert.equal(ringState(track('proof'), none).word, 'Not recorded');
+  assert.equal(ringState(track('proof'), { checks: { proof: true }, receipts: [] }).word, 'Recorded');
+  assert.equal(ringState(track('replay'), { checks: { replay: true }, receipts: [] }).word, 'Set up');
+  assert.equal(ringState(track('whole'), none).word, 'Unknown');
+  const runs = { checks: { saved: true }, receipts: [{ availability: 'available' }, { availability: 'available' }, { availability: 'available' }, { availability: 'unavailable' }] };
+  assert.equal(ringState(track('saved'), runs).word, '3 available · 1 missing');
+  for (const t of TRACKS) assert.doesNotMatch(ringState(t, runs).word, /\b\d+ (of|\/) \d+\b|score|pass/i);
+});
+
+test('the geometry nests inward: dials, components, eight thicker rings, caps, halo', () => {
+  assert.deepEqual(BLOOM_RADII, [222, 186, 150]);
+  assert.ok(R.cores < BLOOM_RADII[2] - BLOOM_ROOM / 2, 'the toolkit cores stand clear of the innermost dial');
+  assert.ok(BLOOM_RADII[0] + BLOOM_ROOM / 2 < R.component, 'the outermost dial stays inside the ring of components');
+  assert.ok(R.component < R.track0 && R.trackH >= 15, 'the rings start outside the components, each 15 units deep');
+  assert.ok(Math.abs(R.trackOuter - 412.8) < 1e-9);
+  assert.equal(R.scale, R.trackOuter + 4);
+  for (let i = 1; i < 8; i += 1) assert.ok(trackBand(i)[0] > trackBand(i - 1)[1], 'the rings never touch');
+  assert.ok(R.cap1 < R.principles && R.principles < R.axioms && R.axioms < R.failures && R.failures < R.haloOuter);
+  assert.ok(KEY_GAP >= 0.3 && KEY_GAP <= 0.45, 'the key wedge is wide enough for the layer scale');
+});
+
+test('a proof dial has one bounded footprint, its count of crosses, and ×M past four', () => {
+  // min(18, 12·k) px; the replay checker min(24, 16·k).
+  assert.ok(Math.abs(flowerPx(0.5).r - 6) < 1e-9);
+  assert.equal(flowerPx(4).r, DIAL.cap);
+  assert.equal(flowerPx(4, { replay: true }).r, DIAL.replayCap);
+  assert.ok(Math.abs(flowerPx(1, { replay: true }).r - 16) < 1e-9);
+  const plain = flowerPx(1), crossed = flowerPx(1, { mutants: 2 });
+  assert.ok(crossed.reach > plain.reach && crossed.footprint > crossed.reach, 'crosses widen the reach; the footprint adds air');
+  assert.equal(crossSpan(1, 0), 0);
+  assert.ok(crossSpan(1, 3) > crossSpan(1, 1));
+  assert.equal(crossSpan(1, 9), crossSpan(1, 2), 'more than four broken copies are written ×M, the width of two crosses');
+});
+
+test('every ring has a short wedge name for the key wedge', async () => {
+  const { TRACKS } = await import('../src/evidence.js');
+  assert.deepEqual(TRACKS.map((t) => t.wedge), ['Proved', 'Broken caught', 'Matches proof', 'Calls proved', 'Lean run', 'Rerun set up', 'Past runs', 'Whole claim']);
+  for (const t of TRACKS) assert.ok(t.wedge.length <= 14);
+});
+
+test('the proof dial is worded as a dial, never a flower', async () => {
+  const { flowerWords } = await import('../src/evidence.js');
+  const text = flowerWords({ verifiedTasks: 9, mutants: [1] }, 'Used by X.');
+  assert.match(text, /This dial is one small computation/);
+  assert.match(text, /9 ticks are the proof checks that passed/);
+  assert.doesNotMatch(text, /flower|petal/i);
 });

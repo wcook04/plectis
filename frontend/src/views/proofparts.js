@@ -95,6 +95,17 @@ function splitChange(a, b) {
 export function variantBlock(variant, source, verifiedTasks) {
   const name = String(variant.ref || '').split('/').pop().replace(/\.dfy$/, '');
   const rows = variant.changedLines.map((l) => {
+    // A broken version can add a line (no original) or drop one (no mutated):
+    // show the one side that exists, all of it marked.
+    if (l.original == null || l.mutated == null) {
+      const added = l.original == null;
+      const text = String((added ? l.mutated : l.original) ?? '').trim();
+      return h('div', { class: 'diff' },
+        h('div', { class: `diff__row diff__row--${added ? 'now' : 'was'}` },
+          h('span', { class: 'diff__mark', 'aria-label': added ? 'Line added in the broken version' : 'Line removed in the broken version' }, added ? 'added' : 'removed'),
+          h('span', { class: 'diff__no figures' }, String(l.line)),
+          h('code', {}, h('mark', { class: added ? 'diff__now' : 'diff__was' }, text))));
+    }
     const [head, was, now, tail] = splitChange(l.original.trim(), l.mutated.trim());
     return h('div', { class: 'diff' },
       h('div', { class: 'diff__row diff__row--was' }, h('span', { class: 'diff__mark', 'aria-label': 'Proved line' }, 'proved'), h('span', { class: 'diff__no figures' }, String(l.line)),
@@ -186,7 +197,7 @@ export function ownershipFigure(example, source) {
     rows.map((r) => r.row),
     verdict,
     h('figcaption', { class: 'note' },
-      'Each claim says a session is working on the file; one session has gone stale and the other is live. The example is saved with the snapshot; the old rule\'s code is not run here. ',
+      'Each claim says a session is working on the file; one session has gone stale and the other is live. The example is saved with the snapshot. ',
       example.limits.join(' '),
       tests.length ? h('span', {}, ' The tests ', h('ul', { class: 'inline-list' }, tests), ' run both orders through the real code.') : null));
 }

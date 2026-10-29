@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Fixture consistency only; no live bridge or work-landing evidence.",
+    "authority_ceiling": "Checks a synthetic detached job, continuation packet, pressure record and heartbeats and writes five receipts, rejecting a duplicate resume and a heartbeat used as permission to resume.",
     "card": "Validates a detached job, packet, pressure and heartbeat fixture and writes five receipts.",
     "one_line": "Checks synthetic continuation, heartbeat and resume records."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Fixture consistency only; no live bridge or work-landing evidence.",
+    "authority_ceiling": "Checks a synthetic detached job, continuation packet, pressure record and heartbeats and writes five receipts, rejecting a duplicate resume and a heartbeat used as permission to resume.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -82,7 +82,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Fixture consistency only; no live bridge or work-landing evidence.",
+        "authority_ceiling": "Checks a synthetic detached job, continuation packet, pressure record and heartbeats and writes five receipts, rejecting a duplicate resume and a heartbeat used as permission to resume.",
         "card": "Validates a detached job, packet, pressure and heartbeat fixture and writes five receipts.",
         "one_line": "Checks synthetic continuation, heartbeat and resume records."
       },

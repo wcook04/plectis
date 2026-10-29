@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "The validator rejects a premise containing a proof body, a query carrying oracle premise IDs, test-split tuning, an unknown strategy and context recipes over budget. This is a small transparent retrieval exercise, not a benchmark of retrieval quality. It does not execute Lean or establish theorem correctness.",
+    "authority_ceiling": "Ranks public Lean/Std premise metadata by query-token overlap plus a strategy-tag bonus and checks the shortlist, rejecting a premise containing a proof body, a query carrying oracle premise IDs, test-split tuning, an unknown strategy and an over-budget context recipe.",
     "card": "The retrieval fixture scores public Lean/Std premise metadata by token overlap with the query and adds a strategy-tag bonus. It filters candidates by allowed split, sorts by score and checks the shortlist against fixture expectations. The tests show that changing a premise can change the ranking and cause expected recall to fail.",
     "one_line": "Rank public premise metadata by query terms and strategy tags."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "The validator rejects a premise containing a proof body, a query carrying oracle premise IDs, test-split tuning, an unknown strategy and context recipes over budget. This is a small transparent retrieval exercise, not a benchmark of retrieval quality. It does not execute Lean or establish theorem correctness.",
+    "authority_ceiling": "Ranks public Lean/Std premise metadata by query-token overlap plus a strategy-tag bonus and checks the shortlist, rejecting a premise containing a proof body, a query carrying oracle premise IDs, test-split tuning, an unknown strategy and an over-budget context recipe.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -84,7 +84,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "The validator rejects a premise containing a proof body, a query carrying oracle premise IDs, test-split tuning, an unknown strategy and context recipes over budget. This is a small transparent retrieval exercise, not a benchmark of retrieval quality. It does not execute Lean or establish theorem correctness.",
+        "authority_ceiling": "Ranks public Lean/Std premise metadata by query-token overlap plus a strategy-tag bonus and checks the shortlist, rejecting a premise containing a proof body, a query carrying oracle premise IDs, test-split tuning, an unknown strategy and an over-budget context recipe.",
         "card": "The retrieval fixture scores public Lean/Std premise metadata by token overlap with the query and adds a strategy-tag bonus. It filters candidates by allowed split, sorts by score and checks the shortlist against fixture expectations. The tests show that changing a premise can change the ranking and cause expected recall to fail.",
         "one_line": "Rank public premise metadata by query terms and strategy tags."
       },
