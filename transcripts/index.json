@@ -1,6 +1,6 @@
 {
   "schema": "plectis_film_transcript_index_v1",
-  "source_snapshot_sha256": "5713a8a4a54fa296917bc4e1013c83b185c1478b6f9f59e20e64377a5f4edcae",
+  "source_snapshot_sha256": "cfe2b92ad8259051fd652c05bba76eeb811784ccb840ffa7601fdc481e4ee8df",
   "films": [
     {
       "film_id": "introduction",
@@ -104,13 +104,13 @@
     {
       "film_id": "sk-no-gap",
       "title": "Spin glasses: how different can two nearly best answers be?",
-      "url": "https://www.youtube.com/watch?v=VCuznHMNSEs",
-      "edition_sha256": "745242186062c7d9a9d75b11cd783d78ea0fd3d6c641e289ada5401b3c0b11bb",
+      "url": "https://www.youtube.com/watch?v=IUAhxUriDVw",
+      "edition_sha256": "04489d57b5a291db78838132895ea641a5ac737e95a95c7da84acad099356e8c",
       "scope": "edited_reading_transcript",
       "path": "transcripts/sk-no-gap.txt",
-      "sha256": "243bb3c28976ded0175b8fc58508994d7e74ad99a5fc48343de807ca3bc5345a",
-      "word_count": 1565,
-      "scope_note": "Edited reading transcript bound to this released film's final clock. This is not a fresh whole-film machine transcription or a human acoustic audit. Narration does not independently verify mathematical claims."
+      "sha256": "99243f709438753fd36284206e3caa4e7150472c30f7d5843b5febc3ee0b20df",
+      "word_count": 1949,
+      "scope_note": "Edited reading transcript bound to this released film's final clock. This is not a fresh whole-film machine transcription or a human acoustic audit. Narration does not independently verify mathematical claims. Derived from the supplied final-clock SRT; caption text and cue order are retained."
     },
     {
       "film_id": "interfaces",

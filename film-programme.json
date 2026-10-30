@@ -2017,18 +2017,18 @@
       "still_inset": null,
       "category": "research",
       "detail": "I explain how two nearly best arrangements of magnets can differ, starting with four arrows.",
-      "preview_duration_seconds": 611,
+      "preview_duration_seconds": 748,
       "poster": "assets/films/thumbnails-20261029/sk-no-gap.png",
       "release": {
-        "edition_sha256": "745242186062c7d9a9d75b11cd783d78ea0fd3d6c641e289ada5401b3c0b11bb",
-        "approved_edition_sha256": "745242186062c7d9a9d75b11cd783d78ea0fd3d6c641e289ada5401b3c0b11bb",
-        "hosted_edition_sha256": "745242186062c7d9a9d75b11cd783d78ea0fd3d6c641e289ada5401b3c0b11bb",
-        "thumbnail_edition_sha256": "745242186062c7d9a9d75b11cd783d78ea0fd3d6c641e289ada5401b3c0b11bb",
-        "transcript_edition_sha256": "745242186062c7d9a9d75b11cd783d78ea0fd3d6c641e289ada5401b3c0b11bb",
+        "edition_sha256": "04489d57b5a291db78838132895ea641a5ac737e95a95c7da84acad099356e8c",
+        "approved_edition_sha256": "04489d57b5a291db78838132895ea641a5ac737e95a95c7da84acad099356e8c",
+        "hosted_edition_sha256": "04489d57b5a291db78838132895ea641a5ac737e95a95c7da84acad099356e8c",
+        "thumbnail_edition_sha256": "04489d57b5a291db78838132895ea641a5ac737e95a95c7da84acad099356e8c",
+        "transcript_edition_sha256": "04489d57b5a291db78838132895ea641a5ac737e95a95c7da84acad099356e8c",
         "publication_authorized": true,
-        "url": "https://www.youtube.com/watch?v=VCuznHMNSEs",
+        "url": "https://www.youtube.com/watch?v=IUAhxUriDVw",
         "upload_date": "2026-10-29",
-        "duration_seconds": 611,
+        "duration_seconds": 748,
         "thumbnail": "assets/films/thumbnails-20261029/sk-no-gap.png",
         "thumbnail_sha256": "781a6908890807ead0d113941a9f3355f2768d2e6ad40b306023c3086932bfde",
         "transcript": {
@@ -2042,43 +2042,105 @@
             "title": "The question about magnets"
           },
           {
-            "seconds": 54,
+            "seconds": 60,
             "title": "A four-arrow model"
           },
           {
-            "seconds": 105,
+            "seconds": 122,
             "title": "Scoring the arrangements"
           },
           {
-            "seconds": 182,
+            "seconds": 221,
             "title": "Turning one arrow"
           },
           {
-            "seconds": 225,
+            "seconds": 293,
             "title": "The missing halfway pair"
           },
           {
-            "seconds": 294,
+            "seconds": 361,
             "title": "The random SK model"
           },
           {
-            "seconds": 329,
+            "seconds": 412,
             "title": "What the result says"
           },
           {
-            "seconds": 403,
+            "seconds": 506,
             "title": "Bounding both scores"
           },
           {
-            "seconds": 469,
+            "seconds": 584,
             "title": "The large-board step"
           },
           {
-            "seconds": 514,
+            "seconds": 627,
             "title": "Exact winners and remaining questions"
           }
         ]
-      }
+      },
+      "previous_releases": [
+        {
+          "edition_sha256": "745242186062c7d9a9d75b11cd783d78ea0fd3d6c641e289ada5401b3c0b11bb",
+          "approved_edition_sha256": "745242186062c7d9a9d75b11cd783d78ea0fd3d6c641e289ada5401b3c0b11bb",
+          "hosted_edition_sha256": "745242186062c7d9a9d75b11cd783d78ea0fd3d6c641e289ada5401b3c0b11bb",
+          "thumbnail_edition_sha256": "745242186062c7d9a9d75b11cd783d78ea0fd3d6c641e289ada5401b3c0b11bb",
+          "transcript_edition_sha256": "745242186062c7d9a9d75b11cd783d78ea0fd3d6c641e289ada5401b3c0b11bb",
+          "publication_authorized": true,
+          "url": "https://www.youtube.com/watch?v=VCuznHMNSEs",
+          "upload_date": "2026-10-29",
+          "duration_seconds": 611,
+          "thumbnail": "assets/films/thumbnails-20261029/sk-no-gap.png",
+          "thumbnail_sha256": "781a6908890807ead0d113941a9f3355f2768d2e6ad40b306023c3086932bfde",
+          "transcript": {
+            "scope": "route_summary",
+            "text": "I explain how two nearly best arrangements of magnets can differ, starting with four arrows.",
+            "sha256": "205de64fa1dbab2433022ae5251845d5e620eb4a2c7dbf3800c31c3ade788eaa"
+          },
+          "chapters": [
+            {
+              "seconds": 0,
+              "title": "The question about magnets"
+            },
+            {
+              "seconds": 54,
+              "title": "A four-arrow model"
+            },
+            {
+              "seconds": 105,
+              "title": "Scoring the arrangements"
+            },
+            {
+              "seconds": 182,
+              "title": "Turning one arrow"
+            },
+            {
+              "seconds": 225,
+              "title": "The missing halfway pair"
+            },
+            {
+              "seconds": 294,
+              "title": "The random SK model"
+            },
+            {
+              "seconds": 329,
+              "title": "What the result says"
+            },
+            {
+              "seconds": 403,
+              "title": "Bounding both scores"
+            },
+            {
+              "seconds": 469,
+              "title": "The large-board step"
+            },
+            {
+              "seconds": 514,
+              "title": "Exact winners and remaining questions"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "interfaces",

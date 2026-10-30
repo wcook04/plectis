@@ -1,1 +1,359 @@
-Iron atoms scattered through copper can behave as tiny magnets. Each has a magnetic direction shown here by an arrow. And interactions between the atoms contribute to the energy of the material. Some favour two arrows pointing the same way, but others favour opposite directions. So all the directions need to be considered together. Finding the lowest energy tells us how well these competing preferences can be satisfied. But the lowest energy alone doesn't tell us what the arrangements look like. Can two arrangements both have nearly the lowest energy while roughly half their arrows point differently? A mathematical result says this becomes overwhelmingly likely in a large random model of these magnets. We can understand the question with four arrows. We'll simplify each magnet to a choice between up and down, and draw a line for the interaction between each pair. These are choices in a mathematical model. A real magnetic atom has a more complicated behaviour. Look at the first three arrows. This interaction favours one and two pointing the same way. And this one favours two and three pointing the same way. So if we satisfy both, all three arrows must agree. But the interaction between one and three favours opposite directions. We cannot satisfy all three preferences. Turning the third arrow would fix that last interaction. But then the second and third arrows would disagree. We need to compare how much we gain with how much we lose. These numbers tell us how strongly each interaction contributes. A positive three gives us three points when the arrows agree. And minus three when they disagree. A negative one works the other way round. Minus one for agreement and plus one for disagreement. Higher points mean lower energy. So our task is to make the total score as large as possible. The numbers on the line stay fixed while we turn the arrows. Now include all four arrows and their six interactions. With every arrow pointing up, the contributions are three, three, minus one, two, one, and minus one. Add them and we get seven. Each of the four arrows has two possible directions. So there are two times two, times two, times two, sixteen arrangements. We can check all sixteen and seven is the highest score on this board. Each extra arrow doubles the number of possibilities. So on large boards we want to understand the good arrangements without listing them all. Turning every arrow down also gets seven. Each pair still agrees so the contribution is unchanged. The same argument works for any arrangement. Reverse every arrow and its score stays the same. Go back to all four arrows up. Suppose we turn only the third arrow down. The negative interaction between one and three changes from minus one to plus one. The negative interaction between three and four does the same. Another gain of two. But the positive interaction between two and three changes from plus three to minus three. Which costs us here six points. The other three interactions haven't changed because neither of the arrows have moved. So we started at seven, gain two, gain another two and lost six. So the new score is five and it's different at one of their four positions. A quarter of their arrows point differently although they're being scored with exactly the same interactions. Let's allow a score of five or better. That is at most two points below the best score of seven. Four arrangements qualify. All up, just the third arrow down and the complete reversal of those two rows. We can compare every pair in the short list. The first two differ at one position. Compare the first with the reverse of the second. A row and its own reverse differ everywhere. But no two rows in this list differ at exactly two positions. There is no pair that disagrees on half the arrows while both scoring at least five. We can get a half different pair by allowing a lower score. Keep the all up row and turn the second and third arrows down in the other row. The second row scores three. So the missing halfway choice depends on how much score we're prepared to lose. On this little board, arrangements scoring at least five do not come at every degree of difference. We can now ask whether that restriction persists when there are many more arrows. The Sherrington–Kirkpatrick model, usually called SK, gives every pair of arrows an interaction strength chosen at random. The number drawn is drawn for the others. Positive and negative strengths are equally likely. With values in a zero, more common than very large values. The full spread of strengths follows this bell shaped curve. We draw all these numbers once and then keep them fixed while comparing arrangements. Neither direction gets an extra advantage of its own. Now ask for two arrangements that each score at least 99% of the highest score on the board. Also choose how different we want them to be. Say a quarter of the arrows, allowing a small margin either side. Since a finite board can only change a whole number of arrows. We fix both requirements first, then consider larger and larger random boards. As the random boards grow, the chance that such a pair exists gets closer and closer. Both arrangements score at least 99% of the best on the same board, and their fractions of different arrows is as close to a quarter as we asked for. We could have asked for a half instead or a tenth. The statement works for every chosen fraction between zero and a half. Reversing one of the two arrangements covers the other half of the range while preserving its score. Each requested fraction can have its own pair. We have not picked one winning arrangement and promised a suitable partner. 99% is just an example. We can ask for 99.9% or any fixed percentage below 100, and the result still applies as the boards become sufficiently large. It does not tell us that four arrows or any particular small number will be enough. Here is one mathematical step behind this result that we can check on the little board. Choose two arrangements at once, require them to differ at the requested number of positions, and try to make their combined score as large as possible. Their best score can never exceed fourteen. Neither row could score more than seven to make up for a bad score in the other row. Suppose we find a pair with a combined score of at least twelve. Then each row must score at least five. If one scored less than five, even giving the other the maximum seven wouldn't get the total to twelve. Our seven and five pair does reach twelve, and both rows meet the cutoff. If we can get the combined score sufficiently close to twice the best score, each row has to be nearly best individually. Neither can compensate for the other shortfall by scoring more than the maximum. On our four arrow board, require exactly half the arrows to differ. Checking the pairs gives a best combined score of ten, leaving a gap of four below fourteen. We cannot remove that gap just by finding a cleverer pair. For large SK boards, this combined score can reach any fixed percentage below 100% of its ceiling while still meeting our requested difference and its margin. As the random boards grow, the chance of this happening approaches 100%. This large system fact is the difficult part of the proof. The four arrow calculation does not establish that, and the linked papers give the argument, the linked ones below. Once we have a combined score sufficiently close to its ceiling, the calculation we just checked finishes the deduction. Both arrangements must be nearly best. Asking for a different fraction of arrows to disagree still allows the combined score to approach that ceiling. For any finite number of arrows, the randomly chosen strengths almost never produce an exact tie, apart from an arrangement and its complete reversal. So there is one winning arrangement and its complete reversal. The different pairs we have been discussing are allowed to score slightly less. Fix 99% of the best score, or any positive percentage below 100, and request a degree of difference with a small margin. As the random boards grow, the chance of a pair meeting both requirements approaches 100%. We started with magnetic atoms, whose interactions pull their directions towards conflicting choices. Almost the best possible energy in this model can come from two arrangements, whether tenth of their directions different, a quarter different, or half different. The result tells us how different two nearly best answers can be. Finding them is a further problem, and so is finding a sequence of single arrow turns between them that keeps the score high. We now know that requiring both arrangements to score nearly as well as possible still leaves this freedom in how much their directions can disagree. I hope you found this at least somewhat interesting if you're into mathematics or if like mathematics visualizations and you can check out my other videos for all the other things I've been working on so thank you very much for your time and I hope to see you in the next video
+Iron atoms scattered through copper can behave as tiny magnets.
+
+Each one has a magnetic direction, shown here by an arrow.
+
+These lines are interactions between neighbouring atoms, and each interaction
+
+contributes to the energy of the material.
+
+Some interactions favour two arrows pointing the same way.
+
+Others favour opposite directions.
+
+So all the directions have to be considered together.
+
+Think of every arrangement of the arrows as a place on this ground, where the height
+
+is the energy.
+
+Finding the lowest energy tells us how well these competing preferences can be
+
+satisfied. But the lowest energy alone doesn't tell us what the arrangements look
+
+like.
+
+Can two arrangements both have nearly the lowest energy, while roughly half their
+
+arrows point differently.
+
+A mathematical result says this becomes overwhelmingly likely in a large random
+
+model of these magnets. To see what the question means, we'll start with just four
+
+of these arrows.
+
+We'll simplify each magnet so that its arrows point either up or down.
+
+Then, we draw a line for the interaction between each pair of magnets.
+
+These are choices we make for a mathematical model.
+
+A real magnetic atom behaves in a more complicated way.
+
+Look at the first three arrows.
+
+This interaction wants arrows 1 and 2 to point the same way, and this one wants
+
+arrows 2 and 3 to point the same way.
+
+If we satisfy both of them, all three arrows must agree.
+
+But the interaction between 1 and 3 wants them to point in opposite directions, so
+
+we can't satisfy all three, and one of these requests always fails.
+
+turning the third arrow would fix that last interaction but then arrows two
+
+and three would disagree so we need to compare how much we gain with how much we
+
+lose these numbers on the lines are strengths and
+
+they say how much each interaction counts a positive three gives us three points
+
+when its two arrows agree, and minus three when they disagree.
+
+A negative one works the other way around.
+
+It gives minus one when the arrows agree, and plus one when they disagree.
+
+A higher score means lower energy, so our task is to make the total score as large
+
+as possible.
+
+The strengths on the lines stay fixed while we turn the arrows.
+
+Now, bring back the fourth arrow, which gives 6 interactions in all.
+
+With every arrow pointing up, the contributions are 3, 3, minus 1,
+
+2, 1, and minus 1. Add them up, and we get 7.
+
+Each of the 4 arrows has 2 possible directions.
+
+So there are 2 times 2 times 2 times 2, which is 16 arrangements.
+
+We can check all 16, and 7 is the highest score on this board.
+
+Each extra arrow doubles the number of arrangements, with 40 arrows there would be
+
+about a million million.
+
+So on large boards, we want to understand the good arrangements without listing them
+
+all.
+
+Turning every arrow down also gives 7.
+
+Each pair still agrees, so every contribution is unchanged.
+
+The same argument works for any rearrangement.
+
+Reverse every arrow and the score stays the same.
+
+Go back to all four arrows pointing up.
+
+Now, turn only the third arrow down.
+
+Three of the six lines meet at that arrow.
+
+The negative interaction between 1 and 3 changes from minus 1 to plus 1.
+
+That's a gain of 2.
+
+The negative interaction between 3 and 4 does the same.
+
+Another gain of 2.
+
+But the positive interaction between 2 and 3 changes from plus 3 to minus 3, which
+
+costs us 6 points.
+
+The other three interactions have not changed because neither of their arrows has
+
+moved. So we started at 7, gained 2, gained another 2, and then lost 6.
+
+So the new score is 5.
+
+These two rows differ at one of their four positions.
+
+So a quarter of their arrows point differently, even though both rows are scored
+
+with exactly the same strengths.
+
+Now let's allow any score of 5 or more.
+
+That's at most 2 points below the best score, which is 7.
+
+There are 4 arrangements that qualify.
+
+All up, just the third arrow down, and the complete reversals of those two rows.
+
+Let's compare every pair in this shortlist.
+
+The first two differ at one position.
+
+Compare the first with the reverse of the second and they differ at 3 positions.
+
+A row and its own reverse differ everywhere.
+
+The last 3 pairs differ at 4, 3 and 1 positions.
+
+So no 2 rows in this list differ at exactly 2 positions.
+
+There is no pair that disagrees on half the arrows while both score at least 5.
+
+We can get a half different pair by allowing a lower score.
+
+Keep the all up row, and in the other row turn the second and third arrows down.
+
+That new row scores three. So whether the halfway difference is missing depends on
+
+how much score we're prepared to lose.
+
+With a cutoff of three, every difference appears.
+
+On this little board, arrangements scoring at least five do not come at every degree
+
+of difference.
+
+Now, we can ask whether that missing difference is still there when there are many
+
+more arrows.
+
+The Sherrington -Kirkpatrick model, usually called SK, uses the same kind of board
+
+but with many more arrows.
+
+Each of the 780 pairs of arrows on this board gets its own interaction strength,
+
+chosen at random.
+
+The number drawn for one pair doesn't affect the numbers drawn for the others.
+
+Positive and negative strengths are equally likely, as this bell -shaped curve
+
+shows.
+
+Values near zero are more likely than values far from zero.
+
+The bars are the 780 strengths that actually are drawn from this board.
+
+We draw all these numbers once, and then keep them fixed while we compare
+
+arrangements.
+
+Turn every arrow over and the score stays the same, so neither direction has an
+
+advantage of its own.
+
+Now ask for two arrangements on this board.
+
+Each of them must score at least 99 % of the highest score on the board.
+
+Also, choose how different we want them to be.
+
+Say a quarter of the arrows with a small margin on either side.
+
+The margin is needed because only a whole number of the 40 arrows can differ here,
+
+9, 10 or 11. We fix both requirements first and then consider larger and
+
+larger random boards.
+
+Now draw one random board at each size and ask each one the same question.
+
+As the board grows, the chance that such a pair exists gets closer and closer to
+
+100%.
+
+Both arrangements score at least 99 % of the best on the same board and the
+
+fractions of arrows that differ is within the margin of a quarter.
+
+We could have asked for a half instead, or a tenth.
+
+The statement works for every chosen fraction between zero and a half.
+
+Turn one of the two arrangements over completely.
+
+A tenth different becomes nine tenths different with the same scores, so reversing
+
+covers the other half of the range.
+
+Each requested fraction can have its own pair.
+
+We have not picked one winning arrangement and promised it a partner at every
+
+distance. And 99 % is only an example.
+
+We could ask for 99 .9 % or any fixed percentage below 100, and the result still
+
+holds once the boards are large enough.
+
+It doesn't say how large is large enough, so 4 arrows or any other particular size
+
+isn't covered.
+
+Here is one mathematical step behind this result that we can check on the little
+
+board. Choose two arrangements together, such as the 7 and the 5 from before.
+
+Require them to differ at the number of positions we asked for, here one,
+
+and try to make their combined score as large as possible.
+
+Their combined score can never be more than 14 because neither row can go above 7.
+
+Suppose we find a pair with a combined score of at least 12, then each row must
+
+score at least 5. If one scored less than 5, then even giving the other the maximum
+
+7 wouldn't bring the total up to 12.
+
+Our 7 and 5 pair does reach 12, and both rows score at least 5.
+
+More generally, if the combined score gets close enough to twice the best score,
+
+each row has to be nearly best on its own.
+
+Neither row can make up for the other's shortfall by scoring more than the maximum.
+
+On our 4 -arrow board, require exactly half the arrows to differ, so 2 of the four.
+
+There are 48 pairs like that, and checking them all gives a best combined score of
+
+10. That leaves a gap of 4 below 14.
+
+We cannot close that gap by finding a cleverer pair, because we checked them all.
+
+And so on large random boards, the best combined score can get within any fixed
+
+percentage of its ceiling, while the two arrangements still differ by the amount
+
+that we asked for.
+
+As the random boards grow, the chance of this happening approaches 100%.
+
+This large board fact is the difficult part of the proof.
+
+The four -arrow calculation does not establish it, and the papers linked below give
+
+the main argument for that.
+
+But once again, once the combined score is close enough to its ceiling, the step we
+
+just checked finishes the argument.
+
+Both arrangements must be nearly best.
+
+Asking for a different fraction of arrows to differ still lets the combined score
+
+approach that ceiling.
+
+For any finite number of arrows, the random strengths almost never give two
+
+different arrangements an exact tie apart from an arrangement and its complete
+
+reversal. So there is one winning arrangement and its complete reversal with exactly
+
+the highest score. The other pairs we've been discussing are allowed to score
+
+slightly less.
+
+Fix 99 % of the best score, or any fixed percentage below 100, and ask for a degree
+
+of difference with a small margin.
+
+As the random boards grow, the chance of a pair meeting both requirements approaches
+
+100%. So we started with iron atoms and copper, whose interactions pull their
+
+directions towards conflicting choices, On large boards in this model, almost the
+
+best possible energy can come from two arrangements with a tenth of their directions
+
+different, a quarter different, or half different.
+
+The result tells us how different two nearly best answers can be.
+
+Finding such a pair is a further problem.
+
+So is finding a path of single arrow turns between them that keeps the score high.
+
+What we now know is that requiring both arrangements to score nearly as well as
+
+possible still leaves this freedom in how much their directions can differ.
+
+Thank you very much for watching.
+
+The papers and the Lean proofs and the checked parts of them are all just linked
+
+below. In the next video, I'll show you around the website.
+
+And to sort of summarise, this is just a little prototype for what I'm trying to do
+
+in processing an AI lab to produce result.
+
+and then turning that into increasingly compressed mediums to
+
+the point where you could turn into something which another mathematician may find
+
+actually engaging and which hopefully a specialist can then watch through and
+
+quickly decide whether they want to commit to digestion so this is an automated pre
+
+-digestion and then an expert can see whether they want digestion but you can check
+
+out my other videos to see all the other all the other things I've been pursuing
+
+here but yeah thank very much for watching and hopefully see you in the next video.
