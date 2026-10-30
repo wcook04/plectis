@@ -10,7 +10,7 @@
       "transform": "isolated-css-comments-v1"
     }
   },
-  "generator_commit": "7e4706ce3284ee3a38bbab08bed9a9d86f158a19",
+  "generator_commit": "dd810d2d2adb5ca23ecbb553eecd747c72007654",
   "note": "Public source commits this deploy was generated from. The next deploy reads this file and refuses to publish a build whose sources do not contain these commits, unless it is run with --allow-older-than-live.",
   "schema": "plectis_site_deploy_provenance_v1",
   "sources": {
